@@ -897,6 +897,8 @@ local function Setup()
         if ObjectiveTrackerFrame:GetParent() ~= hidden then ObjectiveTrackerFrame:SetParent(hidden) end
     end
     if ObjectiveTrackerFrame then
+        -- Reload im Kampf: umhängen erst danach, unsichtbar aber sofort (Transparenz ist erlaubt)
+        ObjectiveTrackerFrame:SetAlpha(0)
         ns.AfterCombat(Park)
         hooksecurefunc(ObjectiveTrackerFrame, "SetParent", function(_, parent)
             if parent ~= hidden then ns.AfterCombat(Park) end
@@ -1007,8 +1009,10 @@ local function Setup()
             if name then kills[name] = true end
             if ns.char then
                 local saved = ns.char.trackerKills
-                if not saved or saved.instance ~= killsInstance then
-                    saved = { instance = killsInstance, kills = {} }
+                local instanceID = select(8, GetInstanceInfo())
+                killsInstance = killsInstance or instanceID
+                if not saved or saved.instance ~= instanceID then
+                    saved = { instance = instanceID, kills = {} }
                     ns.char.trackerKills = saved
                 end
                 saved.kills[encounterID] = true
@@ -1017,7 +1021,9 @@ local function Setup()
             Refresh()
         end
     end)
-    ns:On("PLAYER_ENTERING_WORLD", function()
+    -- Läuft auch einmal direkt beim Aufbau: der Tracker startet erst nach PLAYER_ENTERING_WORLD
+    -- (sonst fehlte die Instanz-Nummer und gespeicherte Kills passten nach /reload nicht, Benny 2026-11-08)
+    local function OnEnterWorld()
         local inInstance, instanceType = IsInInstance()
         local instanceID = select(8, GetInstanceInfo())
         if instanceID ~= killsInstance then
@@ -1037,7 +1043,9 @@ local function Setup()
         instanceCollapse = (inInstance and (instanceType == "party" or instanceType == "raid")) and true or nil
         ns.AfterCombat(UpdateInstanceFlag)
         Refresh()
-    end)
+    end
+    ns:On("PLAYER_ENTERING_WORLD", OnEnterWorld)
+    OnEnterWorld()
     ns.AfterCombat(SetupBossHiding) -- Zustandstreiber geht im Kampf nicht
     ns.AfterCombat(UpdateInstanceFlag)
     Refresh()

@@ -177,6 +177,23 @@ function UpdateAggro(self, _, unit)
     element:Show()
 end
 
+-- Eigene Abfrage statt nur oUF-Ereignis: in Forever kam UNIT_THREAT_SITUATION_UPDATE am Gruppenframe
+-- nie an (Benny 2026-11-08: als DD keine Aggro sichtbar, DevLog leer). Alle 0,3 s im Kampf, danach
+-- einmal zum Aufräumen. Nur Werte lesen, nichts Geschütztes.
+do
+    local wasInCombat = false
+    C_Timer.NewTicker(0.3, function()
+        local combat = UnitAffectingCombat("player")
+        if issecretvalue and issecretvalue(combat) then combat = false end
+        local inCombat = combat or InCombatLockdown()
+        if not inCombat and not wasInCombat then return end
+        wasInCombat = inCombat and true or false
+        for frame in pairs(missingFrames or {}) do
+            if frame.unit and frame.ThreatIndicator and frame:IsVisible() then UpdateAggro(frame) end
+        end
+    end)
+end
+
 -- Fehlende Buffs deiner Klasse -----------------------------------------------------------------
 -- Je Klasse eine Liste: hat das Gruppenmitglied IRGENDEINEN davon (alle Ränge, Gruppen-Version),
 -- fehlt nichts. Nur wenn du den Zauber kennst. Auren können im Kampf geschützt sein: dann bleibt
