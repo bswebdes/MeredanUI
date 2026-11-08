@@ -513,7 +513,6 @@ local COL_X = { level = 10, class = 56, name = 104, zone = 254, rank = 374, note
 local COLUMN_WIDTHS = { 46, 52, 152, 122, 106 } -- Köpfe überlappen bei Blizzard je 2 px
 local LIST_EXTRA = MEMBER_W - 165
 local function RowLayout(row)
-    if InCombatLockdown() then return end
     local frame = row.NameFrame
     if type(frame) ~= "table" or not frame.Name then return end
     local name = frame.Name
@@ -733,7 +732,6 @@ local function SkinShell(f)
     -- Der Mini-Modus (322 × 406) bleibt Blizzards.
     local BLIZZ_W, BLIZZ_H = 814, 426
     local function FitSize(self)
-        if InCombatLockdown() then return end
         if self:GetScale() ~= 1 then self:SetScale(1) end
         local w, h = self:GetSize()
         if math.abs(w - BLIZZ_W) < 1 and math.abs(h - BLIZZ_H) < 1 then
@@ -742,7 +740,7 @@ local function SkinShell(f)
     end
     f:HookScript("OnSizeChanged", function(self)
         FitSize(self)
-        if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
+        if self:IsShown() and ns.ResetWindowPosition then
             ns.ResetWindowPosition(self, "guild")
         end
     end)
@@ -750,14 +748,14 @@ local function SkinShell(f)
     f:HookScript("OnShow", function(self)
         FitSize(self)
         C_Timer.After(0, function()
-            if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
-                ns.ResetWindowPosition(self, "guild", true)
+            if self:IsShown() and ns.ResetWindowPosition then
+                ns.ResetWindowPosition(self, "guild", not InCombatLockdown()) -- im Kampf nichts schließen
             end
         end)
     end)
     -- Schließen/Minimieren so groß wie bei den mUI-Fenstern (Benny 2026-11-08): sichtbar 26 px
     -- (Knopf 34, Fläche 4 px eingerückt), Symbol 18; oben in Blizzards Kopfband, damit nichts überlappt
-    if f.CloseButton and not InCombatLockdown() then
+    if f.CloseButton then
         f.CloseButton:SetSize(34, 34)
         f.CloseButton:ClearAllPoints()
         f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
@@ -843,7 +841,6 @@ local TAB_SIZE, TAB_STEP = 40, 46 -- wie die Reiter der mUI-Fenster (Berufe, Zau
 -- versteckte Reiter (Benny 2026-11-08). Blizzard setzt die Punkte in UpdateCommunitiesTabs neu –
 -- danach ordnen wir wieder. Die Reiter sind nicht geschützt.
 local function LayoutTabs(f)
-    if InCombatLockdown() then return end
     local slot = 0
     for _, key in ipairs(SIDE_TABS) do
         local tab = f[key]
@@ -1003,7 +1000,7 @@ local function SkinPreferredPlay(frame)
 end
 
 local function LayoutPreferredPlay(frame)
-    if type(frame) ~= "table" or InCombatLockdown() then return end
+    if type(frame) ~= "table" then return end
     if frame.Title then
         frame.Title:ClearAllPoints()
         frame.Title:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -8)
@@ -1071,7 +1068,7 @@ local function SkinDetails(details)
 end
 
 LayoutDetails = function(details)
-    if type(details) ~= "table" or InCombatLockdown() or not infoParts.motdBox then return end
+    if type(details) ~= "table" or not infoParts.motdBox then return end
     local info, news = details.Info, details.News
     local width = details:GetWidth()
     if not width or width < 300 then return end
@@ -1354,7 +1351,6 @@ local function SkinLikeOwnWindow(f)
         end
     end
     local function HeaderLayout()
-        if InCombatLockdown() then return end
         local close, maxMin = f.CloseButton, f.MaximizeMinimizeFrame
         if close then
             close:ClearAllPoints()
@@ -1399,7 +1395,7 @@ local function FooterButton(f, button)
 end
 
 PlaceAll = function(f)
-    if type(f) ~= "table" or InCombatLockdown() then return end
+    if type(f) ~= "table" then return end
     local list, members, chat = f.CommunitiesList, f.MemberList, f.Chat
     -- Community-Liste: erste Karte (Blizzard: 40 px Rand oben + 8 px Kartenrand) auf Inhaltshöhe
     if list then
@@ -1919,7 +1915,7 @@ end
 local function SkinRankRows()
     local UI = ns.UI
     local order = _G.GuildControlUIRankOrderFrame
-    if not order or InCombatLockdown() then return end
+    if not order then return end
     for i = 1, MAX_GUILDRANKS or 10 do
         local row = _G["GuildControlUIRankOrderFrameRank" .. i]
         if row then
@@ -1973,7 +1969,7 @@ end
 local permBoxes = {}
 local BASE_FLAGS, BANK_FLAGS = { 5, 6, 7, 8, 2, 21 }, { 15, 19, 16 }
 local function LayoutPerms(page)
-    if type(page) ~= "table" or InCombatLockdown() then return end
+    if type(page) ~= "table" then return end
     local UI = ns.UI
     if not permBoxes.officer then
         for _, key in ipairs({ "OfficerBg", "RosterBg", "BankBg" }) do Fade(_G["GuildControlUIRankSettingsFrame" .. key]) end
@@ -2080,7 +2076,7 @@ end
 -- Gesamtaufbau wie das eigene Fenster: 380 × 600, Titel oben links, „Optionen“ + Auswahl, bei Rang-Seiten
 -- darunter „Rang ändern“ + Auswahl, Linie, Inhalt ab 16 px Rand
 local function LayoutGuildControl(control)
-    if type(control) ~= "table" or InCombatLockdown() then return end
+    if type(control) ~= "table" then return end
     local tab = control.selectedTab or 1
     local withRank = tab == 2 or tab == 3
     control:SetSize(380, 600)
@@ -2239,8 +2235,8 @@ local function AdoptSubpanels()
             if name == "GuildControlUI" then SkinGuildControl(panel) end
             panel:HookScript("OnShow", function(self)
                 C_Timer.After(0, function()
-                    if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
-                        ns.ResetWindowPosition(self, "guildsub", true)
+                    if self:IsShown() and ns.ResetWindowPosition then
+                        ns.ResetWindowPosition(self, "guildsub", not InCombatLockdown())
                     end
                 end)
             end)
