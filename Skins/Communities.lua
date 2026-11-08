@@ -811,7 +811,11 @@ local function LayoutTabs(f)
         local tab = f[key]
         if type(tab) == "table" and tab.SetPoint then
             tab:SetSize(TAB_SIZE, TAB_SIZE)
-            if tab.Icon then tab.Icon:SetSize(TAB_SIZE - 2, TAB_SIZE - 2) end
+            if tab.Icon then
+                -- Symbol füllt den ganzen Kasten (die 1-px-Kante liegt darüber) – kein Spalt
+                tab.Icon:ClearAllPoints()
+                tab.Icon:SetAllPoints(tab)
+            end
             if tab:IsShown() then
                 tab:ClearAllPoints()
                 tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, -60 - slot * TAB_STEP) -- wie im eigenen Fenster
