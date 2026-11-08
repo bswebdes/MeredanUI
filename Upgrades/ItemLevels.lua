@@ -1,9 +1,8 @@
--- Itemlevel an den Ausrüstungsplätzen im Charakterfenster und beim Betrachten (Inspect):
--- kleine Zahl unten im Platz, in Qualitätsfarbe. Nur eine Zahl obendrauf – Blizzards Fenster
--- bleibt, wie es ist. Einstellungen > Tooltip.
+-- Item level on gear slots in Blizzard's character and inspect frames: small number at the bottom
+-- of the slot in quality color, nothing else changed. Option: Settings > Tooltip.
 local _, ns = ...
 
-local NO_LEVEL = { [INVSLOT_BODY or 4] = true, [INVSLOT_TABARD or 19] = true } -- Hemd, Wappenrock
+local NO_LEVEL = { [INVSLOT_BODY or 4] = true, [INVSLOT_TABARD or 19] = true } -- shirt, tabard
 
 local function LevelText(button)
     local text = button.muiItemLevel
@@ -26,7 +25,7 @@ local function Show(button, level, quality)
     text:Show()
 end
 
--- eigenes Charakterfenster (Blizzard_UIPanels_Game ist meist schon geladen – dann sofort)
+-- Own character frame (Blizzard_UIPanels_Game is usually loaded already - then runs immediately)
 EventUtil.ContinueOnAddOnLoaded("Blizzard_UIPanels_Game", function()
     hooksecurefunc("PaperDollItemSlotButton_Update", function(button)
         local slot = button:GetID()
@@ -36,7 +35,7 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_UIPanels_Game", function()
     end)
 end)
 
--- Betrachten (lädt erst bei Bedarf)
+-- Inspect frame (load-on-demand)
 EventUtil.ContinueOnAddOnLoaded("Blizzard_InspectUI", function()
     hooksecurefunc("InspectPaperDollItemSlotButton_Update", function(button)
         local unit = InspectFrame and InspectFrame.unit

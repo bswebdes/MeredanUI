@@ -1,17 +1,17 @@
--- Forever-Pawn: Upgrade-Bewertung für WoW Forever (Stufe 60, Classic-Werte). Gleiche Anzeige wie
--- in Retail (Pfeil in Taschen/Beute/Würfeln, „+x %“ im Tooltip), aber eigene Bewertung:
---   • Gewichte je Klasse und Talentbaum aus ForeverWeights.lua (WoWSims + Forever Codex).
---   • Werte des Items: Schnittstelle (C_Item.GetItemStats); was dort fehlt (Treffer, Krit, Zauber-
---     schaden … stehen in Forever teils nur als „Anlegen: …“-Zeile), liest MUI aus dem Tooltip –
---     deutsch und englisch, über Stichwörter. Prozente > Wertung wie WoWSims (14 = 1 % Krit, 10 = 1 % Treffer).
---   • Waffen-DPS: Gewicht aus den Daten, sonst wie Classic 1 DPS ≈ 14 Angriffskraft.
---   • Prozent = Unterschied zum ersetzten Item, gemessen am Wert der ganzen angelegten Ausrüstung.
--- Sockel, Verzauberungen und Set-Boni zählen nicht. Nur Items, die du tragen kannst (kein roter Text).
+-- Forever Pawn: upgrade scoring for WoW Forever (level 60, Classic stats). Same display as Retail
+-- (arrow in bags/loot/rolls, "+x %" in the tooltip), but own scoring:
+--   - Weights per class and talent tree from ForeverWeights.lua (WoWSims + Forever Codex).
+--   - Item stats from C_Item.GetItemStats; what is missing there (hit, crit, spell damage ... are
+--     often only "Equip: ..." lines in Forever) is parsed from the tooltip by German/English
+--     keywords. Percent -> rating as in WoWSims (14 = 1 % crit, 10 = 1 % hit).
+--   - Weapon DPS: weight from the data, else Classic rule of thumb 1 DPS ~ 14 attack power.
+--   - Percent = difference to the replaced item, relative to the value of all equipped gear.
+-- Sockets, enchants and set bonuses are ignored. Only items the player can wear (no red text).
 local _, ns = ...
 local Readable = ns.Readable
 
 local RATING_PER_PERCENT = { crit = 14, hit = 10, haste = 10, exp = 10 }
--- Standard-Talentbaum, solange keine Punkte verteilt sind (typischer Levelweg)
+-- Default talent tree while no points are spent (typical leveling spec)
 local DEFAULT_TREE = { WARRIOR = 1, ROGUE = 2, PRIEST = 3, DRUID = 2, SHAMAN = 2, PALADIN = 3 }
 
 local API_STATS = {
@@ -28,14 +28,14 @@ local API_STATS = {
     ITEM_MOD_BLOCK_VALUE_SHORT = "blockvalue", ITEM_MOD_SPELL_PENETRATION_SHORT = "spellpen",
     RESISTANCE0_NAME = "armor",
 }
--- „Zauberschaden und Heilung“ zählt für beides
+-- "Spell damage and healing" counts for both
 local API_BOTH = { ITEM_MOD_SPELL_POWER_SHORT = true, ITEM_MOD_SPELL_POWER = true }
-local API_PERCENT = { -- Prozent-Varianten ohne „Wertung“
+local API_PERCENT = { -- percent variants without "rating"
     ITEM_MOD_HIT_SHORT = "hit", ITEM_MOD_HIT_SPELL_SHORT = "hit", ITEM_MOD_CRIT_SHORT = "crit",
     ITEM_MOD_CRIT_SPELL_SHORT = "crit", ITEM_MOD_HASTE_SHORT = "haste",
 }
 
--- Schul-Stichwörter (de/en) > Gewicht
+-- School keywords (de/en) -> weight key
 local SCHOOLS = {
     { "feuer", "fire", key = "fire" }, { "frost", "frost", key = "frost" },
     { "schatten", "shadow", key = "shadow" }, { "arkan", "arcane", key = "arcane" },
@@ -49,10 +49,10 @@ local function Has(text, ...)
     return false
 end
 
--- Eine „Anlegen:“-Zeile auswerten (Text schon klein geschrieben) > in stats eintragen
+-- Parse one "Equip:" line (already lowercased) into stats
 local function ParseEquipLine(text, stats)
-    -- Boni nur gegen einen Gegnertyp („+4 Angriffskraft gegen Humanoide“) zählen nicht – sonst würde
-    -- das Item wie mit voller Angriffskraft bewertet (Benny 2026-11-07, Katakombenumhang)
+    -- Ignore bonuses against one creature type ("+4 attack power against humanoids") - otherwise the
+    -- item would be scored as if it had full attack power
     if Has(text, " gegen ", " against ", "when fighting", "im kampf gegen") then return end
     local number = tonumber((text:match("(%d+[%.,]?%d*)") or ""):gsub(",", "."), 10)
     if not number then return end
@@ -84,7 +84,7 @@ local function ParseEquipLine(text, stats)
     if Has(text, "verteidigung", "defense") then return Put("def", number) end
 end
 
--- Tooltip-Zeilen: Anlegen-Effekte lesen, roten Text (nicht tragbar) erkennen
+-- Tooltip lines: read equip effects, detect red text (not wearable)
 local function ReadTooltip(link, stats)
     local data = C_TooltipInfo and C_TooltipInfo.GetHyperlink(link)
     if not data or not data.lines then return true end
@@ -102,12 +102,12 @@ local function ReadTooltip(link, stats)
     return usable
 end
 
--- Werte eines Items (nil = Daten noch nicht geladen); zweiter Rückgabewert: tragbar?
+-- Item stats (nil = data not loaded yet); second return value: wearable?
 local itemCache = {}
 local function ItemStats(link)
     local cached = itemCache[link]
     if cached then return cached.stats, cached.usable end
-    -- erst bewerten, wenn das Item geladen ist (sonst fehlen Tooltip-Zeilen und wir merken uns Unsinn)
+    -- Only score once the item is loaded (otherwise tooltip lines are missing and we'd cache garbage)
     local itemID = C_Item.GetItemInfoInstant(link)
     if itemID and not C_Item.IsItemDataCachedByID(itemID) then
         C_Item.RequestLoadItemDataByID(itemID)
@@ -131,20 +131,20 @@ local function ItemStats(link)
     return stats, usable
 end
 
--- Tragbar? (keine roten Tooltip-Zeilen; nil = Item noch nicht geladen) – für „Füllt leeren Platz“
+-- Wearable? (no red tooltip lines; nil = not loaded yet) - used for "fills empty slot"
 function ns.ItemUsable(link)
     local _, usable = ItemStats(link)
     return usable
 end
 
--- Talentbaum mit den meisten Punkten (sonst Standard der Klasse)
+-- Talent tree with the most points (else the class default)
 local function ActiveTree(class)
     local best, bestPoints = nil, 0
     if GetNumTalentTabs and GetTalentTabInfo then
         for tab = 1, GetNumTalentTabs() do
             local r = { pcall(GetTalentTabInfo, tab) }
             if r[1] then
-                -- Classic: name, icon, Punkte …; neuere Clients: id, name, Beschreibung, icon, Punkte …
+                -- Classic: name, icon, points ...; newer clients: id, name, description, icon, points ...
                 local points = type(r[2]) == "string" and r[4] or r[6]
                 if type(points) == "number" and points > bestPoints then best, bestPoints = tab, points end
             end
@@ -174,7 +174,7 @@ local function Score(link, slotKind)
         if key ~= "dps" and w[key] then score = score + value * w[key] end
     end
     if stats.dps then
-        -- Waffen-DPS: eigenes Gewicht, sonst wie Classic 1 DPS ≈ 14 Angriffskraft
+        -- Weapon DPS: own weight, else Classic rule of thumb 1 DPS ~ 14 attack power
         local dpsWeight
         if slotKind == "ranged" then dpsWeight = w.rangeddps or (w.rap or w.ap or 0) * 14
         elseif slotKind == "off" then dpsWeight = w.ohdps or (w.mhdps or (w.ap or 0) * 14) * 0.5
@@ -197,7 +197,7 @@ local OFF_HAND = { INVTYPE_WEAPONOFFHAND = true, INVTYPE_SHIELD = true, INVTYPE_
 local function Equipped(slot) return GetInventoryItemLink("player", slot) end
 local function EquipLoc(link) return link and select(4, C_Item.GetItemInfoInstant(link)) end
 
--- Wert dessen, was das neue Item ersetzt (nil = nicht vergleichbar)
+-- Score of what the new item would replace (nil = not comparable)
 local function Replaced(equipLoc, link)
     local slots = SLOTS[equipLoc]
     if slots then
@@ -229,7 +229,7 @@ local function Replaced(equipLoc, link)
     end
 end
 
--- Wert der ganzen angelegten Ausrüstung (Bezugsgröße für die Prozente)
+-- Score of all equipped gear (baseline for the percentages)
 local function GearScore()
     local total = 0
     for slot = 1, 18 do
@@ -256,7 +256,7 @@ function ns.ForeverUpgradePercent(link)
     return (score - replaced) / total * 100
 end
 
--- Ausrüstung, Stufe oder Talente geändert > neu rechnen
+-- Gear, level or talents changed -> recompute
 local function Reset()
     wipe(itemCache)
     weights = nil

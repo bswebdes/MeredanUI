@@ -1,28 +1,27 @@
--- Upgrade-Bewertung („Mini-Pawn“): schätzt, wie viel mehr oder weniger Schaden ein Item
--- gegenüber dem angelegten bringt, für die aktive Spec. Tooltip: „+2,4 %“ grün bzw. „−1,1 %“ rot;
--- Tasche: grüner Pfeil auf Upgrades. Nichts einzustellen – alles automatisch:
---   • Sekundärwerte: Bloodmallet-Sims (UpgradeData.lua), ausgewertet an DEINER aktuellen
---     Aufteilung – zu viel von einem Wert bringt also weniger.
---   • Wie viel ein Punkt Sekundärwertung insgesamt bringt, kommt aus deinen echten Werten
---     (Prozent je Wertung, aktuelle Prozente); Hauptattribut: 1 / dein Hauptattribut.
---   • Schmuck mit Effekt: simulierter Zugewinn je Itemlevel statt nur der Werte.
---   • Ringe/Schmuck gegen den schwächeren der beiden; Zweihand gegen Haupt- + Nebenhand.
---   • Nur Items, die deine Spec laut Blizzard tragen kann (Rüstungstyp, Attribut, Waffe).
--- Sockel und Verzauberungen zählen nicht (beide Seiten gleich behandelt).
+-- Upgrade scoring ("mini Pawn", Retail): estimates how much more or less damage an item gives vs.
+-- the equipped one for the active spec. Tooltip: "+2.4 %" green / "-1.1 %" red; bags: green arrow.
+--   - Secondary stats: Bloodmallet sims (UpgradeData.lua), evaluated at the player's current stat
+--     distribution - stacking one stat gives diminishing value.
+--   - Overall value of a secondary rating point comes from the player's real stats (percent per
+--     rating, current percentages); primary stat: 1 / current primary stat.
+--   - Trinkets with effects: simulated gain per item level instead of their stats.
+--   - Rings/trinkets vs. the weaker of both; two-handers vs. main + off hand.
+--   - Only items Blizzard says the spec can use (armor type, primary stat, weapon).
+-- Sockets and enchants are ignored (both sides treated the same).
 local _, ns = ...
 local L = ns.L
 
 local DATA = ns.UPGRADE_DATA
 local Readable = ns.Readable
 local STATS = { "crit", "haste", "mastery", "vers" }
--- Wertungs-Indizes (CR_CRIT_MELEE, CR_HASTE_MELEE, CR_MASTERY, CR_VERSATILITY_DAMAGE_DONE)
+-- Rating indices (CR_CRIT_MELEE, CR_HASTE_MELEE, CR_MASTERY, CR_VERSATILITY_DAMAGE_DONE)
 local RATINGS = { crit = 9, haste = 18, mastery = 26, vers = 29 }
 local ITEM_STATS = {
     crit = "ITEM_MOD_CRIT_RATING_SHORT", haste = "ITEM_MOD_HASTE_RATING_SHORT",
     mastery = "ITEM_MOD_MASTERY_RATING_SHORT", vers = "ITEM_MOD_VERSATILITY",
 }
 local PRIMARY = { [1] = "STRENGTH", [2] = "AGILITY", [4] = "INTELLECT" }
-local GRID_MIN, GRID_MAX = 0.1, 0.7 -- Bloodmallet simuliert 10–70 % je Wert
+local GRID_MIN, GRID_MAX = 0.1, 0.7 -- Bloodmallet simulates 10-70 % per stat
 local EPS = 0.01
 local GREEN = { 0.25, 0.9, 0.35 }
 local RED = { 1, 0.3, 0.3 }
@@ -38,9 +37,9 @@ local TWO_HAND = { INVTYPE_2HWEAPON = true, INVTYPE_RANGED = true, INVTYPE_RANGE
 local OFF_HAND = { INVTYPE_WEAPONOFFHAND = true, INVTYPE_SHIELD = true, INVTYPE_HOLDABLE = true }
 local MAIN_HAND, OFF_HAND_SLOT = 16, 17
 
--- Forever bewertet ForeverPawn.lua (eigene Gewichte); dieser Teil hier rechnet nur für Retail
--- Modus: "damage" = % mehr Gesamtschaden (Standard), "item" = % besser als das angelegte Item
--- (wie Pawn), "off" (alte Häkchen-Werte true/false werden mit übersetzt)
+-- Forever is scored by ForeverPawn.lua (own weights); this file only computes for Retail.
+-- Mode: "damage" = % more total damage (default), "item" = % better than the equipped item
+-- (like Pawn), "off" (legacy checkbox values true/false are mapped as well)
 function ns.UpgradeMode()
     local mode = ns.db and ns.db.upgrades
     if mode == false or mode == "off" then return "off" end
@@ -48,10 +47,10 @@ function ns.UpgradeMode()
 end
 local function Enabled() return ns.UpgradeMode() ~= "off" and not ns.IS_FOREVER end
 
-local weights   -- Wert je Punkt als Anteil mehr Schaden, für die aktive Spec
-local scores = {} -- Link > Wert
+local weights   -- value per point as fraction of extra damage, for the active spec
+local scores = {} -- link -> score
 
--- Bloodmallet-Polynom: DPS (Anteil der Basis-DPS) bei Anteilen x = { Krit, Tempo, Meisterschaft }
+-- Bloodmallet polynomial: DPS (fraction of base DPS) at shares x = { crit, haste, mastery }
 local function Poly(fit, x)
     local sum = 0
     for i, term in ipairs(DATA.terms) do
@@ -64,12 +63,12 @@ end
 
 local function Clamp(v) return math.min(math.max(v, GRID_MIN), GRID_MAX) end
 
--- Durchschnittlicher Wert eines Punkts Sekundärwertung: Prozent je Wertung (mit abnehmendem
--- Nutzen) geteilt durch das, was der Wert schon bringt. Meisterschaft ist je Spec anders und
--- bleibt deshalb außen vor – ihr Unterschied zu den anderen kommt aus den Sims.
+-- Average value of one secondary rating point: percent per rating (with diminishing returns)
+-- divided by what the stat already gives. Mastery differs per spec and is left out - its
+-- deviation from the others comes from the sims.
 local function MeanRatingValue()
     local melee, spell, haste = GetCritChance(), GetSpellCritChance(), GetHaste()
-    -- im Kampf teils geschützt (Secrets): dann keine Aussage, später neu rechnen
+    -- Some values are secret in combat: no result then, recompute later
     if not (Readable(melee) and Readable(spell) and Readable(haste)) then return nil end
     local current = {
         crit = math.max(melee or 0, spell or 0),
@@ -105,8 +104,8 @@ local function BuildWeights()
     local w = { specID = specID, primaryKey = PRIMARY[primaryIndex], primary = 1 / primary }
     local spec = DATA.specs[specID]
     if spec then
-        -- Steigung der Sims an deiner Aufteilung; Vielseitigkeit ist der Rest (fester Gesamtwert),
-        -- deshalb nur Unterschiede zwischen den Werten – der Mittelwert kommt aus MeanRatingValue.
+        -- Sim slope at the current distribution; versatility is the remainder (fixed total), so this
+        -- only yields differences between stats - the mean comes from MeanRatingValue.
         local ratings, total = {}, 0
         for _, stat in ipairs(STATS) do
             local rating = GetCombatRating(RATINGS[stat])
@@ -130,22 +129,22 @@ local function BuildWeights()
         end
         w.trinkets = spec.trinkets
     else
-        -- ohne Sims (Heiler u. a.): Verhältnis der Werte untereinander aus Pawn
+        -- No sims (healers etc.): stat ratios from Pawn
         local _, _, classID = UnitClass("player")
         local ratio = DATA.fallback[classID .. "-" .. index]
         for _, stat in ipairs(STATS) do w[stat] = mean * (ratio and ratio[stat] or 1) end
     end
     weights = w
     wipe(scores)
-    if DevLog then -- Dev-Hilfe: Gewichte relativ zum Hauptattribut (1 = so viel wie 1 Punkt Hauptattribut)
+    if DevLog then -- dev aid: weights relative to primary stat (1 = worth 1 primary stat point)
         DevLog("MeredanUI", ("Upgrade-Gewichte Spec %d (%s): Krit %.2f, Tempo %.2f, Meist. %.2f, Viels. %.2f"):format(
             specID, spec and "Bloodmallet" or "Pawn", w.crit / w.primary, w.haste / w.primary,
             w.mastery / w.primary, w.vers / w.primary))
     end
 end
 
--- Simulierter Schmuck-Zugewinn bei einem Itemlevel (zwischen den Stufen linear, außerhalb
--- mit der Steigung der Randstufen weiter)
+-- Simulated trinket gain at an item level (linear between sim levels, extrapolated with the
+-- slope of the outermost levels)
 local function TrinketGain(byLevel, level)
     local levels = byLevel.sorted
     if not levels then
@@ -161,7 +160,7 @@ local function TrinketGain(byLevel, level)
     return byLevel[a] + (byLevel[b] - byLevel[a]) * (level - a) / (b - a)
 end
 
--- Wert eines Items (Anteil mehr Schaden), nil = Daten noch nicht geladen
+-- Item score (fraction of extra damage), nil = data not loaded yet
 local function Score(link)
     if not link then return 0 end
     local cached = scores[link]
@@ -174,7 +173,7 @@ local function Score(link)
         score = TrinketGain(trinket, level)
     else
         ---@diagnostic disable-next-line: redundant-parameter
-        local stats = C_Item.GetItemStats(link, {}) -- mit Tabelle wie Pawn
+        local stats = C_Item.GetItemStats(link, {}) -- with a table, like Pawn
         if not stats then return nil end
         local primary = 0
         for key, value in pairs(stats) do
@@ -189,10 +188,10 @@ end
 
 local function Equipped(slot) return GetInventoryItemLink("player", slot) end
 
--- Schmuck mit Sim-Daten? Ohne Sims zählen nur die Werte, nicht der Effekt – dann wäre jeder
--- Vergleich mit einem simulierten Schmuckstück schief, also lieber keine Aussage.
+-- Trinket with sim data? Without sims only stats count, not the effect - any comparison with a
+-- simulated trinket would be skewed, so give no result instead.
 local function Simulated(link)
-    if not link then return true end -- leerer Platz
+    if not link then return true end -- empty slot
     local itemID = C_Item.GetItemInfoInstant(link)
     return weights.trinkets ~= nil and itemID ~= nil and weights.trinkets[itemID] ~= nil
 end
@@ -203,14 +202,14 @@ local function EquipLoc(link)
     return equipLoc
 end
 
--- Wert dessen, was das neue Item ersetzt (nil = nicht sinnvoll vergleichbar)
+-- Score of what the new item would replace (nil = not meaningfully comparable)
 local function ReplacedScore(equipLoc, link)
     local slots = SLOTS[equipLoc]
     if slots then
         local worst
         for _, slot in ipairs(slots) do
             local current = Equipped(slot)
-            if current == link then return end -- das ist das angelegte Item selbst
+            if current == link then return end -- this is the equipped item itself
             local score = Score(current)
             if not score then return end
             worst = worst and math.min(worst, score) or score
@@ -224,12 +223,12 @@ local function ReplacedScore(equipLoc, link)
     local mainIsTwoHand = TWO_HAND[EquipLoc(main)]
     if TWO_HAND[equipLoc] then return mainScore + offScore end
     if OFF_HAND[equipLoc] then
-        if mainIsTwoHand then return end -- Nebenhand allein ersetzt keine Zweihand
+        if mainIsTwoHand then return end -- an off hand alone doesn't replace a two-hander
         return offScore
     end
     if equipLoc == "INVTYPE_WEAPONMAINHAND" then return mainScore end
     if equipLoc == "INVTYPE_WEAPON" then
-        -- Einhänder: beidhändig mit zwei Waffen > gegen die schwächere, sonst Haupthand
+        -- One-hander: when dual wielding compare against the weaker weapon, else the main hand
         if not mainIsTwoHand and off and CanDualWield() and not OFF_HAND[EquipLoc(off)] then
             return math.min(mainScore, offScore)
         end
@@ -239,16 +238,16 @@ end
 
 local function UsableBySpec(link)
     local specs = C_Item.GetItemSpecInfo(link)
-    if not specs or #specs == 0 then return true end -- ohne Einschränkung (Ringe, Hals …)
+    if not specs or #specs == 0 then return true end -- unrestricted (rings, neck ...)
     for _, id in ipairs(specs) do
         if id == weights.specID then return true end
     end
     return false
 end
 
--- Unterschied in Prozent (+ besser, − schlechter) je nach Modus; nil = keine Aussage
+-- Difference in percent (+ better, - worse) depending on mode; nil = no result
 function ns.UpgradePercent(link)
-    -- Forever: eigene Bewertung (ForeverPawn.lua), gleiche Anzeige
+    -- Forever: own scoring (ForeverPawn.lua), same display
     if ns.IS_FOREVER then
         if ns.UpgradeMode() == "off" or not Readable(link) or not link then return end
         return ns.ForeverUpgradePercent and ns.ForeverUpgradePercent(link)
@@ -268,16 +267,15 @@ function ns.UpgradePercent(link)
     local replaced = ReplacedScore(equipLoc, link)
     if not replaced then return end
     if ns.UpgradeMode() == "item" then
-        if replaced <= 0 then return end -- leerer Platz: kein sinnvoller Prozentwert
+        if replaced <= 0 then return end -- empty slot: no meaningful percentage
         return (score - replaced) / replaced * 100
     end
     return (score - replaced) * 100
 end
 
--- Leere Ausrüstungsplätze (Benny 2026-11-08, beim Leveln oft): Items, die einen leeren Platz füllen
--- würden, bekommen in der Tasche eine Markierung und im Tooltip „Füllt leeren Platz: …“. Nur was du
--- tragen kannst (keine roten Tooltip-Zeilen: Klasse, Rüstungsart, Stufe). Hemd, Wappenrock, Munition
--- und Taschen zählen nicht; Nebenhand nur, wenn keine Zweihandwaffe in der Haupthand liegt.
+-- Empty gear slots (common while leveling): items that would fill one get a bag marker and a
+-- "Fills empty slot: ..." tooltip line. Only wearable items (no red tooltip lines: class, armor
+-- type, level). Shirt, tabard, ammo and bags don't count; off hand only without a two-hander.
 local RANGED_TYPES = { INVTYPE_RANGED = true, INVTYPE_RANGEDRIGHT = true, INVTYPE_THROWN = true, INVTYPE_RELIC = true }
 local rangedSlot
 local function RangedSlot()
@@ -288,12 +286,12 @@ local function RangedSlot()
     return rangedSlot
 end
 
--- Was jede Klasse überhaupt tragen kann (klassische Regeln; Benny 2026-11-08: Schurke bekam ein
--- Schild markiert). Rüstung (Klasse 4): 1 Stoff, 2 Leder, 3 Kette, 4 Platte, 6 Schild, 7 Buchband,
--- 8 Götze, 9 Totem – 0 (Schmuck, Ringe, Nebenhand-Gegenstände) darf jeder. Waffen (Klasse 2):
--- 0 Einhandaxt, 1 Zweihandaxt, 2 Bogen, 3 Gewehr, 4 Einhandstreitkolben, 5 Zweihandstreitkolben,
--- 6 Stangenwaffe, 7 Einhandschwert, 8 Zweihandschwert, 10 Stab, 13 Faustwaffe, 15 Dolch, 16 Wurfwaffe,
--- 18 Armbrust, 19 Zauberstab. Ob eine Stufe fehlt (Kette ab 40 …), prüft danach der Tooltip.
+-- Base proficiencies per class (classic rules; the tooltip alone doesn't catch e.g. a shield for a
+-- rogue). Armor (class 4): 1 cloth, 2 leather, 3 mail, 4 plate, 6 shield, 7 libram, 8 idol, 9 totem;
+-- 0 (trinkets, rings, held in off hand) is allowed for all. Weapons (class 2): 0 1H axe, 1 2H axe,
+-- 2 bow, 3 gun, 4 1H mace, 5 2H mace, 6 polearm, 7 1H sword, 8 2H sword, 10 staff, 13 fist weapon,
+-- 15 dagger, 16 thrown, 18 crossbow, 19 wand. Level requirements (mail at 40 ...) are checked
+-- afterwards via the tooltip.
 local ARMOR, WEAPON = 4, 2
 local function Set(...) local t = {} for _, v in ipairs({ ... }) do t[v] = true end return t end
 local PROFICIENCY = {
@@ -314,11 +312,11 @@ local function CanWear(link, itemID)
     local allowed = PROFICIENCY[playerClass]
     local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(link)
     if allowed and allowed[classID] and not allowed[classID][subclassID] then return false end
-    if ns.ItemUsable then return ns.ItemUsable(link) end -- Forever: Tooltip-Prüfung (ForeverPawn.lua)
+    if ns.ItemUsable then return ns.ItemUsable(link) end -- Forever: tooltip check (ForeverPawn.lua)
     return C_PlayerInfo.CanUseItem and C_PlayerInfo.CanUseItem(itemID)
 end
 
--- Gibt den Namen des leeren Platzes zurück (z. B. „Handgelenke“) oder nil
+-- Returns the empty slot's name (e.g. "Wrist") or nil
 function ns.FillsEmptySlot(link)
     if ns.db and ns.db.emptySlots == false then return end
     if not link or not Readable(link) then return end
@@ -334,15 +332,15 @@ function ns.FillsEmptySlot(link)
     else
         local main, off = Equipped(MAIN_HAND), Equipped(OFF_HAND_SLOT)
         local mainIsTwoHand = main and TWO_HAND[EquipLoc(main)]
-        local mainName = INVTYPE_WEAPONMAINHAND or "Main Hand" -- „Waffenhand“
-        local offName = INVTYPE_WEAPONOFFHAND or "Off Hand"   -- „Schildhand“
+        local mainName = INVTYPE_WEAPONMAINHAND or "Main Hand"
+        local offName = INVTYPE_WEAPONOFFHAND or "Off Hand"
         if TWO_HAND[equipLoc] or equipLoc == "INVTYPE_WEAPONMAINHAND" then
             empty = not main and mainName
         elseif equipLoc == "INVTYPE_WEAPON" then
             empty = (not main and mainName) or (not off and not mainIsTwoHand and CanDualWield() and offName)
         elseif OFF_HAND[equipLoc] then
-            -- Nebenhand-Waffen erst mit Beidhändigkeit (Krieger/Jäger ab 20); Schild und
-            -- Nebenhand-Gegenstände prüft der Tooltip (rot, wenn nicht tragbar)
+            -- Off-hand weapons need dual wield (warrior/hunter from 20); shields and held items
+            -- are checked via the tooltip (red when not wearable)
             local needsDualWield = equipLoc == "INVTYPE_WEAPONOFFHAND" and not CanDualWield()
             empty = not off and not mainIsTwoHand and not needsDualWield and offName
         end
@@ -356,10 +354,10 @@ local function FormatPercent(value)
     return (value >= 0 and "+" or "−") .. text .. " %"
 end
 
--- Zeile im Item-Tooltip (von Tooltip.lua vor den IDs aufgerufen)
+-- Item tooltip line (called from Tooltip.lua before the IDs)
 function ns.AddUpgradeLine(tooltip, data)
     if data.type ~= Enum.TooltipDataType.Item then return end
-    -- wie Blizzards TooltipUtil.GetDisplayedItem: Taschen-Items haben nur die GUID
+    -- Like TooltipUtil.GetDisplayedItem: bag items only carry the GUID
     local link
     if Readable(data.guid) and data.guid then link = C_Item.GetItemLinkByGUID(data.guid) end
     if not link and Readable(data.hyperlink) then link = data.hyperlink end
@@ -374,16 +372,16 @@ function ns.AddUpgradeLine(tooltip, data)
     if not percent or math.abs(percent) < 0.05 then return end
     local color = percent > 0 and GREEN or RED
     tooltip:AddLine(" ")
-    -- flaches Dreieck davor: grün nach oben, rot nach unten (Benny 2026-11-08)
+    -- Flat triangle prefix: green pointing up, red pointing down
     local icon = ns.UI.IconMarkup(percent > 0 and "Upgrade" or "Downgrade", 11, color, 2)
     tooltip:AddLine(icon .. " " .. FormatPercent(percent), unpack(color))
 end
 
--- Werte ändern sich mit Ausrüstung und Spec; kurz warten, bis die neuen Werte stehen
+-- Stats change with gear and spec; wait briefly until the new values settle
 local pending
 local queued
 local function Rebuild()
-    -- Werte im Kampf teils geschützt: einmal nach dem Kampf neu rechnen
+    -- Some stats are secret in combat: recompute once after combat
     if InCombatLockdown() then
         if not queued then
             queued = true
@@ -399,8 +397,8 @@ local function Rebuild()
         if ns.RefreshBags then ns.RefreshBags() end
     end)
 end
--- Speicher sparen: nur die Specs der eigenen Klasse behalten (die Tabelle hat alle ~40 Specs mit
--- je ~70 Schmuckstücken); der Rest wird vom Garbage Collector freigegeben
+-- Save memory: keep only the player's class specs (the table holds ~40 specs with ~70 trinkets
+-- each); the rest is garbage collected
 ns:On("PLAYER_LOGIN", function()
     local _, _, classID = UnitClass("player")
     if not classID then return end
