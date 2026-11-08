@@ -28,6 +28,15 @@ end
 -- Unsere Fenster (Händler, Lehrer, Gespräch, Quest, Bank, Gildenbank) in Öffnungs-Reihenfolge
 local managed, order = {}, {}
 
+-- Reiter außerhalb von Blizzard-Fenstern (z. B. Gilde): dort keine Felder an Blizzards Tabelle,
+-- deshalb hier gemerkt – Zahl oder Funktion(window) → Zahl
+ns.EXTRA_RIGHT = setmetatable({}, { __mode = "k" })
+local function ExtraRight(window)
+    local extra = window.extraRight or ns.EXTRA_RIGHT[window]
+    if type(extra) == "function" then extra = extra(window) end
+    return extra or 0
+end
+
 -- Frei ziehen an einer Fläche (Kopfzeile); Lage wird nicht gespeichert
 function ns.MakeWindowDraggable(window, region)
     window:SetMovable(true)
@@ -91,7 +100,7 @@ local function Place(window)
         local right, top
         for _, other in ipairs(Occupied(window)) do
             -- extraRight: Reiter außerhalb des Fensters (Berufe, Zauberbuch) zählen mit
-            local edge = other:GetRight() + (other.extraRight or 0)
+            local edge = other:GetRight() + ExtraRight(other)
             if Overlaps(window, other) and edge > (right or 0) then
                 right, top = edge, other:GetTop()
             end
@@ -103,7 +112,7 @@ local function Place(window)
         window:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", ns.Snap(right + 12), ns.Snap(top))
         wantedRight = right + 12 + window:GetWidth()
     end
-    return wantedRight + (window.extraRight or 0)
+    return wantedRight + ExtraRight(window)
 end
 
 -- Fester Platz: über dem Chat (Höhe der Schlachtzug-Frames). Ist dort schon ein Fenster offen, rechts daneben (Benny: „sonst sind die

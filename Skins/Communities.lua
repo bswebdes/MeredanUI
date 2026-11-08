@@ -5,13 +5,14 @@
 --  * Aufbau bleibt exakt Blizzards: kein SetPoint/SetSize/ClearAllPoints an Blizzard-Rahmen/-Regionen.
 --  * Rahmen/Kanten (NineSlice, Knopf-Grafiken, Dropdown-/Scrollleisten-Art) nur per SetAlpha(0) weg,
 --    unsere Flächen/Kanten als neue Regionen darüber/darunter.
---  * Artworks (Wappen, Filigran, Listen-Hintergründe, Pergament) bleiben, nur dunkler (SetVertexColor).
+--  * Flach wie die mUI-Fenster (Benny 2026-11-08, nach Vergleich mit EllesmereUI): Artworks
+--    (Filigran, Listen-Hintergründe, Pergament, Zeilen-Grafiken) unsichtbar, eigene flache Flächen.
+--    Symbole und Wappen bleiben.
 --  * Keine SetScript, keine Felder an Blizzard-Tabellen, keine Blizzard-Funktionen aufrufen – nur
 --    HookScript/hooksecurefunc. Eigener Zustand in schwachen Tabellen.
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local DARK = 0.45 -- Artworks abdunkeln
 local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
@@ -48,16 +49,6 @@ local function FadeRegions(frame, keep)
     end
 end
 
-local function Darken(region)
-    if IsTexture(region) and not own[region] then region:SetVertexColor(DARK, DARK, DARK) end
-end
-
-local function DarkenRegions(frame, keep)
-    if type(frame) ~= "table" or not frame.GetRegions then return end
-    for _, region in ipairs({ frame:GetRegions() }) do
-        if not (keep and keep[region]) then Darken(region) end
-    end
-end
 
 -- neue Textur an parent, als „unsere“ gemerkt
 local function Tex(parent, layer, sublevel, color)
@@ -420,7 +411,7 @@ local function SkinMemberRow(row)
     hover:SetAllPoints(bg)
     local header = row.ProfessionHeader
     if type(header) == "table" then
-        for _, key in ipairs({ "Left", "Middle", "Right" }) do Darken(header[key]) end
+        for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(header[key]) end
     end
 end
 
@@ -443,19 +434,35 @@ local function SkinColumnHeaders(display)
     end
 end
 
--- Zeilen mit eigener Artwork (Vorteile, Belohnungen, Neuigkeiten): Artwork bleibt, nur dunkler;
+-- Zeilen mit eigener Artwork (Vorteile, Belohnungen, Neuigkeiten): Artwork weg, flache Zeile;
 -- Symbole, Schloss und Sperr-Schleier unverändert (Blizzard färbt sie selbst)
 local ROW_KEEP = { "Icon", "icon", "Lock", "DisabledBG" }
-local function DarkenRow(row)
+local function FlatRow(row)
     if not Once(row) then return end
+    local UI = ns.UI
     local keep = {}
     for _, key in ipairs(ROW_KEEP) do
         if row[key] then keep[row[key]] = true end
     end
     local highlight = row.GetHighlightTexture and row:GetHighlightTexture()
-    if highlight then keep[highlight] = true end
-    DarkenRegions(row, keep)
-    for _, key in ipairs({ "NormalBorder", "DisabledBorder" }) do DarkenRegions(row[key]) end
+    if highlight then Fade(highlight) end
+    FadeRegions(row, keep)
+    for _, key in ipairs({ "NormalBorder", "DisabledBorder" }) do FadeRegions(row[key]) end
+    local bg = Tex(row, "BACKGROUND", -8, { UI.FIELD[1], UI.FIELD[2], UI.FIELD[3], 0.6 })
+    bg:SetPoint("TOPLEFT", 0, -1)
+    bg:SetPoint("BOTTOMRIGHT", 0, 1)
+    if row.IsObjectType and row:IsObjectType("Button") then
+        local hover = Tex(row, "HIGHLIGHT", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.12 })
+        hover:SetAllPoints(bg)
+    end
+end
+
+-- dunkle Fläche hinter einem Bereich (ersetzt Pergament/Listen-Hintergrund)
+local function Fill(frame, alpha)
+    if type(frame) ~= "table" or not frame.CreateTexture then return end
+    local bg = Tex(frame, "BACKGROUND", -8, { 0, 0, 0, alpha or 0.35 })
+    bg:SetAllPoints()
+    return bg
 end
 
 -- Reiter rechts (Chat, Mitglieder, Vorteile, Info …): wie die Reiter der mUI-Fenster – Kasten in
@@ -519,6 +526,19 @@ local function SkinShell(f)
         if not listed then tinsert(UISpecialFrames, "CommunitiesFrame") end
     end
     Unmanage()
+    -- Reiter rechts außerhalb des Fensters: Nachbarfenster rücken dahinter (Benny 2026-11-08)
+    if ns.EXTRA_RIGHT then
+        ns.EXTRA_RIGHT[f] = function(window)
+            local right = window:GetRight()
+            local edge = right
+            for _, key in ipairs({ "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab",
+                "GuildPreferredPlaySettingsTab" }) do
+                local tab = window[key]
+                if type(tab) == "table" and tab:IsShown() and tab:GetRight() then edge = math.max(edge, tab:GetRight()) end
+            end
+            return right and (edge - right + 6) or 0
+        end
+    end
     f:HookScript("OnShow", function(self)
         C_Timer.After(0, function()
             if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
@@ -540,12 +560,11 @@ end
 
 local function SkinCommunitiesList(list)
     if type(list) ~= "table" then return end
-    -- Artwork der Spalte bleibt, nur dunkler
-    for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do
-        Darken(list[key])
-        if IsTexture(list[key]) then list[key]:SetVertexColor(0.22, 0.22, 0.22) end -- ruhiger (Benny 2026-11-08)
-    end
-    DarkenRegions(list.FilligreeOverlay)
+    -- Artwork der Spalte weg, flache dunkle Fläche
+    for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Fade(list[key]) end
+    FadeRegions(list.FilligreeOverlay)
+    local fill = Tex(list, "BACKGROUND", -8, { 0, 0, 0, 0.35 })
+    fill:SetAllPoints(type(list.InsetFrame) == "table" and list.InsetFrame or list)
     SkinInset(list.InsetFrame, true) -- liegt über den Einträgen: nur Rand, keine Fläche
     SkinScrollBar(list.ScrollBar)
     HookScrollBox(list.ScrollBox, SkinListEntry)
@@ -630,9 +649,10 @@ local function SkinBenefits(benefits)
     for _, key in ipairs(INSET_BORDERS) do Fade(benefits[key]) end
     for _, section in ipairs({ benefits.Perks, benefits.Rewards }) do
         if type(section) == "table" then
-            DarkenRegions(section)
+            FadeRegions(section)
+            Fill(section)
             SkinScrollBar(section.ScrollBar)
-            HookScrollBox(section.ScrollBox, DarkenRow)
+            HookScrollBox(section.ScrollBox, FlatRow)
         end
     end
     SkinFactionBar(benefits.FactionFrame and benefits.FactionFrame.Bar)
@@ -643,16 +663,18 @@ local function SkinDetails(details)
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
     local info, news = details.Info, details.News
     if type(info) == "table" then
-        DarkenRegions(info) -- Pergament, Kopfzeilen, Trennbalken, Herausforderungen
+        FadeRegions(info) -- Pergament, Kopfzeilen, Trennbalken
+        Fill(info)
         for _, key in ipairs({ "MOTDScrollFrame", "DetailsFrame" }) do
             local scroll = info[key]
             if type(scroll) == "table" then SkinScrollBar(scroll.ScrollBar) end
         end
     end
     if type(news) == "table" then
-        DarkenRegions(news)
+        FadeRegions(news)
+        Fill(news)
         SkinScrollBar(news.ScrollBar)
-        HookScrollBox(news.ScrollBox, DarkenRow)
+        HookScrollBox(news.ScrollBox, FlatRow)
     end
 end
 
