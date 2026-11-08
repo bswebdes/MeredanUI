@@ -432,7 +432,7 @@ ns.ActionBarTextShown = TextShown
 -- Schriftgröße der Tastenbelegung für alle Leisten (Benny 2026-11-08): Klein = früher, Groß = so
 -- wie die Knopf-Bibliothek sie setzt. Makroname und Anzahl bleiben unverändert.
 local HOTKEY_SIZES = { small = 11, medium = 12, large = 14 }
-local function HotkeySize() return HOTKEY_SIZES[ns.db and ns.db.actionBarFont or "large"] or 14 end
+local function HotkeySize() return HOTKEY_SIZES[ns.db and ns.db.actionBarFont or "medium"] or 12 end
 local function HotkeyText()
     return { hotkey = {
         font = { font = ns.FontFor and ns.FontFor() or ns.STYLE.font, size = ns.FontPx(HotkeySize()), flags = "OUTLINE" },

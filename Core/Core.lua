@@ -221,7 +221,7 @@ local DEFAULTS = {
         petbar = "always", stancebar = "mouseover",
     },
     actionBarTexts = {}, -- [Leiste] = { hotkey = false, macro = false } blendet Texte aus; fehlt = an
-    actionBarFont = "large", -- Schriftgröße der Tastenbelegung: "small", "medium", "large"
+    actionBarFont = "medium", -- Schriftgröße der Tastenbelegung: "small", "medium", "large"
 }
 
 ns.DEFAULTS = DEFAULTS -- z. B. für „Zurücksetzen“ in den Einstellungen
