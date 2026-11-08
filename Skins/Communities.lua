@@ -16,6 +16,7 @@ local WHITE = "Interface\\Buttons\\WHITE8X8"
 local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
+local HEAD_PAD, HEAD_ICON, HEAD_HEIGHT = 18, 46, 80 -- Kopf wie die mUI-Fenster; Inhalte ab HEAD_HEIGHT
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
 local noBump = setmetatable({}, { __mode = "k" }) -- Bereiche mit festen Breiten (Info-Spalte)
@@ -630,7 +631,7 @@ local function SkinShell(f)
     if f.CloseButton and not InCombatLockdown() then
         f.CloseButton:SetSize(34, 34)
         f.CloseButton:ClearAllPoints()
-        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, 0)
+        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
     end
     local maxMin = f.MaximizeMinimizeFrame
     if maxMin then
@@ -661,7 +662,7 @@ local function SkinShell(f)
             local area = f[key]
             if area and f.CommunitiesList then
                 area:ClearAllPoints()
-                area:SetPoint("TOPLEFT", f.CommunitiesList, "TOPRIGHT", 24, -23)
+                area:SetPoint("TOPLEFT", f.CommunitiesList, "TOPRIGHT", 24, -35) -- Bereichstitel sitzt 35 darüber
                 area:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -12, BOTTOM)
             end
         end
@@ -698,8 +699,8 @@ local function SkinCommunitiesList(list)
     local f = list:GetParent()
     if f and not InCombatLockdown() then
         list:ClearAllPoints()
-        list:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -40)
-        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", 181, 40) -- wie die übrigen Inhalte (Fußzeile)
+        list:SetPoint("TOPLEFT", f, "TOPLEFT", HEAD_PAD, -HEAD_HEIGHT)
+        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", HEAD_PAD + 171, 40) -- wie die übrigen Inhalte (Fußzeile)
     end
     -- wie der Chat-Kasten; der Kasten liegt über den Einträgen: Rand am Kasten, Fläche an der Liste
     SkinInset(list.InsetFrame, true)
@@ -735,11 +736,11 @@ local function SkinMemberList(members)
     if members.RefreshLayout then
         hooksecurefunc(members, "RefreshLayout", function(self)
             if not self.expandedDisplay and not InCombatLockdown() then
-                self:SetPoint("TOPLEFT", self:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -63)
+                self:SetPoint("TOPLEFT", self:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -(HEAD_HEIGHT + 46))
             end
         end)
         if not members.expandedDisplay then
-            members:SetPoint("TOPLEFT", members:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -63)
+            members:SetPoint("TOPLEFT", members:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -(HEAD_HEIGHT + 46))
         end
     end
     local display = members.ColumnDisplay
@@ -1060,26 +1061,93 @@ local function SkinLikeOwnWindow(f)
     if f.PortraitContainer then f.PortraitContainer:SetAlpha(0) end
     local title = f.TitleContainer and f.TitleContainer.TitleText
     if title then title:SetAlpha(0) end
-    local head = CreateFrame("Frame", nil, f)
-    head:SetPoint("TOPLEFT", 14, -9)
-    head:SetPoint("RIGHT", f, "RIGHT", -80, 0)
-    head:SetHeight(18)
-    local name = head:CreateFontString(nil, "OVERLAY")
+    -- Kopf wie die mUI-Fenster (Benny 2026-11-08, Vorlage Berufe): Wappen 46 px links, Name (fett 16)
+    -- und „Gilde & Communitys“ darunter; rechts X/Minimieren, daneben das Mikrofon, darunter die
+    -- Online-Zahl. Inhalte beginnen unter dem Kopf.
+    local holder = CreateFrame("Frame", nil, f)
+    holder:SetSize(HEAD_ICON, HEAD_ICON)
+    holder:SetPoint("TOPLEFT", f, "TOPLEFT", HEAD_PAD, -HEAD_PAD)
+    if ns.AddSlotBackground then ns.AddSlotBackground(holder) end
+    ns.AddBorder(holder)
+    local crestBg = holder:CreateTexture(nil, "BACKGROUND", nil, 2)
+    own[crestBg] = true
+    crestBg:SetPoint("TOPLEFT", 2, -2)
+    crestBg:SetPoint("BOTTOMRIGHT", -2, 2)
+    local crest = holder:CreateTexture(nil, "ARTWORK")
+    own[crest] = true
+    crest:SetPoint("CENTER")
+    local name = holder:CreateFontString(nil, "OVERLAY")
     own[name] = true
-    name:SetFont(ns.FontFor("bold"), ns.FontPx(15), "")
+    name:SetFont(ns.FontFor("bold"), ns.FontPx(16), "")
     name:SetTextColor(unpack(UI.TEXT))
-    name:SetPoint("LEFT")
-    local sub = head:CreateFontString(nil, "OVERLAY")
+    name:SetJustifyH("LEFT")
+    name:SetPoint("TOPLEFT", holder, "TOPRIGHT", 14, -6)
+    name:SetPoint("RIGHT", f, "RIGHT", -200, 0)
+    local sub = holder:CreateFontString(nil, "OVERLAY")
     own[sub] = true
     sub:SetFont(ns.FontFor(), ns.FontPx(12), "")
     sub:SetTextColor(unpack(UI.MUTED))
-    sub:SetPoint("LEFT", name, "RIGHT", 10, -1)
+    sub:SetJustifyH("LEFT")
+    sub:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -5)
+    local lastClub
     local function UpdateTitle()
         local id = f.GetSelectedClubId and f:GetSelectedClubId()
         local info = id and C_Club.GetClubInfo(id)
         name:SetText(info and info.name or (title and title:GetText()) or "")
         sub:SetText(title and title:GetText() or "")
+        if info and id ~= lastClub then
+            lastClub = id
+            local size = HEAD_ICON - 4
+            if info.clubType == Enum.ClubType.Guild and SetLargeGuildTabardTextures then
+                crestBg:SetTexture("Interface\\Buttons\\WHITE8X8")
+                crestBg:Show()
+                crest:SetSize(size, size)
+                SetLargeGuildTabardTextures("player", crest, crestBg)
+            else
+                crestBg:Hide()
+                crest:SetTexCoord(0, 1, 0, 1)
+                crest:SetVertexColor(1, 1, 1)
+                crest:SetSize(size, size)
+                pcall(C_Club.SetAvatarTexture, crest, info.avatarId, info.clubType)
+            end
+        end
     end
+    local function HeaderLayout()
+        if InCombatLockdown() then return end
+        local close, maxMin = f.CloseButton, f.MaximizeMinimizeFrame
+        if close then
+            close:ClearAllPoints()
+            close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
+        end
+        local headset = f.VoiceChatHeadset
+        if headset then
+            headset:ClearAllPoints()
+            headset:SetPoint("RIGHT", maxMin or close or f, "LEFT", -2, 0)
+        end
+        local count = f.MemberList and f.MemberList.MemberCount
+        if count then
+            count:ClearAllPoints()
+            count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -HEAD_PAD, -(HEAD_PAD + 26 + 8))
+            count:SetJustifyH("RIGHT")
+        end
+        local stream = f.StreamDropdown
+        if stream and f.Chat then
+            stream:ClearAllPoints()
+            stream:SetPoint("BOTTOMLEFT", f.Chat, "TOPLEFT", 0, 8)
+        end
+        local offline = f.MemberList and f.MemberList.ShowOfflineButton
+        for _, key in ipairs({ "GuildMemberListDropdown", "CommunityMemberListDropdown" }) do
+            local dropdown = f[key]
+            if dropdown and offline then
+                dropdown:ClearAllPoints()
+                dropdown:SetPoint("RIGHT", f, "RIGHT", -26, 0)
+                dropdown:SetPoint("TOP", offline, "TOP", 0, 0)
+            end
+        end
+    end
+    f:HookScript("OnSizeChanged", HeaderLayout)
+    f:HookScript("OnShow", HeaderLayout)
+    HeaderLayout()
     -- Chat in mUI-Schrift
     local messages = f.Chat and f.Chat.MessageFrame
     local function ChatFont()
