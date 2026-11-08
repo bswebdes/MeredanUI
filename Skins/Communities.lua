@@ -162,7 +162,7 @@ local function SkinButton(button)
 end
 
 -- Symbol-Knopf (Schließen, Maximieren …): flaches Kästchen mit unserem Symbol, Hover in Surf Green
-local function SkinIconButton(button, iconName)
+local function SkinIconButton(button, iconName, iconSize)
     if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
     if not Once(button) then return end
     local UI = ns.UI
@@ -172,7 +172,7 @@ local function SkinIconButton(button, iconName)
     bg:SetPoint("TOPLEFT", 4, -4)
     bg:SetPoint("BOTTOMRIGHT", -4, 4)
     Edges(button, bg)
-    local icon = UI.Icon(button, iconName, 12)
+    local icon = UI.Icon(button, iconName, iconSize or 12)
     own[icon] = true
     icon:SetPoint("CENTER")
     local function Reflect()
@@ -424,14 +424,21 @@ end
 -- Namensspalte der Mitgliederliste breiter, Notiz dafür schmaler (Benny 2026-11-08: Namen wurden
 -- abgeschnitten). Zone, Rang und Notiz hängen an der Namensspalte und rücken mit; die Notiz füllt den
 -- Rest. Nur Breiten, Blizzards Daten/Skripte bleiben unberührt.
-local NAME_EXTRA = 40
+local NAME_EXTRA = 40   -- Mitgliederseite (Spalten)
+local LIST_EXTRA = 60   -- schmale Liste neben dem Chat
 local function WidenName(row)
-    if not (row.expanded and row.Class and row.Class:IsShown()) then return end
+    local extra
+    if row.expanded then
+        if not (row.Class and row.Class:IsShown()) then return end
+        extra = NAME_EXTRA
+    else
+        extra = LIST_EXTRA
+    end
     local frame = row.NameFrame
     if type(frame) ~= "table" or not frame.Name then return end
-    frame:SetWidth(frame:GetWidth() + NAME_EXTRA)
+    frame:SetWidth(frame:GetWidth() + extra)
     local name = frame.Name
-    name:SetWidth(name:GetWidth() + NAME_EXTRA)
+    name:SetWidth(name:GetWidth() + extra)
     local rank = frame.RankIcon
     if rank then
         local offset = frame.PresenceIcon and frame.PresenceIcon:IsShown() and frame.PresenceIcon:GetWidth() or 0
@@ -554,7 +561,7 @@ local function SkinShell(f)
         title:SetFont(ns.FontFor("bold"), size or 12, "")
         title:SetTextColor(unpack(ns.UI.TEXT))
     end
-    SkinIconButton(f.CloseButton, "Close")
+    SkinIconButton(f.CloseButton, "Close", 18)
     -- Einzige Ausnahme von „nichts verschieben“ (Benny 2026-11-08): Schließen sitzt sonst auf Blizzards
     -- (entferntem) dicken Rahmen direkt an der Kante. Wie bei den mUI-Fenstern 10 px eingerückt (der
     -- sichtbare Kasten liegt 4 px innerhalb des Knopfs). Minimieren hängt an Schließen und rückt mit.
@@ -615,14 +622,44 @@ local function SkinShell(f)
             end
         end)
     end)
+    -- Schließen/Minimieren so groß wie bei den mUI-Fenstern (Benny 2026-11-08): sichtbar 26 px
+    -- (Knopf 34, Fläche 4 px eingerückt), Symbol 18; oben in Blizzards Kopfband, damit nichts überlappt
     if f.CloseButton and not InCombatLockdown() then
+        f.CloseButton:SetSize(34, 34)
         f.CloseButton:ClearAllPoints()
-        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)
+        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -4, 0)
     end
     local maxMin = f.MaximizeMinimizeFrame
     if maxMin then
-        SkinIconButton(maxMin.MaximizeButton, "Square")
-        SkinIconButton(maxMin.MinimizeButton, "Minus")
+        SkinIconButton(maxMin.MaximizeButton, "Square", 16)
+        SkinIconButton(maxMin.MinimizeButton, "Minus", 16)
+        if not InCombatLockdown() then
+            maxMin:SetSize(34, 34)
+            for _, button in ipairs({ maxMin.MaximizeButton, maxMin.MinimizeButton }) do
+                if button then
+                    button:SetSize(34, 34)
+                    button:ClearAllPoints()
+                    button:SetPoint("CENTER", maxMin, "CENTER")
+                end
+            end
+            if f.CloseButton then
+                maxMin:ClearAllPoints()
+                maxMin:SetPoint("RIGHT", f.CloseButton, "LEFT", 2, 0)
+            end
+        end
+    end
+    -- Fußzeile: „Mitglied einladen“ und „Gildeneinstellungen“ bündig mit der Liste darüber, mittig im
+    -- Fußband statt in der Ecke (Benny 2026-11-08)
+    if not InCombatLockdown() then
+        if f.InviteButton then
+            f.InviteButton:SetSize(150, 22)
+            f.InviteButton:ClearAllPoints()
+            f.InviteButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 3)
+        end
+        if f.CommunitiesControlFrame then
+            f.CommunitiesControlFrame:ClearAllPoints()
+            f.CommunitiesControlFrame:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 3)
+        end
     end
     SkinInset(f.Inset)
 end
@@ -661,6 +698,17 @@ local function SkinMemberList(members)
     end
     SkinScrollBar(members.ScrollBar)
     SkinCheck(members.ShowOfflineButton)
+    -- neben dem Chat breiter (Blizzard: 165 px ab rechts), damit Namen nicht abgeschnitten werden
+    if members.RefreshLayout then
+        hooksecurefunc(members, "RefreshLayout", function(self)
+            if not self.expandedDisplay and not InCombatLockdown() then
+                self:SetPoint("TOPLEFT", self:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -63)
+            end
+        end)
+        if not members.expandedDisplay then
+            members:SetPoint("TOPLEFT", members:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -63)
+        end
+    end
     local display = members.ColumnDisplay
     if type(display) == "table" then
         for _, key in ipairs({ "Background", "TopTileStreaks", "InsetBorderTopLeft", "InsetBorderTopRight",
@@ -864,6 +912,19 @@ local function Recolor(fs)
         recolored[fs] = true
     end
 end
+-- Blizzards kleine Schriften (10–12 px) im großen Fenster einen Tick größer (Benny 2026-11-08);
+-- Überschriften (ab 13 px) bleiben. Blizzard setzt Schriftobjekte teils neu – dann erneut.
+local FONT_BUMP = 2
+local bumping = false
+local function Bump(fs)
+    if bumping then return end
+    local file, size, flags = fs:GetFont()
+    if not (file and size) or size >= 13 then return end
+    bumping = true
+    fs:SetFont(file, size + FONT_BUMP, flags or "")
+    bumping = false
+end
+
 local function RecolorTree(frame, depth)
     if depth > 12 or not frame.GetRegions then return end
     for _, region in ipairs({ frame:GetRegions() }) do
@@ -871,6 +932,8 @@ local function RecolorTree(frame, depth)
             if not recolored[region] then
                 recolored[region] = true
                 hooksecurefunc(region, "SetTextColor", Recolor)
+                hooksecurefunc(region, "SetFontObject", Bump)
+                Bump(region)
             end
             Recolor(region)
         end
@@ -908,7 +971,9 @@ local function SkinLikeOwnWindow(f)
     -- Chat in mUI-Schrift
     local messages = f.Chat and f.Chat.MessageFrame
     local function ChatFont()
-        if messages and messages.SetFont then messages:SetFont(ns.FontFor("text"), ns.FontPx(13), "") end
+        -- wie der mUI-Chat (Einstellung Chat-Schriftgröße)
+        local size = ns.ChatFontSize and ns.ChatFontSize() or 13
+        if messages and messages.SetFont then messages:SetFont(ns.FontFor("text"), ns.FontPx(size), "") end
     end
     local elapsed = 0
     f:HookScript("OnShow", function()
