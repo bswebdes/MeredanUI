@@ -1,0 +1,53 @@
+-- AUTOMATISCH ERZEUGT von tools/update_forever_weights.py – nicht von Hand ändern.
+-- Forever-Pawn: Stat-Gewichte je Klasse und Talentbaum (1–3).
+-- Quellen: WoWSims Forever (MIT) EP-Presets, Forever Codex (Median der simulierten Builds).
+-- Einheiten: Wertungen je Punkt Wertung, *_pct je 1 %, *dps je 1 Waffen-DPS.
+local _, ns = ...
+
+ns.FOREVER_WEIGHTS = {
+    WARRIOR = {
+        [1] = { agi = 1.82, ap = 1.0, arp = 0.45, crit = 2.36, exp = 2.23, haste = 2.0, hit = 4.59, mhdps = 17.69, str = 2.2 },
+        [2] = { agi = 2.25, ap = 1.0, arp = 0.41, crit = 2.92, exp = 1.9, haste = 2.29, hit = 2.29, mhdps = 9.89, ohdps = 3.15, str = 2.2 },
+        [3] = { agi = 0.66, ap = 0.27, armor = 0.1, arp = 0.12, blockvalue = 0.6, crit = 0.58, def = 0.22, dodge = 0.17, exp = 2.32, haste = 0.36, hit = 1.13, mhdps = 2.16, parry = 0.18, sta = 1.15, str = 0.62 },
+    },
+    ROGUE = {
+        [1] = { agi = 2.06, ap = 1.0, arp = 0.4, crit = 2.02, exp = 2.77, haste = 1.93, hit = 2.8, mhdps = 8.44, ohdps = 4.16, spellpen = 0.65, sta = 0.01, str = 1.1 },
+        [2] = { agi = 1.96, ap = 1.0, arp = 0.41, crit = 1.7, exp = 2.55, haste = 1.72, hit = 2.42, mhdps = 10.57, ohdps = 2.93, spellpen = 0.19, sta = 0.01, str = 1.1 },
+        [3] = { agi = 1.93, ap = 1.0, arp = 0.33, crit = 1.63, exp = 2.42, haste = 1.43, hit = 2.12, mhdps = 10.47, ohdps = 2.27, spellpen = 0.16, sta = 0.01, str = 1.1 },
+    },
+    PRIEST = {
+        [1] = { crit = 0.48, haste = 0.1, heal = 1.0, int = 0.2, mp5 = 0.19, spi = 0.1 },
+        [2] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 },
+        [3] = { crit = 0.84, haste = 0.73, hit = 1.14, int = 0.24, shadow = 1.0, sp = 1.0, spi = 0.01 },
+    },
+    DRUID = {
+        [1] = { arcane = 0.68, crit = 0.76, haste = 0.99, hit = 1.48, int = 0.28, mp5 = 0.15, nature = 0.32, sp = 1.0 },
+        [2] = { agi = 0.5159, ap = 0.2047, arp = 0.0666, crit = 0.3802, exp = 0.3856, haste = 0.2946, hit = 0.4079, mhdps = 2.0463, str = 0.4963 },
+        [3] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 }, -- ERSATZ (keine eigene Simulation)
+    },
+    SHAMAN = {
+        [1] = { crit = 0.61, fire = 0.31, haste = 1.23, hit = 1.18, int = 0.19, mp5 = 0.04, nature = 0.69, sp = 1.0, spellpen = 1.81, spi = 0.02 },
+        [2] = { agi = 1.32, ap = 1.0, arp = 0.37, crit = 2.42, exp = 3.5, haste = 2.81, hit = 5.2, int = 1.99, mhdps = 14.18, nature = 0.72, sp = 1.27, spellpen = 2.52, str = 2.2 },
+        [3] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 }, -- ERSATZ (keine eigene Simulation)
+    },
+    PALADIN = {
+        [1] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 }, -- ERSATZ (keine eigene Simulation)
+        [2] = { agi = 0.66, ap = 0.27, armor = 0.1, arp = 0.12, blockvalue = 0.6, crit = 0.58, def = 0.22, dodge = 0.17, exp = 2.32, haste = 0.36, hit = 1.13, mhdps = 2.16, parry = 0.18, sta = 1.15, str = 0.62 }, -- ERSATZ (keine eigene Simulation)
+        [3] = { agi = 2.23, ap = 1.0, arp = 0.24, crit = 3.08, exp = 5.1, haste = 22.87, hit = 6.83, int = 2.06, mhdps = 13.85, mp5 = 0.23, sp = 2.36, spellpen = 0.01, str = 2.4 },
+    },
+    HUNTER = {
+        [1] = { agi = 0.5905, ap = 0.097, arp = 0.07, crit = 0.555, exp = 0.4845, haste = 0.2615, hit = 0.154, int = 0.264, mp5 = 0.003, rap = 0.164, spi = 0.0015, str = 0.107 }, -- Codex, Median aus 12 Builds
+        [2] = { agi = 0.5905, ap = 0.097, arp = 0.07, crit = 0.555, exp = 0.4845, haste = 0.2615, hit = 0.154, int = 0.264, mp5 = 0.003, rap = 0.164, spi = 0.0015, str = 0.107 }, -- Codex, Median aus 12 Builds
+        [3] = { agi = 0.5905, ap = 0.097, arp = 0.07, crit = 0.555, exp = 0.4845, haste = 0.2615, hit = 0.154, int = 0.264, mp5 = 0.003, rap = 0.164, spi = 0.0015, str = 0.107 }, -- Codex, Median aus 12 Builds
+    },
+    MAGE = {
+        [1] = { arcane = 0.2055, crit = 0.391, frost = 0.0885, haste = 0.508, hit = 0.897, int = 0.332, mp5 = 0.2405, sp = 0.543, spellpen = 1.301, spi = 0.1365 }, -- Codex, Median aus 6 Builds
+        [2] = { arcane = 0.2055, crit = 0.391, frost = 0.0885, haste = 0.508, hit = 0.897, int = 0.332, mp5 = 0.2405, sp = 0.543, spellpen = 1.301, spi = 0.1365 }, -- Codex, Median aus 6 Builds
+        [3] = { arcane = 0.2055, crit = 0.391, frost = 0.0885, haste = 0.508, hit = 0.897, int = 0.332, mp5 = 0.2405, sp = 0.543, spellpen = 1.301, spi = 0.1365 }, -- Codex, Median aus 6 Builds
+    },
+    WARLOCK = {
+        [1] = { crit = 0.471, fire = 0.474, haste = 0.407, hit = 0.859, int = 0.275, mp5 = 0.211, shadow = 0.231, sp = 0.704, spellpen = 0.73, spi = 0.0865 }, -- Codex, Median aus 6 Builds
+        [2] = { crit = 0.471, fire = 0.474, haste = 0.407, hit = 0.859, int = 0.275, mp5 = 0.211, shadow = 0.231, sp = 0.704, spellpen = 0.73, spi = 0.0865 }, -- Codex, Median aus 6 Builds
+        [3] = { crit = 0.471, fire = 0.474, haste = 0.407, hit = 0.859, int = 0.275, mp5 = 0.211, shadow = 0.231, sp = 0.704, spellpen = 0.73, spi = 0.0865 }, -- Codex, Median aus 6 Builds
+    },
+}

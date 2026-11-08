@@ -1,0 +1,39 @@
+name: Bug report
+description: Something is broken or looks wrong
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: MeredanUI version
+      description: Shown in the settings window (/mui)
+      placeholder: v0.3.0-beta.2
+    validations:
+      required: true
+  - type: dropdown
+    id: game
+    attributes:
+      label: Game
+      options:
+        - WoW Forever
+        - Retail (Midnight)
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what happened instead? Screenshots help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Lua error
+      description: Paste the full error text if there is one (BugSack or /console scriptErrors 1).
+      render: text
+  - type: input
+    id: language
+    attributes:
+      label: Game language
+      placeholder: English, German, …

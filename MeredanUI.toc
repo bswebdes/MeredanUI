@@ -1,0 +1,140 @@
+## Interface: 120105, 16001
+## Title: MeredanUI
+## Notes: Clean, flat UI: unit frames, action bars, minimap and more.
+## Notes-deDE: Klares, flaches Interface: Unitframes, Aktionsleisten, Minimap und mehr.
+## Author: Benny Schey
+## Version: @project-version@
+## Category: User Interface
+## AllowLoadGameType: standard, camelot
+## SavedVariables: MeredanUIDB
+## AddonCompartmentFunc: MeredanUI_OnAddonCompartmentClick
+## IconTexture: Interface\AddOns\MeredanUI\Media\Logo
+## X-oUF: MeredanUIoUF
+## X-License: All Rights Reserved
+## X-Website: https://github.com/bswebdes/MeredanUI
+## X-Curse-Project-ID: 1790218
+# Für Wago-Upload über die GitHub Action eintragen:
+# ## X-Wago-ID: xxxxxxxx
+
+libs/LibStub/LibStub.lua
+libs/CallbackHandler-1.0/CallbackHandler-1.0.xml
+libs/LibSharedMedia-3.0/lib.xml
+libs/LibActionButton-1.0/LibActionButton-1.0.lua
+libs/oUF/oUF.xml
+
+# Kern: Übersetzungen, Helfer, Optik, Verschieben, Testmodus, Profile
+Core/Locales.lua
+Core/Core.lua
+Core/Style.lua
+Core/Menus.lua
+Core/Quiet.lua
+Core/Fonts.lua
+UnitFrames/UnitFrames.lua
+UnitFrames/GroupFrames.lua
+UnitFrames/GroupHelpers.lua
+UnitFrames/GroupManager.lua
+UnitFrames/ThreatBar.lua
+UnitFrames/SwingTimer.lua
+UnitFrames/ClassReagents.lua
+UnitFrames/PetHelper.lua
+UnitFrames/MirrorTimers.lua
+Core/Test.lua
+
+# Module (Reihenfolge wie bisher: spätere nutzen Teile der früheren)
+Minimap/Minimap.lua
+ActionBars/ActionBars.lua
+InfoBars/XPBar.lua
+InfoBars/TrackingBars.lua
+InfoBars/InfoBar.lua
+ActionBars/MicroMenu.lua
+ActionBars/KeyBind.lua
+ActionBars/SpellRanks.lua
+Minimap/AddonBar.lua
+Minimap/FlightTimeData.lua
+Minimap/FlightTimer.lua
+Bags/BagsData.lua
+Bags/Bags.lua
+Bags/Bank.lua
+Bags/GuildBank.lua
+Bags/AutoBuy.lua
+Bags/ToolGuard.lua
+Loot/FastLoot.lua
+Loot/LootWindow.lua
+Loot/LootRoll.lua
+Bags/Mail.lua
+Skins/Dialogs.lua
+NPC/NpcWindow.lua
+NPC/Merchant.lua
+NPC/Trainer.lua
+NPC/Gossip.lua
+NPC/Quest.lua
+NPC/ItemText.lua
+NPC/Mail.lua
+NPC/Trade.lua
+NPC/Professions.lua
+Talents/Builds.lua
+Talents/Talents.lua
+Talents/Legacy.lua
+Talents/Spellbook.lua
+Map/MapRevealData.lua
+Map/DungeonApproaches.lua
+Map/MapExtras.lua
+Map/WorldMap.lua
+Map/FlightMap.lua
+Social/Friends.lua
+Social/Guild.lua
+Social/GuildControl.lua
+Character/Character.lua
+Character/Stats.lua
+Character/Doll.lua
+Character/SetDialog.lua
+Character/Reputation.lua
+Character/Skills.lua
+Character/PvP.lua
+Character/Currency.lua
+Character/Statistics.lua
+Character/Inspect.lua
+AuctionHouse/AuctionHouse.lua
+AuctionHouse/AHSell.lua
+AuctionHouse/AHOwned.lua
+AuctionHouse/AHLedger.lua
+Upgrades/UpgradeData.lua
+Upgrades/Upgrades.lua
+Upgrades/ForeverWeights.lua
+Upgrades/ForeverPawn.lua
+Upgrades/ItemLevels.lua
+Tooltip/Tooltip.lua
+Auras/PlayerAuras.lua
+Quests/Tracker.lua
+Quests/QuestTracker.lua
+Quests/MythicPlus.lua
+NamePlates/NamePlates.lua
+Chat/Chat.lua
+Chat/ChatStyle.lua
+Chat/EmoteBar.lua
+Chat/ChatBubbles.lua
+Chat/LFGHighlight.lua
+Chat/Reputation.lua
+Chat/Glyphs.lua
+Chat/RPMode.lua
+Toasts/Toasts.lua
+Toasts/BNetToasts.lua
+Toasts/ShardTransfer.lua
+Toasts/CombatAlert.lua
+Toasts/Extras.lua
+Toasts/ProfessionReminder.lua
+BossMods/BossMods.lua
+DamageMeter/DamageMeter.lua
+CombatText/CombatText.lua
+AFK/AFK.lua
+Core/Profiles.lua
+Core/Layouts.lua
+Core/Presets.lua
+Core/Preview.lua
+
+# Einstellungsfenster
+Config/Widgets.lua
+Config/Options.lua
+Config/Setup.lua
+Config/GameMenu.lua
+Config/Settings.lua

@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""Talent-Builds (JSON von findyourmain-ops) -> Talents/Builds.lua fürs Addon.
+
+Quellen: tools/talent-builds.json (Maxroll-Planer) und optional tools/talent-builds-custom.json
+(eigene Empfehlungen). Aufruf: python3 tools/build_talent_builds.py
+"""
+import json
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+SOURCES = [ROOT / "tools" / "talent-builds.json", ROOT / "tools" / "talent-builds-custom.json"]
+TARGET = ROOT / "Talents" / "Builds.lua"
+
+
+def lua_str(text):
+    return '"' + str(text).replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ") + '"'
+
+
+def main():
+    classes = {}
+    for path in SOURCES:
+        if not path.exists():
+            continue
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for key, builds in data.items():
+            if key.startswith("_"):
+                continue
+            for build in builds:
+                build.setdefault("custom", path.name.endswith("custom.json"))
+                classes.setdefault(key, []).append(build)
+
+    out = [
+        "-- Automatisch erzeugt von tools/build_talent_builds.py – nicht von Hand ändern.",
+        "-- Leveling-Builds je Klasse: order = Spell-ID je Talentpunkt ab firstLevel (alle Ränge eines",
+        "-- Talents haben in Forever dieselbe ID). Das Talentfenster prüft jeden Build gegen den echten Baum.",
+        "local _, ns = ...",
+        "ns.TALENT_BUILDS = {",
+    ]
+    for key in sorted(classes):
+        out.append(f"    {key} = {{")
+        for build in classes[key]:
+            order = ", ".join(str(int(entry[0])) for entry in build["order"])
+            out.append("        {")
+            out.append(f"            name = {lua_str(build['name'])}, kind = \"leveling\",")
+            out.append(f"            source = {lua_str(build.get('source', ''))}, date = {lua_str(build.get('date', ''))},")
+            out.append(f"            custom = {'true' if build.get('custom') else 'false'}, firstLevel = {int(build.get('firstLevel', 10))},")
+            if build.get("recommended"):
+                out.append(f"            recommended = true, -- {build.get('recommendedWhy', '')}")
+            if build.get("note"):
+                out.append(f"            note = {lua_str(build['note'])},")
+            out.append(f"            order = {{ {order} }},")
+            out.append("        },")
+        out.append("    },")
+    out.append("}")
+    TARGET.write_text("\n".join(out) + "\n", encoding="utf-8")
+    print(f"{TARGET.relative_to(ROOT)}: {sum(len(v) for v in classes.values())} Builds")
+
+
+if __name__ == "__main__":
+    main()

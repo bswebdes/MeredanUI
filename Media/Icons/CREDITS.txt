@@ -1,0 +1,140 @@
+Status, role and interface icons, rasterized to 64x64 white TGA (tinted in game).
+
+Material Design Icons (Pictogrammers) – Apache License 2.0
+https://pictogrammers.com/library/mdi/ – https://github.com/Templarian/MaterialDesign
+  Combat.tga      mdi:sword-cross
+  Resting.tga     mdi:sleep
+  Dead.tga        mdi:skull
+  Settings.tga    mdi:cog
+  RolePoll.tga    mdi:account-question
+  Countdown.tga   mdi:timer-outline
+  Pet.tga         mdi:paw
+  RPMode.tga      mdi:drama-masks
+  LFG.tga         mdi:account-search
+  Ghost.tga       mdi:ghost
+  Quest.tga       mdi:exclamation-thick
+  PvP.tga         mdi:shield-sword
+  Resurrect.tga   mdi:heart-pulse
+  Phase.tga       mdi:eye-off
+  RoleTank.tga    mdi:shield
+  RoleHeal.tga    mdi:plus-thick
+  RoleDamage.tga  mdi:sword
+  ChevronDown.tga mdi:chevron-down
+  Close.tga       mdi:close-thick
+  Check.tga       mdi:check-bold
+  Reset.tga       mdi:restore
+  Mail.tga        mdi:email
+  Crafting.tga    mdi:hammer-wrench
+  Tracking.tga    mdi:radar
+  Addons.tga      mdi:puzzle
+  Landing.tga     mdi:compass
+  Bag.tga         mdi:bag-personal
+  Durability.tga  mdi:shield-half-full
+  Guild.tga       mdi:shield-account
+  Friends.tga     mdi:account-multiple
+  Gold.tga        mdi:circle-multiple
+  FPS.tga         mdi:speedometer
+  Clock.tga       mdi:clock-outline
+  MicroCharacter.tga   mdi:account
+  MicroProfession.tga  mdi:anvil
+  MicroSpells.tga      mdi:book-open-variant
+  MicroAchievement.tga mdi:trophy
+  MicroHousing.tga     mdi:home
+  MicroLFD.tga         mdi:account-search
+  MicroCollections.tga mdi:horse-variant
+  MicroJournal.tga     mdi:book-multiple
+  MicroStore.tga       mdi:cart
+  MicroMenu.tga        mdi:cog
+  MicroTalents.tga     mdi:sitemap
+  MicroLegacy.tga      mdi:medal
+  RollNeed.tga         mdi:dice-6
+  RollDisenchant.tga   mdi:auto-fix
+  RollTransmog.tga     mdi:hanger
+  EmoteWAVE.tga mdi:hand-wave
+  EmoteBOW.tga  mdi:account-arrow-down
+  EmoteDANCE.tga mdi:dance-ballroom
+  EmoteAPPLAUD.tga mdi:hand-clap
+  EmoteBEG.tga  mdi:hands-pray
+  EmoteCHICKEN.tga mdi:food-drumstick
+  EmoteCRY.tga  mdi:emoticon-cry
+  EmoteEAT.tga  mdi:silverware-fork-knife
+  EmoteFLEX.tga mdi:arm-flex
+  EmoteKISS.tga mdi:emoticon-kiss
+  EmoteLAUGH.tga mdi:emoticon-lol
+  EmotePOINT.tga mdi:hand-pointing-right
+  EmoteROAR.tga mdi:emoticon-angry
+  EmoteRUDE.tga mdi:emoticon-tongue
+  EmoteSALUTE.tga mdi:shield-star
+  EmoteSHY.tga  mdi:emoticon-wink
+  EmoteTALK.tga mdi:chat
+  EmoteSTAND.tga mdi:human-handsdown
+  EmoteSIT.tga  mdi:seat
+  EmoteSLEEP.tga mdi:sleep
+  EmoteKNEEL.tga mdi:chevron-double-down
+  EmoteLEAN.tga mdi:wall
+  EmoteTHANK.tga mdi:hand-heart
+  EmoteBYE.tga  mdi:hand-wave-outline
+  EmoteHELLO.tga mdi:human-greeting-variant
+  EmoteYES.tga  mdi:thumb-up
+  EmoteNO.tga   mdi:thumb-down
+  EmoteCHEER.tga mdi:party-popper
+  EmoteWELCOME.tga     mdi:door-open
+  EmoteCURTSEY.tga     mdi:human-female
+  EmoteSMILE.tga       mdi:emoticon-happy
+  EmoteSIGH.tga        mdi:weather-windy
+  EmoteANGRY.tga       mdi:emoticon-angry-outline
+  EmoteSAD.tga         mdi:emoticon-sad
+  EmoteBLUSH.tga       mdi:emoticon-excited-outline
+  EmoteGIGGLE.tga      mdi:emoticon-lol-outline
+  EmoteAGREE.tga       mdi:check-bold
+  EmoteSHRUG.tga       mdi:help-circle-outline
+  EmoteDRINK.tga       mdi:glass-mug-variant
+  EmoteWINK.tga        mdi:emoticon-wink-outline
+  EmoteQUESTION.tga    mdi:help
+  EmoteHUG.tga         mdi:account-heart
+  EmoteFLIRT.tga       mdi:heart-flash
+  EmoteCONGRATULATE.tga mdi:trophy-variant
+  EmoteSORRY.tga       mdi:emoticon-frown
+  EmotePRAY.tga        mdi:candle
+  EmoteBORED.tga       mdi:emoticon-neutral
+  EmoteCONFUSED.tga    mdi:emoticon-confused
+  EmoteVICTORY.tga     mdi:flag-checkered
+  EmoteTHREATEN.tga    mdi:sword
+  ReagentArrow.tga    mdi:arrow-projectile
+  ReagentBullet.tga   mdi:ammunition
+  ReagentShard.tga    mdi:cards-diamond
+  ReagentRune.tga     mdi:star-four-points-outline
+  ReagentPowder.tga   mdi:shaker-outline
+  ReagentCandle.tga   mdi:candle
+  ReagentBerries.tga  mdi:fruit-grapes
+  ReagentSymbol.tga   mdi:book-cross
+  ReagentAnkh.tga     mdi:cross-celtic
+  RankUp.tga          mdi:arrow-up-bold
+  Flight.tga          mdi:airplane
+  Copy.tga             mdi:content-copy
+  Sort.tga             mdi:sort-variant
+  Leader.tga           mdi:crown
+  Assistant.tga        mdi:crown-outline
+  Offline.tga          mdi:power-plug-off
+  ReadyPending.tga     mdi:help
+
+Material Symbols (Google) – Apache License 2.0
+https://fonts.google.com/icons – https://github.com/google/material-design-icons
+  Summon.tga      material-symbols:cyclone-rounded
+
+License text: https://www.apache.org/licenses/LICENSE-2.0
+  Filter.tga      eigener Trichter (Form wie mdi:filter)
+  Edit.tga        mdi:pencil
+  Save.tga        mdi:content-save
+  Star.tga        mdi:star
+  Map.tga         mdi:map
+
+Own shapes (MeredanUI)
+  Upgrade.tga     flat triangle up
+  Downgrade.tga   flat triangle down
+  Entrance.tga    ring with center dot
+  Diamond.tga     flat diamond
+  Hourglass.tga   flat hourglass
+
+Own icons (drawn for MeredanUI)
+  Plus.tga, Minus.tga, Square.tga

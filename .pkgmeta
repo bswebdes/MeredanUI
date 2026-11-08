@@ -1,0 +1,31 @@
+package-as: MeredanUI
+
+# Changelog für CurseForge/GitHub: englisch, von Hand gepflegt (nicht aus Git-Nachrichten)
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+
+externals:
+  libs/LibStub:
+    url: https://repos.wowace.com/wow/libstub/trunk
+    tag: latest
+  libs/CallbackHandler-1.0:
+    url: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
+    tag: latest
+  libs/LibSharedMedia-3.0:
+    url: https://repos.wowace.com/wow/libsharedmedia-3-0/trunk/LibSharedMedia-3.0
+    tag: latest
+  libs/LibActionButton-1.0:
+    url: https://github.com/Nevcairiel/LibActionButton-1.0.git
+    # Master statt Tag 0.62: erst dort Forever-Unterstützung (Stand 05.11.2026)
+    commit: bc1da7a581d21dad5d7da114263c6a513f448f32
+  libs/oUF:
+    url: https://github.com/oUF-wow/oUF.git
+    tag: 14.2.0
+
+ignore:
+  - README.md
+  - .luarc.json
+  - tests
+  - tools
+  - docs

@@ -1,0 +1,26 @@
+# Baut bei einem Tag (v1.2.3) ein Release-ZIP und lädt es hoch:
+# - GitHub Release: immer
+# - CurseForge: wenn "## X-Curse-Project-ID" in der TOC steht und das Secret CF_API_KEY gesetzt ist
+# - Wago: wenn "## X-Wago-ID" in der TOC steht und das Secret WAGO_API_TOKEN gesetzt ist
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: BigWigsMods/packager@v2

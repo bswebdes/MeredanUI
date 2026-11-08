@@ -1,0 +1,38 @@
+MeredanUI – Credits
+====================
+
+MeredanUI itself: (c) Benny Schey, All Rights Reserved.
+The third-party parts below keep their own licenses.
+
+Libraries (libs/)
+- oUF – MIT License – https://github.com/oUF-wow/oUF
+- LibActionButton-1.0 – BSD License – https://github.com/Nevcairiel/LibActionButton-1.0
+- LibSharedMedia-3.0 – LGPL v2.1 – https://www.wowace.com/projects/libsharedmedia-3-0
+- CallbackHandler-1.0 – BSD License – https://www.wowace.com/projects/callbackhandler
+- LibStub – Public Domain – https://www.wowace.com/projects/libstub
+
+Fonts (Media/)
+- mUI, mUI Text, mUI Bold (Media/Fonts) – based on Blue Highway by Raymond Larabie
+  (typodermicfonts.com), released under CC0 1.0 – license: Media/Fonts/LICENSE.txt
+- Cinzel Bold (Media/Cinzel-Bold.ttf) – Natanael Gama – SIL Open Font License 1.1
+  https://github.com/NDISCOVER/Cinzel – license: Media/Cinzel-OFL.txt
+
+Icons
+- Status, role and interface icons (Media/Icons) – Material Design Icons (Pictogrammers) and
+  Material Symbols (Google), Apache License 2.0. Details: Media/Icons/CREDITS.txt
+- Chat emoji (Media/Emoji) – Twemoji by Twitter, Inc. and other contributors,
+  CC-BY 4.0 – https://github.com/twitter/twemoji – https://creativecommons.org/licenses/by/4.0/
+  (rasterized to 64x64 TGA)
+
+Flight time estimates (Minimap/FlightTimeData.lua)
+- Classic flight times from InFlight Taxi Timer – MIT License –
+  Copyright (c) 2009-2024 TotalPackage, 2022 Deranjata, 2025-2026 LudiusMaximus –
+  https://github.com/LudiusMaximus/InFlight
+- Route lengths for new WoW Forever flight paths from Blizzard game data via wago.tools.
+- Dungeon approach points (Map/DungeonApproaches.lua) based on HandyNotes_DungeonLocations (Classic) –
+  https://github.com/callie-g/HandyNotes_DungeonLocations-classic
+
+Stat weights (Upgrades/)
+- WoW Forever: WoWSims presets (MIT) – https://github.com/wowsims – and Forever Codex simulations.
+- Retail: Bloodmallet (SimulationCraft) – https://bloodmallet.com; healer ratios from Pawn /
+  Ask Mr. Robot scales (numbers only).

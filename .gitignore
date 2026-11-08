@@ -1,0 +1,7 @@
+.release/
+.vscode/
+*.zip
+.DS_Store
+Thumbs.db
+libs/
+__pycache__/

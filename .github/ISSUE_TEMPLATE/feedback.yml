@@ -1,0 +1,10 @@
+name: Idea or feedback
+description: Suggest a feature or share feedback
+labels: [feedback]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea or feedback
+    validations:
+      required: true

@@ -1,0 +1,82 @@
+-- Sprechblasen im MUI-Look: flacher dunkler Kasten mit 1-px-Rahmen statt Blizzards verzierter
+-- Blase, flache Spitze (Dreieck in Kastenfarbe mit Rahmen, an Blizzards Spitzen-Position), Text in
+-- der MUI-Schrift.
+--   • Draußen: jede Blase über C_ChatBubbles.GetAllChatBubbles() (nur die erlaubten).
+--   • In Dungeons/Raids sperrt Blizzard die Blasen für Addons (abgeschirmt) – dort greift nur die
+--     Schrift, weil die über das gemeinsame Schrift-Objekt ChatBubbleFont läuft.
+local _, ns = ...
+
+local SCAN_INTERVAL = 0.15
+local TAIL = ns.MEDIA .. "BubbleTail" -- Dreieck, Spitze nach unten
+local TAIL_W, TAIL_H = 18, 11
+local skinned = setmetatable({}, { __mode = "k" })
+local NINE_SLICE = {
+    "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner",
+    "TopEdge", "BottomEdge", "LeftEdge", "RightEdge", "Center",
+}
+
+local function Enabled() return ns.db and ns.db.chatBubbles ~= false end
+
+local function ApplyFont()
+    if not ChatBubbleFont then return end
+    local _, size = ChatBubbleFont:GetFont()
+    ChatBubbleFont:SetFont(ns.FontFor("text"), size or 14, "")
+    ChatBubbleFont:SetShadowOffset(1, -1)
+    ChatBubbleFont:SetShadowColor(0, 0, 0, 0.8)
+end
+
+local function Skin(frame)
+    for _, key in ipairs(NINE_SLICE) do
+        local piece = frame[key]
+        if piece then piece:SetAlpha(0) end
+    end
+    if frame.Tail then frame.Tail:SetAlpha(0) end
+    local bg = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
+    bg:SetAllPoints()
+    local r, g, b = unpack(ns.STYLE.panelColor)
+    bg:SetColorTexture(r, g, b, 1) -- gleiche Deckkraft wie die Spitze (keine Naht)
+    ns.AddBorder(frame)
+    -- Spitze: schwarzes Dreieck (Rahmen) hinter einem etwas kleineren in Kastenfarbe; beide decken
+    -- die Unterkante des Rahmens ab, so gehen Kasten und Spitze ineinander über
+    local px = ns.PixelSize()
+    local outline = frame:CreateTexture(nil, "OVERLAY", nil, 1)
+    outline:SetTexture(TAIL)
+    outline:SetVertexColor(0, 0, 0, 1)
+    outline:SetSize(ns.Snap(TAIL_W) + 3 * px, ns.Snap(TAIL_H) + 2 * px)
+    local fill = frame:CreateTexture(nil, "OVERLAY", nil, 2)
+    fill:SetTexture(TAIL)
+    fill:SetVertexColor(r, g, b, 1)
+    fill:SetSize(ns.Snap(TAIL_W), ns.Snap(TAIL_H))
+    skinned[frame] = { outline = outline, fill = fill }
+end
+
+-- Spitze dorthin, wo Blizzard seine (unsichtbare) Spitze hat – die wandert je nach Blase
+local function PlaceTail(frame, tail)
+    local blizz = frame.Tail
+    local left, center = frame:GetLeft(), blizz and blizz:GetCenter()
+    local x = (left and center) and (center - left) or (frame:GetWidth() or 0) / 2
+    local px = ns.PixelSize()
+    tail.outline:ClearAllPoints()
+    tail.outline:SetPoint("TOP", frame, "BOTTOMLEFT", x, 2 * px)
+    tail.fill:ClearAllPoints()
+    tail.fill:SetPoint("TOP", frame, "BOTTOMLEFT", x, 2 * px)
+end
+
+local function Scan()
+    if not Enabled() then return end
+    for _, bubble in ipairs(C_ChatBubbles.GetAllChatBubbles(false) or {}) do
+        if not bubble:IsForbidden() then
+            local frame = bubble:GetChildren()
+            if frame and not frame:IsForbidden() then
+                if not skinned[frame] then Skin(frame) end
+                PlaceTail(frame, skinned[frame])
+            end
+        end
+    end
+end
+
+ns:On("PLAYER_LOGIN", function()
+    if not Enabled() or not C_ChatBubbles then return end
+    ApplyFont()
+    C_Timer.NewTicker(SCAN_INTERVAL, Scan)
+end)

@@ -1,0 +1,6 @@
+<Bindings>
+    <Binding name="MEREDANUI_RPMODE" header="MEREDANUI" category="ADDONS">
+        MeredanUI_ToggleRPMode()
+    </Binding>
+    <Binding name="CLICK MeredanUIQuestItem1:LeftButton" category="ADDONS"/>
+</Bindings>

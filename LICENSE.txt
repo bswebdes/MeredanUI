@@ -1,0 +1,12 @@
+MeredanUI
+Copyright (c) 2026 Benny Schey. All rights reserved.
+
+The contents of this addon, excluding third-party resources, are copyrighted to their author
+with all rights reserved. You may download and use MeredanUI for personal use in World of
+Warcraft. You may not redistribute, re-upload, modify and publish, or include MeredanUI or
+parts of it in other projects without written permission.
+
+The source code is public so that you can read it and report bugs:
+https://github.com/bswebdes/MeredanUI/issues
+
+Third-party libraries, fonts, icons and data keep their own licenses. See CREDITS.txt.

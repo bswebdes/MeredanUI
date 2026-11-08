@@ -1,0 +1,13 @@
+mUI, mUI Text, mUI Bold
+=======================
+
+Based on "Blue Highway" by Raymond Larabie (https://typodermicfonts.com), renamed and slightly
+adjusted (letter spacing) for MeredanUI.
+
+Original license, as embedded in the font files:
+
+  Released in 2024 under CC0 license. No rights reserved.
+  This font has been released under a no rights reserved Creative Commons Zero license.
+  To the extent possible under law, Raymond Larabie has waived all copyright and related or
+  neighboring rights to this font. This work is published from Japan.
+  https://creativecommons.org/publicdomain/zero/1.0/

@@ -1,0 +1,3291 @@
+{
+ "_meta": {
+  "generated": "2026-11-06",
+  "by": "findyourmain-ops",
+  "game": "WoW Forever, Client 1.60.1.70755 (Live)",
+  "orderSource": "Maxroll-Planer, Ansicht „Leveling Path“ (Lernreihenfolge je Stufe, alle Planer vom 03.–05.11.2026, also nach dem Klassen-Update vom 02.11.)",
+  "spellIds": "Wowhead-Forever-Talentdaten (nether.wowhead.com/forever/data/talents-classic, db=1793836334). In Forever haben alle Ränge eines Talents dieselbe Spell-ID; die ID ist also Rang 1 und alle weiteren Ränge.",
+  "format": "order = ein Eintrag pro Talentpunkt ab Stufe 10: [spellId, englischer Name]. Jeder Build ist geprüft: Ränge nie über Maximum, Punkte im Baum reichen für jede Reihe.",
+  "notChecked": "Method und Icy Veins nicht abgeglichen; Wowhead-Talentrechner nur als ID-Quelle genutzt."
+ },
+ "WARRIOR": [
+  {
+   "name": "Waffen (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/warrior-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/pg3wme0u",
+   "sourceProfile": "Arms",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Waffen": 31,
+    "Furor": 20,
+    "Schutz": 0
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12296,
+     "Anger Management"
+    ],
+    [
+     12285,
+     "Improved Charge"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     12292,
+     "Sweeping Strikes"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1289682,
+     "Bloodthrill"
+    ],
+    [
+     1289682,
+     "Bloodthrill"
+    ],
+    [
+     12862,
+     "Improved Slam"
+    ],
+    [
+     12862,
+     "Improved Slam"
+    ],
+    [
+     12294,
+     "Mortal Strike"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     1329555,
+     "Reckless Swings"
+    ],
+    [
+     12321,
+     "Booming Voice"
+    ],
+    [
+     12321,
+     "Booming Voice"
+    ]
+   ],
+   "recommended": true,
+   "recommendedWhy": "Maxroll: Zweihand-Build, Furor erst ab 36 stark"
+  },
+  {
+   "name": "Furor (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/warrior-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/pg3wme0u",
+   "sourceProfile": "Fury",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Waffen": 19,
+    "Furor": 32,
+    "Schutz": 0
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     16487,
+     "Blood Craze"
+    ],
+    [
+     16487,
+     "Blood Craze"
+    ],
+    [
+     16487,
+     "Blood Craze"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     1323967,
+     "Gore Drinker"
+    ],
+    [
+     1323967,
+     "Gore Drinker"
+    ],
+    [
+     12328,
+     "Death Wish"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     1310315,
+     "Improved Whirlwind"
+    ],
+    [
+     1310315,
+     "Improved Whirlwind"
+    ],
+    [
+     23881,
+     "Bloodthirst"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12296,
+     "Anger Management"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ]
+   ]
+  }
+ ],
+ "PALADIN": [
+  {
+   "name": "Vergeltung (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/paladin-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/li3ym80u",
+   "sourceProfile": "Retribution",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Heilig": 12,
+    "Schutz": 8,
+    "Vergeltung": 31
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     20375,
+     "Seal of Command"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     1311087,
+     "Sacred Arbiter"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20066,
+     "Repentance"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1310735,
+     "Unsealed Wrath"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ]
+   ],
+   "recommended": true,
+   "recommendedWhy": "Maxroll: stark beim Solo-Questen, Schutz questet langsamer"
+  },
+  {
+   "name": "Schutz (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/paladin-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/li3ym80u",
+   "sourceProfile": "Protection",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Heilig": 7,
+    "Schutz": 31,
+    "Vergeltung": 13
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     1224697,
+     "Sacred Duty"
+    ],
+    [
+     1224697,
+     "Sacred Duty"
+    ],
+    [
+     20174,
+     "Guardian's Favor"
+    ],
+    [
+     20174,
+     "Guardian's Favor"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20150,
+     "Shield Specialization"
+    ],
+    [
+     20150,
+     "Shield Specialization"
+    ],
+    [
+     1311015,
+     "Templar's Bulwark"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     1310994,
+     "Swift Judgement"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20925,
+     "Holy Shield"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     1328544,
+     "Shieldsworn"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     20101,
+     "Benediction"
+    ]
+   ]
+  }
+ ],
+ "HUNTER": [
+  {
+   "name": "Tierherrschaft (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/hunter-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/w25j8w0u",
+   "sourceProfile": "Beast Mastery (Reccomended)",
+   "date": "2026-11-05",
+   "derivedOrder": true,
+   "points": {
+    "Tierherrschaft": 33,
+    "Treffsicherheit": 18,
+    "Überleben": 0
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     19583,
+     "Endurance Training"
+    ],
+    [
+     19596,
+     "Bestial Swiftness"
+    ],
+    [
+     19559,
+     "Pathfinding"
+    ],
+    [
+     19559,
+     "Pathfinding"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     1293241,
+     "Summon Hawk"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19577,
+     "Intimidation"
+    ],
+    [
+     19590,
+     "Bestial Discipline"
+    ],
+    [
+     19590,
+     "Bestial Discipline"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19574,
+     "Bestial Wrath"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     1299346,
+     "Trueshot Aura"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ]
+   ],
+   "derivedEntries": [
+    51
+   ],
+   "note": "Maxroll plant nur 50 Punkte (bis Stufe 59). Punkt 51 (Stufe 60) ist abgeleitet: nächster Rang von Lethal Attacks, das als Letztes gelernt wurde.",
+   "recommended": true,
+   "recommendedWhy": "Maxroll: „the clear winner“ fürs Leveln"
+  }
+ ],
+ "ROGUE": [
+  {
+   "name": "Kampf (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/rogue-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/gh3nik0u",
+   "sourceProfile": "Combat",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Meucheln": 16,
+    "Kampf": 35,
+    "Täuschung": 0
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     14251,
+     "Riposte"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1310711,
+     "Flawless Execution"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     13877,
+     "Blade Flurry"
+    ],
+    [
+     13715,
+     "Dual Wield Specialization"
+    ],
+    [
+     13715,
+     "Dual Wield Specialization"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     13750,
+     "Adrenaline Rush"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14983,
+     "Vigor"
+    ],
+    [
+     14983,
+     "Vigor"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14177,
+     "Cold Blood"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ]
+   ],
+   "recommended": true,
+   "recommendedWhy": "Kampf levelt am schnellsten (Klingenwirbel, Adrenalinrausch)"
+  }
+ ],
+ "PRIEST": [
+  {
+   "name": "Schatten (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/priest-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/ma3wmd0u",
+   "sourceProfile": "Level 40+ Shadow",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Disziplin": 17,
+    "Heilig": 0,
+    "Schatten": 34
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     15407,
+     "Mind Flay"
+    ],
+    [
+     1225139,
+     "Improved Mind Flay"
+    ],
+    [
+     1225139,
+     "Improved Mind Flay"
+    ],
+    [
+     17322,
+     "Shadow Reach"
+    ],
+    [
+     17322,
+     "Shadow Reach"
+    ],
+    [
+     15286,
+     "Vampiric Embrace"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1309950,
+     "Devouring Contagion"
+    ],
+    [
+     1309950,
+     "Devouring Contagion"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     15487,
+     "Silence"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15473,
+     "Shadowform"
+    ],
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14751,
+     "Inner Focus"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ]
+   ],
+   "note": "Maxroll empfiehlt bis Stufe 39 den Disziplin-Build (Alternative 2) und ab Stufe 40 Umskillen auf diesen Schatten-Build. Die Reihenfolge hier deckt 10–60 ab.",
+   "recommended": true,
+   "recommendedWhy": "Maxroll: Solo „highly recommended“ als Schatten"
+  },
+  {
+   "name": "Disziplin (Stufe 10–39)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/priest-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/ma3wmd0u",
+   "sourceProfile": "Level 1-39",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Disziplin": 23,
+    "Heilig": 0,
+    "Schatten": 7
+   },
+   "firstLevel": 10,
+   "lastLevel": 39,
+   "order": [
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1309957,
+     "Holy Precision"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14751,
+     "Inner Focus"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     402174,
+     "Penance"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     402000,
+     "Soul Warding"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ]
+   ],
+   "note": "Nur 30 Punkte (Stufe 10–39). Ab Stufe 40 rät Maxroll zum Umskillen auf Schatten."
+  }
+ ],
+ "SHAMAN": [
+  {
+   "name": "Verstärkung (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/shaman-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/3f3wmh0u",
+   "sourceProfile": "Enhancement",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Elementar": 18,
+    "Verstärkung": 25,
+    "Wiederherstellung": 8
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     16261,
+     "Improved Lightning Shield"
+    ],
+    [
+     16261,
+     "Improved Lightning Shield"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     1223030,
+     "Shamanistic Focus"
+    ],
+    [
+     16254,
+     "Anticipation"
+    ],
+    [
+     17364,
+     "Stormstrike"
+    ],
+    [
+     16262,
+     "Improved Ghost Wolf"
+    ],
+    [
+     16262,
+     "Improved Ghost Wolf"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     1223031,
+     "Improved Stormstrike"
+    ],
+    [
+     1223031,
+     "Improved Stormstrike"
+    ],
+    [
+     30812,
+     "Mental Quickness"
+    ],
+    [
+     30812,
+     "Mental Quickness"
+    ],
+    [
+     16268,
+     "Spirit Weapons"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16164,
+     "Elemental Focus"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     1222988,
+     "Earthbound"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ]
+   ],
+   "recommended": true,
+   "recommendedWhy": "Maxroll: „You should level as Enhancement“"
+  },
+  {
+   "name": "Elementar (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/shaman-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/3f3wmh0u",
+   "sourceProfile": "Elemental",
+   "date": "2026-11-04",
+   "derivedOrder": false,
+   "points": {
+    "Elementar": 33,
+    "Verstärkung": 7,
+    "Wiederherstellung": 11
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     408510,
+     "Water Shield"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16164,
+     "Elemental Focus"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     1222988,
+     "Earthbound"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16120,
+     "Call of Thunder"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16166,
+     "Lightning Mastery"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ]
+   ]
+  }
+ ],
+ "MAGE": [
+  {
+   "name": "Frost (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/mage-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/oo3nid0u",
+   "sourceProfile": "Frost",
+   "date": "2026-11-04",
+   "derivedOrder": true,
+   "points": {
+    "Arkan": 18,
+    "Feuer": 0,
+    "Frost": 33
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     11071,
+     "Frostbite"
+    ],
+    [
+     11071,
+     "Frostbite"
+    ],
+    [
+     11071,
+     "Frostbite"
+    ],
+    [
+     1312002,
+     "Ice Lance"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11958,
+     "Ice Block"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     12472,
+     "Cold Snap"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11175,
+     "Permafrost"
+    ],
+    [
+     11175,
+     "Permafrost"
+    ],
+    [
+     11175,
+     "Permafrost"
+    ],
+    [
+     11426,
+     "Ice Barrier"
+    ],
+    [
+     16757,
+     "Arctic Reach"
+    ],
+    [
+     16757,
+     "Arctic Reach"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     400574,
+     "Arcane Blast"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ]
+   ],
+   "derivedEntries": [
+    48
+   ],
+   "note": "ACHTUNG: Maxrolls Magier-Planer passt nicht ganz zum aktuellen Wowhead-Baum. Abgeleitet: Arcane Blast (bei Maxroll Punkt 51) auf Punkt 48 vorgezogen, sonst hätte Arcane Meditation erst 14 statt 15 Punkte im Arkanbaum. Feuer und Arkan von Maxroll verletzen die Wowhead-Voraussetzungen deutlich (z. B. Critical Mass Rang 5/3) und fehlen deshalb. Im Spiel mit GetTalentInfo gegenprüfen.",
+   "recommended": true,
+   "recommendedWhy": "Maxroll: mehrere Gegner, starke Verteidigung"
+  }
+ ],
+ "WARLOCK": [
+  {
+   "name": "Gebrechen (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/warlock-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/7d2tcs0u",
+   "sourceProfile": "Drain Life Affliction",
+   "date": "2026-11-03",
+   "derivedOrder": false,
+   "points": {
+    "Gebrechen": 39,
+    "Dämonologie": 12,
+    "Zerstörung": 0
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     403511,
+     "Improved Drains"
+    ],
+    [
+     403511,
+     "Improved Drains"
+    ],
+    [
+     403511,
+     "Improved Drains"
+    ],
+    [
+     17783,
+     "Fel Concentration"
+    ],
+    [
+     17783,
+     "Fel Concentration"
+    ],
+    [
+     17783,
+     "Fel Concentration"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     17804,
+     "Soul Siphon"
+    ],
+    [
+     17804,
+     "Soul Siphon"
+    ],
+    [
+     17804,
+     "Soul Siphon"
+    ],
+    [
+     18265,
+     "Siphon Life"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     18827,
+     "Improved Bane of Agony"
+    ],
+    [
+     18827,
+     "Improved Bane of Agony"
+    ],
+    [
+     18094,
+     "Nightfall"
+    ],
+    [
+     18094,
+     "Nightfall"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18709,
+     "Master Summoner"
+    ],
+    [
+     18709,
+     "Master Summoner"
+    ]
+   ],
+   "note": "Maxroll: „Drain Life Affliction“.",
+   "recommended": true,
+   "recommendedWhy": "Maxroll: sehr selbstständig durch Blutsauger und Aderlass"
+  },
+  {
+   "name": "Zerstörung (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/warlock-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/7d2tcs0u",
+   "sourceProfile": "Deep Destruction",
+   "date": "2026-11-03",
+   "derivedOrder": false,
+   "points": {
+    "Gebrechen": 10,
+    "Dämonologie": 7,
+    "Zerstörung": 34
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     17877,
+     "Shadowburn"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     1293817,
+     "Conflagrate"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     403511,
+     "Improved Drains"
+    ],
+    [
+     403511,
+     "Improved Drains"
+    ],
+    [
+     403511,
+     "Improved Drains"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     1225228,
+     "Bane of Havoc"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     412758,
+     "Incinerate"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     1225220,
+     "Molten Skin"
+    ]
+   ],
+   "note": "Maxroll: „Deep Destruction“."
+  }
+ ],
+ "DRUID": [
+  {
+   "name": "Gleichgewicht (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/druid-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/my3nsd0u",
+   "sourceProfile": "Balance",
+   "date": "2026-11-03",
+   "derivedOrder": false,
+   "points": {
+    "Gleichgewicht": 38,
+    "Wilder Kampf": 0,
+    "Wiederherstellung": 13
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     16814,
+     "Improved Wrath"
+    ],
+    [
+     16814,
+     "Improved Wrath"
+    ],
+    [
+     16814,
+     "Improved Wrath"
+    ],
+    [
+     16814,
+     "Improved Wrath"
+    ],
+    [
+     16814,
+     "Improved Wrath"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16821,
+     "Improved Moonfire"
+    ],
+    [
+     1223083,
+     "Nature's Splendor"
+    ],
+    [
+     16821,
+     "Improved Moonfire"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     5570,
+     "Insect Swarm"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16880,
+     "Nature's Grace"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16896,
+     "Moonfury"
+    ],
+    [
+     16896,
+     "Moonfury"
+    ],
+    [
+     16896,
+     "Moonfury"
+    ],
+    [
+     16896,
+     "Moonfury"
+    ],
+    [
+     16896,
+     "Moonfury"
+    ],
+    [
+     24858,
+     "Moonkin Form"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16850,
+     "Improved Starfire"
+    ],
+    [
+     16850,
+     "Improved Starfire"
+    ]
+   ],
+   "note": "Maxroll listet Gleichgewicht zuerst, ohne ausdrückliche Rangfolge."
+  },
+  {
+   "name": "Wilder Kampf (Leveln)",
+   "source": "https://maxroll.gg/wow-forever/class-guides/druid-leveling-guide",
+   "planner": "https://maxroll.gg/wow-forever/planner/my3nsd0u",
+   "sourceProfile": "Feral Combat",
+   "date": "2026-11-03",
+   "derivedOrder": false,
+   "points": {
+    "Gleichgewicht": 7,
+    "Wilder Kampf": 34,
+    "Wiederherstellung": 10
+   },
+   "firstLevel": 10,
+   "lastLevel": 60,
+   "order": [
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     1238122,
+     "Feral Charge"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     1328613,
+     "Predatory Discipline"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     17007,
+     "Leader of the Pack"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1322605,
+     "Shifting Power"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ]
+   ],
+   "recommended": true,
+   "recommendedWhy": "Katze für Schaden, Bär zum Tanken; Gleichgewicht ist anfangs langsam"
+  }
+ ]
+}

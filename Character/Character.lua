@@ -1,0 +1,577 @@
+-- Charakterfenster (WoW Forever) als eigenes mUI-Fenster statt Blizzards CharacterFrame – gleiche
+-- Fenster-Familie wie Gilde und Freunde (Kopfzeile mit Porträt, Reiter rechts außen). Entwurf
+-- „Charakter“ im Design-Artefakt (Benny 2026-11-07: „sieht stark aus … let's go“).
+--
+--   [Porträt] Koratal                                        [x]   [Reiter]
+--             Stufe 14 · Jäger · <Gilde>                           Charakter
+--   … Inhalt des Reiters …                                         Ruf, Fertigkeiten, PvP,
+--                                                                  Abzeichen, Statistiken
+-- Dieser Kern: Fenster, Reiter, Öffnen/Umleiten und die gemeinsamen Bausteine (Liste mit Gruppen,
+-- Detail-Fläche, Haken). Jeder Reiter steht in einer eigenen Datei und meldet sich mit
+-- ns.Char.AddTab an. Daten und Aktionen kommen von Blizzard, nur Aufbau und Optik sind unsere.
+local _, ns = ...
+local L = ns.L
+
+local WIDTH = 820
+local PAD = ns.NPC_PAD
+local TOP = ns.NPC_HEADER_BOTTOM + 16
+local TAB_SIZE, TAB_STEP = 40, 46
+local LIST_W = 440
+local ROW_H, HEAD_H = 28, 26
+
+local Char = { tabs = {}, views = {} }
+ns.Char = Char
+Char.WIDTH, Char.PAD, Char.TOP, Char.LIST_W = WIDTH, PAD, TOP, LIST_W
+
+local window
+local tabButtons = {}
+local current
+
+local function Enabled()
+    return ns.IS_FOREVER and ns.db and ns.db.characterWindow ~= false
+end
+
+-- Blizzard-Text oder unsere Übersetzung
+function Char.G(name, fallback)
+    local value = _G[name]
+    if type(value) == "string" and value ~= "" then return value end
+    return L[fallback or name]
+end
+
+-- Reiter anmelden: { key, order, icon (Textur oder function(texture)), tip, Create(view),
+-- Refresh(view), events = { … } } – Events laufen nur, solange der Reiter offen ist
+function Char.AddTab(def)
+    Char.tabs[#Char.tabs + 1] = def
+    table.sort(Char.tabs, function(a, b) return a.order < b.order end)
+end
+
+local function TabByKey(key)
+    for _, def in ipairs(Char.tabs) do
+        if def.key == key then return def end
+    end
+end
+
+-- Gemeinsame Bausteine ----------------------------------------------------------------------------
+
+local UI -- = ns.UI (erst nach dem Laden von Config/Widgets.lua da)
+
+-- Haken mit kurzem Text (Detail-Flächen: Im Krieg, Inaktiv …)
+function Char.Check(parent, label, onClick)
+    local button = CreateFrame("Button", nil, parent)
+    button:SetSize(220, 20)
+    local box = CreateFrame("Frame", nil, button)
+    box:SetSize(14, 14)
+    box:SetPoint("LEFT")
+    UI.CheckBg(box)
+    local mark = box:CreateTexture(nil, "OVERLAY")
+    mark:SetTexture(ns.MEDIA .. "Icons\\Check")
+    mark:SetSize(12, 12)
+    mark:SetPoint("CENTER")
+    mark:SetVertexColor(unpack(UI.ACCENT))
+    button.text = UI.Text(button, 12, "LEFT")
+    button.text:SetPoint("LEFT", box, "RIGHT", 8, 0)
+    button.text:SetText(label)
+    function button:SetChecked(on) mark:SetShown(on and true or false) end
+    hooksecurefunc(button, "SetEnabled", function(self, on)
+        self.text:SetTextColor(unpack(on and UI.TEXT or UI.MUTED))
+        box:SetAlpha(on and 1 or 0.4)
+    end)
+    button:SetScript("OnClick", onClick)
+    return button
+end
+
+-- Balken mit Text in der Mitte (Ruf, Fertigkeiten, EP)
+function Char.Bar(parent, height)
+    local bar = CreateFrame("StatusBar", nil, parent)
+    bar:SetHeight(height or 18)
+    bar:SetStatusBarTexture(ns.STYLE.barTexture)
+    local bg = bar:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(0, 0, 0, 0.45)
+    local edge = CreateFrame("Frame", nil, bar)
+    edge:SetAllPoints()
+    edge:SetFrameLevel(bar:GetFrameLevel() + 2)
+    ns.AddBorder(edge, true)
+    bar.text = ns.CreateText(edge, 11, "CENTER", "OUTLINE")
+    bar.text:SetPoint("CENTER")
+    function bar:Set(value, max, color, text)
+        self:SetMinMaxValues(0, math.max(max or 1, 1))
+        self:SetValue(value or 0)
+        self:SetStatusBarColor(color[1], color[2], color[3])
+        self.text:SetText(text or "")
+    end
+    return bar
+end
+
+-- Liste mit Gruppen (auf-/zuklappbar) und Zeilen; scrollt. SetData(entries):
+--   { header = true, text, collapsed, onClick }
+--   { text, color, indent, selected, bar = { value, max, color, text }, right, rightColor,
+--     icon, onClick(entry, button), onEnter(row, entry), height }
+function Char.List(parent)
+    local list = UI.ScrollArea(parent)
+    local rows = {}
+
+    local function Row(i)
+        if rows[i] then return rows[i] end
+        local row = CreateFrame("Button", nil, list.child)
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        row.bg = row:CreateTexture(nil, "BACKGROUND")
+        row.bg:SetAllPoints()
+        row.line = row:CreateTexture(nil, "BORDER")
+        row.line:SetPoint("BOTTOMLEFT")
+        row.line:SetPoint("BOTTOMRIGHT")
+        row.line:SetHeight(ns.PixelSize())
+        row.line:SetColorTexture(0, 0, 0, 1)
+        row.sign = UI.Text(row, 13, "LEFT", UI.ACCENT)
+        row.sign:SetPoint("LEFT", 8, 0)
+        row.icon = row:CreateTexture(nil, "ARTWORK")
+        row.icon:SetSize(20, 20)
+        row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+        row.text = UI.Text(row, 13, "LEFT")
+        row.right = UI.Text(row, 12, "RIGHT", UI.MUTED)
+        row.right:SetPoint("RIGHT", -8, 0)
+        row.bar = Char.Bar(row, 18)
+        row.bar:SetWidth(180)
+        row.bar:SetPoint("RIGHT", -8, 0)
+        row.hover = row:CreateTexture(nil, "HIGHLIGHT")
+        row.hover:SetAllPoints()
+        row.hover:SetColorTexture(1, 1, 1, 0.04)
+        row:SetScript("OnClick", function(self, button)
+            if self.entry and self.entry.onClick then self.entry.onClick(self.entry, button) end
+        end)
+        row:SetScript("OnEnter", function(self)
+            if self.entry and self.entry.onEnter then self.entry.onEnter(self, self.entry) end
+        end)
+        row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        rows[i] = row
+        return row
+    end
+
+    function list:SetData(entries)
+        local y = 0
+        for i, entry in ipairs(entries) do
+            local row = Row(i)
+            row.entry = entry
+            local header = entry.header
+            local height = entry.height or (header and HEAD_H or ROW_H)
+            local gap = header and i > 1 and 6 or 0
+            row:ClearAllPoints()
+            row:SetPoint("TOPLEFT", 0, -(y + gap))
+            row:SetPoint("RIGHT", list.child, "RIGHT")
+            row:SetHeight(height)
+            row.bg:SetColorTexture(unpack(header and { 0.1, 0.1, 0.11, 1 } or entry.selected and { 0.14, 0.14, 0.15, 1 } or { 0, 0, 0, 0 }))
+            row.line:SetShown(header)
+            row.sign:SetShown(header)
+            row.sign:SetText(entry.collapsed and "+" or "−")
+            local left = header and 24 or 8 + (entry.indent or 0)
+            row.icon:SetShown(entry.icon ~= nil)
+            if entry.icon then
+                row.icon:SetTexture(entry.icon)
+                row.icon:ClearAllPoints()
+                row.icon:SetPoint("LEFT", left, 0)
+                left = left + 26
+            end
+            row.text:ClearAllPoints()
+            row.text:SetPoint("LEFT", left, 0)
+            row.text:SetText(entry.text or "")
+            ns.SetFont(row.text, header and 13 or 13, "", header and "bold" or nil)
+            row.text:SetTextColor(unpack(header and UI.ACCENT or entry.color or UI.TEXT))
+            local bar = entry.bar
+            row.bar:SetShown(bar ~= nil)
+            if bar then row.bar:Set(bar.value, bar.max, bar.color, bar.text) end
+            row.right:SetText(entry.right or "")
+            row.right:SetTextColor(unpack(entry.rightColor or UI.MUTED))
+            row.right:ClearAllPoints()
+            row.right:SetPoint("RIGHT", bar and row.bar or row, bar and "LEFT" or "RIGHT", -8, 0)
+            row.text:SetPoint("RIGHT", (entry.right and entry.right ~= "") and row.right or (bar and row.bar or row),
+                (entry.right and entry.right ~= "" or bar) and "LEFT" or "RIGHT", -8, 0)
+            row:Show()
+            y = y + gap + height + 2
+        end
+        for i = #entries + 1, #rows do rows[i]:Hide() end
+        list:SetContentHeight(y)
+    end
+    return list
+end
+
+-- Detail-Fläche rechts (Ruf, Fertigkeiten, Abzeichen): Titel, Untertitel, Balken, Text, Tabelle,
+-- Haken unten. Fill(data) / Empty(text)
+--   data = { title, sub, subColor, bar = { value, max, color, text }, text,
+--            grid = { { a, b, c, color, bColor, cColor, header } }, checks = { { label, checked, enabled, onClick } } }
+function Char.Detail(parent)
+    local pane = CreateFrame("Frame", nil, parent)
+    UI.Box(pane, { 0.07, 0.07, 0.08, 1 })
+    local inner = 16
+    pane.empty = UI.Text(pane, 13, "CENTER", { 0.47, 0.46, 0.43 })
+    pane.empty:SetPoint("LEFT", inner, 0)
+    pane.empty:SetPoint("RIGHT", -inner, 0)
+    pane.empty:SetWordWrap(true)
+    pane.title = UI.Text(pane, 16, "LEFT")
+    ns.SetFont(pane.title, 16, "", "bold")
+    pane.title:SetPoint("TOPLEFT", inner, -inner)
+    pane.title:SetPoint("RIGHT", -inner, 0)
+    pane.title:SetWordWrap(true)
+    pane.sub = UI.Text(pane, 12, "LEFT", UI.MUTED)
+    pane.sub:SetPoint("TOPLEFT", pane.title, "BOTTOMLEFT", 0, -4)
+    pane.bar = Char.Bar(pane, 18)
+    pane.bar:SetPoint("TOPLEFT", pane.sub, "BOTTOMLEFT", 0, -10)
+    pane.bar:SetPoint("RIGHT", -inner, 0)
+    pane.text = UI.Text(pane, 13, "LEFT", { 0.79, 0.78, 0.75 })
+    ns.SetFont(pane.text, 13, "", "text")
+    pane.text:SetWordWrap(true)
+    pane.text:SetJustifyV("TOP")
+    pane.text:SetSpacing(3)
+    pane.text:SetPoint("RIGHT", -inner, 0)
+    pane.gridRows, pane.checks = {}, {}
+
+    local function Hide(...) for _, region in ipairs({ ... }) do region:Hide() end end
+
+    function pane:Empty(text)
+        Hide(self.title, self.sub, self.bar, self.text)
+        for _, r in ipairs(self.gridRows) do r:Hide() end
+        for _, c in ipairs(self.checks) do c:Hide() end
+        self.empty:SetText(text or "")
+        self.empty:Show()
+    end
+
+    function pane:Fill(data)
+        self.empty:Hide()
+        self.title:SetText(data.title or "")
+        self.title:Show()
+        self.sub:SetText(data.sub or "")
+        self.sub:SetTextColor(unpack(data.subColor or UI.MUTED))
+        self.sub:SetShown(data.sub ~= nil and data.sub ~= "")
+        local anchor = self.sub:IsShown() and self.sub or self.title
+        self.bar:ClearAllPoints()
+        self.bar:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -10)
+        self.bar:SetPoint("RIGHT", -inner, 0)
+        self.bar:SetShown(data.bar ~= nil)
+        if data.bar then
+            self.bar:Set(data.bar.value, data.bar.max, data.bar.color, data.bar.text)
+            anchor = self.bar
+        end
+        self.text:ClearAllPoints()
+        self.text:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
+        self.text:SetPoint("RIGHT", -inner, 0)
+        self.text:SetText(data.text or "")
+        self.text:SetShown(data.text ~= nil and data.text ~= "")
+        if self.text:IsShown() then anchor = self.text end
+        -- Tabelle (z. B. Waffenfertigkeit: gleiche Stufe / Boss)
+        for i, line in ipairs(data.grid or {}) do
+            local r = self.gridRows[i]
+            if not r then
+                r = CreateFrame("Frame", nil, self)
+                r:SetHeight(20)
+                r.a = UI.Text(r, 12, "LEFT")
+                r.a:SetPoint("LEFT")
+                r.c = UI.Text(r, 12, "RIGHT")
+                r.c:SetPoint("RIGHT")
+                r.c:SetWidth(80)
+                r.b = UI.Text(r, 12, "RIGHT")
+                r.b:SetPoint("RIGHT", r.c, "LEFT", -6, 0)
+                r.b:SetWidth(90)
+                r.rule = r:CreateTexture(nil, "BORDER") -- Linie unter der Kopfzeile (Salbei)
+                r.rule:SetPoint("BOTTOMLEFT", 0, -3)
+                r.rule:SetPoint("BOTTOMRIGHT", 0, -3)
+                r.rule:SetHeight(ns.PixelSize())
+                r.rule:SetColorTexture(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.6)
+                self.gridRows[i] = r
+            end
+            r:ClearAllPoints()
+            -- Abstand: neuer Abschnitt (Kopfzeile) mit Luft, unter einer Kopfzeile etwas, sonst eng
+            local gap = i == 1 and -12 or line.header and -16 or data.grid[i - 1].header and -8 or -2
+            r:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, gap)
+            r:SetPoint("RIGHT", -inner, 0)
+            -- Kopfzeile in Salbei mit Linie; Werte je Zelle eigene Farbe (bColor/cColor)
+            for _, key in ipairs({ "a", "b", "c" }) do
+                r[key]:SetText(line[key] or "")
+                r[key]:SetTextColor(unpack(line.header and UI.ACCENT or line[key .. "Color"] or line.color or UI.TEXT))
+            end
+            r.rule:SetShown(line.header == true)
+            r:Show()
+            anchor = r
+        end
+        for i = #(data.grid or {}) + 1, #self.gridRows do self.gridRows[i]:Hide() end
+        self.lastAnchor = anchor -- für Zusätze darunter (z. B. Belohnungskarte)
+        -- Haken unten, von unten nach oben
+        local checks = data.checks or {}
+        for i, def in ipairs(checks) do
+            local check = self.checks[i]
+            if not check then
+                check = Char.Check(self, "", function(button) if button.def and button.def.onClick then button.def.onClick() end end)
+                self.checks[i] = check
+            end
+            check.def = def
+            check.text:SetText(def.label)
+            check:SetChecked(def.checked)
+            check:SetEnabled(def.enabled ~= false)
+            check:ClearAllPoints()
+            check:SetPoint("BOTTOMLEFT", inner, inner + (#checks - i) * 24)
+            check:Show()
+        end
+        for i = #checks + 1, #self.checks do self.checks[i]:Hide() end
+    end
+    return pane
+end
+
+-- Rassen-Hintergrund hinter einem Modell wie bei Blizzard (SetPaperDollBackground): vier Teile der
+-- DressUp-Grafik, entsättigt, darüber ein Schleier je Rasse. :SetUnit(unit) (Charakter, Betrachten)
+local OVERLAY_ALPHA = { HUMAN = 1, DWARF = 0.93, NIGHTELF = 0.5, TROLL = 0.85, ORC = 0.75, SCOURGE = 0.2 }
+function Char.RaceBackdrop(stage)
+    local backdrop = CreateFrame("Frame", nil, stage)
+    backdrop:SetPoint("TOPLEFT", 1, -1)
+    backdrop:SetPoint("BOTTOMRIGHT", -1, 1)
+    local function Tile(left, right, top, bottom)
+        local tex = backdrop:CreateTexture(nil, "BACKGROUND")
+        tex:SetTexCoord(left, right, top, bottom)
+        tex:SetDesaturated(true)
+        return tex
+    end
+    local tiles = { Tile(0.171875, 1, 0.0392, 1), Tile(0, 0.296875, 0.0392, 1), Tile(0.171875, 1, 0, 0.62), Tile(0, 0.296875, 0, 0.62) }
+    tiles[1]:SetPoint("TOPLEFT")
+    tiles[1]:SetPoint("BOTTOMRIGHT", -79, 129)
+    tiles[2]:SetPoint("TOPRIGHT")
+    tiles[2]:SetPoint("BOTTOMRIGHT", 0, 129)
+    tiles[2]:SetWidth(80)
+    tiles[3]:SetPoint("BOTTOMLEFT")
+    tiles[3]:SetPoint("BOTTOMRIGHT", -79, 0)
+    tiles[3]:SetHeight(130)
+    tiles[4]:SetPoint("BOTTOMRIGHT")
+    tiles[4]:SetSize(80, 130)
+    local overlay = backdrop:CreateTexture(nil, "BORDER")
+    overlay:SetAtlas("UI-Character-Info-RaceBG-Overlay")
+    overlay:SetAllPoints()
+    function backdrop:SetUnit(unit)
+        local _, raceFile = UnitRace(unit)
+        local path = "Interface\\DressUpFrame\\DressUpBackground-" .. (raceFile or "Orc")
+        for i, tex in ipairs(tiles) do tex:SetTexture(path .. i) end
+        overlay:SetAlpha(OVERLAY_ALPHA[strupper(raceFile or "")] or 0.85)
+    end
+    return backdrop
+end
+
+-- Standard-Aufteilung eines Reiters: Liste links, Details rechts
+function Char.ListAndDetail(view)
+    view.list = Char.List(view)
+    view.list:SetPoint("TOPLEFT")
+    view.list:SetPoint("BOTTOMLEFT")
+    view.list:SetWidth(LIST_W - 12) -- Platz für die Scrollleiste
+    view.detail = Char.Detail(view)
+    view.detail:SetPoint("TOPLEFT", LIST_W + 14, 0)
+    view.detail:SetPoint("BOTTOMRIGHT")
+end
+
+-- Fenster ----------------------------------------------------------------------------------------
+
+local function Subtitle()
+    local level = UnitLevel("player")
+    local class, classFile = UnitClass("player")
+    local color = RAID_CLASS_COLORS[classFile]
+    if color then class = color:WrapTextInColorCode(class) end -- Klasse in Klassenfarbe
+    local parts = { L["Level %d"]:format(level), class }
+    local guild = GetGuildInfo("player")
+    if guild then parts[#parts + 1] = "<" .. guild .. ">" end
+    return table.concat(parts, " · ")
+end
+
+local function UpdateHeader()
+    if not window then return end
+    local def = TabByKey(current)
+    local name = UnitName("player")
+    local title = (not def or def.key == "character") and (UnitPVPName and ns.Plain(UnitPVPName("player")) or name) or def.tip
+    window:SetNpc("player", title or name, Subtitle())
+end
+Char.UpdateHeader = UpdateHeader
+
+local pending = false
+local function RefreshCurrent()
+    pending = false
+    if not (window and window:IsShown()) then return end
+    local def = TabByKey(current)
+    local view = def and Char.views[def.key]
+    if view and def.Refresh then def.Refresh(view) end
+end
+-- mehrere Ereignisse in einem Bild = ein Neuaufbau
+function Char.Refresh()
+    if pending then return end
+    pending = true
+    C_Timer.After(0, RefreshCurrent)
+end
+
+local registered = {}
+local function WatchEvents(def)
+    for _, event in ipairs(def.events or {}) do
+        if not registered[event] then
+            registered[event] = true
+            ns:On(event, function(_, unit)
+                local active = TabByKey(current)
+                if not (window and window:IsShown() and active) then return end
+                -- UNIT_*: nur Spieler und Begleiter (Buffs der Gruppe bauen nichts neu auf)
+                if event:find("^UNIT_") and type(unit) == "string" and unit ~= "player" and unit ~= "pet" then return end
+                for _, e in ipairs(active.events or {}) do
+                    if e == event then return Char.Refresh() end
+                end
+            end)
+        end
+    end
+end
+
+local function TabIcon(button, def)
+    if type(def.icon) == "function" then def.icon(button.icon) else button.icon:SetTexture(def.icon) end
+end
+
+local function Select(key)
+    local def = TabByKey(key) or Char.tabs[1]
+    if def.available and not def.available() then def = Char.tabs[1] end
+    current = def.key
+    for _, button in ipairs(tabButtons) do
+        local active = button.def.key == current
+        for _, edge in ipairs(button.active) do edge:SetShown(active) end
+        TabIcon(button, button.def)
+        button.icon:SetDesaturated(not active) -- inaktive leicht grau (wie Gilde)
+        button.icon:SetAlpha(active and 1 or 0.75)
+    end
+    for k, view in pairs(Char.views) do view:SetShown(k == current) end
+    local view = Char.views[current]
+    if not view then
+        view = CreateFrame("Frame", nil, window)
+        view:SetPoint("TOPLEFT", PAD, -TOP)
+        view:SetPoint("BOTTOMRIGHT", -PAD, PAD)
+        Char.views[current] = view
+        def.Create(view)
+    end
+    view:Show()
+    UpdateHeader()
+    if def.Refresh then def.Refresh(view) end
+end
+Char.Select = Select
+function Char.Current() return current end
+
+local function CreateWindow()
+    UI = ns.UI
+    window = ns.CreateNpcWindow("MeredanUICharacter", WIDTH, ns.NPC_HEIGHT, "character")
+    window.extraRight = TAB_STEP
+    Char.window = window
+
+    for i, def in ipairs(Char.tabs) do
+        local button = CreateFrame("Button", nil, window)
+        button:SetSize(TAB_SIZE, TAB_SIZE)
+        button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (i - 1) * TAB_STEP) -- wie Gilde, Berufe, Zauberbuch
+        UI.Box(button, ns.STYLE.panelColor)
+        button.icon = button:CreateTexture(nil, "ARTWORK")
+        button.icon:SetPoint("TOPLEFT", 3, -3)
+        button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
+        button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+        button.active = ns.AddBorder(button, true, 2)
+        for _, edge in ipairs(button.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+        button.def = def
+        button:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText(def.tip, 1, 1, 1)
+            if def.available and not def.available() and def.unavailable then
+                GameTooltip:AddLine(def.unavailable, 1, 0.3, 0.3, true)
+            end
+            GameTooltip:Show()
+        end)
+        button:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        button:SetScript("OnClick", function()
+            if def.available and not def.available() then return end
+            PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
+            Select(def.key)
+        end)
+        tabButtons[i] = button
+        WatchEvents(def)
+    end
+
+    window:HookScript("OnShow", function()
+        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
+        if CharacterMicroButton and CharacterMicroButton.SetPushed then CharacterMicroButton:SetPushed() end
+        Select(current or "character")
+    end)
+    window:HookScript("OnHide", function()
+        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
+        if CharacterMicroButton and CharacterMicroButton.SetNormal then CharacterMicroButton:SetNormal() end
+        for _, def in ipairs(Char.tabs) do
+            if def.OnHide and Char.views[def.key] then def.OnHide(Char.views[def.key]) end
+        end
+    end)
+end
+
+-- Öffnen ------------------------------------------------------------------------------------------
+
+-- Blizzards Reiternamen (ToggleCharacter("ReputationFrame") …) auf unsere
+local BLIZZARD_TABS = {
+    PaperDollFrame = "character", ReputationFrame = "reputation", SkillFrame = "skills", SkillsFrame = "skills",
+    PVPRankFrame = "pvp", PVPFrame = "pvp", HonorFrame = "pvp", TokenFrame = "currency", StatisticsFrame = "statistics",
+}
+
+local function Toggle(key)
+    if not window then CreateWindow() end
+    if C_GameRules and C_GameRules.IsGameRuleActive and Enum.GameRule and Enum.GameRule.CharacterPanelDisabled
+        and C_GameRules.IsGameRuleActive(Enum.GameRule.CharacterPanelDisabled) then
+        return
+    end
+    if window:IsShown() and (not key or key == current) then
+        window:Hide()
+        return
+    end
+    if key then current = key end
+    if window:IsShown() then Select(current) else window:Show() end
+end
+Char.Toggle = Toggle
+function Char.Open(key)
+    if not window then CreateWindow() end
+    if key then current = key end
+    if window:IsShown() then Select(current) else window:Show() end
+end
+
+ns:On("PLAYER_LOGIN", function()
+    if not Enabled() then return end
+    CreateWindow()
+
+    -- Tasten: C (Charakter), U (Ruf), PvP, Abzeichen – Override auf unsere Knöpfe
+    local buttons = {}
+    local function Button(name, key)
+        local button = CreateFrame("Button", name, UIParent)
+        button:SetScript("OnClick", function() Toggle(key) end)
+        buttons[#buttons + 1] = { button, name }
+        return button
+    end
+    local bindings = {
+        { "TOGGLECHARACTER0", Button("MeredanUICharacterToggle", "character") },
+        { "TOGGLECHARACTER2", Button("MeredanUIReputationToggle", "reputation") },
+        { "TOGGLECHARACTER4", Button("MeredanUIPvPToggle", "pvp") },
+        { "TOGGLECURRENCY", Button("MeredanUICurrencyToggle", "currency") },
+    }
+    local function BindKeys()
+        if InCombatLockdown() then return ns.AfterCombat(BindKeys) end
+        for _, entry in ipairs(buttons) do ClearOverrideBindings(entry[1]) end
+        for _, entry in ipairs(bindings) do
+            for _, key in ipairs({ GetBindingKey(entry[1]) }) do
+                SetOverrideBindingClick(entry[2], false, key, entry[2]:GetName(), "LeftButton")
+            end
+        end
+    end
+    BindKeys()
+    ns:On("UPDATE_BINDINGS", BindKeys)
+
+    -- Blizzards globaler Öffner (Mikromenü, Erfolge, Gamepad …) – nur dieser globale Name,
+    -- keine Methoden an Blizzards Rahmen (CharacterFrame.ToggleTokenFrame bleibt unberührt)
+    ToggleCharacter = function(tab, onlyShow)
+        local key = BLIZZARD_TABS[tab] or "character"
+        if onlyShow then Char.Open(key) else Toggle(key) end
+    end
+    if CharacterMicroButton then CharacterMicroButton:SetScript("OnClick", function() Toggle("character") end) end
+    -- Fällt doch einmal Blizzards Fenster auf (z. B. Abzeichen-Knopf im Rucksack): gleich zu, unseres auf
+    if CharacterFrame then
+        CharacterFrame:HookScript("OnShow", function(frame)
+            frame:Hide()
+            Char.Open(TokenFrame and TokenFrame:IsShown() and "currency" or nil)
+        end)
+    end
+
+    ns:On("PLAYER_LEVEL_UP", function() if window:IsShown() then C_Timer.After(0, UpdateHeader) end end)
+    ns:On("PLAYER_GUILD_UPDATE", function() if window:IsShown() then UpdateHeader() end end)
+    ns:On("UNIT_NAME_UPDATE", function(_, unit) if unit == "player" and window:IsShown() then UpdateHeader() end end)
+    ns:On("PLAYER_AVG_ITEM_LEVEL_UPDATE", function() if window:IsShown() then UpdateHeader() end end)
+end)

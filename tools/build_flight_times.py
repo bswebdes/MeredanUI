@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+"""Erzeugt Minimap/FlightTimeData.lua – Startwerte für Flugzeiten (WoW Forever).
+
+Quellen (tools/flightdata/):
+  inflight_global_classic.lua  Classic-Era-Zeiten aus InFlight (LudiusMaximus, Defaults.lua, global_classic),
+                               je Fraktion: [Start-Node-ID][Ziel-Node-ID] = Sekunden (auch Mehrfach-Strecken)
+  TaxiPath*_wowf.csv           Blizzards Streckendaten für Forever 1.60.1 (wago.tools, product=wowf)
+
+Forever fliegt wie Classic gleichmäßig ~30 Yards/s (Median über 266 Direktstrecken, Recherche 2026-11-08).
+Für jede Direktstrecke wird die Dauer aus der Pfadlänge gerechnet (für neue Forever-Strecken und als
+Teilstücke, wenn mUI Mehrfach-Strecken zusammensetzt). Flags in TaxiPathNode: 1 = Sprung (Teleport,
+keine Strecke), 2 = Halt mit Delay (Sekunden dazu).
+
+Aufruf: python3 tools/build_flight_times.py
+"""
+import csv
+import math
+import re
+from collections import defaultdict
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "tools" / "flightdata"
+TARGET = ROOT / "Minimap" / "FlightTimeData.lua"
+SPEED = 30.0  # Yards pro Sekunde
+
+
+def classic_times():
+    text = (DATA / "inflight_global_classic.lua").read_text(encoding="utf-8")
+    times = {"Alliance": defaultdict(dict), "Horde": defaultdict(dict)}
+    faction = start = None
+    for line in text.splitlines():
+        m = re.match(r'\s*\["(Alliance|Horde)"\]\s*=\s*\{', line)
+        if m:
+            faction, start = m.group(1), None
+            continue
+        m = re.match(r"\s*\[(\d+)\]\s*=\s*\{", line)
+        if m and faction:
+            start = int(m.group(1))
+            continue
+        m = re.match(r"\s*\[(\d+)\]\s*=\s*(\d+),", line)
+        if m and faction and start is not None:
+            times[faction][start][int(m.group(1))] = int(m.group(2))
+    return times
+
+
+def direct_times():
+    paths = {}
+    with open(DATA / "TaxiPath_wowf.csv", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            paths[int(row["ID"])] = (int(row["FromTaxiNode"]), int(row["ToTaxiNode"]))
+    points = defaultdict(list)
+    with open(DATA / "TaxiPathNode_wowf.csv", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            points[int(row["PathID"])].append((
+                int(row["NodeIndex"]), float(row["Loc_0"]), float(row["Loc_1"]), float(row["Loc_2"]),
+                int(row["ContinentID"]), int(row["Flags"]), int(row["Delay"])))
+    direct = defaultdict(dict)
+    for path_id, (a, b) in paths.items():
+        pts = sorted(points.get(path_id, []))
+        if len(pts) < 2:
+            continue
+        length, delay = 0.0, 0
+        for prev, cur in zip(pts, pts[1:]):
+            if prev[4] == cur[4] and not (prev[5] & 1):
+                length += math.dist(prev[1:4], cur[1:4])
+            if cur[5] & 2:
+                delay += cur[6]
+        direct[a][b] = round(length / SPEED + delay)
+    return direct
+
+
+def lua_table(name, table):
+    out = [f"    {name} = {{"]
+    for start in sorted(table):
+        pairs = ", ".join(f"[{to}] = {sec}" for to, sec in sorted(table[start].items()))
+        out.append(f"        [{start}] = {{ {pairs} }},")
+    out.append("    },")
+    return out
+
+
+def main():
+    classic = classic_times()
+    direct = direct_times()
+    out = [
+        "-- Automatisch erzeugt von tools/build_flight_times.py – nicht von Hand ändern.",
+        "-- Startwerte für Flugzeiten in Sekunden, [Start-Node-ID][Ziel-Node-ID]. Alliance/Horde: Classic-Era-Zeiten",
+        "-- (InFlight); direct: jede Direktstrecke aus Forever-Streckendaten (Länge / 30 yd/s). Eigene Messungen",
+        "-- gehen immer vor (Minimap/FlightTimer.lua).",
+        "local _, ns = ...",
+        "ns.FLIGHT_TIME_DATA = {",
+    ]
+    out += lua_table("Alliance", classic["Alliance"])
+    out += lua_table("Horde", classic["Horde"])
+    out += lua_table("direct", direct)
+    out.append("}")
+    TARGET.write_text("\n".join(out) + "\n", encoding="utf-8")
+    count = sum(len(v) for f in classic.values() for v in f.values())
+    print(f"{TARGET.relative_to(ROOT)}: {count} Classic-Zeiten, {sum(len(v) for v in direct.values())} Direktstrecken")
+
+
+if __name__ == "__main__":
+    main()

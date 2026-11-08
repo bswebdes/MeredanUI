@@ -1,0 +1,214 @@
+-- Automatisch erzeugt von tools/build_talent_builds.py – nicht von Hand ändern.
+-- Leveling-Builds je Klasse: order = Spell-ID je Talentpunkt ab firstLevel (alle Ränge eines
+-- Talents haben in Forever dieselbe ID). Das Talentfenster prüft jeden Build gegen den echten Baum.
+local _, ns = ...
+ns.TALENT_BUILDS = {
+    DRUID = {
+        {
+            name = "Gleichgewicht (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/druid-leveling-guide", date = "2026-11-03",
+            custom = false, firstLevel = 10,
+            note = "Maxroll listet Gleichgewicht zuerst, ohne ausdrückliche Rangfolge.",
+            order = { 16814, 16814, 16814, 16814, 16814, 16819, 16819, 1223082, 1223082, 16821, 1223083, 16821, 1223081, 1223081, 1223081, 5570, 16909, 16909, 16909, 16909, 16880, 408248, 408248, 408248, 16909, 16896, 16896, 16896, 16896, 16896, 24858, 17003, 17003, 17003, 17003, 17003, 17069, 17069, 17069, 17069, 17069, 17106, 17106, 17106, 1223081, 1223081, 16845, 16845, 16845, 16850, 16850 },
+        },
+        {
+            name = "Wilder Kampf (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/druid-leveling-guide", date = "2026-11-03",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Katze für Schaden, Bär zum Tanken; Gleichgewicht ist anfangs langsam
+            order = { 17056, 17056, 17056, 17056, 17056, 17002, 17002, 16947, 16947, 16947, 1238122, 16942, 16942, 16966, 16966, 1328613, 16972, 16972, 16972, 16958, 17007, 1223242, 1223242, 16958, 16966, 1223246, 1223246, 1223246, 1223246, 1223246, 1322605, 17003, 17003, 17003, 17003, 17003, 17069, 17069, 17069, 17069, 17069, 1223081, 1223081, 1223081, 1223081, 1223081, 1223082, 1223082, 16998, 16998, 16934 },
+        },
+        {
+            name = "Wiederherstellung (Leveln, mit Gleichgewicht)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/druid-leveling-guide", date = "2026-11-03",
+            custom = false, firstLevel = 10,
+            note = "Maxroll-Build. Für Spieler, die schon beim Leveln in Dungeons heilen wollen.",
+            order = { 17003, 17003, 17003, 17003, 17003, 17069, 17069, 17069, 17069, 17069, 1328621, 17104, 17104, 17104, 17104, 18562, 17111, 17111, 17111, 17104, 1309631, 1309631, 1309631, 17116, 17106, 17106, 17106, 17074, 17074, 17074, 408120, 1223081, 1223081, 1223081, 1223081, 1223081, 1223082, 1223082, 16845, 16845, 16845, 1223083, 17074, 17074, 17123, 17123, 24968, 24968, 24968, 24968, 24968 },
+        },
+    },
+    HUNTER = {
+        {
+            name = "Tierherrschaft (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/hunter-leveling-guide", date = "2026-11-05",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: „the clear winner“ fürs Leveln
+            note = "Maxroll plant nur 50 Punkte (bis Stufe 59). Punkt 51 (Stufe 60) ist abgeleitet: nächster Rang von Lethal Attacks, das als Letztes gelernt wurde.",
+            order = { 19552, 19552, 19552, 19552, 19552, 24443, 24443, 1223755, 1223755, 19583, 19596, 19559, 19559, 19616, 19616, 1293241, 19616, 19616, 19616, 19598, 19577, 19590, 19590, 19598, 19598, 19598, 19598, 19621, 19621, 19621, 19574, 19498, 19498, 19498, 19426, 19426, 1223984, 1223984, 1223984, 1223984, 1223984, 415405, 415405, 19416, 19416, 19416, 1299346, 19621, 19621, 19426, 19426 },
+        },
+        {
+            name = "Treffsicherheit (Leveln, mit Tierherrschaft)", kind = "leveling",
+            source = "eigener Build (findyourmain-ops), auf Basis der Wowhead-Forever-Baumdaten", date = "2026-11-06",
+            custom = true, firstLevel = 10,
+            note = "Fernkampf mit Haustier: zuerst Deadly Aspects (laut Maxroll eines der stärksten Leveling-Talente), dann Treffsicherheit bis Sniper Shot. Die restlichen 20 Punkte stärken das Haustier.",
+            order = { 19552, 19552, 19552, 19552, 19552, 19426, 19426, 19426, 19426, 19426, 1223984, 1223984, 1223984, 1223984, 1223984, 415405, 415405, 19454, 19454, 19454, 19485, 19485, 19485, 19485, 19485, 1299346, 19454, 19454, 1223987, 1223987, 19507, 19507, 19507, 19507, 19507, 1310687, 1223755, 1223755, 19549, 19549, 19549, 19616, 19616, 19616, 19616, 19616, 19598, 19598, 19598, 19598, 19598 },
+        },
+        {
+            name = "Überleben (Leveln, Nahkampf ab 40)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/hunter-leveling-guide", date = "2026-11-05",
+            custom = false, firstLevel = 10,
+            note = "Maxroll-Build „Survival Melee Fun (40+ only)“: lohnt sich laut Maxroll erst ab Stufe 40, vorher besser Tierherrschaft. Maxroll plant nur 50 Punkte, Punkt 51 (Surefooted, Trefferchance) ist ergänzt.",
+            order = { 24293, 24293, 24293, 24293, 24293, 19159, 19159, 19184, 19184, 19184, 19239, 19239, 19263, 19184, 19184, 1310627, 1310627, 1310627, 1310627, 1310627, 1317257, 440529, 440529, 1310496, 1310496, 1310532, 1310532, 19168, 19168, 19168, 19168, 19168, 1310533, 19552, 19552, 19552, 19552, 19552, 24443, 24443, 19426, 19426, 19426, 19426, 19426, 1223984, 1223984, 1223984, 1223984, 1223984, 19290 },
+        },
+    },
+    MAGE = {
+        {
+            name = "Frost (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/mage-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: mehrere Gegner, starke Verteidigung
+            note = "ACHTUNG: Maxrolls Magier-Planer passt nicht ganz zum aktuellen Wowhead-Baum. Abgeleitet: Arcane Blast (bei Maxroll Punkt 51) auf Punkt 48 vorgezogen, sonst hätte Arcane Meditation erst 14 statt 15 Punkte im Arkanbaum. Feuer und Arkan von Maxroll verletzen die Wowhead-Voraussetzungen deutlich (z. B. Critical Mass Rang 5/3) und fehlen deshalb. Im Spiel mit GetTalentInfo gegenprüfen.",
+            order = { 11070, 11070, 11070, 11070, 11070, 29438, 29438, 11071, 11071, 11071, 1312002, 11207, 11207, 11207, 11207, 11207, 11958, 11170, 11170, 11170, 400647, 400647, 12472, 29438, 11160, 11160, 11160, 11175, 11175, 11175, 11426, 16757, 16757, 11237, 11237, 11237, 11237, 11237, 11213, 11213, 11213, 11213, 11213, 400588, 400588, 11210, 11210, 400574, 18462, 18462, 18462 },
+        },
+        {
+            name = "Feuer (Leveln, mit Arkan)", kind = "leveling",
+            source = "eigener Build (findyourmain-ops), auf Basis der Wowhead-Forever-Baumdaten", date = "2026-11-06",
+            custom = true, firstLevel = 10,
+            note = "Streng nach dem Wowhead-Forever-Baum: schneller Feuerball (Accelerant), Ignite und Master of Elements gegen Manaprobleme, Druckwelle für Gruppen von Gegnern. Danach Arkan für Clearcasting und Mana-Regeneration beim Zaubern.",
+            order = { 11069, 11069, 11069, 11069, 11069, 11119, 11119, 11119, 11119, 11119, 18459, 18459, 18459, 11078, 11078, 11366, 11083, 29074, 29074, 29074, 400624, 11083, 11115, 11115, 11115, 11113, 11124, 11124, 11124, 11083, 11129, 6057, 6057, 28574, 28574, 28574, 11213, 11213, 11213, 11213, 11213, 11210, 11210, 29441, 29441, 11242, 18462, 18462, 18462, 11252, 11252 },
+        },
+        {
+            name = "Arkan (Leveln, mit Frost)", kind = "leveling",
+            source = "eigener Build (findyourmain-ops), auf Basis der Wowhead-Forever-Baumdaten", date = "2026-11-06",
+            custom = true, firstLevel = 10,
+            note = "Streng nach dem Wowhead-Forever-Baum: Arkanschlag, Arkaner Zorn und Missile Barrage als Kern, Arcane Meditation gegen Manaprobleme. Danach Frost für Trefferchance, Frostnova mit Shatter und Eisblock.",
+            order = { 6057, 6057, 11237, 11237, 11237, 11213, 11213, 11213, 11213, 11213, 400574, 400588, 400588, 11242, 11242, 11242, 1326079, 18462, 18462, 18462, 12043, 11232, 11232, 11232, 11232, 11232, 15058, 15058, 15058, 11210, 12042, 29438, 29438, 29438, 11189, 11189, 11165, 11165, 11175, 11175, 11175, 11071, 11071, 11071, 11185, 11185, 11958, 11170, 11170, 11170, 16757 },
+        },
+    },
+    PALADIN = {
+        {
+            name = "Vergeltung (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/paladin-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: stark beim Solo-Questen, Schutz questet langsamer
+            order = { 20101, 20101, 20101, 20101, 20101, 20117, 20117, 20117, 1311074, 1311074, 20375, 26022, 26022, 1311074, 25956, 20111, 20111, 20111, 1311087, 25956, 20049, 20049, 20049, 20066, 20060, 1311084, 1311084, 1311084, 1311084, 1311084, 1310735, 20262, 20262, 20262, 20262, 20262, 1310899, 1310899, 20224, 20224, 20224, 20224, 20224, 20257, 20257, 20257, 20257, 20257, 20189, 20189, 20189 },
+        },
+        {
+            name = "Schutz (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/paladin-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            order = { 20127, 20127, 20127, 20127, 20127, 1224697, 1224697, 20174, 20174, 20257, 20150, 20150, 1311015, 20257, 20257, 1310994, 20468, 20468, 20468, 20257, 20925, 20177, 20177, 20177, 20177, 1311034, 1311034, 1311034, 20177, 20257, 1328544, 20060, 20060, 20060, 20060, 20060, 20117, 20117, 20117, 20101, 20101, 26022, 26022, 20262, 20262, 20262, 20262, 20262, 1310899, 1310899, 20101 },
+        },
+        {
+            name = "Heilig (Leveln, mit Vergeltung)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/paladin-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            note = "Maxroll-Build. Mit Punkten in Vergeltung und Schutz, damit du beim Questen genug Schaden machst. Eid des Lichts stärkt die Heilung auf einen Tank.",
+            order = { 20205, 20205, 20205, 20205, 20205, 1310899, 1310899, 20237, 20237, 20237, 20216, 20210, 20210, 20210, 20210, 1328548, 20210, 426065, 426065, 429144, 1311606, 1328550, 1328550, 429144, 1237268, 5923, 5923, 5923, 5923, 5923, 1310911, 20101, 20101, 20101, 20101, 20101, 20117, 20117, 20117, 1311074, 1311074, 26022, 26022, 20257, 20257, 20257, 20257, 20257, 20174, 20174, 1224697 },
+        },
+    },
+    PRIEST = {
+        {
+            name = "Schatten (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/priest-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: Solo „highly recommended“ als Schatten
+            note = "Maxroll empfiehlt bis Stufe 39 den Disziplin-Build (Alternative 2) und ab Stufe 40 Umskillen auf diesen Schatten-Build. Die Reihenfolge hier deckt 10–60 ab.",
+            order = { 15260, 15260, 15260, 15270, 15270, 15270, 15270, 15270, 15275, 15275, 15407, 1225139, 1225139, 17322, 17322, 15286, 15257, 15257, 15257, 1326159, 1326159, 1309950, 1309950, 1326159, 15487, 15259, 15259, 15259, 15259, 15259, 15473, 14524, 14524, 1225132, 1225132, 1225132, 1225132, 1225132, 18551, 18551, 18551, 14751, 14521, 14521, 14521, 14520, 14520, 14520, 1326159, 1326159, 15260 },
+        },
+        {
+            name = "Disziplin (Stufe 10–39)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/priest-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            note = "Nur 30 Punkte (Stufe 10–39). Ab Stufe 40 rät Maxroll zum Umskillen auf Schatten.",
+            order = { 14524, 14524, 15270, 15270, 15270, 15270, 15270, 1225132, 1225132, 1225132, 1309957, 1225132, 1225132, 18551, 18551, 14751, 14521, 14521, 14521, 14520, 14520, 14520, 14748, 14748, 14748, 402174, 15275, 15275, 402000, 425280 },
+        },
+        {
+            name = "Heilig (Leveln, mit Schatten)", kind = "leveling",
+            source = "eigener Build (findyourmain-ops), auf Basis der Wowhead-Forever-Baumdaten", date = "2026-11-06",
+            custom = true, firstLevel = 10,
+            note = "Bis Stufe 24 Schatten für Spirit Tap und Gedankenschinden (schnelles Leveln), danach Heilig mit stärkerem Göttlicher Zorn und Holy Binding (heilt dich bei Blitzheilung mit). Gut für Dungeons beim Leveln.",
+            order = { 15270, 15270, 15270, 15270, 15270, 15273, 15273, 15273, 15273, 15273, 15407, 15275, 15275, 1225139, 1225139, 14889, 14889, 14889, 14889, 14889, 18530, 18530, 18530, 18530, 18530, 15237, 27811, 27811, 27811, 14913, 14909, 14909, 1328569, 14912, 14912, 20711, 14901, 14901, 14901, 14901, 14898, 14898, 14898, 1317006, 1317006, 401859, 15257, 15257, 15257, 15286, 15260 },
+        },
+    },
+    ROGUE = {
+        {
+            name = "Kampf (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/rogue-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Kampf levelt am schnellsten (Klingenwirbel, Adrenalinrausch)
+            order = { 13732, 13732, 14162, 14162, 14162, 13705, 13705, 13713, 13713, 13713, 14251, 13742, 13742, 13705, 1329265, 1310711, 18427, 18427, 18427, 30919, 13877, 13715, 13715, 13960, 13960, 1329284, 1329284, 1329284, 1329284, 1329284, 13750, 14138, 14138, 14138, 14138, 14138, 14156, 14156, 14156, 14165, 14165, 14128, 14128, 14983, 14983, 14165, 14177, 13960, 13960, 13960, 30919 },
+        },
+        {
+            name = "Meucheln (Leveln, mit Kampf)", kind = "leveling",
+            source = "eigener Build (findyourmain-ops), auf Basis der Wowhead-Forever-Baumdaten", date = "2026-11-06",
+            custom = true, firstLevel = 10,
+            note = "Gift-Build: Forever hat die Skalierung der Gifte mit Angriffskraft verdoppelt, deshalb früh Vile Poisons und Improved Poisons, Mutilate ab Stufe 41 (braucht Dolche). Danach Kampf für Trefferchance und Dolch-Krits.",
+            order = { 14138, 14138, 14138, 14138, 14138, 14156, 14156, 14156, 14144, 14144, 14128, 14128, 14983, 14983, 14165, 16513, 16513, 16513, 16513, 16513, 14113, 14113, 14179, 14179, 14179, 14179, 14179, 1329328, 14186, 14186, 14186, 399956, 14162, 14162, 14162, 13732, 13732, 13705, 13705, 13705, 1224716, 1224716, 1224716, 13743, 13743, 13742, 13742, 30919, 30919, 18427, 18427 },
+        },
+        {
+            name = "Täuschung (Leveln, mit Kampf)", kind = "leveling",
+            source = "eigener Build (findyourmain-ops), auf Basis der Wowhead-Forever-Baumdaten", date = "2026-11-06",
+            custom = true, firstLevel = 10,
+            note = "Aus der Verstohlenheit mit Hinterhalt eröffnen, dann Blutsturz. Boot Knife macht Shank zum Combo-Generator, Death Mark ist das neue 31-Punkte-Talent. Eher Spaß-Build, Kampf levelt schneller.",
+            order = { 14057, 14057, 14057, 14057, 14057, 13975, 13975, 13975, 14082, 14082, 14171, 14171, 14171, 13976, 13976, 14278, 13981, 13981, 14079, 14079, 16511, 14185, 13976, 14183, 14079, 1329286, 1329286, 1329286, 1329286, 1329286, 1316709, 14162, 14162, 14162, 13732, 13732, 13705, 13705, 13705, 1224716, 1224716, 1224716, 13742, 13742, 13743, 13743, 30919, 30919, 18427, 18427, 18427 },
+        },
+    },
+    SHAMAN = {
+        {
+            name = "Verstärkung (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/shaman-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: „You should level as Enhancement“
+            order = { 16255, 16255, 16255, 16255, 16255, 415140, 415140, 415140, 16261, 16261, 16266, 16266, 16266, 1223030, 16254, 17364, 16262, 16262, 16256, 16256, 1223031, 1223031, 30812, 30812, 16268, 16035, 16035, 16035, 16035, 16035, 30160, 30160, 30160, 16038, 16038, 16038, 16164, 16039, 16039, 16039, 16086, 16086, 1222988, 16179, 16179, 16179, 16179, 16179, 1223033, 1223033, 1223033 },
+        },
+        {
+            name = "Elementar (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/shaman-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            order = { 16179, 16179, 16179, 16179, 16179, 1223033, 1223033, 1223033, 16182, 16182, 408510, 16035, 16035, 16035, 16035, 16035, 16578, 16578, 16578, 16038, 16038, 16164, 16038, 16039, 16039, 16039, 29062, 29062, 29062, 1222988, 16039, 16120, 408438, 408438, 408438, 16039, 16089, 16089, 16089, 16089, 16089, 16166, 16086, 16086, 16255, 16255, 16255, 16255, 16255, 17485, 17485 },
+        },
+        {
+            name = "Wiederherstellung (Leveln, mit Verstärkung)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/shaman-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            note = "Maxroll-Build. Für Spieler, die schon beim Leveln in Dungeons heilen wollen.",
+            order = { 16179, 16179, 16179, 16179, 16179, 1223033, 1223033, 1223033, 16182, 16182, 408510, 16182, 16182, 16182, 16176, 16190, 16194, 16194, 16194, 16194, 16194, 16188, 29206, 29206, 29206, 16178, 16178, 16178, 16178, 16178, 408521, 16255, 16255, 16255, 16255, 16255, 16176, 16176, 16187, 16187, 16187, 16187, 16187, 16181, 16181, 16181, 17485, 17485, 17485, 17485, 17485 },
+        },
+    },
+    WARLOCK = {
+        {
+            name = "Gebrechen (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/warlock-leveling-guide", date = "2026-11-03",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: sehr selbstständig durch Blutsauger und Aderlass
+            note = "Maxroll: „Drain Life Affliction“.",
+            order = { 17810, 17810, 17810, 17810, 17810, 18174, 18174, 18174, 18174, 18769, 18769, 18769, 18769, 18769, 1225214, 1225214, 18182, 18182, 403511, 403511, 403511, 17783, 17783, 17783, 427712, 427712, 427712, 17804, 17804, 17804, 18265, 1310949, 1310949, 1310949, 1310949, 1310949, 18827, 18827, 18094, 18094, 18174, 18731, 18731, 18731, 18271, 18271, 18271, 18271, 18271, 18709, 18709 },
+        },
+        {
+            name = "Zerstörung (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/warlock-leveling-guide", date = "2026-11-03",
+            custom = false, firstLevel = 10,
+            note = "Maxroll: „Deep Destruction“.",
+            order = { 17788, 17788, 17788, 17788, 17788, 18119, 18119, 18119, 18119, 18119, 17877, 17778, 17778, 17778, 17959, 1293817, 18769, 18769, 18769, 18769, 18769, 1225214, 1225214, 18174, 18174, 18174, 18182, 18182, 403511, 403511, 403511, 17927, 17927, 17927, 17959, 1225228, 412751, 412751, 412751, 17959, 426316, 426316, 426316, 426316, 426316, 412758, 17959, 17959, 18174, 18174, 1225220 },
+        },
+        {
+            name = "Dämonologie (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/warlock-leveling-guide", date = "2026-11-03",
+            custom = false, firstLevel = 10,
+            note = "Maxroll-Build „Shadow Demonology“. Starke Dämonen gleichen aus, dass Begleiter in Forever weniger Gesundheit vom Hexenmeister bekommen.",
+            order = { 18769, 18769, 18769, 18769, 18769, 1225214, 1225214, 18731, 18731, 18731, 18754, 18754, 18754, 18709, 18709, 1293695, 1293695, 1293695, 18708, 18788, 19028, 412732, 412732, 412732, 18703, 23785, 23785, 23785, 23785, 23785, 425464, 17810, 17810, 17810, 17810, 17810, 18174, 18174, 18174, 18174, 18697, 18697, 18697, 18697, 18697, 18182, 18182, 427712, 427712, 427712, 18174 },
+        },
+    },
+    WARRIOR = {
+        {
+            name = "Waffen (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/warrior-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            recommended = true, -- Maxroll: Zweihand-Build, Furor erst ab 36 stark
+            order = { 12286, 12286, 12286, 16462, 16462, 12290, 12290, 12295, 12295, 12295, 12834, 12834, 12834, 12296, 12285, 12163, 12163, 12163, 16493, 16493, 12292, 1290261, 1290261, 1290261, 1290261, 1290261, 1289682, 1289682, 12862, 12862, 12294, 12320, 12320, 12320, 12320, 12320, 12322, 12322, 12322, 12322, 12322, 12317, 12317, 12317, 12317, 12317, 20502, 20502, 1329555, 12321, 12321 },
+        },
+        {
+            name = "Furor (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/warrior-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            order = { 12320, 12320, 12320, 12320, 12320, 12322, 12322, 12322, 12322, 12322, 16487, 16487, 16487, 12317, 12317, 23584, 23584, 23584, 23584, 23584, 1323967, 1323967, 12328, 12317, 12317, 12319, 12319, 12319, 1310315, 1310315, 23881, 12286, 12286, 12286, 16462, 16462, 12295, 12295, 12295, 12290, 12290, 12296, 12834, 12834, 12834, 12317, 16462, 16493, 16493, 16462, 16462 },
+        },
+        {
+            name = "Schutz (Leveln)", kind = "leveling",
+            source = "https://maxroll.gg/wow-forever/class-guides/warrior-leveling-guide", date = "2026-11-04",
+            custom = false, firstLevel = 10,
+            note = "Maxroll-Build. Forever hat die Bedrohung in Verteidigungshaltung stark erhöht, das hilft beim Tanken in Dungeons während des Levelns.",
+            order = { 12298, 12298, 12298, 12298, 12298, 12797, 12797, 12797, 12287, 12287, 1310316, 1310316, 12287, 12975, 12301, 1310317, 12301, 12297, 12297, 12297, 12809, 29787, 29787, 29787, 12297, 16538, 16538, 16538, 16538, 16538, 23922, 12286, 12286, 12286, 16462, 16462, 16462, 16462, 16462, 12320, 12320, 12320, 12320, 12320, 12285, 12285, 12322, 12322, 12322, 12322, 12322 },
+        },
+    },
+}
