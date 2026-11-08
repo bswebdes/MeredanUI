@@ -986,6 +986,7 @@ end
 -- mit Surf-Green-Streifen) und unten „Gildeninformation“ (Kasten 150 hoch), rechts „Gildenneuigkeiten“;
 -- Bearbeiten/Filter als 22-px-Symbolknöpfe rechts neben der Überschrift.
 local infoParts = {}
+local LayoutDetails -- unten definiert
 local function SkinDetails(details)
     if type(details) ~= "table" then return end
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
@@ -1020,10 +1021,19 @@ local function SkinDetails(details)
     empty:SetPoint("TOPLEFT", 12, -12)
     empty:SetText(ns.L["No guild information."])
     infoParts.empty = empty
-    details:HookScript("OnShow", function() if PlaceAll then PlaceAll(details:GetParent()) end end)
+    details:HookScript("OnShow", function()
+        if PlaceAll then PlaceAll(details:GetParent()) C_Timer.After(0, function() PlaceAll(details:GetParent()) end) end
+    end)
+    -- Blizzard setzt beim Anzeigen (ohne Herausforderungen) Text und Stift neu an den alten Platz –
+    -- danach wieder unser Layout
+    if CommunitiesGuildInfoFrame_HideChallenges then
+        hooksecurefunc("CommunitiesGuildInfoFrame_HideChallenges", function(self)
+            if self == info then LayoutDetails(details) end
+        end)
+    end
 end
 
-local function LayoutDetails(details)
+LayoutDetails = function(details)
     if type(details) ~= "table" or InCombatLockdown() or not infoParts.motdBox then return end
     local info, news = details.Info, details.News
     local width = details:GetWidth()
@@ -1045,6 +1055,12 @@ local function LayoutDetails(details)
     if info.EditMOTDButton then
         info.EditMOTDButton:ClearAllPoints()
         info.EditMOTDButton:SetPoint("TOPRIGHT", info, "TOPRIGHT", 0, 0)
+    end
+    -- unsichtbarer Kopfbalken: Blizzard hängt Text und Stift daran – so gesetzt, dass beides passt
+    if info.Header1 then
+        info.Header1:ClearAllPoints()
+        info.Header1:SetPoint("TOPLEFT", info, "TOPLEFT", -2, -15)
+        info.Header1:SetSize(half, 22)
     end
     local motdBox = infoParts.motdBox
     motdBox:ClearAllPoints()
