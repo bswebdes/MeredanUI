@@ -771,24 +771,6 @@ local function SkinShell(f)
             if button then button:SetAlpha(0) button:EnableMouse(false) end
         end
     end
-    if maxMin and false then
-        SkinIconButton(maxMin.MaximizeButton, "Square", 16)
-        SkinIconButton(maxMin.MinimizeButton, "ChevronDown", 16) -- wie im eigenen Fenster
-        if not InCombatLockdown() then
-            maxMin:SetSize(34, 34)
-            for _, button in ipairs({ maxMin.MaximizeButton, maxMin.MinimizeButton }) do
-                if button then
-                    button:SetSize(34, 34)
-                    button:ClearAllPoints()
-                    button:SetPoint("CENTER", maxMin, "CENTER")
-                end
-            end
-            if f.CloseButton then
-                maxMin:ClearAllPoints()
-                maxMin:SetPoint("RIGHT", f.CloseButton, "LEFT", 2, 0)
-            end
-        end
-    end
     SkinInset(f.Inset)
 end
 
