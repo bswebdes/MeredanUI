@@ -586,23 +586,29 @@ local function SkinShell(f)
             return right and (edge - right) or 0
         end
     end
-    -- gleich hoch wie die mUI-Fenster (Benny 2026-11-08): Maßstab = Standardhöhe / eigene Höhe, so
-    -- treffen Ober- und Unterkante die Nachbarfenster. Blizzards Mini-Modus (sehr niedrig) bleibt 1.
-    local function FitScale(self)
-        local height = self:GetHeight()
-        if not height or InCombatLockdown() then return end
-        local scale = height < 400 and 1 or math.max(1, math.min(1.5, (ns.NPC_HEIGHT or 640) / height))
-        if math.abs(self:GetScale() - scale) > 0.001 then self:SetScale(scale) end
+    -- gleich hoch wie die mUI-Fenster (Benny 2026-11-08). Erst per Maßstab gelöst – dann waren alle
+    -- Schriften 1,5-fach. Jetzt echte Größe: Blizzards großer Modus (814 × 426) wird auf dieselbe
+    -- Fläche wie vorher vergrößert (1,5-fach = 1220 × 640), Inhalt dehnt sich mit, Schriften bleiben.
+    -- Der Mini-Modus (322 × 406) bleibt Blizzards.
+    local BLIZZ_W, BLIZZ_H = 814, 426
+    local function FitSize(self)
+        if InCombatLockdown() then return end
+        if self:GetScale() ~= 1 then self:SetScale(1) end
+        local w, h = self:GetSize()
+        if math.abs(w - BLIZZ_W) < 1 and math.abs(h - BLIZZ_H) < 1 then
+            local height = ns.NPC_HEIGHT or 640
+            self:SetSize(math.floor(BLIZZ_W * height / BLIZZ_H + 0.5), height)
+        end
     end
     f:HookScript("OnSizeChanged", function(self)
-        FitScale(self)
+        FitSize(self)
         if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
             ns.ResetWindowPosition(self, "guild")
         end
     end)
-    FitScale(f)
+    FitSize(f)
     f:HookScript("OnShow", function(self)
-        FitScale(self)
+        FitSize(self)
         C_Timer.After(0, function()
             if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
                 ns.ResetWindowPosition(self, "guild", true)
