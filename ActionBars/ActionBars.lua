@@ -421,6 +421,14 @@ end
 
 -- Eigene Leisten --------------------------------------------------------------------------
 
+-- Texte auf den Knöpfen je Leiste (Benny 2026-11-08): Tastenbelegung und Makroname, Standard an.
+-- Anzahl/Ladungen und Abklingzeit bleiben immer sichtbar.
+local function TextShown(key, what)
+    local t = ns.db and ns.db.actionBarTexts and ns.db.actionBarTexts[key]
+    return not (t and t[what] == false)
+end
+ns.ActionBarTextShown = TextShown
+
 local function ButtonConfig(def, index)
     return {
         showGrid = true,
@@ -429,7 +437,8 @@ local function ButtonConfig(def, index)
         -- deren runde Optik ersetzen wir unten durch eckige Rahmen
         actionButtonUI = true,
         assistedHighlight = false,
-        hideElements = { macro = false, equipped = true, border = true, borderIfEmpty = true },
+        hideElements = { macro = not TextShown(def.key, "macro"), hotkey = not TextShown(def.key, "hotkey"),
+            equipped = true, border = true, borderIfEmpty = true },
     }
 end
 
@@ -438,6 +447,7 @@ local function CreateBar(def)
     local header = CreateFrame("Frame", name, UIParent, "SecureHandlerStateTemplate")
     header:SetFrameStrata("LOW")
     header.buttons = {}
+    header.muiKey = def.key
     for i = 1, 12 do
         local button = LAB:CreateButton(i, name .. "Button" .. i, header, ButtonConfig(def, i))
         if def.main then
@@ -486,9 +496,11 @@ end
 
 -- Blizzard-Leiste dauerhaft in den Halter setzen; Blizzard verschiebt sie bei Edit-Mode-
 -- Änderungen und ordnet die Knöpfe neu – beides holen wir per Haken zurück.
-local function AdoptBlizzardBar(bar, holder, prefix, count, cols, size)
+local adopted = {} -- [Leisten-Schlüssel] = Blizzard-Knöpfe (Pet, Haltung)
+local function AdoptBlizzardBar(bar, holder, prefix, count, cols, size, key)
     if not bar then return end
     local buttons = {}
+    if key then adopted[key] = buttons end
     for i = 1, count do
         local button = _G[prefix .. i]
         if button then
@@ -568,6 +580,27 @@ fader:SetScript("OnUpdate", function(_, elapsed)
         end
     end
 end)
+
+-- Tasten-/Makrotexte nach Einstellung (LAB-Knöpfe über ihre Konfiguration, Blizzards Pet-/
+-- Haltungsknöpfe über Transparenz)
+function ns.ApplyActionBarTexts()
+    if InCombatLockdown() then return ns.AfterCombat(ns.ApplyActionBarTexts) end
+    for _, header in ipairs(bars) do
+        local key = header.muiKey
+        for _, button in ipairs(header.buttons or {}) do
+            local config = CopyTable(button.config)
+            config.hideElements.hotkey = not TextShown(key, "hotkey")
+            config.hideElements.macro = not TextShown(key, "macro")
+            button:UpdateConfig(config)
+        end
+    end
+    for key, buttons in pairs(adopted) do
+        for _, button in ipairs(buttons) do
+            if button.HotKey then button.HotKey:SetAlpha(TextShown(key, "hotkey") and 1 or 0) end
+            if button.Name then button.Name:SetAlpha(TextShown(key, "macro") and 1 or 0) end
+        end
+    end
+end
 
 function ns.ApplyActionBarVisibility()
     if InCombatLockdown() then return ns.AfterCombat(ns.ApplyActionBarVisibility) end
@@ -767,7 +800,7 @@ local function Setup()
     if PetActionBar and pet then
         local petHolder = CreateFrame("Frame", "MeredanUIPetBar", UIParent, "SecureHandlerStateTemplate")
         local petSize = (ns.FrameWidth() - 9 * gap) / 10
-        AdoptBlizzardBar(PetActionBar, petHolder, "PetActionButton", 10, 10, petSize)
+        AdoptBlizzardBar(PetActionBar, petHolder, "PetActionButton", 10, 10, petSize, "petbar")
         petHolder:SetPoint("TOPLEFT", pet, "BOTTOMLEFT", 0, -gap)
         -- Knöpfe werden auf ganze Pixel gerundet > Reihe ist ein paar Pixel schmaler/breiter als der
         -- Pet-Frame. Frame an die Reihe angleichen, damit beide bündig enden (Benny 2026-11-08).
@@ -779,7 +812,7 @@ local function Setup()
     -- Haltungsleiste links über der Alt-Leiste, wächst nach rechts (Standard: Mouseover)
     if StanceBar then
         local stanceHolder = CreateFrame("Frame", "MeredanUIStanceBar", UIParent, "SecureHandlerStateTemplate")
-        AdoptBlizzardBar(StanceBar, stanceHolder, "StanceButton", 10, 10, SMALL_SIZE)
+        AdoptBlizzardBar(StanceBar, stanceHolder, "StanceButton", 10, 10, SMALL_SIZE, "stancebar")
         if healer then
             -- Heiler: links neben den unteren Reihen, auf Höhe der Hauptleiste (darüber sitzt die Zauberleiste)
             stanceHolder:SetPoint("BOTTOMRIGHT", main, "BOTTOMLEFT", -ns.Snap(12), 0)
@@ -806,6 +839,7 @@ local function Setup()
 
     UpdateBindings()
     ns.ApplyActionBarVisibility()
+    ns.ApplyActionBarTexts() -- Pet-/Haltungsknöpfe nach Einstellung
     SkinExtraButtons()
 end
 

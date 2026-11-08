@@ -680,6 +680,61 @@ function UI.Page(parent)
         return row
     end
 
+    -- Zwei Auswahlfelder in einer Zeile (Aktionsleisten: Sichtbarkeit + Texte, Benny 2026-11-08).
+    -- Links ein normales Feld (items/get/set), rechts eines mit Haken: multi = function() →
+    -- { { value, label, checked }, … }, toggle(value) schaltet einen Haken um, summary() = Kurztext.
+    function page:AddDualDropdown(label, items, get, set, multi, toggle, summary, opts)
+        set = Wrap(set, label, opts)
+        local row = self:Row(24)
+        RowLabel(row, label, opts)
+        local function Field()
+            local button = CreateFrame("Button", nil, row)
+            button:SetHeight(24)
+            local bg = UI.Box(button)
+            button.current = UI.Text(button, 12, "LEFT")
+            button.current:SetPoint("LEFT", 8, 0)
+            button.current:SetPoint("RIGHT", -24, 0)
+            button.current:SetWordWrap(false)
+            local arrow = UI.Icon(button, "ChevronDown", 16, UI.ACCENT)
+            arrow:SetPoint("RIGHT", -6, 0)
+            button:SetScript("OnEnter", function() bg:SetColorTexture(unpack(UI.HOVER)) end)
+            button:SetScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
+            return button
+        end
+        local left, right = Field(), Field()
+        left:SetPoint("LEFT", row, "CENTER")
+        left:SetPoint("RIGHT", row, "RIGHT", -100 - 6, 0) -- rechts bleibt Platz fürs zweite Feld
+        right:SetPoint("LEFT", left, "RIGHT", 6, 0)
+        right:SetPoint("RIGHT")
+        -- linkes Feld etwas breiter: Sichtbarkeit hat die längeren Wörter
+        row:HookScript("OnSizeChanged", function(_, width)
+            local half = width / 2
+            left:SetPoint("RIGHT", row, "RIGHT", -math.floor((half - 6) * 0.45) - 6, 0)
+        end)
+
+        function row:Refresh()
+            local value = get()
+            left.current:SetText(value)
+            for _, item in ipairs(items()) do
+                if item.value == value then left.current:SetText(item.label) end
+            end
+            right.current:SetText(summary())
+        end
+        left:SetScript("OnClick", function()
+            UI.OpenList(left, items(), get(), function(value)
+                set(value)
+                row:Refresh()
+            end)
+        end)
+        right:SetScript("OnClick", function()
+            UI.OpenList(right, multi(), nil, function(value)
+                toggle(value)
+                row:Refresh()
+            end, { multi = multi })
+        end)
+        return row
+    end
+
     return page
 end
 
@@ -732,6 +787,11 @@ local function CreateList()
         rowButton:SetScript("OnClick", function(self)
             if self.inert then return end
             list.onSelect(self.value)
+            if list.multi then -- Haken-Liste bleibt offen, Einträge neu lesen
+                list.items = list.multi()
+                list:Render()
+                return
+            end
             list:Hide()
         end)
         rowButton.hover = hover
@@ -810,7 +870,13 @@ local function CreateList()
                     rowButton.icon:SetTexture(ns.MEDIA .. "Icons\\" .. item.icon)
                     rowButton.icon:SetVertexColor(unpack(item.iconColor or item.color or UI.MUTED))
                 end
-                rowButton.text:SetPoint("LEFT", item.icon and 30 or 8, 0)
+                if list.multi then -- Haken links, Text immer gleich eingerückt
+                    rowButton.icon:SetShown(item.checked and true or false)
+                    rowButton.icon:SetTexture(ns.MEDIA .. "Icons\\Check")
+                    rowButton.icon:SetVertexColor(unpack(UI.ACCENT))
+                    rowButton.text:SetTextColor(unpack(item.checked and UI.TEXT or UI.MUTED))
+                end
+                rowButton.text:SetPoint("LEFT", (item.icon or list.multi) and 30 or 8, 0)
                 for a, action in ipairs(rowButton.actions) do
                     local info = item.actions and item.actions[a]
                     action:SetShown(info ~= nil)
@@ -864,6 +930,7 @@ function UI.OpenList(owner, items, selected, onSelect, opts)
         return
     end
     list.owner, list.items, list.selected, list.onSelect = owner, items, selected, onSelect
+    list.multi = opts and opts.multi or nil
     list.offset = 0
     for index, item in ipairs(items) do -- Auswahl sichtbar machen
         if item.value == selected then list.offset = math.max(math.min(index - 3, #items - MAX_ROWS), 0) end
@@ -883,7 +950,7 @@ function UI.OpenList(owner, items, selected, onSelect, opts)
         list.measure:SetText(item.label or "")
         -- Rand: 1 px Rahmen + 8 px Text-Einzug je Seite + Puffer für Rundung (sonst „Östliche Königreic…“)
         local needed = list.measure:GetUnboundedStringWidth() + 28 + (item.actions and #item.actions * 20 or 0)
-            + (item.icon and 22 or 0)
+            + ((item.icon or (opts and opts.multi)) and 22 or 0)
             + (#items > MAX_ROWS and 6 or 0)
         if needed > width then width = needed end
     end

@@ -349,11 +349,31 @@ local PAGES = {
                 Help(L["Centre: main bar between player and target. Stacked: three rows of 12 at the bottom. The healer layout is always stacked."], true))
             for _, key in ipairs({ "bar1", "bar2", "bar3", "bar4", "bar5", "petbar", "stancebar", "bar6", "bar7", "bar8" }) do
                 if key == "bar6" then page:AddHeader(L["Extra bars"]) end
-                page:AddDropdown(L["MOVER_" .. key], BarVisibilityItems,
+                -- links Sichtbarkeit, rechts Texte auf den Knöpfen mit Haken (Benny 2026-11-08)
+                local function Shown(what) return not ns.ActionBarTextShown or ns.ActionBarTextShown(key, what) end
+                page:AddDualDropdown(L["MOVER_" .. key], BarVisibilityItems,
                     function() return ns.ActionBarMode and ns.ActionBarMode(key) or ns.VisibilityMode(ns.db.actionBars[key]) end,
                     function(value)
                         ns.db.actionBars[key] = value
                         ns.ApplyActionBarVisibility()
+                    end,
+                    function()
+                        return {
+                            { value = "hotkey", label = L["Key binding"], checked = Shown("hotkey") },
+                            { value = "macro", label = L["Macro name"], checked = Shown("macro") },
+                        }
+                    end,
+                    function(what)
+                        ns.db.actionBarTexts[key] = ns.db.actionBarTexts[key] or {}
+                        ns.db.actionBarTexts[key][what] = not Shown(what)
+                        if ns.ApplyActionBarTexts then ns.ApplyActionBarTexts() end
+                    end,
+                    function()
+                        local hotkey, macro = Shown("hotkey"), Shown("macro")
+                        if hotkey and macro then return L["Key, macro"] end
+                        if hotkey then return L["Key"] end
+                        if macro then return L["Macro"] end
+                        return L["No texts"]
                     end)
             end
             page:AddCheckbox(L["Mouseover casting"], Getter("mouseoverHeal"), Setter("mouseoverHeal", ns.ApplyMouseoverCast),

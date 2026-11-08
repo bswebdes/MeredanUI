@@ -204,6 +204,7 @@ local DEFAULTS = {
         bar6 = "hidden", bar7 = "hidden", bar8 = "hidden", -- Zusatzleisten: erst in den Einstellungen dazuschalten
         petbar = "always", stancebar = "mouseover",
     },
+    actionBarTexts = {}, -- [Leiste] = { hotkey = false, macro = false } blendet Texte aus; fehlt = an
 }
 
 ns.DEFAULTS = DEFAULTS -- z. B. für „Zurücksetzen“ in den Einstellungen
