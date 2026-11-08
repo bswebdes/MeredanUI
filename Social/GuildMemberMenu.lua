@@ -151,7 +151,9 @@ local function Create()
             if self.waiting and self:IsShown() and lastArgs and not InCombatLockdown() then
                 self.waiting = nil
                 local rank = CurrentRank(lastArgs[1]) or lastArgs[3]
+                menu.refreshing = true
                 ns.OpenGuildMemberMenu(lastArgs[1], lastArgs[2], rank, lastArgs[4])
+                menu.refreshing = nil
             end
             return
         end
@@ -225,11 +227,14 @@ function ns.OpenGuildMemberMenu(name, isSelf, rankOrder, opts)
         end
     end
     menu:SetHeight(y + 6)
-    menu:ClearAllPoints()
     menu.title:SetShown(not opts.ranksOnly)
-    if opts.owner then
+    if menu.refreshing then
+        -- Neuaufbau nach einem Rang-Schritt: Platz behalten
+    elseif opts.owner then
+        menu:ClearAllPoints()
         menu:SetPoint("TOPLEFT", opts.owner, "BOTTOMLEFT", 0, -2)
     else
+        menu:ClearAllPoints()
         local x, cy = GetCursorPosition()
         local scale = UIParent:GetEffectiveScale()
         menu:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale + 4, cy / scale - 4)
