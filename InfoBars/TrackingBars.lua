@@ -1,14 +1,12 @@
--- Fortschrittsleisten unter der Minimap, genau so breit: Ruf > Ehre > Haus-Gunst.
--- Ehre und Haus zeigt MUI unabhängig von Blizzards „Beobachten“-Haken (Haus: das verfolgte,
--- sonst das eigene Haus). Ruf braucht eine beobachtete Fraktion („Als Leiste anzeigen“).
--- Sichtbarkeit pro Leiste in den Einstellungen (Fortschrittsleisten); ist eine aus oder leer
--- (keine Fraktion beobachtet, kein Haus …), rücken die anderen ohne Lücke nach oben.
--- Details im Tooltip. Die EP-Leiste steht oben in der Mitte (XPBar.lua).
+-- Progress bars below the minimap, same width: reputation > honor > house favor.
+-- Honor and house are shown regardless of Blizzard's "watch" checkbox (house: the tracked one,
+-- else the player's own). Reputation needs a watched faction ("Show as experience bar").
+-- Hidden or empty bars collapse without gaps. The XP bar lives at the top center (XPBar.lua).
 local _, ns = ...
 local L = ns.L
 
 local HEIGHT = 10
-local GAP_PIXELS = 6 -- sichtbar 4 px (Rahmen liegen außen), wie bei den Aktionsleisten
+local GAP_PIXELS = 6 -- 4 px visible (borders sit outside), same as the action bars
 local ORDER = { "reputation", "honor", "house" }
 
 local COLORS = {
@@ -20,14 +18,14 @@ local COLORS = {
 }
 
 local bars = {}
-local houseFavor -- letzte Meldung von HOUSE_LEVEL_FAVOR_UPDATED
+local houseFavor -- last payload of HOUSE_LEVEL_FAVOR_UPDATED
 
 local function BarColor(reaction)
     if not ns.REP_COLORS[reaction] then return { 0.5, 0.5, 0.5 } end
     return { ns.RepColor(reaction) }
 end
 
--- Daten je Leiste: nil = nichts anzuzeigen, sonst { value, max, color, title, lines = {…} }
+-- Data per bar: nil = nothing to show, else { value, max, color, title, lines = {...} }
 
 local function ReputationData()
     local data = C_Reputation.GetWatchedFactionData()
@@ -103,7 +101,7 @@ end
 
 local SOURCES = { reputation = ReputationData, honor = HonorData, house = HouseData }
 
--- Anzeige ------------------------------------------------------------------------------------
+-- Display ------------------------------------------------------------------------------------
 
 local holder
 
@@ -135,14 +133,14 @@ local function CreateBar(key)
     return bar
 end
 
--- Sichtbare Leisten von oben nach unten stapeln (ohne Lücken)
+-- Stack visible bars top to bottom without gaps
 function ns.UpdateTrackingBars()
     if not holder then return end
     local px = ns.PixelSize()
     local height, gap = ns.Snap(HEIGHT), GAP_PIXELS * px
     local y = gap
-    -- Reihenfolge: sichtbare Leisten zuerst, Mouseover-Leisten ans Ende – so entsteht nie eine
-    -- unsichtbare Lücke zwischen zwei sichtbaren Leisten
+    -- Visible bars first, mouseover bars last, so an invisible mouseover bar never leaves a gap
+    -- between two visible ones
     local order = {}
     for _, key in ipairs(ORDER) do
         if ns.VisibilityMode(ns.db.xpBar.mode) ~= "mouseover" then order[#order + 1] = key end
@@ -152,7 +150,7 @@ function ns.UpdateTrackingBars()
     end
     for _, key in ipairs(order) do
         local bar = bars[key]
-        local setting = ns.db.xpBar.mode -- eine Sichtbarkeit für alle Fortschrittsleisten
+        local setting = ns.db.xpBar.mode -- one visibility setting for all progress bars
         local data = ns.ShownByMode(setting) and SOURCES[key]() or nil
         bar.muiMouseover = ns.VisibilityMode(setting) == "mouseover"
         bar.data = data
@@ -171,7 +169,7 @@ function ns.UpdateTrackingBars()
 end
 
 ns:On("PLAYER_LOGIN", function()
-    holder = ns.layoutFrames.minimap -- Leisten hängen unter der Minimap
+    holder = ns.layoutFrames.minimap -- bars hang below the minimap
     if not holder then return end
     for _, key in ipairs(ORDER) do
         bars[key] = CreateBar(key)
@@ -180,9 +178,9 @@ ns:On("PLAYER_LOGIN", function()
     ns.UpdateTrackingBars()
 end)
 
--- Haus-Gunst anfragen (Antwort kommt als HOUSE_LEVEL_FAVOR_UPDATED). Nötig beim Betreten der
--- Welt und wenn im Housing-Menü „Als Erfahrungsleiste anzeigen“ umgeschaltet wird.
-local houseGUID -- verfolgtes Haus oder (ohne Haken) das eigene
+-- Request house favor (answer arrives as HOUSE_LEVEL_FAVOR_UPDATED). Needed on entering the
+-- world and when "Show as experience bar" is toggled in the housing menu.
+local houseGUID -- tracked house, or the player's own if none is tracked
 
 local function RequestHouseFavor()
     if not (C_Housing and C_Housing.GetTrackedHouseGuid) then return end
@@ -191,21 +189,21 @@ local function RequestHouseFavor()
     if houseGUID then
         C_Housing.GetCurrentHouseLevelFavor(houseGUID)
     elseif C_Housing.GetPlayerOwnedHouses then
-        C_Housing.GetPlayerOwnedHouses() -- Antwort: PLAYER_HOUSE_LIST_UPDATED
+        C_Housing.GetPlayerOwnedHouses() -- answer: PLAYER_HOUSE_LIST_UPDATED
     end
 end
 
--- Kein verfolgtes Haus: das erste eigene nehmen
+-- No tracked house: use the first owned one
 ns:On("PLAYER_HOUSE_LIST_UPDATED", function(_, houses)
     if houseGUID or not houses or not houses[1] then return end
     houseGUID = houses[1].houseGUID
     if houseGUID then C_Housing.GetCurrentHouseLevelFavor(houseGUID) end
 end)
 ns:On("PLAYER_ENTERING_WORLD", RequestHouseFavor)
--- Haken „Als Erfahrungsleiste anzeigen“ im Housing-Menü: Blizzard ruft SetTrackedHouseGuid auf
+-- "Show as experience bar" checkbox in the housing menu calls SetTrackedHouseGuid
 if C_Housing and C_Housing.SetTrackedHouseGuid then
     hooksecurefunc(C_Housing, "SetTrackedHouseGuid", function(guid)
-        if guid then houseGUID = guid end -- Haken weg: beim eigenen Haus bleiben
+        if guid then houseGUID = guid end -- unchecked: keep the own house
         C_Timer.After(0.2, RequestHouseFavor)
     end)
 end

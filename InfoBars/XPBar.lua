@@ -1,27 +1,23 @@
--- Erfahrungsleiste oben in der Mitte (Vorbild: Easy Experience Bar / Luxthos-WeakAura).
---
---   ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐  600 × 18, oben Mitte, ohne Text,
---   └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘  dezente Striche alle 10 %
---   ██████████▓▓▓▓▓░░░░░░  Abschnitte: aktuell · fertige Quests · offene Quests;
---   ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔         Ruhebonus als dünner blauer Streifen unten
---
--- Tooltip: EP-Zahlen, ausgeruht, EP/Stunde, Zeit und Kills bis Level-Up, Quests fertig/offen,
--- Stand nach Abgabe, Zeit in diesem Level und dieser Sitzung. Auf Max-Level ausgeblendet (Ruf
--- & Co. stehen unter der Minimap, TrackingBars.lua). Blizzards eigene Leisten verschwinden.
+-- XP bar at the top center (inspired by Easy Experience Bar / Luxthos WeakAura).
+--   600 x 18, no text, subtle ticks every 10 %. Segments: current XP | completed quests |
+--   open quests; rested bonus as a thin blue strip along the bottom.
+-- Tooltip: XP numbers, rested, XP/hour, time and kills to level, quest XP, time this level and
+-- session. Hidden at max level (reputation etc. live below the minimap, TrackingBars.lua).
+-- Blizzard's own status bars are hidden.
 local _, ns = ...
 local L = ns.L
 
 local WIDTH, HEIGHT = 600, 18
-local PET_HEIGHT, PET_GAP = 6, 4 -- Begleiter-Leiste darunter (Jäger, Benny 2026-11-06)
-local SECTIONS = 10 -- dezente Trennstriche wie bei Blizzards Leiste (alle 10 %)
+local PET_HEIGHT, PET_GAP = 6, 4 -- pet XP bar below (hunters)
+local SECTIONS = 10 -- subtle tick lines like Blizzard's bar (every 10 %)
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 
 local COLORS = {
     xp = { 0.557, 0.796, 0.706 },        -- Surf Green
-    complete = { 1, 0.6, 0.15 },         -- fertige Quests: sofort abholbar
-    incomplete = { 1, 1, 1, 0.18 },      -- offene Quests: blass
-    rested = { 0.31, 0.56, 1, 1 },       -- ausgeruht (Streifen unten)
-    pet = { 0.86, 0.66, 0.36 },          -- Begleiter: warmes Bernstein, hebt sich vom Grün ab
+    complete = { 1, 0.6, 0.15 },         -- completed quests: ready to turn in
+    incomplete = { 1, 1, 1, 0.18 },      -- open quests: faint
+    rested = { 0.31, 0.56, 1, 1 },       -- rested (bottom strip)
+    pet = { 0.86, 0.66, 0.36 },          -- pet: warm amber, stands out from the green
 }
 
 local bar, petBar
@@ -29,7 +25,7 @@ local session = { start = GetTime(), gained = 0, kills = 0, killXP = 0, levelSta
 local lastXP, lastMax, pendingKill, lastGain, lastGainTime
 local questXP = { complete = 0, incomplete = 0, completeCount = 0, incompleteCount = 0 }
 
--- Werte --------------------------------------------------------------------------------------
+-- Values -------------------------------------------------------------------------------------
 
 local function AtMaxLevel()
     if IsXPUserDisabled and IsXPUserDisabled() then return true end
@@ -56,13 +52,13 @@ local function UpdateQuestXP()
     questXP.completeCount, questXP.incompleteCount = completeCount, incompleteCount
 end
 
--- EP-Gewinn dieser Sitzung (auch über ein Level-Up hinweg); Kills über die Kampf-EP-Meldung.
+-- XP gained this session (also across level-ups); kills are counted via the combat XP message.
 local function TrackXP()
     local xp, max = UnitXP("player"), UnitXPMax("player")
     if lastXP then
         local gained = xp - lastXP
         if gained < 0 and lastMax then
-            gained = (lastMax - lastXP) + xp -- Level-Up
+            gained = (lastMax - lastXP) + xp -- level-up
             session.levelStart = GetTime()
         end
         if gained > 0 then
@@ -96,9 +92,9 @@ local function Rates()
     return perHour, timeToLevel, killsToLevel, remaining
 end
 
--- Anzeige ------------------------------------------------------------------------------------
+-- Display ------------------------------------------------------------------------------------
 
--- from/to als Anteil 0–1 der Leistenbreite; height: nur ein Streifen unten (sonst volle Höhe)
+-- from/to as fraction 0-1 of the bar width; height: thin strip at the bottom (else full height)
 local function SetSegment(texture, from, to, height)
     from, to = math.max(from, 0), math.min(to, 1)
     if to <= from then
@@ -120,7 +116,7 @@ end
 local function Update()
     if not bar then return end
     local settings = ns.db.xpBar
-    if AtMaxLevel() or not ns.ShownByMode(settings.mode) then -- Ruf & Co.: Leisten unter der Minimap
+    if AtMaxLevel() or not ns.ShownByMode(settings.mode) then -- reputation etc.: bars below the minimap
         bar:Hide()
         return
     end
@@ -135,10 +131,10 @@ local function Update()
     SetSegment(bar.xp, 0, cur)
     SetSegment(bar.complete, cur, cur + complete)
     SetSegment(bar.incomplete, cur + complete, cur + complete + incomplete)
-    SetSegment(bar.rested, cur, cur + rested, 3 * ns.PixelSize()) -- Ruhebonus: Streifen unten, verdeckt nichts
+    SetSegment(bar.rested, cur, cur + rested, 3 * ns.PixelSize()) -- rested: bottom strip, covers nothing
 end
 
--- Begleiter-EP (Forever: GetPetExperience wie in Classic); nur mit Begleiter, der noch EP sammelt
+-- Pet XP (Forever: GetPetExperience as in Classic); only shown while the pet still gains XP
 local function UpdatePet()
     if not petBar then return end
     local xp, max = 0, 0
@@ -169,9 +165,9 @@ local function ShowTooltip(self)
     local rested = GetXPExhaustion() or 0
     local function Line(label, value) GameTooltip:AddDoubleLine(label, value, 0.8, 0.8, 0.8, 1, 1, 1) end
     local function Pct(v) return ("%.1f %%"):format(v / max * 100) end
-    -- Kästchen in der Farbe des Leisten-Abschnitts vor der Zeile: Tooltip = Legende (Benny 2026-11-07)
+    -- Swatch in the segment's color before the line, so the tooltip doubles as a legend
     local function Key(color, label)
-        local alpha = color[4] and 0.5 or 1 -- blasser Abschnitt (offene Quests) als helles Grau
+        local alpha = color[4] and 0.5 or 1 -- faint segment (open quests) as light gray
         return ("|T%s:10:10:0:0:8:8:0:8:0:8:%d:%d:%d|t "):format(WHITE, color[1] * 255 * alpha, color[2] * 255 * alpha,
             color[3] * 255 * alpha) .. label
     end
@@ -197,13 +193,12 @@ local function ShowTooltip(self)
     GameTooltip:Show()
 end
 
--- Aufbau -------------------------------------------------------------------------------------
+-- Setup --------------------------------------------------------------------------------------
 
 local function HideBlizzard()
-    -- Den Verwalter umhängen, nicht die Leisten: Blizzard ruft beim Bearbeitungsmodus
-    -- Leiste:GetParent():CheckForLayoutChange() auf – das muss der echte Verwalter bleiben
-    -- (eigene Ersatzfunktion würde den Bearbeitungsmodus verseuchen; nur Alpha 0 reicht nicht,
-    -- Blizzards Einblend-Animation holt die Leisten zurück).
+    -- Reparent the manager, not the bars: Edit Mode calls bar:GetParent():CheckForLayoutChange(),
+    -- so the parent must stay the real manager (a replacement function would taint Edit Mode).
+    -- Alpha 0 alone is not enough - Blizzard's fade-in animation brings the bars back.
     local hidden = CreateFrame("Frame")
     hidden:Hide()
     if StatusTrackingBarManager then StatusTrackingBarManager:SetParent(hidden) end
@@ -228,13 +223,13 @@ local function Create()
     bar.complete = Segment(COLORS.complete, "ARTWORK", 1)
     bar.xp = Segment(COLORS.xp, "ARTWORK", 2)
 
-    -- Trennstriche über allen Abschnitten, 1 px, halbtransparent dunkel
+    -- Tick lines above all segments, 1 px, semi-transparent dark
     local px = ns.PixelSize()
     for i = 1, SECTIONS - 1 do
         local line = bar:CreateTexture(nil, "OVERLAY", nil, 2)
         line:SetColorTexture(0, 0, 0, 0.45)
         line:SetWidth(px)
-        -- ohne das rundet WoW manche 1-px-Linien auf 0 > nur jeder zweite Strich sichtbar (Benny 2026-11-08)
+        -- Without this WoW rounds some 1 px lines to 0, so only every other tick would show
         line:SetSnapToPixelGrid(false)
         line:SetTexelSnappingBias(0)
         local x = math.floor(bar:GetWidth() * i / SECTIONS / px + 0.5) * px
@@ -245,8 +240,7 @@ local function Create()
     bar:SetScript("OnEnter", ShowTooltip)
     bar:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
-    -- Begleiter-EP: gleich breit, flach, direkt darunter (hängt an der EP-Leiste: gleiche
-    -- Sichtbarkeit)
+    -- Pet XP: same width, thin, directly below (parented to the XP bar: same visibility)
     petBar = CreateFrame("Frame", nil, bar)
     petBar:SetSize(bar:GetWidth(), ns.Snap(PET_HEIGHT))
     petBar:SetPoint("TOP", bar, "BOTTOM", 0, -ns.Snap(PET_GAP))
@@ -261,7 +255,7 @@ local function Create()
     petBar:SetScript("OnLeave", function() GameTooltip:Hide() end)
     petBar:Hide()
 
-    -- oben in der Mitte, 25 px vom Rand
+    -- Top center, 25 px from the edge
     ns.OnLayout(function()
         ns.PlaceFromCenter(bar, "TOP", 0, UIParent:GetHeight() / 2 - ns.Snap(ns.SCREEN_MARGIN))
     end)
@@ -288,13 +282,13 @@ ns:On("UPDATE_EXHAUSTION", Update)
 ns:On("PLAYER_REGEN_DISABLED", Update)
 ns:On("PLAYER_REGEN_ENABLED", Update)
 ns.UpdateXPBar = function() Update() end
--- unterste sichtbare Leiste oben (EP bzw. Begleiter-EP) – darunter setzt sich z. B. die Flugleiste
+-- Lowest visible top bar (XP or pet XP); e.g. the flight bar anchors below it
 function ns.XPBarBottom()
     if petBar and petBar:IsVisible() then return petBar end
     if bar and bar:IsVisible() then return bar end
 end
 ns:On("QUEST_LOG_UPDATE", function() UpdateQuestXP(); Update() end)
--- Kill-EP: Die Kampf-EP-Meldung kommt mal vor, mal nach dem EP-Update – beides abfangen.
+-- Kill XP: the combat XP message arrives either before or after the XP update - handle both.
 ns:On("CHAT_MSG_COMBAT_XP_GAIN", function()
     if lastGain and lastGainTime and GetTime() - lastGainTime < 0.2 then
         session.kills = session.kills + 1

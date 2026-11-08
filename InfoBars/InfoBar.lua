@@ -1,10 +1,8 @@
--- Info-Leiste ganz unten in der Mitte, so breit wie die Shift-Leiste (darf an den Rand, die
--- 25-px-Regel gilt hier bewusst nicht). Nur Text mit Kontur, ohne Hintergrund/Rahmen. Welche
--- Felder sie zeigt, steht in den Einstellungen; jedes Feld ist gleich breit, die Leiste wächst
--- mit (bei 4 Feldern so breit wie die Shift-Leiste).
---
---     [Münzen] 12.345    [Tasche] 42    [Schild] 87 %    [Tacho] 144
--- Keine Beschriftungen: jedes Feld hat ein kleines Symbol (Spec: das echte Spec-Symbol).
+-- Info bar at the bottom center of the screen (intentionally ignores the 25 px screen margin).
+-- Outlined text only, no background. Fields are chosen in the settings; all fields share one
+-- width and the bar grows with them (4 fields = width of the Shift bar).
+--     [coins] 12.345    [bag] 42    [shield] 87 %    [gauge] 144
+-- No labels: each field shows a small icon (spec field: the real spec icon).
 local _, ns = ...
 local L = ns.L
 
@@ -14,10 +12,10 @@ local bar
 local cells = {}
 local sessionMoney = GetMoney()
 
--- Hilfen -------------------------------------------------------------------------------------
+-- Helpers ------------------------------------------------------------------------------------
 
--- Geld als Gold/Silber/Kupfer mit farbigen Kürzeln: „1.234g 56s 78k“. Benny 2026-11-07: nur Gold
--- zeigte bei wenig Geld „0“. Nullen vorne fallen weg, dahinter bleiben sie stehen (2g 0s 5k).
+-- Money as gold/silver/copper with colored suffixes ("1.234g 56s 78k"). Leading zero units are
+-- dropped, inner ones kept (2g 0s 5k).
 local COIN = { "|cffe6c35ag|r", "|cffc7cdd6s|r", "|cffd08a55k|r" }
 local function Gold(copper)
     copper = math.max(math.floor(copper or 0), 0)
@@ -27,7 +25,7 @@ local function Gold(copper)
     return k .. COIN[3]
 end
 
--- In der Leiste kürzer: ab 100 Gold ohne Kupfer, damit das Feld nicht ausufert
+-- Shorter form for the bar: from 100 gold on, copper is omitted to keep the field narrow
 local function GoldShort(copper)
     copper = math.max(math.floor(copper or 0), 0)
     if copper >= 1000000 then
@@ -37,8 +35,8 @@ local function GoldShort(copper)
     return Gold(copper)
 end
 
--- Taschenplätze nach Art: normale Taschen zählen fürs Feld, Köcher, Munitionsbeutel und
--- Seelentaschen stehen getrennt im Tooltip (Benny 2026-11-07: „legt Taschen und Köcher zusammen“).
+-- Bag slots by type: only normal bags count for the field; quivers, ammo pouches and soul bags
+-- are listed separately in the tooltip.
 local SPECIAL_BAGS = { [1] = "Quiver", [2] = "Ammo pouch", [4] = "Soul bag" }
 local function BagSlots()
     local normalFree, normalTotal, special = 0, 0, {}
@@ -72,7 +70,7 @@ local function DurabilityColor(percent)
     return "|cffffffff"
 end
 
--- Symbole in der Klassenfarbe des Charakters
+-- Icons use the character's class color
 local function ClassColor()
     local _, class = UnitClass("player")
     local color = class and RAID_CLASS_COLORS[class]
@@ -82,14 +80,14 @@ end
 
 local function Line(label, value) GameTooltip:AddDoubleLine(label, value, 0.8, 0.8, 0.8, 1, 1, 1) end
 
--- Gold aller Charaktere merken (für den Tooltip)
+-- Remember gold of all characters (for the tooltip)
 local function SaveMoney()
     ns.root.gold = ns.root.gold or {}
     local _, class = UnitClass("player")
     ns.root.gold[ns.charKey] = { money = GetMoney(), class = class }
 end
 
--- Felder: text() liefert den Inhalt, tooltip/click optional ----------------------------------
+-- Fields: text() returns the content, tooltip/click optional -------------------------------
 
 local FIELDS = {
     {
@@ -109,7 +107,7 @@ local FIELDS = {
             table.sort(list, function(a, b) return a.info.money > b.info.money end)
             for _, entry in ipairs(list) do
                 local color = entry.info.class and RAID_CLASS_COLORS[entry.info.class]
-                local label = ns.CharDisplayName(entry.name) -- „Koratal (RP)“ statt voller Servername
+                local label = ns.CharDisplayName(entry.name) -- "Koratal (RP)" instead of the full realm name
                 local name = color and color:WrapTextInColorCode(label) or label
                 Line(name, Gold(entry.info.money))
             end
@@ -127,7 +125,7 @@ local FIELDS = {
         tooltip = function()
             local free, total, special = BagSlots()
             GameTooltip:AddLine(L["Bags"], 1, 1, 1)
-            Line(L["Free slots"], ("%d/%d"):format(free, total)) -- kurz (Benny: „wir sind ja nicht doof“)
+            Line(L["Free slots"], ("%d/%d"):format(free, total))
             for _, key in ipairs({ "Quiver", "Ammo pouch", "Soul bag", "Special bag" }) do
                 local info = special[key]
                 if info then Line(L[key], ("%d/%d"):format(info.free, info.total)) end
@@ -165,7 +163,7 @@ local FIELDS = {
         end,
     },
     {
-        -- Bildrate und Latenz gehören zusammen: „101 · 23 ms“ (Welt-Latenz, sonst Heim)
+        -- Frame rate and latency in one field: "101 | 23 ms" (world latency, else home)
         key = "fps", label = "FPS · ms", icon = "FPS",
         text = function()
             local _, _, home, world = GetNetStats()
@@ -214,8 +212,8 @@ local FIELDS = {
         click = function() ToggleFriendsFrame(1) end,
     },
     {
-        -- Forever: Fertigkeit der wichtigsten Waffe („212/300“): Jäger Distanzwaffe, sonst Haupthand
-        -- (Benny 2026-11-08: Schurke sah sonst die Wurfwaffe); Tooltip: alle, die wichtigste zuerst. Retail hat keine Waffenfertigkeiten > Feld fehlt dort.
+        -- Forever only: skill of the primary weapon ("212/300"); tooltip lists all, primary first.
+        -- Retail has no weapon skills, so the field is hidden there.
         key = "weaponskill", label = L["Weapon skill"], icon = "Combat", foreverOnly = true,
         text = function()
             local skill = ns.WeaponSkillFocus and ns.WeaponSkillFocus()
@@ -243,16 +241,16 @@ local FIELDS = {
     },
 }
 
--- Waffenfertigkeiten (Forever) --------------------------------------------------------------
--- Waffen-Unterklasse > Fertigkeit (Skill-Line-ID, Classic-Werte)
+-- Weapon skills (Forever) ---------------------------------------------------------------------
+-- Weapon subclass -> skill line ID (Classic values)
 local WEAPON_SKILL = {
     [0] = 44, [1] = 172, [2] = 45, [3] = 46, [4] = 54, [5] = 160, [6] = 229, [7] = 43, [8] = 55,
     [10] = 136, [13] = 473, [15] = 173, [16] = 176, [18] = 226, [19] = 228,
 }
-local WEAPON_SLOTS = { 16, 17, 18 } -- Haupthand, Nebenhand, Distanz
+local WEAPON_SLOTS = { 16, 17, 18 } -- main hand, off hand, ranged
 
--- angelegte Fertigkeiten und die wichtigste Waffe: Jäger = Distanzwaffe, alle anderen = Haupthand
--- (Benny 2026-11-08); fehlt sie, die jeweils andere
+-- Equipped weapon skills and the primary one: ranged for hunters, main hand for everyone else
+-- (otherwise rogues would see their thrown weapon); falls back to the other slot.
 local function EquippedSkillIDs()
     local ids, main = {}, nil
     local primary = select(2, UnitClass("player")) == "HUNTER" and 18 or 16
@@ -273,7 +271,7 @@ local function EquippedSkillIDs()
     return ids, main
 end
 
--- alle Waffenfertigkeiten, die der Charakter hat (angelegte zuerst)
+-- All weapon skills the character has (equipped first)
 function ns.WeaponSkills()
     if not (C_SkillInfo and C_SkillInfo.GetNumSkillLines) then return {} end
     local weapon = {}
@@ -295,14 +293,14 @@ function ns.WeaponSkills()
     return list
 end
 
--- Fertigkeit der Haupthand
+-- Skill of the primary weapon
 function ns.WeaponSkillFocus()
     for _, skill in ipairs(ns.WeaponSkills()) do
         if skill.main then return skill end
     end
 end
 
--- Anzeige ------------------------------------------------------------------------------------
+-- Display ------------------------------------------------------------------------------------
 
 local function Refresh()
     if not bar then return end
@@ -319,7 +317,7 @@ local function Refresh()
     end
 end
 
--- Sichtbare Felder gleichmäßig über die Breite verteilen
+-- Lay out visible fields evenly across the bar
 function ns.UpdateInfoBar()
     if not bar then return end
     local mode = ns.VisibilityMode(ns.db.infoBar.mode)
@@ -332,7 +330,7 @@ function ns.UpdateInfoBar()
         cell:SetShown(on)
         if on then shown[#shown + 1] = cell end
     end
-    -- feste Feldbreite: 4 Felder = Breite der Shift-Leiste, mehr Felder > breiter (mittig)
+    -- Fixed field width: 4 fields = Shift bar width, more fields make the bar wider (centered)
     local width = math.floor(ns.ExtraBarWidth() / 4 / ns.PixelSize()) * ns.PixelSize()
     bar:SetWidth(math.max(#shown, 1) * width)
     for i, cell in ipairs(shown) do
@@ -348,7 +346,7 @@ local function CreateCell(field)
     local cell = CreateFrame("Button", nil, bar)
     cell.field = field
     cell.text = ns.CreateText(cell, 12, "CENTER", "OUTLINE")
-    -- Symbol links vom Wert; beides zusammen mittig in der Zelle
+    -- Icon left of the value; both centered together in the cell
     if field.icon then
         cell.icon = ns.UI.Icon(cell, field.icon, 12, ClassColor())
     elseif field.specIcon then
@@ -363,7 +361,7 @@ local function CreateCell(field)
         cell.text:SetPoint("CENTER")
     end
     cell:SetScript("OnEnter", function(self)
-        cell:SetAlpha(0.75) -- dezentes Hover-Feedback
+        cell:SetAlpha(0.75) -- subtle hover feedback
         if field.tooltip then
             GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
             field.tooltip()
@@ -385,7 +383,7 @@ ns:On("PLAYER_LOGIN", function()
     bar:SetFrameStrata("LOW")
     for _, field in ipairs(FIELDS) do cells[#cells + 1] = CreateCell(field) end
 
-    -- ganz unten in der Mitte (bewusst ohne 25-px-Abstand)
+    -- Bottom center, intentionally without the 25 px margin
     ns.OnLayout(function()
         ns.PlaceFromCenter(bar, "BOTTOM", 0, -UIParent:GetHeight() / 2 + 4 * ns.PixelSize())
     end)
@@ -393,7 +391,7 @@ ns:On("PLAYER_LOGIN", function()
     ns.RegisterMouseover(bar)
 
     ns.UpdateInfoBar()
-    C_Timer.NewTicker(1, Refresh) -- FPS & Uhrzeit
+    C_Timer.NewTicker(1, Refresh) -- FPS and clock
     if IsInGuild() then C_GuildInfo.GuildRoster() end
 end)
 
