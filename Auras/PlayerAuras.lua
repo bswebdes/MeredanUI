@@ -33,7 +33,7 @@ local function TimeInside() return ns.db.auraTime == "inside" end
 -- „Leiste“ (Benny 2026-11-08): statt Zahl eine dünne Leiste unter dem Icon, die abläuft; Farbe von
 -- Salbei über Gelb nach Rot, je weniger Zeit übrig ist
 local function TimeBar() return ns.db.auraTime == "bar" end
-local BAR_HEIGHT, BAR_GAP = 3, 2
+local BAR_HEIGHT, BAR_GAP = 5, 4 -- Benny 2026-11-08: etwas höher, mehr Abstand zum Icon
 local SAGE, YELLOW, RED = { 0.557, 0.796, 0.706 }, { 0.93, 0.79, 0.36 }, { 0.88, 0.36, 0.32 }
 local barCurve
 if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
@@ -123,8 +123,10 @@ local function InitButton(button, size, harmful)
     if TimeBar() then
         -- Leiste statt Zahl: Blizzard lässt sie selbst ablaufen (SetTimerDuration)
         local bar = CreateFrame("StatusBar", nil, button)
-        bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -ns.Snap(BAR_GAP))
-        bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", 0, -ns.Snap(BAR_GAP))
+        -- um die Rahmenbreite eingerückt: der Rahmen liegt außen und schließt dann bündig mit dem Icon ab
+        local inset = ns.BORDER_PIXELS * ns.PixelSize()
+        bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", inset, -ns.Snap(BAR_GAP))
+        bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", -inset, -ns.Snap(BAR_GAP))
         bar:SetHeight(ns.Snap(BAR_HEIGHT))
         bar:SetReverseFill(true) -- läuft von links nach rechts ab (Benny 2026-11-08)
         bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
@@ -322,8 +324,10 @@ local function DemoIcon(parent, spellID, size, harmful, index)
     if TimeBar() then
         time:SetText("")
         local bar = CreateFrame("StatusBar", nil, button)
-        bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -ns.Snap(BAR_GAP))
-        bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", 0, -ns.Snap(BAR_GAP))
+        -- um die Rahmenbreite eingerückt: der Rahmen liegt außen und schließt dann bündig mit dem Icon ab
+        local inset = ns.BORDER_PIXELS * ns.PixelSize()
+        bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", inset, -ns.Snap(BAR_GAP))
+        bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", -inset, -ns.Snap(BAR_GAP))
         bar:SetHeight(ns.Snap(BAR_HEIGHT))
         bar:SetReverseFill(true) -- läuft von links nach rechts ab (Benny 2026-11-08)
         bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
