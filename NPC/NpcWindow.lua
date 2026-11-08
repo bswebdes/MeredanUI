@@ -51,9 +51,21 @@ function ns.MakeWindowDraggable(window, region)
     region:SetScript("OnDragStop", function() window:StopMovingOrSizing() end)
 end
 
+-- Maßstab eines Fensters gegenüber UIParent (z. B. Gilde vergrößert); Lagen in UIParent-Einheiten
+local function Ratio(frame)
+    return frame:GetEffectiveScale() / UIParent:GetEffectiveScale()
+end
+
+local function Rect(frame)
+    local l, r, t, b = frame:GetLeft(), frame:GetRight(), frame:GetTop(), frame:GetBottom()
+    if not l then return end
+    local k = Ratio(frame)
+    return l * k, r * k, t * k, b * k
+end
+
 local function Overlaps(a, b)
-    local al, ar, at, ab = a:GetLeft(), a:GetRight(), a:GetTop(), a:GetBottom()
-    local bl, br, bt, bb = b:GetLeft(), b:GetRight(), b:GetTop(), b:GetBottom()
+    local al, ar, at, ab = Rect(a)
+    local bl, br, bt, bb = Rect(b)
     if not (al and bl) then return false end
     return al < br and ar > bl and ab < bt and at > bb
 end
@@ -84,35 +96,38 @@ local CLOSABLE = {
 }
 
 -- Platz suchen; liefert die gewünschte rechte Kante (inkl. Reiter außen), bevor WoW ans Bild klemmt
+-- Rechnet in UIParent-Einheiten (Fenster können eigenen Maßstab haben, z. B. Gilde 1,2-fach);
+-- gibt die gewünschte rechte Kante (inkl. Reiter) in UIParent-Einheiten zurück.
 local function Place(window)
+    local k = Ratio(window)
     window:ClearAllPoints()
     -- gemeinsame Oberkante (Benny 2026-11-08): niedrigere Fenster (z. B. Gilde) hängen oben an der
     -- Linie der Standardhöhe statt unten über dem Chat; höhere (Talente) bleiben unten über dem Chat
-    if window:GetHeight() < ns.NPC_HEIGHT then
-        window:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90 + ns.NPC_HEIGHT))
+    if window:GetHeight() * k < ns.NPC_HEIGHT then
+        window:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap((90 + ns.NPC_HEIGHT) / k))
     else
-        window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
+        window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90 / k))
     end
-    local wantedRight = (window:GetLeft() or 0) + window:GetWidth()
+    local wantedRight = ((window:GetLeft() or 0) + window:GetWidth()) * k
     -- solange etwas überlappt: rechts daneben, Oberkante wie das andere Fenster (Benny 2026-11-06:
     -- mit Unterkante über dem Chat rutschte es rechts über Aktionsleisten und Einheitenfenster)
     for _ = 1, 6 do
         local right, top
         for _, other in ipairs(Occupied(window)) do
             -- extraRight: Reiter außerhalb des Fensters (Berufe, Zauberbuch) zählen mit
-            local edge = other:GetRight() + ExtraRight(other)
+            local ko = Ratio(other)
+            local edge = (other:GetRight() + ExtraRight(other)) * ko
             if Overlaps(window, other) and edge > (right or 0) then
-                right, top = edge, other:GetTop()
+                right, top = edge, other:GetTop() * ko
             end
         end
         if not right then break end
-        local scale = window:GetEffectiveScale() / UIParent:GetEffectiveScale()
-        top = math.min(top or window:GetTop(), UIParent:GetTop() / scale - ns.SCREEN_MARGIN)
+        top = math.min(top or window:GetTop() * k, UIParent:GetTop() - ns.SCREEN_MARGIN)
         window:ClearAllPoints()
-        window:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", ns.Snap(right + 12), ns.Snap(top))
-        wantedRight = right + 12 + window:GetWidth()
+        window:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", ns.Snap((right + 12) / k), ns.Snap(top / k))
+        wantedRight = right + 12 + window:GetWidth() * k
     end
-    return wantedRight + ExtraRight(window)
+    return wantedRight + ExtraRight(window) * k
 end
 
 -- Fester Platz: über dem Chat (Höhe der Schlachtzug-Frames). Ist dort schon ein Fenster offen, rechts daneben (Benny: „sonst sind die
@@ -126,8 +141,7 @@ function ns.ResetWindowPosition(window, key, opening)
     window.dragged = nil
     for _ = 1, #order do
         local wantedRight = Place(window)
-        local scale = window:GetEffectiveScale() / UIParent:GetEffectiveScale()
-        if not opening or wantedRight <= UIParent:GetRight() / scale - ns.SCREEN_MARGIN then return end
+        if not opening or wantedRight <= UIParent:GetRight() - ns.SCREEN_MARGIN then return end
         local oldest
         for _, other in ipairs(order) do -- order: zuerst geöffnet zuerst
             if other ~= window and other:IsShown() and CLOSABLE[managed[other]] then oldest = other break end

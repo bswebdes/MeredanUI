@@ -396,6 +396,17 @@ local function SkinListEntry(entry)
     marker:SetWidth(2)
     local hover = Tex(entry, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
     hover:SetAllPoints(card)
+    -- „Community beitreten oder gründen“: grelles Grün-Plus in Salbei (Benny 2026-11-08)
+    local icon = entry.Icon
+    if IsTexture(icon) then
+        local function Tint()
+            local plus = icon:GetAtlas() == "communities-icon-addgroupplus"
+            icon:SetDesaturated(plus)
+            if plus then icon:SetVertexColor(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3]) else icon:SetVertexColor(1, 1, 1) end
+        end
+        hooksecurefunc(icon, "SetAtlas", Tint)
+        Tint()
+    end
     local selection = entry.Selection
     local function Sync()
         local on = IsTexture(selection) and selection:IsShown() or false
@@ -410,6 +421,25 @@ local function SkinListEntry(entry)
     Sync()
 end
 
+-- Namensspalte der Mitgliederliste breiter, Notiz dafür schmaler (Benny 2026-11-08: Namen wurden
+-- abgeschnitten). Zone, Rang und Notiz hängen an der Namensspalte und rücken mit; die Notiz füllt den
+-- Rest. Nur Breiten, Blizzards Daten/Skripte bleiben unberührt.
+local NAME_EXTRA = 40
+local function WidenName(row)
+    if not (row.expanded and row.Class and row.Class:IsShown()) then return end
+    local frame = row.NameFrame
+    if type(frame) ~= "table" or not frame.Name then return end
+    frame:SetWidth(frame:GetWidth() + NAME_EXTRA)
+    local name = frame.Name
+    name:SetWidth(name:GetWidth() + NAME_EXTRA)
+    local rank = frame.RankIcon
+    if rank then
+        local offset = frame.PresenceIcon and frame.PresenceIcon:IsShown() and frame.PresenceIcon:GetWidth() or 0
+        rank:ClearAllPoints()
+        rank:SetPoint("LEFT", frame, "LEFT", (name:IsTruncated() and name:GetWidth() or name:GetStringWidth()) + offset, 0)
+    end
+end
+
 -- Zeile der Mitgliederliste: Blizzards Streifen und blauer Hover weg, flache Zeile, Hover in Surf Green
 local function SkinMemberRow(row)
     if not Once(row) then return end
@@ -421,6 +451,7 @@ local function SkinMemberRow(row)
     bg:SetPoint("BOTTOMRIGHT", 0, 1)
     local hover = Tex(row, "HIGHLIGHT", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.12 })
     hover:SetAllPoints(bg)
+    if row.UpdateNameFrame then hooksecurefunc(row, "UpdateNameFrame", WidenName) end
     local header = row.ProfessionHeader
     if type(header) == "table" then
         for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(header[key]) end
@@ -433,6 +464,11 @@ local function SkinColumnHeaders(display)
     if type(display) ~= "table" or not display.GetChildren then return end
     local UI = ns.UI
     for _, column in ipairs({ display:GetChildren() }) do
+        -- Namensspalte mit Stufe/Klasse davor (Gilde, Charakter-Community) wie die Zeilen verbreitern
+        if column:IsObjectType("Button") and column:IsShown() and column:GetID() == 3
+            and column:GetText() == COMMUNITIES_ROSTER_COLUMN_TITLE_NAME then
+            column:SetWidth(100 + NAME_EXTRA)
+        end
         if column:IsObjectType("Button") and Once(column) then
             for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(column[key]) end
             Fade(column:GetHighlightTexture())
@@ -550,7 +586,23 @@ local function SkinShell(f)
             return right and (edge - right) or 0
         end
     end
+    -- gleich hoch wie die mUI-Fenster (Benny 2026-11-08): Maßstab = Standardhöhe / eigene Höhe, so
+    -- treffen Ober- und Unterkante die Nachbarfenster. Blizzards Mini-Modus (sehr niedrig) bleibt 1.
+    local function FitScale(self)
+        local height = self:GetHeight()
+        if not height or InCombatLockdown() then return end
+        local scale = height < 400 and 1 or math.max(1, math.min(1.5, (ns.NPC_HEIGHT or 640) / height))
+        if math.abs(self:GetScale() - scale) > 0.001 then self:SetScale(scale) end
+    end
+    f:HookScript("OnSizeChanged", function(self)
+        FitScale(self)
+        if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
+            ns.ResetWindowPosition(self, "guild")
+        end
+    end)
+    FitScale(f)
     f:HookScript("OnShow", function(self)
+        FitScale(self)
         C_Timer.After(0, function()
             if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
                 ns.ResetWindowPosition(self, "guild", true)
