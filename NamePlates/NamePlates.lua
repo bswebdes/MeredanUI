@@ -317,6 +317,11 @@ local function Style(self, unit)
     self.ShortenName = function(frame, text) return ns.ShortenName(text, name, frame.nameWidth) end
     self:Tag(name, "[mui:name]")
     self.NameText = name
+    -- Begleiter: kleine Zeile unter dem Namen („Kalitheras Begleiter“), nur bei freundlichen Plates
+    local sub = ns.CreateText(self, 10, "CENTER", "OUTLINE")
+    sub:SetTextColor(0.8, 0.8, 0.8)
+    sub:Hide()
+    self.SubText = sub
 
     local percent = ns.CreateText(health, 10, "RIGHT", "OUTLINE")
     percent:SetPoint("RIGHT", -4, 0)
@@ -664,7 +669,51 @@ if NamePlateUnitFrameMixin and NamePlateUnitFrameMixin.UpdateHitTestArea then
     end)
 end
 
--- Freundliche Plates: nur der Name (Klassen- bzw. Reaktionsfarbe), keine Balken
+-- Besitzer eines Begleiters aus der Tooltip-Zeile („Begleiter von Kalithera Novaris“ / „X's Pet“) –
+-- nur der Vorname. In Instanzen können Texte geschützt sein, dann keine Zeile.
+local OWNER_PATTERNS
+local function OwnerPatterns()
+    if OWNER_PATTERNS then return OWNER_PATTERNS end
+    OWNER_PATTERNS = {}
+    for _, key in ipairs({ "UNITNAME_TITLE_PET", "UNITNAME_TITLE_MINION", "UNITNAME_TITLE_GUARDIAN",
+        "UNITNAME_TITLE_COMPANION", "UNITNAME_TITLE_CHARM", "UNITNAME_TITLE_CREATION" }) do
+        local format = _G[key]
+        if type(format) == "string" and format:find("%%s") then
+            local escaped = format:gsub("([%(%)%.%+%-%*%?%[%]%^%$])", "%%%1")
+            local pattern = "^" .. escaped:gsub("%%s", "(.+)") .. "$"
+            OWNER_PATTERNS[#OWNER_PATTERNS + 1] = pattern
+        end
+    end
+    return OWNER_PATTERNS
+end
+
+local function PetOwner(unit)
+    if not (C_TooltipInfo and C_TooltipInfo.GetUnit) then return end
+    local ok, data = pcall(C_TooltipInfo.GetUnit, unit)
+    local lines = ok and data and data.lines
+    if not lines then return end
+    for i = 2, math.min(#lines, 3) do
+        local text = lines[i] and lines[i].leftText
+        if type(text) == "string" and not (issecretvalue and issecretvalue(text)) then
+            for _, pattern in ipairs(OwnerPatterns()) do
+                local owner = text:match(pattern)
+                if owner then return (owner:match("^(%S+)")) end
+            end
+        end
+    end
+end
+
+-- „Kalitheras Begleiter“ / „Mox' Begleiter“ (deutscher Genitiv), sonst „Kalithera's pet“
+local function PetTitle(owner)
+    if GetLocale() == "deDE" then
+        local ends = owner:lower():match("[sßxz]$") or owner:lower():match("tz$")
+        return (ends and (owner .. "'") or (owner .. "s")) .. " " .. L["Companion"]
+    end
+    return L["%s's pet"]:format(owner)
+end
+
+-- Freundliche Plates: nur der Name (Klassen- bzw. Reaktionsfarbe, 14 px), keine Balken; Begleiter mit
+-- kurzer Besitzer-Zeile darunter (Benny 2026-11-08)
 local function ApplyFriendly(frame, unit)
     local friendly = not UnitCanAttack("player", unit)
     frame.isFriendly = friendly
@@ -673,8 +722,18 @@ local function ApplyFriendly(frame, unit)
     for _, row in ipairs(frame.AuraRows) do row:SetShown(not friendly) end
     frame.NameText:ClearAllPoints()
     frame.NameText:SetParent(friendly and frame or frame.Health)
+    local controlled = friendly and UnitPlayerControlled(unit)
+    if issecretvalue and issecretvalue(controlled) then controlled = false end -- in Instanzen ggf. geschützt
+    local owner = controlled and not UnitIsPlayer(unit) and PetOwner(unit) or nil
+    ns.SetFont(frame.NameText, friendly and 14 or 12, "OUTLINE")
+    frame.SubText:SetShown(owner ~= nil)
+    if owner then
+        frame.SubText:ClearAllPoints()
+        frame.SubText:SetPoint("TOP", frame.NameText, "BOTTOM", 0, -1)
+        frame.SubText:SetText(PetTitle(owner))
+    end
     if friendly then
-        frame.NameText:SetPoint("CENTER", frame, "CENTER", 0, 0)
+        frame.NameText:SetPoint("CENTER", frame, "CENTER", 0, owner and 6 or 0)
         frame.NameText:SetJustifyH("CENTER")
         local _, class = UnitClass(unit)
         local color = UnitIsPlayer(unit) and Readable(class) and class and RAID_CLASS_COLORS[class]
@@ -744,6 +803,15 @@ oUF:Factory(function(self)
                 if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, "1") end
             end
             ns.db.nameplatesScaleSet = true
+        end)
+    end
+    -- Begleiter freundlicher Spieler mit unserer Plate statt Blizzards Weltnamen (der Text dort lässt sich
+    -- nicht kürzen) – einmalig; wer es danach umstellt, behält es (Benny 2026-11-08)
+    if not ns.db.nameplatesPetsSet then
+        ns.AfterCombat(function()
+            if C_CVar.GetCVar("nameplateShowFriendlyPlayerPets") then C_CVar.SetCVar("nameplateShowFriendlyPlayerPets", "1") end
+            if C_CVar.GetCVar("UnitNameFriendlyPetName") then C_CVar.SetCVar("UnitNameFriendlyPetName", "0") end
+            ns.db.nameplatesPetsSet = true
         end)
     end
     -- Plates immer zeigen, nicht nur im Kampf (einmalig; wer es danach umstellt, behält es)
