@@ -669,21 +669,25 @@ end
 
 local function SkinCommunitiesList(list)
     if type(list) ~= "table" then return end
-    -- Artwork der Spalte weg, flache dunkle Fläche
-    for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Fade(list[key]) end
-    FadeRegions(list.FilligreeOverlay)
-    local fill = Tex(list, "BACKGROUND", -8, { 0, 0, 0, 0.35 })
-    fill:SetAllPoints(list)
-    -- Blizzard setzt die Spalte an den linken Rand (x −1) und oben in den Titelbereich (y −23).
-    -- Mit Abstand wie die übrigen Bereiche: 10 px vom Rand, unter dem Titel (Benny 2026-11-08).
-    -- Breite bleibt 171 px; der Chat hängt an der Spalte und rückt mit.
+    -- Blizzards Artwork der Spalte (Hintergrund, verzierte Ecken) bleibt sichtbar, leicht abgedunkelt –
+    -- passt eingerückt schön ins Fenster (Benny 2026-11-08, statt grauem Rand)
+    local ART = 0.7
+    for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do
+        local tex = list[key]
+        if IsTexture(tex) then tex:SetAlpha(1) tex:SetVertexColor(ART, ART, ART) end
+    end
+    if type(list.FilligreeOverlay) == "table" and list.FilligreeOverlay.GetRegions then
+        for _, region in ipairs({ list.FilligreeOverlay:GetRegions() }) do
+            if IsTexture(region) then region:SetVertexColor(ART, ART, ART) end
+        end
+    end
     local f = list:GetParent()
     if f and not InCombatLockdown() then
         list:ClearAllPoints()
         list:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -40)
         list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", 181, 29)
     end
-    SkinInset(list.InsetFrame, true) -- liegt über den Einträgen: nur Rand, keine Fläche
+    SkinInset(list.InsetFrame) -- Blizzards Kante weg, kein eigener Rand (Artwork rahmt die Spalte)
     SkinScrollBar(list.ScrollBar)
     HookScrollBox(list.ScrollBox, SkinListEntry)
 end
