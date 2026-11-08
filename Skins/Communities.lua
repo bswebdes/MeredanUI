@@ -800,6 +800,31 @@ local function SkinBenefits(benefits)
     SkinFactionBar(benefits.FactionFrame and benefits.FactionFrame.Bar)
 end
 
+-- Text-Link-Knopf („[Zum Bearbeiten anklicken]“) als Symbol wie bei den mUI-Fenstern: Text unsichtbar,
+-- Knopf 20 × 20, Symbol mittig, Erklärung im Tooltip. Klick bleibt Blizzards.
+local L_EDIT = GUILD_EDIT_TEXT_LINK and GUILD_EDIT_TEXT_LINK:gsub("[%[%]]", "") or EDIT
+local L_FILTER = GUILD_SET_FILTERS_LINK and GUILD_SET_FILTERS_LINK:gsub("[%[%]]", "") or FILTER
+local function IconLink(button, iconName, tooltip)
+    if type(button) ~= "table" or not Once(button) then return end
+    local UI = ns.UI
+    local label = button:GetFontString()
+    if label then label:SetAlpha(0) end
+    button:SetSize(20, 20)
+    local icon = UI.Icon(button, iconName, 14, UI.MUTED)
+    own[icon] = true
+    icon:SetPoint("CENTER")
+    button:HookScript("OnEnter", function(self)
+        icon:SetVertexColor(unpack(UI.ACCENT))
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:SetText(tooltip or "", 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    button:HookScript("OnLeave", function()
+        icon:SetVertexColor(unpack(UI.MUTED))
+        GameTooltip:Hide()
+    end)
+end
+
 -- Bevorzugte Spieleinstellungen (Sprache, Standort): Dropdowns und „Übernehmen“ wie überall
 local function SkinPreferredPlay(frame)
     if type(frame) ~= "table" then return end
@@ -813,20 +838,56 @@ local function SkinDetails(details)
     if type(details) ~= "table" then return end
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
     local info, news = details.Info, details.News
-    -- Info-Spalte hat feste Breiten (Kopfbalken 280, Text 246): Schrift nicht vergrößern, sonst
-    -- überlappen Überschrift und „[Zum Bearbeiten anklicken]“. Neuigkeiten füllen den Rest (sonst
-    -- klafft im großen Fenster eine Lücke in der Mitte).
-    if type(info) == "table" then noBump[info] = true end
+    -- Info-Seite neu aufteilen (Benny 2026-11-08: „total gestaucht“): Blizzard baut sie für 600 px
+    -- Breite mit festen Maßen. Im großen Fenster: zwei gleich breite Spalten, links Nachricht des Tages
+    -- und Gildeninfo je halbe Höhe, rechts Neuigkeiten über die volle Höhe. Nur Größen/Punkte an
+    -- Blizzards Regionen, Klicks und Daten bleiben Blizzards.
     if type(news) == "table" and type(info) == "table" then
-        local function Fit()
-            local width = details:GetWidth()
-            if width and width > 0 and not InCombatLockdown() then
-                news:SetWidth(math.max(316, width - info:GetWidth() - 40))
+        IconLink(info.EditMOTDButton, "Edit", L_EDIT)
+        IconLink(info.EditDetailsButton, "Edit", L_EDIT)
+        IconLink(news.SetFiltersButton, "Filter", L_FILTER)
+        local header3 = info.GetName and info:GetName() and _G[info:GetName() .. "Header3"]
+        local function Layout()
+            if InCombatLockdown() then return end
+            local width, height = details:GetSize()
+            if not width or width < 600 or not height or height < 200 then return end
+            local column = math.floor((width - 28) / 2)
+            info:SetWidth(column)
+            news:SetWidth(column)
+            local inner = column - 8
+            local textWidth = inner - 14 - 20
+            local half = math.floor((height - 2 * 22 - 34) / 2)
+            if info.Header1 then info.Header1:SetWidth(inner) end
+            local motd = info.MOTDScrollFrame
+            if motd then
+                motd:SetSize(textWidth, half)
+                if motd.MOTD then motd.MOTD:SetWidth(textWidth) end
+            end
+            if header3 and motd then
+                header3:ClearAllPoints()
+                header3:SetPoint("TOPLEFT", motd, "BOTTOMLEFT", -14, -16)
+                header3:SetWidth(inner)
+            end
+            local detailsScroll = info.DetailsFrame
+            if detailsScroll then
+                detailsScroll:SetSize(textWidth, half)
+                local child = detailsScroll.GetScrollChild and detailsScroll:GetScrollChild()
+                if child then
+                    child:SetWidth(textWidth)
+                    if child.Details then child.Details:SetWidth(textWidth) end
+                end
+            end
+            if news.Header then news.Header:SetWidth(inner) end
+            local box = news.ScrollBox
+            if box and news.Header then
+                box:SetPoint("RIGHT", news.Header, "RIGHT", 0, 0)
+                box:SetPoint("BOTTOM", news, "BOTTOM", 0, 4)
             end
         end
-        details:HookScript("OnSizeChanged", Fit)
-        details:HookScript("OnShow", Fit)
-        Fit()
+        details:HookScript("OnSizeChanged", Layout)
+        details:HookScript("OnShow", function() C_Timer.After(0, Layout) end)
+        info:HookScript("OnShow", function() C_Timer.After(0, Layout) end)
+        Layout()
     end
     if type(info) == "table" then
         FadeRegions(info) -- Pergament, Kopfzeilen, Trennbalken
