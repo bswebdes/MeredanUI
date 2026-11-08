@@ -696,7 +696,9 @@ local function Layout()
             local info = C_QuestLog.GetInfo(index)
             if info and info.isHeader then
                 zoneName = info.title
-            elseif info and zoneName == instanceName and not info.isHidden and info.questID and info.questID > 0 then
+            -- Kopfzeile kann „Die Todesminen“ heißen, die Instanz „Todesminen“: Teilstring reicht
+            elseif info and zoneName and instanceName and (zoneName == instanceName or zoneName:find(instanceName, 1, true)
+                or instanceName:find(zoneName, 1, true)) and not info.isHidden and info.questID and info.questID > 0 then
                 instanceQuests[#instanceQuests + 1] = info.questID
                 inDungeonSection[info.questID] = true
             end
