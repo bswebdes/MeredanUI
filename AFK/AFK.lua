@@ -1,28 +1,27 @@
--- AFK-Bildschirm „Kino“: Bist du AFK, fahren schwarze Kinobalken von oben und unten ins Bild,
--- das UI blendet aus und die Kamera kreist langsam um deinen Charakter – wie eine Zwischensequenz.
+-- AFK "cinema" screen: while AFK, black letterbox bars slide in, the UI fades out and the camera
+-- slowly circles the character like a cutscene. Ends on movement (AFK ends), click or combat.
+-- Settings > Appearance.
 --
---   ┌──────────────────────────────────────────────────────────┐
---   │              GOLDHAIN · ELWYNNWALD          2 Flüstern ✉ │  ← oberer Balken
---   ├──────────────────────────────────────────────────────────┤
---   │                     (Spielwelt, Kamera kreist)            │
---   ├──────────────────────────────────────────────────────────┤
---   │ MEREDANUI          Meredan                        21:42  │  ← unterer Balken
---   │                    Stufe 80 · Blackrock      AFK seit 4:12│
---   └──────────────────────────────────────────────────────────┘
---
--- Weg mit Bewegung (AFK endet), Klick oder Kampf. Einstellungen > Aussehen.
+--   +----------------------------------------------------------+
+--   |          GOLDSHIRE - ELWYNN FOREST           2 whispers  |  <- top bar
+--   +----------------------------------------------------------+
+--   |                 (game world, camera circles)             |
+--   +----------------------------------------------------------+
+--   | MEREDANUI          Meredan                        21:42  |  <- bottom bar
+--   |                    Level 80 - Blackrock     AFK for 4:12 |
+--   +----------------------------------------------------------+
 local _, ns = ...
 local L = ns.L
 
-local BAR_RATIO = 0.13     -- Höhe eines Kinobalkens (Anteil der Bildschirmhöhe)
+local BAR_RATIO = 0.13     -- height of one bar as a fraction of screen height
 local SLIDE_IN, SLIDE_OUT = 1.2, 0.4
-local CAMERA_SPEED = 0.02  -- langsam, wie eine Kamerafahrt
+local CAMERA_SPEED = 0.02  -- slow, like a camera pan
 local MARGIN = 48
 
 local screen, topBar, bottomBar
 local clock, since, zone, whisperText, nameText, infoText
 local active, startTime, whispers = false, 0, 0
-local progress, target = 0, 0 -- 0 = weg, 1 = ganz da
+local progress, target = 0, 0 -- 0 = hidden, 1 = fully shown
 local ticker
 
 local function Text(parent, size, justify, color, display)
@@ -44,7 +43,7 @@ local function Bar(edge)
     local fill = bar:CreateTexture(nil, "BACKGROUND")
     fill:SetAllPoints()
     fill:SetColorTexture(0, 0, 0, 1)
-    -- feine Linie in Surf Green an der Innenkante
+    -- thin Surf Green line on the inner edge
     local line = bar:CreateTexture(nil, "ARTWORK")
     line:SetColorTexture(ns.UI.ACCENT[1], ns.UI.ACCENT[2], ns.UI.ACCENT[3], 0.6)
     line:SetHeight(ns.PixelSize())
@@ -72,19 +71,19 @@ local function UpdateTexts()
     end
 end
 
--- Balken fahren rein/raus, das UI blendet gegenläufig aus/ein
+-- bars slide in/out while the UI fades the opposite way
 local function Layout()
     local height = screen:GetHeight() * BAR_RATIO
     topBar:SetHeight(height)
     bottomBar:SetHeight(height)
-    local eased = 1 - (1 - progress) ^ 3 -- weich abbremsen
+    local eased = 1 - (1 - progress) ^ 3 -- ease out
     topBar:ClearAllPoints()
     topBar:SetPoint("BOTTOMLEFT", screen, "TOPLEFT", 0, -height * eased)
     topBar:SetPoint("BOTTOMRIGHT", screen, "TOPRIGHT", 0, -height * eased)
     bottomBar:ClearAllPoints()
     bottomBar:SetPoint("TOPLEFT", screen, "BOTTOMLEFT", 0, height * eased)
     bottomBar:SetPoint("TOPRIGHT", screen, "BOTTOMRIGHT", 0, height * eased)
-    UIParent:SetAlpha((ns.RPModeAlpha and ns.RPModeAlpha() or 1) * (1 - progress)) -- RP-Modus bleibt aus
+    UIParent:SetAlpha((ns.RPModeAlpha and ns.RPModeAlpha() or 1) * (1 - progress)) -- respect RP mode alpha
 end
 
 local function OnUpdate(_, elapsed)
@@ -102,7 +101,7 @@ local function OnUpdate(_, elapsed)
 end
 
 local function Create()
-    -- an der Spielwelt, nicht am UI (das wird ausgeblendet); Maßstab wie das UI
+    -- parented to WorldFrame since UIParent gets faded out; scaled like the UI
     screen = CreateFrame("Frame", "MeredanUIAFKScreen", WorldFrame)
     screen:SetFrameStrata("FULLSCREEN")
     screen:SetScale(UIParent:GetScale())
@@ -112,13 +111,13 @@ local function Create()
 
     topBar, bottomBar = Bar("TOP"), Bar("BOTTOM")
 
-    -- oben: Ort mittig, Flüstern rechts
+    -- top: zone centered, whispers right
     zone = Text(topBar, 16, "CENTER", ns.UI.MUTED, true)
     zone:SetPoint("CENTER", 0, 0)
     whisperText = Text(topBar, 14, "RIGHT", ns.UI.ACCENT)
     whisperText:SetPoint("RIGHT", -MARGIN, 0)
 
-    -- unten links: Logo
+    -- bottom left: logo
     local logo = Text(bottomBar, 34, "LEFT", { 0.914, 0.902, 0.867 }, true)
     logo:SetPoint("LEFT", MARGIN, 0)
     logo:SetText("Meredan")
@@ -126,19 +125,19 @@ local function Create()
     logoUI:SetPoint("LEFT", logo, "RIGHT", 2, 0)
     logoUI:SetText("UI")
 
-    -- unten Mitte: Charakter
+    -- bottom center: character
     nameText = Text(bottomBar, 22, "CENTER")
     nameText:SetPoint("BOTTOM", bottomBar, "CENTER", 0, 2)
     infoText = Text(bottomBar, 13, "CENTER", ns.UI.MUTED)
     infoText:SetPoint("TOP", bottomBar, "CENTER", 0, -4)
 
-    -- unten rechts: Uhr und AFK-Zeit
+    -- bottom right: clock and AFK time
     clock = Text(bottomBar, 34, "RIGHT", nil, true)
     clock:SetPoint("BOTTOMRIGHT", bottomBar, "RIGHT", -MARGIN, -2)
     since = Text(bottomBar, 13, "RIGHT", ns.UI.MUTED)
     since:SetPoint("TOPRIGHT", bottomBar, "RIGHT", -MARGIN, -6)
 
-    -- Klick: Bildschirm weg (AFK bleibt, bis du dich bewegst)
+    -- click hides the screen (AFK stays until the player moves)
     screen:SetScript("OnMouseDown", function() ns.StopAFKScreen() end)
 end
 
@@ -177,7 +176,7 @@ function ns.StopAFKScreen(instant)
     if ticker then ticker:Cancel() ticker = nil end
     MoveViewLeftStop()
     target = 0
-    if instant then -- Kampf: UI sofort zurück
+    if instant then -- combat: restore the UI immediately
         progress = 0
         Layout()
         screen:SetScript("OnUpdate", nil)
