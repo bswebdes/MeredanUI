@@ -14,9 +14,9 @@ local _, ns = ...
 local L = ns.L
 local UI = ns.UI
 
-local WIDTH, HEIGHT, NAV_WIDTH = 740, 560, 180 -- Nav breit genug für „Dungeons & Schlachtzüge“
+local WIDTH, HEIGHT, NAV_WIDTH = 860, 640, 220 -- Benny 2026-11-08: größer, weniger gedrängt (Entwurf Canvas „Einstellungen“)
 local CONTENT_WIDTH = WIDTH - 10 - NAV_WIDTH - 20 - 28 -- rechts Platz für die Scroll-Leiste
-local NAV_ROW, NAV_GROUP = 26, 24
+local NAV_ROW, NAV_GROUP, NAV_SMALL = 26, 24, 22 -- NAV_SMALL: Module/Skins/Changelog unten, dezent
 local window
 
 -- Auswahllisten ------------------------------------------------------------------------
@@ -126,6 +126,15 @@ local WINDOWS = {
     { "characterWindow", "mUI character window", "Character, reputation, skills, PvP, currencies and statistics in the mUI look." },
     { "auctionWindow", "mUI auction house", "Auction house in the mUI look: buy with categories and favorites, sell with price suggestion and net breakdown, your auctions and bids, plus a history with income, expenses and fees." },
     { "merchantWindow", "mUI merchant window", "Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk." },
+}
+local WINDOW_BY_KEY = {}
+for _, entry in ipairs(WINDOWS) do WINDOW_BY_KEY[entry[1]] = entry end
+-- Skins-Seite in Gruppen (Entwurf Canvas „Einstellungen“, Benny 2026-11-08)
+local SKIN_GROUPS = {
+    { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow" } },
+    { L["World"], { "mapWindow", "flightWindow" } },
+    { L["NPCs"], { "merchantWindow", "trainerWindow", "gossipWindow", "questWindow", "mailWindow", "tradeWindow", "auctionWindow" } },
+    { L["Social"], { "friendsWindow", "guildWindow", "skinDialogs" } },
 }
 
 -- Seiten -------------------------------------------------------------------------------
@@ -558,47 +567,6 @@ local PAGES = {
         end,
     },
     {
-        key = "windows", label = L["Own windows"],
-        build = function(page)
-            page:AddTitle(L["Own windows"], L["Trainer, conversation, quest, mail, talents, trade and more in the mUI look."])
-            if not ns.IS_FOREVER then
-                page:AddNote(L["Only in WoW Forever for now."])
-                return
-            end
-            -- alle auf einmal (Benny 2026-11-06); an = jedes Fenster an, aus = alle wieder Blizzard
-            page:AddCheckbox(L["All windows"], function()
-                for _, entry in ipairs(WINDOWS) do
-                    if ns.db[entry[1]] == false then return false end
-                end
-                return true
-            end, function(value)
-                for _, entry in ipairs(WINDOWS) do ns.db[entry[1]] = value end
-                page:Refresh()
-            end, Help(L["Turns all windows below on or off at once."], true))
-            -- einzeln: eingeklappt, falls ein anderes Addon stört (Benny 2026-11-07)
-            local rows, open = {}, false
-            local toggle
-            local function ShowRows()
-                for _, row in ipairs(rows) do row:SetShown(open) end
-                toggle.button.Text:SetText(open and L["Hide single windows"] or L["Choose single windows"])
-                page.y = open and page.fullY or page.shortY
-                if window and window.current == "windows" then window.scroll:SetContentHeight(page.y) end
-            end
-            toggle = page:AddButton(L["Choose single windows"], function()
-                open = not open
-                ShowRows()
-            end)
-            page.shortY = page.y
-            for _, entry in ipairs(WINDOWS) do
-                local key = entry[1]
-                rows[#rows + 1] = page:AddCheckbox(L[entry[2]], function() return ns.db[key] ~= false end,
-                    Setter(key), Help(L[entry[3]], true))
-            end
-            page.fullY = page.y
-            ShowRows()
-        end,
-    },
-    {
         key = "dungeons", label = L["Dungeons & raids"], group = L["Combat"],
         build = function(page)
             local function Live(key) return Setter(key, ns.RefreshMythicPlusDemo) end
@@ -630,6 +598,82 @@ local PAGES = {
                     Help(L["In Mythic+ only, when an NPC offers a single dialogue option."]))
                 page:AddCheckbox(L["Group keystones next to the Mythic+ window"], On("mplusGroupKeys"),
                     Setter("mplusGroupKeys", function() if ns.UpdateGroupKeystones then ns.UpdateGroupKeystones() end end))
+            end
+        end,
+    },
+    -- Unten, dezent in Grau (Benny 2026-11-08): Module = eigene Bausteine, Skins = Blizzard-Fenster im
+    -- mUI-Look, Changelog. Darunter Profile.
+    {
+        key = "modules", label = L["Modules"], extra = true,
+        build = function(page)
+            page:AddTitle(L["Modules"], L["mUI's own building blocks. Turned off, Blizzard or another addon takes over. Takes effect after a reload."])
+            page:AddNote(L["Always on: unit frames, action bars, minimap and chat."])
+            local function Module(key, label, comfort)
+                return { label = comfort and (label .. "  |cff8a918e" .. L["Comfort"] .. "|r") or label,
+                    get = function() return ns.db[key] ~= false end, set = Setter(key), opts = RELOAD }
+            end
+            page:AddHeader(L["Frames"])
+            page:AddCheckboxGrid({
+                Module("groupFrames", L["Group & raid frames"]),
+                Module("groupManager", L["Group tools"]),
+                Module("nameplates", L["Nameplates"]),
+                Module("bossMods", L["Boss timers"]),
+            }, 2)
+            page:AddHeader(L["Screen"])
+            page:AddCheckboxGrid({
+                Module("toasts", L["Alerts"]),
+                Module("damageMeter", L["Damage meter"]),
+            }, 2)
+            page:AddHeader(L["Bags & loot"])
+            page:AddCheckboxGrid({
+                Module("bags", L["Bags & bank"]),
+                Module("lootWindow", L["Loot window"]),
+                Module("lootRolls", L["Roll windows"]),
+                { label = L["Upgrade arrows"] .. "  |cff8a918e" .. L["Comfort"] .. "|r",
+                    get = function() return ns.db.upgrades ~= "off" end,
+                    set = function(value) ns.db.upgrades = value and "damage" or "off" end },
+            }, 2)
+        end,
+    },
+    {
+        key = "skins", label = L["Skins"], extra = true,
+        build = function(page)
+            page:AddTitle(L["Skins"], L["Blizzard windows in the mUI look. Turned off, the game shows the original again. Takes effect after a reload."])
+            if not ns.IS_FOREVER then
+                page:AddNote(L["Only in WoW Forever for now."])
+                return
+            end
+            page:AddCheckbox(L["All skins"], function()
+                for _, entry in ipairs(WINDOWS) do
+                    if ns.db[entry[1]] == false then return false end
+                end
+                return true
+            end, function(value)
+                for _, entry in ipairs(WINDOWS) do ns.db[entry[1]] = value end
+                page:Refresh()
+            end, RELOAD)
+            for _, group in ipairs(SKIN_GROUPS) do
+                page:AddHeader(group[1])
+                local entries = {}
+                for _, key in ipairs(group[2]) do
+                    local entry = WINDOW_BY_KEY[key]
+                    if entry then
+                        entries[#entries + 1] = { label = L[entry[2]], get = function() return ns.db[key] ~= false end,
+                            set = Setter(key), opts = Help(L[entry[3]], true) }
+                    end
+                end
+                page:AddCheckboxGrid(entries, 3)
+            end
+        end,
+    },
+    {
+        key = "changelog", label = L["Changelog"], extra = true,
+        build = function(page)
+            page:AddTitle(L["Changelog"], L["What changed in the latest versions. Same text as on CurseForge."])
+            for _, release in ipairs(ns.CHANGELOG or {}) do
+                local current = release.version == ns.VERSION or ns.VERSION:find("^" .. release.version:gsub("%p", "%%%0") .. "%+")
+                page:AddHeader(release.version .. (current and ("   |cff8ecbb4" .. L["installed"] .. "|r") or ""))
+                for _, item in ipairs(release.items) do page:AddNote("•  " .. item) end
             end
         end,
     },
@@ -871,6 +915,7 @@ local function CreateWindow()
 
     local y = 1
     local bottom = 0
+    local extras = {}
     for _, entry in ipairs(PAGES) do
         if entry.group then
             local header = UI.Text(nav, 10, "LEFT", UI.MUTED)
@@ -879,11 +924,13 @@ local function CreateWindow()
             y = y + NAV_GROUP
         end
         local button = CreateFrame("Button", nil, nav)
-        button:SetHeight(NAV_ROW)
+        button:SetHeight(entry.extra and NAV_SMALL or NAV_ROW)
         if entry.bottom then
             button:SetPoint("BOTTOMLEFT", 1, 1 + bottom * NAV_ROW)
             button:SetPoint("BOTTOMRIGHT", -1, 1 + bottom * NAV_ROW)
             bottom = bottom + 1
+        elseif entry.extra then
+            extras[#extras + 1] = button -- Platz erst nach der Schleife (über Profile)
         else
             button:SetPoint("TOPLEFT", 1, -y)
             button:SetPoint("TOPRIGHT", -1, -y)
@@ -902,7 +949,7 @@ local function CreateWindow()
         button.marker:SetPoint("TOPLEFT")
         button.marker:SetPoint("BOTTOMLEFT")
         button.marker:SetWidth(2)
-        button.text = UI.Text(button, 13, "LEFT")
+        button.text = UI.Text(button, entry.extra and 12 or 13, "LEFT", entry.extra and UI.MUTED or nil)
         button.text:SetPoint("LEFT", 12, 0)
         button.text:SetPoint("RIGHT", -6, 0) -- falls eine Übersetzung doch zu lang ist: kürzen statt überlappen
         button.text:SetWordWrap(false)
@@ -917,14 +964,25 @@ local function CreateWindow()
     end
     -- Fenster wächst mit der Navigation (Benny 2026-11-06: neue Menüpunkte sollen immer Platz haben):
     -- oben 48 px Kopf, Einträge, Abstand zu den unteren Einträgen, unten 10 px Rand
-    local needed = 48 + y + 16 + bottom * NAV_ROW + 2 + 10
+    -- Module/Skins/Changelog über Profile, oben zuerst; je eine Trennlinie darüber und darunter
+    local base = 1 + bottom * NAV_ROW
+    for i, button in ipairs(extras) do
+        local offset = base + 6 + (#extras - i) * NAV_SMALL
+        button:SetPoint("BOTTOMLEFT", 1, offset)
+        button:SetPoint("BOTTOMRIGHT", -1, offset)
+    end
+    local extraHeight = #extras > 0 and (#extras * NAV_SMALL + 12) or 0
+    local needed = 48 + y + 16 + bottom * NAV_ROW + extraHeight + 2 + 10
     window:SetHeight(math.min(math.max(HEIGHT, needed), UIParent:GetHeight() - 40))
-    -- Trennlinie über den unteren Einträgen (Profile)
-    local line = nav:CreateTexture(nil, "ARTWORK")
-    line:SetColorTexture(1, 1, 1, 0.08)
-    line:SetPoint("BOTTOMLEFT", 1, 1 + bottom * NAV_ROW)
-    line:SetPoint("BOTTOMRIGHT", -1, 1 + bottom * NAV_ROW)
-    line:SetHeight(ns.PixelSize())
+    local function Line(offset)
+        local line = nav:CreateTexture(nil, "ARTWORK")
+        line:SetColorTexture(1, 1, 1, 0.08)
+        line:SetPoint("BOTTOMLEFT", 1, offset)
+        line:SetPoint("BOTTOMRIGHT", -1, offset)
+        line:SetHeight(ns.PixelSize())
+    end
+    Line(base) -- über Profile
+    if #extras > 0 then Line(base + extraHeight) end -- über Module
 
     window:SetScript("OnShow", function()
         SelectPage(window.current or PAGES[1].key)

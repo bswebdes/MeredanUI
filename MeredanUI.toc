@@ -134,6 +134,7 @@ Core/Preview.lua
 
 # Einstellungsfenster
 Config/Widgets.lua
+Config/ChangelogData.lua
 Config/Options.lua
 Config/Setup.lua
 Config/GameMenu.lua

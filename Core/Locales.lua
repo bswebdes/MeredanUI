@@ -1214,6 +1214,25 @@ if GetLocale() == "deDE" then
     L["Leave group"] = "Gruppe verlassen"
     L["Leave instance group"] = "Instanzgruppe verlassen"
     L["Not possible right now."] = "Gerade nicht möglich."
+    -- Einstellungen: Module, Skins, Changelog
+    L["Modules"] = "Module"
+    L["Skins"] = "Skins"
+    L["Changelog"] = "Changelog"
+    L["mUI's own building blocks. Turned off, Blizzard or another addon takes over. Takes effect after a reload."] = "Eigene Bausteine von mUI. Ausgeschaltet übernimmt Blizzard oder ein anderes Addon. Wirkt nach dem Neuladen."
+    L["Always on: unit frames, action bars, minimap and chat."] = "Immer an: Einheitenfenster, Aktionsleisten, Minimap und Chat."
+    L["Bags & loot"] = "Taschen & Beute"
+    L["Group & raid frames"] = "Gruppe & Schlachtzug"
+    L["Bags & bank"] = "Taschen & Bank"
+    L["Loot window"] = "Beutefenster"
+    L["Roll windows"] = "Würfelfenster"
+    L["Upgrade arrows"] = "Upgrade-Pfeile"
+    L["Blizzard windows in the mUI look. Turned off, the game shows the original again. Takes effect after a reload."] = "Blizzard-Fenster im mUI-Look. Ausgeschaltet zeigt das Spiel wieder das Original. Wirkt nach dem Neuladen."
+    L["All skins"] = "Alle Skins"
+    L["Character"] = "Charakter"
+    L["NPCs"] = "NPCs"
+    L["Social"] = "Soziales"
+    L["What changed in the latest versions. Same text as on CurseForge."] = "Was sich in den letzten Versionen geändert hat. Derselbe Text wie auf CurseForge (englisch)."
+    L["installed"] = "installiert"
 end
 
 -- Einrichtungsassistent und Stile (Config/Setup.lua, Core/Presets.lua)
