@@ -36,6 +36,10 @@ local BARS = {
     { key = "bar3", page = 6, binding = "MULTIACTIONBAR1BUTTON", cols = 12 }, -- Alt (unten links bei Blizzard)
     { key = "bar4", page = 3, binding = "MULTIACTIONBAR3BUTTON", cols = 1 },  -- rechts außen
     { key = "bar5", page = 4, binding = "MULTIACTIONBAR4BUTTON", cols = 1 },  -- rechts innen
+    -- Zusatzleisten 6–8 (Benny 2026-11-08): Blizzards Leisten 6–8 (Seiten 13–15), standardmäßig aus
+    { key = "bar6", page = 13, binding = "MULTIACTIONBAR5BUTTON", cols = 1 }, -- rechts, dritte senkrechte
+    { key = "bar7", page = 14, binding = "MULTIACTIONBAR6BUTTON", cols = 6 }, -- unten links, 6 × 2
+    { key = "bar8", page = 15, binding = "MULTIACTIONBAR7BUTTON", cols = 6 }, -- unten rechts, 6 × 2
 }
 
 -- Seitenwechsel der Hauptleiste (wie ElvUI/Bartender). Fahrzeug, Override und temporäre Gestalt
@@ -515,8 +519,18 @@ local framesByKey = {}
 local VISIBILITY = {
     always = "show",
     mouseover = "show",
+    combat = "show", -- im Kampf sichtbar, außerhalb wie Mouseover (bleibt per Maus erreichbar)
     hidden = "hide",
 }
+
+-- Einstellung einer Aktionsleiste lesen: wie überall, nur „combat“ gibt es hier wirklich
+-- (Benny 2026-11-08: außerhalb des Kampfes ausgeblendet, aber per Maus darüber sichtbar)
+local function BarMode(key)
+    local raw = ns.db.actionBars[key]
+    if raw == "combat" then return "combat" end
+    return ns.VisibilityMode(raw)
+end
+ns.ActionBarMode = BarMode
 
 local function VisibilityRule(key, mode)
     local rule = VISIBILITY[mode] or "show"
@@ -527,10 +541,11 @@ end
 function ns.ApplyActionBarVisibility()
     if InCombatLockdown() then return ns.AfterCombat(ns.ApplyActionBarVisibility) end
     for key, frame in pairs(framesByKey) do
-        local mode = ns.VisibilityMode(ns.db.actionBars[key]) -- Immer, Mouseover oder Aus
+        local mode = BarMode(key) -- Immer, Im Kampf, Mouseover oder Aus
         RegisterStateDriver(frame, "visibility", VisibilityRule(key, mode))
         frame.muiMouseover = mode == "mouseover"
-        if not frame.muiMouseover then frame:SetAlpha(1) end
+        frame.muiCombat = mode == "combat"
+        if not (frame.muiMouseover or frame.muiCombat) then frame:SetAlpha(1) end
     end
 end
 
@@ -548,8 +563,11 @@ end
 
 -- Mouseover: alle 0,1 s prüfen (Alpha darf man auch im Kampf setzen)
 C_Timer.NewTicker(0.1, function()
+    local inCombat = InCombatLockdown()
     for _, frame in pairs(framesByKey) do
-        if frame.muiMouseover then
+        if frame.muiCombat and inCombat then
+            frame:SetAlpha(1)
+        elseif frame.muiMouseover or frame.muiCombat then
             local over = frame:IsVisible() and (frame:IsMouseOver(4, -4, -4, 4) or MouseOverFlyout(frame))
             frame:SetAlpha(over and 1 or 0)
         end
@@ -654,7 +672,7 @@ local function Setup()
     -- Blizzards goldene Flyout-Schiene hinter den Knöpfen weg (gibt es erst nach dem 1. Knopf)
     local flyout = LAB:GetSpellFlyoutFrame()
     if flyout and flyout.Background then flyout.Background:SetAlpha(0) end
-    local main, shift, alt, right, inner = unpack(bars)
+    local main, shift, alt, right, inner, third, leftBlock, rightBlock = unpack(bars)
 
     -- Plätze aus der Bildschirmgröße – laufen bei Größen-/Skalierungswechsel erneut
     ns.OnLayout(function()
@@ -691,6 +709,13 @@ local function Setup()
         -- rechts: erste Leiste am Rand, zweite innen daneben (senkrecht mittig)
         Place(right, "bar4", "RIGHT", halfW - margin, 0)
         Place(inner, "bar5", "RIGHT", halfW - margin - size - barGap, 0)
+        -- Zusatzleisten: dritte senkrechte rechts; unten je ein 6 × 2-Block links und rechts neben
+        -- den 12er-Reihen, unten bündig (Benny 2026-11-08, Screenshot)
+        Place(third, "bar6", "RIGHT", halfW - margin - 2 * (size + barGap), 0)
+        local sideGap = ns.Snap(12)
+        local half = ns.ExtraBarWidth() / 2
+        Place(leftBlock, "bar7", "BOTTOMRIGHT", -half - sideGap, -halfH + margin)
+        Place(rightBlock, "bar8", "BOTTOMLEFT", half + sideGap, -halfH + margin)
     end)
 
     -- Pet-Leiste unter dem Pet-Frame, genau so breit

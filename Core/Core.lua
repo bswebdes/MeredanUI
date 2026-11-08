@@ -201,6 +201,7 @@ local DEFAULTS = {
     -- Sichtbarkeit der Aktionsleisten: "always", "mouseover", "hidden"
     actionBars = {
         bar1 = "always", bar2 = "always", bar3 = "always", bar4 = "always", bar5 = "always",
+        bar6 = "hidden", bar7 = "hidden", bar8 = "hidden", -- Zusatzleisten: erst in den Einstellungen dazuschalten
         petbar = "always", stancebar = "mouseover",
     },
 }

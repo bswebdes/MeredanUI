@@ -52,6 +52,16 @@ local function VisibilityItems()
     }
 end
 
+-- Aktionsleisten: zusätzlich „Im Kampf“ (außerhalb ausgeblendet, per Maus sichtbar)
+local function BarVisibilityItems()
+    return {
+        { value = "always", label = L["Always"] },
+        { value = "combat", label = L["In combat"] },
+        { value = "mouseover", label = L["Mouseover"] },
+        { value = "hidden", label = L["Hidden"] },
+    }
+end
+
 local function AlwaysOrHover()
     return { { value = "always", label = L["Always"] }, { value = "mouseover", label = L["Mouseover"] } }
 end
@@ -337,9 +347,10 @@ local PAGES = {
                 }
             end, Getter("barVariant"), Setter("barVariant"),
                 Help(L["Centre: main bar between player and target. Stacked: three rows of 12 at the bottom. The healer layout is always stacked."], true))
-            for _, key in ipairs({ "bar1", "bar2", "bar3", "bar4", "bar5", "petbar", "stancebar" }) do
-                page:AddDropdown(L["MOVER_" .. key], VisibilityItems,
-                    function() return ns.VisibilityMode(ns.db.actionBars[key]) end,
+            for _, key in ipairs({ "bar1", "bar2", "bar3", "bar4", "bar5", "petbar", "stancebar", "bar6", "bar7", "bar8" }) do
+                if key == "bar6" then page:AddHeader(L["Extra bars"]) end
+                page:AddDropdown(L["MOVER_" .. key], BarVisibilityItems,
+                    function() return ns.ActionBarMode and ns.ActionBarMode(key) or ns.VisibilityMode(ns.db.actionBars[key]) end,
                     function(value)
                         ns.db.actionBars[key] = value
                         ns.ApplyActionBarVisibility()
@@ -764,7 +775,7 @@ local function SelectPage(key)
     for _, each in ipairs(PAGES) do
         local selected = each.key == key
         each.page:SetShown(selected)
-        each.nav.text:SetTextColor(unpack(selected and UI.ACCENT or UI.TEXT))
+        each.nav.text:SetTextColor(unpack(selected and UI.ACCENT or (each.extra and UI.MUTED or UI.TEXT)))
         each.nav.marker:SetShown(selected)
         each.nav.selected:SetShown(selected)
         if selected then
