@@ -28,6 +28,7 @@ if GetLocale() == "deDE" then
     L["MOVER_bar7"] = "Leiste 7 (unten links)"
     L["MOVER_bar8"] = "Leiste 8 (unten rechts)"
     L["Extra bars"] = "Zusatzleisten"
+    L["Invite to guild"] = "In die Gilde einladen"
     L["Buff time"] = "Buff-Restzeit"
     L["Number"] = "Zahl"
     L["Bar"] = "Leiste"

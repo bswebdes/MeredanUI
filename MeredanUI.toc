@@ -84,6 +84,7 @@ Map/WorldMap.lua
 Map/FlightMap.lua
 Social/Friends.lua
 Social/Guild.lua
+Social/GuildInvite.lua
 Social/GuildControl.lua
 Character/Character.lua
 Character/Stats.lua

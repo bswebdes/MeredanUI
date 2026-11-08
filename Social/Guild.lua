@@ -1898,7 +1898,13 @@ local function Layout()
         local privileges = selectedClubId and C_Club.GetClubPrivileges(selectedClubId)
         if privileges and privileges.canSendInvitation then
             buttonText, buttonAction = COMMUNITIES_INVITE_MANAGER_BUTTON_TEXT or L["Invite member"], function()
-                CommunitiesUtil.OpenInviteDialog(selectedClubId, SelectedStream())
+                -- Gilde: eigener Dialog mit sicherem /ginvite (Blizzards Dialog wird aus Addon-Fenstern
+                -- blockiert, Benny 2026-11-08); andere Communities: Blizzards Dialog (nicht geschützt)
+                if IsGuildClub() and ns.OpenGuildInvite then
+                    ns.OpenGuildInvite()
+                else
+                    CommunitiesUtil.OpenInviteDialog(selectedClubId, SelectedStream())
+                end
             end
         end
     elseif currentTab == "roster" then
