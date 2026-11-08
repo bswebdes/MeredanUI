@@ -673,7 +673,16 @@ local function SkinCommunitiesList(list)
     for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Fade(list[key]) end
     FadeRegions(list.FilligreeOverlay)
     local fill = Tex(list, "BACKGROUND", -8, { 0, 0, 0, 0.35 })
-    fill:SetAllPoints(type(list.InsetFrame) == "table" and list.InsetFrame or list)
+    fill:SetAllPoints(list)
+    -- Blizzard setzt die Spalte an den linken Rand (x −1) und oben in den Titelbereich (y −23).
+    -- Mit Abstand wie die übrigen Bereiche: 10 px vom Rand, unter dem Titel (Benny 2026-11-08).
+    -- Breite bleibt 171 px; der Chat hängt an der Spalte und rückt mit.
+    local f = list:GetParent()
+    if f and not InCombatLockdown() then
+        list:ClearAllPoints()
+        list:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -40)
+        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", 181, 29)
+    end
     SkinInset(list.InsetFrame, true) -- liegt über den Einträgen: nur Rand, keine Fläche
     SkinScrollBar(list.ScrollBar)
     HookScrollBox(list.ScrollBox, SkinListEntry)
