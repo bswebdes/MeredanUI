@@ -1,37 +1,32 @@
--- Toasts (wie „ls: Toasts“): schlanke MUI-Benachrichtigungen statt Blizzards großer Popups –
--- Beute (ab Selten, in Forever ab Gut; Quest-Items immer), Gold, Währungen, Ruf, Erfolge, Quests, Stufenaufstieg,
--- neue Reittiere/Haustiere/Spielzeuge/Vorlagen/Rezepte. Rechts neben dem Damage Meter, oben bündig,
--- stapeln nach unten (Benny, 2026-10-23). Gleiche Dinge werden zusammengefasst (Gold, ×2 …).
--- Im Bosskampf wird gesammelt und danach gezeigt. Blizzard behält nur, was MUI nicht übernimmt
--- (Garnison, Dungeon-Abschluss …): die übernommenen Ereignisse werden an AlertFrame abgemeldet.
+-- Toasts: slim mUI notifications replacing Blizzard's large popups - loot, gold, currencies,
+-- renown, achievements, quests, level up, new collectibles/recipes. Stacked downward right of the
+-- damage meter; identical items merge (x2). Held back during boss encounters. Taken-over events
+-- are unregistered from AlertFrame; Blizzard keeps the rest (garrison, dungeon completion ...).
 --
---   ┌───────────────────────────────┐
---   │▣  Beute                    ×2│  ← Überschrift klein und gedämpft
---   │▣  Klinge des Sturms           │  ← Name in Qualitätsfarbe, Rahmen ebenso
---   └───────────────────────────────┘
+--   [icon]  Loot                 x2   <- title: small, muted
+--   [icon]  Blade of the Storm        <- name and border in quality color
 local _, ns = ...
 local L = ns.L
 local Readable = ns.Readable
 
 local WIDTH, HEIGHT, GAP = 240, 40, 4
 local MAX_SHOWN = 5
-local HOLD = 5             -- Sekunden sichtbar (Maus drauf hält an)
+local HOLD = 5             -- seconds visible (paused while hovered)
 local FADE_IN, FADE_OUT = 0.2, 0.5
-local SLIDE_SPEED = 12     -- Nachrücken: Anteil der Reststrecke pro Sekunde (weiches Abbremsen)
-local FLASH_TIME = 0.4     -- Aufleuchten beim Hochzählen (Sekunden)
-local MERGE_WINDOW = 3     -- Sekunden: gleiche Beute aus Chat und Loot-Toast nur einmal
--- Retail ab Selten; Forever ab Gut (beim Leveln sind Grüne oft echte Verbesserungen, Benny 2026-11-05)
+local SLIDE_SPEED = 12     -- slide: fraction of remaining distance per second (ease-out)
+local FLASH_TIME = 0.4     -- flash duration when a count goes up
+local MERGE_WINDOW = 3     -- seconds: dedupe the same loot from chat and loot toast
+-- Retail: Rare and up; Forever: Uncommon and up (greens are real upgrades while leveling)
 local MIN_QUALITY = ns.IS_FOREVER and Enum.ItemQuality.Uncommon or Enum.ItemQuality.Rare
-local DEFAULT_ICON = 134400 -- Fragezeichen
+local DEFAULT_ICON = 134400 -- question mark
 
 local function Enabled() return ns.db.toasts ~= false end
 
--- Hintergrund: Farbverlauf in der Farbe des Toasts (Qualität bzw. Textfarbe), links kräftig, nach
--- rechts auslaufend. Blizzards Toast-Grafiken probiert und verworfen (2026-10-23): als schmaler
--- Streifen zugeschnitten sieht man nur deren Rahmen- und Icon-Bruchstücke.
+-- Background: gradient in the toast color (quality or text color), strong left, fading right.
+-- Blizzard's toast art does not work cropped to a thin strip (only border/icon fragments show).
 local GRADIENT_ALPHA = 0.35
 
--- Ereignisse, die MUI übernimmt (Blizzards AlertFrame meldet sie ab)
+-- Events mUI takes over (unregistered from Blizzard's AlertFrame)
 local TAKEN_OVER = {
     "ACHIEVEMENT_EARNED", "CRITERIA_EARNED", "LOOT_ITEM_ROLL_WON", "SHOW_LOOT_TOAST",
     "SHOW_LOOT_TOAST_UPGRADE", "SHOW_LOOT_TOAST_LEGENDARY_LOOTED", "QUEST_TURNED_IN", "QUEST_LOOT_RECEIVED",
@@ -39,8 +34,8 @@ local TAKEN_OVER = {
     "TRANSMOG_COSMETIC_COLLECTION_SOURCE_ADDED", "NEW_RECIPE_LEARNED",
 }
 
--- Halter ------------------------------------------------------------------------------------
--- rechts neben dem ersten Damage-Meter-Fenster; ohne Meter oben links am Rand
+-- Holder ------------------------------------------------------------------------------------
+-- right of the first damage meter window; top left corner without a meter
 
 local holder = CreateFrame("Frame", "MeredanUIToasts", UIParent)
 holder:SetSize(WIDTH, HEIGHT)
@@ -49,9 +44,9 @@ holder:SetFrameStrata("HIGH")
 local function PlaceHolder()
     holder:ClearAllPoints()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- mUI-Meter (DamageMeter/DamageMeter.lua), sonst Blizzards erstes Fenster
+    -- mUI meter (DamageMeter/DamageMeter.lua), else Blizzard's first window
     local meter = ns.layoutFrames.damagemeter or DamageMeterSessionWindow1
-    -- nur an einem sichtbaren Meter; Oberkante nie näher als 25 px an der Bildschirmkante
+    -- only next to a visible meter; top edge keeps the screen margin
     if meter and meter:IsVisible() and meter:GetLeft() and meter:GetTop() then
         local top = math.min(meter:GetTop(), UIParent:GetTop() - margin)
         holder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", meter:GetRight() + ns.Snap(10), top)
@@ -60,9 +55,9 @@ local function PlaceHolder()
     end
 end
 
-ns.PlaceToastHolder = PlaceHolder -- das mUI-Meter ruft es beim Ein-/Ausblenden
+ns.PlaceToastHolder = PlaceHolder -- called by the mUI meter on show/hide
 
--- Toast-Frames ------------------------------------------------------------------------------
+-- Toast frames ------------------------------------------------------------------------------
 
 local pool, shown, queue = {}, {}, {}
 local Layout, Release
@@ -118,11 +113,10 @@ local function CreateToast()
             if data.rolls and ns.AddRollLines then ns.AddRollLines(GameTooltip, data.rolls) end
             if data.link:find("|Hitem:") then ns.ShowItemCompare(GameTooltip) end
             GameTooltip:Show()
-            self.UpdateTooltip = self:GetScript("OnEnter") -- Shift während der Maus drauf ist
+            self.UpdateTooltip = self:GetScript("OnEnter") -- refresh on Shift while hovered
         end
     end)
-    -- Toasts mit Aktion (data.onClick, z. B. Zauberränge aktualisieren): Klick führt sie aus und
-    -- lässt den Toast danach ausblenden
+    -- Toasts with an action (data.onClick): click runs it, then the toast fades out
     toast:SetScript("OnMouseUp", function(self, button)
         local data = self.data
         if button == "LeftButton" and data and data.onClick and not data.demo then
@@ -133,12 +127,12 @@ local function CreateToast()
     end)
     toast:SetScript("OnLeave", function(self)
         self.hovered = false
-        self.age = math.min(self.age, HOLD) -- nach dem Verlassen noch kurz stehen lassen
+        self.age = math.min(self.age, HOLD) -- stay briefly after mouse leaves
         GameTooltip:Hide()
     end)
-    -- Ein-/Ausblenden per OnUpdate (Alpha), Maus drauf hält die Zeit an
+    -- Fade via OnUpdate alpha; hovering pauses the timer
     toast:SetScript("OnUpdate", function(self, elapsed)
-        -- zum Platz im Stapel gleiten
+        -- slide to stack position
         if self.y ~= self.targetY then
             local rest = self.targetY - self.y
             self.y = math.abs(rest) < 0.5 and self.targetY or self.y + rest * math.min(1, elapsed * SLIDE_SPEED)
@@ -178,7 +172,7 @@ local function Render(toast)
     toast.text:SetTextColor(r, g, b)
     toast.gradient:SetShown(true)
     toast.gradient:SetGradient("HORIZONTAL", CreateColor(r, g, b, GRADIENT_ALPHA), CreateColor(r, g, b, 0))
-    -- Rahmen in Qualitätsfarbe nur bei Items mit Qualität ab Ungewöhnlich, sonst schwarz
+    -- Quality-colored border only for Uncommon+ items, otherwise black
     local colored = data.quality and data.quality >= Enum.ItemQuality.Uncommon
     for _, edge in ipairs(toast.edges) do
         if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(0, 0, 0, 1) end
@@ -187,7 +181,7 @@ local function Render(toast)
     toast.count:SetText(count)
 end
 
--- Stapel-Plätze: neue Toasts stehen sofort, vorhandene gleiten im OnUpdate nach oben
+-- Stack positions: new toasts snap in place, existing ones slide up in OnUpdate
 function Layout()
     for i, toast in ipairs(shown) do
         toast.targetY = -(i - 1) * (ns.Snap(HEIGHT) + ns.Snap(GAP))
@@ -200,7 +194,7 @@ function Layout()
 end
 
 local function Show(data)
-    if #shown == 0 then PlaceHolder() end -- Meter könnte verschoben worden sein
+    if #shown == 0 then PlaceHolder() end -- meter may have moved
     local toast = table.remove(pool) or CreateToast()
     toast.data, toast.age, toast.hovered, toast.flashLeft = data, 0, false, 0
     toast:SetAlpha(0)
@@ -208,13 +202,13 @@ local function Show(data)
     shown[#shown + 1] = toast
     Layout()
     toast:Show()
-    if DevLog then -- stille Spur: wo der Toast landet
+    if DevLog then -- silent trace: where the toast lands
         DevLog("MeredanUI", ("Toast gezeigt: %s @ %s/%s sichtbar=%s"):format(tostring(data.title),
             tostring(holder:GetLeft()), tostring(holder:GetTop()), tostring(toast:IsVisible())))
     end
 end
 
--- Midnight: C_InstanceEncounter; ältere Clients: globale Funktion
+-- Midnight: C_InstanceEncounter; older clients: global function
 local EncounterInProgress = (C_InstanceEncounter and C_InstanceEncounter.IsEncounterInProgress) or IsEncounterInProgress
 local function Paused() return EncounterInProgress and EncounterInProgress() or false end
 
@@ -235,14 +229,14 @@ function Release(toast)
     Pump()
 end
 
--- Neuer Toast; gleicher key = vorhandenen aktualisieren (sichtbar oder wartend) statt neu
+-- New toast; same key updates the existing one (shown or queued) instead
 local function Add(data)
     if data.key then
         for _, toast in ipairs(shown) do
             local old = toast.data
             if old.key == data.key then
                 if data.merge then data.merge(old, data) end
-                toast.age = math.min(toast.age, FADE_IN) -- Zeit neu starten
+                toast.age = math.min(toast.age, FADE_IN) -- restart timer
                 toast.flashLeft = FLASH_TIME
                 Render(toast)
                 return
@@ -261,9 +255,9 @@ end
 
 local function MergeCount(old, new) old.count = (old.count or 1) + (new.count or 1) end
 
--- Beute -------------------------------------------------------------------------------------
+-- Loot -------------------------------------------------------------------------------------
 
-local recentLoot = {} -- link > Zeit (Chat und Loot-Toast melden dieselbe Beute)
+local recentLoot = {} -- link -> time (chat and loot toast report the same loot)
 
 local function SeenRecently(link)
     local now, seen = GetTime(), recentLoot[link]
@@ -286,8 +280,8 @@ local function AddItem(link, quantity, title, force)
     end)
 end
 
--- Eigene Beute aus dem Chat (Mobs, Truhen, Questbelohnungen): Link und Menge sprachunabhängig
--- aus dem Text, Spieler über die GUID. In Instanzen kann der Text geschützt sein > dann nichts.
+-- Own loot from chat (mobs, chests, quest rewards): link and quantity parsed locale-independently,
+-- player via GUID. In instances the text may be a secret value -> skip.
 ns:On("CHAT_MSG_LOOT", function(_, text, _, _, _, _, _, _, _, _, _, _, guid)
     if not Enabled() or issecretvalue(text) or issecretvalue(guid) then return end
     local link = text:match("|c.-|Hitem:.-|h.-|h|r") or text:match("|Hitem:.-|h.-|h")
@@ -296,16 +290,15 @@ ns:On("CHAT_MSG_LOOT", function(_, text, _, _, _, _, _, _, _, _, _, _, guid)
         if ns.GroupLootFromChat then ns.GroupLootFromChat(link, guid) end
         return
     end
-    local quantity = tonumber(text:match("|hx(%d+)") or text:match("|h|rx(%d+)")) or 1 -- „%sx%d“
+    local quantity = tonumber(text:match("|hx(%d+)") or text:match("|h|rx(%d+)")) or 1 -- "%sx%d"
     AddItem(link, quantity)
 end)
 
--- Beute der Gruppe ------------------------------------------------------------------------
--- Würfel-Ergebnisse aus Blizzards Beuteverlauf (C_LootHistory: Gewinner, alle Würfe) und Beute,
--- die Mitspieler ohne Würfeln bekommen (Chat). Nur in einer Gruppe, ab derselben Qualität wie die
--- eigene Beute. Maus über einen Würfel-Toast zeigt alle Würfe unter dem Item.
+-- Group loot ------------------------------------------------------------------------------
+-- Roll results from C_LootHistory (winner, all rolls) and loot party members get without a roll
+-- (chat). Group only, same quality threshold as own loot. Hovering a roll toast lists all rolls.
 local function GroupLootEnabled() return Enabled() and ns.db.toastsGroupLoot ~= false and IsInGroup() end
-local wonLinks = {} -- link > Zeit: dieselbe Beute nicht noch einmal als „Mitspieler-Beute“
+local wonLinks = {} -- link -> time: don't repeat it as party member loot
 
 local ROLL_STATE = {}
 local function RollStateText(state)
@@ -326,7 +319,7 @@ local function ClassColored(name, class)
     return color and color:WrapTextInColorCode(name) or name
 end
 
--- Zeilen „Name   Bedarf 87 ✓“ (Tooltip des Toasts)
+-- Tooltip lines "Name   Need 87 [check]"
 function ns.AddRollLines(tooltip, rolls)
     tooltip:AddLine(" ")
     for _, roll in ipairs(rolls) do
@@ -357,7 +350,7 @@ ns:On("LOOT_HISTORY_UPDATE_DROP", function(_, encounterID, lootListKey)
         local who = winner.isSelf and L["you"] or winner.playerName or "?"
         text = text .. "  " .. ns.UI.ArrowMarkup(11) .. "  " .. ClassColored(who, winner.playerClass)
         wonLinks[link] = GetTime()
-        if winner.isSelf then recentLoot[link] = GetTime() end -- eigener Beute-Toast nicht doppelt
+        if winner.isSelf then recentLoot[link] = GetTime() end -- avoid a duplicate own loot toast
     end
     Add({
         key = "drop:" .. encounterID .. ":" .. lootListKey, title = title, text = text, link = link,
@@ -365,9 +358,9 @@ ns:On("LOOT_HISTORY_UPDATE_DROP", function(_, encounterID, lootListKey)
     })
 end)
 
--- Mitspieler bekommt Beute (Chat): kurz warten – kam sie aus einem Wurf, zeigt das schon der Würfel-Toast
+-- Party member loot (chat): wait briefly - if it came from a roll, the roll toast covers it
 function ns.GroupLootFromChat(link, guid)
-    -- manche Beute-Zeilen (z. B. nach dem Würfeln) kommen ohne Spieler-GUID
+    -- some loot lines (e.g. after rolls) come without a player GUID
     if not GroupLootEnabled() or not Readable(guid) or guid == "" then return end
     C_Timer.After(1.5, function()
         local won = wonLinks[link]
@@ -384,7 +377,7 @@ function ns.GroupLootFromChat(link, guid)
     end)
 end
 
--- Gold: jede Zunahme, kurz gesammelt
+-- Gold: every gain, merged
 local lastMoney
 
 local function MoneyText(copper)
@@ -404,7 +397,7 @@ ns:On("PLAYER_MONEY", function()
     })
 end)
 
--- Währungen
+-- Currencies
 ns:On("CURRENCY_DISPLAY_UPDATE", function(_, currencyID, _, change)
     if not Enabled() or not currencyID or not change or change <= 0 then return end
     local info = C_CurrencyInfo.GetCurrencyInfo(currencyID)
@@ -420,8 +413,6 @@ ns:On("CURRENCY_DISPLAY_UPDATE", function(_, currencyID, _, change)
     })
 end)
 
--- Ruf: kein Toast mehr (Benny 2026-11-06 – bekommt eine eigene Anzeige)
-
 ns:On("MAJOR_FACTION_RENOWN_LEVEL_CHANGED", function(_, factionID, level)
     if not Enabled() then return end
     local data = C_MajorFactions.GetMajorFactionData(factionID)
@@ -429,7 +420,7 @@ ns:On("MAJOR_FACTION_RENOWN_LEVEL_CHANGED", function(_, factionID, level)
     Add({ title = L["Renown"], text = data.name, icon = 236681, color = ns.UI.ACCENT, countText = tostring(level) })
 end)
 
--- Blizzards übernommene Ereignisse ----------------------------------------------------------
+-- Events taken over from Blizzard ------------------------------------------------------------
 
 local function ShouldToastAchievement(id, alreadyEarned)
     local _, _, _, _, _, _, _, _, flags, _, _, isGuild = GetAchievementInfo(id)
@@ -456,11 +447,11 @@ local HANDLERS = {
     LOOT_ITEM_ROLL_WON = function(link, quantity) AddItem(link, quantity, L["Roll won"], true) end,
     SHOW_LOOT_TOAST = function(typeID, link, quantity, _, _, isPersonal)
         if typeID == "item" then
-            -- nicht erzwingen: Forever meldet hierüber jede Beute, auch graue und weiße
+            -- no force: Forever reports all loot here, including grey and white
             AddItem(link, quantity)
         elseif typeID == "currency" and isPersonal then
             AddItem(link, quantity, nil, true)
-        end -- Gold kommt über PLAYER_MONEY
+        end -- gold comes via PLAYER_MONEY
     end,
     SHOW_LOOT_TOAST_UPGRADE = function(link, quantity) recentLoot[link] = nil; AddItem(link, quantity, L["Upgraded"], true) end,
     SHOW_LOOT_TOAST_LEGENDARY_LOOTED = function(link) recentLoot[link] = nil; AddItem(link, 1, L["Legendary"], true) end,
@@ -470,7 +461,7 @@ local HANDLERS = {
         Add({ title = L["Quest completed"], text = title, icon = 236669, color = { 1, 0.82, 0 },
             countText = xp and xp > 0 and (BreakUpLargeNumbers(xp) .. " " .. L["XP"]) or nil })
     end,
-    QUEST_LOOT_RECEIVED = function() end, -- Belohnungen kommen als Beute über den Chat
+    QUEST_LOOT_RECEIVED = function() end, -- rewards arrive as loot via chat
     NEW_MOUNT_ADDED = function(mountID)
         local name, spellID, icon = C_MountJournal.GetMountInfoByID(mountID)
         Add({ title = L["New mount"], text = name, icon = icon, color = ns.UI.ACCENT,
@@ -489,7 +480,7 @@ local HANDLERS = {
     TRANSMOG_COLLECTION_SOURCE_ADDED = function(sourceID)
         local info = C_TransmogCollection.GetSourceInfo(sourceID)
         if not info or not info.itemID then return end
-        -- immer in Transmog-Farbe (Blizzards Rosa): Vorlagen sind oft weiß/grau und sahen farblos aus
+        -- always transmog pink: appearances are often white/grey and look colorless
         local tm = TRANSMOGRIFY_FONT_COLOR
         Add({ key = "transmog:" .. sourceID, title = L["New appearance"], text = info.name,
             icon = C_Item.GetItemIconByID(info.itemID), color = tm and { tm.r, tm.g, tm.b } or { 1, 0.5, 1 } })
@@ -507,7 +498,7 @@ ns:On("PLAYER_LEVEL_UP", function(_, level)
     Add({ title = L["Level up"], text = (LEVEL or "Level") .. " " .. level, icon = 236567, color = { 1, 0.82, 0 } })
 end)
 
--- Nach dem Bosskampf Gesammeltes zeigen
+-- Flush held-back toasts after the encounter
 ns:On("ENCOUNTER_END", function() C_Timer.After(0.5, Pump) end)
 ns:On("PLAYER_REGEN_ENABLED", Pump)
 
@@ -515,7 +506,7 @@ ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     PlaceHolder()
     if DamageMeterSessionWindow1 then
-        -- Meter verschoben/vergrößert > Toasts wandern mit (Anker ist relativ, nur beim Erscheinen neu)
+        -- Meter moved/resized -> toasts follow (position is only recomputed on show)
         DamageMeterSessionWindow1:HookScript("OnShow", PlaceHolder)
     end
     for _, event in ipairs(TAKEN_OVER) do
@@ -524,9 +515,8 @@ ns:On("PLAYER_LOGIN", function()
     end
 end)
 
--- Demo (Einstellungen > Toasts): Live-Ablauf in Schleife – Toasts kommen nacheinander (ab dem
--- sechsten wartend), Gold und ein Item zählen mit Aufleuchten hoch, abgelaufene blenden aus und
--- der Rest gleitet nach. Läuft über denselben Weg wie echte Toasts (Add).
+-- Demo (Settings > Toasts): looping live sequence through the real Add path - toasts arrive one
+-- by one (queued past five), gold and an item count up with a flash, expired ones fade out.
 
 local DEMO_STEP = 0.7
 local demoTicker, demoStep
@@ -552,7 +542,7 @@ local function DemoActions()
         DemoMoney(254321),
         DemoItem("Sturmgeschmiedeter Schulterschutz", 135056, Enum.ItemQuality.Rare, "demo:shoulder"),
         DemoItem("Sturmbrecher", 135350, Enum.ItemQuality.Legendary, "demo:legendary"),
-        -- Würfel-Ergebnis der Gruppe (Maus drüber: alle Würfe)
+        -- group roll result (hover: all rolls)
         { key = "demo:roll", demo = true, title = L["Won · %s"]:format((NEED or "Need") .. " 87"),
             text = (C_Item.GetItemNameByID(19019) or "Donnerzorn") .. "  " .. ns.UI.ArrowMarkup(11) .. "  " .. RAID_CLASS_COLORS.SHAMAN:WrapTextInColorCode("Thrall"),
             icon = C_Item.GetItemIconByID(19019), quality = Enum.ItemQuality.Legendary, link = "item:19019",
@@ -563,12 +553,12 @@ local function DemoActions()
                 { playerName = "Uther", playerClass = "PALADIN", state = 5 },
             } },
         DemoMoney(98765),
-        -- Battle.net (Toasts/BNetToasts.lua): Freund online / Statusnachricht / offline
+        -- Battle.net (Toasts/BNetToasts.lua): friend online / broadcast / offline
         { demo = true, title = "Jaina#2104", color = { 0.51, 0.773, 1 }, icon = ns.MEDIA .. "Icons\\Friends",
             text = "Jaina, Stufe 60 Magierin – |cff33ff33" .. (BN_TOAST_ONLINE or "online") .. "|r" },
         { demo = true, title = "Thrall#1337", color = { 0.51, 0.773, 1 }, icon = ns.MEDIA .. "Icons\\Friends",
             text = "Heute Abend Onyxia?" },
-        -- Haltbarkeit (Toasts/Extras.lua) und Berufe-Erinnerung (Toasts/ProfessionReminder.lua)
+        -- durability (Toasts/Extras.lua) and profession reminder (Toasts/ProfessionReminder.lua)
         { demo = true, title = L["Repair soon"], text = L["Lowest item at %d %%"]:format(18),
             icon = "Interface\\Icons\\Trade_BlackSmithing", color = { 1, 0.6, 0.1 } },
         { demo = true, title = "Schmiedekunst 75/75", icon = ns.MEDIA .. "Icons\\Crafting", color = accent,
@@ -586,7 +576,7 @@ local function DemoTick()
     if actions[demoStep] then
         Add(actions[demoStep])
     elseif #shown == 0 and #queue == 0 then
-        demoStep = 0 -- alles abgelaufen > von vorn
+        demoStep = 0 -- all expired -> restart
     end
 end
 
@@ -611,17 +601,15 @@ ns.ToastsDemo = {
     IsActive = function() return demoTicker ~= nil end,
 }
 
--- Für andere Module (Haltbarkeit, Bereitschaftscheck …): true, wenn ein Toast kommt – sonst
--- (Toasts aus) selbst etwas anderes zeigen
+-- For other modules: returns true if a toast is shown; false (toasts off) means show a fallback
 function ns.AddToast(data)
     if not Enabled() then return false end
     Add(data)
     return true
 end
 
--- Blizzard-Hinweise (HelpTip, z. B. „Ihr habt eine Reagenzientasche erhalten!“) hängen an Blizzard-Knöpfen,
--- die mUI versteckt oder ersetzt (Taschen, Mikromenü) – sie schwebten dann irgendwo am Bildschirm
--- (Benny 2026-11-08). Ist der Anker unsichtbar: als Toast zeigen und den Hinweis als gelesen markieren.
+-- Blizzard HelpTips anchor to buttons mUI hides or replaces (bags, micro menu) and would float
+-- somewhere on screen. If the anchor is invisible, show the tip as a toast and acknowledge it.
 local function AnchorHidden(region)
     if type(region) ~= "table" or not region.IsVisible then return false end
     if region.IsForbidden and region:IsForbidden() then return false end

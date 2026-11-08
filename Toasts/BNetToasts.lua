@@ -1,15 +1,12 @@
--- Battle.net-Meldungen (Freund online/offline, Statusnachricht, Einladungen) als MUI-Toasts statt
--- Blizzards Kasten über dem Chat (Benny 2026-11-06: „soll einfach in die Toasts mit rein“).
---
--- mUI hört selbst auf die Battle.net-Ereignisse (wie Blizzards BNToastMixin:OnEvent). Früher hing
--- mUI an BNToastFrame:AddToast – das kam in Forever nie an (Benny 2026-11-08: Freund online, nur
--- Chatzeile, kein Toast, keine Spur im DevLog). Blizzards Kasten bleibt geparkt und bekommt die
--- Ereignisse nicht mehr (sonst doppelter Ton); den Ton spielt jetzt mUI.
+-- Battle.net notices (friend online/offline, broadcast, invites) as mUI toasts instead of
+-- Blizzard's box above the chat.
+-- mUI listens to the Battle.net events itself (like BNToastMixin:OnEvent); hooking
+-- BNToastFrame:AddToast never fires in Forever. Blizzard's frame is parked and unregistered
+-- from the events (otherwise the sound plays twice); mUI plays the sound.
 local _, ns = ...
 
 local BNET_BLUE = { 0.51, 0.773, 1 }
--- eigene Toast-Arten: Forever kennt Blizzards BN_TOAST_TYPE_* nicht (alle nil > „offline“ landete im
--- online-Zweig, DevLog „Typ=nil“, 2026-11-08)
+-- Own toast types: Forever lacks Blizzard's BN_TOAST_TYPE_* constants (all nil)
 local T = { ONLINE = 1, OFFLINE = 2, BROADCAST = 3, PENDING_INVITES = 4, NEW_INVITE = 5, CLUB_INVITATION = 6 }
 local GREY = { 0.6, 0.59, 0.56 }
 local ICON = ns.MEDIA .. "Icons\\Friends"
@@ -21,7 +18,7 @@ local function Account(id)
     return id and C_BattleNet and C_BattleNet.GetAccountInfoByID(id)
 end
 
--- Spielfigur des Freundes, wenn er gerade WoW spielt (sonst nur der Battle.net-Name)
+-- Friend's character if currently playing WoW (otherwise only the Battle.net name is shown)
 local function CharacterLine(info)
     local game = info.gameAccountInfo
     local name = game and game.characterName
@@ -46,13 +43,13 @@ end
 
 local function OpenFriends()
     if ns.OpenFriends then
-        ns.OpenFriends("friends") -- mUI-Freundesfenster (Forever)
+        ns.OpenFriends("friends") -- mUI friends window (Forever)
     elseif FriendsFrame and not FriendsFrame:IsShown() and ToggleFriendsFrame then
         ToggleFriendsFrame(FRIEND_TAB_FRIENDS)
     end
 end
 
--- stille Spur im DevLog (Benny 2026-11-07: Freund kam online, nur der Ton, kein Toast)
+-- Silent trace in DevLog
 local function Trace(fmt, ...)
     if DevLog then DevLog("MeredanUI", fmt:format(...)) end
 end
@@ -93,11 +90,11 @@ local function Show(toastType, toastData)
     Trace("BNet-Toast an mUI: %s / %s -> %s", tostring(data.title), tostring(data.text), tostring(ns.AddToast(data)))
 end
 
--- Ereignis > Toast-Art (wie Blizzard_BNet/Mainline/BNet.lua); Mobil-App-Logins meldet auch Blizzard nicht
+-- Event -> toast type (as in Blizzard_BNet/Mainline/BNet.lua); mobile app logins are ignored like Blizzard does
 local EVENTS = {
     BN_FRIEND_ACCOUNT_ONLINE = function(id, companion) if not companion then Show(T.ONLINE, id) end end,
     BN_FRIEND_ACCOUNT_OFFLINE = function(id, companion) if not companion then Show(T.OFFLINE, id) end end,
-    BN_CUSTOM_MESSAGE_CHANGED = function(id) if id then Show(T.BROADCAST, id) end end, -- nil = eigene Nachricht
+    BN_CUSTOM_MESSAGE_CHANGED = function(id) if id then Show(T.BROADCAST, id) end end, -- nil = own message
     BN_FRIEND_INVITE_ADDED = function() Show(T.NEW_INVITE) end,
     BN_FRIEND_INVITE_LIST_INITIALIZED = function(count) if (count or 0) > 0 then Show(T.PENDING_INVITES, count) end end,
     CLUB_INVITATION_ADDED_FOR_SELF = function(invitation) Show(T.CLUB_INVITATION, invitation) end,
@@ -107,7 +104,7 @@ ns:On("PLAYER_LOGIN", function()
     if ns.db.toasts == false then return end
     local frame = BNToastFrame
     if frame then
-        frame:SetParent(hidden) -- Blizzards Kasten unsichtbar
+        frame:SetParent(hidden) -- hide Blizzard's frame
         for event in pairs(EVENTS) do frame:UnregisterEvent(event) end
     end
     local listener = CreateFrame("Frame")

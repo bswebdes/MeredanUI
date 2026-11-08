@@ -1,11 +1,10 @@
--- Weltaktualisierung (Layer-/Shard-Wechsel, Forever): Blizzard zeigt über dem Chat „Weltaktualisierung
--- in 10 Minuten“; erst ein Klick darauf öffnet ein Fenster mit „Jetzt aktualisieren“. Hier eine
--- Meldung im MUI-Look mit dem Knopf direkt darin (Benny 2026-11-06).
+-- World refresh (layer/shard transfer, Forever): replaces Blizzard's notice above the chat, which
+-- needs an extra click to reach "Refresh now", with an mUI bar that has the button inline.
 --
---   ┃ [◈]  Weltaktualisierung in 9 Minuten          [Jetzt aktualisieren] [x]
+--   | [icon]  World refresh in 9 minutes          [Refresh now] [x]
 --
--- C_PlayerInteractionManager.ShardTransferConfirm ist nicht geschützt; im Kampf lässt das Spiel den
--- Wechsel nicht zu (Knopf gesperrt, Tooltip wie bei Blizzard).
+-- C_PlayerInteractionManager.ShardTransferConfirm is not protected; the game refuses the transfer
+-- in combat (button disabled, tooltip as in Blizzard's UI).
 local _, ns = ...
 local L = ns.L
 
@@ -37,7 +36,7 @@ local function Create()
     icon:SetPoint("LEFT", 12, 0)
 
     local close = UI.IconButton(frame, "Close", function()
-        dismissed = true -- bis zur nächsten Ankündigung
+        dismissed = true -- until the next announcement
         frame:Hide()
     end, 22)
     close:SetPoint("RIGHT", -9, 0)
@@ -75,8 +74,8 @@ local function Create()
         self.now.Text:SetTextColor(unpack(fighting and UI.MUTED or UI.ACCENT))
     end)
 
-    -- über dem Chat, wo Blizzard die Meldung zeigt
-    frame:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(70)) -- über Reitern und Eingabefeld (Benny 2026-11-07: lag darunter)
+    -- above the chat (clearing tabs and edit box), where Blizzard shows the notice
+    frame:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(70))
     ns.layoutFrames.shardtransfer = frame
 end
 
@@ -95,7 +94,7 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     if not ns.IS_FOREVER then return end
-    -- Blizzards Meldung und Minimieren-Knopf unsichtbar parken (bleiben aktiv, nur nicht zu sehen)
+    -- Park Blizzard's notice and minimize button hidden (they stay functional, just invisible)
     local hidden = CreateFrame("Frame")
     hidden:Hide()
     for _, name in ipairs({ "ShardTransferImminentFrame", "ShardTransferImminentMinimizeButton" }) do
@@ -106,7 +105,7 @@ ns:On("PLAYER_LOGIN", function()
         dismissed = nil
         Show()
     end)
-    -- nach /reload läuft eine Ankündigung evtl. schon (das Ereignis kommt nicht noch einmal)
+    -- After /reload an announcement may already be running (the event does not fire again)
     C_Timer.After(2, function()
         if GetEvictionTimeRemaining and (GetEvictionTimeRemaining() or 0) > 0 then Show() end
     end)
@@ -114,7 +113,7 @@ ns:On("PLAYER_LOGIN", function()
     ns:On("SHARD_TRANSFER", Hide)
 end)
 
--- Vorschau (Core/Preview.lua): Ankündigung mit Beispielzeit; echte Ankündigungen bleiben unberührt
+-- Preview (Core/Preview.lua): announcement with a sample time; real announcements are left alone
 local demoActive = false
 ns.ShardTransferDemo = {
     Start = function()

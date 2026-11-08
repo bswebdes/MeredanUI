@@ -1,7 +1,7 @@
--- Kleine Meldungen (Einstellungen > Meldungen):
---   • Haltbarkeit: einmal warnen, sobald das schlechteste Teil unter 20 % fällt – als Toast
---     (Toasts aus: Chatzeile). Wieder scharf, wenn alles repariert ist.
---   • Screenshot bei jedem neuen Erfolg (kurz verzögert, damit Blizzards Meldung mit drauf ist).
+-- Small notices (Settings > Notifications):
+--   - Durability: warn once when the worst item drops below 20% (toast, or chat line if toasts
+--     are off). Re-armed once everything is repaired.
+--   - Screenshot on each new achievement (delayed so Blizzard's alert is in the picture).
 local _, ns = ...
 local L = ns.L
 
@@ -36,7 +36,7 @@ local function CheckDurability()
     if not ns.AddToast(toast) then ns.Print(L["Repair soon"] .. ": " .. text) end
 end
 
--- kommt gehäuft (jedes Teil einzeln) > gesammelt prüfen
+-- Fires once per item -> batch the check
 local pending = false
 ns:On("UPDATE_INVENTORY_DURABILITY", function()
     if pending then return end
@@ -49,7 +49,7 @@ end)
 
 ns:On("ACHIEVEMENT_EARNED", function()
     if ns.db.achievementScreenshot == false then return end
-    -- Forever stellt Screenshot() Addons nicht bereit (nil, Fehler 2026-11-06) – dann ohne Bild
+    -- Forever does not expose Screenshot() to addons (nil)
     if type(Screenshot) ~= "function" then return end
     C_Timer.After(1, function() Screenshot() end)
 end)

@@ -1,24 +1,22 @@
--- Berufe-Erinnerung (Forever): EIN dezenter Toast, sobald du beim Lehrer die nächste Rangstufe
--- eines Berufs lernen kannst – also bevor der Beruf am Deckel hängt und Punkte verloren gehen.
+-- Profession reminder (Forever): one toast as soon as the next profession rank can be learned
+-- at the trainer, before the skill caps and points are wasted.
 --
---   ┌──────────────────────────────────────┐
---   │ [⚒] Bergbau 52/75                     │
---   │     Geselle beim Lehrer lernbar        │
---   └──────────────────────────────────────┘
+--   [icon] Mining 52/75
+--          Journeyman can be learned at the trainer
 --
--- Classic-Regeln: Geselle (150) ab Fertigkeit 50 + Stufe 10, Experte (225) ab 125 + Stufe 20,
--- Fachmann (300) ab 200 + Stufe 35. Steht der Beruf schon am Deckel, kommt der Hinweis trotzdem
--- (einmal). Gemerkt je Charakter und Rangstufe (ns.char.profReminded).
+-- Classic rules: Journeyman (150) at skill 50 + level 10, Expert (225) at 125 + level 20,
+-- Artisan (300) at 200 + level 35. Also fires (once) if already capped.
+-- Remembered per character and rank (ns.char.profReminded).
 local _, ns = ...
 local L = ns.L
 
--- Haupt- und Nebenberufe (Skill-Line-IDs)
+-- Primary and secondary professions (skill line IDs)
 local PROFESSIONS = {
     [164] = true, [165] = true, [171] = true, [182] = true, [186] = true, [197] = true, [202] = true,
     [333] = true, [393] = true, [129] = true, [185] = true, [356] = true,
 }
 
--- aktuelle Höchststufe > { ab Fertigkeit, ab Stufe, Name der nächsten Rangstufe }
+-- current max rank -> { min skill, min level, next rank name }
 local NEXT_RANK = {
     [75] = { 50, 10, "Journeyman" },
     [150] = { 125, 20, "Expert" },
@@ -60,7 +58,7 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     if not ns.IS_FOREVER then return end
-    C_Timer.After(5, Check) -- nach dem Einloggen, wenn die Toasts bereit sind
+    C_Timer.After(5, Check) -- after login, once toasts are ready
     ns:On("SKILL_LINES_CHANGED", Request)
     ns:On("PLAYER_LEVEL_UP", Request)
 end)
