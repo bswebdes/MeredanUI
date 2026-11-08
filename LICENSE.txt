@@ -1,5 +1,5 @@
 MeredanUI
-Copyright (c) 2026 Benny Schey. All rights reserved.
+Copyright (c) 2026 Koratal. All rights reserved.
 
 The contents of this addon, excluding third-party resources, are copyrighted to their author
 with all rights reserved. You may download and use MeredanUI for personal use in World of

@@ -1,7 +1,7 @@
 MeredanUI – Credits
 ====================
 
-MeredanUI itself: (c) Benny Schey, All Rights Reserved.
+MeredanUI itself: (c) Koratal, All Rights Reserved.
 The third-party parts below keep their own licenses.
 
 Libraries (libs/)

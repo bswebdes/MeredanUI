@@ -2,7 +2,7 @@
 ## Title: MeredanUI
 ## Notes: Clean, flat UI: unit frames, action bars, minimap and more.
 ## Notes-deDE: Klares, flaches Interface: Unitframes, Aktionsleisten, Minimap und mehr.
-## Author: Benny Schey
+## Author: Koratal
 ## Version: @project-version@
 ## Category: User Interface
 ## AllowLoadGameType: standard, camelot
