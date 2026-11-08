@@ -25,6 +25,7 @@ local CONTENT_TOP = PAD + HEAD_ICON + 14   -- Inhalt unter dem Kopf (78)
 local CONTENT_BOTTOM = 54                  -- Fußzeile darunter
 local BOX = { 0.098, 0.098, 0.106, 1 }     -- Kästen (Nachricht des Tages, Info, Neuigkeiten)
 local PlaceAll                             -- Gesamt-Layout (unten definiert)
+local memberDeco = {}                      -- Kasten der Mitgliederliste (nur Chat-Ansicht)
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
 local noBump = setmetatable({}, { __mode = "k" }) -- Bereiche mit festen Breiten (Info-Spalte)
@@ -199,14 +200,14 @@ end
 
 -- Eingabefeld: Blizzards Kanten weg, dunkles Feld, Fokus mit Surf-Green-Rand.
 -- inset = { links, oben, rechts, unten } relativ zum Feld (Standard: Blizzards Left/Right-Grafik)
-local function SkinEditBox(box, inset)
+local function SkinEditBox(box, inset, color)
     if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") then return end
     if not Once(box) then return end
     local UI = ns.UI
     local left, right = box.Left, box.Right
     for _, key in ipairs({ "Left", "Middle", "Mid", "Right" }) do Fade(box[key]) end
     Fade(box.NineSlice)
-    local bg = Tex(box, "BACKGROUND", -8, INPUT)
+    local bg = Tex(box, "BACKGROUND", -8, color or INPUT)
     if inset then
         bg:SetPoint("TOPLEFT", box, "TOPLEFT", inset[1], inset[2])
         bg:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", inset[3], inset[4])
@@ -550,11 +551,9 @@ local function SkinMemberRow(row)
     local UI = ns.UI
     Fade(row:GetNormalTexture())
     Fade(row:GetHighlightTexture())
-    local bg = Tex(row, "BACKGROUND", -8, { UI.FIELD[1], UI.FIELD[2], UI.FIELD[3], 0.6 })
-    bg:SetPoint("TOPLEFT")
-    bg:SetPoint("BOTTOMRIGHT", 0, 1)
-    local hover = Tex(row, "HIGHLIGHT", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.12 })
-    hover:SetAllPoints(bg)
+    -- wie im eigenen Fenster: keine Zeilen-Fläche, nur heller Hover
+    local hover = Tex(row, "HIGHLIGHT", 0, { 1, 1, 1, 0.04 })
+    hover:SetAllPoints()
     if row.UpdateNameFrame then hooksecurefunc(row, "UpdateNameFrame", RowLayout) end
     if row.RefreshExpandedColumns then hooksecurefunc(row, "RefreshExpandedColumns", RowLayout) end
     local header = row.ProfessionHeader
@@ -576,14 +575,12 @@ local function SkinColumnHeaders(display)
             column:SetWidth(COLUMN_WIDTHS[column:GetID()])
         end
         if column:IsObjectType("Button") and Once(column) then
+            -- wie im eigenen Fenster: ein durchgehender Balken (an der Spaltenleiste), keine Trennlinien
             for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(column[key]) end
             Fade(column:GetHighlightTexture())
-            local bg = Tex(column, "BACKGROUND", -8, UI.FIELD)
-            bg:SetPoint("TOPLEFT", 1, -1)
-            bg:SetPoint("BOTTOMRIGHT", -1, 1)
-            Edges(column, bg)
-            local hover = Tex(column, "HIGHLIGHT", 0, { 1, 1, 1, 0.06 })
-            hover:SetAllPoints(bg)
+            FadeRegions(column)
+            local hover = Tex(column, "HIGHLIGHT", 0, { 1, 1, 1, 0.04 })
+            hover:SetAllPoints()
         end
     end
 end
@@ -762,22 +759,29 @@ end
 local function SkinChat(f)
     local chat = f.Chat
     if type(chat) == "table" then
-        SkinInset(chat.InsetFrame, true, { 0, 0, 0, 0.35 })
+        -- wie im eigenen Fenster: Kasten im mUI-Grau mit feiner Kante (Fläche am Chat selbst, liegt
+        -- damit sicher unter dem Text), Text mit Innenabstand, Scrollleiste innen rechts (PlaceAll)
+        SkinInset(chat.InsetFrame)
+        local fill = Tex(chat, "BACKGROUND", -8, BOX)
+        fill:SetAllPoints(chat)
+        Border(chat)
         SkinScrollBar(chat.ScrollBar)
     end
     SkinButton(_G.JumpToUnreadButton)
     -- Blizzards Grafik ist 32 hoch mit viel Luft; sichtbares Feld wie bei Blizzard etwa 22 hoch
-    SkinEditBox(f.ChatEditBox, { -4, -5, 4, 5 })
+    SkinEditBox(f.ChatEditBox, { -4, -5, 4, 5 }, BOX)
 end
 
 local function SkinMemberList(members)
     if type(members) ~= "table" then return end
     local inset = members.InsetFrame
     if type(inset) == "table" then
-        -- der Kasten liegt über den Zeilen (Ebene 100): Rand am Kasten, Fläche an der Liste darunter
-        SkinInset(inset, true)
-        local fill = Tex(members, "BACKGROUND", -8, { 0, 0, 0, 0.35 })
+        -- Kasten nur neben dem Chat (wie im eigenen Fenster); auf der Mitgliederseite ohne Fläche
+        SkinInset(inset)
+        local fill = Tex(members, "BACKGROUND", -8, BOX)
         fill:SetAllPoints(inset)
+        memberDeco.fill = fill
+        memberDeco.edges = Border(inset)
     end
     SkinScrollBar(members.ScrollBar)
     SkinCheck(members.ShowOfflineButton)
@@ -791,6 +795,10 @@ local function SkinMemberList(members)
             "InsetBorderBottomLeft", "InsetBorderTop", "InsetBorderLeft" }) do
             Fade(display[key])
         end
+        local bar = Tex(display, "BACKGROUND", -8, BOX)
+        bar:SetPoint("BOTTOMLEFT", display, "BOTTOMLEFT", 2, 0)
+        bar:SetPoint("BOTTOMRIGHT", display, "BOTTOMRIGHT", 0, 0)
+        bar:SetHeight(26)
         SkinColumnHeaders(display)
         if display.LayoutColumns then
             hooksecurefunc(display, "LayoutColumns", SkinColumnHeaders)
@@ -918,7 +926,8 @@ end
 local function FindText(frame, text)
     if type(frame) ~= "table" or not frame.GetRegions or not text then return end
     for _, region in ipairs({ frame:GetRegions() }) do
-        if region.IsObjectType and region:IsObjectType("FontString") and region:GetText() == text then return region end
+        if region ~= frame.TitleText and region.IsObjectType and region:IsObjectType("FontString")
+            and region:GetText() == text then return region end
     end
 end
 
@@ -1046,7 +1055,11 @@ local function LayoutDetails(details)
         motd:ClearAllPoints()
         motd:SetPoint("TOPLEFT", motdBox, "TOPLEFT", 12, -10)
         motd:SetPoint("BOTTOMRIGHT", motdBox, "BOTTOMRIGHT", -12, 10)
-        if motd.MOTD then motd.MOTD:SetWidth(half - 24) end
+        if motd.MOTD and math.abs((motd.MOTD:GetWidth() or 0) - (half - 24)) > 0.5 then
+            -- SimpleHTML bricht erst beim nächsten Text neu um
+            motd.MOTD:SetWidth(half - 24)
+            if C_GuildInfo and C_GuildInfo.GetMOTD then motd.MOTD:SetText(C_GuildInfo.GetMOTD() or "", true) end
+        end
     end
     -- Gildeninformation
     if infoParts.detailsLabel then
@@ -1252,12 +1265,6 @@ local function SkinLikeOwnWindow(f)
     sub:SetTextColor(unpack(UI.MUTED))
     sub:SetJustifyH("LEFT")
     sub:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -5)
-    -- Fußzeile links (Mitgliederseite): „11 von 24 online“
-    local footer = f:CreateFontString(nil, "OVERLAY")
-    own[footer] = true
-    footer:SetFont(ns.FontFor(), ns.FontPx(12), "")
-    footer:SetTextColor(unpack(UI.MUTED))
-    footer:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD, 20)
     local lastClub
     local function UpdateTitle()
         local id = f.GetSelectedClubId and f:GetSelectedClubId()
@@ -1266,20 +1273,16 @@ local function SkinLikeOwnWindow(f)
         -- wie im eigenen Fenster: „Gilde & Communitys · 11 von 24 online“
         local online, total
         if info and info.clubType == Enum.ClubType.Guild and GetNumGuildMembers then
-            local all, _, on = GetNumGuildMembers()
+            local all, on = GetNumGuildMembers()
             total, online = all, on
         end
         local base = title and title:GetText() or ""
         if total and total > 0 then
             local count = ns.L["%d of %d online"]:format(online or 0, total)
             sub:SetText(base .. "  ·  " .. count)
-            footer:SetText(count)
         else
             sub:SetText(base)
-            footer:SetText("")
         end
-        local members = f.MemberList
-        footer:SetShown(members and members:IsShown() and members.expandedDisplay or false)
         if info and id ~= lastClub then
             lastClub = id
             local size = HEAD_ICON - 4
@@ -1360,6 +1363,24 @@ PlaceAll = function(f)
             members:SetPoint("TOPLEFT", f, "TOPRIGHT", -(PAD + MEMBER_W), -(CONTENT_TOP + 36))
         end
         members:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, CONTENT_BOTTOM)
+        -- Liste und Scrollleiste innen (wie im eigenen Fenster), Kasten = Listenfläche
+        if members.InsetFrame then
+            members.InsetFrame:ClearAllPoints()
+            members.InsetFrame:SetAllPoints(members)
+        end
+        if members.ScrollBox then
+            members.ScrollBox:ClearAllPoints()
+            members.ScrollBox:SetPoint("TOPLEFT", members, "TOPLEFT", 4, -2)
+            members.ScrollBox:SetPoint("BOTTOMRIGHT", members, "BOTTOMRIGHT", -14, 2)
+        end
+        if members.ScrollBar then
+            members.ScrollBar:ClearAllPoints()
+            members.ScrollBar:SetPoint("TOPRIGHT", members, "TOPRIGHT", -4, -4)
+            members.ScrollBar:SetPoint("BOTTOMRIGHT", members, "BOTTOMRIGHT", -4, 4)
+        end
+        local boxed = not members.expandedDisplay
+        if memberDeco.fill then memberDeco.fill:SetShown(boxed) end
+        for _, edge in ipairs(memberDeco.edges or {}) do edge:SetShown(boxed) end
         local offline = members.ShowOfflineButton
         if offline then
             offline:ClearAllPoints()
@@ -1407,6 +1428,16 @@ PlaceAll = function(f)
         if chat.InsetFrame then
             chat.InsetFrame:ClearAllPoints()
             chat.InsetFrame:SetAllPoints(chat)
+        end
+        if chat.MessageFrame then
+            chat.MessageFrame:ClearAllPoints()
+            chat.MessageFrame:SetPoint("TOPLEFT", chat, "TOPLEFT", 10, -8)
+            chat.MessageFrame:SetPoint("BOTTOMRIGHT", chat, "BOTTOMRIGHT", -18, 8)
+        end
+        if chat.ScrollBar then
+            chat.ScrollBar:ClearAllPoints()
+            chat.ScrollBar:SetPoint("TOPRIGHT", chat, "TOPRIGHT", -4, -6)
+            chat.ScrollBar:SetPoint("BOTTOMRIGHT", chat, "BOTTOMRIGHT", -4, 6)
         end
         local input = f.ChatEditBox
         if input then
