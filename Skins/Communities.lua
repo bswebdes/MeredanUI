@@ -636,7 +636,7 @@ local function SkinSideTab(tab)
     local bg = Tex(tab, "BACKGROUND", -8, ns.STYLE.panelColor)
     bg:SetAllPoints()
     Border(tab)
-    tab.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+    tab.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     local hover = Tex(tab, "HIGHLIGHT", 0, { 1, 1, 1, 0.08 })
     hover:SetAllPoints()
     local active = Border(tab, true, 2)
@@ -829,9 +829,10 @@ local function LayoutTabs(f)
         if type(tab) == "table" and tab.SetPoint then
             tab:SetSize(TAB_SIZE, TAB_SIZE)
             if tab.Icon then
-                -- Symbol füllt den ganzen Kasten (die 1-px-Kante liegt darüber) – kein Spalt
+                -- exakt wie die Reiter der mUI-Fenster (Berufe): Symbol 2 px eingerückt, Rand dunkel
                 tab.Icon:ClearAllPoints()
-                tab.Icon:SetAllPoints(tab)
+                tab.Icon:SetPoint("TOPLEFT", tab, "TOPLEFT", 2, -2)
+                tab.Icon:SetPoint("BOTTOMRIGHT", tab, "BOTTOMRIGHT", -2, 2)
                 -- nicht auf ganze Pixel runden (die Kante tut es auch nicht) – sonst 1 px Lücke links
                 if tab.Icon.SetSnapToPixelGrid then
                     tab.Icon:SetSnapToPixelGrid(false)
