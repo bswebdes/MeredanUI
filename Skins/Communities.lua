@@ -537,7 +537,10 @@ end
 local function SkinCommunitiesList(list)
     if type(list) ~= "table" then return end
     -- Artwork der Spalte bleibt, nur dunkler
-    for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Darken(list[key]) end
+    for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do
+        Darken(list[key])
+        if IsTexture(list[key]) then list[key]:SetVertexColor(0.22, 0.22, 0.22) end -- ruhiger (Benny 2026-11-08)
+    end
     DarkenRegions(list.FilligreeOverlay)
     SkinInset(list.InsetFrame, true) -- liegt über den Einträgen: nur Rand, keine Fläche
     SkinScrollBar(list.ScrollBar)
@@ -719,6 +722,85 @@ end
 -- Start ---------------------------------------------------------------------------------------------
 
 -- jeder Bereich für sich: fehlt etwas in Forever oder ändert Blizzard etwas, bleibt der Rest bemalt
+-- Wie das eigene mUI-Gildenfenster (Benny 2026-11-08: „so wie das eigene Fenster“) -------------
+-- Kopf: rundes Porträt weg, Titel links „Gildenname · Gilde & Communitys“ in mUI Bold; Chat in
+-- mUI-Schrift; Blizzards gelbe/grüne Schrift in mUI-Farben (Klassenfarben bleiben unangetastet).
+local YELLOW, GREEN = { 1, 0.82, 0 }, { 0.1, 1, 0.1 }
+local function Near(r, g, b, c) return math.abs(r - c[1]) < 0.05 and math.abs(g - c[2]) < 0.05 and math.abs(b - c[3]) < 0.05 end
+local recolored = setmetatable({}, { __mode = "k" })
+local function Recolor(fs)
+    if recolored[fs] == "busy" then return end
+    local r, g, b = fs:GetTextColor()
+    if issecretvalue and (issecretvalue(r) or issecretvalue(g) or issecretvalue(b)) then return end
+    if r and (Near(r, g, b, YELLOW) or Near(r, g, b, GREEN)) then
+        recolored[fs] = "busy"
+        fs:SetTextColor(unpack(ns.UI.TEXT))
+        recolored[fs] = true
+    end
+end
+local function RecolorTree(frame, depth)
+    if depth > 12 or not frame.GetRegions then return end
+    for _, region in ipairs({ frame:GetRegions() }) do
+        if region.IsObjectType and region:IsObjectType("FontString") and not own[region] then
+            if not recolored[region] then
+                recolored[region] = true
+                hooksecurefunc(region, "SetTextColor", Recolor)
+            end
+            Recolor(region)
+        end
+    end
+    for _, child in ipairs({ frame:GetChildren() }) do RecolorTree(child, depth + 1) end
+end
+
+local function SkinLikeOwnWindow(f)
+    local UI = ns.UI
+    -- Porträt und Blizzards Titel aus, eigener Titel links
+    if f.PortraitOverlay then f.PortraitOverlay:SetAlpha(0) end
+    if f.PortraitContainer then f.PortraitContainer:SetAlpha(0) end
+    local title = f.TitleContainer and f.TitleContainer.TitleText
+    if title then title:SetAlpha(0) end
+    local head = CreateFrame("Frame", nil, f)
+    head:SetPoint("TOPLEFT", 14, -9)
+    head:SetPoint("RIGHT", f, "RIGHT", -80, 0)
+    head:SetHeight(18)
+    local name = head:CreateFontString(nil, "OVERLAY")
+    own[name] = true
+    name:SetFont(ns.FontFor("bold"), ns.FontPx(15), "")
+    name:SetTextColor(unpack(UI.TEXT))
+    name:SetPoint("LEFT")
+    local sub = head:CreateFontString(nil, "OVERLAY")
+    own[sub] = true
+    sub:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    sub:SetTextColor(unpack(UI.MUTED))
+    sub:SetPoint("LEFT", name, "RIGHT", 10, -1)
+    local function UpdateTitle()
+        local id = f.GetSelectedClubId and f:GetSelectedClubId()
+        local info = id and C_Club.GetClubInfo(id)
+        name:SetText(info and info.name or (title and title:GetText()) or "")
+        sub:SetText(title and title:GetText() or "")
+    end
+    -- Chat in mUI-Schrift
+    local messages = f.Chat and f.Chat.MessageFrame
+    local function ChatFont()
+        if messages and messages.SetFont then messages:SetFont(ns.FontFor("text"), ns.FontPx(13), "") end
+    end
+    local elapsed = 0
+    f:HookScript("OnShow", function()
+        UpdateTitle()
+        ChatFont()
+        RecolorTree(f, 0)
+    end)
+    -- Club-Wechsel, neue Zeilen (Mitglieder, Einträge): leicht nachziehen, nur solange offen
+    f:HookScript("OnUpdate", function(_, delta)
+        elapsed = elapsed + delta
+        if elapsed < 0.5 then return end
+        elapsed = 0
+        UpdateTitle()
+        RecolorTree(f, 0)
+    end)
+    if f:IsShown() then UpdateTitle() ChatFont() RecolorTree(f, 0) end
+end
+
 local function Try(fn, ...)
     local ok, err = pcall(fn, ...)
     if not ok then geterrorhandler()(err) end
@@ -730,6 +812,7 @@ local function Apply()
     if type(f) ~= "table" then return end
     applied = true
     Try(SkinShell, f)
+    Try(SkinLikeOwnWindow, f)
     Try(SkinCommunitiesList, f.CommunitiesList)
     Try(SkinChat, f)
     Try(SkinMemberList, f.MemberList)
