@@ -116,11 +116,15 @@ function UI.ShowHelp(owner, text)
     GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
     GameTooltip:SetText(text, 0.91, 0.9, 0.87, 1, true)
     GameTooltipTextLeft1:SetFont(ns.FontFor("text"), ns.FontPx(12), "")
+    -- mehr Zeilenabstand: umbrochene Erklärungen lesen sich leichter (Benny 2026-11-08)
+    if not UI.helpSpacing then UI.helpSpacing = GameTooltipTextLeft1:GetSpacing() or 0 end
+    GameTooltipTextLeft1:SetSpacing(4)
     GameTooltip:Show()
 end
 function UI.HideHelp()
     GameTooltip:Hide()
     GameTooltipTextLeft1:SetFontObject(GameTooltipHeaderText)
+    GameTooltipTextLeft1:SetSpacing(UI.helpSpacing or 0)
 end
 
 -- Schlichter Knopf mit Text; Hover hellt auf.
