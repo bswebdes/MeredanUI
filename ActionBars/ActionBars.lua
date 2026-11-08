@@ -225,7 +225,6 @@ local function StyleButton(button)
 
     if button.HotKey then
         ns.SetFont(button.HotKey, 11, "OUTLINE")
-        button.HotKey:SetTextColor(0.557, 0.796, 0.706) -- Salbei, auch bei Blizzards eigenen Knöpfen
         button.HotKey:ClearAllPoints()
         button.HotKey:SetPoint("TOPRIGHT", -2, -3)
         button.HotKey:SetJustifyH("RIGHT")
@@ -431,7 +430,6 @@ local function ButtonConfig(def, index)
         actionButtonUI = true,
         assistedHighlight = false,
         hideElements = { macro = false, equipped = true, border = true, borderIfEmpty = true },
-        text = { hotkey = { color = { 0.557, 0.796, 0.706 } } }, -- Tastenbeschriftung in Salbei (Benny 2026-11-08)
     }
 end
 
