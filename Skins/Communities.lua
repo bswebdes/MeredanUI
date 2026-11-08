@@ -504,6 +504,15 @@ local function SkinShell(f)
     -- (entferntem) dicken Rahmen direkt an der Kante. Wie bei den mUI-Fenstern 10 px eingerückt (der
     -- sichtbare Kasten liegt 4 px innerhalb des Knopfs). Minimieren hängt an Schließen und rückt mit.
     -- Ungeschützte Knöpfe, kein Taint-Risiko.
+    -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts neben anderen offenen Fenstern) statt
+    -- Blizzards Standardplatz oben links (Benny 2026-11-08). Nach Blizzards Aufbau einen Takt später.
+    f:HookScript("OnShow", function(self)
+        C_Timer.After(0, function()
+            if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
+                ns.ResetWindowPosition(self, "guild", true)
+            end
+        end)
+    end)
     if f.CloseButton and not InCombatLockdown() then
         f.CloseButton:ClearAllPoints()
         f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)

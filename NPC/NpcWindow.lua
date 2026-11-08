@@ -59,7 +59,8 @@ local function Occupied(window)
     if GetUIPanel then
         for _, area in ipairs({ "left", "center", "doublewide", "right" }) do
             local panel = GetUIPanel(area)
-            if panel and panel:IsVisible() then list[#list + 1] = panel end
+            -- geskinnte Blizzard-Fenster (Gilde) sind selbst UIPanels: nicht vor sich selbst ausweichen
+            if panel and panel ~= window and panel:IsVisible() then list[#list + 1] = panel end
         end
     end
     return list
