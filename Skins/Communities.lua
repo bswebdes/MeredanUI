@@ -506,22 +506,25 @@ local function SkinShell(f)
     -- Ungeschützte Knöpfe, kein Taint-Risiko.
     -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts neben anderen offenen Fenstern) statt
     -- Blizzards Standardplatz oben links (Benny 2026-11-08). Nach Blizzards Aufbau einen Takt später.
-    local placing, pending = false, false
-    local function Place(opening)
-        pending = false
-        if not f:IsShown() or InCombatLockdown() or not ns.ResetWindowPosition then return end
-        placing = true
-        ns.ResetWindowPosition(f, "guild", opening)
-        placing = false
+    -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts neben anderen offenen Fenstern).
+    -- Blizzards Fensterverwaltung (UIPanel, Bereich „left“) setzte das Fenster bei jedem Reiter-/
+    -- Größenwechsel zurück nach oben links (Benny 2026-11-08: „springt“). Über Blizzards eigenen Weg
+    -- (SetUIPanelAttribute) bekommt es keinen Bereich mehr: ShowUIPanel zeigt es dann nur noch an und
+    -- verschiebt es nie. Esc schließt es weiter (UISpecialFrames).
+    local function Unmanage()
+        if InCombatLockdown() then return ns.AfterCombat(Unmanage) end
+        if SetUIPanelAttribute then SetUIPanelAttribute(f, "area", nil) end
+        local listed = false
+        for _, name in ipairs(UISpecialFrames) do if name == "CommunitiesFrame" then listed = true end end
+        if not listed then tinsert(UISpecialFrames, "CommunitiesFrame") end
     end
-    f:HookScript("OnShow", function() C_Timer.After(0, function() Place(true) end) end)
-    -- Reiterwechsel/Größenwechsel: Blizzards Panel-Verwaltung setzt das Fenster zurück nach oben
-    -- links – danach wieder an unseren Platz (Benny 2026-11-08). Eigene Aufrufe überspringen.
-    -- Sofort im selben Aufruf zurücksetzen (nicht einen Takt später – sonst sah man das Fenster bei
-    -- jedem Reiterwechsel kurz hochspringen, Benny 2026-11-08). Eigene SetPoint-Aufrufe überspringen.
-    hooksecurefunc(f, "SetPoint", function()
-        if placing or InCombatLockdown() then return end
-        Place(false)
+    Unmanage()
+    f:HookScript("OnShow", function(self)
+        C_Timer.After(0, function()
+            if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
+                ns.ResetWindowPosition(self, "guild", true)
+            end
+        end)
     end)
     if f.CloseButton and not InCombatLockdown() then
         f.CloseButton:ClearAllPoints()
