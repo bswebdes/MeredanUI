@@ -452,8 +452,24 @@ local function ScenarioBosses()
     return list, header, name
 end
 
+-- Forever hat keinen Abenteuerführer: Bosse aus den mitgelieferten Spieldaten (DungeonBosses.lua),
+-- tot = aus ENCOUNTER_END bzw. der Instanz-ID (Benny 2026-11-08: „sollten da nicht die Bosse stehen?“)
+local function DataBosses()
+    local instanceID = select(8, GetInstanceInfo())
+    local bosses = instanceID and ns.DUNGEON_BOSSES and ns.DUNGEON_BOSSES[instanceID]
+    if not bosses then return nil end
+    local german = GetLocale() == "deDE"
+    local list = {}
+    for _, boss in ipairs(bosses) do
+        local name = german and boss[3] or boss[2]
+        local done = kills[boss[1]] or kills[boss[2]] or kills[boss[3]] or false
+        list[#list + 1] = { text = L["%d/%d %s defeated"]:format(done and 1 or 0, 1, name), done = done }
+    end
+    return #list > 0 and list or nil
+end
+
 local function JournalBosses()
-    if not (EJ_GetInstanceForMap and EJ_GetEncounterInfoByIndex) then return nil end
+    if not (EJ_GetInstanceForMap and EJ_GetEncounterInfoByIndex) then return DataBosses() end
     local mapID = C_Map.GetBestMapForUnit("player")
     local journalID = mapID and EJ_GetInstanceForMap(mapID)
     if not journalID or journalID == 0 then return nil end
