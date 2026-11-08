@@ -121,6 +121,11 @@ local function OpenMemberMenu(info)
     local clubInfo = ClubInfo()
     local name = P(info.name)
     if not (clubInfo and name) then return end
+    -- Gilde: eigenes Menü mit sicheren Befehlen (Blizzards Menü aus Addon-Code blockt Befördern/
+    -- Degradieren, Benny 2026-11-08)
+    if clubInfo.clubType == Enum.ClubType.Guild and ns.OpenGuildMemberMenu then
+        return ns.OpenGuildMemberMenu(name, info.isSelf)
+    end
     if not next(POPUP) then
         POPUP[Enum.ClubType.BattleNet] = "COMMUNITIES_MEMBER"
         POPUP[Enum.ClubType.Character] = "COMMUNITIES_WOW_MEMBER"
