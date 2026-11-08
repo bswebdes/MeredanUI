@@ -4,6 +4,7 @@
 --   ┌ [▣] Addons                                                   [x] ┐
 --   │     24 von 31 geladen                                            │
 --   │ [Suchen …                              ] [Dieser Charakter   v]  │
+--   │ − Benutzeroberfläche                                       3 / 4 │  ← Kategorie (auf/zu)
 --   │ [x] [▣] MeredanUI                          Neu laden   v0.3.0    │
 --   │ [x] [▣]   MeredanUI_Options                            v0.3.0    │  ← gehört zu einer Gruppe
 --   │ [ ] [▣] Details!                                       v12.1     │  ← aus = grau
@@ -16,7 +17,7 @@
 local ADDON_NAME, ns = ...
 local L = ns.L
 
-local WIDTH, PAD, ROW_H = 600, 18, 30
+local WIDTH, PAD, ROW_H, HEAD_H = 600, 18, 30, 26
 local QUESTION = "Interface\\Icons\\INV_Misc_QuestionMark"
 
 local hidden = CreateFrame("Frame")
@@ -66,7 +67,14 @@ local function AnyChanged()
     return false
 end
 
--- Einträge: Gruppen-Eltern alphabetisch, ihre Kinder eingerückt darunter (Blizzards „Group“)
+-- Einträge wie bei Blizzard: zuerst die Kategorien (TOC „## Category“, alphabetisch, auf-/zuklappbar),
+-- darunter die Addons ohne Kategorie. Innerhalb: Gruppen-Eltern alphabetisch, ihre Kinder eingerückt
+-- (Blizzards „Group“). Beim Suchen sind alle Kategorien offen.
+local function Collapsed()
+    ns.db.addonListCollapsed = ns.db.addonListCollapsed or {}
+    return ns.db.addonListCollapsed
+end
+
 local function Entries(filter)
     local parents, children = {}, {}
     for i = 1, C_AddOns.GetNumAddOns() do
@@ -94,22 +102,60 @@ local function Entries(filter)
     end
     local function ByTitle(a, b) return a.plain < b.plain end
     table.sort(parents, ByTitle)
-    local result = {}
+
+    -- Kategorie gilt für die ganze Gruppe (wie Blizzard: die des Elternteils)
+    local categories, order, loose = {}, {}, {}
     for _, entry in ipairs(parents) do
+        local category = C_AddOns.GetAddOnMetadata(entry.index, "Category")
+        if category and category ~= "" then
+            if not categories[category] then
+                categories[category] = {}
+                order[#order + 1] = category
+            end
+            table.insert(categories[category], entry)
+        else
+            loose[#loose + 1] = entry
+        end
+    end
+    table.sort(order, function(a, b)
+        if strcmputf8i then return strcmputf8i(a, b) < 0 end
+        return a:lower() < b:lower()
+    end)
+
+    -- Gruppe (Elternteil + passende Kinder) an out anhängen; liefert die Einträge
+    local function Group(entry, categoryMatch)
         local kids = entry.group and children[entry.group] or {}
         table.sort(kids, ByTitle)
-        local match = filter == "" or entry.plain:find(filter, 1, true)
-        local kidMatches = {}
+        local match = categoryMatch or filter == "" or entry.plain:find(filter, 1, true)
+        local block = {}
         for _, kid in ipairs(kids) do
-            if match or kid.plain:find(filter, 1, true) then kidMatches[#kidMatches + 1] = kid end
-        end
-        if match or #kidMatches > 0 then
-            result[#result + 1] = entry
-            for _, kid in ipairs(kidMatches) do
+            if match or kid.plain:find(filter, 1, true) then
                 kid.child = true
-                result[#result + 1] = kid
+                block[#block + 1] = kid
             end
         end
+        if match or #block > 0 then table.insert(block, 1, entry) return block end
+        return {}
+    end
+
+    local result = {}
+    local collapsed = Collapsed()
+    for _, category in ipairs(order) do
+        local categoryMatch = filter ~= "" and category:lower():find(filter, 1, true) ~= nil
+        local items = {}
+        for _, entry in ipairs(categories[category]) do
+            for _, item in ipairs(Group(entry, categoryMatch)) do items[#items + 1] = item end
+        end
+        if #items > 0 then
+            local shut = filter == "" and collapsed[category]
+            result[#result + 1] = { header = true, category = category, items = categories[category], collapsed = shut }
+            if not shut then
+                for _, item in ipairs(items) do result[#result + 1] = item end
+            end
+        end
+    end
+    for _, entry in ipairs(loose) do
+        for _, item in ipairs(Group(entry)) do result[#result + 1] = item end
     end
     return result
 end
@@ -144,18 +190,51 @@ end
 
 local Refresh
 
+local function SetEnabled(index, character, on)
+    if on then C_AddOns.EnableAddOn(index, character) else C_AddOns.DisableAddOn(index, character) end
+end
+
 local function Toggle(row)
     local index = row.index
     if not index then return end
     local character = Character()
-    if C_AddOns.GetAddOnEnableState(index, character) == Enum.AddOnEnableState.All then
-        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-        C_AddOns.DisableAddOn(index, character)
-    else
-        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-        C_AddOns.EnableAddOn(index, character)
-    end
+    local on = C_AddOns.GetAddOnEnableState(index, character) ~= Enum.AddOnEnableState.All
+    PlaySound(on and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+    SetEnabled(index, character, on)
     C_AddOns.SaveAddOns()
+    Refresh()
+end
+
+-- ganze Kategorie an/aus (samt Kindern der Gruppen) – Rechtsklick auf die Überschrift (wie Blizzard)
+local function SetCategory(entry, on)
+    local character = Character()
+    for _, parent in ipairs(entry.items) do
+        SetEnabled(parent.index, character, on)
+        local group = parent.group
+        if group then
+            for i = 1, C_AddOns.GetNumAddOns() do
+                local name = C_AddOns.GetAddOnName(i)
+                if name ~= group and C_AddOns.GetAddOnMetadata(i, "Group") == group then SetEnabled(i, character, on) end
+            end
+        end
+    end
+    PlaySound(on and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+    C_AddOns.SaveAddOns()
+    Refresh()
+end
+
+local function HeaderClick(row, button)
+    local entry = row.entry
+    if button == "RightButton" then
+        ns.UI.OpenList(row, {
+            { value = "on", label = L["Enable category"] },
+            { value = "off", label = L["Disable category"] },
+        }, nil, function(value) SetCategory(entry, value == "on") end, { menu = true, title = entry.category })
+        return
+    end
+    PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+    local collapsed = Collapsed()
+    collapsed[entry.category] = not collapsed[entry.category] or nil
     Refresh()
 end
 
@@ -163,11 +242,22 @@ local function Row(i)
     if rows[i] then return rows[i] end
     local UI = ns.UI
     local row = CreateFrame("Button", nil, list.child)
+    row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     row:SetHeight(ROW_H)
-    local hover = row:CreateTexture(nil, "BACKGROUND")
+    -- Überschrift (Kategorie): Fläche + Linie wie die Gruppen im Charakterfenster
+    row.headBg = row:CreateTexture(nil, "BACKGROUND")
+    row.headBg:SetAllPoints()
+    row.headBg:SetColorTexture(0.1, 0.1, 0.11, 1)
+    row.headLine = row:CreateTexture(nil, "BORDER")
+    row.headLine:SetPoint("BOTTOMLEFT")
+    row.headLine:SetPoint("BOTTOMRIGHT")
+    row.headLine:SetHeight(ns.PixelSize())
+    row.headLine:SetColorTexture(0, 0, 0, 1)
+    row.sign = UI.Text(row, 13, "LEFT", UI.ACCENT)
+    row.sign:SetPoint("LEFT", 8, 0)
+    local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.04)
-    hover:Hide()
     row.box = CreateFrame("Frame", nil, row)
     row.box:SetSize(16, 16)
     UI.CheckBg(row.box)
@@ -184,20 +274,41 @@ local function Row(i)
     row.status = UI.Text(row, 12, "RIGHT")
     row.status:SetPoint("RIGHT", row.version, "LEFT", -10, 0)
     row.title = UI.Text(row, 13, "LEFT")
-    row.title:SetPoint("LEFT", row.icon, "RIGHT", 10, 0)
     row.title:SetPoint("RIGHT", row.status, "LEFT", -10, 0)
     row.title:SetWordWrap(false)
     row:SetScript("OnEnter", function(self)
-        hover:Show()
-        ShowTooltip(self)
+        if not self.entry.header then ShowTooltip(self) end
     end)
-    row:SetScript("OnLeave", function()
-        hover:Hide()
-        GameTooltip:Hide()
+    row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    row:SetScript("OnClick", function(self, button)
+        if self.entry.header then HeaderClick(self, button) elseif button == "LeftButton" then Toggle(self) end
     end)
-    row:SetScript("OnClick", Toggle)
     rows[i] = row
     return row
+end
+
+local function FillHeader(row, entry)
+    local UI = ns.UI
+    row.index = nil
+    row.headBg:Show()
+    row.headLine:Show()
+    row.sign:Show()
+    row.sign:SetText(entry.collapsed and "+" or "−")
+    row.box:Hide()
+    row.icon:Hide()
+    row.status:SetText("")
+    row.title:ClearAllPoints()
+    row.title:SetPoint("LEFT", 24, 0)
+    row.title:SetPoint("RIGHT", row.status, "LEFT", -10, 0)
+    row.title:SetText(entry.category)
+    ns.SetFont(row.title, 13, "", "bold")
+    row.title:SetTextColor(unpack(UI.ACCENT))
+    -- rechts: wie viele der Kategorie an sind
+    local character, on = Character(), 0
+    for _, item in ipairs(entry.items) do
+        if IsEnabled(item.index, character) then on = on + 1 end
+    end
+    row.version:SetText(("%d / %d"):format(on, #entry.items))
 end
 
 local function FillRow(row, entry)
@@ -205,8 +316,17 @@ local function FillRow(row, entry)
     local index = entry.index
     local character = Character()
     row.index = index
+    row.headBg:Hide()
+    row.headLine:Hide()
+    row.sign:Hide()
+    row.box:Show()
+    row.icon:Show()
     row.box:ClearAllPoints()
     row.box:SetPoint("LEFT", entry.child and 26 or 6, 0)
+    row.title:ClearAllPoints()
+    row.title:SetPoint("LEFT", row.icon, "RIGHT", 10, 0)
+    row.title:SetPoint("RIGHT", row.status, "LEFT", -10, 0)
+    ns.SetFont(row.title, 13)
 
     local state = C_AddOns.GetAddOnEnableState(index, character)
     local enabled = state > Enum.AddOnEnableState.None
@@ -251,16 +371,21 @@ function Refresh()
     local filter = (searchBox:GetText() or ""):lower()
     local entries = Entries(filter)
     local width = list:GetWidth()
+    local y = 0
     for i, entry in ipairs(entries) do
         local row = Row(i)
+        row.entry = entry
+        local height = entry.header and HEAD_H or ROW_H
+        if entry.header and i > 1 then y = y + 6 end -- Luft vor jeder Kategorie
         row:ClearAllPoints()
-        row:SetPoint("TOPLEFT", 0, -(i - 1) * ROW_H)
-        row:SetWidth(width)
-        FillRow(row, entry)
+        row:SetPoint("TOPLEFT", 0, -y)
+        row:SetSize(width, height)
+        if entry.header then FillHeader(row, entry) else FillRow(row, entry) end
         row:Show()
+        y = y + height
     end
     for i = #entries + 1, #rows do rows[i]:Hide() end
-    list:SetContentHeight(#entries * ROW_H)
+    list:SetContentHeight(y)
     emptyText:SetShown(#entries == 0)
 
     local total, loaded = 0, 0

@@ -1372,6 +1372,8 @@ if GetLocale() == "deDE" then
     L["Reload"] = "Neu laden"
     L["Addons"] = "Addons"
     L["System"] = "System"
+    L["Enable category"] = "Kategorie einschalten"
+    L["Disable category"] = "Kategorie ausschalten"
     L["mUI addon list"] = "mUI-Addon-Liste"
     L["Addon list in the mUI look: search, groups, this character or all, reload marker; opens from the game menu."] = "Addon-Liste im mUI-Look: Suche, Gruppen, dieser oder alle Charaktere, Hinweis „Neu laden“; öffnet über das Spielmenü."
     L["mUI ready check"] = "mUI-Bereitschaftscheck"

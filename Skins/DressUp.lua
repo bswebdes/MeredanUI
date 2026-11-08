@@ -183,6 +183,35 @@ local function SkinDropdown(dropdown)
     dropdown:HookScript("OnLeave", function() arrow:SetVertexColor(unpack(UI.MUTED)) end)
 end
 
+-- Leiste über dem Modell (erscheint beim Drüberfahren): Zoom, Drehen, Zurücksetzen. Blizzards
+-- Knöpfe bleiben (Klick, Tooltip, Halten zum Drehen), nur flach mit unseren Symbolen.
+local SCENE_ICONS = {
+    zoomInButton = { "Plus" }, zoomOutButton = { "Minus" },
+    rotateLeftButton = { "ChevronDown", -math.pi / 2 }, rotateRightButton = { "ChevronDown", math.pi / 2 },
+    resetButton = { "Reset" },
+}
+local function SkinSceneControls(control)
+    if not Once(control) then return end
+    local UI = ns.UI
+    for key, def in pairs(SCENE_ICONS) do
+        local button = control[key]
+        if button and Once(button) then
+            FadeButtonTextures(button)
+            Fade(button.Icon)
+            local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
+            bg:SetPoint("TOPLEFT", 5, -5)
+            bg:SetPoint("BOTTOMRIGHT", -5, 5)
+            Edges(button, bg)
+            local icon = UI.Icon(button, def[1], 12)
+            own[icon] = true
+            icon:SetPoint("CENTER", bg)
+            if def[2] then icon:SetRotation(def[2]) end
+            button:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
+            button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
+        end
+    end
+end
+
 -- Seitenteile (Outfit-Details, Set-Auswahl): flach wie das Fenster
 local function SkinSidePanel(panel)
     if not Once(panel) then return end
@@ -320,8 +349,9 @@ local function SkinShell(f)
         end
     end
 
-    -- Modell mit 1-px-Rahmen
+    -- Modell mit 1-px-Rahmen, Steuer-Leiste flach
     Edges(f, f.ModelScene)
+    SkinSceneControls(f.ModelScene.ControlFrame)
 
     SkinButton(DressUpFrameCancelButton)
     SkinButton(f.ResetButton)
