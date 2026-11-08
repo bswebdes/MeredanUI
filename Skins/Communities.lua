@@ -1456,12 +1456,8 @@ PlaceAll = function(f)
             columns:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 36))
             columns:SetHeight(28)
         end
-        local count = members.MemberCount
-        if count then
-            count:ClearAllPoints()
-            count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 8))
-            count:SetJustifyH("RIGHT")
-        end
+        -- „6/24 online“ steht schon im Kopf – hier ausblenden (Benny 2026-11-08)
+        if members.MemberCount then members.MemberCount:SetAlpha(0) end
         for _, key in ipairs({ "GuildMemberListDropdown", "CommunityMemberListDropdown" }) do
             local dropdown = f[key]
             if dropdown and offline then
@@ -1479,9 +1475,10 @@ PlaceAll = function(f)
         stream:SetSize(220, 28)
     end
     local headset = f.VoiceChatHeadset
-    if headset and members and members.MemberCount then
+    if headset then
+        -- ganz rechts, auf Höhe des Kanal-Dropdowns
         headset:ClearAllPoints()
-        headset:SetPoint("RIGHT", members.MemberCount, "LEFT", -6, 0)
+        headset:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 14))
     end
     -- Chat-Kasten und Eingabefeld darunter (8 px Luft, Feld 28 hoch auf der Fußlinie)
     if chat and members then
