@@ -337,6 +337,9 @@ local PAGES = {
             }, 2)
             -- Namen über allem, was man nicht angreifen kann
             page:AddHeader(L["Names"])
+            page:AddCheckbox(L["mUI names instead of Blizzard names"], On("npMuiNames"), function(on)
+                if ns.SetMuiNames then ns.SetMuiNames(on) end
+            end, Help(L["Off: Blizzard's own names above characters and NPCs, as in the original. Takes effect right away."], true))
             page:AddDropdown(L["Name size"], StageItems, function() return ns.db.npNameSize or "medium" end, function(value)
                 ns.db.npNameSize = value
                 if ns.RefreshNamePlates then ns.RefreshNamePlates() end

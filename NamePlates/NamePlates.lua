@@ -879,6 +879,29 @@ oUF:Factory(function(self)
 end)
 
 -- Ziel gewechselt: alle Plates neu dimmen; Kampf/Bedrohung: Farben neu
+-- „mUI-Namen statt Blizzard-Namen“ (Benny 2026-11-08): an = Blizzards Weltnamen aus, freundliche NPCs
+-- und Begleiter auf mUI-Plates; aus = alles auf Blizzards Standardwerte. Reine CVars, wirkt ohne Reload.
+local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerName", "UnitNameHostleNPC",
+    "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName", "UnitNameFriendlyTotemName",
+    "UnitNameEnemyPetName", "UnitNameEnemyGuardianName", "UnitNameEnemyMinionName", "UnitNameEnemyTotemName",
+    "UnitNameNPC", "UnitNameFriendlySpecialNPCName", "UnitNameInteractiveNPC", "UnitNameFriendlyPetName" }
+local MUI_PLATE_CVARS = { "nameplateShowFriendlyNpcs", "nameplateShowFriendlyPlayerPets", "nameplateShowFriendlyPlayers" }
+function ns.SetMuiNames(useMui)
+    ns.db.npMuiNames = useMui and true or false
+    ns.AfterCombat(function()
+        local function Default(cvar)
+            local value = C_CVar.GetCVarDefault and C_CVar.GetCVarDefault(cvar)
+            return value or "1"
+        end
+        for _, cvar in ipairs(WORLD_NAME_CVARS) do
+            if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, useMui and "0" or Default(cvar)) end
+        end
+        for _, cvar in ipairs(MUI_PLATE_CVARS) do
+            if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, useMui and "1" or Default(cvar)) end
+        end
+    end)
+end
+
 -- Einstellungen geändert (Namensgröße, Titel, Besitzer): alle offenen Plates neu aufbauen
 function ns.RefreshNamePlates()
     for frame in pairs(plates) do

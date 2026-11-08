@@ -92,6 +92,8 @@ if GetLocale() == "deDE" then
     L["Players' companions"] = "Begleiter von Spielern"
     L["Always show (otherwise only in combat)"] = "Immer zeigen (sonst nur im Kampf)"
     L["Names"] = "Namen"
+    L["mUI names instead of Blizzard names"] = "mUI-Namen statt Blizzard-Namen"
+    L["Off: Blizzard's own names above characters and NPCs, as in the original. Takes effect right away."] = "Aus: Blizzards eigene Namen über Figuren und NPCs, wie im Original. Wirkt sofort."
     L["Enemies"] = "Feinde"
     L["Enemy pets and minions"] = "Feindliche Begleiter & Diener"
     L["Minor enemies"] = "Schwache Gegner"

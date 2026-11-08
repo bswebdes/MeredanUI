@@ -164,6 +164,7 @@ local DEFAULTS = {
     fastLoot = true,             -- Beute bei Auto-Plündern sofort einsammeln (Loot/FastLoot.lua)
     castbar = "full",            -- Zauberleiste: "simple" (nur Leiste) oder "full" (GCD-Linie + Tick-Striche)
     executeLine = true,          -- Execute-Linie im Ziel-Lebensbalken und auf Nameplates
+    npMuiNames = true,           -- mUI-Namen statt Blizzards Weltnamen (NamePlates.lua, ns.SetMuiNames)
     npNameSize = "medium",       -- Namensgröße freundlicher Namens-Plates: small 12, medium 14, large 16
     npNpcTitle = true,           -- Titel unter NPC-Namen („Bergbaulehrer“)
     npPetOwner = true,           -- Besitzer unter Begleitern („Koratals Begleiter“)
