@@ -1788,6 +1788,89 @@ local function Apply()
     Try(PlaceAll, f)
 end
 
+-- Gildeneinstellungen (GuildControlUI) wie das eigene Ränge-Fenster: flaches Fenster, Titel in Surf Green,
+-- Rangfelder flach mit fester mUI-Schrift (Benny 2026-11-08: Namen waren unsichtbar), Pfeile/Löschen
+-- als 22-px-Symbolkästchen, Knöpfe/Dropdowns/Haken flach. Klicks bleiben Blizzards.
+local function SquareIcon(button, iconName, rotation)
+    if type(button) ~= "table" or not Once(button) then return end
+    local UI = ns.UI
+    FadeButtonTextures(button)
+    FadeRegions(button)
+    if button.icon then Fade(button.icon) end
+    button:SetSize(22, 22)
+    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
+    bg:SetAllPoints()
+    Border(button)
+    local icon = UI.Icon(button, iconName, 12, UI.TEXT)
+    own[icon] = true
+    icon:SetPoint("CENTER")
+    if rotation then icon:SetRotation(rotation) end
+    local function Reflect() icon:SetAlpha(button:IsEnabled() and 1 or 0.3) end
+    button:HookScript("OnEnable", Reflect)
+    button:HookScript("OnDisable", Reflect)
+    button:HookScript("OnEnter", function(self) if self:IsEnabled() then bg:SetColorTexture(unpack(UI.HOVER)) end end)
+    button:HookScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
+    Reflect()
+end
+
+local function SkinRankRows()
+    local UI = ns.UI
+    for i = 1, MAX_GUILDRANKS or 10 do
+        local row = _G["GuildControlUIRankOrderFrameRank" .. i]
+        if row then
+            local box = row.nameBox
+            if box then
+                SkinEditBox(box, { -6, -4, 2, 4 }, BOX)
+                box:SetFont(ns.FontFor(), ns.FontPx(13), "")
+                box:SetTextColor(1, 1, 1, 1)
+            end
+            if row.rankLabel then
+                row.rankLabel:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
+                row.rankLabel:SetTextColor(unpack(UI.ACCENT))
+            end
+            SquareIcon(row.upButton, "ChevronDown", math.pi)
+            SquareIcon(row.downButton, "ChevronDown", 0)
+            SquareIcon(row.deleteButton, "Phase")
+        end
+    end
+end
+
+local function SkinGuildControl(control)
+    if type(control) ~= "table" or not Once(control) then return end
+    local UI = ns.UI
+    Fade(control.NineSlice)
+    FadeRegions(control)
+    Panel(control)
+    SkinIconButton(control.CloseButton, "Close", 14)
+    local title = _G.GuildControlUITitle
+    if title then
+        title:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
+        title:SetTextColor(unpack(UI.ACCENT))
+    end
+    local hbar = _G.GuildControlUIHbar
+    if hbar then
+        FadeRegions(hbar)
+        local line = Tex(hbar, "ARTWORK", 0, { 1, 1, 1, 0.08 })
+        line:SetHeight(1)
+        line:SetPoint("LEFT")
+        line:SetPoint("RIGHT")
+    end
+    SkinDropdown(control.dropdown)
+    for _, key in ipairs({ "orderFrame", "bankTabFrame", "rankPermFrame" }) do
+        local frame = control[key]
+        if type(frame) == "table" then
+            SkinDropdown(frame.dropdown)
+            SkinButton(frame.newButton)
+            SkinButton(frame.dupButton)
+            if frame.goldBox then SkinEditBox(frame.goldBox, nil, BOX) end
+            SkinCheck(frame.OfficerCheckbox)
+        end
+    end
+    for i = 1, NUM_RANK_FLAGS or 21 do SkinCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. i]) end
+    SkinRankRows()
+    if GuildControlUI_RankOrder_Update then hooksecurefunc("GuildControlUI_RankOrder_Update", SkinRankRows) end
+end
+
 -- Gilden-Unterfenster (Ränge, Log, Texte bearbeiten, Neuigkeitenfilter, Rekrutierung): Blizzard meldet
 -- sie alle als „linke“ Fenster an – unser Gildenfenster wich dann nach rechts oben aus (Benny
 -- 2026-11-08). Alle aus der Fensterverwaltung nehmen und über unsere Anordnung rechts daneben öffnen.
@@ -1808,6 +1891,7 @@ local function AdoptSubpanels()
                 if not listed then tinsert(UISpecialFrames, name) end
             end
             Unmanage()
+            if name == "GuildControlUI" then SkinGuildControl(panel) end
             panel:HookScript("OnShow", function(self)
                 C_Timer.After(0, function()
                     if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
