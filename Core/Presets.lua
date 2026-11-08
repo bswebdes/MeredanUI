@@ -17,7 +17,7 @@ local COMMON = {
     frameSize = "medium", bossSize = "medium",
     groupFrames = true, groupSolo = false, autoInvite = false,
     nameplates = true, plateClassification = true,
-    auraSize = "medium", auraTime = "below",
+    auraSize = "medium",
     tooltipAnchor = "corner", tooltipHideInCombat = false, tooltipIDs = false, tooltipTarget = true,
     ["actionBars.bar1"] = "always", ["actionBars.bar2"] = "always", ["actionBars.bar3"] = "always",
     ["actionBars.bar4"] = "always", ["actionBars.bar5"] = "always", ["actionBars.petbar"] = "always",
@@ -33,7 +33,7 @@ local COMMON = {
 
 local STYLE_VALUES = {
     classic = {
-        theme = "green", afkScreen = false,
+        theme = "green", afkScreen = false, auraTime = "below",
         castbar = "simple", executeLine = false, ammoCounter = false, swingTimer = false, petHelper = false,
         threatBar = "hidden",
         autoRole = false, readyCheckReminder = false,
@@ -47,7 +47,7 @@ local STYLE_VALUES = {
         damageMeter = false,
     },
     comfort = {
-        theme = "class", afkScreen = true,
+        theme = "class", afkScreen = true, auraTime = "bar", -- Buff-Restzeit als Leiste (Benny 2026-11-08)
         castbar = "full", executeLine = true, ammoCounter = true, swingTimer = true, petHelper = true,
         threatBar = "group",
         autoRole = true, readyCheckReminder = true,

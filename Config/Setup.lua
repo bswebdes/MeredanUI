@@ -381,6 +381,7 @@ local DIFF = {
     { L["Health bars"], L["sage"], L["class colour"] },
     { L["Swing timer"], false, true },
     { L["Cast bar"], L["Simple"], L["Full"] },
+    { L["Buff time"], L["Number"], L["Bar"] },
     { L["Flight time"], false, true },
     { L["Trainer reminders"], false, true },
     { L["Emojis, reputation bar in chat"], false, true },
