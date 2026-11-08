@@ -500,6 +500,14 @@ local function SkinShell(f)
         title:SetTextColor(unpack(ns.UI.TEXT))
     end
     SkinIconButton(f.CloseButton, "Close")
+    -- Einzige Ausnahme von „nichts verschieben“ (Benny 2026-11-08): Schließen sitzt sonst auf Blizzards
+    -- (entferntem) dicken Rahmen direkt an der Kante. Wie bei den mUI-Fenstern 10 px eingerückt (der
+    -- sichtbare Kasten liegt 4 px innerhalb des Knopfs). Minimieren hängt an Schließen und rückt mit.
+    -- Ungeschützte Knöpfe, kein Taint-Risiko.
+    if f.CloseButton and not InCombatLockdown() then
+        f.CloseButton:ClearAllPoints()
+        f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)
+    end
     local maxMin = f.MaximizeMinimizeFrame
     if maxMin then
         SkinIconButton(maxMin.MaximizeButton, "Square")
