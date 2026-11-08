@@ -28,6 +28,7 @@ local PlaceAll                             -- Gesamt-Layout (unten definiert)
 local LIST_SLOT, LIST_TOP_PAD = 68, 40     -- Blizzards Zeilenhöhe/Rand der Community-Liste (ggf. angepasst)
 local CARD_INSET = 4                       -- Karte = Zeile minus 2 × CARD_INSET (60 px, 8 px Abstand)
 local memberDeco = {}                      -- Kasten der Mitgliederliste (nur Chat-Ansicht)
+local overview = { open = false, updates = {} } -- Reiter „Übersicht“ (eigener Inhalt, nur Anzeige)
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
 local noBump = setmetatable({}, { __mode = "k" }) -- Bereiche mit festen Breiten (Info-Spalte)
@@ -552,6 +553,18 @@ local function RowLayout(row)
     end
 end
 
+-- Inaktive Gildenmitglieder (Benny 2026-11-08): ab 14 Tagen offline dezent rot unterlegt; Ränge mit
+-- „Twink“ im Namen ausgenommen (Twinks sind öfter länger weg). Werte aus Blizzards Mitglieds-Infos.
+local INACTIVE_DAYS = 14
+local function IsInactive(info)
+    if not info or ns.db.guildInactive == false or not info.guildRank then return false end
+    if info.presence ~= Enum.ClubMemberPresence.Offline then return false end
+    if info.guildRank:lower():find("twink", 1, true) then return false end
+    local days = (info.lastOnlineYear or 0) * 365 + (info.lastOnlineMonth or 0) * 30
+        + (info.lastOnlineDay or 0) + (info.lastOnlineHour or 0) / 24
+    return days >= INACTIVE_DAYS
+end
+
 -- Zeile der Mitgliederliste:-- Zeile der Mitgliederliste: Blizzards Streifen und blauer Hover weg, flache Zeile, Hover in Surf Green
 local function SkinMemberRow(row)
     if not Once(row) then return end
@@ -561,6 +574,13 @@ local function SkinMemberRow(row)
     -- wie im eigenen Fenster: keine Zeilen-Fläche, nur heller Hover
     local hover = Tex(row, "HIGHLIGHT", 0, { 1, 1, 1, 0.04 })
     hover:SetAllPoints()
+    local inactive = Tex(row, "BACKGROUND", -7, { 0.85, 0.2, 0.2, 0.1 })
+    inactive:SetAllPoints()
+    inactive:Hide()
+    local function Mark(self) inactive:SetShown(IsInactive(self.memberInfo)) end
+    for _, method in ipairs({ "SetMember", "UpdateNameFrame", "RefreshExpandedColumns" }) do
+        if row[method] then hooksecurefunc(row, method, Mark) end
+    end
     if row.UpdateNameFrame then hooksecurefunc(row, "UpdateNameFrame", RowLayout) end
     if row.RefreshExpandedColumns then hooksecurefunc(row, "RefreshExpandedColumns", RowLayout) end
     local header = row.ProfessionHeader
@@ -642,10 +662,13 @@ local function SkinSideTab(tab)
     local active = Border(tab, true, 2)
     for _, edge in ipairs(active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
     local function Update()
-        local on = tab:GetChecked() and true or false
+        local on = tab:GetChecked() and not overview.open and true or false
         for _, edge in ipairs(active) do edge:SetShown(on) end
         tab.Icon:SetDesaturated(not on)
     end
+    overview.updates[#overview.updates + 1] = Update
+    -- Klick auf einen Blizzard-Reiter schließt die Übersicht
+    tab:HookScript("OnClick", function() if overview.Close then overview.Close() end end)
     hooksecurefunc(tab, "SetChecked", Update)
     tab:HookScript("OnClick", Update)
     tab:HookScript("OnShow", Update)
@@ -846,6 +869,7 @@ local function LayoutTabs(f)
             end
         end
     end
+    if overview.Layout then overview.Layout(slot) end
 end
 
 local function SkinTabs(f)
@@ -1511,6 +1535,223 @@ PlaceAll = function(f)
     end
 end
 
+-- Reiter „Übersicht“ (Benny 2026-11-08): Mitglieder je Klasse und je Stufenbereich, dazu Mitglieder,
+-- online und Durchschnittsstufe. Eigener Inhalt über dem Inhaltsbereich, nur Anzeige (keine Aktionen).
+local OVERVIEW_ICON = 134441 -- inv_misc_spyglass_02
+local function GuildSelected(f)
+    local id = f.GetSelectedClubId and f:GetSelectedClubId()
+    local info = id and C_Club.GetClubInfo(id)
+    return info and info.clubType == Enum.ClubType.Guild and id or nil
+end
+
+local function BuildOverview(f)
+    if overview.panel then return end
+    local UI = ns.UI
+    -- Reiter wie die anderen (40 px, Symbol 2 px eingerückt, aktiv grüne Kante, inaktiv grau)
+    local tab = CreateFrame("Button", nil, f)
+    tab:SetSize(TAB_SIZE, TAB_SIZE)
+    local tabBg = tab:CreateTexture(nil, "BACKGROUND")
+    tabBg:SetAllPoints()
+    tabBg:SetColorTexture(unpack(ns.STYLE.panelColor))
+    ns.AddBorder(tab)
+    local icon = tab:CreateTexture(nil, "ARTWORK")
+    icon:SetPoint("TOPLEFT", 2, -2)
+    icon:SetPoint("BOTTOMRIGHT", -2, 2)
+    icon:SetTexture(OVERVIEW_ICON)
+    icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    local hover = tab:CreateTexture(nil, "HIGHLIGHT")
+    hover:SetAllPoints()
+    hover:SetColorTexture(1, 1, 1, 0.08)
+    local active = ns.AddBorder(tab, true, 2)
+    for _, edge in ipairs(active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+    tab:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(ns.L["Overview"], 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    tab:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+    -- Inhalt: deckt den Inhaltsbereich ab (Blizzards Ansicht bleibt darunter, unverändert)
+    local panel = CreateFrame("Frame", nil, f)
+    panel:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP)
+    panel:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
+    panel:SetFrameLevel(f:GetFrameLevel() + 1300) -- über allem (Chat-Eingabe liegt bei 1200)
+    panel:EnableMouse(true)
+    local cover = panel:CreateTexture(nil, "BACKGROUND", nil, -8)
+    cover:SetPoint("TOPLEFT", -4, 4)
+    cover:SetPoint("BOTTOMRIGHT", 4, -4)
+    local c = ns.STYLE.panelColor
+    cover:SetColorTexture(c[1], c[2], c[3], 1)
+    panel:Hide()
+
+    local function Column(anchor, title)
+        local label = panel:CreateFontString(nil, "OVERLAY")
+        label:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
+        label:SetTextColor(unpack(UI.ACCENT))
+        label:SetPoint("LEFT", panel, anchor, anchor == "TOPLEFT" and 0 or 6, -11)
+        label:SetText(title)
+        local box = MakeBox(panel)
+        return box
+    end
+    local classBox = Column("TOPLEFT", ns.L["Classes"])
+    local levelBox = Column("TOP", ns.L["Levels"])
+    classBox:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -28)
+    classBox:SetPoint("BOTTOMRIGHT", panel, "BOTTOM", -6, 40)
+    levelBox:SetPoint("TOPLEFT", panel, "TOP", 6, -28)
+    levelBox:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", 0, 40)
+    local summary = panel:CreateFontString(nil, "OVERLAY")
+    summary:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    summary:SetTextColor(unpack(UI.MUTED))
+    summary:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 6)
+
+    local rows = {}
+    local function Row(box, i)
+        rows[box] = rows[box] or {}
+        local row = rows[box][i]
+        if row then return row end
+        row = CreateFrame("Frame", nil, box)
+        row:SetHeight(26)
+        row:SetPoint("TOPLEFT", box, "TOPLEFT", 12, -10 - (i - 1) * 30)
+        row:SetPoint("RIGHT", box, "RIGHT", -12, 0)
+        row.icon = row:CreateTexture(nil, "ARTWORK")
+        row.icon:SetSize(18, 18)
+        row.icon:SetPoint("LEFT")
+        row.name = row:CreateFontString(nil, "OVERLAY")
+        row.name:SetFont(ns.FontFor(), ns.FontPx(12), "")
+        row.name:SetJustifyH("LEFT")
+        row.name:SetWidth(110)
+        row.count = row:CreateFontString(nil, "OVERLAY")
+        row.count:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
+        row.count:SetJustifyH("RIGHT")
+        row.count:SetPoint("RIGHT")
+        row.count:SetWidth(30)
+        row.track = row:CreateTexture(nil, "BACKGROUND")
+        row.track:SetColorTexture(1, 1, 1, 0.05)
+        row.track:SetHeight(8)
+        row.track:SetPoint("LEFT", row.name, "RIGHT", 8, 0)
+        row.track:SetPoint("RIGHT", row.count, "LEFT", -8, 0)
+        row.bar = row:CreateTexture(nil, "ARTWORK")
+        row.bar:SetTexture(ns.STYLE.barTexture or WHITE)
+        row.bar:SetHeight(8)
+        row.bar:SetPoint("LEFT", row.track, "LEFT")
+        rows[box][i] = row
+        return row
+    end
+    local function Fill(box, list, maxCount)
+        for i, entry in ipairs(list) do
+            local row = Row(box, i)
+            row.icon:SetShown(entry.icon ~= nil)
+            if entry.icon then
+                row.icon:SetTexture(entry.icon)
+                row.icon:SetTexCoord(unpack(entry.coords or { 0, 1, 0, 1 }))
+            end
+            row.name:ClearAllPoints()
+            row.name:SetPoint("LEFT", row, "LEFT", entry.icon and 26 or 0, 0)
+            row.name:SetText(entry.name)
+            row.name:SetTextColor(unpack(entry.color or UI.TEXT))
+            row.count:SetText(entry.count)
+            local width = row.track:GetWidth() or 0
+            row.bar:SetWidth(math.max(1, width * (maxCount > 0 and entry.count / maxCount or 0)))
+            row.bar:SetVertexColor(unpack(entry.color or UI.ACCENT))
+            row:Show()
+        end
+        for i = #list + 1, #(rows[box] or {}) do rows[box][i]:Hide() end
+    end
+
+    local function Refresh()
+        local clubId = GuildSelected(f)
+        if not clubId or not panel:IsShown() then return end
+        local classes, levels, total, online, levelSum = {}, {}, 0, 0, 0
+        local maxLevel = (GetMaxLevelForPlayerExpansion and GetMaxLevelForPlayerExpansion()) or 60
+        local brackets = {}
+        local step = maxLevel >= 60 and 20 or 10
+        for low = 1, maxLevel - 1, step do
+            brackets[#brackets + 1] = { low = low, high = math.min(low + step - 1, maxLevel - 1) }
+        end
+        brackets[1].low = 1
+        brackets[#brackets + 1] = { low = maxLevel, high = maxLevel }
+        for _, b in ipairs(brackets) do b.count = 0 end
+        for _, memberId in ipairs(C_Club.GetClubMembers(clubId) or {}) do
+            local info = C_Club.GetMemberInfo(clubId, memberId)
+            if info and info.level and info.level > 0 then
+                total = total + 1
+                levelSum = levelSum + info.level
+                if info.presence ~= Enum.ClubMemberPresence.Offline then online = online + 1 end
+                if info.classID then classes[info.classID] = (classes[info.classID] or 0) + 1 end
+                for _, b in ipairs(brackets) do
+                    if info.level >= b.low and info.level <= b.high then b.count = b.count + 1 break end
+                end
+            end
+        end
+        local classList, maxClass = {}, 0
+        for classID, count in pairs(classes) do
+            local classInfo = C_CreatureInfo and C_CreatureInfo.GetClassInfo(classID)
+            local file = classInfo and classInfo.classFile
+            local color = file and C_ClassColor and C_ClassColor.GetClassColor(file)
+            local coords = file and CLASS_ICON_TCOORDS and CLASS_ICON_TCOORDS[file]
+            classList[#classList + 1] = {
+                name = classInfo and classInfo.className or "?", count = count,
+                color = color and { color.r, color.g, color.b } or nil,
+                icon = coords and "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes" or nil,
+                coords = coords,
+            }
+            maxClass = math.max(maxClass, count)
+        end
+        table.sort(classList, function(a, b) if a.count ~= b.count then return a.count > b.count end return a.name < b.name end)
+        local levelList, maxBracket = {}, 0
+        for i = #brackets, 1, -1 do
+            local b = brackets[i]
+            levelList[#levelList + 1] = {
+                name = b.low == b.high and ns.L["Level %d"]:format(b.low) or ns.L["Level %d–%d"]:format(b.low, b.high),
+                count = b.count,
+            }
+            maxBracket = math.max(maxBracket, b.count)
+        end
+        Fill(classBox, classList, maxClass)
+        Fill(levelBox, levelList, maxBracket)
+        summary:SetText(("%s %d  ·  %s %d  ·  %s %s"):format(ns.L["Members"], total, ns.L["Online"], online,
+            ns.L["Average level"], total > 0 and ("%.1f"):format(levelSum / total) or "–"))
+    end
+
+    local function Visuals()
+        for _, edge in ipairs(active) do edge:SetShown(overview.open) end
+        icon:SetDesaturated(not overview.open)
+        for _, update in ipairs(overview.updates) do update() end
+    end
+    function overview.Close()
+        if not overview.open then return end
+        overview.open = false
+        panel:Hide()
+        Visuals()
+    end
+    local function Open()
+        overview.open = true
+        panel:Show()
+        Visuals()
+        Refresh()
+        C_Timer.After(0, Refresh) -- Balkenbreite erst nach dem Layout bekannt
+    end
+    tab:SetScript("OnClick", function()
+        PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
+        if overview.open then overview.Close() else Open() end
+    end)
+    function overview.Layout(slot)
+        local show = ns.db.guildOverview ~= false and GuildSelected(f) ~= nil
+        tab:SetShown(show)
+        if show then
+            tab:ClearAllPoints()
+            tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP)
+        else
+            overview.Close()
+        end
+    end
+    f:HookScript("OnHide", overview.Close)
+    ns:On("GUILD_ROSTER_UPDATE", function() if overview.open then Refresh() end end)
+    ns:On("CLUB_MEMBER_PRESENCE_UPDATED", function() if overview.open then Refresh() end end)
+    overview.panel = panel
+    Visuals()
+end
+
 local function Try(fn, ...)
     local ok, err = pcall(fn, ...)
     if not ok then geterrorhandler()(err) end
@@ -1526,6 +1767,7 @@ local function Apply()
     Try(SkinCommunitiesList, f.CommunitiesList)
     Try(SkinChat, f)
     Try(SkinMemberList, f.MemberList)
+    Try(BuildOverview, f)
     Try(SkinTabs, f)
     Try(SkinControls, f)
     Try(SkinBenefits, f.GuildBenefitsFrame)
