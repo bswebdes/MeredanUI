@@ -1575,7 +1575,9 @@ local function BuildOverview(f)
     local panel = CreateFrame("Frame", nil, f)
     panel:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP)
     panel:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
-    panel:SetFrameLevel(f:GetFrameLevel() + 1300) -- über allem (Chat-Eingabe liegt bei 1200)
+    -- über allem: Blizzards Chat-Scrollleiste liegt eine Ebene höher (HIGH), die Eingabe bei 1200
+    panel:SetFrameStrata("HIGH")
+    panel:SetFrameLevel(f:GetFrameLevel() + 1300)
     panel:EnableMouse(true)
     local cover = panel:CreateTexture(nil, "BACKGROUND", nil, -8)
     cover:SetPoint("TOPLEFT", -4, 4)
@@ -1591,6 +1593,7 @@ local function BuildOverview(f)
         label:SetPoint("LEFT", panel, anchor, anchor == "TOPLEFT" and 0 or 6, -11)
         label:SetText(title)
         local box = MakeBox(panel)
+        box:SetFrameLevel(panel:GetFrameLevel() + 1) -- über der Abdeckung des Inhalts
         return box
     end
     local classBox = Column("TOPLEFT", ns.L["Classes"])
@@ -1653,6 +1656,7 @@ local function BuildOverview(f)
             local width = row.track:GetWidth() or 0
             row.bar:SetWidth(math.max(1, width * (maxCount > 0 and entry.count / maxCount or 0)))
             row.bar:SetVertexColor(unpack(entry.color or UI.ACCENT))
+            row.bar:SetShown(entry.count > 0) -- bei 0 kein Splitter
             row:Show()
         end
         for i = #list + 1, #(rows[box] or {}) do rows[box][i]:Hide() end
