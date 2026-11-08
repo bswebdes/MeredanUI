@@ -63,6 +63,7 @@ Loot/LootWindow.lua
 Loot/LootRoll.lua
 Bags/Mail.lua
 Skins/Dialogs.lua
+Skins/Communities.lua
 NPC/NpcWindow.lua
 NPC/Merchant.lua
 NPC/Trainer.lua

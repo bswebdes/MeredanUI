@@ -179,6 +179,7 @@ local DEFAULTS = {
     bossModsSound = true,        -- kurzer Ton, wenn eine Boss-Fähigkeit gleich kommt
     toasts = true,               -- MUI-Toasts statt Blizzards Popups (aus: nach Neuladen)
     characterWindow = true,      -- eigenes mUI-Charakterfenster (Forever; aus: nach Neuladen)
+    guildSkin = true,            -- Blizzards Gildenfenster im mUI-Look (nur ohne eigenes Gildenfenster, Skins/Communities.lua)
     damageMeter = true,          -- eigenes mUI-Damage-Meter statt Blizzards Fenster (aus: nach Neuladen)
     damageMeterSecond = false,   -- zweites Damage-Meter-Fenster darunter (eigene Art wählbar)
     damageMeterFade = true,      -- Damage Meter außerhalb vom Kampf ausblenden (Maus drauf zeigt es)
