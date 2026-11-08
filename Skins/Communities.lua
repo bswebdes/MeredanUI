@@ -1606,6 +1606,37 @@ local function BuildOverview(f)
     summary:SetFont(ns.FontFor(), ns.FontPx(12), "")
     summary:SetTextColor(unpack(UI.MUTED))
     summary:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 6)
+    local Refresh -- unten definiert
+    -- „Nur Hauptcharaktere“: Ränge mit „Twink“ im Namen ausblenden (Benny 2026-11-08)
+    local mainsOnly = CreateFrame("Button", nil, panel)
+    mainsOnly:SetHeight(20)
+    mainsOnly:SetPoint("RIGHT", panel, "TOPRIGHT", 0, -11)
+    local box = CreateFrame("Frame", nil, mainsOnly)
+    box:SetSize(14, 14)
+    box:SetPoint("RIGHT")
+    local boxBg = box:CreateTexture(nil, "BACKGROUND")
+    boxBg:SetAllPoints()
+    boxBg:SetColorTexture(0.04, 0.04, 0.05, 1)
+    for _, edge in ipairs(ns.AddBorder(box, true)) do edge:SetVertexColor(unpack(UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 })) end
+    local tick = UI.Icon(box, "Check", 12, UI.ACCENT)
+    tick:SetPoint("CENTER")
+    local mainsLabel = mainsOnly:CreateFontString(nil, "OVERLAY")
+    mainsLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    mainsLabel:SetTextColor(unpack(UI.TEXT))
+    mainsLabel:SetPoint("RIGHT", box, "LEFT", -8, 0)
+    mainsLabel:SetText(ns.L["Main characters only"])
+    mainsOnly:SetWidth(mainsLabel:GetUnboundedStringWidth() + 22)
+    local function SyncTick() tick:SetShown(ns.db.guildOverviewMains == true) end
+    mainsOnly:SetScript("OnClick", function()
+        ns.db.guildOverviewMains = not ns.db.guildOverviewMains
+        SyncTick()
+        PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
+        if Refresh then Refresh() end
+    end)
+    mainsOnly:SetScript("OnEnter", function() mainsLabel:SetTextColor(unpack(UI.ACCENT)) end)
+    mainsOnly:SetScript("OnLeave", function() mainsLabel:SetTextColor(unpack(UI.TEXT)) end)
+    SyncTick()
+
     local founded = panel:CreateFontString(nil, "OVERLAY")
     founded:SetFont(ns.FontFor(), ns.FontPx(12), "")
     founded:SetTextColor(unpack(UI.MUTED))
@@ -1614,7 +1645,6 @@ local function BuildOverview(f)
     -- Gründungsdatum und echte Spieler (Accounts) gibt es nur über /ginfo als Systemnachricht: still
     -- abfragen, Nachricht auslesen und im Chat ausblenden (Benny 2026-11-08)
     local guildFacts, asking, askedAt = {}, false, 0
-    local Refresh -- unten
     local function Parse(text)
         local date = text:match("(%d+[%./]%d+[%./]%d+)")
         local numbers = {}
@@ -1712,7 +1742,8 @@ local function BuildOverview(f)
         for _, b in ipairs(brackets) do b.count = 0 end
         for _, memberId in ipairs(C_Club.GetClubMembers(clubId) or {}) do
             local info = C_Club.GetMemberInfo(clubId, memberId)
-            if info and info.level and info.level > 0 then
+            local twink = info and info.guildRank and info.guildRank:lower():find("twink", 1, true)
+            if info and info.level and info.level > 0 and not (ns.db.guildOverviewMains and twink) then
                 total = total + 1
                 levelSum = levelSum + info.level
                 if info.presence ~= Enum.ClubMemberPresence.Offline then online = online + 1 end
