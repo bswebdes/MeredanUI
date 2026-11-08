@@ -1,32 +1,31 @@
--- Tooltip im MUI-Look: flach, dunkel, 1-px-Rahmen, MUI-Schrift. Standard unten rechts über
--- Mikromenü und Taschenleiste; bei offener Tasche über der Tasche (wie ElvUI). Wahlweise an der
--- Maus, im Kampf ausblendbar (Shift zeigt ihn trotzdem) – Einstellungen > Tooltip.
+-- Tooltip in MUI style: flat, dark, 1px border, MUI font. Default bottom right above the
+-- micro menu and bag bar; above the bag window when open (like ElvUI). Optionally at the
+-- cursor, hideable in combat (Shift still shows it) - Settings > Tooltip.
 --
---   ┌──────────────────────────┐
---   │ Koratal                  │  ← Name in Klassenfarbe
---   │ <Heavy Metal Bar> Offizier│  ← Gilde + Rang
---   │ Stufe 80 Blutelf Schurke │
---   │ Meucheln Schurke         │  ← Spec zeigt Blizzard selbst
---   │ iLvl 268                 │  ← nachgeladen (Betrachten)
---   │ M+ 2450                  │  ← Zahl in Blizzards Wertungsfarbe
---   │ Ziel: Talon              │
---   └──────────────────────────┘
---   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ← schmaler Lebensbalken (Klassen-/Reaktionsfarbe)
+--   +---------------------------+
+--   | Koratal                   |  <- name in class color
+--   | <Heavy Metal Bar> Officer |  <- guild + rank
+--   | Level 80 Blood Elf Rogue  |
+--   | Assassination Rogue       |  <- spec, shown by Blizzard
+--   | iLvl 268                  |  <- loaded via inspect
+--   | M+ 2450                   |  <- score in Blizzard's rarity color
+--   | Target: Talon             |
+--   +---------------------------+
+--   =============================  <- thin health bar (class/reaction color)
 --
--- Geschützte Werte (Midnight, Instanzen) werden nie gelesen oder verglichen – fehlt dann eben
--- eine Zeile.
+-- Secret values (Midnight, instances) are never read or compared - the line is just omitted.
 local _, ns = ...
 local L = ns.L
 
 local BAR_HEIGHT = 4
-local BAR_GAP = 4                 -- Lücke zwischen Tooltip-Rahmen und Lebensbalken
--- Hintergrund und Rahmen 4 px INNERHALB der Tooltip-Kante (negativ = eingerückt): Blizzard setzt
--- die Vergleichs-Tooltips ungefähr Kante an Kante, teils ein paar Pixel übereinander – so bleibt
--- zwischen den Kästen trotzdem eine Lücke. Die Vergleiche selbst nie verschieben: Blizzard ruft
--- sie in Midnight abgeschirmt auf (Secrets).
+local BAR_GAP = 4                 -- gap between tooltip border and health bar
+-- Background and border 4px INSIDE the tooltip edge (negative = inset): Blizzard places the
+-- comparison tooltips roughly edge to edge, sometimes overlapping a few pixels - this keeps
+-- a gap between the boxes. Never move the comparison tooltips themselves: Blizzard calls
+-- them in a secure context in Midnight (secrets).
 local PAD = -4
--- Innenabstand: Blizzards Text sitzt 10 px von der Tooltip-Kante, davon frisst PAD 4 – darum
--- rundum INNER dazu (Benny, 2026-10-24: „reingestopft“)
+-- Inner padding: Blizzard's text sits 10px from the tooltip edge and PAD eats 4 of it,
+-- so INNER is added on all sides
 local INNER = 6
 local BORDER_DEFAULT = { 0, 0, 0, 1 }
 local MUTED = { 0.6, 0.59, 0.56 }
@@ -34,11 +33,11 @@ local FACTION_COLORS = {
     Horde = { 0.9, 0.18, 0.18 },
     Alliance = { 0.25, 0.55, 1 },
 }
-local GAP = 8                     -- Abstand zu Taschenleiste bzw. Taschenfenster
-local MICRO_STACK = 28 + 8 + 28   -- Mikromenü + Taschenleiste unten rechts (siehe MicroMenu.lua)
+local GAP = 8                     -- gap to the bag bar / bag window
+local MICRO_STACK = 28 + 8 + 28   -- micro menu + bag bar bottom right (see MicroMenu.lua)
 local INSPECT_CACHE_SECONDS = 300
 
--- Weitere Tooltips (Pfad in _G, auch in nachgeladenen Blizzard-Addons)
+-- Additional tooltips (path in _G, also in load-on-demand Blizzard addons)
 local EXTRA_TOOLTIPS = {
     "ItemRefShoppingTooltip1", "ItemRefShoppingTooltip2", "FriendsTooltip", "QuestScrollFrame.StoryTooltip",
     "QuestScrollFrame.CampaignTooltip", "WarCampaignTooltip", "ReputationParagonTooltip", "BattlePetTooltip",
@@ -49,21 +48,21 @@ local EXTRA_TOOLTIPS = {
 }
 
 local Readable = ns.Readable
-local function Enabled(key) return ns.db[key] ~= false end -- Schalter mit Standard „an“
+local function Enabled(key) return ns.db[key] ~= false end -- toggle that defaults to on
 
--- Auf echte Pixel runden – auch 0 und negative Werte (ns.Snap gibt immer mindestens 1 px zurück)
+-- Round to real pixels - including 0 and negatives (ns.Snap always returns at least 1px)
 local function Px(value)
     local px = ns.PixelSize()
     return math.floor(value / px + 0.5) * px
 end
 local function HealthBar() return _G["GameTooltipStatusBar"] end
 
--- Position ---------------------------------------------------------------------------------
+-- Position -------------------------------------------------------------------------------
 
--- Unten rechts über Mikromenü/Taschenleiste bzw. über der offenen Tasche
+-- Bottom right above micro menu/bag bar, or above the open bag window
 local function PlaceCorner(tooltip)
     local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- Rand um den Tooltip plus ggf. Lebensbalken darunter: so viel Platz lassen
+    -- Leave room for the border around the tooltip plus the health bar below
     local below = Px(PAD + BAR_GAP + BAR_HEIGHT)
     local side = Px(PAD)
     tooltip:ClearAllPoints()
@@ -75,8 +74,8 @@ local function PlaceCorner(tooltip)
     end
 end
 
--- Standard-Anker (Spielwelt, Unitframes, Knöpfe ohne eigene Position) – wie ElvUI: im Kampf
--- ausblenden (außer mit Shift), sonst an die Maus oder unten rechts
+-- Default anchor (world, unit frames, buttons without own position) - like ElvUI: hide in
+-- combat (unless Shift), otherwise at the cursor or bottom right
 local function PlaceDefault(tooltip, parent)
     if ns.db.tooltipHideInCombat and InCombatLockdown() and not IsShiftKeyDown() then
         tooltip:Hide()
@@ -89,8 +88,8 @@ local function PlaceDefault(tooltip, parent)
     PlaceCorner(tooltip)
 end
 
--- Items in der MUI-Tasche: Blizzard setzt den Tooltip direkt neben das Item (mitten ins
--- Taschenfenster) – stattdessen wie gewohnt über die Tasche
+-- Items in the MUI bags: Blizzard places the tooltip next to the item (inside the bag
+-- window) - put it above the bags instead
 local function InMUIBags(frame)
     local bags = _G["MeredanUIBags"]
     while frame do
@@ -100,15 +99,15 @@ local function InMUIBags(frame)
 end
 
 local function PlaceItemTooltip(button, tooltip)
-    -- an der Maus: Blizzards Platz neben dem Item ist ohnehin bei der Maus
+    -- Cursor mode: Blizzard's position next to the item is near the cursor anyway
     if ns.db.tooltipAnchor == "cursor" or not InMUIBags(button) then return end
-    -- Blizzard setzt zusätzlich einen Anker-Typ („links/rechts vom Item“), den das Spiel beim
-    -- Anzeigen erneut anwendet – ohne den gelten nur noch unsere Punkte
+    -- Blizzard also sets an anchor type (left/right of item) that the game reapplies on show -
+    -- clearing it leaves only our points
     tooltip:SetAnchorType("ANCHOR_NONE")
     PlaceCorner(tooltip)
 end
 
--- „Angelegt“-Reiter über dem Vergleichs-Tooltip: flach statt Blizzard-Grafik, über unserem Rahmen
+-- "Equipped" header above the comparison tooltip: flat instead of Blizzard's art, above our border
 local function SkinCompareHeader(tooltip)
     local header = tooltip.CompareHeader
     if not header or header.muiSkinned then return end
@@ -125,11 +124,11 @@ local function SkinCompareHeader(tooltip)
     ns.AddBorder(header)
 end
 
--- Look -------------------------------------------------------------------------------------
+-- Look -----------------------------------------------------------------------------------
 
--- Mehr Luft um den Text: Blizzards eigenes Padding (für eingebettete Item-Tooltips) bleibt und
--- bekommt INNER obendrauf. Blizzard setzt es bei jedem Anzeigen neu (GameTooltip_CalculatePadding)
--- – danach wieder unseres; schon angelegt (gleiche Werte wie zuletzt gesetzt) > nichts tun.
+-- More room around the text: Blizzard's own padding (for embedded item tooltips) is kept
+-- and INNER added on top. Blizzard resets it on every show (GameTooltip_CalculatePadding),
+-- so we reapply; if it already matches what we last set, do nothing.
 local function ApplyPadding(tooltip)
     if not (tooltip.SetPadding and tooltip.GetPadding) or tooltip:IsForbidden() then return end
     local w, h = tooltip:GetPadding()
@@ -139,12 +138,11 @@ local function ApplyPadding(tooltip)
     tooltip:SetPadding(w + INNER, h + INNER, INNER, INNER)
 end
 
--- Zeilengruppen mit Luft dazwischen (Spieler-Tooltip: Name+Gilde | Stufe, Klasse, Fraktion |
--- iLvl, M+ | Ziel). Blizzard kennt keinen Abstand pro Zeile und verankert die Zeilen beim
--- Anzeigen selbst neu – darum echte Leerzeilen in winziger Schrift: Zeile anhängen, die Texte ab
--- der Gruppenzeile eins nach unten rücken, die frei gewordene Zeile wird der Abstand. Die Höhe
--- rechnet Blizzard dann selbst. Die Schrift der Abstandszeile wird beim Leeren zurückgesetzt
--- (Zeilen-Objekte leben weiter und behalten sonst die kleine Schrift).
+-- Line groups with spacing (player tooltip: name+guild | level, class, faction | iLvl, M+ |
+-- target). Blizzard has no per-line spacing and re-anchors lines on show, so we insert real
+-- spacer lines in a tiny font: append a line, shift texts from the group line down by one,
+-- and the freed line becomes the gap. Blizzard computes the height itself. The spacer font
+-- is reset on clear (line objects are reused and would keep the tiny font).
 local GROUP_GAP = 5
 local spacerFont
 
@@ -155,7 +153,7 @@ local function InsertSpacer(tooltip, index)
         local from, to = _G[name .. "TextLeft" .. (i - 1)], _G[name .. "TextLeft" .. i]
         to:SetText(from:GetText())
         to:SetTextColor(from:GetTextColor())
-        -- Schrift mit: Abstandszeilen winzig, alles andere normal
+        -- carry the font: spacer lines tiny, everything else normal
         to:SetFontObject(from:GetFontObject() == spacerFont and spacerFont or GameTooltipText)
     end
     local spacer = _G[name .. "TextLeft" .. index]
@@ -163,8 +161,8 @@ local function InsertSpacer(tooltip, index)
     spacer:SetFontObject(spacerFont)
 end
 
--- Alle Zeilen ab 2 wieder in normaler Schrift (die Zeilen-Objekte leben weiter; Blizzard setzt
--- die Schrift beim Neubefüllen nicht zurück)
+-- Reset all lines from 2 on to the normal font (line objects are reused; Blizzard doesn't
+-- reset their font when refilling)
 local function NormalizeFonts(tooltip)
     local name = tooltip:GetName()
     local i = 2
@@ -175,8 +173,7 @@ local function NormalizeFonts(tooltip)
     end
 end
 
--- starts: Zeilennummern, vor denen eine Lücke kommt – von unten nach oben einfügen, damit die
--- Nummern gültig bleiben
+-- starts: line numbers that get a gap before them - insert bottom-up so indices stay valid
 local function GroupLines(tooltip, starts)
     if not spacerFont then
         spacerFont = CreateFont("MeredanUITooltipSpacer")
@@ -191,7 +188,7 @@ local function GroupLines(tooltip, starts)
     end
 end
 
--- neuer Inhalt: Abstandszeilen wieder normale Schrift
+-- New content: spacer lines back to normal font
 local function ResetGroups(tooltip)
     if spacerFont and tooltip:GetName() then NormalizeFonts(tooltip) end
 end
@@ -205,7 +202,7 @@ local function Skin(tooltip)
         tooltip:HookScript("OnShow", ApplyPadding)
         ApplyPadding(tooltip)
     end
-    -- eigener Rahmen-Halter um PAD gegenüber der Tooltip-Kante versetzt (negativ = eingerückt)
+    -- Own border holder offset by PAD from the tooltip edge (negative = inset)
     local holder = CreateFrame("Frame", nil, tooltip)
     holder:SetFrameLevel(math.max(tooltip:GetFrameLevel() - 1, 0))
     local pad = Px(PAD)
@@ -218,20 +215,20 @@ local function Skin(tooltip)
     tooltip.muiHolder = holder
 end
 
--- Rahmen in Klassen- bzw. Freund/Feind-Farbe, sonst schwarz
+-- Border in class or reaction color, otherwise black
 local function SetBorderColor(tooltip, color)
     if not tooltip.muiBorder then return end
     local r, g, b = unpack(color or BORDER_DEFAULT)
     for _, edge in ipairs(tooltip.muiBorder) do edge:SetVertexColor(r, g, b, 1) end
-    -- Lebensbalken des GameTooltip im selben Rahmen
+    -- GameTooltip's health bar shares the border color
     local bar = tooltip == GameTooltip and _G["GameTooltipStatusBar"]
     if bar and bar.muiBorder then
         for _, edge in ipairs(bar.muiBorder) do edge:SetVertexColor(r, g, b, 1) end
     end
 end
 
--- Buff-Tooltips (eigene Buff-/Debuffleiste) zeigt Blizzards abgeschirmtes Aura-System mit
--- eigenem Tooltip – den erreicht man nur über diese offizielle Schnittstelle (wie ElvUI).
+-- Buff tooltips of our aura frame are shown by Blizzard's secure aura system with its own
+-- tooltip - only reachable through this official API (like ElvUI).
 local function StyleAuraTooltip()
     local inbound = _G["AuraContainerInbound"]
     if not (inbound and inbound.SetTooltipBackdrop) then return end
@@ -245,20 +242,20 @@ local function StyleAuraTooltip()
 end
 
 local function StyleFonts()
-    -- klare Hierarchie: Name etwas größer und fett, darunter Fließtext (mUI Text) eine Stufe kleiner
+    -- Clear hierarchy: name slightly larger and bold, body text (mUI text) one step smaller
     GameTooltipHeaderText:SetFont(ns.FontFor("bold"), ns.FontPx(14), "")
     GameTooltipText:SetFont(ns.FontFor("text"), ns.FontPx(12), "")
     GameTooltipTextSmall:SetFont(ns.FontFor("text"), ns.FontPx(11), "")
 end
 
--- Lebensbalken: flach, schmal, direkt unter dem Tooltip
+-- Health bar: flat, thin, directly below the tooltip
 local function StyleHealthBar()
     local bar = HealthBar()
     if not bar then return end
     bar:SetStatusBarTexture(ns.STYLE.barTexture)
     bar:ClearAllPoints()
     local pad = Px(PAD)
-    -- genauso breit wie der Tooltip-Kasten, mit Lücke darunter
+    -- Same width as the tooltip box, with a gap above
     bar:SetPoint("TOPLEFT", GameTooltip, "BOTTOMLEFT", -pad, -pad - ns.Snap(BAR_GAP))
     bar:SetPoint("TOPRIGHT", GameTooltip, "BOTTOMRIGHT", pad, -pad - ns.Snap(BAR_GAP))
     bar:SetHeight(ns.Snap(BAR_HEIGHT))
@@ -266,13 +263,13 @@ local function StyleHealthBar()
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.emptyColor or { 0.1, 0.1, 0.1 }))
     bar.muiBorder = ns.AddBorder(bar)
-    -- Blizzard färbt grün→rot nach Lebensanteil; danach wieder unsere Farbe
+    -- Blizzard colors green->red by health percent; reapply our color
     bar:HookScript("OnValueChanged", function(self)
         if self.muiColor then self:SetStatusBarColor(unpack(self.muiColor)) end
     end)
 end
 
--- Inhalte ----------------------------------------------------------------------------------
+-- Content --------------------------------------------------------------------------------
 
 local function ClassColor(unit)
     local _, class = UnitClass(unit)
@@ -291,7 +288,7 @@ local function UnitColor(unit)
     end
 end
 
--- Name in Klassenfarbe (Spieler) bzw. Gesinnungsfarbe (NPC)
+-- Name in class color (players) or reaction color (NPCs)
 local function ColoredName(unit)
     local name = UnitName(unit)
     if not Readable(name) then return end
@@ -300,11 +297,11 @@ local function ColoredName(unit)
     return ("|cff%02x%02x%02x%s|r"):format(color[1] * 255, color[2] * 255, color[3] * 255, name)
 end
 
--- Itemlevel per Betrachten (Inspect), pro GUID kurz gemerkt
+-- Item level via inspect, cached per GUID for a while
 local inspectCache = {}
 local pendingGUID
 
--- Spec zeigt Blizzard schon selbst („Meucheln Schurke“) – hier nur das Itemlevel
+-- Blizzard already shows the spec ("Assassination Rogue") - only add the item level
 local function InspectLine(info)
     if info.ilvl then return ("%s %d"):format(L["iLvl"], info.ilvl) end
 end
@@ -318,8 +315,8 @@ end
 
 local function RequestInspect(unit, guid)
     if pendingGUID or not CanInspect(unit) then return end
-    if InspectFrame and InspectFrame:IsShown() then return end -- Blizzards Betrachten-Fenster nicht stören
-    if ns.InspectBusy and ns.InspectBusy() then return end -- unser Betrachten-Fenster auch nicht
+    if InspectFrame and InspectFrame:IsShown() then return end -- don't interfere with Blizzard's inspect frame
+    if ns.InspectBusy and ns.InspectBusy() then return end -- nor with ours
     pendingGUID = guid
     NotifyInspect(unit)
 end
@@ -335,11 +332,11 @@ local function AddUnitLines(tooltip, unit)
     SetBorderColor(tooltip, color)
     if not isPlayer then return end
 
-    -- Name in Klassenfarbe
+    -- Name in class color
     local class = ClassColor(unit)
     if class then GameTooltipTextLeft1:SetTextColor(class.r, class.g, class.b) end
 
-    -- Gilde + Rang: Blizzard zeigt nur den Gildennamen (Zeile 2) – um den Rang ergänzen
+    -- Guild + rank: Blizzard shows only the guild name (line 2) - append the rank
     local guild, rank = GetGuildInfo(unit)
     if Readable(guild) and Readable(rank) then
         local line = GameTooltipTextLeft2
@@ -349,8 +346,8 @@ local function AddUnitLines(tooltip, unit)
         end
     end
 
-    -- Fraktionszeile: Horde rot, Allianz blau. Stufen-Zeile ohne „(Spieler)“ – sagt die Klasse schon.
-    local starts = {} -- erste Zeile jeder Gruppe (GroupLines)
+    -- Faction line: Horde red, Alliance blue. Strip "(Player)" from the level line - the class says it.
+    local starts = {} -- first line of each group (GroupLines)
     local faction, factionName = UnitFactionGroup(unit)
     local factionColor = Readable(faction) and FACTION_COLORS[faction]
     local playerTag = type(PLAYER) == "string" and ("%s*%(" .. PLAYER:gsub("%p", "%%%0") .. "%)")
@@ -369,7 +366,7 @@ local function AddUnitLines(tooltip, unit)
     end
     local statsStart
 
-    -- Itemlevel
+    -- Item level
     local guid = UnitGUID(unit)
     if Enabled("tooltipItemLevel") and Readable(guid) then
         local info
@@ -390,7 +387,7 @@ local function AddUnitLines(tooltip, unit)
         end
     end
 
-    -- Mythisch+-Wertung
+    -- Mythic+ score
     if not ns.IS_FOREVER and Enabled("tooltipMythic") and C_PlayerInfo.GetPlayerMythicPlusRatingSummary then
         local summary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary(unit)
         local score = summary and summary.currentSeasonScore
@@ -402,10 +399,10 @@ local function AddUnitLines(tooltip, unit)
     end
     if statsStart then starts[statsStart] = true end
 
-    -- Ziel des Spielers
+    -- Unit's target
     local target = unit .. "target"
-    -- in Instanzen können beide Antworten geschützt sein (Secret) > dann keine Zeile
-    -- „Ziel“ gedämpft, der Name in seiner Farbe
+    -- In instances both answers may be secret -> no line then.
+    -- "Target" muted, the name in its color.
     if Enabled("tooltipTarget") and ns.Plain(UnitExists(target)) then
         local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or ColoredName(target)
         if name then
@@ -417,7 +414,7 @@ local function AddUnitLines(tooltip, unit)
     GroupLines(tooltip, starts)
 end
 
--- Mythisch+: wie viel Feindliche Truppen der Gegner bringt (Blizzard liefert den Wert je Einheit)
+-- Mythic+: enemy forces the mob is worth (Blizzard provides the value per unit)
 local function AddForcesLine(tooltip, unit)
     if ns.db.mplusMobTooltip == false or ns.Plain(UnitIsPlayer(unit)) ~= false
         or select(10, C_Scenario.GetInfo()) ~= LE_SCENARIO_TYPE_CHALLENGE_MODE then return end
@@ -426,7 +423,7 @@ local function AddForcesLine(tooltip, unit)
     ns.AddForcesTooltipLine(tooltip, percentString)
 end
 
--- auch fürs Mythisch+-Demo
+-- also used by the Mythic+ demo
 function ns.AddForcesTooltipLine(tooltip, percentString)
     local r, g, b = unpack(ns.UI.ACCENT)
     tooltip:AddDoubleLine(L["Enemy forces"], "+" .. percentString .. "%", 0.8, 0.8, 0.8, r, g, b)
@@ -440,7 +437,7 @@ local function OnUnitTooltip(tooltip)
     AddForcesLine(tooltip, unit)
 end
 
--- Items: Rahmen in Qualitätsfarbe (ab „Ungewöhnlich“; Grau/Weiß bleiben schwarz)
+-- Items: border in quality color (Uncommon and up; grey/white stay black)
 local function OnItemTooltip(tooltip, data)
     if not tooltip.muiBorder or not data then return end
     local item = Readable(data.hyperlink) and data.hyperlink or (Readable(data.id) and data.id)
@@ -451,8 +448,8 @@ local function OnItemTooltip(tooltip, data)
     if r then SetBorderColor(tooltip, { r, g, b }) end
 end
 
--- IDs: unten im Tooltip eine graue Zeile „Zauber-ID   12345“ (Zahl in Surf Green). Nicht in
--- den Vergleichs-Tooltips (die baut Blizzard abgeschirmt auf). Geschützte IDs fehlen einfach.
+-- IDs: grey "Spell ID   12345" line at the bottom (number in Surf Green). Not on comparison
+-- tooltips (Blizzard builds them in a secure context). Secret IDs are just omitted.
 local ID_LABELS = {
     [Enum.TooltipDataType.Item] = "Item ID",
     [Enum.TooltipDataType.Toy] = "Item ID",
@@ -472,7 +469,7 @@ local function AddID(tooltip, label, id)
     label = L[label]
     local name = tooltip:GetName()
     local hasIDs = false
-    for i = 1, tooltip:NumLines() do -- schon da (Tooltip ohne Leeren neu befüllt)?
+    for i = 1, tooltip:NumLines() do -- already there (tooltip refilled without clearing)?
         local line = _G[name .. "TextLeft" .. i]
         local text = line and line:GetText()
         if Readable(text) then
@@ -480,14 +477,14 @@ local function AddID(tooltip, label, id)
             if ID_TEXTS[text] then hasIDs = true end
         end
     end
-    if not hasIDs then tooltip:AddLine(" ") end -- Leerzeile vor der ersten ID
+    if not hasIDs then tooltip:AddLine(" ") end -- blank line before the first ID
     local r, g, b = unpack(ns.UI.ACCENT)
     tooltip:AddDoubleLine(label, tostring(id), 0.6, 0.6, 0.6, r, g, b)
 end
 
--- Buffs/Debuffs: „Von: Name“ (Klassenfarbe) – woher die Aura kommt, auch solo. Geht für Auren auf
--- Unitframes, Namensplaketten & Co. (GameTooltip); Blizzards abgeschirmte Buffleiste hat einen
--- eigenen Tooltip, den Addons nicht erweitern dürfen. Geschützte Werte (Retail-Instanz) > nichts.
+-- Buffs/debuffs: "From: Name" (class color) - who applied the aura, also solo. Works for auras
+-- on unit frames, nameplates etc. (GameTooltip); Blizzard's secure buff frame has its own
+-- tooltip that addons may not extend. Secret values (Retail instances) -> nothing.
 local AURA_GETTERS = {
     GetUnitAura = function(unit, index, filter) return C_UnitAuras.GetAuraDataByIndex(unit, index, filter) end,
     GetUnitBuff = function(unit, index, filter) return C_UnitAuras.GetAuraDataByIndex(unit, index, filter or "HELPFUL") end,
@@ -513,7 +510,7 @@ local function OnAuraTooltip(tooltip)
     local _, class = UnitClass(source)
     local color = UnitIsPlayer(source) and class and RAID_CLASS_COLORS[class]
     if color then r, g, b = color.r, color.g, color.b end
-    -- Begleiter: „Wolf (Koratal)“
+    -- Pets: "Wolf (Koratal)"
     if UnitIsUnit(source, "pet") or source:find("pet") then
         local owner = source == "pet" and "player" or source:gsub("pet", "")
         local ownerName = UnitExists(owner) and UnitName(owner)
@@ -526,7 +523,7 @@ end
 local function OnAnyTooltip(tooltip, data)
     if not data or tooltip:IsForbidden() or not tooltip:GetName()
         or tooltip == ShoppingTooltip1 or tooltip == ShoppingTooltip2 then return end
-    ns.AddUpgradeLine(tooltip, data) -- „+2,4 %“ (Upgrades.lua), vor den IDs
+    ns.AddUpgradeLine(tooltip, data) -- "+2.4 %" (Upgrades.lua), before the IDs
     if not Enabled("tooltipIDs") then return end
     local kind = data.type
     if not Readable(kind) then return end
@@ -545,7 +542,7 @@ local function OnAnyTooltip(tooltip, data)
     end
 end
 
--- Betrachten fertig: merken und, falls noch dieselbe Einheit unter der Maus, Tooltip neu aufbauen
+-- Inspect done: cache it and rebuild the tooltip if the same unit is still under the mouse
 ns:On("INSPECT_READY", function(_, guid)
     if not Readable(guid) or guid ~= pendingGUID then return end
     pendingGUID = nil
@@ -558,19 +555,19 @@ ns:On("INSPECT_READY", function(_, guid)
     inspectCache[guid] = info
     local _, shownUnit = GameTooltip:GetUnit()
     if GameTooltip:IsShown() and Readable(shownUnit) then
-        GameTooltip:SetUnit(unit) -- neu aufbauen, jetzt mit Zeile aus dem Merker
+        GameTooltip:SetUnit(unit) -- rebuild, now with the cached line
     end
 end)
 
--- Anfrage verfällt, wenn die Antwort ausbleibt (sonst wartet das Betrachten für immer)
+-- Drop the pending request if no answer comes (otherwise inspecting waits forever)
 GameTooltip:HookScript("OnHide", function() pendingGUID = nil end)
--- neuer Inhalt: Rahmen wieder schwarz, Gruppierung vergessen
+-- New content: border back to black, forget grouping
 local function ResetBorder(self)
     SetBorderColor(self)
     ResetGroups(self)
 end
 
--- Demo (Einstellungen > Tooltip): dein eigener Tooltip an der eingestellten Position
+-- Demo (Settings > Tooltip): your own tooltip at the configured position
 local demoActive = false
 ns.TooltipDemo = {
     Start = function()
@@ -585,13 +582,13 @@ ns.TooltipDemo = {
     IsActive = function() return demoActive and GameTooltip:IsShown() end,
 }
 
--- Einstellung geändert: läuft das Demo, neu zeigen
+-- Setting changed: re-show the running demo
 function ns.RefreshTooltipDemo()
     if demoActive then ns.TooltipDemo.Start() end
 end
 
--- Link-Tooltip (Klick auf einen Chat-Link): bleibt an Blizzards Platz unten mittig (Benny,
--- 2026-10-24 – nicht in die Ecke verschieben), nur flacher Schließen-Knopf statt Blizzards rotem X.
+-- Link tooltip (click on a chat link): stays at Blizzard's position bottom center (not moved
+-- to the corner), only a flat close button instead of Blizzard's red X.
 local function StyleItemRef()
     local tooltip = ItemRefTooltip
     local close = tooltip and tooltip.CloseButton
@@ -618,13 +615,13 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     StyleItemRef()
-    -- Vergleich mit angelegter Ausrüstung nur mit Shift (Blizzard-Standard)
+    -- Compare with equipped gear only with Shift (Blizzard default)
     C_CVar.SetCVar("alwaysCompareItems", "0")
     StyleFonts()
     StyleHealthBar()
     StyleAuraTooltip()
     hooksecurefunc("SharedTooltip_SetBackdropStyle", Skin)
-    -- weitere Blizzard-Tooltips im MUI-Look (die meisten laufen ohnehin über SharedTooltip_SetBackdropStyle)
+    -- More Blizzard tooltips in MUI style (most already go through SharedTooltip_SetBackdropStyle)
     ns.SkinExtraTooltips = function()
         for _, path in ipairs(EXTRA_TOOLTIPS) do
             local object = _G
@@ -639,7 +636,7 @@ ns:On("PLAYER_LOGIN", function()
     end
     hooksecurefunc("GameTooltip_SetDefaultAnchor", PlaceDefault)
     hooksecurefunc("ContainerFrameItemButton_CalculateItemTooltipAnchors", PlaceItemTooltip)
-    -- Blizzard rechnet sein Padding beim Anzeigen und bei eingebetteten Item-Tooltips neu
+    -- Blizzard recalculates its padding on show and for embedded item tooltips
     hooksecurefunc("GameTooltip_CalculatePadding", ApplyPadding)
     if ItemRefTooltip.ItemRefSetHyperlink then hooksecurefunc(ItemRefTooltip, "ItemRefSetHyperlink", ApplyPadding) end
     SkinCompareHeader(ShoppingTooltip1)
@@ -650,7 +647,7 @@ ns:On("PLAYER_LOGIN", function()
     TooltipDataProcessor.AddTooltipPostCall(TooltipDataProcessor.AllTypes, OnAnyTooltip)
 end)
 
--- Tooltips aus nachgeladenen Blizzard-Addons (Sammlungen, Garnison …) ebenfalls einfangen
+-- Also catch tooltips from load-on-demand Blizzard addons (collections, garrison ...)
 ns:On("ADDON_LOADED", function(_, name)
     if ns.SkinExtraTooltips and name:find("^Blizzard_") then ns.SkinExtraTooltips() end
 end)
