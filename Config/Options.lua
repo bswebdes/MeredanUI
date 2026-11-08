@@ -135,7 +135,7 @@ local WINDOWS = {
     { "friendsWindow", "mUI friends window", "Friends, recent allies, friend requests and raid in the mUI look: status, BattleTag, search and filter, game icons, invite; Blizzard's menus and dialogs." },
     { "guildWindow", "mUI guild window", "Guild & Communities in the mUI look: community list, chat, roster with details, info and news, preferred play settings and guild settings (ranks, permissions, bank tabs, Discord)." },
     { "guildOverview", "Guild overview tab", "Extra tab in the guild window: members per class and per level range, plus members, online and average level." },
-    { "guildInactive", "Mark inactive guild members", "Members offline for 14 days or more get a faint red background. Ranks with “Twink” in their name are ignored." },
+    { "guildInactive", "Mark inactive guild members", "Members offline for 14 days or more get a faint red background. Alt ranks (“Twink” or “Alt” in the name) are ignored." },
     { "characterWindow", "mUI character window", "Character, reputation, skills, PvP, currencies and statistics in the mUI look." },
     { "auctionWindow", "mUI auction house", "Auction house in the mUI look: buy with categories and favorites, sell with price suggestion and net breakdown, your auctions and bids, plus a history with income, expenses and fees." },
     { "merchantWindow", "mUI merchant window", "Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk." },

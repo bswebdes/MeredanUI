@@ -556,10 +556,18 @@ end
 -- Inaktive Gildenmitglieder (Benny 2026-11-08): ab 14 Tagen offline dezent rot unterlegt; Ränge mit
 -- „Twink“ im Namen ausgenommen (Twinks sind öfter länger weg). Werte aus Blizzards Mitglieds-Infos.
 local INACTIVE_DAYS = 14
+-- Zweitcharakter-Rang: „Twink“ (deutsch) oder „Alt“ (englisch) als eigenes Wort, Groß/Klein egal –
+-- trifft „GM(Twink)“, „Officer Alt“, „Alts“, aber nicht „Altruist“ (Benny 2026-11-08)
+local function IsAltRank(rank)
+    if type(rank) ~= "string" or rank == "" then return false end
+    local lower = " " .. rank:lower() .. " "
+    return lower:find("%f[%a]twinks?%f[%A]") ~= nil or lower:find("%f[%a]alts?%f[%A]") ~= nil
+end
+
 local function IsInactive(info)
     if not info or ns.db.guildInactive == false or not info.guildRank then return false end
     if info.presence ~= Enum.ClubMemberPresence.Offline then return false end
-    if info.guildRank:lower():find("twink", 1, true) then return false end
+    if IsAltRank(info.guildRank) then return false end
     local days = (info.lastOnlineYear or 0) * 365 + (info.lastOnlineMonth or 0) * 30
         + (info.lastOnlineDay or 0) + (info.lastOnlineHour or 0) / 24
     return days >= INACTIVE_DAYS
@@ -1607,7 +1615,7 @@ local function BuildOverview(f)
     summary:SetTextColor(unpack(UI.MUTED))
     summary:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 6)
     local Refresh -- unten definiert
-    -- „Nur Hauptcharaktere“: Ränge mit „Twink“ im Namen ausblenden (Benny 2026-11-08)
+    -- „Nur Hauptcharaktere“: Zweitcharakter-Ränge („Twink“/„Alt“) ausblenden (Benny 2026-11-08)
     local mainsOnly = CreateFrame("Button", nil, panel)
     mainsOnly:SetHeight(20)
     mainsOnly:SetPoint("RIGHT", panel, "TOPRIGHT", 0, -11)
@@ -1731,6 +1739,16 @@ local function BuildOverview(f)
         local clubId = GuildSelected(f)
         if not clubId or not panel:IsShown() then return end
         local classes, levels, total, online, levelSum = {}, {}, 0, 0, 0
+        -- Haken nur zeigen, wenn die Gilde Zweitcharakter-Ränge hat; sonst wirkt er nicht
+        local anyAlt = false
+        local filterAlts = ns.db.guildOverviewMains == true
+        if GuildControlGetNumRanks and GuildControlGetRankName then
+            for r = 1, GuildControlGetNumRanks() do
+                if IsAltRank(GuildControlGetRankName(r)) then anyAlt = true break end
+            end
+        end
+        mainsOnly:SetShown(anyAlt)
+        if not anyAlt then filterAlts = false end
         local maxLevel = (GetMaxLevelForPlayerExpansion and GetMaxLevelForPlayerExpansion()) or 60
         local brackets = {}
         local step = maxLevel >= 60 and 20 or 10
@@ -1742,8 +1760,9 @@ local function BuildOverview(f)
         for _, b in ipairs(brackets) do b.count = 0 end
         for _, memberId in ipairs(C_Club.GetClubMembers(clubId) or {}) do
             local info = C_Club.GetMemberInfo(clubId, memberId)
-            local twink = info and info.guildRank and info.guildRank:lower():find("twink", 1, true)
-            if info and info.level and info.level > 0 and not (ns.db.guildOverviewMains and twink) then
+            local twink = info and IsAltRank(info.guildRank)
+            if twink then anyAlt = true end
+            if info and info.level and info.level > 0 and not (filterAlts and twink) then
                 total = total + 1
                 levelSum = levelSum + info.level
                 if info.presence ~= Enum.ClubMemberPresence.Offline then online = online + 1 end

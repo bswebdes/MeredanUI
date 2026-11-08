@@ -73,7 +73,7 @@ if GetLocale() == "deDE" then
     L["Guild overview tab"] = "Gilden-Übersicht"
     L["Extra tab in the guild window: members per class and per level range, plus members, online and average level."] = "Zusätzlicher Reiter im Gildenfenster: Mitglieder je Klasse und Stufenbereich, dazu Mitglieder, online und Durchschnittsstufe."
     L["Mark inactive guild members"] = "Inaktive Mitglieder markieren"
-    L["Members offline for 14 days or more get a faint red background. Ranks with “Twink” in their name are ignored."] = "Mitglieder, die 14 Tage oder länger offline sind, werden dezent rot unterlegt. Ränge mit „Twink“ im Namen werden ignoriert."
+    L["Members offline for 14 days or more get a faint red background. Alt ranks (“Twink” or “Alt” in the name) are ignored."] = "Mitglieder, die 14 Tage oder länger offline sind, werden dezent rot unterlegt. Twink-Ränge („Twink“ oder „Alt“ im Namen) werden ignoriert."
     L["Overview"] = "Übersicht"
     L["Classes"] = "Klassen"
     L["Levels"] = "Stufen"
