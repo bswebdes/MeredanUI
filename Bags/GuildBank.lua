@@ -1,19 +1,19 @@
--- Gildenbank (WoW Forever): eigenes Fenster im Taschen-Look wie die Bank (Bank.lua). Aufteilung wie
--- bei Blizzard – 98 Fächer je Fach in 7 Gruppen à 2×7, Fach-Reiter rechts, Log/Geldlog/Info –,
--- Optik wie unser Taschenfenster.
+-- Guild bank (WoW Forever): own window in the bag style, like the bank (Bank.lua). Layout as in
+-- Blizzard's (98 slots per tab in 7 groups of 2x7, tab buttons on the right, Log/Money Log/Info),
+-- look of our bag window.
 --
---   ┌ Gildenbank  Log  Geldlog  Info ───── Fach 1  Voller Zugriff [x] ┐ ┌──┐
---   │ [Suche .......................................................] │ │▣ │ Fach 1
---   │ [■][■]  [■][■]  [■][■]  [■][■]  [■][■]  [■][■]  [■][■]          │ ├──┤
---   │  … 7 Reihen …                                                   │ │+ │ Fach kaufen
---   │ Fach 1: 5 Stapel verbleibend             [Entnehmen][Einzahlen] │ └──┘
---   │ Verfügbarer Betrag: 12g                                  1.234g │
---   └─────────────────────────────────────────────────────────────────┘
+--   +- Guild Bank  Log  Money Log  Info ------ Tab 1  Full Access [x] -+ +--+
+--   | [Search .......................................................] | |# | tab 1
+--   | [#][#]  [#][#]  [#][#]  [#][#]  [#][#]  [#][#]  [#][#]           | +--+
+--   |  ... 7 rows ...                                                  | |+ | buy tab
+--   | Tab 1: 5 stacks remaining                  [Withdraw][Deposit]   | +--+
+--   | Available: 12g                                          1,234g   |
+--   +------------------------------------------------------------------+
 --
--- Blizzards Gildenbankfenster wird nach dem Öffnen unsichtbar geparkt (wie Baganator) und beim
--- Schließen zurückgehängt; sein OnHide würde die Gildenbank schließen und wird deshalb entfernt. Fächer sind Blizzards
--- GuildBankItemButtonTemplate (Klick, Ziehen, Teilen, Tooltip wie gewohnt), im Look unserer Taschen.
--- Kaufen, Ein- und Auszahlen laufen über Blizzards eigene Dialoge.
+-- Blizzard's guild bank frame is parked invisibly after opening (like Baganator) and reparented
+-- back on close; its OnHide would close the guild bank, so it is removed. Slots use Blizzard's
+-- GuildBankItemButtonTemplate (click, drag, split, tooltip as usual), styled like our bags.
+-- Purchase, deposit and withdraw use Blizzard's own dialogs.
 local _, ns = ...
 local L = ns.L
 
@@ -40,7 +40,7 @@ end
 local function MaxTabs() return MAX_GUILDBANK_TABS or 8 end
 local function MaxBuyTabs() return MAX_BUY_GUILDBANK_TABS or 6 end
 
--- Knopf-Look an/aus (UI.Button kennt keinen deaktivierten Zustand)
+-- button look on/off (UI.Button has no disabled state)
 local function SetButtonEnabled(button, enabled)
     button:SetEnabled(enabled)
     button.Text:SetTextColor(unpack(enabled and ns.UI.TEXT or ns.UI.MUTED))
@@ -59,7 +59,7 @@ local function ApplySearch()
     end
 end
 
--- Zugriff -------------------------------------------------------------------------------------
+-- Access --------------------------------------------------------------------------------------
 
 local function FirstViewableTab()
     for i = 1, MaxTabs() do
@@ -78,7 +78,7 @@ local function AccessText(canDeposit, numWithdrawals)
     return GUILDBANK_TAB_FULL_ACCESS
 end
 
--- Logs (wie Blizzard formatiert) ---------------------------------------------------------------
+-- Logs (formatted like Blizzard) ---------------------------------------------------------------
 
 local function LogTime(year, month, day, hour)
     return GUILD_BANK_LOG_TIME:format(TimeUtil.GetRecentTimeDate(year, month, day, hour))
@@ -130,14 +130,14 @@ local function FillMoneyLog()
     end
 end
 
--- Aktualisieren -------------------------------------------------------------------------------
+-- Update --------------------------------------------------------------------------------------
 
 local function UpdateItems(tab)
     for i, button in ipairs(slots) do
         local texture, count, locked, _, quality = GetGuildBankItemInfo(tab, i)
         local link = texture and GetGuildBankItemLink(tab, i)
         SetItemButtonTexture(button, texture)
-        if not texture then button.icon:Hide() end -- leer: unser Slot-Hintergrund
+        if not texture then button.icon:Hide() end -- empty: show our slot background
         SetItemButtonCount(button, count)
         SetItemButtonDesaturated(button, locked)
         SetItemButtonQuality(button, quality, link)
@@ -172,11 +172,11 @@ local function UpdateFachTabs()
             shown = shown + 1
             tab:ClearAllPoints()
             tab:SetPoint("TOPLEFT", window, "TOPRIGHT", 4, -PAD - 58 - (shown - 1) * (SIZE + GAP))
-            local active = i == current and tab.usable -- gesperrte Reiter (Kauf-Fach im Log) nie markiert
+            local active = i == current and tab.usable -- unusable tabs (buy tab in log) never marked
             tab.marker:SetShown(active)
             local shade = active and 1 or 0.6
             tab.icon:SetVertexColor(shade, shade, shade)
-            tab.icon:SetDesaturated(not active) -- inaktive (und gesperrte) Reiter grau (wie überall)
+            tab.icon:SetDesaturated(not active) -- inactive (and unusable) tabs desaturated (as everywhere)
             tab:Show()
         end
     end
@@ -209,8 +209,8 @@ local function Update()
     end
     UpdateFachTabs()
 
-    -- Titel rechts oben: nur Fachname und Zugriff eines echten Fachs (kein „Geldlog“, kein Kauf-Titel –
-    -- das sagen schon die Reiter)
+    -- top right title: only name and access of a real tab (no money log or buy title -
+    -- the mode tabs already say that)
     local title
     if mode ~= "moneylog" and not isBuyTab and isViewable then
         name = (name and name ~= "") and name or GUILDBANK_TAB_NUMBER:format(current)
@@ -218,7 +218,7 @@ local function Update()
     end
     tabTitle:SetText(title or "")
 
-    -- Inhalt je Modus
+    -- content per mode
     grid:Hide()
     logFrame:Hide()
     infoBox:GetParent():Hide()
@@ -265,7 +265,7 @@ local function Update()
         infoBox:GetParent():Show()
     end
 
-    -- unten: verbleibende Abhebungen dieses Fachs, Geld
+    -- bottom: remaining withdrawals for this tab, money
     if (mode == "bank" or mode == "log") and isViewable and not isBuyTab then
         local stacks = remaining > 0 and STACKS:format(remaining) or (remaining == 0 and NONE or UNLIMITED)
         limitText:SetText(GUILDBANK_REMAINING_MONEY:format(name, stacks))
@@ -288,7 +288,7 @@ local function QueryCurrent()
     if mode == "bank" then
         QueryGuildBankTab(tab)
     elseif mode == "log" then
-        QueryGuildBankTab(tab) -- für die verbleibenden Abhebungen
+        QueryGuildBankTab(tab) -- for the remaining withdrawals
         QueryGuildBankLog(tab)
     elseif mode == "moneylog" then
         QueryGuildBankLog(MaxTabs() + 1)
@@ -301,7 +301,7 @@ local function SetMode(key)
     SaveInfo()
     mode = key
     if key == "log" or key == "moneylog" then logFrame:Clear() end
-    -- im Log gibt es kein Kauf-Fach: auf Fach 1 wechseln
+    -- logs have no buy tab: switch to tab 1
     if key ~= "bank" and GetCurrentGuildBankTab() > GetNumGuildBankTabs() and GetNumGuildBankTabs() > 0 then
         SetCurrentGuildBankTab(1)
     end
@@ -326,7 +326,7 @@ local function SelectAvailableTab()
     end
 end
 
--- Fach umbenennen/Symbol (Rechtsklick, mit Recht): Blizzards Auswahlfenster an unserem Fenster
+-- rename tab / change icon (right-click, needs permission): Blizzard's picker next to our window
 local function EditTab(i)
     if not (GuildBankPopupFrame and CanEditGuildBankTabInfo() and i <= GetNumGuildBankTabs()) then return end
     SelectTab(i)
@@ -339,7 +339,7 @@ local function EditTab(i)
     GuildBankPopupFrame:SetFrameLevel(window:GetFrameLevel() + 50)
 end
 
--- Fenster -------------------------------------------------------------------------------------
+-- Window --------------------------------------------------------------------------------------
 
 local function CreateFachTab(i)
     local tab = CreateFrame("Button", nil, window)
@@ -372,7 +372,7 @@ local function CreateFachTab(i)
 end
 
 local function CreateSlots()
-    -- Blizzards Reihenfolge: je Gruppe erst die linke Spalte (1–7), dann die rechte (8–14)
+    -- Blizzard's order: per group the left column first (1-7), then the right (8-14)
     for i = 1, SLOTS do
         local button = CreateFrame("ItemButton", "MeredanUIGuildBankItem" .. i, grid, "GuildBankItemButtonTemplate")
         button:SetID(i)
@@ -390,18 +390,18 @@ end
 local function CreateWindow()
     local UI = ns.UI
     window = CreateFrame("Frame", "MeredanUIGuildBank", UIParent)
-    window:SetFrameStrata("HIGH") -- über Chat und Schlachtzug-Frames
+    window:SetFrameStrata("HIGH") -- above chat and raid frames
     window:SetToplevel(true)
     window:EnableMouse(true)
     window:SetClampedToScreen(true)
     window:Hide()
     UI.Box(window, ns.STYLE.panelColor)
-    tinsert(UISpecialFrames, "MeredanUIGuildBank") -- Esc schließt (und damit die Gildenbank)
-    -- Standard: dort, wo die Schlachtzug-Frames sitzen (90 px über dem Chat, links bündig)
+    tinsert(UISpecialFrames, "MeredanUIGuildBank") -- Esc closes (and thus the guild bank)
+    -- default: where the raid frames sit (90 px above chat, left aligned)
     window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
     window:SetSize(2 * PAD + GRID_WIDTH, PAD + 58 + GRID_HEIGHT + 14 + 24 + 10 + 14 + PAD)
 
-    -- Kopfzeile packen = frei ziehen (wie unter Windows); beim Öffnen wieder am festen Platz
+    -- drag by the header; position resets on open
     local dragArea = CreateFrame("Frame", nil, window)
     dragArea:SetPoint("TOPLEFT")
     dragArea:SetPoint("TOPRIGHT")
@@ -409,7 +409,7 @@ local function CreateWindow()
     dragArea:SetFrameLevel(window:GetFrameLevel())
     ns.MakeWindowDraggable(window, dragArea)
     ns.WatchBlizzardFrame(window, function() return GuildBankFrame end)
-    -- Kopfzeile: Modus-Reiter wie im Taschenfenster, rechts Fachname und Schließen
+    -- header: mode tabs as in the bag window, tab name and close on the right
     local previous
     for _, entry in ipairs({ { "bank", GUILD_BANK }, { "log", GUILD_BANK_LOG }, { "moneylog", GUILD_BANK_MONEY_LOG },
         { "info", GUILD_BANK_TAB_INFO } }) do
@@ -449,7 +449,7 @@ local function CreateWindow()
         ApplySearch()
     end)
 
-    -- Inhaltsbereich: Fächer, Log, Info oder Kaufen
+    -- content area: slots, log, info or purchase
     local area = CreateFrame("Frame", nil, window)
     area:SetPoint("TOPLEFT", PAD, -PAD - 58)
     area:SetSize(GRID_WIDTH, GRID_HEIGHT)
@@ -517,7 +517,7 @@ local function CreateWindow()
     errorText:SetWidth(GRID_WIDTH - 40)
     errorText:SetWordWrap(true)
 
-    -- unten: Abhebungen/Knöpfe, darunter verfügbarer Betrag und Gildenkasse
+    -- bottom: withdrawals/buttons, below them available amount and guild funds
     depositButton = UI.Button(window, DEPOSIT or "Deposit", function()
         PlaySound(SOUNDKIT.IG_MAINMENU_OPTION)
         StaticPopup_Hide("GUILDBANK_WITHDRAW")
@@ -546,7 +546,7 @@ local function CreateWindow()
         SelectAvailableTab()
         QueryCurrent()
         Update()
-        OpenAllBags(window) -- Taschen gehen mit auf, wie bei der Bank
+        OpenAllBags(window) -- open the bags too, like the bank
     end)
     window:SetScript("OnHide", function()
         SaveInfo()
@@ -558,11 +558,11 @@ local function CreateWindow()
         StaticPopup_Hide("CONFIRM_BUY_GUILDBANK_TAB")
         PlaySound(SOUNDKIT.GUILD_VAULT_CLOSE)
         CloseAllBags(window)
-        if ns.StillInteracting("GuildBanker", GuildBankFrame) then CloseGuildBankFrame() end -- nur die eigene Unterhaltung
+        if ns.StillInteracting("GuildBanker", GuildBankFrame) then CloseGuildBankFrame() end -- only our own interaction
     end)
 end
 
--- Ereignisse ----------------------------------------------------------------------------------
+-- Events --------------------------------------------------------------------------------------
 
 local pending
 local function Refresh()
@@ -574,11 +574,11 @@ local function Refresh()
     end)
 end
 
--- Blizzard prüft beim Öffnen, ob sein Fenster SICHTBAR ist, und schließt sonst sofort wieder. Deshalb
--- erst nach dem Öffnen parken und beim Schließen zurückhängen (dann ist es versteckt: kein OnShow).
+-- On open Blizzard checks that its frame is VISIBLE and closes immediately otherwise. So park it only
+-- after opening and reparent it back on close (it is hidden then: no OnShow).
 local function Park()
     if not GuildBankFrame:GetScript("OnHide") then return end
-    -- erst OnHide entfernen, sonst schließt das Parken die Gildenbank beim Server
+    -- remove OnHide first, else parking closes the guild bank on the server
     GuildBankFrame:SetScript("OnHide", nil)
     GuildBankFrame:SetParent(hidden)
 end
@@ -586,7 +586,7 @@ end
 local function Unpark()
     if not GuildBankFrame or GuildBankFrame:GetParent() ~= hidden then return end
     if GuildBankFrame:IsShown() then
-        C_Timer.After(0, Unpark) -- Blizzard versteckt es gleich (HideUIPanel)
+        C_Timer.After(0, Unpark) -- Blizzard is about to hide it (HideUIPanel)
         return
     end
     GuildBankFrame:SetParent(UIParent)
@@ -594,7 +594,7 @@ end
 
 local function Open(retried)
     if not (GuildBankFrame and GuildBankFrame:IsShown()) then
-        -- Blizzards Verwaltung war evtl. noch nicht dran: einen Frame später nochmal
+        -- Blizzard's interaction manager may not have run yet: retry one frame later
         if not retried then C_Timer.After(0, function() Open(true) end) end
         return
     end
@@ -608,10 +608,10 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or C_AddOns.IsAddOnLoaded("BetterBags") then return end
-    -- Fenster gleich anlegen (Fächer erst beim Öffnen, Blizzards Vorlage lädt mit der Gildenbank)
+    -- create the window now (slots on open: Blizzard's template loads with the guild bank)
     CreateWindow()
     ns.layoutFrames.guildbank = window
-    -- läuft nach Blizzards Interaktions-Verwaltung (früher registriert), die das Fenster lädt und zeigt
+    -- runs after Blizzard's interaction manager (registered earlier), which loads and shows the frame
     ns:On("PLAYER_INTERACTION_MANAGER_FRAME_SHOW", function(_, kind)
         if kind == Enum.PlayerInteractionType.GuildBanker then Open() end
     end)

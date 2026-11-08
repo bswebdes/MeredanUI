@@ -1,34 +1,34 @@
--- Bank (WoW Forever): eigenes Fenster im Taschen-Look statt Blizzards Bankfenster. Aufteilung wie
--- bei Blizzard – 8 Spalten, bis 88 Fächer je Seite, Seiten-Reiter rechts, Taschenplätze und
--- Kaufen unten –, Optik wie unser Taschenfenster.
+-- Bank (WoW Forever): own window in the bag style replacing Blizzard's bank frame. Layout as in
+-- Blizzard's (8 columns, up to 88 slots per page, page tabs on the right, bag slots and purchase
+-- at the bottom), look of our bag window.
 --
---   ┌ Bank ─────────────────────── 12 frei [⇅] [x] ┐ ┌──┐
---   │ [Suche ..................................]   │ │▣ │  Seite 1 (Blizzards Symbol)
---   │ [■][■][■][■][■][■][■][■]                     │ └──┘
---   │ [■][■][■][■][■][■][■][■]                     │ ┌──┐
---   │ ───────────────────────────────────────────  │ │▣ │  Seite 2
---   │ Taschenplätze:      [■][■][🔒][🔒][🔒][🔒]   │ └──┘
---   │ Kosten: 10s                      [Kaufen]    │
---   │ 14s 85c                                      │
---   └──────────────────────────────────────────────┘
+--   +- Bank ---------------------- 12 free [S] [x] -+ +--+
+--   | [Search ................................]     | |# |  page 1 (Blizzard icon)
+--   | [#][#][#][#][#][#][#][#]                      | +--+
+--   | [#][#][#][#][#][#][#][#]                      | +--+
+--   | --------------------------------------------- | |# |  page 2
+--   | Bag slots:          [#][#][L][L][L][L]        | +--+
+--   | Cost: 10s                        [Purchase]   |
+--   | 14s 85c                                       |
+--   +-----------------------------------------------+
 --
--- Blizzards Bankfenster wird nur unsichtbar geparkt (wie Baganator): es bleibt „offen“, sonst
--- würde sein OnHide die Bank beim Server schließen. Unsichtbar feuern seine OnShow/OnHide nicht.
--- Forever-Bank: die Bank-„Reiter“ sind Taschen (C_Bank.ShouldUsePlayerBagsInBank) – Reiter 1 ist
--- das Grundfach, 2–9 nehmen Taschen auf. Die Fächer aller Reiter laufen durchgehend über die Seiten.
--- Kaufen läuft über Blizzards Vorlage für Addons (BankPanelPurchaseButtonScriptTemplate), weil
--- C_Bank.PurchaseBankTab geschützt ist.
+-- Blizzard's bank frame is only parked invisibly (like Baganator): it must stay "open", otherwise
+-- its OnHide would close the bank on the server. While hidden its OnShow/OnHide don't fire.
+-- Forever bank: bank "tabs" are bags (C_Bank.ShouldUsePlayerBagsInBank) - tab 1 is the base
+-- container, 2-9 hold bags. Slots of all tabs run continuously across the pages.
+-- Purchase uses Blizzard's addon template (BankPanelPurchaseButtonScriptTemplate) because
+-- C_Bank.PurchaseBankTab is protected.
 local _, ns = ...
 local L = ns.L
 
 local SIZE, GAP, PAD = 36, 6, 14
 local COLS = 8
-local PER_PAGE = 88          -- wie Blizzards Forever-Bank (maximumTotalSlotsPerPage)
-local SLOT_SIZE = 26         -- Taschenplätze unten
+local PER_PAGE = 88          -- as Blizzard's Forever bank (maximumTotalSlotsPerPage)
+local SLOT_SIZE = 26         -- bag slots at the bottom
 local BUY_HEIGHT = 24
 local GRID_WIDTH = COLS * SIZE + (COLS - 1) * GAP
 local BANK_TYPE = Enum.BankType.Character
-local TAB_ICONS = {          -- Blizzards Seiten-Symbole (BankPageTabTemplate)
+local TAB_ICONS = {          -- Blizzard's page icons (BankPageTabTemplate)
     "Interface\\ICONS\\INV_SideTab_Bank_c60",
     "Interface\\ICONS\\ACHIEVEMENT_GUILDPERK_MOBILEBANKING",
     "Interface\\ICONS\\TRADE_ARCHAEOLOGY_CHESTOFTINYGLASSANIMALS",
@@ -40,7 +40,7 @@ hidden:Hide()
 
 local window, content, searchBox, freeText, goldText, divider
 local bagLabel, costLabel, costText, buyButton
-local holders, buttons = {}, {}   -- holders[bag] (ID = Taschen-Nr.), buttons[bag][slot]
+local holders, buttons = {}, {}   -- holders[bag] (ID = bag number), buttons[bag][slot]
 local bagSlots, pageTabs = {}, {}
 local page = 1
 
@@ -49,16 +49,16 @@ local function Enabled()
         and C_Bank.ShouldUsePlayerBagsInBank()
 end
 
--- Container der gekauften Reiter in Reihenfolge (Grundfach zuerst)
+-- containers of purchased tabs in order (base container first)
 local function Containers()
     local list = {}
     for _, tab in ipairs(C_Bank.FetchPurchasedBankTabData(BANK_TYPE) or {}) do list[#list + 1] = tab.ID end
     return list
 end
 
--- „+ Reagenzien“: Handwerkswaren und Berufsmaterial aus den Taschen in die Bank (Benny 2026-11-06).
--- Eins nach dem anderen (Server braucht einen Moment je Zug): auf einen passenden Stapel, wenn er
--- ganz draufpasst, sonst ins erste freie Fach. Klassen-Reagenzien (Munition, Ankh …) bleiben.
+-- "+ Reagents": moves trade goods and profession materials from the bags into the bank.
+-- One at a time (the server needs a moment per move): onto a matching stack if it fits entirely,
+-- else into the first free slot. Class reagents (ammo, Ankh ...) stay.
 local depositing
 local function IsMaterial(itemID)
     local _, _, _, _, _, classID = C_Item.GetItemInfoInstant(itemID)
@@ -70,8 +70,8 @@ end
 local function DepositStep()
     if not (depositing and window and window:IsShown()) or CursorHasItem() then depositing = nil return end
     depositing.steps = depositing.steps + 1
-    if depositing.steps > 300 then depositing = nil return end -- Sicherung, falls ein Zug still scheitert
-    -- nächstes Material in den Taschen (gesperrte Plätze überspringen: Zug läuft noch)
+    if depositing.steps > 300 then depositing = nil return end -- safety net in case a move fails silently
+    -- next material in the bags (skip locked slots: a move is still in progress)
     local source, info
     for bag = 0, NUM_TOTAL_EQUIPPED_BAG_SLOTS or NUM_BAG_SLOTS or 4 do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
@@ -106,7 +106,7 @@ local function DepositStep()
     end
     C_Container.PickupContainerItem(source[1], source[2])
     C_Container.PickupContainerItem(target[1], target[2])
-    if CursorHasItem() then -- passte doch nicht (z. B. gesperrt): zurücklegen, Material auslassen
+    if CursorHasItem() then -- didn't fit (e.g. locked): put back and skip this material
         ClearCursor()
         depositing.skip[info.itemID] = true
     else
@@ -127,7 +127,7 @@ local function GetButton(bag, slot)
     if button then return button end
     local holder = holders[bag]
     if not holder then
-        -- Blizzards Knöpfe lesen die Taschen-Nr. vom Elternframe
+        -- Blizzard's buttons read the bag number from the parent frame
         holder = CreateFrame("Frame", "MeredanUIBankHolder" .. bag, content)
         holder:SetID(bag)
         holder:SetAllPoints()
@@ -135,8 +135,8 @@ local function GetButton(bag, slot)
         holders[bag] = holder
     end
     button = CreateFrame("ItemButton", "MeredanUIBankItem" .. bag .. "_" .. slot, holder, "ContainerFrameItemButtonTemplate")
-    -- KEIN SetBagID: der Wert käme aus Addon-Code (Taint) und Blizzard blockt dann das Benutzen im
-    -- Kampf. GetBagID liest ohne bagID die ID des Elternrahmens (holder:SetID), wie bei Bagnon/Baganator.
+    -- No SetBagID: the value would come from addon code (taint) and Blizzard then blocks using the
+    -- item in combat. Without bagID, GetBagID reads the parent's ID (holder:SetID), like Bagnon/Baganator.
     button:SetID(slot)
     ns.StyleBagButton(button)
     buttons[bag][slot] = button
@@ -160,7 +160,7 @@ local function ApplySearch()
     end
 end
 
--- Aufbau --------------------------------------------------------------------------------------
+-- Layout --------------------------------------------------------------------------------------
 
 local function UpdatePageTabs(numPages)
     for i = 1, math.max(numPages, #pageTabs) do
@@ -200,7 +200,7 @@ local function UpdatePageTabs(numPages)
             tab.marker:SetShown(active)
             local shade = active and 1 or 0.6
             tab.icon:SetVertexColor(shade, shade, shade)
-            tab.icon:SetDesaturated(not active) -- inaktive Reiter grau (wie überall)
+            tab.icon:SetDesaturated(not active) -- inactive tabs desaturated (as everywhere)
             tab:Show()
         elseif tab then
             tab:Hide()
@@ -243,7 +243,7 @@ local function Layout()
         for _, button in pairs(list) do button:Hide() end
     end
 
-    -- alle Fächer der gekauften Reiter durchgehend, davon die aktuelle Seite
+    -- all slots of purchased tabs in sequence; show the current page
     local all, free = {}, 0
     for _, bag in ipairs(Containers()) do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do all[#all + 1] = { bag, slot } end
@@ -269,7 +269,7 @@ local function Layout()
     local rows = math.max(1, math.ceil(shown / COLS))
     local gridHeight = rows * SIZE + (rows - 1) * GAP
 
-    -- unten: Trennlinie, Taschenplätze, Kosten/Kaufen, Gold
+    -- bottom: divider, bag slots, cost/purchase, gold
     divider:ClearAllPoints()
     divider:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -gridHeight - 14)
     divider:SetWidth(GRID_WIDTH)
@@ -286,7 +286,7 @@ local function Layout()
     ApplySearch()
 end
 
--- Fenster -------------------------------------------------------------------------------------
+-- Window --------------------------------------------------------------------------------------
 
 local function BagSlot(bagNum)
     local slotButton = CreateFrame("Button", nil, window)
@@ -308,7 +308,7 @@ local function BagSlot(bagNum)
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.15)
 
-    -- Taschen in die Bank legen/herausnehmen wie bei Blizzard (Platz in Characterbanktab)
+    -- place/remove bank bags as Blizzard does (slot in Characterbanktab)
     local function Pickup()
         if slotButton.bought then C_Container.PickupContainerItem(Enum.BagIndex.Characterbanktab, bagNum) end
     end
@@ -322,7 +322,7 @@ local function BagSlot(bagNum)
             GameTooltip:SetText(self.bought and (BANK_BAG or "Bank bag") or (BANK_BAG_PURCHASE or "Purchasable bag slot"), 1, 1, 1)
         end
         GameTooltip:Show()
-        -- Fächer dieser Tasche hervorheben
+        -- highlight this bag's slots
         local container = Enum.BagIndex.CharacterBankTab_1 + bagNum - 1
         for bag, list in pairs(buttons) do
             for _, button in pairs(list) do
@@ -341,17 +341,17 @@ end
 local function CreateWindow()
     local UI = ns.UI
     window = CreateFrame("Frame", "MeredanUIBank", UIParent)
-    window:SetFrameStrata("HIGH") -- über Chat und Schlachtzug-Frames
+    window:SetFrameStrata("HIGH") -- above chat and raid frames
     window:SetToplevel(true)
     window:EnableMouse(true)
     window:SetClampedToScreen(true)
     window:Hide()
     UI.Box(window, ns.STYLE.panelColor)
-    tinsert(UISpecialFrames, "MeredanUIBank") -- Esc schließt (und damit die Bank)
-    -- Standard: dort, wo die Schlachtzug-Frames sitzen (90 px über dem Chat, links bündig)
+    tinsert(UISpecialFrames, "MeredanUIBank") -- Esc closes (and thus the bank)
+    -- default: where the raid frames sit (90 px above chat, left aligned)
     window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
     window.Layout = Layout
-    -- Kopfzeile packen = frei ziehen (wie unter Windows); beim Öffnen wieder am festen Platz
+    -- drag by the header; position resets on open
     local dragArea = CreateFrame("Frame", nil, window)
     dragArea:SetPoint("TOPLEFT")
     dragArea:SetPoint("TOPRIGHT")
@@ -359,11 +359,11 @@ local function CreateWindow()
     dragArea:SetFrameLevel(window:GetFrameLevel())
     ns.MakeWindowDraggable(window, dragArea)
     ns.WatchBlizzardFrame(window, function() return BankFrame end)
-    -- Größe vor dem ersten Öffnen (6 Reihen wie Blizzards Grundfach), damit der Rahmen im
-    -- Bearbeitungsmodus stimmt; beim Öffnen rechnet Layout sie neu
+    -- size before first open (6 rows like Blizzard's base container) so the edit mode frame
+    -- matches; Layout recalculates it on open
     window:SetSize(2 * PAD + GRID_WIDTH, PAD + 58 + 6 * SIZE + 5 * GAP + 14 + 1 + 12 + SLOT_SIZE + 10 + BUY_HEIGHT + 12 + 14 + PAD)
 
-    -- Kopfzeile wie im Taschenfenster: Titel als aktiver Reiter, rechts frei/Sortieren/Schließen
+    -- header as in the bag window: title as active tab, free/sort/close on the right
     local title = UI.Text(window, 14, "LEFT", UI.ACCENT)
     title:SetPoint("TOPLEFT", PAD, -PAD - 3)
     title:SetText(_G.BANK or "Bank")
@@ -419,7 +419,7 @@ local function CreateWindow()
     divider:SetColorTexture(1, 1, 1, 0.08)
     divider:SetHeight(ns.PixelSize())
 
-    -- Taschenplätze: Beschriftung links, Plätze rechtsbündig (Reiter 2 bis max)
+    -- bag slots: label left, slots right aligned (tab 2 to max)
     bagLabel = UI.Text(window, 12, "LEFT")
     bagLabel:SetText(BAGSLOTTEXT_COLON or ((BAGSLOTTEXT or "Bag slots") .. ":"))
     local previous
@@ -436,7 +436,7 @@ local function CreateWindow()
     bagLabel:SetHeight(SLOT_SIZE)
     bagLabel:SetJustifyV("MIDDLE")
 
-    -- Kosten und Kaufen (Blizzards Kauf-Dialog über die Addon-Vorlage)
+    -- cost and purchase (Blizzard's purchase dialog via the addon template)
     costLabel = UI.Text(window, 12, "LEFT", UI.MUTED)
     costLabel:SetText(COSTS_LABEL or "Cost:")
     costLabel:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -12 - SLOT_SIZE - 10)
@@ -464,19 +464,19 @@ local function CreateWindow()
         page = 1
         Layout()
         PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
-        OpenAllBags(window) -- wie Blizzards Bank: Taschen gehen mit auf
+        OpenAllBags(window) -- like Blizzard's bank: open the bags too
     end)
     window:SetScript("OnHide", function()
         searchBox:SetText("")
         searchBox:ClearFocus()
         PlaySound(SOUNDKIT.IG_MAINMENU_CLOSE)
         CloseAllBags(window)
-        -- nur die eigene, noch laufende Bank-Unterhaltung beenden (sonst träfe es den nächsten NPC)
+        -- only end our own still-running bank interaction (else it would hit the next NPC)
         if ns.StillInteracting("Banker", BankFrame) then C_Bank.CloseBankFrame() end
     end)
 end
 
--- Ereignisse ----------------------------------------------------------------------------------
+-- Events --------------------------------------------------------------------------------------
 
 local pending
 local function Refresh()
@@ -492,7 +492,7 @@ ns:On("PLAYER_LOGIN", function()
     if not Enabled() or C_AddOns.IsAddOnLoaded("BetterBags") then return end
     CreateWindow()
     ns.layoutFrames.bank = window
-    -- Blizzards Bankfenster unsichtbar parken (nicht schließen, siehe oben)
+    -- park Blizzard's bank frame invisibly (don't close it, see above)
     if BankFrame then BankFrame:SetParent(hidden) end
 
     ns:On("BANKFRAME_OPENED", function() window:Show() end)

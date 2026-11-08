@@ -1,15 +1,11 @@
--- Beim Händler nachkaufen (Forever): Munition und Klassen-Reagenzien werden auf eine Wunschmenge
--- AUFGEFÜLLT – 320 Pfeile da, 1000 gewünscht > 680 kaufen. An/aus und Mengen: Einstellungen > Taschen.
+-- Vendor restock (Forever): tops up ammo and class reagents to a target amount
+-- (320 arrows owned, 1000 wanted -> buy 680). Toggle and amounts: Settings > Bags.
 --
--- Munition: welche Art, entscheidet die angelegte Fernkampfwaffe (Bogen/Armbrust > Pfeile,
--- Schusswaffe > Kugeln). Gekauft wird immer die beste Munition, die der Händler hat und die du
--- schon nutzen kannst (höchste Mindeststufe ≤ deine Stufe). Gezählt wird ALLE Munition dieser Art in
--- den Taschen (Benny 2026-11-06: „maximal 1000“ – vorher nur die neue Sorte, dann lagen 1000 alte
--- plus 1000 neue Pfeile in der Tasche). Die beste Sorte wird eingelegt.
--- Reagenzien: die Liste aus ClassReagents.lua (nur deine Klasse, nur was Händler verkaufen).
---
--- Gekauft wird in Blizzards Schritten (Pfeile z. B. je 200): aufgerundet, damit die Wunschmenge
--- sicher erreicht wird, und nie mehr, als das Gold hergibt.
+-- Ammo: type follows the equipped ranged weapon (bow/crossbow -> arrows, gun -> bullets). Buys the
+-- best ammo the vendor has that the player can use (highest required level <= player level).
+-- ALL ammo of that type in the bags counts toward the target, not just the new kind. The best
+-- kind gets equipped. Reagents: list from ClassReagents.lua (own class, vendor items only).
+-- Buys in Blizzard's steps (e.g. 200 arrows), rounded up to reach the target, capped by gold.
 local _, ns = ...
 local L = ns.L
 
@@ -17,7 +13,7 @@ ns.AUTOBUY_AMMO_DEFAULT = 1000
 
 local function Enabled() return ns.IS_FOREVER and ns.db.autoBuy == true end
 
--- Wunschmenge je Eintrag ("ammo" oder Item-ID); 0 = nicht kaufen
+-- target amount per entry ("ammo" or item ID); 0 = don't buy
 function ns.AutoBuyAmount(key, default)
     local amount = ns.db.autoBuyAmounts and ns.db.autoBuyAmounts[key]
     if amount == nil then return default or 0 end
@@ -31,7 +27,7 @@ local function MinLevel(itemID)
     return minLevel, itemLevel
 end
 
--- beste passende Munition beim Händler; missing = Item-Daten noch nicht geladen
+-- best usable ammo at the vendor; missing = item data not loaded yet
 local function BestAmmo(ammoClass)
     local best, bestLevel, bestItemLevel, missing
     local myLevel = UnitLevel("player")
@@ -55,8 +51,8 @@ local function BestAmmo(ammoClass)
     return best, missing
 end
 
--- Munition einer Art (Pfeile/Kugeln) in den Taschen; mit except: alles außer dieser Sorte.
--- Liefert Gesamtzahl und die Plätze (für „alte Pfeile wegwerfen“).
+-- Ammo of one type (arrows/bullets) in the bags; with except: everything but that item.
+-- Returns the total and the slots (for discarding old ammo).
 local function AmmoInBags(ammoClass, except)
     local total, slots = 0, {}
     for bag = 0, NUM_TOTAL_EQUIPPED_BAG_SLOTS or NUM_BAG_SLOTS or 4 do
@@ -74,7 +70,7 @@ local function AmmoInBags(ammoClass, except)
     return total, slots
 end
 
--- schlechtere Munition als best in den Taschen (Mindeststufe kleiner)
+-- ammo in the bags worse than best (lower required level)
 local function OldAmmo(ammoClass, best)
     local bestLevel = MinLevel(best) or 0
     local total, list = 0, {}
@@ -88,7 +84,7 @@ local function OldAmmo(ammoClass, best)
     return total, list
 end
 
--- Nachfrage „Alte Pfeile wegwerfen?“ (verkaufen geht nicht, Verkaufspreis 0) – nur mit Ja
+-- ask before discarding old ammo (it can't be sold, vendor price 0); only on Yes
 local discardClass, discardBest
 local function OfferDiscard(ammoClass, best)
     local total, list = OldAmmo(ammoClass, best)
@@ -130,7 +126,7 @@ local function MerchantIndex(itemID)
     end
 end
 
--- Kaufmenge: auf Blizzards Schritt aufrunden, durch Gold und Vorrat begrenzen
+-- purchase quantity: round up to Blizzard's step, cap by gold and vendor stock
 local function Quantity(index, need)
     local info = C_MerchantFrame.GetItemInfo(index)
     if not info or need <= 0 then return 0 end
@@ -146,7 +142,7 @@ local function Quantity(index, need)
     return quantity, info.price / step
 end
 
--- in Portionen kaufen (höchstens ein Stapel je Kauf, kurz nacheinander)
+-- buy in portions (at most one stack per purchase, staggered)
 local function Buy(index, quantity)
     local maxStack = math.max(GetMerchantItemMaxStack(index) or quantity, 1)
     local delay = 0
@@ -160,8 +156,8 @@ local function Buy(index, quantity)
     end
 end
 
-local equipAfter   -- Item-ID der neuen Munition, nach dem Kauf einlegen
-local discardAfter -- Munitionsart: nach dem Einlegen fragen, ob die alte weg soll
+local equipAfter   -- item ID of new ammo to equip after purchase
+local discardAfter -- ammo class: after equipping, offer to discard the old ammo
 
 local function Run(retry)
     if not Enabled() or not (MerchantFrame and MerchantFrame:IsShown()) then return end
@@ -175,24 +171,24 @@ local function Run(retry)
         bought[#bought + 1] = ("%d× %s"):format(quantity, C_Item.GetItemNameByID(itemID) or ("Item " .. itemID))
     end
 
-    -- Munition
+    -- ammo
     local _, class = UnitClass("player")
     local target = ns.AutoBuyAmount("ammo", ns.AUTOBUY_AMMO_DEFAULT)
     local ammoClass = class == "HUNTER" and target > 0 and WantedAmmoClass()
     if ammoClass then
         local index, missing = BestAmmo(ammoClass)
         if missing and not retry then
-            C_Timer.After(0.6, function() Run(true) end) -- Item-Daten nachladen, dann alles nochmal
+            C_Timer.After(0.6, function() Run(true) end) -- wait for item data, then rerun everything
             return
         end
         if index then
             local itemID = GetMerchantItemID(index)
-            -- gibt es schlechtere Munition in der Tasche, zählt sie nicht mit (sie kann weg)
+            -- worse ammo in the bags doesn't count (it can be discarded)
             local old = OldAmmo(ammoClass, itemID)
             local have = old > 0 and C_Item.GetItemCount(itemID) or AmmoInBags(ammoClass)
             Purchase(index, itemID, target - have)
             if old > 0 then equipAfter, discardAfter = itemID, ammoClass end
-            -- bessere Munition als die eingelegte > nach dem Kauf einlegen
+            -- better than the equipped ammo -> equip after purchase
             local ok, slot = pcall(GetInventorySlotInfo, "AmmoSlot")
             local equipped = ok and slot and GetInventoryItemID("player", slot)
             if equipped ~= itemID and (not equipped or (MinLevel(itemID) or 0) >= (MinLevel(equipped) or 0)) then
@@ -201,7 +197,7 @@ local function Run(retry)
         end
     end
 
-    -- Reagenzien der eigenen Klasse
+    -- reagents of the player's class
     for _, reagent in ipairs(ns.CLASS_REAGENTS[class] or {}) do
         if reagent.item and reagent.buy then
             local wanted = ns.AutoBuyAmount(reagent.item, reagent.buy)
@@ -210,7 +206,7 @@ local function Run(retry)
         end
     end
 
-    -- schon genug von der besseren Sorte da (nichts gekauft): gleich einlegen
+    -- enough of the better kind already (nothing bought): equip right away
     if equipAfter and C_Item.GetItemCount(equipAfter) > 0 and not InCombatLockdown() and #bought == 0 then
         C_Item.EquipItemByName(equipAfter)
         if discardAfter then OfferDiscard(discardAfter, equipAfter) end
@@ -222,7 +218,7 @@ local function Run(retry)
     end
 end
 
--- nur einmal je Händlerbesuch (sonst zählten zwei Läufe dieselben, noch nicht angekommenen Käufe nicht mit)
+-- only once per vendor visit (a second run would not count purchases still in transit)
 local ranThisVisit
 ns:On("MERCHANT_SHOW", function()
     if not Enabled() or ranThisVisit then return end
@@ -231,7 +227,7 @@ ns:On("MERCHANT_SHOW", function()
 end)
 ns:On("MERCHANT_CLOSED", function() ranThisVisit = nil end)
 
--- neue Munition einlegen, sobald sie in der Tasche ist (außerhalb des Kampfes)
+-- equip new ammo once it arrives in the bags (out of combat)
 ns:On("BAG_UPDATE_DELAYED", function()
     if not equipAfter or InCombatLockdown() or C_Item.GetItemCount(equipAfter) == 0 then return end
     local itemID, ammoClass = equipAfter, discardAfter

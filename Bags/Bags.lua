@@ -1,60 +1,57 @@
--- Taschen: ein Fenster statt Blizzards Einzeltaschen. Drei Stile (Einstellungen > Taschen):
--- Abschnitte nach Kategorien (unten, Standard), eine große sortierte Tasche oder je Tasche ein
--- Kasten – siehe „Stile“ weiter unten.
+-- Bags: one window replacing Blizzard's individual bags. Three styles (Settings > Bags):
+-- category sections (default), one big sorted bag, or one box per bag - see "Styles" below.
 --
---   ┌ Taschen ──────────────────────── ▢ 42  [x] ┐
---   │ [Suche ...................................]   │
---   │ Neu              Ausrüstung                   │
---   │ [■][■]           [■][■][■][■]                 │
---   │ Fläschchen       Kräuter          Verbrauchbar│
---   │ [■][■]           [■][■][■]        [■][■]      │
---   │ Ramsch           Frei                         │
---   │ [■]              [42]                         │
---   │ 12.345 g                                      │
---   └───────────────────────────────────────────────┘
+--   +- Bags --------------------------- [] 42  [x] -+
+--   | [Search ..................................]   |
+--   | New              Gear                          |
+--   | [#][#]           [#][#][#][#]                  |
+--   | Flasks           Herbs            Consumable    |
+--   | [#][#]           [#][#][#]        [#][#]        |
+--   | Junk             Free                           |
+--   | [#]              [42]                           |
+--   | 12,345 g                                        |
+--   +-------------------------------------------------+
 --
--- Kategorien (wichtigste zuerst): eigene Kategorie (Alt+Rechtsklick auf ein Item) > Neu >
--- Ramsch > Ausrüstung > Bears Datenbank (BagsData.lua: Kräuter, Erz, Fläschchen …) > Quest >
--- Blizzards Item-Klasse (Verbrauchbar, Handwerkswaren …).
--- Die Item-Knöpfe sind Blizzards eigene Vorlage (ContainerFrameItemButtonTemplate): Benutzen,
--- Ziehen, Verkaufen, Tooltips und Vergleiche funktionieren wie gewohnt – auch im Kampf.
+-- Category priority: see CategoryFor. Bears database = BagsData.lua (herbs, ore, flasks ...).
+-- Item buttons use Blizzard's ContainerFrameItemButtonTemplate, so use, drag, sell, tooltips and
+-- comparisons work as usual - in combat too.
 local _, ns = ...
 local L = ns.L
 
-local SIZE = 36                  -- Item-Knöpfe
--- Abstand zwischen den Knöpfen und Innenabstand des Fensters: je nach Stil (ApplySpacing) –
--- „Abschnitte“ und „eine große Tasche“ luftiger, „Taschen einzeln“ kompakt wie Blizzard
+local SIZE = 36                  -- item buttons
+-- button gap and window padding per style (see Layout/ApplyPad): sections and single bag
+-- roomier, separate bags compact like Blizzard
 local SPACING = { categories = { gap = 6, pad = 14 }, single = { gap = 6, pad = 14 }, separate = { gap = 4, pad = 10 } }
 local GAP, PAD = 4, 10
-local HEADER = 16                -- Höhe einer Abschnitts-Überschrift
-local SECTION_GAP = 10           -- Abstand zwischen Abschnitten
-local COLUMN_SLOTS = 7            -- Plätze je Spalte (wie BetterBags)
-local COLUMN_GAP = 20             -- Abstand zwischen den Spalten
+local HEADER = 16                -- section header height
+local SECTION_GAP = 10           -- gap between sections
+local COLUMN_SLOTS = 7            -- slots per column (like BetterBags)
+local COLUMN_GAP = 20             -- gap between columns
 local MIN_COLUMNS, MAX_COLUMNS = 2, 4
-local BAGS = { 0, 1, 2, 3, 4, 5 } -- Rucksack, Taschen 1–4, Reagenzientasche
+local BAGS = { 0, 1, 2, 3, 4, 5 } -- backpack, bags 1-4, reagent bag
 local REAGENT_BAG = 5
-local view = "bags" -- Reiter: "bags" (Rucksack + Taschen) oder "reagents" (Reagenzientasche)
+local view = "bags" -- tab: "bags" (backpack + bags) or "reagents" (reagent bag)
 
 local NEW, JUNK, OTHER, FREE = "New", "Junk", "Other", "Free"
--- freie Plätze in Spezialtaschen (Köcher, Munitionsbeutel, Seelen-/Kräutertaschen …) getrennt zählen:
--- dort passt nur Passendes hinein, sie gehören nicht zu „Frei“ (Benny, Jäger in Forever)
+-- free slots in special bags (quiver, ammo pouch, soul/herb bags ...) are counted separately:
+-- they only accept matching items, so they don't belong to "Free"
 local QUIVER, SPECIAL = "Quiver", "Special bags"
-local AMMO_FAMILIES = { [1] = true, [2] = true } -- Köcher (Pfeile), Munitionsbeutel (Kugeln)
-local isEquipKey = {} -- Ausrüstungs-Abschnitte (Kopf, Finger, Zweihand …): Itemlevel, weit vorne
+local AMMO_FAMILIES = { [1] = true, [2] = true } -- quiver (arrows), ammo pouch (bullets)
+local isEquipKey = {} -- gear sections (head, finger, two-hand ...): show item level, sorted early
 
 local hidden = CreateFrame("Frame")
 hidden:Hide()
 
 local window, content, searchBox, freeText, goldText
-local bagSlots = {} -- Taschenleiste unten rechts
-local holders, buttons = {}, {}  -- holders[bag]: Frame mit ID = Taschen-Nr.; buttons[bag][slot]
-local headers = {}               -- Überschriften-Pool
-local categoryOf                 -- Item-ID > Bears-Kategorie (beim ersten Öffnen gebaut)
+local bagSlots = {} -- bag bar bottom right
+local holders, buttons = {}, {}  -- holders[bag]: frame with ID = bag number; buttons[bag][slot]
+local headers = {}               -- header pool
+local categoryOf                 -- item ID -> Bears category (built on first open)
 local dirty = true
 
 local function Enabled() return ns.db and ns.db.bags ~= false end
 
--- Kategorien ----------------------------------------------------------------------------------
+-- Categories ----------------------------------------------------------------------------------
 
 local function BuildLookup()
     categoryOf = {}
@@ -68,20 +65,19 @@ local function CustomCategories()
     return ns.root.bagCategories
 end
 
--- Neue Items (wie BetterBags' „Recent Items“): jedes neu erhaltene Item bleibt 5 Minuten im
--- Abschnitt „Neu“. Einsortiert wird nur beim Schließen oder per „Sortieren“ – bei offener
--- Tasche springt sonst nichts.
+-- New items (like BetterBags' "Recent Items"): each newly received item stays in "New" for
+-- 5 minutes. Items are re-sorted only on close or via Sort, so nothing jumps while the bag is open.
 local NEW_ITEM_TIME = 300
-local recent = {}   -- Item-GUID > Zeitpunkt, seit dem es neu ist
-local known         -- GUIDs, die schon in den Taschen waren (nil bis zum ersten Durchlauf)
-local slotGUID = {} -- GUID je Platz aus dem letzten Durchlauf (bag * 1000 + slot)
+local recent = {}   -- item GUID -> time it became new
+local known         -- GUIDs already in the bags (nil until the first scan)
+local slotGUID = {} -- GUID per slot from the last scan (bag * 1000 + slot)
 
 local function ItemGUID(bag, slot)
     local location = ItemLocation:CreateFromBagAndSlot(bag, slot)
     return location:IsValid() and C_Item.GetItemGUID(location) or nil
 end
 
--- Taschen durchgehen: was vorher nicht da war, ist neu (auch ohne Blizzards Neu-Markierung)
+-- scan bags: anything not seen before is new (even without Blizzard's new flag)
 local function ScanNewItems()
     local now, seen = time(), {}
     wipe(slotGUID)
@@ -107,8 +103,8 @@ local function ExpireNewItems()
     end
 end
 
--- Kategorie eines Items – Rangfolge wie BetterBags mit „Bears Ultimate“:
--- Neu > Ausrüstungsset > eigene Zuweisung > Werkzeuge > Bears > Ramsch > Ausrüstungsplatz > Item-Typ
+-- Category of an item - priority like BetterBags with "Bears Ultimate":
+-- New > equipment set > custom > tools > Bears > junk > equip slot > item type
 local function CategoryFor(bag, slot, info)
     local guid = slotGUID[bag * 1000 + slot]
     if guid and recent[guid] then return NEW end
@@ -118,8 +114,8 @@ local function CategoryFor(bag, slot, info)
     end
     local custom = CustomCategories()[info.itemID]
     if custom then return custom end
-    -- Berufswerkzeug (Angelrute, Kürschnermesser, Spitzhacke, Schmiedehammer …) immer zusammen,
-    -- nicht nach Waffenart verteilt (Benny 2026-11-07); Erkennung wie der Löschschutz (ToolGuard.lua)
+    -- profession tools (fishing pole, skinning knife, mining pick ...) always together rather than
+    -- split by weapon type; detection shared with ToolGuard.lua
     if ns.IsProfessionTool and ns.IsProfessionTool(info.itemID) then return "Tools" end
     local bears = categoryOf[info.itemID]
     if bears then return bears end
@@ -132,9 +128,9 @@ local function CategoryFor(bag, slot, info)
             return slotName
         end
     end
-    -- Verbrauchbares und Handwerkswaren nach Unterart (Essen & Trinken, Trank, Stoff, Kräuter …):
-    -- die Bears-Liste kennt fast nur neue Retail-Items, in Forever landete sonst alles in einem Topf
-    -- (nicht bei „Allgemein“/„Sonstiges“: Verbrauchbar 0 und 8, Handwerkswaren 11 – dann bleibt die Art)
+    -- consumables and trade goods by subtype (food & drink, potion, cloth, herb ...): the Bears list
+    -- covers mostly new Retail items, so on Forever everything would land in one pile
+    -- (not for generic/other subtypes: consumable 0 and 8, trade goods 11 - those keep the class)
     local generic = (classID == Enum.ItemClass.Consumable and (subClassID == 0 or subClassID == 8))
         or (classID == Enum.ItemClass.Tradegoods and subClassID == 11)
     if (classID == Enum.ItemClass.Consumable or classID == Enum.ItemClass.Tradegoods)
@@ -144,7 +140,7 @@ local function CategoryFor(bag, slot, info)
     return itemType or (classID and C_Item.GetItemClassInfo(classID)) or OTHER
 end
 
--- Reihenfolge der Abschnitte: Neu, Ausrüstung, dann alphabetisch, Ramsch und Frei am Ende
+-- section order: New, gear, then alphabetical, junk and free at the end
 local function SectionOrder(a, b)
     local function Rank(key)
         if key == NEW then return 1 elseif isEquipKey[key] then return 2
@@ -157,7 +153,7 @@ local function SectionOrder(a, b)
     return L[a] < L[b]
 end
 
--- Item-Knöpfe ---------------------------------------------------------------------------------
+-- Item buttons --------------------------------------------------------------------------------
 
 local function QualityColor(quality)
     if quality then
@@ -169,17 +165,17 @@ end
 
 local function StyleButton(button)
     button:SetSize(SIZE, SIZE)
-    button.emptyBackgroundAtlas = nil -- leere Plätze: unser Slot-Hintergrund statt Blizzards Flügel
+    button.emptyBackgroundAtlas = nil -- empty slots: our slot background instead of Blizzard's art
     ns.AddSlotBackground(button)
     button.muiBorder = ns.AddBorder(button)
     local normal = button:GetNormalTexture()
     if normal then normal:SetAlpha(0) end
-    if button.IconBorder then button.IconBorder:SetAlpha(0) end -- Qualität zeigt unser Rahmen
+    if button.IconBorder then button.IconBorder:SetAlpha(0) end -- our border shows quality
     button.icon:ClearAllPoints()
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    -- Forever setzt den Ausschnitt bei jedem Symbolwechsel auf (0, 1, 0, 1) zurück (SetItemButtonTexture):
-    -- dann wieder zuschneiden, sonst kommt der gewölbte Rand der Symbole zurück
+    -- Forever resets tex coords to (0, 1, 0, 1) on every icon change (SetItemButtonTexture):
+    -- crop again, otherwise the icons' beveled edge comes back
     hooksecurefunc(button.icon, "SetTexCoord", function(icon, left)
         if left ~= 0.08 then icon:SetTexCoord(0.08, 0.92, 0.08, 0.92) end
     end)
@@ -200,7 +196,7 @@ local function StyleButton(button)
     end
     button.muiLevel = ns.CreateText(button, 11, "LEFT", "OUTLINE")
     button.muiLevel:SetPoint("BOTTOMLEFT", 2, 2)
-    -- Upgrade-Pfeil (Upgrades.lua) mit dunklem Schatten, damit er auf jedem Symbol auffällt
+    -- upgrade arrow (Upgrades.lua) with a dark shadow so it stands out on any icon
     button.muiUpgrade = CreateFrame("Frame", nil, button)
     button.muiUpgrade:SetSize(18, 18)
     button.muiUpgrade:SetPoint("TOPLEFT", 1, -1)
@@ -212,7 +208,7 @@ local function StyleButton(button)
     arrow:SetPoint("CENTER")
     arrow:SetDrawLayer("OVERLAY", 2)
     button.muiUpgrade:Hide()
-    -- „Füllt leeren Platz“ (Upgrades.lua): Rahmen in Surf Green, Punkt oben links, ruhiges Pulsieren
+    -- "fills empty slot" (Upgrades.lua): Surf Green border, dot top left, gentle pulse
     local fill = CreateFrame("Frame", nil, button)
     fill:SetAllPoints()
     fill:SetFrameLevel(button:GetFrameLevel() + 4)
@@ -242,8 +238,8 @@ local function StyleButton(button)
     button.muiFree:SetTextColor(0.7, 0.7, 0.7)
 end
 
--- Rahmen in Qualitätsfarbe (ab „Selten“, sonst schwarz), Itemlevel auf Ausrüstung und Upgrade-Pfeil.
--- Gilt für die Knöpfe im Taschen- und im Bankfenster (Bank.lua).
+-- Quality-colored border (Uncommon and up, else black), item level on gear and upgrade arrow.
+-- Used by the bag, bank and guild bank windows.
 function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     local quality = info and info.quality
     local r, g, b = 0, 0, 0
@@ -252,7 +248,7 @@ function ns.DecorateItemButton(button, info, showLevel, bag, slot)
 
     button.muiLevel:SetText("")
     if info and showLevel then
-        -- ohne Taschenplatz (Gildenbank): Itemlevel aus dem Link
+        -- no bag slot (guild bank): item level from the link
         local level = bag and C_Item.GetCurrentItemLevel(ItemLocation:CreateFromBagAndSlot(bag, slot))
             or (info.hyperlink and C_Item.GetDetailedItemLevelInfo(info.hyperlink))
         if level and level > 1 then
@@ -262,14 +258,14 @@ function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     end
     local fills = info and info.hyperlink and ns.FillsEmptySlot and ns.FillsEmptySlot(info.hyperlink)
     if button.muiFill then button.muiFill:SetShown(fills and true or false) end
-    -- leerer Platz: Markierung statt Pfeil (gegen „nichts“ gibt es keinen sinnvollen Prozentwert)
-    local upgrade = not fills and info and info.hyperlink and ns.UpgradePercent(info.hyperlink) -- auch in „Neu“
+    -- empty slot: marker instead of arrow (no meaningful percentage against nothing)
+    local upgrade = not fills and info and info.hyperlink and ns.UpgradePercent(info.hyperlink) -- also in "New"
     button.muiUpgrade:SetShown(upgrade and upgrade >= 0.05 or false)
 end
 
-ns.StyleBagButton = StyleButton -- auch für das Bankfenster (Bank.lua)
+ns.StyleBagButton = StyleButton -- also used by the bank window (Bank.lua)
 
-local CategoryMenu, Layout -- weiter unten
+local CategoryMenu, Layout -- defined below
 
 local function GetButton(bag, slot)
     buttons[bag] = buttons[bag] or {}
@@ -277,7 +273,7 @@ local function GetButton(bag, slot)
     if button then return button end
     local holder = holders[bag]
     if not holder then
-        -- Blizzards Knöpfe lesen die Taschen-Nr. vom Elternframe
+        -- Blizzard's buttons read the bag number from the parent frame
         holder = CreateFrame("Frame", "MeredanUIBagHolder" .. bag, content)
         holder:SetID(bag)
         holder:SetAllPoints()
@@ -285,14 +281,14 @@ local function GetButton(bag, slot)
         holders[bag] = holder
     end
     button = CreateFrame("ItemButton", "MeredanUIBagItem" .. bag .. "_" .. slot, holder, "ContainerFrameItemButtonTemplate")
-    -- KEIN SetBagID: der Wert käme aus Addon-Code (Taint) und Blizzard blockt dann das Benutzen im
-    -- Kampf. GetBagID liest ohne bagID die ID des Elternrahmens (holder:SetID), wie bei Bagnon/Baganator.
+    -- No SetBagID: the value would come from addon code (taint) and Blizzard then blocks using the
+    -- item in combat. Without bagID, GetBagID reads the parent's ID (holder:SetID), like Bagnon/Baganator.
     button:SetID(slot)
     StyleButton(button)
-    -- Alt+Rechtsklick: eigene Kategorie (Blizzard macht mit Alt+Rechtsklick nichts)
+    -- Alt+right-click: custom category (Blizzard doesn't use Alt+right-click)
     button:HookScript("OnClick", function(self, mouse)
         if mouse == "RightButton" and IsAltKeyDown() and self.muiItemID then CategoryMenu(self) end
-        -- Shift+Rechtsklick beim Händler: geschütztes Berufswerkzeug trotzdem verkaufen
+        -- Shift+right-click at a vendor: sell a protected profession tool anyway
         if mouse == "RightButton" and IsShiftKeyDown()
             and C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.Merchant)
             and ns.IsProfessionTool and ns.IsProfessionTool(self.muiItemID) then
@@ -303,14 +299,14 @@ local function GetButton(bag, slot)
     return button
 end
 
--- showLevel: Itemlevel zeigen (Standard: nur in Ausrüstungs-Abschnitten)
+-- showLevel: show item level (default: only in gear sections)
 local function UpdateButton(button, info, showLevel)
     local bag, slot = button:GetBagID(), button:GetID()
     local texture = info and info.iconFileID
     ClearItemButtonOverlay(button)
     button:SetHasItem(texture)
     button:SetItemButtonTexture(texture)
-    -- leer: Blizzard setzt hier seine Flügel-Grafik (bags-item-slot64) – unser Slot-Hintergrund reicht
+    -- empty: Blizzard sets its slot art here (bags-item-slot64); our slot background is enough
     if not texture then button.icon:Hide() end
     SetItemButtonQuality(button, info and info.quality, info and info.hyperlink, false, info and info.isBound)
     if button.IconBorder then button.IconBorder:SetAlpha(0) end
@@ -334,7 +330,7 @@ end
 
 ns.UpdateBagButton = UpdateButton
 
--- Suche: nicht passende Items abdunkeln
+-- search: dim non-matching items
 local function ApplySearch()
     local query = searchBox and searchBox:GetText():lower() or ""
     for _, list in pairs(buttons) do
@@ -347,9 +343,9 @@ local function ApplySearch()
     end
 end
 
--- Aufbau --------------------------------------------------------------------------------------
+-- Layout --------------------------------------------------------------------------------------
 
--- Item auf eine Überschrift ziehen oder damit draufklicken: das Item gehört ab jetzt dorthin
+-- drop or click an item onto a header: the item belongs to that category from now on
 local function DropOnHeader(header)
     local kind, itemID = GetCursorInfo()
     if kind ~= "item" or not itemID or header.key == FREE or header.key == QUIVER or header.key == SPECIAL then return end
@@ -385,7 +381,7 @@ local function GetHeader(index)
     return header
 end
 
-local measure -- misst Überschriften, damit Abschnitte mindestens so breit wie ihr Name sind
+local measure -- measures headers so sections are at least as wide as their name
 local function TextWidth(text)
     measure = measure or ns.CreateText(UIParent, 12, "LEFT", "OUTLINE")
     measure:Hide()
@@ -401,25 +397,25 @@ local function ItemSort(a, b)
     return a.slot < b.slot
 end
 
--- Stile (Einstellungen > Taschen):
---   "categories" – Abschnitte wie BetterBags (Standard)
---   "single"     – ein sortiertes Raster ohne Überschriften (Neu zuerst, dann Item-Klasse)
---   "separate"   – je Tasche ein Kasten in Taschen-Reihenfolge; das Fenster ist der Rucksack,
---                  die anderen Taschen stapeln sich darüber (wie bei Blizzard)
--- Spalten: kombinierte Tasche 10 (wie Blizzard), einzelne Taschen 5 (Blizzard: 4 – wirkt mit
--- dem MUI-Rahmen zu schmal)
+-- Styles (Settings > Bags):
+--   "categories" - sections like BetterBags (default)
+--   "single"     - one sorted grid without headers (New first, then item class)
+--   "separate"   - one box per bag in bag order; the window is the backpack, the other bags
+--                  stack above it (like Blizzard)
+-- Columns: combined bag 10 (like Blizzard), separate bags 5 (Blizzard uses 4, too narrow with
+-- the mUI border)
 local SINGLE_MIN_COLS, SINGLE_MAX_COLS = 10, 16
 local SEPARATE_COLS = 5
-local SLOTS_MIN_WIDTH = 240 -- Rucksack-Fenster mit eingeblendeten Taschenplätzen (neben dem Gold)
+local SLOTS_MIN_WIDTH = 240 -- backpack window with bag slots shown (next to the gold)
 local BOX_GAP = 8
-local bagBoxes = {} -- „separate“: Kasten je Tasche (außer Rucksack)
+local bagBoxes = {} -- "separate": box per bag (except backpack)
 
 local function BagStyle()
     local style = ns.db.bagsStyle
     return (style == "single" or style == "separate") and style or "categories"
 end
 
--- alle Plätze der sichtbaren Taschen einlesen: Items (mit Kategorie) und leere Plätze je Tasche
+-- read all slots of visible bags: items (with category) and empty slots per bag
 local function Collect(allBags)
     ScanNewItems()
     local items, empties, free = {}, {}, 0
@@ -456,7 +452,7 @@ local function Collect(allBags)
                 empties[bag][#empties[bag] + 1] = entry
             end
         end
-        -- Knöpfe für Plätze, die es nicht mehr gibt (kleinere Tasche), verstecken
+        -- hide buttons for slots that no longer exist (smaller bag)
         for slot, button in pairs(buttons[bag] or {}) do
             if slot > numSlots then button:Hide() end
         end
@@ -464,7 +460,7 @@ local function Collect(allBags)
     return items, empties, free, special
 end
 
--- erster leerer NORMALER Platz (Spezialtaschen haben ihre eigene Kachel)
+-- first empty NORMAL slot (special bags have their own tile)
 local function FirstEmpty(empties)
     for _, bag in ipairs(BAGS) do
         for _, entry in ipairs(empties[bag] or {}) do
@@ -473,7 +469,7 @@ local function FirstEmpty(empties)
     end
 end
 
--- Liste als Raster mit cols Spalten ab (x, y) in relative (Standard: content); Höhe zurück
+-- place list as a grid with cols columns at (x, y) in relative (default: content); returns height
 local function PlaceGrid(list, cols, x, y, relative)
     for i, entry in ipairs(list) do
         local col, row = (i - 1) % cols, math.floor((i - 1) / cols)
@@ -500,13 +496,13 @@ local function LayoutCategories(items, freeButton, free, special)
     if special and special.button then keys[#keys + 1] = special.key end
     table.sort(keys, SectionOrder)
 
-    -- Aufbau wie BetterBags: Spalten mit je COLUMN_SLOTS Plätzen; Abschnitte laufen von oben nach
-    -- unten, kleine Abschnitte stehen nebeneinander. Zwei Spalten, bei Bedarf mehr.
+    -- layout like BetterBags: columns of COLUMN_SLOTS slots; sections flow top to bottom, small
+    -- sections sit side by side. Two columns, more if needed.
     local colWidth = COLUMN_SLOTS * (SIZE + GAP) - GAP
-    -- 1) alle Abschnitte in Zeilen einer Spaltenbreite packen
+    -- 1) pack all sections into rows one column wide
     local rows, row = {}, nil
     for _, key in ipairs(keys) do
-        if key ~= NEW then -- „Neu“ bekommt eine eigene Zeile ganz oben (siehe unten)
+        if key ~= NEW then -- "New" gets its own row at the very top (see below)
             local count = (key == FREE or (special and key == special.key and not sections[key])) and 1 or #sections[key]
             local secCols = math.min(count, COLUMN_SLOTS)
             local w = math.max(secCols * (SIZE + GAP) - GAP, TextWidth(L[key]) + 4)
@@ -522,13 +518,13 @@ local function LayoutCategories(items, freeButton, free, special)
     end
     local total = 0
     for _, r in ipairs(rows) do total = total + r.height + SECTION_GAP end
-    -- 2) Zeilen gleichmäßig auf die Spalten verteilen; mehr Spalten, wenn es zu hoch wird
+    -- 2) distribute rows evenly over columns; add columns when too tall
     local maxHeight = MaxContentHeight()
     local columns, placed, placedHeight = MIN_COLUMNS, {}, 0
     for cols = MIN_COLUMNS, MAX_COLUMNS do
         columns = cols
         placed, placedHeight = {}, 0
-        -- „Neu“ über die ganze Breite oben
+        -- "New" across the full width at the top
         local top = 0
         if sections[NEW] then
             local fullWidth = cols * colWidth + (cols - 1) * COLUMN_GAP
@@ -593,7 +589,7 @@ local function SingleSort(a, b)
     return ItemSort(a, b)
 end
 
--- Eine große Tasche: alle Plätze einzeln, auch die leeren (Benny 2026-11-07: kein „17 frei“-Feld)
+-- single bag: every slot individually, including empty ones (no "17 free" tile)
 local function LayoutSingle(items, empties)
     table.sort(items, SingleSort)
     for _, bag in ipairs(BAGS) do
@@ -629,16 +625,16 @@ local function LayoutSeparate(items, empties)
         for _, entry in ipairs(empties[bag]) do table.insert(perBag[bag], entry) end
         table.sort(perBag[bag], function(a, b) return a.slot < b.slot end)
     end
-    -- Rucksack im Fenster (Raster links, Fenster mindestens so breit wie seine Knöpfe)
+    -- backpack in the window (grid left, window at least as wide as its buttons)
     local gridWidth = SEPARATE_COLS * (SIZE + GAP) - GAP
     local width = ns.db.bagsShowSlots and math.max(gridWidth, SLOTS_MIN_WIDTH) or gridWidth
     local height = PlaceGrid(perBag[0], SEPARATE_COLS, 0, 0)
     local windowHeight = height + 2 * PAD + 58 + 30
-    -- übrige Taschen als Kästen: erst über dem Fenster nach oben, dann Spalten links daneben
-    -- Spalte 0 über dem Fenster (rechtsbündig), weitere Spalten links neben dem Fenster
+    -- other bags as boxes: column 0 stacks upward above the window (right aligned),
+    -- further columns go to the left of the window
     local boxWidth = gridWidth + 2 * PAD
     local windowWidth = width + 2 * PAD
-    local _, _, _, _, bottom = window:GetPoint(1) -- Abstand der Unterkante zum Bildschirm (fest verankert)
+    local _, _, _, _, bottom = window:GetPoint(1) -- distance of the bottom edge to the screen (fixed anchor)
     bottom = bottom or 0
     local limit = UIParent:GetHeight() - ns.SCREEN_MARGIN
     local col, y = 0, windowHeight + BOX_GAP
@@ -692,8 +688,8 @@ function Layout()
 
     content:SetSize(width, height)
     window:SetSize(width + 2 * PAD, height + 2 * PAD + 58 + 30)
-    -- freie Plätze als Symbol + Zahl statt „17 frei“ (Benny 2026-11-07: ein UI erklärt sich übers
-    -- Aussehen); Köcher/Munitionsbeutel mit Pfeil daneben. Erklärung im Tooltip.
+    -- free slots as icon + number instead of "17 free"; quiver/ammo pouch with an arrow icon
+    -- next to it. Explanation in the tooltip.
     local function Icon(name) return ("|T%sIcons\\%s:13:13:0:0|t"):format(ns.MEDIA, name) end
     local freeLine = Icon("Square") .. " " .. free
     if special.count > 0 then
@@ -709,7 +705,7 @@ function Layout()
     ApplySearch()
 end
 
--- Eigene Kategorien (Alt+Rechtsklick) ---------------------------------------------------------
+-- Custom categories (Alt+right-click) ---------------------------------------------------------
 
 StaticPopupDialogs["MEREDANUI_BAG_CATEGORY"] = {
     text = L["Name of the new category:"],
@@ -759,7 +755,7 @@ function CategoryMenu(button)
     end)
 end
 
--- Fenster -------------------------------------------------------------------------------------
+-- Window --------------------------------------------------------------------------------------
 
 local function CreateWindow()
     local UI = ns.UI
@@ -770,13 +766,13 @@ local function CreateWindow()
     window:SetClampedToScreen(true)
     window:Hide()
     UI.Box(window, ns.STYLE.panelColor)
-    tinsert(UISpecialFrames, "MeredanUIBags") -- Esc schließt
+    tinsert(UISpecialFrames, "MeredanUIBags") -- Esc closes
 
     local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- unten rechts über dem Mikromenü (Platz für Mikromenü und Taschenknöpfe)
+    -- bottom right above the micro menu (room for micro menu and bag buttons)
     window:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin + 28 + 8 + 28 + 8)
 
-    -- Reiter: Taschen | Reagenzien (nur mit Reagenzientasche)
+    -- tabs: Bags | Reagents (only with a reagent bag)
     local tabs = {}
     local function Tab(key, label)
         local tab = CreateFrame("Button", nil, window)
@@ -802,7 +798,7 @@ local function CreateWindow()
         end
     end
     function window.UpdateTabs()
-        -- „Taschen einzeln“: die Reagenzientasche hat ihren eigenen Kasten statt eines Reiters
+        -- "separate" style: the reagent bag gets its own box instead of a tab
         tabs.reagents:SetShown(BagStyle() ~= "separate" and C_Container.GetContainerNumSlots(REAGENT_BAG) > 0)
         for key, tab in pairs(tabs) do
             local active = key == view
@@ -813,10 +809,10 @@ local function CreateWindow()
     local close = UI.IconButton(window, "Close", function() window:Hide() end, 22)
     close:SetPoint("TOPRIGHT", -PAD + 2, -PAD + 2)
     freeText = UI.Text(window, 12, "RIGHT", UI.MUTED)
-    -- Sortieren: Blizzards Taschen-Sortierung (Stapel zusammenlegen, Reagenzien in die Reagenzientasche)
+    -- Sort: Blizzard's bag sort (merges stacks, moves reagents into the reagent bag)
     local sort = UI.IconButton(window, "Sort", function()
-        -- neue Items gleich mit einsortieren (auch Blizzards Neu-Markierung weg, sonst gelten sie
-        -- beim nächsten Durchlauf wieder als neu)
+        -- sort new items in right away (clear Blizzard's new flag too, else they count as new
+        -- again on the next scan)
         wipe(recent)
         C_NewItems.ClearAll()
         C_Container.SortBags()
@@ -831,7 +827,7 @@ local function CreateWindow()
         GameTooltip:Show()
     end)
     sort:HookScript("OnLeave", function() GameTooltip:Hide() end)
-    -- Taschenplätze unten rechts ein-/ausblenden (Standard: aus)
+    -- show/hide bag slots bottom right (default: off)
     local function UpdateBagSlots()
         for _, slotButton in pairs(bagSlots) do slotButton:SetShown(ns.db.bagsShowSlots == true) end
     end
@@ -839,7 +835,7 @@ local function CreateWindow()
     local slotsToggle = UI.IconButton(window, "Bag", function()
         ns.db.bagsShowSlots = not ns.db.bagsShowSlots
         UpdateBagSlots()
-        if BagStyle() == "separate" then Layout() end -- Fensterbreite hängt davon ab
+        if BagStyle() == "separate" then Layout() end -- window width depends on it
     end, 22)
     slotsToggle:SetPoint("RIGHT", sort, "LEFT", -4, 0)
     slotsToggle:HookScript("OnEnter", function(self)
@@ -850,7 +846,7 @@ local function CreateWindow()
     end)
     slotsToggle:HookScript("OnLeave", function() GameTooltip:Hide() end)
     freeText:SetPoint("RIGHT", slotsToggle, "LEFT", -8, 0)
-    -- Tooltip über der Anzeige (FontStrings fangen keine Maus)
+    -- tooltip over the display (FontStrings don't take mouse input)
     local freeHover = CreateFrame("Frame", nil, window)
     freeHover:SetAllPoints(freeText)
     freeHover:SetScript("OnEnter", function(self)
@@ -881,7 +877,7 @@ local function CreateWindow()
     goldText = UI.Text(window, 12, "LEFT")
     goldText:SetPoint("BOTTOMLEFT", PAD, PAD + 4)
 
-    -- Taschenleiste unten rechts: Taschen sehen, tauschen (draufziehen), Inhalt hervorheben
+    -- bag bar bottom right: view bags, swap (drag onto), highlight contents
     local previous
     for bag = 5, 1, -1 do
         local slotButton = CreateFrame("Button", nil, window)
@@ -902,7 +898,7 @@ local function CreateWindow()
         local function Put()
             if CursorHasItem() then PutItemInBag(inventorySlot) else PickupBagFromSlot(inventorySlot) end
         end
-        -- Klick auf die Reagenzientasche: gleich deren Reiter zeigen (Ziehen nimmt sie weiterhin auf)
+        -- click on the reagent bag: show its tab (dragging still picks it up)
         slotButton:SetScript("OnClick", function()
             if bag == REAGENT_BAG and not CursorHasItem() and C_Container.GetContainerNumSlots(bag) > 0 then
                 window.ShowView("reagents")
@@ -918,7 +914,7 @@ local function CreateWindow()
                 GameTooltip:SetText(bag == 5 and L["Reagent bag"] or L["Bag slot"], 1, 1, 1)
             end
             GameTooltip:Show()
-            -- Items dieser Tasche hervorheben
+            -- highlight this bag's items
             for b, list in pairs(buttons) do
                 for _, button in pairs(list) do
                     if button:IsShown() then button:SetMatchesSearch(b == bag) end
@@ -933,7 +929,7 @@ local function CreateWindow()
     end
     window.UpdateBagSlots()
 
-    -- Innenabstand ändert sich mit dem Stil: alles am Rand neu ausrichten
+    -- padding changes with the style: re-anchor everything at the edges
     function window.ApplyPad()
         tabs.bags:ClearAllPoints()
         tabs.bags:SetPoint("TOPLEFT", PAD, -PAD)
@@ -958,18 +954,18 @@ local function CreateWindow()
         PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE)
         searchBox:SetText("")
         searchBox:ClearFocus()
-        -- „Neu“ gilt bis zum Schließen; beim nächsten Öffnen sind die Items einsortiert
-        C_NewItems.ClearAll() -- nur das Leuchten; „Neu“ läuft über ExpireNewItems
+        -- "New" lasts until close; on next open the items are sorted in
+        C_NewItems.ClearAll() -- only the glow; "New" is handled by ExpireNewItems
         ExpireNewItems()
         view = "bags"
         dirty = true
-        -- Blizzards Taschen mit schließen, sonst braucht „B“ danach zwei Drücke
+        -- close Blizzard's bags too, else "B" needs two presses afterwards
         if IsAnyBagOpen() then CloseAllBags() end
     end)
 end
 
--- Öffnen/Schließen: Blizzards Taschenlogik bleibt (Taste B, Händler, Bank …); ihre Fenster sind
--- unsichtbar geparkt, unser Fenster folgt einfach ihrem Zustand (IsAnyBagOpen).
+-- Open/close: Blizzard's bag logic stays (B key, vendor, bank ...); its frames are parked
+-- invisibly and our window just follows their state (IsAnyBagOpen).
 local function Sync()
     if not window then return end
     local open = IsAnyBagOpen()
@@ -988,11 +984,11 @@ local function HideBlizzardBags()
     end
 end
 
--- Händler: Ramsch verkaufen und reparieren (Gildenbank zuerst) --------------------------------
+-- Vendor: sell junk and repair (guild bank first) ---------------------------------------------
 
 local function SellJunkAndRepair()
     if ns.db.bagsAutoJunk == false then return end
-    -- Verkaufen macht Blizzards eigener „Ramsch verkaufen“-Befehl (Items benutzen darf ein Addon nicht)
+    -- selling uses Blizzard's own "sell all junk" call (addons may not use items)
     local earned, sold = 0, 0
     for _, bag in ipairs(BAGS) do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
@@ -1022,7 +1018,7 @@ local function SellJunkAndRepair()
     end
 end
 
--- Start ---------------------------------------------------------------------------------------
+-- Startup -------------------------------------------------------------------------------------
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
@@ -1032,12 +1028,12 @@ ns:On("PLAYER_LOGIN", function()
     end
     CreateWindow()
     HideBlizzardBags()
-    C_Timer.After(2, ScanNewItems) -- was beim Einloggen schon da ist, gilt nicht als neu
+    C_Timer.After(2, ScanNewItems) -- items present at login don't count as new
     for _, name in ipairs({ "OpenAllBags", "CloseAllBags", "ToggleAllBags", "ToggleBackpack", "ToggleBag",
         "OpenBackpack", "CloseBackpack", "OpenBag", "CloseBag" }) do
         if _G[name] then hooksecurefunc(name, Sync) end
     end
-    -- Reagenzientasche in der Taschenleiste angeklickt: MUI-Tasche mit dem Reagenzien-Reiter
+    -- reagent bag clicked in the bag bar: open mUI bags on the reagents tab
     hooksecurefunc("ToggleBag", function(id)
         if id ~= REAGENT_BAG or C_Container.GetContainerNumSlots(id) == 0 then return end
         if not window:IsShown() then window:Show() end
@@ -1045,8 +1041,8 @@ ns:On("PLAYER_LOGIN", function()
     end)
 end)
 
--- Viele Ereignisse kommen gebündelt (Anlegen: Sperre, Tasche, Ausrüstung mehrfach …) – neu
--- aufgebaut wird nur einmal, kurz danach; bei geschlossener Tasche erst beim Öffnen.
+-- Events arrive in bursts (equipping fires lock, bag, equipment events repeatedly ...): rebuild
+-- once shortly after; with the bag closed, only on next open.
 local pending
 local function Refresh()
     if not window then return end
@@ -1062,9 +1058,9 @@ local function Refresh()
     end)
 end
 
-ns.RefreshBags = Refresh -- z. B. neue Upgrade-Bewertung nach Spec-Wechsel
+ns.RefreshBags = Refresh -- e.g. new upgrade scoring after a spec change
 ns:On("BAG_UPDATE_DELAYED", Refresh)
-ns:On("BAG_CONTAINER_UPDATE", Refresh)       -- Tasche getauscht
+ns:On("BAG_CONTAINER_UPDATE", Refresh)       -- bag swapped
 ns:On("PLAYER_EQUIPMENT_CHANGED", Refresh)
 ns:On("QUEST_ACCEPTED", Refresh)
 ns:On("UNIT_QUEST_LOG_CHANGED", Refresh)

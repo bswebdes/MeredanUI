@@ -1,22 +1,21 @@
--- Berufswerkzeug schützen (Benny 2026-11-07: Kürschnermesser, Schmiedehammer usw. versehentlich
--- gelöscht). Zwei Stufen, Einstellung „Bags > Berufswerkzeug schützen“:
---   an (Standard): Löschen wird abgebrochen – Werkzeug zurück in die Tasche, deutlicher Hinweis.
---   aus:           Blizzards Lösch-Dialog bekommt ein großes rotes Warnband „Berufswerkzeug!“.
--- Erkennung: feste Liste der Werkzeuge (Classic/Forever) plus alle Angelruten.
+-- Protects profession tools from accidental deletion (setting "Bags > Protect profession tools"):
+--   on (default): deletion is cancelled, the tool stays in the bag and an alert is shown.
+--   off:          Blizzard's delete dialog gets a big red "PROFESSION TOOL!" banner.
+-- Detection: fixed list of tools (Classic/Forever) plus all fishing poles.
 local _, ns = ...
 local L = ns.L
 
 local TOOLS = {
-    [7005] = true,  -- Kürschnermesser
-    [2901] = true,  -- Spitzhacke
-    [5956] = true,  -- Schmiedehammer
-    [6219] = true,  -- Bogenlichtschraubenschlüssel
-    [10498] = true, -- Gyromatischer Mikrojustierer
-    [6218] = true, [6339] = true, [11130] = true, [11145] = true, [16207] = true, -- Runenverzierte Ruten (Verzauberkunst)
-    [5060] = true,  -- Diebeswerkzeug (Schlossknacken)
-    [4471] = true,  -- Zunderkästchen (Kochen am eigenen Feuer)
-    [9149] = true,  -- Stein der Weisen (Alchemie-Transmutationen)
-    [6256] = true, [6365] = true, [6366] = true, [6367] = true, [12225] = true, [19022] = true, [19970] = true, -- Angelruten
+    [7005] = true,  -- Skinning Knife
+    [2901] = true,  -- Mining Pick
+    [5956] = true,  -- Blacksmith Hammer
+    [6219] = true,  -- Arclight Spanner
+    [10498] = true, -- Gyromatic Micro-Adjustor
+    [6218] = true, [6339] = true, [11130] = true, [11145] = true, [16207] = true, -- Runed rods (Enchanting)
+    [5060] = true,  -- Thieves' Tools (Lockpicking)
+    [4471] = true,  -- Flint and Tinder (own cooking fire)
+    [9149] = true,  -- Philosopher's Stone (alchemy transmutes)
+    [6256] = true, [6365] = true, [6366] = true, [6367] = true, [12225] = true, [19022] = true, [19970] = true, -- fishing poles
 }
 local FISHING_POLE_CLASS, FISHING_POLE_SUBCLASS = 2, 20
 
@@ -35,8 +34,8 @@ local function CursorItem()
     if kind == "item" then return itemID end
 end
 
--- Eigener Hinweis: etwas kleiner als die Schlachtzugswarnung, etwas tiefer als Blizzards
--- Fehlerzeile, nur sanft ein- und ausblenden – kein Hochpulsieren (Benny 2026-11-07).
+-- Own alert: slightly smaller than raid warnings, slightly below Blizzard's error line,
+-- with a soft fade in/out (no pulse).
 local alert
 local function Alert(text)
     if not alert then
@@ -64,7 +63,7 @@ local function Alert(text)
     PlaySound(SOUNDKIT.IG_PLAYER_INVITE_DECLINE or 857)
 end
 
--- Warnband über dem Lösch-Dialog
+-- warning banner above the delete dialog
 local banner
 local function ShowBanner(dialog, itemName)
     if not banner then
@@ -111,12 +110,12 @@ end
 ns:On("DELETE_ITEM_CONFIRM", function(_, itemName)
     local itemID = CursorItem()
     if not IsTool(itemID) then return end
-    -- Blizzard zeigt den Dialog im selben Ereignis – einen Takt später ist er sicher da
+    -- Blizzard shows the dialog during this same event; one frame later it is guaranteed to exist
     C_Timer.After(0, function()
         local dialog, which = VisibleDeleteDialog()
         if ns.db.protectTools ~= false then
             if which then StaticPopup_Hide(which) end
-            ClearCursor() -- Werkzeug bleibt in der Tasche
+            ClearCursor() -- tool stays in the bag
             Alert(L["%s is a profession tool and protected."]:format(itemName or ""))
         elseif dialog then
             ShowBanner(dialog, itemName)
@@ -124,9 +123,9 @@ ns:On("DELETE_ITEM_CONFIRM", function(_, itemName)
     end)
 end)
 
--- Verkaufen beim Händler: dort gibt es keinen Dialog zum Abfangen. Landet ein Werkzeug in der
--- Rückkauf-Liste, sofort zurückkaufen (kostet genau den Verkaufserlös, also nichts) und warnen.
--- Absichtlich verkaufen (z. B. die zweite Angel): Shift+Rechtsklick in der Tasche (Benny 2026-11-07).
+-- Vendor sales have no dialog to intercept. If a tool lands in the buyback list, buy it back
+-- immediately (costs exactly the sale price, i.e. nothing) and warn.
+-- Intentional sale (e.g. a spare fishing pole): Shift+right-click in the bag.
 local buyingBack, allowSale = false, false
 
 function ns.SellToolAnyway(bag, slot)
@@ -135,8 +134,8 @@ function ns.SellToolAnyway(bag, slot)
     C_Timer.After(1, function() allowSale = false end)
 end
 
--- Nur auf einen frischen Verkauf reagieren (Rückkauf-Liste wird länger bzw. ist voll und vorne
--- kam etwas Neues dazu). Eigenes Zurückkaufen macht die Liste kürzer → kein Hinweis.
+-- Only react to a fresh sale (buyback list grew, or is full and its newest entry changed).
+-- Our own buyback shrinks the list, so it triggers no alert.
 local lastCount, lastLink = 0, nil
 local function Snapshot()
     lastCount = GetNumBuybackItems and GetNumBuybackItems() or 0

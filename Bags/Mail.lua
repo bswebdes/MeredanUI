@@ -1,5 +1,5 @@
--- Briefkasten: Blizzard hat selbst einen „Alle öffnen“-Knopf (OpenAllMail). MUI zählt mit und
--- schreibt danach eine Summe in den Chat: „Post: 1.234g und 7 Gegenstände.“
+-- Mailbox: hooks Blizzard's "Open All" (OpenAllMail), counts gold and items taken and prints
+-- a summary to chat afterwards ("Mail: 1,234g and 7 items.").
 local _, ns = ...
 local L = ns.L
 
@@ -12,7 +12,7 @@ end
 local function Stop()
     if not opening then return end
     opening = false
-    -- das letzte Gold kommt einen Moment nach dem letzten Brief an
+    -- the last gold arrives a moment after the last letter
     C_Timer.After(1, function()
         local earned = GetMoney() - startMoney
         if earned <= 0 and items == 0 then return end

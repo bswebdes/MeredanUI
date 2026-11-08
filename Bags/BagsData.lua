@@ -1,7 +1,7 @@
--- Item-Kategorien aus „BetterBags Bears Ultimate“ (Bearesquishy, https://github.com/N6REJ/BetterBags_Bears_Ultimate),
--- zusammengefasst und umgewandelt für MeredanUI (Werkzeug: Item-ID > englischer Kategorie-Schlüssel).
+-- Item categories from "BetterBags Bears Ultimate" (Bearesquishy, https://github.com/N6REJ/BetterBags_Bears_Ultimate),
+-- merged and converted for MeredanUI (item ID -> English category key).
 --
--- MIT License – Copyright (c) Bearesquishy
+-- MIT License - Copyright (c) Bearesquishy
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 -- associated documentation files (the "Software"), to deal in the Software without restriction, including
 -- without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
@@ -15,7 +15,7 @@
 -- THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 local _, ns = ...
 
--- Kategorie > Item-IDs; die Taschen bauen daraus beim ersten Öffnen eine Nachschlagetabelle
+-- category -> item IDs; the bags build a lookup table from this on first open
 ns.BAG_CATEGORY_ITEMS = {
     ["Alchemy"] = { 212754 },
     ["Artisan"] = { 6219,10498,203398,203399,203400,203401,203403,203404,203405,203406,203417 },
