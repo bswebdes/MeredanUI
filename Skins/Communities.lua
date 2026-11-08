@@ -832,6 +832,11 @@ local function LayoutTabs(f)
                 -- Symbol füllt den ganzen Kasten (die 1-px-Kante liegt darüber) – kein Spalt
                 tab.Icon:ClearAllPoints()
                 tab.Icon:SetAllPoints(tab)
+                -- nicht auf ganze Pixel runden (die Kante tut es auch nicht) – sonst 1 px Lücke links
+                if tab.Icon.SetSnapToPixelGrid then
+                    tab.Icon:SetSnapToPixelGrid(false)
+                    tab.Icon:SetTexelSnappingBias(0)
+                end
             end
             if tab:IsShown() then
                 tab:ClearAllPoints()
