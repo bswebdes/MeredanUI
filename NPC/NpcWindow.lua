@@ -72,10 +72,13 @@ end
 
 -- Was gerade offen ist und Platz braucht: unsere anderen Fenster (das Gespräch nicht – Quest/Händler
 -- ersetzen es) und Blizzards Fenster links/mittig (Charakter, Zauberbuch …)
+local placing -- beim Aufrücken: nur die davor geöffneten Fenster zählen (Menge)
 local function Occupied(window)
     local list = {}
     for _, other in ipairs(order) do
-        if other ~= window and other:IsVisible() and not other.replaceable then list[#list + 1] = other end
+        if other ~= window and other:IsVisible() and not other.replaceable and (not placing or placing[other]) then
+            list[#list + 1] = other
+        end
     end
     if GetUIPanel then
         for _, area in ipairs({ "left", "center", "doublewide", "right" }) do
@@ -133,10 +136,24 @@ end
 -- Fester Platz: über dem Chat (Höhe der Schlachtzug-Frames). Ist dort schon ein Fenster offen, rechts daneben (Benny: „sonst sind die
 -- übereinander“). Beim Öffnen aufrufen – setzt freies Verschieben zurück. opening = gerade geöffnet:
 -- passt es dann nicht mehr auf den Bildschirm, schließt sich das älteste schließbare mUI-Fenster.
+-- Aufrücken (Benny 2026-11-08, wie Blizzard): schließt ein Fenster, ordnen sich die übrigen offenen in
+-- Öffnungs-Reihenfolge neu – jedes sieht dabei nur die Fenster, die vor ihm geöffnet wurden.
+local function Relayout()
+    placing = {}
+    for _, window in ipairs(order) do
+        if window:IsShown() then
+            if not window.dragged and not (InCombatLockdown() and window:IsProtected()) then Place(window) end
+            placing[window] = true
+        end
+    end
+    placing = nil
+end
+
 function ns.ResetWindowPosition(window, key, opening)
     if not managed[window] then
         managed[window] = key or true
         order[#order + 1] = window
+        window:HookScript("OnHide", function() C_Timer.After(0, Relayout) end)
     end
     window.dragged = nil
     for _ = 1, #order do
