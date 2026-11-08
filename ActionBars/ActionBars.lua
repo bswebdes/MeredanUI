@@ -532,6 +532,21 @@ local function BarMode(key)
 end
 ns.ActionBarMode = BarMode
 
+-- Innerste sichtbare rechte Leiste (6 vor 5 vor 4): daran richtet sich der Questtracker aus
+function ns.InnermostRightBar()
+    for _, key in ipairs({ "bar6", "bar5", "bar4" }) do
+        local bar = ns.layoutFrames and ns.layoutFrames[key]
+        if bar and bar:IsVisible() and bar:GetLeft() then return bar end
+    end
+end
+
+-- Platz, den Leiste 7 (unten links) neben den 12er-Reihen braucht – der Chat wird entsprechend
+-- schmaler, damit er nie darunter rutscht (0, wenn sie aus ist)
+function ns.LeftBlockReserve()
+    if not ns.db or BarMode("bar7") == "hidden" then return 0 end
+    return 6 * ns.Snap(SIZE) + 5 * GAP_PIXELS * ns.PixelSize() + ns.Snap(12)
+end
+
 local function VisibilityRule(key, mode)
     local rule = VISIBILITY[mode] or "show"
     if key == "bar1" and mode ~= "hidden" then rule = "[vehicleui][overridebar][possessbar] show; " .. rule end
@@ -547,6 +562,8 @@ function ns.ApplyActionBarVisibility()
         frame.muiCombat = mode == "combat"
         if not (frame.muiMouseover or frame.muiCombat) then frame:SetAlpha(1) end
     end
+    -- Questtracker (rechts) und Chat (links) rücken zur Seite bzw. zurück
+    C_Timer.After(0, function() if ns.Relayout then ns.Relayout() end end)
 end
 
 -- Offenes Flyout hängt am Knopf seiner Leiste und liegt daneben: Maus darauf zählt als „über der Leiste“

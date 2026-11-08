@@ -458,6 +458,7 @@ local function PlaceMainChat()
     -- höchstens bis kurz vor die Shift-Leiste (unten mittig) und nie unter Spieler/Begleiter (bei
     -- „Groß“ auf 16:9 reichen die Unitframes so weit nach links; gleiche Kante wie die Gruppe)
     local space = UIParent:GetWidth() / 2 - (ns.ExtraBarWidth and ns.ExtraBarWidth() / 2 or 250) - 2 * margin
+        - (ns.LeftBlockReserve and ns.LeftBlockReserve() or 0) -- Leiste 7 unten links an
     local edge = ns.LeftOfPlayerEdge and ns.LeftOfPlayerEdge()
     if edge then
         space = math.min(space, edge - (UIParent:GetLeft() or 0) - 2 * margin)

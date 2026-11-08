@@ -858,7 +858,8 @@ local ANCHOR_HEIGHT = 200
 local function PlaceAnchorDefault()
     local margin, gap = ns.Snap(ns.SCREEN_MARGIN), ns.Snap(GAP)
     local right = UIParent:GetRight() - margin
-    local bar = ns.layoutFrames and ns.layoutFrames.bar5
+    -- innerste sichtbare rechte Leiste (mit Leiste 6 rückt der Tracker weiter nach links)
+    local bar = ns.InnermostRightBar and ns.InnermostRightBar() or (ns.layoutFrames and ns.layoutFrames.bar5)
     if bar and bar:IsVisible() and bar:GetLeft() then right = bar:GetLeft() - ns.Snap(SIDE_GAP) end
     local top = UIParent:GetTop() - margin
     -- unter Buffs/Debuffs (private Auren hängen mit Boss-Modul woanders), sonst unter der Minimap
