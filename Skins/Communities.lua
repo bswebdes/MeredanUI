@@ -1606,6 +1606,41 @@ local function BuildOverview(f)
     summary:SetFont(ns.FontFor(), ns.FontPx(12), "")
     summary:SetTextColor(unpack(UI.MUTED))
     summary:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 6)
+    local founded = panel:CreateFontString(nil, "OVERLAY")
+    founded:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    founded:SetTextColor(unpack(UI.MUTED))
+    founded:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", 0, 6)
+
+    -- Gründungsdatum und echte Spieler (Accounts) gibt es nur über /ginfo als Systemnachricht: still
+    -- abfragen, Nachricht auslesen und im Chat ausblenden (Benny 2026-11-08)
+    local guildFacts, asking, askedAt = {}, false, 0
+    local Refresh -- unten
+    local function Parse(text)
+        local date = text:match("(%d+[%./]%d+[%./]%d+)")
+        local numbers = {}
+        for n in text:gsub("%d+[%./]%d+[%./]%d+", ""):gmatch("%d+") do numbers[#numbers + 1] = tonumber(n) end
+        if not date or #numbers < 2 then return false end
+        guildFacts.founded = date
+        guildFacts.characters = numbers[#numbers - 1]
+        guildFacts.accounts = numbers[#numbers]
+        return true
+    end
+    local addFilter = ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter or ChatFrame_AddMessageEventFilter
+    if addFilter then
+        addFilter("CHAT_MSG_SYSTEM", function(_, _, text)
+            if asking and type(text) == "string" and Parse(text) then
+                asking = false
+                if Refresh then C_Timer.After(0, Refresh) end
+                return true -- im Chat nicht anzeigen
+            end
+        end)
+    end
+    local function AskGuildInfo()
+        if not GuildInfo or GetTime() - askedAt < 60 then return end
+        askedAt, asking = GetTime(), true
+        C_Timer.After(3, function() asking = false end)
+        GuildInfo()
+    end
 
     local rows = {}
     local function Row(box, i)
@@ -1662,7 +1697,7 @@ local function BuildOverview(f)
         for i = #list + 1, #(rows[box] or {}) do rows[box][i]:Hide() end
     end
 
-    local function Refresh()
+    function Refresh()
         local clubId = GuildSelected(f)
         if not clubId or not panel:IsShown() then return end
         local classes, levels, total, online, levelSum = {}, {}, 0, 0, 0
@@ -1713,8 +1748,10 @@ local function BuildOverview(f)
         end
         Fill(classBox, classList, maxClass)
         Fill(levelBox, levelList, maxBracket)
-        summary:SetText(("%s %d  ·  %s %d  ·  %s %s"):format(ns.L["Members"], total, ns.L["Online"], online,
+        local players = guildFacts.accounts and ("  ·  %s %d"):format(ns.L["Players"], guildFacts.accounts) or ""
+        summary:SetText(("%s %d%s  ·  %s %d  ·  %s %s"):format(ns.L["Members"], total, players, ns.L["Online"], online,
             ns.L["Average level"], total > 0 and ("%.1f"):format(levelSum / total) or "–"))
+        founded:SetText(guildFacts.founded and ns.L["Founded on %s"]:format(guildFacts.founded) or "")
     end
 
     local function Visuals()
@@ -1734,6 +1771,7 @@ local function BuildOverview(f)
         Visuals()
         Refresh()
         C_Timer.After(0, Refresh) -- Balkenbreite erst nach dem Layout bekannt
+        AskGuildInfo()
     end
     tab:SetScript("OnClick", function()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
