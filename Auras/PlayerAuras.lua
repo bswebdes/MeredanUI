@@ -54,7 +54,8 @@ C_Timer.NewTicker(0.2, function()
             local ok, duration = pcall(button.GetAuraDuration, button)
             if ok and duration and duration.EvaluateRemainingPercent then
                 local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
-                if okColor and color and color.GetRGB then bar:SetStatusBarColor(color:GetRGB()) end
+                -- Farbe kann geschützt sein: nur durchreichen, Fehler schlucken (dann bleibt Salbei)
+                if okColor and color then pcall(function() bar:SetStatusBarColor(color:GetRGB()) end) end
             end
         end
     end
