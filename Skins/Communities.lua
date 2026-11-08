@@ -1848,8 +1848,12 @@ local function SkinRankRows()
                 box:SetFont(ns.FontFor(), ns.FontPx(13), "")
                 box:SetTextColor(1, 1, 1, 1)
                 -- nach dem Schriftwechsel zeigt WoW den Text erst nach erneutem Setzen wieder an
+                -- (WoW zeichnet nur bei geändertem Text neu – deshalb erst leeren, dann setzen)
                 if not box:HasFocus() and GuildControlGetRankName then
-                    box:SetText(GuildControlGetRankName(row:GetID() > 0 and row:GetID() or i) or "")
+                    local name = GuildControlGetRankName(row:GetID() > 0 and row:GetID() or i) or ""
+                    box:SetText("")
+                    box:SetText(name)
+                    box:SetCursorPosition(0)
                 end
             end
             if row.rankLabel then
