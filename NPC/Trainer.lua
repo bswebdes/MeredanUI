@@ -1,22 +1,9 @@
--- Lehrer (WoW Forever): eigenes Fenster statt Blizzards Lehrerfenster – Klassen-, Berufs- und
--- Begleiterlehrer (Entwurf, Benny: „beides toll“).
---
---   ┌ Zarrin  Kochlehrerin ─────────────────────────────────────────── [x] ┐
---   │ Kochkunst [████░░░░ 9/75] Lehrling                    [Nur lernbare ˅] │
---   │ [Suche ...............]   ┌──────────── Berufsbild (abgedunkelt) ───┐  │
---   │ Rang                      │ ▣                                         │  │
---   │ [▣ Kochgeselle      5s]   ├───────────────────────────────────────────┤  │
---   │ Rezepte              −    │ Gewürztes Wolfsfleisch                    │  │
---   │ [▣ Gewürztes Wolfs… 50c]  │ Benötigt: Kochkunst (10)                  │  │
---   │ [▣ Gekochte Musch…  1s]   │ Beschreibung / Reagenzien (Tooltip)       │  │
---   │                           │ Kosten 50c   [Alle lernbaren] [Ausbilden] │  │
---   │ 2 von 7 lernbar                                               15s 17c │
---   └────────────────────────────────────────────────────────────────────────┘
---
--- Daten kommen aus Blizzards Lehrer-API (GetTrainerService*); alle Aktionen brauchen den
--- ursprünglichen Index, Indizes ändern sich nach jedem TRAINER_UPDATE – Auswahl deshalb per Name.
--- Blizzards Fenster wird nach dem Öffnen geparkt und beim Schließen zurückgehängt (wie die Gilden-
--- bank): Forever öffnet es teils mit IsVisible-Prüfung; sein OnHide würde den Lehrer schließen.
+-- Trainer window (WoW Forever): replaces Blizzard's trainer frame for class, profession and pet
+-- trainers - skill bar, filter, searchable list, detail panel with banner art.
+-- Data comes from GetTrainerService*; all actions need the service index, which changes after every
+-- TRAINER_UPDATE - so selection is tracked by name. Blizzard's frame is parked after it opens and
+-- reparented on close (like the guild bank): Forever sometimes checks IsVisible on open, and its
+-- OnHide would close the trainer.
 local _, ns = ...
 local L = ns.L
 
@@ -26,7 +13,7 @@ local ROW_H, ROW_GAP, HEADER_H = 48, 4, 26
 local BANNER_H = 110
 local SKILL_BLUE = { 0.15, 0.45, 1 }
 
--- Berufsname (lokalisiert) > Kennung für Blizzards Berufsbilder
+-- Localized profession name -> key for Blizzard's profession art atlases
 local PROFESSIONS = {
     cooking = { "Cooking", "Kochkunst", "Kochen" }, firstaid = { "First Aid", "Erste Hilfe" },
     fishing = { "Fishing", "Angeln" }, blacksmithing = { "Blacksmithing", "Schmiedekunst" },
@@ -64,7 +51,7 @@ end
 
 local function AtlasExists(name) return name and C_Texture.GetAtlasInfo(name) ~= nil end
 
--- Blizzard-Bild für den Banner: Berufsbild bzw. Klassen-Hintergrund
+-- Banner atlas: profession art, else class background
 local function BannerAtlas(skillLine)
     local key = ProfessionKey(skillLine)
     if key then
@@ -74,15 +61,15 @@ local function BannerAtlas(skillLine)
             if AtlasExists(name) then return name end
         end
     end
-    local _, class = UnitClass("player") -- Klassen- und Begleiterlehrer: eigene Klasse
+    local _, class = UnitClass("player") -- class and pet trainers: own class
     local classAtlas = class and ("dressingroom-background-" .. class:lower())
     if AtlasExists(classAtlas) then return classAtlas end
 end
 
-ns.ProfessionBannerAtlas = BannerAtlas -- auch fürs Berufsfenster (gleiche Bilder)
+ns.ProfessionBannerAtlas = BannerAtlas -- shared with the professions window
 ns.PROFESSION_RANK_NAMES = RANK_NAMES
 
--- Daten ------------------------------------------------------------------------------------------
+-- Data -------------------------------------------------------------------------------------------
 
 local function Requirements(index, reqLevel)
     local parts = {}
@@ -113,10 +100,10 @@ local function Entries(query)
             local cost, isProfession = GetTrainerServiceCost(index)
             local entry = {
                 index = index, name = name, kind = serviceType, texture = texture, subText = subText,
-                key = name .. "\1" .. (subText or "") .. "\1" .. (reqLevel or 0), -- Ränge teilen sich den Namen
+                key = name .. "\1" .. (subText or "") .. "\1" .. (reqLevel or 0), -- ranks share the same name
                 req = req, cost = cost or 0, isProfession = isProfession, reqLevel = reqLevel,
             }
-            -- graue Zeile: „Kochkunst (50)“ mit Zahl grün/rot, sonst Stufe, sonst „bekannt“
+            -- Grey line: "Cooking (50)" with green/red rank, else level, else "known"
             if serviceType == "used" then
                 entry.line = ITEM_SPELL_KNOWN or "Known"
             elseif skill then
@@ -145,7 +132,7 @@ local function Entries(query)
     return step, groups, order, learnable, total
 end
 
--- Zeilen -----------------------------------------------------------------------------------------
+-- Rows -------------------------------------------------------------------------------------------
 
 local function Select(entry)
     selectedName = entry and entry.key
@@ -245,7 +232,7 @@ local function TooltipBody(index)
     local data = C_TooltipInfo and C_TooltipInfo.GetTrainerService and C_TooltipInfo.GetTrainerService(index)
     if not (data and data.lines) then return "" end
     local out = {}
-    for n = 2, #data.lines do -- Zeile 1 ist der Name
+    for n = 2, #data.lines do -- line 1 is the name
         local line = data.lines[n]
         local text = line.leftText
         if text and not (issecretvalue and issecretvalue(text)) and text ~= "" then
@@ -280,7 +267,7 @@ local function Learn(entry)
     BuyTrainerService(entry.index)
 end
 
--- „Alle lernbaren“: eins nach dem anderen – nach jedem Kauf ändern sich die Indizes (TRAINER_UPDATE)
+-- "All learnable": one at a time - indices change after each purchase (TRAINER_UPDATE)
 local function LearnNext()
     if not learnAll then return end
     for index = 1, GetNumTrainerServices() do
@@ -294,7 +281,7 @@ local function LearnNext()
     learnAll = false
 end
 
--- Aufbau -----------------------------------------------------------------------------------------
+-- Build -------------------------------------------------------------------------------------------
 
 local function UpdateBanner(skillLine)
     local atlas = BannerAtlas(skillLine)
@@ -302,7 +289,7 @@ local function UpdateBanner(skillLine)
     if not atlas then return end
     local info = C_Texture.GetAtlasInfo(atlas)
     detail.banner.art:SetAtlas(atlas)
-    -- füllend zuschneiden (der Banner schneidet ab), mittig
+    -- Cover-fit, centered (the banner clips)
     local w, h = detail.banner:GetWidth(), BANNER_H
     local ratio = info.height / info.width
     if w * ratio >= h then
@@ -318,7 +305,7 @@ local function Layout()
 
     local step, groups, order, learnable, total = Entries(searchBox:GetText():lower())
 
-    -- Beruf: Leiste mit Rang, sonst (Begleiter) Trainingspunkte
+    -- Profession: rank bar; pet trainer: training points
     local rank, maxRank = GetTrainerTradeskillRankValues()
     local skillLine = step and GetTrainerServiceSkillLine(step.index)
         or (GetNumTrainerServices() > 0 and GetTrainerServiceSkillLine(1)) or nil
@@ -342,7 +329,7 @@ local function Layout()
     window.npcTitle:SetText(window.tooltipTitle and window.tooltipTitle ~= "" and window.tooltipTitle
         or (skillLine and IsTradeskillTrainer() and skillLine or (IsPetTrainer() and L["Pet trainer"] or L["Class trainer"])))
 
-    -- Liste: Rang-Eintrag oben, dann Gruppen (Kategorien alphabetisch, ohne Kategorie ohne Kopf)
+    -- List: rank step on top, then groups (categories alphabetical; uncategorized without header)
     local y, r, h = 0, 0, 0
     local all = {}
     local function AddHeader(text, key)
@@ -384,7 +371,7 @@ local function Layout()
     list:SetContentHeight(y)
     emptyText:SetShown(r == 0)
 
-    -- Auswahl halten (Name + Rang); sonst die erste lernbare, sonst die erste
+    -- Keep selection (name + rank); else first learnable, else first
     local selected
     for _, entry in ipairs(all) do
         if entry.key == selectedName then selected = entry end
@@ -418,7 +405,7 @@ local function Refresh()
     end)
 end
 
--- Filter: Blizzards Typ-Filter (lernbar / nicht lernbar / bekannt)
+-- Filter: Blizzard's service type filter (available / unavailable / used)
 local FILTERS = {
     { value = "available", label = "Learnable only", set = { available = true, unavailable = false, used = false } },
     { value = "both", label = "Learnable and not yet", set = { available = true, unavailable = true, used = false } },
@@ -435,12 +422,12 @@ end
 
 local function CreateWindow()
     local UI = ns.UI
-    -- gemeinsame NPC-Kopfzeile (NPC/NpcWindow.lua): Porträt, Name, Titel, X, frei ziehbar
+    -- Shared NPC header (NPC/NpcWindow.lua): portrait, name, title, close, draggable
     window = ns.CreateNpcWindow("MeredanUITrainer", WIDTH, ns.NPC_HEIGHT, "trainer")
     ns.WatchBlizzardFrame(window, function() return ClassTrainerFrame end)
     window.Layout = Layout
 
-    -- Beruf / Fortschritt / Filter
+    -- Profession / progress / filter
     skillLabel = UI.Text(window, 13, "LEFT")
     skillLabel:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 22)
     skillBar = CreateFrame("StatusBar", nil, window)
@@ -470,7 +457,7 @@ local function CreateWindow()
     filterButton:SetHeight(28)
     filterButton:SetPoint("TOPRIGHT", -PAD, -ns.NPC_HEADER_BOTTOM - 15)
 
-    -- links: Suche und Liste
+    -- Left: search and list
     searchBox = UI.EditBox(window, 30)
     searchBox:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 56)
     searchBox:SetWidth(LIST_W)
@@ -489,7 +476,7 @@ local function CreateWindow()
     emptyText:SetPoint("TOP", list, "TOP", 0, -40)
     emptyText:SetText(L["Nothing to learn here."])
 
-    -- rechts: Details
+    -- Right: details
     detail = CreateFrame("Frame", nil, window)
     detail:SetPoint("TOPLEFT", searchBox, "TOPRIGHT", 14, 0)
     detail:SetPoint("BOTTOMRIGHT", window, "BOTTOMRIGHT", -PAD, 50)
@@ -501,7 +488,7 @@ local function CreateWindow()
     detail.banner:SetClipsChildren(true)
     detail.banner.art = detail.banner:CreateTexture(nil, "ARTWORK")
     detail.banner.art:SetPoint("CENTER")
-    detail.banner.art:SetVertexColor(0.55, 0.55, 0.55) -- abgedunkelt (Benny: Artwork behalten, dunkler)
+    detail.banner.art:SetVertexColor(0.55, 0.55, 0.55) -- dimmed art
     local fade = detail.banner:CreateTexture(nil, "OVERLAY")
     fade:SetPoint("BOTTOMLEFT")
     fade:SetPoint("BOTTOMRIGHT")
@@ -547,7 +534,7 @@ local function CreateWindow()
     detail.cost = UI.Text(detail, 13, "LEFT")
     detail.cost:SetPoint("LEFT", detail, "BOTTOMLEFT", 16, 29)
 
-    -- Fuß
+    -- Footer
     footerText = UI.Text(window, 12, "LEFT", UI.MUTED)
     footerText:SetPoint("BOTTOMLEFT", PAD, 20)
     gold = UI.Text(window, 13, "RIGHT")
@@ -567,7 +554,7 @@ local function CreateWindow()
         learnAll = false
         StaticPopup_Hide("MEREDANUI_CONFIRM_PROFESSION")
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
-        -- nur die eigene, noch laufende Unterhaltung beenden (sonst träfe es den nächsten NPC)
+        -- Only end our own, still running interaction (otherwise it would hit the next NPC)
         if ns.StillInteracting("Trainer", ClassTrainerFrame) then CloseTrainer() end
     end)
 end
@@ -579,8 +566,8 @@ StaticPopupDialogs["MEREDANUI_CONFIRM_PROFESSION"] = {
     showAlert = 1, timeout = 0, hideOnEscape = 1,
 }
 
--- Blizzards Fenster parken: erst wenn es offen ist (sonst schließt Forever es gleich wieder), mit
--- entferntem OnHide; beim Schließen zurück an UIParent (dann versteckt, kein OnShow)
+-- Park Blizzard's frame only once it is open (else Forever closes it right away), with OnHide removed;
+-- on close reparent to UIParent (hidden by then, so no OnShow)
 local function Park()
     local frame = ClassTrainerFrame
     if not frame or frame:GetParent() == hidden then return end

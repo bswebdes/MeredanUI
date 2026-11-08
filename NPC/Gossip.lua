@@ -1,20 +1,7 @@
--- Gespräch (WoW Forever): eigenes Fenster statt Blizzards Gesprächsfenster – Begrüßung, Quests und
--- Gesprächsoptionen (Entwurf).
---
---   ┌ [Modell] Zarrin                                 [x] ┐
---   │          Kochlehrerin                               │
---   │ Hallo, Koratal. Wenn Ihr das eine oder andere …      │
---   │ Quests                                               │
---   │ [! Gewürzte Wolfsflanken                  Stufe 9]   │
---   │ Gespräch                                             │
---   │ [▣ Ich würde gern Kochunterricht bekommen.     ›]    │
---   │                                       [Lebt wohl]    │
---   └──────────────────────────────────────────────────────┘
---
--- Zwei Quellen: GOSSIP_SHOW (C_GossipInfo) und QUEST_GREETING (NPCs nur mit Quests, alte API).
--- Blizzard entscheidet weiter, ob sein Fenster aufgeht (z. B. wählt es eine einzige Option selbst):
--- unser Fenster kommt nur, wenn Blizzards Fenster danach offen ist (IsShown – es ist unsichtbar
--- geparkt). Schließen beendet das Gespräch (macht sonst Blizzards OnHide).
+-- Gossip window (WoW Forever): replaces Blizzard's gossip frame - greeting, quests and dialog options.
+-- Two sources: GOSSIP_SHOW (C_GossipInfo) and QUEST_GREETING (quest-only NPCs, legacy API).
+-- Blizzard still decides whether its frame opens (it may auto-pick a single option); we only show
+-- when its hidden-parked frame IsShown afterwards. Closing ours ends the conversation.
 local _, ns = ...
 local L = ns.L
 
@@ -26,16 +13,16 @@ hidden:Hide()
 
 local window, list, greeting
 local rows, headers = {}, {}
-local source -- "gossip" oder "greeting"
+local source -- "gossip" or "greeting"
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.gossipWindow ~= false
 end
 
--- Inhalt -----------------------------------------------------------------------------------------
+-- Content -----------------------------------------------------------------------------------------
 
 local function QuestRow(info, active)
-    -- „!“ neue Quest, „?“ gelb abgabebereit, „?“ grau noch nicht fertig
+    -- "!" new quest, yellow "?" ready to turn in, grey "?" not complete yet
     local complete = info.isComplete
     local sign = active and "?" or "!"
     local color = (active and not complete) and { 0.55, 0.55, 0.55 } or { 1, 0.82, 0 }
@@ -49,7 +36,7 @@ local function Collect()
     local text
     if source == "greeting" then
         text = GetGreetingText()
-        -- wie Blizzards Begrüßung: Titel/Status je Index, Stufe über die Quest-ID
+        -- Like Blizzard's greeting: title/status per index, level via quest ID
         local function Level(questID)
             return questID and C_QuestLog.GetQuestDifficultyLevel and C_QuestLog.GetQuestDifficultyLevel(questID)
         end
@@ -87,7 +74,7 @@ local function Collect()
     return text or "", quests, options
 end
 
--- Zeilen -----------------------------------------------------------------------------------------
+-- Rows -------------------------------------------------------------------------------------------
 
 local function Row(i)
     if rows[i] then return rows[i] end
@@ -182,19 +169,18 @@ local function Layout()
     list:SetContentHeight(y)
 end
 
--- Fenster ----------------------------------------------------------------------------------------
+-- Window ----------------------------------------------------------------------------------------
 
 local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUIGossip", WIDTH, ns.NPC_HEIGHT, "gossip")
-    window.replaceable = true -- Quest/Händler/Lehrer ersetzen das Gespräch: kein Platz neben ihm
+    window.replaceable = true -- quest/merchant/trainer windows replace gossip instead of docking beside it
     ns.WatchBlizzardFrame(window, function() return source == "greeting" and QuestFrame or GossipFrame end)
-    -- ein Pergament für den ganzen Inhalt (wie im Quest-Fenster)
+    -- One parchment for all content (like the quest window)
     local paper = ns.CreateParchmentPanel(window)
     paper:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 22)
     paper:SetPoint("BOTTOMRIGHT", -PAD, 56)
     list = UI.ScrollArea(paper)
-    -- mehr Luft rundum auf dem Pergament (Benny 2026-11-06)
     list:SetPoint("TOPLEFT", 34, -30)
     list:SetPoint("BOTTOMRIGHT", -40, 28)
     greeting = UI.Text(list.child, 14, "LEFT", ns.PARCHMENT_TEXT)
@@ -211,7 +197,7 @@ local function CreateWindow()
     end)
     window:HookScript("OnHide", function()
         PlaySound(SOUNDKIT.IG_QUEST_LIST_CLOSE)
-        -- nur die eigene, noch laufende Unterhaltung beenden (sonst träfe es den nächsten NPC)
+        -- Only end our own, still running interaction (otherwise it would hit the next NPC)
         if source == "greeting" then
             if ns.StillInteracting("QuestGiver", QuestFrame) then CloseQuest() end
         elseif ns.StillInteracting("Gossip", GossipFrame) then
@@ -220,7 +206,7 @@ local function CreateWindow()
     end)
 end
 
--- Blizzards Fenster nur zeigen lassen, wenn es wirklich aufgeht; dann unser Fenster
+-- Show ours only if Blizzard's frame actually opened (checked one frame later)
 local function ShowFor(kind, blizzard, unit)
     C_Timer.After(0, function()
         if not (blizzard and blizzard:IsShown()) then return end
@@ -233,16 +219,16 @@ end
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not GossipFrame then return end
     CreateWindow()
-    -- unsichtbar parken: Blizzard prüft nur IsShown, OnShow/OnHide feuern unsichtbar nicht
+    -- Park invisibly: Blizzard only checks IsShown, and OnShow/OnHide do not fire while parked
     GossipFrame:SetParent(hidden)
     ns:On("GOSSIP_SHOW", function() ShowFor("gossip", GossipFrame, "npc") end)
     ns:On("GOSSIP_CLOSED", function() if source == "gossip" then window:Hide() end end)
     ns:On("QUEST_LOG_UPDATE", function() if window:IsShown() then Layout() end end)
-    -- NPCs nur mit Quests begrüßen über Blizzards Quest-Fenster (Begrüßung) – das parkt NPC/Quest.lua
+    -- Quest-only NPCs greet via Blizzard's QuestFrame, which NPC/Quest.lua parks
     ns:On("QUEST_GREETING", function() ShowFor("greeting", QuestFrame, "questnpc") end)
     ns:On("QUEST_FINISHED", function() if source == "greeting" and window:IsShown() then window:Hide() end end)
     for _, event in ipairs({ "QUEST_DETAIL", "QUEST_PROGRESS", "QUEST_COMPLETE" }) do
-        -- Quest gewählt: Begrüßung zu, ohne die Quest-Unterhaltung zu beenden
+        -- Quest picked: close the greeting without ending the quest interaction
         ns:On(event, function()
             if source == "greeting" and window:IsShown() then
                 source = nil

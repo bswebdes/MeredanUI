@@ -1,31 +1,21 @@
--- Handelsfenster (WoW Forever) im MUI-Look (Benny 2026-11-06: „da bleibt nix bei Blizzard“).
---
---   ┌ [▣] Koratal Rabenruf      ✓ bereit │ [▣] Faylanis Schattenwind         [x] ┐
---   │ [ 12 ●][ 50 ●][  0 ●]               │ 0 ● 0 ● 0 ●                            │
---   │ [▣ Leichtes Leder        ×20]      │ [▣ Wolfsflanke            ×4]         │
---   │ …  6 Plätze                         │ …                                      │
---   │ Wird nicht gehandelt                │ Wird nicht gehandelt                   │
---   │ [▣ ]                                │ [▣ ]                                   │
---   │                                       [Handeln] [Abbrechen]                  │
---
--- Gold anbieten ist für Addons gesperrt (C_TradeInfo.SetTradeMoney u. a.), Blizzards Goldfeld
--- (TradePlayerInputMoneyFrame) ist „forbidden“. Lösung: Blizzards Handelsfenster bleibt offen, alle
--- seine Teile werden unsichtbar bzw. weggeparkt – nur das Goldfeld bleibt an seinem Platz. Unser
--- Fenster liegt als Kind von TradeFrame genau darüber; an der Stelle des Goldfelds zeichnen wir drei
--- eigene Felder ohne Maus (Klicks gehen ans echte Feld darunter) und zeigen den Betrag aus
--- GetPlayerTradeMoney (PLAYER_TRADE_MONEY kommt bei jedem Tastendruck).
+-- Trade window (WoW Forever) in mUI style: two columns (player / target) with gold, 6 item slots and
+-- the "will not be traded" slot. Offering gold is protected for addons (C_TradeInfo.SetTradeMoney etc.)
+-- and TradePlayerInputMoneyFrame is forbidden. So Blizzard's TradeFrame stays open with everything
+-- hidden except the gold input. Our window is a TradeFrame child on top; over the gold input we draw
+-- three mouse-transparent fields (clicks reach the real input) showing GetPlayerTradeMoney
+-- (PLAYER_TRADE_MONEY fires on every keystroke).
 local _, ns = ...
 local L = ns.L
 
 local WIDTH, HEIGHT, PAD = 560, 520, 18
 local COL_GAP = 16
 local COL = (WIDTH - 2 * PAD - COL_GAP) / 2
-local GOLD_Y = 76                     -- Oberkante des Goldfelds (von oben)
+local GOLD_Y = 76                     -- gold field top edge (from top)
 local CARD_H, CARD_GAP = 40, 6
 local ITEMS_Y = GOLD_Y + 32
 local MAX_ITEMS = MAX_TRADABLE_ITEMS or 6
 local ENCHANT = TRADE_ENCHANT_SLOT or 7
--- Lage der drei Eingabefelder in Blizzards Goldfeld (MoneyInputFrame_SetCompact(self, 62, 7, 35))
+-- Positions of the three inputs in Blizzard's gold field (MoneyInputFrame_SetCompact(self, 62, 7, 35))
 local FIELDS = { { x = 0, w = 62 }, { x = 72, w = 35 }, { x = 117, w = 35 } }
 local COIN = { { 0.85, 0.69, 0.29 }, { 0.72, 0.74, 0.77 }, { 0.75, 0.48, 0.27 } }
 
@@ -43,7 +33,7 @@ local function Split(copper)
     return math.floor(copper / 10000), math.floor(copper % 10000 / 100), copper % 100
 end
 
--- Plätze ---------------------------------------------------------------------------------------
+-- Slots ---------------------------------------------------------------------------------------
 
 local function Card(side, id, x, y)
     local UI = ns.UI
@@ -86,7 +76,7 @@ local function Card(side, id, x, y)
     end)
     card:SetScript("OnClick", function()
         if IsModifiedClick() and HandleModifiedItemClick(Link()) then return end
-        if side == "player" then ClickTradeButton(id) end -- ClickTargetTradeButton ist geschützt
+        if side == "player" then ClickTradeButton(id) end -- ClickTargetTradeButton is protected
     end)
     if side == "player" then
         card:SetScript("OnDragStart", function() ClickTradeButton(id) end)
@@ -115,12 +105,12 @@ local function FillCard(card)
         card.name:SetTextColor(1, 1, 1)
     else
         card.name:SetText(name or "")
-        local r, g, b = C_Item.GetItemQualityColor(name and quality or 1) -- liefert 4 Werte (der 4. ist Text)
+        local r, g, b = C_Item.GetItemQualityColor(name and quality or 1) -- returns 4 values (4th is a hex string)
         card.name:SetTextColor(r or 1, g or 1, b or 1)
     end
 end
 
--- Goldfeld (über Blizzards echtem Feld) ---------------------------------------------------------
+-- Gold field (over Blizzard's real input) -------------------------------------------------------
 
 local function UpdateMoney()
     local g, s, c = Split(GetPlayerTradeMoney())
@@ -131,7 +121,7 @@ local function UpdateMoney()
         field.text:SetTextColor(unpack(value > 0 and ns.UI.TEXT or ns.UI.MUTED))
         for _, e in ipairs(field.focus) do e:SetShown(focusField == i) end
     end
-    -- Münzbilder statt „●“ (kennt Expressway nicht – erschien als Rechteck)
+    -- Coin atlases instead of a bullet glyph (Expressway lacks it, renders as a box)
     local tg, ts, tc = Split(GetTargetTradeMoney())
     window.targetMoney:SetText(("%d |A:coin-gold:12:12|a   %d |A:coin-silver:12:12|a   %d |A:coin-copper:12:12|a"):format(tg, ts, tc))
 end
@@ -141,9 +131,9 @@ local function CreateMoneyFields(parent, x, y)
     local overlay = CreateFrame("Frame", nil, parent)
     overlay:SetPoint("TOPLEFT", x, -y)
     overlay:SetSize(152, 20)
-    overlay:SetFrameLevel(TradeFrame:GetFrameLevel() + 20) -- über Blizzards Feld, ohne Maus
+    overlay:SetFrameLevel(TradeFrame:GetFrameLevel() + 20) -- above Blizzard's input, no mouse
     overlay:EnableMouse(false)
-    -- deckende Fläche: Blizzards Feldränder ragen ein paar Pixel über die Eingabefelder hinaus
+    -- Opaque cover: Blizzard's input borders stick out a few pixels past our fields
     local cover = overlay:CreateTexture(nil, "BACKGROUND")
     cover:SetPoint("TOPLEFT", -8, 5)
     cover:SetPoint("BOTTOMRIGHT", 12, -5)
@@ -176,7 +166,7 @@ local function CreateMoneyFields(parent, x, y)
         caretTime = caretTime + elapsed
         UpdateMoney()
     end)
-    -- Fokus nachbilden: das echte Feld ist für Addons unlesbar – gemerkt wird, wohin geklickt wurde
+    -- Fake the focus: the real input is unreadable for addons, so track where the user clicked
     overlay:RegisterEvent("GLOBAL_MOUSE_DOWN")
     overlay:SetScript("OnEvent", function()
         if not window:IsVisible() then return end
@@ -189,7 +179,7 @@ local function CreateMoneyFields(parent, x, y)
     end)
 end
 
--- Aufbau ---------------------------------------------------------------------------------------
+-- Build -----------------------------------------------------------------------------------------
 
 local function Refresh()
     if not (window and window:IsVisible()) then return end
@@ -231,7 +221,7 @@ local function Header(x, nameKey, portraitKey, readyKey)
     window[nameKey]:SetPoint("TOPLEFT", holder, "TOPRIGHT", 10, -4)
     window[nameKey]:SetWidth(COL - 60)
     window[nameKey]:SetWordWrap(false)
-    -- „bereit“ mit Haken-Symbol (Expressway kennt ✓ nicht)
+    -- "ready" with a check icon (Expressway has no check mark glyph)
     local ready = CreateFrame("Frame", nil, window)
     ready:SetSize(80, 14)
     ready:SetPoint("TOPLEFT", window[nameKey], "BOTTOMLEFT", 0, -5)
@@ -248,13 +238,13 @@ local function CreateWindow()
     local UI = ns.UI
     window = CreateFrame("Frame", "MeredanUITrade", TradeFrame)
     window:SetSize(WIDTH, HEIGHT)
-    -- fester Platz wie die anderen Fenster (über dem Chat, Höhe der Schlachtzug-Frames); Blizzards
-    -- unsichtbares TradeFrame wird an unser Fenster gehängt (siehe PinTradeFrame), damit sein
-    -- Goldfeld (TradeFrame TOPLEFT +11/−61) genau unter unseren Feldern (PAD/−GOLD_Y) liegt
+    -- Fixed spot like the other windows (above chat). Blizzard's invisible TradeFrame is pinned to our
+    -- window (see PinTradeFrame) so its gold input (TradeFrame TOPLEFT +11/-61) lies exactly under
+    -- our fields (PAD/-GOLD_Y)
     window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
     ns.layoutFrames.trade = window
-    window:SetFrameLevel(math.max(TradeFrame:GetFrameLevel() - 1, 0)) -- Fläche unter Blizzards Feld
-    window:EnableMouse(true) -- fängt Klicks außerhalb von TradeFrame ab (sonst gingen sie in die Welt)
+    window:SetFrameLevel(math.max(TradeFrame:GetFrameLevel() - 1, 0)) -- background below Blizzard's input
+    window:EnableMouse(true) -- catch clicks outside TradeFrame (else they hit the world)
     UI.Box(window, ns.STYLE.panelColor)
     local accent = window:CreateTexture(nil, "OVERLAY")
     accent:SetColorTexture(unpack(UI.ACCENT))
@@ -269,12 +259,12 @@ local function CreateWindow()
     close:SetPoint("TOPRIGHT", -PAD, -PAD)
     close:SetFrameLevel(TradeFrame:GetFrameLevel() + 10)
 
-    -- Spalten-Rahmen (grün, sobald die Seite bestätigt hat)
+    -- Column border (green once that side has accepted)
     for side, x in pairs({ player = left, target = right }) do
         local column = CreateFrame("Frame", nil, window)
         column:SetPoint("TOPLEFT", x - 6, -(GOLD_Y - 8))
         column:SetSize(COL + 12, HEIGHT - GOLD_Y - 54)
-        column:SetFrameLevel(TradeFrame:GetFrameLevel() + 25) -- über der Goldfeld-Abdeckung (+20), ohne Maus
+        column:SetFrameLevel(TradeFrame:GetFrameLevel() + 25) -- above the gold cover (+20), no mouse
         column:EnableMouse(false)
         column.edges = ns.AddBorder(column)
         for _, e in ipairs(column.edges) do e:SetVertexColor(0, 0, 0, 0) end
@@ -323,8 +313,8 @@ local function CreateWindow()
     end)
 end
 
--- TradeFrame an unser Fenster hängen; Blizzards Fenster-Verwaltung setzt es beim Öffnen neu –
--- dann sofort zurück (nur hooksecurefunc, keine Blizzard-Funktion ersetzt)
+-- Pin TradeFrame to our window. Blizzard's panel manager repositions it on open - snap back right
+-- away (hooksecurefunc only, no Blizzard function replaced)
 local pinning
 local function PinTradeFrame()
     if pinning then return end
@@ -334,9 +324,8 @@ local function PinTradeFrame()
     pinning = false
 end
 
--- Blizzards Handelsfenster unsichtbar machen: Flächen auf Alpha 0, Kinder weggeparkt – nur das
--- geschützte Goldfeld und unser Fenster bleiben. TradeFrame selbst bleibt offen und anklickbar
--- (Gegenstand oder Gold vom Mauszeiger in den Handel legen, wie bei Blizzard).
+-- Make Blizzard's trade frame invisible: regions at alpha 0, children parked - only the protected gold
+-- input and our window remain. TradeFrame stays open and clickable (dropping cursor items or gold).
 local function HideBlizzard()
     local hidden = CreateFrame("Frame")
     hidden:Hide()

@@ -1,18 +1,7 @@
--- Quest (WoW Forever): eigenes Fenster statt Blizzards Quest-Fenster – Annehmen, Fortschritt und
--- Belohnung (Entwurf).
---
---   ┌ [Modell] Zarrin · Stufe 9                       [x] ┐
---   │          Gewürzte Wolfsflanken  (Gold)               │
---   │ Questtext …                                          │
---   │ Ziele          · Wolfsflanke                         │
---   │ Wähle eine Belohnung  [▣ Stiefel] [▣ Handschuhe]     │  ← Auswahl mit Surf-Green-Rahmen
---   │ Außerdem  420 EP  35s                                │
---   │                              [Ablehnen] [Annehmen]   │
---   └──────────────────────────────────────────────────────┘
---
--- Blizzards Quest-Fenster bleibt unsichtbar geparkt und entscheidet weiter, WANN es aufgeht (Quests
--- von Items/Gebieten nur als Popup usw.) – unser Fenster folgt nur, wenn es offen ist. Die Begrüßung
--- (QUEST_GREETING) zeigt NPC/Gossip.lua. Schließen beendet die Quest-Unterhaltung (CloseQuest).
+-- Quest window (WoW Forever): replaces Blizzard's QuestFrame - accept, progress and reward pages;
+-- the picked reward gets a Surf Green border. QuestFrame stays parked invisibly and still decides
+-- WHEN it opens (item/area quests as popups etc.); ours only follows. QUEST_GREETING is handled by
+-- NPC/Gossip.lua. Closing ends the quest interaction (CloseQuest).
 local _, ns = ...
 local L = ns.L
 
@@ -26,7 +15,7 @@ local window, list, body, objHeader, objText, rewardHeader, extraLine, footerNot
 local primary, secondary
 local cards = {}
 local mode       -- "detail", "progress", "complete"
-local choice     -- gewählte Belohnung (Index)
+local choice     -- picked reward index
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.questWindow ~= false
@@ -40,7 +29,7 @@ local function QualityColor(quality)
     return 1, 1, 1
 end
 
--- Belohnungs-Karten -------------------------------------------------------------------------------
+-- Reward cards ------------------------------------------------------------------------------------
 
 local function Card(i)
     if cards[i] then return cards[i] end
@@ -75,7 +64,7 @@ local function Card(i)
         GameTooltip:SetQuestItem(self.kind, self.index)
         ns.ShowItemCompare(GameTooltip)
         GameTooltip:Show()
-        self.UpdateTooltip = self:GetScript("OnEnter") -- Shift während der Maus drauf ist
+        self.UpdateTooltip = self:GetScript("OnEnter") -- refresh compare when shift changes while hovering
     end)
     card:SetScript("OnLeave", function(self)
         self.bg:SetColorTexture(unpack(ns.PARCHMENT_CARD))
@@ -108,7 +97,7 @@ local function SubLine(link, count)
     return table.concat(parts, " · ")
 end
 
--- Aufbau -----------------------------------------------------------------------------------------
+-- Build -------------------------------------------------------------------------------------------
 
 local function ItemEntries(kind, num)
     local entries = {}
@@ -136,14 +125,14 @@ local function Layout()
         y = y + (region.GetStringHeight and region:GetStringHeight() or region:GetHeight()) + (gap or 16)
     end
 
-    -- Titel in der Kopfzeile: oben klein NPC · Stufe, darunter der Quest-Titel in Gold
+    -- Header: small "NPC - level" on top, quest title in gold below
     local questID = GetQuestID and GetQuestID()
     local level = questID and C_QuestLog.GetQuestDifficultyLevel and C_QuestLog.GetQuestDifficultyLevel(questID)
     local npc = UnitName("questnpc") or UnitName("npc") or ""
     window.npcTitle:SetText(npc .. ((level and level > 0) and (" · " .. L["Level %d"]:format(level)) or ""))
     window.npcName:SetText(GetTitleText() or "")
 
-    -- Text und Ziele je nach Stand
+    -- Text and objectives per mode
     local objectives
     if mode == "detail" then
         body:SetText(GetQuestText() or "")
@@ -163,7 +152,7 @@ local function Layout()
         Place(objText, 18)
     end
 
-    -- Karten: beim Fortschritt die benötigten Items, sonst Belohnungen (Auswahl + feste)
+    -- Cards: required items on progress, otherwise rewards (choices + fixed)
     local groups = {}
     if mode == "progress" then
         local items = ItemEntries("required", GetNumQuestItems())
@@ -214,7 +203,7 @@ local function Layout()
     for i = #groups + 1, #rewardHeader do rewardHeader[i]:Hide() end
     for i = n + 1, #cards do cards[i]:Hide() end
 
-    -- Außerdem: Erfahrung, Geld (beim Fortschritt: verlangtes Geld)
+    -- Extras: XP and money (on progress: required money)
     local extras = {}
     if mode == "progress" then
         local money = GetQuestMoneyToGet()
@@ -233,7 +222,7 @@ local function Layout()
     end
     list:SetContentHeight(y)
 
-    -- Knöpfe je Stand
+    -- Buttons per mode
     if mode == "detail" then
         primary.Text:SetText(QuestGetAutoAccept and QuestGetAutoAccept() and (OKAY or "OK") or (ACCEPT or "Accept"))
         secondary.Text:SetText(DECLINE or "Decline")
@@ -270,14 +259,14 @@ local function Secondary()
     if mode == "detail" then DeclineQuest() else window:Hide() end
 end
 
--- Fenster ----------------------------------------------------------------------------------------
+-- Window ---------------------------------------------------------------------------------------
 
 local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUIQuest", WIDTH, ns.NPC_HEIGHT, "quest")
     ns.WatchBlizzardFrame(window, function() return QuestFrame end)
     window.Layout = Layout
-    -- Kopfzeile umgedreht: oben klein NPC · Stufe, darunter groß der Quest-Titel in Gold
+    -- Header flipped: small "NPC - level" on top, large gold quest title below
     window.npcName:ClearAllPoints()
     window.npcTitle:ClearAllPoints()
     window.npcTitle:SetPoint("TOPLEFT", window.header, "TOPLEFT", PAD + 46 + 14, -PAD - 4)
@@ -287,12 +276,11 @@ local function CreateWindow()
     ns.SetFont(window.npcName, 17)
     window.npcName:SetTextColor(1, 0.82, 0)
 
-    -- ein Pergament für den ganzen Inhalt (wie ein Auftragsschreiben), darauf scrollt die Liste
+    -- One parchment for all content; the list scrolls on it
     local paper = ns.CreateParchmentPanel(window)
     paper:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 22)
     paper:SetPoint("BOTTOMRIGHT", -PAD, 56)
     list = UI.ScrollArea(paper)
-    -- mehr Luft rundum auf dem Pergament (Benny 2026-11-06)
     list:SetPoint("TOPLEFT", 34, -30)
     list:SetPoint("BOTTOMRIGHT", -40, 28)
     body = UI.Text(list.child, 14, "LEFT", ns.PARCHMENT_TEXT)
@@ -320,13 +308,13 @@ local function CreateWindow()
     window:HookScript("OnHide", function()
         PlaySound(SOUNDKIT.IG_QUEST_LIST_CLOSE)
         GameTooltip:Hide()
-        if ns.StillInteracting("QuestGiver", QuestFrame) then CloseQuest() end -- nur die eigene, noch laufende Unterhaltung
+        if ns.StillInteracting("QuestGiver", QuestFrame) then CloseQuest() end -- only our own, still running interaction
     end)
 end
 
 local function ShowMode(newMode)
     C_Timer.After(0, function()
-        -- Blizzard entscheidet: nur wenn sein (geparktes) Fenster aufgeht
+        -- Blizzard decides: only if its parked frame actually opened
         if not QuestFrame:IsShown() then return end
         mode = newMode
         choice = nil
@@ -345,19 +333,18 @@ end
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not QuestFrame then return end
     CreateWindow()
-    -- unsichtbar parken: Blizzard prüft nur IsShown, OnShow/OnHide feuern unsichtbar nicht
+    -- Park invisibly: Blizzard only checks IsShown, and OnShow/OnHide do not fire while parked
     QuestFrame:SetParent(hidden)
-    -- Unsichtbar läuft Blizzards OnShow der Quest-Seiten nie > QuestInfo_Display setzt kein Template,
-    -- und QUEST_ITEM_UPDATE ruft dann QuestInfo_ShowRewards mit leerem Template auf (Lua-Fehler
-    -- QuestInfo.lua:716 „ACTIVE_TEMPLATE nil“, Benny 2026-11-07). Unser Fenster frischt selbst auf.
+    -- While parked, the quest panels' OnShow never runs, so QuestInfo_Display sets no template and
+    -- QUEST_ITEM_UPDATE would call QuestInfo_ShowRewards with a nil template (Lua error
+    -- "ACTIVE_TEMPLATE nil" in QuestInfo.lua). Our window refreshes itself.
     QuestFrame:UnregisterEvent("QUEST_ITEM_UPDATE")
-    -- Blizzards gemeinsamer Quest-Inhalt (Belohnungen …) hängt sonst frei auf dem Bildschirm: er wird
-    -- nur beim Zeigen von Blizzards Quest-Fenster umgehängt, frischt sich aber bei QUEST_ITEM_UPDATE
-    -- trotzdem auf (Benny sah „Belohnungen“ mitten im Bild). Die Weltkarte hängt sich ihre Teile
-    -- weiter selbst um.
+    -- Blizzard's shared quest info frames (rewards, ...) would otherwise float on screen: they are only
+    -- reparented when Blizzard's quest frame shows, but still refresh on QUEST_ITEM_UPDATE. The world
+    -- map reparents its own parts.
     for _, name in ipairs({ "QuestInfoFrame", "QuestInfoObjectivesFrame", "QuestInfoSpecialObjectivesFrame",
         "QuestInfoTimerFrame", "QuestInfoRequiredMoneyFrame", "QuestInfoRewardsFrame", "MapQuestInfoRewardsFrame" }) do
-        local frame = _G[name] -- freistehende Rahmen ohne Elternteil (QuestInfo.xml)
+        local frame = _G[name] -- parentless frames from QuestInfo.xml
         if frame and frame:GetParent() ~= WorldMapFrame and not (frame:GetParent() and frame:GetParent():IsVisible()) then
             frame:SetParent(hidden)
         end

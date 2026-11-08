@@ -1,22 +1,15 @@
--- Gemeinsamer Baustein für alle Fenster, in denen man mit einem NPC spricht (Händler, Lehrer,
--- Gespräch, Quest …) – Benny 2026-11-06: „einheitliche Fenster bei denen mit NPC interagiert wird“.
---
---   ┌──────────────────────────────────────────────┐  ← Surf-Green-Kante
---   │ [Modell]  Brannol Eaglemoon             [x]  │  ← NPC als kleines 3D-Porträt, Name,
---   │           Tuchmacher                         │     darunter sein Titel (aus dem Tooltip)
---   │ … Inhalt des Fensters …                      │
---
--- Ziehen an der Kopfzeile verschiebt das Fenster frei (wie unter Windows); beim nächsten Öffnen
--- steht es wieder an seinem festen Platz (über dem Chat).
+-- Shared base for all NPC interaction windows (merchant, trainer, gossip, quest, ...): Surf Green top
+-- edge, header with 3D portrait, NPC name and title (from the tooltip), close button.
+-- Dragging the header moves the window freely; the next open puts it back at its fixed spot above chat.
 local _, ns = ...
 
 local PAD = 18
 local PORTRAIT = 46
 ns.NPC_PAD = PAD
-ns.NPC_HEADER_BOTTOM = PAD + PORTRAIT -- Unterkante der Kopfzeile (von oben)
-ns.NPC_HEIGHT = 640 -- alle NPC-Fenster gleich hoch (Benny 2026-11-06), Breite je Fenster
+ns.NPC_HEADER_BOTTOM = PAD + PORTRAIT -- header bottom edge (from top)
+ns.NPC_HEIGHT = 640 -- all NPC windows share this height; width varies per window
 
--- Titel eines NPCs aus seinem Tooltip (zweite Zeile, z. B. „<Tuchmacher>“); Stufen-Zeilen zählen nicht
+-- NPC title from its tooltip (second line, e.g. "<Tailor>"); level lines are ignored
 function ns.NpcTitle(unit)
     local data = C_TooltipInfo and C_TooltipInfo.GetUnit and C_TooltipInfo.GetUnit(unit or "npc")
     local line = data and data.lines and data.lines[2]
@@ -25,11 +18,11 @@ function ns.NpcTitle(unit)
     return (text:gsub("^<(.*)>$", "%1"))
 end
 
--- Unsere Fenster (Händler, Lehrer, Gespräch, Quest, Bank, Gildenbank) in Öffnungs-Reihenfolge
+-- Our windows (merchant, trainer, gossip, quest, bank, guild bank) in opening order
 local managed, order = {}, {}
 
--- Reiter außerhalb von Blizzard-Fenstern (z. B. Gilde): dort keine Felder an Blizzards Tabelle,
--- deshalb hier gemerkt – Zahl oder Funktion(window) → Zahl
+-- Tabs sticking out of Blizzard frames (e.g. guild): kept here to avoid writing fields onto Blizzard's
+-- table (taint). Value is a number or function(window) -> number.
 ns.EXTRA_RIGHT = setmetatable({}, { __mode = "k" })
 local function ExtraRight(window)
     local extra = window.extraRight or ns.EXTRA_RIGHT[window]
@@ -37,7 +30,7 @@ local function ExtraRight(window)
     return extra or 0
 end
 
--- Frei ziehen an einer Fläche (Kopfzeile); Lage wird nicht gespeichert
+-- Free dragging via a region (header); position is not saved
 function ns.MakeWindowDraggable(window, region)
     window:SetMovable(true)
     if window.SetDontSavePosition then window:SetDontSavePosition(true) end
@@ -45,13 +38,13 @@ function ns.MakeWindowDraggable(window, region)
     region:RegisterForDrag("LeftButton")
     region:SetScript("OnDragStart", function()
         if InCombatLockdown() and window:IsProtected() then return end
-        window.dragged = true -- selbst gezogen: nicht mehr automatisch beiseiterücken
+        window.dragged = true -- user-moved: stop auto-placing it
         window:StartMoving()
     end)
     region:SetScript("OnDragStop", function() window:StopMovingOrSizing() end)
 end
 
--- Maßstab eines Fensters gegenüber UIParent (z. B. Gilde vergrößert); Lagen in UIParent-Einheiten
+-- Window scale relative to UIParent (e.g. enlarged guild frame); positions are in UIParent units
 local function Ratio(frame)
     return frame:GetEffectiveScale() / UIParent:GetEffectiveScale()
 end
@@ -70,9 +63,9 @@ local function Overlaps(a, b)
     return al < br and ar > bl and ab < bt and at > bb
 end
 
--- Was gerade offen ist und Platz braucht: unsere anderen Fenster (das Gespräch nicht – Quest/Händler
--- ersetzen es) und Blizzards Fenster links/mittig (Charakter, Zauberbuch …)
-local placing -- beim Aufrücken: nur die davor geöffneten Fenster zählen (Menge)
+-- Open windows that occupy space: our other windows (not gossip - quest/merchant replace it) and
+-- Blizzard's UI panels (character, spellbook, ...)
+local placing -- during Relayout: set of windows opened earlier; only those count
 local function Occupied(window)
     local list = {}
     for _, other in ipairs(order) do
@@ -83,41 +76,39 @@ local function Occupied(window)
     if GetUIPanel then
         for _, area in ipairs({ "left", "center", "doublewide", "right" }) do
             local panel = GetUIPanel(area)
-            -- geskinnte Blizzard-Fenster (Gilde) sind selbst UIPanels: nicht vor sich selbst ausweichen
+            -- Skinned Blizzard frames (guild) are UIPanels themselves: don't avoid yourself
             if panel and panel ~= window and panel:IsVisible() then list[#list + 1] = panel end
         end
     end
     return list
 end
 
--- Fenster, die sich schließen dürfen, wenn kein Platz mehr ist (wie Blizzards UIPanel-Verwaltung:
--- passt ein neues Fenster nicht mehr daneben, geht das älteste zu). NPC-Gespräche (Händler, Post,
--- Bank, Lehrer, Quest, Auktionshaus …) nie – das würde die Unterhaltung beenden. Benny 2026-11-08.
+-- Windows that may close when space runs out (like Blizzard's UIPanel manager: the oldest closes).
+-- Never NPC interactions (merchant, mail, bank, trainer, quest, AH, ...) - that would end the interaction.
 local CLOSABLE = {
     legacy = true, spellbook = true, talents = true, professions = true, character = true,
     inspect = true, guild = true, friends = true, dressup = true,
 }
 
--- Platz suchen; liefert die gewünschte rechte Kante (inkl. Reiter außen), bevor WoW ans Bild klemmt
--- Rechnet in UIParent-Einheiten (Fenster können eigenen Maßstab haben, z. B. Gilde 1,2-fach);
--- gibt die gewünschte rechte Kante (inkl. Reiter) in UIParent-Einheiten zurück.
+-- Find a spot. Returns the desired right edge (incl. outside tabs) in UIParent units, before WoW
+-- clamps to the screen. Windows may have their own scale (e.g. guild at 1.2x).
 local function Place(window)
     local k = Ratio(window)
     window:ClearAllPoints()
-    -- gemeinsame Oberkante (Benny 2026-11-08): niedrigere Fenster (z. B. Gilde) hängen oben an der
-    -- Linie der Standardhöhe statt unten über dem Chat; höhere (Talente) bleiben unten über dem Chat
+    -- Shared top edge: shorter windows (e.g. guild) hang from the standard-height top line; taller
+    -- ones (talents) sit on top of the chat
     if window:GetHeight() * k < ns.NPC_HEIGHT then
         window:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap((90 + ns.NPC_HEIGHT) / k))
     else
         window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90 / k))
     end
     local wantedRight = ((window:GetLeft() or 0) + window:GetWidth()) * k
-    -- solange etwas überlappt: rechts daneben, Oberkante wie das andere Fenster (Benny 2026-11-06:
-    -- mit Unterkante über dem Chat rutschte es rechts über Aktionsleisten und Einheitenfenster)
+    -- While overlapping: move to the right, aligned to the other window's top (bottom-aligning slid it
+    -- over action bars and unit frames)
     for _ = 1, 6 do
         local right, top
         for _, other in ipairs(Occupied(window)) do
-            -- extraRight: Reiter außerhalb des Fensters (Berufe, Zauberbuch) zählen mit
+            -- extraRight: tabs outside the window (professions, spellbook) count too
             local ko = Ratio(other)
             local edge = (other:GetRight() + ExtraRight(other)) * ko
             if Overlaps(window, other) and edge > (right or 0) then
@@ -133,11 +124,10 @@ local function Place(window)
     return wantedRight + ExtraRight(window) * k
 end
 
--- Fester Platz: über dem Chat (Höhe der Schlachtzug-Frames). Ist dort schon ein Fenster offen, rechts daneben (Benny: „sonst sind die
--- übereinander“). Beim Öffnen aufrufen – setzt freies Verschieben zurück. opening = gerade geöffnet:
--- passt es dann nicht mehr auf den Bildschirm, schließt sich das älteste schließbare mUI-Fenster.
--- Aufrücken (Benny 2026-11-08, wie Blizzard): schließt ein Fenster, ordnen sich die übrigen offenen in
--- Öffnungs-Reihenfolge neu – jedes sieht dabei nur die Fenster, die vor ihm geöffnet wurden.
+-- Fixed spot above chat (raid frame height); if a window is already there, place to its right.
+-- Call on open - resets free dragging. opening = just opened: if it no longer fits on screen, the
+-- oldest closable mUI window closes. Relayout (like Blizzard): when a window closes, the rest
+-- re-place in opening order, each only seeing windows opened before it.
 local function Relayout()
     placing = {}
     for _, window in ipairs(order) do
@@ -160,7 +150,7 @@ function ns.ResetWindowPosition(window, key, opening)
         local wantedRight = Place(window)
         if not opening or wantedRight <= UIParent:GetRight() - ns.SCREEN_MARGIN then return end
         local oldest
-        for _, other in ipairs(order) do -- order: zuerst geöffnet zuerst
+        for _, other in ipairs(order) do -- order: first opened first
             if other ~= window and other:IsShown() and CLOSABLE[managed[other]] then oldest = other break end
         end
         if not oldest then return end
@@ -168,10 +158,9 @@ function ns.ResetWindowPosition(window, key, opening)
     end
 end
 
--- Wächter: unser Fenster lebt nur, solange Blizzards (unsichtbar geparktes) Gegenstück offen ist.
--- Ereignisse wie MERCHANT_CLOSED kommen nicht immer an (z. B. beim direkten Wechsel zum nächsten
--- NPC) – bliebe unser Fenster offen, hielte das Spiel die alte Unterhaltung für aktiv und öffnete
--- die neue nicht (Benny: Lehrer ging erst nach Schließen des Händlers auf).
+-- Watchdog: our window lives only while Blizzard's hidden-parked counterpart is shown. Events like
+-- MERCHANT_CLOSED don't always arrive (e.g. switching straight to the next NPC); if our window stayed
+-- open, the game would treat the old interaction as active and not open the new one.
 function ns.WatchBlizzardFrame(window, getFrame)
     local elapsed = 0
     window:HookScript("OnUpdate", function(self, delta)
@@ -183,7 +172,7 @@ function ns.WatchBlizzardFrame(window, getFrame)
     end)
 end
 
--- Öffnungs-Reihenfolge merken (zuletzt geöffnet = hinten)
+-- Track opening order (last opened = last)
 local function Opened(window)
     for i, other in ipairs(order) do
         if other == window then table.remove(order, i) break end
@@ -191,17 +180,16 @@ local function Opened(window)
     order[#order + 1] = window
 end
 ns.WindowOpened = Opened
--- Läuft die Unterhaltung dieser Art noch? Blizzards geparkter Rahmen allein reicht nicht: schließt
--- Esc ihn zuerst, bliebe die Unterhaltung im Spiel offen und der NPC reagierte nicht mehr auf
--- Klicks (Benny 2026-11-06). Fragt nur nach der eigenen Art – eine neue Unterhaltung anderer Art
--- (Wechsel zum nächsten NPC) bleibt unberührt.
+-- Is an interaction of this kind still running? The parked frame alone is not enough: if Esc closed
+-- it first, the interaction stays open in-game and the NPC stops responding to clicks. Only checks
+-- its own kind, so a new interaction of another kind (next NPC) is left alone.
 function ns.StillInteracting(kind, frame)
     if frame and frame:IsShown() then return true end
     local id = Enum.PlayerInteractionType and Enum.PlayerInteractionType[kind]
     return id ~= nil and C_PlayerInteractionManager and C_PlayerInteractionManager.IsInteractingWithNpcOfType(id) or false
 end
 
--- Blizzard-Fenster geht auf: unsere offenen (nicht selbst gezogenen) Fenster neu einordnen
+-- A Blizzard panel opened: re-place our open (not user-moved) windows
 hooksecurefunc("ShowUIPanel", function()
     C_Timer.After(0, function()
         for _, window in ipairs(order) do
@@ -210,12 +198,11 @@ hooksecurefunc("ShowUIPanel", function()
     end)
 end)
 
--- Pergament-Panel als Hintergrund für den ganzen Inhalt eines Fensters (Quest, Gespräch): wie ein
--- Brief – Text, Ziele, Belohnungen und Optionen stehen darauf (Benny 2026-11-06: „find ich toll“).
--- Gibt das Panel zurück; Inhalt mit 20/18 px Innenabstand hineinsetzen.
-ns.PARCHMENT_CARD = { 0, 0, 0, 0.35 }       -- Karten/Optionen auf dem Pergament
+-- Parchment panel as background for a window's whole content (quest, gossip), like a letter.
+-- Returns the panel; place content with 20/18 px inner padding.
+ns.PARCHMENT_CARD = { 0, 0, 0, 0.35 }       -- cards/options on parchment
 ns.PARCHMENT_CARD_HOVER = { 0, 0, 0, 0.55 }
-ns.PARCHMENT_TEXT = { 0.94, 0.9, 0.82 }     -- warmes Weiß
+ns.PARCHMENT_TEXT = { 0.94, 0.9, 0.82 }     -- warm white
 function ns.CreateParchmentPanel(parent)
     local panel = CreateFrame("Frame", nil, parent)
     local base = panel:CreateTexture(nil, "BACKGROUND", nil, -8)
@@ -224,13 +211,13 @@ function ns.CreateParchmentPanel(parent)
     local art = panel:CreateTexture(nil, "BACKGROUND", nil, -7)
     art:SetAllPoints()
     if not art:SetAtlas("QuestBG-Parchment") then art:SetColorTexture(0.6, 0.47, 0.32, 1) end
-    art:SetVertexColor(0.3, 0.26, 0.22) -- dunkel, warm
+    art:SetVertexColor(0.3, 0.26, 0.22) -- dark, warm
     ns.AddBorder(panel)
     for _, edge in ipairs(ns.AddBorder(panel, true)) do edge:SetVertexColor(1, 0.86, 0.63, 0.07) end
     return panel
 end
 
--- Fenster mit Fläche, Kante, NPC-Kopfzeile und Schließen. key = Name des Fensters (layoutFrames).
+-- Window with background, accent edge, NPC header and close button. key = layoutFrames name.
 function ns.CreateNpcWindow(name, width, height, key, onClose)
     local UI = ns.UI
     local window = CreateFrame("Frame", name, UIParent)
@@ -246,9 +233,9 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     accent:SetPoint("TOPLEFT")
     accent:SetPoint("TOPRIGHT")
     accent:SetHeight(2 * ns.PixelSize())
-    tinsert(UISpecialFrames, name) -- Esc schließt
+    tinsert(UISpecialFrames, name) -- Esc closes
 
-    -- Kopfzeile: Fläche zum Ziehen, darauf Porträt, Name, Titel und Schließen
+    -- Header: drag region holding portrait, name, title and close
     local header = CreateFrame("Frame", nil, window)
     header:SetPoint("TOPLEFT")
     header:SetPoint("TOPRIGHT")
@@ -269,7 +256,7 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     fallback:Hide()
 
     window.npcName = UI.Text(header, 16, "LEFT")
-    ns.SetFont(window.npcName, 16, "", "bold") -- Fenstertitel (NPC, Gilde …): mUI Bold
+    ns.SetFont(window.npcName, 16, "", "bold") -- window title (NPC, guild, ...): mUI Bold
     window.npcName:SetPoint("TOPLEFT", holder, "TOPRIGHT", 14, -6)
     window.npcName:SetPoint("RIGHT", header, "RIGHT", -PAD - 36, 0)
     window.npcTitle = UI.Text(header, 12, "LEFT", UI.MUTED)
@@ -280,8 +267,8 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     close:SetPoint("TOPRIGHT", -PAD, -PAD)
     window.close = close
 
-    -- NPC zeigen: 3D-Porträt, sonst sein 2D-Porträt (z. B. Gegenstände, Schilder)
-    -- icon: festes Bild statt Porträt (z. B. Briefkasten)
+    -- Show the NPC: 3D portrait, else 2D portrait (e.g. objects, signs).
+    -- icon: fixed image instead of a portrait (e.g. mailbox)
     function window:SetNpc(unit, nameText, titleText, icon)
         if icon then
             model:Hide()
@@ -292,7 +279,7 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
             return
         end
         unit = unit or "npc"
-        -- kennt das Spiel den NPC gerade nicht (Wechsel Gespräch > Lehrer), den zuletzt gezeigten nehmen
+        -- If the unit is gone right now (gossip -> trainer switch), reuse the last shown NPC
         if UnitExists(unit) then
             ns.lastNpc = { name = UnitName(unit), title = ns.NpcTitle(unit) }
         elseif ns.lastNpc then
@@ -326,7 +313,7 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
         ns.ResetWindowPosition(window, key)
     end
     window:HookScript("OnShow", function(self)
-        -- eigener fester Platz (z. B. Addon-Liste mittig): nicht in die Reihe der Fenster einordnen
+        -- Own fixed spot (e.g. centered addon list): skip the window row placement
         if self.ownPoint then
             self:ClearAllPoints()
             self:SetPoint(unpack(self.ownPoint))

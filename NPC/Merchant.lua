@@ -1,20 +1,7 @@
--- Händler (WoW Forever): eigenes Fenster im Taschen-Look statt Blizzards Händlerfenster (Benny
--- 2026-11-06, Entwurf: „beides toll“).
---
---   ┌ Händler  Rückkauf ─────────────── Brannol Eaglemoon [x] ┐
---   │                                            Tuchmacher    │
---   │ [Suche ..............................................]   │
---   │ [▣ Gestrickte Tunika      2s 80c] [▣ Gestr. Gürtel 1s 45c] │  ← Karten, 2 Spalten, Liste scrollt
---   │ [  Stoff · Brust · Stufe 5      ] [  Stoff · Taille       ] │
---   │ ───────────────────────────────────────────────────────── │
---   │ [⚒ Alles reparieren 1s 20c] [▢ Ramsch verkaufen 3]   15s 17c │
---   └───────────────────────────────────────────────────────────┘
---
--- Bedienung wie bei Blizzard: Rechtsklick kauft, Linksklick nimmt auf (in die Tasche ziehen kauft),
--- Shift+Klick: Menge wählen, Strg+Klick: Anprobe, Item aufs Fenster ziehen verkauft es.
--- Blizzards Fenster ist unsichtbar geparkt (wie die Bank): Blizzard prüft beim Öffnen nur IsShown,
--- sein OnShow/OnHide feuern unsichtbar nicht – Schließen (CloseMerchant) übernimmt unser Fenster.
--- Teure Items und Items gegen Währung: Blizzards eigene Bestätigungsdialoge.
+-- Merchant (WoW Forever): bag-styled window replacing Blizzard's MerchantFrame; item cards in two
+-- scrolling columns, footer with repair all / sell junk / gold. Controls match Blizzard: right-click
+-- buys, left-click picks up, shift-click picks a quantity, ctrl-click dresses up, dropping an item sells.
+-- MerchantFrame is parked invisibly (OnShow/OnHide do not fire), so our window calls CloseMerchant.
 local _, ns = ...
 local L = ns.L
 
@@ -31,7 +18,7 @@ hidden:Hide()
 local window, list, searchBox, gold, repairButton, junkButton, emptyText
 local tabs = {}
 local cards = {}
-local view = "shop" -- "shop" oder "buyback"
+local view = "shop" -- "shop" or "buyback"
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.merchantWindow ~= false and ns.db.bags ~= false
@@ -45,7 +32,7 @@ local function QualityColor(quality)
     return 1, 1, 1
 end
 
--- graue Zeile unter dem Namen: „Stoff · Brust · Stufe 5“ bzw. „Handwerkswaren · 5 Stück“
+-- Grey line under the name, e.g. "Cloth - Chest - Level 5" or "Trade Goods - 5 per purchase"
 local function SubLine(link, stackCount)
     if not link then return "" end
     local _, itemType, subType, equipLoc, _, classID = C_Item.GetItemInfoInstant(link)
@@ -63,7 +50,7 @@ local function SubLine(link, stackCount)
     return table.concat(parts, " · ")
 end
 
--- Preis: Gold/Silber/Kupfer mit Blizzards Münzen, bei Währungs-Items deren Symbole
+-- Price as coin string, plus currency icons for extended-cost items
 local function PriceText(index, price, extended)
     local text = ""
     if price and price > 0 then text = GetMoneyString(price, true) end
@@ -78,9 +65,9 @@ local function PriceText(index, price, extended)
     return text
 end
 
--- Karte ------------------------------------------------------------------------------------------
+-- Card -------------------------------------------------------------------------------------------
 
--- Mauszeiger wie bei Blizzard: Kaufen (rot, wenn zu teuer), Rückkauf, mit Strg Anprobieren
+-- Cursor like Blizzard: buy (red if unaffordable), buyback, dress-up with ctrl
 local function UpdateCursor(card)
     if not card.index then return end
     if IsModifiedClick("DRESSUP") then
@@ -104,7 +91,7 @@ local function CardEnter(card)
     end
     GameTooltip:Show()
     UpdateCursor(card)
-    card:SetScript("OnUpdate", UpdateCursor) -- Strg/Gold ändern sich, solange die Maus drauf ist
+    card:SetScript("OnUpdate", UpdateCursor) -- modifier/gold can change while hovering
 end
 
 local function CardLeave(card)
@@ -141,11 +128,11 @@ local function CardClick(card, button)
     if button == "RightButton" then
         Buy(card)
     else
-        PickupMerchantItem(card.index) -- in die Tasche ziehen kauft (wie bei Blizzard)
+        PickupMerchantItem(card.index) -- dropping into a bag buys (like Blizzard)
     end
 end
 
--- Item aufs Fenster oder eine Karte ziehen: verkaufen
+-- Dropping an item on the window or a card sells it
 local function SellCursorItem()
     if CursorHasItem() then PickupMerchantItem(0) end
 end
@@ -192,11 +179,11 @@ local function Card(i)
         if view == "shop" and self.index then PickupMerchantItem(self.index) end
     end)
     card:SetScript("OnReceiveDrag", SellCursorItem)
-    -- Shift+Klick: Blizzards Mengen-Fenster ruft SplitStack auf
+    -- Shift-click: Blizzard's StackSplitFrame calls SplitStack
     card.SplitStack = function(self, amount)
         if amount and amount > 0 then Buy(self, amount) end
     end
-    card.GetID = function(self) return self.index end -- für Blizzards Bestätigungsdialoge
+    card.GetID = function(self) return self.index end -- needed by Blizzard's confirmation dialogs
     cards[i] = card
     return card
 end
@@ -208,7 +195,7 @@ local function Fill(card, entry)
     card.extended = entry.extended
     card.count = entry.count or 1
     card.icon:SetTexture(entry.texture)
-    -- nicht nutzbar: Symbol rot wie bei Blizzard
+    -- Unusable: red icon like Blizzard
     if entry.usable == false then card.icon:SetVertexColor(1, 0.25, 0.25) else card.icon:SetVertexColor(1, 1, 1) end
     card.countText:SetText(card.count > 1 and card.count or "")
     local r, g, b = QualityColor(entry.quality)
@@ -221,7 +208,7 @@ local function Fill(card, entry)
     if entry.tooExpensive then card.priceText:SetTextColor(1, 0.3, 0.3) else card.priceText:SetTextColor(unpack(ns.UI.TEXT)) end
 end
 
--- Aufbau -----------------------------------------------------------------------------------------
+-- Build -------------------------------------------------------------------------------------------
 
 local function ShopEntries(query)
     local entries = {}
@@ -269,7 +256,7 @@ local function UpdateFooter()
     local cost, canRepair = GetRepairAllCost()
     local repairable = CanMerchantRepair() and canRepair and cost and cost > 0
     repairButton:SetShown(CanMerchantRepair())
-    -- ohne Reparieren rückt „Ramsch verkaufen“ nach links
+    -- Without repair, "Sell junk" moves left
     junkButton:ClearAllPoints()
     if repairButton:IsShown() then
         junkButton:SetPoint("LEFT", repairButton, "RIGHT", 8, 0)
@@ -331,7 +318,7 @@ local function Refresh()
     end)
 end
 
--- Fuß-Knopf mit Symbol, Beschriftung und Zusatz (Kosten/Anzahl) wie im Entwurf
+-- Footer button with icon, label and extra text (cost/count)
 local function FooterButton(icon, label, onClick)
     local UI = ns.UI
     local button = CreateFrame("Button", nil, window)
@@ -360,14 +347,14 @@ end
 
 local function CreateWindow()
     local UI = ns.UI
-    -- gemeinsame NPC-Kopfzeile (NPC/NpcWindow.lua): Porträt, Name, Titel, X, frei ziehbar
+    -- Shared NPC header (NPC/NpcWindow.lua): portrait, name, title, close, draggable
     window = ns.CreateNpcWindow("MeredanUIMerchant", WIDTH, ns.NPC_HEIGHT, "merchant")
     ns.WatchBlizzardFrame(window, function() return MerchantFrame end)
-    -- Item aufs Fenster ziehen: verkaufen (wie bei Blizzard)
+    -- Dropping an item on the window sells it (like Blizzard)
     window:SetScript("OnReceiveDrag", SellCursorItem)
     window:SetScript("OnMouseUp", SellCursorItem)
 
-    -- Reiter unter der Kopfzeile
+    -- Tabs below the header
     local previous
     for _, entry in ipairs({ { "shop", MERCHANT or L["Merchant"] }, { "buyback", BUYBACK or L["Buyback"] } }) do
         local key, label = entry[1], entry[2]
@@ -410,21 +397,21 @@ local function CreateWindow()
         Layout()
     end)
 
-    -- Liste (scrollt; Leiste rechts außerhalb der Karten)
+    -- Scrolling list (scrollbar outside the cards)
     list = UI.ScrollArea(window)
     list:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, -14)
     list:SetPoint("BOTTOMRIGHT", window, "BOTTOMRIGHT", -PAD, 64)
     emptyText = UI.Text(window, 13, "CENTER", UI.MUTED)
     emptyText:SetPoint("TOP", list, "TOP", 0, -40)
 
-    -- Fuß: Trennlinie, Reparieren, Ramsch, Gold
+    -- Footer: divider, repair, junk, gold
     local line = window:CreateTexture(nil, "BORDER")
     line:SetColorTexture(1, 1, 1, 0.07)
     line:SetHeight(ns.PixelSize())
     line:SetPoint("BOTTOMLEFT", PAD, 52)
     line:SetPoint("BOTTOMRIGHT", -PAD, 52)
     repairButton = FooterButton(REPAIR_ICON, L["Repair all"], function()
-        -- Gildenbank zuerst, wenn erlaubt (wie das automatische Reparieren der Taschen)
+        -- Guild bank first if allowed (same as the bags' auto repair)
         local cost = GetRepairAllCost()
         local useGuild = IsInGuild() and CanGuildBankRepair() and GetGuildBankWithdrawMoney() >= cost
         RepairAllItems(useGuild)
@@ -443,7 +430,7 @@ local function CreateWindow()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
         list:ScrollToTop()
         Layout()
-        OpenAllBags(window) -- Taschen gehen mit auf, wie bei Blizzard
+        OpenAllBags(window) -- bags open along, like Blizzard
     end)
     window:HookScript("OnHide", function()
         searchBox:SetText("")
@@ -451,8 +438,8 @@ local function CreateWindow()
         StackSplitFrame:Hide()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
         CloseAllBags(window)
-        -- Fenster zu = Händler zu – aber nur, wenn die Händler-Unterhaltung noch läuft; hat das Spiel
-        -- sie schon beendet (Wechsel zum nächsten NPC), würde CloseMerchant die NEUE beenden
+        -- Only close if our merchant interaction is still running; after switching to the next NPC,
+        -- CloseMerchant would end the NEW interaction
         if ns.StillInteracting("Merchant", MerchantFrame) then CloseMerchant() end
     end)
 end
@@ -460,7 +447,7 @@ end
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not MerchantFrame then return end
     CreateWindow()
-    -- Blizzards Fenster unsichtbar parken (IsShown bleibt – Blizzard schließt sonst gleich wieder)
+    -- Park Blizzard's frame invisibly (IsShown must stay true or Blizzard closes the merchant)
     MerchantFrame:SetParent(hidden)
 
     ns:On("MERCHANT_SHOW", function()

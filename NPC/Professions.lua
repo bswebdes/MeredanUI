@@ -1,22 +1,9 @@
--- Berufsfenster (WoW Forever): eigenes Fenster statt Blizzards ProfessionsFrame
--- (Entwurf „Berufe“, Benny 2026-11-06: „stark“).
---
---   ┌ [▣] Kochkunst                                       [x] ┐ [Ü]  ← Reiter rechts: Übersicht und
---   │     Lehrling                                             │ [L]    alle Berufe (Angeln ohne
---   │ [■■■■□□□□ 33 / 75]                          [Filter ˅] │ [K]    Rezepte: blass)
---   │ [Rezepte durchsuchen]   │ [Banner: Blizzards Berufsbild]   │ …
---   │ FAVORITEN               │ [▣] Gewürztes Wolfsfleisch  ★   │
---   │ [▣ Gewürztes Wolf… [3]] │ Benötigt: Kochfeuer             │
---   │ FLEISCH …               │ Beschreibung · Reagenzien 3/1   │
---   │                         │ [Alle erstellen (3)] [−][1][+] [Erstellen] │
---
--- Startseite (Reiter „Übersicht“, Taste K ohne offenen Beruf): Haupt- und Nebenberufe als Karten
--- mit Rangleiste, Zauberknöpfen (sichere Knöpfe: Angeln, Sonnen …) und „Verlernen“.
---
--- Technik: Blizzards ProfessionsFrame wird beim Laden unsichtbar geparkt (prüft nur IsShown, wie
--- Händler/Lehrer). Taste K und der Mikroknopf öffnen direkt unser Fenster (Override-Belegung) –
--- Blizzards Fenster wird nie per Code geöffnet/geschlossen (HideUIPanel verseucht). Rezepte über
--- C_TradeSkillUI (nicht geschützt); Berufswechsel per OpenTradeSkill(skillLine).
+-- Professions window (WoW Forever): replaces Blizzard's ProfessionsFrame. Recipe page (list, details,
+-- craft) plus an overview page (key K without an open profession) with profession cards, rank bars,
+-- secure spell buttons and unlearn. Side tabs on the right: overview and each profession.
+-- ProfessionsFrame is parked invisibly on load. K and the micro button open our window via override
+-- binding; Blizzard's frame is never shown/hidden from code (HideUIPanel taints). Recipes come from
+-- C_TradeSkillUI (not protected); switching professions uses OpenTradeSkill(skillLine).
 local _, ns = ...
 local L = ns.L
 
@@ -30,13 +17,12 @@ local DIFFICULTY = { -- Enum.TradeskillRelativeDifficulty: Optimal, Medium, Easy
 }
 local DIFFICULTY_HINT = { [0] = "Sure skill point", [1] = "Usually a skill point", [2] = "Rarely a skill point", [3] = "No skill point" }
 
--- Blizzards Pfeile für Fertigkeitspunkte (wie im Original-Berufsfenster): orange 3, gelb 2, grün 1
+-- Blizzard's skill-up arrows (as in the original frame): orange 3, yellow 2, green 1
 local SKILL_ATLAS = { [0] = "Professions-Icon-Skill-High", [1] = "Professions-Icon-Skill-Medium", [2] = "Professions-Icon-Skill-Low" }
 
--- Rangleiste: mUI-Rahmen (flach, 1 px) und unsere Schrift, darin Blizzards Füllung aus dem
--- Forever-Berufsbuch (ProfessionsRankBarTemplate: Flipbook-Bild je Beruf, kurze Animation,
--- heller Lichtpunkt an der Spitze) – Benny 2026-11-07: „nur die Textur, nicht den Border“.
--- Von der Vorlage bleiben Füllung, Maske und Lichtpunkt; Rahmen, Hintergrund und Text blenden wir aus.
+-- Rank bar: flat 1 px mUI frame and our font around Blizzard's fill from ProfessionsRankBarTemplate
+-- (per-profession flipbook, short animation, flare at the tip). Only fill and flare are kept; the
+-- template's border, background and text are hidden.
 local function CreateRankBar(parent, width, height)
     local UI = ns.UI
     height = height or 16
@@ -46,7 +32,7 @@ local function CreateRankBar(parent, width, height)
     UI.Box(holder, UI.FIELD)
     local ok, bar = pcall(CreateFrame, "Frame", nil, holder, "ProfessionsRankBarTemplate")
     if ok and bar then
-        bar.ownerManagesEvents = true -- wir rufen Update selbst auf
+        bar.ownerManagesEvents = true -- we call Update ourselves
         bar:SetAllPoints(holder)
         bar:SetFrameStrata(holder:GetFrameStrata())
         bar:SetFrameLevel(holder:GetFrameLevel() + 1)
@@ -54,9 +40,9 @@ local function CreateRankBar(parent, width, height)
         bar.Background:SetAlpha(0)
         bar.Rank:Hide()
         if bar.ExpansionDropdownButton then bar.ExpansionDropdownButton:Hide() end
-        -- Blizzards Maske ist für ihre 18-px-Leiste gemacht und lässt bei uns nur einen Strich durch.
-        -- Stattdessen: Füllung und Lichtpunkt in einen Ausschnitt-Rahmen, dessen Breite der
-        -- Maskenbreite folgt (inkl. Blizzards weicher Animation beim Fortschritt).
+        -- Blizzard's mask is made for its 18 px bar and only lets a sliver through at our size. Instead,
+        -- fill and flare go into a clipping frame whose width follows the mask width (keeping the
+        -- smooth progress animation).
         local clip = CreateFrame("Frame", nil, holder)
         clip:SetPoint("TOPLEFT", 1, -1)
         clip:SetPoint("BOTTOMLEFT", 1, 1)
@@ -64,8 +50,8 @@ local function CreateRankBar(parent, width, height)
         clip:SetClipsChildren(true)
         clip:SetFrameLevel(holder:GetFrameLevel() + 2)
         local inner = CreateFrame("Frame", nil, clip)
-        -- Blizzards Füllung hat leicht abgerundete Ecken: 2 px größer als der Ausschnitt (oben,
-        -- unten, links), die Rundung liegt so außerhalb und wird abgeschnitten (Benny 2026-11-07)
+        -- The fill has slightly rounded corners: make it 2 px larger than the clip so the rounding
+        -- gets cut off
         inner:SetPoint("TOPLEFT", holder, "TOPLEFT", -1, 1)
         inner:SetPoint("BOTTOMRIGHT", holder, "BOTTOMRIGHT", 1, -1)
         for _, texture in ipairs({ bar.Fill, bar.Flare }) do
@@ -78,7 +64,7 @@ local function CreateRankBar(parent, width, height)
         bar.Flare:SetPoint("RIGHT", clip, "RIGHT", 0, 0)
         bar.Flare:SetHeight(height - 2)
         bar.Mask:Hide()
-        bar.overrideMaskRightOffset = -2 -- Innenrand unseres Rahmens
+        bar.overrideMaskRightOffset = -2 -- inner edge of our frame
         hooksecurefunc(bar.Mask, "SetWidth", function(_, w) clip:SetWidth(math.max(w or 0, 0.01)) end)
         holder.bar = bar
     else
@@ -87,7 +73,7 @@ local function CreateRankBar(parent, width, height)
         holder.fill:SetPoint("BOTTOMLEFT", 1, 1)
         holder.fill:SetColorTexture(unpack(SKILL_BLUE))
     end
-    -- Text über der Füllung
+    -- Text above the fill
     local overlay = CreateFrame("Frame", nil, holder)
     overlay:SetAllPoints()
     overlay:SetFrameLevel(holder:GetFrameLevel() + 5)
@@ -122,12 +108,12 @@ local function CreateRankBar(parent, width, height)
         self.text:SetText(data.skillLevel .. " / " .. data.maxSkillLevel)
         Apply(self)
     end
-    -- neue Breite: Maske neu berechnen
+    -- New width: recompute the mask
     holder:SetScript("OnSizeChanged", function(self) Apply(self, true) end)
     return holder
 end
 
--- Vergleich mit Ausgerüstetem wie bei Blizzard (Shift bzw. „immer vergleichen“)
+-- Compare with equipped gear like Blizzard (shift or "always compare")
 local function ShowCompare(tooltip)
     if IsModifiedClick("COMPAREITEMS") or C_CVar.GetCVarBool("alwaysCompareItems") then
         if GameTooltip_ShowCompareItem then GameTooltip_ShowCompareItem(tooltip) end
@@ -140,9 +126,9 @@ local hidden = CreateFrame("Frame")
 hidden:Hide()
 
 local window, tabs = nil, {}
-local mode                 -- "overview" oder "recipes"
-local tradeOpen            -- Blizzard hat einen Beruf offen (TRADE_SKILL_SHOW … CLOSE)
-local keepWindow           -- Wechsel Rezepte > Übersicht: Schließen des Berufs soll das Fenster nicht zumachen
+local mode                 -- "overview" or "recipes"
+local tradeOpen            -- Blizzard has a profession open (TRADE_SKILL_SHOW ... CLOSE)
+local keepWindow           -- recipes -> overview switch: closing the trade skill must not close the window
 local selectedID, amount = nil, 1
 local recipe, overview = {}, {}
 local rows, headers, collapsed = {}, {}, {}
@@ -154,10 +140,10 @@ end
 
 local function Has(name) return C_TradeSkillUI[name] ~= nil end
 
--- Berufe des Charakters -------------------------------------------------------------------------
+-- Character professions -------------------------------------------------------------------------
 
--- Haupt- und Nebenberufe in Anzeige-Reihenfolge; spellID des Berufs (erster Zauber) für die Prüfung,
--- ob er ein Rezeptfenster hat (Angeln nicht)
+-- Primary and secondary professions in display order; spellID is the spell that opens the recipe
+-- window, if any (fishing has none)
 local function Professions()
     local prof1, prof2, faid, fish, cook = GetProfessions()
     local list = {}
@@ -171,8 +157,8 @@ local function Professions()
             if info and info.maxSkillLevel and info.maxSkillLevel > 0 then
                 entry.rank, entry.maxRank = info.skillLevel, info.maxSkillLevel
             end
-            -- Rezepte hat der Beruf, wenn einer seiner Zauber das Rezeptfenster öffnet (Kürschnerei:
-            -- erst „Sonnen“, dann „Kürschnerei“ – nicht immer der erste)
+            -- Has recipes if any of its spells opens the crafting UI (skinning lists "Skinning" and the
+            -- recipe spell - not always the first)
             entry.hasRecipes = false
             for i = 1, numSpells or 0 do
                 local item = C_SpellBook.GetSpellBookItemInfo(spellOffset + i, Enum.SpellBookSpellBank.Player)
@@ -202,7 +188,7 @@ local function OpenProfession(entry)
     C_TradeSkillUI.OpenTradeSkill(entry.skillLine)
 end
 
--- Rezeptdaten -----------------------------------------------------------------------------------
+-- Recipe data -----------------------------------------------------------------------------------
 
 local function CurrentProfession()
     local info = C_TradeSkillUI.GetBaseProfessionInfo and C_TradeSkillUI.GetBaseProfessionInfo()
@@ -212,7 +198,7 @@ local function CurrentProfession()
     for _, entry in ipairs(Professions()) do
         if entry.name == info.professionName or entry.skillLine == info.profession then
             entryIcon, skillLine = entry.icon, entry.skillLine
-            if maxRank == 0 then rank, maxRank = entry.rank, entry.maxRank end -- Forever liefert teils 0/0
+            if maxRank == 0 then rank, maxRank = entry.rank, entry.maxRank end -- Forever sometimes returns 0/0
         end
     end
     return { name = info.professionName or "", rank = rank, maxRank = maxRank, icon = entryIcon, skillLine = skillLine }
@@ -221,7 +207,7 @@ end
 local function CategoryName(id)
     local info = id and C_TradeSkillUI.GetCategoryInfo(id)
     if not info then return "", 0 end
-    -- bis zur obersten benannten Kategorie (Blizzard zeigt die Kategorie direkt über dem Rezept)
+    -- Category directly above the recipe, as Blizzard shows it
     return info.name or "", info.uiOrder or 0
 end
 
@@ -261,14 +247,14 @@ local function Reagents(id)
         if reagent and reagent.itemID and basic and slot.required ~= false then
             local itemID = reagent.itemID
             list[#list + 1] = { itemID = itemID, need = slot.quantityRequired or 1,
-                have = C_Item.GetItemCount(itemID, false) or 0, -- nur Taschen (Benny 2026-11-06)
+                have = C_Item.GetItemCount(itemID, false) or 0, -- bags only
                 name = C_Item.GetItemNameByID(itemID), icon = C_Item.GetItemIconByID(itemID) }
         end
     end
     return list
 end
 
--- Rezeptliste -----------------------------------------------------------------------------------
+-- Recipe list -----------------------------------------------------------------------------------
 
 local function Row(i)
     if rows[i] then return rows[i] end
@@ -311,7 +297,7 @@ local function Row(i)
             if link and ChatFrameUtil and ChatFrameUtil.InsertLink then ChatFrameUtil.InsertLink(link) end
             return
         end
-        if button == "RightButton" then -- Favorit an/aus
+        if button == "RightButton" then -- toggle favorite
             C_TradeSkillUI.SetRecipeFavorite(id, not self.entry.info.favorite)
             return
         end
@@ -403,15 +389,15 @@ local function UpdateDetail(entry)
     d.name:SetText(info.name or "")
     local color = DIFFICULTY[info.relativeDifficulty or 3] or UI.TEXT
     d.name:SetTextColor(unpack(color))
-    -- gesperrt (z. B. Fertigkeit zu niedrig): Blizzards Grund statt „Kein Fertigkeitspunkt mehr“
-    -- (Benny 2026-11-08: Dunkle Lederstiefel bei Fertigkeit 40 sahen „fertig“ aus)
+    -- Disabled (e.g. skill too low): show Blizzard's reason instead of the difficulty hint, which
+    -- would read like "no skill point" for a recipe that is actually locked
     if info.disabled then
         d.hint:SetText("|cffff5050" .. (info.disabledReason or L["Not available yet"]) .. "|r")
     else
         d.hint:SetText(info.relativeDifficulty and L[DIFFICULTY_HINT[info.relativeDifficulty]] or "")
     end
     d.star:SetTextColor(unpack(info.favorite and { 1, 0.82, 0 } or UI.MUTED))
-    -- Voraussetzungen (Ort, Werkzeug) und Abklingzeit
+    -- Requirements (location, tool) and cooldown
     local parts, missing = {}, false
     for _, req in ipairs(Has("GetRecipeRequirements") and C_TradeSkillUI.GetRecipeRequirements(id) or {}) do
         parts[#parts + 1] = (req.met and "|cffe8e6de" or "|cffff5050") .. (req.name or "") .. "|r"
@@ -425,7 +411,7 @@ local function UpdateDetail(entry)
     d.require:SetText(text)
     local description = Has("GetRecipeDescription") and C_TradeSkillUI.GetRecipeDescription(id, {}) or ""
     d.desc:SetText(description or "")
-    -- Reagenzien in zwei Spalten
+    -- Reagents in two columns
     local mats = Reagents(id)
     local colW = (d.detail:GetWidth() - 32 - 6) / 2
     for i, mat in ipairs(mats) do
@@ -446,7 +432,7 @@ local function UpdateDetail(entry)
     end
     for i = #mats + 1, #d.mats do d.mats[i]:Hide() end
     d.matsLabel:SetShown(#mats > 0)
-    -- Verfolgen, Menge, Erstellen
+    -- Track, amount, create
     local tracked = Has("IsRecipeTracked") and C_TradeSkillUI.IsRecipeTracked(id, false)
     d.trackTick:SetShown(tracked and true or false)
     d.track:SetShown(Has("SetRecipeTracked") and #mats > 0 and not info.isGatheringRecipe)
@@ -471,20 +457,19 @@ local function Craft(count)
     C_TradeSkillUI.CraftRecipe(entry.id, count)
 end
 
--- Startseite ------------------------------------------------------------------------------------
+-- Overview --------------------------------------------------------------------------------------
 
--- Zauberknopf (sicher: Angeln, Sonnen, Köder und Angelzubehör …) – Attribute nur außerhalb des Kampfs
--- Zauberkarte wie im mUI-Zauberbuch: Symbol, Name, darunter grau, was der Zauber tut; lässt sich
--- auf die Aktionsleiste ziehen (Benny 2026-11-07: „Mini-Knopf ist nicht gut“)
+-- Secure spell card (fishing, skinning, lures, ...) like the mUI spellbook: icon, name, grey subline;
+-- draggable to action bars. Attributes may only be set out of combat.
 local SPELL_CARD_H = 48
 local function SpellButton(parent, i)
     parent.spells = parent.spells or {}
     if parent.spells[i] then return parent.spells[i] end
     local UI = ns.UI
-    -- eigene Ebene (UIParent), damit das Fenster selbst nicht „geschützt“ wird
+    -- Separate layer (UIParent child) so the window itself does not become protected
     local button = CreateFrame("Button", nil, overview.spellLayer, "SecureActionButtonTemplate")
-    -- beide Richtungen: mit „Aktionstasten beim Drücken“ (Standard) wirkt der sichere Knopf nur beim
-    -- Drücken – nur „AnyUp“ hieß: Klick tut gar nichts (Benny 2026-11-07)
+    -- Register both: with "cast on key down" (default) secure buttons only fire on down; "AnyUp"
+    -- alone makes clicks do nothing
     button:RegisterForClicks("AnyUp", "AnyDown")
     button:RegisterForDrag("LeftButton")
     button:SetScript("OnDragStart", function(self)
@@ -526,9 +511,8 @@ local function SpellButton(parent, i)
     return button
 end
 
--- Berufsbild füllt die Karte: eigener Rahmen und runde Ecken der Blizzard-Grafik abgeschnitten
--- (INSET px rundum), Rest auf das Seitenverhältnis der Karte zugeschnitten statt verzerrt
--- (Benny 2026-11-08: kein „Kasten im Kasten“)
+-- Profession art fills the card: crop the atlas's own frame and rounded corners (ART_INSET px),
+-- then crop the rest to the card's aspect ratio instead of stretching
 local ART_INSET = 12
 local function FillArt(tex, atlas)
     local info = atlas and C_Texture.GetAtlasInfo(atlas)
@@ -538,13 +522,13 @@ local function FillArt(tex, atlas)
         return
     end
     local l, r, t, b = info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord
-    local du, dv = (r - l) / info.width, (b - t) / info.height -- Texturkoordinaten je Bildpixel
+    local du, dv = (r - l) / info.width, (b - t) / info.height -- tex coords per image pixel
     l, r, t, b = l + ART_INSET * du, r - ART_INSET * du, t + ART_INSET * dv, b - ART_INSET * dv
     local artW, artH = info.width - 2 * ART_INSET, info.height - 2 * ART_INSET
-    if artW / artH > w / h then -- Bild breiter als Karte: links/rechts weiter kürzen
+    if artW / artH > w / h then -- image wider than card: crop left/right
         local cut = (artW - artH * w / h) / 2 * du
         l, r = l + cut, r - cut
-    else                         -- Bild höher: oben/unten kürzen
+    else                         -- image taller: crop top/bottom
         local cut = (artH - artW * h / w) / 2 * dv
         t, b = t + cut, b - cut
     end
@@ -559,7 +543,7 @@ local function Card(slot)
     UI.Box(card, { 0.078, 0.078, 0.086, 1 })
     card.art = card:CreateTexture(nil, "BACKGROUND", nil, 1)
     card.art:SetAllPoints()
-    card.art:SetVertexColor(0.6, 0.6, 0.6) -- Berufsbild sichtbar, aber gedämpft (Benny 2026-11-06)
+    card.art:SetVertexColor(0.6, 0.6, 0.6) -- art visible but dimmed
     card:SetScript("OnSizeChanged", function(self) if self.atlas then FillArt(self.art, self.atlas) end end)
     card.shade = card:CreateTexture(nil, "BACKGROUND", nil, 2)
     card.shade:SetAllPoints()
@@ -567,7 +551,7 @@ local function Card(slot)
     if primary then
         card.shade:SetGradient("HORIZONTAL", CreateColor(0.06, 0.06, 0.07, 0.9), CreateColor(0.06, 0.06, 0.07, 0.2))
     else
-        -- Motiv sitzt unten: oben dunkel (Text), unten hell
+        -- Motif sits at the bottom: dark top (text), lighter bottom
         card.shade:SetGradient("VERTICAL", CreateColor(0.06, 0.06, 0.07, 0.15), CreateColor(0.06, 0.06, 0.07, 0.85))
     end
     local holder = CreateFrame("Button", nil, card)
@@ -579,7 +563,7 @@ local function Card(slot)
     card.icon:SetAllPoints()
     card.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     holder:SetScript("OnClick", function() OpenProfession(card.entry) end)
-    -- Symbol ziehen = Rezept-Zauber des Berufs (z. B. „Sonnen“) auf die Aktionsleiste
+    -- Dragging the icon picks up the profession's recipe spell for the action bar
     holder:RegisterForDrag("LeftButton")
     holder:SetScript("OnDragStart", function()
         local entry = card.entry
@@ -588,7 +572,7 @@ local function Card(slot)
     holder:SetScript("OnEnter", function(self)
         if not (card.entry and card.entry.hasRecipes) then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        -- Rezept-Zauber heißt teils anders als der Beruf (Kürschnerei: „Sonnen“) – dann dazuschreiben
+        -- The recipe spell may be named differently from the profession - append it then
         local spellName = card.entry.spellID and C_Spell.GetSpellName(card.entry.spellID)
         local extra = spellName and spellName ~= card.entry.name and (" (" .. spellName .. ")") or ""
         GameTooltip:SetText(L["Open recipes"] .. extra, 1, 1, 1)
@@ -602,8 +586,7 @@ local function Card(slot)
     card.rankName = UI.Text(card, primary and 12 or 11, "LEFT", UI.MUTED)
     card.rankName:SetPoint("TOPLEFT", card.name, "BOTTOMLEFT", 0, -4)
     if primary then
-        -- wie Blizzard: oben der Berufsname, links darunter die Fähigkeiten untereinander
-        -- (Kürschnerei: „Sonnen“ = Rezepte, „Kürschnerei“ = Fähigkeit), rechts die Leiste
+        -- Like Blizzard: profession name on top, its spells stacked below on the left, bar on the right
         holder:Hide()
         card.name:ClearAllPoints()
         card.name:SetPoint("TOPLEFT", 14, -10)
@@ -622,7 +605,7 @@ local function Card(slot)
     if primary then
         card.bar:SetPoint("LEFT", card, "LEFT", 270, 6)
         card.bar:SetPoint("RIGHT", card, "RIGHT", -50, 0)
-        -- Verlernen: rotes X wie bei Blizzard (Benny 2026-11-06), auf Höhe der Rangleiste
+        -- Unlearn: red X like Blizzard, level with the rank bar
         local RED, RED_HOVER = { 0.9, 0.25, 0.25 }, { 1, 0.45, 0.45 }
         card.unlearn = CreateFrame("Button", nil, card)
         card.unlearn:SetSize(22, 22)
@@ -685,21 +668,21 @@ local function FillCard(card, entry)
     card.bar:SetValue(entry.rank)
     card.bar.text:SetText(entry.rank .. " / " .. entry.maxRank)
     if card.rankBar then
-        -- Original-Leiste über der schlichten (gleiche Lage und Breite)
+        -- Blizzard-style bar replaces the plain one (same position and width)
         card.bar:SetAlpha(0)
         card.rankBar:SetProfession({ name = entry.name, rank = entry.rank, maxRank = entry.maxRank, skillLine = entry.skillLine })
         card.rankBar:Show()
     end
-    -- Zauber des Berufs (ohne den Beruf selbst – den öffnet das Symbol), nur außerhalb des Kampfs setzen
+    -- Profession spells as cards (secure attributes: out of combat only). Secondary professions skip
+    -- the recipe spell, their icon opens it; primaries list it first.
     if InCombatLockdown() then return end
     ns.MirrorRect(overview.spellLayer, overview.frame)
-    -- Zauber des Berufs als Karten – ohne den Rezept-Zauber (den öffnet das Berufssymbol links)
     local spells = {}
     for i = 1, entry.numSpells do
         local item = C_SpellBook.GetSpellBookItemInfo(entry.spellOffset + i, Enum.SpellBookSpellBank.Player)
         if item and item.spellID and not item.isPassive then
             if item.spellID ~= entry.spellID then spells[#spells + 1] = item
-            elseif card.primary then table.insert(spells, 1, item) end -- Hauptberuf: Rezept-Zauber oben links
+            elseif card.primary then table.insert(spells, 1, item) end -- primary: recipe spell top left
         end
     end
     local shown = 0
@@ -711,8 +694,7 @@ local function FillCard(card, entry)
         button:SetAttribute("spell", item.spellID)
         button.icon:SetTexture(item.iconID)
         button.text:SetText(item.name or "")
-        -- Rang steht schon oben beim Beruf – hier nur sagen, dass es eine Fähigkeit ist (Benny 2026-11-07:
-        -- zweimal „Kürschnerei · Lehrling“ verwirrt)
+        -- Rank is already shown with the profession; just label it as an ability here
         local sub = item.spellID == entry.spellID and L["Open recipes"] or L["Ability"]
         button.sub:SetText(sub or "")
         button.text:ClearAllPoints()
@@ -726,17 +708,16 @@ local function FillCard(card, entry)
             button:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 12, 12 + (shown - 1) * (SPELL_CARD_H + 6))
             button:SetPoint("RIGHT", card, "RIGHT", -12, 0)
         end
-        -- Lage an der Karte ausrechnen, dann nur an der Ebene verankern (sonst wäre das Fenster geschützt)
+        -- Compute position from the card, then anchor only to the layer (else the window turns protected)
         ns.MirrorRect(button, button, overview.spellLayer)
         button:Show()
     end
     for i = shown + 1, #(card.spells or {}) do card.spells[i]:Hide() end
 end
 
--- Zauberknöpfe nur mit sichtbarer Startseite (außerhalb des Kampfs; im Kampf blendet der
--- Zustandstreiber die Ebene ohnehin aus)
--- Der Zustandstreiber („im Kampf aus“) läuft nur, solange die Startseite offen ist – sonst würde er
--- die Ebene beim Einloggen bzw. nach dem Kampf zeigen, auch ohne Fenster (Benny 2026-11-06)
+-- Spell layer is only shown with the overview visible. The "[combat] hide" state driver is only
+-- registered while the overview is open - otherwise it would show the layer on login or after
+-- combat even without the window.
 local function SyncSpellLayer()
     local layer = overview.spellLayer
     if not layer or InCombatLockdown() then return end
@@ -764,7 +745,7 @@ local function LayoutOverview()
         L["%d primary · %d secondary professions"]:format(primaries, secondaries), "Interface\\Icons\\INV_Misc_Book_09")
 end
 
--- Reiter rechts ---------------------------------------------------------------------------------
+-- Side tabs ------------------------------------------------------------------------------------
 
 local function Tab(i)
     if tabs[i] then return tabs[i] end
@@ -807,7 +788,7 @@ local function LayoutTabs(currentName)
     overviewTab.overview, overviewTab.label = true, L["Overview"]
     overviewTab.icon:SetTexture("Interface\\Icons\\INV_Misc_Book_09")
     for _, e in ipairs(overviewTab.active) do e:SetShown(mode == "overview") end
-    overviewTab.icon:SetDesaturated(mode ~= "overview") -- inaktive Reiter grau (wie überall)
+    overviewTab.icon:SetDesaturated(mode ~= "overview") -- inactive tabs grey
     local n = 1
     for _, entry in ipairs(Professions()) do
         if entry.name then
@@ -825,7 +806,7 @@ local function LayoutTabs(currentName)
     for i = n + 1, #tabs do tabs[i]:Hide() end
 end
 
--- Aufbau ----------------------------------------------------------------------------------------
+-- Build ------------------------------------------------------------------------------------------
 
 local function LayoutRecipes()
     local UI = ns.UI
@@ -866,7 +847,7 @@ local function LayoutRecipes()
                 row.name:SetTextColor(unpack(DIFFICULTY[info.relativeDifficulty or 3] or UI.TEXT))
                 local skillAtlas = info.canSkillUp ~= false and SKILL_ATLAS[info.relativeDifficulty or 3]
                 if info.disabled then
-                    -- gesperrt: Schloss wie bei Blizzard (UI-LFG-ICON-LOCK), Name gedämpft
+                    -- Disabled: lock icon like Blizzard, muted name
                     row.skill:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-LOCK")
                     row.name:SetTextColor(unpack(UI.MUTED))
                     skillAtlas = true
@@ -893,7 +874,7 @@ local function LayoutRecipes()
     for i = r + 1, #rows do rows[i]:Hide() end
     for i = h + 1, #headers do headers[i]:Hide() end
     recipe.list:SetContentHeight(y)
-    if not selected and first then -- erstes Rezept wählen
+    if not selected and first then -- select first recipe
         selected, selectedID = first, first.id
         for i = 1, r do rows[i].selected = rows[i].entry.id == selectedID end
         LayoutRecipes()
@@ -995,18 +976,18 @@ local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUIProfessions", WIDTH, ns.NPC_HEIGHT, "professions")
     window.Refresh = Refresh
-    window.extraRight = 46 -- Reiter rechts (40 + 6): Nachbarfenster rücken weiter weg
+    window.extraRight = 46 -- side tabs (40 + 6): neighbor windows keep clear
     ns.WatchBlizzardFrame(window, function()
-        -- nur solange ein Beruf offen ist: Blizzards (geparktes) Fenster gibt den Takt vor
+        -- Only while a profession is open does Blizzard's parked frame drive our lifetime
         return mode == "recipes" and tradeOpen and ProfessionsFrame or nil
     end)
     local top = ns.NPC_HEADER_BOTTOM + 16
 
-    -- Rezeptseite
+    -- Recipe page
     recipe.frame = CreateFrame("Frame", nil, window)
     recipe.frame:SetPoint("TOPLEFT", 0, -top)
     recipe.frame:SetPoint("BOTTOMRIGHT")
-    recipe.rankBar = CreateRankBar(recipe.frame, LIST_W, 16) -- so breit wie die Suche darunter
+    recipe.rankBar = CreateRankBar(recipe.frame, LIST_W, 16) -- as wide as the search box below
     recipe.rankBar:SetPoint("TOPLEFT", PAD, 0)
     recipe.bar = CreateFrame("StatusBar", nil, recipe.frame)
     recipe.bar:SetSize(LIST_W, 16)
@@ -1037,7 +1018,7 @@ local function CreateWindow()
     recipe.list:SetWidth(LIST_W - 8)
     recipe.list.child:SetWidth(LIST_W - 8)
 
-    -- Details rechts
+    -- Details on the right
     local panel = CreateFrame("Frame", nil, recipe.frame)
     panel:SetPoint("TOPLEFT", recipe.search, "TOPRIGHT", 14, 0)
     panel:SetPoint("BOTTOMRIGHT", -PAD, 46)
@@ -1120,7 +1101,7 @@ local function CreateWindow()
     d.matsLabel:SetPoint("TOPLEFT", d.desc, "BOTTOMLEFT", 0, -12)
     d.matsLabel:SetText(L["Reagents"])
     d.mats = {}
-    -- unten: Verfolgen, Alle erstellen, Menge, Erstellen
+    -- Bottom: track, create all, amount, create
     d.create = UI.Button(d.detail, "", function() Craft(amount) end, 110)
     d.create:SetHeight(30)
     d.create:SetPoint("BOTTOMRIGHT", -14, 14)
@@ -1171,14 +1152,14 @@ local function CreateWindow()
     footerHint:SetPoint("BOTTOMRIGHT", -PAD, 20)
     footerHint:SetText(L["Right-click: favorite · Shift-click: into chat"])
 
-    -- Startseite
+    -- Overview page
     overview.frame = CreateFrame("Frame", nil, window)
     overview.frame:SetPoint("TOPLEFT", PAD, -top)
     overview.frame:SetPoint("BOTTOMRIGHT", -PAD, 16)
     overview.cards = {}
     overview.spellLayer = CreateFrame("Frame", "MeredanUIProfessionSpells", UIParent, "SecureHandlerStateTemplate")
-    overview.spellLayer:SetFrameStrata("DIALOG") -- immer über dem Fenster, auch wenn es nach vorn geholt wird
-    ns.FollowFrame(overview.spellLayer, overview.frame) -- nicht SetAllPoints (Core.lua)
+    overview.spellLayer:SetFrameStrata("DIALOG") -- always above the window, even when raised
+    ns.FollowFrame(overview.spellLayer, overview.frame) -- not SetAllPoints (see Core.lua)
     overview.spellLayer:Hide()
     local primaryLabel = UI.Text(overview.frame, 12, "LEFT", UI.ACCENT)
     primaryLabel:SetPoint("TOPLEFT")
@@ -1216,7 +1197,7 @@ local function CreateWindow()
     end)
 end
 
--- Öffnen/Schließen ------------------------------------------------------------------------------
+-- Open/close -----------------------------------------------------------------------------------
 
 local function ShowOverview()
     if not window then CreateWindow() end
@@ -1224,8 +1205,8 @@ local function ShowOverview()
     if window:IsShown() then Refresh() else window:Show() end
 end
 
--- Die Startseite hat sichere Zauberknöpfe: damit gilt das Fenster als geschützt und lässt sich im
--- Kampf nicht öffnen/schließen – dann nach dem Kampf
+-- The overview has secure spell buttons, so the window counts as protected and cannot be shown or
+-- hidden in combat - defer until combat ends
 local function Blocked(fn)
     if InCombatLockdown() and window and window:IsProtected() then
         ns.AfterCombat(fn)
@@ -1246,11 +1227,11 @@ ns.ToggleProfessions = Toggle
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
-    -- Blizzards Fenster unsichtbar parken, sobald es geladen ist (lädt bei Bedarf)
+    -- Park Blizzard's frame invisibly once its load-on-demand addon loads
     EventUtil.ContinueOnAddOnLoaded("Blizzard_Professions", function()
         if ProfessionsFrame then ProfessionsFrame:SetParent(hidden) end
     end)
-    -- Taste K und der Mikroknopf: direkt unser Fenster (Startseite)
+    -- K and the micro button open our window directly (overview)
     local toggle = CreateFrame("Button", "MeredanUIProfessionsToggle", UIParent)
     toggle:SetScript("OnClick", Toggle)
     local function BindKeys()
@@ -1277,7 +1258,7 @@ ns:On("PLAYER_LOGIN", function()
     ns:On("TRADE_SKILL_CLOSE", function()
         tradeOpen = false
         C_Timer.After(0.1, function()
-            if tradeOpen then return end -- Wechsel zu einem anderen Beruf
+            if tradeOpen then return end -- switched to another profession
             if keepWindow then
                 keepWindow = nil
                 return
@@ -1294,7 +1275,7 @@ ns:On("PLAYER_LOGIN", function()
         "SKILL_LINES_CHANGED", "UPDATE_TRADESKILL_CAST_STOPPED", "GET_ITEM_INFO_RECEIVED" }) do
         ns:On(event, function() if window:IsShown() then Refresh() end end)
     end
-    -- nach dem Kampf zeigt der Zustandstreiber die Zauber-Ebene wieder – passend zum Fenster setzen
+    -- After combat the state driver shows the spell layer again - resync with the window
     ns:On("PLAYER_REGEN_ENABLED", function()
         C_Timer.After(0, SyncSpellLayer)
         if window:IsShown() then Refresh() end

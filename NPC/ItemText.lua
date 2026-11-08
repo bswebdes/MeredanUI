@@ -1,16 +1,6 @@
--- Lesefenster (Briefe, Siegel, Bücher, Schilder): eigenes Fenster statt Blizzards ItemTextFrame,
--- im Stil des Quest-Fensters (Benny 2026-11-07, „Tiefgrünes Siegelzeichen“).
---
---   ┌ [▣]  Tiefgrünes Siegelzeichen                     [x] ┐
---   │ ┌ Pergament ─────────────────────────────────────┐    │
---   │ │ Als ich erfuhr, dass Ihr bereit seid …          │    │
---   │ │ - Mardant Strongoak, Druidenlehrer              │    │
---   │ └────────────────────────────────────────────────┘    │
---   │                                   [<]  2  [>]         │  ← nur bei mehreren Seiten
---   └───────────────────────────────────────────────────────┘
---
--- Blizzards Fenster bleibt unsichtbar geparkt (wie beim Quest-Fenster) und regelt weiter das
--- Öffnen; Text kann HTML sein (Bücher mit Überschriften) → SimpleHTML. Schalter: questWindow.
+-- Reading window (letters, seals, books, signs): replaces Blizzard's ItemTextFrame in quest window style.
+-- Blizzard's frame stays parked invisibly and still controls opening. Text may be HTML (books with
+-- headings), hence SimpleHTML. Paging buttons only show for multi-page texts. Toggle: questWindow.
 local _, ns = ...
 
 local WIDTH, PAD = 520, 18
@@ -25,7 +15,7 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.questWindow ~= false
 end
 
--- Symbol des Gegenstands, falls das Spiel ihn per Namen kennt (Taschen-Gegenstand), sonst ein Buch
+-- Item icon if the game knows the item by name (bag item), otherwise a book
 local function ItemIcon(name)
     if name and C_Item and C_Item.GetItemInfoInstant then
         local ok, _, _, _, _, icon = pcall(C_Item.GetItemInfoInstant, name)
@@ -73,7 +63,7 @@ local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUIItemText", WIDTH, ns.NPC_HEIGHT, "itemtext")
     ns.WatchBlizzardFrame(window, function() return ItemTextFrame end)
-    -- Titel wie beim Quest-Fenster: groß in Gold, mittig zum Symbol
+    -- Title like the quest window: large gold text, centered on the icon
     window.npcName:ClearAllPoints()
     window.npcName:SetPoint("LEFT", window.header, "TOPLEFT", PAD + 46 + 14, -PAD - 23)
     window.npcName:SetPoint("RIGHT", window.header, "RIGHT", -PAD - 36, 0)
@@ -89,7 +79,7 @@ local function CreateWindow()
     html = CreateFrame("SimpleHTML", nil, list.child)
     html:SetPoint("TOPLEFT")
 
-    -- Blättern unten rechts: [<] Seite [>]
+    -- Paging bottom right: [<] page [>]
     nextButton = UI.ArrowButton(window, "right", function()
         PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
         ItemTextNextPage()
@@ -112,11 +102,11 @@ end
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not ItemTextFrame then return end
     CreateWindow()
-    -- unsichtbar parken: Blizzard prüft nur IsShown
+    -- Park invisibly: Blizzard only checks IsShown
     ItemTextFrame:SetParent(hidden)
     ns:On("ITEM_TEXT_READY", function()
         C_Timer.After(0, function()
-            if not ItemTextFrame:IsShown() then return end -- Blizzard hat nicht geöffnet
+            if not ItemTextFrame:IsShown() then return end -- Blizzard did not open it
             if not window:IsShown() then window:Show() end
             Layout()
         end)

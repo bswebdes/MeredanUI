@@ -1,20 +1,7 @@
--- Briefkasten (WoW Forever): eigenes Fenster in der NPC-Familie, mit dem Besten aus Postal
--- (Entwurf, Benny 2026-11-06).
---
---   ┌ [▣] Briefkasten                                [x] ┐
---   │     Posteingang                                     │
---   │ Posteingang 5   Post versenden                      │
---   │ [☐ ▣ Eure Auktion war erfolgreich       1g 12s ]    │  ← Kästchen = Auswahl
---   │ [☐ ▣ Grüße aus Dolanaar          2 Gegenstände ]    │
---   │ Shift-Klick: alles nehmen · Strg-Klick: zurück      │
---   │ Insgesamt 1g 42s · 4 Gegenstände  [Alles ˅][Alle öffnen] │
---   └────────────────────────────────────────────────────┘
---
--- Postal-Ideen: Alle öffnen mit Auswahl (alles / nur Gold / nur Auktionshaus, Nachnahme nie),
--- Auswahl per Kästchen (öffnen/zurückschicken), Shift-/Strg-Klick, Adressbuch (eigene Charaktere,
--- zuletzt, Freunde, Gilde), Schnell-Anhängen nach Art, Gold ohne Betreff = Betrag als Betreff.
--- Blizzards Fenster ist unsichtbar geparkt (prüft nur IsShown). Anhängen per Rechtsklick in der
--- Tasche läuft über SetSendMailShowing – das setzt unser „Post versenden“.
+-- Mailbox (WoW Forever): NPC-style window with the best of Postal - open all (everything / gold only /
+-- AH only, never COD), checkbox selection, shift/ctrl-click, address book, quick attach by type,
+-- gold without subject uses the amount as subject. Blizzard's MailFrame is parked invisibly (it only
+-- checks IsShown). Right-click attaching from bags depends on SetSendMailShowing, set by our send tab.
 local _, ns = ...
 local L = ns.L
 
@@ -25,7 +12,7 @@ local MAIL_ICON = "Interface\\MailFrame\\Mail-Icon"
 local LETTER_ICON = "Interface\\Icons\\INV_Letter_15"
 local MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE or 16
 local MAX_SEND = ATTACHMENTS_MAX_SEND or 12
-local QUICK = { -- Schnell-Anhängen: Handwerkswaren-Unterklassen
+local QUICK = { -- quick attach: trade goods subclasses
     { label = "Herbs", sub = 9 }, { label = "Ore", sub = 7 }, { label = "Cloth", sub = 5 }, { label = "Leather", sub = 6 },
 }
 
@@ -36,13 +23,13 @@ local window, view
 local inbox, read, send = {}, {}, {}
 local tabs = {}
 local selected = {}
-local openMail          -- Index des gelesenen Briefs
-local opening           -- laufendes „Alle öffnen“
+local openMail          -- index of the mail being read
+local opening           -- running "open all" state
 local openMode = "all"  -- "all", "money", "ah"
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.mailWindow ~= false
-        and not ns.OtherAddon(ns.MAIL_ADDONS) -- anderes Briefkasten-Addon: unseres bleibt aus
+        and not ns.OtherAddon(ns.MAIL_ADDONS) -- stay off if another mailbox addon is loaded
 end
 
 local function Store()
@@ -59,7 +46,7 @@ local function DaysText(days)
     return L["%d days left"]:format(math.floor(days))
 end
 
--- „Alle öffnen“ / Auswahl öffnen ---------------------------------------------------------------
+-- Open all / open selected ---------------------------------------------------------------------
 
 local function Header(i)
     local packageIcon, stationeryIcon, sender, subject, money, cod, days, hasItem, wasRead, wasReturned,
@@ -69,7 +56,7 @@ local function Header(i)
         gm = isGM }
 end
 
--- Anhänge im ganzen Posteingang zählen (für die Summe: nur was wirklich herausgenommen wurde)
+-- Count attachments in the whole inbox (summary reports only what was actually taken)
 local function CountAttachments()
     local total = 0
     for i = 1, GetInboxNumItems() do
@@ -95,7 +82,7 @@ local function StopOpening(reason)
 end
 
 local function Wanted(h, i)
-    if h.cod > 0 or h.gm then return false end -- Nachnahme muss man selbst bestätigen
+    if h.cod > 0 or h.gm then return false end -- COD must be confirmed manually
     if opening.only and not opening.only[i] then return false end
     if opening.mode == "money" then return h.money > 0 end
     if opening.mode == "ah" then return GetInboxInvoiceInfo(i) ~= nil end
@@ -114,13 +101,13 @@ local function Step()
             if h.money > 0 then
                 TakeInboxMoney(i)
             else
-                -- wie Blizzards „Alle öffnen“: ohne freien Taschenplatz abbrechen statt still zu scheitern
+                -- Like Blizzard's "open all": stop when bags are full instead of failing silently
                 if C_Container.CalculateTotalNumberOfFreeBagSlots() == 0 then
                     return StopOpening(ERR_INV_FULL or L["Your bags are full."])
                 end
                 AutoLootMailItem(i)
             end
-            C_Timer.After(0.45, Step) -- dem Server Zeit geben; derselbe Brief wird erneut geprüft
+            C_Timer.After(0.45, Step) -- give the server time; the same mail is checked again
             return
         end
         opening.index = i - 1
@@ -135,7 +122,7 @@ local function StartOpening(mode, only)
     Step()
 end
 
--- Posteingang ------------------------------------------------------------------------------------
+-- Inbox ------------------------------------------------------------------------------------------
 
 local function InboxRow(i)
     if inbox.rows[i] then return inbox.rows[i] end
@@ -149,7 +136,7 @@ local function InboxRow(i)
     row.strip:SetPoint("BOTTOMLEFT")
     row.strip:SetWidth(2)
     row.strip:SetColorTexture(unpack(UI.ACCENT))
-    -- Kästchen zur Auswahl
+    -- Selection checkbox
     row.check = CreateFrame("Button", nil, row)
     row.check:SetSize(14, 14)
     row.check:SetPoint("LEFT", 10, 0)
@@ -181,12 +168,12 @@ local function InboxRow(i)
     row:SetScript("OnLeave", function(self) self.bg:SetColorTexture(0.098, 0.098, 0.106, 1) end)
     row:SetScript("OnClick", function(self)
         local i = self.index
-        if IsShiftKeyDown() then -- alles nehmen (Postal Express)
+        if IsShiftKeyDown() then -- take all (Postal Express)
             local h = Header(i)
             if h.cod > 0 then return end
             if h.money > 0 then TakeInboxMoney(i) end
             if h.hasItem then AutoLootMailItem(i) end
-        elseif IsControlKeyDown() then -- zurückschicken
+        elseif IsControlKeyDown() then -- return to sender
             if not InboxItemCanDelete(i) then ReturnInboxItem(i) end
         else
             openMail = i
@@ -249,7 +236,7 @@ local function LayoutInbox()
     inbox.openAll.Text:SetText(opening and L["Opening …"] or L["Open all"])
 end
 
--- Brief lesen ------------------------------------------------------------------------------------
+-- Read mail --------------------------------------------------------------------------------------
 
 local function Attachment(i)
     if read.slots[i] then return read.slots[i] end
@@ -292,7 +279,7 @@ local function LayoutRead()
     read.days:SetText(DaysText(h.days))
     read.from:SetText(L["From: %s"]:format(h.sender))
     if isInvoice then
-        -- Rechnung wie Blizzards Brieffenster (vorher stand dort roh „buyer“/„seller“)
+        -- Format invoices like Blizzard's mail frame instead of the raw "buyer"/"seller" kind
         local kind, itemName, player, bid, _, deposit, consignment, _, etaHour, etaMin, count = GetInboxInvoiceInfo(openMail)
         if kind then
             player = player or (kind == "buyer" and AUCTION_HOUSE_MAIL_MULTIPLE_SELLERS or AUCTION_HOUSE_MAIL_MULTIPLE_BUYERS) or ""
@@ -312,7 +299,7 @@ local function LayoutRead()
                     lines[#lines + 1] = L["Deposit"] .. ": " .. money(deposit)
                     lines[#lines + 1] = L["Fee"] .. ": |cffe65050− " .. money(consignment) .. "|r"
                     lines[#lines + 1] = AMOUNT_RECEIVED_COLON .. " " .. money((bid or 0) + (deposit or 0) - (consignment or 0))
-                else -- seller_temp_invoice: Geld kommt später
+                else -- seller_temp_invoice: money arrives later
                     lines[#lines + 1] = AUCTION_INVOICE_PENDING_FUNDS_COLON .. " " .. money((bid or 0) + (deposit or 0) - (consignment or 0))
                     if etaHour and GameTime_GetFormattedTime then
                         lines[#lines + 1] = AUCTION_INVOICE_FUNDS_DELAY:format(GameTime_GetFormattedTime(etaHour, etaMin, true))
@@ -325,7 +312,7 @@ local function LayoutRead()
     read.body:SetWidth(read.list:GetWidth())
     read.body:SetText(body or "")
     read.list:SetContentHeight(read.body:GetStringHeight())
-    -- Beigefügt: Gold + Items
+    -- Attached: gold + items
     local n, x = 0, 0
     read.money:SetShown(h.money > 0)
     if h.money > 0 then
@@ -354,7 +341,7 @@ local function LayoutRead()
     local canDelete = InboxItemCanDelete(openMail)
     read.ret:SetShown(not canDelete)
     read.delete:SetShown(canDelete and true or false)
-    -- Knöpfe rücken nach rechts, wenn „Antworten“ fehlt (System- und Auktionshaus-Post)
+    -- Buttons shift right when there is no Reply (system and AH mail)
     local anchor = h.canReply and read.reply or nil
     for _, button in ipairs({ read.ret, read.delete }) do
         button:ClearAllPoints()
@@ -364,7 +351,7 @@ local function LayoutRead()
     if h.cod > 0 then read.attachLabel:SetText(L["Attached"] .. "  |cffff5050" .. L["COD"] .. " " .. GetMoneyString(h.cod, true) .. "|r") else read.attachLabel:SetText(L["Attached"]) end
 end
 
--- Post versenden ---------------------------------------------------------------------------------
+-- Send mail ----------------------------------------------------------------------------------------
 
 local function SendSlot(i)
     if send.slots[i] then return send.slots[i] end
@@ -428,7 +415,7 @@ local function DoSend()
     if to == "" then return send.to:SetFocus() end
     local copper = MoneyInput()
     local subject = strtrim(send.subject:GetText() or "")
-    -- Postal Wire: nur Gold ohne Betreff – Betrag als Betreff
+    -- Postal Wire: gold without subject uses the amount as subject
     if subject == "" and copper > 0 then subject = C_CurrencyInfo.GetCoinText(copper, " ") end
     for i = 1, MAX_SEND do
         if subject ~= "" then break end
@@ -443,7 +430,7 @@ local function DoSend()
     SendMail(to, subject, send.body:GetText() or "")
 end
 
--- Adressbuch: eigene Charaktere, zuletzt, Freunde, Gilde – gefiltert nach dem Getippten
+-- Address book: own characters, recent, friends, guild - filtered by the typed prefix
 local function Contacts(prefix)
     prefix = (prefix or ""):lower()
     local chars, recent = Store()
@@ -524,7 +511,7 @@ local function ShowContacts()
     box:Show()
 end
 
--- Schnell-Anhängen: passende Items aus den Taschen, eins nach dem anderen
+-- Quick attach: matching bag items, one after another
 local function QuickAttach(sub)
     local queue = {}
     for bag = 0, NUM_BAG_SLOTS or 4 do
@@ -536,7 +523,7 @@ local function QuickAttach(sub)
             end
         end
     end
-    -- aufnehmen und in den ersten freien Anhang-Platz legen (UseContainerItem ist für Addons gesperrt)
+    -- Pick up and drop into the first free attachment slot (UseContainerItem is protected for addons)
     local function Next()
         local free
         for i = 1, MAX_SEND do
@@ -551,7 +538,7 @@ local function QuickAttach(sub)
     Next()
 end
 
--- Aufbau -----------------------------------------------------------------------------------------
+-- Build -------------------------------------------------------------------------------------------
 
 local function Layout()
     if not (window and window:IsShown()) then return end
@@ -570,7 +557,7 @@ end
 
 local function SetView(key)
     view = key
-    SetSendMailShowing(key == "send") -- Rechtsklick in der Tasche hängt dann an
+    SetSendMailShowing(key == "send") -- enables right-click attaching from bags
     if key ~= "send" then send.book:Hide() end
     PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
     Layout()
@@ -618,7 +605,7 @@ local function CreateWindow()
     ns.WatchBlizzardFrame(window, function() return MailFrame end)
     Tab("send", SENDMAIL or L["Send mail"], Tab("inbox", INBOX or L["Inbox"]))
 
-    -- Posteingang
+    -- Inbox
     inbox.frame = ViewFrame()
     inbox.rows = {}
     inbox.list = UI.ScrollArea(inbox.frame)
@@ -657,16 +644,16 @@ local function CreateWindow()
     inbox.returnSelected = UI.Button(inbox.frame, L["Return"], function()
         local list = {}
         for i in pairs(selected) do
-            if not InboxItemCanDelete(i) then list[#list + 1] = i end -- System-/AH-Post kann nicht zurück
+            if not InboxItemCanDelete(i) then list[#list + 1] = i end -- system/AH mail cannot be returned
         end
-        table.sort(list, function(a, b) return a > b end) -- von hinten, Indizes rutschen sonst
+        table.sort(list, function(a, b) return a > b end) -- back to front, indices shift otherwise
         for n, i in ipairs(list) do C_Timer.After((n - 1) * 0.4, function() ReturnInboxItem(i) end) end
         wipe(selected)
     end, 120)
     inbox.returnSelected:SetHeight(30)
     inbox.returnSelected:SetPoint("LEFT", inbox.openSelected, "RIGHT", 8, 0)
 
-    -- Brief lesen: alles auf Pergament
+    -- Read mail: everything on parchment
     read.frame = ViewFrame()
     read.slots = {}
     read.panel = ns.CreateParchmentPanel(read.frame)
@@ -723,7 +710,7 @@ local function CreateWindow()
     read.delete:SetHeight(30)
     read.delete:SetPoint("RIGHT", read.reply, "LEFT", -8, 0)
 
-    -- Post versenden
+    -- Send mail
     send.frame = ViewFrame()
     send.slots = {}
     send.to = UI.EditBox(send.frame, 30)
@@ -852,7 +839,7 @@ local function CreateWindow()
         StaticPopup_Hide("MEREDANUI_MAIL_DELETE")
         StaticPopup_Hide("MEREDANUI_MAIL_COD")
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
-        if ns.StillInteracting("MailInfo", MailFrame) then CloseMail() end -- nur die eigene, noch laufende Unterhaltung
+        if ns.StillInteracting("MailInfo", MailFrame) then CloseMail() end -- only our own, still running interaction
     end)
 end
 
@@ -876,7 +863,7 @@ StaticPopupDialogs["MEREDANUI_MAIL_COD"] = {
 }
 
 ns:On("PLAYER_LOGIN", function()
-    -- eigene Charaktere fürs Adressbuch (auch ohne Fenster)
+    -- Record own characters for the address book (even with the window disabled)
     local chars = Store()
     local _, class = UnitClass("player")
     chars[UnitName("player")] = class
@@ -884,7 +871,7 @@ ns:On("PLAYER_LOGIN", function()
     EventUtil.ContinueOnAddOnLoaded("Blizzard_MailFrame", function()
         if window or not MailFrame then return end
         CreateWindow()
-        MailFrame:SetParent(hidden) -- unsichtbar parken (Blizzard prüft nur IsShown)
+        MailFrame:SetParent(hidden) -- park invisibly (Blizzard only checks IsShown)
         ns:On("MAIL_SHOW", function()
             C_Timer.After(0, function()
                 if MailFrame:IsShown() then
@@ -898,7 +885,7 @@ ns:On("PLAYER_LOGIN", function()
             ns:On(event, function() if window:IsShown() then Layout() end end)
         end
         ns:On("MAIL_SEND_SUCCESS", function()
-            -- Empfänger merken (zuletzt angeschrieben, höchstens 10)
+            -- Remember recipient (recent list, max 10)
             local _, recent = Store()
             local to = send.pendingTo
             if to then
