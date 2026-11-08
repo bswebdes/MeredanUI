@@ -1,19 +1,17 @@
--- Eintrag im Blizzard-Menü (Esc > Optionen > AddOns > MeredanUI): nur ein Button, der das
--- eigene Einstellungsfenster öffnet (Options.lua).
+-- Entry in Blizzard's settings (Esc > Options > AddOns > MeredanUI): just a button that opens
+-- mUI's own settings window (Options.lua).
 local ADDON_NAME, ns = ...
 local L = ns.L
 
--- Blizzards Fenster NICHT per Code schließen (HideUIPanel aus Addon-Code verseucht die Optionen:
--- beim nächsten Öffnen wurde z. B. C_Discord.IsUserOAuthed blockiert). MUIs Fenster liegt eine
--- Ebene höher (DIALOG) und erscheint einfach darüber.
+-- Never close Blizzard's settings from code: HideUIPanel from addon code taints them (e.g.
+-- C_Discord.IsUserOAuthed got blocked on next open). mUI's window sits on DIALOG strata above it.
 local function OpenFromBlizzard()
     ns.ShowSettings()
 end
 
--- Als eigene Fläche (Canvas) anmelden, NICHT als Liste mit Knopf-Eintrag: Listen-Einträge aus
--- Addon-Code durchsucht Blizzards Suche mit – danach galt der Suchlauf als „von mUI berührt“ und
--- WoW blockte bei „Kontakte“ C_Discord.IsUserOAuthed (Benny 2026-11-07, Suche nach „Name“).
--- Eine Canvas-Fläche taucht in der Suche nicht auf.
+-- Register as a canvas, NOT as a list with a button entry: list entries from addon code are
+-- walked by Blizzard's settings search, which then counts as tainted and blocks
+-- C_Discord.IsUserOAuthed (e.g. on the Contacts page). A canvas is not searched.
 ns:On("PLAYER_LOGIN", function()
     local panel = CreateFrame("Frame")
     panel:Hide()

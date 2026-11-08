@@ -1,16 +1,15 @@
--- Einrichtungsassistent (Benny 2026-11-07, Entwurf „mUI Einrichtungsassistent“):
--- Intro (Logo, Version, „Setup starten“) → Größe → Rolle → Stil (Klassisch/Komfort) → Leisten
--- (nicht bei Heiler) → Schadensanzeige → Chat + Spitzname → Fertig (Neu laden).
--- Rechts ein Mini-Bild des Bildschirms aus einfachen Flächen, das sich mit jeder Wahl ändert.
--- Erscheint einmal je Charakter beim ersten Login (ns.char.setupDone); erneut über /mui setup oder den Knopf
--- in den Einstellungen (Layouts). Stil setzt nur Startwerte (Core/Presets.lua).
+-- Setup wizard: intro (logo, version, "Start setup") -> size -> role -> style (Classic/Comfort)
+-- -> bars (not for healers) -> damage meter -> chat + nickname -> done (reload).
+-- On the right a mini screen built from simple rectangles updates with every choice.
+-- Shown once per character on first login (ns.char.setupDone); again via /mui setup or the
+-- button in settings (Layouts). Style only sets starting values (Core/Presets.lua).
 local _, ns = ...
 local L = ns.L
 local UI = ns.UI
 
 local WIDTH, HEIGHT = 900, 500
-local LEFT_W = 330                     -- Spalte mit Frage und Auswahl
-local SHOT_W = WIDTH - LEFT_W - 3 * 22 -- Mini-Bildschirm
+local LEFT_W = 330                     -- column with question and choices
+local SHOT_W = WIDTH - LEFT_W - 3 * 22 -- mini screen
 local SHOT_H = math.floor(SHOT_W * 9 / 16)
 local PANEL2 = { 0.08, 0.09, 0.10, 1 }
 
@@ -78,14 +77,14 @@ local function ActiveSteps()
     return list
 end
 
--- Mini-Bildschirm ------------------------------------------------------------------------------
--- Ein verkleinertes Abbild des echten Layouts: Plätze wie in Core/Layouts.lua und ActionBars.lua
--- (unten 2–3 Reihen à 12, rechts zwei senkrechte Leisten, Minimap oben rechts …), echte Symbole
--- aus deinen Aktionsleisten und Buffs, dein Name in Klassenfarbe. Alles in Pixeln des Bildes,
--- Größen mal Stufe (Klein/Mittel/Groß).
+-- Mini screen -----------------------------------------------------------------------------------
+-- A scaled-down copy of the real layout: positions as in Core/Layouts.lua and ActionBars.lua
+-- (2-3 rows of 12 at the bottom, two vertical bars on the right, minimap top right ...), real icons
+-- from your action bars and buffs, your name in class color. Everything in image pixels,
+-- sizes times scale step (Small/Medium/Large).
 
-local els = {}       -- alle Teile, werden pro Zeichnen erst versteckt, dann gebraucht
-local screen         -- Bildfläche
+local els = {}       -- all parts; hidden on each redraw, then reused
+local screen         -- canvas
 local METER_CLASSES = { "WARRIOR", "MAGE", "HUNTER", "PRIEST", "ROGUE" }
 
 local function ClassColor(class)
@@ -94,7 +93,7 @@ local function ClassColor(class)
     return 0.6, 0.6, 0.6
 end
 
--- Teil holen bzw. einmal bauen
+-- Get a part, or build it once
 local function El(key, build)
     local el = els[key]
     if not el then
@@ -127,7 +126,7 @@ local function Tex(frame, layer, r, g, b, a)
     return tex
 end
 
--- Leiste aus cols × rows gleichen Feldern (bewusst ohne Symbole)
+-- Bar of cols x rows equal cells (deliberately without icons)
 local function ActionBar(key, cols, rows, x, y, size, gap)
     local bar = El(key, function()
         local frame = CreateFrame("Frame", nil, screen)
@@ -154,7 +153,7 @@ local function ActionBar(key, cols, rows, x, y, size, gap)
     return bar
 end
 
--- Unitframe: Lebensbalken (Füllung), Ressource darunter, Name im Balken
+-- Unit frame: health bar (fill), resource below, name inside the bar
 local function UnitFrame(key, x, y, w, h, color, fill, mirrored)
     local frame = El(key, function()
         local f = Panel(0.95)
@@ -175,7 +174,7 @@ local function UnitFrame(key, x, y, w, h, color, fill, mirrored)
     return frame
 end
 
--- schmale Leiste mit Füllung (Bedrohung, Schlagtimer, Zauberleiste)
+-- thin bar with fill (threat, swing timer, cast bar)
 local function Strip(key, x, y, w, h, r, g, b, fill)
     local frame = El(key, function()
         local f = Panel(0.9)
@@ -193,7 +192,7 @@ end
 local function DrawScreen(target)
     screen = target
     for _, el in pairs(els) do el:Hide() end
-    -- Maße wie im Spiel (UIParent ~1920 × 1080 Einheiten), verkleinert aufs Bild
+    -- Dimensions as in game (UIParent ~1920 x 1080 units), scaled down to the image
     local W, H = SHOT_W, SHOT_H
     local k = H / 1080
     local function U(v) return v * k end
@@ -206,7 +205,7 @@ local function DrawScreen(target)
     local _, myClass = UnitClass("player")
     local hpColor = comfort and { ClassColor(myClass) } or { 0.25, 0.64, 0.3 }
 
-    -- Leisten unten (ActionBars.lua): Zusatzleisten 36, Hauptleiste 42, Abstand 4
+    -- Bottom bars (ActionBars.lua): extra bars 36, main bar 42, spacing 4
     local b, gap = U(36 * s), math.max(U(4), 1)
     local rowW = 12 * b + 11 * gap
     local shiftY = H - margin - b
@@ -217,23 +216,23 @@ local function DrawScreen(target)
         ActionBar("main12", 12, 1, cx - rowW / 2, bottomTop - b - gap, b, gap)
         bottomTop = bottomTop - b - gap
     end
-    -- rechts: zwei senkrechte Leisten am Rand, senkrecht mittig
+    -- right: two vertical bars at the edge, vertically centered
     local colH = 12 * b + 11 * gap
     ActionBar("right", 1, 12, W - margin - b, cy - colH / 2, b, gap)
     ActionBar("inner", 1, 12, W - margin - 2 * b - gap, cy - colH / 2, b, gap)
-    -- große Zauberleiste über den unteren Leisten (Fernkampf, Heiler)
+    -- large cast bar above the bottom bars (ranged, healer)
     if st.role == "ranged" or healer then
         local castH = U(32 * s)
         Strip("cast", cx - rowW / 2, bottomTop - U(6) - castH, rowW, castH, 0.85, 0.7, 0.3, 0.55)
         bottomTop = bottomTop - U(6) - castH
     end
 
-    -- Spieler / Ziel (UnitFrames.lua): Innenkante 260 von der Mitte, Oberkante 200 unter der Mitte
+    -- Player / target (UnitFrames.lua): inner edge 260 from center, top edge 200 below center
     local uw, uh = U(270 * s), U(40 * s)
     local inner, unitTop = U(260), cy + U(200)
     if healer then
-        -- Heiler (Core/Layouts.lua HealerGeometry): Gruppe mittig über der Zauberleiste,
-        -- Spieler und Ziel oben bündig daneben
+        -- Healer (Core/Layouts.lua HealerGeometry): group centered above the cast bar,
+        -- player and target top-aligned beside it
         local cols, rows = 5, 4
         local fw, fh, fgap = U(107), U(61), U(4)
         local gridW, gridH = cols * fw + (cols - 1) * fgap, rows * fh + (rows - 1) * fgap
@@ -249,7 +248,7 @@ local function DrawScreen(target)
     UnitFrame("player", cx - inner - uw, unitTop, uw, uh, hpColor, 0.82)
     UnitFrame("target", cx + inner, unitTop, uw, uh, { 0.8, 0.25, 0.2 }, 0.64, true)
 
-    -- Mitte: Hauptleiste 2 × 6 auf Höhe des Spielers; darunter Bedrohung und Schlagtimer
+    -- Center: main bar 2 x 6 at player height; threat and swing timer below
     local mb = U(42 * s)
     local mainW = 6 * mb + 5 * gap
     local belowY = unitTop
@@ -264,7 +263,7 @@ local function DrawScreen(target)
     end
     if comfort and not healer then Strip("swing", cx - mainW / 2, belowY, mainW, U(6), 0.85, 0.85, 0.85, 0.4) end
 
-    -- Gruppe (GroupFrames.lua): links neben dem Spieler, Oberkante 300 ÜBER der Mitte
+    -- Party (GroupFrames.lua): left of the player, top edge 300 ABOVE center
     if not healer then
         local gw, gh, ggap = U(130), U(62), U(4)
         local gx = cx - inner - uw - U(68) - gw
@@ -275,7 +274,7 @@ local function DrawScreen(target)
         end
     end
 
-    -- Minimap oben rechts, Buffs links daneben, Questlog darunter
+    -- Minimap top right, buffs to its left, quest log below
     local mm = U(200 * s)
     local minimap = El("minimap", function()
         local f = Panel(1)
@@ -332,7 +331,7 @@ local function DrawScreen(target)
         ly = ly + lineH + U(isTitle and 10 or 8) + (i % 3 == 0 and U(10) or 0)
     end
 
-    -- Chat unten links (ChatStyle.lua 440 × 160)
+    -- Chat bottom left (ChatStyle.lua 440 x 160)
     local chatW, chatH = U(440), U(160)
     local chat = El("chat", function()
         local f = Panel(0.55)
@@ -349,7 +348,7 @@ local function DrawScreen(target)
         line:SetShown(U(12) + (i - 1) * U(20) + U(5) <= chatH - U(8))
     end
 
-    -- Schadensanzeige oben links
+    -- Damage meter top left
     if st.meter then
         local meter = El("meter", function()
             local f = Panel(0.85)
@@ -371,11 +370,11 @@ local function DrawScreen(target)
         end
     end
 
-    -- Flugzeit oben mittig (Komfort)
+    -- Flight time top center (Comfort)
     if comfort then Strip("flight", cx - U(160), margin, U(320), U(14), 0.56, 0.8, 0.71, 0.45) end
 end
 
--- Unterschiede Klassisch/Komfort (Stil-Schritt, unter dem Mini-Bild)
+-- Classic/Comfort differences (style step, below the mini screen)
 local DIFF = {
     { L["Info bar"], false, true },
     { L["Health bars"], L["sage"], L["class colour"] },
@@ -388,7 +387,7 @@ local DIFF = {
     { L["Red error texts"], true, false },
 }
 
--- Fenster -------------------------------------------------------------------------------------
+-- Window --------------------------------------------------------------------------------------
 
 local Render
 
@@ -450,14 +449,14 @@ local function CreateWindow()
     window:SetScript("OnDragStart", window.StartMoving)
     window:SetScript("OnDragStop", window.StopMovingOrSizing)
     UI.Box(window, { 0.05, 0.06, 0.06, 0.98 })
-    tinsert(UISpecialFrames, "MeredanUISetup") -- Esc schließt (wie „Später“)
+    tinsert(UISpecialFrames, "MeredanUISetup") -- Esc closes (like "Later")
     local accent = window:CreateTexture(nil, "ARTWORK")
     accent:SetPoint("TOPLEFT")
     accent:SetPoint("TOPRIGHT")
     accent:SetHeight(2)
     accent:SetColorTexture(unpack(UI.ACCENT))
 
-    -- Kopf: Titel, Fortschritt, „Später“
+    -- Header: title, progress, "Later"
     local title = UI.Text(window, 15, "LEFT")
     title:SetPoint("TOPLEFT", 16, -16)
     title:SetText("Meredan|cff8ecbb4UI|r  ·  " .. L["Setup"])
@@ -476,7 +475,7 @@ local function CreateWindow()
     headLine:SetPoint("TOPRIGHT", 0, -44)
     headLine:SetHeight(1)
 
-    -- Fuß: Zurück / Weiter
+    -- Footer: Back / Next
     local footLine = window:CreateTexture(nil, "ARTWORK")
     footLine:SetColorTexture(1, 1, 1, 0.08)
     footLine:SetPoint("BOTTOMLEFT", 0, 48)
@@ -519,7 +518,7 @@ local function CreateWindow()
     start.Text:SetTextColor(unpack(UI.ACCENT))
     window.intro = intro
 
-    -- Frage-Schritte: links Text + Auswahl, rechts Mini-Bild
+    -- Question steps: text + choices on the left, mini screen on the right
     local page = CreateFrame("Frame", nil, window)
     page:SetPoint("TOPLEFT", 0, -44)
     page:SetPoint("BOTTOMRIGHT", 0, 48)
@@ -544,7 +543,7 @@ local function CreateWindow()
     page.nick:SetMaxLetters(24)
     page.nick:SetScript("OnTextChanged", function(self) st.nick = strtrim(self:GetText() or "") end)
     page.nick:SetScript("OnEnterPressed", page.nick.ClearFocus)
-    -- Zusammenfassung (Fertig)
+    -- Summary (done)
     page.summary = {}
     for i = 1, 7 do
         local row = CreateFrame("Frame", nil, page)
@@ -565,7 +564,7 @@ local function CreateWindow()
     local screen = CreateFrame("Frame", nil, page)
     screen:SetSize(SHOT_W, SHOT_H)
     screen:SetPoint("TOPRIGHT", -22, -22)
-    -- Spielwelt angedeutet: Himmel oben heller, Boden unten dunkler
+    -- Hint of a game world: sky lighter at the top, ground darker at the bottom
     local world = screen:CreateTexture(nil, "BACKGROUND")
     world:SetAllPoints()
     world:SetColorTexture(1, 1, 1, 1)
@@ -600,7 +599,7 @@ Render = function()
     stepIndex = math.min(stepIndex, #steps)
     local step = steps[stepIndex]
     local page = window.page
-    -- Fortschritt: nur die Fragen
+    -- Progress: questions only
     local questions = #steps - 2
     for i, dot in ipairs(window.dots) do
         dot:SetShown(i <= questions)
@@ -631,7 +630,7 @@ Render = function()
         and L["After the reload everything sits like this. You can change anything anytime with /mui, and restart the setup there."]
         or step.text)
 
-    -- Auswahl
+    -- Choices
     local anchor, y = page.text, -16
     for i, item in ipairs(options) do
         local button = page.options[i] or OptionButton(page)
@@ -646,7 +645,7 @@ Render = function()
         button:SetSelected(st[step.key] == item.value)
         button:SetScript("OnClick", function()
             st[step.key] = item.value
-            if step.key == "style" then -- Leisten und Schadensanzeige passend zum Stil vorwählen
+            if step.key == "style" then -- preselect bars and damage meter to match the style
                 st.bars = ns.StyleDefault(item.value, "barVariant")
                 st.meter = ns.StyleDefault(item.value, "damageMeter")
             end
@@ -667,7 +666,7 @@ Render = function()
         page.nick:SetText(st.nick or "")
     end
 
-    -- Zusammenfassung
+    -- Summary
     local done = step.id == "done"
     local rows = {
         { L["Size"], L[SIZE_NAMES[st.size]] },
@@ -687,7 +686,7 @@ Render = function()
         end
     end
 
-    -- Mini-Bild + Unterschiede beim Stil
+    -- Mini screen + differences for the style step
     DrawScreen(page.screen)
     local isStyle = step.id == "style"
     page.caption:SetShown(not isStyle)
@@ -715,7 +714,7 @@ Render = function()
     end
 end
 
--- Assistent öffnen (Werte vorausgefüllt mit dem, was gerade eingestellt ist)
+-- Open the wizard (prefilled with the current settings)
 function ns.OpenSetup()
     if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
     if not window then CreateWindow() end
@@ -737,7 +736,7 @@ end
 
 ns.AddCommand("setup", L["start the setup again"], function() ns.OpenSetup() end)
 
--- Beim ersten Login einmal von selbst (nach dem Ladebildschirm)
+-- Once on first login by itself (after the loading screen)
 ns:On("PLAYER_LOGIN", function()
     if ns.char.setupDone then return end
     C_Timer.After(3, function()

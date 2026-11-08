@@ -1,19 +1,19 @@
--- Addon-Liste (WoW Forever) als eigenes mUI-Fenster statt Blizzards AddonList (Benny 2026-11-08).
--- Eigener Platz in der Bildmitte (wie Blizzards), Fenster-Familie wie Freunde/Händler:
+-- Addon list (WoW Forever) as a mUI window replacing Blizzard's AddonList.
+-- Centered like Blizzard's, same window family as Friends/Merchant:
 --
---   ┌ [▣] Addons                                                   [x] ┐
---   │     24 von 31 geladen                                            │
---   │ [Suchen …                              ] [Dieser Charakter   v]  │
---   │ − Benutzeroberfläche                                       3 / 4 │  ← Kategorie (auf/zu)
---   │ [x] [▣] MeredanUI                          Neu laden   v0.3.0    │
---   │ [x] [▣]   MeredanUI_Options                            v0.3.0    │  ← gehört zu einer Gruppe
---   │ [ ] [▣] Details!                                       v12.1     │  ← aus = grau
---   │ [Alle an] [Alle aus]  [ ] Veraltete laden          [ Neu laden ] │
---   └──────────────────────────────────────────────────────────────────┘
+--   +-[i] Addons --------------------------------------------- [x]-+
+--   |     24 of 31 loaded                                          |
+--   | [Search...                         ] [This character    v]   |
+--   | - User Interface                                       3 / 4 |  <- category (collapsible)
+--   | [x] [i] MeredanUI                      Reload    v0.3.0      |
+--   | [x] [i]   MeredanUI_Options                      v0.3.0      |  <- group child
+--   | [ ] [i] Details!                                 v12.1       |  <- disabled = grey
+--   | [All on] [All off]  [ ] Load out of date       [ Reload ]    |
+--   +--------------------------------------------------------------+
 --
--- Wie bei Blizzard: Klick auf eine Zeile schaltet das Addon für den gewählten Charakter (bzw. alle)
--- an oder aus; wirksam nach dem Neuladen. Gespeichert wird sofort (kein „Abbrechen“).
--- Blizzards Fenster bleibt geparkt; sein Öffnen (Spielmenü > Addons) öffnet unseres.
+-- As in Blizzard's list, clicking a row toggles the addon for the selected character (or all);
+-- takes effect after a reload. Changes are saved immediately (no "Cancel").
+-- Blizzard's frame stays parked; opening it (Game Menu > AddOns) opens ours instead.
 local ADDON_NAME, ns = ...
 local L = ns.L
 
@@ -26,7 +26,7 @@ hidden:Hide()
 local window, list, searchBox, searchHint, charButton, forceCheck, reloadButton, reloadEdges, emptyText
 local rows = {}
 local startEnabled, startVersionCheck = {}, nil
-local allCharacters = false -- Blizzard im Spiel: Standard = dieser Charakter
+local allCharacters = false -- Blizzard's default: this character
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.addonListWindow ~= false
@@ -41,13 +41,13 @@ local function IsEnabled(index, character)
     return C_AddOns.GetAddOnEnableState(index, character) > Enum.AddOnEnableState.None
 end
 
--- Titel ohne Farb-/Bild-Codes (Suche, Sortierung, graue Anzeige)
+-- Title without color/texture codes (search, sorting, grey display)
 local function Plain(text)
     return (text or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", ""):gsub("|A.-|a", "")
         :gsub("^%s+", "")
 end
 
--- Stand beim Einloggen: Änderungen dagegen brauchen ein Neuladen
+-- State at login; changes against it require a reload
 local function Snapshot()
     local character = UnitGUID("player")
     for i = 1, C_AddOns.GetNumAddOns() do startEnabled[i] = IsEnabled(i, character) end
@@ -67,9 +67,9 @@ local function AnyChanged()
     return false
 end
 
--- Einträge wie bei Blizzard: zuerst die Kategorien (TOC „## Category“, alphabetisch, auf-/zuklappbar),
--- darunter die Addons ohne Kategorie. Innerhalb: Gruppen-Eltern alphabetisch, ihre Kinder eingerückt
--- (Blizzards „Group“). Beim Suchen sind alle Kategorien offen.
+-- Order like Blizzard: categories first (TOC "## Category", alphabetical, collapsible),
+-- then addons without category. Within: group parents alphabetical, their children indented
+-- (Blizzard's "Group"). While searching all categories are expanded.
 local function Collapsed()
     ns.db.addonListCollapsed = ns.db.addonListCollapsed or {}
     return ns.db.addonListCollapsed
@@ -93,7 +93,7 @@ local function Entries(filter)
     end
     local byName = {}
     for _, entry in ipairs(parents) do byName[entry.name] = true end
-    -- Kinder ohne vorhandenen Elternteil: normal einsortieren
+    -- Children whose parent is missing: sort in normally
     for group, kids in pairs(children) do
         if not byName[group] then
             for _, kid in ipairs(kids) do parents[#parents + 1] = kid end
@@ -103,7 +103,7 @@ local function Entries(filter)
     local function ByTitle(a, b) return a.plain < b.plain end
     table.sort(parents, ByTitle)
 
-    -- Kategorie gilt für die ganze Gruppe (wie Blizzard: die des Elternteils)
+    -- Category applies to the whole group (parent's category, like Blizzard)
     local categories, order, loose = {}, {}, {}
     for _, entry in ipairs(parents) do
         local category = C_AddOns.GetAddOnMetadata(entry.index, "Category")
@@ -122,7 +122,7 @@ local function Entries(filter)
         return a:lower() < b:lower()
     end)
 
-    -- Gruppe (Elternteil + passende Kinder) an out anhängen; liefert die Einträge
+    -- Append group (parent + matching children) to out; returns the entries
     local function Group(entry, categoryMatch)
         local kids = entry.group and children[entry.group] or {}
         table.sort(kids, ByTitle)
@@ -175,7 +175,7 @@ local function ShowTooltip(row)
     if author and author ~= "" then GameTooltip:AddLine(author, 0.6, 0.6, 0.6) end
     if C_AddOns.IsAddOnLoaded(index) and GetAddOnMemoryUsage then
         if UpdateAddOnMemoryUsage and (not window.memoryAt or GetTime() - window.memoryAt > 15) then
-            window.memoryAt = GetTime() -- teuer: höchstens alle 15 s (wie Blizzard)
+            window.memoryAt = GetTime() -- expensive: at most every 15 s (like Blizzard)
             UpdateAddOnMemoryUsage()
         end
         local kb = GetAddOnMemoryUsage(name)
@@ -205,7 +205,7 @@ local function Toggle(row)
     Refresh()
 end
 
--- ganze Kategorie an/aus (samt Kindern der Gruppen) – Rechtsklick auf die Überschrift (wie Blizzard)
+-- Toggle a whole category (incl. group children) - right-click on the header (like Blizzard)
 local function SetCategory(entry, on)
     local character = Character()
     for _, parent in ipairs(entry.items) do
@@ -244,7 +244,7 @@ local function Row(i)
     local row = CreateFrame("Button", nil, list.child)
     row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     row:SetHeight(ROW_H)
-    -- Überschrift (Kategorie): Fläche + Linie wie die Gruppen im Charakterfenster
+    -- Category header: background + line like the groups in the character frame
     row.headBg = row:CreateTexture(nil, "BACKGROUND")
     row.headBg:SetAllPoints()
     row.headBg:SetColorTexture(0.1, 0.1, 0.11, 1)
@@ -303,7 +303,7 @@ local function FillHeader(row, entry)
     row.title:SetText(entry.category)
     ns.SetFont(row.title, 13, "", "bold")
     row.title:SetTextColor(unpack(UI.ACCENT))
-    -- rechts: wie viele der Kategorie an sind
+    -- right: how many of the category are enabled
     local character, on = Character(), 0
     for _, item in ipairs(entry.items) do
         if IsEnabled(item.index, character) then on = on + 1 end
@@ -331,7 +331,7 @@ local function FillRow(row, entry)
     local state = C_AddOns.GetAddOnEnableState(index, character)
     local enabled = state > Enum.AddOnEnableState.None
     row.tick:SetShown(enabled)
-    -- nur für manche Charaktere an (Ansicht „Alle Charaktere“): Haken grau
+    -- Enabled only for some characters ("All characters" view): grey check
     row.tick:SetVertexColor(unpack(state == Enum.AddOnEnableState.Some and UI.MUTED or UI.ACCENT))
 
     local icon = C_AddOns.GetAddOnMetadata(index, "IconTexture")
@@ -353,7 +353,7 @@ local function FillRow(row, entry)
         row.title:SetTextColor(unpack(UI.MUTED))
     end
 
-    -- rechts: „Neu laden“ (geändert) oder warum es nicht lädt (veraltet, Abhängigkeit fehlt …)
+    -- right: "Reload" (changed) or why it does not load (out of date, missing dependency ...)
     local status, color = "", UI.MUTED
     if NeedsReload(index) then
         status, color = L["Reload"], UI.TAG
@@ -376,7 +376,7 @@ function Refresh()
         local row = Row(i)
         row.entry = entry
         local height = entry.header and HEAD_H or ROW_H
-        if entry.header and i > 1 then y = y + 6 end -- Luft vor jeder Kategorie
+        if entry.header and i > 1 then y = y + 6 end -- spacing before each category
         row:ClearAllPoints()
         row:SetPoint("TOPLEFT", 0, -y)
         row:SetSize(width, height)
@@ -399,7 +399,7 @@ function Refresh()
     charButton.label:SetText(allCharacters and (ALL_CHARACTERS or L["All characters"]) or (UnitName("player") or ""))
     forceCheck:SetChecked(not C_AddOns.IsAddonVersionCheckEnabled())
 
-    -- Neu laden: Surf-Green-Rand, sobald etwas geändert ist
+    -- Reload: Surf Green border once something has changed
     local changed = AnyChanged()
     for _, edge in ipairs(reloadEdges) do edge:SetShown(changed) end
     reloadButton.Text:SetTextColor(unpack(changed and UI.ACCENT or UI.TEXT))
@@ -408,7 +408,7 @@ end
 local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUIAddonList", WIDTH, ns.NPC_HEIGHT)
-    window.ownPoint = { "CENTER", UIParent, "CENTER", 0, 0 } -- eigener Platz wie Blizzards Liste
+    window.ownPoint = { "CENTER", UIParent, "CENTER", 0, 0 } -- own position like Blizzard's list
     window:SetNpc(nil, ADDONS or L["Addons"], "", "Interface\\Icons\\INV_Misc_Gear_01")
 
     local top = -(ns.NPC_HEADER_BOTTOM + 14)
@@ -448,12 +448,12 @@ local function CreateWindow()
 
     list = UI.ScrollArea(window)
     list:SetPoint("TOPLEFT", PAD, top - 28 - 12)
-    list:SetPoint("BOTTOMRIGHT", -PAD - 17, 56) -- Platz für die Scrollleiste
+    list:SetPoint("BOTTOMRIGHT", -PAD - 17, 56) -- room for the scrollbar
     emptyText = UI.Text(window, 13, "CENTER", UI.MUTED)
     emptyText:SetPoint("TOP", list, "TOP", 0, -60)
     emptyText:SetText(L["Nothing found."])
 
-    -- Fuß: Alle an / Alle aus, Veraltete laden, Neu laden
+    -- Footer: All on / All off, Load out of date, Reload
     local allOn = UI.Button(window, L["Enable all"], function()
         PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
         C_AddOns.EnableAllAddOns(Character())
@@ -465,7 +465,7 @@ local function CreateWindow()
     local allOff = UI.Button(window, L["Disable all"], function()
         PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
         C_AddOns.DisableAllAddOns(Character())
-        -- mUI selbst bleibt an (sonst wäre nach dem Neuladen auch diese Liste weg)
+        -- mUI itself stays enabled (otherwise this list would be gone after the reload too)
         C_AddOns.EnableAddOn(ADDON_NAME, Character())
         C_AddOns.SaveAddOns()
         Refresh()
@@ -505,9 +505,9 @@ ns.OpenAddonList = Open
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not AddonList then return end
     Snapshot()
-    -- Blizzards Liste: keine Fensterverwaltung mehr (ShowUIPanel ruft dann nur Show), unsichtbar
-    -- geparkt; jedes Öffnen öffnet unsere und legt Blizzards gleich wieder weg (ohne OnHide –
-    -- Blizzard würde sonst ungespeicherte Änderungen zurücksetzen)
+    -- Blizzard's list: no panel management (ShowUIPanel then just calls Show), parked invisibly.
+    -- Every open opens ours and hides Blizzard's right away (without OnHide - Blizzard would
+    -- otherwise revert unsaved changes).
     local function Unmanage()
         if InCombatLockdown() then return ns.AfterCombat(Unmanage) end
         if SetUIPanelAttribute then SetUIPanelAttribute(AddonList, "area", nil) end

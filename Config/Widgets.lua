@@ -1,28 +1,28 @@
--- Bedienelemente für das Einstellungsfenster im MeredanUI-Look: flach, dunkel, 1-px-Rahmen,
--- Surf Green als Akzent. Jede Seite stapelt ihre Elemente von oben nach unten (page:Add…).
--- Elemente mit Wert haben :Refresh(), das den aktuellen Wert aus get() anzeigt.
+-- Controls for the settings window in mUI style: flat, dark, 1 px border, Surf Green accent.
+-- Each page stacks its elements top to bottom (page:Add...).
+-- Elements with a value have :Refresh(), which shows the current value from get().
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local UI = {}
 ns.UI = UI
 
--- Akzentfarbe der Marke: Surf Green (wie die Fender-Lackierung)
+-- Brand accent color: Surf Green
 UI.ACCENT = { 0.557, 0.796, 0.706 } -- #8ecbb4
 UI.TEXT = { 0.91, 0.9, 0.87 }
 UI.MUTED = { 0.6, 0.59, 0.56 }
 UI.FIELD = { 0.1, 0.1, 0.11, 1 }
 UI.HOVER = { 0.16, 0.16, 0.18, 1 }
 
-UI.TAG = { 0.85, 0.64, 0.25 }  -- Marke „Reload“ (gold)
+UI.TAG = { 0.85, 0.64, 0.25 }  -- "Reload" badge (gold)
 
 local ROW_GAP = 12
 local L = ns.L
 
--- Vom Fenster gesetzt: merkt sich Änderungen, die ein Neuladen brauchen (Leiste unten)
+-- Set by the window: tracks changes that need a reload (bar at the bottom)
 UI.MarkReload = function(_) end
 
--- Fläche mit 1-px-Rahmen und fester Farbe (nicht vom Theme abhängig).
+-- Background with 1 px border and fixed color (independent of the theme).
 function UI.Box(frame, color)
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
@@ -31,18 +31,17 @@ function UI.Box(frame, color)
     return bg
 end
 
--- Kästchen für Haken: dunkle Füllung mit hellem Rand, damit es auf dunklem Grund sichtbar ist
+-- Checkbox: dark fill with a light border so it is visible on dark backgrounds
 UI.CHECK_EDGE = { 0.36, 0.36, 0.38, 1 }
 function UI.CheckBg(frame)
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(0.04, 0.04, 0.05, 1)
-    -- Rahmen innen: liegt ein Kästchen ganz links in einer Liste mit Beschnitt, fehlte sonst die
-    -- linke Kante (Benny 2026-11-07)
+    -- Border drawn inside: otherwise a checkbox at the far left of a clipped list lost its left edge
     for _, edge in ipairs(ns.AddBorder(frame, true)) do
         edge:SetVertexColor(unpack(UI.CHECK_EDGE))
-        -- In scrollenden Listen liegt das Kästchen oft auf einem halben Pixel; die 1-px-Kante würde
-        -- dann aufs Pixelraster „weggerundet“ (oben oder unten fehlte sie). Ohne Einrasten bleibt sie sichtbar.
+        -- In scrolling lists the box often sits on a half pixel; pixel snapping would round the 1 px edge
+        -- away (top or bottom missing). Without snapping it stays visible.
         edge:SetSnapToPixelGrid(false)
         edge:SetTexelSnappingBias(0)
     end
@@ -55,7 +54,7 @@ function UI.Text(parent, size, justify, color)
     return text
 end
 
--- Symbol aus Media/Icons (weiß angelegt), eingefärbt.
+-- Icon from Media/Icons (authored white), tinted.
 function UI.Icon(parent, name, size, color)
     local icon = parent:CreateTexture(nil, "OVERLAY")
     icon:SetSize(size, size)
@@ -64,7 +63,7 @@ function UI.Icon(parent, name, size, color)
     return icon
 end
 
--- Knopf nur mit Symbol (z. B. Schließen); Hover hellt auf.
+-- Icon-only button (e.g. close); brightens on hover.
 function UI.IconButton(parent, name, onClick, size)
     local button = CreateFrame("Button", nil, parent)
     button:SetSize(size or 24, size or 24)
@@ -84,7 +83,7 @@ function UI.IconButton(parent, name, onClick, size)
     return button
 end
 
--- Pfeil-Knopf zum Blättern ("left"/"right"), ausgegraut wenn deaktiviert.
+-- Arrow button for paging ("left"/"right"), greyed out when disabled.
 function UI.ArrowButton(parent, direction, onClick, size)
     local button = UI.IconButton(parent, "ChevronDown", onClick, size)
     button.icon:SetRotation(direction == "left" and -math.pi / 2 or math.pi / 2)
@@ -94,11 +93,10 @@ function UI.ArrowButton(parent, direction, onClick, size)
     return button
 end
 
--- Pfeil als Text-Symbol zwischen zwei Namen (statt ">")
--- Eigenes Symbol (Media/Icons) als Bild im Text, eingefärbt – statt Sonderzeichen wie ✓, die
--- unsere Schrift nicht hat (tools/check_glyphs.py prüft das beim Einspielen)
--- yOffset: positiv = höher. Neben Text sitzen Symbole sonst zu tief: bei 11–13 px Symbol und
--- normaler mUI-Schrift 1–2 (Uhr 13 px im Tracker: 1, 0 zu tief, 2 zu hoch; Benny 2026-11-08).
+-- Own icon (Media/Icons) as inline texture, tinted - instead of special characters like a check
+-- mark that our font lacks (tools/check_glyphs.py checks this).
+-- yOffset: positive = higher. Next to text, icons otherwise sit too low: for 11-13 px icons and
+-- the normal mUI font use 1-2 (13 px clock in the tracker: 1; 0 too low, 2 too high).
 function UI.IconMarkup(name, size, color, yOffset)
     local c = color or UI.TEXT
     return ("|T%sIcons\\%s:%d:%d:0:%d:64:64:0:64:0:64:%d:%d:%d|t"):format(ns.MEDIA, name, size or 12, size or 12,
@@ -109,14 +107,14 @@ function UI.ArrowMarkup(size)
     return CreateAtlasMarkup("common-icon-forwardarrow", size or 10, size or 10, 0, 0, 150, 150, 150)
 end
 
--- Erklär-Tooltip (das „i“ in den Einstellungen): normaler Fließtext in 12 px (11 war schwer lesbar, Benny 2026-11-08) statt Blizzards
--- fetter, größerer Titelzeile (SetText nutzt die Kopfschrift; Benny 2026-11-08: „viel zu fett“).
--- Die erste Zeile bekommt beim Verstecken ihre Kopfschrift zurück, sonst wären Item-Titel klein.
+-- Help tooltip (the "i" in settings): plain 12 px body text instead of Blizzard's bold, larger
+-- title line (SetText uses the header font). The first line gets its header font back on hide,
+-- otherwise item titles would be small.
 function UI.ShowHelp(owner, text)
     GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
     GameTooltip:SetText(text, 0.91, 0.9, 0.87, 1, true)
     GameTooltipTextLeft1:SetFont(ns.FontFor("text"), ns.FontPx(12), "")
-    -- mehr Zeilenabstand: umbrochene Erklärungen lesen sich leichter (Benny 2026-11-08)
+    -- more line spacing: wrapped explanations read more easily
     if not UI.helpSpacing then UI.helpSpacing = GameTooltipTextLeft1:GetSpacing() or 0 end
     GameTooltipTextLeft1:SetSpacing(4)
     GameTooltip:Show()
@@ -127,7 +125,7 @@ function UI.HideHelp()
     GameTooltipTextLeft1:SetSpacing(UI.helpSpacing or 0)
 end
 
--- Schlichter Knopf mit Text; Hover hellt auf.
+-- Plain text button; brightens on hover.
 function UI.Button(parent, label, onClick, width)
     local button = CreateFrame("Button", nil, parent)
     button:SetSize(width or 160, 24)
@@ -142,7 +140,7 @@ function UI.Button(parent, label, onClick, width)
     return button
 end
 
--- Flaches Eingabefeld; Fokus zeigt einen Rahmen in Surf Green.
+-- Flat edit box; focus shows a Surf Green border.
 function UI.EditBox(parent, height)
     local box = CreateFrame("EditBox", nil, parent)
     box:SetHeight(height or 24)
@@ -162,11 +160,11 @@ function UI.EditBox(parent, height)
     return box
 end
 
--- Scrollleiste im mUI-Look, für alle Listen (Benny 2026-11-07, auch wegen Barrierefreiheit):
--- Pfeile oben/unten, schmale Spur mit Griff in Surf Green. Griff zum Ziehen, Klick auf die Spur
--- blättert eine Seite, Hover macht den Griff breiter und heller; Klickflächen 14 px breit.
--- opts: GetRange() (max. Offset), GetOffset() (0 = oben), SetOffset(v), GetRatio() (sichtbarer
--- Anteil 0–1), step (Pfeil-Schritt), page (Seiten-Schritt)
+-- mUI-style scrollbar for all lists (also for accessibility): arrows top/bottom, thin track
+-- with a Surf Green thumb. Drag the thumb, click the track to page, hover widens and brightens
+-- the thumb; hit areas are 14 px wide.
+-- opts: GetRange() (max offset), GetOffset() (0 = top), SetOffset(v), GetRatio() (visible
+-- fraction 0-1), step (arrow step), page (page step)
 function UI.Scrollbar(parent, opts)
     local bar = CreateFrame("Frame", nil, parent)
     bar:SetWidth(14)
@@ -254,8 +252,8 @@ function UI.Scrollbar(parent, opts)
     return bar
 end
 
--- Bereich mit Mausrad-Scrollen und mUI-Scrollleiste rechts (nur sichtbar, wenn der Inhalt
--- nicht hineinpasst). area.child nimmt den Inhalt auf; area:SetContentHeight(h) nach dem Füllen.
+-- Area with mouse wheel scrolling and mUI scrollbar on the right (only shown when the content
+-- doesn't fit). area.child holds the content; call area:SetContentHeight(h) after filling.
 function UI.ScrollArea(parent)
     local area = CreateFrame("ScrollFrame", nil, parent)
     local child = CreateFrame("Frame", nil, area)
@@ -294,7 +292,7 @@ function UI.ScrollArea(parent)
         Update()
     end
 
-    -- zu einer Stelle im Inhalt springen (begrenzt auf den Scrollbereich)
+    -- jump to a position in the content (clamped to the scroll range)
     function area:ScrollTo(offset)
         self:SetVerticalScroll(math.min(math.max(offset, 0), Range()))
         Update()
@@ -302,7 +300,7 @@ function UI.ScrollArea(parent)
 
     area:EnableMouseWheel(true)
     area:SetScript("OnMouseWheel", function(self, delta)
-        UI.CloseList() -- die Liste würde sonst vom Feld wegrutschen
+        UI.CloseList() -- otherwise the list would drift away from the field
         self:SetVerticalScroll(math.min(math.max(self:GetVerticalScroll() - delta * 40, 0), Range()))
         Update()
     end)
@@ -313,14 +311,14 @@ function UI.ScrollArea(parent)
     return area
 end
 
--- Seite: Elemente werden untereinander gestapelt.
+-- Page: elements are stacked vertically.
 function UI.Page(parent)
     local page = CreateFrame("Frame", nil, parent)
     page:SetAllPoints()
     page.y = 0
     page.items = {}
 
-    -- Platz für ein Element reservieren und dessen Rahmen zurückgeben.
+    -- Reserve space for an element and return its frame.
     function page:Row(height)
         local row = CreateFrame("Frame", nil, self)
         row:SetPoint("TOPLEFT", 0, -self.y)
@@ -331,8 +329,8 @@ function UI.Page(parent)
         return row
     end
 
-    -- Zusätze hinter einem Label: Marke „Reload“ (gold) und ein „i“ mit Erklärung im Tooltip.
-    -- opts = { reload = true, help = "…" }
+    -- Extras after a label: "Reload" badge (gold) and an "i" with an explanation tooltip.
+    -- opts = { reload = true, help = "..." }
     local function Decorate(row, after, opts)
         if not opts then return end
         local anchor = after
@@ -346,7 +344,7 @@ function UI.Page(parent)
             local info = CreateFrame("Frame", nil, row)
             info:SetSize(14, 14)
             info:SetPoint("LEFT", anchor, "RIGHT", 6, 0)
-            info:SetFrameLevel(row:GetFrameLevel() + 10) -- über Checkbox-Knopf, Regler und Auswahl
+            info:SetFrameLevel(row:GetFrameLevel() + 10) -- above checkbox button, slider and dropdown
             UI.Box(info)
             local i = UI.Text(info, 10, "CENTER", UI.MUTED)
             i:SetPoint("CENTER", 0, 0)
@@ -363,7 +361,7 @@ function UI.Page(parent)
         end
     end
 
-    -- set() mit Reload-Marke: merkt die Änderung für die Leiste unten
+    -- set() with reload badge: records the change for the bar at the bottom
     local function Wrap(set, label, opts)
         if not (opts and opts.reload) then return set end
         return function(value)
@@ -372,7 +370,7 @@ function UI.Page(parent)
         end
     end
 
-    -- Eine Zeile je Einstellung: Name links (linke Hälfte), Bedienelement rechts ab der Mitte
+    -- One row per setting: name on the left half, control from the middle to the right
     local function RowLabel(row, label, opts)
         local name = UI.Text(row, 12, "LEFT")
         name:SetPoint("LEFT")
@@ -383,7 +381,7 @@ function UI.Page(parent)
         return name
     end
 
-    -- Seitentitel mit einem Satz darunter: Was ist das, wo ist es?
+    -- Page title with one sentence below: what is it, where is it?
     function page:AddTitle(title, subtitle)
         local row = self:Row(subtitle and 40 or 22)
         local text = UI.Text(row, 17, "LEFT")
@@ -424,7 +422,7 @@ function UI.Page(parent)
     function page:AddNote(text)
         local label = UI.Text(self, 11, "LEFT", UI.MUTED)
         label:SetWordWrap(true)
-        local width = self:GetParent():GetWidth() -- Breite des Inhaltsbereichs (fest gesetzt)
+        local width = self:GetParent():GetWidth() -- content area width (fixed)
         label:SetWidth(width > 1 and width or 440)
         label:SetText(text)
         local row = self:Row(math.max(label:GetStringHeight(), 14))
@@ -441,8 +439,8 @@ function UI.Page(parent)
         return row
     end
 
-    -- Texteingabe mit Knopf daneben; Enter oder Klick ruft onSubmit(text) auf. Gibt
-    -- onSubmit true zurück, wird das Feld geleert.
+    -- Text input with a button; Enter or click calls onSubmit(text). If onSubmit returns true,
+    -- the field is cleared.
     function page:AddInput(label, buttonLabel, onSubmit)
         local row = self:Row(24)
         RowLabel(row, label)
@@ -461,7 +459,7 @@ function UI.Page(parent)
         return row
     end
 
-    -- Textfeld mit gespeichertem Wert: Enter oder Verlassen des Felds speichert (set(text)).
+    -- Text field with a stored value: Enter or leaving the field saves (set(text)).
     function page:AddTextField(label, get, set, maxLetters)
         local row = self:Row(24)
         RowLabel(row, label)
@@ -477,9 +475,9 @@ function UI.Page(parent)
         return row
     end
 
-    -- Haken mit Text; Klick schaltet um.
-    -- Viele kurze Haken nebeneinander (z. B. Emotes): je Zeile `columns` Stück, gleich breite Spalten.
-    -- entries = { { label = …, get = fn, set = fn }, … }
+    -- Checkbox with text; click toggles.
+    -- Many short checkboxes side by side (e.g. emotes): `columns` per row, equal-width columns.
+    -- entries = { { label = ..., get = fn, set = fn }, ... }
     function page:AddCheckboxGrid(entries, columns)
         columns = columns or 3
         for first = 1, #entries, columns do
@@ -493,7 +491,7 @@ function UI.Page(parent)
                     button:SetHeight(20)
                     button:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
                     button:SetPoint("RIGHT", row, "LEFT", 0, 0)
-                    -- Spalte: Anteil der Zeilenbreite (Zeile hat beim Bau evtl. noch keine Breite)
+                    -- Column: fraction of the row width (the row may have no width yet while building)
                     row:HookScript("OnSizeChanged", function(_, width)
                         local w = width / columns
                         button:ClearAllPoints()
@@ -549,10 +547,9 @@ function UI.Page(parent)
         return row
     end
 
-    -- Schieberegler: Name links, Leiste ab der Mitte, Wert rechts. Mausrad verstellt in Schritten.
-    -- format(value) optional für die Anzeige (z. B. 0 > „Auto“).
-    -- Schieberegler: Wert rechts zum Anklicken und Eintippen, daneben (mit default)
-    -- ein Knopf, der auf den Standardwert zurücksetzt.
+    -- Slider: name on the left, bar from the middle, value on the right. Mouse wheel steps.
+    -- format(value) optional for display (e.g. 0 -> "Auto"). The value can be clicked and typed;
+    -- with default, a button next to it resets to the default value.
     function page:AddSlider(label, minValue, maxValue, step, get, set, format, default, opts)
         set = Wrap(set, label, opts)
         local row = self:Row(20)
@@ -582,7 +579,7 @@ function UI.Page(parent)
         slider:EnableMouseWheel(true)
         slider:SetHitRectInsets(0, 0, -4, -4)
 
-        -- Leiste als Texturen unter dem Griff (ein eigener Frame läge darüber)
+        -- Bar as textures below the thumb (a separate frame would sit on top)
         local track = slider:CreateTexture(nil, "BACKGROUND")
         track:SetPoint("LEFT")
         track:SetPoint("RIGHT")
@@ -595,7 +592,7 @@ function UI.Page(parent)
         thumb:SetSize(10, 16)
         thumb:SetVertexColor(unpack(UI.ACCENT))
 
-        local fill = slider:CreateTexture(nil, "ARTWORK") -- gefüllter Teil bis zum Griff
+        local fill = slider:CreateTexture(nil, "ARTWORK") -- filled part up to the thumb
         fill:SetPoint("LEFT", track, "LEFT")
         fill:SetPoint("RIGHT", thumb, "CENTER")
         fill:SetHeight(4)
@@ -612,7 +609,7 @@ function UI.Page(parent)
         local function Apply(v)
             v = math.min(math.max(Round(v), minValue), maxValue)
             slider:SetValue(v)
-            Show(v) -- OnValueChanged kommt nicht, wenn sich der Wert nicht ändert
+            Show(v) -- OnValueChanged doesn't fire if the value doesn't change
         end
         slider:SetScript("OnValueChanged", function(_, v)
             v = Round(v)
@@ -644,8 +641,8 @@ function UI.Page(parent)
         return row
     end
 
-    -- Auswahl: Knopf mit aktuellem Eintrag, Klick öffnet eine Liste.
-    -- items() liefert { { value = …, label = …, font = Pfad?, texture = Pfad? }, … }.
+    -- Dropdown: button with the current entry, click opens a list.
+    -- items() returns { { value = ..., label = ..., font = path?, texture = path? }, ... }.
     function page:AddDropdown(label, items, get, set, opts)
         set = Wrap(set, label, opts)
         local row = self:Row(24)
@@ -680,9 +677,9 @@ function UI.Page(parent)
         return row
     end
 
-    -- Zwei Auswahlfelder in einer Zeile (Aktionsleisten: Sichtbarkeit + Texte, Benny 2026-11-08).
-    -- Links ein normales Feld (items/get/set), rechts eines mit Haken: multi = function() →
-    -- { { value, label, checked }, … }, toggle(value) schaltet einen Haken um, summary() = Kurztext.
+    -- Two dropdowns in one row (action bars: visibility + texts).
+    -- Left a normal one (items/get/set), right one with checkboxes: multi = function() ->
+    -- { { value, label, checked }, ... }, toggle(value) toggles a checkbox, summary() = short text.
     function page:AddDualDropdown(label, items, get, set, multi, toggle, summary, opts)
         set = Wrap(set, label, opts)
         local row = self:Row(24)
@@ -703,10 +700,10 @@ function UI.Page(parent)
         end
         local left, right = Field(), Field()
         left:SetPoint("LEFT", row, "CENTER")
-        left:SetPoint("RIGHT", row, "RIGHT", -100 - 6, 0) -- rechts bleibt Platz fürs zweite Feld
+        left:SetPoint("RIGHT", row, "RIGHT", -100 - 6, 0) -- leave room for the second field on the right
         right:SetPoint("LEFT", left, "RIGHT", 6, 0)
         right:SetPoint("RIGHT")
-        -- linkes Feld etwas breiter: Sichtbarkeit hat die längeren Wörter
+        -- left field slightly wider: visibility has the longer words
         row:HookScript("OnSizeChanged", function(_, width)
             local half = width / 2
             left:SetPoint("RIGHT", row, "RIGHT", -math.floor((half - 6) * 0.45) - 6, 0)
@@ -738,11 +735,11 @@ function UI.Page(parent)
     return page
 end
 
--- Aufklappliste (eine für alle Auswahlen). Zeigt bis zu MAX_ROWS Einträge, Mausrad blättert.
--- Einträge mit font erscheinen in ihrer Schrift, mit texture auf einem Vorschau-Balken.
--- inert = Überschrift (kein Hover, kein Klick); actions = kleine Symbole rechts in der Zeile
--- ({ icon = Media-Name oder atlas = Atlas, tooltip, onClick }), z. B. Umbenennen/Löschen.
-local MAX_ROWS = 16 -- Talent-Berater: Kategorien mit Überschriften
+-- Dropdown list (one shared by all dropdowns). Shows up to MAX_ROWS entries, mouse wheel scrolls.
+-- Entries with font render in that font, with texture on a preview bar.
+-- inert = heading (no hover, no click); actions = small icons on the right of the row
+-- ({ icon = media name or atlas = atlas, tooltip, onClick }), e.g. rename/delete.
+local MAX_ROWS = 16 -- talent advisor: categories with headings
 local ROW_HEIGHT = 22
 local list
 
@@ -752,7 +749,7 @@ local function CreateList()
     list:EnableMouse(true)
     list:EnableMouseWheel(true)
     UI.Box(list, { 0.06, 0.06, 0.07, 0.98 })
-    -- Kontextmenü: Salbei-Linie oben wie bei den mUI-Fenstern
+    -- Context menu: accent line on top like mUI windows
     list.accent = list:CreateTexture(nil, "OVERLAY")
     list.accent:SetPoint("TOPLEFT")
     list.accent:SetPoint("TOPRIGHT")
@@ -771,7 +768,7 @@ local function CreateList()
         rowButton.preview = rowButton:CreateTexture(nil, "BORDER")
         rowButton.preview:SetPoint("TOPLEFT", 4, -3)
         rowButton.preview:SetPoint("BOTTOMRIGHT", -4, 3)
-        -- Symbol links (item.icon = Media-Name), senkrecht mittig zur Zeile
+        -- Icon on the left (item.icon = media name), vertically centered in the row
         rowButton.icon = rowButton:CreateTexture(nil, "OVERLAY")
         rowButton.icon:SetSize(14, 14)
         rowButton.icon:SetPoint("LEFT", 8, 0)
@@ -787,7 +784,7 @@ local function CreateList()
         rowButton:SetScript("OnClick", function(self)
             if self.inert then return end
             list.onSelect(self.value)
-            if list.multi then -- Haken-Liste bleibt offen, Einträge neu lesen
+            if list.multi then -- checkbox list stays open, re-read entries
                 list.items = list.multi()
                 list:Render()
                 return
@@ -795,7 +792,7 @@ local function CreateList()
             list:Hide()
         end)
         rowButton.hover = hover
-        -- Trennlinie über dem Eintrag (separator = true), z. B. vor „Aufgeben“
+        -- Divider above the entry (separator = true), e.g. before "Abandon"
         rowButton.sep = rowButton:CreateTexture(nil, "ARTWORK")
         rowButton.sep:SetPoint("TOPLEFT", 8, 0)
         rowButton.sep:SetPoint("TOPRIGHT", -8, 0)
@@ -834,7 +831,7 @@ local function CreateList()
     end
 
     function list:Render()
-        -- Zeilen untereinander; Titel (item.title) bekommt mehr Höhe, Kontextmenü Rand oben/unten
+        -- Rows stacked; titles (item.title) get more height, context menu gets top/bottom padding
         local y = 1 + self.pad
         for i, rowButton in ipairs(self.rows) do
             local item = self.items[self.offset + i]
@@ -870,7 +867,7 @@ local function CreateList()
                     rowButton.icon:SetTexture(ns.MEDIA .. "Icons\\" .. item.icon)
                     rowButton.icon:SetVertexColor(unpack(item.iconColor or item.color or UI.MUTED))
                 end
-                if list.multi then -- Haken links, Text immer gleich eingerückt
+                if list.multi then -- checkbox on the left, text always indented the same
                     rowButton.icon:SetShown(item.checked and true or false)
                     rowButton.icon:SetTexture(ns.MEDIA .. "Icons\\Check")
                     rowButton.icon:SetVertexColor(unpack(UI.ACCENT))
@@ -885,7 +882,7 @@ local function CreateList()
                             action.icon:SetAtlas(info.atlas)
                         else
                             action.icon:SetTexture(ns.MEDIA .. "Icons\\" .. info.icon)
-                            action.icon:SetTexCoord(0, 1, 0, 1) -- Atlas-Ausschnitt einer früheren Zeile zurücksetzen
+                            action.icon:SetTexCoord(0, 1, 0, 1) -- reset atlas tex coords from a previous row
                         end
                         action.icon:SetDesaturated(true)
                         action.icon:SetVertexColor(unpack(UI.MUTED))
@@ -903,7 +900,7 @@ local function CreateList()
         self:Render()
     end)
 
-    -- Klick daneben schließt die Liste
+    -- Clicking outside closes the list
     list:RegisterEvent("GLOBAL_MOUSE_DOWN")
     list:SetScript("OnEvent", function(self)
         if self:IsShown() and not self:IsMouseOver() and not (self.owner and self.owner:IsMouseOver()) then
@@ -912,8 +909,8 @@ local function CreateList()
     end)
 end
 
--- opts.menu = Kontextmenü (Rechtsklick): an der Maus statt unter dem Auslöser, Breite nach Inhalt,
--- Salbei-Linie oben; opts.title = Überschrift (z. B. Questname) mit Linie darunter.
+-- opts.menu = context menu (right-click): at the cursor instead of below the owner, width fits
+-- content, accent line on top; opts.title = heading (e.g. quest name) with a line below.
 function UI.OpenList(owner, items, selected, onSelect, opts)
     if not list then CreateList() end
     if opts and opts.title then
@@ -932,13 +929,13 @@ function UI.OpenList(owner, items, selected, onSelect, opts)
     list.owner, list.items, list.selected, list.onSelect = owner, items, selected, onSelect
     list.multi = opts and opts.multi or nil
     list.offset = 0
-    for index, item in ipairs(items) do -- Auswahl sichtbar machen
+    for index, item in ipairs(items) do -- scroll the selection into view
         if item.value == selected then list.offset = math.max(math.min(index - 3, #items - MAX_ROWS), 0) end
     end
-    -- mindestens so breit wie der Auslöser, sonst so breit wie der längste Eintrag (Namen nie abschneiden)
+    -- at least as wide as the owner, otherwise as wide as the longest entry (never truncate names)
     if not list.measure then
-        -- unsichtbar, aber nicht versteckt: versteckte Texte messen teils 0 (Liste blieb so schmal
-        -- wie der Auslöser und schnitt lange Namen ab)
+        -- invisible but not hidden: hidden font strings sometimes measure 0 (the list stayed as narrow
+        -- as the owner and truncated long names)
         list.measure = list:CreateFontString(nil, "OVERLAY")
         list.measure:SetAlpha(0)
         list.measure:SetPoint("TOPLEFT", UIParent, "BOTTOMRIGHT", 100, -100)
@@ -948,7 +945,7 @@ function UI.OpenList(owner, items, selected, onSelect, opts)
     for _, item in ipairs(items) do
         if not (item.font and list.measure:SetFont(item.font, 13, "")) then list.measure:SetFont(ns.STYLE.font, ns.FontPx(13), "") end
         list.measure:SetText(item.label or "")
-        -- Rand: 1 px Rahmen + 8 px Text-Einzug je Seite + Puffer für Rundung (sonst „Östliche Königreic…“)
+        -- margin: 1 px border + 8 px text inset per side + rounding buffer (else names get truncated)
         local needed = list.measure:GetUnboundedStringWidth() + 28 + (item.actions and #item.actions * 20 or 0)
             + ((item.icon or (opts and opts.multi)) and 22 or 0)
             + (#items > MAX_ROWS and 6 or 0)
@@ -975,7 +972,7 @@ function UI.CloseList()
     if list then list:Hide() end
 end
 
--- Häkchen mit Text (z. B. Auktionshaus „Sofortkauf-Modus“)
+-- Checkbox with text (e.g. auction house "Buyout mode")
 function UI.LabelCheck(parent, label, onClick)
     local UI = ns.UI
     local button = CreateFrame("Button", nil, parent)

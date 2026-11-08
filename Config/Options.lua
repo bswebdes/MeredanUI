@@ -1,25 +1,24 @@
--- Eigenes Einstellungsfenster im MeredanUI-Look: links die Bereiche in Gruppen, rechts die Seite.
--- Öffnen: /mui, Klick im Addon-Menü an der Minimap oder Button im Blizzard-Menü.
+-- mUI settings window: navigation with grouped sections on the left, the page on the right.
+-- Opened via /mui, the minimap addon menu or the button in Blizzard's settings.
 --
--- Aufbau jeder Seite (UX-Überarbeitung, Benny, 2026-10-25): Titel + ein Satz, was das ist. Dann der
--- Ein/Aus-Schalter des Moduls (wenn es einen gibt), dann die Optionen. Erklärungen stecken im „i“
--- am Label (Tooltip), nicht als Absätze. Optionen, die ein Neuladen brauchen, tragen die Marke
--- „RELOAD“; unten erscheint dann eine Leiste mit „Reload UI“. Der Knopf oben rechts startet die
--- Vorschau.
+-- Page layout: title + one sentence, then the module's on/off toggle (if any), then the options.
+-- Explanations live in the "i" tooltip on the label, not as paragraphs. Options that need a reload
+-- carry a "RELOAD" badge; a "Reload UI" bar then appears at the bottom. The button top right
+-- starts the preview.
 --
--- Verschlankt (Benny 2026-11-07): jedes Element behält eine eigene Einstellung, aber nur als
--- Schalter, wenige Stufen oder kleine Auswahl – keine Regler für Optik. Reine Optik-Zahlen
--- (Schrift, Textur, Abstände, Größen der Gruppenframes …) sind fest.
+-- Every element keeps its own setting, but only as a toggle, a few steps or a small dropdown -
+-- no sliders for looks. Pure visual numbers (fonts, textures, spacing, group frame sizes ...)
+-- are fixed.
 local _, ns = ...
 local L = ns.L
 local UI = ns.UI
 
-local WIDTH, HEIGHT, NAV_WIDTH = 860, 640, 220 -- Benny 2026-11-08: größer, weniger gedrängt (Entwurf Canvas „Einstellungen“)
-local CONTENT_WIDTH = WIDTH - 10 - NAV_WIDTH - 20 - 28 -- rechts Platz für die Scroll-Leiste
-local NAV_ROW, NAV_GROUP, NAV_SMALL = 26, 24, 22 -- NAV_SMALL: Module/Skins/Changelog unten, dezent
+local WIDTH, HEIGHT, NAV_WIDTH = 860, 640, 220
+local CONTENT_WIDTH = WIDTH - 10 - NAV_WIDTH - 20 - 28 -- room for the scrollbar on the right
+local NAV_ROW, NAV_GROUP, NAV_SMALL = 26, 24, 22 -- NAV_SMALL: Modules/Skins/Changelog at the bottom, subdued
 local window
 
--- Auswahllisten ------------------------------------------------------------------------
+-- Dropdown choices ----------------------------------------------------------------------
 
 local function ThemeItems()
     local items = {}
@@ -27,7 +26,7 @@ local function ThemeItems()
     return items
 end
 
--- Stufen Klein/Mittel/Groß (bzw. Klein/Normal/Groß bei den Unitframes)
+-- Steps Small/Medium/Large (Small/Normal/Large for unit frames)
 local function StageItems()
     return {
         { value = "small", label = L["Small"] },
@@ -43,7 +42,7 @@ local function FrameStageItems()
     }
 end
 
--- Sichtbarkeit (Leisten): Immer / Mouseover / Aus
+-- Visibility (bars): Always / Mouseover / Off
 local function VisibilityItems()
     return {
         { value = "always", label = L["Always"] },
@@ -52,7 +51,7 @@ local function VisibilityItems()
     }
 end
 
--- Aktionsleisten: zusätzlich „Im Kampf“ (außerhalb ausgeblendet, per Maus sichtbar)
+-- Action bars: additionally "In combat" (hidden outside, visible on mouseover)
 local function BarVisibilityItems()
     return {
         { value = "always", label = L["Always"] },
@@ -106,9 +105,9 @@ local function QuestXPItems()
     }
 end
 
--- Wert in ns.db lesen/schreiben, optional danach etwas ausführen
+-- Read/write a value in ns.db, optionally run something afterwards
 local function Getter(key) return function() return ns.db[key] end end
-local function On(key) return function() return ns.db[key] ~= false end end -- Standard an
+local function On(key) return function() return ns.db[key] ~= false end end -- default on
 local function Setter(key, after)
     return function(value)
         ns.db[key] = value
@@ -118,7 +117,7 @@ end
 local RELOAD = { reload = true }
 local function Help(text, reload) return { help = text, reload = reload } end
 
--- Eigene Fenster (Forever): Schlüssel in ns.db, Label, Erklärung
+-- Own windows (Forever): key in ns.db, label, explanation
 local WINDOWS = {
     { "trainerWindow", "mUI trainer window", "Own trainer window for class, profession and pet trainers: list with categories, details with Blizzard's profession art, learn all." },
     { "gossipWindow", "mUI conversation window", "Greeting, quests and conversation options when you talk to an NPC." },
@@ -145,7 +144,7 @@ local WINDOWS = {
 }
 local WINDOW_BY_KEY = {}
 for _, entry in ipairs(WINDOWS) do WINDOW_BY_KEY[entry[1]] = entry end
--- Skins-Seite in Gruppen (Entwurf Canvas „Einstellungen“, Benny 2026-11-08)
+-- Skins page in groups
 local SKIN_GROUPS = {
     { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow", "dressUpSkin" } },
     { L["World"], { "mapWindow", "flightWindow" } },
@@ -154,22 +153,22 @@ local SKIN_GROUPS = {
     { L["System"], { "addonListWindow" } },
 }
 
--- Seiten -------------------------------------------------------------------------------
--- key bleibt stabil (ShowSettings(key)); group = Überschrift in der Navigation;
--- bottom = unten in der Navigation. Vorschau: ein Knopf oben rechts für alles (Core/Preview.lua).
+-- Pages --------------------------------------------------------------------------------
+-- key stays stable (ShowSettings(key)); group = heading in the navigation;
+-- bottom = bottom of the navigation. Preview: one button top right for everything (Core/Preview.lua).
 
 local PAGES = {
     {
         key = "appearance", label = L["Appearance"],
         build = function(page)
             page:AddTitle(L["Appearance"], L["Size, font size and colours of everything mUI draws."])
-            -- Größe der Oberfläche (account-weit, Core/Style.lua); 1-px-Rahmen brauchen ein Neuladen
+            -- UI size (account-wide, Core/Style.lua); 1 px borders need a reload
             page:AddDropdown(L["Size"], StageItems, function() return ns.root.uiSize or "medium" end, function(value)
                 ns.root.uiSize = value ~= "medium" and value or nil
                 ns.ApplyUIScale()
                 ns.Relayout()
             end, RELOAD)
-            -- Schriftgröße aller mUI-Texte (pro Profil); manches (Tooltip, Toasts …) erst nach dem Neuladen
+            -- Font size of all mUI texts (per profile); some (tooltip, toasts ...) only after a reload
             page:AddDropdown(L["Font size"], StageItems, function() return ns.db.fontSize or "medium" end, function(value)
                 ns.db.fontSize = value
                 ns.RefreshStyle()
@@ -198,7 +197,7 @@ local PAGES = {
         key = "unitframes", label = L["Unit frames"], group = L["Frames"],
         build = function(page)
             page:AddTitle(L["Unit frames"], L["Player, target, focus and boss frames."])
-            -- Vor- und Nachname gibt es nur in Forever; gilt für alle Frames und Namensplaketten
+            -- First and last name only exist in Forever; applies to all frames and nameplates
             if ns.IS_FOREVER then
                 page:AddDropdown(L["Names"], function()
                     return {
@@ -224,7 +223,7 @@ local PAGES = {
             page:AddHeader(L["Target"])
             page:AddCheckbox(L["Execute line"], On("executeLine"), Setter("executeLine", ns.UpdateExecuteLines),
                 Help(L["Line in the health bar of your target and enemy nameplates where your execute ability becomes usable (e.g. 20 % or 35 %). Only if your class has one."]))
-            -- Munition & Reagenzien gibt es nur in Forever (Vorschau überall)
+            -- Ammo & reagents only exist in Forever (preview everywhere)
             page:AddHeader(L["Class reagents"])
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Show class reagents"], On("ammoCounter"), Setter("ammoCounter", ns.UpdateAmmoCounter),
@@ -232,7 +231,7 @@ local PAGES = {
             else
                 page:AddNote(L["Only in WoW Forever – Retail has no ammunition or reagents like these."])
             end
-            -- welche Reagenzien angezeigt werden – nur für die eigene Klasse
+            -- which reagents are shown - own class only
             local _, myClass = UnitClass("player")
             local entries = {}
             for index, reagent in ipairs(ns.CLASS_REAGENTS[myClass] or {}) do
@@ -290,7 +289,7 @@ local PAGES = {
             page:AddCheckbox(L["Ready check: remind me of missing food, flask and rune"], On("readyCheckReminder"),
                 Setter("readyCheckReminder"))
             page:AddHeader(L["Preview"])
-            -- Größe in der Vorschau (Gruppe und Schlachtzug gehen nicht gleichzeitig)
+            -- Preview size (party and raid can't be shown at the same time)
             page:AddDropdown(L["Preview size"], function()
                 return {
                     { value = "group", label = L["Party (5)"] },
@@ -306,15 +305,15 @@ local PAGES = {
     {
         key = "nameplates", label = L["Nameplates"],
         build = function(page)
-            page:AddTitle(L["Nameplates"], ns.IS_FOREVER -- Forever: kein Mythisch+
+            page:AddTitle(L["Nameplates"], ns.IS_FOREVER -- Forever: no Mythic+
                 and L["Enemy plates with priority colours, interrupt-ready cast bar and your debuffs. Friendly plates show names only."]
                 or L["Enemy plates with priority colours, interrupt-ready cast bar, Mythic+ percentage and your debuffs. Friendly plates show names only."])
             page:AddCheckbox(L["mUI nameplates"], On("nameplates"), Setter("nameplates"), RELOAD)
             page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
                 Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
-            -- Anzeigen: Blizzards eigene Plate-Schalter an einer Stelle (wirken sofort; Benny 2026-11-08)
+            -- Display: Blizzard's own nameplate toggles in one place (take effect immediately)
             page:AddHeader(L["Show"])
-            -- ein Haken kann mehrere Blizzard-Schalter setzen (z. B. Begleiter, Wächter, Diener, Totems)
+            -- one checkbox can set several Blizzard CVars (e.g. companions, guardians, minions, totems)
             local function CVarCheck(label, ...)
                 local cvars = { ... }
                 return {
@@ -339,7 +338,7 @@ local PAGES = {
                     "nameplateShowEnemyMinions", "nameplateShowEnemyTotems"),
                 CVarCheck(L["Minor enemies"], "nameplateShowEnemyMinus"),
             }, 2)
-            -- Namen über allem, was man nicht angreifen kann
+            -- Names above everything you can't attack
             page:AddHeader(L["Names"])
             page:AddCheckbox(L["mUI names instead of Blizzard names"], On("npMuiNames"), function(on)
                 if ns.SetMuiNames then ns.SetMuiNames(on) end
@@ -355,7 +354,7 @@ local PAGES = {
     {
         key = "auras", label = L["Buffs & debuffs"],
         build = function(page)
-            local function Live(key) return Setter(key, ns.RefreshAurasDemo) end -- Vorschau zeigt Änderungen sofort
+            local function Live(key) return Setter(key, ns.RefreshAurasDemo) end -- preview shows changes immediately
             page:AddTitle(L["Buffs & debuffs"], L["Your buffs and debuffs left of the minimap. The preview shows changes right away."])
             page:AddDropdown(L["Size"], StageItems, Getter("auraSize"), Live("auraSize"), RELOAD)
             page:AddDropdown(L["Time remaining"], AuraTimeItems, Getter("auraTime"), Live("auraTime"), RELOAD)
@@ -375,7 +374,7 @@ local PAGES = {
                 Help(L["Spells, items, NPCs. Handy for WeakAuras and macros."]))
             page:AddHeader(L["Players"])
             page:AddCheckbox(L["Item level"], On("tooltipItemLevel"), Live("tooltipItemLevel"))
-            if not ns.IS_FOREVER then -- Forever: kein Mythisch+
+            if not ns.IS_FOREVER then -- Forever: no Mythic+
                 page:AddCheckbox(L["Mythic+ rating"], On("tooltipMythic"), Live("tooltipMythic"))
             end
             page:AddCheckbox(L["Target"], On("tooltipTarget"), Live("tooltipTarget"))
@@ -404,7 +403,7 @@ local PAGES = {
                 Help(L["Centre: main bar between player and target. Stacked: three rows of 12 at the bottom. The healer layout is always stacked."], true))
             for _, key in ipairs({ "bar1", "bar2", "bar3", "bar4", "bar5", "petbar", "stancebar", "bar6", "bar7", "bar8" }) do
                 if key == "bar6" then page:AddHeader(L["Extra bars"]) end
-                -- links Sichtbarkeit, rechts Texte auf den Knöpfen mit Haken (Benny 2026-11-08)
+                -- visibility on the left, button text checkboxes on the right
                 local function Shown(what) return not ns.ActionBarTextShown or ns.ActionBarTextShown(key, what) end
                 page:AddDualDropdown(L["MOVER_" .. key], BarVisibilityItems,
                     function() return ns.ActionBarMode and ns.ActionBarMode(key) or ns.VisibilityMode(ns.db.actionBars[key]) end,
@@ -431,7 +430,7 @@ local PAGES = {
                         return L["No texts"]
                     end)
             end
-            page:AddHeader(L["Settings"]) -- gilt für alle Leisten, nicht nur die Zusatzleisten
+            page:AddHeader(L["Settings"]) -- applies to all bars, not just the extra bars
             page:AddDropdown(L["Key binding text size"], function()
                 return { { value = "small", label = L["Small"] }, { value = "medium", label = L["Medium"] }, { value = "large", label = L["Large"] } }
             end, Getter("actionBarFont"), Setter("actionBarFont", function() if ns.ApplyActionBarTexts then ns.ApplyActionBarTexts() end end))
@@ -450,7 +449,7 @@ local PAGES = {
                 function() return ns.VisibilityMode(ns.db.addonBar) end,
                 function(value) ns.db.addonBar = value; if ns.UpdateAddonBar then ns.UpdateAddonBar() end end,
                 Help(L["The minimap buttons of your other addons, as a row above the micro menu."]))
-            -- jedes Addon einzeln ein-/ausblenden (Liste zum Zeitpunkt des Öffnens)
+            -- show/hide each addon individually (list as of opening)
             for _, entry in ipairs(ns.AddonBarEntries and ns.AddonBarEntries() or {}) do
                 page:AddCheckbox(entry.label,
                     function() return not ns.db.addonBarHidden[entry.key] end,
@@ -528,7 +527,7 @@ local PAGES = {
                 function() return ns.VisibilityMode(ns.db.emoteBar or "hidden") end,
                 function(value) ns.db.emoteBar = value; if ns.UpdateEmoteBar then ns.UpdateEmoteBar() end end,
                 Help(L["Buttons for emotes with animation, for roleplay. With a target, the emote is aimed at it."]))
-            -- Thema wählen, darunter nur dessen Emotes (alle Themen liegen an derselben Stelle)
+            -- Pick a theme, below it only its emotes (all themes share the same spot)
             local groupRows, selectedGroup = {}, 1
             local function ShowGroup(index)
                 selectedGroup = index
@@ -595,7 +594,7 @@ local PAGES = {
                 Help(L["In a group: who won a roll (hover shows every roll) and what others looted, from the same quality as your own loot."]))
             page:AddCheckbox(L["Repair warning"], On("durabilityWarning"), Setter("durabilityWarning"),
                 Help(L["Once, when an item drops below 20 % durability."]))
-            if type(Screenshot) == "function" then -- Forever: Addons dürfen keine Screenshots machen
+            if type(Screenshot) == "function" then -- Forever: addons can't take screenshots
                 page:AddCheckbox(L["Screenshot on new achievements"], On("achievementScreenshot"), Setter("achievementScreenshot"))
             end
             page:AddCheckbox(L["Combat message"], On("combatAlert"), Setter("combatAlert"),
@@ -627,7 +626,7 @@ local PAGES = {
                 Help(L["Slim need/greed rows instead of Blizzard's group loot frames. Test mode shows examples."], true))
             page:AddCheckbox(L["Fast loot"], On("fastLoot"), Setter("fastLoot"),
                 Help(L["With auto loot on, everything is picked up instantly instead of waiting for the loot window."]))
-            -- Nachkaufen beim Händler (nur Forever: Munition und Reagenzien gibt es nur dort)
+            -- Restock at vendors (Forever only: ammo and reagents only exist there)
             if ns.IS_FOREVER then
                 page:AddHeader(L["Restock at merchants"])
                 page:AddCheckbox(L["Restock ammunition and reagents"], function() return ns.db.autoBuy == true end,
@@ -661,7 +660,7 @@ local PAGES = {
         build = function(page)
             local function Live(key) return Setter(key, ns.RefreshMythicPlusDemo) end
             page:AddTitle(L["Dungeons & raids"], ns.IS_FOREVER and L["Damage meter."] or L["Boss timers, damage meter and Mythic+."])
-            if not ns.IS_FOREVER then -- Forever hat keine Boss-Zeitleiste/-Warnungen von Blizzard
+            if not ns.IS_FOREVER then -- Forever has no Blizzard boss timeline/warnings
                 page:AddHeader(L["Boss timers"])
                 page:AddCheckbox(L["mUI boss timers and warnings"], On("bossMods"), Setter("bossMods"),
                     Help(L["Uses Blizzard's own boss data (encounter timeline and warnings), the same data boss mods get in Midnight. Bars left of the player frame, big abilities at the top centre. Pull timer: /pull 10. Which warnings you see is set in Blizzard's options (Gameplay > Combat > Boss warnings)."], true))
@@ -676,7 +675,7 @@ local PAGES = {
             page:AddCheckbox(L["Second window"], On("damageMeterSecond"), Setter("damageMeterSecond", function()
                 if ns.RelayoutDamageMeter then ns.RelayoutDamageMeter() end
             end))
-            if not ns.IS_FOREVER then -- Forever hat kein Mythisch+ (Benny 2026-11-07)
+            if not ns.IS_FOREVER then -- Forever has no Mythic+
                 page:AddHeader(L["Mythic+"])
                 page:AddCheckbox(L["Chest timers (+3 / +2)"], On("mplusChests"), Live("mplusChests"),
                     Help(L["Blizzard's Mythic+ block in the objective tracker, in the mUI look. Timer colour = the chest you still make."]))
@@ -691,8 +690,8 @@ local PAGES = {
             end
         end,
     },
-    -- Unten, dezent in Grau (Benny 2026-11-08): Module = eigene Bausteine, Skins = Blizzard-Fenster im
-    -- mUI-Look, Changelog. Darunter Profile.
+    -- Bottom, subdued grey: Modules = own components, Skins = Blizzard frames in mUI style,
+    -- Changelog. Profiles below.
     {
         key = "modules", label = L["Modules"], extra = true,
         build = function(page)
@@ -749,7 +748,7 @@ local PAGES = {
                     local entry = WINDOW_BY_KEY[key]
                     if entry then
                         local label = L[entry[2]]
-                        -- anderes Auktionshaus-Addon aktiv: Hinweis, unseres bleibt aus
+                        -- another auction house addon is active: show a notice, ours stays off
                         local other = (key == "auctionWindow" and ns.OtherAddon(ns.AUCTION_ADDONS))
                             or (key == "mailWindow" and ns.OtherAddon(ns.MAIL_ADDONS))
                         if other then label = label .. "  |cffd9b25b" .. L["%s active"]:format(other) .. "|r" end
@@ -773,7 +772,7 @@ local PAGES = {
         end,
     },
     {
-        key = "profiles", label = L["Profiles"], bottom = true, -- unten in der Navigation
+        key = "profiles", label = L["Profiles"], bottom = true, -- bottom of the navigation
         build = function(page)
             local Profiles = ns.Profiles
             local function ProfileItems(extra)
@@ -784,7 +783,7 @@ local PAGES = {
 
             page:AddTitle(L["Profiles"], L["A profile holds all your settings, including the layout. Each character uses one. Switching reloads the UI."])
             page:AddButton(L["Run the setup again"], function() ns.OpenSetup() end)
-            -- Layout = wo alles sitzt (Core/Layouts.lua), gehört zum Profil; Wechsel ohne Neuladen
+            -- Layout = where everything sits (Core/Layouts.lua), part of the profile; switches without reload
             page:AddDropdown(L["Screen layout"], function()
                 local items = {}
                 for _, layout in ipairs(ns.LAYOUTS) do items[#items + 1] = { value = layout.id, label = layout.name } end
@@ -835,7 +834,7 @@ local PAGES = {
                 end
             end)
 
-            -- Automatisch je Spezialisierung (Standard aus)
+            -- Automatic per specialization (default off)
             local specs = Profiles.Specs()
             if #specs > 0 then
                 page:AddHeader(L["Specialization"])
@@ -853,7 +852,7 @@ local PAGES = {
     },
 }
 
--- Fenster ------------------------------------------------------------------------------
+-- Window -------------------------------------------------------------------------------
 
 local function SelectPage(key)
     for _, each in ipairs(PAGES) do
@@ -874,9 +873,9 @@ end
 
 local function CreateWindow()
     window = CreateFrame("Frame", "MeredanUIOptions", UIParent)
-    -- auf kleinen Bildschirmen bzw. großer UI-Skalierung niedriger; der Inhalt scrollt dann
+    -- lower on small screens / large UI scale; the content scrolls then
     window:SetSize(WIDTH, math.min(HEIGHT, UIParent:GetHeight() - 120))
-    window:SetPoint("TOP", UIParent, "TOP", 0, -160) -- oberhalb der Frames, damit sie sichtbar bleiben
+    window:SetPoint("TOP", UIParent, "TOP", 0, -160) -- above the frames so they stay visible
     window:SetFrameStrata("DIALOG")
     window:SetClampedToScreen(true)
     window:EnableMouse(true)
@@ -885,9 +884,9 @@ local function CreateWindow()
     window:SetScript("OnDragStart", window.StartMoving)
     window:SetScript("OnDragStop", window.StopMovingOrSizing)
     UI.Box(window, { 0.05, 0.05, 0.06, 0.97 })
-    tinsert(UISpecialFrames, "MeredanUIOptions") -- Esc schließt
+    tinsert(UISpecialFrames, "MeredanUIOptions") -- Esc closes
 
-    -- Titel: „Meredan“ hell, „UI“ in Surf Green
+    -- Title: "Meredan" light, "UI" in Surf Green
     local title = UI.Text(window, 18, "LEFT")
     title:SetPoint("TOPLEFT", 16, -14)
     title:SetText("Meredan|cff8ecbb4UI|r")
@@ -898,8 +897,8 @@ local function CreateWindow()
     local close = UI.IconButton(window, "Close", function() window:Hide() end, 24)
     close:SetPoint("TOPRIGHT", -10, -10)
 
-    -- Einklappen während der Vorschau (Benny 2026-11-07): nur die Kopfzeile bleibt, halb
-    -- durchsichtig (unter der Maus voll) – so sieht man die ganze Vorschau
+    -- Collapse during preview: only the header stays, semi-transparent (opaque on mouseover)
+    -- - so the whole preview is visible
     local COLLAPSED_HEIGHT, COLLAPSED_ALPHA = 44, 0.55
     local collapsed, fullHeight, hiddenChildren = false, nil, {}
     local collapse, previewButton
@@ -930,7 +929,7 @@ local function CreateWindow()
         collapse.icon:SetTexture(ns.MEDIA .. "Icons\\" .. (state and "Plus" or "Minus"))
     end
     collapse = UI.IconButton(window, "Minus", function() SetCollapsed(not collapsed) end, 24)
-    -- erscheint nur während der Vorschau: links neben „Vorschau“, damit die direkt am X bleibt
+    -- only shown during preview: left of "Preview" so that one stays next to the X
     collapse:HookScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
         GameTooltip:SetText(collapsed and L["Expand"] or L["Collapse"])
@@ -939,7 +938,7 @@ local function CreateWindow()
     collapse:HookScript("OnLeave", function() GameTooltip:Hide() end)
     collapse:Hide()
 
-    -- eine Vorschau für alles; Einklappen gibt es nur, solange sie läuft
+    -- one preview for everything; collapsing only exists while it runs
     function window.UpdatePreviewButton()
         local active = ns.Preview.IsActive()
         previewButton.Text:SetText(active and L["Stop preview"] or L["Preview"])
@@ -947,8 +946,8 @@ local function CreateWindow()
         collapse:SetShown(active)
         if not active then SetCollapsed(false) end
     end
-    -- eine Vorschau für alles (Core/Preview.lua), immer an dieser Stelle; läuft auch nach dem
-    -- Schließen weiter (/mui t beendet sie)
+    -- one preview for everything (Core/Preview.lua), always in this spot; keeps running after
+    -- closing (/mui t ends it)
     previewButton = UI.Button(window, "", function()
         ns.Preview.Toggle()
         window.UpdatePreviewButton()
@@ -956,16 +955,16 @@ local function CreateWindow()
     previewButton:SetPoint("RIGHT", close, "LEFT", -6, 0)
     collapse:SetPoint("RIGHT", previewButton, "LEFT", -6, 0)
     for _, frame in ipairs({ close, collapse, previewButton }) do keep[frame] = true end
-    ns.OnPreviewChanged = window.UpdatePreviewButton -- auch bei /mui t und Kampfbeginn
+    ns.OnPreviewChanged = window.UpdatePreviewButton -- also on /mui t and entering combat
 
-    -- Navigation links: Bereiche in Gruppen, Profile unten
+    -- Navigation on the left: sections in groups, profiles at the bottom
     local nav = CreateFrame("Frame", nil, window)
     nav:SetPoint("TOPLEFT", 10, -48)
     nav:SetPoint("BOTTOMLEFT", 10, 10)
     nav:SetWidth(NAV_WIDTH)
     UI.Box(nav, { 0.08, 0.08, 0.09, 1 })
 
-    -- Reload-Leiste unten rechts: erscheint, sobald eine Option mit Marke geändert wurde
+    -- Reload bar bottom right: appears once a badged option was changed
     local reloadBar = CreateFrame("Frame", nil, window)
     reloadBar:SetHeight(32)
     reloadBar:SetPoint("BOTTOMLEFT", nav, "BOTTOMRIGHT", 20, 0)
@@ -980,11 +979,11 @@ local function CreateWindow()
     reloadNow:SetPoint("RIGHT", -6, 0)
     reloadBar:Hide()
 
-    -- Inhalt rechts, scrollt bei langen Seiten; mit Leiste unten kürzer
+    -- Content on the right, scrolls for long pages; shorter with the bar at the bottom
     local scroll = UI.ScrollArea(window)
     scroll:SetPoint("TOPLEFT", nav, "TOPRIGHT", 20, -6)
     scroll:SetPoint("BOTTOMRIGHT", -28, 16)
-    scroll.child:SetWidth(CONTENT_WIDTH) -- vor dem Aufbau setzen, damit Hinweise richtig umbrechen
+    scroll.child:SetWidth(CONTENT_WIDTH) -- set before building so hints wrap correctly
     window.scroll = scroll
     local content = scroll.child
 
@@ -1025,7 +1024,7 @@ local function CreateWindow()
             button:SetPoint("BOTTOMRIGHT", -1, 1 + bottom * NAV_ROW)
             bottom = bottom + 1
         elseif entry.extra then
-            extras[#extras + 1] = button -- Platz erst nach der Schleife (über Profile)
+            extras[#extras + 1] = button -- spacing only after the loop (above Profiles)
         else
             button:SetPoint("TOPLEFT", 1, -y)
             button:SetPoint("TOPRIGHT", -1, -y)
@@ -1035,7 +1034,7 @@ local function CreateWindow()
         hover:SetAllPoints()
         hover:SetColorTexture(unpack(UI.HOVER))
         hover:Hide()
-        button.selected = button:CreateTexture(nil, "BACKGROUND", nil, 1) -- gewählter Bereich, etwas heller
+        button.selected = button:CreateTexture(nil, "BACKGROUND", nil, 1) -- selected section, slightly brighter
         button.selected:SetAllPoints()
         button.selected:SetColorTexture(1, 1, 1, 0.06)
         button.selected:Hide()
@@ -1046,7 +1045,7 @@ local function CreateWindow()
         button.marker:SetWidth(2)
         button.text = UI.Text(button, entry.extra and 12 or 13, "LEFT", entry.extra and UI.MUTED or nil)
         button.text:SetPoint("LEFT", 12, 0)
-        button.text:SetPoint("RIGHT", -6, 0) -- falls eine Übersetzung doch zu lang ist: kürzen statt überlappen
+        button.text:SetPoint("RIGHT", -6, 0) -- in case a translation is too long: truncate instead of overlapping
         button.text:SetWordWrap(false)
         button.text:SetText(entry.label)
         button:SetScript("OnEnter", function() hover:Show() end)
@@ -1057,9 +1056,9 @@ local function CreateWindow()
         entry.page = UI.Page(content)
         entry.build(entry.page)
     end
-    -- Fenster wächst mit der Navigation (Benny 2026-11-06: neue Menüpunkte sollen immer Platz haben):
-    -- oben 48 px Kopf, Einträge, Abstand zu den unteren Einträgen, unten 10 px Rand
-    -- Module/Skins/Changelog über Profile, oben zuerst; je eine Trennlinie darüber und darunter
+    -- Window grows with the navigation so new entries always fit:
+    -- 48 px header, entries, gap to the bottom entries, 10 px bottom margin.
+    -- Modules/Skins/Changelog above Profiles, top first; a divider above and below each
     local base = 1 + bottom * NAV_ROW
     for i, button in ipairs(extras) do
         local offset = base + 6 + (#extras - i) * NAV_SMALL
@@ -1076,8 +1075,8 @@ local function CreateWindow()
         line:SetPoint("BOTTOMRIGHT", -1, offset)
         line:SetHeight(ns.PixelSize())
     end
-    Line(base) -- über Profile
-    if #extras > 0 then Line(base + extraHeight) end -- über Module
+    Line(base) -- above Profiles
+    if #extras > 0 then Line(base + extraHeight) end -- above Modules
 
     window:SetScript("OnShow", function()
         SelectPage(window.current or PAGES[1].key)
@@ -1093,7 +1092,7 @@ function ns.OpenSettings()
     window:SetShown(not window:IsShown())
 end
 
--- Einstellungen öffnen, gleich auf einem bestimmten Bereich (z. B. von der Minimap aus)
+-- Open settings, optionally on a specific section (e.g. from the minimap)
 function ns.ShowSettings(key)
     if not window then CreateWindow() end
     window.current = key or window.current
@@ -1101,7 +1100,7 @@ function ns.ShowSettings(key)
 end
 ns.OnCompartmentClick = ns.OpenSettings
 
--- Fenster ausblenden (z. B. vor dem RP-Modus).
+-- Hide the window (e.g. before RP mode).
 function ns.HideSettings()
     if window then window:Hide() end
 end

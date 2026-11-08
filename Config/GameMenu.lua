@@ -1,8 +1,7 @@
--- Spielmenü (Esc) im mUI-Stil (Benny 2026-11-07): dunkle Fläche mit Surf-Green-Linie oben, Titel in
--- mUI-Schrift, flache dunkle Knöpfe statt Blizzards roter. Ganz oben ein eigener Knopf
--- „mUI-Einstellungen“ mit Surf-Green-Rahmen.
--- Nur Optik: Blizzards Knöpfe behalten Text, Klick und Reihenfolge; ihre roten Teile werden
--- unsichtbar, darunter liegt unsere Fläche. Der eigene Knopf reiht sich über layoutIndex 0 ein.
+-- Game menu (Esc) in mUI style: dark background with a Surf Green top line, title in mUI font,
+-- flat dark buttons instead of Blizzard's red ones, plus a "mUI Settings" button on top.
+-- Visual only: Blizzard's buttons keep text, click and order; their red parts are hidden.
+-- Our button is inserted via layoutIndex 0.
 local _, ns = ...
 local L = ns.L
 
@@ -20,7 +19,7 @@ local function Fonts()
     fontDisabled:SetTextColor(0.45, 0.45, 0.43)
 end
 
--- Blizzard-Knopf (aus dem Pool) einmalig umziehen
+-- Reskin a Blizzard button (from the pool) once
 local function SkinButton(b)
     if skinned[b] then return end
     skinned[b] = true
@@ -69,7 +68,7 @@ local function Create(menu)
         ns.OpenSettings()
     end, 200)
     button.layoutIndex = 0
-    button.bottomPadding = 20 -- Abstand zu „Optionen“ wie zwischen Blizzards Abschnitten
+    button.bottomPadding = 20 -- gap to "Options" like between Blizzard's sections
     for _, edge in ipairs(ns.AddBorder(button, true)) do edge:SetVertexColor(unpack(UI.ACCENT)) end
     ns.SetFont(button.Text, 14, "", "bold")
 end
