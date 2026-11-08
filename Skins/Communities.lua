@@ -1666,11 +1666,15 @@ local function BuildOverview(f)
     local addFilter = ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter or ChatFrame_AddMessageEventFilter
     if addFilter then
         addFilter("CHAT_MSG_SYSTEM", function(_, _, text)
-            if asking and type(text) == "string" and Parse(text) then
+            if not asking or type(text) ~= "string" then return end
+            if Parse(text) then
                 asking = false
                 if Refresh then C_Timer.After(0, Refresh) end
                 return true -- im Chat nicht anzeigen
             end
+            -- /ginfo schreibt vorher „Gilde: <Name>“ – während der stillen Abfrage ebenfalls ausblenden
+            local guildName = GetGuildInfo and GetGuildInfo("player")
+            if guildName and text:find(guildName, 1, true) then return true end
         end)
     end
     local function AskGuildInfo()
@@ -1740,7 +1744,7 @@ local function BuildOverview(f)
         if not clubId or not panel:IsShown() then return end
         local classes, levels, total, online, levelSum = {}, {}, 0, 0, 0
         -- Haken nur zeigen, wenn die Gilde Zweitcharakter-Ränge hat; sonst wirkt er nicht
-        local anyAlt = false
+        local anyAlt, mainCount, altCount = false, 0, 0
         local filterAlts = ns.db.guildOverviewMains == true
         if GuildControlGetNumRanks and GuildControlGetRankName then
             for r = 1, GuildControlGetNumRanks() do
@@ -1762,6 +1766,9 @@ local function BuildOverview(f)
             local info = C_Club.GetMemberInfo(clubId, memberId)
             local twink = info and IsAltRank(info.guildRank)
             if twink then anyAlt = true end
+            if info and info.level and info.level > 0 then
+                if twink then altCount = altCount + 1 else mainCount = mainCount + 1 end
+            end
             if info and info.level and info.level > 0 and not (filterAlts and twink) then
                 total = total + 1
                 levelSum = levelSum + info.level
@@ -1799,6 +1806,9 @@ local function BuildOverview(f)
         Fill(classBox, classList, maxClass)
         Fill(levelBox, levelList, maxBracket)
         local players = guildFacts.accounts and ("  ·  %s %d"):format(ns.L["Players"], guildFacts.accounts) or ""
+        if anyAlt then
+            players = players .. ("  ·  %s %d  ·  %s %d"):format(ns.L["Mains"], mainCount, ns.L["Alts"], altCount)
+        end
         summary:SetText(("%s %d%s  ·  %s %d  ·  %s %s"):format(ns.L["Members"], total, players, ns.L["Online"], online,
             ns.L["Average level"], total > 0 and ("%.1f"):format(levelSum / total) or "–"))
         founded:SetText(guildFacts.founded and ns.L["Founded on %s"]:format(guildFacts.founded) or "")

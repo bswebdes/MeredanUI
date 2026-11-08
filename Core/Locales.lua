@@ -83,6 +83,8 @@ if GetLocale() == "deDE" then
     L["Average level"] = "Ø Stufe"
     L["Players"] = "Spieler"
     L["Main characters only"] = "Nur Hauptcharaktere"
+    L["Mains"] = "Mains"
+    L["Alts"] = "Twinks"
     L["Founded on %s"] = "Gegründet am %s"
     L["Online"] = "Online"
     L["Background opacity"] = "Deckkraft"
