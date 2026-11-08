@@ -17,6 +17,19 @@ local L = ns.L
 
 local WIDTH, ROW = 200, 24
 local MAX_RANKS = 10
+local lastArgs -- letzte Öffnung (für Neuaufbau nach jedem Rang-Schritt)
+
+-- aktueller Rang (1 = höchster) eines Mitglieds aus der Gildenliste
+local function CurrentRank(name)
+    if not (GetNumGuildMembers and GetGuildRosterInfo) then return end
+    local short = Ambiguate and Ambiguate(name, "none") or name
+    for i = 1, GetNumGuildMembers() do
+        local full, _, rankIndex = GetGuildRosterInfo(i)
+        if full and (full == name or (Ambiguate and Ambiguate(full, "none") == short)) then
+            return rankIndex and rankIndex + 1
+        end
+    end
+end
 local menu, rows = nil, {}
 local current -- Name des Mitglieds
 
@@ -108,8 +121,16 @@ local function Create()
     rows.ranks = {}
     for i = 1, MAX_RANKS do
         local row = Row("Rank" .. i, true)
+        row.steps = row:CreateFontString(nil, "OVERLAY")
+        row.steps:SetFont(ns.FontFor(), ns.FontPx(11), "")
+        row.steps:SetTextColor(unpack(UI.MUTED))
+        row.steps:SetPoint("RIGHT", -10, 0)
+        -- ein Schritt je Klick (mehrere Befehle am Stück verarbeitet der Server falsch, Benny 2026-11-08);
+        -- Menü bleibt offen und wird mit dem neuen Rang neu aufgebaut, sobald der Server ihn meldet
         row:HookScript("PostClick", function(_, _, down)
-            if not down then C_Timer.After(0, Close) end
+            if down then return end
+            menu.waiting = true
+            if C_GuildInfo and C_GuildInfo.GuildRoster then C_GuildInfo.GuildRoster() end
         end)
         rows.ranks[i] = row
     end
@@ -122,9 +143,18 @@ local function Create()
         end
         if InCombatLockdown() then ns.AfterCombat(Clean) else Clean() end
     end)
-    -- Klick daneben schließt
+    -- Klick daneben schließt; neuer Rang vom Server: Menü neu aufbauen
     menu:RegisterEvent("GLOBAL_MOUSE_DOWN")
-    menu:SetScript("OnEvent", function(self)
+    menu:RegisterEvent("GUILD_ROSTER_UPDATE")
+    menu:SetScript("OnEvent", function(self, event)
+        if event == "GUILD_ROSTER_UPDATE" then
+            if self.waiting and self:IsShown() and lastArgs and not InCombatLockdown() then
+                self.waiting = nil
+                local rank = CurrentRank(lastArgs[1]) or lastArgs[3]
+                ns.OpenGuildMemberMenu(lastArgs[1], lastArgs[2], rank, lastArgs[4])
+            end
+            return
+        end
         if self:IsShown() and not self:IsMouseOver() then Close() end
     end)
 end
@@ -134,6 +164,7 @@ end
 -- opts.guid: nicht erlaubte Ränge grau und ohne Befehl (C_GuildInfo.IsGuildRankAssignmentAllowed)
 function ns.OpenGuildMemberMenu(name, isSelf, rankOrder, opts)
     opts = opts or {}
+    lastArgs = { name, isSelf, rankOrder, opts }
     if InCombatLockdown() then
         return UIErrorsFrame:AddMessage(L["Not possible in combat."], 1, 0.1, 0.1)
     end
@@ -179,7 +210,8 @@ function ns.OpenGuildMemberMenu(name, isSelf, rankOrder, opts)
             local row = rows.ranks[i - 1]
             local steps = i - rankOrder
             local lines = {}
-            for _ = 1, math.abs(steps) do lines[#lines + 1] = steps > 0 and demote or promote end
+            if steps ~= 0 then lines[1] = steps > 0 and demote or promote end -- genau ein Schritt
+            row.steps:SetText(steps ~= 0 and L["%d steps"]:format(math.abs(steps)) or "")
             local allowed = steps == 0 or not (opts.guid and C_GuildInfo.IsGuildRankAssignmentAllowed)
                 or C_GuildInfo.IsGuildRankAssignmentAllowed(opts.guid, i)
             row:SetAttribute("macrotext", allowed and table.concat(lines, "\n") or "")
