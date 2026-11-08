@@ -683,7 +683,7 @@ local function SkinShell(f)
         if f.GuildLogButton and f.GuildDetailsFrame then
             f.GuildLogButton:SetSize(150, BUTTON_H)
             f.GuildLogButton:ClearAllPoints()
-            f.GuildLogButton:SetPoint("BOTTOMLEFT", f.GuildDetailsFrame, "BOTTOMLEFT", 0, 8 - BOTTOM)
+            f.GuildLogButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8) -- rechts wie die anderen
         end
     end
     SkinInset(f.Inset)
