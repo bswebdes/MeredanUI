@@ -656,6 +656,8 @@ local function SkinShell(f)
             f.InviteButton:ClearAllPoints()
             f.InviteButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 3)
         end
+        local control = f.CommunitiesControlFrame
+        if control and control.GuildControlButton then control.GuildControlButton:SetSize(150, 22) end
         if f.CommunitiesControlFrame then
             f.CommunitiesControlFrame:ClearAllPoints()
             f.CommunitiesControlFrame:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 3)
@@ -1019,10 +1021,37 @@ local function Apply()
     Try(SkinSettingsDialog, _G.CommunitiesSettingsDialog)
 end
 
+-- Gildeneinstellungen (Ränge, Rechte): Blizzard öffnet sie als „linkes“ Fenster – unser Gildenfenster
+-- wich dann nach rechts aus (Benny 2026-11-08). Wie die Gilde aus der Fensterverwaltung nehmen und
+-- über unsere Anordnung rechts daneben öffnen.
+local controlDone = false
+local function PlaceGuildControl()
+    local control = _G.GuildControlUI
+    if controlDone or type(control) ~= "table" or not Enabled() then return end
+    controlDone = true
+    local function Unmanage()
+        if InCombatLockdown() then return ns.AfterCombat(Unmanage) end
+        if SetUIPanelAttribute then SetUIPanelAttribute(control, "area", nil) end
+        local listed = false
+        for _, name in ipairs(UISpecialFrames) do if name == "GuildControlUI" then listed = true end end
+        if not listed then tinsert(UISpecialFrames, "GuildControlUI") end
+    end
+    Unmanage()
+    control:HookScript("OnShow", function(self)
+        C_Timer.After(0, function()
+            if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
+                ns.ResetWindowPosition(self, "guildcontrol", true)
+            end
+        end)
+    end)
+end
+
 ns:On("ADDON_LOADED", function(_, name)
     if name == "Blizzard_Communities" then Apply() end
+    if name == "Blizzard_GuildControlUI" then PlaceGuildControl() end
 end)
 
 ns:On("PLAYER_LOGIN", function()
     if C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_Communities") then Apply() end
+    if C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_GuildControlUI") then PlaceGuildControl() end
 end)
