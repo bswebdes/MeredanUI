@@ -548,7 +548,8 @@ local function UpdateNamePrefix(frame)
     marker:SetShown(quest)
 
     local offset = x > 2 and x or 4
-    local width = NAME_WIDTH - (offset - 4)
+    -- freundliche Namens-Plates (NPCs, Spieler, Begleiter): ohne Kürzung/„…“ (Benny 2026-11-08)
+    local width = frame.isFriendly and 400 or NAME_WIDTH - (offset - 4)
     if frame.nameWidth ~= width then
         frame.nameWidth = width
         name:SetWidth(width)
