@@ -225,6 +225,7 @@ local function StyleButton(button)
 
     if button.HotKey then
         ns.SetFont(button.HotKey, 11, "OUTLINE")
+        button.HotKey:SetTextColor(0.557, 0.796, 0.706) -- Salbei, auch bei Blizzards eigenen Knöpfen
         button.HotKey:ClearAllPoints()
         button.HotKey:SetPoint("TOPRIGHT", -2, -3)
         button.HotKey:SetJustifyH("RIGHT")
@@ -430,6 +431,7 @@ local function ButtonConfig(def, index)
         actionButtonUI = true,
         assistedHighlight = false,
         hideElements = { macro = false, equipped = true, border = true, borderIfEmpty = true },
+        text = { hotkey = { color = { 0.557, 0.796, 0.706 } } }, -- Tastenbeschriftung in Salbei (Benny 2026-11-08)
     }
 end
 
@@ -553,14 +555,41 @@ local function VisibilityRule(key, mode)
     return "[petbattle] hide; " .. rule
 end
 
+-- Weiches Ein-/Ausblenden (Benny 2026-11-08): jede Leiste hat ein Ziel (muiTarget), ein OnUpdate
+-- führt die Transparenz in FADE_TIME dorthin. Transparenz darf man auch im Kampf setzen.
+local FADE_TIME = 0.15
+local fader = CreateFrame("Frame")
+fader:SetScript("OnUpdate", function(_, elapsed)
+    local step = elapsed / FADE_TIME
+    for _, frame in pairs(framesByKey) do
+        local target = frame.muiTarget
+        if target then
+            local alpha = frame:GetAlpha()
+            if alpha < target then frame:SetAlpha(math.min(target, alpha + step))
+            elseif alpha > target then frame:SetAlpha(math.max(target, alpha - step)) end
+        end
+    end
+end)
+
 function ns.ApplyActionBarVisibility()
     if InCombatLockdown() then return ns.AfterCombat(ns.ApplyActionBarVisibility) end
     for key, frame in pairs(framesByKey) do
         local mode = BarMode(key) -- Immer, Im Kampf, Mouseover oder Aus
-        RegisterStateDriver(frame, "visibility", VisibilityRule(key, mode))
+        local rule = VisibilityRule(key, mode)
         frame.muiMouseover = mode == "mouseover"
         frame.muiCombat = mode == "combat"
-        if not (frame.muiMouseover or frame.muiCombat) then frame:SetAlpha(1) end
+        if mode == "hidden" and frame:IsShown() and frame:GetAlpha() > 0 then
+            -- erst ausblenden, dann wirklich weg (der Zustandstreiber versteckt sofort)
+            frame.muiTarget = 0
+            C_Timer.After(FADE_TIME, function()
+                if InCombatLockdown() or BarMode(key) ~= "hidden" then return end
+                RegisterStateDriver(frame, "visibility", rule)
+            end)
+        else
+            if not frame:IsShown() then frame:SetAlpha(0) end -- frisch eingeschaltet: weich einblenden
+            RegisterStateDriver(frame, "visibility", rule)
+            if not (frame.muiMouseover or frame.muiCombat) then frame.muiTarget = 1 end
+        end
     end
     -- Questtracker (rechts) und Chat (links) rücken zur Seite bzw. zurück
     C_Timer.After(0, function() if ns.Relayout then ns.Relayout() end end)
@@ -583,10 +612,10 @@ C_Timer.NewTicker(0.1, function()
     local inCombat = InCombatLockdown()
     for _, frame in pairs(framesByKey) do
         if frame.muiCombat and inCombat then
-            frame:SetAlpha(1)
+            frame.muiTarget = 1
         elseif frame.muiMouseover or frame.muiCombat then
             local over = frame:IsVisible() and (frame:IsMouseOver(4, -4, -4, 4) or MouseOverFlyout(frame))
-            frame:SetAlpha(over and 1 or 0)
+            frame.muiTarget = over and 1 or 0
         end
     end
 end)

@@ -109,13 +109,13 @@ function UI.ArrowMarkup(size)
     return CreateAtlasMarkup("common-icon-forwardarrow", size or 10, size or 10, 0, 0, 150, 150, 150)
 end
 
--- Erklär-Tooltip (das „i“ in den Einstellungen): normaler Fließtext in 11 px statt Blizzards
+-- Erklär-Tooltip (das „i“ in den Einstellungen): normaler Fließtext in 12 px (11 war schwer lesbar, Benny 2026-11-08) statt Blizzards
 -- fetter, größerer Titelzeile (SetText nutzt die Kopfschrift; Benny 2026-11-08: „viel zu fett“).
 -- Die erste Zeile bekommt beim Verstecken ihre Kopfschrift zurück, sonst wären Item-Titel klein.
 function UI.ShowHelp(owner, text)
     GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
     GameTooltip:SetText(text, 0.91, 0.9, 0.87, 1, true)
-    GameTooltipTextLeft1:SetFont(ns.FontFor("text"), ns.FontPx(11), "")
+    GameTooltipTextLeft1:SetFont(ns.FontFor("text"), ns.FontPx(12), "")
     GameTooltip:Show()
 end
 function UI.HideHelp()
