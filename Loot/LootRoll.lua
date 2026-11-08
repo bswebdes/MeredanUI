@@ -1,15 +1,15 @@
--- Würfel-Fenster (Bedarf/Gier) im MUI-Look statt Blizzards Gruppen-Beute-Rahmen. Je Wurf eine
--- schlanke Zeile, untereinander gestapelt:
+-- Need/greed roll frames in mUI style replacing Blizzard's group loot frames. One slim row per
+-- roll, stacked downwards:
 --
---   ┌────────────────────────────────────────────────────────┐
---   │[▣] Schwert des Schlummers   ▲ +2,4 %   [🎲][◎][✨][✕] │  ← Bedarf · Gier (bzw. Transmog) ·
---   │    Beim Aufheben gebunden                              │     Entzauberung (falls möglich) · Passen
---   │▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔                         │  ← Restzeit in Qualitätsfarbe
---   └────────────────────────────────────────────────────────┘
+--   +--------------------------------------------------------+
+--   |[#] Sword of Slumber      ^ +2.4%   [N][G][D][x]         |  <- need, greed (or transmog),
+--   |    Binds when picked up                                |     disenchant (if possible), pass
+--   |================================                        |  <- time left in quality color
+--   +--------------------------------------------------------+
 --
--- Nicht mögliche Knöpfe gedimmt (Tooltip nennt den Grund). Blizzards Rahmen werden an einen
--- versteckten Rahmen gehängt (nur sie, nicht ihr Container: der hängt in Blizzards Layout).
--- Bestätigungen („Wird beim Aufheben gebunden“) zeigt weiter Blizzard. Einstellungen > Taschen.
+-- Unavailable buttons are dimmed (tooltip gives the reason). Blizzard's frames are reparented to a
+-- hidden frame (only the frames, not their container, which is part of Blizzard's layout).
+-- Confirmations ("Binds when picked up") are still shown by Blizzard. Settings > Bags.
 local _, ns = ...
 local L = ns.L
 
@@ -26,7 +26,7 @@ hidden:Hide()
 
 local function Enabled() return ns.db.lootRolls ~= false end
 
--- Wurf-Arten: RollOnLoot-Nummer, Symbol, Name
+-- roll types: RollOnLoot id, icon, label
 local ROLLS = {
     need = { id = 1, icon = "RollNeed", label = NEED or "Need" },
     greed = { id = 2, icon = "Gold", label = GREED or "Greed" },
@@ -40,7 +40,7 @@ local function QualityColor(quality)
     return r or 1, g or 1, b or 1
 end
 
--- Knopf ------------------------------------------------------------------------------------
+-- Button -----------------------------------------------------------------------------------
 
 local function ButtonEnter(button)
     button.icon:SetVertexColor(unpack(ns.UI.ACCENT))
@@ -79,7 +79,7 @@ local function SetButtonEnabled(button, enabled, reasonIndex)
     button.reason = not enabled and reasonIndex and _G["LOOT_ROLL_INELIGIBLE_REASON" .. reasonIndex] or nil
 end
 
--- Zeile ------------------------------------------------------------------------------------
+-- Row --------------------------------------------------------------------------------------
 
 local function IconEnter(iconFrame)
     local frame = iconFrame:GetParent()
@@ -91,7 +91,7 @@ local function IconEnter(iconFrame)
     end
     ns.ShowItemCompare(GameTooltip)
     GameTooltip:Show()
-    iconFrame.UpdateTooltip = IconEnter -- Shift während der Maus drauf ist
+    iconFrame.UpdateTooltip = IconEnter -- refresh when Shift changes while hovering
 end
 
 local function CreateFrameRow(index)
@@ -118,7 +118,7 @@ local function CreateFrameRow(index)
         if link and IsModifiedClick() then HandleModifiedItemClick(link) end
     end)
 
-    -- Knöpfe rechts: Passen ganz außen
+    -- buttons on the right, pass outermost
     frame.buttons = {}
     for _, key in ipairs({ "pass", "disenchant", "greed", "transmog", "need" }) do
         frame.buttons[key] = CreateButton(frame, ROLLS[key])
@@ -149,7 +149,7 @@ local function CreateFrameRow(index)
     return frame
 end
 
--- Knöpfe nebeneinander nach dem, was sichtbar ist (Gier ODER Transmog, Entzauberung optional)
+-- lay out visible buttons (greed OR transmog, disenchant optional)
 local function LayoutButtons(frame)
     local order = { "pass" }
     if frame.buttons.disenchant:IsShown() then order[#order + 1] = "disenchant" end
@@ -212,7 +212,7 @@ local function FreeFrame()
     if #frames < MAX then return CreateFrameRow(#frames + 1) end
 end
 
--- Würfe ------------------------------------------------------------------------------------
+-- Rolls ------------------------------------------------------------------------------------
 
 local function AddRoll(rollID, duration)
     for _, frame in ipairs(frames) do
@@ -251,7 +251,7 @@ local function RemoveAll()
     Restack()
 end
 
--- Blizzards Rahmen unsichtbar (nur die Rahmen, ihr Container bleibt in Blizzards Layout)
+-- hide Blizzard's frames (only the frames; their container stays in Blizzard's layout)
 local function HideBlizzard()
     for i = 1, 4 do
         local frame = _G["GroupLootFrame" .. i]
@@ -259,7 +259,7 @@ local function HideBlizzard()
     end
 end
 
--- Testmodus (/mui t): zwei Beispiel-Würfe -------------------------------------------------------
+-- Test mode (/mui t): two sample rolls ------------------------------------------------------
 
 local DEMO = {
     { item = 19019, quality = Enum.ItemQuality.Legendary, canNeed = true, canGreed = true, bindOnPickUp = true },
@@ -289,9 +289,9 @@ function ns.LootRollTestStop()
     Restack()
 end
 
--- Aufbau -----------------------------------------------------------------------------------
+-- Setup ------------------------------------------------------------------------------------
 
--- oben mittig im oberen Drittel, stapelt nach unten
+-- top center in the upper third, stacks downwards
 local function PlaceDefault()
     local _, cy = UIParent:GetCenter()
     ns.PlaceFromCenter(holder, "TOP", 0, cy * 0.55)
@@ -306,12 +306,12 @@ ns:On("PLAYER_LOGIN", function()
     ns.OnLayout(PlaceDefault)
     PlaceDefault()
     HideBlizzard()
-    for _, demo in ipairs(DEMO) do C_Item.RequestLoadItemDataByID(demo.item) end -- Namen fürs Demo vorladen
+    for _, demo in ipairs(DEMO) do C_Item.RequestLoadItemDataByID(demo.item) end -- preload names for the demo
 
     ns:On("START_LOOT_ROLL", function(_, rollID, duration) AddRoll(rollID, duration) end)
     ns:On("CANCEL_LOOT_ROLL", function(_, rollID) RemoveRoll(rollID) end)
     ns:On("CANCEL_ALL_LOOT_ROLLS", RemoveAll)
-    -- schon laufende Würfe (z. B. nach /reload)
+    -- rolls already in progress (e.g. after /reload)
     for _, rollID in ipairs(GetActiveLootRollIDs and GetActiveLootRollIDs() or {}) do
         AddRoll(rollID, C_Loot.GetLootRollDuration(rollID))
     end

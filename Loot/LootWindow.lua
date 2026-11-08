@@ -1,20 +1,20 @@
--- Beute-Fenster im MUI-Look statt Blizzards Beuteliste. Erscheint an der Maus, schlicht:
+-- Loot window in mUI style replacing Blizzard's loot frame; opens at the cursor.
 --
---   ┌─ Verkrüppelter Kobold ─────── ✕ ┐   ← Titel: Name des Ziels (sonst „Beute“)
---   │ [▣] Grober Stoff            ×3  │   ← Symbol mit Rahmen in Qualitätsfarbe, Name ebenso
---   │ [▣] Schwert des Schlummers  ▲   │   ← ▲ = Upgrade (wie in den Taschen), ! = Quest-Item
---   │ [◎] 12 Silber 40 Kupfer         │
---   └─────────────────────────────────┘
+--   +- Kobold Miner ------------- x -+   <- title: target name (else "Loot")
+--   | [#] Linen Cloth           x3   |   <- icon border and name in quality color
+--   | [#] Sword of Slumber      ^    |   <- ^ = upgrade (as in bags), ! = quest item
+--   | [o] 12 Silver 40 Copper        |
+--   +--------------------------------+
 --
--- Klick plündert (LootSlot), Shift/Strg-Klick wie gewohnt (verlinken, Anprobe), Esc schließt.
--- Gesperrte Plätze (Beute anderer) rot. Bei Auto-Plündern erscheint das Fenster nur, wenn nach
--- kurzer Zeit noch etwas liegt (volle Taschen, gesperrt …). Blizzards Fenster bleibt unbenutzt:
--- es bekommt die Beute-Ereignisse nicht mehr (wie ElvUI). Einstellungen > Taschen.
+-- Click loots (LootSlot), Shift/Ctrl-click as usual (link, dressing room), Esc closes.
+-- Locked slots (others' loot) are red. With auto loot the window only appears if something is
+-- left after a short delay (full bags, locked ...). Blizzard's frame stays unused: its loot events
+-- are unregistered (like ElvUI). Settings > Bags.
 local _, ns = ...
 local L = ns.L
 
 local WIDTH = 280
-local ROW = 40          -- Zeilenhöhe
+local ROW = 40          -- row height
 local ICON = 34
 local PAD = 7
 local TITLE = 28
@@ -29,7 +29,7 @@ local function QualityColor(quality)
     return r or 1, g or 1, b or 1
 end
 
--- Zeile ------------------------------------------------------------------------------------
+-- Row --------------------------------------------------------------------------------------
 
 local function RowOnEnter(row)
     row.hover:Show()
@@ -44,7 +44,7 @@ local function RowOnEnter(row)
         GameTooltip:Hide()
     end
     CursorUpdate(row)
-    row.UpdateTooltip = RowOnEnter -- Shift während der Maus drauf ist
+    row.UpdateTooltip = RowOnEnter -- refresh when Shift changes while hovering
 end
 
 local function RowOnLeave(row)
@@ -126,7 +126,7 @@ local function FillRow(row, slot)
     row:Show()
 end
 
--- Fenster ----------------------------------------------------------------------------------
+-- Window -----------------------------------------------------------------------------------
 
 local function CreateWindow()
     window = CreateFrame("Frame", "MeredanUILootFrame", UIParent)
@@ -145,12 +145,12 @@ local function CreateWindow()
     window.title:SetWordWrap(false)
     local close = ns.UI.IconButton(window, "Close", function() window:Hide() end, 20)
     close:SetPoint("TOPRIGHT", -5, -4)
-    -- Schließen beendet das Plündern (wie bei Blizzard)
+    -- closing ends looting (as Blizzard does)
     window:SetScript("OnHide", function()
         StaticPopup_Hide("CONFIRM_LOOT_DISTRIBUTION")
         CloseLoot()
     end)
-    tinsert(UISpecialFrames, "MeredanUILootFrame") -- Esc schließt
+    tinsert(UISpecialFrames, "MeredanUILootFrame") -- Esc closes
     window:Hide()
 end
 
@@ -167,7 +167,7 @@ local function Layout()
     return shown
 end
 
--- an der Maus (Oberkante leicht darüber), im Bild gehalten
+-- at the cursor (top edge slightly above), clamped to screen
 local function PlaceAtCursor()
     local scale = UIParent:GetEffectiveScale()
     local x, y = GetCursorPosition()
@@ -192,12 +192,12 @@ local function Open(autoLoot)
     window:Raise()
 end
 
--- Beute-Ereignisse ---------------------------------------------------------------------------
+-- Loot events ------------------------------------------------------------------------------
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
-    -- Blizzards Fenster bekommt die Beute nicht mehr
+    -- keep Blizzard's frame from receiving loot events
     if LootFrame then
         LootFrame:UnregisterEvent("LOOT_OPENED")
         LootFrame:UnregisterEvent("LOOT_CLOSED")
@@ -205,7 +205,7 @@ ns:On("PLAYER_LOGIN", function()
 
     ns:On("LOOT_OPENED", function(_, autoLoot)
         if autoLoot then
-            -- Auto-Plündern sammelt gleich ein: nur zeigen, was danach noch liegt
+            -- auto loot takes everything: only show what is left afterwards
             C_Timer.After(0.3, function()
                 if GetNumLootItems() > 0 then Open(true) end
             end)
@@ -218,7 +218,7 @@ ns:On("PLAYER_LOGIN", function()
     end)
     ns:On("LOOT_SLOT_CHANGED", function() if window:IsShown() then Layout() end end)
     ns:On("LOOT_CLOSED", function()
-        window:SetScript("OnHide", nil) -- Blizzard hat schon geschlossen: kein zweites CloseLoot
+        window:SetScript("OnHide", nil) -- loot already closed: avoid a second CloseLoot
         window:Hide()
         window:SetScript("OnHide", function()
             StaticPopup_Hide("CONFIRM_LOOT_DISTRIBUTION")
