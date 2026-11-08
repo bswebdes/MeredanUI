@@ -763,7 +763,15 @@ local function SkinShell(f)
         f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
     end
     local maxMin = f.MaximizeMinimizeFrame
+    -- Minimieren braucht es nicht (Benny 2026-11-08): ausblenden
     if maxMin then
+        maxMin:SetAlpha(0)
+        maxMin:EnableMouse(false)
+        for _, button in ipairs({ maxMin.MaximizeButton, maxMin.MinimizeButton }) do
+            if button then button:SetAlpha(0) button:EnableMouse(false) end
+        end
+    end
+    if maxMin and false then
         SkinIconButton(maxMin.MaximizeButton, "Square", 16)
         SkinIconButton(maxMin.MinimizeButton, "ChevronDown", 16) -- wie im eigenen Fenster
         if not InCombatLockdown() then
