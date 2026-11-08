@@ -77,7 +77,13 @@ local CLOSABLE = {
 -- Platz suchen; liefert die gewünschte rechte Kante (inkl. Reiter außen), bevor WoW ans Bild klemmt
 local function Place(window)
     window:ClearAllPoints()
-    window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
+    -- gemeinsame Oberkante (Benny 2026-11-08): niedrigere Fenster (z. B. Gilde) hängen oben an der
+    -- Linie der Standardhöhe statt unten über dem Chat; höhere (Talente) bleiben unten über dem Chat
+    if window:GetHeight() < ns.NPC_HEIGHT then
+        window:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90 + ns.NPC_HEIGHT))
+    else
+        window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
+    end
     local wantedRight = (window:GetLeft() or 0) + window:GetWidth()
     -- solange etwas überlappt: rechts daneben, Oberkante wie das andere Fenster (Benny 2026-11-06:
     -- mit Unterkante über dem Chat rutschte es rechts über Aktionsleisten und Einheitenfenster)
