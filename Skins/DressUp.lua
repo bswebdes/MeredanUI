@@ -1,30 +1,29 @@
--- Anprobe (DressUpFrame, WoW Forever) im mUI-Look (Benny 2026-11-08). Ein Nachbau lohnt nicht:
--- Blizzards Fenster zieht Gegenstände, Sets, Reittiere und Haustiere über seine 3D-Szene an – das
--- bleibt alles Blizzards. Wir ändern nur Optik und Platz:
+-- Dressing room (DressUpFrame, WoW Forever) in mUI style. Not rebuilt: Blizzard's frame dresses items,
+-- sets, mounts and pets via its 3D scene - all of that stays Blizzard's. We only change looks and position:
 --
---   ┌ [▣] Anprobe                                               [x] ┐
---   │     Robe des Erzmagiers                                       │  ← zuletzt angezogen
---   │ [Outfits           v] [Speichern]                        [≡]  │
---   │ ┌───────────────────────────────────────────────────────────┐ │
---   │ │                     3D-Modell (Volk-Hintergrund)          │ │
---   │ └───────────────────────────────────────────────────────────┘ │
---   │ [Verlinken]                        [Zurücksetzen] [Schließen] │
---   └───────────────────────────────────────────────────────────────┘
+--   +-[i] Dressing Room --------------------------------------- [x]-+
+--   |     Robe of the Archmage                                      |  <- last item tried on
+--   | [Outfits           v] [Save]                            [=]   |
+--   | +-----------------------------------------------------------+ |
+--   | |                3D model (race background)                 | |
+--   | +-----------------------------------------------------------+ |
+--   | [Link]                                    [Reset] [Close]     |
+--   +---------------------------------------------------------------+
 --
--- Platz: wie alle mUI-Fenster (über dem Chat, sonst rechts neben den anderen offenen Fenstern).
--- Blizzards Fensterverwaltung (Bereich „left“) wird per SetUIPanelAttribute abgeschaltet – dann
--- zeigt ShowUIPanel das Fenster nur noch an. Größe/Anker setzt Blizzard in ConfigureSize neu,
--- danach legen wir unser Layout wieder darüber (hooksecurefunc). Keine Felder an Blizzards Tabellen.
+-- Position: like all mUI windows (above the chat, else right of the other open windows).
+-- Blizzard's panel management (area "left") is disabled via SetUIPanelAttribute, so ShowUIPanel
+-- only shows the frame. Blizzard resets size/anchors in ConfigureSize; we reapply our layout
+-- afterwards (hooksecurefunc). No fields on Blizzard's tables.
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local BLACK = { 0, 0, 0, 1 }
 local PAD, ICON = 18, 46
 local WIDTH = 460
-local TOOLBAR_TOP = PAD + ICON + 14   -- 78: Leiste unter dem Kopf
+local TOOLBAR_TOP = PAD + ICON + 14   -- 78: toolbar below the header
 local SCENE_TOP = TOOLBAR_TOP + 28 + 12
-local FOOTER = 56                     -- Fuß mit Knöpfen (28 hoch, 14 vom Rand)
-local BLIZZ_SCENE_H, BLIZZ_BG_BOTTOM = 454, 90 -- Blizzards Maße für den Volk-Hintergrund
+local FOOTER = 56                     -- footer with buttons (28 high, 14 from the edge)
+local BLIZZ_SCENE_H, BLIZZ_BG_BOTTOM = 454, 90 -- Blizzard's dimensions for the race background
 
 local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
@@ -60,7 +59,7 @@ local function Tex(parent, layer, sublevel, color)
     return tex
 end
 
--- 1-px-Rahmen außen um target (Texturen an parent)
+-- 1 px outer border around target (textures on parent)
 local function Edges(parent, target, color)
     local px = ns.PixelSize()
     local c = color or BLACK
@@ -85,7 +84,7 @@ local function Edges(parent, target, color)
     return edges
 end
 
--- Fläche + Rahmen + Surf-Green-Linie oben
+-- Background + border + Surf Green top line
 local function Panel(target)
     local c = ns.STYLE.panelColor
     local bg = Tex(target, "BACKGROUND", -8, { c[1], c[2], c[3], 0.97 })
@@ -123,7 +122,7 @@ local function FadeButtonTextures(button)
     end
 end
 
--- flacher Knopf (UIPanelButtonTemplate)
+-- flat button (UIPanelButtonTemplate)
 local function SkinButton(button)
     if not Once(button) or not button.IsObjectType then return end
     local UI = ns.UI
@@ -144,7 +143,7 @@ local function SkinButton(button)
     end
 end
 
--- Symbol-Knopf (Schließen, Outfit-Liste): flaches Kästchen, unser Symbol, Hover Surf Green
+-- Icon button (close, outfit list): flat box, our icon, Surf Green on hover
 local function SkinIconButton(button, iconName, iconSize)
     if not Once(button) then return end
     local UI = ns.UI
@@ -163,7 +162,7 @@ local function SkinIconButton(button, iconName, iconSize)
     button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
 end
 
--- Dropdown (WowStyle1DropdownTemplate): flaches Feld, unser Pfeil
+-- Dropdown (WowStyle1DropdownTemplate): flat field, our arrow
 local function SkinDropdown(dropdown)
     if not Once(dropdown) then return end
     local UI = ns.UI
@@ -183,8 +182,8 @@ local function SkinDropdown(dropdown)
     dropdown:HookScript("OnLeave", function() arrow:SetVertexColor(unpack(UI.MUTED)) end)
 end
 
--- Leiste über dem Modell (erscheint beim Drüberfahren): Zoom, Drehen, Zurücksetzen. Blizzards
--- Knöpfe bleiben (Klick, Tooltip, Halten zum Drehen), nur flach mit unseren Symbolen.
+-- Toolbar above the model (appears on hover): zoom, rotate, reset. Blizzard's buttons stay
+-- (click, tooltip, hold to rotate), just flat with our icons.
 local SCENE_ICONS = {
     zoomInButton = { "Plus" }, zoomOutButton = { "Minus" },
     rotateLeftButton = { "ChevronDown", -math.pi / 2 }, rotateRightButton = { "ChevronDown", math.pi / 2 },
@@ -212,7 +211,7 @@ local function SkinSceneControls(control)
     end
 end
 
--- Seitenteile (Outfit-Details, Set-Auswahl): flach wie das Fenster
+-- Side panels (outfit details, set selection): flat like the window
 local function SkinSidePanel(panel)
     if not Once(panel) then return end
     FadeRegions(panel)
@@ -220,7 +219,7 @@ local function SkinSidePanel(panel)
     Panel(panel)
 end
 
--- Kopf: Porträt, „Anprobe“, darunter das zuletzt Angezogene (sonst der eigene Name)
+-- Header: portrait, "Dressing Room", below it the last item tried on (else the player's name)
 local function UpdateHeader()
     if not portrait then return end
     SetPortraitTexture(portrait, "player")
@@ -229,7 +228,7 @@ local function UpdateHeader()
     subtitle:SetText(text or "")
 end
 
--- Gesamt-Layout; nach Blizzards ConfigureSize (Maximieren/Minimieren) erneut
+-- Overall layout; reapplied after Blizzard's ConfigureSize (maximize/minimize)
 local function Place()
     local f = frame
     f:SetSize(WIDTH, ns.NPC_HEIGHT)
@@ -237,7 +236,7 @@ local function Place()
     scene:ClearAllPoints()
     scene:SetPoint("TOPLEFT", PAD, -SCENE_TOP)
     scene:SetPoint("BOTTOMRIGHT", -PAD, FOOTER)
-    -- Volk-Hintergrund: unteres Band im gleichen Verhältnis wie bei Blizzard
+    -- Race background: bottom band in the same ratio as Blizzard's
     local bottom = BLIZZ_BG_BOTTOM * (ns.NPC_HEIGHT - SCENE_TOP - FOOTER) / BLIZZ_SCENE_H
     if scene.BGBottomLeft then scene.BGBottomLeft:SetHeight(bottom) end
     if scene.BGBottomRight then scene.BGBottomRight:SetHeight(bottom) end
@@ -278,7 +277,7 @@ local function Place()
         f.LinkButton:SetSize(170, 28)
     end
 
-    -- Seitenteile rechts daneben, gleiche Oberkante und Höhe
+    -- Side panels to the right, same top edge and height
     for _, panel in ipairs({ f.CustomSetDetailsPanel, f.SetSelectionPanel }) do
         if panel then
             panel:ClearAllPoints()
@@ -296,7 +295,7 @@ end
 
 local function SkinShell(f)
     local UI = ns.UI
-    FadeRegions(f) -- Hintergrund, Streifen oben (ModelBackground ist in Forever ohnehin aus)
+    FadeRegions(f) -- background, top strip (ModelBackground is off in Forever anyway)
     Fade(f.NineSlice)
     Fade(f.Inset)
     Fade(f.PortraitContainer)
@@ -304,7 +303,7 @@ local function SkinShell(f)
     if DressUpFramePortrait then DressUpFramePortrait:SetAlpha(0) end
     Panel(f)
 
-    -- Kopf wie die mUI-Fenster
+    -- Header like mUI windows
     local holder = CreateFrame("Frame", nil, f)
     holder:SetSize(ICON, ICON)
     holder:SetPoint("TOPLEFT", PAD, -PAD)
@@ -323,7 +322,7 @@ local function SkinShell(f)
     subtitle:SetPoint("RIGHT", title, "RIGHT")
     subtitle:SetWordWrap(false)
 
-    -- Ziehen an der Kopfzeile wie bei den mUI-Fenstern
+    -- Drag by the header like mUI windows
     local header = CreateFrame("Frame", nil, f)
     header:SetPoint("TOPLEFT")
     header:SetPoint("TOPRIGHT", -PAD - 36, 0)
@@ -336,7 +335,7 @@ local function SkinShell(f)
         f.CloseButton:ClearAllPoints()
         f.CloseButton:SetPoint("TOPRIGHT", -(PAD - 4), -(PAD - 4))
     end
-    -- Minimieren braucht es nicht (feste Größe wie alle mUI-Fenster)
+    -- No need for minimize (fixed size like all mUI windows)
     local maxMin = f.MaximizeMinimizeFrame
     if maxMin then
         maxMin:SetAlpha(0)
@@ -349,7 +348,7 @@ local function SkinShell(f)
         end
     end
 
-    -- Modell mit 1-px-Rahmen, Steuer-Leiste flach
+    -- Model with 1 px border, flat control bar
     Edges(f, f.ModelScene)
     SkinSceneControls(f.ModelScene.ControlFrame)
 
@@ -371,7 +370,7 @@ local function Unmanage()
     for _, name in ipairs(UISpecialFrames) do
         if name == "DressUpFrame" then return end
     end
-    tinsert(UISpecialFrames, "DressUpFrame") -- Esc schließt weiter
+    tinsert(UISpecialFrames, "DressUpFrame") -- Esc still closes
 end
 
 ns:On("PLAYER_LOGIN", function()
@@ -381,7 +380,7 @@ ns:On("PLAYER_LOGIN", function()
     Unmanage()
     Place()
 
-    -- Seitenteile hängen rechts außen: Nachbarfenster rücken dahinter
+    -- Side panels hang on the outer right: neighboring windows move behind them
     if ns.EXTRA_RIGHT then
         ns.EXTRA_RIGHT[frame] = function(window)
             local right, extra = window:GetRight(), 0

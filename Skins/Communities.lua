@@ -1,39 +1,37 @@
--- Gilden- und Communities-Fenster (CommunitiesFrame) im mUI-Look (Benny 2026-11-08). Ersetzt das frühere
--- eigene Gildenfenster (entfernt): Blizzards Fenster bleibt voll funktionsfähig (Einladen, Befördern &
--- Co. sind geschützt und gehen nur aus Blizzards Code), wir ändern nur die Oberfläche.
--- Regeln (der erste Versuch wurde wegen geändertem Aufbau verworfen):
---  * Aufbau bleibt exakt Blizzards: kein SetPoint/SetSize/ClearAllPoints an Blizzard-Rahmen/-Regionen.
---  * Rahmen/Kanten (NineSlice, Knopf-Grafiken, Dropdown-/Scrollleisten-Art) nur per SetAlpha(0) weg,
---    unsere Flächen/Kanten als neue Regionen darüber/darunter.
---  * Flach wie die mUI-Fenster (Benny 2026-11-08, nach Vergleich mit EllesmereUI): Artworks
---    (Filigran, Listen-Hintergründe, Pergament, Zeilen-Grafiken) unsichtbar, eigene flache Flächen.
---    Symbole und Wappen bleiben.
---  * Keine SetScript, keine Felder an Blizzard-Tabellen, keine Blizzard-Funktionen aufrufen – nur
---    HookScript/hooksecurefunc. Eigener Zustand in schwachen Tabellen.
+-- Guild and Communities frame (CommunitiesFrame) in mUI style. Blizzard's frame stays fully
+-- functional (invite, promote etc. are protected and only work from Blizzard's code); we only
+-- restyle it. Rules:
+-- * Blizzard's frames are only repositioned/resized (PlaceAll, FitSize), never rebuilt.
+-- * Borders (NineSlice, button art, dropdown/scrollbar art) only hidden via SetAlpha(0);
+--   our backgrounds/edges are new regions above/below.
+-- * Flat like mUI windows: artwork (filigree, list backgrounds, parchment, row art) hidden,
+--   own flat backgrounds. Icons and crests stay.
+-- * No SetScript, no fields on Blizzard tables, no calling Blizzard functions - only
+--   HookScript/hooksecurefunc. Own state in weak tables.
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
-local HEAD_PAD, HEAD_ICON, HEAD_HEIGHT = 18, 46, 80 -- Kopf wie die mUI-Fenster; Inhalte ab HEAD_HEIGHT
--- Zielbild = das frühere eigene mUI-Gildenfenster (Benny 2026-11-08: „1:1 so“): gleiche Maße
+local HEAD_PAD, HEAD_ICON, HEAD_HEIGHT = 18, 46, 80 -- header like mUI windows; content starts at HEAD_HEIGHT
+-- Target layout and dimensions match mUI's former guild window
 local WIN_W, WIN_H = 940, 640
 local PAD, LIST_W, MEMBER_W = 18, 190, 180
-local CONTENT_X = PAD + LIST_W + 12        -- Inhalt rechts der Community-Liste
-local CONTENT_TOP = PAD + HEAD_ICON + 14   -- Inhalt unter dem Kopf (78)
-local CONTENT_BOTTOM = 54                  -- Fußzeile darunter
-local BOX = { 0.098, 0.098, 0.106, 1 }     -- Kästen (Nachricht des Tages, Info, Neuigkeiten)
-local PlaceAll                             -- Gesamt-Layout (unten definiert)
-local LIST_SLOT, LIST_TOP_PAD = 68, 40     -- Blizzards Zeilenhöhe/Rand der Community-Liste (ggf. angepasst)
-local CARD_INSET = 4                       -- Karte = Zeile minus 2 × CARD_INSET (60 px, 8 px Abstand)
-local memberDeco = {}                      -- Kasten der Mitgliederliste (nur Chat-Ansicht)
-local overview = { open = false, updates = {} } -- Reiter „Übersicht“ (eigener Inhalt, nur Anzeige)
+local CONTENT_X = PAD + LIST_W + 12        -- content right of the community list
+local CONTENT_TOP = PAD + HEAD_ICON + 14   -- content below the header (78)
+local CONTENT_BOTTOM = 54                  -- footer below
+local BOX = { 0.098, 0.098, 0.106, 1 }     -- boxes (message of the day, info, news)
+local PlaceAll                             -- overall layout (defined below)
+local LIST_SLOT, LIST_TOP_PAD = 68, 40     -- Blizzard's row height/top padding of the community list (may be adjusted)
+local CARD_INSET = 4                       -- card = row minus 2 x CARD_INSET (60 px, 8 px gap)
+local memberDeco = {}                      -- member list box (chat view only)
+local overview = { open = false, updates = {} } -- "Overview" tab (own content, display only)
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
-local noBump = setmetatable({}, { __mode = "k" }) -- Bereiche mit festen Breiten (Info-Spalte)
-local skinned = setmetatable({}, { __mode = "k" }) -- Objekt > true (schon bemalt)
-local own = setmetatable({}, { __mode = "k" })     -- unsere Texturen (beim Ausblenden auslassen)
+local noBump = setmetatable({}, { __mode = "k" }) -- areas with fixed widths (info column)
+local skinned = setmetatable({}, { __mode = "k" }) -- object -> true (already skinned)
+local own = setmetatable({}, { __mode = "k" })     -- our textures (skipped when fading)
 local fonts
 local applied = false
 
@@ -41,7 +39,7 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.guildSkin ~= false
 end
 
--- true beim ersten Mal, danach false (jedes Objekt nur einmal bemalen)
+-- true the first time, false afterwards (skin each object only once)
 local function Once(object)
     if type(object) ~= "table" or skinned[object] then return false end
     if object.IsForbidden and object:IsForbidden() then return false end
@@ -57,7 +55,7 @@ local function Fade(region)
     if type(region) == "table" and region.SetAlpha then region:SetAlpha(0) end
 end
 
--- alle Texturen eines Rahmens durchsichtig (nicht die Kinder-Rahmen, nicht unsere, nicht keep)
+-- make all textures of a frame transparent (not child frames, not ours, not keep)
 local function FadeRegions(frame, keep)
     if type(frame) ~= "table" or not frame.GetRegions then return end
     for _, region in ipairs({ frame:GetRegions() }) do
@@ -66,7 +64,7 @@ local function FadeRegions(frame, keep)
 end
 
 
--- neue Textur an parent, als „unsere“ gemerkt
+-- new texture on parent, remembered as ours
 local function Tex(parent, layer, sublevel, color)
     local tex = parent:CreateTexture(nil, layer or "BACKGROUND", nil, sublevel or 0)
     if color then tex:SetColorTexture(color[1], color[2], color[3], color[4] or 1) end
@@ -74,7 +72,7 @@ local function Tex(parent, layer, sublevel, color)
     return tex
 end
 
--- 1-px-Rahmen außen um target, Texturen liegen an parent (z. B. wenn target eine Textur ist)
+-- 1 px outer border around target; textures live on parent (e.g. when target is a texture)
 local function Edges(parent, target, color, layer)
     local px = ns.PixelSize()
     local c = color or BLACK
@@ -106,8 +104,8 @@ local function Border(frame, inside, thickness)
     return edges
 end
 
--- Fläche + Rahmen + 2-px-Surf-Green-Linie oben (Fenster und Popups). target = sichtbare Fläche
--- (z. B. Blizzards Rand-Rahmen, der versetzt sitzt), Standard: der Rahmen selbst.
+-- Background + border + 2 px Surf Green top line (windows and popups). target = visible area
+-- (e.g. Blizzard's offset border frame), default: the frame itself.
 local function Panel(frame, target)
     target = target or frame
     local c = ns.STYLE.panelColor
@@ -121,8 +119,8 @@ local function Panel(frame, target)
     return bg
 end
 
--- Schriftobjekte für Knöpfe: Kopien von Blizzards Schrift (gleiche Größe > keine andere Knopfbreite),
--- nur die Farbe wie mUI
+-- Font objects for buttons: copies of Blizzard's font (same size -> same button width),
+-- only the color as in mUI
 local function Fonts()
     if fonts then return fonts end
     local UI = ns.UI
@@ -150,10 +148,10 @@ local function FadeButtonTextures(button)
     end
 end
 
--- Bedienelemente ----------------------------------------------------------------------------------
+-- Controls ---------------------------------------------------------------------------------------
 
--- flacher Knopf (UIPanelButtonTemplate & Co.): Blizzards Grafik unsichtbar, Fläche + 1-px-Rand,
--- Hover hellt auf
+-- flat button (UIPanelButtonTemplate etc.): Blizzard's art hidden, background + 1 px border,
+-- brightens on hover
 local function SkinButton(button)
     if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
     if not Once(button) then return end
@@ -175,7 +173,7 @@ local function SkinButton(button)
     end
 end
 
--- Symbol-Knopf (Schließen, Maximieren …): flaches Kästchen mit unserem Symbol, Hover in Surf Green
+-- Icon button (close, maximize ...): flat box with our icon, Surf Green on hover
 local function SkinIconButton(button, iconName, iconSize)
     if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
     if not Once(button) then return end
@@ -201,8 +199,8 @@ local function SkinIconButton(button, iconName, iconSize)
     Reflect()
 end
 
--- Eingabefeld: Blizzards Kanten weg, dunkles Feld, Fokus mit Surf-Green-Rand.
--- inset = { links, oben, rechts, unten } relativ zum Feld (Standard: Blizzards Left/Right-Grafik)
+-- Edit box: Blizzard's edges removed, dark field, Surf Green border on focus.
+-- inset = { left, top, right, bottom } relative to the box (default: Blizzard's Left/Right art)
 local function SkinEditBox(box, inset, color)
     if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") then return end
     if not Once(box) then return end
@@ -220,7 +218,7 @@ local function SkinEditBox(box, inset, color)
     else
         bg:SetAllPoints()
     end
-    -- leichte helle Kante, damit das Feld auf dunklem Grund erkennbar ist; mit Fokus Surf Green
+    -- faint light edge so the field is visible on dark backgrounds; Surf Green on focus
     local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
     local edges = Edges(box, bg, IDLE)
     box:HookScript("OnEditFocusGained", function()
@@ -231,7 +229,7 @@ local function SkinEditBox(box, inset, color)
     end)
 end
 
--- mehrzeiliges Eingabefeld (InputScrollFrameTemplate): Rahmen-Grafik weg, dunkles Feld
+-- multi-line edit box (InputScrollFrameTemplate): border art removed, dark field
 local function SkinInputScroll(scroll)
     if type(scroll) ~= "table" or not scroll.GetRegions or not Once(scroll) then return end
     FadeRegions(scroll)
@@ -241,7 +239,7 @@ local function SkinInputScroll(scroll)
     Edges(scroll, bg)
 end
 
--- Häkchen: dunkles Kästchen, Haken in Surf Green (wie in den mUI-Einstellungen)
+-- Checkbox: dark box, Surf Green check (like mUI settings)
 local function SkinCheck(check)
     if type(check) ~= "table" or not check.IsObjectType or not check:IsObjectType("CheckButton") then return end
     if not Once(check) then return end
@@ -271,8 +269,8 @@ local function SkinCheck(check)
     Update()
 end
 
--- Dropdown (WowStyle1DropdownTemplate & Co.): flaches Feld, 1-px-Rand, unser Pfeil.
--- Reine Pfeil-Dropdowns (ohne Text, z. B. „Zum Chat hinzufügen“) werden ein kleines Symbol-Kästchen.
+-- Dropdown (WowStyle1DropdownTemplate etc.): flat field, 1 px border, our arrow.
+-- Arrow-only dropdowns (no text, e.g. "Add to chat") become a small icon box.
 local function SkinDropdown(dropdown)
     if type(dropdown) ~= "table" or not dropdown.GetRegions or not Once(dropdown) then return end
     local UI = ns.UI
@@ -304,8 +302,8 @@ local function SkinDropdown(dropdown)
     Reflect()
 end
 
--- Scrollleiste (MinimalScrollBar) wie UI.Scrollbar: Pfeile als Chevron, schmale Spur, Griff in
--- Surf Green (Hover breiter). Blizzards Teile bleiben (unsichtbar) und tun die Arbeit.
+-- Scrollbar (MinimalScrollBar) like UI.Scrollbar: chevron arrows, thin track, Surf Green thumb
+-- (wider on hover). Blizzard's parts stay (invisible) and do the work.
 local function SkinScrollBar(bar)
     if type(bar) ~= "table" or not bar.Track or not Once(bar) then return end
     local UI = ns.UI
@@ -346,7 +344,7 @@ local function SkinScrollBar(bar)
             Reflect()
         end
     end
-    -- nichts zu scrollen: Leiste unsichtbar (Benny 2026-11-08: leere Leiste neben der Community-Liste)
+    -- nothing to scroll: hide the bar (else an empty bar shows next to the community list)
     if bar.HasScrollableExtent then
         local function AutoHide()
             local ok, scrollable = pcall(bar.HasScrollableExtent, bar)
@@ -358,8 +356,8 @@ local function SkinScrollBar(bar)
     end
 end
 
--- Inhaltskasten (InsetFrameTemplate): Blizzards Kante und Marmor weg. withBorder: eigener 1-px-Rand,
--- fill: dunkle Fläche (nur, wenn der Kasten unter dem Inhalt liegt)
+-- Content box (InsetFrameTemplate): Blizzard's edge and marble removed. withBorder: own 1 px border,
+-- fill: dark background (only when the box lies beneath the content)
 local function SkinInset(inset, withBorder, fill)
     if type(inset) ~= "table" or not inset.GetRegions or not Once(inset) then return end
     Fade(inset.NineSlice)
@@ -371,7 +369,7 @@ local function SkinInset(inset, withBorder, fill)
     if withBorder then Border(inset) end
 end
 
--- Kasten mit Tooltip-Rand (Notizen, Gildenlog-Inhalt): Rand weg, dunkles Feld
+-- Box with tooltip border (notes, guild log content): border removed, dark field
 local function SkinBackdropBox(box, alpha)
     if type(box) ~= "table" or not box.GetRegions or not Once(box) then return end
     Fade(box.NineSlice)
@@ -381,10 +379,10 @@ local function SkinBackdropBox(box, alpha)
     Border(box)
 end
 
--- Listen (ScrollBox) --------------------------------------------------------------------------------
+-- Lists (ScrollBox) ---------------------------------------------------------------------------------
 
--- Zeilen einer ScrollBox: nach jedem Update alle sichtbaren Zeilen (neue und wiederverwendete)
--- einmalig bemalen. Update läuft bei Daten, Scrollen und Größe (ScrollBoxListMixin).
+-- ScrollBox rows: after each update skin all visible rows (new and recycled) once.
+-- Update runs on data, scrolling and resize (ScrollBoxListMixin).
 local function HookScrollBox(box, fn)
     if type(box) ~= "table" or not box.ForEachFrame or not Once(box) then return end
     local function Each() box:ForEachFrame(fn) end
@@ -392,10 +390,9 @@ local function HookScrollBox(box, fn)
     Each()
 end
 
--- Eintrag der Community-Liste links: Blizzards blaue Karte unsichtbar, flache Karte, Auswahl mit
--- Surf-Green-Streifen links. Wappen, Symbol und Ring bleiben.
--- Eintrag der Community-Liste wie im eigenen Fenster: Karte 52 px (in Blizzards 68-px-Platz), Symbol
--- 32 px im Kästchen links, Name (13) und Art (11, grau) daneben, gewählt mit Surf-Green-Streifen
+-- Community list entry: Blizzard's blue card hidden, flat 52 px card (in Blizzard's 68 px slot),
+-- 32 px icon in a box on the left, name (13) and type (11, grey) beside it, selection shown with
+-- a Surf Green stripe on the left. Crest, icon and ring stay.
 local function SkinListEntry(entry)
     if not Once(entry) then return end
     local UI = ns.UI
@@ -466,7 +463,7 @@ local function SkinListEntry(entry)
                 SetLargeGuildTabardTextures("player", icon, iconBg)
                 kindText = GUILD or "Guild"
             else
-                -- Blizzard hat das Symbol schon gesetzt (geschützt – nicht selbst aufrufen): übernehmen
+                -- Blizzard already set the icon (protected - don't call it ourselves): adopt it
                 local src = entry.Icon
                 if src then
                     icon:SetTexture(src:GetTexture())
@@ -507,10 +504,10 @@ local function SkinListEntry(entry)
     Style(entry, entry.GetElementData and entry:GetElementData())
 end
 
--- Spalten der Mitgliederseite wie im eigenen Fenster (Stufe 44, Klasse 50, Name 150, Zone 120, Rang 104,
--- Notiz Rest); neben dem Chat ist die Liste 180 breit. Nur Punkte/Breiten an Blizzards Zeilen.
+-- Member page columns: level 44, class 50, name 150, zone 120, rank 104, note the rest;
+-- next to the chat the list is 180 wide. Only points/widths on Blizzard's rows.
 local COL_X = { level = 10, class = 56, name = 104, zone = 254, rank = 374, note = 478 }
-local COLUMN_WIDTHS = { 46, 52, 152, 122, 106 } -- Köpfe überlappen bei Blizzard je 2 px
+local COLUMN_WIDTHS = { 46, 52, 152, 122, 106 } -- Blizzard's headers overlap by 2 px each
 local LIST_EXTRA = MEMBER_W - 165
 local function RowLayout(row)
     local frame = row.NameFrame
@@ -552,11 +549,11 @@ local function RowLayout(row)
     end
 end
 
--- Inaktive Gildenmitglieder (Benny 2026-11-08): ab 14 Tagen offline dezent rot unterlegt; Ränge mit
--- „Twink“ im Namen ausgenommen (Twinks sind öfter länger weg). Werte aus Blizzards Mitglieds-Infos.
+-- Inactive guild members: offline for 14+ days get a subtle red background; ranks with
+-- "Twink"/"Alt" in their name are excluded (alts are often away longer). Data from Blizzard's member info.
 local INACTIVE_DAYS = 14
--- Zweitcharakter-Rang: „Twink“ (deutsch) oder „Alt“ (englisch) als eigenes Wort, Groß/Klein egal –
--- trifft „GM(Twink)“, „Officer Alt“, „Alts“, aber nicht „Altruist“ (Benny 2026-11-08)
+-- Alt rank: "Twink" (German) or "Alt" (English) as a separate word, case-insensitive -
+-- matches "GM(Twink)", "Officer Alt", "Alts", but not "Altruist"
 local function IsAltRank(rank)
     if type(rank) ~= "string" or rank == "" then return false end
     local lower = " " .. rank:lower() .. " "
@@ -572,13 +569,13 @@ local function IsInactive(info)
     return days >= INACTIVE_DAYS
 end
 
--- Zeile der Mitgliederliste:-- Zeile der Mitgliederliste: Blizzards Streifen und blauer Hover weg, flache Zeile, Hover in Surf Green
+-- Member list row: Blizzard's stripes and blue hover removed, flat row, Surf Green hover
 local function SkinMemberRow(row)
     if not Once(row) then return end
     local UI = ns.UI
     Fade(row:GetNormalTexture())
     Fade(row:GetHighlightTexture())
-    -- wie im eigenen Fenster: keine Zeilen-Fläche, nur heller Hover
+    -- no row background, just a light hover
     local hover = Tex(row, "HIGHLIGHT", 0, { 1, 1, 1, 0.04 })
     hover:SetAllPoints()
     local inactive = Tex(row, "BACKGROUND", -7, { 0.85, 0.2, 0.2, 0.1 })
@@ -596,20 +593,19 @@ local function SkinMemberRow(row)
     end
 end
 
--- Spaltenköpfe (erweiterte Mitgliederliste): flache Felder mit Hover. Nur Optik – keine Skripte an
--- die Spaltenleiste (sonst blockiert WoW später Notiz/Rang ändern).
+-- Column headers (extended member list): flat fields with hover. Visuals only - no scripts on
+-- the column bar (otherwise WoW later blocks editing notes/ranks).
 local function SkinColumnHeaders(display)
     if type(display) ~= "table" or not display.GetChildren then return end
     local UI = ns.UI
     for _, column in ipairs({ display:GetChildren() }) do
-        -- Namensspalte mit Stufe/Klasse davor (Gilde, Charakter-Community) wie die Zeilen verbreitern
-        -- Gilde/Charakter-Community (Stufe + Klasse davor): Spaltenbreiten wie im eigenen Fenster
+        -- Guild/character community (level + class in front): set column widths, widen name column like the rows
         if column:IsObjectType("Button") and column:IsShown() and COLUMN_WIDTHS[column:GetID()]
             and display:GetParent() and display:GetParent().columnInfo and #display:GetParent().columnInfo == 6 then
             column:SetWidth(COLUMN_WIDTHS[column:GetID()])
         end
         if column:IsObjectType("Button") and Once(column) then
-            -- wie im eigenen Fenster: ein durchgehender Balken (an der Spaltenleiste), keine Trennlinien
+            -- one continuous bar (on the column header bar), no dividers
             for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(column[key]) end
             Fade(column:GetHighlightTexture())
             FadeRegions(column)
@@ -619,8 +615,8 @@ local function SkinColumnHeaders(display)
     end
 end
 
--- Zeilen mit eigener Artwork (Vorteile, Belohnungen, Neuigkeiten): Artwork weg, flache Zeile;
--- Symbole, Schloss und Sperr-Schleier unverändert (Blizzard färbt sie selbst)
+-- Rows with their own artwork (perks, rewards, news): artwork removed, flat row;
+-- icons, lock and lock overlay unchanged (Blizzard tints them itself)
 local ROW_KEEP = { "Icon", "icon", "Lock", "DisabledBG" }
 local function FlatRow(row)
     if not Once(row) then return end
@@ -642,7 +638,7 @@ local function FlatRow(row)
     end
 end
 
--- dunkle Fläche hinter einem Bereich (ersetzt Pergament/Listen-Hintergrund)
+-- dark background behind an area (replaces parchment/list background)
 local function Fill(frame, alpha)
     if type(frame) ~= "table" or not frame.CreateTexture then return end
     local bg = Tex(frame, "BACKGROUND", -8, { 0, 0, 0, alpha or 0.35 })
@@ -650,9 +646,9 @@ local function Fill(frame, alpha)
     return bg
 end
 
--- Reiter rechts (Chat, Mitglieder, Vorteile, Info …): wie die Reiter der mUI-Fenster – Kasten in
--- Fensterfarbe, Symbol beschnitten, inaktiv entsättigt, aktiv mit 2-px-Surf-Green-Rand innen.
--- Größe, Position und Klick bleiben Blizzards.
+-- Side tabs (chat, members, perks, info ...): like mUI window tabs - box in window color,
+-- icon cropped, inactive desaturated, active with a 2 px Surf Green inner border.
+-- Size, position and click stay Blizzard's.
 local function SkinSideTab(tab)
     if type(tab) ~= "table" or not tab.Icon or not Once(tab) then return end
     local UI = ns.UI
@@ -674,7 +670,7 @@ local function SkinSideTab(tab)
         tab.Icon:SetDesaturated(not on)
     end
     overview.updates[#overview.updates + 1] = Update
-    -- Klick auf einen Blizzard-Reiter schließt die Übersicht
+    -- Clicking a Blizzard tab closes the overview
     tab:HookScript("OnClick", function() if overview.Close then overview.Close() end end)
     hooksecurefunc(tab, "SetChecked", Update)
     tab:HookScript("OnClick", Update)
@@ -682,10 +678,10 @@ local function SkinSideTab(tab)
     Update()
 end
 
--- Bereiche ----------------------------------------------------------------------------------------
+-- Areas -------------------------------------------------------------------------------------------
 
 local function SkinShell(f)
-    FadeRegions(f) -- Blizzards Fels-Hintergrund und Streifen oben
+    FadeRegions(f) -- Blizzard's rock background and top strip
     Fade(f.NineSlice)
     Panel(f)
     local title = f.TitleContainer and f.TitleContainer.TitleText
@@ -695,17 +691,10 @@ local function SkinShell(f)
         title:SetTextColor(unpack(ns.UI.TEXT))
     end
     SkinIconButton(f.CloseButton, "Close", 18)
-    -- Einzige Ausnahme von „nichts verschieben“ (Benny 2026-11-08): Schließen sitzt sonst auf Blizzards
-    -- (entferntem) dicken Rahmen direkt an der Kante. Wie bei den mUI-Fenstern 10 px eingerückt (der
-    -- sichtbare Kasten liegt 4 px innerhalb des Knopfs). Minimieren hängt an Schließen und rückt mit.
-    -- Ungeschützte Knöpfe, kein Taint-Risiko.
-    -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts neben anderen offenen Fenstern) statt
-    -- Blizzards Standardplatz oben links (Benny 2026-11-08). Nach Blizzards Aufbau einen Takt später.
-    -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts neben anderen offenen Fenstern).
-    -- Blizzards Fensterverwaltung (UIPanel, Bereich „left“) setzte das Fenster bei jedem Reiter-/
-    -- Größenwechsel zurück nach oben links (Benny 2026-11-08: „springt“). Über Blizzards eigenen Weg
-    -- (SetUIPanelAttribute) bekommt es keinen Bereich mehr: ShowUIPanel zeigt es dann nur noch an und
-    -- verschiebt es nie. Esc schließt es weiter (UISpecialFrames).
+    -- Positioned like all mUI windows (above the chat, else right of other open windows).
+    -- Blizzard's panel management (UIPanel, area "left") reset the frame to the top left on every
+    -- tab/size change. Via SetUIPanelAttribute it gets no area: ShowUIPanel then only shows it and
+    -- never moves it. Esc still closes it (UISpecialFrames).
     local function Unmanage()
         if InCombatLockdown() then return ns.AfterCombat(Unmanage) end
         if SetUIPanelAttribute then SetUIPanelAttribute(f, "area", nil) end
@@ -714,7 +703,7 @@ local function SkinShell(f)
         if not listed then tinsert(UISpecialFrames, "CommunitiesFrame") end
     end
     Unmanage()
-    -- Reiter rechts außerhalb des Fensters: Nachbarfenster rücken dahinter (Benny 2026-11-08)
+    -- Side tabs stick out to the right: neighboring windows move behind them
     if ns.EXTRA_RIGHT then
         ns.EXTRA_RIGHT[f] = function(window)
             local right = window:GetRight()
@@ -726,16 +715,15 @@ local function SkinShell(f)
             return right and (edge - right) or 0
         end
     end
-    -- gleich hoch wie die mUI-Fenster (Benny 2026-11-08). Erst per Maßstab gelöst – dann waren alle
-    -- Schriften 1,5-fach. Jetzt echte Größe: Blizzards großer Modus (814 × 426) wird auf dieselbe
-    -- Fläche wie vorher vergrößert (1,5-fach = 1220 × 640), Inhalt dehnt sich mit, Schriften bleiben.
-    -- Der Mini-Modus (322 × 406) bleibt Blizzards.
+    -- Same height as mUI windows. Not via SetScale (that scaled all fonts 1.5x): Blizzard's large
+    -- mode (814 x 426) is resized to 940 x 640, content stretches, fonts stay.
+    -- The mini mode (322 x 406) stays Blizzard's.
     local BLIZZ_W, BLIZZ_H = 814, 426
     local function FitSize(self)
         if self:GetScale() ~= 1 then self:SetScale(1) end
         local w, h = self:GetSize()
         if math.abs(w - BLIZZ_W) < 1 and math.abs(h - BLIZZ_H) < 1 then
-            self:SetSize(WIN_W, WIN_H) -- Zielgröße 940 × 640
+            self:SetSize(WIN_W, WIN_H) -- target size 940 x 640
         end
     end
     f:HookScript("OnSizeChanged", function(self)
@@ -749,19 +737,19 @@ local function SkinShell(f)
         FitSize(self)
         C_Timer.After(0, function()
             if self:IsShown() and ns.ResetWindowPosition then
-                ns.ResetWindowPosition(self, "guild", not InCombatLockdown()) -- im Kampf nichts schließen
+                ns.ResetWindowPosition(self, "guild", not InCombatLockdown()) -- don't close anything in combat
             end
         end)
     end)
-    -- Schließen/Minimieren so groß wie bei den mUI-Fenstern (Benny 2026-11-08): sichtbar 26 px
-    -- (Knopf 34, Fläche 4 px eingerückt), Symbol 18; oben in Blizzards Kopfband, damit nichts überlappt
+    -- Close/minimize sized like mUI windows: visible 26 px (button 34, background inset 4 px),
+    -- icon 18; placed in Blizzard's header band so nothing overlaps. Unprotected, no taint risk.
     if f.CloseButton then
         f.CloseButton:SetSize(34, 34)
         f.CloseButton:ClearAllPoints()
         f.CloseButton:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
     end
     local maxMin = f.MaximizeMinimizeFrame
-    -- Minimieren braucht es nicht (Benny 2026-11-08): ausblenden
+    -- Minimize isn't needed: hide it
     if maxMin then
         maxMin:SetAlpha(0)
         maxMin:EnableMouse(false)
@@ -774,9 +762,9 @@ end
 
 local function SkinCommunitiesList(list)
     if type(list) ~= "table" then return end
-    -- Blizzards Liste (Zeilenhöhe/Ränder) nicht anfassen: das „verseucht“ sie, dann blockiert WoW beim
-    -- Aufbau das Setzen der Community-Symbole. Abstand rein optisch: Karte 60 in der 68-px-Zeile.
-    -- wie im eigenen Fenster: keine Spalten-Fläche, nur die Karten der Einträge
+    -- Don't touch Blizzard's list (row height/padding): that taints it and WoW then blocks setting
+    -- community icons during setup. Spacing is purely visual: 60 px card in the 68 px row.
+    -- no column background, only the entry cards
     for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Fade(list[key]) end
     FadeRegions(list.FilligreeOverlay)
     SkinInset(list.InsetFrame)
@@ -787,8 +775,8 @@ end
 local function SkinChat(f)
     local chat = f.Chat
     if type(chat) == "table" then
-        -- wie im eigenen Fenster: Kasten im mUI-Grau mit feiner Kante (Fläche am Chat selbst, liegt
-        -- damit sicher unter dem Text), Text mit Innenabstand, Scrollleiste innen rechts (PlaceAll)
+        -- Box in mUI grey with a fine edge (background on the chat frame itself, so it is safely below
+        -- the text), text with padding, scrollbar inside on the right (PlaceAll)
         SkinInset(chat.InsetFrame)
         local fill = Tex(chat, "BACKGROUND", -8, BOX)
         fill:SetAllPoints(chat)
@@ -796,7 +784,7 @@ local function SkinChat(f)
         SkinScrollBar(chat.ScrollBar)
     end
     SkinButton(_G.JumpToUnreadButton)
-    -- Blizzards Grafik ist 32 hoch mit viel Luft; sichtbares Feld wie bei Blizzard etwa 22 hoch
+    -- Blizzard's art is 32 high with lots of air; the visible field is about 22 high like Blizzard's
     SkinEditBox(f.ChatEditBox, { -4, -5, 4, 5 }, BOX)
 end
 
@@ -804,7 +792,7 @@ local function SkinMemberList(members)
     if type(members) ~= "table" then return end
     local inset = members.InsetFrame
     if type(inset) == "table" then
-        -- Kasten nur neben dem Chat (wie im eigenen Fenster); auf der Mitgliederseite ohne Fläche
+        -- Box only next to the chat; no background on the member page
         SkinInset(inset)
         local fill = Tex(members, "BACKGROUND", -8, BOX)
         fill:SetAllPoints(inset)
@@ -813,7 +801,7 @@ local function SkinMemberList(members)
     end
     SkinScrollBar(members.ScrollBar)
     SkinCheck(members.ShowOfflineButton)
-    -- Lage je Ansicht (Chat/Mitglieder) setzt PlaceAll; Blizzard setzt sie hier neu
+    -- Position per view (chat/members) is set by PlaceAll; Blizzard resets it here
     if members.RefreshLayout then
         hooksecurefunc(members, "RefreshLayout", function(self) if PlaceAll then PlaceAll(self:GetParent()) end end)
     end
@@ -835,11 +823,11 @@ local function SkinMemberList(members)
     HookScrollBox(members.ScrollBox, SkinMemberRow)
 end
 
-local TAB_SIZE, TAB_STEP = 40, 46 -- wie die Reiter der mUI-Fenster (Berufe, Zauberbuch)
+local TAB_SIZE, TAB_STEP = 40, 46 -- like mUI window tabs (professions, spellbook)
 
--- Reiter wie bei den mUI-Fenstern: 40 groß, 6 px vom Fenster, untereinander ohne Lücken für
--- versteckte Reiter (Benny 2026-11-08). Blizzard setzt die Punkte in UpdateCommunitiesTabs neu –
--- danach ordnen wir wieder. Die Reiter sind nicht geschützt.
+-- Tabs like mUI windows: 40 px, 6 px from the window, stacked without gaps for hidden tabs.
+-- Blizzard resets the points in UpdateCommunitiesTabs - we reorder afterwards.
+-- The tabs are not protected.
 local function LayoutTabs(f)
     local slot = 0
     for _, key in ipairs(SIDE_TABS) do
@@ -847,11 +835,11 @@ local function LayoutTabs(f)
         if type(tab) == "table" and tab.SetPoint then
             tab:SetSize(TAB_SIZE, TAB_SIZE)
             if tab.Icon then
-                -- exakt wie die Reiter der mUI-Fenster (Berufe): Symbol 2 px eingerückt, Rand dunkel
+                -- exactly like mUI window tabs (professions): icon inset 2 px, dark border
                 tab.Icon:ClearAllPoints()
                 tab.Icon:SetPoint("TOPLEFT", tab, "TOPLEFT", 2, -2)
                 tab.Icon:SetPoint("BOTTOMRIGHT", tab, "BOTTOMRIGHT", -2, 2)
-                -- nicht auf ganze Pixel runden (die Kante tut es auch nicht) – sonst 1 px Lücke links
+                -- don't round to whole pixels (the edge doesn't either) - else a 1 px gap on the left
                 if tab.Icon.SetSnapToPixelGrid then
                     tab.Icon:SetSnapToPixelGrid(false)
                     tab.Icon:SetTexelSnappingBias(0)
@@ -859,7 +847,7 @@ local function LayoutTabs(f)
             end
             if tab:IsShown() then
                 tab:ClearAllPoints()
-                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP) -- wie Berufe, Zauberbuch, Vermächtnis
+                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP) -- like professions, spellbook, legacy
                 slot = slot + 1
             end
         end
@@ -889,7 +877,7 @@ local function SkinControls(f)
     end
 end
 
--- Ruf-Leiste der Gilde: Blizzards Rahmen weg, flache Leiste in Surf Green
+-- Guild reputation bar: Blizzard's border removed, flat Surf Green bar
 local function SkinFactionBar(bar)
     if type(bar) ~= "table" or not bar.Progress or not Once(bar) then return end
     for _, key in ipairs({ "Left", "Middle", "Right", "Shadow", "BG" }) do Fade(bar[key]) end
@@ -919,8 +907,8 @@ local function SkinBenefits(benefits)
     SkinFactionBar(benefits.FactionFrame and benefits.FactionFrame.Bar)
 end
 
--- Text-Link-Knopf („[Zum Bearbeiten anklicken]“) als Symbol wie bei den mUI-Fenstern: Text unsichtbar,
--- Knopf 20 × 20, Symbol mittig, Erklärung im Tooltip. Klick bleibt Blizzards.
+-- Text link button ("[Click to edit]") as an icon like mUI windows: text invisible,
+-- button 20 x 20, icon centered, explanation in the tooltip. Click stays Blizzard's.
 local L_EDIT = GUILD_EDIT_TEXT_LINK and GUILD_EDIT_TEXT_LINK:gsub("[%[%]]", "") or EDIT
 local L_FILTER = GUILD_SET_FILTERS_LINK and GUILD_SET_FILTERS_LINK:gsub("[%[%]]", "") or FILTER
 local function IconLink(button, iconName, tooltip)
@@ -947,8 +935,8 @@ local function IconLink(button, iconName, tooltip)
     end)
 end
 
--- Bevorzugte Spieleinstellungen (Sprache, Standort): Dropdowns und „Übernehmen“ wie überall
--- Überschrift eines Bereichs wie im eigenen Fenster: Surf Green, 12, fett
+-- Preferred play settings (language, location): dropdowns and "Apply" as everywhere
+-- Section heading: Surf Green, 12, bold
 local function SectionTitle(fs)
     if not fs then return end
     own[fs] = true
@@ -956,7 +944,7 @@ local function SectionTitle(fs)
     fs:SetTextColor(unpack(ns.UI.ACCENT))
 end
 
--- unbenannte Schrift eines Rahmens anhand ihres Texts finden
+-- find an unnamed font string of a frame by its text
 local function FindText(frame, text)
     if type(frame) ~= "table" or not frame.GetRegions or not text then return end
     for _, region in ipairs({ frame:GetRegions() }) do
@@ -965,7 +953,7 @@ local function FindText(frame, text)
     end
 end
 
--- dunkler Kasten mit Rand (optional Surf-Green-Streifen links) – nur Optik
+-- dark box with border (optional Surf Green stripe on the left) - visuals only
 local function MakeBox(parent, strip)
     local box = CreateFrame("Frame", nil, parent)
     box:SetFrameLevel(math.max(parent:GetFrameLevel() - 1, 0))
@@ -983,7 +971,7 @@ local function MakeBox(parent, strip)
     return box
 end
 
--- Bevorzugte Spieleinstellungen (Sprache, Standort): wie im eigenen Fenster
+-- Preferred play settings (language, location)
 local function SkinPreferredPlay(frame)
     if type(frame) ~= "table" then return end
     SkinDropdown(frame.LocaleDropdown)
@@ -1016,17 +1004,17 @@ local function LayoutPreferredPlay(frame)
     end
 end
 
--- Info-Seite wie im eigenen Fenster: zwei Hälften (12 px Abstand); links „Nachricht des Tages“ (Kasten
--- mit Surf-Green-Streifen) und unten „Gildeninformation“ (Kasten 150 hoch), rechts „Gildenneuigkeiten“;
--- Bearbeiten/Filter als 22-px-Symbolknöpfe rechts neben der Überschrift.
+-- Info page: two halves (12 px gap); left "Message of the Day" (box with Surf Green stripe)
+-- and below it "Guild Information" (box 150 high), right "Guild News";
+-- edit/filter as 22 px icon buttons right of the heading.
 local infoParts = {}
-local LayoutDetails -- unten definiert
+local LayoutDetails -- defined below
 local function SkinDetails(details)
     if type(details) ~= "table" then return end
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
     local info, news = details.Info, details.News
     if type(info) ~= "table" or type(news) ~= "table" then return end
-    FadeRegions(info) -- Pergament, Kopfbalken, Trennbalken
+    FadeRegions(info) -- parchment, header bar, divider bar
     FadeRegions(news)
     IconLink(info.EditMOTDButton, "Edit", L_EDIT)
     IconLink(info.EditDetailsButton, "Edit", L_EDIT)
@@ -1058,8 +1046,8 @@ local function SkinDetails(details)
     details:HookScript("OnShow", function()
         if PlaceAll then PlaceAll(details:GetParent()) C_Timer.After(0, function() PlaceAll(details:GetParent()) end) end
     end)
-    -- Blizzard setzt beim Anzeigen (ohne Herausforderungen) Text und Stift neu an den alten Platz –
-    -- danach wieder unser Layout
+    -- On show (without challenges) Blizzard puts text and pen back at the old position -
+    -- reapply our layout afterwards
     if CommunitiesGuildInfoFrame_HideChallenges then
         hooksecurefunc("CommunitiesGuildInfoFrame_HideChallenges", function(self)
             if self == info then LayoutDetails(details) end
@@ -1081,7 +1069,7 @@ LayoutDetails = function(details)
     news:SetPoint("TOPRIGHT", details, "TOPRIGHT")
     news:SetPoint("BOTTOMRIGHT", details, "BOTTOMRIGHT")
     news:SetWidth(half)
-    -- Nachricht des Tages
+    -- Message of the Day
     if infoParts.motdLabel then
         infoParts.motdLabel:ClearAllPoints()
         infoParts.motdLabel:SetPoint("LEFT", info, "TOPLEFT", 0, -11)
@@ -1090,7 +1078,7 @@ LayoutDetails = function(details)
         info.EditMOTDButton:ClearAllPoints()
         info.EditMOTDButton:SetPoint("TOPRIGHT", info, "TOPRIGHT", 0, 0)
     end
-    -- unsichtbarer Kopfbalken: Blizzard hängt Text und Stift daran – so gesetzt, dass beides passt
+    -- invisible header bar: Blizzard anchors text and pen to it - placed so both fit
     if info.Header1 then
         info.Header1:ClearAllPoints()
         info.Header1:SetPoint("TOPLEFT", info, "TOPLEFT", -2, -15)
@@ -1106,12 +1094,12 @@ LayoutDetails = function(details)
         motd:SetPoint("TOPLEFT", motdBox, "TOPLEFT", 12, -10)
         motd:SetPoint("BOTTOMRIGHT", motdBox, "BOTTOMRIGHT", -12, 10)
         if motd.MOTD and math.abs((motd.MOTD:GetWidth() or 0) - (half - 24)) > 0.5 then
-            -- SimpleHTML bricht erst beim nächsten Text neu um
+            -- SimpleHTML only rewraps on the next text
             motd.MOTD:SetWidth(half - 24)
             if C_GuildInfo and C_GuildInfo.GetMOTD then motd.MOTD:SetText(C_GuildInfo.GetMOTD() or "", true) end
         end
     end
-    -- Gildeninformation
+    -- Guild Information
     if infoParts.detailsLabel then
         infoParts.detailsLabel:ClearAllPoints()
         infoParts.detailsLabel:SetPoint("LEFT", info, "BOTTOMLEFT", 0, 167)
@@ -1138,7 +1126,7 @@ LayoutDetails = function(details)
             end
         end
     end
-    -- Gildenneuigkeiten
+    -- Guild News
     if infoParts.newsLabel then
         infoParts.newsLabel:ClearAllPoints()
         infoParts.newsLabel:SetPoint("LEFT", news, "TOPLEFT", 0, -11)
@@ -1152,7 +1140,7 @@ LayoutDetails = function(details)
     newsBox:SetPoint("TOPLEFT", news, "TOPLEFT", 0, -28)
     newsBox:SetPoint("BOTTOMRIGHT", news, "BOTTOMRIGHT")
     if news.Header then
-        -- Blizzard hängt die Liste an die Unterkante dieses (unsichtbaren) Balkens
+        -- Blizzard anchors the list to the bottom of this (invisible) bar
         news.Header:ClearAllPoints()
         news.Header:SetPoint("TOPLEFT", newsBox, "TOPLEFT", 4, 18)
         news.Header:SetSize(half - 16, 22)
@@ -1167,7 +1155,7 @@ end
 local function SkinMemberDetail(detail)
     if type(detail) ~= "table" or not Once(detail) then return end
     local border = detail.Border
-    FadeRegions(border) -- Dialog-Rand (NineSlice) und dunkler Hintergrund
+    FadeRegions(border) -- dialog border (NineSlice) and dark background
     Panel(detail, type(border) == "table" and border or nil)
     SkinIconButton(detail.CloseButton, "Close")
     SkinButton(detail.RemoveButton)
@@ -1177,14 +1165,14 @@ local function SkinMemberDetail(detail)
     SkinBackdropBox(detail.OfficerNoteBackground, 0.8)
 end
 
--- alte Dialog-Vorlage (Gildenlog, Text bearbeiten, News-Filter): Ecken-Rahmen weg, mUI-Popup
+-- old dialog template (guild log, edit text, news filter): corner border removed, mUI popup
 local function SkinOldDialog(frame)
     if type(frame) ~= "table" or not frame.GetRegions or not Once(frame) then return end
     FadeRegions(frame)
     Panel(frame)
-    -- zwei Knöpfe können „Close“ heißen: das X oben (ohne Text) und der Text-Knopf unten
+    -- two buttons can be called "Close": the X at the top (no text) and the text button at the bottom
     for _, child in ipairs({ frame:GetChildren() }) do
-        if child:IsObjectType("CheckButton") then -- vor „Button“ prüfen: CheckButton ist auch ein Button
+        if child:IsObjectType("CheckButton") then -- check before "Button": CheckButton is also a Button
             SkinCheck(child)
         elseif child:IsObjectType("Button") then
             local label = child:GetFontString()
@@ -1229,12 +1217,11 @@ local function SkinSettingsDialog(dialog)
     if type(ilvl) == "table" then SkinEditBox(ilvl.EditBox) end
 end
 
--- Start ---------------------------------------------------------------------------------------------
+-- Startup -------------------------------------------------------------------------------------------
 
--- jeder Bereich für sich: fehlt etwas in Forever oder ändert Blizzard etwas, bleibt der Rest bemalt
--- Wie das eigene mUI-Gildenfenster (Benny 2026-11-08: „so wie das eigene Fenster“) -------------
--- Kopf: rundes Porträt weg, Titel links „Gildenname · Gilde & Communitys“ in mUI Bold; Chat in
--- mUI-Schrift; Blizzards gelbe/grüne Schrift in mUI-Farben (Klassenfarben bleiben unangetastet).
+-- each area on its own: if something is missing in Forever or Blizzard changes something, the rest stays skinned
+-- Header: round portrait removed, title on the left "Guild name - Guild & Communities" in mUI bold;
+-- chat in mUI font; Blizzard's yellow/green text in mUI colors (class colors stay untouched).
 local YELLOW, GREEN = { 1, 0.82, 0 }, { 0.1, 1, 0.1 }
 local function Near(r, g, b, c) return math.abs(r - c[1]) < 0.05 and math.abs(g - c[2]) < 0.05 and math.abs(b - c[3]) < 0.05 end
 local recolored = setmetatable({}, { __mode = "k" })
@@ -1248,8 +1235,8 @@ local function Recolor(fs)
         recolored[fs] = true
     end
 end
--- Blizzards kleine Schriften (10–12 px) im großen Fenster einen Tick größer (Benny 2026-11-08);
--- Überschriften (ab 13 px) bleiben. Blizzard setzt Schriftobjekte teils neu – dann erneut.
+-- Blizzard's small fonts (10-12 px) slightly larger in the big window; headings (13 px and up)
+-- stay. Blizzard sometimes resets font objects - then reapply.
 local FONT_BUMP = 2
 local bumping = false
 local function Bump(fs)
@@ -1282,14 +1269,14 @@ end
 
 local function SkinLikeOwnWindow(f)
     local UI = ns.UI
-    -- Porträt und Blizzards Titel aus, eigener Titel links
+    -- portrait and Blizzard's title off, own title on the left
     if f.PortraitOverlay then f.PortraitOverlay:SetAlpha(0) end
     if f.PortraitContainer then f.PortraitContainer:SetAlpha(0) end
     local title = f.TitleContainer and f.TitleContainer.TitleText
     if title then title:SetAlpha(0) end
-    -- Kopf wie die mUI-Fenster (Benny 2026-11-08, Vorlage Berufe): Wappen 46 px links, Name (fett 16)
-    -- und „Gilde & Communitys“ darunter; rechts X/Minimieren, daneben das Mikrofon, darunter die
-    -- Online-Zahl. Inhalte beginnen unter dem Kopf.
+    -- Header like mUI windows (professions): crest 46 px on the left, name (bold 16) and
+    -- "Guild & Communities" below; X/minimize on the right, microphone next to it, online count
+    -- below. Content starts below the header.
     local holder = CreateFrame("Frame", nil, f)
     holder:SetSize(HEAD_ICON, HEAD_ICON)
     holder:SetPoint("TOPLEFT", f, "TOPLEFT", HEAD_PAD, -HEAD_PAD)
@@ -1320,7 +1307,7 @@ local function SkinLikeOwnWindow(f)
         local id = f.GetSelectedClubId and f:GetSelectedClubId()
         local info = id and C_Club.GetClubInfo(id)
         name:SetText(info and info.name or (title and title:GetText()) or "")
-        -- wie im eigenen Fenster: „Gilde & Communitys · 11 von 24 online“
+        -- "Guild & Communities - 11 of 24 online"
         local online, total
         if info and info.clubType == Enum.ClubType.Guild and GetNumGuildMembers then
             local all, on = GetNumGuildMembers()
@@ -1346,7 +1333,7 @@ local function SkinLikeOwnWindow(f)
                 crest:SetTexCoord(0, 1, 0, 1)
                 crest:SetVertexColor(1, 1, 1)
                 crest:SetSize(size, size)
-                crest:SetTexture(nil) -- Community-Symbol setzen ist geschützt
+                crest:SetTexture(nil) -- setting the community icon is protected
             end
         end
     end
@@ -1361,10 +1348,10 @@ local function SkinLikeOwnWindow(f)
     f:HookScript("OnSizeChanged", HeaderLayout)
     f:HookScript("OnShow", function() HeaderLayout() C_Timer.After(0, HeaderLayout) end)
     HeaderLayout()
-    -- Chat in mUI-Schrift
+    -- Chat in mUI font
     local messages = f.Chat and f.Chat.MessageFrame
     local function ChatFont()
-        -- wie der mUI-Chat (Einstellung Chat-Schriftgröße)
+        -- like the mUI chat (chat font size setting)
         local size = ns.ChatFontSize and ns.ChatFontSize() or 13
         if messages and messages.SetFont then messages:SetFont(ns.FontFor("text"), ns.FontPx(size), "") end
     end
@@ -1374,7 +1361,7 @@ local function SkinLikeOwnWindow(f)
         ChatFont()
         RecolorTree(f, 0)
     end)
-    -- Club-Wechsel, neue Zeilen (Mitglieder, Einträge): leicht nachziehen, nur solange offen
+    -- Club change, new rows (members, entries): refresh lightly, only while open
     f:HookScript("OnUpdate", function(_, delta)
         elapsed = elapsed + delta
         if elapsed < 0.5 then return end
@@ -1385,8 +1372,8 @@ local function SkinLikeOwnWindow(f)
     if f:IsShown() then UpdateTitle() ChatFont() RecolorTree(f, 0) end
 end
 
--- Gesamt-Layout nach dem Zielbild (früheres eigenes Gildenfenster). Läuft bei Größe/Anzeigen/Ansichtswechsel;
--- setzt nur Punkte/Größen an Blizzards Rahmen.
+-- Overall layout per the target design. Runs on resize/show/view change;
+-- only sets points/sizes on Blizzard's frames.
 local function FooterButton(f, button)
     if not button then return end
     local label = button.GetFontString and button:GetFontString()
@@ -1397,13 +1384,13 @@ end
 PlaceAll = function(f)
     if type(f) ~= "table" then return end
     local list, members, chat = f.CommunitiesList, f.MemberList, f.Chat
-    -- Community-Liste: erste Karte (Blizzard: 40 px Rand oben + 8 px Kartenrand) auf Inhaltshöhe
+    -- Community list: first card (Blizzard: 40 px top padding + 8 px card margin) at content height
     if list then
         list:ClearAllPoints()
         list:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(CONTENT_TOP - LIST_TOP_PAD - CARD_INSET))
         list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", PAD + LIST_W, CONTENT_BOTTOM)
     end
-    -- Mitgliederliste: neben dem Chat 180 breit, auf der Mitgliederseite unter Kopfzeile + Spalten
+    -- Member list: 180 wide next to the chat, below header + columns on the member page
     if members then
         members:ClearAllPoints()
         if members.expandedDisplay then
@@ -1412,7 +1399,7 @@ PlaceAll = function(f)
             members:SetPoint("TOPLEFT", f, "TOPRIGHT", -(PAD + MEMBER_W), -(CONTENT_TOP + 36))
         end
         members:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, CONTENT_BOTTOM)
-        -- Liste und Scrollleiste innen (wie im eigenen Fenster), Kasten = Listenfläche
+        -- list and scrollbar inside, box = list area
         if members.InsetFrame then
             members.InsetFrame:ClearAllPoints()
             members.InsetFrame:SetAllPoints(members)
@@ -1442,7 +1429,7 @@ PlaceAll = function(f)
             columns:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 36))
             columns:SetHeight(28)
         end
-        -- „6/24 online“ steht schon im Kopf – hier ausblenden (Benny 2026-11-08)
+        -- "6/24 online" is already in the header - hide it here
         if members.MemberCount then members.MemberCount:SetAlpha(0) end
         for _, key in ipairs({ "GuildMemberListDropdown", "CommunityMemberListDropdown" }) do
             local dropdown = f[key]
@@ -1453,20 +1440,20 @@ PlaceAll = function(f)
             end
         end
     end
-    -- Kanal-Dropdown oben links im Inhalt, Mikrofon links neben der Online-Zahl
+    -- Channel dropdown top left in the content, microphone left of the online count
     local stream = f.StreamDropdown
     if stream then
         stream:ClearAllPoints()
-        stream:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP) -- Fläche füllt den ganzen Knopf
+        stream:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP) -- background fills the whole button
         stream:SetSize(220, 28)
     end
     local headset = f.VoiceChatHeadset
     if headset then
-        -- ganz rechts, auf Höhe des Kanal-Dropdowns
+        -- far right, level with the channel dropdown
         headset:ClearAllPoints()
         headset:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 14))
     end
-    -- Chat-Kasten und Eingabefeld darunter (8 px Luft, Feld 28 hoch auf der Fußlinie)
+    -- Chat box and edit box below (8 px gap, field 28 high on the footer line)
     if chat and members then
         chat:ClearAllPoints()
         chat:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -(CONTENT_TOP + 36))
@@ -1493,7 +1480,7 @@ PlaceAll = function(f)
             input:SetHeight(38)
         end
     end
-    -- Bereiche Info / Vorteile / Spieleinstellungen
+    -- Info / Perks / Play settings areas
     for _, key in ipairs({ "GuildBenefitsFrame", "GuildDetailsFrame", "GuildPreferredPlaySettingsFrame" }) do
         local area = f[key]
         if area then
@@ -1504,7 +1491,7 @@ PlaceAll = function(f)
     end
     LayoutDetails(f.GuildDetailsFrame)
     LayoutPreferredPlay(f.GuildPreferredPlaySettingsFrame)
-    -- Fußknöpfe unten rechts, 28 hoch, mindestens 150 breit
+    -- Footer buttons bottom right, 28 high, at least 150 wide
     if f.InviteButton then
         FooterButton(f, f.InviteButton)
         f.InviteButton:ClearAllPoints()
@@ -1526,8 +1513,8 @@ PlaceAll = function(f)
     end
 end
 
--- Reiter „Übersicht“ (Benny 2026-11-08): Mitglieder je Klasse und je Stufenbereich, dazu Mitglieder,
--- online und Durchschnittsstufe. Eigener Inhalt über dem Inhaltsbereich, nur Anzeige (keine Aktionen).
+-- "Overview" tab: members per class and per level range, plus members, online and average
+-- level. Own content above the content area, display only (no actions).
 local OVERVIEW_ICON = 134441 -- inv_misc_spyglass_02
 local function GuildSelected(f)
     local id = f.GetSelectedClubId and f:GetSelectedClubId()
@@ -1538,7 +1525,7 @@ end
 local function BuildOverview(f)
     if overview.panel then return end
     local UI = ns.UI
-    -- Reiter wie die anderen (40 px, Symbol 2 px eingerückt, aktiv grüne Kante, inaktiv grau)
+    -- Tab like the others (40 px, icon inset 2 px, green edge when active, grey when inactive)
     local tab = CreateFrame("Button", nil, f)
     tab:SetSize(TAB_SIZE, TAB_SIZE)
     local tabBg = tab:CreateTexture(nil, "BACKGROUND")
@@ -1562,11 +1549,11 @@ local function BuildOverview(f)
     end)
     tab:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
-    -- Inhalt: deckt den Inhaltsbereich ab (Blizzards Ansicht bleibt darunter, unverändert)
+    -- Content: covers the content area (Blizzard's view stays underneath, unchanged)
     local panel = CreateFrame("Frame", nil, f)
     panel:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP)
     panel:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
-    -- über allem: Blizzards Chat-Scrollleiste liegt eine Ebene höher (HIGH), die Eingabe bei 1200
+    -- on top of everything: Blizzard's chat scrollbar sits one strata higher (HIGH), the input at 1200
     panel:SetFrameStrata("HIGH")
     panel:SetFrameLevel(f:GetFrameLevel() + 1300)
     panel:EnableMouse(true)
@@ -1584,7 +1571,7 @@ local function BuildOverview(f)
         label:SetPoint("LEFT", panel, anchor, anchor == "TOPLEFT" and 0 or 6, -11)
         label:SetText(title)
         local box = MakeBox(panel)
-        box:SetFrameLevel(panel:GetFrameLevel() + 1) -- über der Abdeckung des Inhalts
+        box:SetFrameLevel(panel:GetFrameLevel() + 1) -- above the content cover
         return box
     end
     local classBox = Column("TOPLEFT", ns.L["Classes"])
@@ -1597,8 +1584,8 @@ local function BuildOverview(f)
     summary:SetFont(ns.FontFor(), ns.FontPx(12), "")
     summary:SetTextColor(unpack(UI.MUTED))
     summary:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 6)
-    local Refresh -- unten definiert
-    -- „Nur Hauptcharaktere“: Zweitcharakter-Ränge („Twink“/„Alt“) ausblenden (Benny 2026-11-08)
+    local Refresh -- defined below
+    -- "Mains only": hide alt ranks ("Twink"/"Alt")
     local mainsOnly = CreateFrame("Button", nil, panel)
     mainsOnly:SetHeight(20)
     mainsOnly:SetPoint("RIGHT", panel, "TOPRIGHT", 0, -11)
@@ -1633,8 +1620,8 @@ local function BuildOverview(f)
     founded:SetTextColor(unpack(UI.MUTED))
     founded:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", 0, 6)
 
-    -- Gründungsdatum und echte Spieler (Accounts) gibt es nur über /ginfo als Systemnachricht: still
-    -- abfragen, Nachricht auslesen und im Chat ausblenden (Benny 2026-11-08)
+    -- Founding date and real players (accounts) are only available via /ginfo as a system message:
+    -- query silently, parse the message and hide it from chat
     local guildFacts, asking, askedAt = {}, false, 0
     local function Parse(text)
         local date = text:match("(%d+[%./]%d+[%./]%d+)")
@@ -1653,9 +1640,9 @@ local function BuildOverview(f)
             if Parse(text) then
                 asking = false
                 if Refresh then C_Timer.After(0, Refresh) end
-                return true -- im Chat nicht anzeigen
+                return true -- don't show in chat
             end
-            -- /ginfo schreibt vorher „Gilde: <Name>“ – während der stillen Abfrage ebenfalls ausblenden
+            -- /ginfo first prints "Guild: <name>" - hide that too during the silent query
             local guildName = GetGuildInfo and GetGuildInfo("player")
             if guildName and text:find(guildName, 1, true) then return true end
         end)
@@ -1716,7 +1703,7 @@ local function BuildOverview(f)
             local width = row.track:GetWidth() or 0
             row.bar:SetWidth(math.max(1, width * (maxCount > 0 and entry.count / maxCount or 0)))
             row.bar:SetVertexColor(unpack(entry.color or UI.ACCENT))
-            row.bar:SetShown(entry.count > 0) -- bei 0 kein Splitter
+            row.bar:SetShown(entry.count > 0) -- no segment at 0
             row:Show()
         end
         for i = #list + 1, #(rows[box] or {}) do rows[box][i]:Hide() end
@@ -1726,7 +1713,7 @@ local function BuildOverview(f)
         local clubId = GuildSelected(f)
         if not clubId or not panel:IsShown() then return end
         local classes, levels, total, online, levelSum = {}, {}, 0, 0, 0
-        -- Haken nur zeigen, wenn die Gilde Zweitcharakter-Ränge hat; sonst wirkt er nicht
+        -- show the checkbox only if the guild has alt ranks; otherwise it has no effect
         local anyAlt, mainCount, altCount = false, 0, 0
         local filterAlts = ns.db.guildOverviewMains == true
         if GuildControlGetNumRanks and GuildControlGetRankName then
@@ -1788,7 +1775,7 @@ local function BuildOverview(f)
         end
         Fill(classBox, classList, maxClass)
         Fill(levelBox, levelList, maxBracket)
-        -- Mitglieder und Online stehen schon im Kopf – hier nur Spieler, Mains/Twinks, Ø Stufe (Benny 2026-11-08)
+        -- Members and online are already in the header - here only players, mains/alts, avg level
         local parts = {}
         if guildFacts.accounts then parts[#parts + 1] = ("%s %d"):format(ns.L["Players"], guildFacts.accounts) end
         if anyAlt then
@@ -1816,7 +1803,7 @@ local function BuildOverview(f)
         panel:Show()
         Visuals()
         Refresh()
-        C_Timer.After(0, Refresh) -- Balkenbreite erst nach dem Layout bekannt
+        C_Timer.After(0, Refresh) -- bar width is only known after layout
         AskGuildInfo()
     end
     tab:SetScript("OnClick", function()
@@ -1872,15 +1859,15 @@ local function Apply()
     Try(PlaceAll, f)
 end
 
--- Gildeneinstellungen (GuildControlUI) wie das eigene Ränge-Fenster: flaches Fenster, Titel in Surf Green,
--- Rangfelder flach mit fester mUI-Schrift (Benny 2026-11-08: Namen waren unsichtbar), Pfeile/Löschen
--- als 22-px-Symbolkästchen, Knöpfe/Dropdowns/Haken flach. Klicks bleiben Blizzards.
+-- Guild settings (GuildControlUI): flat window, Surf Green title, rank fields flat with a fixed
+-- mUI font (names were otherwise invisible), arrows/delete as 22 px icon boxes,
+-- buttons/dropdowns/checkboxes flat. Clicks stay Blizzard's.
 local function SquareIcon(button, iconName, rotation)
     if type(button) ~= "table" or not Once(button) then return end
     local UI = ns.UI
     FadeButtonTextures(button)
     FadeRegions(button)
-    -- Blizzards Pfeil-Bild ganz entfernen (beim Aktivieren wird es sonst wieder sichtbar)
+    -- remove Blizzard's arrow texture entirely (otherwise it reappears when enabled)
     if button.icon then button.icon:SetTexture(nil) button.icon:SetAlpha(0) end
     button:SetSize(24, 24)
     local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
@@ -1898,7 +1885,7 @@ local function SquareIcon(button, iconName, rotation)
     Reflect()
 end
 
--- Haken der Gildenrechte wie im eigenen Fenster: Text 12 hell
+-- Guild permission checkboxes: text 12, light
 local function ControlCheck(check)
     if type(check) ~= "table" then return end
     SkinCheck(check)
@@ -1910,8 +1897,8 @@ local function ControlCheck(check)
     end
 end
 
--- Seite „Gildenränge“: Zeilen 28 hoch im 34-px-Raster, „Rang 1:“ 56 breit rechtsbündig, Name 150,
--- Hoch/Runter 24 (4 Abstand), Löschen 14 daneben – wie das eigene Fenster
+-- "Guild Ranks" page: rows 28 high on a 34 px grid, "Rank 1:" 56 wide right-aligned, name 150,
+-- up/down 24 (4 gap), delete 14 next to them
 local function SkinRankRows()
     local UI = ns.UI
     local order = _G.GuildControlUIRankOrderFrame
@@ -1931,10 +1918,10 @@ local function SkinRankRows()
                 box:SetSize(146, 36)
                 box:SetFont(ns.FontFor(), ns.FontPx(13), "")
                 box:SetTextColor(1, 1, 1, 1)
-                -- Text NIE selbst setzen: von Addons geschriebener Text gilt als „verseucht“, dann
-                -- blockiert WoW beim Umbenennen GuildControlSetRank (Benny 2026-11-08).
-                -- Blizzard setzt die Namen, solange das Fenster noch keine Breite hat – der Cursor am
-                -- Textende scrollt den Text dann aus dem Feld. Cursor an den Anfang (ändert den Text nicht).
+                -- NEVER set the text ourselves: text written by addons is tainted and WoW then blocks
+                -- GuildControlSetRank on rename.
+                -- Blizzard sets the names while the frame has no width yet - the cursor at the end then
+                -- scrolls the text out of the field. Move the cursor to the start (doesn't change the text).
                 if not box:HasFocus() then box:SetCursorPosition(0) end
             end
             if row.rankLabel then
@@ -1965,7 +1952,7 @@ local function SkinRankRows()
     end
 end
 
--- Seite „Rangrechte“: Authentifikator oben, Kästen Offizier / Grundrechte / Gildenbank wie im eigenen Fenster
+-- "Rank Permissions" page: authenticator on top, boxes officer / basic permissions / guild bank
 local permBoxes = {}
 local BASE_FLAGS, BANK_FLAGS = { 5, 6, 7, 8, 2, 21 }, { 15, 19, 16 }
 local function LayoutPerms(page)
@@ -1979,7 +1966,7 @@ local function LayoutPerms(page)
         for _, id in ipairs(BASE_FLAGS) do ControlCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. id]) end
         for _, id in ipairs(BANK_FLAGS) do ControlCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. id]) end
         if page.goldBox then SkinEditBox(page.goldBox, nil, BOX) end
-        local goldLabel = _G.parentLabel -- Blizzard nennt die Schrift wirklich so
+        local goldLabel = _G.parentLabel -- Blizzard really names the font like this
         if goldLabel then
             goldLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
             goldLabel:SetTextColor(unpack(UI.MUTED))
@@ -2056,7 +2043,7 @@ local function LayoutPerms(page)
     end
 end
 
--- Seite „Bankrechte“ und „Discord“: Flächen, Haken, Knöpfe und Dropdowns flach
+-- "Bank Permissions" and "Discord" pages: backgrounds, checkboxes, buttons and dropdowns flat
 local function SkinChildren(frame, depth)
     if type(frame) ~= "table" or not frame.GetChildren or (depth or 0) > 5 then return end
     for _, child in ipairs({ frame:GetChildren() }) do
@@ -2073,8 +2060,8 @@ local function SkinChildren(frame, depth)
     end
 end
 
--- Gesamtaufbau wie das eigene Fenster: 380 × 600, Titel oben links, „Optionen“ + Auswahl, bei Rang-Seiten
--- darunter „Rang ändern“ + Auswahl, Linie, Inhalt ab 16 px Rand
+-- Overall structure: 380 x 600, title top left, "Options" + dropdown, on rank pages
+-- "Change rank" + dropdown below, divider, content with 16 px margin
 local function LayoutGuildControl(control)
     if type(control) ~= "table" then return end
     local tab = control.selectedTab or 1
@@ -2147,7 +2134,7 @@ local function SkinGuildControl(control)
         title:SetFont(ns.FontFor("bold"), ns.FontPx(15), "")
         title:SetTextColor(unpack(UI.TEXT))
     end
-    -- „Optionen“ vor der Auswahl (wie im eigenen Fenster)
+    -- "Options" before the dropdown
     local optionsLabel = control:CreateFontString(nil, "OVERLAY")
     optionsLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
     optionsLabel:SetTextColor(unpack(UI.ACCENT))
@@ -2167,7 +2154,7 @@ local function SkinGuildControl(control)
             SkinDropdown(frame.dropdown)
             SkinButton(frame.newButton)
             SkinButton(frame.dupButton)
-            -- Bezeichnung der Rang-Auswahl („Rang ändern:“) in Surf Green
+            -- Label of the rank dropdown ("Change rank:") in Surf Green
             local dropdown = frame.dropdown
             if dropdown and dropdown.GetRegions then
                 for _, region in ipairs({ dropdown:GetRegions() }) do
@@ -2201,10 +2188,10 @@ local function SkinGuildControl(control)
     end
     control:HookScript("OnShow", function()
         Relayout()
-        C_Timer.After(0.05, SkinRankRows) -- nach dem Platzieren: Namen an den Feldanfang scrollen
+        C_Timer.After(0.05, SkinRankRows) -- after placing: scroll names to the start of the field
     end)
-    -- Seitenwechsel über die Auswahl läuft über eine interne Blizzard-Funktion: am Einblenden der
-    -- Seiten neu anordnen (Rang-Auswahl über der Linie, Inhalt darunter)
+    -- Page switching via the dropdown goes through an internal Blizzard function: re-arrange
+    -- when pages are shown (rank dropdown above the divider, content below)
     for _, key in ipairs({ "orderFrame", "rankPermFrame", "bankTabFrame", "discordFrame" }) do
         local page = control[key]
         if page then page:HookScript("OnShow", function() C_Timer.After(0, Relayout) end) end
@@ -2212,9 +2199,9 @@ local function SkinGuildControl(control)
     Relayout()
 end
 
--- Gilden-Unterfenster (Ränge, Log, Texte bearbeiten, Neuigkeitenfilter, Rekrutierung): Blizzard meldet
--- sie alle als „linke“ Fenster an – unser Gildenfenster wich dann nach rechts oben aus (Benny
--- 2026-11-08). Alle aus der Fensterverwaltung nehmen und über unsere Anordnung rechts daneben öffnen.
+-- Guild sub-windows (ranks, log, edit text, news filter, recruitment): Blizzard registers them
+-- all as "left" panels, which pushed our guild frame to the top right. Take them all out of
+-- panel management and open them to the right via our own arrangement.
 local SUBPANELS = { "GuildControlUI", "CommunitiesGuildLogFrame", "CommunitiesGuildTextEditFrame",
     "CommunitiesGuildNewsFiltersFrame", "ClubFinderGuildRecruitmentDialog" }
 local adopted = {}

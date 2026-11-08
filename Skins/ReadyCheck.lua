@@ -1,16 +1,16 @@
--- Bereitschaftscheck (WoW Forever) als eigenes mUI-Fenster statt Blizzards ReadyCheckFrame
--- (Benny 2026-11-08). Gleicher Platz wie bei Blizzard (Bildmitte), Look wie die Bestätigungsfenster:
+-- Ready check (WoW Forever) as a mUI window replacing Blizzard's ReadyCheckFrame.
+-- Same position as Blizzard's (screen center), styled like the confirmation dialogs:
 --
---   ┌──────────────────────────────────────────────┐  ← Surf-Green-Kante
---   │ [Porträt]  Bereitschaftscheck                │
---   │            Koratal hat einen Bereitschafts-  │
---   │            check gestartet. Seid Ihr bereit? │
---   │ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬░░░░░░░░░░░    │  ← Restzeit
---   │        [ Bereit ]    [ Nicht bereit ]        │
---   └──────────────────────────────────────────────┘
+--   +----------------------------------------------+  <- Surf Green edge
+--   | [Portrait]  Ready Check                      |
+--   |             Koratal has initiated a ready    |
+--   |             check. Are you ready?            |
+--   | ==============================.........      |  <- time left
+--   |        [ Ready ]    [ Not Ready ]            |
+--   +----------------------------------------------+
 --
--- Blizzards Fenster bleibt unsichtbar geparkt: es behält seine Ereignisse (z. B. die Chat-Zeile
--- „Ihr wart abwesend“). Antworten wie Blizzards Knöpfe: ConfirmReadyCheck + Blizzards Fenster zu.
+-- Blizzard's frame stays parked invisibly so it keeps its events (e.g. the "You were away" chat
+-- line). Answers like Blizzard's buttons: ConfirmReadyCheck + hide Blizzard's frame.
 local _, ns = ...
 local L = ns.L
 
@@ -26,7 +26,7 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.readyCheckWindow ~= false
 end
 
--- Name in Klassenfarbe (Initiator ist eine Einheit oder ein Name)
+-- Name in class color (initiator is a unit or a name)
 local function ColoredName(initiator)
     local name = initiator and UnitName(initiator) or initiator or ""
     local _, class = UnitClass(initiator or "")
@@ -34,7 +34,7 @@ local function ColoredName(initiator)
     return color and color:WrapTextInColorCode(name) or name
 end
 
--- wie Blizzard: in Instanzen mit umschaltbarer Schwierigkeit die Schwierigkeit dazu
+-- like Blizzard: in instances with switchable difficulty, append the difficulty
 local function Message(initiator)
     local message = (READY_CHECK_MESSAGE or "%s"):format(ColoredName(initiator))
     local _, _, difficultyID = GetInstanceInfo()
@@ -73,7 +73,7 @@ local function CreateWindow()
     local UI = ns.UI
     window = CreateFrame("Frame", "MeredanUIReadyCheck", UIParent)
     window:SetSize(WIDTH, 150)
-    window:SetPoint("CENTER", UIParent, "CENTER", 0, -10) -- Blizzards Platz
+    window:SetPoint("CENTER", UIParent, "CENTER", 0, -10) -- Blizzard's position
     window:SetFrameStrata("DIALOG")
     window:SetToplevel(true)
     window:EnableMouse(true)
@@ -106,7 +106,7 @@ local function CreateWindow()
     text:SetWordWrap(true)
     text:SetSpacing(3)
 
-    -- Restzeit: schmaler Balken in Surf Green, läuft leer
+    -- Time left: thin Surf Green bar that drains
     bar = CreateFrame("StatusBar", nil, window)
     bar:SetHeight(6)
     bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
@@ -132,7 +132,7 @@ local function CreateWindow()
     window:SetScript("OnHide", function() demo = false end)
 end
 
--- Höhe nach Textlänge (Schwierigkeit = zweite Zeile)
+-- Height by text length (difficulty = second line)
 local function Fit()
     local textBottom = PAD + 2 + title:GetStringHeight() + 6 + text:GetStringHeight()
     local top = math.max(PAD + PORTRAIT, textBottom) + 16
@@ -148,12 +148,12 @@ local function Show(initiator, timeLeft)
     bar:SetValue(duration)
     bar.ends = GetTime() + duration
     window:Show()
-    Fit() -- erst sichtbar messen (versteckte Texte messen teils 0)
+    Fit() -- measure while shown (hidden font strings sometimes measure 0)
     PlaySound(SOUNDKIT.READY_CHECK)
     if FlashClientIcon then FlashClientIcon() end
 end
 
--- Vorschau (/mui t): Fenster mit dem eigenen Charakter als Auslöser, Knöpfe tun nichts
+-- Preview (/mui t): window with the own character as initiator, buttons do nothing
 ns.ReadyCheckDemo = {
     Start = function()
         if not Enabled() then return end
@@ -166,9 +166,9 @@ ns.ReadyCheckDemo = {
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not ReadyCheckFrame then return end
-    ReadyCheckFrame:SetParent(hidden) -- unsichtbar parken, Ereignisse laufen weiter
+    ReadyCheckFrame:SetParent(hidden) -- park invisibly, events keep running
     ns:On("READY_CHECK", function(_, initiator, timeLeft)
-        if not initiator or UnitIsUnit("player", initiator) then return end -- selbst gestartet: kein Fenster
+        if not initiator or UnitIsUnit("player", initiator) then return end -- started by ourselves: no window
         Show(initiator, timeLeft)
     end)
     local function Close()
@@ -176,7 +176,7 @@ ns:On("PLAYER_LOGIN", function()
     end
     ns:On("READY_CHECK_FINISHED", Close)
     ns:On("GROUP_LEFT", Close)
-    -- anders beantwortet (z. B. über die Gruppenframes): Fenster zu
+    -- answered elsewhere (e.g. via the group frames): close the window
     ns:On("READY_CHECK_CONFIRM", function(_, unit)
         if unit and UnitIsUnit(unit, "player") then Close() end
     end)

@@ -1,13 +1,12 @@
--- Bestätigungsfenster (StaticPopup1–4) im MUI-Look (Benny 2026-11-06): „Gegenstand zerstören?“,
--- Goldhandel mit ablaufender Zeit, Gruppeneinladung … Eigene Fenster gehen hier nicht – die Knöpfe
--- lösen teils geschützte Aktionen aus (Wiederbeleben, Gegenstand binden …). Deshalb nur die Optik:
--- Blizzards Rahmen/Hintergrund unsichtbar, darunter unsere Fläche mit Surf-Green-Kante, flache
--- Knöpfe, Eingabefeld und Zeitbalken im MUI-Look. Nichts an Blizzards Tabellen geschrieben, nur
--- Texturen/Schriften gesetzt und HookScript/hooksecurefunc – damit bleibt alles unverseucht.
+-- Confirmation dialogs (StaticPopup1-4) in mUI style: "Destroy item?", timed trades, group invites ...
+-- No replacement frames possible - the buttons partly trigger protected actions (resurrect, bind
+-- item ...). So visuals only: Blizzard's border/background hidden, our background with a Surf Green
+-- edge underneath, flat buttons, edit box and timer bar. Nothing is written to Blizzard's tables,
+-- only textures/fonts plus HookScript/hooksecurefunc - keeps everything taint-free.
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local skinned = {} -- Rahmen > true (nicht als Feld am Blizzard-Rahmen speichern)
+local skinned = {} -- frame -> true (don't store as a field on Blizzard's frame)
 local fonts
 
 local function Enabled()
@@ -33,7 +32,7 @@ local function Fonts()
     return fonts
 end
 
--- flacher Knopf: Blizzards Grafiken unsichtbar, darunter Fläche + 1-px-Rand, Hover hellt auf
+-- flat button: Blizzard's art hidden, background + 1 px border underneath, brightens on hover
 local function SkinButton(button)
     if not button or skinned[button] then return end
     skinned[button] = true
@@ -90,7 +89,7 @@ local function SkinEditBox(editBox)
     editBox:HookScript("OnEditFocusLost", function() for _, e in ipairs(focus) do e:Hide() end end)
 end
 
--- Zeitbalken (z. B. Goldhandel): Blizzards Rahmen weg, flacher Balken in Surf Green
+-- Timer bar (e.g. trades): Blizzard's border removed, flat Surf Green bar
 local function SkinProgressBar(popup)
     local border, fill = popup.ProgressBarBorder, popup.ProgressBarFill
     if not (border and fill) or skinned[border] then return end
@@ -125,7 +124,7 @@ local function SkinPopup(popup)
     if not popup or skinned[popup] then return end
     skinned[popup] = true
     local UI = ns.UI
-    if popup.BG then popup.BG:SetAlpha(0) end -- Blizzards Rahmen und Hintergrund (Atlas)
+    if popup.BG then popup.BG:SetAlpha(0) end -- Blizzard's border and background (atlas)
     local bg = popup:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
     local c = ns.STYLE.panelColor
@@ -144,8 +143,8 @@ local function SkinPopup(popup)
     SkinProgressBar(popup)
     if popup.ItemFrame and popup.ItemFrame.NameFrame then popup.ItemFrame.NameFrame:SetAlpha(0) end
     popup:HookScript("OnShow", ApplyText)
-    -- Eingabefelder breiter: Blizzards Standard (130 px) ist für Namen und Notizen zu schmal
-    -- (Benny 2026-11-07, „Gildenmitglied hinzufügen“). Nach Blizzards Aufbau einen Takt später.
+    -- Wider edit boxes: Blizzard's default (130 px) is too narrow for names and notes
+    -- (e.g. "Add guild member"). Applied one frame after Blizzard's setup.
     popup:HookScript("OnShow", function(self)
         C_Timer.After(0, function()
             local edit = self.EditBox
