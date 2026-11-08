@@ -704,6 +704,8 @@ local function PetOwner(unit)
     end
 end
 
+local FRIENDLY_NAME_SIZE = { small = 12, medium = 14, large = 16 } -- Einstellung „Namensgröße“
+
 -- Titel eines NPCs aus der Tooltip-Zeile unter dem Namen („Bergbaulehrer“); Stufen-Zeilen zählen nicht
 local function NpcTitle(unit)
     if not (C_TooltipInfo and C_TooltipInfo.GetUnit) then return end
@@ -740,8 +742,10 @@ local function ApplyFriendly(frame, unit)
     if issecretvalue and issecretvalue(isPlayer) then isPlayer = false end
     local owner = controlled and not isPlayer and PetOwner(unit) or nil
     -- zweite Zeile: Besitzer beim Begleiter, sonst Titel des NPCs („Bergbaulehrer“)
-    local subline = owner and PetTitle(owner) or (friendly and not isPlayer and not controlled and NpcTitle(unit)) or nil
-    ns.SetFont(frame.NameText, friendly and 14 or 12, "OUTLINE")
+    if ns.db.npPetOwner == false then owner = nil end
+    local subline = owner and PetTitle(owner)
+        or (friendly and not isPlayer and not controlled and ns.db.npNpcTitle ~= false and NpcTitle(unit)) or nil
+    ns.SetFont(frame.NameText, friendly and (FRIENDLY_NAME_SIZE[ns.db.npNameSize or "medium"] or 14) or 12, "OUTLINE")
     frame.SubText:SetShown(subline ~= nil)
     if subline then
         frame.SubText:ClearAllPoints()
@@ -875,6 +879,17 @@ oUF:Factory(function(self)
 end)
 
 -- Ziel gewechselt: alle Plates neu dimmen; Kampf/Bedrohung: Farben neu
+-- Einstellungen geändert (Namensgröße, Titel, Besitzer): alle offenen Plates neu aufbauen
+function ns.RefreshNamePlates()
+    for frame in pairs(plates) do
+        local unit = UnitOf(frame)
+        if unit and frame:IsShown() then
+            ApplyFriendly(frame, unit)
+            UpdateNamePrefix(frame)
+        end
+    end
+end
+
 ns:On("PLAYER_TARGET_CHANGED", function()
     for frame in pairs(plates) do UpdateAlpha(frame) end
 end)

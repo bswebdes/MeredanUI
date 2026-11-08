@@ -308,6 +308,41 @@ local PAGES = {
             page:AddCheckbox(L["mUI nameplates"], On("nameplates"), Setter("nameplates"), RELOAD)
             page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
                 Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
+            -- Anzeigen: Blizzards eigene Plate-Schalter an einer Stelle (wirken sofort; Benny 2026-11-08)
+            page:AddHeader(L["Show"])
+            -- ein Haken kann mehrere Blizzard-Schalter setzen (z. B. Begleiter, Wächter, Diener, Totems)
+            local function CVarCheck(label, ...)
+                local cvars = { ... }
+                return {
+                    label = label,
+                    get = function() return C_CVar.GetCVarBool(cvars[1]) end,
+                    set = function(on)
+                        ns.AfterCombat(function()
+                            for _, cvar in ipairs(cvars) do
+                                if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, on and "1" or "0") end
+                            end
+                        end)
+                    end,
+                }
+            end
+            page:AddCheckboxGrid({
+                CVarCheck(L["Friendly players"], "nameplateShowFriendlyPlayers"),
+                CVarCheck(L["Friendly NPCs"], "nameplateShowFriendlyNpcs"),
+                CVarCheck(L["Players' companions"], "nameplateShowFriendlyPlayerPets"),
+                CVarCheck(L["Always show (otherwise only in combat)"], "nameplateShowAll"),
+                CVarCheck(L["Enemies"], "nameplateShowEnemies"),
+                CVarCheck(L["Enemy pets and minions"], "nameplateShowEnemyPets", "nameplateShowEnemyGuardians",
+                    "nameplateShowEnemyMinions", "nameplateShowEnemyTotems"),
+                CVarCheck(L["Minor enemies"], "nameplateShowEnemyMinus"),
+            }, 2)
+            -- Namen über allem, was man nicht angreifen kann
+            page:AddHeader(L["Names"])
+            page:AddDropdown(L["Name size"], StageItems, function() return ns.db.npNameSize or "medium" end, function(value)
+                ns.db.npNameSize = value
+                if ns.RefreshNamePlates then ns.RefreshNamePlates() end
+            end)
+            page:AddCheckbox(L["Title below NPC names"], On("npNpcTitle"), Setter("npNpcTitle", ns.RefreshNamePlates))
+            page:AddCheckbox(L["Owner below companions"], On("npPetOwner"), Setter("npPetOwner", ns.RefreshNamePlates))
         end,
     },
     {
