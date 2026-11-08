@@ -506,12 +506,21 @@ local function SkinShell(f)
     -- Ungeschützte Knöpfe, kein Taint-Risiko.
     -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts neben anderen offenen Fenstern) statt
     -- Blizzards Standardplatz oben links (Benny 2026-11-08). Nach Blizzards Aufbau einen Takt später.
-    f:HookScript("OnShow", function(self)
-        C_Timer.After(0, function()
-            if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
-                ns.ResetWindowPosition(self, "guild", true)
-            end
-        end)
+    local placing, pending = false, false
+    local function Place(opening)
+        pending = false
+        if not f:IsShown() or InCombatLockdown() or not ns.ResetWindowPosition then return end
+        placing = true
+        ns.ResetWindowPosition(f, "guild", opening)
+        placing = false
+    end
+    f:HookScript("OnShow", function() C_Timer.After(0, function() Place(true) end) end)
+    -- Reiterwechsel/Größenwechsel: Blizzards Panel-Verwaltung setzt das Fenster zurück nach oben
+    -- links – danach wieder an unseren Platz (Benny 2026-11-08). Eigene Aufrufe überspringen.
+    hooksecurefunc(f, "SetPoint", function()
+        if placing or pending then return end
+        pending = true
+        C_Timer.After(0, function() Place(false) end)
     end)
     if f.CloseButton and not InCombatLockdown() then
         f.CloseButton:ClearAllPoints()

@@ -152,6 +152,7 @@ local function UpdateReadyIcon(icon, status)
 end
 
 -- Aggro am Gruppenframe (oUF ThreatIndicator, eigene Darstellung) -----------------------------
+local aggroLog = {}
 local AGGRO_COLOR, WARN_COLOR = { 0.85, 0.12, 0.12 }, { 1, 0.6, 0.1 }
 function UpdateAggro(self, _, unit)
     if self.muiDemo then return end
@@ -159,6 +160,14 @@ function UpdateAggro(self, _, unit)
     if unit and unit ~= own then return end
     local element = self.ThreatIndicator
     local status = own and UnitThreatSituation(own)
+    -- Fehlersuche (Benny 2026-11-08: als DD keine Aggro am Gruppenframe): Status-Wechsel ins DevLog
+    if DevLog and own then
+        local shown = issecretvalue and issecretvalue(status) and "secret" or tostring(status)
+        if aggroLog[own] ~= shown then
+            aggroLog[own] = shown
+            DevLog("Aggro", own, UnitName(own), shown, UnitGroupRolesAssigned(own))
+        end
+    end
     if status == nil or (issecretvalue and issecretvalue(status)) then return element:Hide() end
     local isTank = UnitGroupRolesAssigned(own) == "TANK"
     local color
