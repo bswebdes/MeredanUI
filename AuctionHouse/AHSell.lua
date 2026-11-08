@@ -561,7 +561,7 @@ function AH.CreateSellView(view)
     sell.buyoutRow = CreateFrame("Frame", nil, content)
     sell.buyoutRow:SetPoint("TOPLEFT", LABEL_X, y)
     sell.buyoutRow:SetSize(300, 22)
-    sell.buyoutCheck = ns.GuildCheck and ns.GuildCheck(sell.buyoutRow, L["Buyout mode"], function(_, on)
+    sell.buyoutCheck = UI.LabelCheck(sell.buyoutRow, L["Buyout mode"], function(_, on)
         ns.db.ahBuyoutMode = on
         SetBuyoutMode(on)
     end)

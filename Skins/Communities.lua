@@ -1,6 +1,6 @@
--- Gilden- und Communities-Fenster (CommunitiesFrame) im mUI-Look (Benny 2026-11-08). Gegenstück zum
--- eigenen Gildenfenster (Social/Guild.lua): Blizzards Fenster bleibt voll funktionsfähig (Gildeneinladung
--- & Co. sind geschützt und gehen nur aus Blizzards Code), wir ändern nur die Oberfläche.
+-- Gilden- und Communities-Fenster (CommunitiesFrame) im mUI-Look (Benny 2026-11-08). Ersetzt das frühere
+-- eigene Gildenfenster (entfernt): Blizzards Fenster bleibt voll funktionsfähig (Einladen, Befördern &
+-- Co. sind geschützt und gehen nur aus Blizzards Code), wir ändern nur die Oberfläche.
 -- Regeln (der erste Versuch wurde wegen geändertem Aufbau verworfen):
 --  * Aufbau bleibt exakt Blizzards: kein SetPoint/SetSize/ClearAllPoints an Blizzard-Rahmen/-Regionen.
 --  * Rahmen/Kanten (NineSlice, Knopf-Grafiken, Dropdown-/Scrollleisten-Art) nur per SetAlpha(0) weg,
@@ -17,7 +17,7 @@ local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
 local HEAD_PAD, HEAD_ICON, HEAD_HEIGHT = 18, 46, 80 -- Kopf wie die mUI-Fenster; Inhalte ab HEAD_HEIGHT
--- Zielbild = eigenes mUI-Gildenfenster (Social/Guild.lua, Benny 2026-11-08: „1:1 so“): gleiche Maße
+-- Zielbild = das frühere eigene mUI-Gildenfenster (Benny 2026-11-08: „1:1 so“): gleiche Maße
 local WIN_W, WIN_H = 940, 640
 local PAD, LIST_W, MEMBER_W = 18, 190, 180
 local CONTENT_X = PAD + LIST_W + 12        -- Inhalt rechts der Community-Liste
@@ -38,7 +38,7 @@ local fonts
 local applied = false
 
 local function Enabled()
-    return ns.IS_FOREVER and ns.db and ns.db.guildWindow == false and ns.db.guildSkin ~= false
+    return ns.IS_FOREVER and ns.db and ns.db.guildSkin ~= false
 end
 
 -- true beim ersten Mal, danach false (jedes Objekt nur einmal bemalen)
@@ -737,7 +737,7 @@ local function SkinShell(f)
         if self:GetScale() ~= 1 then self:SetScale(1) end
         local w, h = self:GetSize()
         if math.abs(w - BLIZZ_W) < 1 and math.abs(h - BLIZZ_H) < 1 then
-            self:SetSize(WIN_W, WIN_H) -- wie das eigene Gildenfenster
+            self:SetSize(WIN_W, WIN_H) -- Zielgröße 940 × 640
         end
     end
     f:HookScript("OnSizeChanged", function(self)
@@ -1389,7 +1389,7 @@ local function SkinLikeOwnWindow(f)
     if f:IsShown() then UpdateTitle() ChatFont() RecolorTree(f, 0) end
 end
 
--- Gesamt-Layout nach dem Zielbild (eigenes Gildenfenster). Läuft bei Größe/Anzeigen/Ansichtswechsel;
+-- Gesamt-Layout nach dem Zielbild (früheres eigenes Gildenfenster). Läuft bei Größe/Anzeigen/Ansichtswechsel;
 -- setzt nur Punkte/Größen an Blizzards Rahmen.
 local function FooterButton(f, button)
     if not button then return end

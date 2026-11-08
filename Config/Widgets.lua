@@ -974,3 +974,36 @@ end
 function UI.CloseList()
     if list then list:Hide() end
 end
+
+-- Häkchen mit Text (z. B. Auktionshaus „Sofortkauf-Modus“)
+function UI.LabelCheck(parent, label, onClick)
+    local UI = ns.UI
+    local button = CreateFrame("Button", nil, parent)
+    button:SetHeight(20)
+    local box = CreateFrame("Frame", nil, button)
+    box:SetSize(14, 14)
+    box:SetPoint("LEFT")
+    UI.CheckBg(box)
+    local tick = UI.Icon(box, "Check", 12, UI.ACCENT)
+    tick:SetPoint("CENTER")
+    button.Text = UI.Text(button, 13, "LEFT")
+    button.Text:SetPoint("LEFT", box, "RIGHT", 8, 0)
+    button.Text:SetText(label or "")
+    button:SetWidth(22 + button.Text:GetUnboundedStringWidth())
+    function button:SetChecked(on)
+        self.checked = on and true or false
+        tick:SetShown(self.checked)
+    end
+    function button:GetChecked() return self.checked end
+    button:SetMotionScriptsWhileDisabled(true)
+    hooksecurefunc(button, "SetEnabled", function(self, on)
+        self:SetAlpha(on and 1 or 0.45)
+    end)
+    button:SetScript("OnClick", function(self)
+        self:SetChecked(not self.checked)
+        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+        if onClick then onClick(self, self.checked) end
+    end)
+    button:SetChecked(false)
+    return button
+end

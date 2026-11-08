@@ -133,7 +133,7 @@ local WINDOWS = {
     { "mapWindow", "mUI map", "World map with Blizzard's markers, breadcrumbs, coordinates and map pin, plus your own quest log next to it." },
     { "flightWindow", "mUI flight map", "Flight master map as a large, centered window: zoom with the mouse wheel, drag to move." },
     { "friendsWindow", "mUI friends window", "Friends, recent allies, friend requests and raid in the mUI look: status, BattleTag, search and filter, game icons, invite; Blizzard's menus and dialogs." },
-    { "guildWindow", "mUI guild window", "Guild & Communities in the mUI look: community list, chat, roster with details, info and news, preferred play settings and guild settings (ranks, permissions, bank tabs, Discord)." },
+    { "guildSkin", "Guild window in mUI look", "Blizzard's guild & communities window in the mUI look: chat, members, info, settings and all sub-windows; functions stay Blizzard's." },
     { "guildOverview", "Guild overview tab", "Extra tab in the guild window: members per class and per level range, plus members, online and average level." },
     { "guildInactive", "Mark inactive guild members", "Members offline for 14 days or more get a faint red background. Alt ranks (“Twink” or “Alt” in the name) are ignored." },
     { "characterWindow", "mUI character window", "Character, reputation, skills, PvP, currencies and statistics in the mUI look." },
@@ -147,7 +147,7 @@ local SKIN_GROUPS = {
     { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow" } },
     { L["World"], { "mapWindow", "flightWindow" } },
     { L["NPCs"], { "merchantWindow", "trainerWindow", "gossipWindow", "questWindow", "mailWindow", "tradeWindow", "auctionWindow" } },
-    { L["Social"], { "friendsWindow", "guildWindow", "skinDialogs", "guildOverview", "guildInactive" } },
+    { L["Social"], { "friendsWindow", "guildSkin", "skinDialogs", "guildOverview", "guildInactive" } },
 }
 
 -- Seiten -------------------------------------------------------------------------------

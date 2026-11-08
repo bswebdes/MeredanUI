@@ -70,6 +70,8 @@ if GetLocale() == "deDE" then
     L["Timestamps (12:04)"] = "Zeitstempel (12:04)"
     L["Font size"] = "Schriftgröße"
     L["Tip"] = "Hinweis"
+    L["Guild window in mUI look"] = "Gildenfenster im mUI-Look"
+    L["Blizzard's guild & communities window in the mUI look: chat, members, info, settings and all sub-windows; functions stay Blizzard's."] = "Blizzards Gilden- und Communityfenster im mUI-Look: Chat, Mitglieder, Info, Einstellungen und alle Unterfenster; die Funktionen bleiben Blizzards."
     L["Guild overview tab"] = "Gilden-Übersicht"
     L["Extra tab in the guild window: members per class and per level range, plus members, online and average level."] = "Zusätzlicher Reiter im Gildenfenster: Mitglieder je Klasse und Stufenbereich, dazu Mitglieder, online und Durchschnittsstufe."
     L["Mark inactive guild members"] = "Inaktive Mitglieder markieren"
