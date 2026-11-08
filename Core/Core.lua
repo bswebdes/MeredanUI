@@ -92,6 +92,8 @@ end
 -- Auktionshaus-Addons (Benny 2026-11-08): läuft eins davon, bleibt das mUI-Auktionshaus aus –
 -- kein Skin, kein Eingriff; Händler schwören auf ihr eigenes.
 ns.AUCTION_ADDONS = { "Auctionator", "TradeSkillMaster", "Auc-Advanced", "AuctionFaster", "aux-addon" }
+-- Briefkasten-Addons: hängen sich an Blizzards Postfenster – unseres würde sie verdecken
+ns.MAIL_ADDONS = { "Postal", "TradeSkillMaster", "MailLogger" }
 
 -- Aktion außerhalb des Kampfes ausführen (sofort oder nach PLAYER_REGEN_ENABLED).
 local afterCombat = {}
@@ -219,6 +221,7 @@ local DEFAULTS = {
         petbar = "always", stancebar = "mouseover",
     },
     actionBarTexts = {}, -- [Leiste] = { hotkey = false, macro = false } blendet Texte aus; fehlt = an
+    actionBarFont = "large", -- Schriftgröße der Tastenbelegung: "small", "medium", "large"
 }
 
 ns.DEFAULTS = DEFAULTS -- z. B. für „Zurücksetzen“ in den Einstellungen

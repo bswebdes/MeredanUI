@@ -377,6 +377,9 @@ local PAGES = {
                         return L["No texts"]
                     end)
             end
+            page:AddDropdown(L["Key binding text size"], function()
+                return { { value = "small", label = L["Small"] }, { value = "medium", label = L["Medium"] }, { value = "large", label = L["Large"] } }
+            end, Getter("actionBarFont"), Setter("actionBarFont", function() if ns.ApplyActionBarTexts then ns.ApplyActionBarTexts() end end))
             page:AddCheckbox(L["Mouseover casting"], Getter("mouseoverHeal"), Setter("mouseoverHeal", ns.ApplyMouseoverCast),
                 Help(L["Spells go to the unit under the mouse (e.g. a group frame) without targeting it. Same switch as Blizzard's mouseover cast."]))
             if ns.IS_FOREVER then
@@ -692,7 +695,8 @@ local PAGES = {
                     if entry then
                         local label = L[entry[2]]
                         -- anderes Auktionshaus-Addon aktiv: Hinweis, unseres bleibt aus
-                        local other = key == "auctionWindow" and ns.OtherAddon(ns.AUCTION_ADDONS)
+                        local other = (key == "auctionWindow" and ns.OtherAddon(ns.AUCTION_ADDONS))
+                            or (key == "mailWindow" and ns.OtherAddon(ns.MAIL_ADDONS))
                         if other then label = label .. "  |cffd9b25b" .. L["%s active"]:format(other) .. "|r" end
                         entries[#entries + 1] = { label = label, get = function() return ns.db[key] ~= false end,
                             set = Setter(key), opts = Help(L[entry[3]], true) }

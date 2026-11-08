@@ -42,6 +42,7 @@ local openMode = "all"  -- "all", "money", "ah"
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.mailWindow ~= false
+        and not ns.OtherAddon(ns.MAIL_ADDONS) -- anderes Briefkasten-Addon: unseres bleibt aus
 end
 
 local function Store()

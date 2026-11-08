@@ -429,6 +429,17 @@ local function TextShown(key, what)
 end
 ns.ActionBarTextShown = TextShown
 
+-- Schriftgröße der Tastenbelegung für alle Leisten (Benny 2026-11-08): Klein = früher, Groß = so
+-- wie die Knopf-Bibliothek sie setzt. Makroname und Anzahl bleiben unverändert.
+local HOTKEY_SIZES = { small = 11, medium = 12, large = 14 }
+local function HotkeySize() return HOTKEY_SIZES[ns.db and ns.db.actionBarFont or "large"] or 14 end
+local function HotkeyText()
+    return { hotkey = {
+        font = { font = ns.FontFor and ns.FontFor() or ns.STYLE.font, size = ns.FontPx(HotkeySize()), flags = "OUTLINE" },
+        position = { anchor = "TOPRIGHT", relAnchor = "TOPRIGHT", offsetX = -2, offsetY = -3 },
+    } }
+end
+
 local function ButtonConfig(def, index)
     return {
         showGrid = true,
@@ -439,6 +450,7 @@ local function ButtonConfig(def, index)
         assistedHighlight = false,
         hideElements = { macro = not TextShown(def.key, "macro"), hotkey = not TextShown(def.key, "hotkey"),
             equipped = true, border = true, borderIfEmpty = true },
+        text = HotkeyText(),
     }
 end
 
@@ -591,12 +603,18 @@ function ns.ApplyActionBarTexts()
             local config = CopyTable(button.config)
             config.hideElements.hotkey = not TextShown(key, "hotkey")
             config.hideElements.macro = not TextShown(key, "macro")
+            local text = HotkeyText()
+            config.text.hotkey.font = text.hotkey.font
+            config.text.hotkey.position = text.hotkey.position
             button:UpdateConfig(config)
         end
     end
     for key, buttons in pairs(adopted) do
         for _, button in ipairs(buttons) do
-            if button.HotKey then button.HotKey:SetAlpha(TextShown(key, "hotkey") and 1 or 0) end
+            if button.HotKey then
+                button.HotKey:SetAlpha(TextShown(key, "hotkey") and 1 or 0)
+                ns.SetFont(button.HotKey, HotkeySize(), "OUTLINE")
+            end
             if button.Name then button.Name:SetAlpha(TextShown(key, "macro") and 1 or 0) end
         end
     end
