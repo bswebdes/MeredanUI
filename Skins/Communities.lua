@@ -2119,6 +2119,12 @@ local function SkinGuildControl(control)
         hooksecurefunc("GuildControlUI_BankTabPermissions_Update", function(page) SkinChildren(page) end)
     end
     control:HookScript("OnShow", Relayout)
+    -- Seitenwechsel über die Auswahl läuft über eine interne Blizzard-Funktion: am Einblenden der
+    -- Seiten neu anordnen (Rang-Auswahl über der Linie, Inhalt darunter)
+    for _, key in ipairs({ "orderFrame", "rankPermFrame", "bankTabFrame", "discordFrame" }) do
+        local page = control[key]
+        if page then page:HookScript("OnShow", function() C_Timer.After(0, Relayout) end) end
+    end
     Relayout()
 end
 
