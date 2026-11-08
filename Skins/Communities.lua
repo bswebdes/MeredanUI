@@ -1796,7 +1796,8 @@ local function SquareIcon(button, iconName, rotation)
     local UI = ns.UI
     FadeButtonTextures(button)
     FadeRegions(button)
-    if button.icon then Fade(button.icon) end
+    -- Blizzards Pfeil-Bild ganz entfernen (beim Aktivieren wird es sonst wieder sichtbar)
+    if button.icon then button.icon:SetTexture(nil) button.icon:SetAlpha(0) end
     button:SetSize(24, 24)
     local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
     bg:SetAllPoints()
@@ -1846,6 +1847,10 @@ local function SkinRankRows()
                 box:SetSize(146, 36)
                 box:SetFont(ns.FontFor(), ns.FontPx(13), "")
                 box:SetTextColor(1, 1, 1, 1)
+                -- nach dem Schriftwechsel zeigt WoW den Text erst nach erneutem Setzen wieder an
+                if not box:HasFocus() and GuildControlGetRankName then
+                    box:SetText(GuildControlGetRankName(row:GetID() > 0 and row:GetID() or i) or "")
+                end
             end
             if row.rankLabel then
                 row.rankLabel:ClearAllPoints()
