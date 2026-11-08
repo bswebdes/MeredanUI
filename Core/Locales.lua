@@ -30,6 +30,7 @@ if GetLocale() == "deDE" then
     L["Extra bars"] = "Zusatzleisten"
     L["Invite to guild"] = "In die Gilde einladen"
     L["Really remove?"] = "Wirklich entfernen?"
+    L["Set rank"] = "Rang festlegen"
     L["Remove from guild"] = "Aus der Gilde entfernen"
     L["Promote"] = "Befördern"
     L["Demote"] = "Degradieren"

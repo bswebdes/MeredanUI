@@ -124,7 +124,7 @@ local function OpenMemberMenu(info)
     -- Gilde: eigenes Menü mit sicheren Befehlen (Blizzards Menü aus Addon-Code blockt Befördern/
     -- Degradieren, Benny 2026-11-08)
     if clubInfo.clubType == Enum.ClubType.Guild and ns.OpenGuildMemberMenu then
-        return ns.OpenGuildMemberMenu(name, info.isSelf)
+        return ns.OpenGuildMemberMenu(name, info.isSelf, P(info.guildRankOrder))
     end
     if not next(POPUP) then
         POPUP[Enum.ClubType.BattleNet] = "COMMUNITIES_MEMBER"

@@ -16,6 +16,7 @@ local _, ns = ...
 local L = ns.L
 
 local WIDTH, ROW = 200, 24
+local MAX_RANKS = 10
 local menu, rows = nil, {}
 local current -- Name des Mitglieds
 
@@ -100,9 +101,23 @@ local function Create()
         end
     end)
 
+    -- „Rang festlegen“: je Rang ein sicherer Knopf; Blizzard kennt keinen Befehl „Rang X“, also so viele
+    -- /gpromote bzw. /gdemote hintereinander, bis der Zielrang erreicht ist (Benny 2026-11-08: „zum Twink machen“)
+    menu.rankHeader = UI.Text(menu, 11, "LEFT", UI.MUTED)
+    menu.rankHeader:SetText(L["Set rank"]:upper())
+    rows.ranks = {}
+    for i = 1, MAX_RANKS do
+        local row = Row("Rank" .. i, true)
+        row:HookScript("PostClick", function(_, _, down)
+            if not down then C_Timer.After(0, Close) end
+        end)
+        rows.ranks[i] = row
+    end
+
     menu:SetScript("OnHide", function()
         local function Clean()
             for _, key in ipairs({ "promote", "demote", "remove" }) do rows[key]:SetAttribute("macrotext", "") end
+            for _, row in ipairs(rows.ranks) do row:SetAttribute("macrotext", "") end
             rows.remove.armed = nil
         end
         if InCombatLockdown() then ns.AfterCombat(Clean) else Clean() end
@@ -115,7 +130,7 @@ local function Create()
 end
 
 -- info: Mitgliedsdaten aus der Gildenliste; canManage: Beförderungs-Einträge zeigen
-function ns.OpenGuildMemberMenu(name, isSelf)
+function ns.OpenGuildMemberMenu(name, isSelf, rankOrder)
     if InCombatLockdown() then
         return UIErrorsFrame:AddMessage(L["Not possible in combat."], 1, 0.1, 0.1)
     end
@@ -144,6 +159,33 @@ function ns.OpenGuildMemberMenu(name, isSelf)
         row:SetPoint("TOPRIGHT", -1, -y)
         row:Show()
         y = y + ROW
+    end
+    -- Rang festlegen (Rangfolge: 1 = Gildenmeister, größer = niedriger)
+    for _, row in ipairs(rows.ranks) do row:Hide() end
+    menu.rankHeader:Hide()
+    local numRanks = GuildControlGetNumRanks and GuildControlGetNumRanks() or 0
+    if officer and not isSelf and rankOrder and numRanks > 1 then
+        y = y + 8
+        menu.rankHeader:ClearAllPoints()
+        menu.rankHeader:SetPoint("TOPLEFT", 12, -y)
+        menu.rankHeader:Show()
+        y = y + 16
+        local promote = Slash("SLASH_GUILD_PROMOTE1", "/gpromote") .. name
+        local demote = Slash("SLASH_GUILD_DEMOTE1", "/gdemote") .. name
+        for i = 2, math.min(numRanks, MAX_RANKS) do -- Rang 1 (Gildenmeister) nur per Übergabe
+            local row = rows.ranks[i - 1]
+            local steps = i - rankOrder
+            local lines = {}
+            for _ = 1, math.abs(steps) do lines[#lines + 1] = steps > 0 and demote or promote end
+            row:SetAttribute("macrotext", table.concat(lines, "\n"))
+            row.text:SetText(GuildControlGetRankName(i) or ("#" .. i))
+            row.text:SetTextColor(unpack(steps == 0 and ns.UI.ACCENT or ns.UI.TEXT))
+            row:ClearAllPoints()
+            row:SetPoint("TOPLEFT", 1, -y)
+            row:SetPoint("TOPRIGHT", -1, -y)
+            row:Show()
+            y = y + ROW
+        end
     end
     menu:SetHeight(y + 6)
     local x, cy = GetCursorPosition()
