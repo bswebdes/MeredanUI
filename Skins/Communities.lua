@@ -517,10 +517,11 @@ local function SkinShell(f)
     f:HookScript("OnShow", function() C_Timer.After(0, function() Place(true) end) end)
     -- Reiterwechsel/Größenwechsel: Blizzards Panel-Verwaltung setzt das Fenster zurück nach oben
     -- links – danach wieder an unseren Platz (Benny 2026-11-08). Eigene Aufrufe überspringen.
+    -- Sofort im selben Aufruf zurücksetzen (nicht einen Takt später – sonst sah man das Fenster bei
+    -- jedem Reiterwechsel kurz hochspringen, Benny 2026-11-08). Eigene SetPoint-Aufrufe überspringen.
     hooksecurefunc(f, "SetPoint", function()
-        if placing or pending then return end
-        pending = true
-        C_Timer.After(0, function() Place(false) end)
+        if placing or InCombatLockdown() then return end
+        Place(false)
     end)
     if f.CloseButton and not InCombatLockdown() then
         f.CloseButton:ClearAllPoints()
