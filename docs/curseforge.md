@@ -36,7 +36,6 @@ One addon, one look, one settings window (`/mui`).
 ### Commands
 - `/mui` – settings (also via the addon menu at the minimap)
 - `/mui t` – test mode
-- `/mui move` – unlock frames to move them
 - `/mui help` – all commands
 
 ### Languages
@@ -48,7 +47,8 @@ MeredanUI is an **original addon**, written from scratch – it is **not a fork,
 of them are listed below with their license and a link. No textures, code or art from other UI addons
 are included. How MeredanUI differs from them: these parts are
 building blocks only (frame engine, button handling, media, data tables) – the layout, look, settings,
-windows and all features are MeredanUI's own code.
+windows and all features are MeredanUI's own code. The source code is public on
+[GitHub](https://github.com/bswebdes/MeredanUI) (all rights reserved).
 
 ### Credits
 **Libraries** (unchanged, in `libs/`)
