@@ -1005,6 +1005,15 @@ local function Setup()
         if success == 1 then
             kills[encounterID] = true
             if name then kills[name] = true end
+            if ns.char then
+                local saved = ns.char.trackerKills
+                if not saved or saved.instance ~= killsInstance then
+                    saved = { instance = killsInstance, kills = {} }
+                    ns.char.trackerKills = saved
+                end
+                saved.kills[encounterID] = true
+                if name then saved.kills[name] = true end
+            end
             Refresh()
         end
     end)
@@ -1014,6 +1023,14 @@ local function Setup()
         if instanceID ~= killsInstance then
             wipe(kills)
             killsInstance = instanceID
+            -- Kills überleben /reload und Verbindungsabbruch (Benny 2026-11-08): gespeichert je Charakter,
+            -- nur für dieselbe Instanz, solange man drin bleibt; draußen wird der Merker gelöscht
+            local saved = ns.char and ns.char.trackerKills
+            if saved and inInstance and saved.instance == instanceID then
+                for key in pairs(saved.kills or {}) do kills[key] = true end
+            elseif ns.char and not inInstance then
+                ns.char.trackerKills = nil
+            end
         end
         ReadInstanceLock()
         -- in Dungeons/Raids die übrigen Quests zuklappen, draußen wieder die eigene Einstellung
