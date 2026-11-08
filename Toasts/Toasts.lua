@@ -618,3 +618,25 @@ function ns.AddToast(data)
     Add(data)
     return true
 end
+
+-- Blizzard-Hinweise (HelpTip, z. B. „Ihr habt eine Reagenzientasche erhalten!“) hängen an Blizzard-Knöpfen,
+-- die mUI versteckt oder ersetzt (Taschen, Mikromenü) – sie schwebten dann irgendwo am Bildschirm
+-- (Benny 2026-11-08). Ist der Anker unsichtbar: als Toast zeigen und den Hinweis als gelesen markieren.
+local function AnchorHidden(region)
+    if type(region) ~= "table" or not region.IsVisible then return false end
+    if region.IsForbidden and region:IsForbidden() then return false end
+    return not region:IsVisible() or (region.GetEffectiveAlpha and region:GetEffectiveAlpha() < 0.05)
+end
+
+if HelpTip and HelpTip.Show then
+    hooksecurefunc(HelpTip, "Show", function(_, parent, info, relativeRegion)
+        if not (Enabled() and info and info.text) then return end
+        if not AnchorHidden(relativeRegion or parent) then return end
+        local text = info.text
+        C_Timer.After(0, function()
+            if HelpTip.Acknowledge then pcall(HelpTip.Acknowledge, HelpTip, parent, text) end
+            if HelpTip.Hide then pcall(HelpTip.Hide, HelpTip, parent, text) end
+        end)
+        Add({ title = L["Tip"], text = (text:gsub("\n+", " ")), icon = ns.MEDIA .. "Icons\\Assistant", color = { 0.56, 0.8, 0.71 } })
+    end)
+end
