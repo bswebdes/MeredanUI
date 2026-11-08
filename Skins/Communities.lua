@@ -330,6 +330,16 @@ local function SkinScrollBar(bar)
             Reflect()
         end
     end
+    -- nichts zu scrollen: Leiste unsichtbar (Benny 2026-11-08: leere Leiste neben der Community-Liste)
+    if bar.HasScrollableExtent then
+        local function AutoHide()
+            local ok, scrollable = pcall(bar.HasScrollableExtent, bar)
+            bar:SetAlpha((not ok or scrollable) and 1 or 0)
+        end
+        if bar.Update then hooksecurefunc(bar, "Update", AutoHide) end
+        bar:HookScript("OnShow", AutoHide)
+        AutoHide()
+    end
 end
 
 -- Inhaltskasten (InsetFrameTemplate): Blizzards Kante und Marmor weg. withBorder: eigener 1-px-Rand,
@@ -681,6 +691,15 @@ local function SkinBenefits(benefits)
     SkinFactionBar(benefits.FactionFrame and benefits.FactionFrame.Bar)
 end
 
+-- Bevorzugte Spieleinstellungen (Sprache, Standort): Dropdowns und „Übernehmen“ wie überall
+local function SkinPreferredPlay(frame)
+    if type(frame) ~= "table" then return end
+    SkinDropdown(frame.LocaleDropdown)
+    SkinDropdown(frame.DatacenterDropdown)
+    SkinButton(frame.LocaleApplyButton)
+    SkinButton(frame.DatacenterApplyButton)
+end
+
 local function SkinDetails(details)
     if type(details) ~= "table" then return end
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
@@ -869,6 +888,7 @@ local function Apply()
     Try(SkinControls, f)
     Try(SkinBenefits, f.GuildBenefitsFrame)
     Try(SkinDetails, f.GuildDetailsFrame)
+    Try(SkinPreferredPlay, f.GuildPreferredPlaySettingsFrame)
     Try(SkinMemberDetail, f.GuildMemberDetailFrame)
     Try(SkinOldDialog, _G.CommunitiesGuildLogFrame)
     Try(SkinOldDialog, _G.CommunitiesGuildTextEditFrame)
