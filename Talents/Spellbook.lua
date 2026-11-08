@@ -1,19 +1,18 @@
--- Zauberbuch (WoW Forever): eigenes Fenster statt Blizzards Zauberbuch
--- (Entwurf „Zauberbuch“, Benny 2026-11-06).
+-- Spellbook (WoW Forever): own window replacing Blizzard's spellbook.
 --
---   ┌ [▣] Zauberbuch          [Zauber durchsuchen] [Anzeigen ˅] [x] ┐ [A]  ← Reiter rechts: Allgemein,
---   │     Jäger · Stufe 14                                         │ [T]    die Bäume, Begleiter
---   │ ┌ Pergament ──────────────────────────────────────────────┐ │ [Ü]
---   │ │ Überleben                                                │ │ …
---   │ │ [▣ Humanoide aufspüren] [▣ Wildtiere aufspüren] [▣ …]    │ │
---   │ │ [▣ Raptorstoß  Rang 2 ] [▣ Zurechtstutzen Rang 1] …      │ │
---   │ └──────────────────────────────────────── Seite 1/1 [‹][›] ┘ │
---   │ 12 Zauber          Ziehen: Aktionsleiste · Klick: wirken …   │
+--   [icon] Spellbook       [Search spells] [Display v] [x]   [G]  <- tabs on the right: General,
+--          Hunter - Level 14                                 [T]     the trees, pet
+--   +- parchment ------------------------------------------+
+--   | Survival                                              |
+--   | [Track Humanoids] [Track Beasts] [...]                |
+--   | [Raptor Strike  Rank 2] [Wing Clip  Rank 1] ...       |
+--   +----------------------------------- Page 1/1 [<][>] --+
+--   12 spells          Drag: action bar - Click: cast ...
 --
--- Die Zauberkarten sind sichere Knöpfe (wirken, Begleiter: Rechtsklick = Autocast). Sie liegen auf
--- einer eigenen Ebene (UIParent) mit Zustandstreiber „im Kampf aus“ – sonst wäre das ganze Fenster
--- geschützt und ließe sich im Kampf nicht öffnen/schließen. Taste P und der Mikroknopf öffnen direkt
--- unser Fenster (Override-Belegung, Blizzards Fenster wird nicht angefasst).
+-- Spell cards are secure buttons (cast; pet: right-click toggles autocast). They live on a separate
+-- layer (parented to UIParent) with a "[combat] hide" state driver - otherwise the whole window
+-- would become protected and could not be opened/closed in combat. The P key and the micro button
+-- open this window via override bindings; Blizzard's frame is left untouched.
 local _, ns = ...
 local L = ns.L
 
@@ -24,7 +23,7 @@ local PET = Enum.SpellBookSpellBank.Pet
 
 local window, panel, title, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote
 local tabs, cards = {}, {}
-local currentTab = 2 -- erster Klassenbaum
+local currentTab = 2 -- first class tree
 local page = 1
 local pendingRefresh
 
@@ -37,7 +36,7 @@ local function Settings()
     return ns.db.spellbookView
 end
 
--- Reiter: Fertigkeitslinien (Allgemein, Bäume) und Begleiter ------------------------------------
+-- Tabs: skill lines (General, trees) and pet --------------------------------------------
 
 local function TabList()
     local list = {}
@@ -48,7 +47,7 @@ local function TabList()
                 count = info.numSpellBookItems or 0, bank = PLAYER, index = i }
         end
     end
-    -- zweiter Wert ist ein Kürzel („PET“, „DEMON“), kein Name: Name des Tiers, sonst Blizzards Typ-Text
+    -- Second value is a token ("PET", "DEMON"), not a name: use the pet's name, else Blizzard's type text
     local numPet, petToken = C_SpellBook.HasPetSpells()
     if numPet and numPet > 0 then
         local icon = C_SpellBook.GetSpellBookItemTexture and C_SpellBook.GetSpellBookItemTexture(1, PET)
@@ -62,7 +61,7 @@ local function TabList()
     return list
 end
 
--- Zauber eines Reiters (bzw. aller Reiter bei Suche)
+-- Spells of one tab (or of all tabs when searching)
 local function Spells(tabEntries, query)
     local view = Settings()
     local list = {}
@@ -91,7 +90,7 @@ local function Spells(tabEntries, query)
     return list
 end
 
--- Zauberkarte (sicherer Knopf) ------------------------------------------------------------------
+-- Spell card (secure button) --------------------------------------------------------------------
 
 local function Card(i)
     if cards[i] then return cards[i] end
@@ -132,7 +131,7 @@ local function Card(i)
         self.bg:SetColorTexture(unpack(ns.PARCHMENT_CARD))
         GameTooltip:Hide()
     end)
-    -- Shift-Klick: Link in den Chat (sicherer Knopf tut bei Shift nichts)
+    -- Shift-click: link into chat (secure action does nothing on shift)
     card:HookScript("OnClick", function(self, _, down)
         if down or not (self.entry and IsModifiedClick("CHATLINK")) then return end
         local link = C_SpellBook.GetSpellBookItemLink(self.entry.slot, self.entry.bank)
@@ -153,7 +152,7 @@ local function FillCard(card, entry)
     card.entry = entry
     card.icon:SetTexture(info.iconID)
     card.icon:SetDesaturated(entry.future)
-    -- passiv: rundes Symbol
+    -- passive: round icon
     if info.isPassive then card.icon:AddMaskTexture(card.mask) else card.icon:RemoveMaskTexture(card.mask) end
     card.name:SetText(info.name)
     local sub = info.subName ~= "" and info.subName or nil
@@ -174,7 +173,7 @@ local function FillCard(card, entry)
     local edge = (entry.pet and entry.autoOn) and UI.ACCENT or { 0, 0, 0 }
     for _, e in ipairs(card.edges) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
     card:SetAlpha(entry.future and 0.55 or 1)
-    -- Wirken: Zauber über seine ID; Begleiter: Rechtsklick schaltet Autocast
+    -- Cast by spell ID; pet spells: right-click toggles autocast
     local castable = not entry.future and not info.isPassive and info.spellID
     card:SetAttribute("type1", castable and "spell" or nil)
     card:SetAttribute("spell1", castable and info.spellID or nil)
@@ -188,7 +187,7 @@ local function FillCard(card, entry)
     end
 end
 
--- Aufbau ----------------------------------------------------------------------------------------
+-- Layout -----------------------------------------------------------------------------------------
 
 local function PerPage()
     local height = panel:GetHeight() - 64 - 44
@@ -214,7 +213,7 @@ local function Layout()
     local list = TabList()
     local query = strtrim(searchBox:GetText() or ""):lower()
     if currentTab > #list then currentTab = math.min(2, #list) end
-    -- Reiter rechts
+    -- tabs on the right
     for i, entry in ipairs(list) do
         local tab = tabs[i]
         if not tab then
@@ -246,7 +245,7 @@ local function Layout()
         tab.icon:SetTexture(entry.icon)
         local active = i == currentTab and query == ""
         for _, e in ipairs(tab.active) do e:SetShown(active) end
-        tab.icon:SetDesaturated(not active) -- inaktive Reiter grau (wie überall)
+        tab.icon:SetDesaturated(not active) -- inactive tabs desaturated (as everywhere)
         tab:Show()
     end
     for i = #list + 1, #tabs do tabs[i]:Hide() end
@@ -264,9 +263,9 @@ local function Layout()
     nextButton:SetShown(pages > 1)
     footer:SetText(L["%d spells"]:format(#entries))
     combatNote:SetShown(InCombatLockdown())
-    if InCombatLockdown() then return end -- Karten (sicher) nur außerhalb des Kampfs anfassen
+    if InCombatLockdown() then return end -- secure cards may only be touched out of combat
     local colW = (panel:GetWidth() - 40 - (COLS - 1) * GAP) / COLS
-    ns.MirrorRect(layer, panel) -- Ebene deckt das Pergament genau ab, Karten hängen nur an ihr
+    ns.MirrorRect(layer, panel) -- layer covers the parchment exactly; cards anchor only to it
     local shown = 0
     for n = (page - 1) * perPage + 1, math.min(#entries, page * perPage) do
         shown = shown + 1
@@ -336,7 +335,7 @@ local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUISpellbook", WIDTH, ns.NPC_HEIGHT, "spellbook")
     window.Refresh = Refresh
-    window.extraRight = 46 -- Reiter rechts (40 + 6): Nachbarfenster rücken weiter weg
+    window.extraRight = 46 -- tabs on the right (40 + 6): neighbor windows keep extra distance
 
     searchBox = UI.EditBox(window.header, 26)
     searchBox:SetWidth(220)
@@ -361,7 +360,7 @@ local function CreateWindow()
     searchBox:SetPoint("RIGHT", optionsButton, "LEFT", -8, 0)
     CreateOptions()
 
-    -- Inhalt auf Pergament
+    -- content on parchment
     panel = ns.CreateParchmentPanel(window)
     panel:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 18)
     panel:SetPoint("BOTTOMRIGHT", -PAD, 46)
@@ -383,10 +382,10 @@ local function CreateWindow()
         Refresh()
     end)
 
-    -- Zauberkarten auf eigener Ebene (siehe Kopf)
+    -- spell cards on their own layer (see header)
     layer = CreateFrame("Frame", "MeredanUISpellbookCards", UIParent, "SecureHandlerStateTemplate")
     layer:SetFrameStrata("DIALOG")
-    ns.FollowFrame(layer, panel) -- nicht SetAllPoints: würde das Fenster mitschützen (Core.lua)
+    ns.FollowFrame(layer, panel) -- not SetAllPoints: would make the window protected too (Core.lua)
     layer:Hide()
 
     footer = UI.Text(window, 12, "LEFT", UI.MUTED)

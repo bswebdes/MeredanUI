@@ -1,26 +1,23 @@
--- Talentfenster (WoW Forever): eigenes Fenster statt Blizzards Talentrahmen
--- (Entwurf „Talente“, Benny 2026-11-06).
+-- Talent window (WoW Forever): own window replacing Blizzard's talent frame.
 --
---   ┌ [▣] Talente                          [Talente durchsuchen] [Anzeigen ˅] [x] ┐
---   │     Jäger · Stufe 14                                                       │
---   │ Primär aktiv   Sekundär                               Unverteilte Punkte 5 │
---   │ ┌ Tierherrschaft  0 ┐ ┌ Treffsicherheit  0 ┐ ┌ Überleben  0 ┐            │
---   │ │  ▣ ▣              │ │ ▣ ▣ ▣              │ │  ▣ ▣         │  ← Blizzards Baumbild,
---   │ │ ▣ ▣ ▣  …          │ │ …                  │ │ …            │    abgedunkelt
---   │ Tierherrschaft 0 · …     Klick: Punkt · Rechtsklick: zurück  [Zurücksetzen][Anwenden] │
+--   [icon] Talents                 [Search talents] [Display v] [x]
+--          Hunter - Level 14
+--   Primary active   Secondary                       Unspent points 5
+--   +- Beast Mastery 0 -+ +- Marksmanship 0 -+ +- Survival 0 -+
+--   |  [] []            | | [] [] []         | |  [] []       |  <- Blizzard's tree art, dimmed
+--   Beast Mastery 0 ...    Click: point - Right-click: undo  [Reset][Apply]
 --
--- Forever baut die klassischen drei Bäume aus dem modernen Trait-System: ein Baum (treeID) mit
--- drei Gruppen (C_Traits.GetGroupDisplayInfoByTreeID), Punkte werden vorgemerkt (PurchaseRank/
--- RefundRank) und erst mit „Änderungen anwenden“ übernommen (C_ClassTalents.CommitConfig).
--- Nichts davon ist geschützt. Die Talent-Taste und der Talent-Mikroknopf öffnen direkt unser
--- Fenster (Blizzards PlayerSpellsFrame wird nicht angefasst – HideUIPanel aus Addon-Code
--- verseucht die Fenster-Verwaltung); Zauberbuch und Betrachten anderer Spieler bleiben Blizzard.
+-- Forever builds the classic three trees on the modern trait system: one treeID with three groups
+-- (C_Traits.GetGroupDisplayInfoByTreeID); points are staged (PurchaseRank/RefundRank) and only
+-- committed via C_ClassTalents.CommitConfig. None of this is protected. The talent key and micro
+-- button open this window directly. Never touch Blizzard's PlayerSpellsFrame - HideUIPanel from
+-- addon code taints the UI panel manager. Inspecting other players stays Blizzard's.
 local _, ns = ...
 local L = ns.L
 
 local WIDTH, HEIGHT, PAD = 1240, 740, 18
-local TOP = ns.NPC_HEADER_BOTTOM + 52   -- Oberkante der Bäume
-local BOTTOM = 58                       -- Platz für die Fußzeile
+local TOP = ns.NPC_HEADER_BOTTOM + 52   -- top edge of the trees
+local BOTTOM = 58                       -- space for the footer
 local GAP = 12
 local TREE_HEAD = 58
 local NODE = 40
@@ -28,13 +25,13 @@ local GOLD = { 1, 0.82, 0 }
 local GREY_LINE = { 0.29, 0.29, 0.29 }
 
 local window, panels, tabs = nil, {}, {}
-local viewTab              -- angezeigte Talentgruppe (1 = Primär, 2 = Sekundär)
-local committing           -- „Änderungen anwenden“ läuft
+local viewTab              -- displayed spec group (1 = primary, 2 = secondary)
+local committing           -- commit in progress
 local pendingRefresh
-local nodes = {}           -- nodeID > Daten der aktuellen Anzeige
+local nodes = {}           -- nodeID -> data of the current view
 local searchBox, optionsButton, options, unspentBox, unspentText, summary, applyButton, resetButton, emptyText
-local adviceButton, adviceTake, advicePending -- Berater (Leveling-Builds aus Talents/Builds.lua)
-local ADVICE = { 1, 0.62, 0.15 }             -- Markierung „als Nächstes“ (warmes Orange, hebt sich ab)
+local adviceButton, adviceTake, advicePending -- advisor (leveling builds from Talents/Builds.lua)
+local ADVICE = { 1, 0.62, 0.15 }             -- "next up" marker (warm orange, stands out)
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.talentWindow ~= false and C_Traits and C_ClassTalents
@@ -60,7 +57,7 @@ local function Editable()
     return viewTab == ActiveTab() and not committing and C_ClassTalents.CanEditTalents and C_ClassTalents.CanEditTalents() ~= false
 end
 
--- Hintergrund: Blizzards Klassenbild (drei Felder nebeneinander), je Baum ein Drittel
+-- Background: Blizzard's class art (three panels side by side), one third per tree
 local function TreeArt(texture, index)
     local _, class = UnitClass("player")
     local info = C_Texture.GetAtlasInfo("talent-background-" .. class:lower())
@@ -72,18 +69,18 @@ local function TreeArt(texture, index)
     local step = (r - l) / 3
     texture:SetTexture(info.file)
     texture:SetTexCoord(l + step * (index - 1), l + step * index, info.topTexCoord, info.bottomTexCoord)
-    texture:SetVertexColor(0.5, 0.5, 0.5) -- abgedunkelt
+    texture:SetVertexColor(0.5, 0.5, 0.5) -- dimmed
 end
 
--- Daten ------------------------------------------------------------------------------------------
+-- Data --------------------------------------------------------------------------------------------
 
 local function SpellOf(configID, info)
     local entryID = (info.activeEntry and info.activeEntry.entryID) or (info.entryIDs and info.entryIDs[1])
     local entry = entryID and C_Traits.GetEntryInfo(configID, entryID)
     local def = entry and entry.definitionID and C_Traits.GetDefinitionInfo(entry.definitionID)
     local spellID = def and def.spellID
-    -- Zauberdaten vorab laden: sonst baut WoW den Tooltip beim ersten Hover neu auf, sobald die
-    -- Daten ankommen, und unsere Zeilen (Name, Rang, Klick-Hinweis) fehlen (Benny 2026-11-07)
+    -- Preload spell data: otherwise WoW rebuilds the tooltip on first hover when the data arrives
+    -- and our added lines (name, rank, click hint) are lost
     if spellID and C_Spell.RequestLoadSpellData and not C_Spell.IsSpellDataCached(spellID) then
         C_Spell.RequestLoadSpellData(spellID)
     end
@@ -92,7 +89,7 @@ local function SpellOf(configID, info)
     return entryID, entry, spellID, name, icon
 end
 
--- Baum lesen: Gruppen (= die drei Bäume) und ihre Knoten mit Position, Rang und Kanten
+-- Read the tree: groups (= the three trees) and their nodes with position, rank and edges
 local function ReadTree()
     local configID = ConfigID()
     local config = configID and C_Traits.GetConfigInfo(configID)
@@ -116,9 +113,9 @@ local function ReadTree()
     for _, nodeID in ipairs(C_Traits.GetTreeNodes(treeID) or {}) do
         local info = C_Traits.GetNodeInfo(configID, nodeID)
         if info and info.ID ~= 0 and info.isVisible then
-            -- welcher Baum, ergibt sich aus der Lage (Layout); groupIDs sind nicht eindeutig
+            -- tree membership comes from position (Layout); groupIDs are not unique
             local entryID, entry, spellID, name, icon = SpellOf(configID, info)
-            if spellID and name ~= "" then -- Hilfsknoten ohne Zauber gehören nicht in den Baum
+            if spellID and name ~= "" then -- helper nodes without a spell are skipped
                 list[#list + 1] = { id = nodeID, info = info, entryID = entryID, entry = entry,
                     spellID = spellID, name = name, icon = icon }
             end
@@ -132,7 +129,7 @@ local function ReadTree()
         unspent = unspent, staged = math.max(before - unspent, 0) }
 end
 
--- Darstellung ------------------------------------------------------------------------------------
+-- Display ----------------------------------------------------------------------------------------
 
 local function Matches(node, query, hidePassive)
     if hidePassive and node.spellID and C_Spell.IsSpellPassive(node.spellID) then return false end
@@ -142,7 +139,7 @@ end
 local function ShowTooltip(button)
     local node = button.node
     if not node then return end
-    -- Daten noch nicht da: kurz warten und dann den ganzen Tooltip bauen
+    -- Data not loaded yet: wait, then build the full tooltip
     if node.spellID and not C_Spell.IsSpellDataCached(node.spellID) and Spell then
         GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
         GameTooltip:AddLine(node.name, 1, 1, 1)
@@ -166,7 +163,7 @@ local function ShowTooltip(button)
             GameTooltip:AppendInfo("GetTraitEntry", node.entryID, rank + 1)
         end
     end
-    -- Voraussetzungen: Punkte im Baum (Blizzards Text) und vorheriges Talent
+    -- Requirements: points in tree (Blizzard's text) and prerequisite talent
     local configID = window.data and window.data.configID
     local groupName = window.data and window.data.groups[node.group] and window.data.groups[node.group].displayName
     local conditions = {}
@@ -185,7 +182,7 @@ local function ShowTooltip(button)
     end
     if gate then GameTooltip:AddLine(gate, 1, 0.31, 0.31, true) end
     if not info.meetsEdgeRequirements then
-        -- verbundene Talente in beiden Richtungen; Voraussetzung ist das obere, noch nicht volle
+        -- linked talents in both directions; the prerequisite is the upper one that is not maxed
         local linked = {}
         for _, edge in ipairs(info.visibleEdges or {}) do
             if nodes[edge.targetNode] then linked[#linked + 1] = nodes[edge.targetNode] end
@@ -231,7 +228,7 @@ local function NodeButton(panel, i)
     button.badge = CreateFrame("Frame", nil, button)
     button.badge:SetSize(24, 14)
     button.badge:SetPoint("BOTTOMRIGHT", 6, -6)
-    button.badge:SetFrameLevel(button:GetFrameLevel() + 6) -- über der Berater-Markierung (+3)
+    button.badge:SetFrameLevel(button:GetFrameLevel() + 6) -- above the advisor marker (+3)
     ns.UI.Box(button.badge, { 0.06, 0.06, 0.06, 1 })
     button.rank = ns.UI.Text(button.badge, 10, "CENTER")
     button.rank:SetPoint("CENTER", 0, 0)
@@ -259,14 +256,14 @@ local function NodeButton(panel, i)
     return button
 end
 
--- Berater ----------------------------------------------------------------------------------------
+-- Advisor ----------------------------------------------------------------------------------------
 
 local function ClassBuilds()
     local _, class = UnitClass("player")
     return ns.TALENT_BUILDS and ns.TALENT_BUILDS[class] or {}
 end
 
--- eigene Builds je Klasse (alle Charaktere des Accounts): { name, own = true, order = { Spell-IDs } }
+-- Own builds per class (account-wide): { name, own = true, order = { spell IDs } }
 local function OwnBuilds()
     local _, class = UnitClass("player")
     ns.root.talentBuilds = ns.root.talentBuilds or {}
@@ -278,7 +275,7 @@ local function BuildKey(build)
     return (build.own and "own:" or "") .. build.name
 end
 
--- gewählter Build (je Charakter); nil = noch nie gewählt > erster Build, false = aus
+-- Selected build (per character); nil = never chosen -> first build, false = off
 local function CurrentBuild()
     local choice = ns.char and ns.char.talentBuild
     if choice == false then return nil end
@@ -292,8 +289,8 @@ local function CurrentBuild()
     return builds[1]
 end
 
--- aktuelle Verteilung als eigenen Build speichern: Reihe für Reihe (oben zuerst), so bleibt die
--- Reihenfolge gültig (Punkte je Reihe, Pfeil-Talente stehen immer weiter oben)
+-- Save the current allocation as an own build, row by row (top first) so the order stays valid
+-- (points per row; arrow prerequisites are always higher up)
 local function SaveOwnBuild(name)
     name = strtrim(name or "")
     local data = window and window.data
@@ -314,7 +311,7 @@ local function SaveOwnBuild(name)
     if #order == 0 then return end
     local own = OwnBuilds()
     for i = #own, 1, -1 do
-        if own[i].name == name then table.remove(own, i) end -- gleicher Name: ersetzen
+        if own[i].name == name then table.remove(own, i) end -- same name: replace
     end
     own[#own + 1] = { name = name, own = true, firstLevel = 10, order = order }
     ns.char.talentBuild = "own:" .. name
@@ -322,16 +319,16 @@ local function SaveOwnBuild(name)
 end
 ns.SaveOwnTalentBuild = SaveOwnBuild
 
--- Build auf die Knoten des echten Baums legen (Spell-ID, sonst gleicher Name); passt ein Eintrag
--- nicht (Talent fehlt, Rang über dem Maximum), gilt der ganze Build als unpassend
+-- Map a build onto the real tree nodes (by spell ID, else by name). If any entry does not fit
+-- (missing talent, rank above max), the whole build is rejected.
 local function ResolveBuild(build, list)
     local bySpell, byName = {}, {}
     for _, node in ipairs(list) do
         if node.spellID then bySpell[node.spellID] = node end
         byName[node.name] = node
     end
-    -- Reihen: alle drei Bäume teilen dieselben Höhen > Reihe = Platz in der Liste der Höhen
-    -- Blizzard setzt Talente einer Reihe teils minimal versetzt (5730/5740) > nahe Höhen = eine Reihe
+    -- Rows: all three trees share the same heights -> row = index in the sorted height list.
+    -- Blizzard offsets some talents in a row slightly (5730/5740) -> close heights form one row.
     local heights, rowOf = {}, {}
     for _, node in ipairs(list) do heights[node.posY] = true end
     local sorted = {}
@@ -343,8 +340,8 @@ local function ResolveBuild(build, list)
         rowOf[y] = row
         last = y
     end
-    -- Pfeil-Voraussetzungen: Forever speichert die Kanten teils andersherum (Einschüchterung >
-    -- Zorn des Wildtiers) > Voraussetzung ist immer das obere Talent der beiden
+    -- Arrow prerequisites: Forever stores some edges reversed (Intimidation -> Bestial Wrath),
+    -- so the prerequisite is always the upper talent of the pair
     local byId, sources = {}, {}
     for _, node in ipairs(list) do byId[node.id] = node end
     for _, node in ipairs(list) do
@@ -358,8 +355,7 @@ local function ResolveBuild(build, list)
             end
         end
     end
-    -- Lernreihenfolge durchspielen: Rang ≤ Maximum, 5 Punkte je Reihe im Baum, Pfeil-Talent voll
-    -- (Maxrolls Magier-Builds lernten Talente zu früh – Hinweis findyourmain-ops)
+    -- Simulate the learning order: rank <= max, 5 points per row in the tree, arrow prerequisite maxed
     local steps, count, inTree = {}, {}, {}
     for i, id in ipairs(build.order) do
         local node = bySpell[id] or byName[C_Spell.GetSpellName(id) or ""]
@@ -424,7 +420,7 @@ local function Layout()
     end
     emptyText:SetShown(not data)
     for _, panel in ipairs(panels) do panel:SetShown(data ~= nil) end
-    -- Reiter
+    -- tabs
     local active = ActiveTab()
     local dual = (GetNumSpecGroups and GetNumSpecGroups() or 1) > 1
     for i, tab in ipairs(tabs) do
@@ -444,13 +440,12 @@ local function Layout()
         return
     end
 
-    -- Positionen: Blizzards Knotenkoordinaten (posX/posY in 1/10 Pixel), je Baum mittig ins Feld
+    -- Positions: Blizzard's node coordinates (posX/posY in 1/10 px), each tree centered in its panel
     local view = Settings()
     local query = strtrim(searchBox:GetText() or ""):lower()
-    -- Blizzard setzt die drei Bäume im selben Koordinatenraum 400 px (posX/10) nebeneinander:
-    -- Baum = Abschnitt der Breite 400 ab dem linken Rand; je Baum mittig in unser Feld
-    -- Ausreißer (Knoten weit außerhalb, z. B. versteckte Hilfsknoten) dürfen den Maßstab nicht
-    -- bestimmen: links/oben beginnt der Baum beim häufigsten Bereich (Median), nicht beim Minimum
+    -- Blizzard places the three trees 400 px (posX/10) apart in one coordinate space:
+    -- tree = 400-wide slice from the left edge. Outliers (e.g. hidden helper nodes) must not drive
+    -- the scale, so left/top start from the median, not the minimum.
     local xs, ys = {}, {}
     for _, node in ipairs(data.nodes) do
         xs[#xs + 1] = node.info.posX
@@ -460,15 +455,15 @@ local function Layout()
     table.sort(ys)
     local TREE_W = 400
     local midX = xs[math.max(1, math.floor(#xs / 2))] or 0
-    local minX = midX - 1.5 * TREE_W * 10 -- mittlerer Baum um den Median
+    local minX = midX - 1.5 * TREE_W * 10 -- middle tree around the median
     local midY = ys[math.max(1, math.floor(#ys / 2))] or 0
     local minY = midY
-    for _, y in ipairs(ys) do -- erste Reihe: kleinster Wert, der nicht weit über der Mitte liegt
+    for _, y in ipairs(ys) do -- first row: smallest value not far above the median
         if y >= midY - 4500 then minY = y break end
     end
     ns.root.talentDebug = nil
-    -- Blizzards Daten haben vereinzelt eine Null zu viel (Jäger: „Blitzartige Reflexe“ posX 102800
-    -- statt 10280, „Verbesserter Schlangenbiss“ posY 39300 statt 3930) – zurückrechnen
+    -- Blizzard's data occasionally has an extra zero (Hunter: Lightning Reflexes posX 102800
+    -- instead of 10280, Improved Serpent Sting posY 39300 instead of 3930) - scale back
     local function Fix(value, low, high)
         while value > high and value / 10 >= low do value = value / 10 end
         return value
@@ -550,7 +545,7 @@ local function Layout()
         button:SetEnabled(true)
         if not editable then button.glow:SetShown(false) end
     end
-    -- Berater: welche Punkte des Builds fehlen noch, in Reihenfolge
+    -- Advisor: build points still missing, in order
     advicePending = {}
     local build = CurrentBuild()
     local steps, problem
@@ -572,23 +567,22 @@ local function Layout()
             planned[node.id] = step.rank
             if (node.info.ranksPurchased or 0) < step.rank then advicePending[#advicePending + 1] = step end
         end
-        -- schon gelernt nach dem Build: oranger Rahmen statt türkis/gold (Benny 2026-11-06: sehen,
-        -- dass man mit dem Berater geskillt hat); mehr Ränge als geplant zählen nicht
+        -- Already learned per build: orange border instead of accent/gold; ranks beyond the plan don't count
         for _, node in ipairs(data.nodes) do
             local rank = node.info.ranksPurchased or 0
             if rank > 0 and planned[node.id] and rank <= planned[node.id] then
                 for _, e in ipairs(node.button.border) do e:SetVertexColor(ADVICE[1], ADVICE[2], ADVICE[3], 1) end
             end
         end
-        -- nur das nächste Talent markieren; blinken nur, solange ein Punkt frei ist (Benny 2026-11-06:
-        -- „2“ und „3“ führten in die Irre – der Build nimmt oft erst weitere Ränge desselben Talents)
+        -- Mark only the next talent (further numbers mislead: builds often add ranks to the same
+        -- talent first); pulse only while a point is free
         local step = advicePending[1]
         if step and step.node.shown and viewTab == active then
             local mark = AdviceMark(step.node.button)
             local free = data.unspent > 0
             local alpha = free and 1 or 0.6
             for _, e in ipairs(mark.edges) do e:SetVertexColor(ADVICE[1], ADVICE[2], ADVICE[3], alpha) end
-            mark.number:GetParent():Hide() -- ohne Nummer: es gibt nur noch eine Markierung
+            mark.number:GetParent():Hide() -- no number: there is only one marker
             mark:Show()
             if free then mark.pulse:Play() end
             step.node.adviceNext = true
@@ -603,7 +597,7 @@ local function Layout()
     adviceTake:SetShown(steps ~= nil and viewTab == active)
     adviceTake.Text:SetTextColor(unpack(canTake and ADVICE or UI.MUTED))
     adviceTake:SetEnabled(canTake and true or false)
-    -- Kanten (Voraussetzungen)
+    -- edges (prerequisites)
     local lineCount = {}
     for _, node in ipairs(data.nodes) do
         for _, edge in ipairs(node.info.visibleEdges or {}) do
@@ -619,7 +613,7 @@ local function Layout()
             end
         end
     end
-    -- Baumköpfe
+    -- tree headers
     local parts = {}
     for i, panel in ipairs(panels) do
         local group = data.groups[i]
@@ -632,7 +626,7 @@ local function Layout()
         if group then parts[#parts + 1] = group.displayName .. " " .. points end
     end
     summary:SetText(table.concat(parts, "  ·  "))
-    -- Punkte und Knöpfe
+    -- points and buttons
     unspentText:SetText(data.unspent)
     unspentText:SetTextColor(unpack(data.unspent > 0 and { 0.12, 1, 0 } or UI.MUTED))
     for _, e in ipairs(unspentBox.edges) do
@@ -661,7 +655,7 @@ local function Refresh()
     end)
 end
 
--- Aufbau -----------------------------------------------------------------------------------------
+-- Build UI ----------------------------------------------------------------------------------------
 
 local function Apply()
     if viewTab ~= ActiveTab() then
@@ -683,7 +677,7 @@ local function Apply()
     Refresh()
 end
 
--- Empfehlung übernehmen: offene Punkte des Builds der Reihe nach vormerken, solange Punkte frei sind
+-- Take advice: stage the build's open points in order while points are free
 local function TakeAdvice()
     local data = window.data
     if not (data and Editable() and advicePending) then return end
@@ -747,13 +741,13 @@ local function CreateWindow()
     window = ns.CreateNpcWindow("MeredanUITalents", WIDTH, HEIGHT, "talents")
     window.Refresh = Refresh
     window:HookScript("OnShow", function(self)
-        -- mittig statt über dem Chat (das Fenster ist groß)
+        -- centered instead of above the chat (the window is large)
         self:ClearAllPoints()
         self:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
-        self.dragged = true -- nicht neben Blizzards Fenster rücken (NpcWindow), es bleibt mittig
+        self.dragged = true -- don't dock next to Blizzard's frames (NpcWindow); stay centered
     end)
 
-    -- Kopfzeile rechts: Suche und Anzeige-Optionen links vom X
+    -- header right: search and display options left of the X
     searchBox = UI.EditBox(window.header, 26)
     searchBox:SetWidth(220)
     local hint = UI.Text(searchBox, 12, "LEFT", UI.MUTED)
@@ -776,7 +770,7 @@ local function CreateWindow()
     searchBox:SetPoint("RIGHT", optionsButton, "LEFT", -8, 0)
     CreateOptions()
 
-    -- Reiter Primär / Sekundär
+    -- tabs primary / secondary
     local labels = { DUAL_SPEC_PRIMARY or L["Primary"], DUAL_SPEC_SECONDARY or L["Secondary"] }
     for i, label in ipairs(labels) do
         local tab = CreateFrame("Button", nil, window)
@@ -800,7 +794,7 @@ local function CreateWindow()
         tabs[i] = tab
     end
 
-    -- Unverteilte Punkte
+    -- unspent points
     unspentBox = CreateFrame("Frame", nil, window)
     unspentBox:SetSize(40, 28)
     unspentBox:SetPoint("TOPRIGHT", -PAD, -ns.NPC_HEADER_BOTTOM - 14)
@@ -814,7 +808,7 @@ local function CreateWindow()
     unspentLabel:SetPoint("RIGHT", unspentBox, "LEFT", -10, 0)
     unspentLabel:SetText(L["Unspent points"])
 
-    -- Berater: Build wählen und übernehmen
+    -- advisor: pick and apply a build
     adviceTake = UI.Button(window, L["Take advice"], TakeAdvice, 110)
     adviceTake:SetHeight(26)
     adviceTake:SetPoint("RIGHT", unspentLabel, "LEFT", -28, 0)
@@ -827,7 +821,7 @@ local function CreateWindow()
     adviceTake:HookScript("OnLeave", function() GameTooltip:Hide() end)
     adviceButton = UI.Button(window, "", function(self)
         GameTooltip:Hide()
-        -- nach Kategorie (Benny 2026-11-06): Leveln / PvE / PvP / Eigene, darunter nur der Baum
+        -- by category: Leveling / PvE / PvP / Own, each listing only the tree name
         local ACCENT_HEX, GREY = "|cff8ecbb4", "|cff6a6a66"
         local items = { { value = "__off", label = L["Off"] } }
         local trees = {}
@@ -835,7 +829,7 @@ local function CreateWindow()
         for _, build in ipairs(ClassBuilds()) do
             local tree = build.name:match("^(.-)%s*%(") or build.name
             if not tContains(trees, tree) then trees[#trees + 1] = tree end
-            -- Stern in Salbei = empfohlener Einstieg (Builds.lua: recommended, Benny 2026-11-08)
+            -- accent star = recommended starting build (Builds.lua: recommended)
             local star = build.recommended and ("  " .. UI.IconMarkup("Star", 11, UI.ACCENT, 2)) or ""
             items[#items + 1] = { value = build.name, label = "   " .. tree .. star }
         end
@@ -847,7 +841,7 @@ local function CreateWindow()
         end
         items[#items + 1] = { value = "__hown", inert = true, label = ACCENT_HEX .. L["Own"]:upper() .. "|r" }
         for _, build in ipairs(OwnBuilds()) do
-            -- Symbole wie bei Blizzards Loadouts: Umbenennen (Stift) und Löschen (X)
+            -- icons as in Blizzard's loadouts: rename (pen) and delete (X)
             items[#items + 1] = { value = BuildKey(build), label = "   " .. build.name, actions = {
                 { icon = "Close", tooltip = DELETE or L["Delete"], onClick = function()
                     StaticPopup_Show("MEREDANUI_DELETE_TALENTS", build.name, nil, build)
@@ -862,7 +856,7 @@ local function CreateWindow()
         UI.OpenList(self, items, current and BuildKey(current) or "__off", function(value)
             if value == "__save" then
                 StaticPopup_Show("MEREDANUI_SAVE_TALENTS")
-            elseif value:sub(1, 3) ~= "__h" then -- Überschriften und „kommt später“ tun nichts
+            elseif value:sub(1, 3) ~= "__h" then -- headers and "coming later" do nothing
                 ns.char.talentBuild = value ~= "__off" and value or false
                 Refresh()
             end
@@ -877,7 +871,7 @@ local function CreateWindow()
     local adviceChevron = UI.Icon(adviceButton, "ChevronDown", 12, UI.MUTED)
     adviceChevron:SetPoint("RIGHT", -8, 0)
     adviceButton:HookScript("OnEnter", function(self)
-        -- oben, damit die aufgeklappte Liste frei bleibt; ohne Quellen/Hinweise (Benny 2026-11-06)
+        -- anchored on top so the opened list stays clear
         local build = CurrentBuild()
         GameTooltip:SetOwner(self, "ANCHOR_TOP")
         GameTooltip:AddLine(L["Advisor"], 1, 1, 1)
@@ -900,7 +894,7 @@ local function CreateWindow()
     adviceLabel:SetPoint("RIGHT", adviceButton, "LEFT", -10, 0)
     adviceLabel:SetText(L["Advisor"])
 
-    -- Drei Bäume
+    -- three trees
     local areaW = WIDTH - 2 * PAD
     local panelW = (areaW - 2 * GAP) / 3
     for i = 1, 3 do
@@ -915,7 +909,7 @@ local function CreateWindow()
         local shade = panel:CreateTexture(nil, "BACKGROUND", nil, -7)
         shade:SetAllPoints()
         shade:SetColorTexture(1, 1, 1, 1)
-        shade:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0.55), CreateColor(0, 0, 0, 0.3)) -- unten dunkler
+        shade:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0.55), CreateColor(0, 0, 0, 0.3)) -- darker at the bottom
         ns.AddBorder(panel)
         local head = CreateFrame("Frame", nil, panel)
         head:SetPoint("TOPLEFT")
@@ -948,7 +942,7 @@ local function CreateWindow()
     emptyText:SetPoint("CENTER")
     emptyText:SetText(L["Talents are not available yet."])
 
-    -- Fußzeile
+    -- footer
     summary = UI.Text(window, 12, "LEFT", UI.MUTED)
     summary:SetPoint("BOTTOMLEFT", PAD, 24)
     applyButton = UI.Button(window, L["Apply changes"], Apply, 190)
@@ -984,9 +978,8 @@ local function CreateWindow()
     end)
 end
 
--- Blizzards Sperre einhalten (Benny 2026-11-08): Talente erst ab der Freischalt-Stufe – in Forever
--- früher durch den Legacy-Baum (TalentMicroButton:GetTalentUnlockLevel, Camelot-Override). Gesperrt:
--- Blizzards rote Meldung statt Fenster.
+-- Respect Blizzard's lock: talents only from the unlock level (earlier in Forever due to the Legacy
+-- tree; TalentMicroButton:GetTalentUnlockLevel, Camelot override). Locked: Blizzard's red error.
 local function TalentsLocked()
     local button = TalentMicroButton or PlayerSpellsMicroButton
     local unlock = button and button.GetTalentUnlockLevel and button:GetTalentUnlockLevel()
@@ -1005,10 +998,10 @@ local function Toggle()
 end
 ns.ToggleTalents = Toggle
 
--- Vorschau: Blizzards Legacy-Fenster öffnen, auch wenn es noch gesperrt ist (nur zum Ansehen)
+-- Preview: open the Legacy window even while still locked (view only)
 ns.AddCommand("legacy", L["open the Legacy window (preview)"], function()
     if InCombatLockdown() then return end
-    -- mUI-Fenster (Talents/Legacy.lua), auch noch gesperrt als Vorschau
+    -- mUI window (Talents/Legacy.lua), shown as preview even while locked
     if ns.ToggleLegacy and ns.db.legacyWindow ~= false then return ns.ToggleLegacy(true) end
     if not LegacySystemFrame and LegacySystemFrame_LoadUI then LegacySystemFrame_LoadUI() end
     if LegacySystemFrame then ShowUIPanel(LegacySystemFrame) end
@@ -1017,9 +1010,8 @@ end)
 ns:On("PLAYER_LOGIN", function()
     ns.root.talentLog = nil
     if not Enabled() then return end
-    -- N und der Talent-Knopf öffnen direkt unser Fenster. Blizzards Rahmen bleibt zu: ihn per
-    -- HideUIPanel zu schließen verseuchte Blizzards Fenster-Verwaltung (Einstellungen meldeten
-    -- danach ADDON_ACTION_FORBIDDEN, 2026-11-06).
+    -- N and the talent button open this window directly. Blizzard's frame stays closed: closing it
+    -- via HideUIPanel taints the UI panel manager (Settings then raise ADDON_ACTION_FORBIDDEN).
     local toggle = CreateFrame("Button", "MeredanUITalentsToggle", UIParent)
     toggle:SetScript("OnClick", function() Toggle() end)
     local function BindKeys()
@@ -1032,7 +1024,7 @@ ns:On("PLAYER_LOGIN", function()
     BindKeys()
     ns:On("UPDATE_BINDINGS", BindKeys)
     if TalentMicroButton then
-        -- Klick auf den Mikroknopf: nur der Klick wird ersetzt, Tooltip und Optik bleiben Blizzards
+        -- only the click is replaced; tooltip and look stay Blizzard's
         TalentMicroButton:SetScript("OnClick", function() Toggle() end)
     end
     for _, event in ipairs({ "TRAIT_NODE_CHANGED", "TRAIT_TREE_CURRENCY_INFO_UPDATED", "TRAIT_CONFIG_LIST_UPDATED",

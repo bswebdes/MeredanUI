@@ -1,18 +1,13 @@
--- Vermächtnis (WoW Forever, „Legacy System“): eigenes Fenster statt Blizzards LegacySystemFrame
--- (Entwurf, Benny 2026-11-08).
+-- Legacy (WoW Forever "Legacy System"): own window replacing Blizzard's LegacySystemFrame.
+-- Tabs on the right: Rewards (score, level bar, reward cards), Challenges (categories | cards with
+-- criteria, tracking), Tree (three trees | nodes with ranks, apply/reset).
 --
---   ┌ [Wappen] Vermächtnis                                        [x] ┐ ┌──┐
---   │          12 Vermächtnispunkte                                  │ │🏆│ Belohnungen
---   │  Belohnungen: Punktzahl, Leiste mit Stufen, Belohnungskarten    │ │★ │ Herausforderungen
---   │  Herausforderungen: Kategorien | Karten mit Zielen, Verfolgen   │ │⚇ │ Baum
---   │  Baum: drei Bäume | Knoten mit Rängen, Übernehmen/Zurücksetzen   │ └──┘
---
--- Daten (Auswertung von Blizzard_LegacySystem, 2026-11-08):
---   Belohnungen = Ruhm-Leiste der Fraktion 2802 (C_MajorFactions), Punkte = Ruhmstufe.
---   Herausforderungen = normale Erfolge (GetCategoryList/GetAchievementInfo), Punkte je Erfolg über
---     C_Traits.GetTraitCurrencyForAchievement(4225, id), Verfolgen über C_ContentTracking.
---   Baum = drei Talentbäume (C_Traits, Bäume 1187/1188/1189), gemeinsame Währung 4225, Käufe vorgemerkt
---     bis CommitConfig. Alles ohne Schutzsperre aufrufbar.
+-- Data (from Blizzard_LegacySystem):
+--   Rewards = renown track of faction 2802 (C_MajorFactions); points = renown level.
+--   Challenges = regular achievements (GetCategoryList/GetAchievementInfo); points per achievement via
+--     C_Traits.GetTraitCurrencyForAchievement(4225, id); tracking via C_ContentTracking.
+--   Tree = three trait trees (1187/1188/1189), shared currency 4225, purchases staged until
+--     CommitConfig. None of it is protected.
 local _, ns = ...
 local L = ns.L
 
@@ -38,13 +33,12 @@ local function Enabled() return ns.IS_FOREVER and ns.db and ns.db.legacyWindow ~
 local function Points() return C_MajorFactions and C_MajorFactions.GetCurrentRenownLevel(FACTION) or 0 end
 local function Unlocked() return Points() > 0 end
 
--- Blizzard-Artwork randlos füllen: eigenen Zierrahmen (inset px) abschneiden, Rest aufs Seitenverhältnis
--- der Fläche zuschneiden statt verzerren (wie die Berufskarten, Benny 2026-11-08: kein Kasten im Kasten)
--- inset: Zahl (alle Seiten) oder { links, rechts, oben, unten } in Bildpixeln
--- Baum-Hintergrund ohne Blizzards linke Spalte (senkrechte Trennlinie) und obere Kante
--- (Benny 2026-11-08: „diese Linie da durch“)
+-- Tree background crop: drops Blizzard's left column (vertical divider) and top edge
 local BOARD_CROP = { 120, 24, 64, 24 }
 
+-- Fill with Blizzard art edge to edge: crop its own decorative frame (inset px) and crop the rest to
+-- the area's aspect ratio instead of stretching. inset: number (all sides) or { left, right, top, bottom }
+-- in image pixels.
 local function CoverAtlas(tex, atlas, inset)
     local info = C_Texture.GetAtlasInfo(atlas)
     local w, h = tex:GetParent():GetSize()
@@ -67,7 +61,7 @@ local function CoverAtlas(tex, atlas, inset)
     tex:SetTexCoord(l, r, t, b)
 end
 
--- Kleines Wappen mit Zahl (Punkte), flach im mUI-Stil
+-- Small flat shield with a number (points)
 local function Shield(parent, size)
     local f = CreateFrame("Frame", nil, parent)
     f:SetSize(size, size + 4)
@@ -80,16 +74,16 @@ local function Shield(parent, size)
     return f
 end
 
--- 1. Belohnungen ----------------------------------------------------------------------------------
+-- 1. Rewards -------------------------------------------------------------------------------------
 
 local function BuildRewards(page)
     local UI = ns.UI
-    -- Blizzards Vermächtnis-Artwork gedämpft im Hintergrund (wie die Berufskarten)
+    -- Blizzard's Legacy art, dimmed, as background
     page.art = page:CreateTexture(nil, "BACKGROUND")
     page.art:SetAllPoints()
     page:SetScript("OnSizeChanged", function() CoverAtlas(page.art, "Legacy-Rewards-Tracker-background", 28) end)
     page.art:SetVertexColor(0.45, 0.45, 0.45)
-    -- oben mittig: große Punktzahl, darunter Beschriftung und nächste Belohnung
+    -- top center: large score, label and next reward below
     page.big = UI.Text(page, 52, "CENTER")
     if ns.DISPLAY_FONT then page.big:SetFont(ns.DISPLAY_FONT, ns.FontPx and ns.FontPx(52) or 52, "") end
     page.big:SetTextColor(unpack(GOLD))
@@ -101,7 +95,7 @@ local function BuildRewards(page)
 
     page.bar = CreateFrame("StatusBar", nil, page)
     page.bar:SetHeight(12)
-    page.bar:SetPoint("TOPLEFT", 16, -140) -- 16 px Innenabstand zum Hintergrundbild
+    page.bar:SetPoint("TOPLEFT", 16, -140) -- 16 px inset from the background art
     page.bar:SetPoint("TOPRIGHT", -16, -140)
     page.bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
     page.bar:SetStatusBarColor(unpack(GOLD))
@@ -111,14 +105,14 @@ local function BuildRewards(page)
     page.ticks, page.cards = {}, {}
 end
 
--- hohe Karte: Stufe oben, großes Symbol, Name mit Platz zum Umbrechen, Status unten
+-- Tall card: level on top, large icon, wrapping name, status at the bottom
 local function RewardCard(page, i)
     if page.cards[i] then return page.cards[i] end
     local UI = ns.UI
     local card = CreateFrame("Frame", nil, page)
     UI.Box(card, { 0.06, 0.07, 0.07, 0.94 })
     card:SetClipsChildren(true)
-    -- feiner Verlauf statt Motiv (das hochskalierte Symbol war verwaschen, Benny 2026-11-08)
+    -- subtle gradient instead of an image (an upscaled icon looks blurry)
     card.shade = card:CreateTexture(nil, "BACKGROUND", nil, 3)
     card.shade:SetAllPoints()
     card.shade:SetColorTexture(1, 1, 1, 1)
@@ -141,7 +135,7 @@ local function RewardCard(page, i)
     card.level.text:SetPoint("CENTER")
     local holder = CreateFrame("Frame", nil, card)
     holder:SetSize(72, 72)
-    holder:SetPoint("BOTTOM", card, "CENTER", 0, 14) -- Symbol knapp über der Kartenmitte, Text darunter
+    holder:SetPoint("BOTTOM", card, "CENTER", 0, 14) -- icon just above card center, text below
     ns.AddSlotBackground(holder)
     card.iconEdges = ns.AddBorder(holder, false, 2)
     card.icon = holder:CreateTexture(nil, "ARTWORK")
@@ -188,17 +182,16 @@ local function RefreshRewards(page)
         if li.level > points then nextLevel = li.level break end
     end
     page.next:SetText(nextLevel and L["Next reward at %d"]:format(nextLevel) or L["All rewards earned"])
-    -- Karten gleichmäßig verteilt; Markierung je Karte mittig darüber, Füllung läuft von Karte zu Karte
-    local gap, inset = 16, 16 -- Abstand zwischen den Karten und zum Rand des Hintergrundbilds
+    -- Cards evenly spaced; one marker centered above each card, the fill runs card to card
+    local gap, inset = 16, 16 -- gap between cards and inset from the background art
     local width, height = page:GetWidth() - 2 * inset, page:GetHeight()
     local cardW = (width - (#levels - 1) * gap) / #levels
-    local cardTop = 186 -- direkt unter der Leiste, Karten bis unten (Inhalt mittig in der Karte)
+    local cardTop = 186 -- right below the bar; cards extend to the bottom
     local cardH = math.max(height - cardTop - inset, 200)
     local fill, prevLevel, prevX = 0, 0, 0
     for i, li in ipairs(levels) do
-        local center = (i - 1) * (cardW + gap) + cardW / 2 -- Leiste beginnt selbst bei inset
-        -- eigene flache Raute mit Stufe direkt auf der Leiste (Benny 2026-11-08: markiert den Punkt,
-        -- im mUI-Stil statt Blizzards Steinoptik): Rand = größere Raute, Fläche = kleinere darüber
+        local center = (i - 1) * (cardW + gap) + cardW / 2 -- the bar itself starts at inset
+        -- Flat diamond with the level on the bar: border = larger diamond, fill = smaller one on top
         local tick = page.ticks[i]
         if not tick then
             tick = CreateFrame("Frame", nil, page)
@@ -249,8 +242,8 @@ local function RefreshRewards(page)
         card.icon:SetAlpha(earned and 1 or 0.7)
         card.name:SetText(name or "")
         card.name:SetTextColor(unpack((earned or isNext) and UI.TEXT or UI.MUTED))
-        card.level:Hide() -- Stufe steht jetzt als Raute auf der Leiste
-        -- Art der Belohnung (Haustier, Reittier, Wappenrock …): Gegenstands-Untertyp, sonst Belohnungsart
+        card.level:Hide() -- level is shown as a diamond on the bar
+        -- Reward kind (pet, mount, tabard ...): item subtype, else item type
         local kind
         if reward and reward.itemID then
             local _, itemType, itemSubType = C_Item.GetItemInfoInstant(reward.itemID)
@@ -270,11 +263,11 @@ local function RefreshRewards(page)
     page.bar:SetValue(fill)
 end
 
--- 2. Herausforderungen ------------------------------------------------------------------------
+-- 2. Challenges -----------------------------------------------------------------------------
 
 local collapsed, selectedCategory, expanded = {}, nil, nil
 local showCompleted, showIncomplete = true, true
-local searchSet -- nil = keine Suche
+local searchSet -- nil = no search
 
 local function ChallengePoints(id)
     return C_Traits and C_Traits.GetTraitCurrencyForAchievement and C_Traits.GetTraitCurrencyForAchievement(CURRENCY, id) or 0
@@ -317,7 +310,7 @@ local function CategoryCount(category)
     return done, total
 end
 
--- Kategorienbaum: oberste Ebene (parent -1) mit Unterkategorien, leere ausblenden
+-- Category tree: top level (parent -1) with subcategories; empty ones hidden
 local function CategoryTree()
     local tops, children = {}, {}
     for _, id in ipairs(GetCategoryList() or {}) do
@@ -455,8 +448,7 @@ local function ChallengeRow(page, i)
     if page.listRows[i] then return page.listRows[i] end
     local UI = ns.UI
     local row = CreateFrame("Button", nil, page.list.child)
-    -- Rahmen innen: außen schnitt die scrollende Liste links/rechts ab, oben/unten stieß er an die
-    -- Nachbarkarte (Benny 2026-11-08: aktive Karte hatte nur oben und unten eine Linie)
+    -- Inner border: an outer one gets clipped by the scroll list and collides with neighbor cards
     local bg = row:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(0.078, 0.094, 0.094, 1)
@@ -536,7 +528,7 @@ local function ChallengeRow(page, i)
     return row
 end
 
--- Ziele einer aufgeklappten Herausforderung: Text oder Balken „q / req“
+-- Criteria of an expanded challenge: text or a "q / req" bar
 local function FillCriteria(row, width)
     for _, line in ipairs(row.criteria) do line:Hide() end
     local id = row.challenge.id
@@ -589,7 +581,7 @@ local function RefreshChallenges(page)
     page.total:SetText(L["Legacy points %d / %d"]:format(Points(), max))
     page.totalBar:SetValue(max > 0 and math.min(Points() / max, 1) or 0)
 
-    -- Kategorien
+    -- categories
     if not selectedCategory then
         local _, class = UnitClass("player")
         local key = class and ("LEGACY_DEFAULT_CATEGORY_" .. class)
@@ -622,7 +614,7 @@ local function RefreshChallenges(page)
     end
     page.cats:SetContentHeight(y)
 
-    -- Herausforderungen der Kategorie
+    -- challenges of the selected category
     local list = selectedCategory and CategoryChallenges(selectedCategory) or {}
     for _, r in ipairs(page.listRows) do r:Hide() end
     local width = page.list:GetWidth()
@@ -663,12 +655,12 @@ local function RefreshChallenges(page)
     page.empty:SetShown(#list == 0)
 end
 
--- 3. Baum ---------------------------------------------------------------------------------------
+-- 3. Tree ---------------------------------------------------------------------------------------
 
 local selectedTree = 1
 local NODE = 48
 
--- Reicht die Währung für den nächsten Rang? (sonst meldet Blizzard beim Kauf „Interner Fehler“)
+-- Enough currency for the next rank? (otherwise the purchase fails with an "internal error")
 local function CanAfford(configID, nodeID, treeID)
     local have = {}
     for _, c in ipairs(C_Traits.GetTreeCurrencyInfo(configID, treeID, false) or {}) do have[c.traitCurrencyID] = c.quantity end
@@ -717,7 +709,7 @@ local function BuildTree(page)
     page.boardArt:SetAllPoints()
     page.boardArt:SetVertexColor(0.5, 0.5, 0.5)
     page.board:SetScript("OnSizeChanged", function() CoverAtlas(page.boardArt, "Legacy-Tree-Frame-background", BOARD_CROP) end)
-    -- großes Baumsymbol links mit ausgegebenen Punkten darunter (wie Blizzard)
+    -- large tree icon on the left with spent points below (as in Blizzard's UI)
     page.bigIcon = page.board:CreateTexture(nil, "ARTWORK")
     page.bigIcon:SetSize(96, 96)
     page.bigIcon:SetPoint("LEFT", 36, 10)
@@ -756,7 +748,7 @@ local function BuildTree(page)
     end, 120)
     page.reset:SetHeight(28)
     page.reset:SetPoint("RIGHT", page.apply, "LEFT", -8, 0)
-    -- Breite nach Text (je 24 px Luft), mindestens 140 – „Änderungen anwenden“ war zu eng (Benny 2026-11-08)
+    -- width fits the text (24 px padding per side), at least 140
     for _, b in ipairs({ page.apply, page.undo, page.reset }) do
         b:SetWidth(math.max(140, math.ceil(b.Text:GetUnboundedStringWidth()) + 48))
     end
@@ -870,7 +862,7 @@ local function RefreshTree(page)
     page.spent.text:SetText(cur and cur.spentInTree or 0)
     page.boardPoints:SetText(L["%d available"]:format(cur and cur.quantity or 0))
 
-    -- Knoten sammeln und mittig in die Fläche legen
+    -- collect nodes and center them on the board
     local infos = {}
     local minX, minY, maxX, maxY
     for _, nodeID in ipairs(C_Traits.GetTreeNodes(tree.id) or {}) do
@@ -891,7 +883,7 @@ local function RefreshTree(page)
         return
     end
     local bw, bh = page.board:GetWidth(), page.board:GetHeight()
-    local left = 170 -- rechts neben dem großen Baumsymbol
+    local left = 170 -- right of the large tree icon
     local scale = math.min(1.7, (bw - left - 90) / math.max(maxX - minX, 1), (bh - 130) / math.max(maxY - minY, 1))
     local ox = left + (bw - left - (maxX - minX) * scale) / 2
     local oy = (bh - (maxY - minY) * scale) / 2 + 14
@@ -919,7 +911,7 @@ local function RefreshTree(page)
         b.rank.text:SetTextColor(unpack(maxed and GOLD or UI.TEXT))
         b:Show()
     end
-    -- Verbindungen (Linien zwischen den Knoten)
+    -- edges (lines between nodes)
     local n = 0
     for _, info in ipairs(infos) do
         for _, edgeInfo in ipairs(info.visibleEdges or {}) do
@@ -939,7 +931,7 @@ local function RefreshTree(page)
             end
         end
     end
-    -- Knöpfe: Übernehmen nur mit vorgemerkten Änderungen; Rückgängig statt Zurücksetzen, solange etwas vorgemerkt ist
+    -- Buttons: Apply only with staged changes; Undo replaces Reset while something is staged
     local staged = configID and C_Traits.ConfigHasStagedChanges(configID)
     if staged then page.apply:Enable() else page.apply:Disable() end
     page.undo:SetShown(staged and true or false)
@@ -949,7 +941,7 @@ local function RefreshTree(page)
     if anyBought then page.reset:Enable() else page.reset:Disable() end
 end
 
--- Fenster -----------------------------------------------------------------------------------------
+-- Window ------------------------------------------------------------------------------------------
 
 Refresh = function()
     if not window then return end
@@ -957,7 +949,7 @@ Refresh = function()
     window:SetNpc(nil, L["Legacy"], L["%d legacy points"]:format(points), "Interface/Icons/achievement_guildperk_honorablemention")
     for _, tab in ipairs(tabs) do
         for _, e in ipairs(tab.active) do e:SetShown(tab.key == current) end
-        tab.icon:SetDesaturated(tab.key ~= current) -- inaktive Reiter grau (wie überall)
+        tab.icon:SetDesaturated(tab.key ~= current) -- inactive tabs desaturated (as everywhere)
     end
     for key, page in pairs(pages) do page:SetShown(key == current) end
     if current == "rewards" then RefreshRewards(pages.rewards)
@@ -968,12 +960,12 @@ end
 local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUILegacy", WIDTH, HEIGHT, "legacy")
-    -- Platz wie alle mUI-Fenster (über dem Chat, sonst rechts daneben) – nicht mittig, sonst
-    -- überdeckte es andere Fenster (Benny 2026-11-08)
-    window.extraRight = 46 -- Reiter rechts (40 + 6): Nachbarfenster rücken weiter weg
+    -- Positioned like all mUI windows (above the chat, else beside it), not centered, so it does not
+    -- cover other windows
+    window.extraRight = 46 -- tabs on the right (40 + 6): neighbor windows keep extra distance
     window:HookScript("OnShow", function()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
-        -- der Client verwirft Suchdaten bei jedem Ladebildschirm: Suche neu anstoßen
+        -- the client drops search results on every loading screen: re-run the search
         local text = pages.challenges and pages.challenges.search:GetText() or ""
         if text ~= "" then SetAchievementSearchString(text) end
         Refresh()
@@ -989,7 +981,7 @@ local function CreateWindow()
         pages[key] = page
     end
 
-    -- Reiter rechts außen wie bei allen mUI-Fenstern (Zauberbuch, Berufe, Charakter)
+    -- tabs outside on the right, as in all mUI windows (spellbook, professions, character)
     for i, t in ipairs(TABS) do
         local tab = CreateFrame("Button", nil, window)
         tab:SetSize(40, 40)
@@ -1018,8 +1010,7 @@ local function CreateWindow()
     end
 end
 
--- Öffnen: wie Blizzard erst nach Freischaltung (Benny 2026-11-08: Blizzards Sperren einhalten);
--- force = Vorschau über /mui legacy
+-- Open only once unlocked, like Blizzard's; force = preview via /mui legacy
 local function Toggle(force)
     if window and window:IsShown() then window:Hide() return end
     if not force and not Unlocked() then
@@ -1033,7 +1024,7 @@ ns.ToggleLegacy = Toggle
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
-    -- Taste (TOGGLELEGACYSYSTEM) und Mikroknopf öffnen unser Fenster
+    -- key binding (TOGGLELEGACYSYSTEM) and micro button open this window
     local toggle = CreateFrame("Button", "MeredanUILegacyToggle", UIParent)
     toggle:SetScript("OnClick", function() Toggle() end)
     local function BindKeys()
