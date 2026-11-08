@@ -28,6 +28,7 @@ if GetLocale() == "deDE" then
     L["MOVER_bar7"] = "Leiste 7 (unten links)"
     L["MOVER_bar8"] = "Leiste 8 (unten rechts)"
     L["Extra bars"] = "Zusatzleisten"
+    L["Bar below the icon"] = "Leiste unter dem Icon"
     L["Key binding"] = "Tastenbelegung"
     L["Macro name"] = "Makroname"
     L["Key, macro"] = "Taste, Makro"
@@ -580,7 +581,7 @@ if GetLocale() == "deDE" then
     -- Klassen-Reagenzien
     L["Class reagents"] = "Klassen-Reagenzien"
     L["Show class reagents"] = "Klassen-Reagenzien anzeigen"
-    L["Ammunition and spell reagents of your class (soul shards, runes, candles …) right of the player frame. Warns when they run low."] = "Munition und Zauber-Reagenzien deiner Klasse (Seelensplitter, Runen, Kerzen …) rechts neben dem Spieler-Frame. Warnt, wenn sie knapp werden."
+    L["Ammunition and spell reagents of your class (soul shards, runes, candles …) next to the player frame. Warns when they run low."] = "Munition und Zauber-Reagenzien deiner Klasse (Seelensplitter, Runen, Kerzen …) neben dem Spieler-Frame. Warnt, wenn sie knapp werden."
     L["Only in WoW Forever – Retail has no ammunition or reagents like these."] = "Nur in WoW Forever – Retail hat solche Munition und Reagenzien nicht."
     L["None left!"] = "Keine mehr da!"
     -- Questlog-Höhe

@@ -30,11 +30,39 @@ hidden:Hide()
 local styleElement = { __owner = { colors = ns.oUF.colors } }
 
 local function TimeInside() return ns.db.auraTime == "inside" end
+-- „Leiste“ (Benny 2026-11-08): statt Zahl eine dünne Leiste unter dem Icon, die abläuft; Farbe von
+-- Salbei über Gelb nach Rot, je weniger Zeit übrig ist
+local function TimeBar() return ns.db.auraTime == "bar" end
+local BAR_HEIGHT, BAR_GAP = 3, 2
+local SAGE, YELLOW, RED = { 0.557, 0.796, 0.706 }, { 0.93, 0.79, 0.36 }, { 0.88, 0.36, 0.32 }
+local barCurve
+if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
+    barCurve = C_CurveUtil.CreateColorCurve()
+    barCurve:AddPoint(0, CreateColor(RED[1], RED[2], RED[3]))
+    barCurve:AddPoint(0.15, CreateColor(RED[1], RED[2], RED[3]))
+    barCurve:AddPoint(0.35, CreateColor(YELLOW[1], YELLOW[2], YELLOW[3]))
+    barCurve:AddPoint(0.6, CreateColor(SAGE[1], SAGE[2], SAGE[3]))
+    barCurve:AddPoint(1, CreateColor(SAGE[1], SAGE[2], SAGE[3]))
+end
+local timeBars = {} -- [Leiste] = Aura-Knopf
+-- Farbe alle 0,2 s aus Blizzards Dauer-Objekt (Werte können geschützt sein: nur durchreichen)
+C_Timer.NewTicker(0.2, function()
+    if not barCurve then return end
+    for bar, button in pairs(timeBars) do
+        if bar:IsVisible() and button.GetAuraDuration then
+            local ok, duration = pcall(button.GetAuraDuration, button)
+            if ok and duration and duration.EvaluateRemainingPercent then
+                local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
+                if okColor and color and color.GetRGB then bar:SetStatusBarColor(color:GetRGB()) end
+            end
+        end
+    end
+end)
 
 -- Maße einer Leiste – für die echten Leisten und das Demo gleich
 local function Metrics(size, perRow, rows)
     local iconSize, spacing = ns.Snap(size), ns.Snap(SPACING)
-    local timeBelow = not TimeInside() and ns.Snap(TIME_HEIGHT) or 0
+    local timeBelow = TimeBar() and ns.Snap(BAR_HEIGHT + BAR_GAP + 1) or (not TimeInside() and ns.Snap(TIME_HEIGHT) or 0)
     local lineSpacing = spacing + timeBelow
     local width = perRow * iconSize + (perRow - 1) * spacing
     local height = rows * iconSize + (rows - 1) * lineSpacing + timeBelow
@@ -90,7 +118,24 @@ local function InitButton(button, size, harmful)
 
     local time = texts:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
     button.Time = time
-    button:SetDurationText(time, { textFormatter = ns.DurationFormatter })
+    if TimeBar() then
+        -- Leiste statt Zahl: Blizzard lässt sie selbst ablaufen (SetTimerDuration)
+        local bar = CreateFrame("StatusBar", nil, button)
+        bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -ns.Snap(BAR_GAP))
+        bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", 0, -ns.Snap(BAR_GAP))
+        bar:SetHeight(ns.Snap(BAR_HEIGHT))
+        bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
+        bar:SetStatusBarColor(unpack(SAGE))
+        local bg = bar:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints()
+        bg:SetColorTexture(0.05, 0.06, 0.06, 0.9)
+        ns.AddBorder(bar)
+        button:SetDurationBar(bar, { direction = Enum.StatusBarTimerDirection and Enum.StatusBarTimerDirection.RemainingTime })
+        timeBars[bar] = button
+        time:Hide()
+    else
+        button:SetDurationText(time, { textFormatter = ns.DurationFormatter })
+    end
 
     -- MUI-Look wie an den Unitframes (Rahmen, Dispel-Farbe bei Debuffs, Spirale, Schrift)
     ns.StyleAuraButton(styleElement, button, { dispelBand = harmful and "harmful" or nil })
@@ -271,6 +316,23 @@ local function DemoIcon(parent, spellID, size, harmful, index)
     end
     local time = ns.CreateText(button, ns.STYLE.fontSize + 1, "CENTER", "OUTLINE")
     time:SetText(DEMO_TIMES[(index - 1) % #DEMO_TIMES + 1])
+    if TimeBar() then
+        time:SetText("")
+        local bar = CreateFrame("StatusBar", nil, button)
+        bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -ns.Snap(BAR_GAP))
+        bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", 0, -ns.Snap(BAR_GAP))
+        bar:SetHeight(ns.Snap(BAR_HEIGHT))
+        bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
+        bar:SetMinMaxValues(0, 1)
+        local fill = ({ 0.9, 0.55, 0.3, 0.1 })[(index - 1) % 4 + 1]
+        bar:SetValue(fill)
+        local c = fill > 0.6 and SAGE or fill > 0.25 and YELLOW or RED
+        bar:SetStatusBarColor(unpack(c))
+        local bg = bar:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints()
+        bg:SetColorTexture(0.05, 0.06, 0.06, 0.9)
+        ns.AddBorder(bar)
+    end
     local count = ns.CreateText(button, ns.STYLE.fontSize - 2, "RIGHT", "OUTLINE")
     count:SetText(index % 4 == 0 and "3" or "")
     PlaceTexts(button, time, count)

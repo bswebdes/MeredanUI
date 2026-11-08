@@ -94,7 +94,8 @@ local function UpgradeModeItems()
 end
 
 local function AuraTimeItems()
-    return { { value = "below", label = L["Below the icon"] }, { value = "inside", label = L["Inside the icon"] } }
+    return { { value = "below", label = L["Below the icon"] }, { value = "inside", label = L["Inside the icon"] },
+        { value = "bar", label = L["Bar below the icon"] } }
 end
 
 local function QuestXPItems()
@@ -211,7 +212,7 @@ local PAGES = {
             page:AddHeader(L["Class reagents"])
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Show class reagents"], On("ammoCounter"), Setter("ammoCounter", ns.UpdateAmmoCounter),
-                    Help(L["Ammunition and spell reagents of your class (soul shards, runes, candles …) right of the player frame. Warns when they run low."]))
+                    Help(L["Ammunition and spell reagents of your class (soul shards, runes, candles …) next to the player frame. Warns when they run low."]))
             else
                 page:AddNote(L["Only in WoW Forever – Retail has no ammunition or reagents like these."])
             end
