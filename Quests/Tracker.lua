@@ -472,7 +472,8 @@ local function JournalBosses()
     if not (EJ_GetInstanceForMap and EJ_GetEncounterInfoByIndex) then return DataBosses() end
     local mapID = C_Map.GetBestMapForUnit("player")
     local journalID = mapID and EJ_GetInstanceForMap(mapID)
-    if not journalID or journalID == 0 then return nil end
+    -- Forever: Funktion gibt es noch, liefert aber nichts → mitgelieferte Daten
+    if not journalID or journalID == 0 then return DataBosses() end
     local list = {}
     for i = 1, 30 do
         local name, _, _, _, _, _, dungeonEncounterID = EJ_GetEncounterInfoByIndex(i, journalID)
@@ -480,7 +481,8 @@ local function JournalBosses()
         local done = kills[dungeonEncounterID or 0] or kills[name] or false
         list[#list + 1] = { text = L["%d/%d %s defeated"]:format(done and 1 or 0, 1, name), done = done }
     end
-    return #list > 0 and list or nil
+    if #list == 0 then return DataBosses() end
+    return list
 end
 
 local function ReadInstanceLock()
