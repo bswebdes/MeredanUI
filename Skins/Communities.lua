@@ -1797,11 +1797,11 @@ local function SquareIcon(button, iconName, rotation)
     FadeButtonTextures(button)
     FadeRegions(button)
     if button.icon then Fade(button.icon) end
-    button:SetSize(22, 22)
+    button:SetSize(24, 24)
     local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
     bg:SetAllPoints()
     Border(button)
-    local icon = UI.Icon(button, iconName, 12, UI.TEXT)
+    local icon = UI.Icon(button, iconName, 14, UI.TEXT)
     own[icon] = true
     icon:SetPoint("CENTER")
     if rotation then icon:SetRotation(rotation) end
@@ -1813,26 +1813,230 @@ local function SquareIcon(button, iconName, rotation)
     Reflect()
 end
 
+-- Haken der Gildenrechte wie im eigenen Fenster: Text 12 hell
+local function ControlCheck(check)
+    if type(check) ~= "table" then return end
+    SkinCheck(check)
+    local label = check.text or (check.GetName and check:GetName() and _G[check:GetName() .. "Text"])
+    if label then
+        own[label] = true
+        label:SetFont(ns.FontFor(), ns.FontPx(12), "")
+        label:SetTextColor(unpack(ns.UI.TEXT))
+    end
+end
+
+-- Seite „Gildenränge“: Zeilen 28 hoch im 34-px-Raster, „Rang 1:“ 56 breit rechtsbündig, Name 150,
+-- Hoch/Runter 24 (4 Abstand), Löschen 14 daneben – wie das eigene Fenster
 local function SkinRankRows()
     local UI = ns.UI
+    local order = _G.GuildControlUIRankOrderFrame
+    if not order or InCombatLockdown() then return end
     for i = 1, MAX_GUILDRANKS or 10 do
         local row = _G["GuildControlUIRankOrderFrameRank" .. i]
         if row then
+            row:ClearAllPoints()
+            row:SetPoint("TOPLEFT", order, "TOPLEFT", 0, -(i - 1) * 34)
+            row:SetPoint("RIGHT", order, "RIGHT")
+            row:SetHeight(28)
             local box = row.nameBox
             if box then
                 SkinEditBox(box, { -6, -4, 2, 4 }, BOX)
+                box:ClearAllPoints()
+                box:SetPoint("LEFT", row, "LEFT", 70, 0)
+                box:SetSize(146, 36)
                 box:SetFont(ns.FontFor(), ns.FontPx(13), "")
                 box:SetTextColor(1, 1, 1, 1)
             end
             if row.rankLabel then
-                row.rankLabel:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
+                row.rankLabel:ClearAllPoints()
+                row.rankLabel:SetPoint("LEFT", row, "LEFT", 0, 0)
+                row.rankLabel:SetWidth(56)
+                row.rankLabel:SetJustifyH("RIGHT")
+                row.rankLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
                 row.rankLabel:SetTextColor(unpack(UI.ACCENT))
             end
             SquareIcon(row.upButton, "ChevronDown", math.pi)
             SquareIcon(row.downButton, "ChevronDown", 0)
             SquareIcon(row.deleteButton, "Phase")
+            local x = 64 + 150 + 8
+            for _, entry in ipairs({ { row.upButton, 0 }, { row.downButton, 28 }, { row.deleteButton, 28 + 24 + 14 } }) do
+                if entry[1] then
+                    entry[1]:ClearAllPoints()
+                    entry[1]:SetPoint("LEFT", row, "LEFT", x + entry[2], 0)
+                end
+            end
         end
     end
+    local new = order.newButton
+    if new then
+        new:ClearAllPoints()
+        new:SetPoint("BOTTOMLEFT", order, "BOTTOMLEFT")
+        new:SetSize(math.max(130, (new:GetFontString() and new:GetFontString():GetUnboundedStringWidth() or 0) + 28), 28)
+    end
+end
+
+-- Seite „Rangrechte“: Authentifikator oben, Kästen Offizier / Grundrechte / Gildenbank wie im eigenen Fenster
+local permBoxes = {}
+local BASE_FLAGS, BANK_FLAGS = { 5, 6, 7, 8, 2, 21 }, { 15, 19, 16 }
+local function LayoutPerms(page)
+    if type(page) ~= "table" or InCombatLockdown() then return end
+    local UI = ns.UI
+    if not permBoxes.officer then
+        for _, key in ipairs({ "OfficerBg", "RosterBg", "BankBg" }) do Fade(_G["GuildControlUIRankSettingsFrame" .. key]) end
+        permBoxes.officer, permBoxes.base, permBoxes.bank = MakeBox(page), MakeBox(page), MakeBox(page)
+        ControlCheck(page.OfficerCheckbox)
+        ControlCheck(_G.GuildControlUIRankSettingsFrameCheckbox18)
+        for _, id in ipairs(BASE_FLAGS) do ControlCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. id]) end
+        for _, id in ipairs(BANK_FLAGS) do ControlCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. id]) end
+        if page.goldBox then SkinEditBox(page.goldBox, nil, BOX) end
+        local goldLabel = _G.parentLabel -- Blizzard nennt die Schrift wirklich so
+        if goldLabel then
+            goldLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
+            goldLabel:SetTextColor(unpack(UI.MUTED))
+        end
+        local bankLabel = _G.GuildControlUIRankSettingsFrameBankLabel
+        if bankLabel then
+            bankLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
+            bankLabel:SetTextColor(unpack(UI.ACCENT))
+        end
+        if page.OfficerPermissions then
+            page.OfficerPermissions:SetFont(ns.FontFor(), ns.FontPx(11), "")
+            page.OfficerPermissions:SetTextColor(0.79, 0.78, 0.75)
+            page.OfficerPermissions:SetSpacing(2)
+        end
+    end
+    local auth = _G.GuildControlUIRankSettingsFrameCheckbox18
+    if auth then
+        auth:ClearAllPoints()
+        auth:SetPoint("TOPLEFT", page, "TOPLEFT", 0, 0)
+    end
+    local officer = permBoxes.officer
+    officer:ClearAllPoints()
+    officer:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -28)
+    officer:SetPoint("RIGHT", page, "RIGHT")
+    if page.OfficerCheckbox then
+        page.OfficerCheckbox:ClearAllPoints()
+        page.OfficerCheckbox:SetPoint("TOPLEFT", officer, "TOPLEFT", 10, -8)
+    end
+    local textHeight = 0
+    if page.OfficerPermissions then
+        page.OfficerPermissions:ClearAllPoints()
+        page.OfficerPermissions:SetPoint("TOPLEFT", officer, "TOPLEFT", 32, -32)
+        page.OfficerPermissions:SetPoint("RIGHT", officer, "RIGHT", -10, 0)
+        textHeight = page.OfficerPermissions:GetStringHeight() or 0
+    end
+    officer:SetHeight(44 + textHeight)
+    local base = permBoxes.base
+    base:ClearAllPoints()
+    base:SetPoint("TOPLEFT", officer, "BOTTOMLEFT", 0, -8)
+    base:SetPoint("RIGHT", page, "RIGHT")
+    base:SetHeight(84)
+    for index, id in ipairs(BASE_FLAGS) do
+        local check = _G["GuildControlUIRankSettingsFrameCheckbox" .. id]
+        if check then
+            local column, line = (index - 1) % 2, math.floor((index - 1) / 2)
+            check:ClearAllPoints()
+            check:SetPoint("TOPLEFT", base, "TOPLEFT", 10 + column * 160, -10 - line * 24)
+        end
+    end
+    local bank = permBoxes.bank
+    bank:ClearAllPoints()
+    bank:SetPoint("TOPLEFT", base, "BOTTOMLEFT", 0, -8)
+    bank:SetPoint("RIGHT", page, "RIGHT")
+    bank:SetHeight(86)
+    local bankLabel = _G.GuildControlUIRankSettingsFrameBankLabel
+    if bankLabel then
+        bankLabel:ClearAllPoints()
+        bankLabel:SetPoint("TOPLEFT", bank, "TOPLEFT", 10, -8)
+    end
+    local bankShown = bankLabel and bankLabel:IsShown()
+    bank:SetShown(bankShown ~= false)
+    for index, id in ipairs(BANK_FLAGS) do
+        local check = _G["GuildControlUIRankSettingsFrameCheckbox" .. id]
+        if check then
+            local column, line = (index - 1) % 2, math.floor((index - 1) / 2)
+            check:ClearAllPoints()
+            check:SetPoint("TOPLEFT", bank, "TOPLEFT", 10 + column * 160, -30 - line * 24)
+        end
+    end
+    if page.goldBox then
+        page.goldBox:ClearAllPoints()
+        page.goldBox:SetPoint("TOPLEFT", bank, "TOPLEFT", 170, -52)
+        page.goldBox:SetSize(70, 24)
+    end
+end
+
+-- Seite „Bankrechte“ und „Discord“: Flächen, Haken, Knöpfe und Dropdowns flach
+local function SkinChildren(frame, depth)
+    if type(frame) ~= "table" or not frame.GetChildren or (depth or 0) > 5 then return end
+    for _, child in ipairs({ frame:GetChildren() }) do
+        if child:IsObjectType("CheckButton") then
+            ControlCheck(child)
+        elseif child:IsObjectType("EditBox") then
+            SkinEditBox(child, nil, BOX)
+        elseif child:IsObjectType("Button") and child.Left and child.Middle and child.Right then
+            SkinButton(child)
+        elseif child.SetupMenu and child.Background then
+            SkinDropdown(child)
+        end
+        SkinChildren(child, (depth or 0) + 1)
+    end
+end
+
+-- Gesamtaufbau wie das eigene Fenster: 380 × 600, Titel oben links, „Optionen“ + Auswahl, bei Rang-Seiten
+-- darunter „Rang ändern“ + Auswahl, Linie, Inhalt ab 16 px Rand
+local function LayoutGuildControl(control)
+    if type(control) ~= "table" or InCombatLockdown() then return end
+    local tab = control.selectedTab or 1
+    local withRank = tab == 2 or tab == 3
+    control:SetSize(380, 600)
+    local title = _G.GuildControlUITitle
+    if title then
+        title:ClearAllPoints()
+        title:SetPoint("TOPLEFT", control, "TOPLEFT", 16, -18)
+    end
+    if control.optionsLabel then
+        control.optionsLabel:ClearAllPoints()
+        control.optionsLabel:SetPoint("LEFT", control, "TOPLEFT", 16, -66)
+    end
+    if control.dropdown then
+        control.dropdown:ClearAllPoints()
+        control.dropdown:SetPoint("TOPRIGHT", control, "TOPRIGHT", -16, -52)
+        control.dropdown:SetSize(240, 28)
+    end
+    for _, key in ipairs({ "rankPermFrame", "bankTabFrame" }) do
+        local page = control[key]
+        local dropdown = page and page.dropdown
+        if dropdown then
+            dropdown:ClearAllPoints()
+            dropdown:SetPoint("TOPRIGHT", control, "TOPRIGHT", -16, -88)
+            dropdown:SetSize(240, 28)
+        end
+    end
+    local hbar = _G.GuildControlUIHbar
+    if hbar then
+        hbar:ClearAllPoints()
+        hbar:SetPoint("TOPLEFT", control, "TOPLEFT", 16, withRank and -124 or -88)
+        hbar:SetPoint("TOPRIGHT", control, "TOPRIGHT", -16, withRank and -124 or -88)
+        hbar:SetHeight(1)
+    end
+    for _, key in ipairs({ "orderFrame", "rankPermFrame", "bankTabFrame", "discordFrame" }) do
+        local page = control[key]
+        if page then
+            page:ClearAllPoints()
+            page:SetPoint("TOPLEFT", control, "TOPLEFT", 16, withRank and -132 or -96)
+            page:SetPoint("BOTTOMRIGHT", control, "BOTTOMRIGHT", -16, 16)
+        end
+    end
+    local bank = control.bankTabFrame
+    if bank and bank.inset then
+        bank.inset:ClearAllPoints()
+        bank.inset:SetPoint("TOPLEFT", bank, "TOPLEFT")
+        bank.inset:SetPoint("BOTTOMRIGHT", bank, "BOTTOMRIGHT")
+    end
+    SkinRankRows()
+    if tab == 2 then LayoutPerms(control.rankPermFrame) end
+    if tab == 3 or tab == 4 then SkinChildren(control[tab == 3 and "bankTabFrame" or "discordFrame"]) end
 end
 
 local function SkinGuildControl(control)
@@ -1841,34 +2045,72 @@ local function SkinGuildControl(control)
     Fade(control.NineSlice)
     FadeRegions(control)
     Panel(control)
-    SkinIconButton(control.CloseButton, "Close", 14)
+    SkinIconButton(control.CloseButton, "Close", 18)
+    if control.CloseButton then
+        control.CloseButton:SetSize(34, 34)
+        control.CloseButton:ClearAllPoints()
+        control.CloseButton:SetPoint("TOPRIGHT", control, "TOPRIGHT", -10, -10)
+    end
     local title = _G.GuildControlUITitle
     if title then
-        title:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
-        title:SetTextColor(unpack(UI.ACCENT))
+        own[title] = true
+        title:SetFont(ns.FontFor("bold"), ns.FontPx(15), "")
+        title:SetTextColor(unpack(UI.TEXT))
     end
+    -- „Optionen“ vor der Auswahl (wie im eigenen Fenster)
+    local optionsLabel = control:CreateFontString(nil, "OVERLAY")
+    optionsLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    optionsLabel:SetTextColor(unpack(UI.ACCENT))
+    optionsLabel:SetText(GUILDCONTROL or "Options")
+    control.optionsLabel = nil
+    permBoxes.optionsLabel = optionsLabel
     local hbar = _G.GuildControlUIHbar
     if hbar then
         FadeRegions(hbar)
         local line = Tex(hbar, "ARTWORK", 0, { 1, 1, 1, 0.08 })
-        line:SetHeight(1)
-        line:SetPoint("LEFT")
-        line:SetPoint("RIGHT")
+        line:SetAllPoints()
     end
     SkinDropdown(control.dropdown)
-    for _, key in ipairs({ "orderFrame", "bankTabFrame", "rankPermFrame" }) do
+    for _, key in ipairs({ "orderFrame", "bankTabFrame", "rankPermFrame", "discordFrame" }) do
         local frame = control[key]
         if type(frame) == "table" then
             SkinDropdown(frame.dropdown)
             SkinButton(frame.newButton)
             SkinButton(frame.dupButton)
-            if frame.goldBox then SkinEditBox(frame.goldBox, nil, BOX) end
-            SkinCheck(frame.OfficerCheckbox)
+            -- Bezeichnung der Rang-Auswahl („Rang ändern:“) in Surf Green
+            local dropdown = frame.dropdown
+            if dropdown and dropdown.GetRegions then
+                for _, region in ipairs({ dropdown:GetRegions() }) do
+                    if region:IsObjectType("FontString") and region ~= dropdown.Text then
+                        region:SetFont(ns.FontFor(), ns.FontPx(12), "")
+                        region:SetTextColor(unpack(UI.ACCENT))
+                    end
+                end
+            end
         end
     end
-    for i = 1, NUM_RANK_FLAGS or 21 do SkinCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. i]) end
-    SkinRankRows()
+    local bank = control.bankTabFrame
+    if bank and bank.inset then
+        SkinInset(bank.inset, true, BOX)
+        if bank.inset.scrollFrame then SkinScrollBar(bank.inset.scrollFrame.ScrollBar) end
+    end
+    local function Relayout()
+        LayoutGuildControl(control)
+        if permBoxes.optionsLabel then
+            permBoxes.optionsLabel:ClearAllPoints()
+            permBoxes.optionsLabel:SetPoint("LEFT", control, "TOPLEFT", 16, -66)
+        end
+    end
+    if GuildControlUI_SetupSelected then hooksecurefunc("GuildControlUI_SetupSelected", Relayout) end
     if GuildControlUI_RankOrder_Update then hooksecurefunc("GuildControlUI_RankOrder_Update", SkinRankRows) end
+    if GuildControlUI_RankPermissions_Update then
+        hooksecurefunc("GuildControlUI_RankPermissions_Update", function(page) LayoutPerms(page) end)
+    end
+    if GuildControlUI_BankTabPermissions_Update then
+        hooksecurefunc("GuildControlUI_BankTabPermissions_Update", function(page) SkinChildren(page) end)
+    end
+    control:HookScript("OnShow", Relayout)
+    Relayout()
 end
 
 -- Gilden-Unterfenster (Ränge, Log, Texte bearbeiten, Neuigkeitenfilter, Rekrutierung): Blizzard meldet
