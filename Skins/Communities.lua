@@ -1805,12 +1805,15 @@ local function BuildOverview(f)
         end
         Fill(classBox, classList, maxClass)
         Fill(levelBox, levelList, maxBracket)
-        local players = guildFacts.accounts and ("  ·  %s %d"):format(ns.L["Players"], guildFacts.accounts) or ""
+        -- Mitglieder und Online stehen schon im Kopf – hier nur Spieler, Mains/Twinks, Ø Stufe (Benny 2026-11-08)
+        local parts = {}
+        if guildFacts.accounts then parts[#parts + 1] = ("%s %d"):format(ns.L["Players"], guildFacts.accounts) end
         if anyAlt then
-            players = players .. ("  ·  %s %d  ·  %s %d"):format(ns.L["Mains"], mainCount, ns.L["Alts"], altCount)
+            parts[#parts + 1] = ("%s %d"):format(ns.L["Mains"], mainCount)
+            parts[#parts + 1] = ("%s %d"):format(ns.L["Alts"], altCount)
         end
-        summary:SetText(("%s %d%s  ·  %s %d  ·  %s %s"):format(ns.L["Members"], total, players, ns.L["Online"], online,
-            ns.L["Average level"], total > 0 and ("%.1f"):format(levelSum / total) or "–"))
+        parts[#parts + 1] = ("%s %s"):format(ns.L["Average level"], total > 0 and ("%.1f"):format(levelSum / total) or "–")
+        summary:SetText(table.concat(parts, "  ·  "))
         founded:SetText(guildFacts.founded and ns.L["Founded on %s"]:format(guildFacts.founded) or "")
     end
 
