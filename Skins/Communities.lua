@@ -632,7 +632,7 @@ local function SkinSideTab(tab)
     local bg = Tex(tab, "BACKGROUND", -8, ns.STYLE.panelColor)
     bg:SetAllPoints()
     Border(tab)
-    tab.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    tab.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
     local hover = Tex(tab, "HIGHLIGHT", 0, { 1, 1, 1, 0.08 })
     hover:SetAllPoints()
     local active = Border(tab, true, 2)
@@ -811,7 +811,7 @@ local function LayoutTabs(f)
         local tab = f[key]
         if type(tab) == "table" and tab.SetPoint then
             tab:SetSize(TAB_SIZE, TAB_SIZE)
-            if tab.Icon then tab.Icon:SetSize(TAB_SIZE - 4, TAB_SIZE - 4) end
+            if tab.Icon then tab.Icon:SetSize(TAB_SIZE - 2, TAB_SIZE - 2) end
             if tab:IsShown() then
                 tab:ClearAllPoints()
                 tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, -60 - slot * TAB_STEP) -- wie im eigenen Fenster
