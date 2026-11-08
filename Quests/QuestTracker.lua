@@ -1,27 +1,26 @@
--- Nur Retail (Forever hat einen eigenen Tracker: Quests/Tracker.lua).
--- Questlog (Blizzards Ziel-Tracker) im MUI-Look, rechts neben der inneren Aktionsleiste unter
--- Buffs/Debuffs.
+-- Retail only (Forever has its own tracker: Quests/Tracker.lua).
+-- Blizzard's objective tracker in mUI style, right of the inner action bar below buffs/debuffs.
 --
---   ALLE ZIELE                 −   ← Überschrift ohne Goldgrafik, flaches − (zu: +)
---   ─────────────────────────────   ← dünne Surf-Green-Linie
---   KAMPAGNE                   ⌄
---  ▎? Questname                     ← Strich links = Questart (Kampagne gold, wichtig lila, legendär
---  ▎  - 0/1 Ziel                       orange, täglich blau); Zeichen grau, verfolgt Surf Green
---     - 0/1 Ziel            [Item]  ← Quest-Item flach mit Rahmen; Ziel-Kugeln/Häkchen flach
---     [██████▒▒▒▒▒ 60 %]            ← Fortschrittsbalken flach, MUI-Textur
+--   ALL OBJECTIVES             -   <- header without gold art, flat - (collapsed: +)
+--   -----------------------------   <- thin Surf Green line
+--   CAMPAIGN                   v
+--  |? Quest name                    <- left stripe = quest type (campaign gold, important purple,
+--  |  - 0/1 objective                  legendary orange, daily blue); glyph gray, tracked Surf Green
+--     - 0/1 objective       [Item]  <- quest item flat with border; objective nubs/checks flat
+--     [######----- 60 %]            <- flat progress bar, mUI texture
 --
--- Bei Bossen und in der Arena ausgeblendet (nicht in Mythisch+).
--- Nur Optik und Position, nie Blizzards Daten oder Abläufe: Der Quest-Item-Knopf ruft eine
--- geschützte Funktion auf – würde MUI den Tracker selbst neu aufbauen lassen (oder Blizzards
--- Farbtabellen ändern), wäre der Knopf „verseucht“ und Quest-Items gingen nicht mehr. Daher:
--- nur hooksecurefunc nach Blizzards eigenen Aufrufen, Texturen/Schriften an Widgets ändern,
--- Position über SetPointBase (ohne Bearbeitungsmodus-Nebenwirkungen). Vorbild ElvUI.
+-- Hidden during boss fights and in arenas (not in Mythic+).
+-- Visuals and position only, never Blizzard's data or flow: the quest item button calls a protected
+-- function. If mUI made the tracker rebuild itself (or changed Blizzard's color tables), the button
+-- would be tainted and quest items would stop working. So: only hooksecurefunc after Blizzard's own
+-- calls, change textures/fonts on widgets, position via SetPointBase (no Edit Mode side effects).
+-- Modeled after ElvUI.
 local _, ns = ...
 local L = ns.L
 
-local GAP = 10        -- Abstand zu den Buffs
-local SIDE_GAP = 60   -- Abstand zur rechten Aktionsleiste (Blizzards Tracker hat rechts kaum Rand)
-local ICON_SIZE = 14  -- + / − zum Auf-/Zuklappen
+local GAP = 10        -- gap to the buffs
+local SIDE_GAP = 60   -- gap to the right action bar (Blizzard's tracker has almost no right margin)
+local ICON_SIZE = 14  -- + / - expand/collapse
 local MODULES = {
     "ScenarioObjectiveTracker", "UIWidgetObjectiveTracker", "CampaignQuestObjectiveTracker",
     "QuestObjectiveTracker", "AdventureObjectiveTracker", "AchievementObjectiveTracker",
@@ -29,8 +28,8 @@ local MODULES = {
     "BonusObjectiveTracker", "WorldQuestObjectiveTracker",
 }
 
--- Schrift: Blizzard setzt die Schrift-Objekte bei jeder Textgröße (Bearbeitungsmodus) neu –
--- danach jeweils nur die Schriftart tauschen, die Größe bleibt Blizzards.
+-- Font: Blizzard resets the font objects on every text size change (Edit Mode); afterwards swap only
+-- the font face, the size stays Blizzard's.
 local function KeepFont(fontObject, color)
     if not fontObject then return end
     local function Apply()
@@ -43,9 +42,9 @@ local function KeepFont(fontObject, color)
     Apply()
 end
 
--- Auf-/Zuklapp-Knopf: Blizzards Grafiken unsichtbar, eigenes flaches − / +
--- Blizzard setzt die Deckkraft der Knopf-Grafiken immer wieder auf voll – darum per Vertex-Farbe
--- (Alpha 0) unsichtbar, das fasst Blizzard nicht an
+-- Collapse button: hide Blizzard's art, own flat - / +.
+-- Blizzard keeps resetting the art's alpha to full, so hide it via vertex color alpha 0 instead,
+-- which Blizzard leaves alone.
 local function HideButtonArt(button)
     for _, texture in ipairs({ button:GetNormalTexture(), button:GetPushedTexture(), button:GetHighlightTexture() }) do
         if texture then texture:SetVertexColor(1, 1, 1, 0) end
@@ -65,16 +64,16 @@ local function SkinMinimizeButton(button)
     button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(ns.UI.ACCENT)) end)
 end
 
--- − = offen, + = zu (nach Blizzards SetCollapsed)
+-- - = expanded, + = collapsed (after Blizzard's SetCollapsed)
 local function UpdateCollapsedIcon(header, collapsed)
     local button = header.MinimizeButton
     local icon = button and button.muiIcon
     if icon then icon:SetTexture(ns.MEDIA .. "Icons\\" .. (collapsed and "Plus" or "Minus")) end
-    if button then HideButtonArt(button) end -- Blizzard tauscht die Grafiken beim Umschalten
+    if button then HideButtonArt(button) end -- Blizzard swaps the textures on toggle
 end
 
--- Überschrift: Goldgrafik, Glanz und Leuchten weg (Texturen leeren – Blizzards Einblend-
--- Animation setzt nur die Deckkraft), dünne Linie darunter, flacher Pfeil
+-- Header: remove gold art, shine and glow (clear textures - Blizzard's fade-in animation only sets
+-- alpha), thin line below, flat arrow
 local function SkinHeader(header, textColor)
     if not header or header.muiSkinned then return end
     header.muiSkinned = true
@@ -93,10 +92,9 @@ local function SkinHeader(header, textColor)
     hooksecurefunc(header, "SetCollapsed", UpdateCollapsedIcon)
 end
 
--- Quest-Item-Knopf: nur Optik – etwas größer, Rand abgeschnitten, 1-px-Rahmen, Abklingzeit flach
--- (dunkle Fläche, Zahl in MUI-Schrift), Anzahl und Reichweiten-Punkt in MUI-Schrift. Klick, Felder
--- und Attribute bleiben Blizzards (geschützte Funktion, siehe oben). Die Größe setzt MUI einmal beim
--- Anlegen – Blizzard misst sie beim nächsten Aufbau selbst.
+-- Quest item button, visuals only: slightly larger, cropped edge, 1 px border, flat cooldown (dark
+-- swipe, mUI font), count and range dot in mUI font. Click, fields and attributes stay Blizzard's
+-- (protected function, see above). mUI sets the size once on creation; Blizzard re-measures on rebuild.
 local ITEM_SIZE = 32
 
 local function SkinItemButton(button)
@@ -139,13 +137,13 @@ local function SkinItemButton(button)
     end
 end
 
--- Farbe gleich einer Blizzard-Farbe aus OBJECTIVE_TRACKER_COLOR? (nur lesen)
+-- Does the color match a Blizzard color from OBJECTIVE_TRACKER_COLOR? (read only)
 local function Same(r, g, b, color)
     return color and math.abs(r - color.r) + math.abs(g - color.g) + math.abs(b - color.b) < 0.01
 end
 
--- Ziel-Symbole: goldene Kugel > kleines Quadrat, Häkchen > MUI-Häkchen in Surf Green,
--- Fehlschlag > rotes Kreuz. Blizzard setzt die Grafik per SetAtlas, danach tauschen wir sie.
+-- Objective icons: gold nub -> small square, check -> mUI check in Surf Green, fail -> red cross.
+-- Blizzard sets the art via SetAtlas; we swap it afterwards.
 local OBJECTIVE_ICONS = {
     ["ui-questtracker-objective-nub"] = { "Square", "MUTED" },
     ["ui-questtracker-tracker-check"] = { "Check", "ACCENT" },
@@ -187,14 +185,14 @@ local function SkinLine(line)
         hooksecurefunc(line.Icon, "SetAtlas", FlatObjectiveIcon)
         FlatObjectiveIcon(line.Icon, line.Icon:GetAtlas())
     end
-    if line.CheckGlow then line.CheckGlow:SetTexture(nil) end -- Leuchten beim Abhaken
+    if line.CheckGlow then line.CheckGlow:SetTexture(nil) end -- glow on completion
 end
 
--- Quest-Knopf (POI) vor dem Titel: nur noch das Zeichen (…, ?, !), etwas größer, entsättigt und
--- grau – die verfolgte Quest Surf Green. Weltquest-Symbole bleiben bunt. Schild/Kreis/Leuchten weg.
+-- Quest POI button before the title: glyph only (..., ?, !), slightly larger, desaturated gray; the
+-- tracked quest in Surf Green. World quest icons stay colored. Shield/circle/glow removed.
 local POI_SCALE = 1.3
 local STRIPE_WIDTH = 2
-local QUEST_TYPE_COLORS = { -- Strich links je Questart; normale Quests und Weltquests ohne
+local QUEST_TYPE_COLORS = { -- left stripe per quest type; none for normal and world quests
     [Enum.QuestClassification.Campaign] = { 1, 0.78, 0.2 },
     [Enum.QuestClassification.Important] = { 0.7, 0.4, 1 },
     [Enum.QuestClassification.Legendary] = { 1, 0.5, 0.1 },
@@ -203,13 +201,13 @@ local QUEST_TYPE_COLORS = { -- Strich links je Questart; normale Quests und Welt
     [Enum.QuestClassification.Meta] = { 0.4, 0.85, 0.85 },
 }
 
--- Strich über die ganze Quest (Titel + Ziele), links neben dem Zeichen
+-- stripe spans the whole quest (title + objectives), left of the glyph
 local function UpdateStripe(button)
     local stripe = button.muiStripe
     if not stripe then
         stripe = button:CreateTexture(nil, "BACKGROUND")
         stripe:SetWidth(ns.Snap(STRIPE_WIDTH))
-        stripe:SetPoint("TOPRIGHT", button, "TOPLEFT", -ns.Snap(3), -5) -- Oberkante = Titel (Knopf sitzt 5 höher)
+        stripe:SetPoint("TOPRIGHT", button, "TOPLEFT", -ns.Snap(3), -5) -- top edge = title (button sits 5 px higher)
         button.muiStripe = stripe
     end
     local color = QUEST_TYPE_COLORS[button.GetQuestClassification and button:GetQuestClassification() or -1]
@@ -228,7 +226,7 @@ local function FlattenPOI(button)
     local icon = button.Display and button.Display.Icon
     if not icon then return end
     button.Display:SetScale(POI_SCALE)
-    -- verfolgte Quest: Blizzard nimmt dafür braune, kleinere Punkte – immer die normalen
+    -- tracked quest: Blizzard uses smaller brown dots - always use the normal ones
     if icon:GetAtlas() == "Quest-In-Progress-Icon-Brown" then icon:SetAtlas("Quest-In-Progress-Icon-yellow", true) end
     local style = button.GetStyle and button:GetStyle()
     if style == POIButtonUtil.Style.WorldQuest then
@@ -249,9 +247,9 @@ local function SkinPOIButton(button)
     FlattenPOI(button)
 end
 
--- Texte: Blizzards Farben > MUI. Titel hell (verfolgte Quest Surf Green), beim Darüberfahren
--- Surf Green bzw. weiß; Ziele grau, beim Darüberfahren hell. Andere Farben (fertig, fehlgeschlagen)
--- bleiben. Blizzard färbt bei jedem Aufbau und Hover neu – danach umfärben.
+-- Texts: Blizzard colors -> mUI. Title light (tracked quest Surf Green), on hover Surf Green or white;
+-- objectives gray, light on hover. Other colors (complete, failed) stay. Blizzard recolors on every
+-- rebuild and hover, so recolor afterwards.
 local function RecolorTitle(text, r, g, b)
     if text.muiRecoloring then return end
     local tracked = text:GetParent() and text:GetParent().poiIsSuperTracked
@@ -267,8 +265,8 @@ local function RecolorTitle(text, r, g, b)
     text.muiRecoloring = false
 end
 
--- Quest-Titel 2 pt größer als die Zeilen (folgt Blizzards Textgröße im Bearbeitungsmodus). Vor
--- dem nächsten Aufbau gesetzt – Blizzard misst die Höhe beim Setzen des Texts.
+-- Quest title 2 pt larger than the lines (follows Blizzard's Edit Mode text size). Set before the next
+-- rebuild - Blizzard measures the height when the text is set.
 local TITLE_EXTRA = 2
 local titleTexts = setmetatable({}, { __mode = "k" })
 
@@ -282,7 +280,7 @@ local function OnAddObjective(block, objectiveKey)
     SkinLine(block.usedLines and block.usedLines[objectiveKey])
 end
 
--- Darüberfahren: ganzer Block (Zeichen, Titel, Ziele) leicht aufgehellt
+-- hover: highlight the whole block (glyph, title, objectives)
 local function AddBlockHover(block)
     if not (block.OnHeaderEnter and block.OnHeaderLeave) then return end
     local hover = block:CreateTexture(nil, "BACKGROUND")
@@ -314,7 +312,7 @@ local function OnAddBlock(_, block)
     end
 end
 
--- Fortschritts-/Timerbalken flach: Rahmen, Ringe, Glanz und Blitze weg, MUI-Textur und -Rahmen
+-- Flat progress/timer bars: remove border, rings, shine and flashes; mUI texture and border
 local function FlattenBar(bar)
     if not bar or bar.muiSkinned then return end
     bar.muiSkinned = true
@@ -324,16 +322,16 @@ local function FlattenBar(bar)
             region:SetTexture(nil)
         end
     end
-    -- Blitz-/Glanz-Animationen hängen an Kindrahmen
+    -- flash/shine animations live on child frames
     for _, child in ipairs({ bar:GetChildren() }) do child:SetAlpha(0) end
     bar:SetStatusBarTexture(ns.STYLE.barTexture)
     bar:SetStatusBarColor(unpack(ns.UI.ACCENT))
     ns.CreateBackground(bar)
     if bar.Icon then
-        -- Bonusziele/Weltquests: Symbol rechts neben dem Balken, eckig mit 1-px-Rahmen statt Ring
+        -- bonus objectives/world quests: icon right of the bar, square with 1 px border instead of a ring
         local icon = bar.Icon
-        -- Szenario-Balken: Symbol mit Blizzards runder Maske – dort geht kein Zuschnitt (dann rund
-        -- lassen, Fehler darf den Questlog-Aufbau nicht abbrechen)
+        -- scenario bars: icon uses Blizzard's round mask, cropping fails there (then keep it round; an error
+        -- must not abort the tracker build)
         pcall(icon.SetTexCoord, icon, 0.08, 0.92, 0.08, 0.92)
         icon:SetSize(bar:GetHeight() + ns.Snap(6), bar:GetHeight() + ns.Snap(6))
         icon:ClearAllPoints()
@@ -356,8 +354,8 @@ local function InChallengeMode()
     return select(10, C_Scenario.GetInfo()) == LE_SCENARIO_TYPE_CHALLENGE_MODE
 end
 
--- Feindliche Truppen in Mythisch+ genauer: „62.47% · 287/460“ statt Blizzards ganzer Zahl.
--- Absolute Zahl steht nur im Text (quantityString), quantity ist schon der Prozentwert.
+-- Enemy forces in Mythic+ more precise: "62.47% - 287/460" instead of Blizzard's integer.
+-- The absolute count is only in the text (quantityString); quantity is already the percentage.
 local function ForcesText()
     local numCriteria = select(3, C_Scenario.GetStepInfo()) or 0
     for i = 1, numCriteria do
@@ -393,27 +391,27 @@ local function OnTimerBar(module, key)
     if timer then FlattenBar(timer.Bar) end
 end
 
--- Mythisch+-Block -----------------------------------------------------------------------------
+-- Mythic+ block -------------------------------------------------------------------------------
 --
---   ┌─────────────────────────────┐
---   │ +12            [◆][◆][◆]   │  ← Stufe (Surf Green), Affixe flach mit Rahmen
---   │ 24:37                 ☠ 3  │  ← Restzeit groß, Tode
---   │ [█████████████▒│▒▒▒▒│▒▒▒▒] │  ← Timer: Striche bei +3 (40 % übrig) und +2 (20 % übrig),
---   └─────────────────────────────┘     Farbe zeigt die Truhe, die man gerade noch schafft
+--   +-----------------------------+
+--   | +12            [#][#][#]    |  <- level (Surf Green), flat affixes with border
+--   | 24:37                 X 3   |  <- time left (large), deaths
+--   | [#############-|----|----]  |  <- timer: marks at +3 (40 % left) and +2 (20 % left),
+--   +-----------------------------+     color shows the best chest still reachable
 --
--- Blizzard setzt nur Texte, Werte und die Affix-Positionen (bei jedem Schlüssel neu) – alles
--- andere ankert MUI einmal um. Gilt auch für das Demo (gleiche Teile, gleiche Funktion).
-local MPLUS_TIERS = { -- Anteil übriger Zeit > Farbe
+-- Blizzard only sets texts, values and affix positions (anew for every key); mUI re-anchors
+-- everything else once. Also used by the demo (same parts, same function).
+local MPLUS_TIERS = { -- share of time left -> color
     { 0.4, { 0.557, 0.796, 0.706 } }, -- +3: Surf Green
     { 0.2, { 0.95, 0.8, 0.3 } },      -- +2
     { 0.001, { 1, 0.55, 0.2 } },      -- +1
-    { 0, { 0.9, 0.25, 0.25 } },       -- Zeit abgelaufen
+    { 0, { 0.9, 0.25, 0.25 } },       -- out of time
 }
 local AFFIX_SIZE = 20
 
 local function Hex(color) return ("|cff%02x%02x%02x"):format(color[1] * 255, color[2] * 255, color[3] * 255) end
 
--- Nach jeder Blizzard-Aktualisierung: Balkenfarbe, Restzeit für +3/+2, Überzeit
+-- after every Blizzard update: bar color, time left for +3/+2, overtime
 local function UpdateTimer(block, elapsed, timeLimit)
     if not (ns.Readable(elapsed) and ns.Readable(timeLimit) and elapsed and timeLimit and timeLimit > 0) then return end
     local timeLeft = math.max(0, timeLimit - elapsed)
@@ -432,12 +430,12 @@ local function UpdateTimer(block, elapsed, timeLimit)
         end
     end
     block.muiChests:SetText(ns.db.mplusChests ~= false and table.concat(parts, "  ") or "")
-    if timeLeft == 0 then -- Zeit abgelaufen: Überzeit statt 0:00
+    if timeLeft == 0 then -- out of time: show overtime instead of 0:00
         block.TimeLeft:SetText("+" .. SecondsToClock(elapsed - timeLimit))
     end
 end
 
--- Affixe rechts oben in der Reihenfolge des Schlüssels
+-- affixes top right in key order
 local function LayoutAffixes(block, frames)
     local previous
     for i = #frames, 1, -1 do
@@ -449,7 +447,7 @@ local function LayoutAffixes(block, frames)
             affix.Portrait:SetAllPoints()
             affix.Portrait:SetTexCoord(0.08, 0.92, 0.08, 0.92)
             ns.AddBorder(affix, true)
-            -- Tooltip direkt an der Maus (Blizzard setzt ihn rechts daneben)
+            -- tooltip at the cursor (Blizzard anchors it to the right)
             affix:HookScript("OnEnter", function()
                 if GameTooltip:IsOwned(affix) then GameTooltip:SetAnchorType("ANCHOR_CURSOR") end
             end)
@@ -465,17 +463,17 @@ local function LayoutAffixes(block, frames)
     end
 end
 
--- header: Überschrift des Szenario-Moduls – der Kasten ist so breit wie sie (bündig mit dem
--- restlichen Questlog statt Blizzards schmalerem Block)
+-- header: the scenario module header - the panel is as wide as it (flush with the rest of the
+-- tracker instead of Blizzard's narrower block)
 local function SkinChallengeBlock(block, header)
     if not block or block.muiSkinned then return end
     block.muiSkinned = true
-    -- Blizzards Grafiken (Hintergrund, Rahmen) unsichtbar – Schriften bleiben
+    -- hide Blizzard's art (background, border); fonts stay
     for _, region in ipairs({ block:GetRegions() }) do
         if region:IsObjectType("Texture") then region:SetAlpha(0) end
     end
     local panel = CreateFrame("Frame", nil, block)
-    -- Höhe bleibt Blizzards Block (die liest das Questlog-Layout), Breite wie die Überschrift
+    -- height stays Blizzard's block (the tracker layout reads it), width matches the header
     panel:SetPoint("TOP", block, "TOP", 0, -ns.Snap(2))
     panel:SetPoint("BOTTOM", block, "BOTTOM", 0, ns.Snap(2))
     panel:SetPoint("LEFT", header or block, "LEFT")
@@ -498,7 +496,7 @@ local function SkinChallengeBlock(block, header)
     death:SetPoint("BOTTOM", block.TimeLeft, "BOTTOM", 0, 0)
     if death.Count then ns.SetFont(death.Count, 12, "OUTLINE") end
 
-    -- Restzeit für +3/+2 rechts neben der Zeit
+    -- time left for +3/+2 right of the timer
     block.muiChests = ns.CreateText(panel, 12, "LEFT", "OUTLINE")
     block.muiChests:SetPoint("BOTTOMLEFT", block.TimeLeft, "BOTTOMRIGHT", ns.Snap(10), ns.Snap(2))
 
@@ -513,7 +511,7 @@ local function SkinChallengeBlock(block, header)
     back:SetAllPoints()
     back:SetColorTexture(0, 0, 0, 0.5)
     ns.AddBorder(bar)
-    -- Striche: links davon reicht die Zeit für +3 bzw. +2 nicht mehr
+    -- marks: left of them the time for +3 / +2 is no longer enough
     for _, share in ipairs({ 0.4, 0.2 }) do
         local mark = bar:CreateTexture(nil, "OVERLAY")
         mark:SetColorTexture(1, 1, 1, 0.7)
@@ -525,10 +523,10 @@ local function SkinChallengeBlock(block, header)
     end
 end
 
--- Boss-Zeiten: wann welches Ziel (Boss) erledigt war, rechts in seiner Zeile. Die Zeilen sind
--- Blizzards (geteilter Vorrat) – MUI legt nur eine eigene Schrift darauf und blendet sie beim
--- Zurückgeben an den Vorrat aus, damit sie nicht in Quest-Zeilen auftaucht.
-local splits = {} -- Ziel-Nr. > Sekunden seit Start (true = schon vor dem Laden erledigt)
+-- Boss splits: when each objective (boss) was completed, right in its line. The lines are Blizzard's
+-- (shared pool) - mUI only adds its own font string and hides it when the line returns to the pool,
+-- so it doesn't show up in quest lines.
+local splits = {} -- objective index -> seconds since start (true = completed before load)
 
 local function ChallengeElapsed()
     for i = 1, select("#", GetWorldElapsedTimers()) do
@@ -566,12 +564,12 @@ local function UpdateSplits(module, numCriteria)
     end
 end
 
--- Szenario- und Tiefen-Kopf ------------------------------------------------------------------
+-- Scenario and delve header ------------------------------------------------------------------
 --
--- Normale Szenarien: Blizzards StageBlock („Stufe 2/3“ + Name) – Goldgrafik weg, MUI-Kasten so
--- breit wie die Überschrift. Tiefen u. a.: eigene Kopf-Widgets (Stufe, Affixe, Belohnung), die
--- alle über UIWidgetBaseScenarioHeaderTemplateMixin.Setup laufen – dort danach dasselbe.
--- Nur Optik: Texturen unsichtbar, Schrift/Farbe, eigener Hintergrund dahinter.
+-- Normal scenarios: Blizzard's StageBlock ("Stage 2/3" + name) - gold art removed, mUI panel as wide
+-- as the header. Delves etc.: own header widgets (tier, affixes, reward), all of which go through
+-- UIWidgetBaseScenarioHeaderTemplateMixin.Setup - same treatment after it.
+-- Visuals only: hide textures, font/color, own background behind.
 local function AddPanel(frame, header)
     if frame.muiPanel then return frame.muiPanel end
     local panel = CreateFrame("Frame", nil, frame)
@@ -600,17 +598,17 @@ local function SkinStageBlock()
         if block[key] then block[key]:SetAlpha(0) end
     end
     AddPanel(block, ScenarioObjectiveTracker.Header)
-    -- Blizzard setzt Text und Farbe bei jeder Stufe neu
+    -- Blizzard resets text and color on every stage
     local function Restyle(self)
         KeepFace(self.Stage, ns.UI.ACCENT)
         KeepFace(self.Name, ns.UI.TEXT)
     end
     hooksecurefunc(block, "UpdateStageBlock", Restyle)
-    Restyle(block) -- schon aufgebaut (z. B. /reload im Szenario)
+    Restyle(block) -- already built (e.g. /reload inside a scenario)
 end
 
--- Affix-Symbole und Währungen (Leben) im Kopf: Symbole eckig, Rand abgeschnitten, 1-px-Rahmen
--- statt Ring und Rundmaske; Zahlen in MUI-Schrift. Blizzard legt sie per Pool bei jedem Setup an.
+-- Affix icons and currencies (lives) in the header: square, cropped, 1 px border instead of ring and
+-- round mask; numbers in mUI font. Blizzard creates them from a pool on every Setup.
 local skinnedParts = setmetatable({}, { __mode = "k" })
 
 local function SkinHeaderParts(widget)
@@ -620,12 +618,12 @@ local function SkinHeaderParts(widget)
             for _, mask in ipairs({ spell.IconMask, spell.CircleMask }) do
                 if mask then spell.Icon:RemoveMaskTexture(mask) end
             end
-            pcall(spell.Icon.SetTexCoord, spell.Icon, 0.08, 0.92, 0.08, 0.92) -- falls doch noch maskiert
+            pcall(spell.Icon.SetTexCoord, spell.Icon, 0.08, 0.92, 0.08, 0.92) -- in case it is still masked
             local border = CreateFrame("Frame", nil, spell)
             border:SetAllPoints(spell.Icon)
             ns.AddBorder(border, true)
         end
-        if spell.Border then spell.Border:SetAlpha(0) end -- Blizzard setzt den Ring bei jedem Setup
+        if spell.Border then spell.Border:SetAlpha(0) end -- Blizzard resets the ring on every Setup
         if spell.DebuffBorder then spell.DebuffBorder:SetAlpha(0) end
         KeepFace(spell.StackCount)
     end
@@ -636,7 +634,7 @@ end
 
 local function SkinScenarioHeaderWidget(widget)
     if not widget or not widget.Frame then return end
-    -- Teile (Affixe, Leben) entstehen in Setup erst nach diesem Hook: eigener Hook pro Widget
+    -- parts (affixes, lives) are created in Setup after this hook: own hook per widget
     if not skinnedParts[widget] and widget.Setup then
         skinnedParts[widget] = true
         hooksecurefunc(widget, "Setup", SkinHeaderParts)
@@ -647,7 +645,7 @@ local function SkinScenarioHeaderWidget(widget)
     if widget.ThemeOverlay then widget.ThemeOverlay:SetAlpha(0) end
     AddPanel(widget, ScenarioObjectiveTracker.Header)
     KeepFace(widget.HeaderText, ns.UI.ACCENT)
-    local tier = widget.TierFrame -- Tiefen: Stufe ohne Fahne, groß in Surf Green
+    local tier = widget.TierFrame -- delves: tier without flag, large in Surf Green
     if tier then
         if tier.Flag then tier.Flag:SetAlpha(0) end
         KeepFace(tier.Text, ns.UI.ACCENT)
@@ -659,8 +657,8 @@ local function SetupScenarioHeader()
     if UIWidgetBaseScenarioHeaderTemplateMixin and UIWidgetBaseScenarioHeaderTemplateMixin.Setup then
         hooksecurefunc(UIWidgetBaseScenarioHeaderTemplateMixin, "Setup", SkinScenarioHeaderWidget)
     end
-    -- schon vorhandene Kopf-Widgets (z. B. /reload mitten in einer Tiefe: Blizzard baut sie vor
-    -- unserem Hook auf und erst bei der nächsten Änderung neu)
+    -- existing header widgets (e.g. /reload inside a delve: Blizzard builds them before our hook and
+    -- only rebuilds on the next change)
     local container = ScenarioObjectiveTracker and ScenarioObjectiveTracker.StageBlock
         and ScenarioObjectiveTracker.StageBlock.WidgetContainer
     for _, widget in pairs(container and container.widgetFrames or {}) do
@@ -676,7 +674,7 @@ local function SetupSplits()
             if frame and frame.muiSplit then frame.muiSplit:Hide() end
         end)
     end
-    -- beim Einloggen mitten im Schlüssel: Erledigtes ohne Zeit (true), neuer Schlüssel: leeren
+    -- logging in mid-key: completed objectives without time (true); new key: clear
     if C_ChallengeMode.IsChallengeModeActive() then
         for i = 1, select(3, C_Scenario.GetStepInfo()) or 0 do
             local info = C_ScenarioInfo.GetCriteriaInfo(i)
@@ -702,8 +700,8 @@ local function SetupChallengeBlock()
     end)
 end
 
--- Demo (Einstellungen > Questlog): Nachbau des Blocks aus denselben Teilen, über dem Questlog.
--- Blizzards echten Block mit Fantasiewerten zu starten würde den Tracker „verseuchen“.
+-- Demo (Settings > Quest log): replica of the block from the same parts, above the tracker.
+-- Starting Blizzard's real block with fake values would taint the tracker.
 local demo
 local DEMO_LIMIT, DEMO_LEFT = 33 * 60, 21 * 60 + 37
 local DEMO_BOSSES = {
@@ -722,7 +720,7 @@ local function CreateDemo()
     demo:SetFrameStrata("MEDIUM")
     demo:Hide()
 
-    -- Überschrift wie im Questlog (Text + dünne Linie, siehe SkinHeader)
+    -- header like in the tracker (text + thin line, see SkinHeader)
     local header = CreateFrame("Frame", nil, demo)
     header:SetSize(width, ns.Snap(26))
     header:SetPoint("TOPLEFT")
@@ -769,7 +767,7 @@ local function CreateDemo()
     end
     LayoutAffixes(block, frames)
 
-    -- Ziele wie im echten Tracker: Bosse (erledigte mit Zeit), dann Feindliche Truppen
+    -- objectives like the real tracker: bosses (completed with time), then enemy forces
     local previous = block
     for i, boss in ipairs(DEMO_BOSSES) do
         local line = CreateFrame("Frame", nil, demo)
@@ -802,7 +800,7 @@ local function CreateDemo()
     demo.muiBlock = block
 end
 
--- Demo nach den Einstellungen (Truhen-Zeiten, Truppen-Text, Boss-Zeiten)
+-- update demo from settings (chest times, forces text, boss splits)
 local function RefreshDemo()
     if not demo then return end
     UpdateTimer(demo.muiBlock, DEMO_LIMIT - DEMO_LEFT, DEMO_LIMIT)
@@ -824,9 +822,9 @@ ns.QuestDemo = {
         local tracker = ObjectiveTrackerFrame
         demo:ClearAllPoints()
         demo:SetPoint("TOPRIGHT", tracker, "TOPRIGHT", 0, 0)
-        tracker:SetAlpha(0) -- nur ausblenden, nichts am Tracker selbst ändern
+        tracker:SetAlpha(0) -- only hide, never change the tracker itself
         demo:Show()
-        -- Beispiel-Gegner-Tooltip an der eingestellten Tooltip-Position
+        -- sample enemy tooltip at the configured tooltip position
         if ns.db.mplusMobTooltip ~= false then
             GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
             GameTooltip:SetText(L["Demo enemy"], 1, 0.25, 0.25)
@@ -848,21 +846,21 @@ ns.QuestDemo = {
 -- Position ------------------------------------------------------------------------------------
 
 local placing = false
--- Platzhalter: das Questlog hängt mit seiner oberen
--- rechten Ecke daran. Blizzards Bearbeitungsmodus verschiebt es nicht – MUI holt es zurück.
+-- Placeholder the tracker hangs from by its top right corner. Blizzard's Edit Mode does not move it;
+-- mUI moves the tracker back.
 local anchor
 local ANCHOR_HEIGHT = 200
 
--- Standardplatz: rechte Kante links neben der inneren rechten Leiste (fehlt sie: am
--- Bildschirmrand), Oberkante unter Buffs/Debuffs/privaten Auren (bzw. unter der Minimap)
+-- Default spot: right edge left of the inner right bar (or the screen edge if missing), top edge below
+-- buffs/debuffs/private auras (or below the minimap)
 local function PlaceAnchorDefault()
     local margin, gap = ns.Snap(ns.SCREEN_MARGIN), ns.Snap(GAP)
     local right = UIParent:GetRight() - margin
-    -- innerste sichtbare rechte Leiste (mit Leiste 6 rückt der Tracker weiter nach links)
+    -- innermost visible right bar (with bar 6 the tracker moves further left)
     local bar = ns.InnermostRightBar and ns.InnermostRightBar() or (ns.layoutFrames and ns.layoutFrames.bar5)
     if bar and bar:IsVisible() and bar:GetLeft() then right = bar:GetLeft() - ns.Snap(SIDE_GAP) end
     local top = UIParent:GetTop() - margin
-    -- unter Buffs/Debuffs (private Auren hängen mit Boss-Modul woanders), sonst unter der Minimap
+    -- below buffs/debuffs (private auras sit elsewhere with the boss module), otherwise below the minimap
     local auraBottom = ns.AuraStackBottom and ns.AuraStackBottom()
     local minimap = _G["MeredanUIMinimap"]
     if auraBottom then
@@ -870,8 +868,7 @@ local function PlaceAnchorDefault()
     elseif minimap and minimap:GetBottom() then
         top = minimap:GetBottom() - gap
     end
-    -- Oberkante bündig mit den rechten Aktionsleisten (Benny 2026-11-07, vorher von Hand so
-    -- verschoben), aber nie höher als unter Buffs/Minimap
+    -- top edge flush with the right action bars, but never above the buffs/minimap
     if bar and bar:GetTop() then top = math.min(top, bar:GetTop()) end
     local cx, cy = UIParent:GetCenter()
     ns.PlaceFromCenter(anchor, "TOPRIGHT", right - cx, top - cy)
@@ -882,19 +879,18 @@ local function Place()
     if not (tracker and tracker.SetPointBase and anchor and anchor:GetRight()) then return end
     placing = true
     tracker:ClearAllPointsBase()
-    -- vom oberen rechten Bildschirmeck aus (negativer Versatz): Blizzard rechnet in der
-    -- Standard-Position die Höhe als „Elternhöhe + Y-Versatz“ – so bleibt sie im Bildschirm
+    -- from the top right screen corner (negative offset): in the default position Blizzard computes the
+    -- height as "parent height + Y offset" - this keeps it on screen
     tracker:SetPointBase("TOPRIGHT", UIParent, "TOPRIGHT",
         anchor:GetRight() - UIParent:GetRight(), anchor:GetTop() - UIParent:GetTop())
     placing = false
 end
 
--- Bosskämpfe und Arena: Questlog ausblenden (wie ElvUI). Ein abgesicherter Zustands-Schalter
--- erkennt Boss-/Arena-Gegner; versteckt wird durch Umhängen an einen versteckten Rahmen –
--- kein Einklappen per Code (das würde den Tracker neu aufbauen und Quest-Items sperren).
--- In Mythisch+ bleibt es sichtbar (Timer und Fortschritt stehen dort).
--- Der versteckte Rahmen ist so groß wie der Bildschirm: Blizzard rechnet die Questlog-Höhe als
--- „Elternhöhe + Y-Versatz“ – mit Höhe 0 schrumpfte es auf 20 px und blieb danach leer.
+-- Boss fights and arenas: hide the tracker (like ElvUI). A secure state driver detects boss/arena
+-- units; hiding is done by reparenting to a hidden frame - never collapse via code (that rebuilds the
+-- tracker and locks quest items). Stays visible in Mythic+ (timer and progress live there).
+-- The hidden frame is screen-sized: Blizzard computes the tracker height as "parent height + Y
+-- offset" - with height 0 it shrank to 20 px and stayed empty afterwards.
 local hidden = CreateFrame("Frame")
 hidden:SetAllPoints(UIParent)
 hidden:Hide()
@@ -904,10 +900,10 @@ local function HideForBoss()
     local tracker = ObjectiveTrackerFrame
     if savedParent or tracker:GetParent() == hidden then return end
     local inInstance = IsInInstance()
-    -- nur in Instanzen: Forever meldet auch draußen Boss-Gegner (Questlog verschwand ständig)
+    -- instances only: Forever reports boss units outdoors too (tracker kept disappearing)
     if not inInstance then return end
     local _, _, difficulty = GetInstanceInfo()
-    if difficulty == 8 then return end -- Mythisch+
+    if difficulty == 8 then return end -- Mythic+
     savedParent = tracker:GetParent()
     tracker:SetParent(hidden)
 end
@@ -919,15 +915,15 @@ local function ShowAfterBoss()
 end
 
 local function SetupBossHiding()
-    -- Blizzard hängt den Tracker bei Aktualisierungen selbst um: während des Kampfs zurück
+    -- Blizzard reparents the tracker itself on updates: during the fight, move it back
     hooksecurefunc(ObjectiveTrackerFrame, "SetParent", function(self, parent)
         if savedParent and parent ~= hidden then
             savedParent = parent
             self:SetParent(hidden)
         end
     end)
-    -- ohne Elternrahmen: Videos, Zwischensequenzen und Alt+Z verstecken UIParent – das darf nicht
-    -- wie ein Bosskampf wirken (Questlog war danach weg, Benny 2026-10-25)
+    -- no parent: videos, cinematics and Alt+Z hide UIParent - that must not count as a boss fight
+    -- (tracker would stay hidden afterwards)
     local watcher = CreateFrame("Frame", nil, nil, "SecureHandlerStateTemplate")
     watcher:SetAttribute("_onstate-muiboss", "if newstate == 1 then self:Hide() else self:Show() end")
     watcher:SetScript("OnHide", HideForBoss)
@@ -939,7 +935,7 @@ end
 
 local function Setup()
     local tracker = ObjectiveTrackerFrame
-    if not tracker or ns.IS_FOREVER then return end -- Forever: eigener Tracker (Quests/Tracker.lua)
+    if not tracker or ns.IS_FOREVER then return end -- Forever: own tracker (Quests/Tracker.lua)
 
     KeepFont(ObjectiveTrackerLineFont)
     hooksecurefunc(ObjectiveTrackerLineFont, "SetFontObject", function()
@@ -953,8 +949,8 @@ local function Setup()
         if module then
             SkinHeader(module.Header, ns.UI.TEXT)
             if module.AddBlock then hooksecurefunc(module, "AddBlock", OnAddBlock) end
-            -- schon vorhandene Blöcke und Balken (vor unserem Hook angelegt, z. B. /reload im Szenario)
-            -- (je Teil abgesichert: ein Fehler darf den restlichen Aufbau nicht abbrechen)
+            -- existing blocks and bars (created before our hook, e.g. /reload inside a scenario);
+            -- each part guarded: one error must not abort the rest of the setup
             local function Safe(fn, ...)
                 local ok, err = pcall(fn, ...)
                 if not ok then geterrorhandler()(err) end
@@ -969,13 +965,13 @@ local function Setup()
         end
     end
 
-    -- Höhe: Blizzard rechnet „Elternhöhe + Y-Versatz“. In Forever ist der Elternrahmen
-    -- (RightManagedFrameContainer) nicht bildschirmhoch und schrumpft z. B. beim Anvisieren –
-    -- dann blieb kaum Platz, das Questlog versteckte sich. Daher immer ab UIParent rechnen.
+    -- Height: Blizzard computes "parent height + Y offset". In Forever the parent
+    -- (RightManagedFrameContainer) is not screen-high and shrinks e.g. when targeting, leaving almost no
+    -- room so the tracker hid itself. Hence always compute from UIParent.
     if tracker.UpdateHeight then
         hooksecurefunc(tracker, "UpdateHeight", function(self)
-            -- Grundhöhe: in Blizzards Standardposition „ab UIParent“ (der Elternrahmen ist in Forever
-            -- nicht bildschirmhoch), sonst das, was Blizzard gesetzt hat (verschoben im Bearbeitungsmodus)
+            -- base height: from UIParent in Blizzard's default position (the parent is not screen-high in
+            -- Forever), otherwise whatever Blizzard set (moved in Edit Mode)
             local height = self:GetHeight()
             if not (self.IsInDefaultPosition and not self:IsInDefaultPosition()) then
                 local _, _, _, _, offsetY = self:GetPoint(1)
@@ -984,24 +980,24 @@ local function Setup()
             if height and height > 0 then self:SetHeight(math.max(height, 20)) end
         end)
     end
-    -- Blizzard legt den Tracker bei fast jeder Aktualisierung neu an: danach wieder unser Platz
+    -- Blizzard re-anchors the tracker on almost every update: restore our position afterwards
     hooksecurefunc(tracker, "SetPoint", function() if not placing then Place() end end)
     anchor = CreateFrame("Frame", "MeredanUIQuestAnchor", UIParent)
     anchor:SetSize(math.max(tracker:GetWidth(), 200), ANCHOR_HEIGHT)
-    -- verschoben oder zurückgesetzt: Questlog folgt (nächster Frame, wenn die Lage feststeht)
+    -- moved or reset: tracker follows (next frame, once the position is settled)
     hooksecurefunc(anchor, "SetPoint", function() C_Timer.After(0, Place) end)
     ns.OnLayout(PlaceAnchorDefault)
     ns.layoutFrames.questlog = anchor
-    if ns.PlaceBossFrames then ns.PlaceBossFrames() end -- Bossframes links daneben
-    -- Szenario-Ziele hängen an einem festen Block, der nicht über AddBlock läuft
+    if ns.PlaceBossFrames then ns.PlaceBossFrames() end -- boss frames to the left of it
+    -- scenario objectives hang on a fixed block that doesn't go through AddBlock
     local objectives = ScenarioObjectiveTracker and ScenarioObjectiveTracker.ObjectivesBlock
     if objectives then OnAddBlock(ScenarioObjectiveTracker, objectives) end
-    ns.AfterCombat(SetupBossHiding)  -- Zustandstreiber geht im Kampf nicht
+    ns.AfterCombat(SetupBossHiding)  -- state drivers can't be set up in combat
     SetupChallengeBlock()
     SetupSplits()
     SetupScenarioHeader()
 end
 
--- nach Buffs und Aktionsleisten (die richten sich beim Login ein)
+-- after buffs and action bars (they set up on login)
 ns:On("PLAYER_LOGIN", function() C_Timer.After(0.2, Setup) end)
 

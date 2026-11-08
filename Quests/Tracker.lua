@@ -1,36 +1,36 @@
--- Eigener Questtracker (WoW Forever) statt Blizzards Ziel-Tracker – gleiche Zeilen wie das
--- Questlog der Karte, frei am Bildschirmrand (Entwurf „Questtracker“, Benny 2026-11-07).
+-- Own quest tracker (WoW Forever) instead of Blizzard's objective tracker - same rows as the map's
+-- quest log, free-standing at the screen edge.
 --
---   Dungeon                    −   ← nur in Instanzen: Blizzards Szenario-Daten, sonst eigene Liste
---   ┃ Die Todesminen                  (Dungeon-Journal + Bosskill-Meldungen)
---     ✓ 1/1 Rhahk'Zor besiegt
---     ! [18] Rote Seide              ← Quests der Instanz
---   Quests  9/40               −   ← verfolgte Quests (in Instanzen von selbst zugeklappt)
---  ▎! [17] Höhlenpilze         [▪]  ← Streifen = Schwierigkeit, ? = abgabebereit (grün unterlegt),
---  ▎   Schorfstängling: 3/5            Fokus grau unterlegt, Gegenstand nur als Bild (aktiv grün)
---   Berufe                     −   ← verfolgte Rezepte mit Material aus den Taschen
+--   Dungeon                    -   <- instances only: Blizzard's scenario data, else our own list
+--   | The Deadmines                   (dungeon journal + boss kill events)
+--     v 1/1 Rhahk'Zor defeated
+--     ! [18] Red Silk                <- quests of the instance
+--   Quests  9/40               -   <- tracked quests (auto-collapsed inside instances)
+--  |! [17] Cave Mushrooms      [#]  <- stripe = difficulty, ? = ready to turn in (green tint),
+--  |   Scorched Stalker: 3/5           focus gray tint, item as image only (active green)
+--   Professions                -   <- tracked recipes with reagents from the bags
 --
--- Blizzards ObjectiveTrackerFrame wird nur geparkt (an einen versteckten Rahmen gehängt) – seine
--- Ereignisse laufen weiter (z. B. neue Quests automatisch verfolgen). Quest-Gegenstände benutzt man
--- über eine eigene Leiste links daneben (wie Kaliel's Tracker): feste Plätze, der aktive oben mit
--- Taste – so hat der Tracker selbst keine geschützten Knöpfe und scrollt auch im Kampf.
--- Retail nutzt weiter Quests/QuestTracker.lua (Blizzards Tracker umgefärbt, Mythisch+).
+-- Blizzard's ObjectiveTrackerFrame is only parked (reparented to a hidden frame) - its events keep
+-- running (e.g. auto-tracking new quests). Quest items are used via our own bar to the left (like
+-- Kaliel's Tracker): fixed slots, the active one on top with a keybind - so the tracker itself has no
+-- protected buttons and can scroll in combat.
+-- Retail keeps using Quests/QuestTracker.lua (restyled Blizzard tracker, Mythic+).
 local _, ns = ...
 local L = ns.L
 
 local WIDTH = 290
-local GAP, SIDE_GAP = 10, 60     -- Abstand zu den Buffs / zur rechten Aktionsleiste
+local GAP, SIDE_GAP = 10, 60     -- gap to the buffs / to the right action bar
 local ROW_GAP = 2
-local ACTIVE_SIZE, ITEM_SIZE = 40, 30   -- Gegenstand-Leiste: aktiver oben, weitere darunter
+local ACTIVE_SIZE, ITEM_SIZE = 40, 30   -- item bar: active on top, others below
 local BAR_GAP = 6
-local ICON_SIZE = 18                     -- Bild in der Questzeile (nur Anzeige)
+local ICON_SIZE = 18                     -- image in the quest row (display only)
 local HEADER_H = 26
 local SECTION_GAP = 12
-local STICKY_H = HEADER_H + 6   -- fester Kopf beim Scrollen
+local STICKY_H = HEADER_H + 6   -- sticky header while scrolling
 local DONE = { 0.56, 0.8, 0.71 }
 local RED = { 1, 0.31, 0.31 }
 
--- Geteilt mit dem Questlog der Karte --------------------------------------------------------------
+-- Shared with the map's quest log ----------------------------------------------------------------
 
 function ns.QuestColor(questID)
     local difficulty = C_PlayerInfo.GetContentDifficultyQuestForPlayer and C_PlayerInfo.GetContentDifficultyQuestForPlayer(questID)
@@ -53,11 +53,11 @@ local tracker, anchor, itemLayer, scroll, content, thumb
 local headers, rows, bossLines, itemButtons = {}, {}, {}, {}
 local instanceBlock
 local pending, itemsPending = false, false
-local barItems = {}           -- { questID, logIndex, link, texture, charges } – aktiver zuerst
+local barItems = {}           -- { questID, logIndex, link, texture, charges } - active first
 local hasTimers = false
-local hasItems = false      -- mehrere Gegenstände: „nächste Quest“ regelmäßig neu wählen
+local hasItems = false      -- several items: re-pick the "nearest quest" periodically
 local bossHidden = false
-local instanceCollapse      -- in Instanzen: Quests zugeklappt (nil = gespeicherte Einstellung)
+local instanceCollapse      -- in instances: quests collapsed (nil = saved setting)
 local kills, killsInstance = {}, nil
 
 local function Collapsed(key)
@@ -75,7 +75,7 @@ local function ToggleCollapsed(key)
     tracker.Refresh()
 end
 
--- Bausteine --------------------------------------------------------------------------------------
+-- Building blocks --------------------------------------------------------------------------------
 
 local function BuildHeader(parent)
     local UI = ns.UI
@@ -103,7 +103,7 @@ local function Header(i)
     return headers[i]
 end
 
--- Kopf des Abschnitts, in dem man gerade scrollt, bleibt oben stehen (schiebt der nächste ihn weg)
+-- The header of the section being scrolled sticks at the top (until the next one pushes it away)
 local sticky
 local function UpdateSticky(offset)
     if not sticky then
@@ -112,7 +112,7 @@ local function UpdateSticky(offset)
         sticky:SetWidth(WIDTH)
         sticky:SetPoint("TOPLEFT", tracker, "TOPLEFT")
     end
-    -- Abschnitt, dessen Kopf schon unter den festen Kopf gerutscht ist
+    -- section whose header has already slid under the sticky header
     local current
     for _, header in ipairs(headers) do
         if header:IsShown() and header.y and header.y <= offset then
@@ -129,7 +129,7 @@ end
 
 local function QuestMenu(row)
     local questID = row.questID
-    -- Symbole aus dem MDI-Satz (Media/Icons/CREDITS.txt): Karte, Gruppe, Auge durchgestrichen, X
+    -- icons from the MDI set (Media/Icons/CREDITS.txt): map, group, eye crossed out, X
     local items = { { value = "map", label = L["Show on map"], icon = "Map" } }
     if C_QuestLog.IsPushableQuest(questID) and IsInGroup() then
         items[#items + 1] = { value = "share", label = L["Share"], icon = "Friends" }
@@ -172,7 +172,7 @@ local function Row(i)
     row.strip:SetPoint("TOPLEFT")
     row.strip:SetPoint("BOTTOMLEFT")
     row.strip:SetWidth(2)
-    row.tint = row:CreateTexture(nil, "BACKGROUND", nil, -1) -- abgabebereit / Fokus / fehlgeschlagen
+    row.tint = row:CreateTexture(nil, "BACKGROUND", nil, -1) -- ready to turn in / focus / failed
     row.tint:SetAllPoints()
     row.hover = row:CreateTexture(nil, "BACKGROUND")
     row.hover:SetAllPoints()
@@ -190,7 +190,7 @@ local function Row(i)
     row.goals:SetSpacing(3)
     row.timer = UI.Text(row, 12, "LEFT")
     row.timerIcon = UI.Icon(row, "Hourglass", 12)
-    row.timerIcon:SetPoint("RIGHT", row.timer, "LEFT", -4, 0) -- RIGHT/LEFT = senkrecht mittig zur Zeile
+    row.timerIcon:SetPoint("RIGHT", row.timer, "LEFT", -4, 0) -- RIGHT/LEFT = vertically centered on the line
     row.timer:Hide()
     row.timerIcon:Hide()
     row.bar = CreateFrame("StatusBar", nil, row)
@@ -202,7 +202,7 @@ local function Row(i)
     row.bar.text = ns.CreateText(row.bar, 10, "CENTER")
     row.bar.text:SetPoint("CENTER")
     row.bar:Hide()
-    -- Quest-Gegenstand: nur Bild (benutzt wird er über die Leiste); Klick = Quest in den Fokus
+    -- quest item: image only (used via the bar); click = focus the quest
     row.item = CreateFrame("Button", nil, row)
     row.item:SetSize(ICON_SIZE, ICON_SIZE)
     row.item:SetPoint("TOPRIGHT", -6, -6)
@@ -287,8 +287,8 @@ local function InstanceBlock()
     return instanceBlock
 end
 
--- Quest-Gegenstände: eigene Leiste links neben dem Tracker (Secure-Knöpfe an festen Plätzen –
--- belegt/umgestellt nur außerhalb des Kampfs, benutzbar immer). Knopf 1 = aktiv, mit Taste.
+-- Quest items: own bar left of the tracker (secure buttons in fixed slots - assigned/reordered only
+-- out of combat, usable always). Button 1 = active, with keybind.
 local function ItemButton(i)
     if itemButtons[i] then return itemButtons[i] end
     local size = i == 1 and ACTIVE_SIZE or ITEM_SIZE
@@ -299,7 +299,7 @@ local function ItemButton(i)
     local edges = ns.AddBorder(button, nil, i == 1 and 2 or 1)
     if i == 1 then
         for _, e in ipairs(edges) do e:SetVertexColor(unpack(DONE)) end
-        local glow = button:CreateTexture(nil, "BACKGROUND", nil, -2) -- leichtes Leuchten ums Grün
+        local glow = button:CreateTexture(nil, "BACKGROUND", nil, -2) -- subtle glow around the green
         glow:SetPoint("TOPLEFT", -5, 5)
         glow:SetPoint("BOTTOMRIGHT", 5, -5)
         glow:SetColorTexture(DONE[1], DONE[2], DONE[3], 0.22)
@@ -325,7 +325,7 @@ local function ItemButton(i)
         GameTooltip:Show()
     end)
     button:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    -- feste Plätze: aktiver oben rechts an der Ebene, weitere darunter (mit etwas Abstand)
+    -- fixed slots: active top right of the layer, others below (with some spacing)
     if i == 1 then
         button:SetPoint("TOPRIGHT", itemLayer, "TOPRIGHT", 0, -2)
     else
@@ -355,7 +355,7 @@ local function UpdateHotkey()
     button.hotkey:SetText(key and GetBindingText(key, true) or "")
 end
 
--- Leiste belegen (nur außerhalb des Kampfs); danach zeigen die Questzeilen, welcher aktiv ist
+-- Assign the bar (out of combat only); then the quest rows show which one is active
 local function ApplyItems()
     if InCombatLockdown() then
         if not itemsPending then
@@ -385,7 +385,7 @@ local function ApplyItems()
     end
 end
 
--- Daten ------------------------------------------------------------------------------------------
+-- Data -------------------------------------------------------------------------------------------
 
 local function TimeText(seconds)
     seconds = math.max(0, math.floor(seconds))
@@ -401,7 +401,7 @@ local function QuestTag(info)
     if tag and tag.isElite then return L["Elite"] end
 end
 
--- Ziele einer Quest: Zeilen (Text) und ggf. Prozent für den Balken
+-- A quest's objectives: lines (text) and optional percent for the bar
 local function QuestGoals(questID, logIndex, complete, failed)
     local lines, percent = {}, nil
     if failed then
@@ -419,20 +419,20 @@ local function QuestGoals(questID, logIndex, complete, failed)
         local text = GetQuestLogCompletionText and GetQuestLogCompletionText(logIndex)
         lines[1] = "|cff8ecbb4" .. ((text and text ~= "") and text or (QUEST_WATCH_QUEST_READY or L["Ready to turn in"])) .. "|r"
     end
-    -- Zeitquest: Restzeit immer rot mit Uhr, damit sie auffällt (Benny 2026-11-08); in der letzten
-    -- Minute blinkt die Zeile im Sekundentakt (der Tracker aktualisiert dann jede Sekunde)
+    -- Timed quest: time left always red so it stands out; in the last minute the line blinks every
+    -- second (the tracker then refreshes every second)
     local total, elapsed = C_QuestLog.GetTimeAllowed(questID)
     if total and elapsed and not issecretvalue(total) and total > 0 then
         local left = total - elapsed
         hasTimers = true
         local color = (left < 60 and math.floor(left) % 2 == 1) and { 1, 0.62, 0.55 } or { 1, 0.31, 0.31 }
-        -- eigene Zeile mit echtem Bild statt |T|t im Text: Sanduhr exakt mittig zur Schrift (Benny 2026-11-08)
+        -- separate line with a real texture instead of |T|t in text: hourglass exactly centered on the font
         return lines, percent, { text = L["Time left %s"]:format(TimeText(left)), color = color }
     end
     return lines, percent
 end
 
--- Bosse der Instanz: Blizzards Szenario-Daten, sonst Dungeon-Journal + Bosskill-Meldungen
+-- Instance bosses: Blizzard's scenario data, otherwise dungeon journal + boss kill events
 local function ScenarioBosses()
     local name, currentStage, numStages, _, _, _, _, _, _, scenarioType = C_Scenario.GetInfo()
     if not numStages or numStages == 0 or currentStage > numStages then return nil end
@@ -452,8 +452,8 @@ local function ScenarioBosses()
     return list, header, name
 end
 
--- Forever hat keinen Abenteuerführer: Bosse aus den mitgelieferten Spieldaten (DungeonBosses.lua),
--- tot = aus ENCOUNTER_END bzw. der Instanz-ID (Benny 2026-11-08: „sollten da nicht die Bosse stehen?“)
+-- Forever has no Adventure Guide: bosses from the bundled game data (DungeonBosses.lua),
+-- killed = from ENCOUNTER_END or the instance lock
 local function DataBosses()
     local instanceID = select(8, GetInstanceInfo())
     local bosses = instanceID and ns.DUNGEON_BOSSES and ns.DUNGEON_BOSSES[instanceID]
@@ -472,7 +472,7 @@ local function JournalBosses()
     if not (EJ_GetInstanceForMap and EJ_GetEncounterInfoByIndex) then return DataBosses() end
     local mapID = C_Map.GetBestMapForUnit("player")
     local journalID = mapID and EJ_GetInstanceForMap(mapID)
-    -- Forever: Funktion gibt es noch, liefert aber nichts → mitgelieferte Daten
+    -- Forever: the function exists but returns nothing -> bundled data
     if not journalID or journalID == 0 then return DataBosses() end
     local list = {}
     for i = 1, 30 do
@@ -493,10 +493,10 @@ local function ReadInstanceLock()
     end
 end
 
--- Aufbau -----------------------------------------------------------------------------------------
+-- Layout -----------------------------------------------------------------------------------------
 
--- Unterkante, bis zu der das Questlog reichen darf: Bildschirmrand, im Layout Nahkampf-DPS (16:9)
--- aber über dem Fokus, wenn der unter dem Questlog liegt (Benny 2026-11-07, Entwurf „Rollen-Layouts“)
+-- Bottom limit for the tracker: screen edge, but in the melee DPS layout (16:9) above the focus frame
+-- when it sits below the tracker
 local FOCUS_GAP = 20
 local function BottomLimit()
     local limit = (UIParent:GetBottom() or 0) + ns.SCREEN_MARGIN
@@ -505,25 +505,25 @@ local function BottomLimit()
     local focusLeft = ns.RightOfTargetEdge and ns.RightOfTargetEdge()
     local left, right = anchor and anchor:GetLeft(), anchor and anchor:GetRight()
     if not (player and player:GetTop() and focus and focusLeft and left and right) then return limit end
-    -- Fokus oben bündig mit den Unitframes; nur ausweichen, wenn er waagerecht unter dem Questlog liegt
+    -- focus is top-aligned with the unit frames; only avoid it when it lies horizontally below the tracker
     if focusLeft < right and focusLeft + focus:GetWidth() > left then
         limit = math.max(limit, player:GetTop() + FOCUS_GAP)
     end
     return limit
 end
 
--- Bossframes über dem Questlog (Layout Nahkampf-DPS, Benny 2026-11-07): Liegen sichtbare Bossframes
--- auf dem Questlog (16:9), rückt er unter den untersten sichtbaren Boss und zeigt nur noch die
--- Quests der Instanz. Auf breiten Bildschirmen stehen die Bosse daneben – dann bleibt alles, wie es ist.
--- Gibt zurück, um wie viel das Questlog nach unten rückt (0 = gar nicht).
+-- Boss frames above the tracker (melee DPS layout): if visible boss frames overlap the tracker (16:9),
+-- it moves below the lowest visible boss and shows only the instance's quests. On wide screens the
+-- bosses sit beside it and nothing changes.
+-- Returns how far the tracker moves down (0 = not at all).
 local BOSS_GAP = 14
-local BOSS_AURAS = 30 -- Debuff-Reihe unter jedem Bossframe
+local BOSS_AURAS = 30 -- debuff row below each boss frame
 local function BossShift()
     if not (ns.LayoutFlag and ns.LayoutFlag("questlogUnderBosses")) or not ns.sideFrames then return 0 end
     local holder = _G["MeredanUIBossAnchor"]
     local top, left, right = anchor:GetTop(), anchor:GetLeft(), anchor:GetRight()
     if not (holder and holder:GetLeft() and top and left) then return 0 end
-    -- Bossframes samt Zauber-Symbol rechts daneben (so hoch wie der Balken)
+    -- boss frames including the spell icon to their right (as tall as the bar)
     if holder:GetLeft() >= right or holder:GetRight() + 30 <= left then return 0 end
     local lowest
     for i = 1, 5 do
@@ -536,8 +536,7 @@ local function BossShift()
     return math.max(top - lowest + BOSS_GAP, 0)
 end
 
--- Höhe: höchstens 500 (früher Regler, Benny 2026-11-07: „höher will ich es nicht“), und nie
--- unter die Unterkante, die BottomLimit ausrechnet
+-- Height: at most 500, and never below the limit computed by BottomLimit
 local MAX_HEIGHT = 500
 local function MaxHeight(top)
     local screen = (top or tracker:GetTop() or UIParent:GetTop()) - BottomLimit()
@@ -552,7 +551,7 @@ local function Layout()
     local y, h, r, b = 0, 0, 0, 0
     local superTracked = C_SuperTrack.GetSuperTrackedQuestID()
     local items = {}
-    -- Bossframes über dem Questlog: darunter rücken, nur Instanz-Quests (s. BossShift)
+    -- boss frames above the tracker: move below them, instance quests only (see BossShift)
     local shift = BossShift()
     local bossMode = shift > 0
     tracker:ClearAllPoints()
@@ -606,7 +605,7 @@ local function Layout()
         else
             row.title:SetTextColor(color.r, color.g, color.b)
         end
-        -- Gegenstand rechts?
+        -- item on the right?
         local link, itemTexture, charges, showWhenComplete = GetQuestLogSpecialItemInfo(logIndex)
         local hasItem = link and (not complete or showWhenComplete)
         local right = hasItem and (ICON_SIZE + 10) or 6
@@ -626,7 +625,7 @@ local function Layout()
         row.timerIcon:SetShown(timer ~= nil)
         if timer then
             row.timer:ClearAllPoints()
-            row.timer:SetPoint("TOPLEFT", 26 + 16, -(height + 3)) -- 12 px Sanduhr + 4 px Abstand davor
+            row.timer:SetPoint("TOPLEFT", 26 + 16, -(height + 3)) -- 12 px hourglass + 4 px gap before it
             row.timer:SetText(timer.text)
             row.timer:SetTextColor(unpack(timer.color))
             row.timerIcon:SetVertexColor(unpack(timer.color))
@@ -686,7 +685,7 @@ local function Layout()
         y = y + height + ROW_GAP
     end
 
-    -- 1) Instanz
+    -- 1) Instance
     local inInstance, instanceType = IsInInstance()
     local instanceName = inInstance and GetInstanceInfo() or nil
     local instanceQuests, inDungeonSection = {}, {}
@@ -696,7 +695,7 @@ local function Layout()
             local info = C_QuestLog.GetInfo(index)
             if info and info.isHeader then
                 zoneName = info.title
-            -- Kopfzeile kann „Die Todesminen“ heißen, die Instanz „Todesminen“: Teilstring reicht
+            -- header may read "The Deadmines" while the instance is "Deadmines": substring match suffices
             elseif info and zoneName and instanceName and (zoneName == instanceName or zoneName:find(instanceName, 1, true)
                 or instanceName:find(zoneName, 1, true)) and not info.isHidden and info.questID and info.questID > 0 then
                 instanceQuests[#instanceQuests + 1] = info.questID
@@ -710,7 +709,7 @@ local function Layout()
         if instanceType == "raid" and header == (TRACKER_HEADER_DUNGEON or L["Dungeon"]) then header = L["Raid"] end
         AddHeader("dungeon", header or instanceName or "", nil, false)
         if bossMode then
-            -- im Bosskampf nur die Quests der Instanz (Bossliste und Name brauchen Platz)
+            -- during boss fights only the instance quests (boss list and name need space)
             if instanceBlock then instanceBlock:Hide() end
             for _, questID in ipairs(instanceQuests) do AddQuest(questID) end
         elseif not Collapsed("dungeon") then
@@ -743,14 +742,14 @@ local function Layout()
         instanceBlock:Hide()
     end
 
-    -- 2) verfolgte Quests
+    -- 2) Tracked quests
     local watched = {}
     for i = 1, C_QuestLog.GetNumQuestWatches() do
         local questID = C_QuestLog.GetQuestIDForQuestWatchIndex(i)
         if questID and not inDungeonSection[questID] then watched[#watched + 1] = questID end
     end
-    -- Reihenfolge: Fokus-Quest, dann Quests im aktuellen Gebiet, dann der Rest (jeweils in der
-    -- gewohnten Reihenfolge – nach Entfernung sortiert würde die Liste beim Laufen springen)
+    -- Order: focus quest, then quests in the current zone, then the rest (each in the usual order -
+    -- sorting by distance would make the list jump while moving)
     local rank, order = {}, {}
     for i, questID in ipairs(watched) do
         order[questID] = i
@@ -760,8 +759,8 @@ local function Layout()
         if rank[a] ~= rank[b] then return rank[a] < rank[b] end
         return order[a] < order[b]
     end)
-    -- Bosse über dem Questlog: in Instanzen nur deren Quests (oben), draußen (Weltboss, Vorschau)
-    -- nur Quests des aktuellen Gebiets
+    -- Bosses above the tracker: inside instances only their quests (on top); outside (world boss,
+    -- preview) only quests of the current zone
     if bossMode then
         if inInstance then
             wipe(watched)
@@ -783,7 +782,7 @@ local function Layout()
         end
     end
 
-    -- 3) verfolgte Rezepte
+    -- 3) Tracked recipes
     local recipes = C_TradeSkillUI.GetRecipesTracked and C_TradeSkillUI.GetRecipesTracked(false) or {}
     if #recipes > 0 and not bossMode then
         AddHeader("recipes", L["Professions"], nil, h > 0)
@@ -792,18 +791,18 @@ local function Layout()
         end
     end
 
-    -- Rest ausblenden, „+N weitere“
+    -- hide the rest
     for i = h + 1, #headers do headers[i]:Hide() end
     for i = r + 1, #rows do rows[i]:Hide() end
     for i = b + 1, #bossLines do bossLines[i]:Hide() end
     if b == 0 and instanceBlock and not inInstance then instanceBlock:Hide() end
-    -- höher als erlaubt: scrollen (Mausrad, nur außerhalb des Kampfs)
+    -- taller than allowed: scroll (mouse wheel, out of combat only)
     content:SetHeight(math.max(y, 1))
     tracker:SetHeight(math.max(math.min(y, MaxHeight((anchor:GetTop() or UIParent:GetTop()) - shift)), 1))
     tracker.UpdateScroll()
     tracker:SetShown(h > 0 and not bossHidden)
 
-    -- Leiste: Fokus-Quest zuerst, sonst die nächste Quest mit Gegenstand
+    -- bar: focus quest first, otherwise the nearest quest with an item
     local active
     for _, item in ipairs(items) do
         if item.questID == superTracked then active = item end
@@ -830,11 +829,11 @@ local function Refresh()
     C_Timer.After(0, Layout)
 end
 
--- Platz: rechte Kante links neben der inneren rechten Leiste, Oberkante wie die Leiste (höchstens unter den Buffs)
+-- Position: right edge left of the inner right bar, top edge level with that bar (at most below the buffs)
 local function PlaceAnchorDefault()
     local margin, gap = ns.Snap(ns.SCREEN_MARGIN), ns.Snap(GAP)
     local right = UIParent:GetRight() - margin
-    -- innerste sichtbare rechte Leiste (mit Leiste 6 rückt der Tracker weiter nach links)
+    -- innermost visible right bar (with bar 6 the tracker moves further left)
     local bar = ns.InnermostRightBar and ns.InnermostRightBar() or (ns.layoutFrames and ns.layoutFrames.bar5)
     if bar and bar:IsVisible() and bar:GetLeft() then right = bar:GetLeft() - ns.Snap(SIDE_GAP) end
     local top = UIParent:GetTop() - margin
@@ -845,21 +844,20 @@ local function PlaceAnchorDefault()
     elseif minimap and minimap:GetBottom() then
         top = minimap:GetBottom() - gap
     end
-    -- Oberkante bündig mit den rechten Aktionsleisten (Benny 2026-11-07, vorher von Hand so
-    -- verschoben), aber nie höher als unter Buffs/Minimap
+    -- top edge flush with the right action bars, but never above the buffs/minimap
     if bar and bar:GetTop() then top = math.min(top, bar:GetTop()) end
     local cx, cy = UIParent:GetCenter()
     ns.PlaceFromCenter(anchor, "TOPRIGHT", right - cx, top - cy)
 end
 
--- Bosse und Arena: ausblenden (nur in Instanzen – Forever meldet auch draußen Boss-Gegner).
--- Ein abgesicherter Zustands-Schalter erkennt Boss-/Arena-Gegner; die Gegenstands-Ebene blendet er
--- selbst aus (geht auch im Kampf), den Tracker über einen elternlosen Wächter (Alt+Z, Videos und
--- Zwischensequenzen verstecken UIParent – das darf nicht wie ein Bosskampf wirken).
+-- Bosses and arenas: hide (instances only - Forever reports boss units outdoors too).
+-- A secure state driver detects boss/arena units; it hides the item layer itself (works in combat),
+-- the tracker via a parentless watcher (Alt+Z, videos and cinematics hide UIParent - that must not
+-- count as a boss fight).
 local BOSS_STATE = "[@arena1,exists][@arena2,exists][@arena3,exists][@arena4,exists][@arena5,exists]"
     .. "[@boss1,exists][@boss2,exists][@boss3,exists][@boss4,exists][@boss5,exists] 1;0"
--- ininstance: Bosse blenden das Questlog aus (in Instanzen; nicht im Layout Nahkampf-DPS – dort rückt
--- es unter die Bossframes). inraid: im Schlachtzug immer aus (für spätere Layouts).
+-- ininstance: bosses hide the tracker (in instances; not in the melee DPS layout - there it moves
+-- below the boss frames). inraid: always hidden in raids (for future layouts).
 local BOSS_SNIPPET = "if (newstate == 1 and self:GetAttribute('ininstance')) or self:GetAttribute('inraid') then self:Hide() else self:Show() end"
 local watcher
 
@@ -882,22 +880,22 @@ local function UpdateInstanceFlag()
     for _, frame in pairs({ watcher or false, itemLayer or false }) do if frame then
         frame:SetAttribute("ininstance", hideWithBosses)
         frame:SetAttribute("inraid", inRaid)
-        -- Zustand neu auswerten: gleichen Wert noch mal setzen > _onstate-muiboss läuft erneut
+        -- re-evaluate the state: setting the same value again re-runs _onstate-muiboss
         frame:SetAttribute("state-muiboss", frame:GetAttribute("state-muiboss"))
     end end
 end
 ns.UpdateQuestlogHiding = function() if watcher then UpdateInstanceFlag() end end
 
 local function Setup()
-    -- Blizzards Tracker parken (Ereignisse laufen weiter)
+    -- park Blizzard's tracker (events keep running)
     local hidden = CreateFrame("Frame")
     hidden:Hide()
-    -- (enthält Blizzards Secure-Gegenstandsknöpfe: umhängen nur außerhalb des Kampfs)
+    -- (it contains Blizzard's secure item buttons: reparent only out of combat)
     local function Park()
         if ObjectiveTrackerFrame:GetParent() ~= hidden then ObjectiveTrackerFrame:SetParent(hidden) end
     end
     if ObjectiveTrackerFrame then
-        -- Reload im Kampf: umhängen erst danach, unsichtbar aber sofort (Transparenz ist erlaubt)
+        -- reload in combat: reparent afterwards, but hide right away (alpha is allowed)
         ObjectiveTrackerFrame:SetAlpha(0)
         ns.AfterCombat(Park)
         hooksecurefunc(ObjectiveTrackerFrame, "SetParent", function(_, parent)
@@ -918,13 +916,13 @@ local function Setup()
     content = CreateFrame("Frame", nil, scroll)
     content:SetSize(WIDTH, 1)
     scroll:SetScrollChild(content)
-    -- dünner Balken rechts, nur wenn gescrollt werden kann
+    -- thin scrollbar on the right, only when scrollable
     thumb = tracker:CreateTexture(nil, "OVERLAY")
     thumb:SetColorTexture(1, 1, 1, 0.3)
     thumb:SetWidth(2)
     thumb:Hide()
-    -- tracker.offset = wie weit gescrollt ist. Ab > 0 steht oben der feste Kopf, der Scrollbereich
-    -- beginnt darunter (Zeilen verschwinden unter seiner Linie, ohne Kasten dahinter)
+    -- tracker.offset = scroll position. Above 0 the sticky header shows at the top and the scroll area
+    -- starts below it (rows vanish under its line, no box behind)
     tracker.offset = 0
     function tracker.UpdateScroll()
         local range = math.max(content:GetHeight() - tracker:GetHeight(), 0)
@@ -953,12 +951,11 @@ local function Setup()
 
     itemLayer = CreateFrame("Frame", "MeredanUITrackerItems", UIParent, "SecureHandlerStateTemplate")
     itemLayer:SetSize(ACTIVE_SIZE, 10)
-    -- nicht an den Tracker hängen: sonst wird er mitgeschützt und darf im Kampf seine Höhe nicht
-    -- ändern. Der Platzhalter liegt an derselben Ecke und bewegt sich nur außerhalb des Kampfs.
+    -- not parented to the tracker: it would become protected too and couldn't change its height in
+    -- combat. The placeholder sits at the same corner and only moves out of combat.
     itemLayer:SetFrameStrata("MEDIUM")
-    -- Nicht am (ungeschützten) Questtracker verankert, sondern am Bildschirm: sonst verlor der
-    -- Zustandstreiber nach Verschieben des Trackers den Zugriff („Invalid 'self' frame handle",
-    -- Benny 2026-11-08). Position wird außerhalb des Kampfs nachgeführt.
+    -- Anchored to the screen, not the (unprotected) tracker: otherwise the state driver lost access after
+    -- the tracker was moved ("Invalid 'self' frame handle"). Position is synced out of combat.
     local function SyncItemLayer()
         if InCombatLockdown() then return ns.AfterCombat(SyncItemLayer) end
         local left, top = anchor:GetLeft(), anchor:GetTop()
@@ -971,13 +968,13 @@ local function Setup()
     hooksecurefunc(anchor, "SetPoint", function() C_Timer.After(0, function() SyncItemLayer() Refresh() end) end)
     ns.OnLayout(PlaceAnchorDefault)
     ns.layoutFrames.questlog = anchor
-    if ns.PlaceBossFrames then ns.PlaceBossFrames() end -- Bossframes links daneben
+    if ns.PlaceBossFrames then ns.PlaceBossFrames() end -- boss frames to the left of it
     ns.ClampQuestlogHeight = Refresh
     if ns.TestMode then
         hooksecurefunc(ns.TestMode, "Start", Refresh)
         hooksecurefunc(ns.TestMode, "Stop", Refresh)
     end
-    -- Bossframes kommen und gehen (auch im Kampf): Questlog rückt mit
+    -- boss frames come and go (also in combat): tracker follows
     C_Timer.After(1, function()
         for i = 1, 5 do
             local boss = ns.sideFrames and ns.sideFrames["boss" .. i]
@@ -1021,16 +1018,16 @@ local function Setup()
             Refresh()
         end
     end)
-    -- Läuft auch einmal direkt beim Aufbau: der Tracker startet erst nach PLAYER_ENTERING_WORLD
-    -- (sonst fehlte die Instanz-Nummer und gespeicherte Kills passten nach /reload nicht, Benny 2026-11-08)
+    -- Also runs once directly during setup: the tracker starts after PLAYER_ENTERING_WORLD (otherwise the
+    -- instance ID was missing and saved kills didn't match after /reload)
     local function OnEnterWorld()
         local inInstance, instanceType = IsInInstance()
         local instanceID = select(8, GetInstanceInfo())
         if instanceID ~= killsInstance then
             wipe(kills)
             killsInstance = instanceID
-            -- Kills überleben /reload und Verbindungsabbruch (Benny 2026-11-08): gespeichert je Charakter,
-            -- nur für dieselbe Instanz, solange man drin bleibt; draußen wird der Merker gelöscht
+            -- kills survive /reload and disconnects: saved per character, only for the same instance while
+            -- inside; cleared once outside
             local saved = ns.char and ns.char.trackerKills
             if saved and inInstance and saved.instance == instanceID then
                 for key in pairs(saved.kills or {}) do kills[key] = true end
@@ -1039,17 +1036,17 @@ local function Setup()
             end
         end
         ReadInstanceLock()
-        -- in Dungeons/Raids die übrigen Quests zuklappen, draußen wieder die eigene Einstellung
+        -- in dungeons/raids collapse the other quests, outside restore the saved setting
         instanceCollapse = (inInstance and (instanceType == "party" or instanceType == "raid")) and true or nil
         ns.AfterCombat(UpdateInstanceFlag)
         Refresh()
     end
     ns:On("PLAYER_ENTERING_WORLD", OnEnterWorld)
     OnEnterWorld()
-    ns.AfterCombat(SetupBossHiding) -- Zustandstreiber geht im Kampf nicht
+    ns.AfterCombat(SetupBossHiding) -- state drivers can't be set up in combat
     ns.AfterCombat(UpdateInstanceFlag)
     Refresh()
 end
 
--- nach Buffs und Aktionsleisten (die richten sich beim Login ein)
+-- after buffs and action bars (they set up on login)
 ns:On("PLAYER_LOGIN", function() C_Timer.After(0.2, Setup) end)

@@ -1,22 +1,21 @@
--- Mythisch+-Helfer (Einstellungen > Mythisch+-Timer):
---   • Schlüssel automatisch einsetzen, sobald das Schlüssel-Fenster am Sockel aufgeht
---   • Auto-Gossip: im laufenden Schlüssel genau eine Gesprächsoption (Buff-NPCs, Türen …)
---     wird gleich gewählt – nicht bei Händlern o. Ä. (nur Optionen mit Gesprächs-Symbol)
---   • Gruppen-Schlüssel rechts neben dem Mythisch+-Fenster: Schlüssel und Wertung jedes
---     Mitspielers über LibKeystone (dasselbe Protokoll wie BigWigs & Co.) – nicht mitgeliefert (keine
---     Lizenzdatei, CurseForge 2026-11-08); genutzt nur, wenn ein anderes Addon (z. B. BigWigs) sie lädt
+-- Mythic+ helpers (Settings > Mythic+ Timer):
+--   - Auto-insert the keystone when the keystone socket window opens
+--   - Auto-gossip: inside an active key, a single gossip option (buff NPCs, doors ...) is picked
+--     right away - only options with the chat icon, so never vendors etc.
+--   - Group keystones next to the Mythic+ frame: key and rating of each member via LibKeystone
+--     (same protocol as BigWigs). Not bundled (no license file); used only if another addon loads it.
 --
---   ┌ Gruppen-Schlüssel ─────────────┐
---   │ Koratal     [▣] +12 Tiefen…  2450 │
---   │ Talon       [▣] +10 Hafen…   2310 │
---   └────────────────────────────────┘
+--   +- Group keystones -------------------+
+--   | Koratal     [#] +12 Depths...  2450 |
+--   | Talon       [#] +10 Harbor...  2310 |
+--   +-------------------------------------+
 local _, ns = ...
-if ns.IS_FOREVER then return end -- Forever hat kein Mythisch+ (Benny 2026-11-07)
+if ns.IS_FOREVER then return end -- Forever has no Mythic+
 local L = ns.L
 
 local function On(key) return ns.db and ns.db[key] ~= false end
 
--- Schlüssel einsetzen ------------------------------------------------------------------------
+-- Keystone insertion -------------------------------------------------------------------------
 
 local function SlotKeystone()
     if not On("mplusAutoKeystone") or CursorHasItem() then return end
@@ -32,9 +31,9 @@ local function SlotKeystone()
     end
 end
 
--- Auto-Gossip ----------------------------------------------------------------------------------
+-- Auto-gossip --------------------------------------------------------------------------------
 
-local GOSSIP_ICONS = { [132053] = true, [1019848] = true } -- Sprechblase: kein Händler, keine Reparatur
+local GOSSIP_ICONS = { [132053] = true, [1019848] = true } -- chat bubble: not a vendor or repair NPC
 local NPC_SKIP = { [107435] = true, [112697] = true, [112699] = true, [101462] = true, [166663] = true }
 
 local function InActiveKey()
@@ -59,17 +58,17 @@ local function OnGossip()
     local before = ShownPopup()
     C_GossipInfo.SelectOption(options[1].gossipOptionID)
     local after = ShownPopup()
-    if after and not before then -- Rückfrage („Bist du sicher?“) gleich bestätigen
+    if after and not before then -- confirm the follow-up popup ("Are you sure?") right away
         local button = after:GetButton1()
         if button then button:Click() end
     end
     C_GossipInfo.CloseGossip()
 end
 
--- Gruppen-Schlüssel ----------------------------------------------------------------------------
+-- Group keystones ----------------------------------------------------------------------------
 
 local LKS = LibStub and LibStub("LibKeystone", true)
-local keys = {}  -- Name > { level, mapID, rating }
+local keys = {}  -- name -> { level, mapID, rating }
 local panel, rows = nil, {}
 local ROW_HEIGHT, WIDTH, PAD = 22, 260, 8
 
