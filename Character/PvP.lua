@@ -1,6 +1,6 @@
--- Reiter „PvP“ (Forever-Rangsystem): Rang mit Wappen, Fortschritt als Ring drumherum und als Leiste,
--- rechts Wochenlimit und nächste Belohnung. Daten: C_MajorFactions, Fraktion 2800 = Rangpunkte
--- (wie Blizzards PVPRankFrame.lua). Nichts zum Klicken.
+-- PvP tab (Forever rank system): rank badge with a progress ring and bar; details show weekly cap
+-- and next reward. Data via C_MajorFactions, faction 2800 = rank points (as in Blizzard's
+-- PVPRankFrame.lua). Display only.
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
@@ -21,14 +21,14 @@ local function Create(view)
     left:SetPoint("TOPLEFT")
     left:SetPoint("BOTTOMLEFT")
     left:SetWidth(Char.LIST_W)
-    -- Block senkrecht mittig (Benny 2026-11-07: „gestaucht“, unten war alles leer)
+    -- Center the block vertically
     local block = CreateFrame("Frame", nil, left)
     block:SetSize(Char.LIST_W, 360)
     block:SetPoint("CENTER", 0, 10)
     left = block
     view.season = UI.Text(left, 13, "CENTER", UI.MUTED)
     view.season:SetPoint("TOP", 0, 0)
-    -- Ring: Fortschritt als Kreis (Blizzards Cooldown-Prozentanzeige) um das Wappen
+    -- Progress ring around the badge (Cooldown frame used as a percentage display)
     local ring = CreateFrame("Frame", nil, left)
     ring:SetSize(160, 160)
     ring:SetPoint("TOP", view.season, "BOTTOM", 0, -18)
@@ -69,7 +69,7 @@ local function Create(view)
     view.detail = Char.Detail(view)
     view.detail:SetPoint("TOPLEFT", Char.LIST_W + 14, 0)
     view.detail:SetPoint("BOTTOMRIGHT")
-    -- Belohnung als Karte unter dem Text
+    -- Reward card below the text
     local reward = CreateFrame("Frame", nil, view.detail)
     reward:SetHeight(44)
     UI.Box(reward, { 0.1, 0.1, 0.11, 1 })
@@ -94,7 +94,7 @@ local function Create(view)
 end
 
 local function UpdateSeason(view)
-    -- Blizzards EXPANSION_SEASON_NAME erwartet einen Erweiterungsnamen (in Forever leer: „Saison 1 von“)
+    -- Not EXPANSION_SEASON_NAME: it expects an expansion name, which is empty in Forever ("Season 1 of")
     local season = GetCurrentArenaSeason and GetCurrentArenaSeason() or 0
     local text = season > 0 and L["Season %d"]:format(season) or ""
     local left = C_SeasonInfo and C_SeasonInfo.GetTimeUntilCurrentPVPSeasonEnd and C_SeasonInfo.GetTimeUntilCurrentPVPSeasonEnd()
@@ -130,11 +130,11 @@ local function Refresh(view)
     local pct = threshold > 0 and points / threshold or 0
     if CooldownFrame_SetDisplayAsPercentage then CooldownFrame_SetDisplayAsPercentage(view.cooldown, pct) end
 
-    -- rechts: Saisonziel, Wochenlimit, nächste Belohnung
+    -- Detail pane: season target, weekly cap, next reward
     local maxRank = info.maxLevel or 0
     local total = C_MajorFactions.GetTotalReputationForRenownLevel
     local thisWeek = total(FACTION, info.currentWeekProgressiveMaxLevel or 0) - total(FACTION, info.previousWeekProgressiveMaxLevel or 0)
-    -- gegliedert wie die Fertigkeiten-Tabelle: Überschrift in Salbei mit Linie, links gedämpft, rechts hell
+    -- Same grid style as skills: accent header with rule, muted labels, bright values
     local N = BreakUpLargeNumbers
     local UI = ns.UI
     local myTotal = total(FACTION, rank) + points
@@ -149,7 +149,7 @@ local function Refresh(view)
     if thisWeek > 0 then
         grid[#grid + 1] = { a = L["Limit raised this week"], c = "+" .. N(thisWeek), aColor = UI.MUTED, cColor = { 0.43, 0.82, 0.47 } }
     end
-    -- nächste Belohnung: eigene Überschrift in derselben Tabelle, Karte darunter
+    -- Next reward: own header in the same grid, card below
     local nextRank, rewards
     for test = rank + 1, maxRank do
         local list = C_MajorFactions.GetRenownRewardsForLevel(FACTION, test)
@@ -187,7 +187,7 @@ Char.AddTab({
     end,
     Create = function(view)
         Create(view)
-        -- Saison-Countdown: jede Minute neu, nur solange der Reiter offen ist
+        -- Season countdown: update every minute, only while the tab is open
         view:HookScript("OnShow", function()
             if ticker then ticker:Cancel() end
             ticker = C_Timer.NewTicker(60, function() UpdateSeason(view) end)

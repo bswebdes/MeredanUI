@@ -1,9 +1,9 @@
--- Werte für das Charakterfenster (Spieler und Begleiter): gleiche Gruppen und Einträge wie Blizzards
--- PAPERDOLL_STATCATEGORIES (Camelot), aber selbst gerechnet. Viele Werte sind unter Umständen
--- geheim (SecretWhenUnitStatsRestricted) – dann zeigen wir „–“ statt zu rechnen.
+-- Stats for the character window (player and pet): same groups and entries as Blizzard's
+-- PAPERDOLL_STATCATEGORIES, but computed ourselves. Many values can be secret
+-- (SecretWhenUnitStatsRestricted) - then we show "-" instead of computing.
 --
--- ns.Char.StatRows(unit) → { { header = "Allgemein" }, { label, value, color, tip = function() … } … }
--- ns.Char.Resistances(unit) → { { name, value, color, icon } × 5 }
+-- ns.Char.StatRows(unit) -> { { header = "General" }, { label, value, color, tip = function() ... } ... }
+-- ns.Char.Resistances(unit) -> { { name, value, color, icon } x 5 }
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
@@ -34,12 +34,12 @@ local function BuffColor(pos, neg)
     if pos and pos > 0 then return GREEN end
 end
 
--- Gruppen --------------------------------------------------------------------------------------
+-- Groups ---------------------------------------------------------------------------------------
 
 local function General(rows, unit)
     local health = UnitHealthMax(unit)
     rows[#rows + 1] = { label = HEALTH, value = Secret(health) and "–" or Num(health) }
-    -- Gegenstandsstufe: Durchschnitt der angelegten Ausrüstung (Benny 2026-11-07: hierher statt in den Kopf)
+    -- Item level: average of equipped gear
     if unit == "player" then
         local best, equipped = GetAverageItemLevel()
         if equipped and not Secret(equipped, best) and equipped > 0 then
@@ -129,7 +129,7 @@ local function Weapons(rows, unit)
     end
 end
 
--- höchster lesbarer Wert aus mehreren Abfragen (wie Blizzard: Nah-, Fern-, Zauber-…)
+-- Highest readable value of several queries (like Blizzard: melee, ranged, spell ...)
 local function MaxOf(...)
     local best
     for i = 1, select("#", ...) do
@@ -145,7 +145,7 @@ local function SafeCall(fn, ...)
     if ok then return v end
 end
 
--- Summe lesbarer Werte; nil, sobald einer geheim ist (im Kampf liefert Blizzard manche als Secret)
+-- Sum of readable values; nil as soon as one is secret (some are secret in combat)
 local function Sum(...)
     local total = 0
     for i = 1, select("#", ...) do
@@ -223,7 +223,7 @@ function Char.StatRows(unit)
         Header(Char.G("STAT_CATEGORY_GENERAL", "General"))
         General(rows, unit)
         Header(Char.G("STAT_CATEGORY_COMBAT", "Combat"))
-        Defense(rows, unit) -- Rüstung (und Ausweichen) zuerst, wie Blizzard
+        Defense(rows, unit) -- armor (and dodge) first, like Blizzard
         Weapons(rows, unit)
         Modifiers(rows, unit)
         return rows
@@ -237,14 +237,14 @@ function Char.StatRows(unit)
     local before = #rows
     Header(Char.G("STAT_CATEGORY_MODIFIERS", "Modifiers"))
     Modifiers(rows, unit)
-    if #rows == before + 1 then rows[#rows] = nil end -- leere Gruppe weg
+    if #rows == before + 1 then rows[#rows] = nil end -- drop empty group
     Header(Char.G("STAT_CATEGORY_DEFENSE", "Defense"))
     Defense(rows, unit)
     return rows
 end
 
--- Widerstände: Arkan, Feuer, Frost, Natur, Schatten (Enum.Damageclass)
--- Enum-Name, Ersatzname, Farbe; DAMAGE_SCHOOL<n> = Enum-Wert + 1 (3 Feuer … 7 Arkan)
+-- Resistances via Enum.Damageclass: { enum name, fallback name, color };
+-- DAMAGE_SCHOOL<n> = enum value + 1 (3 Fire ... 7 Arcane)
 local RESISTANCES = {
     { "Arcane", "Arcane", { 0.79, 0.72, 1 } }, { "Fire", "Fire", { 0.88, 0.34, 0.18 } },
     { "Frost", "Frost", { 0.37, 0.66, 0.91 } }, { "Nature", "Nature", { 0.37, 0.75, 0.29 } },

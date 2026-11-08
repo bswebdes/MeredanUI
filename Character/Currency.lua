@@ -1,6 +1,6 @@
--- Reiter „Abzeichen“ (Währungen): Liste mit Gruppen, Menge rechts (grau bei 0), rechts Details mit
--- Obergrenzen und den Schaltern „Im Rucksack zeigen“ / „Unbenutzt“ (Blizzard_TokenUI/Camelot).
--- Blizzard arbeitet mit Listen-Indizes – Auswahl per currencyID merken.
+-- Currency tab: grouped list with amounts (gray at 0), details with caps and the "Show on backpack" /
+-- "Unused" toggles (see Blizzard_TokenUI). Blizzard's API uses list indices, which shift - so the
+-- selection is tracked by currencyID.
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char

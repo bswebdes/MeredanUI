@@ -1,14 +1,13 @@
--- Betrachten (Ausrüstung anderer Spieler, WoW Forever) als mUI-Fenster statt Blizzards InspectFrame –
--- Geschwister des Charakterfensters (Benny 2026-11-07: „hier ist das Betrachten-Fenster. go!“).
--- Reiter wie bei Blizzard: Ausrüstung, PvP-Rang, Gilde (nur mit Gilde).
+-- Inspect window (other players' gear, WoW Forever): mUI window replacing Blizzard's InspectFrame,
+-- sibling of the character window. Tabs as in Blizzard's: gear, PvP rank, guild (if any).
 --
---   [Porträt] Lumina Mondfunke                         [x]   [Reiter]
---             Stufe 17 · Kriegerin · Gegenstandsstufe 13
---   [Plätze]  [ Modell mit Rassen-Hintergrund ]  [Plätze]
---             [Waffe][Schild][Fern]
+--   [Portrait] Lumina Moonspark                    [x]   [Tabs]
+--              Level 17 - Warrior - Item level 13
+--   [Slots]  [ model with race background ]  [Slots]
+--            [Main][Off][Ranged]
 --
--- Ablauf wie Blizzard (Camelot/Blizzard_InspectUI.lua): NotifyInspect → INSPECT_READY → zeigen;
--- Zielwechsel schließt (bei „target“), Schließen gibt die Daten frei (ClearInspectPlayer).
+-- Flow as in Blizzard_InspectUI.lua: NotifyInspect -> INSPECT_READY -> show; a target change closes
+-- it (for "target"), closing frees the data (ClearInspectPlayer).
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
@@ -34,7 +33,7 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.characterWindow ~= false
 end
 
--- Ausrüstung --------------------------------------------------------------------------------------
+-- Gear -------------------------------------------------------------------------------------------
 
 local function CreateSlot(parent, slotName)
     local slot, texture = C_PaperDollInfo.GetInventorySlotInfo(slotName)
@@ -51,7 +50,7 @@ local function CreateSlot(parent, slotName)
     local hover = button:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.12)
-    -- Shift-Klick = Link in den Chat, Strg-Klick = Anprobe (Blizzards HandleModifiedItemClick)
+    -- Shift click = link to chat, ctrl click = dress up (HandleModifiedItemClick)
     button:SetScript("OnClick", function(self)
         local link = unit and GetInventoryItemLink(unit, self.slot)
         if link and not issecretvalue(link) then HandleModifiedItemClick(link) end
@@ -81,7 +80,7 @@ local function UpdateSlot(button)
     local r, g, b = 0, 0, 0
     if quality and quality > 1 then r, g, b = C_Item.GetItemQualityColor(quality) end
     for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
-    -- Itemlevel wie im Charakterfenster (Option „Itemlevel an den Plätzen“)
+    -- Item level as in the character window (same option)
     local level = link and ns.db.characterItemLevels ~= false and not NO_LEVEL[button.slot] and C_Item.GetDetailedItemLevelInfo(link)
     if level and not issecretvalue(level) and level > 1 then
         local qr, qg, qb = 1, 1, 1
@@ -138,7 +137,7 @@ local function RefreshGear(view)
     end
 end
 
--- PvP-Rang (GetInspectHonorData, wie Blizzards InspectPVPFrame) -----------------------------------
+-- PvP rank (GetInspectHonorData, as in Blizzard's InspectPVPFrame) --------------------------------
 
 local function RankName(rank)
     if not rank or rank <= 0 then return PVP_RANK_0_NAME or "" end
@@ -164,7 +163,7 @@ local function CreatePvP(view)
     view.bar = Char.Bar(block, 20)
     view.bar:SetSize(260, 20)
     view.bar:SetPoint("TOP", view.rankNumber, "BOTTOM", 0, -34)
-    -- Ehrenhafte Siege als kleine Tabelle (Salbei-Kopf wie im Charakterfenster)
+    -- Honorable kills as a small grid (accent header like the character window)
     view.rows = {}
     local function Row(i, header)
         local row = CreateFrame("Frame", nil, block)
@@ -208,7 +207,7 @@ local function RefreshPvP(view)
     view.rows[3].c:SetText(BreakUpLargeNumbers(today or 0))
 end
 
--- Gilde (C_PaperDollInfo.GetInspectGuildInfo, wie Blizzards InspectGuildFrame) ---------------------
+-- Guild (C_PaperDollInfo.GetInspectGuildInfo, as in Blizzard's InspectGuildFrame) -----------------
 
 local function CreateGuild(view)
     local block = CreateFrame("Frame", nil, view)
@@ -251,7 +250,7 @@ local function RefreshGuild(view)
     if SetDoubleGuildTabardTextures then SetDoubleGuildTabardTextures(unit, view.left, view.right, view.banner, view.bannerBorder) end
 end
 
--- Fenster ----------------------------------------------------------------------------------------
+-- Window -----------------------------------------------------------------------------------------
 
 local TABS = {
     { key = "gear", tip = function() return Char.G("CHARACTER_FRAME_TAB_CHARACTER", "Character") end, Create = CreateGear, Refresh = RefreshGear },
@@ -356,8 +355,8 @@ local function CreateWindow()
     end)
 end
 
--- Öffnen: sofort zeigen (Name, Porträt, Modell), Ausrüstung füllt sich bei INSPECT_READY.
--- Blizzard wartet mit dem Fenster auf die Daten – wirkte, als passiere nichts (Benny 2026-11-07).
+-- Show immediately (name, portrait, model); gear fills in on INSPECT_READY. Blizzard waits for the
+-- data before showing the window, which feels unresponsive.
 local function Open(target)
     if not window then CreateWindow() end
     if not target or not CanInspect(target, true) then return end
@@ -369,14 +368,14 @@ local function Open(target)
     Refresh()
 end
 Char.Inspect = Open
--- Tooltip.lua fragt keine eigenen Betrachten-Daten an, solange wir warten oder offen sind
--- (der Server beantwortet nur eine Anfrage nach der anderen)
+-- Tooltip.lua skips its own inspect requests while we wait or are open
+-- (the server answers only one request at a time)
 function ns.InspectBusy() return window ~= nil and window:IsShown() end
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
-    -- Blizzards Öffner (Menü „Betrachten“, Strg-Klick …) – nur dieser globale Name
+    -- Replace Blizzard's opener ("Inspect" menu, ctrl click ...) - only this global
     InspectUnit = function(target) Open(target) end
     ns:On("INSPECT_READY", function(_, readyGUID)
         if not unit or readyGUID ~= guid then return end

@@ -1,14 +1,12 @@
--- Charakterfenster (WoW Forever) als eigenes mUI-Fenster statt Blizzards CharacterFrame – gleiche
--- Fenster-Familie wie Gilde und Freunde (Kopfzeile mit Porträt, Reiter rechts außen). Entwurf
--- „Charakter“ im Design-Artefakt (Benny 2026-11-07: „sieht stark aus … let's go“).
+-- Character window (WoW Forever): own mUI window replacing Blizzard's CharacterFrame, same family
+-- as the guild and friends windows (portrait header, tabs on the outer right).
 --
---   [Porträt] Koratal                                        [x]   [Reiter]
---             Stufe 14 · Jäger · <Gilde>                           Charakter
---   … Inhalt des Reiters …                                         Ruf, Fertigkeiten, PvP,
---                                                                  Abzeichen, Statistiken
--- Dieser Kern: Fenster, Reiter, Öffnen/Umleiten und die gemeinsamen Bausteine (Liste mit Gruppen,
--- Detail-Fläche, Haken). Jeder Reiter steht in einer eigenen Datei und meldet sich mit
--- ns.Char.AddTab an. Daten und Aktionen kommen von Blizzard, nur Aufbau und Optik sind unsere.
+--   [Portrait] Koratal                                [x]   [Tabs]
+--              Level 14 - Hunter - <Guild>                 Character, Reputation, Skills,
+--   ... tab content ...                                    PvP, Currency, Statistics
+--
+-- Core: window, tabs, open/redirect and shared widgets (grouped list, detail pane, checkbox).
+-- Each tab lives in its own file and registers via ns.Char.AddTab. Data and actions are Blizzard's.
 local _, ns = ...
 local L = ns.L
 
@@ -31,15 +29,15 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.characterWindow ~= false
 end
 
--- Blizzard-Text oder unsere Übersetzung
+-- Blizzard global string, or our translation as fallback
 function Char.G(name, fallback)
     local value = _G[name]
     if type(value) == "string" and value ~= "" then return value end
     return L[fallback or name]
 end
 
--- Reiter anmelden: { key, order, icon (Textur oder function(texture)), tip, Create(view),
--- Refresh(view), events = { … } } – Events laufen nur, solange der Reiter offen ist
+-- Register a tab: { key, order, icon (texture or function(texture)), tip, Create(view),
+-- Refresh(view), events = { ... } } - events only trigger refreshes while the tab is open
 function Char.AddTab(def)
     Char.tabs[#Char.tabs + 1] = def
     table.sort(Char.tabs, function(a, b) return a.order < b.order end)
@@ -51,11 +49,11 @@ local function TabByKey(key)
     end
 end
 
--- Gemeinsame Bausteine ----------------------------------------------------------------------------
+-- Shared widgets ----------------------------------------------------------------------------
 
-local UI -- = ns.UI (erst nach dem Laden von Config/Widgets.lua da)
+local UI -- = ns.UI (only available after Config/Widgets.lua has loaded)
 
--- Haken mit kurzem Text (Detail-Flächen: Im Krieg, Inaktiv …)
+-- Checkbox with a short label (detail panes: At war, Inactive ...)
 function Char.Check(parent, label, onClick)
     local button = CreateFrame("Button", nil, parent)
     button:SetSize(220, 20)
@@ -80,7 +78,7 @@ function Char.Check(parent, label, onClick)
     return button
 end
 
--- Balken mit Text in der Mitte (Ruf, Fertigkeiten, EP)
+-- Status bar with centered text (reputation, skills, XP)
 function Char.Bar(parent, height)
     local bar = CreateFrame("StatusBar", nil, parent)
     bar:SetHeight(height or 18)
@@ -103,7 +101,7 @@ function Char.Bar(parent, height)
     return bar
 end
 
--- Liste mit Gruppen (auf-/zuklappbar) und Zeilen; scrollt. SetData(entries):
+-- Scrolling list with collapsible groups. SetData(entries):
 --   { header = true, text, collapsed, onClick }
 --   { text, color, indent, selected, bar = { value, max, color, text }, right, rightColor,
 --     icon, onClick(entry, button), onEnter(row, entry), height }
@@ -194,8 +192,8 @@ function Char.List(parent)
     return list
 end
 
--- Detail-Fläche rechts (Ruf, Fertigkeiten, Abzeichen): Titel, Untertitel, Balken, Text, Tabelle,
--- Haken unten. Fill(data) / Empty(text)
+-- Right-hand detail pane: title, subtitle, bar, text, grid, checkboxes at the bottom.
+-- Fill(data) / Empty(text)
 --   data = { title, sub, subColor, bar = { value, max, color, text }, text,
 --            grid = { { a, b, c, color, bColor, cColor, header } }, checks = { { label, checked, enabled, onClick } } }
 function Char.Detail(parent)
@@ -256,7 +254,7 @@ function Char.Detail(parent)
         self.text:SetText(data.text or "")
         self.text:SetShown(data.text ~= nil and data.text ~= "")
         if self.text:IsShown() then anchor = self.text end
-        -- Tabelle (z. B. Waffenfertigkeit: gleiche Stufe / Boss)
+        -- Grid (e.g. weapon skill: same level / boss)
         for i, line in ipairs(data.grid or {}) do
             local r = self.gridRows[i]
             if not r then
@@ -270,7 +268,7 @@ function Char.Detail(parent)
                 r.b = UI.Text(r, 12, "RIGHT")
                 r.b:SetPoint("RIGHT", r.c, "LEFT", -6, 0)
                 r.b:SetWidth(90)
-                r.rule = r:CreateTexture(nil, "BORDER") -- Linie unter der Kopfzeile (Salbei)
+                r.rule = r:CreateTexture(nil, "BORDER") -- rule under header rows
                 r.rule:SetPoint("BOTTOMLEFT", 0, -3)
                 r.rule:SetPoint("BOTTOMRIGHT", 0, -3)
                 r.rule:SetHeight(ns.PixelSize())
@@ -278,11 +276,11 @@ function Char.Detail(parent)
                 self.gridRows[i] = r
             end
             r:ClearAllPoints()
-            -- Abstand: neuer Abschnitt (Kopfzeile) mit Luft, unter einer Kopfzeile etwas, sonst eng
+            -- Spacing: wide before a new header, medium right below one, tight otherwise
             local gap = i == 1 and -12 or line.header and -16 or data.grid[i - 1].header and -8 or -2
             r:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, gap)
             r:SetPoint("RIGHT", -inner, 0)
-            -- Kopfzeile in Salbei mit Linie; Werte je Zelle eigene Farbe (bColor/cColor)
+            -- Header rows in accent color; value cells may have their own color (bColor/cColor)
             for _, key in ipairs({ "a", "b", "c" }) do
                 r[key]:SetText(line[key] or "")
                 r[key]:SetTextColor(unpack(line.header and UI.ACCENT or line[key .. "Color"] or line.color or UI.TEXT))
@@ -292,8 +290,8 @@ function Char.Detail(parent)
             anchor = r
         end
         for i = #(data.grid or {}) + 1, #self.gridRows do self.gridRows[i]:Hide() end
-        self.lastAnchor = anchor -- für Zusätze darunter (z. B. Belohnungskarte)
-        -- Haken unten, von unten nach oben
+        self.lastAnchor = anchor -- for extras placed below (e.g. reward card)
+        -- Checkboxes stacked bottom-up
         local checks = data.checks or {}
         for i, def in ipairs(checks) do
             local check = self.checks[i]
@@ -314,8 +312,8 @@ function Char.Detail(parent)
     return pane
 end
 
--- Rassen-Hintergrund hinter einem Modell wie bei Blizzard (SetPaperDollBackground): vier Teile der
--- DressUp-Grafik, entsättigt, darüber ein Schleier je Rasse. :SetUnit(unit) (Charakter, Betrachten)
+-- Race background behind a model like Blizzard's SetPaperDollBackground: four tiles of the DressUp
+-- art, desaturated, with a per-race overlay. :SetUnit(unit) (character, inspect)
 local OVERLAY_ALPHA = { HUMAN = 1, DWARF = 0.93, NIGHTELF = 0.5, TROLL = 0.85, ORC = 0.75, SCOURGE = 0.2 }
 function Char.RaceBackdrop(stage)
     local backdrop = CreateFrame("Frame", nil, stage)
@@ -350,24 +348,24 @@ function Char.RaceBackdrop(stage)
     return backdrop
 end
 
--- Standard-Aufteilung eines Reiters: Liste links, Details rechts
+-- Default tab layout: list left, details right
 function Char.ListAndDetail(view)
     view.list = Char.List(view)
     view.list:SetPoint("TOPLEFT")
     view.list:SetPoint("BOTTOMLEFT")
-    view.list:SetWidth(LIST_W - 12) -- Platz für die Scrollleiste
+    view.list:SetWidth(LIST_W - 12) -- room for the scroll bar
     view.detail = Char.Detail(view)
     view.detail:SetPoint("TOPLEFT", LIST_W + 14, 0)
     view.detail:SetPoint("BOTTOMRIGHT")
 end
 
--- Fenster ----------------------------------------------------------------------------------------
+-- Window ----------------------------------------------------------------------------------------
 
 local function Subtitle()
     local level = UnitLevel("player")
     local class, classFile = UnitClass("player")
     local color = RAID_CLASS_COLORS[classFile]
-    if color then class = color:WrapTextInColorCode(class) end -- Klasse in Klassenfarbe
+    if color then class = color:WrapTextInColorCode(class) end
     local parts = { L["Level %d"]:format(level), class }
     local guild = GetGuildInfo("player")
     if guild then parts[#parts + 1] = "<" .. guild .. ">" end
@@ -391,7 +389,7 @@ local function RefreshCurrent()
     local view = def and Char.views[def.key]
     if view and def.Refresh then def.Refresh(view) end
 end
--- mehrere Ereignisse in einem Bild = ein Neuaufbau
+-- Coalesce several events within one frame into a single rebuild
 function Char.Refresh()
     if pending then return end
     pending = true
@@ -406,7 +404,7 @@ local function WatchEvents(def)
             ns:On(event, function(_, unit)
                 local active = TabByKey(current)
                 if not (window and window:IsShown() and active) then return end
-                -- UNIT_*: nur Spieler und Begleiter (Buffs der Gruppe bauen nichts neu auf)
+                -- UNIT_*: player and pet only (group aura changes must not trigger rebuilds)
                 if event:find("^UNIT_") and type(unit) == "string" and unit ~= "player" and unit ~= "pet" then return end
                 for _, e in ipairs(active.events or {}) do
                     if e == event then return Char.Refresh() end
@@ -428,7 +426,7 @@ local function Select(key)
         local active = button.def.key == current
         for _, edge in ipairs(button.active) do edge:SetShown(active) end
         TabIcon(button, button.def)
-        button.icon:SetDesaturated(not active) -- inaktive leicht grau (wie Gilde)
+        button.icon:SetDesaturated(not active) -- inactive tabs slightly gray (like guild)
         button.icon:SetAlpha(active and 1 or 0.75)
     end
     for k, view in pairs(Char.views) do view:SetShown(k == current) end
@@ -456,7 +454,7 @@ local function CreateWindow()
     for i, def in ipairs(Char.tabs) do
         local button = CreateFrame("Button", nil, window)
         button:SetSize(TAB_SIZE, TAB_SIZE)
-        button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (i - 1) * TAB_STEP) -- wie Gilde, Berufe, Zauberbuch
+        button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (i - 1) * TAB_STEP) -- like guild, professions, spellbook
         UI.Box(button, ns.STYLE.panelColor)
         button.icon = button:CreateTexture(nil, "ARTWORK")
         button.icon:SetPoint("TOPLEFT", 3, -3)
@@ -497,9 +495,9 @@ local function CreateWindow()
     end)
 end
 
--- Öffnen ------------------------------------------------------------------------------------------
+-- Opening ------------------------------------------------------------------------------------------
 
--- Blizzards Reiternamen (ToggleCharacter("ReputationFrame") …) auf unsere
+-- Map Blizzard tab names (ToggleCharacter("ReputationFrame") ...) to ours
 local BLIZZARD_TABS = {
     PaperDollFrame = "character", ReputationFrame = "reputation", SkillFrame = "skills", SkillsFrame = "skills",
     PVPRankFrame = "pvp", PVPFrame = "pvp", HonorFrame = "pvp", TokenFrame = "currency", StatisticsFrame = "statistics",
@@ -529,7 +527,7 @@ ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
 
-    -- Tasten: C (Charakter), U (Ruf), PvP, Abzeichen – Override auf unsere Knöpfe
+    -- Key bindings (character, reputation, PvP, currency) overridden onto our buttons
     local buttons = {}
     local function Button(name, key)
         local button = CreateFrame("Button", name, UIParent)
@@ -555,14 +553,14 @@ ns:On("PLAYER_LOGIN", function()
     BindKeys()
     ns:On("UPDATE_BINDINGS", BindKeys)
 
-    -- Blizzards globaler Öffner (Mikromenü, Erfolge, Gamepad …) – nur dieser globale Name,
-    -- keine Methoden an Blizzards Rahmen (CharacterFrame.ToggleTokenFrame bleibt unberührt)
+    -- Replace Blizzard's global opener (micro menu, achievements, gamepad ...). Only this global -
+    -- never overwrite methods on Blizzard frames (CharacterFrame.ToggleTokenFrame stays untouched)
     ToggleCharacter = function(tab, onlyShow)
         local key = BLIZZARD_TABS[tab] or "character"
         if onlyShow then Char.Open(key) else Toggle(key) end
     end
     if CharacterMicroButton then CharacterMicroButton:SetScript("OnClick", function() Toggle("character") end) end
-    -- Fällt doch einmal Blizzards Fenster auf (z. B. Abzeichen-Knopf im Rucksack): gleich zu, unseres auf
+    -- If Blizzard's frame still opens (e.g. currency button on the backpack), close it and open ours
     if CharacterFrame then
         CharacterFrame:HookScript("OnShow", function(frame)
             frame:Hide()

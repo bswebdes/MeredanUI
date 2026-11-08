@@ -1,22 +1,21 @@
--- Ausrüstungsset anlegen/bearbeiten: Name + eigenes Symbol (Benny 2026-11-07: „eigenes Bildchen
--- aussuchen statt Platzhalter“). Symbole liefert Blizzards IconDataProvider (Equipment): zuerst die
--- angelegte Ausrüstung, dann alle Spielsymbole (mehrere Tausend). Gezeichnet werden nur die
--- sichtbaren Zeilen; beim Schließen gibt der Provider seinen Speicher wieder frei.
+-- Create/edit equipment set dialog: name + icon. Icons come from Blizzard's IconDataProvider
+-- (Equipment): equipped items first, then all game icons (several thousand). Only visible rows are
+-- drawn; the provider is released on close to free its memory.
 --
---   Neues Ausrüstungsset                       [x]
---   [Symbol]  [ Name …………………… ]
---   ┌────────────────────────────────┐ ▲
---   │ ▣ ▣ ▣ ▣ ▣ ▣ ▣ ▣ ▣ ▣            │ █
---   │ …                              │ ▼
---   └────────────────────────────────┘
---                        [Abbrechen] [Speichern]
+--   New equipment set                 [x]
+--   [Icon]  [ Name ............ ]
+--   +------------------------------+ ^
+--   | # # # # # # # # # #          | |
+--   | ...                          | v
+--   +------------------------------+
+--                     [Cancel] [Save]
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
 
 local COLS, ROWS, SIZE, GAP = 10, 6, 36, 4
 local dialog, provider
-local state = {} -- id (nil = neu), selected (Index), offset (Zeile)
+local state = {} -- id (nil = new), selected (index), offset (row)
 
 local function Total() return provider and provider:GetNumIcons() or 0 end
 local function RowCount() return math.ceil(Total() / COLS) end
@@ -64,7 +63,7 @@ local function Save()
     else
         local existing = C_EquipmentSet.GetEquipmentSetID(name)
         if existing then
-            C_EquipmentSet.SaveEquipmentSet(existing, icon) -- gleicher Name: überschreiben (wie Blizzard)
+            C_EquipmentSet.SaveEquipmentSet(existing, icon) -- same name: overwrite (like Blizzard)
         else
             C_EquipmentSet.CreateEquipmentSet(name, icon)
             if Char.SelectSet then Char.SelectSet(C_EquipmentSet.GetEquipmentSetID(name)) end
@@ -175,7 +174,7 @@ local function Create()
     end)
 end
 
--- id = nil: neues Set; sonst bearbeiten
+-- id = nil: new set; otherwise edit
 function Char.EditSet(id)
     if not dialog then Create() end
     if not id and C_EquipmentSet.GetNumEquipmentSets() >= (MAX_EQUIPMENT_SETS_PER_PLAYER or 10) then
@@ -186,7 +185,7 @@ function Char.EditSet(id)
     state.id, state.offset = id, 0
     local name, icon = "", nil
     if id then name, icon = C_EquipmentSet.GetEquipmentSetInfo(id) end
-    state.selected = icon and provider:GetIndexOfIcon(icon) or 2 -- neu: erstes Ausrüstungssymbol
+    state.selected = icon and provider:GetIndexOfIcon(icon) or 2 -- new: first equipment icon
     if state.selected then state.offset = math.min(math.max(math.floor((state.selected - 1) / COLS) - 1, 0), MaxOffset()) end
     dialog.title:SetText(id and Char.G("EQUIPMENT_SET_EDIT", "Edit set") or Char.G("PAPERDOLL_NEWEQUIPMENTSET", "New set"))
     dialog.name:SetText(name or "")

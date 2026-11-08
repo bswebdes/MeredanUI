@@ -1,13 +1,13 @@
--- Reiter „Statistiken“: eine Liste über die ganze Breite (Blizzards rechte Seite ist dort immer
--- leer). Gruppen und Untergruppen auf-/zuklappbar. Gold-Werte kommen von Blizzard als Text mit
--- Münzbildern – Blizzard zeigt dafür nur „--“ (tonumber), wir den Text selbst.
+-- Statistics tab: one full-width list (Blizzard's right side is always empty there) with
+-- collapsible groups and subgroups. Gold values arrive as text with coin icons - Blizzard shows
+-- "--" for them (tonumber fails), we show the text itself.
 local _, ns = ...
 local Char = ns.Char
 
 local ROOT = -1
-local collapsed = {} -- categoryID → true (gilt bis zum Neuladen)
+local collapsed = {} -- categoryID -> true (kept until reload)
 
--- Kategorien als Baum in Blizzards Reihenfolge
+-- Category tree in Blizzard's order
 local function Categories()
     local source = GetStatisticsCategoryList() or {}
     local ordered = {}

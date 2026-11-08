@@ -1,6 +1,6 @@
--- Reiter „Fertigkeiten“ (Forever): Berufe, Sekundäre, Waffenfertigkeiten (+ Verteidigung) mit
--- blauen Balken; rechts Beschreibung, bei Waffen eine kleine Tabelle „gleiche Stufe / Boss“
--- (Formeln wie Blizzard, SkillsFrame.lua: 0,04 % pro Punkt, Raidboss Stufe 63).
+-- Skills tab (Forever): professions, secondary and weapon skills (+ defense) with blue bars; details
+-- show the description, and for weapons a small "same level / boss" grid
+-- (formulas as in Blizzard's SkillsFrame.lua: 0.04 % per point, raid boss level 63).
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
@@ -8,8 +8,8 @@ local Char = ns.Char
 local BLUE = { 0.24, 0.44, 0.82 }
 local DEFENSE_SKILL_ID = 95
 local RAID_BOSS_LEVEL = 63
-local HIDDEN_CATEGORIES = { [7] = true } -- Klassenfertigkeiten
-local WEAPONS = { -- skillID → Fernkampf?
+local HIDDEN_CATEGORIES = { [7] = true } -- class skills
+local WEAPONS = { -- skillID -> ranged?
     [43] = false, [44] = false, [45] = true, [46] = true, [54] = false, [55] = false, [136] = false, [160] = false,
     [172] = false, [173] = false, [176] = true, [226] = true, [228] = true, [229] = false, [162] = false, [3014] = false,
 }
@@ -28,7 +28,7 @@ local function RankText(info)
     return ("%d/%d"):format(info.rank, info.maxRank)
 end
 
--- Farbe je Vorzeichen: minus dezent rot, plus grün, ±0 Salbei (Benny 2026-11-07: „so farblos“)
+-- Color by sign: negative muted red, positive green, zero accent
 local MINUS, PLUS = { 0.88, 0.45, 0.42 }, { 0.43, 0.82, 0.47 }
 local function SignColor(v)
     if v < -0.005 then return MINUS end
@@ -41,7 +41,7 @@ local function Signed(v)
     return (v > 0 and "+" or v < 0 and "−" or "±") .. text
 end
 
--- Abweichung Treffer/Krit gegen ein Ziel der Stufe (Spielerstufe + offset)
+-- Hit/crit difference vs. a target of level (player level + offset)
 local function Diff(levelOffset, skill)
     return (skill - (UnitLevel("player") + levelOffset) * 5) * 0.04
 end
@@ -76,7 +76,7 @@ local function Refresh(view)
             end
         end
     end
-    -- leere Detailfläche wirkt kaputt: erste Fertigkeit wählen (wie Blizzard)
+    -- An empty detail pane looks broken: select the first skill (like Blizzard)
     if not selected and firstSkill then
         selectedID, selected = firstSkill.skillID, firstSkill
         for _, entry in ipairs(entries) do

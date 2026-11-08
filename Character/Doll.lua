@@ -1,14 +1,14 @@
--- Reiter „Charakter“: Ausrüstung mit Modell links, rechts vier Unteransichten (Symbole oben):
--- Werte, Ausrüstungssets, Titel, Begleiter (Entwurf „Charakter“, Benny 2026-11-07).
+-- Character tab: gear slots around the model on the left, four sub-views on the right
+-- (icons on top): stats, equipment sets, titles, pet.
 --
---   [Kopf]   ┌──────────┐   [Hände]     [W][S][T][B]  Werte
---   [Hals]   │  Modell  │   [Taille]    Allgemein …
---   …        └──────────┘   …           Widerstände als Farbkästchen
---         [Waffe][Schild][Fern][Muni]
+--   [Head]   +---------+   [Hands]    [S][E][T][P]  Stats
+--   [Neck]   |  Model  |   [Waist]    General ...
+--   ...      +---------+   ...        resistances as color chips
+--         [Main][Off][Ranged][Ammo]
 --
--- Plätze: Linksklick/Ziehen = aufnehmen/anlegen (PickupInventoryItem), Shift/Strg-Klick = Link
--- bzw. Anprobe. Rechtsklick „Benutzen“ fehlt bewusst: UseInventoryItem ist für Addons gesperrt.
--- In der Sets-Ansicht hat jeder Platz einen Pfeil: passende Teile aus den Taschen zum Tauschen.
+-- Slots: left click/drag = pick up/equip (PickupInventoryItem), shift/ctrl click = link/dress up.
+-- No right click "use": UseInventoryItem is protected for addons.
+-- In the sets view each slot has an arrow opening matching bag items to swap in.
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
@@ -22,7 +22,7 @@ local SUB = 30
 local LEFT_SLOTS = { "HEADSLOT", "NECKSLOT", "SHOULDERSLOT", "BACKSLOT", "CHESTSLOT", "SHIRTSLOT", "TABARDSLOT", "WRISTSLOT" }
 local RIGHT_SLOTS = { "HANDSSLOT", "WAISTSLOT", "LEGSSLOT", "FEETSLOT", "FINGER0SLOT", "FINGER1SLOT", "TRINKET0SLOT", "TRINKET1SLOT" }
 local BOTTOM_SLOTS = { "MAINHANDSLOT", "SECONDARYHANDSLOT", "RANGEDSLOT", "AMMOSLOT" }
-local NO_LEVEL = { [INVSLOT_BODY or 4] = true, [INVSLOT_TABARD or 19] = true } -- Hemd, Wappenrock
+local NO_LEVEL = { [INVSLOT_BODY or 4] = true, [INVSLOT_TABARD or 19] = true } -- shirt, tabard
 
 local view
 local slots = {}
@@ -34,7 +34,7 @@ local function IsHunterPet()
     return hasUI, isHunter
 end
 
--- Plätze -----------------------------------------------------------------------------------------
+-- Slots ------------------------------------------------------------------------------------------
 
 local function SlotTooltip(button)
     GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
@@ -46,7 +46,7 @@ local function SlotTooltip(button)
     GameTooltip:Show()
 end
 
-local Flyout -- unten
+local Flyout -- defined below
 
 local function CreateSlot(parent, slotName, side)
     local slot, texture = C_PaperDollInfo.GetInventorySlotInfo(slotName)
@@ -68,7 +68,7 @@ local function CreateSlot(parent, slotName, side)
     button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     button:RegisterForDrag("LeftButton")
     button:SetScript("OnClick", function(self, mouse)
-        -- wartet ein Zauber auf ein Ziel (Köder, Öl, Verzauberung), klickt der Secure-Knopf darüber
+        -- A spell awaiting an item target (lure, oil, enchant) is handled by the secure overlay
         if SpellIsTargeting() then return end
         local link = GetInventoryItemLink("player", self.slot)
         if link and HandleModifiedItemClick(link) then return end
@@ -78,8 +78,8 @@ local function CreateSlot(parent, slotName, side)
     button:SetScript("OnReceiveDrag", function(self) PickupInventoryItem(self.slot) end)
     button:SetScript("OnEnter", SlotTooltip)
     button:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    -- Tausch-Knopf für die Sets-Ansicht (nicht bei Munition): schmale Leiste über die ganze
-    -- Platzhöhe (unten: -breite), damit man sie gut trifft (Benny 2026-11-07: Pfeil war zu klein)
+    -- Swap button for the sets view (not for ammo): a thin strip along the full slot height
+    -- (bottom row: width) so it is easy to hit
     if slotName ~= "AMMOSLOT" then
         local arrow = CreateFrame("Button", nil, parent)
         local bg = UI.Box(arrow)
@@ -137,7 +137,7 @@ local function UpdateSlot(button)
     local r, g, b = 0, 0, 0
     if texture and quality and quality > 1 then r, g, b = C_Item.GetItemQualityColor(quality) end
     for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
-    -- Itemlevel wie bisher (Upgrades/ItemLevels.lua): kleine Zahl unten, in Qualitätsfarbe
+    -- Item level as in Upgrades/ItemLevels.lua: small number at the bottom in quality color
     local level
     if texture and ns.db.characterItemLevels ~= false and not NO_LEVEL[slot] and button.slotName ~= "AMMOSLOT" then
         level = C_Item.GetCurrentItemLevel(ItemLocation:CreateFromEquipmentSlot(slot))
@@ -155,12 +155,12 @@ local function UpdateSlot(button)
     button.count:SetText(count > 0 and (count > 999 and "*" or count) or "")
 end
 
--- Zauber auf Ausrüstung (Köder auf die Angel, Waffenöl, Wetzstein, Verzauberung) -----------------
--- Blizzard erlaubt das nur aus geschütztem Code (PickupInventoryItem bei wartendem Ziel-Zauber ist
--- für Addons gesperrt). Darum liegen in diesem Moment Blizzards Secure-Knöpfe über den Plätzen:
--- ohne eigene Aktion, nur mit „target-slot“ – Blizzards SecureActionButton legt den wartenden
--- Zauber nach dem Klick selbst auf den Platz (SecureTemplates.lua). Die Knöpfe hängen an UIParent
--- (nicht an unserem Fenster, sonst wäre es im Kampf gesperrt) und kommen nur außerhalb des Kampfes.
+-- Spells on gear (fishing lure, weapon oil, sharpening stone, enchant) ---------------------------
+-- Only allowed from secure code: PickupInventoryItem with a pending targeting spell is protected
+-- for addons. So secure buttons are laid over the slots while targeting: no action, just
+-- "target-slot" - SecureActionButton applies the pending spell to that slot (SecureTemplates.lua).
+-- They are parented to UIParent (parenting to our window would lock it in combat) and are only
+-- shown out of combat.
 local targets = {}
 
 local function TargetButton(button)
@@ -204,7 +204,7 @@ local function UpdateTargets()
     end
 end
 
--- Tauschen (Sets-Ansicht): passende Teile aus den Taschen ----------------------------------------
+-- Swap flyout (sets view): matching items from the bags ------------------------------------------
 
 local flyout
 local FLY = 34
@@ -232,7 +232,7 @@ local function FlyoutButton(i)
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.border = ns.AddBorder(button)
-    -- Upgrade-Pfeil wie in den Taschen (Upgrades.lua), darunter die Prozentzahl
+    -- Upgrade arrow as in the bags (Upgrades.lua), percentage below
     button.upgrade = CreateFrame("Frame", nil, button)
     button.upgrade:SetSize(16, 16)
     button.upgrade:SetPoint("TOPLEFT", 1, -1)
@@ -283,7 +283,7 @@ Flyout = function(owner)
     local entries = {}
     for location in pairs(items) do
         local _, name, texture, _, _, _, _, _, _, _, _, setTooltip, quality = EquipmentManager_GetItemInfoByLocation(location)
-        -- nur Taschen und andere angelegte Plätze (z. B. Ring 2 > Ring 1), nicht die Bank
+        -- Bags and other equipped slots only (e.g. ring 2 -> ring 1), not the bank
         local data = EquipmentManager_GetLocationData(location)
         if texture and not data.isBank and (data.isBags or (data.isPlayer and data.slot ~= owner.slot)) then
             local link = data.isBags and C_Container.GetContainerItemLink(data.bag, data.slot) or GetInventoryItemLink("player", data.slot)
@@ -292,7 +292,7 @@ Flyout = function(owner)
                 upgrade = (upgrade and upgrade >= 0.05) and upgrade or nil }
         end
     end
-    -- Upgrades zuerst (größtes zuerst), dann nach Qualität
+    -- Upgrades first (largest first), then by quality
     table.sort(entries, function(a, b)
         if (a.upgrade ~= nil) ~= (b.upgrade ~= nil) then return a.upgrade ~= nil end
         if a.upgrade and b.upgrade and a.upgrade ~= b.upgrade then return a.upgrade > b.upgrade end
@@ -327,17 +327,17 @@ Flyout = function(owner)
     flyout:SetSize(12 + cols * FLY + (cols - 1) * 4, 12 + rows * FLY + (rows - 1) * 4)
     flyout:ClearAllPoints()
     if owner.side == "bottom" then
-        -- Waffenplätze unten: nach oben aufklappen, über dem Pfeil (sonst verdeckt es die Nachbarplätze)
+        -- Bottom weapon slots: open upwards above the arrow (otherwise it covers neighboring slots)
         flyout:SetPoint("BOTTOMLEFT", owner, "TOPLEFT", 0, 17)
     elseif owner.side == "right" then
-        flyout:SetPoint("TOPRIGHT", owner, "TOPLEFT", -14, 0) -- rechte Spalte: nach links, ins Fenster
+        flyout:SetPoint("TOPRIGHT", owner, "TOPLEFT", -14, 0) -- right column: open to the left, into the window
     else
         flyout:SetPoint("TOPLEFT", owner, "TOPRIGHT", 14, 0)
     end
     flyout:Show()
 end
 
--- Modell ------------------------------------------------------------------------------------------
+-- Model -------------------------------------------------------------------------------------------
 
 local function CreateModel(parent)
     local model = CreateFrame("PlayerModel", nil, parent)
@@ -356,7 +356,7 @@ local function CreateModel(parent)
         self.zoom = math.min(math.max(self.zoom - delta * 0.1, 0.5), 1.4)
         self:SetCamDistanceScale(self.zoom)
     end)
-    -- Item aufs Modell ziehen = anlegen
+    -- Dropping an item on the model equips it
     model:SetScript("OnReceiveDrag", function()
         if C_PaperDollInfo.CanAutoEquipCursorItem() then AutoEquipCursorItem() end
     end)
@@ -371,9 +371,9 @@ local function ShowUnit(unit)
     model.unit = unit
 end
 
--- Unteransichten ---------------------------------------------------------------------------------
+-- Sub-views --------------------------------------------------------------------------------------
 
--- Werte (Spieler oder Begleiter): Zeilen + Widerstände als Kästchenreihe
+-- Stats (player or pet): rows + a row of resistance chips
 local function CreateStats(parent)
     local frame = CreateFrame("Frame", nil, parent)
     frame:SetAllPoints()
@@ -467,7 +467,7 @@ local function FillStats(frame, unit)
     end
 end
 
--- Ausrüstungssets
+-- Equipment sets
 local function SetPopup(which, text, onAccept, withName, default)
     local key = "MEREDANUI_EQUIPSET_" .. which
     StaticPopupDialogs[key] = {
@@ -599,7 +599,7 @@ local function FillSets(frame)
     for _, b in ipairs({ frame.equip, frame.save, frame.edit }) do b:SetAlpha(b:IsEnabled() and 1 or 0.4) end
 end
 
--- Titel
+-- Titles
 local function CreateTitles(parent)
     local frame = CreateFrame("Frame", nil, parent)
     frame:SetAllPoints()
@@ -632,7 +632,7 @@ local function FillTitles(frame)
     frame.list:SetData(entries)
 end
 
--- Aufbau ------------------------------------------------------------------------------------------
+-- Layout ------------------------------------------------------------------------------------------
 
 local SUBS = {
     { key = "stats", tip = function() return Char.G("PAPERDOLL_SIDEBAR_STATS", "Attributes") end, icon = 8197104 },
@@ -682,7 +682,7 @@ local function UpdatePetInfo()
     local family = UnitCreatureFamily("pet") or ""
     local name = UnitName("pet") or ""
     local loyalty = C_PetInfo.GetPetLoyalty and C_PetInfo.GetPetLoyalty()
-    if loyalty and not issecretvalue(loyalty) then loyalty = loyalty:gsub("^%((.*)%)$", "%1") end -- Blizzard klammert doppelt
+    if loyalty and not issecretvalue(loyalty) then loyalty = loyalty:gsub("^%((.*)%)$", "%1") end -- Blizzard already wraps it in parentheses
     info.line:SetText(("%s · %s %d %s"):format(name, LEVEL, UnitLevel("pet"), family))
     info.loyalty:SetText(loyalty or "")
     local current, nextXP = GetPetExperience()
@@ -735,7 +735,7 @@ local function Create(frame)
     left:SetWidth(LEFT_W)
     view.left = left
 
-    -- Modell zwischen den Spalten
+    -- Model between the slot columns
     local stage = CreateFrame("Frame", nil, left)
     stage:SetPoint("TOPLEFT", SLOT + 14, 0)
     stage:SetPoint("BOTTOMRIGHT", -(SLOT + 14), SLOT + 22)
@@ -763,7 +763,7 @@ local function Create(frame)
     end
     view.ranged, view.ammo = bottom[3], bottom[4]
 
-    -- Begleiter-Zeile unter dem Modell (statt der unteren Plätze)
+    -- Pet info row below the model (replaces the bottom slots)
     local petInfo = CreateFrame("Frame", nil, left)
     petInfo:SetPoint("BOTTOMLEFT", SLOT + 14, 0)
     petInfo:SetPoint("BOTTOMRIGHT", -(SLOT + 14), 0)
@@ -799,7 +799,7 @@ local function Create(frame)
     petInfo:Hide()
     view.petInfo = petInfo
 
-    -- rechts: Unteransichten
+    -- Right side: sub-views
     local right = CreateFrame("Frame", nil, frame)
     right:SetPoint("TOPLEFT", RIGHT_X, 0)
     right:SetPoint("BOTTOMRIGHT")
@@ -846,7 +846,7 @@ local function Create(frame)
         sets = CreateSets(content),
         titles = CreateTitles(content),
     }
-    -- Ziel-Zauber beobachten, solange der Reiter offen ist (alle 0,1 s, nur ein Funktionsaufruf)
+    -- Poll for targeting spells while the tab is open (every 0.1 s, a single call)
     local elapsed = 0
     frame:HookScript("OnUpdate", function(_, delta)
         elapsed = elapsed + delta
@@ -875,10 +875,10 @@ Char.AddTab({
     },
 })
 
--- Kampfbeginn: Secure-Knöpfe weg, solange es noch geht (läuft vor der Sperre)
+-- Entering combat: hide secure overlays while still allowed (fires before lockdown)
 ns:On("PLAYER_REGEN_DISABLED", HideTargets)
 
--- Modell neu laden, wenn sich das Aussehen ändert (Gestaltwandel, Ausrüstung)
+-- Reload the model when appearance changes (shapeshift, gear)
 ns:On("UNIT_MODEL_CHANGED", function(_, unit)
     if view and view:IsVisible() and (unit == "player" or unit == "pet") and view.model.unit == unit then ShowUnit(unit) end
 end)

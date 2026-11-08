@@ -1,7 +1,7 @@
--- Reiter „Ruf“: Liste mit Gruppen (auf-/zuklappbar, „Inaktiv“ als eigene Gruppe – kommt so von
--- Blizzard), Balken in den mUI-Ruffarben, rechts Details mit Im Krieg / Inaktiv / Als Leiste.
--- Achtung: Blizzard arbeitet mit Listen-Indizes; nach Inaktiv/Auf-Zu verschieben sie sich, darum
--- merken wir die Auswahl per factionID.
+-- Reputation tab: collapsible groups ("Inactive" is its own group, as delivered by Blizzard), bars in
+-- mUI reputation colors, details with At war / Inactive / Show as bar.
+-- Blizzard's API uses list indices that shift after toggling inactive or collapsing, so the
+-- selection is tracked by factionID.
 local _, ns = ...
 local L = ns.L
 local Char = ns.Char
@@ -12,7 +12,7 @@ local function StandingText(reaction)
     return GetText("FACTION_STANDING_LABEL" .. reaction, UnitSex("player")) or ""
 end
 
--- Werte für Balken: Standard oder Freundschaft
+-- Bar values for regular or friendship reputations
 local function Progress(data)
     local friendship = C_GossipInfo and C_GossipInfo.GetFriendshipReputation and C_GossipInfo.GetFriendshipReputation(data.factionID)
     if friendship and friendship.friendshipFactionID and friendship.friendshipFactionID > 0 then
@@ -57,7 +57,7 @@ local function Refresh(view)
                         Char.Refresh()
                     end,
                     onEnter = function(row)
-                        -- Zahlen beim Drüberfahren (wie Blizzard)
+                        -- Show numbers on hover (like Blizzard)
                         if max > 1 then row.bar.text:SetText(("%s/%s"):format(BreakUpLargeNumbers(value), BreakUpLargeNumbers(max))) end
                         GameTooltip:SetOwner(row, "ANCHOR_RIGHT")
                         GameTooltip:SetText(data.name, 1, 1, 1)
