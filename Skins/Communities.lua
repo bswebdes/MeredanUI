@@ -25,6 +25,8 @@ local CONTENT_TOP = PAD + HEAD_ICON + 14   -- Inhalt unter dem Kopf (78)
 local CONTENT_BOTTOM = 54                  -- Fußzeile darunter
 local BOX = { 0.098, 0.098, 0.106, 1 }     -- Kästen (Nachricht des Tages, Info, Neuigkeiten)
 local PlaceAll                             -- Gesamt-Layout (unten definiert)
+local LIST_SLOT, LIST_TOP_PAD = 68, 40     -- Blizzards Zeilenhöhe/Rand der Community-Liste (ggf. angepasst)
+local CARD_INSET = 8                       -- Karte = Zeile minus 2 × CARD_INSET
 local memberDeco = {}                      -- Kasten der Mitgliederliste (nur Chat-Ansicht)
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
@@ -402,8 +404,8 @@ local function SkinListEntry(entry)
     for _, key in ipairs({ "Icon", "IconRing", "GuildTabardBackground", "GuildTabardEmblem", "GuildTabardBorder",
         "InvitationIcon" }) do Fade(entry[key]) end
     local card = Tex(entry, "BACKGROUND", -8, BOX)
-    card:SetPoint("TOPLEFT", 0, -8)
-    card:SetPoint("BOTTOMRIGHT", 0, 8)
+    card:SetPoint("TOPLEFT", 0, -CARD_INSET)
+    card:SetPoint("BOTTOMRIGHT", 0, CARD_INSET)
     Edges(entry, card)
     local selected = Tex(entry, "BACKGROUND", -7, { 0.122, 0.141, 0.133, 1 })
     selected:SetAllPoints(card)
@@ -748,6 +750,13 @@ end
 
 local function SkinCommunitiesList(list)
     if type(list) ~= "table" then return end
+    -- Zeilen 52 statt 68 hoch, 8 px Abstand, ohne 40-px-Rand oben: wie im eigenen Fenster
+    local view = list.ScrollBox and list.ScrollBox.GetView and list.ScrollBox:GetView()
+    if view and view.SetElementExtent and view.SetPadding and pcall(view.SetElementExtent, view, 52)
+        and pcall(view.SetPadding, view, 0, 0, 0, 0, 8) then
+        LIST_SLOT, CARD_INSET, LIST_TOP_PAD = 52, 0, 0 -- Zeile = Karte, 8 px Abstand über die Liste
+        if list.ScrollBox.FullUpdate then pcall(list.ScrollBox.FullUpdate, list.ScrollBox, true) end
+    end
     -- wie im eigenen Fenster: keine Spalten-Fläche, nur die Karten der Einträge
     for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Fade(list[key]) end
     FadeRegions(list.FilligreeOverlay)
@@ -1367,7 +1376,7 @@ PlaceAll = function(f)
     -- Community-Liste: erste Karte (Blizzard: 40 px Rand oben + 8 px Kartenrand) auf Inhaltshöhe
     if list then
         list:ClearAllPoints()
-        list:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(CONTENT_TOP - 48))
+        list:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(CONTENT_TOP - LIST_TOP_PAD - CARD_INSET))
         list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", PAD + LIST_W, CONTENT_BOTTOM)
     end
     -- Mitgliederliste: neben dem Chat 180 breit, auf der Mitgliederseite unter Kopfzeile + Spalten
@@ -1428,8 +1437,8 @@ PlaceAll = function(f)
     local stream = f.StreamDropdown
     if stream then
         stream:ClearAllPoints()
-        stream:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X - 3, -(CONTENT_TOP - 3))
-        stream:SetWidth(226)
+        stream:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP) -- Fläche füllt den ganzen Knopf
+        stream:SetSize(220, 28)
     end
     local headset = f.VoiceChatHeadset
     if headset and members and members.MemberCount then
