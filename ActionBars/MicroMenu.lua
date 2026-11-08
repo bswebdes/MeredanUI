@@ -1,27 +1,27 @@
--- Mikromenü und Taschenknöpfe unten rechts (25 px vom Rand), flach im MUI-Look.
--- Blizzards Mikroknöpfe bleiben funktional (Klick, Tooltip, Tastenbelegung); ihre Optik wird
--- unsichtbar, darüber liegt ein eckiges Feld mit Symbol in Klassenfarbe. Die Taschen sind
--- eigene schlichte Knöpfe mit den echten Taschenbildern, rechtsbündig über dem Mikromenü.
+-- Micro menu and bag buttons bottom right (25 px from the edge), flat MUI look.
+-- Blizzard's micro buttons stay functional (click, tooltip, keybind); their art is made
+-- invisible and a square tile with a class-colored icon sits on top. The bags are simple
+-- custom buttons with the real bag icons, right-aligned above the micro menu.
 --
---                              [Ruck][T1][T2][T3][T4][Reag]
---   [Char][Beruf][Zauber][Erfolge][Quest][Haus][Gilde][Suche][Samml.][Führer][Shop][Menü]
+--                             [Pack][B1][B2][B3][B4][Reag]
+--  [Char][Prof][Spells][Achiev][Quest][House][Guild][LFG][Coll][Guide][Shop][Menu]
 local _, ns = ...
 local L = ns.L
 
-local SIZE = 28        -- Mikroknöpfe und Taschen gleich groß
-local overlays = {}    -- eigene Felder über Blizzards Mikroknöpfen
-local GAP_PIXELS = 6   -- sichtbar 4 px (Rahmen liegen außen), wie bei den Aktionsleisten
+local SIZE = 28        -- micro buttons and bags share the size
+local overlays = {}    -- our tiles over Blizzard's micro buttons
+local GAP_PIXELS = 6   -- visibly 4 px (borders sit outside), like the action bars
 local hidden = CreateFrame("Frame")
 hidden:Hide()
 
--- Symbol je Blizzard-Knopf (Media/Icons/…)
+-- icon per Blizzard button (Media/Icons/...)
 local MICRO_ICONS = {
     CharacterMicroButton = "MicroCharacter",
     ProfessionMicroButton = "MicroProfession",
     PlayerSpellsMicroButton = "MicroSpells",
-    SpellbookMicroButton = "MicroSpells",     -- Forever: Zauberbuch und Talente getrennt
+    SpellbookMicroButton = "MicroSpells",     -- Forever: spellbook and talents are separate
     TalentMicroButton = "MicroTalents",
-    LegacyMicroButton = "MicroLegacy",        -- Forever: Legacy-System
+    LegacyMicroButton = "MicroLegacy",        -- Forever: legacy system
     AchievementMicroButton = "MicroAchievement",
     QuestLogMicroButton = "Quest",
     HousingMicroButton = "MicroHousing",
@@ -40,13 +40,13 @@ local function ClassColor()
     return ns.UI.TEXT
 end
 
--- Blizzard-Frame dauerhaft an einen Punkt setzen (Edit Mode verschiebt ihn sonst zurück)
+-- Pin a Blizzard frame to a point permanently (Edit Mode would move it back otherwise)
 local function Pin(frame, ...)
     local args = { ... }
     local waiting
     local function Apply()
-        -- im Kampf gesperrt: nach dem Kampf nachholen (Blizzard setzt das Menü nach Fahrzeugen/
-        -- Sonderleisten auf die Bearbeitungsmodus-Lage zurück – sonst blieb es bis /reload in der Mitte)
+        -- locked in combat: redo after combat (Blizzard resets the menu to its Edit Mode position after
+        -- vehicles/special bars - otherwise it stayed centered until /reload)
         if InCombatLockdown() then
             if not waiting then
                 waiting = true
@@ -63,11 +63,11 @@ local function Pin(frame, ...)
     Apply()
 end
 
--- Mikroknopf: Blizzard-Optik unsichtbar, darüber eckiges Feld mit Symbol in Klassenfarbe
+-- Micro button: Blizzard art invisible, square tile with class-colored icon on top
 local function SkinMicroButton(button, iconName)
     button:SetAlpha(0)
-    -- Blizzard setzt die Transparenz beim Aktivieren/Deaktivieren zurück (OnEnable > 1,
-    -- OnDisable > 0,5) – dann schaut sein Hintergrund hinter unserem Feld hervor. Sofort wieder 0.
+    -- Blizzard resets alpha on enable/disable (OnEnable -> 1, OnDisable -> 0.5), which lets its
+    -- background peek out behind our tile. Reset to 0 immediately.
     hooksecurefunc(button, "SetAlpha", function(self, alpha)
         if alpha ~= 0 then self:SetAlpha(0) end
     end)
@@ -76,7 +76,7 @@ local function SkinMicroButton(button, iconName)
     overlay:SetAllPoints(button)
     local bg = overlay:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
-    -- voll deckend: Reste von Blizzards Knopf dürfen nicht durchscheinen
+    -- fully opaque: remnants of Blizzard's button must not show through
     local r, g, b = unpack(ns.STYLE.panelColor)
     bg:SetColorTexture(r, g, b, 1)
     ns.AddBorder(overlay)
@@ -89,17 +89,17 @@ local function SkinMicroButton(button, iconName)
     overlays[#overlays + 1] = overlay
 end
 
--- Eigene Taschenknöpfe (Blizzards Taschenleiste lässt sich kaum sauber umstylen):
--- Rucksack, Tasche 1–4, Reagenzientasche – Bild der Tasche, Klick öffnet sie, Tooltip zeigt sie.
--- Der Rucksack zeigt die freien Plätze aller Taschen.
-local BAGS = { 0, 1, 2, 3, 4, 5 } -- 5 = Reagenzientasche
+-- Custom bag buttons (Blizzard's bag bar is hard to restyle cleanly): backpack, bags 1-4,
+-- reagent bag - bag icon, click opens it, tooltip shows it.
+-- The backpack shows free slots across all bags.
+local BAGS = { 0, 1, 2, 3, 4, 5 } -- 5 = reagent bag
 local bagBar
 local bagButtons = {}
 
 local function FreeSlots()
     local free = 0
     for _, bag in ipairs(BAGS) do
-        -- nur normale Taschen: Köcher & andere Spezialtaschen (family ~= 0) zählen nicht mit
+        -- regular bags only: quivers and other special bags (family ~= 0) don't count
         local count, family = C_Container.GetContainerNumFreeSlots(bag)
         if not family or family == 0 then free = free + (count or 0) end
     end
@@ -110,7 +110,7 @@ local function UpdateBagButtons()
     for _, button in ipairs(bagButtons) do
         local texture
         if button.bag == 0 then
-            texture = 133633 -- Rucksack
+            texture = 133633 -- backpack
         else
             local slot = C_Container.ContainerIDToInventoryID(button.bag)
             texture = slot and GetInventoryItemTexture("player", slot)
@@ -165,7 +165,7 @@ local function CreateBagBar(anchor)
     bagBar = CreateFrame("Frame", "MeredanUIBagBar", UIParent)
     local size, gap = ns.Snap(SIZE), GAP_PIXELS * ns.PixelSize()
     bagBar:SetSize(#BAGS * size + (#BAGS - 1) * gap, size)
-    -- rechtsbündig über dem Mikromenü, Rucksack ganz rechts
+    -- right-aligned above the micro menu, backpack rightmost
     bagBar:SetPoint("BOTTOMRIGHT", anchor, "TOPRIGHT", 0, ns.Snap(8))
     for i, bag in ipairs(BAGS) do
         local button = CreateBagButton(bag)
@@ -180,8 +180,8 @@ end
 ns:On("BAG_UPDATE_DELAYED", UpdateBagButtons)
 ns:On("PLAYER_EQUIPMENT_CHANGED", UpdateBagButtons)
 
--- Mikroknöpfe selbst in eine Reihe legen (nach Blizzards Reihenfolge), gleiche Größe und
--- Abstände wie die Aktionsleisten. Läuft nach jedem Blizzard-Layout erneut.
+-- Lay out the micro buttons in one row (Blizzard's order), same size and spacing as the
+-- action bars. Reruns after every Blizzard layout pass.
 local function LayoutMicroButtons()
     if InCombatLockdown() or not MicroMenu then return end
     local buttons = {}
@@ -200,7 +200,7 @@ local function LayoutMicroButtons()
     if MicroMenuContainer then MicroMenuContainer:SetSize(math.max(width, 1), size) end
 end
 
--- Sichtbarkeit: "always", "mouseover", "hidden"
+-- Visibility: "always", "mouseover", "hidden"
 local function ApplyVisibility(frame, setting)
     local mode = ns.VisibilityMode(setting)
     frame.muiMouseover = mode == "mouseover"
@@ -214,7 +214,7 @@ end
 function ns.UpdateMicroMenu()
     if InCombatLockdown() then return ns.AfterCombat(ns.UpdateMicroMenu) end
     if MicroMenuContainer then ApplyVisibility(MicroMenuContainer, ns.db.microMenu) end
-    if bagBar then ApplyVisibility(bagBar, "hidden") end -- Taschenknöpfe fest aus (Taschen öffnet man mit B)
+    if bagBar then ApplyVisibility(bagBar, "hidden") end -- bag buttons always off (bags open with B)
 end
 
 local function Setup()
@@ -226,12 +226,12 @@ local function Setup()
             if button then SkinMicroButton(button, iconName) end
         end
         if HelpMicroButton then HelpMicroButton:SetAlpha(0) end
-        -- Forever: Blizzards Rahmen und Hintergrund ums Mikromenü ausblenden
+        -- Forever: hide Blizzard's frame and background around the micro menu
         if MicroMenu then
             if MicroMenu.BorderArt then MicroMenu.BorderArt:SetAlpha(0) end
             if MicroMenu.BackgroundArt then MicroMenu.BackgroundArt:SetAlpha(0) end
         end
-        -- unten rechts, 25 px vom Rand; Knöpfe in eigener Reihe
+        -- bottom right, 25 px from the edge; buttons in our own row
         Pin(container, "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin)
         if MicroMenu then
             Pin(MicroMenu, "BOTTOMRIGHT", container, "BOTTOMRIGHT", 0, 0)
@@ -240,17 +240,17 @@ local function Setup()
             LayoutMicroButtons()
         end
         ns.RegisterMouseover(container)
-        -- Die Felder hängen nicht an den (unsichtbaren) Blizzard-Knöpfen, erben die Transparenz
-        -- des Menüs also nicht. Mouseover-Ausblenden deshalb ausdrücklich an sie weitergeben.
+        -- The tiles aren't parented to the (invisible) Blizzard buttons, so they don't inherit the
+        -- menu's alpha. Pass mouseover fading on to them explicitly.
         hooksecurefunc(container, "SetAlpha", function(_, alpha)
             for _, overlay in ipairs(overlays) do overlay:SetAlpha(alpha) end
         end)
     end
 
-    -- Blizzards Taschenleiste weg, eigene Taschenknöpfe über dem Mikromenü
+    -- hide Blizzard's bag bar, custom bag buttons above the micro menu
     if BagsBar then BagsBar:SetParent(hidden) end
     CreateBagBar(container or UIParent)
     ns.UpdateMicroMenu()
 end
 
-ns:On("PLAYER_LOGIN", function() ns.AfterCombat(Setup) end) -- direkt: auch bei /reload im Kampf
+ns:On("PLAYER_LOGIN", function() ns.AfterCombat(Setup) end) -- immediately: also works on /reload in combat

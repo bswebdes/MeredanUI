@@ -1,31 +1,30 @@
--- Zauberränge & Lehrer (Forever): dezente Erinnerungen über Toasts.
---   • Rang-Wächter: Liegt auf einer Aktionsleiste ein Zauber in einem niedrigeren Rang, obwohl du
---     einen höheren kennst, gibt es EINEN Toast („2 Zauber … höherer Rang · Klick: aktualisieren“)
---     und ein kleiner goldener Pfeil sitzt auf dem Knopf. Klick auf den Toast tauscht die Ränge
---     (nur außerhalb des Kampfs, mit leerem Cursor).
---   • Lehrer: Beim Stufenaufstieg EIN Toast, wenn beim Lehrer neue Zauber warten (Zukunftszauber im
---     Zauberbuch, deren Stufe du erreicht hast).
--- Retail kennt keine Ränge > das Modul bleibt dort aus.
+-- Spell ranks & trainer (Forever): subtle reminders via toasts.
+--   - Rank watcher: if an action bar holds a lower rank of a spell you know a higher rank of,
+--     show ONE toast ("2 spells ... higher rank - click: update") and a small gold arrow on
+--     the button. Clicking the toast swaps the ranks (out of combat only, with an empty cursor).
+--   - Trainer: on level-up, ONE toast if new spells await at the trainer (future spells in the
+--     spellbook whose level you have reached).
+-- Retail has no ranks, so the module stays off there.
 local _, ns = ...
 local L = ns.L
 
 local MAX_ACTION_SLOT = 180
-local MARK_SIZE = 16 -- Abzeichen (Pfeil darin 12 px)
+local MARK_SIZE = 16 -- badge (arrow inside is 12 px)
 local GOLD = { 1, 0.82, 0 }
 
-local lowSlots = {}  -- Aktionsplatz > Zauber-ID des höchsten Rangs
-local toastedFor = {} -- Platz > Zauber, für den schon erinnert wurde (nicht ständig wiederholen)
+local lowSlots = {}  -- action slot -> spell ID of the highest rank
+local toastedFor = {} -- slot -> spell already reminded about (don't repeat constantly)
 
 local function RanksEnabled() return ns.db.spellRanks ~= false and ns.IS_FOREVER end
 local function TrainerEnabled() return ns.db.trainerReminder ~= false and ns.IS_FOREVER end
 
--- höchster bekannter Rang eines Zaubers (gleicher Name, nicht „niedriger Rang“)
+-- highest known rank of a spell (same name, not a "lower rank")
 local function HighestRank(spellID)
     local name = C_Spell.GetSpellName(spellID)
     if not name then return end
     local slot, bank = C_SpellBook.FindSpellBookSlotForSpell(spellID, false, false, false, false)
     if not slot or not C_SpellBook.IsSpellBookItemLowRank(slot, bank) then return end
-    -- im Zauberbuch nach demselben Namen suchen, der kein niedriger Rang ist
+    -- search the spellbook for the same name that isn't a lower rank
     for index = 1, C_SpellBook.GetNumSpellBookSkillLines() do
         local line = C_SpellBook.GetSpellBookSkillLineInfo(index)
         if line then
@@ -40,7 +39,7 @@ local function HighestRank(spellID)
     end
 end
 
--- alle Aktionsplätze prüfen
+-- check all action slots
 local function Scan()
     wipe(lowSlots)
     if not RanksEnabled() then return 0 end
@@ -58,15 +57,15 @@ local function Scan()
     return count
 end
 
--- kleiner goldener Pfeil oben links auf betroffenen MUI-Knöpfen (rechts steht die Taste)
+-- small gold arrow top left on affected MUI buttons (keybind is on the right)
 local function UpdateMarks()
     for _, bar in ipairs(ns.actionBars or {}) do
         for _, button in ipairs(bar.buttons) do
             local slot = button._state_type == "action" and button._state_action
             local low = type(slot) == "number" and lowSlots[slot]
             if low and not button.muiRankMark then
-                -- kleines Abzeichen: dunkles Feld, goldener 1-px-Rahmen, goldener Pfeil – auf jedem
-                -- Symbol gut zu sehen (oben rechts steht die Tastenbelegung)
+                -- small badge: dark tile, gold 1 px border, gold arrow - visible on any icon
+                -- (keybind sits top right)
                 local mark = CreateFrame("Frame", nil, button)
                 mark:SetSize(ns.Snap(MARK_SIZE), ns.Snap(MARK_SIZE))
                 mark:SetPoint("TOPLEFT", 1, -1)
@@ -84,13 +83,13 @@ local function UpdateMarks()
     end
 end
 
--- alte Ränge auf den Leisten durch den höchsten ersetzen (nur außerhalb des Kampfs)
+-- replace old ranks on the bars with the highest one (out of combat only)
 local function UpgradeAll()
     if InCombatLockdown() then
         ns.Print(L["Not possible in combat."])
         return
     end
-    if GetCursorInfo() then return end -- nichts in der Hand haben
+    if GetCursorInfo() then return end -- cursor must be empty
     local done = 0
     for slot, best in pairs(lowSlots) do
         C_Spell.PickupSpell(best)
@@ -108,7 +107,7 @@ local function Refresh(announce)
     local count = Scan()
     UpdateMarks()
     if not announce or count == 0 or not ns.AddToast then return end
-    -- nur erinnern, wenn etwas NEU veraltet ist (nicht bei jedem Neuladen dasselbe)
+    -- only remind when something is NEWLY outdated (not the same thing on every reload)
     local fresh = false
     for slot, best in pairs(lowSlots) do
         if toastedFor[slot] ~= best then fresh = true end
@@ -123,7 +122,7 @@ local function Refresh(announce)
     })
 end
 
--- Lehrer: Zukunftszauber, deren Stufe erreicht ist
+-- Trainer: future spells whose level has been reached
 local function TrainerSpells()
     local level, count = UnitLevel("player"), 0
     for index = 1, C_SpellBook.GetNumSpellBookSkillLines() do
@@ -143,7 +142,7 @@ end
 
 ns:On("PLAYER_LEVEL_UP", function()
     if not TrainerEnabled() then return end
-    -- das Zauberbuch ist nach dem Aufstieg erst einen Moment später aktuell
+    -- the spellbook is only up to date a moment after leveling
     C_Timer.After(2, function()
         local count = TrainerSpells()
         if count > 0 and ns.AddToast then
@@ -153,7 +152,7 @@ ns:On("PLAYER_LEVEL_UP", function()
     end)
 end)
 
--- neu gelernt (Lehrer) > prüfen und ggf. erinnern; Leisten geändert > nur Pfeile nachziehen
+-- newly learned (trainer) -> check and maybe remind; bars changed -> only refresh arrows
 local pending
 local function Request(announce)
     if pending then return end
@@ -164,7 +163,7 @@ end
 ns:On("PLAYER_LOGIN", function()
     if not ns.IS_FOREVER then return end
     C_Timer.After(2, function()
-        -- beim Login nur still markieren und merken (keine Erinnerung bei jedem Einloggen)
+        -- on login just mark silently and remember (no reminder on every login)
         Refresh(false)
         for slot, best in pairs(lowSlots) do toastedFor[slot] = best end
     end)

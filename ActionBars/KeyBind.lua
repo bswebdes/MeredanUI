@@ -1,17 +1,17 @@
--- Tastenbelegungs-Modus (/kb, Idee wie ElvUI, Optik MUI): Maus über einen Aktionsknopf, Taste
--- (auch Maustaste 3–5, Mausrad, mit Shift/Strg/Alt) drücken – fertig. Esc löscht die Belegung.
+-- Keybind mode (/kb, idea from ElvUI, MUI look): hover an action button and press a key
+-- (also mouse buttons 3-5, mouse wheel, with Shift/Ctrl/Alt). Esc clears the binding.
 --
---   ┌─ TASTENBELEGUNG ─────────────── ✕ ┐   ← Panel oben mittig, verschiebbar
---   │ Maus über einen Knopf, Taste drücken │
---   │ Esc löscht die Belegung              │
---   │ ☐ Nur für diesen Charakter           │
---   │ [ Speichern ]        [ Verwerfen ]   │
---   └──────────────────────────────────────┘
---   [■] ← Knopf unter der Maus: Rahmen in Surf Green, Tooltip mit der aktuellen Belegung
+--  +- KEYBINDS ----------------------- x +   <- panel top center, movable
+--  | Hover a button, press a key        |
+--  | Esc clears the binding             |
+--  | [ ] Character-specific             |
+--  | [ Save ]            [ Discard ]    |
+--  +------------------------------------+
+--  [#] <- button under the mouse: Surf Green border, tooltip shows current binding
 --
--- Belegt werden Blizzards Befehle (ACTIONBUTTON1, MULTIACTIONBAR1BUTTON1, BONUSACTIONBUTTON1 …);
--- ActionBars.lua leitet sie auf unsere Knöpfe um. Über dem Knopf liegt ein eigener, nicht
--- geschützter Fänger – die Knöpfe selbst fasst MUI nicht an. Nur außerhalb des Kampfs.
+-- Binds Blizzard's commands (ACTIONBUTTON1, MULTIACTIONBAR1BUTTON1, BONUSACTIONBUTTON1 ...);
+-- ActionBars.lua redirects them to our buttons. An unprotected catcher frame sits over the button,
+-- so MUI never touches the secure buttons themselves. Out of combat only.
 local _, ns = ...
 local L = ns.L
 
@@ -20,16 +20,16 @@ local dirty = false
 local panel, catcher
 local hooked = {}
 
--- Tasten, die allein nichts belegen (nur Modifikatoren)
+-- keys that bind nothing on their own (modifiers only)
 local IGNORE = {
     LSHIFT = true, RSHIFT = true, LCTRL = true, RCTRL = true, LALT = true, RALT = true,
     LMETA = true, RMETA = true, UNKNOWN = true,
 }
--- Blizzards Bindungs-Sätze (Konstanten fehlen teils als Globale)
+-- Blizzard's binding sets (constants are partly missing as globals)
 local ACCOUNT, CHARACTER = ACCOUNT_BINDINGS or 1, CHARACTER_BINDINGS or 2
 local MOUSE = { MiddleButton = "BUTTON3", Button4 = "BUTTON4", Button5 = "BUTTON5" }
 
--- Blizzards Reihenfolge: ALT-CTRL-SHIFT-Taste
+-- Blizzard's order: ALT-CTRL-SHIFT-key
 local function WithModifiers(key)
     local prefix = ""
     if IsAltKeyDown() then prefix = prefix .. "ALT-" end
@@ -46,7 +46,7 @@ local function KeysText(command)
     return table.concat(keys, ", ")
 end
 
--- Tooltip: was der Knopf tut und welche Tasten er hat
+-- Tooltip: what the button does and which keys it has
 local function ShowTooltip()
     local target = catcher.target
     if not target then return end
@@ -86,7 +86,7 @@ local function CreateCatcher()
         if not IGNORE[key] then Bind(key) end
     end)
     catcher:SetScript("OnMouseDown", function(_, button)
-        if MOUSE[button] then Bind(MOUSE[button]) end -- Links/Rechts bleiben frei
+        if MOUSE[button] then Bind(MOUSE[button]) end -- left/right stay free
     end)
     catcher:SetScript("OnMouseWheel", function(_, delta) Bind(delta > 0 and "MOUSEWHEELUP" or "MOUSEWHEELDOWN") end)
     catcher:SetScript("OnLeave", function(self)
@@ -112,7 +112,7 @@ local function Hook(button, command)
     button:HookScript("OnEnter", OnButtonEnter)
 end
 
--- Alle belegbaren Knöpfe: MUI-Leisten, Begleiter-, Haltungs- und Extra-Knopf (Blizzards)
+-- All bindable buttons: MUI bars, Blizzard's pet, stance and extra buttons
 local function HookButtons()
     for _, bar in ipairs(ns.actionBars or {}) do
         for i, button in ipairs(bar.buttons) do Hook(button, bar.def.binding .. i) end
@@ -124,7 +124,7 @@ local function HookButtons()
     Hook(_G.ExtraActionButton1, "EXTRAACTIONBUTTON1")
 end
 
--- Kleine Checkbox im MUI-Look
+-- Small checkbox in MUI look
 local function Checkbox(parent, label, onClick)
     local UI = ns.UI
     local button = CreateFrame("Button", nil, parent)
@@ -186,7 +186,7 @@ function Stop(save)
         SaveBindings(panel.perCharacter.checked and CHARACTER or ACCOUNT)
         ns.Print(L["Key bindings saved."])
     elseif dirty then
-        LoadBindings(GetCurrentBindingSet()) -- Änderungen verwerfen
+        LoadBindings(GetCurrentBindingSet()) -- discard changes
         ns.Print(L["Key binding changes discarded."])
     end
     dirty = false
@@ -206,7 +206,7 @@ local function Start()
 end
 ns.ToggleKeyBind = Start
 
--- Kampf beginnt: Modus beenden, bisherige Änderungen behalten (gespeichert)
+-- Combat starts: end the mode, keep changes made so far (saved)
 ns:On("PLAYER_REGEN_DISABLED", function() if active then Stop(true) end end)
 
 ns.AddCommand("kb", L["key binding mode: hover a button, press a key"], Start)
