@@ -207,12 +207,14 @@ local function SkinEditBox(box, inset)
     else
         bg:SetAllPoints()
     end
-    local edges = Edges(box, bg)
+    -- leichte helle Kante, damit das Feld auf dunklem Grund erkennbar ist; mit Fokus Surf Green
+    local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
+    local edges = Edges(box, bg, IDLE)
     box:HookScript("OnEditFocusGained", function()
         for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
     end)
     box:HookScript("OnEditFocusLost", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(0, 0, 0, 1) end
+        for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
     end)
 end
 
@@ -649,19 +651,39 @@ local function SkinShell(f)
             end
         end
     end
-    -- Fußzeile: „Mitglied einladen“ und „Gildeneinstellungen“ bündig mit der Liste darüber, mittig im
-    -- Fußband statt in der Ecke (Benny 2026-11-08)
+    -- Fußzeile (Benny 2026-11-08: Kästen klebten an den Knöpfen): Inhalte enden 40 px über der
+    -- Unterkante, Knöpfe 24 hoch mit 8 px Luft darüber und darunter, bündig mit dem Kasten darüber.
+    -- Inhalts-Bereiche oben wie vorher (Blizzard: 40 unter der Community-Spalte, die wir tiefer setzen).
     if not InCombatLockdown() then
+        local BOTTOM, BUTTON_H = 40, 24
+        if f.MemberList then f.MemberList:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, BOTTOM) end
+        for _, key in ipairs({ "GuildBenefitsFrame", "GuildDetailsFrame", "GuildPreferredPlaySettingsFrame" }) do
+            local area = f[key]
+            if area and f.CommunitiesList then
+                area:ClearAllPoints()
+                area:SetPoint("TOPLEFT", f.CommunitiesList, "TOPRIGHT", 24, -23)
+                area:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -12, BOTTOM)
+            end
+        end
         if f.InviteButton then
-            f.InviteButton:SetSize(150, 22)
+            f.InviteButton:SetSize(150, BUTTON_H)
             f.InviteButton:ClearAllPoints()
-            f.InviteButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 3)
+            f.InviteButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8)
         end
         local control = f.CommunitiesControlFrame
-        if control and control.GuildControlButton then control.GuildControlButton:SetSize(150, 22) end
-        if f.CommunitiesControlFrame then
-            f.CommunitiesControlFrame:ClearAllPoints()
-            f.CommunitiesControlFrame:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 3)
+        if control then
+            for _, key in ipairs({ "GuildControlButton", "GuildRecruitmentButton", "CommunitiesSettingsButton" }) do
+                if control[key] then control[key]:SetHeight(BUTTON_H) end
+            end
+            if control.GuildControlButton then control.GuildControlButton:SetWidth(150) end
+            control:SetHeight(BUTTON_H)
+            control:ClearAllPoints()
+            control:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8)
+        end
+        if f.GuildLogButton and f.GuildDetailsFrame then
+            f.GuildLogButton:SetSize(150, BUTTON_H)
+            f.GuildLogButton:ClearAllPoints()
+            f.GuildLogButton:SetPoint("BOTTOMLEFT", f.GuildDetailsFrame, "BOTTOMLEFT", 0, 8 - BOTTOM)
         end
     end
     SkinInset(f.Inset)
@@ -677,7 +699,7 @@ local function SkinCommunitiesList(list)
     if f and not InCombatLockdown() then
         list:ClearAllPoints()
         list:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -40)
-        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", 181, 29)
+        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", 181, 40) -- wie die übrigen Inhalte (Fußzeile)
     end
     -- wie der Chat-Kasten; der Kasten liegt über den Einträgen: Rand am Kasten, Fläche an der Liste
     SkinInset(list.InsetFrame, true)
