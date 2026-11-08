@@ -1,42 +1,40 @@
--- Eigenes mUI-Damage-Meter (Benny 2026-11-07, Tafel „Damage Meter“ im Entwurfs-Artefakt): zwei
--- Fenster übereinander oben links, oben Schaden, unten Heilung, Art und Kampf per Klick umschaltbar.
--- Die Zahlen kommen von Blizzard (C_DamageMeter), Blizzards eigenes Fenster wird ausgeblendet.
+-- mUI damage meter: up to two stacked windows top left (damage above, healing below); meter
+-- type and session switchable by click. Data comes from Blizzard (C_DamageMeter); Blizzard's own
+-- window is hidden.
 --
---     Schaden ▾            Aktuell  1:23  ↺     ← Kopfzeile
---    ▣│1. Felyra        2,41M (29K) ████████   ← Spec-Symbol, Balken in Klassenfarbe
---    ▣│2. Kesh          2,18M (26K) ██████
---    ▣│8. Brakk (eigene Zeile, bleibt sichtbar)
+--     Damage v             Current  1:23  R    <- header
+--    [i]|1. Felyra        2,41M (29K) ######   <- spec icon, bar in class color
+--    [i]|2. Kesh          2,18M (26K) ####
+--    [i]|8. Brakk (own row, stays pinned)
 --
--- Kampf-Sperre: Werte sind im Kampf evtl. Secrets. Darum NIE damit rechnen oder vergleichen – nur
--- an Blizzard-Widgets geben (StatusBar:SetValue, AbbreviateLargeNumbers, SetFormattedText,
--- Texture:SetTexture). Blizzard liefert die Liste schon sortiert. Prozent und Klick-Aufschlüsselung
--- gehen im Kampf nicht (später, nur außerhalb vom Kampf).
+-- Combat lockdown: values may be secrets in combat. NEVER do math or comparisons on them - only
+-- pass them to Blizzard widgets (StatusBar:SetValue, AbbreviateLargeNumbers, SetFormattedText,
+-- Texture:SetTexture). Blizzard delivers the list pre-sorted. Percentages and the spell breakdown
+-- only work out of combat.
 local _, ns = ...
 local L = ns.L
 
--- Benny 2026-11-07 nach dem ersten Test: Zeilen deutlich höher und luftiger (wie im Entwurf),
--- Standard nur EIN Fenster (zweites per Option), 5 Zeilen in der Gruppe, im Schlachtzug mehr
+-- Default is ONE window (second one optional); 5 rows in party, more in raid
 local WIDTH = 335
 local HEADER = 22
 local ROW = 22
-local GAP = 2          -- zwischen den Zeilen
-local PIN_GAP = 4      -- eigene Zeile (angeheftet) etwas abgesetzt
-local WINDOW_GAP = 8   -- zwischen den zwei Fenstern
-local PARTY_ROWS = 5   -- allein/Gruppe
-local RAID_ROWS = 10   -- Schlachtzug (bei wenig Platz weniger)
-local BOTTOM_GAP = 10  -- Abstand zur Gruppe darunter
+local GAP = 2          -- between rows
+local PIN_GAP = 4      -- own (pinned) row slightly offset
+local WINDOW_GAP = 8   -- between the two windows
+local PARTY_ROWS = 5   -- solo/party
+local RAID_ROWS = 10   -- raid (fewer if space is short)
+local BOTTOM_GAP = 10  -- gap to the group frames below
 local BAR_BG = { 0, 0, 0, 0.4 }
-local COMBAT_COLOR = { 0.878, 0.541, 0.235 } -- #e08a3c: Kampf läuft
+local COMBAT_COLOR = { 0.878, 0.541, 0.235 } -- #e08a3c: combat in progress
 local GRAY = { r = 0.6, g = 0.6, b = 0.6 }
-local REFRESH = 0.2    -- Sekunden: Blizzard feuert im Kampf sehr oft
--- Ausblenden (Benny 2026-11-07): nur im Kampf sichtbar, danach noch kurz zum Nachlesen; Maus drauf
--- blendet es jederzeit ein
-local LINGER = 30      -- Sekunden nach dem Kampf (Benny: 10 zu kurz)
-local FADE_SPEED = 4   -- Alpha pro Sekunde (≈ 0,25 s)
+local REFRESH = 0.2    -- seconds: Blizzard fires very often in combat
+-- Fading: visible only in combat and for a while afterwards; mouseover shows it any time
+local LINGER = 30      -- seconds after combat
+local FADE_SPEED = 4   -- alpha per second (~0.25 s)
 
 local Type, SessionType = Enum.DamageMeterType, Enum.DamageMeterSessionType
 
-local TYPES = { -- Reihenfolge im Menü; Trennlinie vor den Einträgen mit sep
+local TYPES = { -- menu order; divider before entries with sep
     { Type.DamageDone, DAMAGE_METER_TYPE_DAMAGE_DONE },
     { Type.Dps, DAMAGE_METER_TYPE_DPS },
     { Type.HealingDone, DAMAGE_METER_TYPE_HEALING_DONE, sep = true },
@@ -51,7 +49,7 @@ local TYPES = { -- Reihenfolge im Menü; Trennlinie vor den Einträgen mit sep
 local TYPE_NAMES = {}
 for _, entry in ipairs(TYPES) do TYPE_NAMES[entry[1]] = entry[2] end
 
--- wie Blizzard (DamageMeterSessionWindow.lua)
+-- Same as Blizzard (DamageMeterSessionWindow.lua)
 local PER_SECOND_FIRST = { [Type.Dps] = true, [Type.Hps] = true }
 local NO_PER_SECOND = { [Type.Interrupts] = true, [Type.Dispels] = true, [Type.Deaths] = true }
 local PIN_SELF = {
@@ -71,11 +69,11 @@ local function MeterOn()
 end
 
 local holder
-local ShowDetail -- Zauber-Aufschlüsselung beim Drüberfahren (unten definiert)
+local ShowDetail -- spell breakdown on hover (defined below)
 local windows = {}
 local demoActive = false
 
--- Zeilen -------------------------------------------------------------------------------------
+-- Rows ---------------------------------------------------------------------------------------
 
 local function CreateRow(window)
     local row = CreateFrame("Frame", nil, window)
@@ -106,7 +104,7 @@ local function CreateRow(window)
     row.window = window
     row:EnableMouse(true)
     row:SetScript("OnEnter", function(self) if ShowDetail then ShowDetail(self) end end)
-    -- Mausrad über einer Zeile blättert das Fenster
+    -- Mouse wheel over a row scrolls the window
     row:SetScript("OnMouseWheel", function(_, delta)
         local scroll = window:GetScript("OnMouseWheel")
         if scroll then scroll(window, delta) end
@@ -119,7 +117,7 @@ local function SetSelf(row, isSelf)
     for _, edge in ipairs(row.edges) do edge:SetVertexColor(color[1], color[2], color[3], 1) end
 end
 
--- source: Eintrag aus combatSources (echt) oder Demo-Tabelle mit denselben Feldern
+-- source: entry from combatSources (real) or a demo table with the same fields
 local function FillRow(row, rank, source, maxAmount, kind)
     local color = RAID_CLASS_COLORS[source.classFilename] or GRAY
     row.bar:SetStatusBarColor(color.r, color.g, color.b)
@@ -143,7 +141,7 @@ local function FillRow(row, rank, source, maxAmount, kind)
         row.value:SetFormattedText("%s (%s)", total, perSecond)
     end
     SetSelf(row, source.isLocalPlayer == true)
-    -- für die Aufschlüsselung: nur lesbare Werte merken (im Kampf evtl. Secrets)
+    -- For the breakdown: keep only readable values (may be secrets in combat)
     local guid, creature, name = source.sourceGUID, source.sourceCreatureID, source.name
     row.guid = not issecretvalue(guid) and guid or nil
     row.creatureID = not issecretvalue(creature) and creature or nil
@@ -153,9 +151,9 @@ local function FillRow(row, rank, source, maxAmount, kind)
     row:Show()
 end
 
--- Aufschlüsselung (Benny 2026-11-07): Maus über einen Spieler zeigt nach dem Kampf seine Zauber –
--- dunkles Fenster rechts neben dem Meter, 5 Zeilen, Rest scrollbar (mUI-Scrollleiste). Im Kampf
--- gesperrt: Blizzard will dafür die Spieler-Kennung, die dann geheim ist (und keiner braucht es dort).
+-- Spell breakdown: hovering a player after combat shows their spells in a dark panel next to the
+-- meter (5 rows, rest scrollable). Disabled in combat: the lookup needs the source GUID, which is
+-- secret then.
 local DETAIL_W, DETAIL_ROW, DETAIL_ROWS = 300, 20, 5
 local detail
 
@@ -190,7 +188,7 @@ local function CreateDetail()
     detail:EnableMouse(true)
     local bg = detail:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
-    bg:SetColorTexture(0.03, 0.03, 0.03, 0.97) -- dunkler als die übrigen Flächen, gut lesbar
+    bg:SetColorTexture(0.03, 0.03, 0.03, 0.97) -- darker than other panels for readability
     ns.AddBorder(detail)
     local pad = ns.Snap(8)
     detail.title = ns.CreateText(detail, 13, "LEFT", nil, "bold")
@@ -200,7 +198,7 @@ local function CreateDetail()
     detail.title:SetPoint("RIGHT", detail.total, "LEFT", -ns.Snap(6), 0)
     detail.list = ns.UI.ScrollArea(detail)
     detail.list:SetPoint("TOPLEFT", pad, -pad - ns.Snap(22))
-    detail.list:SetPoint("RIGHT", -pad - ns.Snap(8), 0) -- Platz für die Scrollleiste
+    detail.list:SetPoint("RIGHT", -pad - ns.Snap(8), 0) -- room for the scrollbar
     detail.list:SetHeight(ns.Snap(DETAIL_ROW) * DETAIL_ROWS)
     detail.rows = {}
     detail:SetHeight(pad * 2 + ns.Snap(22) + ns.Snap(DETAIL_ROW) * DETAIL_ROWS)
@@ -270,7 +268,7 @@ ShowDetail = function(row)
     detail:Show()
 end
 
--- Schließen: Maus weder auf der Zeile noch im Fenster (kurze Gnadenfrist für den Weg dazwischen)
+-- Close when the mouse is on neither the row nor the panel (short grace period for the way between)
 local function UpdateDetail(delta)
     if not (detail and detail:IsShown()) then return end
     if detail:IsMouseOver() or (detail.row and detail.row:IsMouseOver()) then
@@ -281,10 +279,10 @@ local function UpdateDetail(delta)
     if detail.away > 0.3 then detail:Hide() end
 end
 
--- Fenster ------------------------------------------------------------------------------------
+-- Windows --------------------------------------------------------------------------------------
 
--- Kopfzeile: nur ein Buchstabe wie bei Blizzard (A = Aktuell, G = Gesamt, # = älterer Kampf),
--- der volle Name steht im Tooltip
+-- Header shows a single letter like Blizzard (C = current, O = overall, # = older session);
+-- the full name is in the tooltip
 local function SessionLabel(window)
     if window.sessionID then return "#" .. window.sessionID end
     if window.sessionType == SessionType.Overall then return L["DM_OVERALL_SHORT"] end
@@ -304,8 +302,8 @@ end
 
 local function SetClock(window, seconds)
     local clock = window.clock
-    -- erst issecretvalue: selbst „== nil“ wirft auf einem Secret. Dauer sollte nie geheim sein;
-    -- falls doch, lieber leer als Fehler
+    -- issecretvalue first: even "== nil" throws on a secret. Duration should never be secret;
+    -- if it is, show nothing rather than error
     if issecretvalue(seconds) or seconds == nil then clock:SetText("") return end
     clock:SetText(SecondsToClock(seconds))
     local live = not window.sessionID and UnitAffectingCombat("player")
@@ -317,13 +315,13 @@ local function VisibleRows(window)
     return window.rowCount or PARTY_ROWS
 end
 
--- Zeichnet die Liste; sources = sortierte Liste, maxAmount = Höchstwert (beides evtl. Secrets)
+-- Draws the list; sources = sorted list, maxAmount = top value (both may be secrets)
 local function Render(window, sources, maxAmount)
     local count = #sources
     local visible = VisibleRows(window)
     window.offset = math.max(0, math.min(window.offset or 0, count - visible))
     local offset = window.offset
-    -- eigene Zeile: steht sie außerhalb des sichtbaren Bereichs, ersetzt sie die letzte Zeile
+    -- Own row: if it is outside the visible range, it replaces the last row
     local selfIndex
     if PIN_SELF[window.kind] then
         for i, source in ipairs(sources) do
@@ -356,7 +354,7 @@ local function Refresh(window)
     if demoActive then return end
     local session = GetSession(window)
     local sources = session and session.combatSources or {}
-    -- kein „x or 0“ auf evtl. geheimen Werten (Wahrheitstest wirft)
+    -- No "x or 0" on possibly secret values (the truth test throws)
     local maxAmount = session and session.maxAmount
     if not issecretvalue(maxAmount) and maxAmount == nil then maxAmount = 0 end
     Render(window, sources, maxAmount)
@@ -375,8 +373,8 @@ local function RefreshAll()
 end
 local function MarkDirty() dirty = true end
 
--- Menüs
-local openMenu -- zuletzt geöffnetes Menü: solange offen, bleibt das Meter eingeblendet
+-- Menus
+local openMenu -- last opened menu: keeps the meter visible while open
 local function SaveTypes()
     ns.db.damageMeterTypes = { windows[1].kind, windows[2].kind }
 end
@@ -410,7 +408,7 @@ local function OpenSessionMenu(window)
         root:CreateRadio(DAMAGE_METER_OVERALL_SESSION, IsSelected, SetSelected, { type = SessionType.Overall })
         local sessions = C_DamageMeter.GetAvailableCombatSessions() or {}
         if #sessions > 0 then root:CreateDivider() end
-        -- neueste zuerst
+        -- Newest first
         for i = #sessions, 1, -1 do
             local info = sessions[i]
             local name = info.name
@@ -446,12 +444,11 @@ local function CreateWindow(index)
     header:SetPoint("TOPLEFT")
     header:SetPoint("TOPRIGHT")
     header:SetHeight(ns.Snap(HEADER))
-    -- Kopfzeile ohne Fläche und Rahmen, nur gedämpfte Schrift und Symbole (Benny: „fällt zu arg
-    -- auf“); Maus drauf: Surf Green
+    -- Header without background or border, only muted text and icons; hover: Surf Green
     window.header = header
     local pad = ns.Snap(6)
 
-    -- Art (links): Klick öffnet die Liste der Arten
+    -- Meter type (left): click opens the type list
     local typeButton = CreateFrame("Button", nil, header)
     typeButton:SetPoint("TOPLEFT")
     typeButton:SetPoint("BOTTOMLEFT")
@@ -477,7 +474,7 @@ local function CreateWindow(index)
     end)
     window.typeButton = typeButton
 
-    -- rechts: Zurücksetzen, Zeit, Kampf
+    -- Right side: reset, clock, session
     local reset = CreateFrame("Button", nil, header)
     reset:SetSize(ns.Snap(HEADER), ns.Snap(HEADER))
     reset:SetPoint("RIGHT", -ns.Snap(2), 0)
@@ -495,7 +492,7 @@ local function CreateWindow(index)
     window.clock = ns.CreateText(header, 12, "RIGHT")
     window.clock:SetPoint("RIGHT", reset, "LEFT", -ns.Snap(2), 0)
 
-    -- Kampf: nur ein Buchstabe (A/G/#3), Name im Tooltip
+    -- Session: a single letter (C/O/#3), name in the tooltip
     local sessionButton = CreateFrame("Button", nil, header)
     sessionButton:SetHeight(ns.Snap(HEADER))
     sessionButton:SetPoint("RIGHT", window.clock, "LEFT", -ns.Snap(6), 0)
@@ -518,7 +515,7 @@ local function CreateWindow(index)
     end)
     window.sessionButton = sessionButton
 
-    -- Mausrad: blättern
+    -- Mouse wheel: scroll
     window:EnableMouseWheel(true)
     window:SetScript("OnMouseWheel", function(self, delta)
         self.offset = (self.offset or 0) - delta
@@ -531,7 +528,7 @@ local function CreateWindow(index)
     return window
 end
 
--- Zeilen anlegen/anordnen für die verfügbare Höhe
+-- Create/arrange rows for the available height
 local function LayoutRows(window, rowCount)
     window.rowCount = rowCount
     for i = 1, rowCount do
@@ -545,14 +542,14 @@ local function LayoutRows(window, rowCount)
     window:SetHeight(ns.Snap(HEADER) + rowCount * (ns.Snap(ROW) + ns.Snap(GAP)))
 end
 
--- Schlachtzug? Echt: IsInRaid; in der Vorschau die dort gewählte Größe (5/25/40)
+-- Raid sized? Live: IsInRaid; in the preview the size chosen there (5/25/40)
 local function RaidSized()
     if demoActive then return ns.Preview and ns.Preview.GroupKind and ns.Preview.GroupKind() ~= "group" end
     return IsInRaid()
 end
 
--- Platz: oben links am Rand. Zeilen: 5 allein/in der Gruppe, im Schlachtzug bis 10 – aber nie
--- tiefer als knapp über die Gruppe (Heiler: Gruppe sitzt mittig, links ist frei)
+-- Position: top left corner. Rows: 5 solo/party, up to 10 in raid - but never lower than just
+-- above the group frames (healer layout: group sits centered, left side is free)
 local function Place()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     holder:ClearAllPoints()
@@ -585,11 +582,11 @@ local function UpdateShown()
     local show = demoActive or MeterOn()
     holder:SetShown(show)
     if show then MarkDirty() end
-    if ns.PlaceToastHolder then ns.PlaceToastHolder() end -- Toasts sitzen rechts neben dem Meter
+    if ns.PlaceToastHolder then ns.PlaceToastHolder() end -- toasts sit to the right of the meter
 end
 
--- Blizzards Fenster: aus, solange unseres läuft (Blizzard zeigt es bei Kampf/Gruppe/Bearbeitungs-
--- modus neu an – jedes Mal gleich wieder verstecken; nur Hide, keine Felder/Funktionen auf dem Frame)
+-- Blizzard's window stays hidden while ours runs. Blizzard re-shows it on combat/group/Edit Mode,
+-- so hide it again every time; only Hide, no fields/functions on the frame (taint).
 local function HideBlizzard()
     local meter = DamageMeter
     if not meter then return end
@@ -598,10 +595,10 @@ local function HideBlizzard()
     meter:Hide()
 end
 
--- Start -------------------------------------------------------------------------------------
+-- Start --------------------------------------------------------------------------------------
 
--- Blizzards Schalter (Optionen > Erweitert) folgt dem mUI-Meter: an = Blizzards Daten an
--- (in Forever ab Werk aus), aus = beides aus. Einstellungen rufen das beim Umschalten.
+-- Blizzard's toggle (Options > Advanced) follows the mUI meter: on = Blizzard data on (off by
+-- default in Forever), off = both off. The settings call this when toggling.
 function ns.SyncDamageMeterCVar()
     if ns.HasCVar and not ns.HasCVar("damageMeterEnabled") then return end
     SetCVar("damageMeterEnabled", Enabled() and "1" or "0")
@@ -619,7 +616,7 @@ ns:On("PLAYER_LOGIN", function()
     local combatEnd, wheel = 0, nil
     ns:On("PLAYER_REGEN_ENABLED", function() combatEnd = GetTime() end)
     holder:SetScript("OnUpdate", function(self, delta)
-        -- Einblenden/Ausblenden (jedes Bild, nur Alpha – kein Show/Hide, damit die Maus es findet)
+        -- Fade in/out every frame, alpha only - no Show/Hide, so the mouse can still find it
         local want = 1
         if FadeOn() and not demoActive and not UnitAffectingCombat("player") and GetTime() - combatEnd > LINGER
             and not self:IsMouseOver() and not (openMenu and openMenu:IsShown()) and not (detail and detail:IsShown()) then
@@ -630,13 +627,13 @@ ns:On("PLAYER_LOGIN", function()
             alpha = want > alpha and math.min(want, alpha + delta * FADE_SPEED) or math.max(want, alpha - delta * FADE_SPEED)
             self:SetAlpha(alpha)
         end
-        -- unsichtbar: Mausrad nicht schlucken (sonst zoomt die Kamera oben links nicht)
+        -- Invisible: don't swallow the mouse wheel (camera zoom top left would break)
         local visible = alpha > 0
         if visible ~= wheel then
             wheel = visible
             for _, window in ipairs(windows) do
                 window:EnableMouseWheel(visible)
-                for _, row in ipairs(window.rows) do -- unsichtbar: keine Klicks/kein Mausrad schlucken
+                for _, row in ipairs(window.rows) do -- invisible: don't swallow clicks/mouse wheel
                     row:EnableMouse(visible)
                     row:EnableMouseWheel(visible)
                 end
@@ -646,7 +643,7 @@ ns:On("PLAYER_LOGIN", function()
         elapsed = elapsed + delta
         if elapsed < REFRESH then return end
         elapsed = 0
-        -- im Kampf läuft die Uhr, auch ohne neue Zahlen
+        -- In combat the clock keeps running even without new numbers
         if dirty or UnitAffectingCombat("player") then
             if not demoActive then RefreshAll() end
         end
@@ -657,13 +654,13 @@ ns:On("PLAYER_LOGIN", function()
     ns:On("DAMAGE_METER_CURRENT_SESSION_UPDATED", MarkDirty)
     ns:On("DAMAGE_METER_RESET", function()
         for _, window in ipairs(windows) do
-            -- ein gewählter alter Kampf existiert nach dem Zurücksetzen nicht mehr
+            -- A selected old session no longer exists after a reset
             window.sessionID, window.sessionName, window.offset = nil, nil, 0
             window.sessionType = window.sessionType or SessionType.Current
         end
         MarkDirty()
     end)
-    -- Gruppe > Schlachtzug: mehr Zeilen (unsere Fenster sind nicht geschützt, geht auch im Kampf)
+    -- Party -> raid: more rows (our frames are not protected, so this works in combat)
     local wasRaid = IsInRaid()
     ns:On("GROUP_ROSTER_UPDATE", function()
         if IsInRaid() ~= wasRaid then
@@ -683,17 +680,17 @@ ns:On("PLAYER_LOGIN", function()
     ns:On("PLAYER_LEVEL_UP", UpdateShown)
 end)
 
--- Vorschau (/mui t): Beispielgruppe wie die Gruppen-Vorschau, Werte zählen hoch -----------------
+-- Preview (/mui t): sample group like the group preview, values count up --------------------
 
--- Die ersten fünf = Beispielgruppe der Gruppen-Vorschau (Brakk = du); im Schlachtzug zehn
-local DEMO = { -- Name, Klasse, Spec-ID, Schaden/s, Heilung/s, du
+-- First five = sample group of the group preview (Brakk = you); ten in raid
+local DEMO = { -- name, class, spec ID, damage/s, healing/s, you
     { "Brakk", "WARRIOR", 73, 13500, 2500, true }, { "Lunara", "PRIEST", 257, 3700, 19800 },
     { "Felyra", "MAGE", 63, 29000, 200 }, { "Kesh", "ROGUE", 260, 26000, 800 },
     { "Thalor", "HUNTER", 254, 22500, 500 }, { "Velra", "WARLOCK", 266, 31000, 600 },
     { "Orrin", "PALADIN", 70, 24000, 9500 }, { "Morwen", "DRUID", 102, 21000, 900 },
     { "Daran", "SHAMAN", 262, 27500, 400 }, { "Isolde", "MAGE", 62, 30000, 150 },
 }
--- Beispiel-Zauber je Klasse für die Aufschlüsselung in der Vorschau: Zauber-ID, Anteil
+-- Sample spells per class for the preview breakdown: spell ID, share
 local DEMO_SPELLS = {
     WARRIOR = { { 12294, 0.34 }, { 78, 0.24 }, { 6603, 0.2 }, { 6343, 0.12 }, { 772, 0.06 }, { 845, 0.04 } },
     PRIEST = { { 585, 0.5 }, { 589, 0.3 }, { 8092, 0.2 } },
@@ -721,7 +718,7 @@ local function DemoSources(kind)
             demoSpells = DEMO_SPELLS[data[2]],
         }
     end
-    -- gleiche Kampfdauer für alle: nach Gesamt sortiert = auch nach pro Sekunde sortiert
+    -- Same combat duration for all: sorted by total = sorted by per second
     table.sort(list, function(a, b) return a.totalAmount > b.totalAmount end)
     return list
 end
@@ -738,7 +735,7 @@ end
 local demoRaid
 local function DemoTick()
     demoElapsed = demoElapsed + 0.5
-    if RaidSized() ~= demoRaid then -- Größe in der Vorschau umgestellt
+    if RaidSized() ~= demoRaid then -- size changed in the preview
         demoRaid = RaidSized()
         Place()
     end
@@ -778,8 +775,8 @@ ns:On("PLAYER_REGEN_DISABLED", function()
     if demoActive then ns.DamageMeterDemo.Stop() end
 end)
 
--- Diagnose (/mui dmeter): Zustand in Chat + DevLog – Werte im Kampf sind Secrets, darum nur als
--- „secret“ ausgeben, nie vergleichen.
+-- Diagnostics (/mui dmeter): state to chat + DevLog. Values in combat are secrets, so print them
+-- only as "secret", never compare.
 local function S(v)
     if issecretvalue(v) then return "secret" end
     return tostring(v)
