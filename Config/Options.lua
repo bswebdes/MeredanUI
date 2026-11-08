@@ -377,6 +377,7 @@ local PAGES = {
                         return L["No texts"]
                     end)
             end
+            page:AddHeader(L["Settings"]) -- gilt für alle Leisten, nicht nur die Zusatzleisten
             page:AddDropdown(L["Key binding text size"], function()
                 return { { value = "small", label = L["Small"] }, { value = "medium", label = L["Medium"] }, { value = "large", label = L["Large"] } }
             end, Getter("actionBarFont"), Setter("actionBarFont", function() if ns.ApplyActionBarTexts then ns.ApplyActionBarTexts() end end))
