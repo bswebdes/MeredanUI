@@ -82,16 +82,12 @@ local function OpenRankMenu(owner)
         items[#items + 1] = { value = rank, label = allowed and GuildControlGetRankName(rank)
             or ("|cff77756e" .. GuildControlGetRankName(rank) .. "|r"), inert = not allowed }
     end
-    -- SetGuildRankOrder ist für Addons geschützt (seit Midnight), Befördern/Degradieren nicht:
-    -- Schritt für Schritt bis zum gewählten Rang (kleiner Abstand, damit der Server mitkommt)
+    -- Rang ändern aus Addon-Code wird geblockt („geschützte Funktion step()", Benny 2026-11-08). Die
+    -- sicheren Rang-Knöpfe des Mitglieder-Menüs (/gpromote, /gdemote) unter dem Auswahlfeld öffnen.
     local name = memberInfo and P(memberInfo.name)
-    ns.UI.OpenList(owner, items, memberRank, function(rank)
-        if rank == memberRank or not name then return end
-        local step = rank < memberRank and C_GuildInfo.Promote or C_GuildInfo.Demote
-        for i = 1, math.abs(rank - memberRank) do
-            C_Timer.After((i - 1) * 0.3, function() step(name) end)
-        end
-    end)
+    if name and ns.OpenGuildMemberMenu then
+        ns.OpenGuildMemberMenu(name, false, memberRank, { ranksOnly = true, owner = owner, guid = guid })
+    end
 end
 
 local function CreateDetail()

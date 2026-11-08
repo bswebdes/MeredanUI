@@ -130,7 +130,10 @@ local function Create()
 end
 
 -- info: Mitgliedsdaten aus der Gildenliste; canManage: Beförderungs-Einträge zeigen
-function ns.OpenGuildMemberMenu(name, isSelf, rankOrder)
+-- opts.ranksOnly: nur „Rang festlegen“ (Rang-Auswahl im Detailfenster), opts.owner: darunter öffnen,
+-- opts.guid: nicht erlaubte Ränge grau und ohne Befehl (C_GuildInfo.IsGuildRankAssignmentAllowed)
+function ns.OpenGuildMemberMenu(name, isSelf, rankOrder, opts)
+    opts = opts or {}
     if InCombatLockdown() then
         return UIErrorsFrame:AddMessage(L["Not possible in combat."], 1, 0.1, 0.1)
     end
@@ -138,8 +141,8 @@ function ns.OpenGuildMemberMenu(name, isSelf, rankOrder)
     current = name
     menu.title:SetText(Ambiguate and Ambiguate(name, "guild") or name)
     local officer = (IsGuildLeader and IsGuildLeader()) or (C_GuildInfo.IsGuildOfficer and C_GuildInfo.IsGuildOfficer())
-    local list = { "whisper", "invite" }
-    if officer and not isSelf then
+    local list = opts.ranksOnly and {} or { "whisper", "invite" }
+    if officer and not isSelf and not opts.ranksOnly then
         list[#list + 1] = "promote"
         list[#list + 1] = "demote"
         list[#list + 1] = "remove"
@@ -165,7 +168,7 @@ function ns.OpenGuildMemberMenu(name, isSelf, rankOrder)
     menu.rankHeader:Hide()
     local numRanks = GuildControlGetNumRanks and GuildControlGetNumRanks() or 0
     if officer and not isSelf and rankOrder and numRanks > 1 then
-        y = y + 8
+        y = y + (opts.ranksOnly and -14 or 8)
         menu.rankHeader:ClearAllPoints()
         menu.rankHeader:SetPoint("TOPLEFT", 12, -y)
         menu.rankHeader:Show()
@@ -177,9 +180,11 @@ function ns.OpenGuildMemberMenu(name, isSelf, rankOrder)
             local steps = i - rankOrder
             local lines = {}
             for _ = 1, math.abs(steps) do lines[#lines + 1] = steps > 0 and demote or promote end
-            row:SetAttribute("macrotext", table.concat(lines, "\n"))
+            local allowed = steps == 0 or not (opts.guid and C_GuildInfo.IsGuildRankAssignmentAllowed)
+                or C_GuildInfo.IsGuildRankAssignmentAllowed(opts.guid, i)
+            row:SetAttribute("macrotext", allowed and table.concat(lines, "\n") or "")
             row.text:SetText(GuildControlGetRankName(i) or ("#" .. i))
-            row.text:SetTextColor(unpack(steps == 0 and ns.UI.ACCENT or ns.UI.TEXT))
+            row.text:SetTextColor(unpack(steps == 0 and ns.UI.ACCENT or (allowed and ns.UI.TEXT or ns.UI.MUTED)))
             row:ClearAllPoints()
             row:SetPoint("TOPLEFT", 1, -y)
             row:SetPoint("TOPRIGHT", -1, -y)
@@ -188,9 +193,14 @@ function ns.OpenGuildMemberMenu(name, isSelf, rankOrder)
         end
     end
     menu:SetHeight(y + 6)
-    local x, cy = GetCursorPosition()
-    local scale = UIParent:GetEffectiveScale()
     menu:ClearAllPoints()
-    menu:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale + 4, cy / scale - 4)
+    menu.title:SetShown(not opts.ranksOnly)
+    if opts.owner then
+        menu:SetPoint("TOPLEFT", opts.owner, "BOTTOMLEFT", 0, -2)
+    else
+        local x, cy = GetCursorPosition()
+        local scale = UIParent:GetEffectiveScale()
+        menu:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale + 4, cy / scale - 4)
+    end
     menu:Show()
 end
