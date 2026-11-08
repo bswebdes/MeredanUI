@@ -18,6 +18,7 @@ local INPUT = { 0.04, 0.04, 0.05, 1 }
 
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
+local noBump = setmetatable({}, { __mode = "k" }) -- Bereiche mit festen Breiten (Info-Spalte)
 local skinned = setmetatable({}, { __mode = "k" }) -- Objekt > true (schon bemalt)
 local own = setmetatable({}, { __mode = "k" })     -- unsere Texturen (beim Ausblenden auslassen)
 local fonts
@@ -812,6 +813,21 @@ local function SkinDetails(details)
     if type(details) ~= "table" then return end
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
     local info, news = details.Info, details.News
+    -- Info-Spalte hat feste Breiten (Kopfbalken 280, Text 246): Schrift nicht vergrößern, sonst
+    -- überlappen Überschrift und „[Zum Bearbeiten anklicken]“. Neuigkeiten füllen den Rest (sonst
+    -- klafft im großen Fenster eine Lücke in der Mitte).
+    if type(info) == "table" then noBump[info] = true end
+    if type(news) == "table" and type(info) == "table" then
+        local function Fit()
+            local width = details:GetWidth()
+            if width and width > 0 and not InCombatLockdown() then
+                news:SetWidth(math.max(316, width - info:GetWidth() - 40))
+            end
+        end
+        details:HookScript("OnSizeChanged", Fit)
+        details:HookScript("OnShow", Fit)
+        Fit()
+    end
     if type(info) == "table" then
         FadeRegions(info) -- Pergament, Kopfzeilen, Trennbalken
         Fill(info)
@@ -927,20 +943,23 @@ local function Bump(fs)
     bumping = false
 end
 
-local function RecolorTree(frame, depth)
+local function RecolorTree(frame, depth, fixed)
     if depth > 12 or not frame.GetRegions then return end
+    fixed = fixed or noBump[frame]
     for _, region in ipairs({ frame:GetRegions() }) do
         if region.IsObjectType and region:IsObjectType("FontString") and not own[region] then
             if not recolored[region] then
                 recolored[region] = true
                 hooksecurefunc(region, "SetTextColor", Recolor)
-                hooksecurefunc(region, "SetFontObject", Bump)
-                Bump(region)
+                if not fixed then
+                    hooksecurefunc(region, "SetFontObject", Bump)
+                    Bump(region)
+                end
             end
             Recolor(region)
         end
     end
-    for _, child in ipairs({ frame:GetChildren() }) do RecolorTree(child, depth + 1) end
+    for _, child in ipairs({ frame:GetChildren() }) do RecolorTree(child, depth + 1, fixed) end
 end
 
 local function SkinLikeOwnWindow(f)
@@ -1021,37 +1040,43 @@ local function Apply()
     Try(SkinSettingsDialog, _G.CommunitiesSettingsDialog)
 end
 
--- Gildeneinstellungen (Ränge, Rechte): Blizzard öffnet sie als „linkes“ Fenster – unser Gildenfenster
--- wich dann nach rechts aus (Benny 2026-11-08). Wie die Gilde aus der Fensterverwaltung nehmen und
--- über unsere Anordnung rechts daneben öffnen.
-local controlDone = false
-local function PlaceGuildControl()
-    local control = _G.GuildControlUI
-    if controlDone or type(control) ~= "table" or not Enabled() then return end
-    controlDone = true
-    local function Unmanage()
-        if InCombatLockdown() then return ns.AfterCombat(Unmanage) end
-        if SetUIPanelAttribute then SetUIPanelAttribute(control, "area", nil) end
-        local listed = false
-        for _, name in ipairs(UISpecialFrames) do if name == "GuildControlUI" then listed = true end end
-        if not listed then tinsert(UISpecialFrames, "GuildControlUI") end
-    end
-    Unmanage()
-    control:HookScript("OnShow", function(self)
-        C_Timer.After(0, function()
-            if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
-                ns.ResetWindowPosition(self, "guildcontrol", true)
+-- Gilden-Unterfenster (Ränge, Log, Texte bearbeiten, Neuigkeitenfilter, Rekrutierung): Blizzard meldet
+-- sie alle als „linke“ Fenster an – unser Gildenfenster wich dann nach rechts oben aus (Benny
+-- 2026-11-08). Alle aus der Fensterverwaltung nehmen und über unsere Anordnung rechts daneben öffnen.
+local SUBPANELS = { "GuildControlUI", "CommunitiesGuildLogFrame", "CommunitiesGuildTextEditFrame",
+    "CommunitiesGuildNewsFiltersFrame", "ClubFinderGuildRecruitmentDialog" }
+local adopted = {}
+local function AdoptSubpanels()
+    if not Enabled() then return end
+    for _, name in ipairs(SUBPANELS) do
+        local panel = _G[name]
+        if type(panel) == "table" and not adopted[name] then
+            adopted[name] = true
+            local function Unmanage()
+                if InCombatLockdown() then return ns.AfterCombat(Unmanage) end
+                if SetUIPanelAttribute then SetUIPanelAttribute(panel, "area", nil) end
+                local listed = false
+                for _, special in ipairs(UISpecialFrames) do if special == name then listed = true end end
+                if not listed then tinsert(UISpecialFrames, name) end
             end
-        end)
-    end)
+            Unmanage()
+            panel:HookScript("OnShow", function(self)
+                C_Timer.After(0, function()
+                    if self:IsShown() and not InCombatLockdown() and ns.ResetWindowPosition then
+                        ns.ResetWindowPosition(self, "guildsub", true)
+                    end
+                end)
+            end)
+        end
+    end
 end
 
 ns:On("ADDON_LOADED", function(_, name)
     if name == "Blizzard_Communities" then Apply() end
-    if name == "Blizzard_GuildControlUI" then PlaceGuildControl() end
+    if name == "Blizzard_GuildControlUI" or name == "Blizzard_Communities" then AdoptSubpanels() end
 end)
 
 ns:On("PLAYER_LOGIN", function()
     if C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_Communities") then Apply() end
-    if C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Blizzard_GuildControlUI") then PlaceGuildControl() end
+    AdoptSubpanels()
 end)
