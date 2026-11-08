@@ -103,11 +103,17 @@ local BORDER_COLOR = { 0, 0, 0, 1 }
 -- Alles, was Theme, Schrift oder Textur nutzt, damit Änderungen sofort greifen.
 local registry = { texts = {}, bars = {}, panels = {} }
 
+-- Deckkraft-Stufen der Hintergründe (Fenster, Tooltips, Einheitenfenster …); nicht gelistet = Theme-Wert
+local PANEL_OPACITY = { solid = 1, light = 0.75 }
+
 -- Gespeicherte Einstellungen (Theme, Schrift, Textur) in STYLE übernehmen.
 function ns.ApplySettings()
     local db = ns.db
     local theme = ns.THEMES[db.theme] or ns.THEMES.class
-    STYLE.panelColor = theme.panelColor
+    -- Deckkraft der Hintergründe (Benny 2026-11-08): Normal = Wert des Themes
+    local alpha = PANEL_OPACITY[db.panelOpacity] or theme.panelColor[4]
+    local c = theme.panelColor
+    STYLE.panelColor = { c[1], c[2], c[3], alpha }
     STYLE.classHealth = theme.classHealth
     STYLE.emptyColor = theme.emptyColor
     STYLE.darkHealth = theme.darkHealth

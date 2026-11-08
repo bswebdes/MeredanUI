@@ -168,6 +168,16 @@ local PAGES = {
                 ns.db.fontSize = value
                 ns.RefreshStyle()
             end, RELOAD)
+            page:AddDropdown(L["Background opacity"], function()
+                return {
+                    { value = "solid", label = L["Solid"] },
+                    { value = "normal", label = L["Normal"] },
+                    { value = "light", label = L["See-through"] },
+                }
+            end, function() return ns.db.panelOpacity or "normal" end, function(value)
+                ns.db.panelOpacity = value
+                ns.RefreshStyle()
+            end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
                 Help(L["Class colour: health in class colour. Dark: dark health bars, class-coloured power. Classic green: green health bars."]))
             page:AddCheckbox(L["Use the mUI font in Blizzard windows too"], On("fontEverywhere"),

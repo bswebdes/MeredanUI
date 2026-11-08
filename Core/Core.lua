@@ -124,6 +124,7 @@ ns.DEFAULT_LAYOUT = "melee" -- Nahkampf-DPS: Basis aller Layouts
 local DEFAULTS = {
     debug = false,
     nameFormat = "first", -- Namen (Forever: Vor- und Nachname): "first", "full", "firstInitial", "initialLast", "last"
+    panelOpacity = "normal", -- Deckkraft aller mUI-Hintergründe: "solid", "normal", "light" (Core/Style.lua)
     fontSize = "medium", -- Schriftgröße aller mUI-Texte: "small", "medium", "large" (Core/Style.lua)
     layout = "melee", -- Layout (Core/Layouts.lua): Nahkampf-DPS ist die Basis
     theme = "class", -- "class", "dark" oder "green"
