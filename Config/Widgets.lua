@@ -109,6 +109,20 @@ function UI.ArrowMarkup(size)
     return CreateAtlasMarkup("common-icon-forwardarrow", size or 10, size or 10, 0, 0, 150, 150, 150)
 end
 
+-- Erklär-Tooltip (das „i“ in den Einstellungen): normaler Fließtext in 11 px statt Blizzards
+-- fetter, größerer Titelzeile (SetText nutzt die Kopfschrift; Benny 2026-11-08: „viel zu fett“).
+-- Die erste Zeile bekommt beim Verstecken ihre Kopfschrift zurück, sonst wären Item-Titel klein.
+function UI.ShowHelp(owner, text)
+    GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+    GameTooltip:SetText(text, 0.91, 0.9, 0.87, 1, true)
+    GameTooltipTextLeft1:SetFont(ns.FontFor("text"), ns.FontPx(11), "")
+    GameTooltip:Show()
+end
+function UI.HideHelp()
+    GameTooltip:Hide()
+    GameTooltipTextLeft1:SetFontObject(GameTooltipHeaderText)
+end
+
 -- Schlichter Knopf mit Text; Hover hellt auf.
 function UI.Button(parent, label, onClick, width)
     local button = CreateFrame("Button", nil, parent)
@@ -336,13 +350,11 @@ function UI.Page(parent)
             info:EnableMouse(true)
             info:SetScript("OnEnter", function(self)
                 i:SetTextColor(unpack(UI.ACCENT))
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                GameTooltip:SetText(opts.help, 1, 1, 1, 1, true)
-                GameTooltip:Show()
+                UI.ShowHelp(self, opts.help)
             end)
             info:SetScript("OnLeave", function()
                 i:SetTextColor(unpack(UI.MUTED))
-                GameTooltip:Hide()
+                UI.HideHelp()
             end)
         end
     end
