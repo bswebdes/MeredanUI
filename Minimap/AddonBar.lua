@@ -1,40 +1,39 @@
--- Addon-Leiste: alle Addons mit Minimap-Knopf (LibDBIcon) oder Eintrag in Blizzards Addon-Menü
--- als Reihe im Mikromenü-Look, rechtsbündig über dem Mikromenü (bzw. über den Taschenknöpfen).
+-- Addon bar: every addon with a minimap button (LibDBIcon) or an entry in Blizzard's addon
+-- compartment, as a micro-menu-style row right-aligned above the micro menu (or the bag buttons).
 --
---                                  [WA][Pawn][BugSack][MUI]   ← MUI ganz rechts, dann nach links;
---                                                                einzelne ausblendbar (Einstellungen)
---   [Char][Beruf][Zauber] … [Shop][Menü]                       ← Mikromenü
+--                [WA][Pawn][BugSack][MUI]   <- MUI rightmost, then leftwards; each can be hidden
+--   [Char][Prof][Spells] ... [Shop][Menu]   <- micro menu
 --
--- Eigene Knöpfe statt fremde umzubauen: Symbol, Klick und Tooltip kommen aus dem
--- LibDataBroker-Objekt bzw. dem Eintrag im Addon-Menü. Die originalen Minimap-Knöpfe hängen an
--- einem versteckten Rahmen (LibDBIcon hängt sie nach dem Anlegen nie wieder um). Steht ein Addon
--- in beiden Quellen, gibt es nur einen Knopf (der mit dem Minimap-Knopf).
+-- Builds its own buttons instead of reskinning foreign ones: icon, click and tooltip come from
+-- the LibDataBroker object or the compartment entry. Original minimap buttons are parked on a
+-- hidden frame (LibDBIcon never reparents them after creation). An addon present in both sources
+-- gets a single button (the minimap one).
 local _, ns = ...
 
-local SIZE = 28        -- wie das Mikromenü
-local GAP_PIXELS = 6   -- sichtbar 4 px (Rahmen liegen außen)
-local ICON_ZOOM = 0.15 -- Addon-Symbole sind meist rund: Rand abschneiden
+local SIZE = 28        -- same as the micro menu
+local GAP_PIXELS = 6   -- 4 px visible (borders sit outside)
+local ICON_ZOOM = 0.15 -- addon icons are mostly round: crop the edge
 
 local hidden = CreateFrame("Frame")
 hidden:Hide()
 
 local bar
-local buttons = {} -- Schlüssel > Knopf
+local buttons = {} -- key -> button
 
--- Vergleichsname: ohne Farbcodes, Leerzeichen und Groß/klein ("|cff33bbffMeredan|rUI" = "meredanui")
+-- Comparison key: no color codes, spaces or case ("|cff33bbffMeredan|rUI" = "meredanui")
 local function Plain(text)
     text = tostring(text or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
     return text:lower():gsub("[%s%p]", "")
 end
 
--- Quellen -------------------------------------------------------------------------------------
+-- Sources ------------------------------------------------------------------------------------
 
 local function DataObject(name)
     local ldb = LibStub("LibDataBroker-1.1", true)
     return ldb and ldb:GetDataObjectByName(name)
 end
 
--- LibDataBroker-Objekt (Addon mit Minimap-Knopf)
+-- LibDataBroker object (addon with a minimap button)
 local function BrokerSource(name)
     return {
         sortName = name,
@@ -65,7 +64,7 @@ local function BrokerSource(name)
     }
 end
 
--- Eintrag aus Blizzards Addon-Menü (TOC „AddonCompartmentFunc“ oder RegisterAddon)
+-- Entry from Blizzard's addon compartment (TOC "AddonCompartmentFunc" or RegisterAddon)
 local function CompartmentSource(data)
     return {
         sortName = Plain(data.text),
@@ -80,12 +79,12 @@ local function CompartmentSource(data)
         Leave = function(button)
             if data.funcOnLeave then data.funcOnLeave(button) else GameTooltip:Hide() end
         end,
-        -- wie Blizzards Menü: func(Eintrag, { buttonName = Maustaste })
+        -- Same signature as Blizzard's menu: func(entry, { buttonName = mouseButton })
         Click = function(_, mouse) if data.func then data.func(data, { buttonName = mouse }) end end,
     }
 end
 
--- Knöpfe --------------------------------------------------------------------------------------
+-- Buttons ------------------------------------------------------------------------------------
 
 local function UpdateIcon(button)
     local icon, coords = button.source.Icon()
@@ -93,10 +92,10 @@ local function UpdateIcon(button)
         button.icon:SetAtlas(icon)
         coords = nil
     else
-        button.icon:SetTexture(icon or 134400) -- Fragezeichen, falls keins
+        button.icon:SetTexture(icon or 134400) -- question mark if none
     end
     if coords then
-        -- eigener Ausschnitt des Addons, darin trotzdem reinzoomen
+        -- Addon's own crop region, still zoomed in
         local l, r, t, b = unpack(coords)
         local dx, dy = (r - l) * ICON_ZOOM, (b - t) * ICON_ZOOM
         button.icon:SetTexCoord(l + dx, r - dx, t + dy, b - dy)
@@ -128,7 +127,7 @@ end
 
 local MUI_KEY = "meredanui"
 
--- Reihenfolge: MeredanUI immer zuerst, dann alphabetisch
+-- Order: MeredanUI always first, then alphabetical
 local function Sorted()
     local list = {}
     for _, button in pairs(buttons) do list[#list + 1] = button end
@@ -141,7 +140,7 @@ end
 
 local function IsHidden(key) return ns.db.addonBarHidden and ns.db.addonBarHidden[key] end
 
--- Alle Addons der Leiste (auch ausgeblendete) für die Einstellungen: { key, label }
+-- All bar addons (including hidden ones) for the settings: { key, label }
 function ns.AddonBarEntries()
     local entries = {}
     for _, button in ipairs(Sorted()) do
@@ -150,7 +149,7 @@ function ns.AddonBarEntries()
     return entries
 end
 
--- sichtbare Knöpfe rechtsbündig in eine Reihe (MUI ganz rechts), ausgeblendete verstecken
+-- Right-align visible buttons in one row (MUI rightmost), hide disabled ones
 local function Layout()
     local list = {}
     for _, button in ipairs(Sorted()) do
@@ -161,20 +160,20 @@ local function Layout()
     for i, button in ipairs(list) do
         button:ClearAllPoints()
         button:SetSize(size, size)
-        -- rechtsbündig: das erste (MUI) ganz rechts, die übrigen nach links
+        -- Right-aligned: the first (MUI) rightmost, the rest leftwards
         button:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", -(i - 1) * (size + gap), 0)
     end
     bar:SetSize(math.max(#list * size + math.max(#list - 1, 0) * gap, 1), size)
     bar:SetShown(#list > 0 and ns.VisibilityMode(ns.db.addonBar) ~= "hidden")
 end
 
--- Minimap-Knopf eines Addons übernehmen: Original verstecken, eigenen Knopf anlegen
+-- Take over an addon's minimap button: hide the original, create our own
 ---@param name string
 ---@param minimapButton Frame?
 local function AdoptBroker(name, minimapButton)
     if minimapButton then minimapButton:SetParent(hidden) end
     local key = Plain(name)
-    -- stand das Addon schon aus dem Addon-Menü drin: durch den Minimap-Knopf ersetzen
+    -- Already added from the compartment: replace with the minimap button version
     if buttons[key] and buttons[key].fromCompartment then
         buttons[key]:Hide()
         buttons[key] = nil
@@ -185,7 +184,7 @@ local function AdoptBroker(name, minimapButton)
     end
 end
 
--- Einträge aus Blizzards Addon-Menü übernehmen (Addons mit Minimap-Knopf nicht doppelt)
+-- Take over compartment entries (addons with a minimap button are not duplicated)
 local function AdoptCompartment()
     local compartment = AddonCompartmentFrame
     if not (compartment and compartment.registeredAddons) then return end
@@ -200,7 +199,7 @@ local function AdoptCompartment()
     end
 end
 
--- über dem Mikromenü, oder über den Taschenknöpfen, wenn die sichtbar sind
+-- Above the micro menu, or above the bag buttons when those are visible
 local function Place()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     local below = _G["MeredanUIBagBar"]
@@ -227,17 +226,17 @@ local function Setup()
 
     local icons = LibStub("LibDBIcon-1.0", true)
     if icons then
-        -- GetButtonList liefert Namen (die Annotation sagt fälschlich Knöpfe)
+        -- GetButtonList returns names (its annotation wrongly says buttons)
         local names = icons:GetButtonList() --[[@as string[] ]]
         for _, name in ipairs(names) do AdoptBroker(name, icons:GetMinimapButton(name)) end
-        -- später geladene Addons (CallbackHandler ruft Funktionen mit Ereignisname zuerst auf)
+        -- Addons loaded later (CallbackHandler passes the event name first)
         ---@diagnostic disable-next-line: param-type-mismatch
         icons.RegisterCallback(bar, "LibDBIcon_IconCreated", function(_, button, name)
             AdoptBroker(name, button)
             ns.UpdateAddonBar()
         end)
     end
-    -- Addons, die ihr Symbol wechseln (z. B. BugSack bei neuen Fehlern)
+    -- Addons that change their icon (e.g. BugSack on new errors)
     local ldb = LibStub("LibDataBroker-1.1", true)
     if ldb then
         local function IconChanged(_, name)
@@ -250,8 +249,7 @@ local function Setup()
         ldb.RegisterCallback(bar, "LibDataBroker_AttributeChanged__iconCoords", IconChanged)
     end
 
-    -- Blizzards Addon-Menü füllt sich beim Betreten der Welt; spätere Anmeldungen laufen über
-    -- UpdateDisplay
+    -- The compartment fills on entering the world; later registrations go through UpdateDisplay
     AdoptCompartment()
     if AddonCompartmentFrame then
         hooksecurefunc(AddonCompartmentFrame, "UpdateDisplay", function()
@@ -260,10 +258,10 @@ local function Setup()
         end)
     end
 
-    -- Taschenknöpfe an/aus verschiebt die Leiste
+    -- Toggling the bag buttons moves the bar
     hooksecurefunc(ns, "UpdateMicroMenu", ns.UpdateAddonBar)
     ns.OnLayout(ns.UpdateAddonBar)
 end
 
--- nach dem Mikromenü (das richtet sich einen Frame nach dem Login ein)
+-- After the micro menu (which sets itself up one frame after login)
 ns:On("PLAYER_LOGIN", function() C_Timer.After(0.1, Setup) end)

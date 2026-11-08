@@ -1,27 +1,25 @@
--- Minimap im MeredanUI-Stil: quadratisch, 1-px-Rahmen,
--- Ortsname oben (PvP-Farbe), Uhr unten (Klick: Kalender), Koordinaten unten links.
--- Blizzards Knöpfe bleiben funktional, sehen aber flach aus (eigene Symbole). Blizzards
--- Rahmen, Kompass und Zoom-Knöpfe verschwinden; gezoomt wird mit dem Mausrad.
---
---   ┌────────────────────────────┐
---   │ [Tracking]   Ort      [M+12]│
---   │                    [Addons] │
---   │ [Post][Aufträge]            │
---   │ 37.4, 86.3   21:42 [Übersicht]│
---   └────────────────────────────┘
+-- Minimap in MeredanUI style: square, 1 px border, zone name on top (PvP color), clock at the
+-- bottom (click: calendar), coordinates bottom left. Blizzard's buttons keep working but look
+-- flat (own icons). Blizzard's border, compass and zoom buttons are removed; zoom via mouse wheel.
+--   +------------------------------+
+--   | [Tracking]   Zone      [M+12]|
+--   |                     [Addons] |
+--   | [Mail][Orders]               |
+--   | 37.4, 86.3   21:42 [Landing] |
+--   +------------------------------+
 local _, ns = ...
 local L = ns.L
 
 local WIDTH = 220
-local MASK = "Interface\\Buttons\\WHITE8X8" -- quadratisch
+local MASK = "Interface\\Buttons\\WHITE8X8" -- square
 
 local holder
-local CreateDifficulty, CreateCoordinates, SetupMouseover -- unten definiert
-local hidden = CreateFrame("Frame") -- Ablage für Blizzard-Teile, die nicht wieder auftauchen sollen
+local CreateDifficulty, CreateCoordinates, SetupMouseover -- defined below
+local hidden = CreateFrame("Frame") -- parking spot for Blizzard parts that must not come back
 hidden:Hide()
 
--- Blizzard-Teil an eine feste Stelle in unserer Minimap setzen. Blizzard setzt manche
--- Teile bei Edit-Mode-Änderungen neu; der Hook auf SetPoint holt sie zurück.
+-- Pin a Blizzard element to a fixed spot in our minimap. Blizzard re-anchors some elements on
+-- Edit Mode changes; the SetPoint hook puts them back.
 local function Place(frame, point, x, y, scale)
     if not frame then return end
     local function Apply()
@@ -46,7 +44,7 @@ local function Hide(frame)
     if frame then frame:SetParent(hidden) end
 end
 
--- Größe und quadratische Maske setzen (beim Aufbau und wenn Blizzards HybridMinimap nachlädt)
+-- Set size and square mask (on setup and when Blizzard's HybridMinimap loads)
 function ns.LayoutMinimap()
     if not holder then return end
     local width = ns.Snap(WIDTH)
@@ -56,15 +54,15 @@ function ns.LayoutMinimap()
     Minimap:SetPoint("CENTER")
     Minimap:SetMaskTexture(MASK)
     if HybridMinimap then HybridMinimap.CircleMask:SetTexture(MASK) end
-    -- Quest-/Gebiets-„Blobs“ zeichnen einen Ring am runden Kartenrand – bei der quadratischen Karte
-    -- ein falscher grauer Bogen. Ring aus, die Gebietsfläche selbst bleibt.
+    -- Quest/area blobs draw a ring at the round map edge, which shows up as a stray gray arc
+    -- on the square map. Disable the ring; the area fill stays.
     for _, kind in ipairs({ "Quest", "Task", "Arch" }) do
         local scalar, alpha = Minimap["Set" .. kind .. "BlobRingScalar"], Minimap["Set" .. kind .. "BlobRingAlpha"]
         if scalar then scalar(Minimap, 0) end
         if alpha then alpha(Minimap, 0) end
     end
-    -- Die Maske wird erst beim Neuzeichnen übernommen: Zoom kurz hin und zurück erzwingt das –
-    -- sofort und nochmal in den nächsten Frames, weil WoW die Maske teils erst dann übernimmt.
+    -- The mask only applies on redraw: nudging the zoom forces one - now and again in the next
+    -- frames, because WoW sometimes applies the mask only then.
     local function Redraw()
         local zoom = Minimap:GetZoom()
         Minimap:SetZoom(zoom > 0 and zoom - 1 or zoom + 1)
@@ -77,10 +75,10 @@ end
 
 local ICON_SIZE = 16
 
--- Blizzard-Knopf behalten (Klick, Menü, Tooltip), aber flach zeigen: Blizzards Optik wird
--- unsichtbar (Alpha 0, Mausklicks gehen trotzdem), darüber liegt unser Symbol, das diese
--- Transparenz nicht erbt (ns.CreateButtonOverlay) und mit dem Knopf ein- und ausgeblendet wird.
--- hoverFrame: der Teil, der die Maus bekommt (Standard: frame selbst).
+-- Keep a Blizzard button (click, menu, tooltip) but show it flat: Blizzard's art goes alpha 0
+-- (clicks still work) and our icon sits on top via ns.CreateButtonOverlay, which does not
+-- inherit that alpha and shows/hides with the button.
+-- hoverFrame: the part that receives the mouse (default: frame itself).
 local function Skin(frame, iconName, hoverFrame)
     if not frame or frame.muiIcon then return end
     local UI = ns.UI
@@ -97,8 +95,8 @@ local function Skin(frame, iconName, hoverFrame)
     hoverFrame:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
 end
 
--- Schwierigkeit oben rechts als kurzes Kürzel: N, H, M, M+12, LFR, bei Szenarien/Tiefen
--- die Stufe. Draußen leer. Tooltip: voller Name.
+-- Difficulty top right as a short tag: N, H, M, M+12, LFR, or the tier for scenarios/delves.
+-- Empty in the open world. Tooltip: full name.
 local DIFFICULTY_COLORS = {
     normal = { 0.85, 0.85, 0.85 },
     heroic = { 0.35, 0.65, 1 },
@@ -166,7 +164,7 @@ function CreateDifficulty()
     UpdateDifficulty()
 end
 
--- Koordinaten unten links; in Instanzen (keine Position) ausgeblendet.
+-- Coordinates bottom left; hidden in instances (no position).
 local coords
 
 local function UpdateCoordinates()
@@ -197,15 +195,15 @@ function CreateCoordinates()
     C_Timer.NewTicker(0.2, UpdateCoordinates)
 end
 
--- Demo (Vorschau): alle Elemente sichtbar – Post, Berufsaufträge (nur Retail),
--- Schwierigkeit (M+12), Koordinaten, Erweiterungs-Übersicht.
+-- Demo (preview): all elements visible - mail, crafting orders (Retail only), difficulty
+-- (M+12), coordinates, expansion landing page.
 local landingWasShown
 
 local function SetDemo(on)
     demoActive = on
     local indicators = MinimapCluster.IndicatorFrame
     if indicators then
-        -- Forever hat keine Berufsaufträge (CraftingOrderFrame fehlt) – jedes Teil einzeln prüfen
+        -- Forever has no crafting orders (no CraftingOrderFrame) - check each part separately
         local mail, orders = indicators.MailFrame, indicators.CraftingOrderFrame
         if on then
             if mail then mail:Show() end
@@ -223,7 +221,7 @@ local function SetDemo(on)
     if landing then
         if on then
             landingWasShown = landing:IsShown()
-            if landing.title then landing:Show() end -- ohne Titel hätte Blizzards Tooltip einen Fehler
+            if landing.title then landing:Show() end -- without a title Blizzard's tooltip would error
         elseif landingWasShown == false then
             landing:Hide()
         end
@@ -271,8 +269,8 @@ local function CreateClock()
     return clock
 end
 
--- Einstellungen „Texte“/„Symbole“: bei „mouseover“ nur sichtbar, solange die Maus über der
--- Minimap ist. Post, Berufsaufträge und Schwierigkeit bleiben immer sichtbar (Hinweise).
+-- "Texts"/"Icons" settings: in "mouseover" mode only visible while the mouse is over the
+-- minimap. Mail, crafting orders and difficulty always stay visible (notifications).
 local mouseoverTexts, mouseoverIcons = {}, {}
 
 local function coordsText() return coords end
@@ -282,7 +280,7 @@ SetupMouseover = function(texts, icons)
     for _, region in ipairs(icons) do if region then mouseoverIcons[#mouseoverIcons + 1] = region end end
     C_Timer.NewTicker(0.1, function()
         local over = holder:IsMouseOver()
-        local showTexts = over or ns.db.minimapExtras ~= "mouseover" -- Texte und Symbole: eine Einstellung
+        local showTexts = over or ns.db.minimapExtras ~= "mouseover" -- texts and icons share one setting
         local showIcons = showTexts
         for _, region in ipairs(mouseoverTexts) do region:SetAlpha(showTexts and 1 or 0) end
         for _, region in ipairs(mouseoverIcons) do region:SetAlpha(showIcons and 1 or 0) end
@@ -291,12 +289,12 @@ end
 
 local function Setup()
     if not Minimap then return end
-    if not ns.HEALTH_COLOR then ns.ApplySettings() end -- falls oUF später lädt als wir
-    -- Reste der früheren eckigen Form aus den gespeicherten Einstellungen entfernen
+    if not ns.HEALTH_COLOR then ns.ApplySettings() end -- in case oUF loads after us
+    -- Remove leftovers of the former shape options from saved settings
     ns.db.minimapShape, ns.db.minimapTopAligned = nil, nil
     holder = CreateFrame("Frame", "MeredanUIMinimap", UIParent)
     holder:SetFrameStrata("LOW")
-    -- Der Rahmen liegt auf einem eigenen Frame über der Karte.
+    -- The border lives on a separate frame above the map.
     local background = holder:CreateTexture(nil, "BACKGROUND")
     background:SetAllPoints()
     background:SetColorTexture(unpack(ns.STYLE.panelColor))
@@ -312,12 +310,12 @@ local function Setup()
     Minimap:SetScale(1)
     ns.LayoutMinimap()
 
-    -- Blizzard-Deko weg
+    -- Remove Blizzard decoration
     Hide(MinimapCluster.BorderTop)
     Hide(MinimapCluster.ZoneTextButton)
     Hide(MinimapCompassTexture)
-    -- Rundes Standbild, das Blizzard im eigenen Haus (Housing) statt der Karte zeigt – passt
-    -- nicht in die quadratische Karte; dort bleibt einfach unser flacher Hintergrund.
+    -- Round static image Blizzard shows instead of the map inside a player house - does not fit
+    -- the square map; our flat background shows there instead.
     ---@diagnostic disable-next-line: undefined-field
     Hide(MinimapBackdrop and MinimapBackdrop.StaticOverlayTexture)
     ---@diagnostic disable-next-line: undefined-field
@@ -325,26 +323,26 @@ local function Setup()
     ---@diagnostic disable-next-line: undefined-field
     Hide(Minimap.ZoomOut)
     Hide(GameTimeFrame)
-    Hide(TimeManagerClockButton) -- falls schon geladen; sonst siehe ADDON_LOADED unten
-    -- Blizzards Koordinaten unter der Karte (seit 12.1.5): ersetzt durch unsere in der Karte
+    Hide(TimeManagerClockButton) -- if already loaded; otherwise see ADDON_LOADED below
+    -- Blizzard's coordinates below the map (since 12.1.5): replaced by ours inside the map
     Hide(MinimapCluster.MinimapContainer and MinimapCluster.MinimapContainer.PlayerCoords)
 
-    -- Blizzard-Teile in die Ecken, flach dargestellt
+    -- Blizzard elements into the corners, shown flat
     local inset = ns.Snap(4)
     local tracking = MinimapCluster.Tracking
     Place(tracking, "TOPLEFT", inset, -inset)
     Skin(tracking, "Tracking", tracking and tracking.Button)
-    Hide(MinimapCluster.InstanceDifficulty) -- ersetzt durch eigene Anzeige (CreateDifficulty)
+    Hide(MinimapCluster.InstanceDifficulty) -- replaced by our own display (CreateDifficulty)
     Place(AddonCompartmentFrame, "TOPRIGHT", -inset, -ns.Snap(24))
     Skin(AddonCompartmentFrame, "Addons")
     local indicators = MinimapCluster.IndicatorFrame
-    Place(indicators, "BOTTOMLEFT", inset, ns.Snap(20)) -- über den Koordinaten
+    Place(indicators, "BOTTOMLEFT", inset, ns.Snap(20)) -- above the coordinates
     Skin(indicators and indicators.MailFrame, "Mail")
     Skin(indicators and indicators.CraftingOrderFrame, "Crafting")
     local landing = ExpansionLandingPageMinimapButton
     if landing then
         Place(landing, "BOTTOMRIGHT", -inset, inset)
-        -- Blizzard setzt die Größe je nach Saison-Grafik neu: auf Symbolgröße halten
+        -- Blizzard resizes it per season art: keep it at icon size
         local function KeepSize()
             if landing.muiSizing then return end
             landing.muiSizing = true
@@ -358,7 +356,7 @@ local function Setup()
     CreateDifficulty()
     CreateCoordinates()
 
-    -- Ortsname oben, Uhr unten
+    -- Zone name on top, clock at the bottom
     local zoneText = ns.CreateText(holder, 12, "CENTER")
     ns.SetFont(zoneText, 12, "OUTLINE")
     zoneText:SetParent(Minimap)
@@ -369,15 +367,15 @@ local function Setup()
     for _, event in ipairs({ "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
         ns:On(event, function() UpdateZone(zoneText) end)
     end
-    -- Kein „Wer hat gepingt“: MINIMAP_PING ist in Midnight für Addons gesperrt (HasRestrictions,
-    -- geschützte Daten) – Registrieren bricht mit Fehler ab (2026-10-25 probiert).
+    -- No "who pinged": MINIMAP_PING is restricted for addons in Midnight (HasRestrictions,
+    -- protected data) - registering it throws an error.
     local clock = CreateClock()
     SetupMouseover({ zoneText, clock, coordsText() }, {
         tracking and tracking.muiOverlay, AddonCompartmentFrame and AddonCompartmentFrame.muiOverlay,
         landing and landing.muiOverlay,
     })
 
-    -- fester Platz oben rechts, 25 px vom Rand
+    -- Fixed spot top right, 25 px from the edge
     ns.OnLayout(function()
         local margin = ns.Snap(ns.SCREEN_MARGIN)
         ns.PlaceFromCenter(holder, "TOPRIGHT", UIParent:GetWidth() / 2 - margin, UIParent:GetHeight() / 2 - margin)
@@ -387,8 +385,8 @@ end
 
 ns:On("PLAYER_LOGIN", Setup)
 
--- Nachgeladene Blizzard-Teile: eigene Uhr ersetzt die von Blizzard; HybridMinimap
--- (z. B. in manchen Instanzen) bekommt dieselbe Maske.
+-- Load-on-demand Blizzard parts: our clock replaces Blizzard's; HybridMinimap (e.g. in some
+-- instances) gets the same mask.
 ns:On("ADDON_LOADED", function(_, name)
     if name == "Blizzard_TimeManager" then
         Hide(TimeManagerClockButton)

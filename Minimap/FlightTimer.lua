@@ -1,19 +1,15 @@
--- Flugzeit: schmale Leiste oben mittig, solange du auf einem Flugtier sitzt.
---
---   ┌────────────────────────────────────────────┐
---   │ [Flugzeug] Darnassus                1:42   │  ← Strecke bekannt: Restzeit, Leiste läuft voll
---   └────────────────────────────────────────────┘
---   [Flugzeug] Darnassus   0:34 (erster Flug)        ← erster Flug: vergangene Zeit (wird gemerkt)
---
--- Start und Ziel kommen aus Blizzards Flugkarte (TakeTaxiNode); die Dauer misst MUI beim ersten
--- Flug und merkt sie sich kontoweit (ns.root.flightTimes, „Start > Ziel“). Forever und Retail.
+-- Flight timer: slim bar at the top center while on a flight path.
+--   [plane] Darnassus          1:42   <- known route: time left, bar fills up
+--   [plane] Darnassus          0:34   <- first flight: elapsed time (gets remembered)
+-- Start and destination come from the taxi map (TakeTaxiNode); durations are measured on the
+-- first flight and stored account-wide (ns.root.flightTimes, "from > to"). Forever and Retail.
 local _, ns = ...
 local L = ns.L
 
 local WIDTH, HEIGHT = 260, 20
 
 local bar
-local pending   -- { from, to } – gewählt, aber noch nicht abgehoben
+local pending   -- { from, to } - selected, not yet departed
 local flight    -- { from, to, start, known }
 
 local function Enabled() return ns.db.flightTimer ~= false end
@@ -30,7 +26,7 @@ local function FormatTime(seconds)
     return ("%d:%02d"):format(math.floor(seconds / 60), seconds % 60)
 end
 
--- Kurzname des Ziels („Darnassus, Teldrassil“ > „Darnassus“)
+-- Short destination name ("Darnassus, Teldrassil" -> "Darnassus")
 local function Short(name) return name and name:match("^([^,]+)") or name end
 
 local function CurrentNode()
@@ -47,11 +43,11 @@ local function OnUpdate()
         bar.time:SetText(FormatTime(flight.known - elapsed))
     else
         bar:SetValue(0)
-        bar.time:SetText(FormatTime(elapsed)) -- erster Flug: zählt hoch, Balken leer (ohne Hinweis, Benny 2026-11-06)
+        bar.time:SetText(FormatTime(elapsed)) -- first flight: counts up, bar stays empty
     end
 end
 
-local Place -- unten definiert
+local Place -- defined below
 
 local function Start()
     if not Enabled() or flight then return end
@@ -64,9 +60,9 @@ local function Start()
     bar:Show()
 end
 
--- Startwerte (Minimap/FlightTimeData.lua, Benny 2026-11-08): Classic-Zeiten je Fraktion, sonst aus
--- Direktstrecken zusammengesetzt. Eigene Messungen gehen vor. Node-IDs kommen aus C_TaxiMap, die
--- Slot-Nummern (TakeTaxiNode, GetNumRoutes) aus der offenen Flugkarte.
+-- Base times (Minimap/FlightTimeData.lua): Classic times per faction, otherwise summed from
+-- direct hops. Own measurements take precedence. Node IDs come from C_TaxiMap, slot numbers
+-- (TakeTaxiNode, GetNumRoutes) from the open taxi map.
 local function NodeIDs()
     local ids, current = {}, nil
     local maps = {}
@@ -87,7 +83,7 @@ local function NodeIDs()
     return ids, current
 end
 
--- Legacy-Talent „Vielflieger“ (Abenteuer-Baum, Knoten 110300): Flugtier 20 % schneller
+-- Legacy talent "Frequent Flyer" (adventure tree, node 110300): flight paths 20 % faster
 local function SpeedFactor()
     local ok, factor = pcall(function()
         local tree = Constants.LegacyConsts and Constants.LegacyConsts.LEGACY_TREE_ADVENTURE_ID
@@ -106,7 +102,7 @@ local function BaseTime(slot)
     if not (from and to) then return end
     local faction = data[UnitFactionGroup("player") or ""]
     local seconds = faction and faction[from] and faction[from][to]
-    if not seconds then -- Strecke aus Teilstücken (Direktstrecken) zusammensetzen
+    if not seconds then -- sum the route from its direct hops
         local hops = GetNumRoutes(slot) or 0
         if hops == 0 then return end
         seconds = 0
@@ -120,7 +116,7 @@ local function BaseTime(slot)
     return seconds * SpeedFactor()
 end
 
--- Flugzeit zu einem Ziel der offenen Flugkarte: Sekunden und ob es nur ein Schätzwert ist
+-- Flight time to a destination on the open taxi map: seconds and whether it is an estimate
 function ns.FlightTimeForSlot(slot)
     if not Enabled() or not slot then return end
     local learned = Times()[RouteKey(CurrentNode(), TaxiNodeName(slot))]
@@ -129,7 +125,7 @@ function ns.FlightTimeForSlot(slot)
     if base then return base, true end
 end
 
--- Zeile „Flugzeit: 1:42“ (gemessen), „Flugzeit: ca. 1:42“ (Startwert) bzw. „noch unbekannt“
+-- Line "Flight time: 1:42" (measured), "approx. 1:42" (base time) or "unknown"
 function ns.AddFlightTimeLine(tooltip, slot)
     if not Enabled() or not slot then return end
     local seconds, estimate = ns.FlightTimeForSlot(slot)
@@ -142,7 +138,7 @@ end
 local function Land()
     if not flight then return end
     local duration = GetTime() - flight.start
-    -- nur echte Flüge merken (Start und Ziel bekannt, nicht abgebrochen/zu kurz)
+    -- Only remember real flights (both ends known, not aborted/too short)
     if flight.from and flight.to and duration > 5 then
         local key = RouteKey(flight.from, flight.to)
         local old = Times()[key]
@@ -173,8 +169,7 @@ local function Create()
     bar:Hide()
 end
 
--- oben mittig, 25 px vom Rand; ist die EP-Leiste da, direkt darunter
--- (Benny 2026-11-06: lag über der EP-Leiste)
+-- Top center, 25 px from the edge; directly below the XP bar if it is shown
 Place = function()
     local below = ns.XPBarBottom and ns.XPBarBottom()
     if below then
@@ -187,7 +182,7 @@ Place = function()
     ns.PlaceFromCenter(bar, "TOP", 0, cy - margin)
 end
 
--- Vorschau (Einstellungen): ein Beispielflug
+-- Preview (settings): a sample flight
 ns.FlightTimerDemo = {
     Start = function()
         if not bar then return end
@@ -207,17 +202,17 @@ ns:On("PLAYER_LOGIN", function()
     ns.layoutFrames.flight = bar
     ns.OnLayout(Place)
     Place()
-    -- Ziel merken, sobald es angeklickt wird (Blizzards Flugkarte, alt und neu)
+    -- Remember the destination when it is clicked (old and new taxi map)
     if TakeTaxiNode then
         hooksecurefunc("TakeTaxiNode", function(index)
             pending = { from = CurrentNode(), to = TaxiNodeName(index), base = Enabled() and BaseTime(index) or nil }
         end)
     end
-    -- nach /reload in der Luft: ohne Ziel weiterzählen
+    -- After /reload mid-flight: keep counting without a destination
     if UnitOnTaxi("player") then Start() end
 end)
 
--- Abheben und Landen: Kontrolle verloren/zurück, dabei auf dem Flugtier?
+-- Takeoff and landing: control lost/regained while on a taxi?
 ns:On("PLAYER_CONTROL_LOST", function()
     C_Timer.After(0.2, function() if UnitOnTaxi("player") then Start() end end)
 end)
