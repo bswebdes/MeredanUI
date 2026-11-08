@@ -1,39 +1,35 @@
--- Eigene Buffs und Debuffs oben rechts, links neben der Minimap (ersetzt Blizzards Leiste).
+-- Player buffs and debuffs top right, left of the minimap (replaces Blizzard's frame).
 --
---   [B][B][B][B][B][B][B][B][B][B][B][B] │ Minimap │   ← Buffs (Standard 36 px), wachsen nach
---   12m 45  3m  1h …                     │         │     links, zwei Reihen; Waffen-Verzauberungen
---   [B][B][B] …                          │         │     zuerst
+--   [B][B][B][B][B][B] | Minimap |  <- buffs, grow left, two rows; weapon enchants first
+--   12m 45  3m  1h      |         |
+--      [ D ][ D ][ D ]              <- debuffs, border in dispel color
+--             [P][P]                <- private auras (boss mechanics), drawn by Blizzard;
+--                                      replaces their anchors in the hidden Blizzard debuff frame
 --
---      [ D ][ D ][ D ] …                              ← Debuffs (Standard 40 px), Rahmen in
---       12   3m                                          Dispel-Farbe
---                     [P][P] …                        ← private Auren (Boss-Mechaniken), zeichnet
---                                                        Blizzard selbst; ersetzt deren Anker in
---                                                        der versteckten Blizzard-Debuffleiste
---
--- Gebaut auf Blizzards Aura-Container (12.1): Restzeit, Stapel, Dispel-Farbe, Tooltip und
--- Rechtsklick-Abbrechen erledigt Blizzard – auch bei geschützten Werten (Secrets). Wie ElvUI.
--- Größe, Anzahl, Zeit-Position und Abbrechen stehen beim Anlegen fest: Änderungen greifen nach
--- dem Neuladen; das Demo (Einstellungen > Buffs & Debuffs) zeigt sie sofort als Vorschau.
+-- Built on Blizzard's AuraContainer (12.1): duration, stacks, dispel color, tooltip and
+-- right-click cancel are handled by Blizzard - even with secret values. Same approach as ElvUI.
+-- Size, count, time position and cancel are fixed at creation: changes apply after a reload;
+-- the demo (Settings > Buffs & Debuffs) previews them immediately.
 local _, ns = ...
 
 local BUFF_ROWS, DEBUFF_ROWS = 2, 1
-local SPACING = 4          -- zwischen den Icons
-local TIME_HEIGHT = 14     -- Platz für die Restzeit unter dem Icon
-local GAP = 10             -- Abstand zur Minimap
-local GROUP_GAP = 18       -- zwischen Buffs, Debuffs und privaten Auren
-local PRIVATE_COUNT = 6    -- so viele Anker legt Blizzard selbst an
+local SPACING = 4          -- between icons
+local TIME_HEIGHT = 14     -- space for the duration below the icon
+local GAP = 10             -- gap to the minimap
+local GROUP_GAP = 18       -- between buffs, debuffs and private auras
+local PRIVATE_COUNT = 6    -- number of anchors Blizzard creates
 
 local hidden = CreateFrame("Frame")
 hidden:Hide()
 
--- Element-Ersatz für ns.StyleAuraButton (braucht dort nur die oUF-Farben für Dispel-Rahmen)
+-- Fake element for ns.StyleAuraButton (only needs the oUF colors for dispel borders)
 local styleElement = { __owner = { colors = ns.oUF.colors } }
 
 local function TimeInside() return ns.db.auraTime == "inside" end
--- „Leiste“ (Benny 2026-11-08): statt Zahl eine dünne Leiste unter dem Icon, die abläuft; Farbe von
--- Salbei über Gelb nach Rot, je weniger Zeit übrig ist
+-- "Bar" mode: a thin draining bar below the icon instead of a number; color goes from
+-- accent via yellow to red as time runs out
 local function TimeBar() return ns.db.auraTime == "bar" end
-local BAR_HEIGHT, BAR_GAP = 5, 4 -- Benny 2026-11-08: etwas höher, mehr Abstand zum Icon
+local BAR_HEIGHT, BAR_GAP = 5, 4
 local SAGE, YELLOW, RED = { 0.557, 0.796, 0.706 }, { 0.93, 0.79, 0.36 }, { 0.88, 0.36, 0.32 }
 local barCurve
 if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
@@ -44,24 +40,24 @@ if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
     barCurve:AddPoint(0.6, CreateColor(SAGE[1], SAGE[2], SAGE[3]))
     barCurve:AddPoint(1, CreateColor(SAGE[1], SAGE[2], SAGE[3]))
 end
-local timeBars = {} -- [Leiste] = Aura-Knopf
--- Farbe alle 0,2 s aus Blizzards Dauer-Objekt (Werte können geschützt sein: nur durchreichen)
+local timeBars = {} -- [bar] = aura button
+-- Recolor every 0.2s from Blizzard's duration object (values may be secret: pass through only)
 C_Timer.NewTicker(0.2, function()
     if not barCurve then return end
     for bar, button in pairs(timeBars) do
-        -- Sichtbarkeit der Aura-Knöpfe ist geschützt (Secret) – nicht prüfen, einfach alle färben
+        -- Aura button visibility is secret - don't check it, just color all
         if button.GetAuraDuration then
             local ok, duration = pcall(button.GetAuraDuration, button)
             if ok and duration and duration.EvaluateRemainingPercent then
                 local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
-                -- Farbe kann geschützt sein: nur durchreichen, Fehler schlucken (dann bleibt Salbei)
+                -- Color may be secret: pass through only, swallow errors (bar stays accent-colored)
                 if okColor and color then pcall(function() bar:SetStatusBarColor(color:GetRGB()) end) end
             end
         end
     end
 end)
 
--- Maße einer Leiste – für die echten Leisten und das Demo gleich
+-- Container metrics - shared by the real containers and the demo
 local function Metrics(size, perRow, rows)
     local iconSize, spacing = ns.Snap(size), ns.Snap(SPACING)
     local timeBelow = TimeBar() and ns.Snap(BAR_HEIGHT + BAR_GAP + 1) or (not TimeInside() and ns.Snap(TIME_HEIGHT) or 0)
@@ -71,14 +67,14 @@ local function Metrics(size, perRow, rows)
     return iconSize, spacing, lineSpacing, width, height
 end
 
--- Größe als Stufe für beide (Buff, Debuff), Anzahl pro Reihe fest (Benny 2026-11-07)
+-- Size as a step for both (buff, debuff); fixed count per row
 local AURA_SIZES = { small = { 30, 34 }, medium = { 36, 40 }, large = { 42, 46 } }
 local BUFFS_PER_ROW, DEBUFFS_PER_ROW = 12, 10
 local function Sizes() return AURA_SIZES[ns.db.auraSize] or AURA_SIZES.medium end
 local function BuffMetrics() return Metrics(Sizes()[1], BUFFS_PER_ROW, BUFF_ROWS) end
 local function DebuffMetrics() return Metrics(Sizes()[2], DEBUFFS_PER_ROW, DEBUFF_ROWS) end
 
--- Restzeit unter oder im Icon, Stapel unten rechts
+-- Duration below or inside the icon, stacks bottom right
 local function PlaceTexts(button, time, count)
     time:ClearAllPoints()
     if TimeInside() then
@@ -94,7 +90,7 @@ local function InitButton(button, size, harmful)
     button:SetSize(size, size)
     button:SetTooltipAnchorPoint("ANCHOR_BOTTOMLEFT", 0, 0)
     if not harmful then
-        -- Rechtsklick bricht den Buff ab (Blizzard macht das geschützt)
+        -- Right-click cancels the buff (Blizzard does this securely)
         button:SetCancelAuraButtons(C_CVar.GetCVarBool("ActionButtonUseKeyDown") and "RightButtonDown" or "RightButtonUp")
     end
 
@@ -108,12 +104,12 @@ local function InitButton(button, size, harmful)
     button.Icon = icon
     button:SetIcon(icon)
 
-    -- Texte über der Spirale
+    -- Texts above the cooldown swipe
     local texts = CreateFrame("Frame", nil, button)
     texts:SetAllPoints()
     texts:SetFrameLevel(cooldown:GetFrameLevel() + 1)
 
-    -- mit Schrift anlegen: Blizzard schreibt schon beim Verbinden Text hinein (MUI-Schrift danach)
+    -- Create with a font: Blizzard writes text as soon as it's connected (MUI font applied later)
     local count = texts:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
     button.Count = count
     button:SetApplicationCount(count, {})
@@ -121,14 +117,14 @@ local function InitButton(button, size, harmful)
     local time = texts:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
     button.Time = time
     if TimeBar() then
-        -- Leiste statt Zahl: Blizzard lässt sie selbst ablaufen (SetTimerDuration)
+        -- Bar instead of number: Blizzard drains it itself (SetTimerDuration)
         local bar = CreateFrame("StatusBar", nil, button)
-        -- um die Rahmenbreite eingerückt: der Rahmen liegt außen und schließt dann bündig mit dem Icon ab
+        -- Inset by the border width: the border sits outside and then lines up with the icon
         local inset = ns.BORDER_PIXELS * ns.PixelSize()
         bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", inset, -ns.Snap(BAR_GAP))
         bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", -inset, -ns.Snap(BAR_GAP))
         bar:SetHeight(ns.Snap(BAR_HEIGHT))
-        bar:SetReverseFill(true) -- läuft von links nach rechts ab (Benny 2026-11-08)
+        bar:SetReverseFill(true) -- drains left to right
         bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
         bar:SetStatusBarColor(unpack(SAGE))
         local bg = bar:CreateTexture(nil, "BACKGROUND")
@@ -142,7 +138,7 @@ local function InitButton(button, size, harmful)
         button:SetDurationText(time, { textFormatter = ns.DurationFormatter })
     end
 
-    -- MUI-Look wie an den Unitframes (Rahmen, Dispel-Farbe bei Debuffs, Spirale, Schrift)
+    -- MUI look like the unit frames (border, dispel color for debuffs, swipe, font)
     ns.StyleAuraButton(styleElement, button, { dispelBand = harmful and "harmful" or nil })
     PlaceTexts(button, time, count)
 end
@@ -152,11 +148,11 @@ local function CreateContainer(name, filter, perRow, rows, iconSize, spacing, li
     container:SetFrameStrata("LOW")
     container.muiHeight = height
     container:SetSize(width, height)
-    -- oben rechts beginnen, nach links und dann nach unten wachsen
+    -- Start top right, grow left, then down
     container:SetFlowLayoutAnchorPoint("TOPRIGHT")
     container:SetFlowLayoutAxis(AnchorUtil.FlowLayoutAxis.Horizontal)
     container:SetFlowLayoutGrowthDirection(AnchorUtil.FlowDirection.Left, AnchorUtil.FlowDirection.Down)
-    container:SetFlowLayoutMaximumLineSize(width + ns.PixelSize() / 2) -- halber Pixel gegen Rundungsfehler
+    container:SetFlowLayoutMaximumLineSize(width + ns.PixelSize() / 2) -- half a pixel against rounding errors
     container:SetFlowLayoutPadding(0, 0, 0, 0)
 
     local harmful = filter == "HARMFUL"
@@ -170,7 +166,7 @@ local function CreateContainer(name, filter, perRow, rows, iconSize, spacing, li
         initializeFrame = Init,
     })
     if not harmful then
-        -- Waffen-Verzauberungen (Gifte, Öle …) vor den Buffs
+        -- Weapon enchants (poisons, oils ...) before the buffs
         for _, slot in ipairs({ AuraContainerItemEnchantmentSlot.MainHand, AuraContainerItemEnchantmentSlot.OffHand }) do
             container:AddItemEnchantment(slot, { initializeFrame = Init })
         end
@@ -186,7 +182,7 @@ local function CreateContainer(name, filter, perRow, rows, iconSize, spacing, li
     return container
 end
 
--- Private Auren: nur Anker-Rahmen; Symbol, Rahmen und Restzeit setzt Blizzard hinein
+-- Private auras: anchor frames only; Blizzard fills in icon, border and duration
 local function CreatePrivateAuras(iconSize, spacing)
     local holder = CreateFrame("Frame", "MeredanUIPlayerPrivateAuras", UIParent)
     holder:SetFrameStrata("LOW")
@@ -197,7 +193,7 @@ local function CreatePrivateAuras(iconSize, spacing)
         local aura = CreateFrame("Frame", nil, holder)
         holder.slots[index] = aura
         aura:SetSize(iconSize, iconSize)
-        aura:SetPoint("TOPLEFT", holder, "TOPLEFT", (index - 1) * (iconSize + spacing), 0) -- wächst nach rechts
+        aura:SetPoint("TOPLEFT", holder, "TOPLEFT", (index - 1) * (iconSize + spacing), 0) -- grows right
         C_UnitAuras.AddPrivateAuraAnchor({
             unitToken = "player",
             auraIndex = index,
@@ -217,16 +213,16 @@ end
 
 local buffs, debuffs, privates
 
--- Oben bündig mit der Minimap (ohne Minimap am Bildschirmrand), Buffs, Debuffs und private
--- Auren untereinander. Nie eigene Rahmen an einen Aura-Container hängen: der ist abgeschirmt –
--- deshalb jede Reihe einzeln am selben Anker mit ausgerechnetem Abstand.
+-- Top aligned with the minimap (or screen edge without minimap); buffs, debuffs and private
+-- auras stacked. Never anchor own frames to an aura container: it is forbidden - so each
+-- row is anchored to the same anchor with a computed offset.
 local function StackAnchor()
     local minimap = _G["MeredanUIMinimap"]
     if minimap then return minimap, "TOPLEFT", -ns.Snap(GAP), 0 end
     return UIParent, "TOPRIGHT", -ns.Snap(ns.SCREEN_MARGIN), -ns.Snap(ns.SCREEN_MARGIN)
 end
 
--- Reihen untereinander; liefert die nächste freie Höhe (für die privaten Auren ohne Boss-Modul)
+-- Stack rows; returns the next free offset (for private auras without the boss module)
 local function Stack(frames)
     local anchor, point, x, y = StackAnchor()
     for _, frame in ipairs(frames) do
@@ -239,22 +235,21 @@ local function Stack(frames)
     return anchor, point, x, y
 end
 
--- Private Auren (Boss-Mechaniken, Blizzard zeichnet sie): über der obersten Boss-Leiste, linke
--- Kante bündig mit den Leisten-Symbolen, nach rechts wachsend (Benny, 2026-10-25). BossMods meldet
--- die Spalte in ns.bossBarColumn und ruft das hier nach jedem Umbau auf. Ohne Boss-Modul: unter
--- den Debuffs.
+-- Private auras (boss mechanics, drawn by Blizzard): above the topmost boss bar, left edge
+-- aligned with the bar icons, growing right. BossMods reports the column in ns.bossBarColumn
+-- and calls this after every rebuild. Without the boss module: below the debuffs.
 local PRIVATE_BOSS_GAP = 6
 function ns.PlacePrivateAuras()
     if not privates then return end
     privates:ClearAllPoints()
     local column = ns.bossBarColumn
     if column then
-        -- Restzeit „unter dem Icon“ braucht Luft zur obersten Leiste (Demo-Platzhalter; Blizzard
-        -- schreibt die echte Zahl ins Icon)
+        -- Duration "below the icon" needs room to the topmost bar (demo placeholders; Blizzard
+        -- writes the real number inside the icon)
         local gap = ns.Snap(PRIVATE_BOSS_GAP) + (TimeInside() and 0 or ns.Snap(TIME_HEIGHT))
         privates:SetPoint("BOTTOMLEFT", column.holder, "TOPRIGHT", -ns.Snap(column.width), gap)
     else
-        -- NIE an den Debuff-Container hängen (abgeschirmt > „Anchoring disallowed“): Höhe ausrechnen
+        -- NEVER anchor to the debuff container (forbidden -> "Anchoring disallowed"): compute height
         local anchor, point, x, y = StackAnchor()
         for _, frame in ipairs({ buffs, debuffs }) do
             if frame then y = y - frame.muiHeight - ns.Snap(GROUP_GAP) end
@@ -263,13 +258,13 @@ function ns.PlacePrivateAuras()
     end
 end
 
--- Unterkante des Aura-Stapels oben rechts (Buffs, Debuffs, private Auren nur ohne Boss-Modul –
--- mit Boss-Modul hängen sie über den Boss-Leisten). Für das Questlog darunter. Gerechnet, nicht
--- gemessen: Aura-Container sind abgeschirmt.
+-- Bottom edge of the aura stack top right (buffs, debuffs, private auras only without the boss
+-- module - with it they sit above the boss bars). Used by the quest log below. Computed, not
+-- measured: aura containers are forbidden.
 function ns.AuraStackBottom()
     if not (buffs or debuffs) then return end
     local anchor, point, x, y = StackAnchor()
-    local top = anchor:GetTop() -- Minimap-Oberkante bzw. Bildschirm-Oberkante (beide „TOP…“)
+    local top = anchor:GetTop() -- minimap top or screen top (both TOP* points)
     if not top then return end
     local frames = { buffs, debuffs }
     if privates and not ns.bossBarColumn then frames[#frames + 1] = privates end
@@ -293,11 +288,11 @@ local function HideBlizzard()
             frame:Hide()
         end
     end
-    -- sonst meldet der Bearbeitungsmodus einen Fehler (wie ElvUI)
+    -- otherwise Edit Mode raises an error (same as ElvUI)
     if BuffFrame then BuffFrame.numHideableBuffs = 0 end
 end
 
--- Demo: Beispiel-Icons mit den aktuellen Einstellungen (auch noch nicht neu geladenen) ----------
+-- Demo: sample icons with the current settings (even ones not yet reloaded) --------------
 
 local DEMO_BUFFS = { 21562, 1459, 6673, 1126, 381748, 462854, 2825, 465, 1022, 774, 17, 139 }
 local DEMO_DEBUFFS = { 589, 172, 8936, 980, 1079, 6788 }
@@ -324,12 +319,12 @@ local function DemoIcon(parent, spellID, size, harmful, index)
     if TimeBar() then
         time:SetText("")
         local bar = CreateFrame("StatusBar", nil, button)
-        -- um die Rahmenbreite eingerückt: der Rahmen liegt außen und schließt dann bündig mit dem Icon ab
+        -- Inset by the border width: the border sits outside and then lines up with the icon
         local inset = ns.BORDER_PIXELS * ns.PixelSize()
         bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", inset, -ns.Snap(BAR_GAP))
         bar:SetPoint("TOPRIGHT", button, "BOTTOMRIGHT", -inset, -ns.Snap(BAR_GAP))
         bar:SetHeight(ns.Snap(BAR_HEIGHT))
-        bar:SetReverseFill(true) -- läuft von links nach rechts ab (Benny 2026-11-08)
+        bar:SetReverseFill(true) -- drains left to right
         bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
         bar:SetMinMaxValues(0, 1)
         local fill = ({ 0.9, 0.55, 0.3, 0.1 })[(index - 1) % 4 + 1]
@@ -347,8 +342,8 @@ local function DemoIcon(parent, spellID, size, harmful, index)
     return button
 end
 
--- Platzhalter für private Auren (BossMods-Demo): die echten zeichnet Blizzard, eine Demo kann sie
--- nicht vortäuschen – das hier zeigt nur, WO sie erscheinen.
+-- Private aura placeholders (BossMods demo): Blizzard draws the real ones and a demo can't
+-- fake them - this only shows WHERE they appear.
 local DEMO_PRIVATE = { 589, 172, 8936 }
 local privateDemo
 function ns.PrivateAurasDemo(show)
@@ -402,13 +397,13 @@ ns.AurasDemo = {
     IsActive = function() return demoActive end,
 }
 
--- Einstellung geändert: läuft das Demo, mit den neuen Werten neu aufbauen
+-- Setting changed: rebuild the running demo with the new values
 function ns.RefreshAurasDemo()
     if demoActive then StartDemo() end
 end
 
 ns:On("PLAYER_LOGIN", function()
-    if not AuraContainerSortMethod then return end -- Client ohne Aura-Container: Blizzards Leiste bleibt
+    if not AuraContainerSortMethod then return end -- client without AuraContainer: Blizzard's frame stays
     HideBlizzard()
     local buffSize, buffSpacing, buffLines, buffWidth, buffHeight = BuffMetrics()
     buffs = CreateContainer("MeredanUIPlayerBuffs", "HELPFUL", BUFFS_PER_ROW, BUFF_ROWS,
