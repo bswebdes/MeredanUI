@@ -17,6 +17,14 @@ local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
 local HEAD_PAD, HEAD_ICON, HEAD_HEIGHT = 18, 46, 80 -- Kopf wie die mUI-Fenster; Inhalte ab HEAD_HEIGHT
+-- Zielbild = eigenes mUI-Gildenfenster (Social/Guild.lua, Benny 2026-11-08: „1:1 so“): gleiche Maße
+local WIN_W, WIN_H = 940, 640
+local PAD, LIST_W, MEMBER_W = 18, 190, 180
+local CONTENT_X = PAD + LIST_W + 12        -- Inhalt rechts der Community-Liste
+local CONTENT_TOP = PAD + HEAD_ICON + 14   -- Inhalt unter dem Kopf (78)
+local CONTENT_BOTTOM = 54                  -- Fußzeile darunter
+local BOX = { 0.098, 0.098, 0.106, 1 }     -- Kästen (Nachricht des Tages, Info, Neuigkeiten)
+local PlaceAll                             -- Gesamt-Layout (unten definiert)
 local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
 
 local noBump = setmetatable({}, { __mode = "k" }) -- Bereiche mit festen Breiten (Info-Spalte)
@@ -382,67 +390,152 @@ end
 
 -- Eintrag der Community-Liste links: Blizzards blaue Karte unsichtbar, flache Karte, Auswahl mit
 -- Surf-Green-Streifen links. Wappen, Symbol und Ring bleiben.
+-- Eintrag der Community-Liste wie im eigenen Fenster: Karte 52 px (in Blizzards 68-px-Platz), Symbol
+-- 32 px im Kästchen links, Name (13) und Art (11, grau) daneben, gewählt mit Surf-Green-Streifen
 local function SkinListEntry(entry)
     if not Once(entry) then return end
     local UI = ns.UI
     Fade(entry.Background)
     Fade(entry.Selection)
     Fade(entry:GetHighlightTexture())
-    local card = Tex(entry, "BACKGROUND", -8, UI.FIELD)
-    card:SetPoint("TOPLEFT", 4, -3)
-    card:SetPoint("BOTTOMRIGHT", -4, 3)
+    for _, key in ipairs({ "Icon", "IconRing", "GuildTabardBackground", "GuildTabardEmblem", "GuildTabardBorder",
+        "InvitationIcon" }) do Fade(entry[key]) end
+    local card = Tex(entry, "BACKGROUND", -8, BOX)
+    card:SetPoint("TOPLEFT", 0, -8)
+    card:SetPoint("BOTTOMRIGHT", 0, 8)
     Edges(entry, card)
-    local selected = Tex(entry, "BACKGROUND", -7, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.1 })
+    local selected = Tex(entry, "BACKGROUND", -7, { 0.122, 0.141, 0.133, 1 })
     selected:SetAllPoints(card)
     local marker = Tex(entry, "OVERLAY", 7, UI.ACCENT)
     marker:SetPoint("TOPLEFT", card, "TOPLEFT")
     marker:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT")
     marker:SetWidth(2)
-    local hover = Tex(entry, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
+    local hover = Tex(entry, "HIGHLIGHT", 0, { 1, 1, 1, 0.04 })
     hover:SetAllPoints(card)
-    -- „Community beitreten oder gründen“: grelles Grün-Plus in Salbei (Benny 2026-11-08)
-    local icon = entry.Icon
-    if IsTexture(icon) then
-        local function Tint()
-            local plus = icon:GetAtlas() == "communities-icon-addgroupplus"
-            icon:SetDesaturated(plus)
-            if plus then icon:SetVertexColor(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3]) else icon:SetVertexColor(1, 1, 1) end
-        end
-        hooksecurefunc(icon, "SetAtlas", Tint)
-        Tint()
+    local holder = CreateFrame("Frame", nil, entry)
+    holder:SetSize(32, 32)
+    holder:SetPoint("LEFT", card, "LEFT", 10, 0)
+    ns.AddBorder(holder)
+    local iconBg = holder:CreateTexture(nil, "BACKGROUND")
+    iconBg:SetAllPoints()
+    iconBg:SetColorTexture(0.15, 0.15, 0.16, 1)
+    local icon = holder:CreateTexture(nil, "ARTWORK")
+    icon:SetPoint("CENTER")
+    local kind = entry:CreateFontString(nil, "OVERLAY")
+    own[kind] = true
+    kind:SetFont(ns.FontFor(), ns.FontPx(11), "")
+    kind:SetTextColor(unpack(UI.MUTED))
+    local name = entry.Name
+    if name then
+        own[name] = true
+        name:SetFont(ns.FontFor(), ns.FontPx(13), "")
+        name:SetWordWrap(false)
+        name:SetJustifyV("MIDDLE")
+    end
+    if entry.UnreadNotificationIcon then
+        entry.UnreadNotificationIcon:ClearAllPoints()
+        entry.UnreadNotificationIcon:SetPoint("TOPRIGHT", card, "TOPRIGHT", -4, -4)
+        entry.UnreadNotificationIcon:SetSize(16, 16)
     end
     local selection = entry.Selection
     local function Sync()
         local on = IsTexture(selection) and selection:IsShown() or false
         selected:SetShown(on)
         marker:SetShown(on)
+        if name then name:SetTextColor(unpack(on and UI.ACCENT or UI.TEXT)) end
     end
+    local function Style(_, data)
+        data = data or {}
+        local club = data.clubInfo
+        for _, key in ipairs({ "Icon", "IconRing", "GuildTabardBackground", "GuildTabardEmblem",
+            "GuildTabardBorder", "InvitationIcon" }) do Fade(entry[key]) end
+        iconBg:SetColorTexture(0.15, 0.15, 0.16, 1)
+        icon:SetTexCoord(0, 1, 0, 1)
+        icon:SetVertexColor(1, 1, 1)
+        icon:SetDesaturated(false)
+        icon:SetSize(30, 30)
+        local kindText
+        if club then
+            if club.clubType == Enum.ClubType.Guild and SetLargeGuildTabardTextures then
+                iconBg:SetTexture(WHITE)
+                icon:SetSize(28, 28)
+                SetLargeGuildTabardTextures("player", icon, iconBg)
+                kindText = GUILD or "Guild"
+            else
+                pcall(C_Club.SetAvatarTexture, icon, club.avatarId, club.clubType)
+                kindText = club.clubType == Enum.ClubType.BattleNet and (COMMUNITIES_INVITATION_FRAME_TYPE or "Community")
+                    or (COMMUNITIES_INVITATION_FRAME_TYPE_CHARACTER or "Community")
+            end
+        elseif data.setJoinCommunity or data.setAddCommunity then
+            icon:SetTexture(ns.MEDIA .. "Icons\\Plus")
+            icon:SetSize(16, 16)
+            icon:SetVertexColor(unpack(UI.ACCENT))
+        else
+            local atlas = entry.Icon and entry.Icon.GetAtlas and entry.Icon:GetAtlas()
+            if atlas then icon:SetAtlas(atlas) else icon:SetTexture(entry.Icon and entry.Icon:GetTexture()) end
+        end
+        kind:SetText(kindText or "")
+        kind:SetShown(kindText ~= nil)
+        if name then
+            name:ClearAllPoints()
+            if kindText then
+                name:SetPoint("TOPLEFT", holder, "TOPRIGHT", 10, -2)
+                kind:ClearAllPoints()
+                kind:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -4)
+            else
+                name:SetPoint("LEFT", holder, "RIGHT", 10, 0)
+            end
+            name:SetPoint("RIGHT", card, "RIGHT", -8, 0)
+        end
+        Sync()
+    end
+    if entry.Init then hooksecurefunc(entry, "Init", Style) end
     if IsTexture(selection) then
         hooksecurefunc(selection, "Show", Sync)
         hooksecurefunc(selection, "Hide", Sync)
         hooksecurefunc(selection, "SetShown", Sync)
     end
-    Sync()
+    Style(entry, entry.GetElementData and entry:GetElementData())
 end
 
--- Namensspalte der Mitgliederliste breiter, Notiz dafür schmaler (Benny 2026-11-08: Namen wurden
--- abgeschnitten). Zone, Rang und Notiz hängen an der Namensspalte und rücken mit; die Notiz füllt den
--- Rest. Nur Breiten, Blizzards Daten/Skripte bleiben unberührt.
-local NAME_EXTRA = 40   -- Mitgliederseite (Spalten)
-local LIST_EXTRA = 60   -- schmale Liste neben dem Chat
-local function WidenName(row)
-    local extra
-    if row.expanded then
-        if not (row.Class and row.Class:IsShown()) then return end
-        extra = NAME_EXTRA
-    else
-        extra = LIST_EXTRA
-    end
+-- Spalten der Mitgliederseite wie im eigenen Fenster (Stufe 44, Klasse 50, Name 150, Zone 120, Rang 104,
+-- Notiz Rest); neben dem Chat ist die Liste 180 breit. Nur Punkte/Breiten an Blizzards Zeilen.
+local COL_X = { level = 10, class = 56, name = 104, zone = 254, rank = 374, note = 478 }
+local COLUMN_WIDTHS = { 46, 52, 152, 122, 106 } -- Köpfe überlappen bei Blizzard je 2 px
+local LIST_EXTRA = MEMBER_W - 165
+local function RowLayout(row)
+    if InCombatLockdown() then return end
     local frame = row.NameFrame
     if type(frame) ~= "table" or not frame.Name then return end
-    frame:SetWidth(frame:GetWidth() + extra)
     local name = frame.Name
-    name:SetWidth(name:GetWidth() + extra)
+    if row.expanded then
+        if not (row.Class and row.Class:IsShown()) then return end
+        row.Level:ClearAllPoints()
+        row.Level:SetPoint("LEFT", row, "LEFT", COL_X.level, 0)
+        row.Level:SetWidth(COL_X.class - COL_X.level - 8)
+        row.Class:ClearAllPoints()
+        row.Class:SetPoint("LEFT", row, "LEFT", COL_X.class, 0)
+        row.Class:SetSize(18, 18)
+        local width = COL_X.zone - COL_X.name - 14
+        name:SetWidth(name:GetWidth() + (width - frame:GetWidth()))
+        frame:ClearAllPoints()
+        frame:SetPoint("LEFT", row, "LEFT", COL_X.name, 0)
+        frame:SetWidth(width)
+        row.Zone:ClearAllPoints()
+        row.Zone:SetPoint("LEFT", row, "LEFT", COL_X.zone, 0)
+        row.Zone:SetWidth(COL_X.rank - COL_X.zone - 8)
+        row.Rank:ClearAllPoints()
+        row.Rank:SetPoint("LEFT", row, "LEFT", COL_X.rank, 0)
+        row.Rank:SetWidth(COL_X.note - COL_X.rank - 8)
+        if not (row.GuildInfo and row.GuildInfo:IsShown()) then
+            row.Note:ClearAllPoints()
+            row.Note:SetPoint("LEFT", row, "LEFT", COL_X.note, 0)
+            row.Note:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        end
+    else
+        frame:SetWidth(frame:GetWidth() + LIST_EXTRA)
+        name:SetWidth(name:GetWidth() + LIST_EXTRA)
+    end
     local rank = frame.RankIcon
     if rank then
         local offset = frame.PresenceIcon and frame.PresenceIcon:IsShown() and frame.PresenceIcon:GetWidth() or 0
@@ -451,7 +544,7 @@ local function WidenName(row)
     end
 end
 
--- Zeile der Mitgliederliste: Blizzards Streifen und blauer Hover weg, flache Zeile, Hover in Surf Green
+-- Zeile der Mitgliederliste:-- Zeile der Mitgliederliste: Blizzards Streifen und blauer Hover weg, flache Zeile, Hover in Surf Green
 local function SkinMemberRow(row)
     if not Once(row) then return end
     local UI = ns.UI
@@ -462,7 +555,8 @@ local function SkinMemberRow(row)
     bg:SetPoint("BOTTOMRIGHT", 0, 1)
     local hover = Tex(row, "HIGHLIGHT", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.12 })
     hover:SetAllPoints(bg)
-    if row.UpdateNameFrame then hooksecurefunc(row, "UpdateNameFrame", WidenName) end
+    if row.UpdateNameFrame then hooksecurefunc(row, "UpdateNameFrame", RowLayout) end
+    if row.RefreshExpandedColumns then hooksecurefunc(row, "RefreshExpandedColumns", RowLayout) end
     local header = row.ProfessionHeader
     if type(header) == "table" then
         for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(header[key]) end
@@ -476,9 +570,10 @@ local function SkinColumnHeaders(display)
     local UI = ns.UI
     for _, column in ipairs({ display:GetChildren() }) do
         -- Namensspalte mit Stufe/Klasse davor (Gilde, Charakter-Community) wie die Zeilen verbreitern
-        if column:IsObjectType("Button") and column:IsShown() and column:GetID() == 3
-            and column:GetText() == COMMUNITIES_ROSTER_COLUMN_TITLE_NAME then
-            column:SetWidth(100 + NAME_EXTRA)
+        -- Gilde/Charakter-Community (Stufe + Klasse davor): Spaltenbreiten wie im eigenen Fenster
+        if column:IsObjectType("Button") and column:IsShown() and COLUMN_WIDTHS[column:GetID()]
+            and display:GetParent() and display:GetParent().columnInfo and #display:GetParent().columnInfo == 6 then
+            column:SetWidth(COLUMN_WIDTHS[column:GetID()])
         end
         if column:IsObjectType("Button") and Once(column) then
             for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(column[key]) end
@@ -607,8 +702,7 @@ local function SkinShell(f)
         if self:GetScale() ~= 1 then self:SetScale(1) end
         local w, h = self:GetSize()
         if math.abs(w - BLIZZ_W) < 1 and math.abs(h - BLIZZ_H) < 1 then
-            local height = ns.NPC_HEIGHT or 640
-            self:SetSize(math.floor(BLIZZ_W * height / BLIZZ_H + 0.5), height)
+            self:SetSize(WIN_W, WIN_H) -- wie das eigene Gildenfenster
         end
     end
     f:HookScript("OnSizeChanged", function(self)
@@ -636,7 +730,7 @@ local function SkinShell(f)
     local maxMin = f.MaximizeMinimizeFrame
     if maxMin then
         SkinIconButton(maxMin.MaximizeButton, "Square", 16)
-        SkinIconButton(maxMin.MinimizeButton, "Minus", 16)
+        SkinIconButton(maxMin.MinimizeButton, "ChevronDown", 16) -- wie im eigenen Fenster
         if not InCombatLockdown() then
             maxMin:SetSize(34, 34)
             for _, button in ipairs({ maxMin.MaximizeButton, maxMin.MinimizeButton }) do
@@ -652,60 +746,15 @@ local function SkinShell(f)
             end
         end
     end
-    -- Fußzeile (Benny 2026-11-08: Kästen klebten an den Knöpfen): Inhalte enden 40 px über der
-    -- Unterkante, Knöpfe 24 hoch mit 8 px Luft darüber und darunter, bündig mit dem Kasten darüber.
-    -- Inhalts-Bereiche oben wie vorher (Blizzard: 40 unter der Community-Spalte, die wir tiefer setzen).
-    if not InCombatLockdown() then
-        local BOTTOM, BUTTON_H = 40, 24
-        if f.MemberList then f.MemberList:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, BOTTOM) end
-        for _, key in ipairs({ "GuildBenefitsFrame", "GuildDetailsFrame", "GuildPreferredPlaySettingsFrame" }) do
-            local area = f[key]
-            if area and f.CommunitiesList then
-                area:ClearAllPoints()
-                area:SetPoint("TOPLEFT", f.CommunitiesList, "TOPRIGHT", 24, -35) -- Bereichstitel sitzt 35 darüber
-                area:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -12, BOTTOM)
-            end
-        end
-        if f.InviteButton then
-            f.InviteButton:SetSize(150, BUTTON_H)
-            f.InviteButton:ClearAllPoints()
-            f.InviteButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8)
-        end
-        local control = f.CommunitiesControlFrame
-        if control then
-            for _, key in ipairs({ "GuildControlButton", "GuildRecruitmentButton", "CommunitiesSettingsButton" }) do
-                if control[key] then control[key]:SetHeight(BUTTON_H) end
-            end
-            if control.GuildControlButton then control.GuildControlButton:SetWidth(150) end
-            control:SetHeight(BUTTON_H)
-            control:ClearAllPoints()
-            control:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8)
-        end
-        if f.GuildLogButton and f.GuildDetailsFrame then
-            f.GuildLogButton:SetSize(150, BUTTON_H)
-            f.GuildLogButton:ClearAllPoints()
-            f.GuildLogButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8) -- rechts wie die anderen
-        end
-    end
     SkinInset(f.Inset)
 end
 
 local function SkinCommunitiesList(list)
     if type(list) ~= "table" then return end
-    -- Blizzards Artwork passt nur mit Blizzards Metallrahmen (ohne ihn sieht man die Kanten) –
-    -- Spalte deshalb wie der Chat-Kasten daneben: dunkle Fläche, gleiche feine Kante (Benny 2026-11-08)
+    -- wie im eigenen Fenster: keine Spalten-Fläche, nur die Karten der Einträge
     for _, key in ipairs({ "Bg", "TopFiligree", "BottomFiligree" }) do Fade(list[key]) end
     FadeRegions(list.FilligreeOverlay)
-    local f = list:GetParent()
-    if f and not InCombatLockdown() then
-        list:ClearAllPoints()
-        list:SetPoint("TOPLEFT", f, "TOPLEFT", HEAD_PAD, -HEAD_HEIGHT)
-        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", HEAD_PAD + 171, 40) -- wie die übrigen Inhalte (Fußzeile)
-    end
-    -- wie der Chat-Kasten; der Kasten liegt über den Einträgen: Rand am Kasten, Fläche an der Liste
-    SkinInset(list.InsetFrame, true)
-    local fill = Tex(list, "BACKGROUND", -8, { 0, 0, 0, 0.35 })
-    fill:SetAllPoints(type(list.InsetFrame) == "table" and list.InsetFrame or list)
+    SkinInset(list.InsetFrame)
     SkinScrollBar(list.ScrollBar)
     HookScrollBox(list.ScrollBox, SkinListEntry)
 end
@@ -732,16 +781,9 @@ local function SkinMemberList(members)
     end
     SkinScrollBar(members.ScrollBar)
     SkinCheck(members.ShowOfflineButton)
-    -- neben dem Chat breiter (Blizzard: 165 px ab rechts), damit Namen nicht abgeschnitten werden
+    -- Lage je Ansicht (Chat/Mitglieder) setzt PlaceAll; Blizzard setzt sie hier neu
     if members.RefreshLayout then
-        hooksecurefunc(members, "RefreshLayout", function(self)
-            if not self.expandedDisplay and not InCombatLockdown() then
-                self:SetPoint("TOPLEFT", self:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -(HEAD_HEIGHT + 46))
-            end
-        end)
-        if not members.expandedDisplay then
-            members:SetPoint("TOPLEFT", members:GetParent(), "TOPRIGHT", -165 - LIST_EXTRA, -(HEAD_HEIGHT + 46))
-        end
+        hooksecurefunc(members, "RefreshLayout", function(self) if PlaceAll then PlaceAll(self:GetParent()) end end)
     end
     local display = members.ColumnDisplay
     if type(display) == "table" then
@@ -772,7 +814,7 @@ local function LayoutTabs(f)
             if tab.Icon then tab.Icon:SetSize(TAB_SIZE - 4, TAB_SIZE - 4) end
             if tab:IsShown() then
                 tab:ClearAllPoints()
-                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP)
+                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, -60 - slot * TAB_STEP) -- wie im eigenen Fenster
                 slot = slot + 1
             end
         end
@@ -840,8 +882,11 @@ local function IconLink(button, iconName, tooltip)
     local UI = ns.UI
     local label = button:GetFontString()
     if label then label:SetAlpha(0) end
-    button:SetSize(20, 20)
-    local icon = UI.Icon(button, iconName, 14, UI.MUTED)
+    button:SetSize(22, 22)
+    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
+    bg:SetAllPoints()
+    Border(button)
+    local icon = UI.Icon(button, iconName, 12, UI.TEXT)
     own[icon] = true
     icon:SetPoint("CENTER")
     button:HookScript("OnEnter", function(self)
@@ -851,88 +896,202 @@ local function IconLink(button, iconName, tooltip)
         GameTooltip:Show()
     end)
     button:HookScript("OnLeave", function()
-        icon:SetVertexColor(unpack(UI.MUTED))
+        icon:SetVertexColor(unpack(UI.TEXT))
         GameTooltip:Hide()
     end)
 end
 
 -- Bevorzugte Spieleinstellungen (Sprache, Standort): Dropdowns und „Übernehmen“ wie überall
+-- Überschrift eines Bereichs wie im eigenen Fenster: Surf Green, 12, fett
+local function SectionTitle(fs)
+    if not fs then return end
+    own[fs] = true
+    fs:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
+    fs:SetTextColor(unpack(ns.UI.ACCENT))
+end
+
+-- unbenannte Schrift eines Rahmens anhand ihres Texts finden
+local function FindText(frame, text)
+    if type(frame) ~= "table" or not frame.GetRegions or not text then return end
+    for _, region in ipairs({ frame:GetRegions() }) do
+        if region.IsObjectType and region:IsObjectType("FontString") and region:GetText() == text then return region end
+    end
+end
+
+-- dunkler Kasten mit Rand (optional Surf-Green-Streifen links) – nur Optik
+local function MakeBox(parent, strip)
+    local box = CreateFrame("Frame", nil, parent)
+    box:SetFrameLevel(math.max(parent:GetFrameLevel() - 1, 0))
+    local bg = box:CreateTexture(nil, "BACKGROUND", nil, -8)
+    bg:SetAllPoints()
+    bg:SetColorTexture(unpack(BOX))
+    ns.AddBorder(box)
+    if strip then
+        local line = box:CreateTexture(nil, "ARTWORK")
+        line:SetPoint("TOPLEFT")
+        line:SetPoint("BOTTOMLEFT")
+        line:SetWidth(2)
+        line:SetColorTexture(unpack(ns.UI.ACCENT))
+    end
+    return box
+end
+
+-- Bevorzugte Spieleinstellungen (Sprache, Standort): wie im eigenen Fenster
 local function SkinPreferredPlay(frame)
     if type(frame) ~= "table" then return end
     SkinDropdown(frame.LocaleDropdown)
     SkinDropdown(frame.DatacenterDropdown)
     SkinButton(frame.LocaleApplyButton)
     SkinButton(frame.DatacenterApplyButton)
+    SectionTitle(frame.LocaleLabel)
+    SectionTitle(frame.DatacenterLabel)
+    if frame.Title then
+        own[frame.Title] = true
+        frame.Title:SetFont(ns.FontFor("bold"), ns.FontPx(15), "")
+        frame.Title:SetTextColor(unpack(ns.UI.TEXT))
+    end
 end
 
+local function LayoutPreferredPlay(frame)
+    if type(frame) ~= "table" or InCombatLockdown() then return end
+    if frame.Title then
+        frame.Title:ClearAllPoints()
+        frame.Title:SetPoint("TOPLEFT", frame, "TOPLEFT", 4, -8)
+    end
+    for _, pair in ipairs({ { frame.LocaleDropdown, frame.LocaleApplyButton }, { frame.DatacenterDropdown, frame.DatacenterApplyButton } }) do
+        local dropdown, apply = pair[1], pair[2]
+        if dropdown then dropdown:SetSize(270, 28) end
+        if apply and dropdown then
+            apply:SetSize(134, 28)
+            apply:ClearAllPoints()
+            apply:SetPoint("LEFT", dropdown, "RIGHT", 6, 0)
+        end
+    end
+end
+
+-- Info-Seite wie im eigenen Fenster: zwei Hälften (12 px Abstand); links „Nachricht des Tages“ (Kasten
+-- mit Surf-Green-Streifen) und unten „Gildeninformation“ (Kasten 150 hoch), rechts „Gildenneuigkeiten“;
+-- Bearbeiten/Filter als 22-px-Symbolknöpfe rechts neben der Überschrift.
+local infoParts = {}
 local function SkinDetails(details)
     if type(details) ~= "table" then return end
     for _, key in ipairs(INSET_BORDERS) do Fade(details[key]) end
     local info, news = details.Info, details.News
-    -- Info-Seite neu aufteilen (Benny 2026-11-08: „total gestaucht“): Blizzard baut sie für 600 px
-    -- Breite mit festen Maßen. Im großen Fenster: zwei gleich breite Spalten, links Nachricht des Tages
-    -- und Gildeninfo je halbe Höhe, rechts Neuigkeiten über die volle Höhe. Nur Größen/Punkte an
-    -- Blizzards Regionen, Klicks und Daten bleiben Blizzards.
-    if type(news) == "table" and type(info) == "table" then
-        IconLink(info.EditMOTDButton, "Edit", L_EDIT)
-        IconLink(info.EditDetailsButton, "Edit", L_EDIT)
-        IconLink(news.SetFiltersButton, "Filter", L_FILTER)
-        local header3 = info.GetName and info:GetName() and _G[info:GetName() .. "Header3"]
-        local function Layout()
-            if InCombatLockdown() then return end
-            local width, height = details:GetSize()
-            if not width or width < 600 or not height or height < 200 then return end
-            local column = math.floor((width - 28) / 2)
-            info:SetWidth(column)
-            news:SetWidth(column)
-            local inner = column - 8
-            local textWidth = inner - 14 - 20
-            local half = math.floor((height - 2 * 22 - 34) / 2)
-            if info.Header1 then info.Header1:SetWidth(inner) end
-            local motd = info.MOTDScrollFrame
-            if motd then
-                motd:SetSize(textWidth, half)
-                if motd.MOTD then motd.MOTD:SetWidth(textWidth) end
-            end
-            if header3 and motd then
-                header3:ClearAllPoints()
-                header3:SetPoint("TOPLEFT", motd, "BOTTOMLEFT", -14, -16)
-                header3:SetWidth(inner)
-            end
-            local detailsScroll = info.DetailsFrame
-            if detailsScroll then
-                detailsScroll:SetSize(textWidth, half)
-                local child = detailsScroll.GetScrollChild and detailsScroll:GetScrollChild()
-                if child then
-                    child:SetWidth(textWidth)
-                    if child.Details then child.Details:SetWidth(textWidth) end
-                end
-            end
-            if news.Header then news.Header:SetWidth(inner) end
-            local box = news.ScrollBox
-            if box and news.Header then
-                box:SetPoint("RIGHT", news.Header, "RIGHT", 0, 0)
-                box:SetPoint("BOTTOM", news, "BOTTOM", 0, 4)
+    if type(info) ~= "table" or type(news) ~= "table" then return end
+    FadeRegions(info) -- Pergament, Kopfbalken, Trennbalken
+    FadeRegions(news)
+    IconLink(info.EditMOTDButton, "Edit", L_EDIT)
+    IconLink(info.EditDetailsButton, "Edit", L_EDIT)
+    IconLink(news.SetFiltersButton, "Filter", L_FILTER)
+    for _, key in ipairs({ "MOTDScrollFrame", "DetailsFrame" }) do
+        local scroll = info[key]
+        if type(scroll) == "table" then SkinScrollBar(scroll.ScrollBar) end
+    end
+    SkinScrollBar(news.ScrollBar)
+    HookScrollBox(news.ScrollBox, FlatRow)
+    if info.TitleText then info.TitleText:SetAlpha(0) end
+    if news.TitleText then news.TitleText:SetAlpha(0) end
+    infoParts.motdLabel = info.Header1Label
+    infoParts.detailsLabel = FindText(info, GUILD_INFORMATION)
+    infoParts.newsLabel = FindText(news, GUILD_NEWS)
+    SectionTitle(infoParts.motdLabel)
+    SectionTitle(infoParts.detailsLabel)
+    SectionTitle(infoParts.newsLabel)
+    infoParts.header3 = info.GetName and info:GetName() and _G[info:GetName() .. "Header3"]
+    infoParts.motdBox = MakeBox(info, true)
+    infoParts.detailsBox = MakeBox(info)
+    infoParts.newsBox = MakeBox(news)
+    local empty = infoParts.detailsBox:CreateFontString(nil, "OVERLAY")
+    empty:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    empty:SetTextColor(unpack(ns.UI.MUTED))
+    empty:SetPoint("TOPLEFT", 12, -12)
+    empty:SetText(ns.L["No guild information."])
+    infoParts.empty = empty
+    details:HookScript("OnShow", function() if PlaceAll then PlaceAll(details:GetParent()) end end)
+end
+
+local function LayoutDetails(details)
+    if type(details) ~= "table" or InCombatLockdown() or not infoParts.motdBox then return end
+    local info, news = details.Info, details.News
+    local width = details:GetWidth()
+    if not width or width < 300 then return end
+    local half = math.floor((width - 12) / 2)
+    info:ClearAllPoints()
+    info:SetPoint("TOPLEFT", details, "TOPLEFT")
+    info:SetPoint("BOTTOMLEFT", details, "BOTTOMLEFT")
+    info:SetWidth(half)
+    news:ClearAllPoints()
+    news:SetPoint("TOPRIGHT", details, "TOPRIGHT")
+    news:SetPoint("BOTTOMRIGHT", details, "BOTTOMRIGHT")
+    news:SetWidth(half)
+    -- Nachricht des Tages
+    if infoParts.motdLabel then
+        infoParts.motdLabel:ClearAllPoints()
+        infoParts.motdLabel:SetPoint("LEFT", info, "TOPLEFT", 0, -11)
+    end
+    if info.EditMOTDButton then
+        info.EditMOTDButton:ClearAllPoints()
+        info.EditMOTDButton:SetPoint("TOPRIGHT", info, "TOPRIGHT", 0, 0)
+    end
+    local motdBox = infoParts.motdBox
+    motdBox:ClearAllPoints()
+    motdBox:SetPoint("TOPLEFT", info, "TOPLEFT", 0, -28)
+    motdBox:SetPoint("BOTTOMRIGHT", info, "BOTTOMRIGHT", 0, 186)
+    local motd = info.MOTDScrollFrame
+    if motd then
+        motd:ClearAllPoints()
+        motd:SetPoint("TOPLEFT", motdBox, "TOPLEFT", 12, -10)
+        motd:SetPoint("BOTTOMRIGHT", motdBox, "BOTTOMRIGHT", -12, 10)
+        if motd.MOTD then motd.MOTD:SetWidth(half - 24) end
+    end
+    -- Gildeninformation
+    if infoParts.detailsLabel then
+        infoParts.detailsLabel:ClearAllPoints()
+        infoParts.detailsLabel:SetPoint("LEFT", info, "BOTTOMLEFT", 0, 167)
+    end
+    if info.EditDetailsButton then
+        info.EditDetailsButton:ClearAllPoints()
+        info.EditDetailsButton:SetPoint("BOTTOMRIGHT", info, "BOTTOMRIGHT", 0, 156)
+    end
+    local detailsBox = infoParts.detailsBox
+    detailsBox:ClearAllPoints()
+    detailsBox:SetPoint("BOTTOMLEFT", info, "BOTTOMLEFT")
+    detailsBox:SetPoint("TOPRIGHT", info, "BOTTOMRIGHT", 0, 150)
+    local scroll = info.DetailsFrame
+    if scroll then
+        scroll:ClearAllPoints()
+        scroll:SetPoint("TOPLEFT", detailsBox, "TOPLEFT", 12, -10)
+        scroll:SetPoint("BOTTOMRIGHT", detailsBox, "BOTTOMRIGHT", -16, 10)
+        local child = scroll.GetScrollChild and scroll:GetScrollChild()
+        if child then
+            child:SetWidth(half - 32)
+            if child.Details then
+                child.Details:SetWidth(half - 32)
+                infoParts.empty:SetShown((child.Details:GetText() or "") == "")
             end
         end
-        details:HookScript("OnSizeChanged", Layout)
-        details:HookScript("OnShow", function() C_Timer.After(0, Layout) end)
-        info:HookScript("OnShow", function() C_Timer.After(0, Layout) end)
-        Layout()
     end
-    if type(info) == "table" then
-        FadeRegions(info) -- Pergament, Kopfzeilen, Trennbalken
-        Fill(info)
-        for _, key in ipairs({ "MOTDScrollFrame", "DetailsFrame" }) do
-            local scroll = info[key]
-            if type(scroll) == "table" then SkinScrollBar(scroll.ScrollBar) end
-        end
+    -- Gildenneuigkeiten
+    if infoParts.newsLabel then
+        infoParts.newsLabel:ClearAllPoints()
+        infoParts.newsLabel:SetPoint("LEFT", news, "TOPLEFT", 0, -11)
     end
-    if type(news) == "table" then
-        FadeRegions(news)
-        Fill(news)
-        SkinScrollBar(news.ScrollBar)
-        HookScrollBox(news.ScrollBox, FlatRow)
+    if news.SetFiltersButton then
+        news.SetFiltersButton:ClearAllPoints()
+        news.SetFiltersButton:SetPoint("TOPRIGHT", news, "TOPRIGHT", 0, 0)
+    end
+    local newsBox = infoParts.newsBox
+    newsBox:ClearAllPoints()
+    newsBox:SetPoint("TOPLEFT", news, "TOPLEFT", 0, -28)
+    newsBox:SetPoint("BOTTOMRIGHT", news, "BOTTOMRIGHT")
+    if news.Header then
+        -- Blizzard hängt die Liste an die Unterkante dieses (unsichtbaren) Balkens
+        news.Header:ClearAllPoints()
+        news.Header:SetPoint("TOPLEFT", newsBox, "TOPLEFT", 4, 18)
+        news.Header:SetSize(half - 16, 22)
+    end
+    if news.ScrollBox then
+        news.ScrollBox:SetPoint("BOTTOMRIGHT", newsBox, "BOTTOMRIGHT", -12, 4)
     end
 end
 
@@ -1089,12 +1248,34 @@ local function SkinLikeOwnWindow(f)
     sub:SetTextColor(unpack(UI.MUTED))
     sub:SetJustifyH("LEFT")
     sub:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -5)
+    -- Fußzeile links (Mitgliederseite): „11 von 24 online“
+    local footer = f:CreateFontString(nil, "OVERLAY")
+    own[footer] = true
+    footer:SetFont(ns.FontFor(), ns.FontPx(12), "")
+    footer:SetTextColor(unpack(UI.MUTED))
+    footer:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD, 20)
     local lastClub
     local function UpdateTitle()
         local id = f.GetSelectedClubId and f:GetSelectedClubId()
         local info = id and C_Club.GetClubInfo(id)
         name:SetText(info and info.name or (title and title:GetText()) or "")
-        sub:SetText(title and title:GetText() or "")
+        -- wie im eigenen Fenster: „Gilde & Communitys · 11 von 24 online“
+        local online, total
+        if info and info.clubType == Enum.ClubType.Guild and GetNumGuildMembers then
+            local all, _, on = GetNumGuildMembers()
+            total, online = all, on
+        end
+        local base = title and title:GetText() or ""
+        if total and total > 0 then
+            local count = ns.L["%d of %d online"]:format(online or 0, total)
+            sub:SetText(base .. "  ·  " .. count)
+            footer:SetText(count)
+        else
+            sub:SetText(base)
+            footer:SetText("")
+        end
+        local members = f.MemberList
+        footer:SetShown(members and members:IsShown() and members.expandedDisplay or false)
         if info and id ~= lastClub then
             lastClub = id
             local size = HEAD_ICON - 4
@@ -1119,35 +1300,7 @@ local function SkinLikeOwnWindow(f)
             close:ClearAllPoints()
             close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
         end
-        local headset = f.VoiceChatHeadset
-        if headset then
-            headset:ClearAllPoints()
-            headset:SetPoint("RIGHT", maxMin or close or f, "LEFT", -2, 0)
-        end
-        local count = f.MemberList and f.MemberList.MemberCount
-        if count then
-            count:ClearAllPoints()
-            count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -HEAD_PAD, -(HEAD_PAD + 26 + 8))
-            count:SetJustifyH("RIGHT")
-        end
-        -- „Gilde“-Dropdown: links bündig mit dem Chat-Kasten, oben bündig mit der Community-Spalte
-        -- (sichtbare Fläche sitzt 3 px innerhalb des Dropdowns)
-        local stream, list = f.StreamDropdown, f.CommunitiesList
-        local box = f.Chat and (f.Chat.InsetFrame or f.Chat)
-        if stream and list and box then
-            local dx = box:GetLeft() and list:GetRight() and (box:GetLeft() - list:GetRight()) or 31
-            stream:ClearAllPoints()
-            stream:SetPoint("TOPLEFT", list, "TOPRIGHT", dx - 3, 3)
-        end
-        local offline = f.MemberList and f.MemberList.ShowOfflineButton
-        for _, key in ipairs({ "GuildMemberListDropdown", "CommunityMemberListDropdown" }) do
-            local dropdown = f[key]
-            if dropdown and offline then
-                dropdown:ClearAllPoints()
-                dropdown:SetPoint("RIGHT", f, "RIGHT", -26, 0)
-                dropdown:SetPoint("TOP", offline, "TOP", 0, 0)
-            end
-        end
+        if PlaceAll then PlaceAll(f) end
     end
     f:HookScript("OnSizeChanged", HeaderLayout)
     f:HookScript("OnShow", function() HeaderLayout() C_Timer.After(0, HeaderLayout) end)
@@ -1176,6 +1329,122 @@ local function SkinLikeOwnWindow(f)
     if f:IsShown() then UpdateTitle() ChatFont() RecolorTree(f, 0) end
 end
 
+-- Gesamt-Layout nach dem Zielbild (eigenes Gildenfenster). Läuft bei Größe/Anzeigen/Ansichtswechsel;
+-- setzt nur Punkte/Größen an Blizzards Rahmen.
+local function FooterButton(f, button)
+    if not button then return end
+    local label = button.GetFontString and button:GetFontString()
+    local textWidth = label and label:GetUnboundedStringWidth() or 0
+    button:SetSize(math.max(150, textWidth + 28), 28)
+end
+
+PlaceAll = function(f)
+    if type(f) ~= "table" or InCombatLockdown() then return end
+    local list, members, chat = f.CommunitiesList, f.MemberList, f.Chat
+    -- Community-Liste: erste Karte (Blizzard: 40 px Rand oben + 8 px Kartenrand) auf Inhaltshöhe
+    if list then
+        list:ClearAllPoints()
+        list:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(CONTENT_TOP - 48))
+        list:SetPoint("BOTTOMRIGHT", f, "BOTTOMLEFT", PAD + LIST_W, CONTENT_BOTTOM)
+    end
+    -- Mitgliederliste: neben dem Chat 180 breit, auf der Mitgliederseite unter Kopfzeile + Spalten
+    if members then
+        members:ClearAllPoints()
+        if members.expandedDisplay then
+            members:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -(CONTENT_TOP + 64))
+        else
+            members:SetPoint("TOPLEFT", f, "TOPRIGHT", -(PAD + MEMBER_W), -(CONTENT_TOP + 36))
+        end
+        members:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, CONTENT_BOTTOM)
+        local offline = members.ShowOfflineButton
+        if offline then
+            offline:ClearAllPoints()
+            offline:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -(CONTENT_TOP + 4))
+        end
+        local columns = members.ColumnDisplay
+        if columns then
+            columns:ClearAllPoints()
+            columns:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X - 2, -(CONTENT_TOP + 36))
+            columns:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 36))
+            columns:SetHeight(28)
+        end
+        local count = members.MemberCount
+        if count then
+            count:ClearAllPoints()
+            count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -(CONTENT_TOP + 8))
+            count:SetJustifyH("RIGHT")
+        end
+        for _, key in ipairs({ "GuildMemberListDropdown", "CommunityMemberListDropdown" }) do
+            local dropdown = f[key]
+            if dropdown and offline then
+                dropdown:ClearAllPoints()
+                dropdown:SetPoint("RIGHT", f, "RIGHT", -PAD, 0)
+                dropdown:SetPoint("TOP", offline, "TOP", 0, 0)
+            end
+        end
+    end
+    -- Kanal-Dropdown oben links im Inhalt, Mikrofon links neben der Online-Zahl
+    local stream = f.StreamDropdown
+    if stream then
+        stream:ClearAllPoints()
+        stream:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X - 3, -(CONTENT_TOP - 3))
+        stream:SetWidth(226)
+    end
+    local headset = f.VoiceChatHeadset
+    if headset and members and members.MemberCount then
+        headset:ClearAllPoints()
+        headset:SetPoint("RIGHT", members.MemberCount, "LEFT", -6, 0)
+    end
+    -- Chat-Kasten und Eingabefeld darunter (8 px Luft, Feld 28 hoch auf der Fußlinie)
+    if chat and members then
+        chat:ClearAllPoints()
+        chat:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -(CONTENT_TOP + 36))
+        chat:SetPoint("BOTTOMRIGHT", members, "BOTTOMLEFT", -8, 36)
+        if chat.InsetFrame then
+            chat.InsetFrame:ClearAllPoints()
+            chat.InsetFrame:SetAllPoints(chat)
+        end
+        local input = f.ChatEditBox
+        if input then
+            input:ClearAllPoints()
+            input:SetPoint("TOPLEFT", chat, "BOTTOMLEFT", 4, -3)
+            input:SetPoint("TOPRIGHT", chat, "BOTTOMRIGHT", -4, -3)
+            input:SetHeight(38)
+        end
+    end
+    -- Bereiche Info / Vorteile / Spieleinstellungen
+    for _, key in ipairs({ "GuildBenefitsFrame", "GuildDetailsFrame", "GuildPreferredPlaySettingsFrame" }) do
+        local area = f[key]
+        if area then
+            area:ClearAllPoints()
+            area:SetPoint("TOPLEFT", f, "TOPLEFT", CONTENT_X, -CONTENT_TOP)
+            area:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, CONTENT_BOTTOM)
+        end
+    end
+    LayoutDetails(f.GuildDetailsFrame)
+    LayoutPreferredPlay(f.GuildPreferredPlaySettingsFrame)
+    -- Fußknöpfe unten rechts, 28 hoch, mindestens 150 breit
+    if f.InviteButton then
+        FooterButton(f, f.InviteButton)
+        f.InviteButton:ClearAllPoints()
+        f.InviteButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
+    end
+    local control = f.CommunitiesControlFrame
+    if control then
+        for _, key in ipairs({ "GuildControlButton", "GuildRecruitmentButton", "CommunitiesSettingsButton" }) do
+            FooterButton(f, control[key])
+        end
+        control:SetHeight(28)
+        control:ClearAllPoints()
+        control:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
+    end
+    if f.GuildLogButton then
+        FooterButton(f, f.GuildLogButton)
+        f.GuildLogButton:ClearAllPoints()
+        f.GuildLogButton:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PAD, 14)
+    end
+end
+
 local function Try(fn, ...)
     local ok, err = pcall(fn, ...)
     if not ok then geterrorhandler()(err) end
@@ -1201,6 +1470,10 @@ local function Apply()
     Try(SkinOldDialog, _G.CommunitiesGuildTextEditFrame)
     Try(SkinOldDialog, _G.CommunitiesGuildNewsFiltersFrame)
     Try(SkinSettingsDialog, _G.CommunitiesSettingsDialog)
+    if f.SetDisplayMode then
+        hooksecurefunc(f, "SetDisplayMode", function(self) C_Timer.After(0, function() PlaceAll(self) end) end)
+    end
+    Try(PlaceAll, f)
 end
 
 -- Gilden-Unterfenster (Ränge, Log, Texte bearbeiten, Neuigkeitenfilter, Rekrutierung): Blizzard meldet
