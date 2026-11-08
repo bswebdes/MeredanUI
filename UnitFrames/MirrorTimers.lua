@@ -1,14 +1,13 @@
--- Atem-, Erschöpfungs- und Totstellen-Leiste (Blizzards „Mirror Timer“) im MUI-Look: flacher Balken
--- mit unserer Textur, dunkler Hintergrund, 1-px-Rahmen, Text in der Leiste (Benny 2026-11-06).
--- Nur Optik: Blizzards Leiste bleibt (Bearbeitungsmodus „Timerleisten“ verschiebt sie weiter);
--- Blizzard setzt bei jedem Start die Balkentextur neu (Setup) – dann unsere wieder.
+-- Restyles Blizzard's mirror timers (breath, exhaustion, feign death) in the MUI look.
+-- Visual only: Blizzard's bars stay (Edit Mode still moves them). Blizzard resets the bar
+-- texture on every start (Setup), so we reapply ours there.
 local _, ns = ...
 
 local HEIGHT = 18
 local COLORS = {
-    BREATH = { 0.15, 0.55, 1 },        -- Atem
-    EXHAUSTION = { 1, 0.7, 0.1 },      -- Erschöpfung (zu weit draußen)
-    FEIGNDEATH = { 0.45, 0.8, 0.35 },  -- Totstellen
+    BREATH = { 0.15, 0.55, 1 },
+    EXHAUSTION = { 1, 0.7, 0.1 },      -- swimming too far out
+    FEIGNDEATH = { 0.45, 0.8, 0.35 },
     DEATH = { 0.85, 0.25, 0.25 },
 }
 
@@ -22,7 +21,7 @@ end
 local function Style(frame)
     local bar = frame.StatusBar
     if not bar then return end
-    -- Blizzards Rahmen, Textkasten und Hintergrund durchsichtig
+    -- Hide Blizzard's border, text box and background
     for _, region in ipairs({ frame:GetRegions() }) do
         if region:IsObjectType("Texture") then region:SetAlpha(0) end
     end
@@ -31,7 +30,7 @@ local function Style(frame)
     bg:SetAllPoints()
     bg:SetColorTexture(0.04, 0.04, 0.05, 0.9)
     ns.AddBorder(bar)
-    -- Text mittig in der Leiste statt im Kasten darunter
+    -- Text centered inside the bar instead of the box below
     local text = frame.Text
     if text then
         text:SetParent(bar)

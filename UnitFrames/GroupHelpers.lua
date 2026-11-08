@@ -1,13 +1,11 @@
--- Kleine Gruppen-Helfer:
---   • Einladungen von Freunden (auch Battle.net) und Gildenmitgliedern annehmen – Standard AUS
---     (Benny 2026-10-25), Einstellungen > Gruppe & Schlachtzug.
---   • Rollenabfrage des Leiters: deine aktuelle Spec-Rolle automatisch bestätigen.
---   • Bereitschaftscheck: Toast, wenn Essen, Fläschchen oder Augmentrune fehlen
---     (Einstellungen > Dungeons & Schlachtzüge).
+-- Small group helpers:
+--   - Auto-accept invites from friends (incl. Battle.net) and guild members (default off).
+--   - Role poll: auto-confirm your current spec role.
+--   - Ready check: toast when food, flask or augment rune is missing.
 local _, ns = ...
 local L = ns.L
 
--- Einladungen ---------------------------------------------------------------------------------
+-- Invites -------------------------------------------------------------------------------------
 
 local function Trusted(guid)
     if not guid or issecretvalue(guid) then return false end
@@ -22,7 +20,7 @@ ns:On("PARTY_INVITE_REQUEST", function(_, name, _, _, _, _, _, guid, questSessio
     if not issecretvalue(name) and name then ns.Print(L["Accepted group invite from %s."]:format(name)) end
 end)
 
--- Rollenabfrage -------------------------------------------------------------------------------
+-- Role poll ----------------------------------------------------------------------------------
 
 ns:On("ROLE_POLL_BEGIN", function()
     if ns.db.autoRole == false then return end
@@ -34,15 +32,15 @@ ns:On("ROLE_POLL_BEGIN", function()
         or (role == Enum.LFGRole.Damage and canDamage)
     if not allowed then return end
     UnitSetRoleEnum("player", role)
-    -- Blizzard zeigt sein Fenster im selben Ereignis – danach schließen
+    -- Blizzard shows its popup in the same event - close it afterwards
     C_Timer.After(0, function()
         if RolePollPopup and RolePollPopup:IsShown() then StaticPopupSpecial_Hide(RolePollPopup) end
     end)
 end)
 
--- Bereitschaftscheck --------------------------------------------------------------------------
+-- Ready check ----------------------------------------------------------------------------------
 
-local FOOD_ICON = 136000 -- „Satt“-Symbol, haben fast alle Essens-Buffs
+local FOOD_ICON = 136000 -- "Well Fed" icon, used by almost all food buffs
 local FLASK_NAMES = { "Flask", "Phial", "Fläschchen", "Phiole" }
 local RUNE_NAMES = { "Augment", "Augmentation" }
 
@@ -52,7 +50,7 @@ local function HasAny(name, list)
     end
 end
 
--- Was fehlt? Nur lesbare Auren zählen (außerhalb des Kampfes sind eigene Buffs lesbar)
+-- Only readable auras count (own buffs are readable out of combat)
 local function MissingConsumables()
     local food, flask, rune = false, false, false
     local wellFed = C_Spell.GetSpellName(19705)

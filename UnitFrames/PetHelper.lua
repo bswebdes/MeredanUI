@@ -1,14 +1,7 @@
--- Begleiter-Helfer (Forever, Jäger): kleine Pfote links am Begleiter-Frame.
---
---   [🐾] [ Begleiter-Frame ]     Pfote grün = glücklich · gelb = neutral · rot = wütend
---
---   * Klick: füttert dein Tier mit passendem Futter aus den Taschen (höchste Stufe zuerst).
---   * Tooltip: Laune, Schaden, Treue, was es frisst und welches Futter MUI nimmt.
---   * Sinkt die Laune, kommt EIN dezenter Toast (bei „wütend“ mit Hinweis: Tier könnte weglaufen).
---
--- Laune/Futter: C_PetInfo.GetPetHappiness / GetPetFoodTypes / CanPetEatItem (wie Blizzards
--- PetHappiness.lua). Füttern = Zauber „Tier füttern“ (6991) + /use Taschenplatz > sicherer Knopf,
--- Attribute nur außerhalb des Kampfes. Retail hat keine Begleiterlaune > Modul aus.
+-- Pet helper (Forever, hunter): paw button left of the pet frame, colored by happiness.
+-- Click feeds the pet the best suitable food from the bags (Feed Pet 6991 + /use bag slot via
+-- a secure macro button; attributes only out of combat). Toast when happiness drops.
+-- Retail has no pet happiness, so the module is off there.
 local _, ns = ...
 local L = ns.L
 
@@ -16,9 +9,9 @@ local FEED_PET_SPELL_ID = 6991
 local GAP = 4
 
 local MOOD = {
-    [1] = { text = PET_HAPPINESS1, color = { 1, 0.25, 0.25 } },  -- wütend
-    [2] = { text = PET_HAPPINESS2, color = { 1, 0.82, 0 } },     -- neutral
-    [3] = { text = PET_HAPPINESS3, color = { 0.45, 0.85, 0.45 } }, -- glücklich
+    [1] = { text = PET_HAPPINESS1, color = { 1, 0.25, 0.25 } },  -- unhappy
+    [2] = { text = PET_HAPPINESS2, color = { 1, 0.82, 0 } },     -- content
+    [3] = { text = PET_HAPPINESS3, color = { 0.45, 0.85, 0.45 } }, -- happy
 }
 
 local button
@@ -45,7 +38,7 @@ local function FeedSpellName()
     return C_Spell.GetSpellName(FEED_PET_SPELL_ID)
 end
 
--- passendes Futter mit der höchsten Gegenstandsstufe (zu niedriges Futter mag das Tier nicht)
+-- Highest item level first (pets refuse food that is too low level)
 local function FindFood()
     local best, bestLevel
     for bag = Enum.BagIndex.Backpack, NUM_BAG_SLOTS do
@@ -64,7 +57,7 @@ local function FindFood()
     return best
 end
 
--- Knopf-Makro und Sichtbarkeit (geschützt > nur außerhalb des Kampfes)
+-- Secure attributes and visibility - out of combat only
 local function ApplySecure()
     if not button then return end
     local show = Enabled() and HunterPet()
@@ -116,7 +109,7 @@ local function OnEnter(self)
     GameTooltip:Show()
 end
 
--- ein Toast, wenn die Laune sinkt
+-- One toast when happiness drops
 local function OnHappiness()
     local happiness = HunterPet() and Mood()
     UpdateMood()

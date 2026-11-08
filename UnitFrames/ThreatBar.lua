@@ -1,21 +1,12 @@
--- Bedrohungsleiste unter der Hauptaktionsleiste – nur im Kampf gegen ein angreifbares Ziel.
--- KEIN Text (Benny 2026-11-07: „ich bin ein visueller Mensch, keine Zahlen“): die Leiste zeigt
--- „Gefahr“ – je voller, desto näher kommt jemand an die falsche Aggro; die Farbe läuft fließend
--- Salbei > Gelb > Orange > Rot.
---
---   [███▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒]   Salbei: ruhig
---   [████████████▒▒▒▒▒▒▒▒▒]   Orange: wird knapp
---   [█████████████████████]   Rot + pulsiert: Aggro falsch
---
---   DD/Heiler: eigene Bedrohung (voll = die Aggro springt auf dich; hast du sie: rot, pulsiert)
---   Tank: der Mitspieler, der deiner Aggro am nächsten ist (voll = er zieht; verloren: rot, pulsiert)
--- Retail kann die Werte in Instanzen schützen (Secrets): dann nur den Balken durchreichen, Farbe
--- neutral. Forever liefert alles lesbar.
+-- Threat bar below the main action bar, only in combat against an attackable target. No text:
+-- the fill shows "danger" (how close someone is to wrong aggro), color fades sage > yellow >
+-- orange > red; red + pulsing = aggro is wrong. DPS/healer: own threat. Tank: the group member
+-- closest to pulling. Retail may return secret values in instances: pass them through, neutral color.
 local _, ns = ...
 
 local HEIGHT = 8
-local HEALER_WIDTH = 160 -- Layout Heiler: schmale Leiste über der Gruppe
-local GAP = 4              -- Abstand zur Hauptleiste
+local HEALER_WIDTH = 160 -- healer layout: narrow bar above the group
+local GAP = 4              -- gap to the main bar
 local UPDATE_INTERVAL = 0.2
 
 local bar, ticker
@@ -30,7 +21,7 @@ end
 
 local function Mode() return ns.db.threatBar or "group" end
 
--- Gruppe oder Begleiter (Jäger/Hexenmeister-Pet tankt solo)
+-- Group or pet (hunter/warlock pets tank solo)
 local function WantedNow()
     local mode = Mode()
     if mode == "hidden" then return false end
@@ -39,7 +30,7 @@ local function WantedNow()
         and not UnitIsDead("target")
 end
 
--- Unit-Namen einmal anlegen (läuft im Kampf alle 0,2 s)
+-- Build unit tokens once (runs every 0.2 s in combat)
 local RAID_UNITS, PARTY_UNITS = { "pet" }, { "pet" }
 for i = 1, 40 do
     RAID_UNITS[#RAID_UNITS + 1] = "raid" .. i
@@ -54,7 +45,7 @@ local function GroupUnits()
     return IsInRaid() and RAID_UNITS or PARTY_UNITS
 end
 
--- Tank: Mitspieler mit der höchsten Bedrohung relativ zur Aggro-Schwelle (100 % = zieht)
+-- Tank: group member with the highest threat relative to the pull threshold (100% = pulls)
 local function Closest()
     local bestUnit, bestPct
     for _, unit in ipairs(GroupUnits()) do
@@ -73,7 +64,7 @@ local function SetColor(r, g, b)
     bar.bg:SetVertexColor(r * 0.25, g * 0.25, b * 0.25, 0.8)
 end
 
--- Farbe nach Gefahr (0–100), fließend: Salbei > Gelb (70) > Orange (90) > Rot (100)
+-- Color by danger (0-100), smooth: sage > yellow (70) > orange (90) > red (100)
 local STOPS = {
     { 0, 0.557, 0.796, 0.706 },
     { 55, 0.557, 0.796, 0.706 },
@@ -94,7 +85,7 @@ local function DangerColor(pct)
     return last[2], last[3], last[4]
 end
 
--- danger: 0–100; wrong = Aggro falsch (voll rot, pulsiert)
+-- danger: 0-100; wrong = aggro is wrong (full red, pulsing)
 local function Show(danger, wrong)
     if wrong then
         bar:SetValue(100)
@@ -115,21 +106,21 @@ local function Update()
 
     local isTanking, status, scaled = UnitDetailedThreatSituation("player", "target")
 
-    -- Geschützt (Retail-Instanz): Blizzards Wert nur durchreichen, neutrale Farbe
+    -- Secret (Retail instance): pass Blizzard's value through, neutral color
     if Secret(isTanking, status, scaled) then
         bar:SetValue(scaled)
         SetColor(unpack(ns.UI.ACCENT))
         return bar:Show()
     end
-    if status == nil then return bar:Hide() end -- nicht auf der Bedrohungsliste
+    if status == nil then return bar:Hide() end -- not on the threat table
 
-    -- Tank: Layout „Tank“ (sicher) oder Blizzards Rollen-Erkennung
+    -- Tank: "Tank" layout (reliable) or Blizzard's role detection
     if (ns.LayoutFlag and ns.LayoutFlag("tank")) or (PlayerUtil and PlayerUtil.IsPlayerEffectivelyTank()) then
-        if not isTanking then return Show(100, true) end -- Aggro verloren
+        if not isTanking then return Show(100, true) end -- aggro lost
         local unit, pct = Closest()
         return Show(unit and pct or 0)
     end
-    if isTanking then return Show(100, true) end -- du hast die Aggro
+    if isTanking then return Show(100, true) end -- you have aggro
     Show(scaled or 0)
 end
 
@@ -142,7 +133,7 @@ local function Create()
     bar.bg:SetAllPoints()
     bar.bg:SetTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
     ns.AddBorder(bar)
-    -- Pulsieren bei falscher Aggro
+    -- Pulse on wrong aggro
     bar.pulse = bar:CreateAnimationGroup()
     bar.pulse:SetLooping("BOUNCE")
     local fade = bar.pulse:CreateAnimation("Alpha")
@@ -153,24 +144,24 @@ local function Create()
     bar:Hide()
 end
 
--- Unter der Hauptleiste, gleich breit (solange nicht selbst verschoben)
+-- Below the main bar, same width (unless moved by the user)
 local function Place()
     local top, width = ns.BelowMainBar(ns.Snap(GAP))
     if not (bar and top) then return end
     bar:SetSize(width, ns.Snap(HEIGHT))
     local _, cy = UIParent:GetCenter()
     if ns.LayoutFlag and ns.LayoutFlag("healerGroups") then
-        -- Heiler: schmal und mittig direkt über der Gruppe (Benny: „auf gar keinen Fall so breit“)
+        -- Healer: narrow and centered directly above the group
         bar:SetWidth(ns.Snap(HEALER_WIDTH))
         ns.PlaceFromCenter(bar, "BOTTOM", 0, ns.HealerGeometry().groupTop - cy + ns.Snap(8))
         return
     end
-    -- Schlagtimer (Forever) sitzen direkt unter der Hauptleiste – dann darunter
+    -- Swing timers (Forever) sit directly below the main bar - go below them
     local reserve = ns.SwingTimerReserve and ns.SwingTimerReserve() or 0
     ns.PlaceFromCenter(bar, "TOP", 0, top - reserve)
 end
 
--- Testmodus (/mui t): Gefahr steigt langsam an, wird rot und pulsiert kurz, dann wieder ruhig
+-- Test mode (/mui t): danger rises slowly, turns red and pulses briefly, then calms down
 local demoTicker
 function ns.ThreatTestStart()
     if not bar or Mode() == "hidden" then return end
@@ -207,7 +198,7 @@ end
 ns:On("PLAYER_LOGIN", function()
     Create()
     ns.layoutFrames.threat = bar
-    -- nach den Aktionsleisten (die richten sich beim Login ein)
+    -- After the action bars (they set up on login)
     C_Timer.After(0.1, function()
         ns.OnLayout(Place)
         Place()

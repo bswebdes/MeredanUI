@@ -1,23 +1,7 @@
--- Gruppenleiste: ersetzt Blizzards Schlachtzugsleiter-Leiste (CompactRaidFrameManager) im mUI-Look.
---
---   ┌──────────────────────────┐┌─┐
---   │ Gruppe ▾            2/2  ││<│  Lasche am linken Rand klappt aus/ein (auch im Kampf)
---   │ ANFÜHRER                 │└─┘
---   │ [✓] [?] [⏱] [⚙]          │     Bereitschaft, Rollen, Countdown, mUI-Gruppeneinstellungen
---   │ MARKIERUNGEN             │
---   │ Einheit  Boden           │     Reiter wechseln auch im Kampf (sichere Klicks)
---   │ ☠ ✖ ■ ☾ [x]              │     Salbei-Rahmen = Ziel trägt die Markierung / Bodenmarker liegt
---   │ ▲ ◆ ● ★ [↺]              │
---   │ PINGS BESCHRÄNKEN AUF    │     nur Anführer, nur wenn das Ping-System an ist
---   │ [Nichts            ▾]    │
---   │ [Gruppe verlassen]       │
---   │ [Instanzgruppe verlassen]│
---   └──────────────────────────┘
---
--- Marker sind sichere Knöpfe (SecureActionButtonTemplate, type raidtarget/worldmarker), damit sie im
--- Kampf funktionieren. Darum: Aufklappen und Reiter über SecureHandlerClickTemplate, Aufbau (welche
--- Abschnitte, Höhe) nur außerhalb des Kampfes (ns.AfterCombat). Sichtbar nur in einer Gruppe (State-Driver).
--- Für alle (kein Komfort): Interface-Ersatz. Schalter: ns.db.groupManager (Einstellungen > Gruppe & Schlachtzug).
+-- Group manager: replaces Blizzard's CompactRaidFrameManager in the mUI look (ready check, roles,
+-- countdown, raid/world markers, ping restriction, leave buttons; collapsible tab on the left).
+-- Markers are secure buttons (raidtarget/worldmarker) so they work in combat; expand/tabs use
+-- SecureHandlerClickTemplate, layout changes only out of combat. Shown only while grouped.
 local _, ns = ...
 local L = ns.L
 
@@ -27,9 +11,9 @@ local CELL, GAP = 36, 5
 local PANEL_BG = { 0.06, 0.07, 0.07, 0.96 }
 local ICON_PATH = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_"
 
--- Reihenfolge wie Blizzard: Totenkopf, Kreuz, Quadrat, Mond / Dreieck, Diamant, Kreis, Stern
+-- Blizzard order: skull, cross, square, moon / triangle, diamond, circle, star
 local UNIT_ORDER = { 8, 7, 6, 5, 4, 3, 2, 1 }
--- Zielmarkierung > Bodenmarker-Nummer (Blizzard WORLD_RAID_MARKER_ORDER umgekehrt)
+-- Raid target icon -> world marker index (inverse of Blizzard's WORLD_RAID_MARKER_ORDER)
 local WORLD_FOR_ICON = { [8] = 8, [7] = 4, [6] = 1, [5] = 7, [4] = 2, [3] = 3, [2] = 6, [1] = 5 }
 
 local root, panel, tab
@@ -39,7 +23,7 @@ local ticker
 
 local function Enabled() return ns.db and ns.db.groupManager ~= false end
 
--- Secrets zuerst prüfen (Midnight-API); im Zweifel „nein“
+-- Check for secret values first (Midnight API); when in doubt: false
 local function Bool(v)
     if issecretvalue and issecretvalue(v) then return false end
     return v and true or false
@@ -52,7 +36,7 @@ end
 local function CanMark() return not IsInRaid() or HasRights() end
 local function PingsEnabled() return C_Ping and C_Ping.IsPingSystemEnabled and C_Ping.IsPingSystemEnabled() end
 
--- Bausteine ---------------------------------------------------------------------------------------
+-- Widgets ------------------------------------------------------------------------------------------
 
 local function Tooltip(frame, text)
     frame:HookScript("OnEnter", function(self)
@@ -69,7 +53,7 @@ local function SectionLabel(text)
     return label
 end
 
--- Feld-Hintergrund mit Rahmen; Hover hellt auf, :SetMarked(true) = Salbei-Rahmen
+-- Field background with border; hover brightens, :SetMarked(true) = sage border
 local function Cell(button)
     local bg = button:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
@@ -86,7 +70,7 @@ local function Cell(button)
     button:SetMarked(false)
 end
 
--- Knopf mit Text und Pfeil (Auswahlfeld)
+-- Button with text and arrow (dropdown)
 local function Dropdown(parent, width, height, onClick)
     local button = CreateFrame("Button", nil, parent)
     button:SetSize(width, height)
@@ -126,7 +110,7 @@ local function TextButton(parent, label, color, onClick)
     return button
 end
 
--- sicherer Marker-Knopf; kind = "raidtarget" oder "worldmarker"
+-- Secure marker button; kind = "raidtarget" or "worldmarker"
 local function MarkerButton(parent, kind, marker, special)
     local b = CreateFrame("Button", nil, parent, "SecureActionButtonTemplate")
     b:SetSize(CELL, CELL)
@@ -153,18 +137,18 @@ local function MarkerButton(parent, kind, marker, special)
             b:SetAttribute("action", "clear-all")
             Tooltip(b, L["Remove all markers"])
         else
-            b:SetAttribute("marker", marker) -- Standard-Aktion „toggle“: zweiter Klick nimmt sie ab
+            b:SetAttribute("marker", marker) -- default action "toggle": second click removes it
             Tooltip(b, function() return _G["RAID_TARGET_" .. marker] or "" end)
         end
     else
         if special == "reset" then
-            b:SetAttribute("action", "clear") -- ohne marker = alle Bodenmarker
+            b:SetAttribute("action", "clear") -- no marker = all world markers
             Tooltip(b, L["Clear all world markers"])
         else
             local world = WORLD_FOR_ICON[marker]
             b:SetAttribute("marker", world)
-            b:SetAttribute("action1", "set")   -- links: setzen (Bodenziel)
-            b:SetAttribute("action2", "clear") -- rechts: entfernen
+            b:SetAttribute("action1", "set")   -- left: place (ground target)
+            b:SetAttribute("action2", "clear") -- right: remove
             b.world = world
             Tooltip(b, function()
                 return (_G["RAID_TARGET_" .. marker] or "") .. "\n|cff999999" .. L["Left: place · Right: remove"] .. "|r"
@@ -174,7 +158,7 @@ local function MarkerButton(parent, kind, marker, special)
     return b
 end
 
--- Anzeige -----------------------------------------------------------------------------------------
+-- Display ------------------------------------------------------------------------------------------
 
 local function UpdateCount()
     local total, alive = GetNumGroupMembers(), 0
@@ -202,7 +186,7 @@ local function UpdateWorldMarks()
     end
 end
 
--- Reiter-Optik (Text/Unterstrich); Umschalten selbst macht der sichere Klick
+-- Tab visuals (text/underline); the secure click does the actual switching
 local function ShowTabVisual(which)
     for key, t in pairs(sections.tabs) do
         local on = key == which
@@ -232,14 +216,14 @@ local function UpdatePings()
     end
 end
 
--- Abschnitte je nach Rechten stapeln; nur außerhalb des Kampfes (Panel ist geschützt)
+-- Stack sections by permissions; out of combat only (panel is protected)
 local function Layout()
     if not panel then return end
     if InCombatLockdown() then return ns.AfterCombat(Layout) end
     local rights, leader, mark = HasRights(), IsLeader(), CanMark()
     local y = -PAD
 
-    -- Kopf: Auswahlfeld nur für den Anführer, sonst nur Text
+    -- Header: dropdown for the leader only, plain text otherwise
     sections.mode:SetShown(leader)
     sections.modeLabel:SetShown(not leader)
     y = y - 26
@@ -287,7 +271,7 @@ local function Layout()
     UpdateUnitMarks()
 end
 
--- Aufbau ------------------------------------------------------------------------------------------
+-- Build -------------------------------------------------------------------------------------------
 
 local function BuildGrid(parent, kind)
     local grid = CreateFrame("Frame", nil, parent, "SecureFrameTemplate")
@@ -295,7 +279,7 @@ local function BuildGrid(parent, kind)
     local list = kind == "raidtarget" and unitButtons or worldButtons
     local cells = {}
     for i = 1, 4 do cells[#cells + 1] = MarkerButton(grid, kind, UNIT_ORDER[i]) end
-    -- Einheit: oben rechts „entfernen“; Boden hat kein Einzel-Entfernen (Rechtsklick) > Lücke
+    -- Unit grid: "remove" top right; world markers clear individually via right-click -> gap
     if kind == "raidtarget" then cells[#cells + 1] = MarkerButton(grid, kind, nil, "remove") else cells[#cells + 1] = false end
     for i = 5, 8 do cells[#cells + 1] = MarkerButton(grid, kind, UNIT_ORDER[i]) end
     cells[#cells + 1] = MarkerButton(grid, kind, nil, "reset")
@@ -354,7 +338,7 @@ local function Build()
     accent:SetPoint("TOPRIGHT")
     accent:SetHeight(2)
 
-    -- Kopf
+    -- Header
     sections.mode = Dropdown(panel, 150, 26, function(self)
         local items = {
             { value = "party", label = PARTY or "Party" },
@@ -375,7 +359,7 @@ local function Build()
     sections.count = ns.UI.Text(panel, 13, "RIGHT", ns.UI.MUTED)
     sections.count:SetPoint("RIGHT", panel, "TOPRIGHT", -PAD, -PAD - 13)
 
-    -- Anführer
+    -- Leader
     sections.leaderLabel = SectionLabel(L["Leader"])
     local row = CreateFrame("Frame", nil, panel)
     row:SetSize(INNER, 34)
@@ -388,7 +372,7 @@ local function Build()
     }
     for i, b in ipairs(icons) do b:SetPoint("LEFT", (i - 1) * 46, 0) end
 
-    -- Markierungen
+    -- Markers
     sections.markLabel = SectionLabel(L["Markers"])
     local tabRow = CreateFrame("Frame", nil, panel)
     tabRow:SetSize(INNER, 24)
@@ -414,7 +398,7 @@ local function Build()
     worldGrid:SetShown(startTab == "world")
     ShowTabVisual(startTab)
 
-    -- Pings (nur wenn das System an ist)
+    -- Pings (only when the ping system is enabled)
     if PingsEnabled() and C_PartyInfo.GetRestrictPings and Enum.RestrictPingsTo then
         sections.pingLabel = SectionLabel(L["Restrict pings to"])
         sections.pingItems = {
@@ -431,7 +415,7 @@ local function Build()
         end)
     end
 
-    -- Verlassen
+    -- Leave
     sections.leave = TextButton(panel, PARTY_LEAVE or L["Leave group"], { 1, 0.38, 0.38 }, function()
         C_PartyInfo.LeaveParty()
     end)
@@ -441,12 +425,12 @@ local function Build()
         if ConfirmOrLeaveParty then ConfirmOrLeaveParty() else C_PartyInfo.LeaveParty(LE_PARTY_CATEGORY_INSTANCE) end
     end)
 
-    -- Lasche: klappt sicher auf/zu (auch im Kampf)
+    -- Tab: secure expand/collapse (works in combat)
     tab = CreateFrame("Button", nil, root, "SecureHandlerClickTemplate")
     tab:SetSize(TAB_W, TAB_H)
     tab:SetFrameLevel(panel:GetFrameLevel() + 5)
-    -- nahtlos an der Leiste: deckend, ohne linke Kante (überdeckt den Rand der Leiste um 1 px),
-    -- Salbei-Linie oben läuft weiter (Benny 2026-11-08: Lasche wirkte wie ein eigenes Kästchen)
+    -- Seamless with the panel: opaque, no left edge (overlaps the panel border by 1 px),
+    -- accent line on top continues
     local tabBg = tab:CreateTexture(nil, "BACKGROUND")
     tabBg:SetAllPoints()
     tabBg:SetColorTexture(PANEL_BG[1], PANEL_BG[2], PANEL_BG[3], 1)
@@ -469,7 +453,7 @@ local function Build()
     ]=])
     tab:SetScript("OnAttributeChanged", function(self, name, value)
         if name ~= "open" then return end
-        self.icon:SetRotation(value and -math.pi / 2 or math.pi / 2) -- < offen, > zu
+        self.icon:SetRotation(value and -math.pi / 2 or math.pi / 2) -- < open, > closed
         ns.db.groupManagerOpen = value and true or false
     end)
     tab:HookScript("OnEnter", function(self)
@@ -485,7 +469,7 @@ local function Build()
     tab:SetAttribute("open", open)
 end
 
--- Blizzards Leiste weg (wie HideBlizzardRaid in GroupFrames.lua)
+-- Hide Blizzard's manager (like HideBlizzardRaid in GroupFrames.lua)
 local hidden
 local function HideBlizzard()
     local manager = _G["CompactRaidFrameManager"]
@@ -509,7 +493,7 @@ end)
 
 local function OnRoster()
     if not panel then return end
-    Layout() -- verschiebt sich selbst hinter den Kampf
+    Layout() -- defers itself until after combat
     if not InCombatLockdown() then return end
     UpdateCount()
     UpdateLeave()

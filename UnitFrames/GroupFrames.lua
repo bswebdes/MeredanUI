@@ -1,68 +1,49 @@
--- Gruppenframes (Gruppe + Schlachtzug) im Grid-Stil, erste Version für DD/Tank. oUF-Header:
--- jede 5er-Gruppe eine Spalte, du selbst mit dabei; links mittig.
--- Blizzards Gruppen- und Schlachtzugsframes werden ausgeblendet.
---
---   ┌────────────────────┐
---   │♛     ✦       [◆][T]│  ← Leiter/Assistent · Zielmarker · Defensive (groß/extern) · Rolle
---   │       Name         │  ← Name mittig; darunter MUI-Status-Symbole (sichtbare rücken zusammen):
---   │ [☠][!]  [BOSS]  [▣]│    Tot, Geist, Offline, AFK, Wiederbelebung, Beschwörung, Phase, Bereitschaft
---   │▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬│  ← unten: dispellbare Debuffs (Rahmen in Dispel-Farbe, nur was DU
---   └────────────────────┘    entfernen kannst) · Boss-/Rollen-Debuffs groß mittig über dem Namen · private Auren
---                              Mana-Leiste nur bei Heilern (hat der Heiler noch Mana?)
--- Lebensbalken: Schild (hellblau) vom Ende her (keine Heil-Vorhersage – kommt mit dem Heiler) – die Werte
--- sind im Kampf Secrets und gehen nur durch oUF in StatusBar:SetValue. Dein Ziel bekommt einen
--- hellen Rahmen, unter der Maus schimmert der Frame leicht.
--- Gruppe und Schlachtzug sind getrennt: eigene Plätze, eigene Größen. Die Gruppe sitzt links
--- neben dem Spieler-Frame (bündig mit den Boss-Timern) und zeigt auch kleine Schlachtzüge bis
--- 15 Spieler (weitere Gruppen als Spalten nach links); ab 16 Spielern der Schlachtzug unten links
--- über dem Chat (Benny, 2026-10-25).
--- Testmodus (/mui t bzw. Demo der Unitframes): 5 Gruppen- und 40 Raid-Frames mit dir als Platzhalter.
--- Leben in Klassenfarbe (Theme), außer Reichweite blasser. Midnight: Auren und Leben sind im
--- Kampf geschützt – oUF und Blizzards Filter (HARMFUL|RAID, BIG/EXTERNAL_DEFENSIVE) erledigen das.
--- Heiler-Variante (HoTs, Dispel groß, Mana) kommt später.
+-- Grid-style group and raid frames (oUF headers, one column per 5-man group, player included);
+-- Blizzard's party/raid frames are hidden. Group (up to 15 players) sits left of the player frame,
+-- raids from 16 players bottom left above the chat; the healer layout has its own placement.
+-- Health/auras are secret in combat on Midnight - values only go through oUF into StatusBar:SetValue.
 local _, ns = ...
 local oUF = ns.oUF
-local UpdateAggro, UpdateMissingBuff, missingFrames -- unten definiert (Aggro, fehlende Buffs)
+local UpdateAggro, UpdateMissingBuff, missingFrames -- defined below (aggro, missing buffs)
 
--- Feste Größen (keine Regler mehr, Benny 2026-11-07: Frames sitzen fest im Layout; Heiler hat
--- eigene Maße in ns.HEALER). kind = "group", "raid" oder "raid40".
+-- Fixed sizes (healer layout has its own in ns.HEALER). kind = "group", "raid" or "raid40".
 local SIZES = { group = { 130, 62 }, raid = { 96, 44 }, raid40 = { 72, 32 } }
 local function Size(kind)
     local size = SIZES[kind] or SIZES.raid
     return ns.Snap(size[1]), ns.Snap(size[2])
 end
-local GAP = 4               -- zwischen den Frames und den Spalten
+local GAP = 4               -- between frames and columns
 local DEBUFF_SIZE, DEBUFF_MAX = 16, 3
-local BOSS_SIZE, BOSS_MAX = 30, 2 -- Boss-/Rollen-Debuffs groß mittig ÜBER dem Namen (eigene Ebene), Rahmen in Dispel-Farbe;
--- höchstens 2 – Blizzards Container passt seine Breite an, an der Mitte verankert bleiben 1 oder 2 zentriert
-local ICON_SIZE = 12        -- Rolle, Defensiven, Leiter
-local STATUS_ICON = 14      -- Status-Symbole unter dem Namen
-local HOT_SIZE = 16          -- Heiler: eigene HoTs unten mittig
--- eigene HoTs (alle Ränge, Classic-IDs – im Spiel prüfen): je Gruppe ein fester Platz
+local BOSS_SIZE, BOSS_MAX = 30, 2 -- boss/role debuffs, large and centered above the name;
+-- max 2 - Blizzard's container adapts its width, so anchored at the center 1 or 2 stay centered
+local ICON_SIZE = 12        -- role, defensives, leader
+local STATUS_ICON = 14      -- status icons below the name
+local HOT_SIZE = 16          -- healer: own HoTs, bottom center
+-- Own HoTs (all ranks, Classic IDs - verify in game): one fixed slot per group
 local HEALER_HOTS = {
-    { 139, 6074, 6075, 6076, 6077, 6078, 10927, 10928, 10929, 25315,              -- Erneuerung
-      774, 1058, 1430, 2090, 2091, 3627, 8910, 9839, 9840, 9841, 25299 },         -- Verjüngung
-    { 8936, 8938, 8939, 8940, 8941, 9750, 9856, 9857, 9858 },                     -- Nachwachsen
-    { 17, 592, 600, 3747, 6065, 6066, 10898, 10899, 10900, 10901 },               -- Machtwort: Schild
+    { 139, 6074, 6075, 6076, 6077, 6078, 10927, 10928, 10929, 25315,              -- Renew
+      774, 1058, 1430, 2090, 2091, 3627, 8910, 9839, 9840, 9841, 25299 },         -- Rejuvenation
+    { 8936, 8938, 8939, 8940, 8941, 9750, 9856, 9857, 9858 },                     -- Regrowth
+    { 17, 592, 600, 3747, 6065, 6066, 10898, 10899, 10900, 10901 },               -- Power Word: Shield
 }
-local LEADER_SIZE = 13      -- Krone oben links: so groß wie Rollen-Symbole, nicht dominant (Benny 2026-11-07; früher 18, gold bei 12 kaum zu sehen – jetzt weiß)
-local POWER_HEIGHT = 4      -- Mana-Leiste der Heiler (unten im Frame)
-local BOSS_BAR_RESERVE = 260 -- rechts vom Schlachtzug frei für die Boss-Timer links neben dem Spieler-Frame
-local RAID_CHAT_GAP = 90   -- Schlachtzug ↔ Oberkante des Chats (Platz für Eingabefeld und Reiter)
-local testing = false       -- laufende Demo ("group"/"raid"/"raid40", unten): Mana auch ohne Heiler
+local LEADER_SIZE = 13      -- crown top left, same size as role icons (white: gold is hard to see this small)
+local POWER_HEIGHT = 4      -- healer mana bar (bottom of the frame)
+local BOSS_BAR_RESERVE = 260 -- kept free right of the raid for the boss timers left of the player frame
+local RAID_CHAT_GAP = 90   -- raid <-> top of the chat (room for edit box and tabs)
+local testing = false       -- running demo ("group"/"raid"/"raid40", below): mana even without healers
 local hidden = CreateFrame("Frame")
 hidden:Hide()
 
 local function Enabled() return ns.db.groupFrames ~= false end
 
--- Rolle mit MUI-Symbolen (Tank/Heiler; DDs ohne)
+-- Role with MUI icons (tank/healer; none for DPS)
 local ROLE_ICONS = { TANK = "RoleTank", HEALER = "RoleHeal" }
 local function IsHealer(self)
     local role = self.unit and UnitGroupRolesAssigned(self.unit)
     return ns.Readable(role) and role == "HEALER"
 end
 
--- Mana nur bei Heilern; oUF zeigt die Leiste sonst immer – nach jeder Aktualisierung entscheiden
+-- Mana for healers only; oUF would always show the bar, so decide after every update
 local function PowerVisibility(power)
     power:SetShown(testing or IsHealer(power.__owner))
 end
@@ -80,7 +61,7 @@ local function UpdateRole(self)
     end
 end
 
--- Offline und AFK als Symbole (Secrets > lieber nichts zeigen); Health.PostUpdate und Flag-Events
+-- Offline and AFK icons (secret values -> show nothing); from Health.PostUpdate and flag events
 local function UpdateFlags(self, _, unit)
     unit = self.unit
     if not unit or not self.OfflineIcon then return end
@@ -91,9 +72,9 @@ local function UpdateFlags(self, _, unit)
     self.AfkIcon:SetShown(away)
 end
 
--- Heiler: fehlt Leben, steht statt des Namens „−123“ (weiß) an derselben Stelle (Benny 2026-11-07).
--- Leben kann geheim sein → nicht vergleichen, sondern über Stufen-Kurven die Textdeckkraft
--- setzen: bei 100 % Name sichtbar, darunter die Zahl. Tot/offline: immer der Name.
+-- Healer: missing health ("-123") replaces the name in the same spot. Health can be secret, so
+-- never compare it - step curves set the text alpha instead: at 100% the name shows, below it the
+-- number. Dead/offline: always the name.
 local nameAlphaCurve, deficitAlphaCurve
 if C_CurveUtil and C_CurveUtil.CreateCurve then
     nameAlphaCurve = C_CurveUtil.CreateCurve()
@@ -132,15 +113,14 @@ local function UpdateStatusIcons(health, unit)
     UpdateNameOrDeficit(health.__owner, unit)
 end
 
--- oUF setzt bei Leiter und Bereitschaft jedes Mal Blizzards Grafik: zurück auf unsere Symbole
+-- oUF sets Blizzard's texture for leader and ready check every time: switch back to ours
 local function UpdateLeaderIcon(icon, isLeader)
     if isLeader then icon:SetTexture(ns.MEDIA .. "Icons\\Leader") end
 end
 
 local READY_ICONS = { ready = "Check", notready = "Close", waiting = "ReadyPending" }
--- Am Ende des Checks (READY_CHECK_FINISHED) liefert Forever für alle keinen Status mehr > oUF ruft uns
--- mit nil auf, das Symbol fiel aufs Fragezeichen zurück (Benny 2026-11-08). Darum: letzten Stand
--- merken und bis zum Ausblenden zeigen; wer noch wartete, gilt als „nicht bereit“ (wie Blizzard).
+-- On READY_CHECK_FINISHED Forever returns no status for anyone, so oUF calls us with nil. Keep the
+-- last status until fade-out; anyone still waiting counts as "not ready" (like Blizzard).
 local function UpdateReadyIcon(icon, status)
     if status then
         icon.muiLast = status
@@ -151,7 +131,7 @@ local function UpdateReadyIcon(icon, status)
     icon:SetVertexColor(unpack(ns.STYLE.readyColors[status] or ns.STYLE.readyColors.waiting))
 end
 
--- Aggro am Gruppenframe (oUF ThreatIndicator, eigene Darstellung) -----------------------------
+-- Aggro on group frames (oUF ThreatIndicator, custom display) -----------------------------------
 local aggroLog = {}
 local AGGRO_COLOR, WARN_COLOR = { 0.85, 0.12, 0.12 }, { 1, 0.6, 0.1 }
 function UpdateAggro(self, _, unit)
@@ -160,7 +140,7 @@ function UpdateAggro(self, _, unit)
     if unit and unit ~= own then return end
     local element = self.ThreatIndicator
     local status = own and UnitThreatSituation(own)
-    -- Fehlersuche (Benny 2026-11-08: als DD keine Aggro am Gruppenframe): Status-Wechsel ins DevLog
+    -- Debug: log status changes to DevLog
     if DevLog and own then
         local shown = issecretvalue and issecretvalue(status) and "secret" or tostring(status)
         if aggroLog[own] ~= shown then
@@ -177,9 +157,8 @@ function UpdateAggro(self, _, unit)
     element:Show()
 end
 
--- Eigene Abfrage statt nur oUF-Ereignis: in Forever kam UNIT_THREAT_SITUATION_UPDATE am Gruppenframe
--- nie an (Benny 2026-11-08: als DD keine Aggro sichtbar, DevLog leer). Alle 0,3 s im Kampf, danach
--- einmal zum Aufräumen. Nur Werte lesen, nichts Geschütztes.
+-- Own polling instead of relying on the oUF event: on Forever UNIT_THREAT_SITUATION_UPDATE never
+-- reached the group frames. Every 0.3 s in combat, then once more to clean up. Read-only.
 do
     local wasInCombat = false
     C_Timer.NewTicker(0.3, function()
@@ -194,15 +173,14 @@ do
     end)
 end
 
--- Fehlende Buffs deiner Klasse -----------------------------------------------------------------
--- Je Klasse eine Liste: hat das Gruppenmitglied IRGENDEINEN davon (alle Ränge, Gruppen-Version),
--- fehlt nichts. Nur wenn du den Zauber kennst. Auren können im Kampf geschützt sein: dann bleibt
--- der letzte Stand stehen (nachgeprüft wird außerhalb des Kampfs).
+-- Missing class buffs --------------------------------------------------------------------------
+-- One list per class: if the member has ANY of them (all ranks, group version), nothing is missing.
+-- Only if you know the spell. Auras may be secret in combat: keep the last state, recheck out of combat.
 local CLASS_BUFFS = {
-    MAGE = { 1459, 23028 },                          -- Arkane Intelligenz, Arkane Brillanz
-    PRIEST = { 1243, 21562 },                        -- Machtwort: Seelenstärke, Gebet der Seelenstärke
-    DRUID = { 1126, 21849 },                         -- Mal der Wildnis, Gabe der Wildnis
-    PALADIN = { 19740, 19742, 20217, 1038, 19977, 20911, -- irgendein Segen (auch die großen)
+    MAGE = { 1459, 23028 },                          -- Arcane Intellect, Arcane Brilliance
+    PRIEST = { 1243, 21562 },                        -- Power Word: Fortitude, Prayer of Fortitude
+    DRUID = { 1126, 21849 },                         -- Mark of the Wild, Gift of the Wild
+    PALADIN = { 19740, 19742, 20217, 1038, 19977, 20911, -- any blessing (incl. greater)
         25782, 25894, 25898, 25895, 25890, 25899 },
 }
 missingFrames = {}
@@ -226,7 +204,7 @@ function UpdateMissingBuff(self, _, unit)
     local own = self.unit
     if unit and unit ~= own then return end
     local icon = self.MissingBuff
-    if InCombatLockdown() then return end -- Auren evtl. geschützt: letzten Stand behalten
+    if InCombatLockdown() then return end -- auras may be secret: keep the last state
     if not (buffNames and own and UnitExists(own)) or UnitIsDeadOrGhost(own) or not UnitIsConnected(own) then
         return icon:Hide()
     end
@@ -251,15 +229,15 @@ ns:On("PLAYER_REGEN_ENABLED", RefreshMissingBuffs)
 local function Style(self, unit)
     ns.SnapBarsOnUnitChange(self)
     local px = ns.PixelSize()
-    -- Rechtsklick-Menü & Co.: RegisterForClicks ist im Kampf gesperrt – baut Blizzard im Kampf einen
-    -- neuen Gruppen-Frame (jemand tritt bei), erst nach dem Kampf nachholen (bis dahin nur Linksklick)
+    -- RegisterForClicks is blocked in combat - if a header creates a new button in combat (someone
+    -- joins), defer it until after combat (left click only until then)
     if InCombatLockdown() then
         ns.AfterCombat(function() self:RegisterForClicks("AnyUp") end)
     else
         self:RegisterForClicks("AnyUp")
     end
-    -- Tooltip: Header-Knöpfe tragen ihre Einheit als Attribut (Blizzards UnitFrame_OnEnter sucht
-    -- self.unit und wirft sonst einen Fehler) – Tooltip darum selbst an der Standard-Position
+    -- Header buttons carry their unit as an attribute (Blizzard's UnitFrame_OnEnter expects
+    -- self.unit and errors otherwise) - so show the tooltip ourselves at the default anchor
     self:SetScript("OnEnter", function(frame)
         local target = frame.unit or frame:GetAttribute("unit")
         if not (target and UnitExists(target)) then return end
@@ -269,7 +247,7 @@ local function Style(self, unit)
     self:SetScript("OnLeave", function() GameTooltip:Hide() end)
     ns.CreateBackground(self)
 
-    -- Größe des eigenen Headers (Gruppe oder Schlachtzug), siehe Spawn
+    -- Size of the own header (group or raid), see Spawn
     local header = self:GetParent()
     local width, height = header and header.muiWidth, header and header.muiHeight
     if not width then width, height = Size(header and header.muiKind or "group") end
@@ -281,8 +259,7 @@ local function Style(self, unit)
     health.colorHealth = true
     self.Health = health
 
-    -- Schild (hellblau, vom Balkenende her über dem Leben); Heil-Vorhersage nur im Layout Heiler
-    -- (Benny 2026-11-07: DD/Tank brauchen sie nicht)
+    -- Shield (light blue, from the bar end over health); heal prediction only in the healer layout
     local healPrediction = ns.LayoutFlag("healPrediction")
     ns.AddHealPrediction(health, false, not healPrediction, healPrediction)
 
@@ -298,7 +275,7 @@ local function Style(self, unit)
     overlay:SetAllPoints()
     overlay:SetFrameLevel(health:GetFrameLevel() + 5)
 
-    -- Ziel: heller 2-px-Rahmen (Akzent) innen; Maus darüber: leichter Schimmer
+    -- Target: bright 2 px inner border (accent); mouseover: slight highlight
     local target = CreateFrame("Frame", nil, overlay)
     target:SetAllPoints()
     for _, edge in ipairs(ns.AddBorder(target, true, 2)) do edge:SetVertexColor(unpack(ns.UI.ACCENT)) end
@@ -306,8 +283,7 @@ local function Style(self, unit)
     self.TargetIndicator = target
     ns.AddHoverHighlight(self, overlay, 0.08)
 
-    -- Aggro: roter Rahmen, wenn ein Mob dieses Gruppenmitglied angreift, orange kurz davor (Benny
-    -- 2026-11-07: Tank sieht sofort, wen er zurückholen muss). Beim Tank selbst nicht – dort normal.
+    -- Aggro: red border when a mob attacks this member, orange just before. Not on tanks.
     local aggro = CreateFrame("Frame", nil, overlay)
     aggro:SetAllPoints()
     aggro:SetFrameLevel(target:GetFrameLevel() + 1)
@@ -316,8 +292,7 @@ local function Style(self, unit)
     aggro.Override = UpdateAggro
     self.ThreatIndicator = aggro
 
-    -- fehlender Buff deiner Klasse (Arkane Intelligenz, Seelenstärke …): kleines Symbol oben links
-    -- neben der Krone (Benny 2026-11-07)
+    -- Missing class buff (Arcane Intellect, Fortitude, ...): small icon top left next to the crown
     local missing = overlay:CreateTexture(nil, "OVERLAY")
     missing:SetSize(ICON_SIZE + 2, ICON_SIZE + 2)
     missing:SetPoint("TOPLEFT", LEADER_SIZE + 4, -3)
@@ -332,9 +307,9 @@ local function Style(self, unit)
     name:SetPoint("CENTER", 0, 2)
     name:SetWidth(width - ns.Snap(8))
     name:SetWordWrap(false)
-    self:Tag(name, "[mui:name]") -- Vor-/Nachname nach Einstellung (UnitFrames.lua)
+    self:Tag(name, "[mui:name]") -- name format per setting (UnitFrames.lua)
 
-    -- Status-Symbole unter dem Namen, mittig (MUI-Symbole, sichtbare rücken zusammen)
+    -- Status icons centered below the name (visible ones close ranks)
     local STYLE = ns.STYLE
     local statusAnchor = CreateFrame("Frame", nil, overlay)
     statusAnchor:SetSize(1, STATUS_ICON)
@@ -365,7 +340,7 @@ local function Style(self, unit)
     role.Override = UpdateRole
     self.GroupRoleIndicator = role
 
-    -- Leiter (Krone, gold) oder Assistent (Krone, Umriss) oben links – nie beides
+    -- Leader (crown) or assistant (crown outline) top left - never both
     local leader = ns.CreateStatusIcon(overlay, "Leader", LEADER_SIZE, STYLE.leaderColor)
     leader:SetPoint("TOPLEFT", 2, -2)
     leader.PostUpdate = UpdateLeaderIcon
@@ -379,11 +354,11 @@ local function Style(self, unit)
     marker:SetPoint("CENTER", self, "TOP", 0, 0)
     self.RaidTargetIndicator = marker
 
-    -- Unten: links dispellbare Debuffs (RAID = nur was DU entfernen kannst, Rahmen in Dispel-Farbe),
-    -- Boss-/Rollen-Debuffs groß über dem Namen (egal ob dispellbar – wer hat den Kram?), rechts private Auren.
-    -- Platz links/rechts richtet sich nach der Breite (Schlachtzugsframes sind schmaler).
+    -- Bottom left: dispellable debuffs (RAID = only what YOU can remove, border in dispel color);
+    -- boss/role debuffs large over the name (dispellable or not); bottom right: private auras.
+    -- Side space depends on the width (raid frames are narrower).
     local bottom = ns.Snap(POWER_HEIGHT) + 3
-    -- Boss-Debuff höchstens halb so hoch wie der Frame (flache Schlachtzugsframes: kleiner), max. BOSS_SIZE
+    -- Boss debuff at most half the frame height (flat raid frames: smaller), max BOSS_SIZE
     local bossSize = math.min(BOSS_SIZE, ns.Snap(math.floor(height * 0.5)))
     self.muiBossSize = bossSize
     local bossWidth = BOSS_MAX * (bossSize + 2)
@@ -400,8 +375,8 @@ local function Style(self, unit)
     debuffs:AddGroup("HARMFUL|RAID", { maxFrameCount = sideMax, dispelBand = "harmful",
         candidateFilters = { isBossOrRoleAura = false } })
 
-    -- Boss-/Rollen-Debuffs groß genau in der Mitte, eine Ebene über dem Namen (der darf verdeckt
-    -- sein – Benny 2026-11-07), Rahmen in Dispel-Farbe
+    -- Boss/role debuffs large in the exact center, one level above the name (may cover it),
+    -- border in dispel color
     local boss = self:CreateAuras({ initialAnchor = "BOTTOMLEFT", growthX = "RIGHT", growthY = "UP" })
     boss:SetPoint("CENTER", self, "CENTER", 0, 0)
     boss:SetFrameLevel(overlay:GetFrameLevel() + 3)
@@ -416,9 +391,8 @@ local function Style(self, unit)
     boss:AddGroup("HARMFUL", { maxFrameCount = BOSS_MAX, dispelBand = "harmful",
         candidateFilters = { isBossOrRoleAura = true } })
 
-    -- große und externe Defensiven (wer ist gerade geschützt?) links neben der Rolle – nur Retail:
-    -- Forever kennt die Filter BIG_DEFENSIVE/EXTERNAL_DEFENSIVE nicht und lieferte beliebige Buffs,
-    -- doppelt (Benny 2026-11-07: fremde Buffs interessieren nicht, nur fehlende eigene)
+    -- Big and external defensives left of the role icon - Retail only: Forever does not know the
+    -- BIG_DEFENSIVE/EXTERNAL_DEFENSIVE filters and returns arbitrary buffs (duplicated)
     local defensives
     if not ns.IS_FOREVER then
         defensives = self:CreateAuras({ initialAnchor = "TOPRIGHT", growthX = "LEFT", growthY = "DOWN" })
@@ -432,7 +406,7 @@ local function Style(self, unit)
         defensives:AddGroup("HELPFUL|EXTERNAL_DEFENSIVE", { maxFrameCount = 1 })
     end
 
-    -- private Auren (Blizzard zeichnet sie selbst) unten rechts
+    -- Private auras (drawn by Blizzard) bottom right
     local private = CreateFrame("Frame", nil, overlay)
     private:SetPoint("BOTTOMRIGHT", -3, bottom)
     private:SetSize(math.min(sideMax, 2) * (DEBUFF_SIZE + 2), DEBUFF_SIZE)
@@ -443,13 +417,13 @@ local function Style(self, unit)
     private.initialAnchor = "BOTTOMRIGHT"
     private.disableCooldownText = true
     self.PrivateAuras = private
-    self.muiAuraFrames = { debuffs, boss, defensives } -- für die Vorschau (Beispielgruppe); defensives fehlt in Forever
+    self.muiAuraFrames = { debuffs, boss, defensives } -- for the preview (sample group); defensives is nil on Forever
 
     if ns.LayoutFlag("healerGroups") then
-        -- Heiler (Recherche 2026-11-07): eigene HoTs als kleine Symbole mit Restzeit unten mittig, in
-        -- fester Reihenfolge (Erneuerung/Verjüngung, Nachwachsen, Machtwort: Schild). Hilfreiche Auren
-        -- auf Gruppenmitgliedern darf ein Addon per Zauber-ID filtern – auch im Kampf. Dazu als Test
-        -- „Geschwächte Seele“ (eigener Debuff des Priesters, Filter HARMFUL|PLAYER).
+        -- Healer: own HoTs as small icons with remaining time, bottom center, in fixed order
+        -- (Renew/Rejuvenation, Regrowth, Power Word: Shield). Addons may filter helpful auras on
+        -- group members by spell ID, even in combat. Plus "Weakened Soul" as a test (priest's own
+        -- debuff, filter HARMFUL|PLAYER).
         local hots = self:CreateAuras({ initialAnchor = "BOTTOMLEFT", growthX = "RIGHT", growthY = "UP" })
         hots:SetPoint("BOTTOM", 0, bottom)
         hots:SetSize(4 * (HOT_SIZE + 2), HOT_SIZE)
@@ -465,27 +439,26 @@ local function Style(self, unit)
             for _, id in ipairs(ids) do set[id] = true end
             hots:AddSlot("HELPFUL|PLAYER", { candidateFilters = { includeSpellIDs = set } })
         end
-        hots:AddSlot("HARMFUL|PLAYER", { desaturate = true }) -- Geschwächte Seele (Test)
+        hots:AddSlot("HARMFUL|PLAYER", { desaturate = true }) -- Weakened Soul (test)
         self.muiAuraFrames[#self.muiAuraFrames + 1] = hots
 
-        -- fehlendes Leben statt des Namens (Classic-Heiler wählen danach den Zauber-Rang); das
-        -- Minus ist ein eigener Text links daneben (geheime Zahl nicht mit Text verketten)
+        -- Missing health instead of the name (Classic healers pick spell ranks by it); the minus is
+        -- a separate text to the left (never concatenate a secret number with text)
         local deficit = ns.CreateText(overlay, 12, "CENTER", "OUTLINE")
         deficit:SetPoint("CENTER", name, "CENTER", ns.Snap(2), 0)
         deficit:SetTextColor(1, 1, 1, 0)
         self:Tag(deficit, "[mui:deficit]")
         local minus = ns.CreateText(overlay, 12, "RIGHT", "OUTLINE")
-        minus:SetPoint("RIGHT", deficit, "LEFT", ns.Snap(2), 0) -- Glyphen-Rand des Minus ausgleichen
+        minus:SetPoint("RIGHT", deficit, "LEFT", ns.Snap(2), 0) -- compensate the minus glyph padding
         minus:SetText("-")
         minus:SetTextColor(1, 1, 1, 0)
         deficit.minus = minus
         self.muiDeficit = deficit
     end
 
-    -- Heiler: kannst du einen Debuff entfernen, bekommt der ganze Frame einen 2-px-Rahmen in der
-    -- Dispel-Farbe (Magie blau, Fluch lila, Gift grün, Krankheit braun). Trick: ein Aura-Knopf so
-    -- groß wie der Frame, Symbol unsichtbar – Blizzard färbt dessen Rahmen selbst (geht auch mit
-    -- geschützten Werten im Kampf). Filter HARMFUL|RAID = nur was DU entfernen kannst.
+    -- Healer: if you can dispel a debuff, the whole frame gets a 2 px border in the dispel color.
+    -- Trick: an aura button the size of the frame with a hidden icon - Blizzard colors its border
+    -- itself (works with secret values in combat). HARMFUL|RAID = only what YOU can remove.
     if ns.LayoutFlag("healerGroups") then
         local dispel = self:CreateAuras({ initialAnchor = "TOPLEFT", growthX = "RIGHT", growthY = "DOWN" })
         dispel:SetPoint("TOPLEFT")
@@ -506,7 +479,7 @@ local function Style(self, unit)
     self.Range = { insideAlpha = 1, outsideAlpha = 0.4 }
 end
 
--- Blizzards Schlachtzugsframes aus (Gruppenframes übernimmt oUF selbst)
+-- Hide Blizzard's raid frames (oUF handles party frames itself)
 local function HideBlizzardRaid()
     local container = _G["CompactRaidFrameContainer"]
     if container then
@@ -516,7 +489,7 @@ local function HideBlizzardRaid()
     end
 end
 
--- Fehlendes Leben (Heiler): leer bei vollem Leben, tot oder offline; Werte nur durchreichen (Secrets)
+-- Missing health (healer): empty at full health, dead or offline; pass values through (secrets)
 oUF.Tags.Methods["mui:deficit"] = [[function(u)
     local dead, online = UnitIsDeadOrGhost(u), UnitIsConnected(u)
     if (not issecretvalue(dead) and dead) or (not issecretvalue(online) and not online) then return end
@@ -526,22 +499,21 @@ oUF.Tags.Events["mui:deficit"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION"
 
 oUF:RegisterStyle("MeredanGroup", Style)
 
--- Header für Gruppe (5er) oder Schlachtzug spawnen, mit Platzhalter (Größe einer
--- vollen 5er-Spalte); der Header hängt oben links daran.
--- Schlachtzug: höchstens so breit, dass rechts Platz für die Boss-Timer bleibt (links neben dem
--- Spieler-Frame) – sonst werden die einzelnen Frames schmaler. columns = Gruppen nebeneinander.
+-- Raid width: leave room on the right for the boss timers (left of the player frame), otherwise
+-- the frames get narrower. columns = groups side by side.
 local function FitWidth(width, columns)
     local edge = ns.LeftOfPlayerEdge()
     if not edge then return width end
-    -- Platz für die Boss-Timer nur, wenn es sie gibt (Forever: keine Boss-Daten von Blizzard)
+    -- Reserve boss timer space only if they exist (Forever: no boss data from Blizzard)
     local reserve = (ns.IS_FOREVER or ns.db.bossMods == false) and 0 or ns.Snap(BOSS_BAR_RESERVE)
     local available = edge - reserve - ns.Snap(ns.SCREEN_MARGIN) - (columns - 1) * ns.Snap(GAP)
     return math.max(math.min(width, ns.Snap(math.floor(available / columns))), ns.Snap(40))
 end
 
--- growLeft: erste Gruppe am Platzhalter, weitere Spalten nach links (Gruppe neben dem Spieler-Frame);
--- sonst nach rechts und bei mehreren Spalten auf die freie Breite eingepasst (Schlachtzug).
--- rows: Heiler-Gruppe – Mitglieder nebeneinander, jede Gruppe eine Reihe darunter (w, h fest)
+-- Spawns a group or raid header plus an anchor frame (size of a full 5-man column).
+-- growLeft: first group at the anchor, more columns to the left (group next to the player frame);
+-- otherwise to the right, fitted to the free width (raid).
+-- rows: healer layout - members side by side, one row per group (fixed w, h)
 local function SpawnGroup(factory, kind, name, visibility, columns, growLeft, rows, ...)
     local w, h = Size(kind)
     if rows then w, h = rows.w, rows.h end
@@ -556,7 +528,7 @@ local function SpawnGroup(factory, kind, name, visibility, columns, growLeft, ro
         "maxColumns", columns, "unitsPerColumn", rows and rows.per or 5,
         layout[1], layout[2], layout[3], layout[4], layout[5], layout[6], layout[7], layout[8],
         "oUF-initialConfigFunction", ([[ self:SetWidth(%f) self:SetHeight(%f) ]]):format(w, h), ...)
-    -- vor der Sichtbarkeit: die Knöpfe entstehen erst, wenn er sichtbar wird
+    -- Before visibility: the buttons are only created once the header is shown
     header.muiKind, header.muiWidth, header.muiHeight = kind, w, h
     header.muiVisibility = visibility
     header:SetVisibility(visibility)
@@ -575,21 +547,16 @@ oUF:Factory(function(self)
     if not Enabled() then return end
     self:SetActiveStyle("MeredanGroup")
 
-    -- Gruppe: rechtsbündig mit den Boss-Timern links neben dem Spieler-Frame (gemeinsame Kante,
-    -- ns.LeftOfPlayerEdge), Oberkante über der Bildschirmmitte. Zeigt auch Schlachtzüge bis 15
-    -- Spieler (3 Spalten, weitere Gruppen nach links); ab dem 16. schaltet WoW selbst um
-    -- ([@raid16,exists]), auch im Kampf.
-    -- Layout Heiler (Benny 2026-11-07, Entwurf „Heiler-Layout“): Gruppe und 10er mittig unter den
-    -- Unitframes – 5 nebeneinander, so breit wie die unteren Leisten, zweite Gruppe als zweite Reihe;
-    -- ab 11 Spielern der Schlachtzug links (20er/40er passen nicht in die Mitte). Beim Aufbau
-    -- festgelegt > Layout-Wechsel braucht Neuladen.
+    -- Group: right-aligned with the boss timers left of the player frame (ns.LeftOfPlayerEdge), top
+    -- above screen center. Also shows raids up to 15 (3 columns, growing left); from the 16th player
+    -- the state driver switches ([@raid16,exists]), even in combat.
+    -- Healer layout: fixed when built, so a layout change needs a reload.
     local healer = ns.LayoutFlag("healerGroups")
     local rows, raidRows, raid40Rows
     if healer then
-        -- Heiler (Skizze „Spielwiese Heiler“): Gruppe zwischen Spieler und Ziel über der Zauberleiste,
-        -- immer im selben Kasten (4 × 61 hoch):
-        --   bis 20: Reihen à 5 (~107 × 61) · 21–25: 5 Reihen à 5, flacher (~107 × 48; Benny: lieber
-        --   flacher als schmaler) · 26–40: 4 Reihen à 10 (~51 × 61)
+        -- Healer: group between player and target above the cast bar, always in the same box
+        -- (4 x 61 high): up to 20: rows of 5 (~107 x 61); 21-25: 5 rows of 5, flatter (~107 x 48);
+        -- 26-40: 4 rows of 10 (~51 x 61)
         local H = ns.HEALER
         local width, gap = ns.Snap(H.groupWidth), ns.Snap(GAP)
         local boxHeight = H.rows * ns.Snap(H.frameH) + (H.rows - 1) * gap
@@ -597,14 +564,14 @@ oUF:Factory(function(self)
         raidRows = { per = 5, w = rows.w, h = ns.Snap((boxHeight - 4 * gap) / 5) }
         raid40Rows = { per = 10, w = ns.Snap((width - 9 * gap) / 10), h = ns.Snap(H.frameH) }
     end
-    -- Einstellung „Gruppenframes auch allein zeigen“ (Benny 2026-11-07, z. B. zum Testen)
+    -- Setting "show group frames when solo"
     local solo = ns.db.groupSolo == true
     local groupRest = solo and "show" or "[group] show; hide"
     local group, groupAnchor, groupWidth = SpawnGroup(self, "group", "MeredanUIGroup",
         (healer and "custom [@raid21,exists] hide; " or "custom [@raid16,exists] hide; ") .. groupRest,
         healer and 4 or 3, not healer, rows, "showParty", true, "showRaid", true, "showSolo", solo)
     group.muiSolo = solo
-    -- Heiler: Oberkante der Gruppe = gemeinsame Oberkante mit Spieler/Ziel (Core/Layouts.lua)
+    -- Healer: group top = shared top edge with player/target (Core/Layouts.lua)
     local function PlaceHealer(anchor)
         local _, cy = UIParent:GetCenter()
         ns.PlaceFromCenter(anchor, "TOPLEFT", -anchor:GetWidth() / 2, ns.HealerGeometry().groupTop - cy)
@@ -613,31 +580,31 @@ oUF:Factory(function(self)
         local cx = UIParent:GetCenter()
         if healer then return PlaceHealer(groupAnchor) end
         local edge = ns.LeftOfPlayerEdge()
-        -- (ns.Snap rundet nie unter 1 px – darum erst runden, dann negativ)
+        -- (ns.Snap never rounds below 1 px - so round first, then negate)
         local x = edge and (edge - groupWidth - cx) or -ns.Snap(UIParent:GetWidth() / 4)
         ns.PlaceFromCenter(groupAnchor, "TOPLEFT", x, ns.Snap(300))
     end)
     ns.layoutFrames.groupframes = groupAnchor
 
-    -- Schlachtzug ab 16 Spielern: unten links über dem Chat (über Eingabefeld und Reitern), Gruppen
-    -- als Spalten nach rechts. Bis 25 Spieler (5 Gruppen) der normale, ab dem 26. der 40er mit
-    -- kleineren Frames – WoW schaltet selbst um ([@raid16,exists], [@raid26,exists]), auch im Kampf.
+    -- Raid from 16 players: bottom left above the chat, groups as columns to the right. Up to 25 the
+    -- normal raid, from 26 the raid40 header with smaller frames - the state driver switches
+    -- ([@raid16,exists], [@raid26,exists]), even in combat.
     local raid, raidAnchor = SpawnGroup(self, "raid", "MeredanUIRaid",
         healer and "custom [@raid26,exists] hide; [@raid21,exists] show; hide" or "custom [@raid26,exists] hide; [@raid16,exists] show; hide",
         5, false, raidRows, "showParty", false, "showRaid", true)
     local raid40, raid40Anchor = SpawnGroup(self, "raid40", "MeredanUIRaid40",
         "custom [@raid26,exists] show; hide", healer and 4 or 8, false, raid40Rows, "showParty", false, "showRaid", true)
-    -- gleicher Platz wie der Schlachtzug, aber unten bündig (gleicher Abstand zum Chat; der 40er
-    -- ist niedriger). Der Header wächst von oben nach unten: Oberkante = Unterkante + Blockhöhe.
+    -- Same spot as the raid but bottom-aligned (same gap to the chat; raid40 is shorter). The header
+    -- grows top-down: top = bottom + block height.
     if healer then
-        ns.OnLayout(function() PlaceHealer(raid40Anchor) end) -- Heiler: eigener Platz, gleicher Kasten
+        ns.OnLayout(function() PlaceHealer(raid40Anchor) end) -- healer: own spot, same box
     else
         raid40:ClearAllPoints()
         raid40:SetPoint("TOPLEFT", raidAnchor, "BOTTOMLEFT", 0, raid40Anchor:GetHeight())
         raid40Anchor:Hide()
     end
     ns.OnLayout(function()
-        if healer then return PlaceHealer(raidAnchor) end -- Heiler: 21–40 am Platz der Gruppe
+        if healer then return PlaceHealer(raidAnchor) end -- healer: 21-40 in the group's spot
         raidAnchor:ClearAllPoints()
         if ChatFrame1 then
             raidAnchor:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(RAID_CHAT_GAP))
@@ -652,13 +619,12 @@ oUF:Factory(function(self)
     HideBlizzardRaid()
 end)
 
--- Demos (Einstellungen > Gruppenframes): „Gruppe (5)“, „Schlachtzug (25)“, „Schlachtzug (40)“ – immer
--- nur eine; der Header zeigt die Größe auch allein, Lücken füllt er mit dir als Platzhalter (echte
--- Mitspieler bleiben). /mui t zeigt die Gruppe mit. Nur außerhalb des Kampfs (geschützte Frames);
--- der Kampfbeginn beendet die Demo.
--- Vorschau-Größen: group10 = 10er (Barrow Deeps, Warsongschlucht) – läuft über die Gruppenframes
+-- Demos (Settings > Group Frames), one at a time: the header shows the size even when solo and
+-- fills gaps with you as placeholder (real members stay). /mui t includes the group. Out of combat
+-- only (protected frames); entering combat ends the demo.
+-- group10 = 10-man (Barrow Deeps, Warsong Gulch) - runs on the group frames
 local TEST_COUNT = { group = 5, group10 = 10, group15 = 15, group20 = 20, raid = 25, raid40 = 40 }
--- welcher Header zeigt die Größe? Heiler: bis 20 die Gruppe, darüber der Schlachtzug (Reihen à 10)
+-- Which header shows the size? Healer: group up to 20, above that the raid (rows of 10)
 local function TestHeader(kind)
     local healer = ns.LayoutFlag("healerGroups")
     if kind == "group" or kind == "group10" or kind == "group15" then return "group" end
@@ -675,16 +641,15 @@ local function Buttons(header)
     return list
 end
 
--- Beispielgruppe für die Vorschau (Benny 2026-11-07: „komplett nichtssagend“): Tank, Heiler, drei
--- DD in Klassenfarben; alle 4 s wechseln die Zustände (3 Durchgänge), damit man Aggro-Rahmen,
--- Debuffs, fehlenden Buff, Schild, Tod, Offline, Bereitschaft und Ziel einmal sieht. Nur die
--- Platzhalter-Frames (unit = player) werden so gefüllt; oUF-Elemente sind solange aus.
+-- Sample group for the preview: tank, healer, three DPS in class colors; states change every 4 s
+-- (3 phases) to show aggro, debuffs, missing buff, shield, death, offline, ready check and target.
+-- Only placeholder frames (unit = player) are filled; their oUF elements are disabled meanwhile.
 local DEMO_PHASES = 3
 local DEMO_SECONDS = 4
 local DEMO_ELEMENTS = { "Health", "Power", "GroupRoleIndicator", "ThreatIndicator", "LeaderIndicator",
     "AssistantIndicator", "ReadyCheckIndicator", "Range", "TargetIndicator", "ResurrectIndicator",
     "SummonIndicator", "PhaseIndicator", "PrivateAuras", "RaidTargetIndicator" }
-local MAGIC, CURSE, POISON = 136071, 136139, 136007   -- Beispiel-Symbole (wie im Unitframe-Test)
+local MAGIC, CURSE, POISON = 136071, 136139, 136007   -- sample icons (as in the unit frame test)
 local BOSS_ICON = 136113
 local DEMO_GROUP = {
     { name = "Brakk", class = "WARRIOR", role = "TANK", hp = { 92, 70, 85 }, absorb = { 0, 25, 10 },
@@ -744,7 +709,7 @@ local function ApplyDemo(button, data, phase)
             button.muiDemoDebuff:SetPoint("BOTTOMLEFT", 3, bottom)
             button.muiDemoBoss = DemoAura(button, frames[2], button.muiBossSize or BOSS_SIZE, true)
             button.muiDemoBoss:SetPoint("CENTER", button, "CENTER", 0, 0)
-            -- Heiler: Rahmen in Dispel-Farbe um den ganzen Frame
+            -- Healer: dispel-colored border around the whole frame
             local dispelBorder = CreateFrame("Frame", nil, layer)
             dispelBorder:SetAllPoints(button)
             dispelBorder.edges = ns.AddBorder(dispelBorder, true, 2)
@@ -766,10 +731,10 @@ local function ApplyDemo(button, data, phase)
         local r, g, b = button.muiName:GetTextColor()
         button.muiName:SetTextColor(r, g, b, 1 - a)
     end
-    -- Leben in Klassenfarbe (oder Theme-Farbe), Schild
+    -- Health in class color (or theme color), shield
     local health = button.Health
     local hp = data.hp[phase] or 100
-    health:Show() -- oUF versteckt den Balken beim Abschalten des Elements
+    health:Show() -- oUF hides the bar when the element is disabled
     health:SetMinMaxValues(0, 100)
     health:SetValue(hp)
     if ns.STYLE.classHealth and class then
@@ -784,7 +749,7 @@ local function ApplyDemo(button, data, phase)
         health.DamageAbsorb:SetValue(absorb)
         health.DamageAbsorb:SetShown(absorb > 0)
     end
-    -- Mana nur beim Heiler
+    -- Mana for the healer only
     local mana = data.mana and data.mana[phase]
     if button.Power then
         button.Power:SetShown(mana ~= nil)
@@ -795,7 +760,7 @@ local function ApplyDemo(button, data, phase)
             if color then button.Power:SetStatusBarColor(color:GetRGB()) end
         end
     end
-    -- Rolle, Leiter, Ziel, Aggro
+    -- Role, leader, target, aggro
     local role = button.GroupRoleIndicator
     if ROLE_ICONS[data.role or ""] then
         role:SetTexture(ns.MEDIA .. "Icons\\" .. ROLE_ICONS[data.role])
@@ -818,11 +783,11 @@ local function ApplyDemo(button, data, phase)
         end
         threat:SetShown(color and true or false)
     end
-    -- fehlender Buff (Beispiel: Arkane Intelligenz)
+    -- Missing buff (example: Arcane Intellect)
     local missing = data.missing and data.missing[phase]
     if missing then button.MissingBuff:SetTexture(C_Spell.GetSpellTexture(1459) or 135932) end
     button.MissingBuff:SetShown(missing or false)
-    -- Status unter dem Namen
+    -- Status below the name
     if button.DeadIcon then button.DeadIcon:SetShown(data.dead and data.dead[phase] or false) end
     if button.GhostIcon then button.GhostIcon:Hide() end
     if button.OfflineIcon then button.OfflineIcon:SetShown(data.offline and data.offline[phase] or false) end
@@ -836,7 +801,7 @@ local function ApplyDemo(button, data, phase)
         button.ReadyCheckIndicator:SetShown(ready ~= nil)
     end
     button:SetAlpha((data.offline and data.offline[phase]) and 0.4 or 1)
-    -- Debuffs: dispellbar (Rahmen in Dispel-Farbe) unten links, Boss-Debuff groß mittig
+    -- Debuffs: dispellable (dispel-colored border) bottom left, boss debuff large in the center
     SetAura(button.muiDemoDebuff, data.debuff and data.debuff[phase], button.colors)
     local debuff = data.debuff and data.debuff[phase]
     local dispelColor = button.muiDispelFrame and type(debuff) == "table" and button.colors.dispel and button.colors.dispel[debuff[2]]
@@ -889,7 +854,7 @@ local function StartHeader(header, kind)
     C_Timer.After(0, function()
         if testing ~= kind then return end
         for _, button in ipairs(Buttons(header)) do
-            if not button:GetAttribute("unit") then -- nur Platzhalter, echte Mitspieler bleiben
+            if not button:GetAttribute("unit") then -- placeholders only, real members stay
                 UnregisterUnitWatch(button)
                 button:SetAttribute("unit", "player")
                 button.muiTestFill = true
@@ -898,7 +863,7 @@ local function StartHeader(header, kind)
                 if button.UpdateAllElements then button:UpdateAllElements("MeredanGroupTest") end
             end
         end
-        -- Beispielgruppe mit wechselnden Zuständen
+        -- Sample group with changing states
         demoPhase = 1
         UpdateDemo(header)
         if demoTicker then demoTicker:Cancel() end
@@ -913,7 +878,7 @@ end
 local function StopHeader(header)
     if demoTicker then demoTicker:Cancel(); demoTicker = nil end
     for _, button in ipairs(Buttons(header)) do
-        RestoreDemo(button) -- auch der eigene Frame (allein unterwegs)
+        RestoreDemo(button) -- also the own frame (when solo)
         if button.muiTestFill then
             button.muiTestFill = nil
             UnregisterUnitWatch(button)
@@ -935,7 +900,7 @@ function ns.GroupDemoStop()
     if header then StopHeader(header) end
 end
 
--- kind: "group", "raid" oder "raid40"
+-- kind: "group", "raid" or "raid40"
 function ns.GroupDemo(kind)
     local headers = ns.groupHeaders
     if not headers or not TestHeader(kind) or not headers[TestHeader(kind)] then return end
@@ -948,7 +913,7 @@ function ns.GroupDemo(kind)
     StartHeader(headers[TestHeader(kind)], kind)
 end
 
--- /mui t (Unitframes-Test): die Gruppe zeigt sich mit
+-- /mui t (unit frame test): the group shows too
 function ns.GroupTestStart() if not testing then ns.GroupDemo("group") end end
 function ns.GroupTestStop() if testing == "group" then ns.GroupDemoStop() end end
 

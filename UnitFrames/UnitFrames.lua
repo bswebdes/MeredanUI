@@ -1,87 +1,83 @@
--- Layout der Unitframes (oUF-Style "Meredan"). Ziel spiegelt den Spieler.
+-- Unit frame layout (oUF style "Meredan"). The target mirrors the player.
 --
---                       [Buffs, innen beginnend ...]
---   ●                                         NAME     ← Name groß, auf der Oberkante
---   ┌──────────────────────────────────────────────┐
---   │                  ⚔ / 💤                       │  ← Status in der Mitte; beim Zaubern
---   │                                              │    liegt hier die Zauberleiste drüber,
---   │                                              │    das Zauber-Icon außen daneben
---   │ Energie                                Leben │
---   └──────────────────────────────────────────────┘
---   ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬   ← Ressource, schmal, freistehend
---                      [Debuffs, eine Reihe, innen ...]
---                                          [Pet / Ziel des Ziels]
--- ● = Zielmarkierung. „Innen“ = zur Bildschirmmitte (Spieler rechts, Ziel links).
+--                     [buffs, starting inside ...]
+--   o                                       NAME    <- name large, on the top edge
+--   +--------------------------------------------+
+--   |                 status                     |  <- cast bar overlays the health bar,
+--   | power                               health |     spell icon outside next to it
+--   +--------------------------------------------+
+--   ============================================      <- resource bar, thin, detached
+--                     [debuffs, one row, starting inside ...]
+--                                     [pet / target of target]
+-- o = raid marker. "Inside" = towards screen center (player: right, target: left).
 local _, ns = ...
 local oUF = ns.oUF
 
 local SIZE = {
-    width = 270,       -- Stufe „Normal“; ns.db.frameSize skaliert (ns.FRAME_SCALES)
-    health = 32,       -- Stufe „Normal“
+    width = 270,       -- "medium" size; ns.db.frameSize scales it (ns.FRAME_SCALES)
+    health = 32,       -- "medium" size
     power = 6,
-    classPower = 10,   -- Klassenleiste mittig zwischen den Frames: Kästchenhöhe (Breite = Hauptleiste)
-    classPowerGap = 12, -- Abstand Klassenleiste ↔ Oberkante der Frames (darunter: Aktionsleiste)
-    powerGap = 2,      -- Abstand Lebensbalken ↔ Ressource
-    gap = 4,           -- Abstand zwischen den Leisten unter dem Lebensbalken
+    classPower = 10,   -- class bar centered between the frames: pip height (width = main bar)
+    classPowerGap = 12, -- class bar <-> top of the frames (action bar below)
+    powerGap = 2,      -- health bar <-> resource
+    gap = 4,           -- between the bars below the health bar
     nameSize = 24,
-    valueSize = 12,    -- Leben/Energie im Balken
-    auraSize = 30,     -- Ziel-Icongröße: breitere Frames zeigen mehr Auren statt größerer
-    auraOffset = 6,    -- Abstand Frame ↔ Aura-Reihe
+    valueSize = 12,    -- health/power text in the bar
+    auraSize = 30,     -- target icon size: wider frames show more auras, not bigger ones
+    auraOffset = 6,    -- frame <-> aura row
 }
 
--- Kleine Frames (Pet, Ziel des Ziels): so breit wie der große Frame, Name und Prozent
--- im Lebensbalken, beim Pet darunter die Ressource.
+-- Small frames (pet, target of target): as wide as the big frame, name and percent in the
+-- health bar, pet has a resource bar below.
 local SMALL = {
     health = 22,
     power = 4,
 }
 
--- Seitliche Frames (Fokus, Boss 1–5), schlank wie Pet/Ziel des Ziels (Name und Prozent im
--- Balken, Ressource darunter), dazu Zauberleiste als Overlay mit Icon außen rechts
--- (Unterbrechen!), Zielmarkierung auf der Oberkante und eine Reihe Debuffs darunter (eigene zuerst).
--- Fokus: rechts neben dem Ziel, oben bündig. Bosse: Spalte in einer Linie über dem Fokus, oben
--- bündig mit dem Questlog (Bennys Wunsch 2026-10-24 – rechts ist nach unten Platz für alle fünf).
+-- Side frames (focus, boss 1-5): slim like pet/target of target, cast bar overlay with the icon
+-- outside right (for interrupts), raid marker on the top edge, one debuff row below (own first).
+-- Focus: right of the target, top-aligned. Bosses: column in line with the focus, top-aligned
+-- with the quest tracker (there is room below for all five).
 local SIDE = {
-    width = 200,     -- wird schmaler, wenn der Bildschirm (hohe UI-Skalierung) nicht reicht
+    width = 200,     -- shrinks if the screen is too narrow (high UI scale)
     health = 26,
     power = 4,
     auraSize = 20,
-    auraOffset = 6,  -- Abstand Frame ↔ Debuff-Reihe
-    gap = 10,        -- Abstand zwischen den Boss-Frames (unter der Debuff-Reihe)
+    auraOffset = 6,  -- frame <-> debuff row
+    gap = 10,        -- between boss frames (below the debuff row)
 }
-local SIDE_BUFFS = 3 -- wichtige Gegner-Buffs rechts in der Aura-Reihe (der Rest sind Debuffs)
+local SIDE_BUFFS = 3 -- important enemy buffs on the right of the aura row (the rest are debuffs)
 
--- Standardplatz der Frames: Innenkante INNER_X von der Bildschirmmitte, Oberkante TOP_Y darunter.
+-- Default position: inner edge INNER_X from screen center, top edge TOP_Y below it.
 local INNER_X, TOP_Y = 260, 200
 
--- Größenstufen statt Regler (Benny 2026-11-07): Spieler + Ziel gemeinsam, Begleiter, Ziel des Ziels
--- und Fokus wachsen mit; Bossframes haben eine eigene Stufe. Anker bleiben (Innenkante, Oberkante),
--- die Frames wachsen nach außen und unten.
+-- Size steps: player + target together, pet, target of target and focus follow; boss frames have
+-- their own step. Anchors stay (inner edge, top edge), frames grow outwards and down.
 ns.FRAME_SCALES = { small = 0.88, medium = 1, large = 1.15 }
 ns.BOSS_SCALES = { small = 0.85, medium = 1, large = 1.2 }
 local function FrameScale() return ns.FRAME_SCALES[ns.db.frameSize] or 1 end
 local function BossScale() return ns.BOSS_SCALES[ns.db.bossSize] or 1 end
 
--- Breite von Spieler/Ziel/Pet/Ziel des Ziels: aus der Stufe, aber höchstens so breit, dass die
--- Frames vom Standardplatz aus nicht über den Bildschirmrand ragen (16:9, hohe UI-Skalierung).
+-- Width of player/target/pet/target of target: from the size step, but capped so the frames do not
+-- extend past the screen edge from the default position (16:9, high UI scale).
 local function FrameWidth()
     local maxWidth = UIParent:GetWidth() / 2 - INNER_X - ns.SCREEN_MARGIN
     return ns.Snap(math.min(SIZE.width * FrameScale(), maxWidth))
 end
 ns.FrameWidth = FrameWidth
-ns.FRAME_TOP_Y = TOP_Y -- Oberkante der Unitframes unter der Bildschirmmitte (Aktionsleiste richtet sich danach)
+ns.FRAME_TOP_Y = TOP_Y -- top of the unit frames below screen center (the action bar aligns to it)
 
-local BIG_DEBUFF_SIZE = 40 -- eigene Debuffs im Layout Tank (sonst ~30)
+local BIG_DEBUFF_SIZE = 40 -- own debuffs in the tank layout (otherwise ~30)
 
--- Wie viele Auren in eine Reihe passen: so viele, dass die Icons möglichst nah an
--- size (Standard SIZE.auraSize) liegen (sie werden dann minimal angepasst, damit die Reihe bündig ist).
+-- How many auras fit in a row: as many as keep the icons closest to size (default SIZE.auraSize);
+-- they are then adjusted slightly so the row is flush.
 local function AuraCount(width, size)
     size = size or SIZE.auraSize
     return math.max(math.floor((width + 4) / (size + 4) + 0.5), 1)
 end
 
--- Icongröße, mit der count Icons samt 4-px-Abständen width füllen. Zweiter Wert:
--- Einzug, der den Rundungsrest gleichmäßig auf beide Seiten verteilt (Reihe mittig).
+-- Icon size at which count icons plus 4 px gaps fill width. Second value: inset that spreads the
+-- rounding remainder evenly on both sides (row centered).
 local function FitIcons(count, width)
     local px = ns.PixelSize()
     local totalPx = math.floor(width / px + 0.5)
@@ -90,16 +86,15 @@ local function FitIcons(count, width)
     return sizePx * px, math.floor(restPx / 2) * px
 end
 
--- Tooltip nur für vorhandene Einheiten (im Testmodus gibt es z. B. kein Ziel – Blizzards
--- Tooltip-Code wirft dann einen Fehler).
+-- Tooltip only for existing units (e.g. no target in test mode - Blizzard's tooltip code errors).
 local function UnitFrame_OnEnterHook(self)
     if self.unit and UnitExists(self.unit) then UnitFrame_OnEnter(self) end
 end
 
--- Leichter Schimmer über region, solange die Maus auf dem Frame ist.
+-- Slight highlight over region while the mouse is over the frame.
 local function AddHighlight(self, region) ns.AddHoverHighlight(self, region) end
 
--- Für [mui:name]: Name passend zur Breite des Namensfelds gekürzt
+-- For [mui:name]: name shortened to fit the name field width
 local function ShortenName(self, name)
     return ns.ShortenName(name, self.NameText)
 end
@@ -112,21 +107,21 @@ local function SetupUnitButton(self)
 end
 
 local function SetupHealthColors(health)
-    health.isHealth = true -- dunkles Theme: Füllung dunkel, fehlendes Leben heller
+    health.isHealth = true -- dark theme: dark fill, missing health lighter
     health.colorDisconnected = true
     health.colorTapping = true
-    health.colorClass = ns.STYLE.classHealth -- Theme „Klassenfarbe“
-    health.colorReaction = true -- feindlich rot, neutral gelb, freundlich grün
+    health.colorClass = ns.STYLE.classHealth -- "class color" theme
+    health.colorReaction = true -- hostile red, neutral yellow, friendly green
     health.colorHealth = true
 end
 
--- Text mit oUF-Tag; der Tag bleibt am FontString für den Testmodus.
+-- Text with an oUF tag; the tag is kept on the FontString for test mode.
 local function TagText(self, text, tag)
     text.tagString = tag
     self:Tag(text, tag)
 end
 
--- Aura-Reihe über (above) oder unter dem Frame, innen (far) beginnend.
+-- Aura row above or below the frame, starting inside (far).
 local function CreateAuraRow(self, S, above, size, width, inset, offset)
     local near, far, dir = S.near, S.far, S.dir
     local vertical = above and "BOTTOM" or "TOP"
@@ -134,7 +129,7 @@ local function CreateAuraRow(self, S, above, size, width, inset, offset)
         initialAnchor = vertical .. far,
         growthX = near,
         growthY = above and "UP" or "DOWN",
-        layoutLimit = width + S.px / 2, -- halber Pixel Luft gegen Rundungsfehler
+        layoutLimit = width + S.px / 2, -- half a pixel slack against rounding errors
     })
     local edge = above and "TOP" or "BOTTOM"
     auras:SetPoint(vertical .. far, self, edge .. far, -inset * dir, above and offset or -offset)
@@ -149,8 +144,8 @@ local function CreateAuraRow(self, S, above, size, width, inset, offset)
     return auras
 end
 
--- Power:GetDisplayPower für den Spieler: Mana, wenn die Hauptressource in der Mitte steht;
--- sonst wie oUF (Sonder-Ressource von Begegnungen in Gruppen).
+-- Power:GetDisplayPower for the player: mana when the main resource is shown in the center;
+-- otherwise like oUF (encounter alternate power in groups).
 local function PlayerDisplayPower(_, unit)
     if ns.UsesCenterPower(unit) then return Enum.PowerType.Mana, 0 end
     local barInfo = GetUnitPowerBarInfo(unit)
@@ -160,87 +155,85 @@ local function PlayerDisplayPower(_, unit)
 end
 
 local function Style(self, unit)
-    local mirrored = unit == "target" -- Ziel spiegelt das Spieler-Layout
+    local mirrored = unit == "target" -- target mirrors the player layout
     local near, far = mirrored and "RIGHT" or "LEFT", mirrored and "LEFT" or "RIGHT"
     local dir = mirrored and -1 or 1
 
-    -- Alle Maße auf echte Pixel runden.
+    -- Round all sizes to real pixels.
     local px = ns.PixelSize()
     local border = ns.BORDER_PIXELS
     local S = { px = px, near = near, far = far, dir = dir }
     for key, value in pairs(SIZE) do S[key] = ns.Snap(value) end
-    -- Klassenleiste ist mittig verankert: gerade Pixelbreite, sonst lägen die Kanten auf halben Pixeln
-    S.classPowerWidth = ns.MainBarWidth() -- Klassenleiste exakt so breit wie die Hauptaktionsleiste
+    -- Class bar is center-anchored: use an even pixel width, otherwise edges land on half pixels
+    S.classPowerWidth = ns.MainBarWidth() -- class bar exactly as wide as the main action bar
     S.width, S.health = FrameWidth(), ns.Snap(SIZE.health * FrameScale())
     S.auraSpacing = 4 * px
     S.auraCount = AuraCount(S.width)
     S.aura, S.debuffInset = FitIcons(S.auraCount, S.width)
     S.buff, S.buffInset = FitIcons(S.auraCount, S.width)
     S.debuffCount = S.auraCount
-    -- Layout Tank: eigene Debuffs größer (Boss-Mechaniken, Stapel); weniger passen in die Reihe,
-    -- Begleiter rutscht darunter mit. Greift beim Aufbau (Layout-Wechsel > Neuladen).
+    -- Tank layout: bigger own debuffs (boss mechanics, stacks); fewer fit in the row, the pet moves
+    -- down with it. Applied at build time (layout change needs a reload).
     if unit == "player" and ns.LayoutFlag("bigDebuffs") then
         S.debuffCount = AuraCount(S.width, BIG_DEBUFF_SIZE)
         S.aura, S.debuffInset = FitIcons(S.debuffCount, S.width)
     end
     S.debuffWidth, S.buffWidth = S.width, S.width
-    S.step = S.gap + 2 * border * px -- Abstand von Leiste zu Leiste, Rahmen eingerechnet
+    S.step = S.gap + 2 * border * px -- bar-to-bar distance including borders
 
-    -- Der Frame ist der Lebensbalken; alles andere hängt darüber und darunter.
+    -- The frame is the health bar; everything else hangs above and below it.
     self:SetSize(S.width, S.health)
     SetupUnitButton(self)
     ns.CreateBackground(self)
 
-    -- Leben
+    -- Health
     local health = ns.CreateBar(self, S.health)
     health:SetAllPoints()
     health:SetReverseFill(mirrored)
     SetupHealthColors(health)
-    ns.AddHealPrediction(health, mirrored) -- Heilung + Schild (Core/Style.lua)
+    ns.AddHealPrediction(health, mirrored) -- heals + shield (Core/Style.lua)
     self.Health = health
 
-    -- Texte über dem Balken auf eigener Ebene
+    -- Texts above the bar on their own level
     local texts = CreateFrame("Frame", nil, self)
     texts:SetAllPoints()
     texts:SetFrameLevel(health:GetFrameLevel() + 5)
     AddHighlight(self, texts)
 
-    -- Zauberleiste als Overlay über dem Lebensbalken (nur beim Zaubern sichtbar),
-    -- Zauber-Icon außen daneben
+    -- Cast bar as overlay on the health bar (visible only while casting), spell icon outside
     local castbar = ns.CreateCastbar(self, S.health, mirrored, unit == "target", S.step)
     castbar:SetAllPoints(self)
     castbar:SetFrameLevel(texts:GetFrameLevel() + 1)
     self.Castbar = castbar
 
-    -- Latenz (nur Spieler): rote Fläche am Ende der Leiste – drückst du dort schon den nächsten
-    -- Zauber, geht keine Zeit verloren. Position und Breite (aus GetNetStats) setzt oUF je Zauber.
+    -- Latency (player only): red zone at the end of the bar - queue the next spell there and no
+    -- time is lost. oUF sets position and width (from GetNetStats) per cast.
     if unit == "player" then
         local safeZone = castbar:CreateTexture(nil, "ARTWORK", nil, 2)
         safeZone:SetTexture("Interface\\Buttons\\WHITE8X8")
         safeZone:SetVertexColor(unpack(ns.STYLE.castLatencyColor))
         castbar.SafeZone = safeZone
-        -- Tick-Striche bei kanalisierten Zaubern, GCD-Linie an der Unterkante (Core/Style.lua)
+        -- Tick marks for channeled spells, GCD line on the bottom edge (Core/Style.lua)
         castbar.channelTicks = {}
         castbar.PostCastStart = ns.UpdateChannelTicks
         local gcd = ns.CreateGCDBar(self, mirrored)
         gcd:SetFrameLevel(castbar:GetFrameLevel() + 3)
-        castbar.muiHome = { self, S.health } -- Standardplatz (für das Zurückhängen)
+        castbar.muiHome = { self, S.health } -- default spot (for re-attaching)
         ns.playerCastbar = castbar
     elseif unit == "target" then
         ns.AddExecuteLine(health, "target")
     end
 
-    -- Name und Zielmarkierung bleiben auch beim Zaubern sichtbar
+    -- Name and raid marker stay visible while casting
     local top = CreateFrame("Frame", nil, self)
     top:SetAllPoints()
     top:SetFrameLevel(castbar:GetFrameLevel() + 5)
 
-    local name = ns.CreateText(top, S.nameSize, far, "OUTLINE", "bold") -- großer Name: mUI Bold
-    name:SetPoint(far, self, "TOP" .. far, -6 * dir, 2 * px) -- mittig auf der Oberkante, 2 px höher
+    local name = ns.CreateText(top, S.nameSize, far, "OUTLINE", "bold") -- large name: mUI Bold
+    name:SetPoint(far, self, "TOP" .. far, -6 * dir, 2 * px) -- centered on the top edge, 2 px higher
     name:SetWidth(S.width * 0.8)
-    -- Spieler: Stufe direkt vor dem Namen, solange unter der Höchststufe
-    -- Spieler: Stufe in Surf Green (unter der Höchststufe) vor dem Namen; Ziel (gespiegelt): Stufe in
-    -- Schwierigkeitsfarbe hinter dem Namen – beide Male zur Bildschirmmitte hin
+    -- Player: level in Surf Green before the name (below max level); target (mirrored): level in
+    -- difficulty color after the name - both towards screen center
     local nameTag = unit == "player" and "[mui:level][mui:name]"
         or unit == "target" and "[mui:name][mui:tlevel]" or "[mui:name]"
     TagText(self, name, nameTag)
@@ -256,11 +249,8 @@ local function Style(self, unit)
     TagText(self, powerText, "[mui:power]")
     self.PowerText = powerText
 
-    -- Status (Kampf/Ausruhen) in der Mitte des Lebensbalkens, Zielmarkierung auf der
-    -- äußeren oberen Ecke (wo im Entwurf der Kreis sitzt).
-
-    -- Status-Symbole: eine Reihe mittig im Lebensbalken (sichtbare rücken zusammen);
-    -- Ausruhen auf der äußeren oberen Ecke, halb über der Kante wie der Name.
+    -- Status icons: one row centered in the health bar (visible ones close ranks); resting icon
+    -- and raid marker on the top corner, half over the edge like the name.
     local STYLE = ns.STYLE
     local row = ns.CreateStatusRow(self, 18, 4)
     local function Status(name, color) return row.Add(ns.CreateStatusIcon(top, name, 18, color)) end
@@ -288,8 +278,8 @@ local function Style(self, unit)
     raidIcon:SetPoint("CENTER", self, "TOP" .. near, 0, 0)
     self.RaidTargetIndicator = raidIcon
 
-    -- Klassenleiste (Combo-Punkte & Co. bzw. Runen): steht mittig zwischen Spieler und Ziel,
-    -- platziert in der Factory (darunter kommt später die Hauptaktionsleiste).
+    -- Class bar (combo points etc. or runes): centered between player and target, placed in the
+    -- factory (the main action bar goes below it).
     if unit == "player" then
         local _, class = UnitClass("player")
         if class == "DEATHKNIGHT" then
@@ -297,17 +287,17 @@ local function Style(self, unit)
         else
             self.ClassPower = ns.CreateClassPower(top, S.classPower, S.classPowerWidth)
         end
-        -- Braumeister: Staffelung am selben Platz, gleich breit
+        -- Brewmaster: stagger in the same spot, same width
         if class == "MONK" then
             self.Stagger = ns.CreateStagger(top, S.classPower, S.classPowerWidth)
         end
-        -- Eule/Shadow/Elementar: Hauptressource am selben Platz, Mana am Frame
+        -- Balance/Shadow/Elemental: main resource in the same spot, mana on the frame
         if class == "DRUID" or class == "PRIEST" or class == "SHAMAN" then
             self.CenterPower = ns.CreateCenterPower(top, S.classPower, S.classPowerWidth)
         end
     end
 
-    -- Unter dem Lebensbalken: die Ressource, dicht dran
+    -- Resource bar right below the health bar
     local y = -(S.health + S.powerGap + 2 * border * px)
 
     local power = ns.CreateBar(self, S.power)
@@ -320,27 +310,27 @@ local function Style(self, unit)
     power.PostUpdateColor = ns.ColorPowerBar
     power.PostUpdate = ns.HideEmptyPowerText
     if unit == "player" then
-        -- Steht die Hauptressource in der Mitte (Eule, Shadow, Elementar), zeigt der Balken Mana
+        -- If the main resource is shown in the center (Balance, Shadow, Elemental), the bar shows mana
         power.displayAltPower = true
         power.GetDisplayPower = PlayerDisplayPower
     end
     self.Power = power
     y = y - S.power - S.step
 
-    -- Auren: oben Buffs (gut, über dem Namen), unten Debuffs (schlecht, eine Reihe).
-    --   Spieler: alle Debuffs; kurze Buffs (≤ 2 min, ohne Heal-HoTs) – Potion, Heldentum, Procs.
-    --   Ziel:    eigene Debuffs zuerst, dann fremde (grau); entfernbare Buffs (z. B. Wutanfall).
+    -- Auras: buffs above the name, debuffs below (one row).
+    --   Player: all debuffs; short buffs (<= 2 min, no heal HoTs) - potions, Heroism, procs.
+    --   Target: own debuffs first, then others (gray); dispellable buffs (e.g. Enrage).
     S.aurasAbove = S.nameSize / 2 + S.auraOffset
     S.aurasBelow = -y - S.health + S.auraOffset - S.step
 
     local debuffs = CreateAuraRow(self, S, false, S.aura, S.width, S.debuffInset, S.aurasBelow)
-    debuffs:SetClipsChildren(true) -- genau eine Reihe; der Container kennt keine Zeilengrenze
+    debuffs:SetClipsChildren(true) -- exactly one row; the container has no row limit
     local buffs = CreateAuraRow(self, S, true, S.buff, S.width, S.buffInset, S.aurasAbove)
     if unit == "player" then
         debuffs:AddGroup("HARMFUL", { maxFrameCount = S.debuffCount, dispelBand = "harmful" })
         buffs:AddGroup("HELPFUL|!RAID_IN_COMBAT", {
             maxFrameCount = 16,
-            candidateFilters = { maxDuration = 120 }, -- schließt auch Dauer-Buffs (Mount, Wappenrock) aus
+            candidateFilters = { maxDuration = 120 }, -- also excludes permanent buffs (mount, tabard)
         })
     else
         debuffs:AddGroup("HARMFUL|PLAYER", { maxFrameCount = S.auraCount, dispelBand = "harmful" })
@@ -352,7 +342,7 @@ local function Style(self, unit)
 end
 
 local function SmallStyle(self, unit)
-    local mirrored = unit == "targettarget" -- sitzt unter dem Ziel, gespiegelt wie dieses
+    local mirrored = unit == "targettarget" -- sits below the target, mirrored like it
     local near, far = mirrored and "RIGHT" or "LEFT", mirrored and "LEFT" or "RIGHT"
     local dir = mirrored and -1 or 1
     local px = ns.PixelSize()
@@ -370,7 +360,7 @@ local function SmallStyle(self, unit)
     health:SetPoint("TOPRIGHT")
     health:SetReverseFill(mirrored)
     SetupHealthColors(health)
-    ns.AddHealPrediction(health, mirrored) -- Heilung + Schild (Core/Style.lua)
+    ns.AddHealPrediction(health, mirrored) -- heals + shield (Core/Style.lua)
     self.Health = health
 
     local healthText = ns.CreateText(health, nil, far, "OUTLINE")
@@ -393,8 +383,7 @@ local function SmallStyle(self, unit)
         self.Power = power
     end
 
-    -- Debuffs am Ziel des Ziels (eine Reihe, innen beginnend) – z. B. damit Tanks
-    -- an den Stapeln sehen, wann sie spotten müssen.
+    -- Debuffs on target of target (one row, starting inside) - e.g. so tanks see stacks for taunt swaps
     if unit == "targettarget" then
         local width = self:GetWidth()
         S.auraSpacing = 4 * px
@@ -410,8 +399,8 @@ local function SmallStyle(self, unit)
     end
 end
 
--- Breite der seitlichen Frames: SIDE.width, aber höchstens so breit, dass die Spalte rechts neben
--- dem Ziel noch auf den Bildschirm passt (Rand eingerechnet).
+-- Side frame width: SIDE.width, capped so the column right of the target still fits on screen
+-- (margin included).
 local function SideWidth(scale)
     local edge = ns.RightOfTargetEdge()
     local width = SIDE.width * scale
@@ -422,7 +411,7 @@ end
 local function SideStyle(self, unit)
     local px = ns.PixelSize()
     local border = ns.BORDER_PIXELS
-    -- near/far/dir nur für die Aura-Reihe: „innen“ (Start) ist hier links, zur Bildschirmmitte
+    -- near/far/dir only for the aura row: "inside" (start) is left here, towards screen center
     local S = { px = px, near = "RIGHT", far = "LEFT", dir = -1, valueSize = ns.Snap(SIZE.valueSize) }
     local scale = unit == "focus" and FrameScale() or BossScale()
     for key, value in pairs(SIDE) do S[key] = ns.Snap(value) end
@@ -434,7 +423,7 @@ local function SideStyle(self, unit)
     S.aura, S.debuffInset = FitIcons(S.auraCount, S.width)
     S.debuffWidth = S.width
     S.aurasBelow = S.auraOffset
-    -- Höhe eines Blocks in der Spalte: Frame + Debuff-Reihe (für den Abstand der Bosse)
+    -- Height of one block in the column: frame + debuff row (for boss spacing)
     S.block = S.health + px + S.power + S.auraOffset + S.aura
 
     self:SetSize(S.width, S.health + px + S.power)
@@ -464,8 +453,8 @@ local function SideStyle(self, unit)
     TagText(self, name, "[mui:name]")
     self.NameText = name
 
-    -- Zauberleiste über dem Lebensbalken; Texte mittig wie Name und Prozent, Icon außen rechts
-    -- (die Spalte liegt rechts, „außen“ ist hier also rechts – anders als beim Spieler-Frame)
+    -- Cast bar over the health bar; texts centered like name and percent, icon outside right
+    -- (the column is on the right, so "outside" is right here - unlike the player frame)
     local castbar = ns.CreateCastbar(self, S.health, false, true, S.step)
     castbar:SetAllPoints(health)
     castbar:SetFrameLevel(texts:GetFrameLevel() + 1)
@@ -479,7 +468,7 @@ local function SideStyle(self, unit)
     iconFrame:SetPoint("LEFT", castbar, "RIGHT", S.step, 0)
     self.Castbar = castbar
 
-    -- Zielmarkierung mittig auf der Oberkante, auch beim Zaubern sichtbar
+    -- Raid marker centered on the top edge, visible while casting too
     local top = CreateFrame("Frame", nil, self)
     top:SetAllPoints()
     top:SetFrameLevel(castbar:GetFrameLevel() + 5)
@@ -495,10 +484,9 @@ local function SideStyle(self, unit)
     power.PostUpdateColor = ns.ColorPowerBar
     self.Power = power
 
-    -- Eine Reihe unter dem Frame: links (innen) die Debuffs, eigene zuerst, dann fremde (grau);
-    -- rechts außen wichtige Buffs des Gegners wie auf den Namensplaketten (purgebare mit
-    -- Dispel-Band, dazu Blizzards „wichtige“: Schilde, Immunitäten, Wutanfälle – wegen denen
-    -- man das Ziel wechselt), zusammen höchstens SIDE_BUFFS.
+    -- One row below the frame: debuffs on the left (inside), own first, then others (gray); on the
+    -- far right important enemy buffs like on nameplates (purgeable with dispel band, plus Blizzard's
+    -- "important" ones: shields, immunities, enrages), at most SIDE_BUFFS in total.
     local debuffMax = math.max(S.auraCount - SIDE_BUFFS, 1)
     local debuffs = CreateAuraRow(self, S, false, S.aura, S.width, S.debuffInset, S.aurasBelow)
     debuffs:SetClipsChildren(true)
@@ -513,9 +501,9 @@ local function SideStyle(self, unit)
     self.Sizes = S
 end
 
--- Leere Kraft bei anderen (Tiere ohne Energie …) ausblenden. Die Kraft fremder Einheiten ist in
--- Forever/Midnight geschützt (Secret) – vergleichen geht nicht, aber eine Stufen-Kurve macht aus dem
--- Prozentwert direkt die Transparenz des Textes (0 % > unsichtbar), wie Blizzard es selbst nutzt.
+-- Hide empty power on other units (e.g. beasts without energy). Other units' power is secret on
+-- Forever/Midnight, so it cannot be compared - a step curve turns the percentage directly into
+-- text alpha (0% -> invisible), as Blizzard does itself.
 local ZERO_CURVE
 if C_CurveUtil and C_CurveUtil.CreateCurve then
     ZERO_CURVE = C_CurveUtil.CreateCurve()
@@ -530,7 +518,7 @@ function ns.HideEmptyPowerText(element, unit)
     if not ZERO_CURVE or not UnitPowerPercent or UnitIsUnit(unit, "player") then return text:SetAlpha(1) end
     local alpha = UnitPowerPercent(unit, nil, false, ZERO_CURVE)
     if issecretvalue(alpha) then
-        text:SetAlpha(alpha) -- SetAlpha nimmt geschützte Werte an
+        text:SetAlpha(alpha) -- SetAlpha accepts secret values
     elseif type(alpha) == "number" then
         text:SetAlpha(alpha)
     else
@@ -538,9 +526,9 @@ function ns.HideEmptyPowerText(element, unit)
     end
 end
 
--- Vor- und Nachname (Forever, Benny 2026-11-07): UnitName liefert den Nachnamen als zweiten Wert.
--- ns.db.nameFormat: "first" Koratal · "full" Koratal Rabenruf · "firstInitial" Koratal R. ·
--- "initialLast" K. Rabenruf · "last" Rabenruf. Geschützte Namen (Secrets) nur durchreichen.
+-- First and last name (Forever): UnitName returns the surname as second value.
+-- ns.db.nameFormat: "first" Koratal, "full" Koratal Rabenruf, "firstInitial" Koratal R.,
+-- "initialLast" K. Rabenruf, "last" Rabenruf. Secret names are passed through as is.
 local function FirstChar(text)
     return text:match("^[%z\1-\127\194-\244][\128-\191]*") or text:sub(1, 1)
 end
@@ -550,21 +538,21 @@ function ns.FormatUnitName(unit)
     if last == nil or issecretvalue(last) or last == "" then return first end
     local mode = ns.db and ns.db.nameFormat or "full"
     if mode == "first" then return first end
-    if mode == "last" then return last end -- RP: Nachname als Rufname
+    if mode == "last" then return last end -- RP: surname as call name
     if mode == "firstInitial" then return first .. " " .. FirstChar(last) .. "." end
     if mode == "initialLast" then return FirstChar(first) .. ". " .. last end
     return first .. " " .. last
 end
 oUF.Tags.Vars.muiFormatName = ns.FormatUnitName
 
--- Alle Namen neu schreiben (Einstellung geändert)
+-- Rewrite all names (setting changed)
 function ns.UpdateNameTags()
     for _, object in ipairs(oUF.objects) do
         if object.UpdateTags then object:UpdateTags() end
     end
 end
 
--- Name, bei Bedarf gekürzt (ns.ShortenName); _FRAME ist der Frame, an dem der Tag hängt.
+-- Name, shortened if needed (ns.ShortenName); _FRAME is the frame the tag belongs to.
 oUF.Tags.Methods["mui:name"] = [[function(u, r)
     local name = _VARS.muiFormatName(r or u)
     if _FRAME and _FRAME.ShortenName then return _FRAME:ShortenName(name) end
@@ -572,7 +560,7 @@ oUF.Tags.Methods["mui:name"] = [[function(u, r)
 end]]
 oUF.Tags.Events["mui:name"] = "UNIT_NAME_UPDATE"
 
--- Stufe in Surf Green mit Leerzeichen dahinter, nur unter der Höchststufe (sonst leer)
+-- Level in Surf Green plus a trailing space, only below max level (empty otherwise)
 oUF.Tags.Methods["mui:level"] = [[function(u)
     local level = UnitLevel(u)
     if issecretvalue(level) or not level or level <= 0 or level >= GetMaxLevelForPlayerExpansion() then return end
@@ -580,7 +568,7 @@ oUF.Tags.Methods["mui:level"] = [[function(u)
 end]]
 oUF.Tags.Events["mui:level"] = "UNIT_LEVEL PLAYER_LEVEL_UP"
 
--- Stufe des Ziels in Schwierigkeitsfarbe (grau/grün/gelb/orange/rot wie Classic), Boss „??“ rot
+-- Target level in difficulty color (gray/green/yellow/orange/red like Classic), boss "??" red
 oUF.Tags.Methods["mui:tlevel"] = [[function(u)
     local level = UnitLevel(u)
     if issecretvalue(level) or not level then return end
@@ -593,20 +581,19 @@ oUF.Tags.Methods["mui:tlevel"] = [[function(u)
 end]]
 oUF.Tags.Events["mui:tlevel"] = "UNIT_LEVEL PLAYER_LEVEL_UP PLAYER_TARGET_CHANGED"
 
--- Aktuelles Leben bzw. aktuelle Ressource, abgekürzt (107.9K). AbbreviateNumbers darf
--- auch geschützte Werte (Secrets) verarbeiten.
+-- Current health or power, abbreviated (107.9K). AbbreviateNumbers accepts secret values.
 oUF.Tags.Methods["mui:health"] = [[function(u)
     return _TAGS.dead(u) or _TAGS.offline(u) or AbbreviateNumbers(UnitHealth(u))
 end]]
 oUF.Tags.Events["mui:health"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION"
 
--- Steht die Hauptressource in der Mitte, zeigt der Text am Frame das Mana (wie der Balken).
+-- If the main resource is shown in the center, the frame text shows mana (like the bar).
 oUF.Tags.Methods["mui:power"] = function(u)
     local powerType = ns.UsesCenterPower(u) and Enum.PowerType.Mana or nil
     local max = UnitPowerMax(u, powerType)
     if not issecretvalue(max) and max == 0 then return end
     local power = UnitPower(u, powerType)
-    -- leere Kraft bei anderen (z. B. Tiere ohne Energie) ausblenden; bei dir selbst bleibt die 0
+    -- Hide empty power on others (e.g. beasts without energy); on yourself the 0 stays
     if not issecretvalue(power) and power == 0 and not UnitIsUnit(u, "player") then return end
     return AbbreviateNumbers(power)
 end
@@ -625,7 +612,7 @@ end)
 
 oUF:Factory(function(self)
     ns.ApplySettings()
-    -- Lebensfarbe vom Theme; freundliche Einheiten bekommen dasselbe Grün.
+    -- Health color from the theme; friendly units get the same green.
     oUF.colors.health:SetRGB(unpack(ns.HEALTH_COLOR))
     for token, color in pairs(ns.POWER_COLORS) do
         if oUF.colors.power[token] then oUF.colors.power[token]:SetRGB(unpack(color)) end
@@ -635,8 +622,7 @@ oUF:Factory(function(self)
     end
 
     self:SetActiveStyle("Meredan")
-    -- An der inneren oberen Ecke verankern: Alle Größen sind ganze Pixel, so liegen
-    -- auch alle Kanten auf ganzen Pixeln.
+    -- Anchor at the inner top corner: all sizes are whole pixels, so all edges land on whole pixels.
     ns.frames = {
         player = self:Spawn("player"),
         target = self:Spawn("target"),
@@ -644,7 +630,7 @@ oUF:Factory(function(self)
     ns.OnLayout(function()
         local x, y = ns.Snap(INNER_X), ns.Snap(TOP_Y)
         if ns.LayoutFlag("healerGroups") then
-            -- Heiler: links/rechts neben der Gruppe, oben bündig mit ihr (Core/Layouts.lua)
+            -- Healer: left/right of the group, top-aligned with it (Core/Layouts.lua)
             local geo = ns.HealerGeometry()
             local _, cy = UIParent:GetCenter()
             x, y = ns.Snap(geo.innerX), cy - geo.groupTop
@@ -653,22 +639,22 @@ oUF:Factory(function(self)
         ns.PlaceFromCenter(ns.frames.target, "TOPLEFT", x, -y)
     end)
 
-    -- Klassenleiste mittig zwischen den Frames, mit etwas Abstand über der Oberkante der
-    -- Lebensbalken: Auf Höhe der Frames kommt später die Hauptaktionsleiste.
+    -- Class bar centered between the frames, a bit above the health bars' top edge (the main
+    -- action bar sits at frame height).
     local playerFrame = ns.frames.player
     local classBar = playerFrame.ClassPower or playerFrame.Runes
     if classBar then
         ns.OnLayout(function()
-            if ns.LayoutFlag("healerGroups") then return end -- Heiler: setzt ActionBars.lua über die Gruppe
+            if ns.LayoutFlag("healerGroups") then return end -- healer: ActionBars.lua places it above the group
             ns.PlaceFromCenter(classBar.strip, "BOTTOM", 0, -ns.Snap(TOP_Y) + ns.Snap(SIZE.classPowerGap))
         end)
         ns.layoutFrames.classpower = classBar.strip
-        -- Staffelung folgt der Klassenleiste
+        -- Stagger follows the class bar
         if playerFrame.Stagger then playerFrame.Stagger:SetPoint("CENTER", classBar.strip, "CENTER") end
         if playerFrame.CenterPower then playerFrame.CenterPower:SetPoint("CENTER", classBar.strip, "CENTER") end
     end
 
-    -- Pet und Ziel des Ziels unter der Debuff-Reihe, innen bündig
+    -- Pet and target of target below the debuff row, inner edges aligned
     local S = ns.frames.player.Sizes
     local below = S.aurasBelow + S.aura + 3 * S.auraOffset
     ns.smallFrames = {
@@ -678,7 +664,7 @@ oUF:Factory(function(self)
     ns.smallFrames.pet:SetPoint("TOPRIGHT", ns.frames.player, "BOTTOMRIGHT", 0, -below)
     ns.smallFrames.targettarget:SetPoint("TOPLEFT", ns.frames.target, "BOTTOMLEFT", 0, -below)
 
-    -- Fokus: rechts neben dem Ziel (gemeinsame Kante ns.RightOfTargetEdge), oben bündig
+    -- Focus: right of the target (shared edge ns.RightOfTargetEdge), top-aligned
     ns.sideFrames = { focus = self:Spawn("focus") }
     ns.OnLayout(function()
         local cx, cy = UIParent:GetCenter()
@@ -690,23 +676,23 @@ oUF:Factory(function(self)
     end)
     ns.layoutFrames.focus = ns.sideFrames.focus
 
-    -- Bosse: hängen an einem Platzhalter links neben dem Questlog.
-    -- Dessen Platzhalter entsteht erst nach dem Login (Quests/QuestTracker.lua ruft dann
-    -- ns.PlaceBossFrames); bis dahin bzw. ohne Questlog rechts unter der Minimap.
+    -- Bosses hang on an anchor next to the quest tracker. Its anchor only exists after login
+    -- (Quests/QuestTracker.lua then calls ns.PlaceBossFrames); until then, or without the tracker,
+    -- right below the minimap.
     local bossAnchor = CreateFrame("Frame", "MeredanUIBossAnchor", UIParent)
-    local bossCount = 5 -- wie Blizzards MAX_BOSS_FRAMES
+    local bossCount = 5 -- like Blizzard's MAX_BOSS_FRAMES
     local side, step
     for i = 1, bossCount do
         local boss = self:Spawn("boss" .. i)
-        side = side or boss.Sizes -- Bosse haben eine eigene Größenstufe
+        side = side or boss.Sizes -- bosses have their own size step
         step = step or (side.block + side.gap)
         boss:SetPoint("TOPLEFT", bossAnchor, "TOPLEFT", 0, -(i - 1) * step)
         ns.sideFrames["boss" .. i] = boss
     end
     bossAnchor:SetSize(side.width, bossCount * step - side.gap)
-    -- Linke Kante wie der Fokus (eine Linie, folgt dem Ziel – nicht dem Bildschirmrand; Benny
-    -- 2026-11-07), Oberkante wie das Questlog. Auf 16:9 liegt das im Questlog – das rückt im Layout
-    -- Nahkampf-DPS unter die sichtbaren Bossframes und zeigt nur Instanz-Quests (Quests/Tracker.lua). Benny 2026-10-24: direkt neben dem Questlog überlappte es.
+    -- Left edge like the focus (follows the target, not the screen edge), top like the quest tracker.
+    -- On 16:9 this overlaps the tracker - in the melee DPS layout the tracker moves below the visible
+    -- boss frames and shows instance quests only (Quests/Tracker.lua).
     local function PlaceBossAnchor()
         local cx, cy = UIParent:GetCenter()
         local quest = _G["MeredanUIQuestAnchor"]
@@ -723,40 +709,40 @@ oUF:Factory(function(self)
         end
     end
     ns.OnLayout(PlaceBossAnchor)
-    -- Questlog-Modul ruft nach dem Login: Bosse links neben dem Questlog
+    -- Called by the quest tracker module after login
     function ns.PlaceBossFrames()
-        -- Bossframes hängen am Anker: im Kampf gesperrt (z. B. /reload im Kampf) > danach
+        -- Boss frames hang on the anchor: locked in combat (e.g. /reload in combat) -> defer
         if InCombatLockdown() then return ns.AfterCombat(ns.PlaceBossFrames) end
         PlaceBossAnchor()
         ns.layoutFrames.boss = bossAnchor
     end
-    C_Timer.After(1, ns.PlaceBossFrames) -- falls das Questlog-Modul nicht ruft
+    C_Timer.After(1, ns.PlaceBossFrames) -- in case the quest tracker module never calls
 
 end)
 
--- Gemeinsame Kanten neben Spieler- und Ziel-Frame (Boss-Timer, Gruppenframes):
--- außen am Frame sitzt das Castbar-Symbol (so hoch wie der Lebensbalken + Lücke), dann SIDE_GAP.
+-- Shared edges next to player and target frames (boss timers, group frames): the cast bar icon
+-- sits outside the frame (health bar height + gap), then SIDE_GAP.
 local SIDE_GAP = 30
 local function CastIconSpace(frame)
     local sizes = frame and frame.Sizes
     return sizes and (sizes.health or 0) + (sizes.step or 0) or 0
 end
 
--- rechte Kante der Spalte links neben dem Spieler-Frame (nil, solange er nicht steht)
+-- Right edge of the column left of the player frame (nil until it is placed)
 function ns.LeftOfPlayerEdge()
     local player = ns.frames and ns.frames.player
     if not (player and player:GetLeft()) then return end
     return player:GetLeft() - CastIconSpace(player) - ns.Snap(SIDE_GAP)
 end
 
--- linke Kante der Spalte rechts neben dem Ziel-Frame
+-- Left edge of the column right of the target frame
 function ns.RightOfTargetEdge()
     local target = ns.frames and ns.frames.target
     if not (target and target:GetRight()) then return end
     return target:GetRight() + CastIconSpace(target) + ns.Snap(SIDE_GAP)
 end
 
--- Nach einem Wechsel von Theme, Schrift oder Textur: Farben von oUF neu berechnen lassen.
+-- After a theme, font or texture change: let oUF recompute colors.
 function ns.OnStyleRefreshed()
     oUF.colors.health:SetRGB(unpack(ns.HEALTH_COLOR))
     for _, list in ipairs({ ns.frames, ns.smallFrames, ns.sideFrames }) do
@@ -767,17 +753,17 @@ function ns.OnStyleRefreshed()
     end
 end
 
--- Zauberleiste des Spielers im Layout Fernkampf (Benny 2026-11-07): raus aus dem Spielerframe, groß
--- über den unteren Aktionsleisten – so breit wie die Leisten (Symbol links eingerechnet), über dem
--- Platz der Haltungsleiste. Sonst wieder als Overlay im Spielerframe.
-local BIG_CASTBAR_HEIGHT, BIG_CASTBAR_GAP = 32, 6 -- so hoch wie der Lebensbalken des Spielers
+-- Player cast bar in the ranged layout: detached from the player frame, large above the bottom
+-- action bars - as wide as the bars (icon on the left included), above the stance bar.
+-- Otherwise an overlay in the player frame.
+local BIG_CASTBAR_HEIGHT, BIG_CASTBAR_GAP = 32, 6 -- same height as the player's health bar
 function ns.PlacePlayerCastbar()
     local castbar = ns.playerCastbar
     if not (castbar and castbar.muiHome) then return end
     local home, homeHeight = castbar.muiHome[1], castbar.muiHome[2]
     local iconFrame = castbar.Icon and castbar.Icon:GetParent()
-    -- Fernkampf: über Alt (darüber die Haltungsleiste); Heiler: über der Hauptleiste (unterste 3 Reihen,
-    -- Haltung steht dort links daneben)
+    -- Ranged: above bar 3 (stance bar above that); healer: above the main bar (bottom 3 rows,
+    -- stance bar sits to the left there)
     local healer = ns.StackedBars()
     local alt = ns.layoutFrames and (healer and ns.layoutFrames.bar1 or ns.layoutFrames.bar3)
     castbar:ClearAllPoints()
@@ -795,7 +781,7 @@ function ns.PlacePlayerCastbar()
             iconFrame:ClearAllPoints()
             iconFrame:SetPoint("RIGHT", castbar, "LEFT", -ns.Snap(4), 0)
         end
-        -- eigener 1-px-Rahmen (im Spielerframe nutzt sie dessen Rahmen mit)
+        -- Own 1 px border (inside the player frame it shares the frame's border)
         castbar.muiBorder = castbar.muiBorder or ns.AddBorder(castbar)
         for _, edge in ipairs(castbar.muiBorder) do edge:Show() end
         castbar.muiDetached = true
@@ -803,7 +789,7 @@ function ns.PlacePlayerCastbar()
         for _, edge in ipairs(castbar.muiBorder or {}) do edge:Hide() end
         castbar:SetAllPoints(home)
         if iconFrame and castbar.muiDetached then
-            -- zurück an den Standardplatz: außen neben dem Spielerframe, so hoch wie der Balken
+            -- Back to the default spot: outside the player frame, as high as the bar
             iconFrame:SetSize(homeHeight, homeHeight)
             iconFrame:ClearAllPoints()
             iconFrame:SetPoint(castbar.muiIconPoint[1], castbar, castbar.muiIconPoint[2], castbar.muiIconPoint[3], 0)
@@ -811,12 +797,12 @@ function ns.PlacePlayerCastbar()
         castbar.muiDetached = nil
     end
 end
--- nach den Aktionsleisten (die richten sich beim Login ein)
+-- After the action bars (they set up on login)
 ns:On("PLAYER_LOGIN", function()
     C_Timer.After(0.2, function()
         local castbar = ns.playerCastbar
         local iconFrame = castbar and castbar.Icon and castbar.Icon:GetParent()
-        if iconFrame then -- Standard-Symbolplatz merken
+        if iconFrame then -- remember the default icon spot
             local point, _, relPoint, x = iconFrame:GetPoint(1)
             castbar.muiIconPoint = { point, relPoint, x }
         end

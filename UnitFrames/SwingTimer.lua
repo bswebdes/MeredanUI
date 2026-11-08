@@ -1,20 +1,13 @@
--- Schlagtimer (Forever): EINE schmale Leiste unter der Hauptaktionsleiste, die bis zum nächsten
--- automatischen Treffer vollläuft. Blizzard meldet jeden Schlag mit Dauer (PLAYER_SWING,
--- C_SwingTimer) – kein Kampflog nötig, funktioniert auch in Instanzen.
---
---   [ Hauptaktionsleiste            ]
---   ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▒▒▒▒▒▒▒▒▒▒▒▒▒▒       ← Haupthand bzw. Distanz (Autoschuss/Zauberstab), was läuft
---   ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁                ← unten darin schmal & weiß: Nebenhand (nur mit zwei Waffen)
---   (darunter die Bedrohungsleiste)
---
--- Die Leiste erscheint mit dem ersten Schlag und verschwindet kurz nach dem letzten.
--- Retail hat kein C_SwingTimer > Modul aus.
+-- Swing timer (Forever): one thin bar below the main action bar that fills up until the next
+-- auto attack. Blizzard reports each swing with its duration (PLAYER_SWING, C_SwingTimer), so no
+-- combat log is needed and it works in instances. Main hand or ranged on top, off hand as a thin
+-- white strip at the bottom (dual wield only). Retail has no C_SwingTimer, so the module is off.
 local _, ns = ...
 
 local HEIGHT = 6
-local OFFHAND_HEIGHT = 2 -- weißer Streifen unten in der Leiste
-local GAP = 4            -- zur Hauptleiste
-local LINGER = 0.6       -- so lange bleibt ein Timer nach Ablauf stehen (dann gilt er als ruhend)
+local OFFHAND_HEIGHT = 2 -- off-hand strip at the bottom of the bar
+local GAP = 4            -- to the main bar
+local LINGER = 0.6       -- a finished timer stays this long before it counts as idle
 
 local holder, bar, offhand
 local timers = {}        -- [swingType] = { start, duration }
@@ -28,7 +21,7 @@ local function ClassColor()
     return color and { color.r, color.g, color.b } or ns.UI.ACCENT
 end
 
--- läuft der Timer dieser Schlagart noch (oder gerade erst abgelaufen)?
+-- Is this swing type still running (or just finished)?
 local function Active(swingType, now)
     local t = timers[swingType]
     return t and now - t.start <= t.duration + LINGER
@@ -42,7 +35,7 @@ end
 local function OnUpdate()
     local now = GetTime()
     local T = Enum.PlayerSwingType
-    -- oben: Distanz, wenn sie läuft (Schießen), sonst Haupthand
+    -- Top: ranged while shooting, otherwise main hand
     local main = Active(T.Ranged, now) and T.Ranged or (Active(T.MainHand, now) and T.MainHand)
     if main then
         bar:SetValue(Progress(main, now))
@@ -59,18 +52,18 @@ local function StartSwing(swingType, duration)
     bar:Show()
 end
 
--- Höhe, die die Bedrohungsleiste darunter freilassen muss
+-- Height the threat bar below has to leave free
 function ns.SwingTimerReserve()
     if not holder or not Enabled() or (ns.LayoutFlag and ns.LayoutFlag("healerGroups")) then return 0 end
     return ns.Snap(HEIGHT) + ns.Snap(GAP)
 end
 
--- direkt unter der Hauptleiste, gleich breit (solange nicht selbst verschoben)
+-- Directly below the main bar, same width (unless moved by the user)
 local function Place()
     local top, width = ns.BelowMainBar(ns.Snap(GAP))
     if not (holder and top) then return end
     holder:SetWidth(width)
-    -- Heiler: kein Schlagtimer (Benny 2026-11-07: braucht man als Heiler nicht)
+    -- No swing timer for healers
     holder:SetShown(not (ns.LayoutFlag and ns.LayoutFlag("healerGroups")))
     ns.PlaceFromCenter(holder, "TOP", 0, top)
 end
@@ -88,7 +81,7 @@ local function Create()
     bg:SetAllPoints()
     bg:SetColorTexture(0, 0, 0, 0.5)
     ns.AddBorder(bar)
-    -- Nebenhand: schmaler weißer Streifen unten in der Leiste
+    -- Off hand: thin white strip at the bottom of the bar
     offhand = CreateFrame("StatusBar", nil, bar)
     offhand:SetPoint("BOTTOMLEFT")
     offhand:SetPoint("BOTTOMRIGHT")
@@ -98,11 +91,11 @@ local function Create()
     offhand:SetMinMaxValues(0, 1)
     offhand:SetFrameLevel(bar:GetFrameLevel() + 1)
     offhand:Hide()
-    holder:SetScript("OnUpdate", OnUpdate) -- Halter bleibt sichtbar (Bearbeitungsmodus), die Leiste blendet sich
+    holder:SetScript("OnUpdate", OnUpdate) -- holder stays shown (Edit Mode), only the bar hides
     bar:Hide()
 end
 
--- Testmodus (/mui t): Haupthand und Nebenhand laufen in ihrem Takt
+-- Test mode (/mui t): main and off hand run at their own speed
 local demoTicker
 function ns.SwingTestStart()
     if not holder then return end
@@ -130,13 +123,13 @@ function ns.UpdateSwingTimer()
 end
 
 ns:On("PLAYER_LOGIN", function()
-    if not C_SwingTimer or not Enum.PlayerSwingType then return end -- nur Forever
+    if not C_SwingTimer or not Enum.PlayerSwingType then return end -- Forever only
     Create()
     ns.layoutFrames.swing = holder
     C_Timer.After(0.1, function()
         ns.OnLayout(Place)
         Place()
-        if ns.UpdateThreatBar then ns.UpdateThreatBar() end -- Bedrohungsleiste rückt darunter
+        if ns.UpdateThreatBar then ns.UpdateThreatBar() end -- threat bar moves below
     end)
     ns:On("PLAYER_SWING", function(_, duration, swingType)
         if Enabled() and not demo then StartSwing(swingType, duration) end

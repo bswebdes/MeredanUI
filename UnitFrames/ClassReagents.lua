@@ -1,46 +1,39 @@
--- Klassen-Reagenzien (Forever): Munition und Zauber-Reagenzien deiner Klasse rechts neben dem
--- Spieler-Frame, flache Symbole in Klassenfarbe + Anzahl:
---
---   [ Spieler-Frame ]  ✦ 38     ← untereinander, als Block mittig neben dem Frame
---                      ✦ 7        (z. B. Magier: Arkanes Pulver, Runen …; Jäger: Pfeile/Kugeln)
---
--- Farbe: weiß · gelb unter der Warnschwelle · rot unter der Hälfte · rot blinkend bei 0.
--- Toast beim Unterschreiten der Schwelle und bei 0 (je einmal). Welche Reagenzien deiner Klasse
--- angezeigt werden, stellt man ein (Einstellungen > Unitframes); Standard: nur das wichtigste.
--- Retail hat keine Munition/Reagenzien dieser Art > dort nie sichtbar. Vorschau zeigt alle Klassen.
+-- Class reagents (Forever): ammo and spell reagents of your class as a vertical block of
+-- class-colored icons + counts right of the player frame.
+-- Color: white, yellow below the warn threshold, red below half, blinking red at 0; one toast
+-- each when crossing the threshold and at 0. Retail never shows it; the preview shows all classes.
 local _, ns = ...
 local L = ns.L
 local Readable = ns.Readable
 
 local ICON = 16
-local GAP = 8        -- Abstand zum Spieler-Frame
-local ITEM_GAP = 4   -- zwischen zwei Reagenzien (untereinander)
+local GAP = 8        -- gap to the player frame
+local ITEM_GAP = 4   -- between two reagents (stacked)
 
--- je Klasse: Item-IDs (Classic) + Symbol + Warnschwelle; "ammo" = angelegte Munition.
--- buy = Standard-Wunschmenge fürs Nachkaufen beim Händler (Bags/AutoBuy.lua); fehlt = nicht käuflich
--- spells = Zauber (Rang 1), die das Reagenz verbrauchen: angezeigt wird es erst, wenn du einen davon
--- kennst (Benny 2026-11-07: „Wilder Dornwurz: 0“ auf Stufe 1 irritiert nur). Munition: immer.
+-- Per class: item ID (Classic) + icon + warn threshold; "ammo" = equipped ammo (always shown).
+-- buy = default restock amount at vendors (Bags/AutoBuy.lua); missing = not sold by vendors.
+-- spells = rank 1 spells that use the reagent; it is only shown once you know one of them.
 local CLASS_REAGENTS = {
     HUNTER = { { ammo = true } },
-    WARLOCK = { { item = 6265, icon = "Shard", warn = 3,              -- Seelensplitter
-                  spells = { 697, 6201, 693, 698, 6353, 17877 } } },  -- Leerwandler, Gesundheitsstein, Seelenstein, Ritual, Seelenfeuer, Schattenbrand
-    MAGE = { { item = 17020, icon = "Powder", warn = 5, buy = 20, spells = { 23028 } },  -- Arkanes Pulver: Arkane Brillanz
-             { item = 17031, icon = "Rune", warn = 2, buy = 5,                           -- Rune der Teleportation
+    WARLOCK = { { item = 6265, icon = "Shard", warn = 3,              -- Soul Shard
+                  spells = { 697, 6201, 693, 698, 6353, 17877 } } },  -- Voidwalker, Healthstone, Soulstone, Ritual, Soul Fire, Shadowburn
+    MAGE = { { item = 17020, icon = "Powder", warn = 5, buy = 20, spells = { 23028 } },  -- Arcane Powder: Arcane Brilliance
+             { item = 17031, icon = "Rune", warn = 2, buy = 5,                           -- Rune of Teleportation
                spells = { 3561, 3562, 3565, 3567, 3563, 3566 } },
-             { item = 17032, icon = "Rune", warn = 2, buy = 5,                           -- Rune der Portale
+             { item = 17032, icon = "Rune", warn = 2, buy = 5,                           -- Rune of Portals
                spells = { 10059, 11416, 11419, 11417, 11418, 11420 } } },
-    PRIEST = { { item = 17029, icon = "Candle", warn = 5, buy = 20, spells = { 21562, 27681, 27683 } }, -- Geweihte Kerze
-               { item = 17028, icon = "Candle", warn = 5, buy = 20, spells = { 21562 } } },            -- Heilige Kerze
-    DRUID = { { item = 17026, icon = "Berries", warn = 5, buy = 20, spells = { 21849 } } }, -- Wilder Dornwurz: Gabe der Wildnis
-    PALADIN = { { item = 21177, icon = "Symbol", warn = 5, buy = 40,                     -- Symbol der Könige: große Segen
+    PRIEST = { { item = 17029, icon = "Candle", warn = 5, buy = 20, spells = { 21562, 27681, 27683 } }, -- Sacred Candle
+               { item = 17028, icon = "Candle", warn = 5, buy = 20, spells = { 21562 } } },            -- Holy Candle
+    DRUID = { { item = 17026, icon = "Berries", warn = 5, buy = 20, spells = { 21849 } } }, -- Wild Thornroot: Gift of the Wild
+    PALADIN = { { item = 21177, icon = "Symbol", warn = 5, buy = 40,                     -- Symbol of Kings: greater blessings
                   spells = { 25782, 25894, 25898, 25895, 25890, 25899 } },
-                { item = 17033, icon = "Symbol", warn = 2, buy = 5, spells = { 19752 } } }, -- Symbol der Göttlichkeit: Göttliches Eingreifen
-    SHAMAN = { { item = 17030, icon = "Ankh", warn = 2, buy = 5, spells = { 20608 } } },  -- Ankh: Reinkarnation
-    ROGUE = { { item = 5140, icon = "Powder", warn = 5, buy = 10, spells = { 1856 } },    -- Blitzstrahlpulver: Verschwinden
-              { item = 5530, icon = "Powder", warn = 5, spells = { 2094 } } },          -- Blendungspulver: Blenden
+                { item = 17033, icon = "Symbol", warn = 2, buy = 5, spells = { 19752 } } }, -- Symbol of Divinity: Divine Intervention
+    SHAMAN = { { item = 17030, icon = "Ankh", warn = 2, buy = 5, spells = { 20608 } } },  -- Ankh: Reincarnation
+    ROGUE = { { item = 5140, icon = "Powder", warn = 5, buy = 10, spells = { 1856 } },    -- Flash Powder: Vanish
+              { item = 5530, icon = "Powder", warn = 5, spells = { 2094 } } },          -- Blinding Powder: Blind
 }
 
--- Kennst du einen Zauber, der das Reagenz braucht? (ohne Liste: immer)
+-- Do you know a spell that uses the reagent? (no list: always)
 local function Needed(reagent)
     if not reagent.spells then return true end
     for _, id in ipairs(reagent.spells) do
@@ -57,10 +50,10 @@ local holder
 local cells = {}
 local ammoSlot
 local warned = {} -- key > "low"/"empty"
-local demoClass   -- Vorschau: diese Klasse anzeigen
+local demoClass   -- preview: show this class
 
 local function Enabled() return ns.db.ammoCounter ~= false end
-local function AmmoWarnAt() return 200 end -- fester Wert (früher Regler)
+local function AmmoWarnAt() return 200 end -- fixed value
 
 local function ClassColor(class)
     local color = RAID_CLASS_COLORS[class]
@@ -69,11 +62,9 @@ end
 
 local function ItemName(id) return C_Item.GetItemNameByID(id) or "" end
 
--- Munition passend zur Fernkampfwaffe (Benny 2026-11-07: Gewehr angelegt, Kugeln in der Tasche,
--- Pfeile gelöscht > Zähler stand auf 0 mit Pfeil-Symbol). Die Waffe entscheidet die Art:
--- Bogen/Armbrust > Pfeile (Unterklasse 2), Schusswaffe > Kugeln (3). Liegt im Munitionsplatz
--- nichts oder die falsche Art, zählt die passende Munition in den Taschen, und die beste davon
--- wird eingelegt (außerhalb des Kampfes).
+-- The ranged weapon decides the ammo type: bow/crossbow -> arrows (subclass 2), gun -> bullets (3).
+-- If the ammo slot is empty or holds the wrong type, count matching ammo in the bags and equip
+-- the best one (out of combat).
 local ARROWS, BULLETS = 2, 3
 local AMMO_FOR_WEAPON = {
     [Enum.ItemWeaponSubclass.Bows] = ARROWS, [Enum.ItemWeaponSubclass.Crossbow] = ARROWS,
@@ -81,7 +72,7 @@ local AMMO_FOR_WEAPON = {
 }
 local RANGED_SLOT = INVSLOT_RANGED or 18
 
--- Munitions-Unterklasse für die angelegte Waffe (nil = keine Fernkampfwaffe mit Munition)
+-- Ammo subclass for the equipped weapon (nil = no ranged weapon that uses ammo)
 function ns.WantedAmmoClass()
     local weapon = GetInventoryItemID("player", RANGED_SLOT)
     if not weapon then return end
@@ -96,7 +87,7 @@ local function AmmoClassOf(itemID)
     if classID == Enum.ItemClass.Projectile then return subClassID end
 end
 
--- alle Munition einer Art in den Taschen + die beste Sorte (höchste Mindeststufe ≤ eigene Stufe)
+-- Total ammo of a type in the bags + best kind (highest required level <= own level)
 local function AmmoInBags(ammoClass)
     local total, best, bestLevel = 0, nil, -1
     local myLevel = UnitLevel("player")
@@ -114,7 +105,7 @@ local function AmmoInBags(ammoClass)
     return total, best
 end
 
--- passende Munition einlegen (je Sorte nur ein Versuch, bis sich am Platz etwas ändert)
+-- Equip matching ammo (one attempt per item until the slot changes)
 local equipTried
 local function EquipAmmo(itemID)
     if not itemID or equipTried == itemID or InCombatLockdown() or CursorHasItem() then return end
@@ -124,7 +115,7 @@ end
 
 local function AmmoIcon(ammoClass) return ammoClass == BULLETS and "Bullet" or "Arrow" end
 
--- Angezeigt? Eigene Wahl je Reagenz, sonst Standard: nur das erste (wichtigste) der Klasse
+-- Shown? Per-reagent user choice, default: only the first (most important) of the class
 function ns.ReagentKey(reagent) return reagent.ammo and "ammo" or reagent.item end
 function ns.ReagentShown(reagent, index)
     local choice = ns.db.reagentShow and ns.db.reagentShow[ns.ReagentKey(reagent)]
@@ -132,14 +123,14 @@ function ns.ReagentShown(reagent, index)
     return choice
 end
 
--- Einträge mit Zahl für die eigene Klasse (oder die Vorschau)
+-- Entries with counts for the own class (or the preview)
 local function Entries()
     local list = {}
     local class = demoClass or select(2, UnitClass("player"))
     for index, reagent in ipairs(CLASS_REAGENTS[class] or {}) do
         local entry = { key = reagent.ammo and "ammo" or reagent.item, warn = reagent.warn or 5, icon = reagent.icon }
         if not ns.ReagentShown(reagent, index) then
-            -- abgewählt
+            -- deselected
         elseif demoClass then
             entry.count = DEMO_COUNTS[class][index] or 10
             entry.icon = entry.icon or AmmoIcon(ns.WantedAmmoClass())
@@ -157,7 +148,7 @@ local function Entries()
                     count = Readable(count) and count or 0
                     equipTried = nil
                 elseif wanted then
-                    -- leerer Platz oder falsche Art (Pfeile im Gewehr): Taschen zählen, Bestes einlegen
+                    -- Empty slot or wrong type (arrows with a gun): count bags, equip the best
                     local best
                     count, best = AmmoInBags(wanted)
                     EquipAmmo(best)
@@ -209,7 +200,7 @@ local function Warn(entry)
     end
 end
 
--- Tooltip: das Item selbst; bei Munition dazu „reicht für ca. X Min. Autoschuss“
+-- Tooltip: the item itself; for ammo also roughly how many minutes of Auto Shot it lasts
 local function CellEnter(cell)
     local entry = cell.entry
     if not entry then return end
@@ -253,7 +244,7 @@ end
 
 local function Update()
     if not holder then return end
-    -- nur Forever (Retail kennt diese Reagenzien nicht) – die Vorschau geht überall
+    -- Forever only (Retail has no such reagents) - the preview works everywhere
     if not demoClass and (not Enabled() or not ns.IS_FOREVER) then return holder:Hide() end
     local list, class = Entries()
     local color = ClassColor(class)
@@ -276,8 +267,8 @@ local function Update()
         if not demoClass then Warn(entry) end
     end
     for i = #list + 1, #cells do cells[i]:Hide() end
-    holder:SetSize(width, math.max(y - ns.Snap(ITEM_GAP), 1)) -- Block bleibt mittig neben dem Frame
-    -- Vorschau: Klassenname darüber
+    holder:SetSize(width, math.max(y - ns.Snap(ITEM_GAP), 1)) -- keeps the block centered next to the frame
+    -- Preview: class name above
     holder.demoLabel:SetShown(demoClass ~= nil)
     if demoClass then
         holder.demoLabel:SetText(LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE[demoClass] or demoClass)
@@ -294,14 +285,14 @@ local function RequestUpdate()
     C_Timer.After(0.2, function() pending = false; Update() end)
 end
 
--- rechts neben dem Spieler-Frame, senkrecht mittig (direkt am Frame verankert)
+-- Right of the player frame, vertically centered (anchored to the frame)
 local function Place()
     local player = ns.frames and ns.frames.player
     if not (holder and player) then return end
     holder:ClearAllPoints()
     if ns.LayoutFlag and ns.LayoutFlag("healerGroups") then
-        -- Heiler: rechts neben dem Spieler sitzt die Gruppe > links daneben (die Zauberleiste ist dort
-        -- nicht, sie steht im Heiler-Layout groß über den unteren Leisten) – Benny 2026-11-07
+        -- Healer layout: the group sits right of the player, so go left (the cast bar is not
+        -- there in this layout)
         holder:SetPoint("RIGHT", player, "LEFT", -ns.Snap(GAP), 0)
     else
         holder:SetPoint("LEFT", player, "RIGHT", ns.Snap(GAP), 0)
@@ -315,7 +306,7 @@ local function Create()
     holder.demoLabel = ns.CreateText(holder, 11, "LEFT", "OUTLINE")
     holder.demoLabel:SetPoint("BOTTOMLEFT", holder, "TOPLEFT", 0, 4)
     holder.demoLabel:Hide()
-    -- bei 0 blinken
+    -- Blink at 0
     local t = 0
     holder:SetScript("OnUpdate", function(_, elapsed)
         t = t + elapsed
@@ -327,7 +318,7 @@ local function Create()
     holder:Hide()
 end
 
--- Vorschau (Einstellungen > Unitframes): alle Klassen nacheinander
+-- Preview (Settings > Unit Frames): all classes in turn
 local demoTicker
 ns.ReagentsDemo = {
     Start = function()
@@ -355,7 +346,7 @@ ns:On("PLAYER_LOGIN", function()
     if ok then ammoSlot = slot end
     Create()
     ns.layoutFrames.ammo = holder
-    -- Item-Namen für Tooltip/Toast vorladen
+    -- Preload item names for tooltip/toast
     for _, list in pairs(CLASS_REAGENTS) do
         for _, reagent in ipairs(list) do
             if reagent.item then C_Item.RequestLoadItemDataByID(reagent.item) end
@@ -367,7 +358,7 @@ ns:On("PLAYER_LOGIN", function()
         Update()
     end)
     ns:On("BAG_UPDATE", RequestUpdate)
-    ns:On("SPELLS_CHANGED", RequestUpdate) -- neuer Zauber gelernt: Reagenz evtl. jetzt nötig
+    ns:On("SPELLS_CHANGED", RequestUpdate) -- new spell learned: reagent may be needed now
     ns:On("BAG_UPDATE_DELAYED", RequestUpdate)
     ns:On("PLAYER_EQUIPMENT_CHANGED", RequestUpdate)
     ns:On("UNIT_INVENTORY_CHANGED", function(_, unit) if unit == "player" then RequestUpdate() end end)
