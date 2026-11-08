@@ -64,7 +64,10 @@ Loot/LootRoll.lua
 Bags/Mail.lua
 Skins/Dialogs.lua
 Skins/Communities.lua
+Skins/ReadyCheck.lua
+Skins/DressUp.lua
 NPC/NpcWindow.lua
+Config/AddonList.lua
 NPC/Merchant.lua
 NPC/Trainer.lua
 NPC/Gossip.lua

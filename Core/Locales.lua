@@ -1364,4 +1364,18 @@ if GetLocale() == "deDE" then
     L["mUI style"] = "mUI-Stil"
     L["start the setup again"] = "Setup erneut starten"
     L["unchanged"] = "unverändert"
+    -- Addon-Liste, Bereitschaftscheck, Anprobe (2026-11-08)
+    L["%d of %d loaded"] = "%d von %d geladen"
+    L["Enable all"] = "Alle an"
+    L["Disable all"] = "Alle aus"
+    L["Load out of date addons"] = "Veraltete laden"
+    L["Reload"] = "Neu laden"
+    L["Addons"] = "Addons"
+    L["System"] = "System"
+    L["mUI addon list"] = "mUI-Addon-Liste"
+    L["Addon list in the mUI look: search, groups, this character or all, reload marker; opens from the game menu."] = "Addon-Liste im mUI-Look: Suche, Gruppen, dieser oder alle Charaktere, Hinweis „Neu laden“; öffnet über das Spielmenü."
+    L["mUI ready check"] = "mUI-Bereitschaftscheck"
+    L["Ready check in the mUI look: who asked, time bar, ready / not ready."] = "Bereitschaftscheck im mUI-Look: wer fragt, Zeitbalken, Bereit / Nicht bereit."
+    L["Dressing room in mUI look"] = "Anprobe im mUI-Look"
+    L["Blizzard's dressing room in the mUI look, at the fixed window spot next to the other windows; functions stay Blizzard's."] = "Blizzards Anprobe im mUI-Look, am festen Fensterplatz neben den anderen Fenstern; Funktionen bleiben Blizzards."
 end

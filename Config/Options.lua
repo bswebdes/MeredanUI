@@ -138,16 +138,20 @@ local WINDOWS = {
     { "guildInactive", "Mark inactive guild members", "Members offline for 14 days or more get a faint red background. Alt ranks (“Twink” or “Alt” in the name) are ignored." },
     { "characterWindow", "mUI character window", "Character, reputation, skills, PvP, currencies and statistics in the mUI look." },
     { "auctionWindow", "mUI auction house", "Auction house in the mUI look: buy with categories and favorites, sell with price suggestion and net breakdown, your auctions and bids, plus a history with income, expenses and fees." },
+    { "readyCheckWindow", "mUI ready check", "Ready check in the mUI look: who asked, time bar, ready / not ready." },
+    { "addonListWindow", "mUI addon list", "Addon list in the mUI look: search, groups, this character or all, reload marker; opens from the game menu." },
+    { "dressUpSkin", "Dressing room in mUI look", "Blizzard's dressing room in the mUI look, at the fixed window spot next to the other windows; functions stay Blizzard's." },
     { "merchantWindow", "mUI merchant window", "Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk." },
 }
 local WINDOW_BY_KEY = {}
 for _, entry in ipairs(WINDOWS) do WINDOW_BY_KEY[entry[1]] = entry end
 -- Skins-Seite in Gruppen (Entwurf Canvas „Einstellungen“, Benny 2026-11-08)
 local SKIN_GROUPS = {
-    { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow" } },
+    { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow", "dressUpSkin" } },
     { L["World"], { "mapWindow", "flightWindow" } },
     { L["NPCs"], { "merchantWindow", "trainerWindow", "gossipWindow", "questWindow", "mailWindow", "tradeWindow", "auctionWindow" } },
-    { L["Social"], { "friendsWindow", "guildSkin", "skinDialogs", "guildOverview", "guildInactive" } },
+    { L["Social"], { "friendsWindow", "guildSkin", "skinDialogs", "readyCheckWindow", "guildOverview", "guildInactive" } },
+    { L["System"], { "addonListWindow" } },
 }
 
 -- Seiten -------------------------------------------------------------------------------

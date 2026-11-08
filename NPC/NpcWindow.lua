@@ -95,7 +95,7 @@ end
 -- Bank, Lehrer, Quest, Auktionshaus …) nie – das würde die Unterhaltung beenden. Benny 2026-11-08.
 local CLOSABLE = {
     legacy = true, spellbook = true, talents = true, professions = true, character = true,
-    inspect = true, guild = true, friends = true,
+    inspect = true, guild = true, friends = true, dressup = true,
 }
 
 -- Platz suchen; liefert die gewünschte rechte Kante (inkl. Reiter außen), bevor WoW ans Bild klemmt
@@ -326,6 +326,12 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
         ns.ResetWindowPosition(window, key)
     end
     window:HookScript("OnShow", function(self)
+        -- eigener fester Platz (z. B. Addon-Liste mittig): nicht in die Reihe der Fenster einordnen
+        if self.ownPoint then
+            self:ClearAllPoints()
+            self:SetPoint(unpack(self.ownPoint))
+            return
+        end
         Opened(self)
         ns.ResetWindowPosition(self, self.positionKey, true)
     end)
