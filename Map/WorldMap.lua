@@ -1,23 +1,22 @@
--- Weltkarte & Questlog (WoW Forever): eigenes Fenster statt Blizzards WorldMapFrame
--- (Entwurf „Karte & Questlog“, Benny 2026-11-06).
+-- World map & quest log (WoW Forever): own window instead of Blizzard's WorldMapFrame.
 --
---   ┌ Karte  Welt › Kalimdor ˅ › Teldrassil ˅          [Anzeigen ˅] [Pin] [x] ┐
---   │ ┌──────────────── Blizzards Kartenbild ───────────┐ [Questlog durchsuchen] 9/40 │
---   │ │  mit allen Markierungen (Quests, Flugpunkte,     │ TELDRASSIL                 │
---   │ │  dein Pfeil, Gebietsnamen, Kartenpin …)          │ ┃ ! [9] Krone der Erde  ☑  │
---   │ │ 53.6, 54.2 · Maus 48.1, 61.0                     │ ┃   Turmalinphiole 0/1     │
---   │ └──────────────────────────────────────────────────┘ …                         │
---   │ Teldrassil · Stufe 1–11                      Strg+Klick: Kartenpin · Rechtsklick: hoch │
+--   +- Map  World > Kalimdor v > Teldrassil v                 [Display v] [Pin] [x] +
+--   | +--------------- Blizzard's map art --------------+ [Search quest log]  9/40  |
+--   | |  with all markers (quests, flight points,      | TELDRASSIL                 |
+--   | |  player arrow, zone names, map pin ...)        | | ! [9] Crown of Earth [x] |
+--   | | 53.6, 54.2 - Mouse 48.1, 61.0                  | |   Tourmaline Phial 0/1   |
+--   | +------------------------------------------------+ ...                        |
+--   | Teldrassil - Level 1-11            Ctrl+click: map pin - Right-click: up      |
 --
--- Die Kartenfläche ist Blizzards MapCanvas (wie die Schlachtfeldkarte): ScrollContainer zuerst,
--- dann MapCanvasMixin, Ereignisse weiterreichen. Data-Provider aus Blizzard_SharedMapDataProviders.
--- WorldMapFrame bleibt unangetastet (ContentTracking und QuestMapFrame hängen daran). Öffnen über
--- Override-Belegung (M, L), den Questlog-Mikroknopf und Blizzards globale Öffner-Funktionen.
+-- The map area is Blizzard's MapCanvas (like the battlefield map): ScrollContainer first, then
+-- MapCanvasMixin, forward events. Data providers from Blizzard_SharedMapDataProviders.
+-- WorldMapFrame stays untouched (ContentTracking and QuestMapFrame depend on it). Opened via override
+-- bindings (M, L), the quest log micro button and Blizzard's global opener functions.
 local _, ns = ...
 local L = ns.L
 
--- Höhe so, dass die Kartenfläche genau 3:2 hat wie Blizzards Kartenbilder (850 × 567, kein Rand oben/unten):
--- Breite 1240 − 2·18 − 340 − 14 = 850; Höhe 567 + 18 + 44 (Kopf) + 40 (Fuß) = 669
+-- Height chosen so the map area is exactly 3:2 like Blizzard's map art (850 x 567, no top/bottom gap):
+-- width 1240 - 2*18 - 340 - 14 = 850; height 567 + 18 + 44 (header) + 40 (footer) = 669
 local WIDTH, HEIGHT, PAD = 1240, 669, 18
 local LOG_W = 340
 local ROW_GAP = 2
@@ -25,8 +24,8 @@ local ROW_GAP = 2
 local window, canvas, crumbs, coords, footer, logList, logSearch, logCount, pinButton, options, optionsButton
 local rows, headers, collapsedZones = {}, {}, {}
 local expandedQuest
-local scrollToQuest -- Klick im Tracker: Liste springt einmal zu dieser Quest
-local listTracked   -- Fokus kam aus der eigenen Liste (kein Sprung, Auf-/Zuklappen regelt der Klick)
+local scrollToQuest -- tracker click: list scrolls to this quest once
+local listTracked   -- focus came from our own list (no scroll; the click handles expand/collapse)
 local pinMode = false
 local pendingLog
 
@@ -34,7 +33,7 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.mapWindow ~= false and MapCanvasMixin and WorldMapFrame
 end
 
--- Kartenfläche ------------------------------------------------------------------------------------
+-- Map canvas ---------------------------------------------------------------------------------------
 
 local function AddProviders(map)
     local function Add(mixin, setup)
@@ -65,10 +64,10 @@ local function AddProviders(map)
     Add(BattlefieldFlagDataProviderMixin)
     Add(WaypointLocationDataProviderMixin)
     Add(SuperTrackWaypointDataProviderMixin)
-    map.areaLabelProvider = Add(AreaLabelDataProviderMixin, function(p) p:SetOffsetY(-10) end) -- Offset vor dem Hinzufügen
+    map.areaLabelProvider = Add(AreaLabelDataProviderMixin, function(p) p:SetOffsetY(-10) end) -- offset must be set before adding
     Add(GroupMembersDataProviderMixin)
 
-    -- Ebenen-Reihenfolge wie Blizzards Weltkarte (Blizzard_WorldMap.lua)
+    -- layer order as in Blizzard's world map (Blizzard_WorldMap.lua)
     local levels = map:GetPinFrameLevelsManager()
     for _, entry in ipairs({
         "PIN_FRAME_LEVEL_MAP_EXPLORATION", "PIN_FRAME_LEVEL_EVENT_OVERLAY", "PIN_FRAME_LEVEL_FOG_OF_WAR",
@@ -88,24 +87,24 @@ local function AddProviders(map)
     end
 end
 
-local OnMapChanged -- unten (Brotkrumen, Fußzeile, Questlog)
+local OnMapChanged -- defined below (breadcrumbs, footer, quest log)
 
 local function CreateCanvas(parent)
     local map = CreateFrame("Frame", "MeredanUIMapCanvas", parent)
     map:SetAllPoints(parent)
-    -- ScrollContainer muss vor MapCanvasMixin.OnLoad existieren (dessen GetCanvas braucht ihn)
+    -- ScrollContainer must exist before MapCanvasMixin.OnLoad (its GetCanvas needs it)
     map.ScrollContainer = CreateFrame("ScrollFrame", nil, map, "MapCanvasFrameScrollContainerTemplate")
     map.ScrollContainer:ClearAllPoints()
     map.ScrollContainer:SetAllPoints(map)
-    -- BorderFrame: Blizzards Sperr-Ebene über der Karte (EvaluateLockReasons greift darauf zu)
+    -- BorderFrame: Blizzard's lock layer above the map (EvaluateLockReasons accesses it)
     map.BorderFrame = CreateFrame("Frame", nil, map)
     map.BorderFrame:SetAllPoints(map)
     map.BorderFrame:SetFrameLevel(map:GetFrameLevel() + 1500)
     map.BorderFrame:EnableMouse(false)
     Mixin(map, MapCanvasMixin)
     MapCanvasMixin.OnLoad(map)
-    -- nur Karten mit Kartenbild annehmen (Quests in Instanzen o. Ä. liefern Karten ohne Ebenen –
-    -- Blizzards Zoomstufen brechen dann ab)
+    -- only accept maps with art (quests in instances etc. yield maps without layers, which breaks
+    -- Blizzard's zoom levels)
     local setMapID = map.SetMapID
     function map:SetMapID(mapID)
         local layers = mapID and mapID > 0 and C_Map.GetMapArtLayers(mapID)
@@ -116,7 +115,7 @@ local function CreateCanvas(parent)
     map:SetShouldZoomInOnClick(false)
     map:SetShouldPanOnClick(false)
     map:SetGlobalPinScale(1)
-    -- Rechtsklick: eine Ebene hoch, aber nicht über die Welt hinaus (Forever endet bei „Welt“)
+    -- right-click: one level up, but not beyond World (Forever ends there)
     function map:NavigateToParentMap()
         local info = C_Map.GetMapInfo(self:GetMapID())
         if info and info.mapType and info.mapType > Enum.UIMapType.World and (info.parentMapID or 0) > 0 then
@@ -140,12 +139,12 @@ local function CreateCanvas(parent)
     end)
     map:SetScript("OnHide", function(self) MapCanvasMixin.OnHide(self) end)
     AddProviders(map)
-    -- Komfort: ganze Karte aufdecken, Stufen am Gebietsnamen (Map/MapExtras.lua)
+    -- reveal whole map, levels on zone names (Map/MapExtras.lua)
     if ns.AttachMapExtras then ns.AttachMapExtras(map, map.areaLabelProvider) end
     return map
 end
 
--- Brotkrumen --------------------------------------------------------------------------------------
+-- Breadcrumbs --------------------------------------------------------------------------------------
 
 local function Crumbs()
     local UI = ns.UI
@@ -185,7 +184,7 @@ local function Crumbs()
         button.mapID, button.isLast = entry.mapID, i == #chain
         button.text:SetText(entry.name)
         button.text:SetTextColor(unpack(button.isLast and UI.ACCENT or UI.MUTED))
-        -- Auswahl der Nachbargebiete (und Stockwerke) am letzten Glied
+        -- dropdown of neighboring zones (and floors) on the last crumb
         button.siblings = nil
         if button.isLast then
             local list = {}
@@ -208,7 +207,7 @@ local function Crumbs()
         if prev then
             local sep = crumbs.seps[i]
             if not sep then
-                -- schlanker Pfeil statt ">" (Benny 2026-11-07)
+                -- slim arrow instead of ">"
                 sep = UI.Icon(crumbs, "ChevronDown", 9, { 0.42, 0.42, 0.42 })
                 sep:SetRotation(math.pi / 2)
                 crumbs.seps[i] = sep
@@ -225,7 +224,7 @@ local function Crumbs()
     end
 end
 
--- Questlog ----------------------------------------------------------------------------------------
+-- Quest log ---------------------------------------------------------------------------------------
 
 local function Header(i)
     if headers[i] then return headers[i] end
@@ -266,7 +265,7 @@ local function QuestMenu(row)
     end)
 end
 
--- Belohnungen der aufgeklappten Quest (wie unser Questfenster: Karten in zwei Spalten) --------------
+-- Rewards of the expanded quest (like our quest frame: cards in two columns) ------------------------
 local REWARD_H, REWARD_GAP = 46, 6
 local rewardBox, rewardCards, rewardHeaders = nil, {}, {}
 
@@ -305,7 +304,7 @@ local function RewardCard(i)
         GameTooltip:SetQuestLogItem(self.kind, self.index, self.questID)
         ns.ShowItemCompare(GameTooltip)
         GameTooltip:Show()
-        self.UpdateTooltip = self:GetScript("OnEnter") -- Shift während der Maus drauf ist
+        self.UpdateTooltip = self:GetScript("OnEnter") -- refresh while Shift is pressed over the card
     end)
     card:SetScript("OnLeave", function(self)
         self.bg:SetColorTexture(1, 1, 1, 0.04)
@@ -319,7 +318,7 @@ local function RewardCard(i)
     return card
 end
 
--- füllt die Belohnungen unter `anchor` in `row`, gibt die Höhe zurück (0 = keine)
+-- fills rewards below `anchor` in `row`, returns the height (0 = none)
 local function FillRewards(row, anchor, questID, width)
     local UI = ns.UI
     if not rewardBox then
@@ -381,7 +380,7 @@ local function FillRewards(row, anchor, questID, width)
     for i = #groups + 1, #rewardHeaders do rewardHeaders[i]:Hide() end
     for i = n + 1, #rewardCards do rewardCards[i]:Hide() end
 
-    -- Erfahrung und Geld
+    -- XP and money
     local extras = {}
     local xp = GetQuestLogRewardXP(questID)
     if xp and xp > 0 then extras[#extras + 1] = L["%d XP"]:format(xp) end
@@ -402,7 +401,7 @@ local function FillRewards(row, anchor, questID, width)
     return 12 + y
 end
 
--- Knöpfe der aufgeklappten Quest: Teilen, Abbrechen (Symbole wie Blizzard, Text im Tooltip)
+-- Buttons of the expanded quest: share, abandon (icons like Blizzard, text in tooltip)
 local questActions
 
 local function ActionButton(parent, icon, color, label, onClick)
@@ -435,7 +434,7 @@ local function SetActionEnabled(button, on, why)
     if on then button.icon:SetVertexColor(unpack(button.color)) else button.icon:SetVertexColor(0.35, 0.35, 0.35) end
 end
 
--- setzt die Knöpfe unter `anchor` in `row`, gibt die Höhe zurück
+-- places the buttons below `anchor` in `row`, returns the height
 local function FillActions(row, anchor, questID)
     if not questActions then
         questActions = CreateFrame("Frame", nil, row)
@@ -473,7 +472,7 @@ local function Row(i)
     row.strip:SetPoint("TOPLEFT")
     row.strip:SetPoint("BOTTOMLEFT")
     row.strip:SetWidth(2)
-    -- abgabebereit: dezent grün unterlegt
+    -- ready to turn in: subtle green background
     row.ready = row:CreateTexture(nil, "BACKGROUND", nil, -1)
     row.ready:SetAllPoints()
     row.ready:SetColorTexture(0.56, 0.8, 0.71, 0.07)
@@ -499,7 +498,7 @@ local function Row(i)
     row.desc:SetPoint("RIGHT", -28, 0)
     row.desc:SetWordWrap(true)
     row.desc:SetSpacing(2)
-    -- Verfolgen-Kästchen
+    -- track checkbox
     row.track = CreateFrame("Button", nil, row)
     row.track:SetSize(14, 14)
     row.track:SetPoint("TOPRIGHT", -6, -8)
@@ -510,7 +509,7 @@ local function Row(i)
         if C_QuestLog.GetQuestWatchType(row.questID) then C_QuestLog.RemoveQuestWatch(row.questID) else C_QuestLog.AddQuestWatch(row.questID) end
     end)
     row:SetScript("OnEnter", function(self) self.hover:Show() end)
-    row:SetScript("OnLeave", function(self) self.hover:SetShown(self.questID == expandedQuest) end) -- geöffnete bleibt grau
+    row:SetScript("OnLeave", function(self) self.hover:SetShown(self.questID == expandedQuest) end) -- expanded quest keeps its gray highlight
     row:SetScript("OnClick", function(self, button)
         if IsModifiedClick("CHATLINK") then
             local link = GetQuestLink(self.questID)
@@ -518,7 +517,7 @@ local function Row(i)
             return
         end
         if button == "RightButton" then return QuestMenu(self) end
-        -- Klick: Karte zur Quest, Fokus setzen, Text auf-/zuklappen
+        -- click: map to the quest, set focus, expand/collapse text
         expandedQuest = expandedQuest ~= self.questID and self.questID or nil
         listTracked = self.questID
         C_SuperTrack.SetSuperTrackedQuestID(self.questID)
@@ -531,7 +530,7 @@ local function Row(i)
     return row
 end
 
--- Filter (Symbol neben der Suche; Texte nur im Menü) ----------------------------------------------
+-- Filter (icon next to the search; text only in the menu) ------------------------------------------
 local QUEST_FILTERS = {
     { key = "thisMap", label = "Only this map" },
     { key = "hideGray", label = "Hide gray quests" },
@@ -554,7 +553,7 @@ local function AnyFilter()
     return false
 end
 
--- liegt die Quest auf der gezeigten Karte (oder einer Unterkarte davon)?
+-- is the quest on the shown map (or one of its child maps)?
 local function OnShownMap(questID, zoneName)
     local shown = canvas:GetMapID()
     local mapID = GetQuestUiMapID and GetQuestUiMapID(questID)
@@ -567,7 +566,7 @@ local function OnShownMap(questID, zoneName)
         end
         return false
     end
-    -- ohne Kartenpunkt: Zonen-Überschrift mit dem Kartennamen vergleichen
+    -- no map point: compare the zone header with the map name
     local info = C_Map.GetMapInfo(shown)
     return info ~= nil and info.name == zoneName
 end
@@ -594,7 +593,7 @@ local function LayoutLog()
     local superTracked = C_SuperTrack.GetSuperTrackedQuestID()
     local anyExpanded = false
     local targetY
-    -- sammeln: Zonen mit ihren (gefilterten) Quests
+    -- collect zones with their (filtered) quests
     local zones, current = {}, nil
     local readyFirst = Filters().readyFirst
     for index = 1, C_QuestLog.GetNumQuestLogEntries() do
@@ -608,7 +607,7 @@ local function LayoutLog()
                 current = { info = { title = "", isHeader = true }, quests = {} }
                 zones[#zones + 1] = current
             end
-            -- gesuchte Quest: ihr Gebiet aufklappen, damit man sie sieht
+            -- searched quest: expand its zone so it is visible
             if info.questID == scrollToQuest then collapsedZones[current.info.title] = nil end
             local complete = C_QuestLog.IsComplete(info.questID) or C_QuestLog.ReadyForTurnIn(info.questID)
             local matches = query == "" or (info.title or ""):lower():find(query, 1, true)
@@ -664,7 +663,7 @@ local function LayoutLog()
                 row.title:SetText("|cff99978f" .. prefix .. "|r" .. (info.title or ""))
                 row.title:SetTextColor(color.r, color.g, color.b)
                 if info.questID == superTracked then row.title:SetTextColor(1, 1, 1) end
-                -- Ziele
+                -- objectives
                 local lines = {}
                 for _, obj in ipairs(C_QuestLog.GetQuestObjectives(info.questID) or {}) do
                     if obj.text and obj.text ~= "" then
@@ -674,7 +673,7 @@ local function LayoutLog()
                 if #lines == 0 and complete then lines[1] = "|cff8ecbb4" .. (QUEST_WATCH_QUEST_READY or L["Ready to turn in"]) .. "|r" end
                 row.goals:SetWidth(width - 58)
                 row.goals:SetText(table.concat(lines, "\n"))
-                -- aufgeklappt: Questtext
+                -- expanded: quest text
                 local expanded = expandedQuest == info.questID
                 row.desc:SetShown(expanded)
                 row.hover:SetShown(expanded or row:IsMouseOver())
@@ -709,7 +708,7 @@ local function LayoutLog()
     if targetY then logList:ScrollTo(targetY - 6) end
     scrollToQuest = nil
     if trackAll then trackAll.Update() end
-    logCount:SetText("|cffe8e6de" .. numQuests .. "|r/" .. C_QuestLog.GetMaxNumQuestsCanAccept()) -- nur Zahlen, Text im Tooltip
+    logCount:SetText("|cffe8e6de" .. numQuests .. "|r/" .. C_QuestLog.GetMaxNumQuestsCanAccept()) -- numbers only, text in tooltip
 end
 
 local function RefreshLog()
@@ -721,7 +720,7 @@ local function RefreshLog()
     end)
 end
 
--- Kopf, Fußzeile, Koordinaten ---------------------------------------------------------------------
+-- Header, footer, coordinates ---------------------------------------------------------------------
 
 OnMapChanged = function()
     if not (window and window:IsShown()) then return end
@@ -731,7 +730,7 @@ OnMapChanged = function()
     local info = C_Map.GetMapInfo(mapID)
     local text = info and info.name or ""
     local low, high
-    if ns.ZoneLevels then low, high = ns.ZoneLevels(mapID) end -- Forever: eigene Tabelle (Map/MapExtras.lua)
+    if ns.ZoneLevels then low, high = ns.ZoneLevels(mapID) end -- Forever: own table (Map/MapExtras.lua)
     if low and high and high > 0 then
         text = text .. "  ·  " .. (low == high and L["Level %d"]:format(low) or L["Level %d–%d"]:format(low, high))
     end
@@ -764,11 +763,11 @@ local function SetPinMode(on)
 end
 
 local CVAR_OPTIONS = {
-    -- kurze Namen (Benny 2026-11-08: lange liefen über den Rand)
+    -- short labels (long ones overflowed)
     { cvar = "questPOI", label = "Quest objectives" },
     { cvar = "showDungeonEntrancesOnMap", label = "Dungeon entrances" },
-    { db = "mapReveal", label = "Whole map" },          -- Komfort (Map/MapExtras.lua): ganze Karte aufdecken
-    { db = "mapZoneLevels", label = "Level and faction" }, -- Komfort: an Gebietsnamen
+    { db = "mapReveal", label = "Whole map" },          -- Map/MapExtras.lua: reveal whole map
+    { db = "mapZoneLevels", label = "Level and faction" }, -- Map/MapExtras.lua: on zone names
 }
 
 local function CreateOptions()
@@ -815,7 +814,7 @@ local function CreateOptions()
         end)
         options[i] = row
     end
-    options:SetWidth(math.max(160, math.ceil(widest) + 60)) -- nie schmaler als der Text
+    options:SetWidth(math.max(160, math.ceil(widest) + 60)) -- never narrower than the text
     options:RegisterEvent("GLOBAL_MOUSE_DOWN")
     options:SetScript("OnEvent", function(self)
         if self:IsShown() and not self:IsMouseOver() and not optionsButton:IsMouseOver() then self:Hide() end
@@ -889,7 +888,7 @@ local function CreateWindow()
     window.RefreshLog = RefreshLog
     ns.layoutFrames.worldmap = window
 
-    -- Kopfzeile (zum Ziehen)
+    -- header (drag handle)
     local head = CreateFrame("Frame", nil, window)
     head:SetPoint("TOPLEFT")
     head:SetPoint("TOPRIGHT")
@@ -904,9 +903,8 @@ local function CreateWindow()
     crumbs.buttons, crumbs.seps = {}, {}
     local close = UI.IconButton(head, "Close", function() window:Hide() end, 26)
     close:SetPoint("TOPRIGHT", -PAD, -PAD + 2)
-    -- Kartenpin: an = Klick auf die Karte setzt den Pin (sonst Strg+Klick)
-    -- Kartenpin-Knopf sitzt auf der Karte oben links (Benny 2026-11-08: gehört zur Karte, nicht zum
-    -- Fenster); Position und Ebene setzt CreateWindow nach dem Kartenhalter
+    -- Map pin mode: on = clicking the map places the pin (otherwise Ctrl+click).
+    -- The button sits on the map, top left; CreateWindow sets position and level after the map holder.
     pinButton = CreateFrame("Button", nil, head)
     pinButton:SetSize(26, 26)
     local pinBg = UI.Box(pinButton)
@@ -940,7 +938,7 @@ local function CreateWindow()
     optionsButton.Text:ClearAllPoints()
     optionsButton.Text:SetPoint("CENTER", -6, 0)
 
-    -- Karte links
+    -- map on the left
     local holder = CreateFrame("Frame", nil, window)
     holder:SetPoint("TOPLEFT", PAD, -PAD - 44)
     holder:SetPoint("BOTTOMRIGHT", -PAD - LOG_W - 14, 40)
@@ -950,11 +948,11 @@ local function CreateWindow()
     pinButton:SetParent(holder)
     pinButton:ClearAllPoints()
     pinButton:SetPoint("TOPLEFT", 12, -12)
-    pinButton:SetFrameLevel(9000) -- über allen Karten-Pins und aufgedeckten Flächen (Map/MapExtras.lua), Benny 2026-11-08
+    pinButton:SetFrameLevel(9000) -- above all map pins and revealed areas (Map/MapExtras.lua)
     coords = CreateFrame("Frame", nil, holder)
     coords:SetHeight(22)
     coords:SetPoint("BOTTOMLEFT", 12, 12)
-    coords:SetFrameLevel(9000) -- über allen Karten-Pins und aufgedeckten Flächen (Map/MapExtras.lua), Benny 2026-11-08
+    coords:SetFrameLevel(9000) -- above all map pins and revealed areas (Map/MapExtras.lua)
     UI.Box(coords, { 0, 0, 0, 0.6 })
     coords.text = UI.Text(coords, 12, "LEFT")
     coords.text:SetPoint("LEFT", 10, 0)
@@ -967,7 +965,7 @@ local function CreateWindow()
     end)
     coords:Show()
 
-    -- Questlog rechts
+    -- quest log on the right
     logSearch = UI.EditBox(window, 30)
     logSearch:SetPoint("TOPLEFT", holder, "TOPRIGHT", 14, 0)
     logSearch:SetWidth(LOG_W - 128)
@@ -978,7 +976,7 @@ local function CreateWindow()
         hint:SetShown(self:GetText() == "")
         RefreshLog()
     end)
-    -- Filter: nur ein Symbol, Text steht im Tooltip/Menü
+    -- filter: icon only, text in tooltip/menu
     filterButton = UI.IconButton(window, "Filter", function()
         if not filterMenu then CreateFilterMenu() end
         for _, row in ipairs(filterMenu) do row.Update() end
@@ -1001,7 +999,7 @@ local function CreateWindow()
     end)
     UpdateFilterButton()
     logCount = UI.Text(window, 12, "RIGHT", UI.MUTED)
-    -- ein Haken für alle (sichtbaren) Quests, genau über den Verfolgen-Kästchen der Zeilen
+    -- one checkbox for all (visible) quests, aligned above the rows' track checkboxes
     trackAll = CreateFrame("Button", nil, window)
     trackAll:SetSize(14, 14)
     trackAll:SetPoint("RIGHT", window, "RIGHT", -PAD - 8 - 6, 0)
@@ -1048,8 +1046,8 @@ local function CreateWindow()
         PlaySound(SOUNDKIT.IG_QUEST_LOG_OPEN)
         OnMapChanged()
         LayoutLog()
-        -- beim ersten Öffnen rechnet Blizzard den Zoom vor dem Layout (Karte zu groß, unten abgeschnitten,
-        -- Benny 2026-11-08): nach dem Layout Zoomstufen neu und auf die ganze Karte
+        -- On first open Blizzard computes the zoom before layout (map too big, bottom cut off):
+        -- after layout, rebuild zoom levels and show the whole map
         C_Timer.After(0, function()
             if window:IsShown() and canvas:GetMapID() then
                 canvas.ScrollContainer:CreateZoomLevels()
@@ -1064,7 +1062,7 @@ local function CreateWindow()
     end)
 end
 
--- Öffnen ------------------------------------------------------------------------------------------
+-- Opening -----------------------------------------------------------------------------------------
 
 local function Open(mapID)
     if not window then CreateWindow() end
@@ -1084,7 +1082,7 @@ ns.ToggleWorldMap = Toggle
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
-    -- M und L: direkt unser Fenster (Override-Belegung, Blizzards Bindungen bleiben unberührt)
+    -- M and L open our window directly (override bindings; Blizzard's bindings stay untouched)
     local toggle = CreateFrame("Button", "MeredanUIWorldMapToggle", UIParent)
     toggle:SetScript("OnClick", Toggle)
     local function BindKeys()
@@ -1099,8 +1097,8 @@ ns:On("PLAYER_LOGIN", function()
     BindKeys()
     ns:On("UPDATE_BINDINGS", BindKeys)
     if QuestLogMicroButton then QuestLogMicroButton:SetScript("OnClick", Toggle) end
-    -- Blizzards globale Öffner (Zielverfolger-Klick, Zonenname an der Minimap, Kartenpin-Links …)
-    -- leiten auf unser Fenster um. Nur diese globalen Namen, keine Methoden an Blizzard-Rahmen.
+    -- Redirect Blizzard's global openers (tracker click, minimap zone name, map pin links ...) to our
+    -- window. Only these global names, no methods on Blizzard frames.
     ToggleWorldMap = Toggle
     ToggleQuestLog = Toggle
     OpenWorldMap = function(mapID) Open(mapID) end
@@ -1109,7 +1107,7 @@ ns:On("PLAYER_LOGIN", function()
         if questID then
             expandedQuest, scrollToQuest = questID, questID
             C_SuperTrack.SetSuperTrackedQuestID(questID)
-            if logSearch and logSearch:GetText() ~= "" then logSearch:SetText("") end -- Suche würde sie verstecken
+            if logSearch and logSearch:GetText() ~= "" then logSearch:SetText("") end -- the search would hide it
         end
         Open(questID and GetQuestUiMapID and GetQuestUiMapID(questID) or nil)
         RefreshLog()
@@ -1123,8 +1121,8 @@ ns:On("PLAYER_LOGIN", function()
         "QUEST_TURNED_IN", "SUPER_TRACKING_CHANGED", "UNIT_QUEST_LOG_CHANGED" }) do
         ns:On(event, function() if window:IsShown() then RefreshLog() end end)
     end
-    -- Fokus woanders gewählt (Tracker, Kartenpin …) und die Karte ist offen: alte Quest zu, neue auf,
-    -- Liste springt hin, Karte zeigt ihr Gebiet. Bei geschlossener Karte passiert nichts.
+    -- Focus changed elsewhere (tracker, map pin ...) while the map is open: collapse old quest, expand
+    -- new one, scroll the list to it, show its zone. Nothing happens while the map is closed.
     ns:On("SUPER_TRACKING_CHANGED", function()
         if not window:IsShown() then return end
         local questID = C_SuperTrack.GetSuperTrackedQuestID()
@@ -1139,7 +1137,7 @@ ns:On("PLAYER_LOGIN", function()
         if mapID and mapID > 0 and canvas:GetMapID() ~= mapID then canvas:SetMapID(mapID) end
         RefreshLog()
     end)
-    -- Karte folgt dem Spieler beim Zonenwechsel (nur wenn sie gerade die Spielerkarte zeigt)
+    -- map follows the player on zone change (only while it shows the player's map)
     local playerMap = MapUtil.GetDisplayableMapForPlayer()
     for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "NEW_WMO_CHUNK" }) do
         ns:On(event, function()

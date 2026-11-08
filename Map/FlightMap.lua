@@ -1,25 +1,23 @@
--- Flugkarte (WoW Forever): eigenes Fenster statt Blizzards quadratischer TaxiFrame.
+-- Flight map (WoW Forever): own window instead of Blizzard's square TaxiFrame.
 --
---   ┌ Flugkarte · Darnassus                                             [x] ┐
---   │ ┌──────────────── Kontinent (Blizzards Kartenbild) ────────────────┐ │
---   │ │   ● Flugpunkte (Blizzards Pins aus der modernen Flugkarte),      │ │
---   │ │     Linien zu erreichbaren Zielen, Strecke beim Darüberfahren    │ │
---   │ └──────────────────────────────────────────────────────────────────┘ │
---   │                                Mausrad: Zoom · Ziehen: verschieben    │
+--   +- Flight map - Darnassus                                      [x] +
+--   | +-------------- Continent (Blizzard's map art) ----------------+ |
+--   | |   o flight points (Blizzard's pins from the modern map),     | |
+--   | |     lines to reachable targets, route on hover               | |
+--   | +--------------------------------------------------------------+ |
+--   |                              Mouse wheel: zoom - Drag: move      |
 --
--- Forever öffnet bei Flugmeistern das alte TaxiFrame (UIMapSystem.Taxi, Blizzard_Game/Mainline
--- HandleTaxiMapOpened). Dessen OnHide ruft CloseTaxiMap() > es darf nicht versteckt werden, solange
--- die Flugverbindung offen sein soll. Darum: unsichtbar und winzig (Alpha 0, Skalierung), unser
--- Fenster darüber. Kartenfläche = Blizzards MapCanvas (wie Map/WorldMap.lua), Flugpunkte = Blizzards
--- FlightMap_FlightPathDataProviderMixin aus Blizzard_FlightMap (Pins rufen TakeTaxiNode selbst auf,
--- die Flugzeit-Leiste hängt daran). Moderne Flugkarte (FlightMapFrame, andere Kartensysteme) bleibt
--- unangetastet – die ist schon zentriert und zoombar.
+-- Forever opens the old TaxiFrame at flight masters. Its OnHide calls CloseTaxiMap(), so it must not
+-- be hidden while the taxi session should stay open: it is made invisible and tiny (alpha 0, scale)
+-- with our window on top. Map area = Blizzard's MapCanvas (as in Map/WorldMap.lua); flight points =
+-- FlightMap_FlightPathDataProviderMixin from Blizzard_FlightMap (pins call TakeTaxiNode themselves,
+-- the flight timer bar depends on that). The modern FlightMapFrame is left untouched.
 local _, ns = ...
 local L = ns.L
 
 local PAD = 18
-local CANVAS_W, CANVAS_H = 1050, 700 -- Höchstmaße; Fenster passt sich ans Seitenverhältnis der Karte an
-local EXTRA_ZOOM = { 1.5, 2.2, 3.2 } -- eigene Zoomstufen (Vielfache der Grundgröße), falls Blizzard keine hat
+local CANVAS_W, CANVAS_H = 1050, 700 -- max size; the window adapts to the map's aspect ratio
+local EXTRA_ZOOM = { 1.5, 2.2, 3.2 } -- extra zoom steps (multiples of base size) when Blizzard provides none
 
 local window, canvas, titleText, blizzardHidden
 
@@ -27,10 +25,10 @@ local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.flightWindow ~= false and MapCanvasMixin and TaxiFrame
 end
 
--- Kartenfläche ------------------------------------------------------------------------------------
+-- Map canvas ---------------------------------------------------------------------------------------
 
--- Kontinentkarten haben in Forever teils nur eine Zoomstufe > Mausrad täte nichts. Fehlende
--- Stufen ergänzen (gleiche Ebene, nur größer skaliert).
+-- Some Forever continent maps have only one zoom level, so the mouse wheel would do nothing.
+-- Add missing levels (same layer, scaled up).
 local function CreateZoomLevels(self)
     MapCanvasScrollControllerMixin.CreateZoomLevels(self)
     local levels = self.zoomLevels
@@ -43,9 +41,8 @@ local function CreateZoomLevels(self)
     end
 end
 
--- Kartennummer: zuerst der Kontinent unter dir (rechteckiges Weltkarten-Bild), Blizzards Taxi-Karte
--- nur als Notlösung – die ist in Forever das alte quadratische Bild (Benny 2026-11-08, Screenshot).
--- Die erste mit Kartenbild und Flugpunkten gewinnt.
+-- Map ID: prefer the continent under the player (rectangular world map art); Blizzard's taxi map is
+-- only a fallback - in Forever it is the old square image. First candidate with art and nodes wins.
 local function PickMap()
     local candidates = {}
     local best = C_Map.GetBestMapForUnit("player")
@@ -65,7 +62,7 @@ end
 local function CreateCanvas(parent)
     local map = CreateFrame("Frame", "MeredanUIFlightCanvas", parent)
     map:SetPoint("CENTER")
-    map:SetSize(CANVAS_W, CANVAS_H) -- Open() passt die Größe ans Seitenverhältnis des Kartenbilds an
+    map:SetSize(CANVAS_W, CANVAS_H) -- Open() adapts the size to the map art's aspect ratio
     map.ScrollContainer = CreateFrame("ScrollFrame", nil, map, "MapCanvasFrameScrollContainerTemplate")
     map.ScrollContainer:ClearAllPoints()
     map.ScrollContainer:SetAllPoints(map)
@@ -76,11 +73,11 @@ local function CreateCanvas(parent)
     map.BorderFrame:EnableMouse(false)
     Mixin(map, MapCanvasMixin)
     MapCanvasMixin.OnLoad(map)
-    map:SetShouldNavigateOnClick(false) -- Klick ins Gebiet wechselt nicht die Karte
+    map:SetShouldNavigateOnClick(false) -- clicking a zone does not switch maps
     map:SetShouldZoomInOnClick(false)
     map:SetShouldPanOnClick(false)
     map:SetGlobalPinScale(1)
-    -- Flugpunkte die Blizzard-Titel/Symbol setzen wollen (Bastion o. Ä.) – bei uns ohne Wirkung
+    -- flight points that try to set Blizzard's title/portrait (Bastion etc.) - no-op here
     function map:ResetTitleAndPortraitIcon() end
     function map:UpdateTitleAndPortraitIcon() end
 
@@ -95,7 +92,7 @@ local function CreateCanvas(parent)
     return map
 end
 
--- Fenster -----------------------------------------------------------------------------------------
+-- Window -------------------------------------------------------------------------------------------
 
 local function CreateWindow()
     local UI = ns.UI
@@ -139,12 +136,12 @@ local function CreateWindow()
 
     window:SetScript("OnHide", function()
         PlaySound(SOUNDKIT.IG_MAINMENU_CLOSE)
-        -- Fenster zu = Flugmeister zu (wie Blizzards TaxiFrame)
+        -- closing the window closes the flight master (like Blizzard's TaxiFrame)
         if TaxiFrame:IsShown() then HideUIPanel(TaxiFrame) else CloseTaxiMap() end
     end)
 end
 
--- Blizzards TaxiFrame unsichtbar machen bzw. zurückholen
+-- Make Blizzard's TaxiFrame invisible or restore it
 local function HideBlizzard(hide)
     if hide then
         TaxiFrame:SetAlpha(0)
@@ -163,7 +160,7 @@ local function Open()
     if not C_AddOns.IsAddOnLoaded("Blizzard_FlightMap") then C_AddOns.LoadAddOn("Blizzard_FlightMap") end
     if not FlightMap_FlightPathDataProviderMixin then return false end
     if FlightMap_FlightPointPinMixin and not FlightMap_FlightPointPinMixin.muiHooked then
-        -- Flugzeit im Tooltip erreichbarer Ziele (Minimap/FlightTimer.lua); vor dem ersten Pin einhängen
+        -- flight time in the tooltip of reachable nodes (Minimap/FlightTimer.lua); hook before the first pin
         FlightMap_FlightPointPinMixin.muiHooked = true
         hooksecurefunc(FlightMap_FlightPointPinMixin, "OnMouseEnter", function(pin)
             local data = pin.taxiNodeData
@@ -175,10 +172,10 @@ local function Open()
     local mapID, nodes = PickMap()
     if not mapID then return false end
     if not window then CreateWindow() end
-    -- Kartenfläche im Seitenverhältnis des Bildes, mittig (sonst klebt ein schmaleres Bild links oben)
+    -- size canvas to the art's aspect ratio, centered (otherwise a narrower image sticks to the top left)
     local layer = C_Map.GetMapArtLayers(mapID)[1]
     local scale = math.min(CANVAS_W / layer.layerWidth, CANVAS_H / layer.layerHeight)
-    -- Fenster folgt der Karte (Benny 2026-11-08: sonst leerer Streifen über einer breiten Karte)
+    -- window follows the map size (avoids an empty strip above a wide map)
     local w, h = math.floor(layer.layerWidth * scale), math.floor(layer.layerHeight * scale)
     canvas:SetSize(w, h)
     window.holder:SetSize(w, h)
@@ -186,8 +183,8 @@ local function Open()
     window:Show()
     canvas:SetMapID(mapID)
     MapCanvasMixin.OnShow(canvas)
-    -- Kein Start-Zoom mehr (Benny 2026-11-08): sanftes Hinzoomen schob die Karte bei Flugpunkten am
-    -- Rand über den Kartenrand hinaus (leerer Streifen). Ganze Karte zeigen, Mausrad zoomt.
+    -- No initial zoom: zooming in pushed the map past its edge for flight points near the border.
+    -- Show the whole map; the mouse wheel zooms.
     canvas:ResetZoom()
     local here
     for _, node in ipairs(nodes) do
@@ -202,7 +199,7 @@ ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     TaxiFrame:HookScript("OnShow", function()
         if not Enabled() then return HideBlizzard(false) end
-        -- klappt unser Fenster nicht (keine Karte gefunden), bleibt Blizzards Fenster sichtbar
+        -- if our window fails (no map found), Blizzard's window stays visible
         HideBlizzard(Open())
     end)
     TaxiFrame:HookScript("OnHide", function()

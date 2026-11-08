@@ -1,68 +1,66 @@
--- Weltkarte-Extras (WoW Forever, Komfort; Benny 2026-11-08):
---   1. Ganze Karte aufdecken: Blizzard zeichnet nur erkundete Flächen (C_MapExplorationInfo); mUI
---      zeichnet die übrigen aus Map/MapRevealData.lua dazu (gleiche Kachel-Logik wie Blizzards
---      MapExplorationPinMixin:RefreshOverlays). Schalter ns.db.mapReveal, im „Anzeigen“-Menü der Karte.
---   2. Stufenbereich am Gebietsnamen beim Drüberfahren, gefärbt nach eigener Stufe (wie Blizzards
---      AreaLabelFrameMixin – Forever liefert aber keine Stufen über C_Map.GetMapLevels, daher eigene
---      Tabelle). Schalter ns.db.mapZoneLevels.
+-- World map extras (WoW Forever):
+--   1. Reveal whole map: Blizzard only draws explored areas (C_MapExplorationInfo); mUI draws the rest
+--      from Map/MapRevealData.lua (same tiling as MapExplorationPinMixin:RefreshOverlays). ns.db.mapReveal.
+--   2. Level range on the zone name on hover, colored by player level (like AreaLabelFrameMixin; Forever
+--      returns no levels from C_Map.GetMapLevels, hence our own table). ns.db.mapZoneLevels.
+--   3. Dungeon entrance pins (see below).
 local _, ns = ...
 
--- Stufenbereiche je uiMapID (Classic-Era-IDs, in Forever gleich; Städte ohne Stufen). Quellen
--- (Recherche 2026-11-08): warcraft.wiki.gg „Zones by level (original)“, Forever-Mindeststufen von
--- warcrafttavern.com/forever/guides/leveling (Sengende Schlucht ab 43), neue Gebiete von
--- warcraft.wiki.gg. Shen'dralas: Quellen uneinig (ab 40 … 45–55) > 40–50 als Mittelweg.
+-- Level ranges per uiMapID (Classic Era IDs, same in Forever; cities have none). Sources: warcraft.wiki.gg
+-- "Zones by level (original)", Forever minimum levels from warcrafttavern.com (Searing Gorge from 43).
+-- Shen'dralas: sources disagree (40 ... 45-55), 40-50 as a compromise.
 local ZONE_LEVELS = {
     -- Kalimdor
     [1411] = { 1, 10 },  -- Durotar
     [1412] = { 1, 10 },  -- Mulgore
-    [1413] = { 10, 25 }, -- Brachland
+    [1413] = { 10, 25 }, -- The Barrens
     [1438] = { 1, 10 },  -- Teldrassil
-    [1439] = { 10, 20 }, -- Dunkelküste
-    [1440] = { 18, 30 }, -- Eschental
-    [1441] = { 25, 35 }, -- Tausend Nadeln
-    [1442] = { 15, 27 }, -- Steinkrallengebirge
+    [1439] = { 10, 20 }, -- Darkshore
+    [1440] = { 18, 30 }, -- Ashenvale
+    [1441] = { 25, 35 }, -- Thousand Needles
+    [1442] = { 15, 27 }, -- Stonetalon Mountains
     [1443] = { 30, 40 }, -- Desolace
     [1444] = { 40, 50 }, -- Feralas
-    [1445] = { 35, 45 }, -- Düstermarschen
+    [1445] = { 35, 45 }, -- Dustwallow Marsh
     [1446] = { 40, 50 }, -- Tanaris
     [1447] = { 45, 55 }, -- Azshara
-    [1448] = { 48, 55 }, -- Teufelswald
-    [1449] = { 48, 55 }, -- Krater von Un'Goro
-    [1450] = { 55, 60 }, -- Mondlichtung
+    [1448] = { 48, 55 }, -- Felwood
+    [1449] = { 48, 55 }, -- Un'Goro Crater
+    [1450] = { 55, 60 }, -- Moonglade
     [1451] = { 55, 60 }, -- Silithus
-    [1452] = { 53, 60 }, -- Winterquell
-    [2482] = { 60, 60 }, -- Hyjal (Forever, Endgame)
-    [2652] = { 40, 50 }, -- Shen'dralas (Forever, unsicher)
-    [2521] = { 1, 12 },  -- Zephras Isle (Forever, Startgebiet)
-    [2665] = { 1, 12 },  -- Zephras Isle (zweite Karte)
-    -- Östliche Königreiche
-    [1416] = { 30, 40 }, -- Alteracgebirge
-    [1417] = { 30, 40 }, -- Arathihochland
-    [1418] = { 35, 45 }, -- Ödland
-    [1419] = { 45, 55 }, -- Verwüstete Lande
-    [1420] = { 1, 10 },  -- Tirisfal
-    [1421] = { 10, 20 }, -- Silberwald
-    [1422] = { 51, 58 }, -- Westliche Pestländer
-    [1423] = { 53, 60 }, -- Östliche Pestländer
-    [1424] = { 20, 30 }, -- Vorgebirge des Hügellands
-    [1425] = { 40, 50 }, -- Hinterland
+    [1452] = { 53, 60 }, -- Winterspring
+    [2482] = { 60, 60 }, -- Hyjal (Forever, endgame)
+    [2652] = { 40, 50 }, -- Shen'dralas (Forever, uncertain)
+    [2521] = { 1, 12 },  -- Zephras Isle (Forever, starting zone)
+    [2665] = { 1, 12 },  -- Zephras Isle (second map)
+    -- Eastern Kingdoms
+    [1416] = { 30, 40 }, -- Alterac Mountains
+    [1417] = { 30, 40 }, -- Arathi Highlands
+    [1418] = { 35, 45 }, -- Badlands
+    [1419] = { 45, 55 }, -- Blasted Lands
+    [1420] = { 1, 10 },  -- Tirisfal Glades
+    [1421] = { 10, 20 }, -- Silverpine Forest
+    [1422] = { 51, 58 }, -- Western Plaguelands
+    [1423] = { 53, 60 }, -- Eastern Plaguelands
+    [1424] = { 20, 30 }, -- Hillsbrad Foothills
+    [1425] = { 40, 50 }, -- The Hinterlands
     [1426] = { 1, 10 },  -- Dun Morogh
-    [1427] = { 43, 50 }, -- Sengende Schlucht
-    [1428] = { 50, 58 }, -- Brennende Steppe
-    [1429] = { 1, 10 },  -- Wald von Elwynn
-    [1430] = { 55, 60 }, -- Gebirgspass der Totenwinde
-    [1431] = { 18, 30 }, -- Dämmerwald
+    [1427] = { 43, 50 }, -- Searing Gorge
+    [1428] = { 50, 58 }, -- Burning Steppes
+    [1429] = { 1, 10 },  -- Elwynn Forest
+    [1430] = { 55, 60 }, -- Deadwind Pass
+    [1431] = { 18, 30 }, -- Duskwood
     [1432] = { 10, 20 }, -- Loch Modan
-    [1433] = { 15, 25 }, -- Rotkammgebirge
-    [1434] = { 30, 45 }, -- Schlingendorntal
-    [1435] = { 35, 45 }, -- Sümpfe des Elends
+    [1433] = { 15, 25 }, -- Redridge Mountains
+    [1434] = { 30, 45 }, -- Stranglethorn Vale
+    [1435] = { 35, 45 }, -- Swamp of Sorrows
     [1436] = { 10, 20 }, -- Westfall
-    [1437] = { 20, 30 }, -- Sumpfland
+    [1437] = { 20, 30 }, -- Wetlands
     [2548] = { 35, 45 }, -- Riverglades (Forever)
 }
 
--- Fraktion je Gebiet (klassisch; Benny 2026-11-08): Name blau (Allianz), rot (Horde), gelb (umkämpft)
--- mit Wappen davor. Nicht eingetragen (Zephras Isle, Schlachtfelder) = Blizzards normale Farbe.
+-- Faction per zone (classic): name blue (Alliance), red (Horde), yellow (contested), crest in front.
+-- Unlisted (Zephras Isle, battlegrounds) = Blizzard's default color.
 local ALLIANCE, HORDE, BOTH = "Alliance", "Horde", "both"
 local ZONE_FACTION = {
     [1429] = ALLIANCE, [1426] = ALLIANCE, [1438] = ALLIANCE, [1436] = ALLIANCE, [1432] = ALLIANCE,
@@ -85,9 +83,9 @@ function ns.ZoneLevels(mapID)
     if entry then return entry[1], entry[2] end
 end
 
--- Stufen von Instanzen aus Blizzards Gruppensuche (C_LFGList-Aktivitäten haben mapID und empfohlene
--- Stufen; Benny 2026-11-08). Mehrere Aktivitäten je Instanz (Düsterbruch-Flügel, Schwarzfelsspitze
--- unten/oben) werden zu einem Bereich zusammengefasst. Einmal gebaut, dann zwischengespeichert.
+-- Instance levels from Blizzard's group finder (C_LFGList activities carry mapID and suggested levels).
+-- Multiple activities per instance (Dire Maul wings, Lower/Upper Blackrock Spire) are merged into one
+-- range. Built once, then cached.
 local instanceLevels
 function ns.InstanceLevels(mapID)
     if not instanceLevels then
@@ -113,7 +111,7 @@ function ns.InstanceLevels(mapID)
     if entry then return entry[1], entry[2] end
 end
 
--- Farbe wie Blizzard (grau zu leicht … rot zu schwer) für einen Stufenbereich
+-- Blizzard-style color for a level range (gray = too easy ... red = too hard)
 local function RangeColor(low, high)
     local level = UnitLevel("player")
     local color
@@ -128,7 +126,7 @@ local function RangeColor(low, high)
 end
 ns.LevelRangeColor = RangeColor
 
--- „ (18–30)“ in der Farbe wie Blizzard (grau zu leicht … rot zu schwer)
+-- " (18-30)" colored like Blizzard (gray = too easy ... red = too hard)
 function ns.ZoneLevelText(mapID)
     local low, high = ns.ZoneLevels(mapID)
     if not low then return end
@@ -137,7 +135,7 @@ function ns.ZoneLevelText(mapID)
     if level < low then
         color = GetQuestDifficultyColor(low)
     elseif level > high then
-        color = GetQuestDifficultyColor(high - 2) -- wie Blizzard: ganz darunter nicht mehr gelb
+        color = GetQuestDifficultyColor(high - 2) -- like Blizzard: far below no longer yellow
     else
         color = QuestDifficultyColors and QuestDifficultyColors.difficult
     end
@@ -145,7 +143,7 @@ function ns.ZoneLevelText(mapID)
     return color and (RGBTableToColorCode(color) .. " (" .. range .. ")" .. FONT_COLOR_CODE_CLOSE) or (" (" .. range .. ")")
 end
 
--- 1. Aufdecken ----------------------------------------------------------------------------------
+-- 1. Reveal -------------------------------------------------------------------------------------
 
 local function SplitIDs(text)
     local ids = {}
@@ -211,14 +209,14 @@ local function RefreshReveal(canvas)
     end
 end
 
--- 2. Stufen am Gebietsnamen -------------------------------------------------------------------
+-- 2. Levels on zone names ----------------------------------------------------------------------
 
 local function PatchAreaLabel(canvas, label)
-    -- Wappen links neben dem Namen: echte Bilder, an der Zeilenmitte ausgerichtet
+    -- faction crests left of the name: real textures, aligned to the line's center
     label.muiFaction = {}
     for i = 1, 2 do
         local icon = label:CreateTexture(nil, "OVERLAY")
-        icon:SetSize(30, 30) -- 22 war kaum zu erkennen (Benny 2026-11-08)
+        icon:SetSize(30, 30) -- 22 was barely visible
         icon:Hide()
         label.muiFaction[i] = icon
     end
@@ -231,7 +229,7 @@ local function PatchAreaLabel(canvas, label)
         local x, y = canvas:GetNormalizedCursorPosition()
         local at = C_Map.GetMapInfoAtPosition(canvas:GetMapID(), x, y)
         if not (at and at.mapID ~= canvas:GetMapID()) then return end
-        if not info.name:find("|c") then -- Blizzard hat keine Stufen geliefert (Forever)
+        if not info.name:find("|c") then -- Blizzard supplied no levels (Forever)
             local text = ns.ZoneLevelText(at.mapID)
             if text then info.name = info.name .. text end
         end
@@ -261,12 +259,11 @@ local function PatchAreaLabel(canvas, label)
     end)
 end
 
--- 3. Dungeon-Eingänge ---------------------------------------------------------------------------
--- Blizzard holt sie aus dem Dungeonkompendium (C_EncounterJournal), das in Forever aus ist > der Haken
--- „Dungeon-Eingänge zeigen“ tat nichts (Benny 2026-11-08). Eingänge aus Blizzards Map-Tabelle (Forever
--- 1.60.1, Corpse-Punkt = Geisterlauf-Ziel am Eingang): { Instanz-Map, Kontinent, Welt-X, Welt-Y, Raid, Name }.
--- Wirbel wie in Retail: Atlas „dungeon“ (blau) bzw. „raid“ (grün). Neue Forever-Instanzen haben dort
--- noch keinen Punkt.
+-- 3. Dungeon entrances --------------------------------------------------------------------------
+-- Blizzard takes them from the Encounter Journal (C_EncounterJournal), which is disabled in Forever, so
+-- the "Show dungeon entrances" option did nothing. Entrances from Blizzard's map table (Forever 1.60.1,
+-- corpse point = ghost run target at the entrance): { instanceMap, continent, worldX, worldY, raid, name }.
+-- Swirl like Retail: atlas "dungeon" (blue) or "raid" (green). New Forever instances have no point yet.
 local ENTRANCES = {
     { 33, 0, -231.0, 1571.6, false, "Shadowfang Keep" },
     { 34, 0, -8762.4, 848.0, false, "Stormwind Stockade" },
@@ -294,15 +291,14 @@ local ENTRANCES = {
     { 509, 1, -8114.5, 1526.4, true, "Ruins of Ahn'Qiraj" },
     { 531, 1, -8111.7, 1526.8, true, "Ahn'Qiraj Temple" },
 }
--- Größe nach Kartenebene (Benny 2026-11-08): auf der Zonenkarte deutlich größer, damit der Eingang auffällt
+-- size per map level: much larger on the zone map so the entrance stands out
 local PIN_SIZE = { continent = 22, zone = 36 }
 
--- Wege zum Portal (Benny 2026-11-08): viele Portale liegen tief in Höhlen/Bergen. Außen-Eingänge je
--- Instanz-Map: { uiMapID, x, y (0–1), Hinweis }. Beim Drüberfahren über den Wirbel auf der Zonenkarte:
--- Salbei-Ring mit Punkt an jedem Eingang, Hinweis darunter. Keine Linie mehr (Benny 2026-11-08: den
--- echten Weg kann eine gerade Linie nicht zeigen, sie verwirrte nur).
+-- Approaches to the portal: many portals lie deep in caves/mountains. Outer entrances per instance map:
+-- { uiMapID, x, y (0-1), hint }. Hovering the swirl on the zone map shows an accent ring with a dot at
+-- each entrance and the hint below. No connecting line: a straight line cannot show the real path.
 local APPROACHES = ns.DUNGEON_APPROACHES or {}
-local ARROW_SIZE = 16 -- Ring am Eingang
+local ARROW_SIZE = 16 -- ring at the entrance
 
 local EntranceProvider = CreateFromMixins(MapCanvasDataProviderMixin)
 
@@ -329,11 +325,11 @@ function EntranceProvider:ShowPaths(pin)
     local hints = {}
     for _, a in ipairs(list) do
         if a[1] == mapID then
-            -- Strecke in Bildschirm-Pixeln (Kartenpixel × Zoom), damit die Punkte immer gleich dicht sind
+            -- distance in screen pixels (map pixels x zoom) so the threshold is zoom-independent
             local ax, ay, px, py = a[2] * w, a[3] * h, pin.x * w, pin.y * h
             local length = math.sqrt(((px - ax) * scale) ^ 2 + ((py - ay) * scale) ^ 2)
-            if length >= 30 then -- sonst liegt der Eingang praktisch am Portal: kein Weg nötig
-            -- Ring am Eingang, gegen-skaliert (gleich groß bei jedem Zoom)
+            if length >= 30 then -- otherwise the entrance is practically at the portal: no path needed
+            -- ring at the entrance, counter-scaled (same size at every zoom)
             marks = marks + 1
             local mark = self.path.marks[marks]
             if not mark then
@@ -350,12 +346,12 @@ function EntranceProvider:ShowPaths(pin)
                 mark.arrow:SetAllPoints()
                 mark.text = ns.CreateText(mark, 12, "CENTER", "OUTLINE")
                 mark.text:SetPoint("TOP", mark, "BOTTOM", 0, -3)
-                mark.text:SetWidth(120) -- schmal umbrechen; Hinweise kurz halten, kein Einzelwort breiter als ~120 px (Benny 2026-11-08)
+                mark.text:SetWidth(120) -- narrow wrap; keep hints short, no single word wider than ~120 px
                 mark.text:SetWordWrap(true)
                 mark.text:SetTextColor(unpack(ns.UI.ACCENT))
                 self.path.marks[marks] = mark
             end
-            -- Ring mit Punkt = „hier geht's rein“ (Pfeile wirkten wie Wegweiser woandershin, Benny 2026-11-08)
+            -- ring with dot = "enter here" (arrows looked like signposts pointing elsewhere)
             mark.text:SetText(a[4] or "")
             mark:SetScale(1 / scale)
             mark:ClearAllPoints()
@@ -374,7 +370,7 @@ function EntranceProvider:RemoveAllData()
     self.used = 0
 end
 
--- Pins hängen in der Kartenfläche (zoomen mit), Gegen-Skalierung hält sie gleich groß
+-- Pins live in the canvas (zoom with it); counter-scaling keeps them a constant size
 function EntranceProvider:Place()
     local map = self:GetMap()
     local child = map:GetCanvas()
@@ -393,7 +389,7 @@ function EntranceProvider:RefreshAllData()
     local map = self:GetMap()
     local mapID = map:GetMapID()
     if not mapID then return end
-    -- erst ab Kontinent, auf der Azeroth-Gesamtkarte zu unruhig (Benny 2026-11-08)
+    -- continent level and below only; too cluttered on the Azeroth map
     local info = C_Map.GetMapInfo(mapID)
     if not info or info.mapType <= Enum.UIMapType.World then return end
     self.pins = self.pins or {}
@@ -401,7 +397,7 @@ function EntranceProvider:RefreshAllData()
     for _, e in ipairs(ENTRANCES) do
         local _, pos = C_Map.GetMapPosFromWorldPos(e[2], CreateVector2D(e[3], e[4]), mapID)
         local x, y
-        if pos then x, y = pos:GetXY() end -- nicht „pos and pos:GetXY()“: das liefert nur einen Wert
+        if pos then x, y = pos:GetXY() end -- not "pos and pos:GetXY()": that yields only one value
         if x and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
             self.used = self.used + 1
             local pin = self.pins[self.used]
@@ -410,10 +406,10 @@ function EntranceProvider:RefreshAllData()
                 pin.icon = pin:CreateTexture(nil, "ARTWORK")
                 pin.icon:SetAllPoints()
                 pin:EnableMouse(true)
-                pin:SetMouseClickEnabled(false) -- Klicks gehen an die Karte (Zoom, Ebene hoch)
+                pin:SetMouseClickEnabled(false) -- clicks go to the map (zoom, navigate up)
                 local provider = self
                 pin:SetScript("OnEnter", function(self)
-                    -- links oberhalb: die Eingangs-Hinweise stehen unter ihren Ringen (Benny 2026-11-08)
+                    -- above left: the entrance hints sit below their rings
                     GameTooltip:SetOwner(self, "ANCHOR_NONE")
                     GameTooltip:ClearAllPoints()
                     GameTooltip:SetPoint("BOTTOMRIGHT", self, "TOPLEFT", -4, 4)
@@ -428,7 +424,7 @@ function EntranceProvider:RefreshAllData()
                     else
                         GameTooltip:AddLine(kind, 0.6, 0.59, 0.56)
                     end
-                    -- Weg vom Außen-Eingang nur auf der Zonenkarte
+                    -- approach paths only on the zone map
                     local zone = (C_Map.GetMapInfo(provider:GetMap():GetMapID()) or {}).mapType == Enum.UIMapType.Zone
                     local hints = zone and provider:ShowPaths(self)
                     if hints and #hints > 0 then
@@ -458,7 +454,7 @@ end
 function EntranceProvider:OnCanvasScaleChanged() self:Place() end
 function EntranceProvider:OnCanvasSizeChanged() self:Place() end
 
--- Einhängen in eine Kartenfläche (Map/WorldMap.lua); areaLabelProvider = Blizzards Gebietsnamen
+-- Attach to a map canvas (Map/WorldMap.lua); areaLabelProvider = Blizzard's area label provider
 function ns.AttachMapExtras(canvas, areaLabelProvider)
     local frame = CreateFrame("Frame", nil, canvas:GetCanvas())
     frame:SetAllPoints()
