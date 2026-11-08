@@ -1,23 +1,22 @@
--- Emojis und Zeichen im Chat (Benny 2026-11-06):
---   • Smileys aus Text (:D, :-D, xD, <3, ^^ …) und echte Emojis werden zu kleinen Bildern
---     (Twemoji, Media/Emoji/<code>.tga, 64×64) – nur wer MUI hat, sieht die Bilder.
---   • Zeichen, die unsere Chat-Schrift (mUI) nicht kennt, erscheinen sonst als Rechteck:
---     bekannte als Text ersetzt (♥ > <3 …), übrige fallen weg. Abdeckung aus der Schriftdatei
---     gelesen (cmap von Media/Fonts/mUI.ttf, 390 Zeichen; Pfeile ← ↑ → ↓ kennt sie selbst).
+-- Emoji and glyphs in chat:
+--   Text smileys (:D, xD, <3, ^^ ...) and real emoji become small images (Twemoji,
+--   Media/Emoji/<code>.tga, 64x64) - only visible to MUI users.
+--   Glyphs missing from the mUI chat font would render as boxes: known ones get a text
+--   replacement, the rest are dropped. Coverage taken from the cmap of Media/Fonts/mUI.ttf.
 local _, ns = ...
 
--- vorhandene Bilder (Unicode > Datei)
+-- Available images (codepoint -> texture)
 local IMAGES = {}
 for _, code in ipairs({ 0x1F642, 0x1F600, 0x1F603, 0x1F604, 0x1F601, 0x1F606, 0x1F602, 0x1F923, 0x1F609,
     0x1F61B, 0x1F61C, 0x1F641, 0x1F622, 0x1F62D, 0x1F62E, 0x1F610, 0x1F611, 0x2764, 0x1F494, 0x1F60A, 0x1F63A,
     0x1F44B, 0x1F44D, 0x1F44E, 0x1F618, 0x1F60E, 0x1F620, 0x1F615, 0x1F60D, 0x1F914, 0x1F644, 0x1F973, 0x1F525,
     0x1F389, 0x1F480, 0x1F64F, 0x1F44F, 0x1F607, 0x1F605, 0x1F62C }) do
-    IMAGES[code] = ("|T%sEmoji\\%x:0:0:0:-3|t"):format(ns.MEDIA, code) -- y -3: auf Schrifthöhe (Benny 2026-11-07)
+    IMAGES[code] = ("|T%sEmoji\\%x:0:0:0:-3|t"):format(ns.MEDIA, code) -- y -3: align with the text baseline
 end
-IMAGES[0x2665] = IMAGES[0x2764] -- ♥ wie ❤
-IMAGES[0x263A] = IMAGES[0x1F642] -- ☺
+IMAGES[0x2665] = IMAGES[0x2764] -- heart suit -> heart
+IMAGES[0x263A] = IMAGES[0x1F642] -- smiling face
 
--- Smileys aus Text (nur als eigenes Wort, damit „http://“ oder „10:30“ unberührt bleiben)
+-- Text smileys (whole words only, so "http://" or "10:30" stay untouched)
 local SMILEYS = {
     [":)"] = 0x1F642, [":-)"] = 0x1F642, ["(:"] = 0x1F642, [":]"] = 0x1F642,
     [":D"] = 0x1F600, [":-D"] = 0x1F600, ["=D"] = 0x1F600,
@@ -42,7 +41,7 @@ local function EmojiOn()
     return ns.db and ns.db.chatEmoji ~= false
 end
 
-local SUPPORTED = { -- Bereiche von bis (Unicode)
+local SUPPORTED = { -- codepoint ranges covered by the font
     { 0x20, 0x7E}, { 0xA0, 0xA3}, { 0xA5, 0xAC}, { 0xAE, 0xB4}, { 0xB6, 0x107}, { 0x10A, 0x11B},
     { 0x11E, 0x123}, { 0x126, 0x127}, { 0x12A, 0x133}, { 0x136, 0x137}, { 0x139, 0x148}, { 0x14A, 0x15B},
     { 0x15E, 0x17E}, { 0x192, 0x192}, { 0x218, 0x21B}, { 0x2C6, 0x2C7}, { 0x2D8, 0x2DD}, { 0x394, 0x394},
@@ -69,7 +68,7 @@ local REPLACE = {
     [0x00B4] = "'", [0x2032] = "'", [0x00AD] = "",
 }
 
-local supported = {} -- Zwischenspeicher je Zeichen
+local supported = {} -- per-codepoint cache
 local function IsSupported(code)
     local known = supported[code]
     if known ~= nil then return known end
@@ -94,12 +93,12 @@ end
 local function Fix(char)
     local code = Decode(char)
     if IsSupported(code) then return char end
-    if code == 0xFE0F or code == 0x200D then return "" end -- Emoji-Anhängsel
+    if code == 0xFE0F or code == 0x200D then return "" end -- emoji variation selector / ZWJ
     if EmojiOn() and IMAGES[code] then return IMAGES[code] end
     return REPLACE[code] or ""
 end
 
--- Smileys nur außerhalb von Links ersetzen (|H…|h[Name]|h bleibt unverändert)
+-- Replace smileys only outside hyperlinks (|H...|h[Name]|h stays intact)
 local function Smileys(text)
     local links = {}
     text = text:gsub("|H.-|h.-|h", function(link)

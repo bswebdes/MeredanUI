@@ -1,28 +1,23 @@
--- RP-Modus: blendet die ganze Oberfläche weich aus – übrig bleiben Chat, Emote-Leiste und Toasts.
--- Auf Wunsch (Standard) auch Namensplaketten und Namen über den Köpfen (per CVars, die alten
--- Werte werden gemerkt und beim Beenden – auch nach /reload – zurückgesetzt).
---
---   An/aus: Masken-Knopf am Ende der Emote-Leiste · /rp · eigene Taste (Tastenbelegung > MeredanUI)
---   Kampf beendet den Modus sofort (Toast), damit du nie ohne Leisten kämpfst.
---
--- Technik: UIParent auf Alpha 0 (wie der AFK-Bildschirm); was sichtbar bleiben soll, ignoriert
--- für die Zeit die Eltern-Transparenz (SetIgnoreParentAlpha). Nichts wird versteckt oder
--- umgehängt > kein Taint, geht auch mit Kampfsperre. Unsichtbare Leisten bleiben klickbar.
+-- RP mode: fades out the whole UI except chat, emote bar and toasts; also hides nameplates and
+-- unit names via CVars (old values saved and restored on exit, even after /reload).
+-- Toggle: mask button on the emote bar, /rp, or a key binding. Entering combat ends it at once.
+-- UIParent goes to alpha 0 and kept frames use SetIgnoreParentAlpha - nothing is hidden or
+-- reparented, so no taint and it works in combat lockdown. Invisible bars remain clickable.
 local _, ns = ...
 local L = ns.L
 
 local FADE = 0.3
 
 local active = false
-local alpha = 1      -- aktuelle UI-Deckkraft (1 > 0 beim Einschalten)
-local kept = {}      -- frame > vorheriger IgnoreParentAlpha-Wert
+local alpha = 1      -- current UI alpha (1 -> 0 when enabling)
+local kept = {}      -- frame -> previous IgnoreParentAlpha value
 local fader
 
--- Deckkraft, die der AFK-Bildschirm als Basis nimmt
+-- Base alpha used by the AFK screen
 function ns.RPModeAlpha() return alpha end
 function ns.RPModeActive() return active end
 
--- Namensplaketten und Namen über den Köpfen (nur, was es im Client gibt)
+-- Nameplate and unit name CVars (only those the client has are touched)
 local NAME_CVARS = {
     "nameplateShowEnemies", "nameplateShowFriendlyPlayers", "nameplateShowFriendlyNpcs",
     "UnitNameOwn", "UnitNameNPC", "UnitNameInteractiveNPC", "UnitNameHostleNPC",
@@ -40,7 +35,7 @@ local function HideNames()
             C_CVar.SetCVar(name, "0")
         end
     end
-    ns.char.rpCVars = saved -- gemerkt, falls mitten im RP-Modus neu geladen wird
+    ns.char.rpCVars = saved -- persisted in case of a reload during RP mode
 end
 
 local function RestoreNames()
@@ -50,7 +45,7 @@ local function RestoreNames()
     ns.char.rpCVars = nil
 end
 
--- alles, was im RP-Modus sichtbar bleibt
+-- Frames that stay visible in RP mode
 local function KeepList()
     local list = {}
     local function Add(frame) if frame and frame.SetIgnoreParentAlpha then list[#list + 1] = frame end end
@@ -60,7 +55,7 @@ local function KeepList()
         Add(_G["ChatFrame" .. i .. "Tab"])
         Add(_G["ChatFrame" .. i .. "EditBox"])
     end
-    for _, name in ipairs(CHAT_FRAMES or {}) do -- Flüsterfenster u. ä.
+    for _, name in ipairs(CHAT_FRAMES or {}) do -- whisper windows etc.
         Add(_G[name]); Add(_G[name .. "Tab"]); Add(_G[name .. "EditBox"])
     end
     Add(GeneralDockManager)
@@ -87,8 +82,8 @@ local function Release()
     wipe(kept)
 end
 
--- Minimap: Spielerpfeil, Quest-Pfeile und Punkte zeichnet das Spiel ohne Transparenz →
--- die Minimap (MUI-Halter, nicht geschützt) wird im RP-Modus richtig versteckt
+-- The minimap's player arrow, quest arrows and blips ignore alpha, so the (unprotected) MUI
+-- minimap holder is actually hidden in RP mode
 local minimapWasShown
 local function HideMinimap()
     local holder = MeredanUIMinimap or MinimapCluster
@@ -133,12 +128,12 @@ function ns.SetRPMode(on)
     if active then Keep(); HideNames() else RestoreNames(); ShowMinimap() end
     fader:SetScript("OnUpdate", OnUpdate)
     UpdateButton()
-    if ns.UpdateEmoteBar then ns.UpdateEmoteBar() end -- Emote-Leiste ist im RP-Modus immer da
+    if ns.UpdateEmoteBar then ns.UpdateEmoteBar() end -- emote bar is always shown in RP mode
 end
 
 function ns.ToggleRPMode() ns.SetRPMode(not active) end
 
--- Tastenbelegung (Bindings.xml)
+-- Key bindings (Bindings.xml)
 BINDING_HEADER_MEREDANUI = "MeredanUI"
 BINDING_NAME_MEREDANUI_RPMODE = L["Toggle RP mode"]
 _G["BINDING_NAME_CLICK MeredanUIQuestItem1:LeftButton"] = L["Use quest item"] -- Quests/Tracker.lua
@@ -150,13 +145,13 @@ ns.AddCommand("rp", L["toggle RP mode (only chat and emotes)"], function() ns.To
 
 fader = CreateFrame("Frame")
 
--- Kampf: sofort alles zurück
+-- Combat: restore everything immediately
 ns:On("PLAYER_REGEN_DISABLED", function()
     if not active then return end
     active = false
     alpha = 1
     Apply()
-    RestoreNames() -- vor der Kampfsperre: Plaketten-CVars sind im Kampf gesperrt
+    RestoreNames() -- before lockdown: nameplate CVars are locked in combat
     ShowMinimap()
     fader:SetScript("OnUpdate", nil)
     UpdateButton()
@@ -167,5 +162,5 @@ ns:On("PLAYER_REGEN_DISABLED", function()
     end
 end)
 
--- /reload oder Absturz mitten im RP-Modus: Namen wieder herstellen
+-- Restore names after a /reload or crash during RP mode
 ns:On("PLAYER_LOGIN", function() C_Timer.After(1, function() ns.AfterCombat(RestoreNames) end) end)

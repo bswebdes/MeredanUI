@@ -1,21 +1,18 @@
--- Ruf im Chat mit Balken (nach Pretty Reputation, Benny 2026-11-06): statt Blizzards Zeile
--- „Euer Ruf bei Darnassus hat sich um 250 verbessert.“ steht im Chat
---
---   +250 Darnassus  ■■■□□□□□□□  Wohlwollend 2.340 / 6.000  · Sitzung +1.250
---
--- Der Balken sind 10 Kästchen in der Chatzeile (Farbe der Rufstufe). Die Zeile kommt
--- kurz nach Blizzards Meldung, damit der neue Stand schon gilt; Blizzards Zeile wird ausgefiltert.
+-- Reputation chat line with a bar (inspired by Pretty Reputation). Replaces Blizzard's message:
+--   +250 Darnassus  [###-------]  Friendly 2,340 / 6,000  - Session +1,250
+-- The bar is 10 segments colored by standing. Printed shortly after Blizzard's message so the
+-- new standing is already available; Blizzard's line is filtered out.
 local _, ns = ...
 local L = ns.L
 
 local BAR_HEIGHT = 8
-local session = {} -- Ruf je Fraktion seit dem Einloggen
+local session = {} -- reputation gained per faction since login
 
 local function Enabled()
     return ns.db and ns.db.chatReputation ~= false
 end
 
--- Blizzards Textvorlagen (sprachunabhängig) in Suchmuster umwandeln
+-- Turn Blizzard's global strings into match patterns (locale-independent)
 local patterns = {}
 for _, name in ipairs({ "FACTION_STANDING_INCREASED", "FACTION_STANDING_INCREASED_ACCOUNT_WIDE",
     "FACTION_STANDING_INCREASED_BONUS", "FACTION_STANDING_INCREASED_DOUBLE_BONUS",
@@ -23,7 +20,7 @@ for _, name in ipairs({ "FACTION_STANDING_INCREASED", "FACTION_STANDING_INCREASE
     "FACTION_STANDING_DECREASED", "FACTION_STANDING_DECREASED_ACCOUNT_WIDE" }) do
     local template = _G[name]
     if type(template) == "string" then
-        -- Platzhalter zuerst sichern, dann Sonderzeichen maskieren, dann Fangmuster einsetzen
+        -- Protect placeholders, escape magic chars, then insert captures
         local p = template:gsub("%%%d%$", "%%"):gsub("%%%.1f", "\1"):gsub("%%s", "\2"):gsub("%%d", "\3")
         p = p:gsub("([%(%)%.%-%+%[%]%?%^%$%*])", "%%%1")
         p = p:gsub("\1", "[%%d%%.,]+"):gsub("\2", "(.-)"):gsub("\3", "(%%d+)")
@@ -40,8 +37,8 @@ local function Parse(text)
     end
 end
 
--- Fraktion nach Namen: FACTION_STANDING_CHANGED liefert bei jeder Änderung die Fraktions-ID –
--- so klappt es auch, wenn die Gruppe im Ruffenster eingeklappt ist
+-- Name -> faction ID from FACTION_STANDING_CHANGED; works even when the faction's header is
+-- collapsed in the reputation pane
 local idByName = {}
 ns:On("FACTION_STANDING_CHANGED", function(_, factionID)
     local data = factionID and C_Reputation.GetFactionDataByID(factionID)
@@ -58,8 +55,8 @@ local function FindFaction(name)
     end
 end
 
--- 10 Segmente wie die Combo-Punkte (Benny 2026-11-07, Variante C): Segment.tga hat rechts eine
--- transparente Lücke, so stehen die Kästchen mit Abstand nebeneinander.
+-- 10 segments like the combo points; Segment.tga has a transparent gap on the right,
+-- which spaces the segments apart.
 local SEGMENTS, SEGMENT_WIDTH = 10, 10
 local SEGMENT = ns.MEDIA .. "Segment"
 local function Bar(fill, color)
@@ -68,7 +65,7 @@ local function Bar(fill, color)
     for i = 1, SEGMENTS do
         local r, g, b = 0.2, 0.21, 0.21
         if i <= full then r, g, b = color.r, color.g, color.b end
-        -- y -4: mittig zur Schrift (Expressway sitzt tief, Benny 2026-11-07)
+        -- y -4: center on the text (Expressway sits low)
         parts[i] = ("|T%s:%d:%d:0:-4:16:16:0:16:0:16:%d:%d:%d|t"):format(SEGMENT, BAR_HEIGHT, SEGMENT_WIDTH,
             r * 255, g * 255, b * 255)
     end
@@ -91,7 +88,7 @@ local function Line(name, amount)
             local have, need = (data.currentStanding or 0) - low, high - low
             text = text .. "  " .. Bar(have / need, color) .. "  " .. hex .. standing .. "|r "
                 .. BreakUpLargeNumbers(have) .. " / " .. BreakUpLargeNumbers(need)
-        else -- höchste Stufe
+        else -- max standing
             text = text .. "  " .. Bar(1, color) .. "  " .. hex .. standing .. "|r"
         end
     end
@@ -102,7 +99,7 @@ local function Line(name, amount)
     return text
 end
 
--- in alle Chatfenster, die Rufmeldungen zeigen
+-- Print to every chat frame that shows reputation messages
 local function Print(text)
     local info = ChatTypeInfo and ChatTypeInfo.COMBAT_FACTION_CHANGE
     local r, g, b = info and info.r or 0.5, info and info.g or 0.5, info and info.b or 1
@@ -118,7 +115,7 @@ end
 ns:On("PLAYER_LOGIN", function()
     local addFilter = ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter or ChatFrame_AddMessageEventFilter
     addFilter("CHAT_MSG_COMBAT_FACTION_CHANGE", function(_, _, text)
-        return Enabled() and Parse(text) ~= nil -- eigene Zeile statt Blizzards
+        return Enabled() and Parse(text) ~= nil -- our line replaces Blizzard's
     end)
 end)
 
@@ -126,5 +123,5 @@ ns:On("CHAT_MSG_COMBAT_FACTION_CHANGE", function(_, text)
     if not Enabled() then return end
     local faction, amount = Parse(text)
     if not faction then return end
-    C_Timer.After(0.2, function() Print(Line(faction, amount)) end) -- neuer Stand ist dann da
+    C_Timer.After(0.2, function() Print(Line(faction, amount)) end) -- new standing is available by then
 end)

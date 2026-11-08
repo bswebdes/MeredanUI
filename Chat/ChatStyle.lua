@@ -1,28 +1,27 @@
--- Chat im Glass-Stil (Vorbild: Glass / ls: Glass): kein Kasten, Text mit Schatten direkt über
--- der Spielwelt, ältere Nachrichten blenden aus und kommen beim Drüberfahren zurück. Unten
--- links, 25 px Rand. Funktionen nach Prat-Vorbild (Prat3).
+-- Glass-style chat (inspired by "ls: Glass"): no box, shadowed text over the game world;
+-- older messages fade and return on mouseover. Bottom left at the screen margin.
+-- Features modeled after Prat3.
 --
---   Allgemein  Kampflog                                [Kopieren]   ← Tabs in Kanalfarbe,
---                                                                      Kopieren beim Hover
---   12:04 [G] Benny: Hi!
---   12:05 [1] Händler: verkaufe … https://…               ← Links anklickbar (Kopieren)
---   ┌ Eingabezeile, flach (nur beim Tippen) ┐
+--   General  Combat Log                 [Copy]   <- tabs in channel color, copy on hover
+--   12:04 [G] Koratal: Hi!
+--   12:05 [1] Trader: selling ... https://...    <- clickable links (copy)
+--   [ flat edit box, only while typing ]
 --
--- Blizzards Hintergrund, Rahmen, Seitenknöpfe und Tab-/Eingabe-Grafiken verschwinden; die
--- Fenster selbst (Tabs, Docken, Scrollen) bleiben Blizzards. Geschützte Nachrichten
--- (Midnight-Chatsperre) werden nie verändert.
+-- Blizzard's background, borders, side buttons and tab/edit box art are removed; the windows
+-- themselves (tabs, docking, scrolling) stay Blizzard's. Protected messages (Midnight chat
+-- lockdown) are never modified.
 local _, ns = ...
 local L = ns.L
 
-local WIDTH, HEIGHT = 440, 160 -- auf kleinen Bildschirmen schmaler (nie in die Shift-Leiste hinein); Benny 2026-11-07: einen Tick kleiner (vorher 480 × 180)
+local WIDTH, HEIGHT = 440, 160 -- narrower on small screens (never into the extra bar)
 local TAB_HEIGHT = 22
-local TAB_GAP = 10 -- Luft zwischen Tabs und erster Chatzeile (Blizzard: 3)
+local TAB_GAP = 10 -- space between tabs and first chat line (Blizzard: 3)
 local EDIT_HEIGHT = 22
 local FADE_SECONDS = 3
-local TABS_LINGER = 1.5        -- Tabs bleiben nach dem Wegfahren noch so lange, dann blenden sie aus
-local GLASS_FADE = 0.3         -- Ein-/Ausblenden der Tabs (Sekunden)
-local SLIDE_SECONDS = 0.18     -- neue Zeile gleitet von unten herein
-local CHANNEL_GAP = 6          -- zusätzliche Lücke, wenn die nächste Nachricht aus einem anderen Kanal kommt
+local TABS_LINGER = 1.5        -- tabs stay this long after the mouse leaves, then fade
+local GLASS_FADE = 0.3         -- tab fade in/out (seconds)
+local SLIDE_SECONDS = 0.18     -- new line slides in from below
+local CHANNEL_GAP = 6          -- extra gap when the next message is from another channel
 
 local hidden = CreateFrame("Frame")
 hidden:Hide()
@@ -31,7 +30,7 @@ local function Kill(region)
     if region then region:SetParent(hidden) end
 end
 
--- Alle Grafiken eines Frames unsichtbar (Texte bleiben)
+-- Clear all textures of a frame (font strings stay)
 local function ClearTextures(frame)
     for _, region in ipairs({ frame:GetRegions() }) do
         if region:IsObjectType("Texture") then region:SetTexture(nil) end
@@ -47,15 +46,15 @@ local function ChatFrames()
     return frames
 end
 
--- Text ohne Farb-/Link-/Bildcodes (zum Kopieren)
+-- Strip color/link/texture codes (for copying)
 local function PlainText(text)
     text = text:gsub("|H.-|h(.-)|h", "%1"):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|cn.-:", ""):gsub("|r", "")
         :gsub("|T.-|t", ""):gsub("|A.-|a", ""):gsub("|K.-|k", L["(protected)"]):gsub("|n", " ")
-    -- übrige „|“ wörtlich nehmen – ein einziger unbekannter Code lässt sonst das ganze Textfeld leer
+    -- Escape remaining pipes - a single unknown code would blank the whole edit box
     return (text:gsub("|", "||"))
 end
 
--- Kopierfenster: ein Text zum Markieren und Kopieren (Strg+C) --------------------------------
+-- Copy window: text to select and copy (Ctrl+C) ------------------------------------------
 
 local copyWindow
 
@@ -97,20 +96,20 @@ local function ShowCopyWindow(title, text)
     window.title:SetText(title)
     window.hint:SetText(L["Select with Ctrl+A, copy with Ctrl+C."])
     window:Show()
-    -- Breite direkt aus der Fenstergröße (die Scroll-Fläche ist beim ersten Öffnen noch 0 breit)
+    -- Width from the window size (the scroll child is still 0 wide on first open)
     box:SetWidth(window:GetWidth() - 34)
     box:SetMaxLetters(0)
     box:SetText(text)
     box:SetFocus()
     box:HighlightText()
-    C_Timer.After(0, function() -- Höhe des Textes steht erst nach dem Zeichnen fest
+    C_Timer.After(0, function() -- text height is only known after layout
         window.scroll:SetContentHeight(box:GetHeight())
         window.scroll:SetVerticalScroll(math.max(box:GetHeight() - window.scroll:GetHeight(), 0))
     end)
 end
 
--- Kleines Fenster für einen angeklickten Link: Adresse markiert in einem flachen Eingabefeld,
--- so breit wie nötig; Strg+C kopiert, Enter/Escape schließt.
+-- Small window for a clicked link: URL highlighted in a flat edit box, sized to fit;
+-- Ctrl+C copies, Enter/Escape closes.
 local linkWindow
 
 local function ShowLinkWindow(url)
@@ -144,7 +143,7 @@ local function ShowLinkWindow(url)
     end
     local window, box = linkWindow, linkWindow.box
     window.measure:SetText(url)
-    -- Breite: Text + Feld-Innenabstand (2×8) + Fensterrand (2×14) + etwas Luft für den Cursor
+    -- Width: text + box insets (2x8) + window padding (2x14) + room for the cursor
     local width = math.max(math.min(window.measure:GetStringWidth() + 16 + 28 + 10, 640), 260)
     window:SetSize(ns.Snap(width), ns.Snap(98))
     window:ClearAllPoints()
@@ -157,7 +156,7 @@ local function ShowLinkWindow(url)
     box:HighlightText()
 end
 
--- Verlauf des sichtbaren Chatfensters kopieren
+-- Copy the history of the given chat frame
 local function CopyChat(frame)
     local lines = {}
     for i = 1, frame:GetNumMessages() do
@@ -167,27 +166,27 @@ local function CopyChat(frame)
     ShowCopyWindow(L["Chat history"] .. " – " .. (frame.name or ""), table.concat(lines, "\n"))
 end
 
--- Links (URLs) anklickbar machen -------------------------------------------------------------
+-- Clickable URLs -----------------------------------------------------------------------
 
--- Jede zusammenhängende Folge von URL-Zeichen (ohne „|“, also nie in Blizzards Link-/Farbcodes)
--- wird verlinkt, wenn sie mit http(s):// oder www. beginnt – ein Durchlauf, damit ein
--- „www.“ innerhalb einer https-Adresse nicht nochmal verlinkt wird.
+-- Each run of URL characters (no pipe, so never inside Blizzard's link/color codes) is linked
+-- if it starts with http(s):// or www. - single pass, so a "www." inside an https URL is
+-- not linked twice.
 local URL_RUN = "[%w%-%._~:/%?#%[%]@!%$&'%(%)%*%+,;=%%]+"
 
--- eigener Link-Typ „muiurl“: Blizzards Link-System (LinkUtil) ruft dafür unseren Handler
+-- Custom link type "muiurl": Blizzard's LinkUtil calls our handler for it
 local URL_LINK = "muiurl"
 
 local function LinkURLs(text)
     return (text:gsub(URL_RUN, function(run)
         if not (run:match("^https?://%w") or run:match("^www%.[%w%-]+%.")) then return nil end
-        local url = run:gsub("[%.,;:%)]+$", "") -- Satzzeichen am Ende gehören nicht zur Adresse
+        local url = run:gsub("[%.,;:%)]+$", "") -- trailing punctuation is not part of the URL
         local rest = run:sub(#url + 1)
         return ("|cff8ecbb4|H%s:%s|h[%s]|h|r%s"):format(URL_LINK, url, url, rest)
     end))
 end
 
--- Klick auf einen unserer Links: Kopierfenster. (12.1.5: SetItemRef feuert kein Ereignis mehr,
--- unbekannte Links landen im ItemRefTooltip – ein eigener Handler fängt sie vorher ab.)
+-- Click on one of our links opens the link window. Since 12.1.5 SetItemRef fires no event and
+-- unknown links end up in ItemRefTooltip, so a registered handler catches them first.
 if LinkUtil and LinkUtil.RegisterLinkHandler and not LinkUtil.IsLinkHandlerRegistered(URL_LINK) then
     LinkUtil.RegisterLinkHandler(URL_LINK, function(_, _, linkData)
         if linkData.options and linkData.options ~= "" then ShowLinkWindow(linkData.options) end
@@ -195,7 +194,7 @@ if LinkUtil and LinkUtil.RegisterLinkHandler and not LinkUtil.IsLinkHandlerRegis
     end)
 end
 
--- Kanäle kürzen ------------------------------------------------------------------------------
+-- Short channel names --------------------------------------------------------------------
 
 local SHORT = {
     GUILD = "G", OFFICER = "O", PARTY = "P", PARTY_LEADER = "P", RAID = "R", RAID_LEADER = "R",
@@ -207,18 +206,18 @@ local function ShortenChannels(text)
         local kind = link:match("^(%u[%u_]*)")
         local short = SHORT[kind]
         if not short then
-            short = name:match("^(%d+)%.") or name:match("^(%d+)") -- „1. Allgemein - Ort“ > 1
+            short = name:match("^(%d+)%.") or name:match("^(%d+)") -- "1. General - Zone" -> 1
         end
-        if not short then return nil end -- unbekannt: unverändert lassen
+        if not short then return nil end -- unknown: leave unchanged
         return ("|Hchannel:%s|h[%s]|h"):format(link, short)
     end))
 end
 
--- AddMessage der Chatfenster umleiten: nur lesbare Texte anfassen
--- Verlauf über /reload und Logout hinaus (wie Prat): pro Charakter und Chatfenster die
--- letzten Zeilen merken und beim Login wieder einsetzen. Geschützte Zeilen nie.
+-- Wrap the chat frames' AddMessage; only readable (non-secret) text is touched.
+-- History survives /reload and logout (like Prat): last lines per character and chat frame
+-- are saved and restored on login. Protected lines never.
 local HISTORY_LINES = 200
-local FlashTab, OnNewMessage, LayoutLines -- unten definiert
+local FlashTab, OnNewMessage, LayoutLines -- defined below
 
 local function RecordLine(frame, text, r, g, b)
     local history = ns.char.chatHistory
@@ -239,15 +238,14 @@ local function RestoreHistory(frame)
     local lines = ns.char.chatHistory and ns.char.chatHistory[frame:GetName()]
     if not (lines and frame.muiOriginalAddMessage) then return end
     for _, line in ipairs(lines) do
-        -- Links aus älteren Versionen (addon:MeredanUI:url:…) auf den neuen Typ heben
+        -- Upgrade links from older versions (addon:MeredanUI:url:...) to the new type
         local text = line[1]:gsub("|Haddon:MeredanUI:url:", "|H" .. URL_LINK .. ":")
         frame.muiOriginalAddMessage(frame, text, line[2], line[3], line[4])
     end
 end
 
--- Neue Gesprächsnachricht in einem Tab, der gerade nicht offen ist: Beschriftung pulsieren
--- lassen (Blizzard blinkt in Midnight nur noch bei Flüstern). Beute, Handel, System, Kampflog
--- lösen nichts aus – nur Gespräche (siehe CONVERSATION unten).
+-- New conversation message in an unselected tab: pulse the label (Midnight only flashes
+-- for whispers). Loot, trade, system and combat log don't trigger it - see CONVERSATION.
 FlashTab = function(frame)
     local tab = frame and _G[frame:GetName() .. "Tab"]
     if tab and tab.muiFlash and frame ~= SELECTED_CHAT_FRAME and not tab.muiFlash:IsPlaying() then
@@ -269,19 +267,19 @@ local function WrapAddMessage(frame)
     end
 end
 
--- Zeitstempel: Blizzards eigene Funktion (schlicht „12:04“), an/aus in den MUI-Einstellungen
+-- Timestamps: Blizzard's own (plain "12:04"), toggled in the MUI settings
 function ns.ApplyChatTimestamps()
     SetCVar("showTimestamps", ns.db.chatTimestamps and "%H:%M " or "none")
 end
 
 -- Look -----------------------------------------------------------------------------------------
 
-local anchor -- unsichtbarer Rahmen um Chat + Tabs (Eingabezeile, Hover-Erkennung)
-local HookCombatLog, ApplyEditBoxFont -- unten definiert
+local anchor -- invisible frame around chat + tabs (edit box anchor, hover detection)
+local HookCombatLog, ApplyEditBoxFont -- defined below
 local copyButton
 
--- Tab-Text in der Farbe dessen, was das Fenster zeigt: Gilde grün, Handel/Allgemein in ihrer
--- Kanalfarbe, Beute in Beutefarbe, Kampflog grau. Erkannt am Inhalt, nicht am Namen.
+-- Tab text colored by what the window shows: guild green, trade in its channel color, loot
+-- in loot color, combat log grey. Detected by content, not by name.
 local function ChannelColor(name)
     local id = name and GetChannelName(name)
     local info = id and id > 0 and ChatTypeInfo["CHANNEL" .. id]
@@ -296,21 +294,20 @@ local function TabColor(frame)
         if frame:ContainsMessageGroup("LOOT") then return ChatTypeInfo.LOOT end
         if TRADE and frame:ContainsChannel(TRADE) then return ChannelColor(TRADE) end
     end
-    -- Allgemein (und alles Übrige): immer mUI-Salbei, nicht über die Kanalfarbe – die gibt es erst,
-    -- wenn der Kanal „Allgemein“ beigetreten ist (beim Login später) bzw. „Chat einrichten“ lief;
-    -- vorher war der Tab weiß (Benny 2026-11-07: „nicht stabil genug“)
+    -- General (and everything else): always the accent color. The channel color only exists
+    -- once General is joined (late at login) or chat setup ran, so the tab would start white.
     local accent = ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 }
     return { r = accent[1], g = accent[2], b = accent[3] }
 end
 
 local TAB_FONT_SIZE = 14
 
--- Tab einfärben; der aktive Tab bekommt volle Farbe und einen Strich darunter
+-- Color a tab; the selected tab gets full color and an underline
 local function ColorTab(frame, selected)
     local tab = _G[frame:GetName() .. "Tab"]
     if not (tab and tab.muiLabel) then return end
     if selected == nil then selected = frame == SELECTED_CHAT_FRAME end
-    if selected and tab.muiFlash then tab.muiFlash:Stop() end -- angesehen: Blinken aus
+    if selected and tab.muiFlash then tab.muiFlash:Stop() end -- seen: stop flashing
     local color = TabColor(frame) or { r = 1, g = 1, b = 1 }
     tab.muiLabel:SetTextColor(color.r, color.g, color.b)
     tab.muiLabel:SetAlpha(selected and 1 or 0.6)
@@ -318,8 +315,8 @@ local function ColorTab(frame, selected)
     tab.muiUnderline:SetShown(selected)
 end
 
--- Blizzard färbt den Tab-Text bei Hover/Auswahl selbst um – deshalb eine eigene Beschriftung,
--- die nur wir steuern (Blizzards Text bleibt unsichtbar für die Tab-Breite erhalten).
+-- Blizzard recolors the tab text on hover/select itself, so we use our own label;
+-- Blizzard's text stays (invisible) to keep the tab width.
 local function StyleTab(tab)
     if not tab or tab.muiStyled then return end
     tab.muiStyled = true
@@ -339,7 +336,7 @@ local function StyleTab(tab)
     underline:SetPoint("TOPRIGHT", label, "BOTTOMRIGHT", 0, -2)
     underline:Hide()
     tab.muiUnderline = underline
-    -- Neue Nachricht in einem anderen Tab: Beschriftung pulsiert (statt Blizzards Tab-Glanz)
+    -- New message in another tab: label pulses (instead of Blizzard's tab glow)
     local flash = label:CreateAnimationGroup()
     flash:SetLooping("BOUNCE")
     local fade = flash:CreateAnimation("Alpha")
@@ -350,12 +347,12 @@ local function StyleTab(tab)
     tab.muiFlash = flash
 end
 
--- Chat-Schriftgröße als Stufe; Ausblendzeit, Zeilenabstand und Kanal-Lücke sind fest (Benny 2026-11-07)
+-- Chat font size as a step; fade time, line spacing and channel gap are fixed
 local CHAT_FONT_SIZES = { small = 12, medium = 14, large = 17 }
 local CHAT_FADE_SECONDS, CHAT_LINE_SPACING = 20, 3
 function ns.ChatFontSize() return CHAT_FONT_SIZES[ns.db.chatFontSize] or CHAT_FONT_SIZES.medium end
 
--- Eingabe und Kanal-Vorspann („Gilde:“) in derselben Schrift und Größe wie der Chat
+-- Edit box and channel header ("Guild:") use the same font and size as the chat
 ApplyEditBoxFont = function(editBox)
     local size = ns.ChatFontSize()
     editBox:SetFont(ns.FontFor("text"), size, "")
@@ -368,7 +365,7 @@ end
 local function ApplyChatFont(frame)
     local size = ns.ChatFontSize()
     if FCF_SetChatWindowFontSize then FCF_SetChatWindowFontSize(nil, frame, size) end
-    frame:SetFont(ns.FontFor("text"), size, "") -- Chat = Fließtext: mUI Text
+    frame:SetFont(ns.FontFor("text"), size, "") -- chat is body text: mUI text font
 end
 
 local function StyleEditBox(editBox)
@@ -379,7 +376,7 @@ local function StyleEditBox(editBox)
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.panelColor))
     local border = ns.AddBorder(editBox)
-    -- nur sichtbar, solange wirklich getippt wird (unabhängig von Blizzards Chat-Stil)
+    -- only visible while actually typing (independent of Blizzard's chat style)
     local function ShowWhileTyping()
         local typing = editBox:HasFocus()
         bg:SetShown(typing)
@@ -403,23 +400,23 @@ local function StyleChatFrame(frame)
     local name = frame:GetName()
     for _, suffix in ipairs(CHAT_FRAME_TEXTURES or {}) do Kill(_G[name .. suffix]) end
     Kill(_G[name .. "ButtonFrame"])
-    -- Scrollbalken ganz weg (Blizzard blendet ihn beim Drüberfahren ein und zeigt ihn bei jeder
-    -- Aktualisierung neu – darum umhängen statt verstecken); Mausrad und „nach unten“-Pfeil bleiben
+    -- Remove the scrollbar entirely (Blizzard re-shows it on hover and on every update, so
+    -- reparent instead of hide); mouse wheel and scroll-to-bottom button remain
     Kill(frame.ScrollBar)
     StyleTab(_G[name .. "Tab"])
     StyleEditBox(_G[name .. "EditBox"])
-    -- Text in MUI-Schrift, Größe aus den MUI-Einstellungen, Schatten statt Kasten
+    -- MUI font, size from MUI settings, shadow instead of a box
     ApplyChatFont(frame)
     frame:SetShadowOffset(1, -1)
     frame:SetShadowColor(0, 0, 0, 1)
-    -- Glass: Nachrichten blenden aus, beim Drüberfahren kommen sie zurück (siehe Ticker)
+    -- Glass: messages fade, mouseover brings them back (see HoverTicker)
     frame:SetFading(true)
-    frame:SetTimeVisible(CHAT_FADE_SECONDS) -- so lange bleibt eine neue Nachricht voll sichtbar
+    frame:SetTimeVisible(CHAT_FADE_SECONDS) -- how long a new message stays fully visible
     frame:SetFadeDuration(FADE_SECONDS)
-    -- Zeilen nach jedem Neuzeichnen neu stapeln (Abstand, Lücke bei Kanalwechsel)
+    -- Restack lines after every redraw (spacing, channel gap)
     hooksecurefunc(frame, "RefreshDisplay", function(self) LayoutLines(self) end)
-    if frame ~= ChatFrame2 then -- Kampflog nicht anfassen
-        -- Glass: neue Zeile gleitet herein – der ganze Text startet eine Zeile tiefer und rutscht hoch
+    if frame ~= ChatFrame2 then -- leave the combat log alone
+        -- Glass: new line slides in - the whole text starts one line lower and slides up
         local slide = frame:CreateAnimationGroup()
         local down = slide:CreateAnimation("Translation")
         down:SetDuration(0)
@@ -435,7 +432,7 @@ local function StyleChatFrame(frame)
     ColorTab(frame)
 end
 
--- Schriftgröße geändert (Einstellungen > Chat)
+-- Font size changed (Settings > Chat)
 function ns.ApplyChatFont()
     for _, frame in ipairs(ChatFrames()) do
         ApplyChatFont(frame)
@@ -445,25 +442,25 @@ function ns.ApplyChatFont()
 end
 
 local chatWaitsForFrames = false
-local placingChat -- true, solange wir selbst setzen (Wächter unten ignoriert das)
+local placingChat -- true while we set the point ourselves (ignored by the guard below)
 local function PlaceMainChat()
     if InCombatLockdown() then return end
     local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- Emote-Leiste unten links (Chat/EmoteBar.lua): Chat sitzt darüber
+    -- Emote bar bottom left (Chat/EmoteBar.lua): chat sits above it
     local reserve = ns.EmoteBarReserve and ns.EmoteBarReserve() or 0
     placingChat = true
     ChatFrame1:ClearAllPoints()
     ChatFrame1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", margin, margin + reserve)
     placingChat = false
-    -- höchstens bis kurz vor die Shift-Leiste (unten mittig) und nie unter Spieler/Begleiter (bei
-    -- „Groß“ auf 16:9 reichen die Unitframes so weit nach links; gleiche Kante wie die Gruppe)
+    -- At most up to the extra bar (bottom center) and never under player/pet frames (large
+    -- unit frames on 16:9 reach that far left; same edge as the party frames)
     local space = UIParent:GetWidth() / 2 - (ns.ExtraBarWidth and ns.ExtraBarWidth() / 2 or 250) - 2 * margin
-        - (ns.LeftBlockReserve and ns.LeftBlockReserve() or 0) -- Leiste 7 unten links an
+        - (ns.LeftBlockReserve and ns.LeftBlockReserve() or 0) -- action bar 7 bottom left
     local edge = ns.LeftOfPlayerEdge and ns.LeftOfPlayerEdge()
     if edge then
         space = math.min(space, edge - (UIParent:GetLeft() or 0) - 2 * margin)
     elseif not chatWaitsForFrames then
-        chatWaitsForFrames = true -- Unitframes stehen noch nicht: kurz danach nochmal
+        chatWaitsForFrames = true -- unit frames not placed yet: retry shortly
         C_Timer.After(1, PlaceMainChat)
     end
     ChatFrame1:SetSize(ns.Snap(math.min(WIDTH, space)), ns.Snap(HEIGHT))
@@ -472,18 +469,18 @@ end
 
 ns.PlaceMainChat = PlaceMainChat
 
--- Glass ----------------------------------------------------------------------------------------
--- Tabs (+ Kopier-Knopf, Kampflog-Filter) nur bei Bedarf: Maus über dem Chat, Tippen oder ein
--- pulsierender Tab. Hinter jeder sichtbaren Zeile ein Glass-Streifen.
+-- Glass --------------------------------------------------------------------------------
+-- Tabs (+ copy button, combat log filters) only when needed: mouse over chat, typing or
+-- a pulsing tab.
 
 local tabsAlpha, tabsTarget = 0, 0
 local lastActive = 0
 
--- Blizzards Chat zeichnet jede Nachricht als eigenen Text (frame.visibleLines), der einzeln
--- ausblendet – auch geschützte. Wir stapeln die Zeilen neu (Abstand, Lücke bei Kanalwechsel);
--- nur Anker, nichts wird vermessen. Blizzards Textbehälter schneidet oben ab, was nicht passt.
+-- Blizzard draws each message as its own font string (frame.visibleLines), each fading on
+-- its own - protected ones too. We only re-anchor them (spacing, channel gap), no measuring;
+-- Blizzard's container clips what doesn't fit at the top.
 
--- Woran man den Kanal einer Zeile erkennt: Blizzards Chat-Typ-Nummer, sonst die Farbe
+-- Channel identity of a line: Blizzard's chat type id, otherwise its color
 local function LineKind(info)
     local id = info.extraData and info.extraData[1]
     if type(id) == "number" and not issecretvalue(id) then return id end
@@ -492,7 +489,7 @@ local function LineKind(info)
     end
 end
 
--- Nach jedem Neuzeichnen: Zeilen neu stapeln
+-- After every redraw: restack lines
 LayoutLines = function(frame)
     local lines = frame.visibleLines
     if not lines or frame:GetInsertMode() == SCROLLING_MESSAGE_FRAME_INSERT_MODE_TOP then return end
@@ -512,7 +509,7 @@ LayoutLines = function(frame)
             line:ClearAllPoints()
             line:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT")
         end
-        line:SetSpacing(spacing) -- auch zwischen umbrochenen Zeilen einer Nachricht
+        line:SetSpacing(spacing) -- also between wrapped lines of one message
         previous, previousKind = line, kind
     end
 end
@@ -554,14 +551,14 @@ local function AnyTabFlashing()
     return false
 end
 
--- Maus über dem Chat oder Tippen: alle Nachrichten sichtbar halten, Tabs und Kopier-Knopf zeigen.
--- Dafür das Ausblenden EINMAL aus- und beim Verlassen wieder einschalten – nicht laufend
--- ResetAllFadeTimes: das zeichnet jede Zeile neu (SetText) und verschluckt so Klicks auf Links.
+-- Mouse over chat or typing: keep all messages visible, show tabs and copy button.
+-- Toggle fading ONCE on enter/leave - calling ResetAllFadeTimes continuously re-sets every
+-- line's text and swallows clicks on links.
 local showingAll = false
 
 local function HoverTicker()
     local over = anchor:IsMouseOver()
-    -- tippen = eine Eingabezeile hat wirklich den Fokus („aktives Fenster“ bleibt auch ohne gesetzt)
+    -- typing = an edit box really has focus (the "active window" stays set without focus)
     local typing = false
     for _, frame in ipairs(ChatFrames()) do
         local editBox = _G[frame:GetName() .. "EditBox"]
@@ -572,7 +569,7 @@ local function HoverTicker()
         showingAll = active
         for _, frame in ipairs(ChatFrames()) do
             frame:SetFading(not active)
-            if not active then frame:ResetAllFadeTimes() end -- ab jetzt wieder die normale Zeit sichtbar
+            if not active then frame:ResetAllFadeTimes() end -- normal visible time from now on
         end
     end
     local now = GetTime()
@@ -580,7 +577,7 @@ local function HoverTicker()
     tabsTarget = now - lastActive < TABS_LINGER and 1 or 0
 end
 
--- Tab-Leiste mit etwas Abstand über den Chat (Blizzard hängt sie mit 3 px direkt dran)
+-- Tab dock with some gap above the chat (Blizzard attaches it 3px directly above)
 local function PlaceTabs(dock, chatFrame)
     dock:ClearAllPoints()
     dock:SetPoint("BOTTOMLEFT", chatFrame, "TOPLEFT", 0, ns.Snap(TAB_GAP))
@@ -601,13 +598,13 @@ local function Setup()
         end)
     end
 
-    -- Seitenknöpfe und Sozial-Knopf weg (Menü per /-Befehle, Freunde über die Info-Leiste)
+    -- Remove side buttons and social button (menu via slash commands, friends via the info bar)
     for _, button in ipairs({ ChatFrameMenuButton, ChatFrameChannelButton, QuickJoinToastButton,
         ChatFrameToggleVoiceDeafenButton, ChatFrameToggleVoiceMuteButton, TextToSpeechButtonFrame }) do
         Kill(button)
     end
 
-    -- Kopier-Knopf oben rechts (nur bei Maus über dem Chat): kopiert das gerade gewählte Fenster
+    -- Copy button top right (on chat mouseover): copies the selected chat frame
     copyButton = CreateFrame("Button", nil, anchor)
     copyButton:SetSize(18, 18)
     copyButton:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", 0, -2)
@@ -630,12 +627,12 @@ local function Setup()
     SetGlassAlpha()
     anchor:SetScript("OnUpdate", GlassOnUpdate)
     C_Timer.NewTicker(0.2, HoverTicker)
-    -- Flüstern: Blizzards eigener Hinweis > bei uns ebenfalls pulsieren
+    -- Whispers: Blizzard's own alert -> pulse our tab too
     if FCF_StartAlertFlash then hooksecurefunc("FCF_StartAlertFlash", FlashTab) end
-    -- Blizzard färbt Tabs beim Auswählen/Blinken neu: danach wieder unsere Farbe
+    -- Blizzard recolors tabs on select/flash: reapply our color
     if FCFTab_UpdateColors then
         hooksecurefunc("FCFTab_UpdateColors", function(tab, selected)
-            -- auch Blizzards Chat-Einstellungsfenster nutzt das, mit namenlosen Tabs
+            -- Blizzard's chat config window uses this too, with unnamed tabs
             local name = tab and tab.GetName and tab:GetName()
             local frame = name and name:match("^(ChatFrame%d+)Tab$") and _G[name:match("^(ChatFrame%d+)Tab$")]
             if frame then ColorTab(frame, selected and true or false) end
@@ -643,10 +640,9 @@ local function Setup()
     end
 
     if C_AddOns.IsAddOnLoaded("Blizzard_CombatLog") then HookCombatLog() end
-    ns.OnLayout(PlaceMainChat) -- auch bei Größen-/Skalierungswechsel
-    -- Wächter (Benny 2026-11-07: Chat rutschte nach einem Stufenaufstieg nach oben): verschiebt
-    -- jemand anderes den Chat, sofort zurück an unseren Platz und den Verursacher ins DevLog schreiben.
-    -- Nicht im Bearbeitungsmodus; höchstens alle 0,5 s (kein Ping-Pong mit Blizzard).
+    ns.OnLayout(PlaceMainChat) -- also on resolution/scale changes
+    -- Guard: if anything else moves the chat (seen after a level-up), move it back and log the
+    -- caller to DevLog. Not in Edit Mode; at most every 0.5s (no ping-pong with Blizzard).
     local lastFix = 0
     hooksecurefunc(ChatFrame1, "SetPoint", function()
         if placingChat then return end
@@ -658,12 +654,12 @@ local function Setup()
         if InCombatLockdown() then ns.AfterCombat(PlaceMainChat) else C_Timer.After(0, PlaceMainChat) end
     end)
     ns.ApplyChatTimestamps()
-    -- Eingabezeile nur beim Tippen (Blizzards „Sofortnachrichten“-Stil statt „Klassisch“)
+    -- Edit box only while typing (Blizzard's "IM" style instead of "Classic")
     SetCVar("chatStyle", "im")
 end
 
--- Kampflog-Filterknöpfe („Meine Aktionen“ …) in MUI-Schrift: gedämpft, beim Hover weiß.
--- Die Knöpfe baut Blizzard erst mit dem Kampflog (lädt bei Bedarf) und bei jeder Änderung neu.
+-- Combat log filter buttons ("My actions" ...) in MUI font: muted, white on hover.
+-- Blizzard builds them with the load-on-demand combat log and rebuilds them on every change.
 local quickNormal, quickHighlight
 local function StyleCombatLogButtons()
     if not quickNormal then
@@ -679,7 +675,7 @@ local function StyleCombatLogButtons()
         local button = _G["CombatLogQuickButtonFrameButton" .. i]
         button:SetNormalFontObject(quickNormal)
         button:SetHighlightFontObject(quickHighlight)
-        button:SetWidth(button:GetTextWidth() + 13) -- Breite zur neuen Schrift passend
+        button:SetWidth(button:GetTextWidth() + 13) -- fit width to the new font
         i = i + 1
     end
 end
@@ -694,8 +690,8 @@ ns:On("ADDON_LOADED", function(_, name)
     if name == "Blizzard_CombatLog" then HookCombatLog() end
 end)
 
--- Ton, wenn jemand dich erwähnt (Spitzname oder Charaktername) – Gilde, Offizier, Gruppe,
--- Raid, Instanz, Sagen. Flüstern hat Blizzards eigenen Ton. Geschützte Nachrichten ignoriert.
+-- Sound when someone mentions you (nickname or character name) in guild, officer, party,
+-- raid, instance or say. Whispers have Blizzard's own sound. Protected messages ignored.
 local MENTION_EVENTS = { "CHAT_MSG_GUILD", "CHAT_MSG_OFFICER", "CHAT_MSG_PARTY", "CHAT_MSG_PARTY_LEADER",
     "CHAT_MSG_RAID", "CHAT_MSG_RAID_LEADER", "CHAT_MSG_INSTANCE_CHAT", "CHAT_MSG_INSTANCE_CHAT_LEADER", "CHAT_MSG_SAY" }
 local lastMentionSound = 0
@@ -709,8 +705,8 @@ end
 local function OnMention(_, message, author, ...)
     if not ns.db.chatMentionSound then return end
     if issecretvalue(message) or issecretvalue(author) then return end
-    -- eigene Nachricht: nie ein Ton (Benny 2026-11-07: andere Addons schreiben deinen Spitznamen
-    -- vor jede deiner Zeilen). Sicher über die GUID (12. Wert), dazu der Name ohne Server.
+    -- Own messages never play a sound (other addons prefix your nickname to your lines).
+    -- Checked via GUID (12th arg) plus name without realm.
     local guid = select(10, ...)
     if guid and not issecretvalue(guid) and guid == UnitGUID("player") then return end
     if author and (Ambiguate(author, "none") == UnitName("player") or author:match("^[^%-]+") == UnitName("player")) then return end
@@ -721,7 +717,7 @@ local function OnMention(_, message, author, ...)
 end
 for _, event in ipairs(MENTION_EVENTS) do ns:On(event, OnMention) end
 
--- Gespräche: Ereignis > Nachrichtengruppe; pulsieren lassen alle Tabs, die diese Gruppe zeigen
+-- Conversations: event -> message group; all tabs showing that group pulse
 local CONVERSATION = {
     CHAT_MSG_GUILD = "GUILD", CHAT_MSG_OFFICER = "OFFICER",
     CHAT_MSG_PARTY = "PARTY", CHAT_MSG_PARTY_LEADER = "PARTY_LEADER",
@@ -737,8 +733,8 @@ for event, group in pairs(CONVERSATION) do
     end)
 end
 
--- Demo (Einstellungen > Chat): eine Test-Gildennachricht mit deinem Namen in den Gilden-Tab
--- (falls vorhanden, sonst Allgemein) – zeigt Erwähnungs-Ton und Pulsieren des Tabs.
+-- Demo (Settings > Chat): test guild message with your name in the guild tab (or General)
+-- - shows mention sound and tab pulsing.
 local function GuildFrame()
     for _, frame in ipairs(ChatFrames()) do
         if frame ~= ChatFrame1 and frame:ContainsMessageGroup("GUILD") then return frame end
@@ -762,20 +758,20 @@ ns.ChatDemo = {
 }
 
 ns:On("PLAYER_LOGIN", Setup)
--- Blizzard stellt gespeicherte Chat-Positionen beim Betreten der Welt wieder her: danach setzen
+-- Blizzard restores saved chat positions on entering the world: place after that
 ns:On("PLAYER_ENTERING_WORLD", function() C_Timer.After(1, PlaceMainChat) end)
--- Blizzard wendet beim Schließen des Bearbeitungsmodus seine Chat-Position an: danach wieder unsere
--- (einen Moment später, außerhalb von Blizzards Ablauf)
-EventRegistry:RegisterCallback("EditMode.Exit", function() C_Timer.After(0.1, PlaceMainChat) end, PlaceMainChat) -- eigener Besitzer
+-- Blizzard applies its chat position when Edit Mode closes: reapply ours shortly after,
+-- outside Blizzard's call chain
+EventRegistry:RegisterCallback("EditMode.Exit", function() C_Timer.After(0.1, PlaceMainChat) end, PlaceMainChat) -- own owner key
 
--- Chat einrichten (Einstellungen > Chat) -------------------------------------------------------
--- Keine eigenen Tabs: Blizzards Standard (alles in Allgemein + Kampflog), dazu MUI-Kanalfarben.
--- Den Services-Kanal (Boost-/Verkaufs-Spam) verlassen wir. Zurücksetzen = Blizzard-Standard.
+-- Chat setup (Settings > Chat) ------------------------------------------------------------
+-- No custom tabs: Blizzard's default (General + Combat Log) plus MUI channel colors.
+-- Leaves the Services channel (boost/sales spam). Reset = Blizzard default.
 
-local SERVICES_ZONE_CHANNEL = 42 -- Blizzards feste Kanal-ID für „Services“ (Name ist lokalisiert)
+local SERVICES_ZONE_CHANNEL = 42 -- Blizzard's fixed channel id for Services (name is localized)
 
 local function LeaveServicesChannel()
-    local list = { GetChannelList() } -- id, name, disabled, id, name, …
+    local list = { GetChannelList() } -- id, name, disabled, id, name, ...
     for i = 2, #list, 3 do
         local name = tostring(list[i])
         local info = C_ChatInfo.GetChannelInfoFromIdentifier(name)
@@ -783,18 +779,18 @@ local function LeaveServicesChannel()
     end
 end
 
--- Kanalfarben nach Kanal-Art statt Name/Nummer (Forever vergibt Nummern bei Zonenwechseln neu; Benny
--- 2026-11-08). zoneChannelID: 1 Allgemein, 2 Handel, 22 Lokale Verteidigung, 23 Weltverteidigung,
--- 26 Suche nach Gruppe. Wird bei jedem Kanal-Update neu gesetzt.
+-- Channel colors by channel kind, not name/number (Forever renumbers channels on zone
+-- changes). zoneChannelID: 1 General, 2 Trade, 22 LocalDefense, 23 WorldDefense,
+-- 26 LookingForGroup. Reapplied on every channel update.
 local CHANNEL_COLORS = {
-    [1] = function() return ns.UI.ACCENT end, -- Allgemein: Surf Green wie mUI
-    [2] = { 1, 0.62, 0.36 },                  -- Handel: Orange (bei Blizzard wie Allgemein rosa)
-    [22] = { 1, 0.45, 0.42 },                 -- Lokale Verteidigung: Rot (Angriffe)
-    [23] = { 1, 0.45, 0.42 },                 -- Weltverteidigung
-    [26] = { 0.55, 0.75, 1 },                 -- Suche nach Gruppe: Blau
+    [1] = function() return ns.UI.ACCENT end, -- General: Surf Green accent
+    [2] = { 1, 0.62, 0.36 },                  -- Trade: orange (Blizzard uses the same pink as General)
+    [22] = { 1, 0.45, 0.42 },                 -- LocalDefense: red (attacks)
+    [23] = { 1, 0.45, 0.42 },                 -- WorldDefense
+    [26] = { 0.55, 0.75, 1 },                 -- LookingForGroup: blue
 }
 local function ApplyChannelColors()
-    local list = { GetChannelList() } -- id, name, disabled, id, name, …
+    local list = { GetChannelList() } -- id, name, disabled, id, name, ...
     for i = 1, #list, 3 do
         local id, name = list[i], list[i + 1]
         local info = name and C_ChatInfo.GetChannelInfoFromIdentifier(tostring(name))
@@ -808,7 +804,7 @@ ns:On("PLAYER_ENTERING_WORLD", function() C_Timer.After(3, ApplyChannelColors) e
 
 function ns.SetupChat()
     if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
-    FCF_ResetChatWindows() -- Ausgangslage: Allgemein + Kampflog, frühere Zusatz-Tabs verschwinden
+    FCF_ResetChatWindows() -- baseline: General + Combat Log, extra tabs removed
     ApplyChannelColors()
     LeaveServicesChannel()
     FCF_SelectDockFrame(ChatFrame1)
@@ -816,7 +812,7 @@ function ns.SetupChat()
         StyleChatFrame(frame)
         ColorTab(frame)
     end
-    ns.db.chatFontSize = "medium" -- Standard (Benny 2026-11-07: 16 war zu groß)
+    ns.db.chatFontSize = "medium" -- default
     ns.ApplyChatFont()
     PlaceMainChat()
     ns.Print(L["Chat set up with mUI colors."])
@@ -830,8 +826,8 @@ function ns.ResetChat()
     ns.Print(L["Chat reset to Blizzard's default."])
 end
 
--- Diagnose (Forever, Phasen-Knopf gesucht): /mui chatbuttons holt Blizzards Chat-Knopfleiste und
--- die versteckten Knöpfe vorübergehend zurück (bis /reload) und schreibt ihre Namen in Chat + DevLog.
+-- Diagnostics: /mui chatbuttons temporarily restores Blizzard's chat buttons (until /reload)
+-- and prints their names to chat + DevLog.
 ns.AddCommand("chatbuttons", "show Blizzard's chat buttons until /reload (diagnostics)", function()
     if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
     local function Report(frame, depth)
@@ -840,7 +836,7 @@ ns.AddCommand("chatbuttons", "show Blizzard's chat buttons until /reload (diagno
         if DevLog then DevLog("MUI CHATBTN", depth, name) end
         for _, child in ipairs({ frame:GetChildren() }) do Report(child, depth + 1) end
     end
-    -- als Reihe mitten auf den Bildschirm (links vom Chat wäre außerhalb des Bildes)
+    -- in a row at screen center (left of the chat would be off screen)
     local x = -150
     for _, button in ipairs({ ChatFrameMenuButton, ChatFrameChannelButton, QuickJoinToastButton,
         ChatFrameToggleVoiceDeafenButton, ChatFrameToggleVoiceMuteButton, TextToSpeechButtonFrame }) do

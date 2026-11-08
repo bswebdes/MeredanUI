@@ -1,20 +1,15 @@
--- Emote-Leiste fürs Rollenspiel: Symbol-Knöpfe für Blizzards Emotes mit Animation (Winken,
--- Verbeugen, Salutieren, Knien …). Klick = Emote, mit Ziel an das Ziel gerichtet (wie /winken).
---
---   [👋][🙇][💃][👏][😂][😢][🛡][😉][😘][💺][⏬][👉]   ← unten links wie das Mikromenü unten
---                                                        rechts (25 px vom Rand), Chat rückt darüber
---
--- Welche Emotes auf der Leiste sind, steht in den Einstellungen (Chat > Emote-Leiste); Namen kommen
--- aus Blizzards Texten (deutsch: „Winken“ …). In Bosskämpfen, M+ und PvP sperrt das Spiel Emotes
--- für Addons (Chat-Sperre) – dann passiert beim Klick nichts außer einem Hinweis.
+-- Roleplay emote bar: icon buttons for Blizzard's animated emotes (wave, bow, kneel ...).
+-- Click performs the emote (at the target, if any). Bottom left, mirroring the micro menu;
+-- the chat moves above it. Emotes chosen in Settings > Chat; names from Blizzard's globals.
+-- During chat lockdown (boss, M+, PvP) emotes are blocked for addons; a click only prints a hint.
 local _, ns = ...
 local L = ns.L
 
-local SIZE = 28        -- wie das Mikromenü
-local GAP_PIXELS = 6   -- sichtbar 4 px (Rahmen liegen außen), wie Mikromenü und Aktionsleisten
+local SIZE = 28        -- same as the micro menu
+local GAP_PIXELS = 6   -- 4px visible (borders sit outside), like micro menu and action bars
 
--- Emotes nach Thema (Reihenfolge = Reihenfolge auf der Leiste). Die mit Animation stammen aus
--- Blizzards EmoteList, dazu RP-Klassiker wie Danke, Willkommen, Umarmen.
+-- Emotes by theme (order = bar order). Animated ones from Blizzard's EmoteList plus RP
+-- classics like thank, welcome, hug.
 ns.EMOTE_GROUPS = {
     { title = "Greeting & farewell", list = { "WAVE", "HELLO", "WELCOME", "BOW", "CURTSEY", "SALUTE", "HUG", "BYE" } },
     { title = "Answers", list = { "YES", "NO", "AGREE", "THANK", "SORRY", "SHRUG", "QUESTION", "CONFUSED" } },
@@ -26,7 +21,7 @@ ns.EMOTES = {}
 for _, group in ipairs(ns.EMOTE_GROUPS) do
     for _, token in ipairs(group.list) do ns.EMOTES[#ns.EMOTES + 1] = token end
 end
--- Standard: was man im RP am häufigsten braucht
+-- Defaults: the most common RP emotes
 ns.EMOTE_DEFAULTS = {
     WAVE = true, BOW = true, DANCE = true, APPLAUD = true, LAUGH = true, CRY = true, SALUTE = true,
     SHY = true, KISS = true, SIT = true, KNEEL = true, POINT = true,
@@ -36,7 +31,7 @@ ns.EMOTE_DEFAULTS = {
 local bar
 local buttons = {}
 
--- „/winken“ > „Winken“ (Blizzards Befehl in der Spielsprache)
+-- "/wave" -> "Wave" (Blizzard's localized slash command)
 local labels
 function ns.EmoteLabel(token)
     if not labels then
@@ -66,7 +61,7 @@ local function Perform(token)
     C_ChatInfo.PerformEmote(token)
 end
 
--- Symbole in der Emote-Farbe des Chats (Standard Orange; folgt eigenen Chat-Farben)
+-- Icons use the chat emote color (orange by default; follows custom chat colors)
 local function EmoteColor()
     local info = ChatTypeInfo and ChatTypeInfo.EMOTE
     if info and info.r then return { info.r, info.g, info.b } end
@@ -99,13 +94,13 @@ local function CreateButton(token)
     return button
 end
 
--- Sichtbarkeit; im RP-Modus (Chat/RPMode.lua) immer da
+-- Visibility; always shown in RP mode (Chat/RPMode.lua)
 local function Mode()
     if ns.RPModeActive and ns.RPModeActive() then return "always" end
     return ns.VisibilityMode(ns.db.emoteBar or "hidden")
 end
 
--- Masken-Knopf am Ende: RP-Modus an/aus (leuchtet salbei, solange er an ist)
+-- Mask button at the end toggles RP mode (accent-tinted while active)
 local function RPButton()
     if ns.rpButton then return ns.rpButton end
     local button = CreateFrame("Button", nil, bar)
@@ -113,7 +108,7 @@ local function RPButton()
     local bg = ns.UI.Box(button, ns.STYLE.panelColor)
     button.icon = ns.UI.Icon(button, "RPMode", SIZE - 8)
     button.icon:SetPoint("CENTER")
-    -- Symbol immer salbei (Benny: sonst zu dunkel); an = salbei getönter Hintergrund
+    -- Icon is accent-colored when off (too dark otherwise); on = accent-tinted background
     local function Color()
         local on = ns.RPModeActive and ns.RPModeActive()
         button.icon:SetVertexColor(unpack(on and { 1, 1, 1 } or ns.UI.ACCENT))
@@ -154,7 +149,7 @@ local function Layout()
             button:Hide()
         end
     end
-    -- RP-Knopf als letzter, gleicher Abstand wie die anderen
+    -- RP button last, same spacing
     local rp = RPButton()
     rp:ClearAllPoints()
     rp:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x, 0)
@@ -162,7 +157,7 @@ local function Layout()
     bar:SetSize(math.max(x - gap, size), size)
 end
 
--- Sichtbarkeit wie bei den anderen Leisten: "always", "mouseover", "hidden"
+-- Visibility like the other bars: "always", "mouseover", "hidden"
 function ns.UpdateEmoteBar()
     if not bar then return end
     local color = EmoteColor()
@@ -171,21 +166,21 @@ function ns.UpdateEmoteBar()
     local mode = Mode()
     bar:SetShown(mode ~= "hidden")
     bar.muiMouseover = mode == "mouseover"
-    if ns.PlaceMainChat then ns.PlaceMainChat() end -- Chat macht Platz bzw. rückt zurück
+    if ns.PlaceMainChat then ns.PlaceMainChat() end -- chat makes room / moves back
 end
 
--- unten links, 25 px vom Rand (Spiegelbild des Mikromenüs); der Chat rückt darüber
+-- Bottom left at the screen margin (mirrors the micro menu); chat sits above
 local function PlaceDefault()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     local cx, cy = UIParent:GetCenter()
     ns.PlaceFromCenter(bar, "BOTTOMLEFT", margin - cx, margin - cy)
 end
 
--- Platz, den der Chat unten frei lassen muss (nur am Standardplatz und wenn sichtbar)
+-- Space the chat must leave free at the bottom (when the bar is visible)
 function ns.EmoteBarReserve()
     if not bar then return 0 end
     if Mode() == "hidden" then return 0 end
-    return ns.Snap(SIZE) + ns.Snap(28) -- Luft zum Chat (8 und 18 px waren Benny zu knapp)
+    return ns.Snap(SIZE) + ns.Snap(28) -- gap to the chat
 end
 
 ns:On("PLAYER_LOGIN", function()
@@ -199,7 +194,7 @@ ns:On("PLAYER_LOGIN", function()
     ns.UpdateEmoteBar()
 end)
 
--- Chat-Farben geändert (Blizzards Farbwahl oder „Chat einrichten“): Symbole nachziehen
+-- Chat colors changed: recolor icons
 ns:On("UPDATE_CHAT_COLOR", function(_, chatType)
     if chatType == "EMOTE" or chatType == "TEXT_EMOTE" then ns.UpdateEmoteBar() end
 end)

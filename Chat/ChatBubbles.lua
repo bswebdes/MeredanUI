@@ -1,13 +1,10 @@
--- Sprechblasen im MUI-Look: flacher dunkler Kasten mit 1-px-Rahmen statt Blizzards verzierter
--- Blase, flache Spitze (Dreieck in Kastenfarbe mit Rahmen, an Blizzards Spitzen-Position), Text in
--- der MUI-Schrift.
---   • Draußen: jede Blase über C_ChatBubbles.GetAllChatBubbles() (nur die erlaubten).
---   • In Dungeons/Raids sperrt Blizzard die Blasen für Addons (abgeschirmt) – dort greift nur die
---     Schrift, weil die über das gemeinsame Schrift-Objekt ChatBubbleFont läuft.
+-- Chat bubbles in MUI style: flat dark box with 1px border, flat tail at Blizzard's tail position,
+-- MUI font. Bubbles are skinned via C_ChatBubbles.GetAllChatBubbles() (non-forbidden only).
+-- In dungeons/raids bubbles are forbidden to addons; only the font applies there (shared ChatBubbleFont).
 local _, ns = ...
 
 local SCAN_INTERVAL = 0.15
-local TAIL = ns.MEDIA .. "BubbleTail" -- Dreieck, Spitze nach unten
+local TAIL = ns.MEDIA .. "BubbleTail" -- triangle pointing down
 local TAIL_W, TAIL_H = 18, 11
 local skinned = setmetatable({}, { __mode = "k" })
 local NINE_SLICE = {
@@ -34,10 +31,10 @@ local function Skin(frame)
     local bg = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
     local r, g, b = unpack(ns.STYLE.panelColor)
-    bg:SetColorTexture(r, g, b, 1) -- gleiche Deckkraft wie die Spitze (keine Naht)
+    bg:SetColorTexture(r, g, b, 1) -- same opacity as the tail (no seam)
     ns.AddBorder(frame)
-    -- Spitze: schwarzes Dreieck (Rahmen) hinter einem etwas kleineren in Kastenfarbe; beide decken
-    -- die Unterkante des Rahmens ab, so gehen Kasten und Spitze ineinander über
+    -- Tail: black triangle (border) behind a slightly smaller box-colored one; both cover the
+    -- bottom border so box and tail blend into each other
     local px = ns.PixelSize()
     local outline = frame:CreateTexture(nil, "OVERLAY", nil, 1)
     outline:SetTexture(TAIL)
@@ -50,7 +47,7 @@ local function Skin(frame)
     skinned[frame] = { outline = outline, fill = fill }
 end
 
--- Spitze dorthin, wo Blizzard seine (unsichtbare) Spitze hat – die wandert je nach Blase
+-- Follow Blizzard's (hidden) tail position, which varies per bubble
 local function PlaceTail(frame, tail)
     local blizz = frame.Tail
     local left, center = frame:GetLeft(), blizz and blizz:GetCenter()

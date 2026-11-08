@@ -1,18 +1,14 @@
--- Gruppensuche im Chat (Forever): Sucht jemand eine Gruppe für einen Dungeon/Schlachtzug,
--- der zu deiner Stufe passt, bekommt die Nachricht vorne einen Hinweis in MUI-Salbei:
---
---   [1] [Kräuterkalle]: LFM DM need heal               ← vorher
---   [1] [Kräuterkalle]: 🔍 Todesminen LFM DM need heal  ← nachher (nur wenn die Todesminen zu dir passen)
---
--- Erkannt wird: Gruppensuch-Wort (LFG, LFM, suche, need, Tank, Heiler …) + Dungeon (Kürzel oder
--- Name, deutsch und englisch). „Passt“ = deine Stufe liegt im Bereich des Dungeons (± 2).
--- Allgemeine Kanäle, Sagen, Schreien. Geheime Chat-Texte (Instanzen) bleiben unangetastet.
+-- LFG highlight (Forever): chat messages looking for a group for a dungeon/raid that fits your
+-- level get an accent-colored tag in front:
+--   [1] [Someone]: LFM DM need heal  ->  [1] [Someone]: (icon) Deadmines LFM DM need heal
+-- Match = seeking word (LFG, LFM, need, tank ...) + dungeon keyword (German and English),
+-- and your level within the dungeon range +/- SLACK. Channels, say, yell; secret text is skipped.
 local _, ns = ...
 local L = ns.L
 
-local SLACK = 2 -- so viele Stufen darf man unter/über dem Bereich sein
+local SLACK = 2 -- allowed levels below/above the range
 
--- { Stufe von, bis, Schlüsselwörter (klein) }; Name kommt aus den Locales
+-- { name, min level, max level, lowercase keywords }; display name comes from the locales
 local DUNGEONS = {
     { "Ragefire Chasm", 13, 18, { "rfc", "ragefire", "flammenschlund" } },
     { "Wailing Caverns", 17, 24, { "wc", "wailing", "hdw", "höhlen des wehklagens", "wehklagen" } },
@@ -40,13 +36,13 @@ local DUNGEONS = {
     { "Ahn'Qiraj", 60, 60, { "aq", "aq20", "aq40", "ahn'qiraj", "ahnqiraj" } },
 }
 
--- Wörter, an denen man eine Gruppensuche erkennt
+-- Words indicating a group search (English and German)
 local SEEKING = { "lfg", "lfm", "lf1m", "lf2m", "lf3m", "lf4m", "lf", "looking for", "need", "suche", "sucht",
     "suchen", "brauchen", "braucht", "tank", "heal", "healer", "heiler", "dps", "dd", "noch einer", "noch ein" }
 
 local function Escape(word) return (word:gsub("[%(%)%.%%%+%-%*%?%[%]%^%$]", "%%%0")) end
 
--- „ganzes Wort“: Frontier-Muster (vorne/hinten kein Buchstabe/keine Zahl)
+-- Whole-word match via frontier patterns
 local function Compile(words)
     local out = {}
     for i, word in ipairs(words) do out[i] = "%f[%w]" .. Escape(word) .. "%f[^%w]" end
@@ -63,7 +59,7 @@ local function AnyMatch(text, patterns)
     end
 end
 
--- passender Dungeon zur eigenen Stufe (der erste Treffer)
+-- First matching dungeon that fits the player's level
 local function MatchDungeon(text)
     local level = UnitLevel("player")
     for _, dungeon in ipairs(DUNGEONS) do
