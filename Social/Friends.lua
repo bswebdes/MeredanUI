@@ -1,19 +1,19 @@
--- Freundesfenster (WoW Forever) statt Blizzards SocialUIFrame – gleiche Fenster-Familie wie Händler,
--- Briefkasten, Zauberbuch (Kopfzeile, Tabs rechts). Entwurf „Freunde“, Benny 2026-11-07.
+-- Friends window (WoW Forever) replacing Blizzard's SocialUIFrame - same window family as merchant,
+-- mailbox, spellbook (header, tabs on the right).
 --
---   [▣] Freunde                                   [x]
---       2 von 13 online
---   [● ˅]  Koratal#21168  ⧉                      [⊘]   ← Status, BattleTag kopieren, Ignorieren-Liste
---   [Suchen                                  ] [▼]     ← Filter: Status, Schlagwörter (filtert der Server)
---   FREUNDE  2/13                                 −
---  ▎● PLANIERRAUPE                          [App][+]   ← Spiel-Symbol (Blizzard), Einladen
---  ▎  Koratal · St. 23 · Dunkelküste
---   2 von 13 online                         [＋ Freund]
+--   [icon] Friends                               [x]
+--          2 of 13 online
+--   [o v]  Koratal#21168  [copy]                 [ignore]  <- status, copy BattleTag, ignore list
+--   [Search                                ] [filter]      <- filter: status, tags
+--   FRIENDS  2/13                                 -
+--  | o BULLDOZER                         [App][+]          <- game icon (Blizzard), invite
+--  |   Koratal - Lvl 23 - Darkshore
+--   2 of 13 online                        [+ Friend]
 --
--- Daten, Tooltips, Rechtsklick-Menüs und Einladen kommen von Blizzard (FriendsListUtil,
--- FriendsListSocialCardMixin, UnitPopup_OpenMenu …) – nur Aufbau und Optik sind unsere.
--- Öffnen: O (TOGGLESOCIAL), Freunde/Schlachtzug-Tasten, ToggleFriendsFrame und SocialUIControl
--- (Chat-Freunde-Knopf, Anfrage-Hinweise) leiten auf dieses Fenster um.
+-- Data, tooltips, context menus and invites come from Blizzard (FriendsListUtil,
+-- FriendsListSocialCardMixin, UnitPopup_OpenMenu ...); only layout and look are ours.
+-- O (TOGGLESOCIAL), the friends/raid keys, ToggleFriendsFrame and SocialUIControl (chat friends
+-- button, request notices) are redirected to this window.
 local _, ns = ...
 local L = ns.L
 
@@ -26,11 +26,11 @@ local BNET_BLUE = { 0.31, 0.7, 1 }
 
 local window, list, searchBox, searchHint, filterButton, filterMenu, statusButton, tagText, footerText
 local emptyText, infoText, actionButton
-local SyncSecure -- unten
-local secure, statusSecure, convertSecure -- geschützte Knöpfe auf eigener Ebene (Status, Schlachtgruppe)
+local SyncSecure -- defined below
+local secure, statusSecure, convertSecure -- secure buttons on their own layer (status, convert to raid)
 local tabs, rows, headers = {}, {}, {}
 local current = 1
-local filterChecks = {}   -- Filter-Option → true (nur diese Sitzung, wie bei Blizzard)
+local filterChecks = {}   -- filter option -> true (this session only, like Blizzard)
 local collapsed = {}
 local pending = false
 
@@ -63,7 +63,7 @@ local function TabIndex(key)
     end
 end
 
--- Bausteine -------------------------------------------------------------------------------------
+-- Widgets ---------------------------------------------------------------------------------------
 
 local function Header(i)
     if headers[i] then return headers[i] end
@@ -85,7 +85,7 @@ local function Header(i)
     return header
 end
 
--- kleiner Symbol-Knopf in der Zeile (Einladen, Annehmen, Ablehnen)
+-- Small icon button in a row (invite, accept, decline)
 local function RowButton(parent)
     local UI = ns.UI
     local button = CreateFrame("Button", nil, parent)
@@ -99,7 +99,7 @@ local function RowButton(parent)
     return button
 end
 
--- Blizzards Verbündeten-Tooltip braucht diese Methoden an der Zeile
+-- Blizzard's recent-ally tooltip needs these methods on the row
 local ALLY_METHODS = { "AddCharacterDataToTooltip", "AddStateDataToTooltip", "AddInteractionDataToTooltip",
     "AddInteractionsToTooltip", "GetMostRecentInteraction", "HasInteractions", "ConvertInteractionToTooltipString" }
 
@@ -108,8 +108,8 @@ local function Row(i)
     local UI = ns.UI
     local row = CreateFrame("Button", nil, list.child)
     row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-    -- Blizzards Karten-Methoden (Tooltip, Menü) an unserer Zeile nutzen; für Verbündete nur die
-    -- Tooltip-Helfer (ShowTooltip/OpenMenu bleiben die der Freunde-Karte)
+    -- Reuse Blizzard's card methods (tooltip, menu) on our row; for allies only the tooltip helpers
+    -- (ShowTooltip/OpenMenu stay those of the friends card)
     Mixin(row, FriendsListSocialCardMixin)
     for _, method in ipairs(ALLY_METHODS) do row[method] = RecentAlliesEntryMixin[method] end
     row.strip = row:CreateTexture(nil, "ARTWORK")
@@ -129,7 +129,7 @@ local function Row(i)
     row.sub:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -3)
     row.sub2 = UI.Text(row, 12, "LEFT", { 0.47, 0.46, 0.43 })
     row.sub2:SetPoint("TOPLEFT", row.sub, "BOTTOMLEFT", 0, -2)
-    -- rechts: Aktionen, links davon das Spiel-Symbol
+    -- right: actions, game icon left of them
     row.action = RowButton(row)
     row.action:SetPoint("RIGHT", -6, 0)
     Mixin(row.action, FriendsListSocialCardPartyButtonMixin)
@@ -169,7 +169,7 @@ local function ResetRow(row)
     row.action:SetAlpha(1)
 end
 
--- Symbol im Zeilen-Knopf: Atlas oder eigenes Symbol (Media/Icons)
+-- Row button icon: atlas or own icon (Media/Icons)
 local function SetActionIcon(button, atlas, size, color)
     button.icon:SetAtlas(atlas)
     button.icon:SetSize(size or 16, size or 16)
@@ -178,12 +178,12 @@ end
 
 local function SetActionMedia(button, name, size, color)
     button.icon:SetTexture(ns.MEDIA .. "Icons\\" .. name)
-    button.icon:SetTexCoord(0, 1, 0, 1) -- Atlas-Ausschnitt einer früheren Zeile zurücksetzen
+    button.icon:SetTexCoord(0, 1, 0, 1) -- reset tex coords left over from an atlas
     button.icon:SetSize(size, size)
     button.icon:SetVertexColor(unpack(color))
 end
 
--- Freunde ---------------------------------------------------------------------------------------
+-- Friends ---------------------------------------------------------------------------------------
 
 local STATUS_FILTERS = {
     { label = SOCIAL_UI_PRESENCE_TYPE_LABEL_ONLINE, field = "isOnline" },
@@ -192,9 +192,8 @@ local STATUS_FILTERS = {
     { label = SOCIAL_UI_PRESENCE_TYPE_LABEL_OFFLINE, field = "isOffline" },
 }
 
--- Suche und Filter selbst (C_BattleNet.SearchFriends ist geschützt – darf nur Blizzards Fenster):
--- Text in Konto-, BattleTag-, Charaktername und Notiz; Status: einer der gewählten; Schlagwörter:
--- eines der gewählten
+-- Own search and filter (C_BattleNet.SearchFriends is protected): text matches account name,
+-- BattleTag, character name and note; status and tags each match any of the selected options
 local function MatchesFilters(info)
     local query = strtrim(searchBox:GetText() or ""):lower()
     if query ~= "" then
@@ -234,7 +233,7 @@ local function FriendRow(row, friendIndex, accountInfo)
     row.strip:SetColorTexture(BNET_BLUE[1], BNET_BLUE[2], BNET_BLUE[3], online and 1 or 0)
     row.name:SetText(FriendsListUtil.BuildFriendNameDisplayText(accountInfo))
     row.name:SetTextColor(unpack(online and BNET_BLUE or { 0.6, 0.6, 0.6 }))
-    -- darunter: Charakter · Stufe · Ort, sonst „Zuletzt online vor …“
+    -- second line: character - level - location, else "last online ..."
     local parts = {}
     if online then
         local character = FriendsListUtil.BuildCharacterNameDisplayText(accountInfo)
@@ -248,14 +247,14 @@ local function FriendRow(row, friendIndex, accountInfo)
     end
     row.sub:SetText(table.concat(parts, "  ·  "))
     row:SetAlpha(online and 1 or 0.75)
-    -- Spiel-Symbol von Blizzard (WoW, App, …)
+    -- Blizzard's game icon (WoW, App, ...)
     local game = accountInfo.gameAccountInfo
     if online and game.clientProgram and game.clientProgram ~= "" then
         C_Texture.SetTitleIconTexture(row.game, game.clientProgram, Enum.TitleIconVersion.Small, game.subIcon)
         row.game:SetAlpha(FriendsListUtil.IsPlayingDifferentWoWProject(game) and 0.6 or 1)
         row.game:Show()
     end
-    -- Einladen (Blizzards Logik: Sperren, mehrere Spielkonten, Anfrage statt Einladung)
+    -- Invite (Blizzard's logic: restrictions, multiple game accounts, request instead of invite)
     local action = row.action
     action:Initialize(row.elementData)
     action.icon:SetSize(18, 18)
@@ -304,7 +303,7 @@ local function BuildFriends(add)
     return L["%d of %d online"]:format(numOnline or 0, total or 0), found == 0 and L["No friends found."] or nil
 end
 
--- Kürzliche Verbündete ---------------------------------------------------------------------------
+-- Recent allies ---------------------------------------------------------------------------------
 
 local function AllyRow(row, ally)
     local character, state = ally.characterData, ally.stateData
@@ -324,7 +323,7 @@ local function AllyRow(row, ally)
     row.sub:SetText(interaction and interaction.description or "")
     row.sub2:SetText(online and (state.currentLocation or "") or (FRIENDS_LIST_OFFLINE or L["Offline"]))
     row:SetAlpha(online and 1 or 0.7)
-    -- Einladen
+    -- invite
     local action = row.action
     SetActionIcon(action, online and "friends-icon-friendsAvailable" or "friends-icon-friendsAvailable-dis", 18)
     action:SetEnabled(online)
@@ -355,8 +354,7 @@ local function AllyRow(row, ally)
 end
 
 local function BuildAllies(add)
-    -- (Daten anfordern darf nur Blizzard – TryRequestRecentAlliesData ist geschützt; wir warten auf
-    -- RECENT_ALLIES_CACHE_UPDATE)
+    -- TryRequestRecentAlliesData is protected; wait for RECENT_ALLIES_CACHE_UPDATE instead
     if not C_RecentAllies.IsRecentAllyDataReady() then return "", L["Loading …"] end
     local allies = C_RecentAllies.GetRecentAllies() or {}
     local query = strtrim(searchBox:GetText() or ""):lower()
@@ -375,7 +373,7 @@ local function BuildAllies(add)
     return L["%d of %d online"]:format(online, #shown), #shown == 0 and L["No recent allies yet."] or nil
 end
 
--- Anfragen --------------------------------------------------------------------------------------
+-- Requests --------------------------------------------------------------------------------------
 
 local function RequestRow(row, index, invite)
     row.elementData = invite
@@ -386,7 +384,7 @@ local function RequestRow(row, index, invite)
     local age = invite.creationTimestamp and (GetServerTime() - invite.creationTimestamp)
     row.sub:SetText(age and age > 0 and L["%s ago"]:format(SecondsToTime(age, false, true, 1)) or "")
     row:SetAlpha(1)
-    -- Ablehnen (Menü wie bei Blizzard: Ablehnen, Melden, Einladungen blockieren)
+    -- Decline (menu as in Blizzard's UI: decline, report, block invites)
     local decline = row.action
     SetActionMedia(decline, "Close", 14, { 0.9, 0.31, 0.31 })
     decline:SetScript("OnClick", function(self)
@@ -443,7 +441,7 @@ local function BuildRequests(add)
     return "", count == 0 and L["No open requests."] or nil
 end
 
--- Schlachtzug -----------------------------------------------------------------------------------
+-- Raid ----------------------------------------------------------------------------------------
 
 local function BuildRaid()
     local inRaid = IsInRaid()
@@ -457,7 +455,7 @@ local function BuildRaid()
     return "", nil
 end
 
--- Aufbau ----------------------------------------------------------------------------------------
+-- Layout ----------------------------------------------------------------------------------------
 
 local function SelfPresence()
     local P = Enum.SocialUIPresenceType
@@ -478,7 +476,7 @@ local function Layout()
     pending = false
     if not (window and window:IsShown()) then return end
     local tab = TABS[current]
-    -- Tabs rechts
+    -- tabs on the right
     local slot = 0
     for i, def in ipairs(TABS) do
         local button = tabs[i]
@@ -490,7 +488,7 @@ local function Layout()
             button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (slot - 1) * TAB_STEP)
             local active = i == current
             button.icon:SetAtlas(active and def.atlas or (def.atlas .. "-inactive"))
-            button.icon:SetDesaturated(not active) -- inaktive Reiter grau (wie überall)
+            button.icon:SetDesaturated(not active) -- inactive tabs desaturated (as everywhere)
             for _, e in ipairs(button.active) do e:SetShown(active) end
             local count = def.count and def.count() or 0
             button.count:SetText(count > 0 and count or "")
@@ -559,7 +557,7 @@ local function Layout()
     footerText:SetText(footer or "")
     SyncSecure()
     window.npcTitle:SetText(footer or "")
-    -- Fußknopf: Freund hinzufügen bzw. Schlachtgruppe bilden
+    -- footer button: add friend or convert to raid
     if tab.key == "raid" then
         actionButton.Text:SetText(CONVERT_TO_RAID or L["Convert to raid"])
         actionButton:SetShown(not IsInRaid())
@@ -585,7 +583,7 @@ SyncSecure = function()
         secure.driven = nil
     end
     secure:SetShown(wanted)
-    -- Knöpfe an die Stelle ihrer sichtbaren Gegenstücke, verankert nur an der Ebene
+    -- place secure buttons over their visible counterparts, anchored only to the layer
     ns.MirrorRect(secure, window)
     ns.MirrorRect(statusSecure, statusButton, secure)
     ns.MirrorRect(convertSecure, actionButton, secure)
@@ -606,7 +604,7 @@ local function SelectTab(index)
     Refresh()
 end
 
--- Filter-Menü: Status und Schlagwörter (Häkchen), wie das Kartenfilter-Menü
+-- Filter menu: status and tags (checkboxes), like the map filter menu
 local function CreateFilterMenu()
     local UI = ns.UI
     filterMenu = CreateFrame("Frame", nil, window)
@@ -670,7 +668,7 @@ local function CreateFilterMenu()
     end)
 end
 
--- Ignorieren-Liste: Spieler (Ignorieren) und Battle.net (blockierte Einladungen), mit Entfernen
+-- Ignore list: players (ignored) and Battle.net (blocked invites), with remove
 local function OpenIgnoreList(owner)
     local UI = ns.UI
     local items = {}
@@ -683,7 +681,7 @@ local function OpenIgnoreList(owner)
     end
     for i = 1, BNGetNumBlocked() or 0 do
         local blockID, blockName = BNGetBlockedInfo(i)
-        -- (Battle.net-Sperren aufheben ist geschützt – nur anzeigen)
+        -- unblocking Battle.net accounts is protected - display only
         items[#items + 1] = { value = "b" .. (blockID or i), label = "|cff4fb3ff" .. (blockName or UNKNOWN) .. "|r", inert = true }
     end
     if #items == 0 then items[1] = { value = "none", label = "|cff99978f" .. L["Nobody ignored."] .. "|r", inert = true } end
@@ -700,9 +698,9 @@ local function CreateWindow()
     local UI = ns.UI
     window = ns.CreateNpcWindow("MeredanUIFriends", WIDTH, ns.NPC_HEIGHT, "friends")
     window.Refresh = Refresh
-    window.extraRight = TAB_STEP -- Tabs rechts: Nachbarfenster rücken weiter weg
+    window.extraRight = TAB_STEP -- tabs on the right: neighbor windows keep extra distance
 
-    -- Tabs
+    -- tabs
     for i, def in ipairs(TABS) do
         local button = CreateFrame("Button", nil, window)
         button:SetSize(TAB_SIZE, TAB_SIZE)
@@ -727,10 +725,10 @@ local function CreateWindow()
         tabs[i] = button
     end
 
-    -- Battle.net-Leiste: Status, BattleTag (kopieren), Ignorieren-Liste
+    -- Battle.net bar: status, BattleTag (copy), ignore list
     local top = -(ns.NPC_HEADER_BOTTOM + 14)
     statusButton = CreateFrame("Button", nil, window)
-    statusButton:SetSize(28, 28) -- quadratisch wie die anderen Symbol-Knöpfe
+    statusButton:SetSize(28, 28) -- square like the other icon buttons
     statusButton:SetPoint("TOPLEFT", PAD, top)
     local statusBg = UI.Box(statusButton)
     statusButton.dot = statusButton:CreateTexture(nil, "ARTWORK")
@@ -739,8 +737,8 @@ local function CreateWindow()
     local chevron = UI.Icon(statusButton, "ChevronDown", 10, UI.MUTED)
     chevron:SetPoint("RIGHT", -6, 0)
     chevron:Hide()
-    -- Status setzen dürfen nur Blizzard-Knöpfe (C_BattleNet.SetAFK … sind geschützt): ein geschützter
-    -- Makro-Knopf darüber – Linksklick /afk, Rechtsklick /dnd (jeweils an/aus)
+    -- C_BattleNet.SetAFK etc. are protected: a secure macro button sits on top -
+    -- left-click /afk, right-click /dnd (each toggles)
     statusButton.statusBg = statusBg
     function statusButton.ShowTip(owner)
         statusBg:SetColorTexture(unpack(UI.HOVER))
@@ -786,7 +784,7 @@ local function CreateWindow()
     end)
     copy:HookScript("OnLeave", function() GameTooltip:Hide() end)
 
-    -- Suche + Filter
+    -- search + filter
     searchBox = UI.EditBox(window, 28)
     searchBox:SetPoint("TOPLEFT", statusButton, "BOTTOMLEFT", 0, -8)
     searchHint = UI.Text(searchBox, 13, "LEFT", UI.MUTED)
@@ -826,18 +824,18 @@ local function CreateWindow()
     footerText = UI.Text(window, 12, "LEFT", UI.MUTED)
     footerText:SetPoint("BOTTOMLEFT", PAD, 20)
     actionButton = UI.Button(window, "", function()
-        if TABS[current].key ~= "raid" then AddFriendFrame_Show() end -- Schlachtgruppe: geschützter Knopf darüber
+        if TABS[current].key ~= "raid" then AddFriendFrame_Show() end -- raid: secure button on top handles it
     end, 150)
     actionButton:SetHeight(28)
     actionButton:SetPoint("BOTTOMRIGHT", -PAD, 14)
 
-    -- geschützte Knöpfe: eigene Ebene über dem Fenster (sichtbar nur offen und außerhalb des Kampfs)
+    -- secure buttons: own layer above the window (shown only while open and out of combat)
     secure = CreateFrame("Frame", "MeredanUIFriendsSecure", UIParent, "SecureHandlerStateTemplate")
     secure:SetFrameStrata("DIALOG")
-    ns.FollowFrame(secure, window) -- nicht SetAllPoints: würde das Fenster mitschützen (Core.lua)
+    ns.FollowFrame(secure, window) -- not SetAllPoints: would make the window protected too (Core.lua)
     secure:Hide()
     statusSecure = CreateFrame("Button", nil, secure, "SecureActionButtonTemplate")
-    statusSecure:RegisterForClicks("AnyUp", "AnyDown") -- Blizzard löst bei Addon-Knöpfen beim Drücken aus
+    statusSecure:RegisterForClicks("AnyUp", "AnyDown") -- addon secure buttons fire on key down
     statusSecure:SetAttribute("type1", "macro")
     statusSecure:SetAttribute("macrotext1", "/afk")
     statusSecure:SetAttribute("type2", "macro")
@@ -845,7 +843,7 @@ local function CreateWindow()
     statusSecure:SetScript("OnEnter", function(self) statusButton.ShowTip(self) end)
     statusSecure:SetScript("OnLeave", function() statusButton.HideTip() end)
     statusSecure:HookScript("OnClick", function() C_Timer.After(0.3, Refresh) end)
-    -- Schlachtgruppe bilden: Blizzards eigenen (versteckten) Knopf klicken lassen
+    -- convert to raid: click Blizzard's own (hidden) button
     convertSecure = CreateFrame("Button", nil, secure, "SecureActionButtonTemplate")
     convertSecure:RegisterForClicks("AnyUp", "AnyDown")
     convertSecure:SetAttribute("type", "click")
@@ -855,7 +853,7 @@ local function CreateWindow()
 
     window:HookScript("OnShow", function()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
-        -- nicht verfügbarer Tab (z. B. System aus): ersten verfügbaren nehmen
+        -- tab unavailable (e.g. system disabled): fall back to the first available one
         if not TABS[current].available() then
             for i, def in ipairs(TABS) do
                 if def.available() then current = i break end
@@ -871,7 +869,7 @@ local function CreateWindow()
     end)
 end
 
--- Öffnen: tabKey nil = umschalten; mit Tab: dorthin bzw. schließen, wenn er schon offen ist
+-- tabKey nil = toggle; with a tab: switch to it, or close if it is already shown
 local function Toggle(tabKey)
     if not window then CreateWindow() end
     local index = tabKey and TabIndex(tabKey)
@@ -896,7 +894,7 @@ ns:On("PLAYER_LOGIN", function()
     CreateWindow()
     ns.OpenFriends = Open
 
-    -- Tasten: O (Freunde), Freunde-/Schlachtzug-Tab
+    -- key bindings: O (social), friends tab, raid tab
     local buttons = {}
     local function Button(name, tabKey)
         local button = CreateFrame("Button", name, UIParent)
@@ -921,7 +919,7 @@ ns:On("PLAYER_LOGIN", function()
     BindKeys()
     ns:On("UPDATE_BINDINGS", BindKeys)
 
-    -- Blizzards Öffner (Chat-Freunde-Knopf, Hinweise, Menüs) auf unser Fenster umleiten
+    -- redirect Blizzard's openers (chat friends button, notices, menus) to this window
     local FRIEND_TAB = { [FRIEND_TAB_FRIENDS or 1] = "friends", [FRIEND_TAB_RAID or 2] = "raid" }
     local SOCIAL_TAB = {}
     for _, def in ipairs(TABS) do
