@@ -1130,10 +1130,14 @@ local function SkinLikeOwnWindow(f)
             count:SetPoint("TOPRIGHT", f, "TOPRIGHT", -HEAD_PAD, -(HEAD_PAD + 26 + 8))
             count:SetJustifyH("RIGHT")
         end
-        local stream = f.StreamDropdown
-        if stream and f.Chat then
+        -- „Gilde“-Dropdown: links bündig mit dem Chat-Kasten, oben bündig mit der Community-Spalte
+        -- (sichtbare Fläche sitzt 3 px innerhalb des Dropdowns)
+        local stream, list = f.StreamDropdown, f.CommunitiesList
+        local box = f.Chat and (f.Chat.InsetFrame or f.Chat)
+        if stream and list and box then
+            local dx = box:GetLeft() and list:GetRight() and (box:GetLeft() - list:GetRight()) or 31
             stream:ClearAllPoints()
-            stream:SetPoint("BOTTOMLEFT", f.Chat, "TOPLEFT", 0, 8)
+            stream:SetPoint("TOPLEFT", list, "TOPRIGHT", dx - 3, 3)
         end
         local offline = f.MemberList and f.MemberList.ShowOfflineButton
         for _, key in ipairs({ "GuildMemberListDropdown", "CommunityMemberListDropdown" }) do
@@ -1146,7 +1150,7 @@ local function SkinLikeOwnWindow(f)
         end
     end
     f:HookScript("OnSizeChanged", HeaderLayout)
-    f:HookScript("OnShow", HeaderLayout)
+    f:HookScript("OnShow", function() HeaderLayout() C_Timer.After(0, HeaderLayout) end)
     HeaderLayout()
     -- Chat in mUI-Schrift
     local messages = f.Chat and f.Chat.MessageFrame
