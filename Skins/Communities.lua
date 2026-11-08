@@ -1886,12 +1886,10 @@ local function SkinRankRows()
                 box:SetFont(ns.FontFor(), ns.FontPx(13), "")
                 box:SetTextColor(1, 1, 1, 1)
                 -- Text NIE selbst setzen: von Addons geschriebener Text gilt als „verseucht“, dann
-                -- blockiert WoW beim Umbenennen GuildControlSetRank (Benny 2026-11-08). Neu zeichnen
-                -- nach dem Schriftwechsel stattdessen über kurzes Aus-/Einblenden.
-                if not box:HasFocus() and box:IsShown() then
-                    box:Hide()
-                    box:Show()
-                end
+                -- blockiert WoW beim Umbenennen GuildControlSetRank (Benny 2026-11-08).
+                -- Blizzard setzt die Namen, solange das Fenster noch keine Breite hat – der Cursor am
+                -- Textende scrollt den Text dann aus dem Feld. Cursor an den Anfang (ändert den Text nicht).
+                if not box:HasFocus() then box:SetCursorPosition(0) end
             end
             if row.rankLabel then
                 row.rankLabel:ClearAllPoints()
@@ -2155,7 +2153,10 @@ local function SkinGuildControl(control)
     if GuildControlUI_BankTabPermissions_Update then
         hooksecurefunc("GuildControlUI_BankTabPermissions_Update", function(page) SkinChildren(page) end)
     end
-    control:HookScript("OnShow", Relayout)
+    control:HookScript("OnShow", function()
+        Relayout()
+        C_Timer.After(0.05, SkinRankRows) -- nach dem Platzieren: Namen an den Feldanfang scrollen
+    end)
     -- Seitenwechsel über die Auswahl läuft über eine interne Blizzard-Funktion: am Einblenden der
     -- Seiten neu anordnen (Rang-Auswahl über der Linie, Inhalt darunter)
     for _, key in ipairs({ "orderFrame", "rankPermFrame", "bankTabFrame", "discordFrame" }) do
