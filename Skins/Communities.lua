@@ -1885,13 +1885,12 @@ local function SkinRankRows()
                 box:SetSize(146, 36)
                 box:SetFont(ns.FontFor(), ns.FontPx(13), "")
                 box:SetTextColor(1, 1, 1, 1)
-                -- nach dem Schriftwechsel zeigt WoW den Text erst nach erneutem Setzen wieder an
-                -- (WoW zeichnet nur bei geändertem Text neu – deshalb erst leeren, dann setzen)
-                if not box:HasFocus() and GuildControlGetRankName then
-                    local name = GuildControlGetRankName(row:GetID() > 0 and row:GetID() or i) or ""
-                    box:SetText("")
-                    box:SetText(name)
-                    box:SetCursorPosition(0)
+                -- Text NIE selbst setzen: von Addons geschriebener Text gilt als „verseucht“, dann
+                -- blockiert WoW beim Umbenennen GuildControlSetRank (Benny 2026-11-08). Neu zeichnen
+                -- nach dem Schriftwechsel stattdessen über kurzes Aus-/Einblenden.
+                if not box:HasFocus() and box:IsShown() then
+                    box:Hide()
+                    box:Show()
                 end
             end
             if row.rankLabel then
