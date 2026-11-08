@@ -933,10 +933,20 @@ local function Setup()
     itemLayer:SetSize(ACTIVE_SIZE, 10)
     -- nicht an den Tracker hängen: sonst wird er mitgeschützt und darf im Kampf seine Höhe nicht
     -- ändern. Der Platzhalter liegt an derselben Ecke und bewegt sich nur außerhalb des Kampfs.
-    itemLayer:SetPoint("TOPRIGHT", anchor, "TOPLEFT", -12, 0)
     itemLayer:SetFrameStrata("MEDIUM")
+    -- Nicht am (ungeschützten) Questtracker verankert, sondern am Bildschirm: sonst verlor der
+    -- Zustandstreiber nach Verschieben des Trackers den Zugriff („Invalid 'self' frame handle",
+    -- Benny 2026-11-08). Position wird außerhalb des Kampfs nachgeführt.
+    local function SyncItemLayer()
+        if InCombatLockdown() then return ns.AfterCombat(SyncItemLayer) end
+        local left, top = anchor:GetLeft(), anchor:GetTop()
+        if not (left and top) then return end
+        itemLayer:ClearAllPoints()
+        itemLayer:SetPoint("TOPRIGHT", UIParent, "BOTTOMLEFT", left - 12, top)
+    end
+    SyncItemLayer()
 
-    hooksecurefunc(anchor, "SetPoint", function() C_Timer.After(0, Refresh) end)
+    hooksecurefunc(anchor, "SetPoint", function() C_Timer.After(0, function() SyncItemLayer() Refresh() end) end)
     ns.OnLayout(PlaceAnchorDefault)
     ns.layoutFrames.questlog = anchor
     if ns.PlaceBossFrames then ns.PlaceBossFrames() end -- Bossframes links daneben
