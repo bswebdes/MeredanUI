@@ -1,13 +1,11 @@
--- Kampftext: Blizzards eigener schwebender Kampftext (Zahlen über Gegnern, Text über dir) in der
--- MUI-Schrift. Selbst gezeichnet wird nichts: Addons dürfen in Instanzen weder das Kampflog lesen
--- noch Schadenswerte rechnen (Midnight/Forever) – Blizzards Text funktioniert dagegen überall.
---   • Zahlen über Gegnern: DAMAGE_TEXT_FONT – liest das Spiel nur beim Start (Neustart nötig).
---   • Text über dir: CombatTextFont – sofort.
--- Die Schalter (Einstellungen > Kampftext) sind Blizzards eigene Werte (wie Optionen > Gameplay →
--- Kampf), nur an einer Stelle gesammelt.
+-- Combat text: restyles Blizzard's floating combat text in the mUI font instead of drawing our own
+-- (addons may not read the combat log or compute damage in instances on Midnight/Forever).
+--   - Numbers over enemies: DAMAGE_TEXT_FONT - read only at startup (needs a restart).
+--   - Text over the player: CombatTextFont - applies immediately.
+-- The toggles in Settings > Combat Text are Blizzard's own CVars, just gathered in one place.
 local ADDON_NAME, ns = ...
 
-local function Enabled() return ns.db ~= nil end -- fest an (früher Schalter)
+local function Enabled() return ns.db ~= nil end -- always on
 
 local function ApplyCombatTextFont()
     if not Enabled() or not CombatTextFont then return end
@@ -17,10 +15,10 @@ local function ApplyCombatTextFont()
 end
 ns.ApplyCombatTextFont = ApplyCombatTextFont
 
--- Zahlen über Gegnern: muss vor dem Betreten der Welt gesetzt sein (ADDON_LOADED reicht)
+-- Numbers over enemies: must be set before entering the world (ADDON_LOADED is early enough)
 ns:On("ADDON_LOADED", function(_, name)
     if name == ADDON_NAME and Enabled() then DAMAGE_TEXT_FONT = ns.DEFAULT_FONT end
-    -- Blizzards Kampftext lädt erst bei Bedarf und setzt dabei seine Schrift
+    -- Blizzard_CombatText loads on demand and sets its own font then
     if name == "Blizzard_CombatText" then ApplyCombatTextFont() end
 end)
 ns:On("PLAYER_LOGIN", ApplyCombatTextFont)
