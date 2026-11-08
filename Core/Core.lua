@@ -1,11 +1,11 @@
--- MeredanUI: Kern – Flavor-Erkennung, Secret-sichere Helfer, Events, SavedVariables, Slash-Befehle.
+-- MeredanUI core: flavor detection, secret-safe helpers, events, SavedVariables, slash commands.
 local ADDON_NAME, ns = ...
 local L = ns.L
 
 -------------------------------------------------------------------------------
---  Flavor: Retail (Midnight) und WoW Forever teilen sich das Mainline-API.
---  Forever meldet WOW_PROJECT_ID 18 (WOW_PROJECT_CAMELOT). Features lieber per
---  API-Existenz prüfen als nur über die Projekt-ID verzweigen.
+--  Flavor: Retail (Midnight) and WoW Forever share the Mainline API.
+--  Forever reports WOW_PROJECT_ID 18 (WOW_PROJECT_CAMELOT). Prefer checking for API
+--  existence over branching on the project ID.
 -------------------------------------------------------------------------------
 ns.IS_FOREVER = WOW_PROJECT_ID == (WOW_PROJECT_CAMELOT or 18)
 ns.IS_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
@@ -14,27 +14,27 @@ local version = C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version") or ""
 ns.VERSION = version:find("^@") and "dev" or version
 
 -------------------------------------------------------------------------------
---  Secret Values: Den Secret-Test IMMER zuerst – schon `v == nil` auf einem
---  Secret wirft einen Fehler. Secrets nur an Blizzard-Widgets durchreichen.
+--  Secret values: ALWAYS test for secrets first - even `v == nil` on a secret
+--  throws. Only pass secrets through to Blizzard widgets.
 -------------------------------------------------------------------------------
 local issecretvalue = issecretvalue or function() return false end
 ns.issecretvalue = issecretvalue
 
--- Wert ist lesbar (kein Secret, nicht nil).
+-- Value is readable (not a secret, not nil).
 function ns.Readable(v)
     return not issecretvalue(v) and v ~= nil
 end
 
--- Wert oder nil, falls Secret.
+-- Value, or nil if secret.
 function ns.Plain(v)
     if not issecretvalue(v) then return v end
 end
 
 -------------------------------------------------------------------------------
---  Ausgabe
+--  Output
 -------------------------------------------------------------------------------
--- Marke im Chat (Benny 2026-11-07): sonst „mUI“ – „m“ hell (#e9e6dd), „UI“ in Surf Green (#8ecbb4);
--- nur die Begrüßung beim Login zeigt den ganzen Namen „MeredanUI“.
+-- Chat brand "mUI": "m" light (#e9e6dd), "UI" in Surf Green (#8ecbb4);
+-- only the login greeting shows the full name "MeredanUI".
 local BRAND_SHORT = "|cffe9e6ddm|r|cff8ecbb4UI|r"
 local BRAND_LONG = "|cffe9e6ddMeredan|r|cff8ecbb4UI|r"
 local PREFIX = BRAND_SHORT .. ": "
@@ -42,7 +42,7 @@ local PREFIX = BRAND_SHORT .. ": "
 function ns.Print(fmt, ...)
     local text = select("#", ...) > 0 and fmt:format(...) or fmt
     print(PREFIX .. text)
-    if DevLog then DevLog(ADDON_NAME, text) end -- Dev-Hilfe (Workspace-Addon DevLog), sonst nichts
+    if DevLog then DevLog(ADDON_NAME, text) end -- dev helper (workspace addon DevLog), no-op otherwise
 end
 
 function ns.Debug(fmt, ...)
@@ -53,8 +53,8 @@ end
 --  Events: ns:On("EVENT", function(event, ...) end)
 -------------------------------------------------------------------------------
 local handlers = {}
--- Jeder Handler einzeln abgesichert: ein Fehler landet im Fehlerfenster (BugSack), die übrigen
--- Module laufen trotzdem weiter (sonst bricht z. B. beim Login die ganze Kette ab).
+-- Each handler is isolated: an error goes to the error handler (BugSack) and the remaining
+-- handlers still run (otherwise one error breaks the whole login chain).
 local SafeCall = securecallfunction or function(fn, ...)
     local ok, err = pcall(fn, ...)
     if not ok then geterrorhandler()(err) end
@@ -79,8 +79,8 @@ function ns:Off(event)
     eventFrame:UnregisterEvent(event)
 end
 
--- Läuft ein anderes Addon für dieselbe Aufgabe? Liefert dessen Ordnernamen (erstes geladenes aus
--- der Liste) oder nil. Ordnernamen exakt wie im AddOns-Ordner.
+-- Is another addon for the same job loaded? Returns its folder name (first loaded from the
+-- list) or nil. Names must match the AddOns folder exactly.
 function ns.OtherAddon(names)
     local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
     if not loaded then return end
@@ -89,13 +89,12 @@ function ns.OtherAddon(names)
     end
 end
 
--- Auktionshaus-Addons (Benny 2026-11-08): läuft eins davon, bleibt das mUI-Auktionshaus aus –
--- kein Skin, kein Eingriff; Händler schwören auf ihr eigenes.
+-- Auction house addons: if one is loaded, the mUI auction house stays off entirely (no skin, no hooks).
 ns.AUCTION_ADDONS = { "Auctionator", "TradeSkillMaster", "Auc-Advanced", "AuctionFaster", "aux-addon" }
--- Briefkasten-Addons: hängen sich an Blizzards Postfenster – unseres würde sie verdecken
+-- Mail addons hook Blizzard's mail frame - ours would cover them
 ns.MAIL_ADDONS = { "Postal", "TradeSkillMaster", "MailLogger" }
 
--- Aktion außerhalb des Kampfes ausführen (sofort oder nach PLAYER_REGEN_ENABLED).
+-- Run outside combat (immediately or on PLAYER_REGEN_ENABLED).
 local afterCombat = {}
 function ns.AfterCombat(fn)
     if not InCombatLockdown() then return fn() end
@@ -108,131 +107,131 @@ ns:On("PLAYER_REGEN_ENABLED", function()
 end)
 
 -------------------------------------------------------------------------------
---  SavedVariables (account-weit) mit Profilen:
---    MeredanUIDB.profiles[Name] = Einstellungen (DEFAULTS), ns.db = aktives Profil
---    MeredanUIDB.chars["Vorname Nachname - Realm"] = { profile, setupDone, specAuto, specProfiles }
---    Neue Charaktere bekommen ein eigenes Profil mit ihrem Namen (s. ADDON_LOADED).
---    MeredanUIDB.newCharProfile = Profil für neu eingeloggte Charaktere (optional)
---  Neue Defaults werden beim Laden ergänzt. Profile verwaltet Profiles.lua. Das Layout (wo alles
---  sitzt, Core/Layouts.lua) ist eine Einstellung im Profil: ns.db.layout.
+--  SavedVariables (account-wide) with profiles:
+--    MeredanUIDB.profiles[name] = settings (DEFAULTS), ns.db = active profile
+--    MeredanUIDB.chars["First Last - Realm"] = { profile, setupDone, specAuto, specProfiles }
+--    New characters get their own profile named after them (see ADDON_LOADED).
+--    MeredanUIDB.newCharProfile = profile for newly logged-in characters (optional)
+--  Missing defaults are filled in on load. Profiles.lua manages profiles. The layout
+--  (Core/Layouts.lua) is a per-profile setting: ns.db.layout.
 -------------------------------------------------------------------------------
 ns.DEFAULT_PROFILE = "Standard"
--- Ein eingebautes Profil (nicht löschbar/umbenennbar); die Rolle steckt im Layout (Benny 2026-11-07).
+-- One built-in profile (cannot be deleted/renamed); the role lives in the layout.
 ns.BUILTIN_PROFILES = { ns.DEFAULT_PROFILE }
-ns.DEFAULT_LAYOUT = "melee" -- Nahkampf-DPS: Basis aller Layouts
+ns.DEFAULT_LAYOUT = "melee" -- melee DPS: base of all layouts
 
 local DEFAULTS = {
     debug = false,
-    nameFormat = "first", -- Namen (Forever: Vor- und Nachname): "first", "full", "firstInitial", "initialLast", "last"
-    panelOpacity = "normal", -- Deckkraft aller mUI-Hintergründe: "solid", "normal", "light" (Core/Style.lua)
-    fontSize = "medium", -- Schriftgröße aller mUI-Texte: "small", "medium", "large" (Core/Style.lua)
-    layout = "melee", -- Layout (Core/Layouts.lua): Nahkampf-DPS ist die Basis
-    theme = "class", -- "class", "dark" oder "green"
-    minimapExtras = "always", -- Texte (Zone, Uhr, Koordinaten) und Symbole: "always" oder "mouseover"
-    frameSize = "medium", -- Spieler + Ziel (Begleiter, Ziel des Ziels, Fokus wachsen mit): "small", "medium", "large"
-    bossSize = "medium",  -- Bossframes: "small", "medium", "large"
-    chatShortChannels = true, -- Kanalnamen im Chat kürzen ([G], [P], [1] …)
-    chatTimestamps = true,    -- schlichte Zeitstempel (12:04) vor Chatzeilen
-    chatFontSize = "medium",  -- Schriftgröße im Chat: "small", "medium", "large" (Chat/ChatStyle.lua)
-    chatEmoji = true,         -- Smileys und Emojis als Bilder im Chat
-    chatReputation = true,    -- Ruf im Chat mit Balken statt Blizzards Zeile
-    chatMentionSound = true,  -- Ton, wenn dein Name/Spitzname im Chat fällt
-    -- Tooltip: Position "corner" (unten rechts) oder "cursor"; Spieler-Zeilen einzeln
+    nameFormat = "first", -- names (Forever: first and last name): "first", "full", "firstInitial", "initialLast", "last"
+    panelOpacity = "normal", -- opacity of all mUI backgrounds: "solid", "normal", "light" (Core/Style.lua)
+    fontSize = "medium", -- font size of all mUI texts: "small", "medium", "large" (Core/Style.lua)
+    layout = "melee", -- Core/Layouts.lua; melee DPS is the base
+    theme = "class", -- "class", "dark" or "green"
+    minimapExtras = "always", -- texts (zone, clock, coordinates) and icons: "always" or "mouseover"
+    frameSize = "medium", -- player + target (pet, target of target, focus scale along): "small", "medium", "large"
+    bossSize = "medium",  -- boss frames: "small", "medium", "large"
+    chatShortChannels = true, -- shorten channel names in chat ([G], [P], [1] ...)
+    chatTimestamps = true,    -- plain timestamps (12:04) before chat lines
+    chatFontSize = "medium",  -- chat font size: "small", "medium", "large" (Chat/ChatStyle.lua)
+    chatEmoji = true,         -- smileys and emojis as images in chat
+    chatReputation = true,    -- reputation in chat with a bar instead of Blizzard's line
+    chatMentionSound = true,  -- sound when your name/nickname is mentioned
+    -- Tooltip: position "corner" (bottom right) or "cursor"; player lines individually
     tooltipAnchor = "corner",
-    tooltipHideInCombat = false, -- im Kampf ausblenden (Shift zeigt ihn trotzdem)
+    tooltipHideInCombat = false, -- hide in combat (Shift still shows it)
     tooltipItemLevel = true, tooltipMythic = true, tooltipTarget = true,
-    chatBubbles = true,          -- Sprechblasen im MUI-Look (Chat/ChatBubbles.lua)
-    emoteBar = "hidden",         -- Emote-Leiste (Chat/EmoteBar.lua): "always", "mouseover", "hidden"
-    emoteBarEmotes = {},         -- [Emote] = true/false; fehlt = Standard (ns.EMOTE_DEFAULTS)
-    tooltipAuraSource = true,    -- Buff-/Debuff-Tooltip: „Von: Name“
-    tooltipIDs = true,           -- IDs (Zauber, Items, NPCs …) unten im Tooltip
-    mplusChests = true,          -- M+-Timer: Restzeit für +3/+2
-    mplusForces = "detail",      -- Feindliche Truppen: "detail" (62.47% · 287/460) oder "percent" (Blizzard)
-    mplusSplits = true,          -- Boss-Zeiten in den Ziel-Zeilen
-    mplusMobTooltip = true,      -- Truppen-Wert eines Gegners im Tooltip
-    mplusAutoKeystone = true,    -- Schlüssel am Sockel automatisch einsetzen
-    mplusAutoGossip = true,      -- im Schlüssel einzige Gesprächsoption automatisch wählen
-    mplusGroupKeys = true,       -- Gruppen-Schlüssel neben dem Mythisch+-Fenster
-    hideErrors = true,           -- rote Fehlermeldungen + Sprachausgabe aus (Core/Quiet.lua)
+    chatBubbles = true,          -- mUI-styled chat bubbles (Chat/ChatBubbles.lua)
+    emoteBar = "hidden",         -- emote bar (Chat/EmoteBar.lua): "always", "mouseover", "hidden"
+    emoteBarEmotes = {},         -- [emote] = true/false; missing = default (ns.EMOTE_DEFAULTS)
+    tooltipAuraSource = true,    -- buff/debuff tooltip: "From: name"
+    tooltipIDs = true,           -- IDs (spells, items, NPCs ...) at the bottom of the tooltip
+    mplusChests = true,          -- M+ timer: time left for +3/+2
+    mplusForces = "detail",      -- enemy forces: "detail" (percent + count, e.g. 62.47% 287/460) or "percent" (Blizzard)
+    mplusSplits = true,          -- boss split times in the objective lines
+    mplusMobTooltip = true,      -- enemy forces value of a mob in the tooltip
+    mplusAutoKeystone = true,    -- insert keystone automatically at the pedestal
+    mplusAutoGossip = true,      -- auto-select the only gossip option in the key dungeon
+    mplusGroupKeys = true,       -- group keystones next to the Mythic+ window
+    hideErrors = true,           -- red error messages + error speech off (Core/Quiet.lua)
     hideTalkingHead = true,
-    combatAlert = true,          -- „+ Kampf“/„− Kampf“ über der Bildschirmmitte (Toasts/CombatAlert.lua)
-    toastsGroupLoot = true,      -- Toasts: Würfel-Ergebnisse und Beute der Gruppe
-    spellRanks = true,           -- Forever: Pfeil + Toast bei alten Zauberrängen auf den Leisten
-    trainerReminder = true,      -- Forever: Toast beim Stufenaufstieg, wenn beim Lehrer Zauber warten
-    lootRolls = true,            -- eigene Würfel-Fenster (Loot/LootRoll.lua)
-    lootWindow = true,           -- eigenes Beute-Fenster (Loot/LootWindow.lua)
-    fastLoot = true,             -- Beute bei Auto-Plündern sofort einsammeln (Loot/FastLoot.lua)
-    castbar = "full",            -- Zauberleiste: "simple" (nur Leiste) oder "full" (GCD-Linie + Tick-Striche)
-    executeLine = true,          -- Execute-Linie im Ziel-Lebensbalken und auf Nameplates
-    npMuiNames = true,           -- mUI-Namen statt Blizzards Weltnamen (NamePlates.lua, ns.SetMuiNames)
-    npNameSize = "medium",       -- Namensgröße freundlicher Namens-Plates: small 12, medium 14, large 16
-    npNpcTitle = true,           -- Titel unter NPC-Namen („Bergbaulehrer“)
-    npPetOwner = true,           -- Besitzer unter Begleitern („Koratals Begleiter“)
-    plateClassification = true,  -- Rar/Elite-Symbol vor dem Namen auf Nameplates
-    autoInvite = false,          -- Einladungen von Freunden/Gilde annehmen (Standard aus, Benny)
-    autoRole = true,             -- Rollenabfrage mit der Spec-Rolle bestätigen
-    readyCheckReminder = true,   -- Bereitschaftscheck: Toast, wenn Essen/Fläschchen/Rune fehlen
-    durabilityWarning = true,    -- Toast, wenn ein Teil unter 20 % Haltbarkeit fällt
-    achievementScreenshot = true, -- Screenshot bei neuen Erfolgen
-    characterItemLevels = true,  -- Itemlevel an den Plätzen im Charakter-/Betrachten-Fenster
-    afkScreen = true,            -- AFK-Bildschirm „Kino“ (AFK/AFK.lua)
-    groupManager = true,         -- Gruppenleiste (ersetzt Blizzards Schlachtzugsleiter-Leiste)
-    groupFrames = true,          -- MUI-Gruppenframes (Gruppe + Schlachtzug) statt Blizzards
-    groupSolo = false, -- Gruppenframes auch allein zeigen (zum Testen)
-    fontEverywhere = true,       -- MUI-Schrift für alle Schrift-Objekte des Spiels (Core/Fonts.lua)
-    bossMods = true,             -- MUI-Boss-Timer und -Warnungen statt Blizzards Anzeige
-    bossModsSound = true,        -- kurzer Ton, wenn eine Boss-Fähigkeit gleich kommt
-    toasts = true,               -- MUI-Toasts statt Blizzards Popups (aus: nach Neuladen)
-    characterWindow = true,      -- eigenes mUI-Charakterfenster (Forever; aus: nach Neuladen)
-    guildOverview = true,        -- Gilde: Reiter „Übersicht“ (Klassen, Stufen) – Skins/Communities.lua
-    guildInactive = true,        -- Gilde: ab 14 Tagen offline dezent rot (Ränge mit „Twink“/„Alt“ ausgenommen)
-    guildSkin = true,            -- Blizzards Gildenfenster im mUI-Look (Skins/Communities.lua)
-    damageMeter = true,          -- eigenes mUI-Damage-Meter statt Blizzards Fenster (aus: nach Neuladen)
-    damageMeterSecond = false,   -- zweites Damage-Meter-Fenster darunter (eigene Art wählbar)
-    damageMeterFade = true,      -- Damage Meter außerhalb vom Kampf ausblenden (Maus drauf zeigt es)
-    bagsStyle = "categories",    -- Taschen: "categories" (Abschnitte), "single" (ein Raster), "separate" (je Tasche)
-    bagsShowSlots = false,       -- Taschenplätze unten im Taschenfenster (Knopf oben im Fenster)
-    mapReveal = true,            -- Weltkarte: ganze Karte aufdecken (Komfort)
-    mapZoneLevels = true,        -- Weltkarte: Stufenbereich am Gebietsnamen (Komfort)
-    emptySlots = true,           -- Taschen: Items für leere Ausrüstungsplätze markieren (Komfort)
-    upgrades = "damage",         -- Upgrade-Bewertung: "damage" (% Gesamtschaden), "item" (% vom Item), "off"
-    -- eigene Buffs/Debuffs links der Minimap (greifen nach dem Neuladen)
-    auraSize = "medium",    -- Größe Buffs/Debuffs: "small", "medium", "large"
-    auraTime = "below",     -- Restzeit "below" (unter dem Icon) oder "inside" (im Icon)
-    microMenu = "always", -- Mikromenü unten rechts: "always", "mouseover", "hidden"
-    addonBar = "mouseover", -- Minimap-Knöpfe anderer Addons als Leiste über dem Mikromenü
-    addonBarHidden = {},    -- [Schlüssel] = true: Addon nicht in der Leiste zeigen
-    -- Info-Leiste unten: Sichtbarkeit ("always", "mouseover", "hidden") und Felder
+    combatAlert = true,          -- "+ Combat"/"- Combat" above screen center (Toasts/CombatAlert.lua)
+    toastsGroupLoot = true,      -- toasts: roll results and group loot
+    spellRanks = true,           -- Forever: arrow + toast for outdated spell ranks on the bars
+    trainerReminder = true,      -- Forever: toast on level-up when spells await at the trainer
+    lootRolls = true,            -- custom loot roll frames (Loot/LootRoll.lua)
+    lootWindow = true,           -- custom loot window (Loot/LootWindow.lua)
+    fastLoot = true,             -- loot instantly with auto-loot (Loot/FastLoot.lua)
+    castbar = "full",            -- castbar: "simple" (bar only) or "full" (GCD line + tick marks)
+    executeLine = true,          -- execute line in target health bar and on nameplates
+    npMuiNames = true,           -- mUI names instead of Blizzard's world names (NamePlates.lua, ns.SetMuiNames)
+    npNameSize = "medium",       -- name size on friendly name plates: small 12, medium 14, large 16
+    npNpcTitle = true,           -- title under NPC names ("Mining Trainer")
+    npPetOwner = true,           -- owner under pets ("Koratal's Pet")
+    plateClassification = true,  -- rare/elite icon before the name on nameplates
+    autoInvite = false,          -- accept invites from friends/guild (off by default)
+    autoRole = true,             -- confirm role check with the spec role
+    readyCheckReminder = true,   -- ready check: toast when food/flask/rune is missing
+    durabilityWarning = true,    -- toast when an item drops below 20% durability
+    achievementScreenshot = true, -- screenshot on new achievements
+    characterItemLevels = true,  -- item levels on slots in the character/inspect window
+    afkScreen = true,            -- AFK "cinema" screen (AFK/AFK.lua)
+    groupManager = true,         -- group bar (replaces Blizzard's raid manager)
+    groupFrames = true,          -- mUI group frames (party + raid) instead of Blizzard's
+    groupSolo = false, -- show group frames solo too (for testing)
+    fontEverywhere = true,       -- mUI font for all game font objects (Core/Fonts.lua)
+    bossMods = true,             -- mUI boss timers and warnings instead of Blizzard's display
+    bossModsSound = true,        -- short sound right before a boss ability
+    toasts = true,               -- mUI toasts instead of Blizzard popups (off: after reload)
+    characterWindow = true,      -- custom mUI character window (Forever; off: after reload)
+    guildOverview = true,        -- guild: "Overview" tab (classes, levels) - Skins/Communities.lua
+    guildInactive = true,        -- guild: subtle red after 14 days offline (ranks containing "Twink"/"Alt" excluded)
+    guildSkin = true,            -- Blizzard guild window in mUI style (Skins/Communities.lua)
+    damageMeter = true,          -- custom mUI damage meter instead of Blizzard's window (off: after reload)
+    damageMeterSecond = false,   -- second damage meter window below (own type selectable)
+    damageMeterFade = true,      -- fade damage meter out of combat (mouseover shows it)
+    bagsStyle = "categories",    -- bags: "categories" (sections), "single" (one grid), "separate" (per bag)
+    bagsShowSlots = false,       -- bag slots at the bottom of the bag window (button at the top of the window)
+    mapReveal = true,            -- world map: reveal the whole map (Comfort)
+    mapZoneLevels = true,        -- world map: level range at the zone name (Comfort)
+    emptySlots = true,           -- bags: mark items for empty gear slots (Comfort)
+    upgrades = "damage",         -- upgrade rating: "damage" (% total damage), "item" (% of item), "off"
+    -- own buffs/debuffs left of the minimap (apply after reload)
+    auraSize = "medium",    -- buff/debuff size: "small", "medium", "large"
+    auraTime = "below",     -- time left "below" (under the icon) or "inside" (in the icon)
+    microMenu = "always", -- micro menu bottom right: "always", "mouseover", "hidden"
+    addonBar = "mouseover", -- other addons' minimap buttons as a bar above the micro menu
+    addonBarHidden = {},    -- [key] = true: hide addon from the bar
+    -- Info bar at the bottom: visibility ("always", "mouseover", "hidden") and fields
     infoBar = {
         mode = "always",
         fields = { gold = true, bags = true, durability = true, fps = true,
             spec = false, guild = false, friends = false, time = false, weaponskill = true },
     },
-    -- Fortschrittsleisten: eine Sichtbarkeit für EP, Ruf, Ehre, Hausgunst
+    -- Progress bars: one visibility for XP, reputation, honor, house favor
     xpBar = { mode = "always", quests = "all" }, -- quests: "all", "complete", "none"
-    ammoCounter = true,          -- Munitionszähler unter dem Spieler-Frame (nur Forever, nur mit Munition)
-    petHelper = true,            -- Begleiter-Helfer: Pfote am Tier-Frame, füttern + Laune-Toast (nur Forever, Jäger)
-    lfgHighlight = true,         -- Gruppensuche im Chat hervorheben (Chat/LFGHighlight.lua, nur Forever)
-    professionReminder = true,   -- Berufe-Erinnerung: nächste Rangstufe lernbar (Toasts/ProfessionReminder.lua, nur Forever)
-    autoBuy = false,             -- beim Händler Munition/Reagenzien auffüllen (Bags/AutoBuy.lua)
-    autoBuyAmounts = {},         -- [Item-ID | "ammo"] = Wunschmenge; fehlt = Standard, 0 = nicht kaufen
-    reagentShow = {},            -- [Item-ID | "ammo"] = true/false; fehlt = Standard (nur das erste je Klasse)
-    flightTimer = true,          -- Flugzeit-Leiste oben mittig (Minimap/FlightTimer.lua)
-    swingTimer = true,           -- Forever: Schlagtimer unter der Hauptleiste
-    threatBar = "group", -- Bedrohungsleiste: "group" (Gruppe oder Begleiter), "always", "hidden"
-    barVariant = "center",       -- Leisten-Anordnung: "center" (Mittig 2×6) oder "stacked" (3 × 12 unten)
-    mouseoverHeal = false,       -- Mouseover-Zauber auf den Leisten (CVar enableMouseoverCast)
-    -- Sichtbarkeit der Aktionsleisten: "always", "mouseover", "hidden"
+    ammoCounter = true,          -- ammo counter below the player frame (Forever only, with ammo only)
+    petHelper = true,            -- pet helper: paw on the pet frame, feeding + happiness toast (Forever only, hunters)
+    lfgHighlight = true,         -- highlight group finder messages in chat (Chat/LFGHighlight.lua, Forever only)
+    professionReminder = true,   -- profession reminder: next rank learnable (Toasts/ProfessionReminder.lua, Forever only)
+    autoBuy = false,             -- restock ammo/reagents at merchants (Bags/AutoBuy.lua)
+    autoBuyAmounts = {},         -- [item ID | "ammo"] = desired amount; missing = default, 0 = don't buy
+    reagentShow = {},            -- [item ID | "ammo"] = true/false; missing = default (only the first per class)
+    flightTimer = true,          -- flight timer bar top center (Minimap/FlightTimer.lua)
+    swingTimer = true,           -- Forever: swing timer below the main bar
+    threatBar = "group", -- threat bar: "group" (in group or with pet), "always", "hidden"
+    barVariant = "center",       -- bar arrangement: "center" (centered 2x6) or "stacked" (3 x 12 at the bottom)
+    mouseoverHeal = false,       -- mouseover casting on the bars (CVar enableMouseoverCast)
+    -- Action bar visibility: "always", "mouseover", "hidden"
     actionBars = {
         bar1 = "always", bar2 = "always", bar3 = "always", bar4 = "always", bar5 = "always",
-        bar6 = "hidden", bar7 = "hidden", bar8 = "hidden", -- Zusatzleisten: erst in den Einstellungen dazuschalten
+        bar6 = "hidden", bar7 = "hidden", bar8 = "hidden", -- extra bars: enabled in settings
         petbar = "always", stancebar = "mouseover",
     },
-    actionBarTexts = {}, -- [Leiste] = { hotkey = false, macro = false } blendet Texte aus; fehlt = an
-    actionBarFont = "medium", -- Schriftgröße der Tastenbelegung: "small", "medium", "large"
+    actionBarTexts = {}, -- [bar] = { hotkey = false, macro = false } hides texts; missing = shown
+    actionBarFont = "medium", -- keybinding font size: "small", "medium", "large"
 }
 
-ns.DEFAULTS = DEFAULTS -- z. B. für „Zurücksetzen“ in den Einstellungen
+ns.DEFAULTS = DEFAULTS -- e.g. for "Reset" in settings
 
 function ns.ApplyDefaults(db, defaults)
     for k, v in pairs(defaults) do
@@ -244,7 +243,7 @@ function ns.ApplyDefaults(db, defaults)
     end
 end
 
--- Profil umbenennen samt allen Verweisen (Charaktere, Spec-Zuordnungen, neue Charaktere)
+-- Rename a profile incl. all references (characters, spec assignments, new characters)
 local function MoveProfile(root, old, new)
     root.profiles[new] = root.profiles[old]
     root.profiles[old] = nil
@@ -257,9 +256,8 @@ local function MoveProfile(root, old, new)
     end
 end
 
--- Profile vereinfacht (2026-11-07): aus „Standard (DPS)“ wird wieder „Standard“; die leeren
--- Altlasten „Standard (Tank)“/„(Heal)“ fallen weg, wenn sie niemand nutzt – sonst bleiben sie als
--- eigene Profile. Spec-Wechsel ist Standard aus (bleibt, wer ihn eingeschaltet hat).
+-- Profile migration v2: "Standard (DPS)" becomes "Standard"; the empty legacy profiles
+-- "Standard (Tank)"/"(Heal)" are removed if unused, otherwise kept as custom profiles.
 local function MigrateProfiles(root)
     if root.profilesVersion == 2 then return end
     root.profilesVersion = 2
@@ -278,8 +276,8 @@ local function MigrateProfiles(root)
     end
 end
 
--- Einstellungen verschlankt (2026-11-07): Regler wurden Stufen, manches ist fest. Alte Werte
--- werden einmalig übernommen, ungenutzte Schlüssel entfernt.
+-- Settings migration v2: sliders became stages, some options became fixed. Old values are
+-- converted once, unused keys removed.
 local REMOVED_KEYS = { "font", "texture", "minimapTexts", "minimapIcons", "frameWidth", "frameHeight",
     "chatFadeSeconds", "chatLineSpacing", "chatChannelGap", "tooltipGuild", "tooltipItemBorder", "combatTextFont",
     "gcdBar", "channelTicks", "groupWidth", "groupHeight", "raidWidth", "raidHeight", "raid40Width", "raid40Height",
@@ -309,15 +307,15 @@ local function MigrateSettings(db)
     for _, key in ipairs(REMOVED_KEYS) do db[key] = nil end
 end
 
--- Servername kurz (Benny 2026-11-07): Forever heißt „CAMWOW EU5 Realm 10 RP“ > kurz „RP“,
--- etwas länger „EU5-10 RP“. Andere Server bleiben, wie sie sind.
+-- Short realm name: Forever's "CAMWOW EU5 Realm 10 RP" -> short "RP", long "EU5-10 RP".
+-- Other realms stay unchanged.
 function ns.ShortRealm(realm)
     local region, number, kind = (realm or ""):match("^%S+ (%S+) Realm (%d+) (.+)$")
     if not kind then return realm, realm end
     return kind, region .. "-" .. number .. " " .. kind
 end
 
--- „Name - Server“ (Schlüssel) für die Anzeige: „Koratal Rabenruf (RP)“
+-- "Name - Realm" key for display: "Koratal Rabenruf (RP)"
 function ns.CharDisplayName(key)
     local name, realm = (key or ""):match("^(.-) %- (.+)$")
     if not name then return key end
@@ -325,13 +323,13 @@ function ns.CharDisplayName(key)
 end
 
 ns:On("ADDON_LOADED", function(_, name)
-    -- Nur auf das eigene Addon reagieren, das Event aber angemeldet lassen: Module
-    -- warten darauf, dass Blizzard Teile nachlädt (z. B. Blizzard_TimeManager).
+    -- Only react to our own addon but keep the event registered: modules wait for
+    -- Blizzard load-on-demand addons (e.g. Blizzard_TimeManager).
     if name ~= ADDON_NAME then return end
     MeredanUIDB = MeredanUIDB or {}
     local root = MeredanUIDB
 
-    -- Umzug aus der Zeit vor den Profilen: flache Einstellungen werden das Standardprofil
+    -- Migrate pre-profile flat settings into the default profile
     if not root.profiles then
         local old = {}
         for key, value in pairs(root) do old[key] = value end
@@ -341,20 +339,20 @@ ns:On("ADDON_LOADED", function(_, name)
     root.chars = root.chars or {}
     MigrateProfiles(root)
     for _, name in ipairs(ns.BUILTIN_PROFILES) do root.profiles[name] = root.profiles[name] or {} end
-    -- Verschieben gibt es nicht mehr (Benny 2026-11-07): alte gespeicherte Positionen weg
+    -- Frame moving was removed: drop old saved positions
     for _, profile in pairs(root.profiles) do profile.positions = nil end
     ns.root = root
 
-    -- Setup-Merker war account-weit (root.setupDone) > jetzt je Charakter; wer schon da war, gilt
-    -- als eingerichtet.
+    -- Setup flag used to be account-wide (root.setupDone), now per character; existing characters
+    -- count as set up.
     if root.setupDone then
         for _, known in pairs(root.chars) do known.setupDone = true end
         root.setupDone = nil
     end
 
-    -- Charakter = Vor- UND Nachname + Server (Benny 2026-11-07: zwei „Koratal“ mit verschiedenen
-    -- Nachnamen auf einem Server teilten sich Schlüssel, Profil und Setup). Forever liefert den
-    -- Nachnamen als zweiten Wert von UnitName; Retail hat keinen > Schlüssel wie bisher.
+    -- Character key = first AND last name + realm (two characters with the same first name on one
+    -- realm would otherwise share key, profile and setup). Forever returns the last name as the
+    -- second value of UnitName; Retail has none, so the key stays first name only.
     local first, last = UnitName("player")
     if last and (issecretvalue and issecretvalue(last) or last == "") then last = nil end
     local fullName = last and (first .. " " .. last) or first
@@ -365,16 +363,16 @@ ns:On("ADDON_LOADED", function(_, name)
     if not char then
         char = {}
         root.chars[ns.charKey] = char
-        -- früher nur mit Vornamen gespeichert? Dann dessen Einstellungen übernehmen
+        -- Previously stored by first name only? Take over its settings
         local oldKey = first .. " - " .. realm
         local old = oldKey ~= ns.charKey and root.chars[oldKey] or nil
         local shared = root.newCharProfile
         if shared and root.profiles[shared] then
-            -- „Standard für neue Charaktere“ gewählt: dieses Profil teilen, es ist schon eingerichtet
+            -- "Default for new characters" chosen: share that profile, it is already set up
             char.profile, char.setupDone = shared, true
         else
-            -- eigenes Profil mit dem Charakternamen; bei Namensgleichheit kurzer Server dahinter
-            -- („(RP)“, dann „(EU5-10 RP)“, dann Nummer)
+            -- Own profile named after the character; on a name clash append the short realm
+            -- ("(RP)", then "(EU5-10 RP)", then a number)
             local short, long = ns.ShortRealm(realm)
             local name, n = fullName, 1
             if root.profiles[name] then name = fullName .. " (" .. short .. ")" end
@@ -384,37 +382,37 @@ ns:On("ADDON_LOADED", function(_, name)
             local source = old and old.profile and root.profiles[old.profile]
             root.profiles[name] = source and CopyTable(source) or {}
             char.profile = name
-            -- übrige Charakter-Daten mitnehmen (Talent-Berater, Chat-Verlauf …), aber NICHT den
-            -- Setup-Merker: der stammt aus dem account-weiten Merker und gilt nicht für diesen Charakter
+            -- Carry over other character data (talent advisor, chat history ...) but NOT the setup
+            -- flag: it came from the account-wide flag and doesn't apply to this character
             for key, value in pairs(old or {}) do
                 if key ~= "profile" and key ~= "setupDone" then
                     char[key] = type(value) == "table" and CopyTable(value) or value
                 end
             end
         end
-        if old and root.gold then root.gold[oldKey] = nil end -- Gold-Liste: kommt unter dem neuen Namen wieder
+        if old and root.gold then root.gold[oldKey] = nil end -- gold list: re-added under the new name
     end
-    -- Alten Eintrag nur mit Vornamen nach dem Umzug löschen, sonst erbt jeder weitere Charakter mit
-    -- gleichem Vornamen (zweiter „Koratal“) dessen Profil und Setup-Merker
+    -- Delete the old first-name-only entry after migrating, otherwise every further character with
+    -- the same first name inherits its profile and setup flag
     if last then
         local oldKey = first .. " - " .. realm
         if oldKey ~= ns.charKey then root.chars[oldKey] = nil end
     end
-    -- Einmalig (Benny 2026-11-08): alle Setup-Merker stammten aus dem account-weiten Merker bzw. waren
-    -- vom Vornamen-Eintrag geerbt > jeder Charakter bekommt das Setup noch einmal angeboten
+    -- One-time reset: all setup flags came from the account-wide flag or the first-name entry,
+    -- so every character is offered the setup again
     if not root.setupPerChar then
         for _, known in pairs(root.chars) do known.setupDone = nil end
         root.setupPerChar = true
     end
     char.profile = root.profiles[char.profile] and char.profile or ns.DEFAULT_PROFILE
     char.specProfiles = char.specProfiles or {}
-    -- Reste eines kurzen Zwischenstands (Layout pro Charakter); das Layout steckt jetzt im Profil
+    -- Leftovers of the former per-character layout; the layout now lives in the profile
     char.layout, char.specLayouts, root.newCharLayout = nil, nil, nil
     ns.char = char
     ns.UseProfile(char.profile)
 end)
 
--- Profil als aktive Einstellungen (ns.db) laden; fehlt es, wird es angelegt.
+-- Load a profile as active settings (ns.db); created if missing.
 function ns.UseProfile(name)
     local profiles = ns.root.profiles
     profiles[name] = profiles[name] or {}
@@ -426,7 +424,7 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     ns.Debug("v%s, %s", ns.VERSION, ns.IS_FOREVER and "Forever" or "Retail")
-    -- Begrüßung: ganzer Name, Version gedämpft, Name in Klassenfarbe, Hinweis auf /mui
+    -- Greeting: full brand name, muted version, name in class color, hint to /mui
     local _, class = UnitClass("player")
     local color = class and RAID_CLASS_COLORS[class]
     local name = UnitName("player") or ""
@@ -436,7 +434,7 @@ ns:On("PLAYER_LOGIN", function()
 end)
 
 -------------------------------------------------------------------------------
---  Slash-Befehle: /meredanui oder /mui [befehl]
+--  Slash commands: /meredanui or /mui [command]
 -------------------------------------------------------------------------------
 local commands = {}
 
@@ -466,20 +464,19 @@ SlashCmdList["XMEREDANUI"] = function(msg)
     if cmd then cmd.fn(rest) else ShowHelp() end
 end
 
--- Klick auf den Eintrag im Addon-Kompartiment (Minimap-Menü).
--- Klick öffnet die Einstellungen (Settings.lua setzt ns.OnCompartmentClick).
+-- Click on the addon compartment entry (minimap menu);
+-- opens settings (Settings.lua sets ns.OnCompartmentClick).
 function MeredanUI_OnAddonCompartmentClick()
     if ns.OnCompartmentClick then ns.OnCompartmentClick() else ShowHelp() end
 end
 
 -------------------------------------------------------------------------------
---  Geschützte Knöpfe (Secure…Template) nie an ungeschützten Rahmen verankern: WoW schützt sonst
---  den Rahmen, an dem sie hängen, samt Fenster mit – das lässt sich dann im Kampf nicht mehr
---  öffnen/schließen (Benny 2026-11-07: „MeredanUIFriends:Show() blockiert“). Darum liegt die
---  geschützte Ebene nur an UIParent, an der Stelle des Fensters, und Knöpfe hängen nur an der Ebene.
---  Positionen werden außerhalb des Kampfs gesetzt (im Kampf ist die Ebene ohnehin versteckt).
+--  Never anchor secure buttons (Secure...Template) to insecure frames: WoW then protects the
+--  frame they hang on, incl. its window, which can no longer be shown/hidden in combat.
+--  So the secure layer is anchored only to UIParent, mirroring the window's rect, and buttons
+--  attach only to that layer. Positions are set out of combat (the layer is hidden in combat).
 -------------------------------------------------------------------------------
--- frame an die Stelle von target legen, verankert nur an relativeTo (Standard: UIParent)
+-- Place frame over target's rect, anchored only to relativeTo (default: UIParent)
 function ns.MirrorRect(frame, target, relativeTo)
     if InCombatLockdown() then return end
     relativeTo = relativeTo or UIParent
@@ -493,7 +490,7 @@ function ns.MirrorRect(frame, target, relativeTo)
     frame:SetSize(w * s, h * s)
 end
 
--- Ebene folgt target (Fenster wird gezogen, Größe ändert sich): kleiner Wächter am Fenster
+-- Layer follows target (window dragged or resized): small watcher on the window
 function ns.FollowFrame(layer, target)
     local watcher = CreateFrame("Frame", nil, target)
     local last = ""

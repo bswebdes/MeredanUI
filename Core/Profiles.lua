@@ -1,13 +1,12 @@
--- Profile: anlegen (als Kopie des aktiven), umbenennen, löschen, wechseln; optional
--- automatisch je Spezialisierung. Ein Wechsel lädt die UI neu, weil Größen und Positionen
--- das ganze Layout betreffen (nach Rückfrage).
+-- Profiles: create (copy of the active one), rename, delete, switch; optionally per specialization.
+-- Switching asks to reload the UI, since sizes and positions affect the whole layout.
 local _, ns = ...
 local L = ns.L
 
 local Profiles = {}
 ns.Profiles = Profiles
 
--- Eingebaute Layouts zuerst (in fester Reihenfolge), danach eigene Profile alphabetisch.
+-- Built-in profiles first (fixed order), then custom profiles alphabetically.
 function Profiles.IsBuiltin(name)
     return tIndexOf(ns.BUILTIN_PROFILES, name) ~= nil
 end
@@ -27,14 +26,14 @@ function Profiles.Exists(name)
     return ns.root.profiles[name] ~= nil
 end
 
--- Name säubern; nil, wenn leer oder schon vergeben.
+-- Trimmed name, or nil if empty or taken.
 local function ValidName(name)
     name = name and strtrim(name) or ""
     if name == "" or Profiles.Exists(name) then return nil end
     return name
 end
 
--- Neues Profil als Kopie des aktiven anlegen. Gibt den Namen zurück (oder nil).
+-- New profile as a copy of the active one. Returns the name (or nil).
 function Profiles.Create(name)
     name = ValidName(name)
     if not name then return end
@@ -42,7 +41,7 @@ function Profiles.Create(name)
     return name
 end
 
--- Profil umbenennen (nicht die eingebauten); alle Charaktere und Spec-Zuordnungen ziehen mit.
+-- Rename (not built-ins); updates all character and spec assignments.
 function Profiles.Rename(old, new)
     new = ValidName(new)
     if not new or not Profiles.Exists(old) or Profiles.IsBuiltin(old) then return end
@@ -59,7 +58,7 @@ function Profiles.Rename(old, new)
     return new
 end
 
--- Profil löschen (nicht das aktive, nicht die eingebauten); Nutzer fallen auf das Standardprofil zurück.
+-- Delete (not the active one or built-ins); its users fall back to the default profile.
 function Profiles.Delete(name)
     if name == ns.profileName or Profiles.IsBuiltin(name) or not Profiles.Exists(name) then return end
     ns.root.profiles[name] = nil
@@ -82,7 +81,7 @@ local function AskReload(text)
     })
 end
 
--- Charakter auf ein anderes Profil umstellen; greift nach dem Neuladen.
+-- Switch this character's profile; takes effect after reload.
 function Profiles.Switch(name)
     if not Profiles.Exists(name) or name == ns.char.profile then return end
     ns.char.profile = name
@@ -91,7 +90,7 @@ function Profiles.Switch(name)
     end
 end
 
--- Spezialisierungen des Charakters: { { index, name }, … } (leer, wenn es keine gibt)
+-- Character specializations: { { index, name }, ... } (empty if none)
 function Profiles.Specs()
     local specs = {}
     local _, _, classID = UnitClass("player")
@@ -104,7 +103,7 @@ function Profiles.Specs()
     return specs
 end
 
--- Automatik: Profil passend zur aktiven Spezialisierung
+-- Auto-switch to the profile assigned to the active specialization
 local function CheckSpec()
     if not ns.char.specAuto then return end
     local spec = C_SpecializationInfo.GetSpecialization and C_SpecializationInfo.GetSpecialization()

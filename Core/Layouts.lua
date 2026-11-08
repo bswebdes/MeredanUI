@@ -1,8 +1,6 @@
--- Layouts (Benny 2026-11-07): Ein Layout legt fest, WO die Teile sitzen und was rollenabhängig
--- ist. Es ist eine Einstellung im Profil (ns.db.layout) – ein Profil speichert also, was man sich
--- eingestellt hat, und welches Layout es nutzt. Nahkampf-DPS ist die Basis; weitere Layouts (Tank,
--- Fernkampf, Heiler) ändern nur, was bei ihnen anders ist – über Schalter (flags), die die Module
--- abfragen: ns.LayoutFlag("…"). Wechsel ohne Neuladen: alle Plätze laufen über ns.OnLayout.
+-- Role layouts: where elements sit and which behavior is role-specific. Stored per profile
+-- (ns.db.layout). Melee DPS is the base; other layouts only set flags that modules query via
+-- ns.LayoutFlag("..."). Switching needs no reload: all positions go through ns.OnLayout.
 local _, ns = ...
 local L = ns.L
 
@@ -10,8 +8,8 @@ ns.LAYOUTS = {
     {
         id = "melee", name = L["Melee DPS"],
         flags = {
-            questlogAboveFocus = true,    -- Questlog endet über dem Fokus (16:9: sonst überlappt er)
-            questlogUnderBosses = true,   -- liegen Bossframes auf dem Questlog (16:9): es rückt darunter, nur Instanz-Quests
+            questlogAboveFocus = true,    -- quest log ends above the focus frame (overlaps on 16:9 otherwise)
+            questlogUnderBosses = true,   -- if boss frames cover the quest log (16:9), move it below them, instance quests only
         },
     },
     {
@@ -19,7 +17,7 @@ ns.LAYOUTS = {
         flags = {
             questlogAboveFocus = true,
             questlogUnderBosses = true,
-            castbarAboveBars = true,      -- große Zauberleiste über den unteren Leisten (nicht im Spielerframe)
+            castbarAboveBars = true,      -- large castbar above the bottom bars (not in the player frame)
         },
     },
     {
@@ -27,8 +25,8 @@ ns.LAYOUTS = {
         flags = {
             questlogAboveFocus = true,
             questlogUnderBosses = true,
-            tank = true,                  -- Bedrohung: Vorsprung vor dem Zweiten; Plaketten: rot = Aggro verloren
-            bigDebuffs = true,            -- eigene Debuffs größer (Begleiter rutscht tiefer; braucht Neuladen)
+            tank = true,                  -- threat: lead over second place; nameplates: red = aggro lost
+            bigDebuffs = true,            -- larger own debuffs (pet frame moves down; needs reload)
         },
     },
     {
@@ -36,10 +34,10 @@ ns.LAYOUTS = {
         flags = {
             questlogAboveFocus = true,
             questlogUnderBosses = true,
-            healerGroups = true,          -- Gruppe 5–40 mittig zwischen Spieler und Ziel (braucht Neuladen)
-            healPrediction = true,        -- Heil-Vorhersage in den Gruppenframes
-            healerBars = true,            -- Hauptleiste als 12er-Reihe unten über Alt/Shift, Haltung links daneben
-            castbarAboveBars = true,      -- große Zauberleiste über den unteren Leisten (wie Fernkampf)
+            healerGroups = true,          -- group 5-40 centered between player and target (needs reload)
+            healPrediction = true,        -- heal prediction in group frames
+            healerBars = true,            -- main bar as a 12-button row at the bottom above Alt/Shift, stance bar to its left
+            castbarAboveBars = true,      -- large castbar above the bottom bars (like ranged)
         },
     },
 }
@@ -55,14 +53,14 @@ function ns.LayoutFlag(flag)
     return ns.CurrentLayout().flags[flag] == true
 end
 
--- Leisten-Anordnung „Gestapelt“: Hauptleiste als 12er-Reihe unten über Alt/Shift (wie Heiler).
--- Heiler immer; sonst Einstellung ns.db.barVariant ("center" = Mittig 2×6, "stacked"). Greift beim Aufbau.
+-- "Stacked" bar arrangement: main bar as a 12-button row at the bottom above Alt/Shift.
+-- Always for healers; otherwise ns.db.barVariant ("center" = centered 2x6, "stacked"). Applied at build time.
 function ns.StackedBars()
     return ns.LayoutFlag("healerBars") or ns.db.barVariant == "stacked"
 end
 
--- Wo Schlagtimer/Bedrohungsleiste beginnen: unter der Hauptleiste (Oberkante, Breite). Gestapelt
--- sitzt die Hauptleiste unten – dann dort, wo sie bei „Mittig“ wäre (Oberkante der Unitframes).
+-- Anchor for swing timer/threat bar below the main bar: returns (top, width). When stacked the main
+-- bar is at the bottom, so use where it would be when centered (top edge of the unit frames).
 function ns.BelowMainBar(gap)
     local main = ns.actionBars and ns.actionBars[1]
     if not (main and main:GetBottom()) then return end
@@ -75,7 +73,7 @@ function ns.BelowMainBar(gap)
     return main:GetBottom() - cy - gap, ns.Snap(main:GetWidth())
 end
 
--- Neu ausrichten (Plätze, Questlog-Ausblenden); im Kampf erst danach
+-- Re-apply positions and quest log hiding (deferred until after combat)
 function ns.ApplyLayout()
     if ns.Relayout then ns.Relayout() end
     if ns.UpdateQuestlogHiding then ns.UpdateQuestlogHiding() end
@@ -88,17 +86,16 @@ function ns.SetLayout(id)
     ns.ApplyLayout()
 end
 
--- Heiler-Layout (Benny 2026-11-07, Skizze „Spielwiese Heiler“): Maße an einer Stelle, alle Module
--- (Leisten, Unitframes, Gruppe, Klassenleiste, Bedrohung, Schlagtimer) rechnen damit. Von unten:
---   3 Leisten à 12 (Shift, Alt, Hauptleiste) > große Zauberleiste > Gruppe (4 Reihen) > darüber
---   Bedrohung/Schlagtimer/Klassenleiste; Spieler und Ziel links/rechts der Gruppe, oben bündig.
+-- Healer layout metrics in one place; bars, unit frames, group, class bar, threat and swing timer
+-- all use them. Bottom to top: 3 bars of 12 (Shift, Alt, main) > large castbar > group (4 rows) >
+-- threat/swing timer/class bar. Player and target sit left/right of the group, top-aligned.
 ns.HEALER = {
-    barSize = 36,      -- wie die Zusatzleisten
+    barSize = 36,      -- same as the extra bars
     castHeight = 32, castGap = 6,
-    groupGap = 10,     -- Zauberleiste > Gruppe
+    groupGap = 10,     -- castbar > group
     frameH = 61, rows = 4, gap = 4,
-    groupWidth = 551,  -- 5 × 107 bzw. 10 × 51 samt Abständen
-    sideGap = 32,      -- Gruppe > Spieler/Ziel (Platz für die Reagenzien neben dem Spieler)
+    groupWidth = 551,  -- 5 x 107 or 10 x 51 incl. gaps
+    sideGap = 32,      -- group > player/target (room for reagents next to the player)
 }
 function ns.HealerGeometry()
     local H = ns.HEALER
@@ -112,6 +109,6 @@ function ns.HealerGeometry()
     local width = ns.Snap(H.groupWidth)
     return {
         groupTop = groupBottom + groupHeight, groupBottom = groupBottom, groupWidth = width,
-        innerX = width / 2 + ns.Snap(H.sideGap), -- Abstand der Spieler-/Zielkante zur Mitte
+        innerX = width / 2 + ns.Snap(H.sideGap), -- distance of the player/target inner edge from center
     }
 end

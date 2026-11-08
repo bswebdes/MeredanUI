@@ -1,6 +1,5 @@
--- Blizzards Menüs (MenuUtil, Dropdowns) im mUI-Look: flache dunkle Fläche mit 1-px-Rahmen statt
--- der Rahmen-Grafik, Radio/Häkchen als flaches Kästchen in Surf Green. Gilt für alle Menüs im
--- Spiel (lag früher im Damage-Meter-Skin).
+-- Skins all Blizzard menus (MenuUtil, dropdowns): flat dark panel with a 1px border, radio and
+-- check marks as flat Surf Green boxes.
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
@@ -26,9 +25,8 @@ local function FlattenMenu(style)
     end
 end
 
--- Radio-Knöpfe und Häkchen: flaches dunkles Kästchen, ausgewählt Surf Green (Radio: Quadrat,
--- Checkbox: mUI-Häkchen) – wie in den mUI-Einstellungen. Blizzard legt die zwei Grafiken bei
--- jedem Eintrag neu an (leftTexture1 = Kästchen, leftTexture2 = nur wenn gewählt).
+-- Radio/checkbox: flat dark box, selected mark in Surf Green (radio: square, checkbox: mUI check).
+-- Blizzard recreates both textures per entry (leftTexture1 = box, leftTexture2 = only when selected).
 local BOX = 12
 
 local function FlatSelection(frame, isCheckbox)
@@ -50,7 +48,7 @@ local function FlatSelection(frame, isCheckbox)
         end
         mark:SetVertexColor(unpack(ns.UI.ACCENT))
     end
-    -- etwas Luft zwischen Kästchen und Text (Blizzard: Radio 1 px, Checkbox 7 px)
+    -- Consistent gap between box and text (Blizzard uses 1px for radio, 7px for checkbox)
     local text = frame.fontString
     if text and box then pcall(text.SetPoint, text, "LEFT", box, "RIGHT", ns.Snap(6), 0) end
 end

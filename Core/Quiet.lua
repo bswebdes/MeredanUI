@@ -1,17 +1,12 @@
--- Ruhe auf dem Bildschirm (Einstellungen > Look > Meldungen):
---   • Kampf-Fehlermeldungen („Nicht genug Energie“, „Außer Reichweite“, „Noch nicht bereit“ …) samt
---     Ton; alle anderen Meldungen bleiben. Die Sprachausgabe regelt Blizzards eigene Einstellung.
---   • Talking Head (sprechender NPC-Kopf mit Text): unsichtbar (samt 3D-Kopf) und nicht anklickbar, die Stimme läuft
---     weiter (Benny, 2026-10-24 – vorher sofort geschlossen, dann fehlten NPC-Stimmen, auch in
---     Zwischensequenzen im Spiel). Blizzard schließt das Fenster nach der Zeile selbst.
+-- Screen noise reduction (Settings > Look > Messages):
+--   - Combat error messages ("Not enough energy", "Out of range" ...) incl. sound; all other messages stay.
+--   - Talking Head: invisible (incl. 3D model) and click-through, but the voice keeps playing.
+--     Don't close it: that also cuts NPC voice lines (incl. in-game cutscenes).
 local _, ns = ...
 
--- Ohne Blizzards Ereignis fehlten auch die Geräusche, die an manchen Meldungen hängen (z. B. beim
--- Zähmen, Benny 2026-11-06). Wir spielen sie selbst ab – nur Text und Stimme bleiben still.
--- Nur der Kampf-Lärm wird ausgeblendet (Benny 2026-11-07: „keine Energie“, „außer Reichweite“ beim
--- Tastendrücken nervt – alle anderen Meldungen wie „Taschen voll“ müssen bleiben). Vorher war
--- UI_ERROR_MESSAGE komplett abgemeldet: dann fehlten auch wichtige Meldungen.
--- Erkennung über Blizzards Kennung (GetGameMessageInfo → z. B. "ERR_OUT_OF_ENERGY"), sprachunabhängig.
+-- Only combat noise is filtered; important messages ("Inventory is full") must stay. Never unregister
+-- UI_ERROR_MESSAGE entirely - that drops important messages and sounds attached to some (e.g. taming).
+-- Matched by Blizzard's message key (GetGameMessageInfo -> "ERR_OUT_OF_ENERGY"), locale-independent.
 local COMBAT_NOISE = {}
 for _, key in ipairs({
     "ERR_OUT_OF_ENERGY", "ERR_OUT_OF_RAGE", "ERR_OUT_OF_FOCUS", "ERR_OUT_OF_MANA", "ERR_OUT_OF_RUNIC_POWER",
@@ -23,7 +18,7 @@ for _, key in ipairs({
     "ERR_ATTACK_STUNNED", "ERR_ATTACK_CHARMED", "ERR_ATTACK_CONFUSED", "ERR_ATTACK_FLEEING",
     "ERR_SPELL_FAILED_NO_COMBO_POINTS", "ERR_USE_TOO_FAR", "ERR_TOO_FAR_TO_INTERACT",
 }) do COMBAT_NOISE[key] = true end
--- dieselben als Zahlen (LE_GAME_ERR_…), falls GetGameMessageInfo keinen Namen liefert
+-- Same as numeric types (LE_GAME_ERR_...), in case GetGameMessageInfo returns no name
 local NOISE_TYPES = {}
 for key in pairs(COMBAT_NOISE) do
     local id = _G["LE_GAME_" .. key]
@@ -40,18 +35,17 @@ end
 local hooked
 function ns.ApplyErrorMessages()
     if not UIErrorsFrame then return end
-    -- früher abgemeldet – immer wieder anmelden, damit wichtige Meldungen kommen
+    -- Re-register in case an older version unregistered it
     UIErrorsFrame:RegisterEvent("UI_ERROR_MESSAGE")
     if not hooked and UIErrorsFrame.ShouldDisplayMessageType then
         hooked = true
         local original = UIErrorsFrame.ShouldDisplayMessageType
         UIErrorsFrame.ShouldDisplayMessageType = function(self, messageType, message)
-            if IsNoise(messageType) then return false end -- kein Text, keine Stimme, kein Ton
+            if IsNoise(messageType) then return false end -- no text, no voice, no sound
             return original(self, messageType, message)
         end
     end
-    -- Sprachausgabe („Ich habe keine Energie“) regelt Blizzards eigene Einstellung
-    -- (Audio > Fehler-Sprachausgabe) – mUI fasst sie nicht an (Benny 2026-11-07)
+    -- Error speech is left to Blizzard's own setting (Audio > Error Speech); clear the legacy flag
     ns.db.errorSpeechByUs = nil
 end
 
@@ -63,8 +57,8 @@ ns:On("PLAYER_LOGIN", function()
             local hidden = ns.db.hideTalkingHead ~= false
             self:SetAlpha(hidden and 0 or 1)
             self:EnableMouse(not hidden)
-            -- Der Kopf ist ein 3D-Modell, das die Transparenz des Fensters ignoriert > selbst
-            -- verstecken (Blizzard zeigt es nie wieder an; die Stimme kommt per PlaySound)
+            -- The head is a 3D model that ignores frame alpha, so hide it directly
+            -- (Blizzard never re-shows it; the voice comes via PlaySound)
             local model = self.MainFrame and self.MainFrame.Model
             if model then model:SetShown(not hidden) end
         end

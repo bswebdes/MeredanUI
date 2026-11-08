@@ -1,5 +1,5 @@
--- MeredanUI-Optik: flache, dunkle Flächen mit 1-px-Rahmen. Farben kommen aus dem Theme
--- (Klassenfarbe, Dunkel, Klassisch grün), Schrift und Balken-Textur aus LibSharedMedia.
+-- MeredanUI look: flat dark panels with 1px borders. Colors come from the theme
+-- (class color, dark, sage); fonts and bar texture are registered with LibSharedMedia.
 local ADDON_NAME, ns = ...
 local L = ns.L
 
@@ -11,64 +11,64 @@ ns.STYLE = {
     fontSize = 11,
     barTexture = WHITE,
     panelColor = { 0.06, 0.06, 0.06, 0.9 },
-    bgMultiplier = 0.25, -- leerer Teil = Balkenfarbe × Faktor (Theme „Klassisch grün“)
-    castColor = { 0.85, 0.65, 0.2 },              -- eigene Zauber
-    castInterruptibleColor = { 0.25, 0.8, 0.95 }, -- Ziel: unterbrechbar (türkis)
-    castLockedColor = { 0.5, 0.5, 0.5 },          -- Ziel: nicht unterbrechbar (grau)
-    castLatencyColor = { 0.9, 0.2, 0.2, 0.6 },    -- Spieler: Latenz am Ende der Zauberleiste
-    -- Status-Symbole (weiß angelegt, hier eingefärbt)
-    combatColor = { 0.95, 0.3, 0.25 },     -- Kampf
-    restingColor = { 0.55, 0.78, 1 },      -- Ausruhen
-    deadColor = { 0.9, 0.9, 0.9 },         -- Tot
-    ghostColor = { 0.7, 0.85, 1 },         -- Geist
-    resurrectColor = { 0.35, 1, 0.45 },    -- Wiederbelebung kommt
-    questColor = { 1, 0.82, 0.1 },         -- Quest-Gegner
-    phaseColor = { 0.85, 0.85, 0.85 },     -- andere Phase
-    offlineColor = { 0.6, 0.6, 0.6 },      -- Offline (Gruppenframes)
-    afkColor = { 0.75, 0.75, 0.75 },       -- AFK (Gruppenframes)
-    leaderColor = { 1, 1, 1 },             -- Gruppenleiter (Krone; weiß mit Schatten liest sich auf jeder Klassenfarbe)
-    assistantColor = { 0.9, 0.9, 0.9 },    -- Assistent (Krone, Umriss)
-    readyColors = {                        -- Bereitschaftscheck: bereit / nicht bereit / wartet
+    bgMultiplier = 0.25, -- empty part = bar color x factor (sage theme)
+    castColor = { 0.85, 0.65, 0.2 },              -- own casts
+    castInterruptibleColor = { 0.25, 0.8, 0.95 }, -- target: interruptible (turquoise)
+    castLockedColor = { 0.5, 0.5, 0.5 },          -- target: not interruptible (gray)
+    castLatencyColor = { 0.9, 0.2, 0.2, 0.6 },    -- player: latency at the end of the castbar
+    -- Status icons (white textures, tinted here)
+    combatColor = { 0.95, 0.3, 0.25 },     -- combat
+    restingColor = { 0.55, 0.78, 1 },      -- resting
+    deadColor = { 0.9, 0.9, 0.9 },         -- dead
+    ghostColor = { 0.7, 0.85, 1 },         -- ghost
+    resurrectColor = { 0.35, 1, 0.45 },    -- incoming resurrection
+    questColor = { 1, 0.82, 0.1 },         -- quest mob
+    phaseColor = { 0.85, 0.85, 0.85 },     -- other phase
+    offlineColor = { 0.6, 0.6, 0.6 },      -- offline (group frames)
+    afkColor = { 0.75, 0.75, 0.75 },       -- AFK (group frames)
+    leaderColor = { 1, 1, 1 },             -- group leader (crown; white with shadow reads on any class color)
+    assistantColor = { 0.9, 0.9, 0.9 },    -- assistant (crown outline)
+    readyColors = {                        -- ready check: ready / not ready / waiting
         ready = { 0.35, 1, 0.45 }, notready = { 1, 0.3, 0.25 }, waiting = { 0.85, 0.85, 0.85 },
     },
-    summonColors = {                       -- Beschwörung: wartet / angenommen / abgelehnt
+    summonColors = {                       -- summon: pending / accepted / declined
         { 0.75, 0.5, 1 }, { 0.35, 1, 0.45 }, { 1, 0.3, 0.25 },
     },
 }
 local STYLE = ns.STYLE
 
--- Themes: nur Farben.
---   classHealth: Lebensbalken von Spielern in Klassenfarbe (NPCs nach Gesinnung)
---   emptyColor:  leerer Teil der Balken neutral statt abgedunkelte Balkenfarbe
---   darkHealth:  Lebensbalken dunkel gefüllt, fehlendes Leben etwas heller (healthEmpty)
---   powerClassColor: Ressource von Spielern in Klassenfarbe
+-- Themes: colors only.
+--   classHealth: player health bars in class color (NPCs by reaction)
+--   emptyColor:  neutral empty bar part instead of darkened bar color
+--   darkHealth:  dark health fill, missing health slightly lighter (healthEmpty)
+--   powerClassColor: player power bars in class color
 ns.THEMES = {
     class = {
         name = L["Class colour"],
         panelColor = { 0.06, 0.06, 0.06, 0.9 },
-        healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf-Palette (Benny 2026-11-07)
+        healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
         classHealth = true,
         emptyColor = { 0.1, 0.1, 0.1 },
     },
     dark = {
         name = L["Dark"],
         panelColor = { 0.02, 0.02, 0.02, 0.95 },
-        healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf-Palette (Benny 2026-11-07)
+        healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
         emptyColor = { 0.12, 0.12, 0.12 },
         darkHealth = { 0.1, 0.1, 0.1 },
         healthEmpty = { 0.3, 0.3, 0.3 },
         powerClassColor = true,
     },
     green = {
-        name = L["mUI (sage)"], -- früher „Klassisch grün“; einfarbig Salbei (Benny 2026-11-08)
+        name = L["mUI (sage)"], -- single-color sage
         panelColor = { 0.06, 0.06, 0.06, 0.9 },
-        healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf-Palette (Benny 2026-11-07)
+        healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
     },
 }
 ns.THEME_ORDER = { "class", "dark", "green" }
 
--- Balken-Textur: nur die eigene, flache (WHITE8X8). Fremde Texturen (SharedMedia/Eltruism) sind
--- raus – ungeklärte Lizenzen, CurseForge-Moderation (Benny 2026-11-08). In LibSharedMedia angemeldet.
+-- Bar texture: only our own flat one (WHITE8X8), registered with LibSharedMedia. No third-party
+-- textures (unclear licenses, CurseForge moderation).
 ns.DEFAULT_TEXTURE = "MeredanUI Flat"
 local STATUSBARS = {
     ["MeredanUI Flat"] = WHITE,
@@ -80,37 +80,36 @@ for name, file in pairs(STATUSBARS) do
 end
 ns.DEFAULT_TEXTURE_PATH = STATUSBARS[ns.DEFAULT_TEXTURE]
 
--- mUI-Schriften (Benny 2026-11-07): eigene Schrift auf Basis von Blue Highway (Raymond Larabie,
--- CC0 – frei verwendbar, umbenannt). Wie bei Websites: Namen/Überschriften „mUI Bold“, Fließtext
--- (Chat, Tooltips) „mUI Text“ mit +1 % Zeichenabstand, alles andere „mUI“. Gebaut mit fontTools
--- aus _fonts/bluehighway (Skript im Workspace). Auch für andere Addons in LibSharedMedia angemeldet.
+-- mUI fonts: based on Blue Highway (Raymond Larabie, CC0, renamed). Names/headings "mUI Bold",
+-- body text (chat, tooltips) "mUI Text" with +1% letter spacing, everything else "mUI".
+-- Also registered with LibSharedMedia for other addons.
 ns.DEFAULT_FONT_NAME = "mUI"
 ns.MEDIA = "Interface\\AddOns\\MeredanUI\\Media\\"
 ns.DEFAULT_FONT = ns.MEDIA .. "Fonts\\mUI.ttf"
 ns.TEXT_FONT = ns.MEDIA .. "Fonts\\mUI-Text.ttf"
 ns.BOLD_FONT = ns.MEDIA .. "Fonts\\mUI-Bold.ttf"
-ns.DISPLAY_FONT = ns.MEDIA .. "Cinzel-Bold.ttf" -- Schmuckschrift: Logo, große Überschriften (nur Großbuchstaben-Stil)
+ns.DISPLAY_FONT = ns.MEDIA .. "Cinzel-Bold.ttf" -- display font: logo, large headings (capitals style only)
 if LSM then
     LSM:Register(LSM.MediaType.FONT, "mUI", ns.DEFAULT_FONT)
     LSM:Register(LSM.MediaType.FONT, "mUI Text", ns.TEXT_FONT)
     LSM:Register(LSM.MediaType.FONT, "mUI Bold", ns.BOLD_FONT)
 end
 
--- Rahmen: eine schwarze 1-px-Linie. Debuffs färben sie nach Dispel-Art (dann 2 px).
+-- Border: a black 1px line. Debuffs tint it by dispel type (then 2px).
 ns.BORDER_PIXELS = 1
 local BORDER_COLOR = { 0, 0, 0, 1 }
 
--- Alles, was Theme, Schrift oder Textur nutzt, damit Änderungen sofort greifen.
+-- Everything using theme, font or texture, so changes apply immediately.
 local registry = { texts = {}, bars = {}, panels = {} }
 
--- Deckkraft-Stufen der Hintergründe (Fenster, Tooltips, Einheitenfenster …); nicht gelistet = Theme-Wert
+-- Background opacity levels (windows, tooltips, unit frames ...); unlisted = theme value
 local PANEL_OPACITY = { solid = 1, light = 0.75 }
 
--- Gespeicherte Einstellungen (Theme, Schrift, Textur) in STYLE übernehmen.
+-- Copy saved settings (theme, opacity) into STYLE.
 function ns.ApplySettings()
     local db = ns.db
     local theme = ns.THEMES[db.theme] or ns.THEMES.class
-    -- Deckkraft der Hintergründe (Benny 2026-11-08): Normal = Wert des Themes
+    -- Background opacity: "normal" = theme value
     local alpha = PANEL_OPACITY[db.panelOpacity] or theme.panelColor[4]
     local c = theme.panelColor
     STYLE.panelColor = { c[1], c[2], c[3], alpha }
@@ -121,15 +120,15 @@ function ns.ApplySettings()
     STYLE.powerClassColor = theme.powerClassColor
     ns.HEALTH_COLOR = theme.healthColor
 
-    -- Schrift und Textur sind fest (Einstellungen verschlankt, Benny 2026-11-07)
+    -- Font and texture are fixed
     STYLE.font = ns.DEFAULT_FONT
     STYLE.textFont = ns.TEXT_FONT
     STYLE.boldFont = ns.BOLD_FONT
     STYLE.barTexture = ns.DEFAULT_TEXTURE_PATH
 end
 
--- Geänderte Einstellungen sofort auf alle bestehenden Teile anwenden. Die Balkenfarben
--- rechnet danach oUF neu (ns.OnStyleRefreshed in UnitFrames/UnitFrames.lua).
+-- Apply changed settings to all existing elements at once. oUF then recomputes bar
+-- colors (ns.OnStyleRefreshed in UnitFrames/UnitFrames.lua).
 function ns.RefreshStyle()
     ns.ApplySettings()
     for text, font in pairs(registry.texts) do text:SetFont(ns.FontFor(font[3]), ns.FontPx(font[1]), font[2]) end
@@ -148,23 +147,22 @@ function ns.RefreshStyle()
     if ns.OnStyleRefreshed then ns.OnStyleRefreshed() end
 end
 
--- Größe eines echten Bildschirmpixels in UI-Einheiten. Rahmen und Abstände
--- darin rechnen, sonst rundet WoW sie je nach Position auf 1 oder 2 Pixel.
+-- Size of one physical screen pixel in UI units. Compute borders and gaps in it,
+-- otherwise WoW rounds them to 1 or 2 pixels depending on position.
 function ns.PixelSize()
     return PixelUtil.GetPixelToUIUnitFactor() / UIParent:GetEffectiveScale()
 end
 
--- Punkt eines Frames setzen, Position relativ zur Bildschirmmitte. Verankert an der
--- linken unteren Ecke und auf ganze Pixel gerundet: Die Mitte liegt je nach Auflösung
--- auf einem halben Pixel, 1-px-Linien würden dort 0 oder 2 px dick.
--- Mindestabstand aller Elemente zum Bildschirmrand, rundum (Ausnahme später: die
--- schmale Info-Leiste unter den Aktionsleisten).
+-- Minimum distance of all elements to the screen edge (exception: the thin info bar
+-- below the action bars).
 ns.SCREEN_MARGIN = 25
 
--- Benannte Layout-Elemente (bar1 … bar5, minimap, questlog, classpower …), damit Module
--- sich aneinander ausrichten können. Verschieben gibt es nicht: Plätze kommen nur aus dem Layout.
+-- Named layout elements (bar1 ... bar5, minimap, questlog, classpower ...) so modules can
+-- align to each other. No frame moving: positions come only from the layout.
 ns.layoutFrames = {}
 
+-- Place a frame relative to screen center, anchored BOTTOMLEFT and rounded to whole pixels:
+-- the center can sit on a half pixel, where 1px lines would render 0 or 2px thick.
 function ns.PlaceFromCenter(frame, point, x, y)
     local px = ns.PixelSize()
     local cx, cy = UIParent:GetCenter()
@@ -173,32 +171,32 @@ function ns.PlaceFromCenter(frame, point, x, y)
         math.floor((cx + x) / px + 0.5) * px, math.floor((cy + y) / px + 0.5) * px)
 end
 
--- Wert auf ganze Bildschirmpixel runden (mindestens 1 Pixel).
+-- Round to whole screen pixels (at least 1 pixel).
 function ns.Snap(value)
     local px = ns.PixelSize()
     return math.max(math.floor(value / px + 0.5), 1) * px
 end
 
--- Sichtbarkeit nach Einstellung (Fortschrittsleisten; die Aktionsleisten nutzen sichere
--- Zustandstreiber): "always", "mouseover", "combat", "nocombat", "hidden". Ältere
--- Einstellungen mit true/false werden als „immer“/„aus“ gelesen.
+-- Visibility setting (progress bars; action bars use secure state drivers):
+-- "always", "mouseover", "combat", "nocombat", "hidden". Legacy true/false
+-- means "always"/"hidden".
 function ns.VisibilityMode(value)
     if value == true or value == nil then return "always" end
     if value == false then return "hidden" end
-    if value == "combat" or value == "nocombat" then return "always" end -- alte Kampf-Varianten (bis 2026-11-07)
+    if value == "combat" or value == "nocombat" then return "always" end -- legacy combat variants
     return value
 end
 
--- Belegt die Leiste gerade Platz? (Mouseover zählt mit, sonst ließe sie sich nicht finden)
+-- Does the bar take up space? (mouseover counts, otherwise it couldn't be found)
 function ns.ShownByMode(value)
     local mode = ns.VisibilityMode(value)
     return mode ~= "hidden"
 end
 
--- Eigenes Feld über einem Blizzard-Knopf, dessen Optik per Alpha 0 versteckt ist (Mikromenü,
--- Minimap-Knöpfe). Das Feld hängt NICHT am Knopf (sonst erbt es dessen Alpha 0), sondern an einer
--- eigenen Ebene unter UIParent – so blendet es mit dem ganzen UI aus (AFK-Bildschirm, RP-Modus),
--- liegt aber über dem Knopf und folgt dessen Sichtbarkeit.
+-- Own overlay above a Blizzard button whose art is hidden via alpha 0 (micro menu, minimap
+-- buttons). Not parented to the button (it would inherit alpha 0) but to our own layer under
+-- UIParent, so it hides with the whole UI (AFK screen, RP mode) while following the button's
+-- visibility.
 local overlayRoot
 function ns.CreateButtonOverlay(button)
     if not overlayRoot then
@@ -218,20 +216,20 @@ function ns.CreateButtonOverlay(button)
     return overlay
 end
 
--- Mouseover-Ausblenden für einfache Frames: frame.muiMouseover = true > Alpha 0 bis Hover
+-- Mouseover fading for simple frames: frame.muiMouseover = true -> alpha 0 until hovered
 local mouseoverFrames = {}
 function ns.RegisterMouseover(frame)
     mouseoverFrames[frame] = true
 end
--- Maus über frame – aber nicht, wenn ein anderes Fenster davor die Maus hat (z. B. das
--- Taschenfenster über der Addon-Leiste); IsMouseOver prüft nur die Fläche.
+-- Mouse over frame - but not if another window in front has the mouse (e.g. the bag
+-- window over the addon bar); IsMouseOver only checks the area.
 local function Hovered(frame)
     if not (frame:IsVisible() and frame:IsMouseOver(4, -4, -4, 4)) then return false end
     local focus = GetMouseFoci()[1]
-    if not focus or focus == WorldFrame then return true end -- Lücke zwischen den Knöpfen
+    if not focus or focus == WorldFrame then return true end -- gap between buttons
     while focus do
         if focus == frame then return true end
-        if focus:IsForbidden() then return false end -- abgeschirmt: gehört nicht zu uns
+        if focus:IsForbidden() then return false end -- forbidden: not ours
         focus = focus:GetParent()
     end
     return false
@@ -246,19 +244,19 @@ C_Timer.NewTicker(0.1, function()
     end
 end)
 
--- Hauptaktionsleiste: Maße an einer Stelle, weil sich die Klassenleiste danach richtet
-ns.MAIN_BAR = { size = 42, cols = 6, gapPixels = 6 } -- 6 px Abstand = sichtbar 4 px (Rahmen liegen außen)
+-- Main action bar metrics in one place, since the class bar matches them
+ns.MAIN_BAR = { size = 42, cols = 6, gapPixels = 6 } -- 6px gap = 4px visible (borders sit outside)
 
--- Breite der Hauptleiste (ohne die außen liegenden Rahmen) – gleich für die Klassenleiste
+-- Main bar width (excluding the outer borders) - also used for the class bar
 function ns.MainBarWidth()
     local bar = ns.MAIN_BAR
     return bar.cols * ns.Snap(bar.size) + (bar.cols - 1) * bar.gapPixels * ns.PixelSize()
 end
 
--- Rahmen aus vier Kanten um eine Region, thickness Pixel dick. inside = true legt ihn
--- innen auf die Kante (z. B. für dicht gesetzte Icons), sonst außen herum.
--- Kanten sind weiße Texturen mit Vertex-Farbe, damit Blizzard sie umfärben kann (Dispel-Art).
--- Gibt die vier Kanten zurück.
+-- Border of four edges around a region, thickness pixels. inside = true draws it on the
+-- inner edge (e.g. for tightly packed icons), otherwise outside.
+-- Edges are white textures with vertex color so Blizzard can recolor them (dispel type).
+-- Returns the four edges.
 function ns.AddBorder(region, inside, thickness)
     local px = ns.PixelSize()
     thickness = thickness or ns.BORDER_PIXELS
@@ -269,8 +267,8 @@ function ns.AddBorder(region, inside, thickness)
         local tex = region:CreateTexture(nil, layer)
         tex:SetTexture(WHITE)
         tex:SetVertexColor(unpack(BORDER_COLOR))
-        -- liegt der Rahmen nicht exakt auf dem Pixelraster, rundet WoW 1-px-Kanten sonst teils auf 0
-        -- (fehlende Kanten im Vermächtnisfenster, Benny 2026-11-08); ohne Einrasten bleiben sie sichtbar
+        -- Off the pixel grid, WoW rounds 1px edges to 0 at times (missing edges); disabling
+        -- snapping keeps them visible
         tex:SetSnapToPixelGrid(false)
         tex:SetTexelSnappingBias(0)
         return tex
@@ -287,7 +285,7 @@ function ns.AddBorder(region, inside, thickness)
     return { top, bottom, left, right }
 end
 
--- Dunkle Fläche mit 1-px-Rahmen hinter einer Region.
+-- Dark panel with 1px border behind a region.
 function ns.CreateBackground(region)
     local bg = region:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
@@ -297,11 +295,11 @@ function ns.CreateBackground(region)
     return bg
 end
 
--- Balken gleiten weich zum neuen Wert (Blizzards eingebaute Glättung – geht auch mit geschützten
--- Werten); oUF-Elemente lesen .smoothing. Beim Einheitenwechsel springen sie sofort (SnapBars).
+-- Bars glide to new values (Blizzard's built-in interpolation - works with secret values);
+-- oUF elements read .smoothing. On unit change they jump instantly (SnapBars).
 ns.SMOOTH = Enum.StatusBarInterpolation.ExponentialEaseOut
 
--- Neues Ziel / neue Namensplakette: Balken nicht vom alten Wert herübergleiten lassen
+-- New target / nameplate: don't glide from the previous unit's value
 local function SnapBars(frame)
     for _, key in ipairs({ "Health", "Power", "AdditionalPower", "Stagger" }) do
         local bar = frame[key]
@@ -313,7 +311,7 @@ function ns.SnapBarsOnUnitChange(frame)
     hooksecurefunc(frame, "UpdateAllElements", SnapBars)
 end
 
--- Leichter Schimmer über region, solange die Maus auf frame liegt (Unit- und Gruppenframes).
+-- Subtle highlight over region while the mouse is over frame (unit and group frames).
 function ns.AddHoverHighlight(frame, region, alpha)
     local highlight = region:CreateTexture(nil, "OVERLAY")
     highlight:SetAllPoints()
@@ -340,9 +338,9 @@ function ns.CreateBar(parent, height)
     return bar
 end
 
--- oUF-Callback, leerer Teil eines Balkens: neutral (Theme) oder abgedunkelte Balkenfarbe.
--- Die Farbe direkt vom Balken lesen – deckt auch Sonder-Ressourcen ab, die oUF
--- ohne Farbobjekt setzt.
+-- oUF callback, empty bar part: neutral (theme) or darkened bar color.
+-- Read the color from the bar itself - also covers special resources oUF sets
+-- without a color object.
 function ns.ColorBarBackground(bar)
     if STYLE.darkHealth and bar.isHealth then
         bar:SetStatusBarColor(unpack(STYLE.darkHealth))
@@ -359,7 +357,7 @@ function ns.ColorBarBackground(bar)
     bar.bg:SetVertexColor(r * m, g * m, b * m)
 end
 
--- oUF-Callback der Ressourcenleiste: im dunklen Theme bei Spielern in Klassenfarbe.
+-- oUF callback for the power bar: class color for players in the dark theme.
 function ns.ColorPowerBar(bar, unit)
     if STYLE.powerClassColor and unit then
         local isPlayer = UnitIsPlayer(unit)
@@ -372,18 +370,18 @@ function ns.ColorPowerBar(bar, unit)
     ns.ColorBarBackground(bar)
 end
 
--- Zu lange Namen kürzen: vordere Wörter auf den Anfangsbuchstaben („S. D. d. Ältere“), das
--- letzte bleibt ganz. Gemessen wird die echte Textbreite in der Schrift des FontStrings –
--- so passt es für jede Sprache. Ohne Leerzeichen (z. B. Chinesisch) oder wenn es dann immer
--- noch nicht passt, schneidet WoW wie gewohnt mit „…“ ab. Geschützte Namen bleiben, wie sie sind.
+-- Shorten long names: leading words to their initial ("S. D. d. Elder"), the last word stays.
+-- Measures the real text width in the FontString's font, so it works for any language.
+-- Without spaces (e.g. Chinese) or if it still doesn't fit, WoW truncates with "...".
+-- Secret names stay as they are.
 local UTF8_CHAR = "^[%z\1-\127\194-\244][\128-\191]*"
 local nameProbe
 local shortNames = {}
 
--- maxWidth optional: Nameplates dürfen nicht vermessen werden, dort wird die Breite mitgegeben.
+-- maxWidth optional: nameplates must not be measured, so the width is passed in.
 function ns.ShortenName(name, fontString, maxWidth)
     if not ns.Readable(name) or name == "" then return name end
-    -- Hatte das Feld schon einen geschützten Namen, ist auch seine Breite geschützt: dann nichts tun
+    -- If the field already held a secret name, its width is secret too: do nothing
     maxWidth = maxWidth or fontString:GetWidth()
     if not ns.Readable(maxWidth) or maxWidth <= 1 then return name end
     local font, size, flags = fontString:GetFont()
@@ -413,12 +411,12 @@ function ns.ShortenName(name, fontString, maxWidth)
     return result
 end
 
--- Hintergrund leerer Plätze (Aktionsleisten, Taschen): Blizzards Slot-Grafik, an den Rändern
--- beschnitten (deren Rundungen/Rahmen), damit sie in unseren eckigen Rahmen passt. Die Grafik
--- ist halbtransparent: deckende dunkle Fläche darunter.
+-- Empty slot background (action bars, bags): Blizzard's slot art, cropped at the edges
+-- (rounded corners/frame) to fit our square border. The art is semi-transparent,
+-- so an opaque dark base goes underneath.
 local SLOT_ATLAS = "ui-hud-actionbar-iconframe-slot"
-local SLOT_CROP = 0.15 -- Anteil, der rundum abgeschnitten wird
-local SLOT_ALPHA = 0.4 -- nur angedeutet, das Schwarz soll bleiben
+local SLOT_CROP = 0.15 -- fraction cropped on each side
+local SLOT_ALPHA = 0.4 -- just a hint, the black should dominate
 
 function ns.AddSlotBackground(frame)
     local base = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
@@ -434,23 +432,22 @@ function ns.AddSlotBackground(frame)
     return base, slot
 end
 
--- Schrift setzen und für spätere Schriftwechsel merken.
--- Schnitt je Rolle: "bold" (Namen, Überschriften), "text" (Fließtext), sonst mUI
+-- Font face per role: "bold" (names, headings), "text" (body text), otherwise mUI.
 function ns.FontFor(role)
     if role == "bold" then return STYLE.boldFont or ns.BOLD_FONT end
     if role == "text" then return STYLE.textFont or ns.TEXT_FONT end
     return STYLE.font
 end
 
--- Schriftgröße (Benny 2026-11-07): Stufe Klein/Mittel/Groß vergrößert alle mUI-Texte im gleichen
--- Verhältnis (Überschriften bleiben größer als Fließtext). Untergrenze: kein Text kleiner als 10
--- echte Bildschirm-Pixel – WoW-Schriftgrößen sind UI-Einheiten, auf 1080p wäre eine „10“ sonst ~9 px.
+-- Font size: small/medium/large scales all mUI texts proportionally (headings stay larger than
+-- body text). Floor: no text below 10 physical pixels - WoW font sizes are UI units, so a
+-- "10" would be ~9px on 1080p.
 ns.FONT_SCALES = { small = 0.9, medium = 1, large = 1.12 }
 local MIN_FONT_PIXELS = 10
 function ns.FontPx(size)
     local factor = ns.FONT_SCALES[ns.db and ns.db.fontSize or "medium"] or 1
     local value = math.max(size * factor, MIN_FONT_PIXELS * ns.PixelSize())
-    return math.floor(value * 2 + 0.5) / 2 -- halbe Schritte
+    return math.floor(value * 2 + 0.5) / 2 -- half steps
 end
 
 function ns.SetFont(text, size, flags, role)
@@ -468,13 +465,13 @@ function ns.CreateText(parent, size, justify, flags, role)
     return text
 end
 
--- Restzeit kompakt: Sekunden ohne Einheit (59), darüber 2m bzw. 1h.
--- Die Zeit ist im Kampf ein Secret, deshalb formatiert ein Blizzard-Formatter statt Lua.
+-- Compact time left: seconds without unit (59), above that 2m or 1h.
+-- The time is a secret in combat, so a Blizzard formatter does the formatting, not Lua.
 local function CreateDurationFormatter()
     if not (C_StringUtil and C_StringUtil.CreateNumericRuleFormatter) then return end
     local UP = Enum.NumericRuleFormatRounding.Up
     local formatter = C_StringUtil.CreateNumericRuleFormatter()
-    ---@diagnostic disable-next-line: undefined-field -- 12.1-API, fehlt in den Annotationen
+    ---@diagnostic disable-next-line: undefined-field -- 12.1 API, missing from annotations
     formatter:SetBreakpoints({
         { threshold = 0, step = 1, rounding = UP, format = "%.0f" },
         { threshold = 90, format = "%.0fm", components = { { div = 60, step = 1, rounding = UP } } },
@@ -484,7 +481,7 @@ local function CreateDurationFormatter()
 end
 ns.DurationFormatter = CreateDurationFormatter()
 
--- Farben für den Aura-Rahmen nach Dispel-Art; "None" = schwarz wie der normale Rahmen.
+-- Aura border colors by dispel type; "None" = black like the normal border.
 local function DispelBorderColors(colors)
     local map = {}
     for name, color in pairs(colors.dispel) do map[name] = color end
@@ -492,12 +489,12 @@ local function DispelBorderColors(colors)
     return map
 end
 
--- oUF-Callback für neue Aura-Buttons: 1-px-Rahmen innen auf dem Icon.
--- options.dispelBand: "harmful" oder "helpful" – der Rahmen wird 2 px dick und Blizzard
--- färbt ihn nach Dispel-Art (Magie blau, Gift grün, …). Die Art ist im Kampf ein Secret,
--- deshalb färbt Blizzard und nicht wir.
--- ("preview" im Testmodus: nur die Dicke, die Farbe setzt der Testmodus.)
--- options.desaturate: Icon grau (z. B. Debuffs anderer Spieler am Ziel).
+-- oUF callback for new aura buttons: 1px border inside the icon.
+-- options.dispelBand: "harmful" or "helpful" - the border becomes 2px and Blizzard
+-- tints it by dispel type (magic blue, poison green ...). The type is a secret in combat,
+-- so Blizzard does the coloring, not us.
+-- ("preview" in test mode: thickness only, test mode sets the color.)
+-- options.desaturate: gray icon (e.g. other players' debuffs on the target).
 function ns.StyleAuraButton(element, button, options)
     button.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.Icon:SetDesaturated(options and options.desaturate or false)
@@ -520,8 +517,8 @@ function ns.StyleAuraButton(element, button, options)
         end
     end
 
-    -- Spirale dunkelt mit der Zeit ab statt von Anfang an; Restzeit zeigt nur unser Text.
-    -- Sie bleibt innerhalb des Rahmens.
+    -- Swipe darkens over time instead of starting dark; only our text shows the time left.
+    -- It stays inside the border.
     local cooldown = button.Cooldown
     if cooldown then
         local inset = borderPixels * ns.PixelSize()
@@ -546,13 +543,13 @@ function ns.StyleAuraButton(element, button, options)
     end
 end
 
--- Klassenressource (Combo-Punkte, Heilige Kraft, …) als Reihe gleich breiter Segmente.
-local CHARGED_COLOR = { 0.35, 0.75, 1 } -- aufgeladene Combo-Punkte
+-- Class resource (combo points, holy power ...) as a row of equal-width segments.
+local CHARGED_COLOR = { 0.35, 0.75, 1 } -- charged combo points
 
--- Eigene Farben für Klassenressourcen, wo Blizzards Farbe nicht passt (oUF.colors.power[Token])
--- Ruf-Farben je Stufe (1 Hasserfüllt … 8 Ehrfürchtig) in der Surf-Palette wie die Kräfte-Farben:
--- Rot → Orange → Sand → Grüntöne, Ehrfürchtig in mUI-Grün (Benny 2026-11-07, „Pastell mUI“).
--- Blizzards FACTION_BAR_COLORS bleibt unangetastet (globale Tabelle ändern = Taint).
+-- Own class resource colors where Blizzard's don't fit (oUF.colors.power[token]).
+-- Reputation colors per standing (1 Hated ... 8 Exalted) in the Surf palette:
+-- red -> orange -> sand -> greens, Exalted in mUI green.
+-- Never modify Blizzard's FACTION_BAR_COLORS (changing a global table = taint).
 local function Hex(hex) return { tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255 } end
 ns.REP_COLORS = {
     [1] = Hex("b8564e"), [2] = Hex("c66a62"), [3] = Hex("d39a6a"), [4] = Hex("dcc98a"),
@@ -563,23 +560,23 @@ function ns.RepColor(reaction)
     return color[1], color[2], color[3]
 end
 
--- Kräfte in der Surf-Palette: Pastelltöne passend zu Surf Green statt Blizzards Grelltönen (Benny 2026-11-07).
+-- Power colors in the Surf palette: pastels matching Surf Green instead of Blizzard's bright tones.
 ns.POWER_COLORS = {
-    ARCANE_CHARGES = { 0.64, 0.42, 0.98 },          -- Arkan-Ladungen: Zauber-Lila statt Blizzard-Blau
+    ARCANE_CHARGES = { 0.64, 0.42, 0.98 },          -- arcane charges: spell purple instead of Blizzard blue
     MANA = { 111 / 255, 143 / 255, 207 / 255 },     -- #6F8FCF
     RAGE = { 198 / 255, 106 / 255, 98 / 255 },      -- #C66A62
     ENERGY = { 220 / 255, 201 / 255, 138 / 255 },   -- #DCC98A
     FOCUS = { 211 / 255, 154 / 255, 106 / 255 },    -- #D39A6A
 }
 
--- Combo-Punkte gestaffelt: Gelb > Orange > Rot, je voller desto „heißer“.
+-- Combo points graded yellow > orange > red, hotter as they fill.
 local COMBO_GRADIENT = {
     { 1, 0.85, 0.2 },
     { 1, 0.5, 0.1 },
     { 0.9, 0.15, 0.1 },
 }
 
--- Farbe für Segment index von max (lineare Mischung zwischen den Stufen).
+-- Color for segment index of max (linear blend between stops).
 function ns.ComboPointColor(index, max)
     local pos = (max > 1) and (index - 1) / (max - 1) * (#COMBO_GRADIENT - 1) + 1 or 1
     local lower = math.min(math.floor(pos), #COMBO_GRADIENT - 1)
@@ -588,10 +585,10 @@ function ns.ComboPointColor(index, max)
     return a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f, a[3] + (b[3] - a[3]) * f
 end
 
--- Segmente auf die aktuelle Anzahl verteilen, ganze Pixel. Mit element.width hat die
--- Leiste eine feste Breite (= Hauptaktionsleiste, für alle Klassen gleich), die Kästchen
--- passen sich an. Der Rundungsrest geht als je 1 px an Kästchen, abwechselnd von außen
--- nach innen – so schließen die Außenkanten exakt mit der Aktionsleiste ab.
+-- Distribute segments over the current count in whole pixels. With element.width the bar has a
+-- fixed width (= main action bar, same for all classes) and boxes adapt. The rounding
+-- remainder goes 1px per box, alternating from the outside in, so the outer edges line up
+-- exactly with the action bar.
 function ns.LayoutClassPower(element, max)
     local px = ns.PixelSize()
     local strip = element.strip
@@ -615,7 +612,7 @@ function ns.LayoutClassPower(element, max)
             end
         end
     else
-        widths[max] = widths[max] + restPx -- ohne Kästchen: Rest an das letzte Segment
+        widths[max] = widths[max] + restPx -- no boxes: remainder goes to the last segment
     end
 
     local x = 0
@@ -649,26 +646,26 @@ local function ClassPower_PostUpdate(element, _, max, _, hasMaxChanged, powerTyp
     for i = 1, #element do ns.ColorBarBackground(element[i]) end
 end
 
--- Leiste nur zeigen, wenn die Klasse gerade eine Klassenressource hat.
+-- Show the bar only while the class has a class resource.
 local function ClassPower_PostVisibility(element, isVisible)
     element.strip:SetShown(isVisible)
 end
 
--- Klassenressource (Position setzt das Layout über element.strip).
---   ohne width: eine Leiste mit Rahmen, Segmente durch eine feine dunkle Linie getrennt
---   mit width:  einzelne Kästchen mit eigenem 1-px-Rahmen, Leiste immer width breit
+-- Class resource (position set by the layout via element.strip).
+--   without width: one bordered bar, segments separated by a thin dark line
+--   with width:    individual boxes with their own 1px border, bar always width wide
 function ns.CreateClassPower(parent, height, width)
     local strip = CreateFrame("Frame", nil, parent)
     strip:SetHeight(height)
     if not width then ns.CreateBackground(strip) end
 
     local element = { strip = strip, width = width, boxes = width ~= nil, gapPixels = width and 4 or 1 }
-    -- Breite sofort setzen: Ohne Breite hat die Leiste keine Position, und alles, was an ihr
-    -- hängt (Staffelung, Ressource in der Mitte), wäre unsichtbar.
+    -- Set width immediately: without it the strip has no position, and everything anchored
+    -- to it (stagger, center power) would be invisible.
     if width then strip:SetWidth(width) end
     for i = 1, 10 do
         local bar = ns.CreateBar(strip, height)
-        bar.PostUpdateColor = nil -- Farbe kommt aus ClassPower_PostUpdate
+        bar.PostUpdateColor = nil -- color comes from ClassPower_PostUpdate
         bar.followsTheme = true
         if width then ns.AddBorder(bar) end
         element[i] = bar
@@ -679,8 +676,8 @@ function ns.CreateClassPower(parent, height, width)
     return element
 end
 
--- Mönch (Braumeister): Staffelung als Balken an der Stelle der Klassenleiste, Anteil am
--- maximalen Leben; Farbe grün/gelb/rot wie bei Blizzard (ab 30 % bzw. 60 %).
+-- Monk (Brewmaster): stagger as a bar in place of the class bar, fraction of max health;
+-- green/yellow/red like Blizzard (from 30% / 60%).
 local STAGGER_COLORS = { { 0.52, 1, 0.52 }, { 1, 0.98, 0.72 }, { 1, 0.42, 0.42 } }
 ns.STAGGER_COLORS = STAGGER_COLORS
 
@@ -690,7 +687,7 @@ function ns.StaggerColor(percent)
     return STAGGER_COLORS[1]
 end
 
--- Ersetzt oUFs Farbwahl: rechnet nur mit lesbaren Werten (Secrets > Farbe bleibt).
+-- Replaces oUF's color logic: uses readable values only (secret -> color unchanged).
 local function Stagger_UpdateColor(frame)
     local element = frame.Stagger
     local cur, max = element.cur, element.max
@@ -701,7 +698,7 @@ end
 
 local function Stagger_PostUpdate(element, cur, max)
     element.cur, element.max = cur, max
-    element.Text:SetText(AbbreviateNumbers(cur)) -- verträgt auch Secrets
+    element.Text:SetText(AbbreviateNumbers(cur)) -- secret-safe
 end
 
 function ns.CreateStagger(parent, height, width)
@@ -717,16 +714,15 @@ function ns.CreateStagger(parent, height, width)
     return bar
 end
 
--- Hauptressource in der Mitte (Gleichgewicht, Shadow, Elementar): Die Spec-Ressource
--- wandert an den Platz der Klassenleiste, der Ressourcenbalken am Spielerframe zeigt Mana.
--- Gilt nach Spezialisierung – auch in Caster-Form, wo die angezeigte Ressource Mana ist –,
--- aber nicht in Katze/Bär (dann Energie/Wut wie gewohnt).
+-- Center power (Balance, Shadow, Elemental): the spec resource moves to the class bar slot and
+-- the player frame's power bar shows mana. Based on spec - also in caster form where the
+-- displayed resource is mana - but not in cat/bear (energy/rage as usual).
 local CENTER_POWER = {
-    [102] = Enum.PowerType.LunarPower, -- Druide Gleichgewicht: Astrale Macht
-    [258] = Enum.PowerType.Insanity,   -- Priester Schatten: Wahnsinn
-    [262] = Enum.PowerType.Maelstrom,  -- Schamane Elementar: Mahlstrom
+    [102] = Enum.PowerType.LunarPower, -- Balance druid: Astral Power
+    [258] = Enum.PowerType.Insanity,   -- Shadow priest: Insanity
+    [262] = Enum.PowerType.Maelstrom,  -- Elemental shaman: Maelstrom
 }
-local centerPowerType -- Ressource der aktuellen Spezialisierung oder nil
+local centerPowerType -- resource of the current spec or nil
 
 local function UpdateCenterPowerType()
     local index = C_SpecializationInfo.GetSpecialization()
@@ -734,7 +730,7 @@ local function UpdateCenterPowerType()
     centerPowerType = specID and CENTER_POWER[specID]
 end
 
--- Ressource für die Mitte, solange die angezeigte Ressource Mana oder die Spec-Ressource ist.
+-- Center resource while the displayed resource is mana or the spec resource.
 function ns.CenterPowerType(unit)
     if unit ~= "player" or not centerPowerType then return end
     local displayed = UnitPowerType("player")
@@ -746,7 +742,7 @@ function ns.UsesCenterPower(unit)
     return ns.CenterPowerType(unit) ~= nil
 end
 
--- Balken mit Rahmen und Zahl; aktualisiert sich selbst über Events.
+-- Bordered bar with value text; updates itself via events.
 function ns.CreateCenterPower(parent, height, width)
     local bar = ns.CreateBar(parent, height)
     bar:SetWidth(width)
@@ -769,7 +765,7 @@ function ns.CreateCenterPower(parent, height, width)
         ns.ColorBarBackground(self)
         self:SetMinMaxValues(0, UnitPowerMax("player", powerType))
         self:SetValue(UnitPower("player", powerType), ns.SMOOTH)
-        self.Text:SetText(AbbreviateNumbers(UnitPower("player", powerType))) -- verträgt auch Secrets
+        self.Text:SetText(AbbreviateNumbers(UnitPower("player", powerType))) -- secret-safe
     end
 
     bar:RegisterUnitEvent("UNIT_POWER_FREQUENT", "player")
@@ -782,21 +778,21 @@ function ns.CreateCenterPower(parent, height, width)
     return bar
 end
 
--- Todesritter-Runen: 6 Kästchen wie die Klassenleiste (Position über element.strip).
--- Füllen sich beim Aufladen; Farbe nach Spezialisierung (Blut/Frost/Unheilig).
+-- Death Knight runes: 6 boxes like the class bar (position via element.strip).
+-- Fill while recharging; color by spec (Blood/Frost/Unholy).
 function ns.CreateRunes(parent, height, width)
     local strip = CreateFrame("Frame", nil, parent)
     strip:SetHeight(height)
     local element = { strip = strip, width = width, boxes = true, gapPixels = 4 }
     for i = 1, 6 do
         local bar = ns.CreateBar(strip, height)
-        bar.PostUpdateColor = nil -- Farbe setzt oUF für alle Runen, danach Runes.PostUpdateColor
+        bar.PostUpdateColor = nil -- oUF colors all runes, then Runes.PostUpdateColor
         bar.followsTheme = true
         ns.AddBorder(bar)
         element[i] = bar
     end
     element.colorSpec = true
-    element.sortOrder = "asc" -- bereite Runen zuerst
+    element.sortOrder = "asc" -- ready runes first
     element.PostUpdateColor = function(runes)
         for i = 1, #runes do ns.ColorBarBackground(runes[i]) end
     end
@@ -804,9 +800,9 @@ function ns.CreateRunes(parent, height, width)
     return element
 end
 
--- Status-Symbol (Media/Icons/<name>.tga, weiß) in color, mit dunklem Schatten darunter,
--- damit es auch auf hellen Balken lesbar bleibt. Der Schatten folgt Show/Hide des Symbols.
--- Symbole: Material Design Icons / Material Symbols, Apache 2.0 (Media/Icons/CREDITS.txt).
+-- Status icon (Media/Icons/<name>.tga, white) tinted in color, with a dark drop shadow
+-- for readability on light bars. The shadow follows the icon's Show/Hide.
+-- Icons: Material Design Icons / Material Symbols, Apache 2.0 (Media/Icons/CREDITS.txt).
 function ns.CreateStatusIcon(parent, name, size, color)
     local px = ns.PixelSize()
     local icon = parent:CreateTexture(nil, "OVERLAY", nil, 7)
@@ -827,14 +823,14 @@ function ns.CreateStatusIcon(parent, name, size, color)
     return icon
 end
 
--- Symbol eines Status-Symbols wechseln (Schatten zieht mit), z. B. Bereitschaftscheck.
+-- Change a status icon's texture (shadow follows), e.g. ready check.
 function ns.SetStatusIcon(icon, name)
     icon:SetTexture(ns.MEDIA .. "Icons\\" .. name)
     if icon.shadow then icon.shadow:SetTexture(ns.MEDIA .. "Icons\\" .. name) end
 end
 
--- Reihe von Status-Symbolen, mittig auf anchor: Sichtbare Symbole rücken zusammen,
--- egal welche gerade aktiv sind.
+-- Row of status icons centered on anchor: visible icons close ranks,
+-- whichever are currently active.
 function ns.CreateStatusRow(anchor, size, spacing)
     local row = { icons = {} }
     function row.Layout()
@@ -860,8 +856,8 @@ function ns.CreateStatusRow(anchor, size, spacing)
     return row
 end
 
--- Health.PostUpdate: Schädel bei Tot, Geist bei Geistform (kein oUF-Element dafür).
--- Bei geschützten Werten (Secrets) lieber nichts anzeigen.
+-- Health.PostUpdate: skull when dead, ghost in ghost form (no oUF element for this).
+-- Show nothing for secret values.
 function ns.UpdateDeathIcons(health, unit)
     local frame = health.__owner
     local dead, ghost = UnitIsDead(unit), UnitIsGhost(unit)
@@ -871,8 +867,8 @@ function ns.UpdateDeathIcons(health, unit)
     frame.GhostIcon:SetShown(ghost)
 end
 
--- SummonIndicator.PostUpdate: oUF setzt bei jedem Update Blizzards Grafik; zurück auf
--- unser Symbol, Farbe nach Status (wartet / angenommen / abgelehnt).
+-- SummonIndicator.PostUpdate: oUF sets Blizzard's texture on every update; switch back to
+-- our icon, colored by status (pending / accepted / declined).
 function ns.UpdateSummonIcon(icon, status)
     if not status or status == Enum.SummonStatus.None then return end
     icon:SetTexture(ns.MEDIA .. "Icons\\Summon")
@@ -880,13 +876,12 @@ function ns.UpdateSummonIcon(icon, status)
     icon:SetVertexColor(unpack(color))
 end
 
--- Zauberleiste, nur sichtbar, solange gezaubert wird; liegt als Overlay über dem
--- Lebensbalken (der Rahmen kommt von dort). Zauber-Icon außen daneben, iconGap Abstand.
--- Eigene Zauber gold, beim Ziel türkis = unterbrechbar, grau = nicht. Ob ein Zauber
--- unterbrechbar ist, ist im Kampf ein Secret – oUF blendet deshalb die graue Fläche
--- (.Shield) per SetAlphaFromBoolean ein.
--- Ermächtigungszauber (Rufer): Stufengrenzen als dünne helle Linien statt Blizzard-Optik.
--- oUF setzt die Position (oben/unten am Balken), wir liefern nur die Linie.
+-- Castbar, visible only while casting; overlays the health bar (which provides the border).
+-- Spell icon outside next to it, iconGap apart. Own casts gold; on the target turquoise =
+-- interruptible, gray = not. Interruptibility is a secret in combat, so oUF fades in the
+-- gray layer (.Shield) via SetAlphaFromBoolean.
+-- Empowered casts (Evoker): stage boundaries as thin light lines instead of Blizzard art.
+-- oUF sets the position (top/bottom of the bar), we only provide the line.
 local function CreatePip(castbar)
     local pip = CreateFrame("Frame", nil, castbar)
     pip:SetWidth(2 * ns.PixelSize())
@@ -903,12 +898,12 @@ function ns.CreateCastbar(parent, height, mirrored, showInterruptible, iconGap)
     local dir = mirrored and -1 or 1
 
     local castbar = ns.CreateBar(parent, height)
-    castbar.smoothing = Enum.StatusBarInterpolation.Immediate -- läuft über Blizzards Timer, schon flüssig
+    castbar.smoothing = Enum.StatusBarInterpolation.Immediate -- driven by Blizzard's timer, already smooth
     castbar.PostUpdateColor = nil
     castbar:SetReverseFill(mirrored)
     castbar.baseColor = showInterruptible and STYLE.castInterruptibleColor or STYLE.castColor
     castbar:SetStatusBarColor(unpack(castbar.baseColor))
-    castbar.panelBackground = true -- Hintergrund in Flächenfarbe
+    castbar.panelBackground = true -- background in panel color
     local r, g, b = unpack(STYLE.panelColor)
     castbar.bg:SetVertexColor(r, g, b, 1)
 
@@ -929,7 +924,7 @@ function ns.CreateCastbar(parent, height, mirrored, showInterruptible, iconGap)
     spark:SetPoint("BOTTOM", fill, "BOTTOM" .. far)
     castbar.Spark = spark
 
-    -- Texte auf derselben Grundlinie wie Leben und Energie im Lebensbalken (unten, 4 Einheiten)
+    -- Texts on the same baseline as health and power in the health bar (bottom, 4 units)
     local time = ns.CreateText(castbar, STYLE.fontSize + 1, far, "OUTLINE")
     time:SetPoint("BOTTOM" .. far, castbar, "BOTTOM" .. far, -5 * dir, 4)
     castbar.Time = time
@@ -939,7 +934,7 @@ function ns.CreateCastbar(parent, height, mirrored, showInterruptible, iconGap)
     text:SetPoint("BOTTOM" .. far, time, "BOTTOM" .. near, -4 * dir, 0)
     castbar.Text = text
 
-    -- Icon außen neben dem Balken, so hoch wie der Balken, eigener 1-px-Rahmen
+    -- Icon outside next to the bar, as tall as the bar, own 1px border
     local iconFrame = CreateFrame("Frame", nil, castbar)
     iconFrame:SetSize(height, height)
     iconFrame:SetPoint(far, castbar, near, -(iconGap or 0) * dir, 0)
@@ -950,20 +945,20 @@ function ns.CreateCastbar(parent, height, mirrored, showInterruptible, iconGap)
     castbar.Icon = icon
 
     castbar.CreatePip = CreatePip
-    castbar.timeToHold = 0.5 -- abgebrochene Zauber kurz stehen lassen
+    castbar.timeToHold = 0.5 -- briefly keep interrupted casts visible
     return castbar
 end
 
--- Heil-Vorhersage und Absorb-Schild für Unitframes (Spieler, Ziel, Fokus, Bosse …):
---   • eingehende Heilung grün direkt hinter der Füllung (nur so weit, wie Leben fehlt)
---   • Schild hellblau vom Balkenende her über das Leben gelegt – auch bei vollem Leben sichtbar
---     (oUF klemmt Schilde sonst auf das fehlende Leben: bei vollem Leben sähe man nie einen).
---     Hellblau statt Weiß, damit er auch auf Priester-Weiß auffällt.
--- Alle Werte reicht oUF an Blizzards Balken weiter (Secret-sicher).
+-- Heal prediction and absorb shield for unit frames (player, target, focus, bosses ...):
+--   - incoming heals green right after the fill (only as far as health is missing)
+--   - absorb light blue from the bar end over health - visible even at full health
+--     (oUF otherwise clamps absorbs to missing health, so none would show at full health).
+--     Light blue instead of white so it stands out on priest white.
+-- oUF passes all values to Blizzard's bars (secret-safe).
 local HEAL_PREDICTION_COLOR = { 0.3, 0.9, 0.4, 0.45 }
 local ABSORB_COLOR = { 0.35, 0.75, 1, 0.6 }
--- absorbOnly: nur Schilde, keine Heil-Vorhersage (Gruppenframes für DD/Tank, Benny 2026-11-07)
--- split: Heiler – eigene eingehende Heilung kräftig, fremde blasser dahinter, dazu Heilabsorb
+-- absorbOnly: absorbs only, no heal prediction (group frames for DPS/tank)
+-- split: healer - own incoming heals strong, others' fainter behind, plus heal absorb
 local HEAL_OWN_COLOR, HEAL_OTHER_COLOR, HEAL_ABSORB_COLOR = { 0.35, 0.95, 0.45, 0.85 }, { 0.35, 0.8, 0.45, 0.4 }, { 0.55, 0.05, 0.08, 0.8 }
 function ns.AddHealPrediction(health, mirrored, absorbOnly, split)
     local fill = health:GetStatusBarTexture()
@@ -986,7 +981,7 @@ function ns.AddHealPrediction(health, mirrored, absorbOnly, split)
         other:SetFrameLevel(health:GetFrameLevel() + 1)
         health.HealingPlayer, health.HealingOther = own, other
         health.incomingHealOverflow = 1
-        -- Heilabsorb: dunkelrot vom Ende des Lebens nach innen
+        -- Heal absorb: dark red from the end of health inward
         local healAbsorb = CreateFrame("StatusBar", nil, health)
         healAbsorb:SetPoint("TOP")
         healAbsorb:SetPoint("BOTTOM")
@@ -1017,13 +1012,13 @@ function ns.AddHealPrediction(health, mirrored, absorbOnly, split)
     else
         healing:SetPoint("LEFT", fill, "RIGHT")
     end
-    healing:SetWidth(health:GetWidth()) -- oUF passt die Breite an, wenn sich der Balken ändert
+    healing:SetWidth(health:GetWidth()) -- oUF adjusts the width when the bar changes
     healing:SetReverseFill(mirrored or false)
     healing:SetStatusBarTexture(STYLE.barTexture)
     healing:SetStatusBarColor(unpack(HEAL_PREDICTION_COLOR))
     healing:SetFrameLevel(health:GetFrameLevel() + 1)
     health.HealingAll = healing
-    health.incomingHealOverflow = 1 -- nie über den Balkenrand
+    health.incomingHealOverflow = 1 -- never past the bar edge
 
     local absorb = CreateFrame("StatusBar", nil, health)
     absorb:SetAllPoints(health)
@@ -1035,13 +1030,13 @@ function ns.AddHealPrediction(health, mirrored, absorbOnly, split)
     health.damageAbsorbClampMode = Enum.UnitDamageAbsorbClampMode.MaximumHealth
 end
 
--- Globale Abklingzeit (Spieler): dünne Linie an der Unterkante, läuft während des GCD von innen
--- nach außen voll. Blizzard rechnet (Duration-Objekt) – geschützte Werte fassen wir nie an.
+-- Global cooldown (player): thin line at the bottom edge, fills inside-out during the GCD.
+-- Blizzard does the math (Duration object) - we never touch secret values.
 local GCD_SPELL = 61304
 local gcdBars = {}
 
--- Läuft der GCD noch? Immer neu bei Blizzard fragen – ein einmal geholtes Duration-Objekt
--- meldet nach Ablauf nicht „null“ (Linie blieb sonst voll stehen). Kann geschützt sein.
+-- Is the GCD still running? Always ask Blizzard anew - a cached Duration object doesn't
+-- report zero after expiring (the line would stay full). May be secret.
 local function GCDOver()
     local duration = C_Spell.GetSpellCooldownDuration(GCD_SPELL)
     if not duration then return true end
@@ -1049,7 +1044,7 @@ local function GCDOver()
 end
 
 local function UpdateGCD(bar)
-    if ns.db.castbar == "simple" then return bar:Hide() end -- Zauberleiste „Schlicht“: ohne GCD-Linie
+    if ns.db.castbar == "simple" then return bar:Hide() end -- "simple" castbar: no GCD line
     local over, duration = GCDOver()
     if not duration or (not issecretvalue(over) and over) then return bar:Hide() end
     bar:SetTimerDuration(duration, Enum.StatusBarInterpolation.Immediate, Enum.StatusBarTimerDirection.ElapsedTime)
@@ -1066,7 +1061,7 @@ function ns.CreateGCDBar(parent, mirrored)
     bar:SetStatusBarTexture(WHITE)
     bar:SetStatusBarColor(1, 1, 1, 0.75)
     bar:SetReverseFill(mirrored or false)
-    -- Ende des GCD: kein eigenes Ereignis – solange sichtbar kurz nachfragen, dann verstecken
+    -- GCD end has no event - poll briefly while visible, then hide
     local elapsedSince = 0
     bar:SetScript("OnUpdate", function(self, elapsed)
         elapsedSince = elapsedSince + elapsed
@@ -1074,7 +1069,7 @@ function ns.CreateGCDBar(parent, mirrored)
         elapsedSince = 0
         local over = GCDOver()
         if not issecretvalue(over) and over then return self:Hide() end
-        self:SetAlphaFromBoolean(over, 0, 1) -- geschützt: Blizzard entscheidet
+        self:SetAlphaFromBoolean(over, 0, 1) -- secret: Blizzard decides
     end)
     bar:Hide()
     gcdBars[bar] = true
@@ -1084,27 +1079,27 @@ ns:On("SPELL_UPDATE_COOLDOWN", function()
     for bar in pairs(gcdBars) do UpdateGCD(bar) end
 end)
 
--- Tick-Striche bei kanalisierten Zaubern (Spieler): zeigt, wann der nächste Schaden-/Heil-Tick
--- kommt – nicht zu früh abbrechen. Anzahl je Zauber (Tempo verkürzt die Abstände gleichmäßig).
+-- Tick marks on channeled spells (player): shows when the next damage/heal tick lands,
+-- so you don't cancel early. Count per spell (haste shortens intervals evenly).
 local CHANNEL_TICKS = {
-    [15407] = 6,   -- Gedankenschinden
-    [391403] = 4,  -- Gedankenschinden: Wahnsinn
-    [47540] = 3,   -- Sühne
-    [64843] = 4,   -- Göttliche Hymne
-    [234153] = 5,  -- Blutsauger
-    [198590] = 5,  -- Seelendieb
-    [755] = 5,     -- Lebenslinie
-    [5143] = 5,    -- Arkane Geschosse
-    [205021] = 5,  -- Frostblitz-Strahl
-    [12051] = 4,   -- Hervorrufung
-    [257044] = 7,  -- Schnellfeuer
-    [113656] = 5,  -- Furorfäuste
-    [117952] = 4,  -- Knisternder Jadeblitz
-    [101546] = 4,  -- Wirbelnder Kranichtritt
-    [115175] = 8,  -- Beruhigender Nebel
-    [740] = 4,     -- Gelassenheit
-    [356995] = 4,  -- Disintegrieren
-    [198013] = 10, -- Augenstrahl
+    [15407] = 6,   -- Mind Flay
+    [391403] = 4,  -- Mind Flay: Insanity
+    [47540] = 3,   -- Penance
+    [64843] = 4,   -- Divine Hymn
+    [234153] = 5,  -- Drain Life
+    [198590] = 5,  -- Drain Soul
+    [755] = 5,     -- Health Funnel
+    [5143] = 5,    -- Arcane Missiles
+    [205021] = 5,  -- Ray of Frost
+    [12051] = 4,   -- Evocation
+    [257044] = 7,  -- Rapid Fire
+    [113656] = 5,  -- Fists of Fury
+    [117952] = 4,  -- Crackling Jade Lightning
+    [101546] = 4,  -- Spinning Crane Kick
+    [115175] = 8,  -- Soothing Mist
+    [740] = 4,     -- Tranquility
+    [356995] = 4,  -- Disintegrate
+    [198013] = 10, -- Eye Beam
 }
 function ns.UpdateChannelTicks(castbar, unit, spellID)
     local ticks = castbar.channelTicks
@@ -1133,17 +1128,17 @@ function ns.UpdateChannelTicks(castbar, unit, spellID)
     end
 end
 
--- Execute-Linie: weißer Strich im Lebensbalken bei der Lebensgrenze, ab der deine Klasse ihre
--- Hinrichtungs-Fähigkeit nutzen darf. Fest gesetzt – das Leben selbst (oft geschützt) wird nie gelesen.
--- Höchster bekannter Wert gewinnt; ohne passende Fähigkeit keine Linie.
+-- Execute line: white mark in the health bar at the threshold where your class may use its
+-- execute ability. Fixed position - health itself (often secret) is never read.
+-- Highest known value wins; no matching ability, no line.
 local EXECUTE_SPELLS = {
-    { 281001, 35 }, { 206315, 35 }, -- Massaker (Furor, Waffen)
-    { 343294, 35 },                 -- Seelenernter (Todesritter)
-    { 269644, 30 },                 -- Sengende Berührung (Feuer)
-    { 5308, 20 }, { 163201, 20 }, { 280735, 20 }, -- Hinrichten
-    { 53351, 20 }, { 320976, 20 },  -- Tödlicher Schuss
-    { 24275, 20 },                  -- Hammer des Zorns
-    { 32379, 20 },                  -- Schattenwort: Tod
+    { 281001, 35 }, { 206315, 35 }, -- Massacre (Fury, Arms)
+    { 343294, 35 },                 -- Soul Reaper (Death Knight)
+    { 269644, 30 },                 -- Searing Touch (Fire)
+    { 5308, 20 }, { 163201, 20 }, { 280735, 20 }, -- Execute
+    { 53351, 20 }, { 320976, 20 },  -- Kill Shot
+    { 24275, 20 },                  -- Hammer of Wrath
+    { 32379, 20 },                  -- Shadow Word: Death
 }
 local executePercent
 local executeLines = {}
@@ -1151,7 +1146,7 @@ local executeLines = {}
 local function PlaceExecuteLine(line)
     local bar = line.bar
     local show = executePercent and ns.db.executeLine ~= false
-    if show and line.unit then -- Unitframe: nur bei Gegnern
+    if show and line.unit then -- unit frame: enemies only
         local attackable = UnitCanAttack("player", line.unit)
         show = not issecretvalue(attackable) and attackable or false
     end
@@ -1174,7 +1169,7 @@ function ns.UpdateExecuteLines()
     for line in pairs(executeLines) do PlaceExecuteLine(line) end
 end
 
--- unit: nur zeigen, wenn diese Einheit angreifbar ist (Ziel-Frame); Plates brauchen das nicht
+-- unit: only show if this unit is attackable (target frame); plates don't need it
 function ns.AddExecuteLine(bar, unit)
     local line = bar:CreateTexture(nil, "OVERLAY", nil, 3)
     line:SetColorTexture(1, 1, 1, 0.8)
@@ -1192,8 +1187,8 @@ ns:On("PLAYER_TARGET_CHANGED", function()
     for line in pairs(executeLines) do if line.unit then PlaceExecuteLine(line) end end
 end)
 
--- Bildschirmgröße oder UI-Skalierung geändert (anderer Monitor, Skalierungs-Regler): MUI berechnet
--- Plätze und 1-px-Rahmen beim Laden – deshalb, wie bei ElvUI, einmal neu laden anbieten.
+-- Screen size or UI scale changed (other monitor, scale slider): mUI computes positions and
+-- 1px borders at load, so offer a reload, like ElvUI does.
 StaticPopupDialogs["MEREDANUI_RELOAD_SCALE"] = {
     text = ns.L["Screen size or UI scale changed. Reload the interface so mUI can rearrange everything?"],
     button1 = ns.L["Reload UI"],
@@ -1204,9 +1199,9 @@ StaticPopupDialogs["MEREDANUI_RELOAD_SCALE"] = {
     hideOnEscape = true,
 }
 
--- Platzierungen, die von der Bildschirmgröße abhängen (mittig, an Rändern): jedes Modul meldet
--- seine Platzierung hier an; sie läuft sofort und bei jeder Größen-/Skalierungsänderung erneut
--- (im Kampf erst danach – die Aktionsleisten sind geschützt). Danach gelten gespeicherte Positionen.
+-- Placements that depend on screen size (centered, at edges): each module registers its placer
+-- here; it runs immediately and again on every size/scale change (after combat if in
+-- lockdown - action bars are protected).
 local placers = {}
 function ns.OnLayout(fn)
     placers[#placers + 1] = fn
@@ -1220,14 +1215,14 @@ function ns.Relayout()
     end
 end
 
-local layoutSize, layoutPixel -- Größe und Pixelgröße beim letzten Ausrichten
+local layoutSize, layoutPixel -- size and pixel size at the last layout pass
 local function SizeKey() return ("%.0f:%.0f"):format(UIParent:GetWidth(), UIParent:GetHeight()) end
 local function PixelKey() return ("%.4f"):format(ns.PixelSize()) end
 ns:On("PLAYER_LOGIN", function()
     layoutSize, layoutPixel = SizeKey(), PixelKey()
 end)
--- Andere Größe: sofort neu ausrichten. Andere Skalierung: zusätzlich Neuladen anbieten – die
--- 1-px-Rahmen werden beim Aufbau auf ganze Pixel gelegt und wären sonst unscharf.
+-- Size changed: re-layout immediately. Scale changed: also offer a reload - 1px borders are
+-- snapped to whole pixels at build time and would blur otherwise.
 local checkPending = false
 local function CheckLayoutSize()
     if not layoutSize or checkPending then return end
@@ -1245,10 +1240,10 @@ local function CheckLayoutSize()
         end
     end)
 end
--- Größe der Oberfläche (Benny 2026-11-07, wie ElvUI): mUI setzt die Skalierung selbst (UIParent),
--- Blizzards Regler wirkt dann nicht mehr. Das Layout ist für „Mittel“ (65 %) gebaut; „Klein“ geht
--- unter Blizzards Minimum (mehr Platz), „Groß“ ist das Maximum, bei dem auf 16:9 nichts überlappt.
--- Account-weit (hängt am Monitor, nicht am Profil): MeredanUIDB.uiSize.
+-- UI size (like ElvUI): mUI sets the scale itself (UIParent), so Blizzard's slider has no
+-- effect. The layout is built for "medium" (65%); "small" goes below Blizzard's minimum
+-- (more room), "large" is the maximum where nothing overlaps on 16:9.
+-- Account-wide (depends on the monitor, not the profile): MeredanUIDB.uiSize.
 ns.UI_SIZES = { small = 0.58, medium = 0.65, large = 0.71 }
 function ns.UIScaleValue()
     return ns.UI_SIZES[ns.root and ns.root.uiSize or "medium"] or ns.UI_SIZES.medium
@@ -1260,17 +1255,16 @@ local function ApplyUIScale()
 end
 ns.ApplyUIScale = ApplyUIScale
 ns:On("ADDON_LOADED", function(_, name) if name == ADDON_NAME then ApplyUIScale() end end)
--- Blizzard setzt die Skalierung bei eigenen Änderungen (Regler, Fenstergröße) zurück > wieder unsere
+-- Blizzard resets the scale on its own changes (slider, window size) -> reapply ours
 ns:On("UI_SCALE_CHANGED", ApplyUIScale)
 ns:On("DISPLAY_SIZE_CHANGED", ApplyUIScale)
 ns:On("UI_SCALE_CHANGED", CheckLayoutSize)
 ns:On("DISPLAY_SIZE_CHANGED", CheckLayoutSize)
 
--- Blizzards Bearbeitungsmodus sperren (Benny 2026-11-07: mUI hat feste Layouts). Blizzards eigener
--- Weg, wie beim Haustierkampf: ein Rahmen in der Sperrliste > CanEnterEditMode() ist falsch (kein
--- Knopf im Esc-Menü, /editmode geht nicht). TEST: Am 2026-11-07 kurz entfernt, weil ein Taint-Fehler
--- in Blizzards Optionen (IsUserOAuthed) verdächtig war – Ursache war dann der Listen-Eintrag in den
--- Optionen (Config/Settings.lua). Kommt der Fehler mit der Sperre wieder, diese hier entfernen.
+-- Block Blizzard's Edit Mode (mUI has fixed layouts). Blizzard's own mechanism, as in pet
+-- battles: a frame in the block list makes CanEnterEditMode() false (no Esc menu button,
+-- /editmode does nothing). If a taint error in Blizzard's options (IsUserOAuthed) shows up
+-- with this block, remove it here.
 ns:On("PLAYER_LOGIN", function()
     if EditModeManagerFrame and EditModeManagerFrame.BlockEnteringEditMode then
         EditModeManagerFrame:BlockEnteringEditMode(CreateFrame("Frame", "MeredanUIEditModeBlocker"))
@@ -1279,9 +1273,9 @@ end)
 ns:On("PLAYER_ENTERING_WORLD", function() C_Timer.After(2, CheckLayoutSize) end)
 
 
--- Item-Vergleich wie bei Blizzard: Shift (bzw. „Immer vergleichen“) zeigt das Angelegte daneben.
--- Nach dem Füllen des Tooltips aufrufen; owner.UpdateTooltip = OnEnter-Funktion sorgt dafür, dass
--- Shift auch wirkt, wenn man es erst drückt, während die Maus schon drauf ist (GameTooltip ruft es laufend).
+-- Item comparison like Blizzard: Shift (or "always compare") shows the equipped item alongside.
+-- Call after filling the tooltip; with owner.UpdateTooltip = OnEnter function, Shift also works
+-- when pressed while already hovering (GameTooltip calls it continuously).
 function ns.ShowItemCompare(tooltip)
     tooltip = tooltip or GameTooltip
     if IsModifiedClick("COMPAREITEMS") or C_CVar.GetCVarBool("alwaysCompareItems") then

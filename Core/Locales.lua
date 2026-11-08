@@ -1,4 +1,4 @@
--- Übersetzungen. Englisch ist Standard; fehlende Schlüssel fallen auf den Schlüssel selbst zurück.
+-- Translations. English is the default; missing keys fall back to the key itself.
 local _, ns = ...
 
 local L = setmetatable({}, { __index = function(_, key) return key end })
@@ -273,7 +273,7 @@ if GetLocale() == "deDE" then
     L["New recipe"] = "Neues Rezept"
     L["Level up"] = "Stufenaufstieg"
     L["test mode: show and animate all frames"] = "Testmodus: alle Frames anzeigen und animieren"
-    -- Taschen
+    -- Bags
     L["New"] = "Neu"
     L["Equipment"] = "Ausrüstung"
     L["Junk"] = "Ramsch"
@@ -297,7 +297,7 @@ if GetLocale() == "deDE" then
     L["Repaired for %s (guild bank)."] = "Repariert für %s (Gildenbank)."
     L["BetterBags is active – mUI bags stay off. Disable it to use ours."] = "BetterBags ist aktiv – die mUI-Taschen bleiben aus. Deaktiviere es, um unsere zu nutzen."
     L["Sell junk and repair at merchants"] = "Beim Händler Ramsch verkaufen und reparieren"
-    -- Kategorien (BagsData.lua)
+    -- Categories (BagsData.lua)
     L["Alchemy"] = "Alchemie"
     L["Blacksmithing"] = "Schmiedekunst"
     L["Cards"] = "Karten"
@@ -365,7 +365,7 @@ if GetLocale() == "deDE" then
     L["Turn-in"] = "Abgabe"
     L["Vendor"] = "Händlerware"
     L["Void"] = "Leere"
-    -- Einstellungen (UX-Überarbeitung 2026-10-25)
+    -- Settings
     L["RELOAD"] = "RELOAD"
     L["Appearance"] = "Aussehen"
     L["Use the mUI font in Blizzard windows too"] = "mUI-Schrift auch in Blizzard-Fenstern"
@@ -558,7 +558,7 @@ if GetLocale() == "deDE" then
     L["Preview off."] = "Vorschau aus."
     L["Reload UI now"] = "UI jetzt neu laden"
     L["Needs a reload: %s"] = "Braucht ein Neuladen: %s"
-    -- Tastenbelegungs-Modus
+    -- Keybinding mode
     L["Key bindings"] = "Tastenbelegung"
     L["Not bound"] = "Nicht belegt"
     L["Hover a button and press a key."] = "Maus über einen Knopf, Taste drücken."
@@ -569,7 +569,7 @@ if GetLocale() == "deDE" then
     L["Key bindings saved."] = "Tastenbelegung gespeichert."
     L["Key binding changes discarded."] = "Änderungen an der Tastenbelegung verworfen."
     L["key binding mode: hover a button, press a key"] = "Tastenbelegungs-Modus: Maus über einen Knopf, Taste drücken"
-    -- Bedrohungsleiste
+    -- Threat bar
     L["Threat bar"] = "Bedrohungsleiste"
     L["Threat"] = "Bedrohung"
     L["Aggro lost"] = "Aggro verloren"
@@ -580,27 +580,27 @@ if GetLocale() == "deDE" then
     L["No text"] = "Kein Text"
     L["Percent only"] = "Nur Prozent"
     L["Name and percent"] = "Name und Prozent"
-    -- Beute-Fenster
+    -- Loot window
     L["mUI loot window"] = "mUI-Beutefenster"
     L["Slim loot window at the mouse instead of Blizzard's. Upgrades show an arrow."] = "Schlankes Beutefenster an der Maus statt Blizzards. Upgrades zeigen einen Pfeil."
     L["Fishing"] = "Angeln"
-    -- Würfel-Fenster
+    -- Loot roll window
     L["mUI roll windows"] = "mUI-Würfelfenster"
     L["Slim need/greed rows instead of Blizzard's group loot frames. Test mode shows examples."] = "Schlanke Bedarf/Gier-Zeilen statt Blizzards Gruppen-Beute-Fenster. Der Testmodus zeigt Beispiele."
     L["Example item"] = "Beispiel-Item"
-    -- Damage Meter einschalten
-    -- Kampftext
+    -- Enable damage meter
+    -- Combat text
     L["Damage"] = "Schaden"
     L["Healing"] = "Heilung"
-    -- Aura-Herkunft im Tooltip
+    -- Aura source in tooltip
     L["Show who cast buffs and debuffs"] = "Zeigen, von wem Buffs und Debuffs kommen"
     L["Adds “From: name” to aura tooltips, also when you're not in a group. Not for Blizzard's own buff bar at the top right (its tooltip is protected)."] = "Ergänzt „Von: Name“ im Tooltip von Buffs und Debuffs, auch ohne Gruppe. Nicht bei der Buffleiste oben rechts (deren Tooltip ist von Blizzard geschützt)."
-    -- Emote-Leiste
+    -- Emote bar
     L["Emote bar"] = "Emote-Leiste"
     L["At: %s"] = "An: %s"
     L["Emotes are locked right now (boss fight, Mythic+ or PvP)."] = "Emotes sind gerade gesperrt (Bosskampf, Mythisch+ oder PvP)."
     L["Buttons for emotes with animation, for roleplay. With a target, the emote is aimed at it."] = "Knöpfe für Emotes mit Animation, fürs Rollenspiel. Mit Ziel richtet sich das Emote an dein Ziel."
-    -- Beute der Gruppe (Toasts)
+    -- Group loot (toasts)
     L["Show the group's loot"] = "Beute der Gruppe zeigen"
     L["In a group: who won a roll (hover shows every roll) and what others looted, from the same quality as your own loot."] = "In einer Gruppe: wer einen Wurf gewonnen hat (Maus drüber zeigt alle Würfe) und was Mitspieler geplündert haben – ab derselben Qualität wie deine eigene Beute."
     L["Won · %s"] = "Gewonnen · %s"
@@ -609,10 +609,10 @@ if GetLocale() == "deDE" then
     L["you"] = "dich"
     L["off-spec"] = "2. Spec"
     L["no roll yet"] = "noch kein Wurf"
-    -- Sprechblasen
+    -- Chat bubbles
     L["Speech bubbles in mUI look"] = "Sprechblasen im mUI-Look"
     L["Flat box instead of Blizzard's ornate bubble. In dungeons and raids Blizzard locks the bubbles for addons – only the font changes there."] = "Flacher Kasten statt Blizzards verzierter Blase. In Dungeons und Schlachtzügen sperrt Blizzard die Blasen für Addons – dort ändert sich nur die Schrift."
-    -- Emote-Themen
+    -- Emote themes
     L["Greeting & farewell"] = "Begrüßen & Verabschieden"
     L["Answers"] = "Antworten"
     L["Feelings"] = "Gefühle"
@@ -620,7 +620,7 @@ if GetLocale() == "deDE" then
     L["Posture & gestures"] = "Haltung & Gesten"
     L["Quiver"] = "Köcher"
     L["Special bags"] = "Spezialtaschen"
-    -- Munitionszähler
+    -- Ammo counter
     L["Ammunition"] = "Munition"
     L["No ammunition equipped!"] = "Keine Munition angelegt!"
     L["Only %s left"] = "Nur noch %s Schuss"
@@ -628,14 +628,14 @@ if GetLocale() == "deDE" then
     L["Lasts for Auto Shot"] = "Reicht für Autoschuss"
     L["approx. %d min"] = "ca. %d Min."
     L["Put arrows or bullets into the ammo slot (character window)."] = "Lege Pfeile oder Kugeln in den Munitionsplatz (Charakterfenster)."
-    -- Klassen-Reagenzien
+    -- Class reagents
     L["Class reagents"] = "Klassen-Reagenzien"
     L["Show class reagents"] = "Klassen-Reagenzien anzeigen"
     L["Ammunition and spell reagents of your class (soul shards, runes, candles …) next to the player frame. Warns when they run low."] = "Munition und Zauber-Reagenzien deiner Klasse (Seelensplitter, Runen, Kerzen …) neben dem Spieler-Frame. Warnt, wenn sie knapp werden."
     L["Only in WoW Forever – Retail has no ammunition or reagents like these."] = "Nur in WoW Forever – Retail hat solche Munition und Reagenzien nicht."
     L["None left!"] = "Keine mehr da!"
-    -- Questlog-Höhe
-    -- Zauberränge & Lehrer
+    -- Quest log height
+    -- Spell ranks & trainers
     L["Spell ranks"] = "Zauberränge"
     L["Click: update"] = "Klick: aktualisieren"
     L["%d spells on your bars have a higher rank"] = "%d Zauber auf deinen Leisten haben einen höheren Rang"
@@ -646,11 +646,11 @@ if GetLocale() == "deDE" then
     L["Class trainer reminder"] = "Erinnerung an den Klassenlehrer"
     L["On level-up: one notification when new spells are waiting at your class trainer."] = "Beim Stufenaufstieg: ein Hinweis, wenn beim Klassenlehrer neue Zauber warten."
     L["Your class doesn't use reagents."] = "Deine Klasse braucht keine Reagenzien."
-    -- Schlagtimer
+    -- Swing timer
     L["Swing timer"] = "Schlagtimer"
     L["Show swing timer"] = "Schlagtimer anzeigen"
     L["Thin bars below the main bar that fill up until your next automatic hit: Auto Shot or wand, main hand and off hand. Only while you attack. Test mode shows all three."] = "Schmale Balken unter der Hauptleiste, die bis zu deinem nächsten automatischen Treffer volllaufen: Autoschuss bzw. Zauberstab, Haupthand und Nebenhand. Nur, während du angreifst. Der Testmodus zeigt alle drei."
-    -- Begleiter-Helfer
+    -- Pet helper
     L["Pet helper"] = "Begleiter-Helfer"
     L["Show pet helper"] = "Begleiter-Helfer anzeigen"
     L["Paw left of your pet frame: colour shows its mood, click feeds it with suitable food from your bags. One notification when its mood drops."] = "Pfote links am Begleiter-Frame: Die Farbe zeigt seine Laune, ein Klick füttert es mit passendem Futter aus deinen Taschen. Ein Hinweis, wenn die Laune sinkt."
@@ -659,7 +659,7 @@ if GetLocale() == "deDE" then
     L["You don't know Feed Pet yet."] = "Du kennst „Tier füttern“ noch nicht."
     L["Your pet is getting hungry."] = "Dein Tier bekommt Hunger."
     L["Your pet is angry and may run away – feed it!"] = "Dein Tier ist wütend und könnte weglaufen – füttern!"
-    -- Gruppensuche im Chat
+    -- Group finder in chat
     L["Highlight group searches"] = "Gruppensuche hervorheben"
     L["Someone looking for a group for a dungeon or raid that fits your level: the message gets a small marker with the dungeon's name."] = "Sucht jemand eine Gruppe für einen Dungeon oder Schlachtzug, der zu deiner Stufe passt, bekommt die Nachricht vorne einen kleinen Hinweis mit dem Namen des Dungeons."
     L["Ragefire Chasm"] = "Flammenschlund"
@@ -678,28 +678,28 @@ if GetLocale() == "deDE" then
     L["Molten Core"] = "Geschmolzener Kern"
     L["Onyxia's Lair"] = "Onyxias Hort"
     L["Blackwing Lair"] = "Pechschwingenhort"
-    -- Berufe-Erinnerung
+    -- Profession reminder
     L["Profession reminder"] = "Berufe-Erinnerung"
     L["One notification when you can learn the next rank of a profession at the trainer – before the skill is capped."] = "Ein Hinweis, sobald du beim Lehrer die nächste Rangstufe eines Berufs lernen kannst – bevor die Fertigkeit am Deckel hängt."
     L["%s can be learned at the trainer"] = "%s beim Lehrer lernbar"
-    -- RP-Modus
+    -- RP mode
     L["RP mode"] = "RP-Modus"
     L["Toggle RP mode"] = "RP-Modus an/aus"
     L["toggle RP mode (only chat and emotes)"] = "RP-Modus an/aus (nur Chat und Emotes)"
     L["Hides everything except chat and emotes. Again to show it all. Also: /rp"] = "Blendet alles aus außer Chat und Emotes. Nochmal klicken zeigt wieder alles. Auch: /rp"
     L["Ended – you are in combat."] = "Beendet – du bist im Kampf."
     L["Turn on RP mode"] = "RP-Modus einschalten"
-    -- Waffenfertigkeit
+    -- Weapon skill
     L["Weapon skills"] = "Waffenfertigkeiten"
     L["• = equipped weapon"] = "• = angelegte Waffe"
-    -- Flugzeit
+    -- Flight timer
     L["Flight"] = "Flug"
     L["(first flight)"] = "(Erster Flug)"
     L["Show flight time"] = "Flugzeit anzeigen"
     L["Bar at the top centre while you fly: destination and time left. The first flight on a route counts up, mUI then remembers its duration (for all characters)."] = "Leiste oben mittig, solange du fliegst: Ziel und Restzeit. Beim ersten Flug einer Strecke zählt sie hoch, danach kennt mUI die Dauer (für alle Charaktere)."
 end
 
--- Nachkaufen beim Händler (Bags/AutoBuy.lua)
+-- Merchant restock (Bags/AutoBuy.lua)
 if GetLocale() == "deDE" then
     L["Restock at merchants"] = "Beim Händler nachkaufen"
     L["Restock ammunition and reagents"] = "Munition und Reagenzien auffüllen"
@@ -708,7 +708,7 @@ if GetLocale() == "deDE" then
     L["Restocked: %s (%s)."] = "Nachgekauft: %s (%s)."
 end
 
--- Händlerfenster (Bags/Merchant.lua)
+-- Merchant window (Bags/Merchant.lua)
 if GetLocale() == "deDE" then
     L["Merchant"] = "Händler"
     L["Buyback"] = "Rückkauf"
@@ -723,7 +723,7 @@ if GetLocale() == "deDE" then
     L["Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk."] = "Eigenes Händlerfenster im Taschen-Look statt Blizzards: Karten in zwei Spalten, Suche, Rückkauf, Reparieren und Ramsch verkaufen."
 end
 
--- Lehrerfenster (Trainer/Trainer.lua)
+-- Trainer window (Trainer/Trainer.lua)
 if GetLocale() == "deDE" then
     L["%d TP"] = "%d TP"
     L["Training points"] = "Trainingspunkte"
@@ -744,13 +744,13 @@ if GetLocale() == "deDE" then
     L["Own trainer window for class, profession and pet trainers: list with categories, details with Blizzard's profession art, learn all."] = "Eigenes Lehrerfenster für Klassen-, Berufs- und Tierlehrer: Liste mit Kategorien, Details mit Blizzards Berufsbild, alle lernbaren auf einmal."
 end
 
--- Einstellungsseite „Skins“
+-- Settings page "Skins"
 if GetLocale() == "deDE" then
     L["Only in WoW Forever for now."] = "Vorerst nur in WoW Forever."
     L["Own windows"] = "Eigene Fenster"
 end
 
--- Gespräch- und Quest-Fenster (NPC/Gossip.lua, NPC/Quest.lua)
+-- Gossip and quest windows (NPC/Gossip.lua, NPC/Quest.lua)
 if GetLocale() == "deDE" then
     L["Conversation"] = "Gespräch"
     L["Objectives"] = "Ziele"
@@ -785,7 +785,7 @@ if GetLocale() == "deDE" then
     L["Accept, progress and rewards (pick one with a click)."] = "Annehmen, Fortschritt und Belohnungen (Auswahl per Klick)."
 end
 
--- Briefkasten (NPC/Mail.lua)
+-- Mailbox (NPC/Mail.lua)
 if GetLocale() == "deDE" then
     L["Mailbox"] = "Briefkasten"
     L["Inbox"] = "Posteingang"
@@ -833,7 +833,7 @@ if GetLocale() == "deDE" then
     L["Bags are full – stopped opening mail."] = "Taschen voll – Post öffnen angehalten."
     L["mUI mailbox"] = "mUI-Briefkasten"
     L["Inbox with selection, open all (everything, gold only, auction house), address book and quick attach – the best of Postal."] = "Posteingang mit Auswahl, Alle öffnen (alles, nur Gold, Auktionshaus), Adressbuch und Schnell-Anhängen – das Beste aus Postal."
-    -- Talentfenster
+    -- Talent window
     L["Talents"] = "Talente"
     L["Search talents"] = "Talente durchsuchen"
     L["Display"] = "Anzeigen"
@@ -857,7 +857,7 @@ if GetLocale() == "deDE" then
     L["Talents are not available yet."] = "Talente sind noch nicht verfügbar."
     L["mUI talent window"] = "mUI-Talentfenster"
     L["Three trees side by side on Blizzard's art, search, hide passives, show ranks, primary and secondary talents."] = "Drei Bäume nebeneinander auf Blizzards Bild, Suche, Passive ausblenden, Ränge anzeigen, Primär- und Sekundärtalente."
-    -- Talent-Berater
+    -- Talent advisor
     L["Advisor"] = "Berater"
     L["Off"] = "Aus"
     L["own"] = "eigene"
@@ -906,7 +906,7 @@ if GetLocale() == "deDE" then
     L["All windows"] = "Alle Fenster"
     L["Turns all windows below on or off at once."] = "Schaltet alle Fenster darunter auf einmal an oder aus."
     L["Windows"] = "Fenster"
-    -- Berufsfenster
+    -- Profession window
     L["mUI profession window"] = "mUI-Berufsfenster"
     L["Recipes with search, filter and favorites, reagents from your bags, create (all); overview of all professions with their spells; tabs on the right."] = "Rezepte mit Suche, Filter und Favoriten, Reagenzien aus den Taschen, (alle) erstellen; Übersicht aller Berufe mit ihren Zaubern; Reiter rechts."
     L["Sure skill point"] = "Sicher ein Fertigkeitspunkt"
@@ -938,7 +938,7 @@ if GetLocale() == "deDE" then
     L["Secondary professions"] = "Nebenberufe"
     L["Click a profession icon to open its recipes · buttons cast the spell (Fishing …)"] = "Klick aufs Berufssymbol öffnet die Rezepte · Zauber lassen sich auf die Aktionsleiste ziehen"
     L["Throw away old ammo? (%s)"] = "Alte Munition wegwerfen? (%s)"
-    -- Zauberbuch
+    -- Spellbook
     L["mUI spellbook"] = "mUI-Zauberbuch"
     L["Spells on parchment, tabs per tree on the right, search, passives and lower ranks on demand; cast, drag onto bars."] = "Zauber auf Pergament, Reiter je Baum rechts, Suche, Passive und niedrigere Ränge auf Wunsch; wirken und auf Leisten ziehen."
     L["Spellbook"] = "Zauberbuch"
@@ -953,7 +953,7 @@ if GetLocale() == "deDE" then
     L["Pet"] = "Begleiter"
     L["Spells are locked in combat."] = "Im Kampf sind die Zauber gesperrt."
     L["Drag: onto the action bar · Click: cast · Shift-click: into chat"] = "Ziehen: auf die Aktionsleiste · Klick: wirken · Shift-Klick: in den Chat"
-    -- Karte
+    -- Map
     L["mUI friends window"] = "mUI-Freundesfenster"
     L["Welcome back, %s!"] = "Willkommen zurück, %s!"
     L["/mui opens the settings"] = "/mui öffnet die Einstellungen"
@@ -973,7 +973,7 @@ if GetLocale() == "deDE" then
     L["Spell"] = "Zauber"
     L["Ability"] = "Fähigkeit"
     L["-Settings"] = "-Einstellungen"
-    -- Auktionshaus
+    -- Auction house
     L["Refresh"] = "Aktualisieren"
     L["Searching …"] = "Suche läuft …"
     L["Item"] = "Gegenstand"
@@ -1216,7 +1216,7 @@ if GetLocale() == "deDE" then
     L["Ready to turn in"] = "Bereit zur Abgabe"
 end
 
--- Einstellungen verschlankt (Config/Options.lua, 2026-11-07)
+-- Streamlined settings (Config/Options.lua)
 if GetLocale() == "deDE" then
     L["Arrangement"] = "Anordnung"
     L["Arrangement and when each bar is visible."] = "Anordnung und wann welche Leiste zu sehen ist."
@@ -1256,7 +1256,7 @@ if GetLocale() == "deDE" then
     L["Trainer, conversation, quest, mail, talents, trade and more in the mUI look."] = "Lehrer, Gespräch, Quest, Post, Talente, Handel und mehr im mUI-Look."
     L["Zone, clock, coordinates, tracking, addon menu and overview on the minimap."] = "Zone, Uhr, Koordinaten, Verfolgung, Addon-Menü und Übersicht auf der Minimap."
     L["\"Standard\" can't be renamed. Create a copy instead."] = "„Standard“ lässt sich nicht umbenennen. Leg stattdessen eine Kopie an."
-    -- Gruppenleiste
+    -- Group bar
     L["mUI group tools"] = "mUI-Gruppenleiste"
     L["Replaces Blizzard's raid leader bar on the left edge: ready check, role check, countdown, markers, pings and leave group."] = "Ersetzt Blizzards Schlachtzugsleiter-Leiste am linken Rand: Bereitschaftscheck, Rollencheck, Countdown, Markierungen, Pings und Gruppe verlassen."
     L["Group tools"] = "Gruppenleiste"
@@ -1279,7 +1279,7 @@ if GetLocale() == "deDE" then
     L["Leave group"] = "Gruppe verlassen"
     L["Leave instance group"] = "Instanzgruppe verlassen"
     L["Not possible right now."] = "Gerade nicht möglich."
-    -- Einstellungen: Module, Skins, Changelog
+    -- Settings: modules, skins, changelog
     L["Modules"] = "Module"
     L["Skins"] = "Skins"
     L["Changelog"] = "Changelog"
@@ -1300,7 +1300,7 @@ if GetLocale() == "deDE" then
     L["installed"] = "installiert"
 end
 
--- Einrichtungsassistent und Stile (Config/Setup.lua, Core/Presets.lua)
+-- Setup wizard and styles (Config/Setup.lua, Core/Presets.lua)
 if GetLocale() == "deDE" then
     L["A few short questions and everything is in place. Takes less than a minute and can be repeated anytime."] = "Ein paar kurze Fragen, dann sitzt alles. Dauert keine Minute und lässt sich jederzeit wiederholen."
     L["After the reload everything sits like this. You can change anything anytime with /mui, and restart the setup there."] = "Nach dem Neuladen sitzt alles so. Ändern kannst du jederzeit unter /mui, dort startest du auch das Setup neu."
@@ -1364,7 +1364,7 @@ if GetLocale() == "deDE" then
     L["mUI style"] = "mUI-Stil"
     L["start the setup again"] = "Setup erneut starten"
     L["unchanged"] = "unverändert"
-    -- Addon-Liste, Bereitschaftscheck, Anprobe (2026-11-08)
+    -- Addon list, ready check, dressing room
     L["%d of %d loaded"] = "%d von %d geladen"
     L["Enable all"] = "Alle an"
     L["Disable all"] = "Alle aus"

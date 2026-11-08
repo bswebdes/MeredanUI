@@ -1,17 +1,15 @@
--- Stile „Klassisch“ und „Komfort“ (Benny 2026-11-07): NUR Startwerte, die der Assistent einmal
--- setzt. Danach lässt sich jede Funktion frei an- oder ausschalten – nie eine Funktion an den Stil
--- koppeln. Werte aus der abgestimmten Einstellungs-Tabelle (Artefakt „mUI Einstellungs-Inventur“).
--- Schlüssel mit Punkt („xpBar.mode“) gehen eine Ebene tiefer.
+-- "Classic" and "Comfort" styles: only initial values the setup wizard applies once. Every feature
+-- stays freely toggleable afterwards - never tie a feature to the style.
+-- Dotted keys ("xpBar.mode") address one level deeper.
 local _, ns = ...
 local L = ns.L
 
--- Namen an EINER Stelle (Locales), Umbenennen = eine Zeile
 ns.STYLES = {
     { id = "classic", name = L["Classic"], desc = L["Lean, close to the vanilla feeling. Just what you need."] },
     { id = "comfort", name = L["Comfort"], desc = L["The full mUI with all helpers."] },
 }
 
--- gleich in beiden Stilen
+-- Shared by both styles
 local COMMON = {
     fontSize = "medium", fontEverywhere = true, nameFormat = "first",
     frameSize = "medium", bossSize = "medium",
@@ -47,7 +45,7 @@ local STYLE_VALUES = {
         damageMeter = false,
     },
     comfort = {
-        theme = "class", afkScreen = true, auraTime = "bar", -- Buff-Restzeit als Leiste (Benny 2026-11-08)
+        theme = "class", afkScreen = true, auraTime = "bar",
         castbar = "full", executeLine = true, ammoCounter = true, swingTimer = true, petHelper = true,
         threatBar = "group",
         autoRole = true, readyCheckReminder = true,
@@ -72,8 +70,7 @@ local function Set(db, path, value)
     end
 end
 
--- Startwerte eines Stils ins aktive Profil schreiben (greift vollständig nach dem Neuladen).
--- Eigene Fenster bleiben alle an (gehören zum Look).
+-- Write a style's initial values into the active profile (fully applied after reload).
 function ns.ApplyStylePreset(style)
     local values = STYLE_VALUES[style]
     if not values then return end
@@ -82,7 +79,7 @@ function ns.ApplyStylePreset(style)
     ns.db.style = style
 end
 
--- Wert, den ein Stil für eine Einstellung vorsieht (z. B. für Vorauswahlen im Assistenten)
+-- Value a style uses for a setting (e.g. for wizard preselection)
 function ns.StyleDefault(style, path)
     local values = STYLE_VALUES[style]
     if values and values[path] ~= nil then return values[path] end
