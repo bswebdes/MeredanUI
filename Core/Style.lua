@@ -60,7 +60,7 @@ ns.THEMES = {
         powerClassColor = true,
     },
     green = {
-        name = L["Classic green"],
+        name = L["mUI (sage)"], -- früher „Klassisch grün“; einfarbig Salbei (Benny 2026-11-08)
         panelColor = { 0.06, 0.06, 0.06, 0.9 },
         healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf-Palette (Benny 2026-11-07)
     },

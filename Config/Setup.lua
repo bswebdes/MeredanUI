@@ -378,7 +378,7 @@ end
 -- Unterschiede Klassisch/Komfort (Stil-Schritt, unter dem Mini-Bild)
 local DIFF = {
     { L["Info bar"], false, true },
-    { L["Health bars"], L["green"], L["class colour"] },
+    { L["Health bars"], L["sage"], L["class colour"] },
     { L["Swing timer"], false, true },
     { L["Cast bar"], L["Simple"], L["Full"] },
     { L["Flight time"], false, true },
