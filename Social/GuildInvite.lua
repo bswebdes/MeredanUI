@@ -84,7 +84,7 @@ local function Create()
     local title = UI.Text(dialog, 14, "LEFT")
     ns.SetFont(title, 14, "", "bold")
     title:SetPoint("TOPLEFT", 14, -14)
-    title:SetText(ADD_GUILDMEMBER_LABEL and ADD_GUILDMEMBER_LABEL:gsub(":%s*$", "") or L["Invite to guild"])
+    title:SetText(ADD_GUILDMEMBER_LABEL and (ADD_GUILDMEMBER_LABEL:gsub(":%s*$", "")) or L["Invite to guild"])
 
     edit = UI.EditBox(dialog, 26)
     edit:SetPoint("TOPLEFT", 14, -40)
