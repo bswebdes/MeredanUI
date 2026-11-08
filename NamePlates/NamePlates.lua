@@ -852,6 +852,20 @@ oUF:Factory(function(self)
             ns.db.nameplatesNpcSet = true
         end)
     end
+    -- Blizzards Weltnamen ganz aus, nur noch mUI-Namen (Benny 2026-11-08: „Blizzard-Namensanzeige
+    -- ausschalten“) – einmalig; der eigene Name bleibt wie eingestellt (dafür gibt es keine Plate)
+    if not ns.db.nameplatesWorldNamesSet then
+        ns.AfterCombat(function()
+            if C_CVar.GetCVar("nameplateShowFriendlyPlayers") then C_CVar.SetCVar("nameplateShowFriendlyPlayers", "1") end
+            for _, cvar in ipairs({ "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerName", "UnitNameHostleNPC",
+                "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName",
+                "UnitNameFriendlyTotemName", "UnitNameEnemyPetName", "UnitNameEnemyGuardianName",
+                "UnitNameEnemyMinionName", "UnitNameEnemyTotemName" }) do
+                if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, "0") end
+            end
+            ns.db.nameplatesWorldNamesSet = true
+        end)
+    end
     -- Plates immer zeigen, nicht nur im Kampf (einmalig; wer es danach umstellt, behält es)
     if not ns.db.nameplatesShowAllSet then
         ns.db.nameplatesShowAllSet = true
