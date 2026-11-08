@@ -1,34 +1,34 @@
--- Boss-Timer und Warnungen im MUI-Look (ersetzt DBM, Benny 2026-10-23). Quelle sind Blizzards
--- eigene Boss-Daten aus Midnight – dieselben, die DBM dort auch nur noch bekommt:
---   • Encounter Timeline (C_EncounterTimeline): kommende Boss-Fähigkeiten mit Restzeit
---   • Encounter Warnings (ENCOUNTER_WARNING): Warnungstexte mit Ziel, Farbe, Wichtigkeit
--- Blizzards eigene Timeline-Anzeige schaltet MUI über den dafür vorgesehenen Weg ab
--- (Attribut overrideViewType = None, „für Addons, die die Anzeige komplett übernehmen“).
--- Blizzards Warnungsfenster bleiben unsichtbar aktiv: Ton und Chatzeile kommen weiter von dort.
--- Werte können im Kampf geschützt sein (Secrets): Balken laufen über Blizzards Duration-Objekt,
--- Texte werden nur durchgereicht, Vergleiche (kurz vor Ablauf) macht die API selbst.
+-- Boss timers and warnings in MUI look (replaces DBM). Source is Blizzard's own boss data
+-- from Midnight - the same data DBM gets there:
+--   - Encounter Timeline (C_EncounterTimeline): upcoming boss abilities with remaining time
+--   - Encounter Warnings (ENCOUNTER_WARNING): warning texts with target, color, severity
+-- Blizzard's timeline display is disabled the intended way (overrideViewType = None, meant
+-- for addons that fully replace the display).
+-- Blizzard's warning frames stay active but invisible: sound and chat line still come from there.
+-- Values may be secret in combat: bars run on Blizzard's Duration object, texts are only
+-- passed through, comparisons (about to expire) are done by the API itself.
 --
---   normale Balken: links neben dem Spieler-Frame, oben bündig, nach unten
---   große Balken (≤ HUGE_TIME s): oben mittig, nach unten – Warnungen direkt darüber
+--  normal bars: left of the player frame, top-aligned, growing down
+--  huge bars (<= HUGE_TIME s): top center, growing down - warnings directly above
 --
---   [▣] Flammenatem              12   ← Symbol mit Rahmen (rot = tödlich), Balken in Blizzards Farbe
+--  [#] Flame Breath             12   <- icon with border (red = deadly), bar in Blizzard's color
 local _, ns = ...
 local L = ns.L
 
 local BAR_WIDTH, BAR_HEIGHT = 220, 24
 local HUGE_WIDTH, HUGE_HEIGHT = 260, 28
-local GAP = 4            -- Abstand der Balken untereinander
-local ICON_GAP = 4       -- Symbol ↔ Balken
+local GAP = 4            -- spacing between bars
+local ICON_GAP = 4       -- icon <-> bar
 local MAX_BARS, MAX_HUGE = 8, 4
-local HUGE_TIME = 8      -- Sekunden: ab hier wandert ein Balken nach oben in die Mitte
-local SLIDE_SPEED = 12   -- Nachrücken wie bei den Toasts
+local HUGE_TIME = 8      -- seconds: from here a bar moves up to the center
+local SLIDE_SPEED = 12   -- slide-in like the toasts
 local FADE = 0.25
 local MAX_WARNINGS = 3
-local WARNING_TIME = 4   -- Sekunden, falls Blizzard keine Dauer mitgibt
-local WARNING_SIZE = { [0] = 18, [1] = 22, [2] = 28 } -- nach Wichtigkeit (niedrig, mittel, hoch)
+local WARNING_TIME = 4   -- seconds, if Blizzard gives no duration
+local WARNING_SIZE = { [0] = 18, [1] = 22, [2] = 28 } -- by severity (low, medium, high)
 local DEFAULT_COLOR = { 0.9, 0.55, 0.15 }
 
--- Pull-Timer: Blizzards Countdown für die ganze Gruppe ---------------------------------------
+-- Pull timer: Blizzard's countdown for the whole group -----------------------------------------
 
 local function Pull(arg)
     local seconds = tonumber(arg) or 10
@@ -40,15 +40,15 @@ if not SlashCmdList.PULL then
     SlashCmdList.MEREDANUIPULL = Pull
 end
 
--- Forever (Spieltyp „camelot“): Blizzard lädt dort weder die Boss-Zeitleiste noch die Boss-
--- Warnungen (Blizzard_EncounterTimeline/-Warnings nur für „standard“) – es gäbe nichts anzuzeigen.
--- Nur /pull bleibt (Blizzards eigener Countdown). Benny 2026-11-07: „raus aus Forever“.
+-- Forever (game type "camelot"): Blizzard loads neither the encounter timeline nor the
+-- encounter warnings there (Blizzard_EncounterTimeline/-Warnings only for "standard"), so
+-- there is nothing to show. Only /pull remains (Blizzard's own countdown).
 if ns.IS_FOREVER then return end
 
 local function Enabled() return ns.db.bossMods ~= false end
-local Plain = ns.Plain -- Wert oder nil, falls geschützt
+local Plain = ns.Plain -- value or nil if secret
 
--- Text sicher setzen: geschützte Werte nur durchreichen
+-- Set text safely: secret values are only passed through
 local function SafeFormat(fontString, fmt, value)
     if not pcall(fontString.SetFormattedText, fontString, fmt, value) then fontString:SetText("") end
 end
@@ -67,7 +67,7 @@ local function Countdown(fontString, remaining)
     end
 end
 
--- Halter ------------------------------------------------------------------------------------
+-- Holders -------------------------------------------------------------------------------------
 
 local normalHolder = CreateFrame("Frame", "MeredanUIBossBars", UIParent)
 local hugeHolder = CreateFrame("Frame", "MeredanUIBossBarsLarge", UIParent)
@@ -81,7 +81,7 @@ local barWidth = BAR_WIDTH
 
 local function PlaceHolders()
     local h = UIParent:GetHeight()
-    -- normale Balken: rechte Kante = Spalte links neben dem Spieler-Frame, Symbol bleibt 25 px vom Rand
+    -- normal bars: right edge = column left of the player frame, icon stays 25 px from the edge
     local player = ns.frames and ns.frames.player
     local edge = ns.LeftOfPlayerEdge()
     normalHolder:ClearAllPoints()
@@ -91,20 +91,20 @@ local function PlaceHolders()
     else
         normalHolder:SetPoint("TOPRIGHT", UIParent, "CENTER", -ns.Snap(300), ns.Snap(100))
     end
-    -- große Balken gut ein Viertel unter dem oberen Rand, Warnungen darüber
+    -- huge bars a good quarter below the top edge, warnings above
     local hugeTop = -math.floor(h * 0.26)
     hugeHolder:ClearAllPoints()
     hugeHolder:SetPoint("TOP", UIParent, "TOP", (HUGE_HEIGHT + ICON_GAP) / 2, hugeTop)
     warningHolder:ClearAllPoints()
     warningHolder:SetPoint("BOTTOM", UIParent, "TOP", 0, hugeTop + ns.Snap(12))
-    -- private Auren (PlayerAuras) sitzen über der obersten Leiste, linke Kante bündig
+    -- private auras (PlayerAuras) sit above the topmost bar, left edges aligned
     ns.bossBarColumn = { holder = normalHolder, width = barWidth + BAR_HEIGHT + ICON_GAP }
     if ns.PlacePrivateAuras then ns.PlacePrivateAuras() end
 end
 
--- Balken ------------------------------------------------------------------------------------
+-- Bars ----------------------------------------------------------------------------------------
 
-local pool, bars = {}, {} -- bars: eventID > Frame
+local pool, bars = {}, {} -- bars: eventID -> frame
 
 local function CreateBar()
     local bar = CreateFrame("Frame", nil, UIParent)
@@ -137,7 +137,7 @@ local function CreateBar()
     bar.name:SetPoint("RIGHT", bar.time, "LEFT", -ns.Snap(6), 0)
     bar.name:SetJustifyH("LEFT")
     bar.name:SetWordWrap(false)
-    for _, text in ipairs({ bar.name, bar.time }) do text:SetFont(ns.STYLE.font, ns.FontPx(12), "OUTLINE") end -- SizeBar passt die Größe an
+    for _, text in ipairs({ bar.name, bar.time }) do text:SetFont(ns.STYLE.font, ns.FontPx(12), "OUTLINE") end -- SizeBar adjusts the size
 
     bar.flash = border:CreateTexture(nil, "ARTWORK")
     bar.flash:SetAllPoints(bar.status)
@@ -156,7 +156,7 @@ local function CreateBar()
     return bar
 end
 
--- Größe je Platz (normal oder groß); Schrift wächst mit
+-- Size per slot (normal or huge); font grows with it
 local function SizeBar(bar, huge)
     if bar.huge == huge then return end
     bar.huge = huge
@@ -166,7 +166,7 @@ local function SizeBar(bar, huge)
     local size = huge and 14 or 12
     bar.name:SetFont(ns.STYLE.font, size, "OUTLINE")
     bar.time:SetFont(ns.STYLE.font, size, "OUTLINE")
-    bar.y = nil -- an neuem Platz sofort stehen, nicht quer über den Bildschirm gleiten
+    bar.y = nil -- snap into the new slot instead of sliding across the screen
 end
 
 local function ColorBar(bar, eventID)
@@ -186,7 +186,7 @@ local function AcquireBar(eventID)
     bar.huge, bar.y = nil, nil
     bar.icon.tex:SetTexture(info.iconFileID)
     bar.name:SetText(info.spellName)
-    -- tödlich: Symbolrahmen rot
+    -- deadly: red icon border
     local deadly = not issecretvalue(info.icons) and FlagsUtil.IsSet(info.icons or 0, Enum.EncounterEventIconmask.DeadlyEffect)
     for _, edge in ipairs(bar.icon.edges) do
         if deadly then edge:SetVertexColor(0.9, 0.1, 0.1, 1) else edge:SetVertexColor(0, 0, 0, 1) end
@@ -207,13 +207,13 @@ end
 
 local function ReleaseBar(bar)
     bar:Hide()
-    bar.status:SetMinMaxValues(0, 0) -- keinen Verweis auf Blizzards Timer behalten
+    bar.status:SetMinMaxValues(0, 0) -- keep no reference to Blizzard's timer
     bars[bar.eventID] = nil
     bar.eventID, bar.spellID = nil, nil
     pool[#pool + 1] = bar
 end
 
--- Liste neu ordnen: kurz vor Ablauf groß in der Mitte, Rest neben dem Spieler-Frame
+-- Reorder the list: about-to-expire bars big in the center, the rest beside the player frame
 local function SetIDs(list)
     local set = {}
     for _, id in ipairs(list) do set[id] = true end
@@ -222,12 +222,12 @@ end
 
 local function Layout()
     if not C_EncounterTimeline.HasAnyEvents() and not next(bars) then return end
-    -- Mit Ansicht „None“ legt Blizzard alle Ereignisse auf eine als versteckt markierte Spur –
-    -- darum versteckte NICHT ausfiltern (nur beendete/abgebrochene)
+    -- With view "None" Blizzard puts all events on a track flagged hidden, so do NOT
+    -- filter out hidden ones (only finished/cancelled)
     local huge = C_EncounterTimeline.GetSortedEventList(MAX_HUGE, HUGE_TIME, true, false) or {}
     local all = C_EncounterTimeline.GetSortedEventList(MAX_HUGE + MAX_BARS, nil, true, false) or {}
     local hugeSet, wanted = SetIDs(huge), SetIDs(all)
-    -- verschwundene ausblenden
+    -- hide bars that disappeared
     for id, bar in pairs(bars) do
         if not wanted[id] then bar.leaving = true end
     end
@@ -257,7 +257,7 @@ local function Layout()
     end
 end
 
--- Animation, Restzeit und Ausblenden pro Bild
+-- Per-frame animation, remaining time and fade-out
 local function UpdateBar(bar, elapsed)
     if bar.leaving then
         bar.age = math.min(bar.age, FADE) - elapsed
@@ -296,8 +296,8 @@ driver:SetScript("OnUpdate", function(_, elapsed)
 end)
 driver:Hide()
 
--- Warnungen ---------------------------------------------------------------------------------
--- bis zu drei Zeilen übereinander, neueste unten (direkt über den großen Balken)
+-- Warnings ------------------------------------------------------------------------------------
+-- up to three lines stacked, newest at the bottom (directly above the huge bars)
 
 local warnings, warningPool = {}, {}
 
@@ -344,7 +344,7 @@ local function CreateWarning()
     return line
 end
 
--- Text wie bei Blizzard: Platzhalter mit Zaubernden und (klassenfarbenem) Ziel füllen
+-- Text like Blizzard: fill placeholders with caster and (class-colored) target
 local function WarningText(info)
     local target = info.targetName
     if info.targetGUID and not issecretvalue(info.targetGUID) then
@@ -384,14 +384,14 @@ local function ShowWarning(info)
     table.insert(warnings, 1, line)
     while #warnings > MAX_WARNINGS do
         local old = table.remove(warnings)
-        old.age = math.max(old.age, old.duration) -- ausblenden lassen
+        old.age = math.max(old.age, old.duration) -- let it fade out
         old:Hide()
         warningPool[#warningPool + 1] = old
     end
     LayoutWarnings()
 end
 
--- wie Blizzard filtern: Warnungen an/aus und Mindest-Wichtigkeit aus den Spieleinstellungen
+-- Filter like Blizzard: warnings on/off and minimum severity from the game settings
 ns:On("ENCOUNTER_WARNING", function(_, info)
     if not Enabled() or not info or Plain(info.shouldShowWarning) == false then return end
     if not C_CVar.GetCVarBool("encounterWarningsEnabled") then return end
@@ -400,7 +400,7 @@ ns:On("ENCOUNTER_WARNING", function(_, info)
     ShowWarning(info)
 end)
 
--- „Bald dran“: Balken leuchtet auf, kurzer Ton
+-- "Coming soon": bar flashes, short sound
 ns:On("ENCOUNTER_TIMELINE_EVENT_HIGHLIGHT", function(_, eventID)
     local bar = Enabled() and bars[eventID]
     if not bar then return end
@@ -413,15 +413,15 @@ ns:On("ENCOUNTER_TIMELINE_EVENT_COLOR_CHANGED", function(_, eventID)
     if bar then ColorBar(bar, eventID) end
 end)
 
--- Blizzards Anzeigen abschalten -------------------------------------------------------------
+-- Disable Blizzard's displays ---------------------------------------------------------------
 
 local function TakeOver()
-    -- Timeline: offizieller Weg für Addons, die die Anzeige ersetzen
+    -- timeline: official way for addons that replace the display
     if EncounterTimeline and not InCombatLockdown() then
         EncounterTimeline:SetAttribute("overrideViewType", Enum.EncounterTimelineViewType.None)
         C_EncounterTimeline.SetViewType(Enum.EncounterTimelineViewType.None)
     end
-    -- Warnungen: unsichtbar, aber aktiv (Ton + Chatzeile kommen weiter von Blizzard)
+    -- warnings: invisible but active (sound + chat line still come from Blizzard)
     for _, frame in ipairs({ CriticalEncounterWarnings, MediumEncounterWarnings, MinorEncounterWarnings }) do
         frame:SetAlpha(0)
         if frame.View then frame.View:SetMouseMotionEnabled(false) end
@@ -429,9 +429,9 @@ local function TakeOver()
 end
 
 ns:On("PLAYER_LOGIN", function()
-    ns.root.dbmSetup = nil -- Rest des früheren DBM-Moduls
+    ns.root.dbmSetup = nil -- leftover from the former DBM module
     if not Enabled() then return end
-    -- ohne diese Spieleinstellungen liefert Blizzard keine Daten
+    -- without these game settings Blizzard delivers no data
     if not InCombatLockdown() then
         if not C_CVar.GetCVarBool("encounterTimelineEnabled") then C_CVar.SetCVar("encounterTimelineEnabled", "1") end
         if not C_CVar.GetCVarBool("encounterWarningsEnabled") then C_CVar.SetCVar("encounterWarningsEnabled", "1") end
@@ -441,8 +441,8 @@ ns:On("PLAYER_LOGIN", function()
     driver:Show()
 end)
 
--- Demo (Einstellungen > Boss-Timer): Blizzards eigene Bearbeitungsmodus-Ereignisse laufen über
--- denselben Weg wie im Kampf, dazu je eine Beispiel-Warnung pro Wichtigkeit ---------------------
+-- Demo (Settings > Boss Timers): Blizzard's own Edit Mode events run through the same
+-- path as in combat, plus one sample warning per severity ----------------------------------
 
 local demoTimer, demoWarnings
 
@@ -465,7 +465,7 @@ ns.BossModsDemo = {
     Start = function()
         PlaceHolders()
         driver:Show()
-        if ns.PrivateAurasDemo then ns.PrivateAurasDemo(true) end -- Platzhalter über der obersten Leiste
+        if ns.PrivateAurasDemo then ns.PrivateAurasDemo(true) end -- placeholder above the topmost bar
         DemoLoop()
         DemoWarnings()
         demoWarnings = C_Timer.NewTicker(7, DemoWarnings)
