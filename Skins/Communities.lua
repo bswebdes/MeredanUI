@@ -16,6 +16,8 @@ local WHITE = "Interface\\Buttons\\WHITE8X8"
 local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
+local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", "GuildPreferredPlaySettingsTab" }
+
 local skinned = setmetatable({}, { __mode = "k" }) -- Objekt > true (schon bemalt)
 local own = setmetatable({}, { __mode = "k" })     -- unsere Texturen (beim Ausblenden auslassen)
 local fonts
@@ -531,12 +533,11 @@ local function SkinShell(f)
         ns.EXTRA_RIGHT[f] = function(window)
             local right = window:GetRight()
             local edge = right
-            for _, key in ipairs({ "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab",
-                "GuildPreferredPlaySettingsTab" }) do
+            for _, key in ipairs(SIDE_TABS) do
                 local tab = window[key]
                 if type(tab) == "table" and tab:IsShown() and tab:GetRight() then edge = math.max(edge, tab:GetRight()) end
             end
-            return right and (edge - right + 6) or 0
+            return right and (edge - right) or 0
         end
     end
     f:HookScript("OnShow", function(self)
@@ -606,11 +607,33 @@ local function SkinMemberList(members)
     HookScrollBox(members.ScrollBox, SkinMemberRow)
 end
 
-local function SkinTabs(f)
-    for _, key in ipairs({ "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab",
-        "GuildPreferredPlaySettingsTab" }) do
-        SkinSideTab(f[key])
+local TAB_SIZE, TAB_STEP = 40, 46 -- wie die Reiter der mUI-Fenster (Berufe, Zauberbuch)
+
+-- Reiter wie bei den mUI-Fenstern: 40 groß, 6 px vom Fenster, untereinander ohne Lücken für
+-- versteckte Reiter (Benny 2026-11-08). Blizzard setzt die Punkte in UpdateCommunitiesTabs neu –
+-- danach ordnen wir wieder. Die Reiter sind nicht geschützt.
+local function LayoutTabs(f)
+    if InCombatLockdown() then return end
+    local slot = 0
+    for _, key in ipairs(SIDE_TABS) do
+        local tab = f[key]
+        if type(tab) == "table" and tab.SetPoint then
+            tab:SetSize(TAB_SIZE, TAB_SIZE)
+            if tab.Icon then tab.Icon:SetSize(TAB_SIZE - 4, TAB_SIZE - 4) end
+            if tab:IsShown() then
+                tab:ClearAllPoints()
+                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP)
+                slot = slot + 1
+            end
+        end
     end
+end
+
+local function SkinTabs(f)
+    for _, key in ipairs(SIDE_TABS) do SkinSideTab(f[key]) end
+    if f.UpdateCommunitiesTabs then hooksecurefunc(f, "UpdateCommunitiesTabs", LayoutTabs) end
+    f:HookScript("OnShow", LayoutTabs)
+    LayoutTabs(f)
 end
 
 local function SkinControls(f)
