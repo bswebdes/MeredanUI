@@ -841,7 +841,7 @@ local function LayoutTabs(f)
             end
             if tab:IsShown() then
                 tab:ClearAllPoints()
-                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 4, -60 - slot * TAB_STEP) -- wie im eigenen Fenster
+                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP) -- wie Berufe, Zauberbuch, Vermächtnis
                 slot = slot + 1
             end
         end
