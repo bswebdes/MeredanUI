@@ -1,27 +1,26 @@
--- Nameplates (oUF): Aufbau wie Blizzards Standard-Plates, Optik flach im MUI-Look.
+-- Nameplates (oUF): layout like Blizzard's default plates, flat MUI look.
 --
---   [D][D][D]                      [B][B]      ← eigene Debuffs links, Buffs zum Entreißen rechts
---   ┌───────────────────────────────────┐
---   │ Name                          87 % │ [CC] ← Lebensbalken in Prioritätsfarbe
---   └───────────────────────────────────┘
---   ┌──┬────────────────────────────────┐
---   │ i│ Zaubername     |           1.2 │       ← Castbar mit Symbol, Text im Balken;
---                      └ Kick-Strich: hier ist dein Kick wieder bereit
---   └──┴────────────────────────────────┘
---   12.5 %                                     ← M+-Anteil des Mobs (nur in M+)
+--   [D][D][D]                      [B][B]       <- own debuffs left, purgeable buffs right
+--   +-----------------------------------+
+--   | Name                         87 % | [CC]  <- health bar in priority color
+--   +-----------------------------------+
+--   +--+--------------------------------+
+--   |i | Spell name      |          1.2 |       <- castbar with icon, text inside the bar;
+--   +--+--------------------------------+          tick = where your interrupt is ready again
+--   12.5 %                                      <- M+ forces of the mob (M+ only)
 --
--- Ziel: 15 % größer, weiße Pfeile links und rechts. Andere Plates halb durchsichtig (außer sie
--- zaubern). Maus drüber: Balken hellt auf.
+-- Target: 15 % larger, white arrows left and right. Other plates are dimmed (unless casting).
+-- Mouseover brightens the bar.
 --
--- Farben des Lebensbalkens (wichtigste zuerst):
---   Bedrohung (im Kampf): rot = Aggro falsch (DD hat sie / Tank hat sie verloren),
---   orange = wechselt gerade, türkis = anderer Tank hat sie, Salbei (DD) = jemand anderes hat sie.
---   In Dungeons/Raids nach Gegnerart: Boss dunkelblau, Leutnant lila, Caster magenta,
---   Nahkämpfer cyan, unwichtig grau. Sonst wie üblich (feindlich rot, neutral gelb …).
+-- Health colors (highest priority first):
+--   Threat (in combat): red = wrong aggro (DPS has it / tank lost it), orange = transitioning,
+--   teal = another tank has it, sage (DPS) = someone else has it.
+--   In dungeons/raids by enemy type: boss dark blue, lieutenant purple, caster magenta,
+--   melee cyan, trivial gray. Otherwise the usual reaction colors (hostile red, neutral yellow ...).
 --
--- Midnight schützt viele Werte (Secrets): Ob dein Kick bereit ist, ob ein Zauber wichtig
--- oder unterbrechbar ist, wird nie gelesen, sondern von Blizzard direkt in Farben
--- umgerechnet (C_CurveUtil.EvaluateColorValueFromBoolean). Freundliche Plates: nur Namen.
+-- Midnight protects many values (secrets): whether your interrupt is ready or a spell is important
+-- or interruptible is never read, Blizzard converts it straight into colors
+-- (C_CurveUtil.EvaluateColorValueFromBoolean). Friendly plates: name only.
 local _, ns = ...
 local oUF = ns.oUF
 local L = ns.L
@@ -29,19 +28,19 @@ local L = ns.L
 local WIDTH, HEALTH, CAST = 170, 20, 16
 local AURA, CC_AURA = 22, 28
 local GAP = 2
-local PLATE_W, PLATE_H = WIDTH + 24, HEALTH + CAST + 14 -- Lebensbalken + Castbar + Luft
-local NAME_WIDTH = WIDTH - 40 -- Rest bleibt für „100%“
-local DIM_ALPHA = 0.5      -- Plates, die nicht dein Ziel sind (solange du eins hast)
-local TARGET_SCALE = 1.15  -- Ziel-Plate etwas größer
+local PLATE_W, PLATE_H = WIDTH + 24, HEALTH + CAST + 14 -- health bar + castbar + padding
+local NAME_WIDTH = WIDTH - 40 -- remainder is kept for "100%"
+local DIM_ALPHA = 0.5      -- plates that are not your target (while you have one)
+local TARGET_SCALE = 1.15  -- target plate slightly larger
 
 local C = {
-    -- Bedrohung
+    -- Threat
     warning = { 0.8, 0, 0 }, transition = { 1, 0.63, 0 }, offtank = { 0.06, 0.67, 0.78 },
-    onTank = { 0.557, 0.796, 0.706 }, -- DD: Mob im Kampf, aber nicht auf dir (Tank/Begleiter hat ihn) – mUI-Salbei
-    -- Gegnerart (Dungeons/Raids)
+    onTank = { 0.557, 0.796, 0.706 }, -- DPS: mob in combat but not on you (tank/pet has it) - mUI sage
+    -- Enemy type (dungeons/raids)
     boss = { 0, 0.23, 1 }, miniboss = { 0.43, 0, 0.92 }, caster = { 0.74, 0, 0.67 },
     melee = { 0, 0.93, 0.99 }, trivial = { 0.49, 0.48, 0.51 },
-    -- sonst
+    -- Otherwise
     hostile = { 0.85, 0.1, 0.1 }, neutral = { 1, 0.93, 0.29 }, friendly = { 0.2, 0.8, 0.2 },
     tapped = { 0.43, 0.43, 0.43 },
     -- Castbar
@@ -50,7 +49,7 @@ local C = {
     targetsYou = { 1, 1, 1 },
 }
 
--- Kick-Zauber je Klasse; genutzt wird, was der Charakter kennt
+-- Interrupt spells per class; the first one the character knows is used
 local INTERRUPTS = {
     DEATHKNIGHT = { 47528 }, DEMONHUNTER = { 183752 }, DRUID = { 106839, 78675 }, EVOKER = { 351338 },
     HUNTER = { 147362, 187707 }, MAGE = { 2139 }, MONK = { 116705 }, PALADIN = { 96231 },
@@ -64,7 +63,7 @@ local function UpdateKickSpell()
     local _, class = UnitClass("player")
     for _, id in ipairs(INTERRUPTS[class] or {}) do
         if C_SpellBook.IsSpellKnownOrInSpellBook(id)
-            or C_SpellBook.IsSpellKnown(id, Enum.SpellBookSpellBank.Pet) then -- Hexer: Kick des Begleiters
+            or C_SpellBook.IsSpellKnown(id, Enum.SpellBookSpellBank.Pet) then -- warlock: pet interrupt
             kickSpell = id
             return
         end
@@ -73,18 +72,18 @@ end
 ns:On("PLAYER_LOGIN", UpdateKickSpell)
 ns:On("SPELLS_CHANGED", UpdateKickSpell)
 
--- Namen über den Köpfen (Welt-Namen) in unserer Schrift – WoW liest das beim Laden der Welt
+-- Names above heads (world names) in our font - WoW reads this when the world loads
 UNIT_NAME_FONT = ns.DEFAULT_FONT
 
-local inInstance = false -- Dungeon oder Raid: Gegnerart-Farben
+local inInstance = false -- dungeon or raid: enemy type colors
 ns:On("PLAYER_ENTERING_WORLD", function()
     local _, instanceType = IsInInstance()
     inInstance = instanceType == "party" or instanceType == "raid"
 end)
 
--- Hilfen --------------------------------------------------------------------------------------
+-- Helpers ------------------------------------------------------------------------------------
 
--- oUF legt die Einheit bei Nameplates unter __unit ab (unit bleibt leer)
+-- oUF stores the nameplate unit in __unit (unit stays empty)
 local function UnitOf(frame)
     return frame and (frame.__unit or frame.unit)
 end
@@ -96,25 +95,25 @@ local function Readable(...)
     return true
 end
 
-local function Bool(value) -- nil > false, ohne geschützte Werte anzufassen
+local function Bool(value) -- nil -> false, without touching secret values
     if issecretvalue(value) then return value end
     return value and true or false
 end
 
--- Farbe nach (evtl. geschütztem) Wahrheitswert: Blizzard rechnet, wir lesen nie
+-- Color from a (possibly secret) boolean: Blizzard evaluates, we never read it
 local function Pick(bool, ifTrue, ifFalse)
     local E = C_CurveUtil.EvaluateColorValueFromBoolean
     return { E(bool, ifTrue[1], ifFalse[1]), E(bool, ifTrue[2], ifFalse[2]), E(bool, ifTrue[3], ifFalse[3]) }
 end
 
 local function IsTank()
-    if ns.LayoutFlag and ns.LayoutFlag("tank") then return true end -- Layout „Tank“ (sicher)
+    if ns.LayoutFlag and ns.LayoutFlag("tank") then return true end -- layout "Tank" (secret-safe)
     local spec = C_SpecializationInfo.GetSpecialization()
     local role = spec and select(5, C_SpecializationInfo.GetSpecializationInfo(spec))
     return role == "TANK"
 end
 
--- Gegnerart: Boss, Leutnant, Caster (hat Mana), Nahkämpfer, unwichtig
+-- Enemy type: boss, lieutenant, caster (has mana), melee, trivial
 local function EnemyType(unit)
     local classification = UnitClassification(unit)
     if not Readable(classification) then return end
@@ -130,7 +129,7 @@ local function EnemyType(unit)
     return "melee"
 end
 
--- Bedrohung > Farbe oder nil (nichts Besonderes)
+-- Threat -> color, or nil (nothing special)
 local function ThreatColor(unit)
     local inCombat = UnitAffectingCombat(unit)
     if not (Readable(inCombat) and inCombat) then return end
@@ -139,7 +138,7 @@ local function ThreatColor(unit)
     if IsTank() then
         if status == 1 or status == 2 then return C.transition end
         if status == nil or status == 0 then
-            -- hat ein anderer Tank die Aggro? Dann türkis, sonst rot (verloren)
+            -- Does another tank have aggro? Then teal, else red (lost)
             for i = 1, GetNumGroupMembers() do
                 local member = (IsInRaid() and "raid" or "party") .. i
                 if UnitExists(member) and not UnitIsUnit(member, "player")
@@ -151,8 +150,8 @@ local function ThreatColor(unit)
             return C.warning
         end
     else
-        -- DD: rot nur, wenn du die Aggro hast; hält sie jemand anderes (Tank, dein Begleiter):
-        -- Salbei statt der normalen Farbe (Benny 2026-11-07: „nicht so ein hässliches Grau“)
+        -- DPS: red only if you have aggro; if someone else holds it (tank, your pet): sage
+        -- instead of the normal color
         if status == 3 then return C.warning end
         if status == 1 or status == 2 then return C.transition end
         return C.onTank
@@ -176,7 +175,7 @@ local function HealthColor(unit)
     return C.hostile
 end
 
--- oUF: Lebensfarbe komplett selbst bestimmen
+-- oUF override: we determine the health color entirely ourselves
 local function UpdateHealthColor(self, event, unit)
     local own = UnitOf(self)
     if not own or (unit and unit ~= own) then return end
@@ -185,9 +184,9 @@ local function UpdateHealthColor(self, event, unit)
     ns.ColorBarBackground(self.Health)
 end
 
--- Castbar-Farbe: nicht unterbrechbar (grau) > dein Kick ist bereit (grün) > normal
--- (gelb, Kanalisieren blau). Wichtige Zauber bekommen zusätzlich einen pulsierenden
--- orangen Rahmen – so bleibt jede Information sichtbar.
+-- Castbar color: uninterruptible (gray) > your interrupt is ready (green) > normal (yellow,
+-- channel blue). Important spells additionally get a pulsing orange border, so every piece of
+-- information stays visible.
 local function UpdateCastColor(castbar)
     local color = castbar.muiChannel and C.channel or C.cast
     if kickSpell then
@@ -197,7 +196,7 @@ local function UpdateCastColor(castbar)
     color = Pick(Bool(castbar.muiNotInterruptible), C.uninterruptible, color)
     castbar:SetStatusBarColor(color[1], color[2], color[3])
     if castbar.importantGlow then
-        -- spellID kann geschützt sein: nie direkt prüfen, nur an Blizzard weiterreichen
+        -- spellID may be secret: never test it directly, only pass it to Blizzard
         local id, important = castbar.muiSpellID, false
         if issecretvalue(id) or id then important = Bool(C_Spell.IsSpellImportant(id)) end
         castbar.importantGlow:SetAlphaFromBoolean(important, 1, 0)
@@ -209,10 +208,10 @@ local function UpdateCastColor(castbar)
     end
 end
 
--- Kick-Strich: weißer Strich auf der Castbar an der Stelle, an der dein Kick wieder bereit ist.
--- Abklingzeit und Zauberdauer können geschützt sein – deshalb rechnet eine unsichtbare
--- Hilfsleiste (Max = Zauberdauer, Wert = Rest-Abklingzeit) die Position aus, der Strich hängt
--- an ihrem Ende. Ist der Kick schon bereit, ist die Castbar grün und der Strich aus.
+-- Interrupt tick: white line on the castbar where your interrupt becomes ready again.
+-- Cooldown and cast time may be secret, so an invisible helper bar (max = cast time,
+-- value = remaining cooldown) computes the position and the line hangs at its end.
+-- If the interrupt is already ready, the castbar is green and the tick hidden.
 local function UpdateKickTick(castbar)
     local tick = castbar.kickTick
     local unit = UnitOf(castbar.__owner)
@@ -232,7 +231,7 @@ local function UpdateKickTick(castbar)
     tick:Show()
 end
 
--- Sichtbarkeit: Ziel/Zauber voll, andere gedimmt, solange du ein Ziel hast
+-- Visibility: target/casters full, others dimmed while you have a target
 local function UpdateAlpha(frame)
     local unit = UnitOf(frame)
     if not unit then return end
@@ -246,14 +245,14 @@ local function UpdateAlpha(frame)
     frame:SetAlpha(alpha)
     local target = Readable(isTarget) and isTarget or false
     frame.targetBorder:SetShown(target)
-    -- Skalierung um die Mitte (oUF-Frame füllt die Plate, Inhalt ist mittig verankert)
+    -- Scale around the center (oUF frame fills the plate, content is anchored centrally)
     frame:SetScale(target and TARGET_SCALE or 1)
     frame.hoverGlow:SetShown(frame.hovered or false)
 end
 
 local plates = {}
 
--- Aufbau einer Plate ----------------------------------------------------------------------------
+-- Plate setup ---------------------------------------------------------------------------------
 
 local function CreateAuraRow(self, filterOptions, size, anchor, growthX, x, y, count)
     local auras = self:CreateAuras({
@@ -280,16 +279,16 @@ local function Style(self, unit)
     local px = ns.PixelSize()
     self:SetSize(WIDTH, HEALTH)
 
-    -- Leben
+    -- Health
     local health = ns.CreateBar(self, ns.Snap(HEALTH))
     health:SetSize(ns.Snap(WIDTH), ns.Snap(HEALTH))
     health:SetPoint("CENTER")
     ns.AddBorder(health)
     health.UpdateColor = UpdateHealthColor
-    health.colorThreat = true -- nur damit oUF die Bedrohungs-Events anmeldet; Farbe machen wir
+    health.colorThreat = true -- only so oUF registers the threat events; we do the coloring
     self.Health = health
 
-    -- Ziel: zwei schlanke weiße Pfeile links und rechts, zeigen auf den Balken
+    -- Target: two slim white arrows left and right, pointing at the bar
     local targetBorder = CreateFrame("Frame", nil, health)
     targetBorder:SetAllPoints()
     for _, side in ipairs({ { "RIGHT", "LEFT", -1, -math.pi / 2 }, { "LEFT", "RIGHT", 1, math.pi / 2 } }) do
@@ -300,7 +299,7 @@ local function Style(self, unit)
     targetBorder:Hide()
     self.targetBorder = targetBorder
 
-    -- Maus drüber: Balken hellt leicht auf
+    -- Mouseover: bar brightens slightly
     local hoverGlow = health:CreateTexture(nil, "OVERLAY", nil, 1)
     hoverGlow:SetAllPoints(health:GetStatusBarTexture())
     hoverGlow:SetColorTexture(1, 1, 1, 0.18)
@@ -311,13 +310,13 @@ local function Style(self, unit)
     local name = ns.CreateText(health, 12, "LEFT", "OUTLINE")
     name:SetPoint("LEFT", 4, 0)
     name:SetWidth(NAME_WIDTH)
-    -- zu lange Namen kürzen („Lightfeather Petalwing“ > „L. Petalwing“)
-    -- In Instanzen sind Namen geschützt (Secret) – dann schneidet WoW nur mit „…“ ab
-    self.nameWidth = NAME_WIDTH -- kürzer, solange das Quest-Symbol davor steht
+    -- Shorten long names ("Lightfeather Petalwing" -> "L. Petalwing").
+    -- Names are secret in instances - then WoW just truncates with "..."
+    self.nameWidth = NAME_WIDTH -- shorter while the quest icon is in front
     self.ShortenName = function(frame, text) return ns.ShortenName(text, name, frame.nameWidth) end
     self:Tag(name, "[mui:name]")
     self.NameText = name
-    -- Begleiter: kleine Zeile unter dem Namen („Kalitheras Begleiter“), nur bei freundlichen Plates
+    -- Pet owner: small line below the name ("Kalithera's pet"), friendly plates only
     local sub = ns.CreateText(self, 10, "CENTER", "OUTLINE")
     sub:SetTextColor(0.8, 0.8, 0.8)
     sub:Hide()
@@ -328,7 +327,7 @@ local function Style(self, unit)
     self:Tag(percent, "[perhp]%")
     self.PercentText = percent
 
-    -- Castbar direkt unter dem Leben, gleich breit; Symbol links im Rahmen, Text im Balken
+    -- Castbar directly below the health bar, same width; icon left inside the border, text in the bar
     local cast = ns.Snap(CAST)
     local castFrame = CreateFrame("Frame", nil, self)
     castFrame:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -GAP - 2 * px)
@@ -338,7 +337,7 @@ local function Style(self, unit)
     castbar:SetPoint("TOPLEFT", castFrame, "TOPLEFT", cast + px, 0)
     castbar:SetPoint("BOTTOMRIGHT", castFrame, "BOTTOMRIGHT")
     castbar.PostUpdateColor = nil
-    castFrame:SetParent(castbar) -- Rahmen samt Symbol nur sichtbar, solange gezaubert wird
+    castFrame:SetParent(castbar) -- border and icon only visible while casting
     castFrame:SetFrameLevel(castbar:GetFrameLevel() + 2)
     ns.AddBorder(castFrame)
     local icon = castFrame:CreateTexture(nil, "ARTWORK")
@@ -357,7 +356,7 @@ local function Style(self, unit)
     castbar.Time = ns.CreateText(castFrame, 10, "RIGHT", "OUTLINE")
     castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
     castbar.timeToHold = 0.4
-    -- wichtiger Zauber: orangener Rahmen, pulsierend (Sichtbarkeit setzt UpdateCastColor)
+    -- Important spell: pulsing orange border (visibility set by UpdateCastColor)
     local importantGlow = CreateFrame("Frame", nil, castbar)
     importantGlow:SetPoint("TOPLEFT", castFrame, -2 * px, 2 * px)
     importantGlow:SetPoint("BOTTOMRIGHT", castFrame, 2 * px, -2 * px)
@@ -393,8 +392,8 @@ local function Style(self, unit)
     line:SetPoint("BOTTOM", kickTick:GetStatusBarTexture(), "BOTTOMRIGHT", 0, -2 * px)
     kickTick:Hide()
     castbar.kickTick = kickTick
-    -- oUF hält Zauber-ID, Unterbrechbarkeit und Kanalisieren intern – wir merken sie uns aus
-    -- den Rückmeldungen (Werte können geschützt sein, werden nur an Blizzard weitergereicht)
+    -- oUF keeps spell ID, interruptibility and channeling internal - we capture them from the
+    -- callbacks (values may be secret and are only passed on to Blizzard)
     castbar.PostCastStart = function(bar, unit, spellID, notInterruptible)
         local channel = UnitChannelInfo(unit)
         bar.muiChannel = issecretvalue(channel) or channel ~= nil
@@ -413,7 +412,7 @@ local function Style(self, unit)
         bar:SetStatusBarColor(unpack(C.interrupted))
         UpdateAlpha(self)
     end
-    -- Kick kann mitten im Zauber bereit werden: Farbe regelmäßig nachziehen
+    -- The interrupt can come off cooldown mid-cast: refresh the color regularly
     local elapsedSince = 0
     castbar:HookScript("OnUpdate", function(bar, elapsed)
         elapsedSince = elapsedSince + elapsed
@@ -425,8 +424,8 @@ local function Style(self, unit)
     self.Castbar = castbar
     self.CastFrame = castFrame
 
-    -- Auren: eigene Debuffs oben links, Buffs zum Entreißen/Beruhigen oben rechts,
-    -- Kontrolleffekte rechts neben der Plate
+    -- Auras: own debuffs top left, purgeable/soothable buffs top right,
+    -- crowd control to the right of the plate
     self.AuraRows = {
         CreateAuraRow(self, { { "HARMFUL|PLAYER|INCLUDE_NAME_PLATE_ONLY", { maxFrameCount = 5 } } },
             AURA, "BOTTOMLEFT", "RIGHT", 0, GAP + 2 * px, 5),
@@ -446,10 +445,10 @@ local function Style(self, unit)
     cc:AddGroup("HARMFUL|CROWD_CONTROL", { maxFrameCount = 2 })
     self.AuraRows[3] = cc
 
-    -- Zielmarkierung links, M+-Anteil unten links
+    -- Raid marker on the left, M+ forces bottom left
     local raidIcon = health:CreateTexture(nil, "OVERLAY", nil, 7)
     raidIcon:SetSize(22, 22)
-    raidIcon:Hide() -- sonst sieht man bis zum ersten Update das ganze Marker-Bild
+    raidIcon:Hide() -- otherwise the whole marker sheet shows until the first update
     raidIcon:SetPoint("RIGHT", health, "LEFT", -HEALTH - 10, 0)
     self.RaidTargetIndicator = raidIcon
 
@@ -458,8 +457,8 @@ local function Style(self, unit)
     forces:SetTextColor(1, 0.85, 0)
     self.ForcesText = forces
 
-    -- Quest-Gegner: gelbes „!“ mit Fortschritt im Balken direkt vor dem Namen (der rückt dann nach
-    -- rechts und wird entsprechend kürzer, siehe UpdateNamePrefix)
+    -- Quest mobs: yellow "!" with progress inside the bar right before the name (the name shifts
+    -- right and gets shorter accordingly, see UpdateNamePrefix)
     local quest = CreateFrame("Frame", nil, health)
     quest:SetSize(14, 14)
     local questIcon = ns.UI.Icon(quest, "Quest", 14, ns.STYLE.questColor)
@@ -471,18 +470,18 @@ local function Style(self, unit)
     quest:Hide()
     self.QuestMarker = quest
 
-    -- Rar/Elite: Blizzards eigene Symbole davor (Elite nur außerhalb von Instanzen – dort ist fast alles Elite)
+    -- Rare/elite: Blizzard's own icons in front (elite only outside instances - almost everything is elite there)
     local classIcon = health:CreateTexture(nil, "OVERLAY", nil, 6)
     classIcon:SetSize(16, 16)
     classIcon:Hide()
     self.ClassificationIcon = classIcon
 
-    -- Execute-Linie (Core/Style.lua)
+    -- Execute line (Core/Style.lua)
     ns.AddExecuteLine(health)
 end
 
--- Fortschritt der ersten offenen Quest-Zeile aus Blizzards Tooltip-Daten zur Einheit
--- („3/8 Kobolde getötet“ > „3/8“, „Gebiet befreit: 45 %“ > „45%“). Geschützt > nichts.
+-- Progress of the first open quest objective from Blizzard's unit tooltip data
+-- ("3/8 Kobolds slain" -> "3/8", "Area liberated: 45 %" -> "45%"). Secret -> nothing.
 local QUEST_LINE = Enum.TooltipDataLineType.QuestObjective
 local function QuestProgress(unit)
     local data = C_TooltipInfo.GetUnit(unit)
@@ -499,7 +498,7 @@ local function QuestProgress(unit)
     end
 end
 
--- Symbol für Rar/Elite wie bei Blizzards Plates (NamePlateClassificationFrameMixin)
+-- Rare/elite icon like Blizzard's plates (NamePlateClassificationFrameMixin)
 local function ClassificationAtlas(unit)
     if ns.db.plateClassification == false then return end
     local classification = UnitClassification(unit)
@@ -511,16 +510,16 @@ local function ClassificationAtlas(unit)
     end
 end
 
--- Gehört der Gegner zu einer aktiven Quest? Fragt Blizzard direkt (C_QuestLog), kein Tooltip-Raten.
--- Nicht in M+ (Quests zählen dort nicht).
+-- Is the mob part of an active quest? Asks Blizzard directly (C_QuestLog), no tooltip guessing.
+-- Not in M+ (quests don't count there).
 local function IsQuestUnit(unit)
     if C_PartyInfo.IsChallengeModeActive and C_PartyInfo.IsChallengeModeActive() then return false end
     local related = C_QuestLog.UnitIsRelatedToActiveQuest(unit)
     return Readable(related) and related or false
 end
 
--- Reihe im Balken vor dem Namen: [Rar/Elite][! 3/8] Name. Der Name rückt nach rechts und wird
--- entsprechend kürzer. Läuft nach ApplyFriendly (setzt den Namen zurück).
+-- Row inside the bar before the name: [rare/elite][! 3/8] Name. The name shifts right and gets
+-- shorter accordingly. Runs after ApplyFriendly (which resets the name).
 local function UpdateNamePrefix(frame)
     local unit = UnitOf(frame)
     local enemy = unit and not frame.isFriendly
@@ -548,19 +547,19 @@ local function UpdateNamePrefix(frame)
     marker:SetShown(quest)
 
     local offset = x > 2 and x or 4
-    -- freundliche Namens-Plates (NPCs, Spieler, Begleiter): ohne Kürzung/„…“ (Benny 2026-11-08)
+    -- Friendly name plates (NPCs, players, pets): no truncation/"..."
     local width = frame.isFriendly and 400 or NAME_WIDTH - (offset - 4)
     if frame.nameWidth ~= width then
         frame.nameWidth = width
         name:SetWidth(width)
-        frame:UpdateTags() -- Name passend zur neuen Breite neu kürzen
+        frame:UpdateTags() -- re-shorten the name for the new width
     end
     if frame.isFriendly then return end
     name:ClearAllPoints()
     name:SetPoint("LEFT", frame.Health, "LEFT", offset, 0)
 end
 
--- M+-Anteil (Blizzard rechnet; nur in aktiven Schlüsselsteinen, nur Gegner)
+-- M+ forces (computed by Blizzard; active keystones and enemies only)
 local function UpdateForces(frame)
     local unit = UnitOf(frame)
     local show = unit and C_PartyInfo.IsChallengeModeActive and C_PartyInfo.IsChallengeModeActive()
@@ -578,9 +577,9 @@ end
 local hiddenParent = CreateFrame("Frame")
 hiddenParent:Hide()
 
--- Blizzards eigener Plate-Knopf bleibt bei oUF unsichtbar über unserer Plate liegen und fängt den
--- Klick ab. Er bleibt an seinem Platz (das Spiel stapelt die Plates nach ihm), wird aber
--- unsichtbar und klick-durchlässig – samt allen Kindern.
+-- With oUF, Blizzard's own plate frame stays invisibly on top of ours and swallows clicks.
+-- It keeps its position (the game stacks plates by it) but is made invisible and
+-- click-through, including all children.
 local function NoMouse(frame)
     if frame.EnableMouse then pcall(frame.EnableMouse, frame, false) end
     for _, child in ipairs({ frame:GetChildren() }) do NoMouse(child) end
@@ -592,13 +591,13 @@ local function ParkBlizzardFrame(frame)
     if not blizz then return end
     blizz:SetAlpha(0)
     NoMouse(blizz)
-    -- Blizzards „Soft Target“-Symbol (Schwert/Hand) hängt oUF an die Plate – liegt mitten im Namen
+    -- Blizzard's "soft target" icon (sword/hand) gets attached to the plate by oUF - right on the name
     if blizz.SoftTargetFrame and blizz.SoftTargetFrame:GetParent() ~= hiddenParent then
         blizz.SoftTargetFrame:SetParent(hiddenParent)
     end
 end
 
--- Klickbereich wie bei Blizzard: Lebensbalken plus etwas Rand, direkt an der Plate
+-- Hit area like Blizzard's: health bar plus some margin, anchored to the plate
 local function SetHitBox(frame)
     local nameplate = frame:GetParent()
     if not (nameplate and nameplate.SetAllHitTestPoints) then return end
@@ -612,9 +611,9 @@ local function SetHitBox(frame)
     nameplate:SetAllHitTestPoints(frame.HitBox)
 end
 
--- Stapeln: Blizzard schiebt Plates nach diesem Bereich auseinander – Lebensbalken plus Castbar,
--- sonst überlappt die Castbar die Plate darunter. Wie Plater (Midnight): Bereich hängt mittig am
--- eigenen Plate-Frame und wird bei jedem Anzeigen neu gemeldet. /mui stack zeigt ihn grün.
+-- Stacking: Blizzard pushes plates apart by this area - health bar plus castbar, otherwise the
+-- castbar overlaps the plate below. Like Plater (Midnight): the area is centered on our plate frame
+-- and re-registered on every show. /mui stack shows it in green.
 local STACK_H = HEALTH + GAP + CAST + 10
 local showStackBoxes = false
 local function SetStackBox(frame)
@@ -627,11 +626,11 @@ local function SetStackBox(frame)
     end
     local box = frame.StackBox
     box:ClearAllPoints()
-    -- Lebensbalken sitzt mittig, Castbar darunter: Bereich mittig um beides
+    -- Health bar is centered, castbar below: center the area on both
     box:SetPoint("CENTER", frame, "CENTER", 0, -(GAP + CAST) / 2)
     box:SetSize(WIDTH + 10, STACK_H)
-    -- Blizzard zählt nur einen Bereich mit gezeichneter Fläche: Textur immer an, sonst unsichtbar
-    -- (wie Plater; ohne sie stapelte nichts – Benny 2026-11-07)
+    -- Blizzard only counts an area with a drawn texture: keep the texture on, invisible otherwise
+    -- (same as Plater; without it nothing stacks)
     box.debug:SetColorTexture(0.1, 0.8, 0.1, showStackBoxes and 0.35 or 0)
     nameplate:SetStackingBoundsFrame(box)
 end
@@ -646,8 +645,8 @@ ns.AddCommand("stack", "show the nameplate stacking area", function()
     ns.Print("Stacking: %s (CVar %s)", tostring(on), tostring(value))
 end)
 
--- Blizzard markiert Nebenmobs als „vereinfacht“ und verkleinert dann intern ihre Plate – sie
--- werden mit viel zu wenig Abstand gestapelt. Unsere Plates sind immer gleich groß > aus.
+-- Blizzard marks minor mobs as "simplified" and shrinks their plate internally, so they stack
+-- far too tightly. Our plates always have the same size -> turn it off.
 local function NotSimplified(unit)
     if unit and C_NamePlateManager.SetNamePlateSimplified then
         pcall(C_NamePlateManager.SetNamePlateSimplified, unit, false)
@@ -660,8 +659,8 @@ if NamePlateUnitFrameMixin and NamePlateUnitFrameMixin.UpdateIsSimplified then
     end)
 end
 
--- Blizzards (versteckter) Plate-Frame setzt den Klickbereich bei jeder Anpassung neu auf seinen
--- eigenen Balken – direkt danach wieder unseren setzen (gleicher Tick, auch im Kampf erlaubt)
+-- Blizzard's (hidden) plate frame resets the hit area to its own bar on every update - set ours
+-- again right after (same tick, allowed in combat too)
 if NamePlateUnitFrameMixin and NamePlateUnitFrameMixin.UpdateHitTestArea then
     hooksecurefunc(NamePlateUnitFrameMixin, "UpdateHitTestArea", function(blizzFrame)
         local nameplate = blizzFrame.GetNamePlateFrame and blizzFrame:GetNamePlateFrame()
@@ -670,8 +669,8 @@ if NamePlateUnitFrameMixin and NamePlateUnitFrameMixin.UpdateHitTestArea then
     end)
 end
 
--- Besitzer eines Begleiters aus der Tooltip-Zeile („Begleiter von Kalithera Novaris“ / „X's Pet“) –
--- nur der Vorname. In Instanzen können Texte geschützt sein, dann keine Zeile.
+-- Pet owner from the tooltip line ("Pet of Kalithera Novaris" / "X's Pet") - first name only.
+-- Texts may be secret in instances; then no line.
 local OWNER_PATTERNS
 local function OwnerPatterns()
     if OWNER_PATTERNS then return OWNER_PATTERNS end
@@ -704,20 +703,20 @@ local function PetOwner(unit)
     end
 end
 
-local FRIENDLY_NAME_SIZE = { small = 12, medium = 14, large = 16 } -- Einstellung „Namensgröße“
+local FRIENDLY_NAME_SIZE = { small = 12, medium = 14, large = 16 } -- "Name size" setting
 
--- Titel eines NPCs aus der Tooltip-Zeile unter dem Namen („Bergbaulehrer“); Stufen-Zeilen zählen nicht
+-- NPC title from the tooltip line below the name ("Mining Trainer"); level lines don't count
 local function NpcTitle(unit)
     if not (C_TooltipInfo and C_TooltipInfo.GetUnit) then return end
     local ok, data = pcall(C_TooltipInfo.GetUnit, unit)
     local line = ok and data and data.lines and data.lines[2]
     local text = line and line.leftText
     if type(text) ~= "string" or (issecretvalue and issecretvalue(text)) or text == "" then return end
-    if text:find("%d") then return end -- „Stufe 30“, „Level 12 Humanoid“
+    if text:find("%d") then return end -- "Level 30", "Level 12 Humanoid"
     return text
 end
 
--- „Kalitheras Begleiter“ / „Mox' Begleiter“ (deutscher Genitiv), sonst „Kalithera's pet“
+-- German genitive ("Kalitheras" / "Mox'") on deDE, otherwise "Kalithera's pet"
 local function PetTitle(owner)
     if GetLocale() == "deDE" then
         local ends = owner:lower():match("[sßxz]$") or owner:lower():match("tz$")
@@ -726,8 +725,8 @@ local function PetTitle(owner)
     return L["%s's pet"]:format(owner)
 end
 
--- Freundliche Plates: nur der Name (Klassen- bzw. Reaktionsfarbe, 14 px), keine Balken; Begleiter mit
--- kurzer Besitzer-Zeile darunter (Benny 2026-11-08)
+-- Friendly plates: name only (class or reaction color, 14 px), no bars; pets get a short owner
+-- line below
 local function ApplyFriendly(frame, unit)
     local friendly = not UnitCanAttack("player", unit)
     frame.isFriendly = friendly
@@ -737,11 +736,11 @@ local function ApplyFriendly(frame, unit)
     frame.NameText:ClearAllPoints()
     frame.NameText:SetParent(friendly and frame or frame.Health)
     local controlled = friendly and UnitPlayerControlled(unit)
-    if issecretvalue and issecretvalue(controlled) then controlled = false end -- in Instanzen ggf. geschützt
+    if issecretvalue and issecretvalue(controlled) then controlled = false end -- may be secret in instances
     local isPlayer = UnitIsPlayer(unit)
     if issecretvalue and issecretvalue(isPlayer) then isPlayer = false end
     local owner = controlled and not isPlayer and PetOwner(unit) or nil
-    -- zweite Zeile: Besitzer beim Begleiter, sonst Titel des NPCs („Bergbaulehrer“)
+    -- Second line: owner for pets, otherwise the NPC title ("Mining Trainer")
     if ns.db.npPetOwner == false then owner = nil end
     local subline = owner and PetTitle(owner)
         or (friendly and not isPlayer and not controlled and ns.db.npNpcTitle ~= false and NpcTitle(unit)) or nil
@@ -755,8 +754,8 @@ local function ApplyFriendly(frame, unit)
     if friendly then
         frame.NameText:SetPoint("CENTER", frame, "CENTER", 0, subline and 6 or 0)
         frame.NameText:SetJustifyH("CENTER")
-        -- Spieler: Klassenfarbe; NPCs/Begleiter: freundlich Salbei, neutral gelb, feindlich (nicht
-        -- angreifbar, z. B. Horde auf PvE) rot (Benny 2026-11-08)
+        -- Players: class color; NPCs/pets: friendly sage, neutral yellow, hostile (not attackable,
+        -- e.g. Horde on a PvE realm) red
         local _, class = UnitClass(unit)
         local color = isPlayer and Readable(class) and class and RAID_CLASS_COLORS[class]
         if color then
@@ -783,16 +782,16 @@ oUF:RegisterStyle("MeredanPlate", Style)
 
 oUF:Factory(function(self)
     if ns.db.nameplates == false then return end
-    -- zwei Nameplate-Addons gleichzeitig vertragen sich nicht
+    -- Two nameplate addons at once don't get along
     if C_AddOns.IsAddOnLoaded("Plater") then
         ns.Print(L["Another nameplate addon is active – mUI nameplates stay off. Disable it to use ours."])
         return
     end
     self:SetActiveStyle("MeredanPlate")
     local driver = self:SpawnNamePlates("MeredanUIPlate")
-    driver:SetSize(PLATE_W, PLATE_H) -- Größe der Plate (Klickbereich ist darauf begrenzt)
-    -- Blizzard setzt die Plate-Größe bei jedem Optionen-/Fenster-Wechsel auf seine eigene zurück
-    -- (auch beim Einloggen) – danach stapelt es zu eng. Unsere Größe direkt wieder setzen.
+    driver:SetSize(PLATE_W, PLATE_H) -- plate size (the hit area is limited to it)
+    -- Blizzard resets the plate size to its own on every options/window change (also on login),
+    -- after which plates stack too tightly. Re-apply our size right away.
     if NamePlateDriverFrame and NamePlateDriverFrame.UpdateNamePlateSize then
         hooksecurefunc(NamePlateDriverFrame, "UpdateNamePlateSize", function()
             ns.AfterCombat(function() C_NamePlate.SetNamePlateSize(PLATE_W, PLATE_H) end)
@@ -809,8 +808,8 @@ oUF:Factory(function(self)
         UpdateAlpha(frame)
     end)
     driver:SetTargetCallback(function() end)
-    -- oUF vergrößert den Klickbereich mit riesigen negativen Werten – das macht die Plates
-    -- unklickbar. 0 = genau unser HitBox-Bereich.
+    -- oUF enlarges the hit area with huge negative insets, which makes plates unclickable.
+    -- 0 = exactly our HitBox area.
     local function ResetInsets()
         ns.AfterCombat(function()
             C_NamePlateManager.SetNamePlateHitTestInsets(Enum.NamePlateType.Enemy, 0, 0, 0, 0)
@@ -818,17 +817,17 @@ oUF:Factory(function(self)
         end)
     end
     ResetInsets()
-    C_Timer.After(0, ResetInsets) -- nach oUFs eigenem PLAYER_LOGIN
-    -- Feindliche Plates stapeln statt überlappen (Blizzard-Option, einmalig; danach gilt deine Wahl)
+    C_Timer.After(0, ResetInsets) -- after oUF's own PLAYER_LOGIN
+    -- Stack enemy plates instead of overlapping (Blizzard option, set once; your later choice wins)
     if not ns.db.nameplatesStackSet and C_CVar.GetCVar("nameplateStackingTypes") then
         ns.AfterCombat(function()
             local ok = pcall(C_CVar.SetCVarBitfield, "nameplateStackingTypes", Enum.NamePlateStackType.Enemy, true)
             if ok then ns.db.nameplatesStackSet = true end
         end)
     end
-    -- Alle Plates gleich groß (einmalig): Blizzard vergrößert sonst das Ziel (120 %) und verkleinert
-    -- entfernte – gestapelt wird aber nach der normalen Größe, das Ziel überlappte dann die anderen
-    -- (Benny 2026-11-07, Dungeon). Das Ziel hebt mUI über das Dimmen der anderen hervor.
+    -- Same size for all plates (once): otherwise Blizzard enlarges the target (120 %) and shrinks
+    -- distant ones, but stacks by the normal size, so the target overlapped the others.
+    -- mUI highlights the target by dimming the others instead.
     if not ns.db.nameplatesScaleSet then
         ns.AfterCombat(function()
             for _, cvar in ipairs({ "nameplateSelectedScale", "nameplateMinScale", "nameplateMaxScale" }) do
@@ -837,8 +836,8 @@ oUF:Factory(function(self)
             ns.db.nameplatesScaleSet = true
         end)
     end
-    -- Begleiter freundlicher Spieler mit unserer Plate statt Blizzards Weltnamen (der Text dort lässt sich
-    -- nicht kürzen) – einmalig; wer es danach umstellt, behält es (Benny 2026-11-08)
+    -- Friendly players' pets get our plate instead of Blizzard's world name (that text can't be
+    -- shortened) - set once; later changes by the user are kept
     if not ns.db.nameplatesPetsSet then
         ns.AfterCombat(function()
             if C_CVar.GetCVar("nameplateShowFriendlyPlayerPets") then C_CVar.SetCVar("nameplateShowFriendlyPlayerPets", "1") end
@@ -846,8 +845,8 @@ oUF:Factory(function(self)
             ns.db.nameplatesPetsSet = true
         end)
     end
-    -- Freundliche NPCs (Händler, Lehrer …) mit unserer Namens-Plate statt Blizzards Weltnamen (einmalig;
-    -- wer es danach umstellt, behält es) – Benny 2026-11-08
+    -- Friendly NPCs (vendors, trainers ...) get our name plate instead of Blizzard's world name
+    -- (set once; later changes by the user are kept)
     if not ns.db.nameplatesNpcSet then
         ns.AfterCombat(function()
             if C_CVar.GetCVar("nameplateShowFriendlyNpcs") then C_CVar.SetCVar("nameplateShowFriendlyNpcs", "1") end
@@ -857,8 +856,8 @@ oUF:Factory(function(self)
             ns.db.nameplatesNpcSet = true
         end)
     end
-    -- Blizzards Weltnamen ganz aus, nur noch mUI-Namen (Benny 2026-11-08: „Blizzard-Namensanzeige
-    -- ausschalten“) – einmalig; der eigene Name bleibt wie eingestellt (dafür gibt es keine Plate)
+    -- Turn Blizzard's world names off entirely, only mUI names - set once; the player's own name
+    -- stays as configured (there is no plate for it)
     if not ns.db.nameplatesWorldNamesSet then
         ns.AfterCombat(function()
             if C_CVar.GetCVar("nameplateShowFriendlyPlayers") then C_CVar.SetCVar("nameplateShowFriendlyPlayers", "1") end
@@ -871,16 +870,15 @@ oUF:Factory(function(self)
             ns.db.nameplatesWorldNamesSet = true
         end)
     end
-    -- Plates immer zeigen, nicht nur im Kampf (einmalig; wer es danach umstellt, behält es)
+    -- Always show plates, not only in combat (set once; later changes by the user are kept)
     if not ns.db.nameplatesShowAllSet then
         ns.db.nameplatesShowAllSet = true
         C_CVar.SetCVar("nameplateShowAll", "1")
     end
 end)
 
--- Ziel gewechselt: alle Plates neu dimmen; Kampf/Bedrohung: Farben neu
--- „mUI-Namen statt Blizzard-Namen“ (Benny 2026-11-08): an = Blizzards Weltnamen aus, freundliche NPCs
--- und Begleiter auf mUI-Plates; aus = alles auf Blizzards Standardwerte. Reine CVars, wirkt ohne Reload.
+-- "mUI names instead of Blizzard names": on = Blizzard world names off, friendly NPCs and pets on
+-- mUI plates; off = everything back to Blizzard defaults. Pure CVars, works without reload.
 local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerName", "UnitNameHostleNPC",
     "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName", "UnitNameFriendlyTotemName",
     "UnitNameEnemyPetName", "UnitNameEnemyGuardianName", "UnitNameEnemyMinionName", "UnitNameEnemyTotemName",
@@ -902,7 +900,7 @@ function ns.SetMuiNames(useMui)
     end)
 end
 
--- Einstellungen geändert (Namensgröße, Titel, Besitzer): alle offenen Plates neu aufbauen
+-- Settings changed (name size, title, owner): rebuild all visible plates
 function ns.RefreshNamePlates()
     for frame in pairs(plates) do
         local unit = UnitOf(frame)
@@ -916,7 +914,7 @@ end
 ns:On("PLAYER_TARGET_CHANGED", function()
     for frame in pairs(plates) do UpdateAlpha(frame) end
 end)
--- Quest-Fortschritt geändert: alle Plates einmal gesammelt nachziehen (Ereignisse kommen gehäuft)
+-- Quest progress changed: update all plates once, batched (events arrive in bursts)
 local questPending = false
 local function QueueQuestUpdate()
     if questPending then return end
@@ -941,7 +939,7 @@ for _, event in ipairs({ "PLAYER_REGEN_DISABLED", "PLAYER_REGEN_ENABLED", "UNIT_
     end)
 end
 
--- Maus über einer Plate: es gibt kein „Maus weg“-Ereignis, deshalb kurz nachprüfen
+-- Mouse over a plate: there is no "mouse left" event, so poll briefly
 local hoverTicker
 local function UpdateHover()
     local any = false
