@@ -1,5 +1,5 @@
--- Auktionshaus · Meine Auktionen (Entwurf Ansicht 5): Auktionen und Gebote zum Umschalten, unten
--- „Neu einstellen“ und „Auktion abbrechen“ bzw. bei Geboten Gebotsfeld, Bieten und Sofortkauf.
+-- Auction house - My Auctions tab: toggle between auctions and bids; bottom has "Repost" and
+-- "Cancel auction", or for bids a bid field, Bid and Buyout.
 local _, ns = ...
 local L = ns.L
 local AH = ns.AH
@@ -19,7 +19,7 @@ local function Columns()
     }
 end
 
--- „24 h“ wie Blizzard, sonst grobe Stufe
+-- "24 h" like Blizzard, otherwise a rough tier
 local function TimeText(seconds, band)
     if seconds and seconds > 0 then
         if seconds >= 3600 then return ("%d h"):format(math.floor(seconds / 3600)) end
@@ -67,7 +67,7 @@ function AH.RefreshOwned()
         row.cells[2]:SetText(a.quantity or 1)
         local bid = a.bidAmount
         if owned.mode == "bids" and a.bidder and a.bidder ~= UnitGUID("player") then
-            bid = bid and ("|cffe65050" .. AH.Money(bid) .. "|r") -- überboten
+            bid = bid and ("|cffe65050" .. AH.Money(bid) .. "|r") -- outbid
         else
             bid = bid and AH.Money(bid) or "|cff99978f–|r"
         end
@@ -98,7 +98,7 @@ function AH.RefreshOwned()
     owned.selectedInfo = selected
     owned.empty:SetText(owned.mode == "auctions" and L["You have no auctions."] or L["You have no bids."])
     owned.empty:SetShown(#rows == 0)
-    -- Umschalter mit Zahlen
+    -- toggle with counts
     owned.tabAuctions.Text:SetText(L["Auctions (%d)"]:format(C_AuctionHouse.GetNumOwnedAuctions()))
     owned.tabBids.Text:SetText(L["Bids (%d)"]:format(C_AuctionHouse.GetNumBids()))
     for _, t in ipairs({ owned.tabAuctions, owned.tabBids }) do
@@ -107,7 +107,7 @@ function AH.RefreshOwned()
         t.Text:SetTextColor(unpack(on and UI.ACCENT or UI.TEXT))
     end
     AH.window.npcTitle:SetText(L["Auction house"] .. "  ·  " .. L["%d auctions · %d bids"]:format(C_AuctionHouse.GetNumOwnedAuctions(), C_AuctionHouse.GetNumBids()))
-    -- Knöpfe unten
+    -- bottom buttons
     local isAuctions = owned.mode == "auctions"
     owned.auctionButtons:SetShown(isAuctions)
     owned.bidButtons:SetShown(not isAuctions)
@@ -131,7 +131,7 @@ function AH.RefreshOwned()
     end
 end
 
--- erster Taschenplatz mit diesem Gegenstand (für „Neu einstellen“)
+-- first bag slot with this item (for "Repost")
 function AH.FindInBags(itemID)
     if not itemID then return end
     for bag = 0, NUM_BAG_SLOTS or 4 do
@@ -190,7 +190,7 @@ function AH.CreateOwnedView(view)
     owned.empty = UI.Text(view, 13, "CENTER", UI.MUTED)
     owned.empty:SetPoint("TOP", owned.list.header, "BOTTOM", 0, -60)
 
-    -- Auktionen: Neu einstellen, Abbrechen
+    -- auctions: Repost, Cancel
     owned.auctionButtons = CreateFrame("Frame", nil, view)
     owned.auctionButtons:SetPoint("BOTTOMLEFT")
     owned.auctionButtons:SetPoint("BOTTOMRIGHT", -16, 0)
@@ -224,7 +224,7 @@ function AH.CreateOwnedView(view)
     end)
     owned.relist:HookScript("OnLeave", function() GameTooltip:Hide() end)
 
-    -- Gebote: Gebotsfeld, Bieten, Sofortkauf
+    -- bids: bid field, Bid, Buyout
     owned.bidButtons = CreateFrame("Frame", nil, view)
     owned.bidButtons:SetPoint("BOTTOMLEFT")
     owned.bidButtons:SetPoint("BOTTOMRIGHT", -16, 0)

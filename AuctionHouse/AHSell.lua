@@ -1,12 +1,12 @@
--- Auktionshaus · Verkaufen (Entwurf Ansicht 4). Links Taschen, Mitte Formular mit Preisvorschlag,
--- Dauer, Sofortkaufmodus und Netto-Rechnung, rechts die aktuellen Angebote.
--- Berufswerkzeug fehlt in der Liste, solange der Werkzeugschutz an ist (Bags/ToolGuard.lua).
+-- Auction house - Sell tab. Left: bags; center: form with price suggestion, duration, buyout
+-- mode and net calculation; right: current listings.
+-- Profession tools are missing from the list while tool protection is on (Bags/ToolGuard.lua).
 local _, ns = ...
 local L = ns.L
 local AH = ns.AH
 
 local BAGS_W, OFFERS_W = 220, 250
-local CUT = 0.05 -- Auktionshaus-Anteil; Blizzard hat dafür keine Abfrage
+local CUT = 0.05 -- AH cut; Blizzard has no API for it
 
 local sell = { bagRows = {}, duration = 2, buyoutMode = true }
 AH.sell = sell
@@ -16,7 +16,7 @@ local function IsCommodity(loc)
     return status == Enum.ItemCommodityStatus.Commodity
 end
 
--- Taschen: verkaufbare Gegenstände, zusammengefasst nach Gegenstand ---------------------------
+-- Bags: sellable items, grouped by item ---------------------------------------------------------
 
 local function BagItems()
     local list, byKey = {}, {}
@@ -82,7 +82,7 @@ local function RefreshBags()
     sell.bagEmpty:SetShown(#list == 0)
 end
 
--- Formular -----------------------------------------------------------------------------------
+-- Form ------------------------------------------------------------------------------------------
 
 local function Quantity()
     return math.max(tonumber(sell.quantity:GetText()) or 0, 0)
@@ -92,7 +92,7 @@ local function Durations()
     return { AUCTION_DURATION_ONE or "12 Std.", AUCTION_DURATION_TWO or "24 Std.", AUCTION_DURATION_THREE or "48 Std." }
 end
 
--- Netto: Verkaufspreis − Anteil; Einzahlung kommt bei Verkauf zurück
+-- Net: sale price - cut; the deposit is returned on sale
 function AH.UpdateSellSummary()
     local entry = sell.entry
     if not entry then return end
@@ -111,7 +111,7 @@ function AH.UpdateSellSummary()
     sell.depositText:SetText(AH.Money(deposit))
     sell.cutText:SetText(total > 0 and ("− " .. GetMoneyString(cut, true)) or "–")
     sell.netText:SetText(total > 0 and AH.Money(total - cut) or "–")
-    -- Preis pro Stück bei Einzelstücken mit Menge > 1: Hinweis
+    -- hint for per-unit price on non-stackables with quantity > 1
     local bid = (not sell.commodity and not sell.buyoutMode) and sell.bid:GetValue() or 0
     local valid = qty > 0 and qty <= (sell.max or 0)
     if sell.commodity then
@@ -122,7 +122,7 @@ function AH.UpdateSellSummary()
         valid = valid and bid > 0 and (price == 0 or price >= bid)
     end
     valid = valid and GetMoney() >= deposit
-    -- wie Blizzard: erst wenn das Auktionshaus wieder Anfragen annimmt (nach Suchen kurz gedrosselt)
+    -- like Blizzard: only once the AH accepts requests again (briefly throttled after searches)
     local ready = C_AuctionHouse.IsThrottledMessageSystemReady()
     sell.post:SetEnabled(valid and ready)
     sell.post:SetAlpha((valid and ready) and 1 or 0.45)
@@ -150,12 +150,12 @@ local function SetBuyoutMode(on)
     AH.UpdateSellSummary()
 end
 
--- Vorschlag: 1 Kupfer (bzw. 1 Silber) unter dem günstigsten fremden Angebot
--- Einzelstücke nur in vollem Silber (mit Kupfer lehnt der Server ab), Massenware auch mit Kupfer
+-- Suggestion: 1 copper (or 1 silver) below the cheapest foreign listing.
+-- Non-stackables only in whole silver (server rejects copper), commodities may use copper
 local function ItemStep() return sell.commodity and AH.Step() or 100 end
 local function RoundPrice(copper)
     if sell.commodity then return AH.Sanitize(copper) end
-    -- wie Auctionator (NormalizePrice): aufrunden auf Silber, mindestens 1 Silber
+    -- like Auctionator (NormalizePrice): round up to silver, at least 1 silver
     return math.max(math.ceil((copper or 0) / 100) * 100, (copper or 0) > 0 and 100 or 0)
 end
 
@@ -176,7 +176,7 @@ local function Suggest(lowest, ownLowest)
     AH.UpdateSellSummary()
 end
 
--- Angebote rechts ------------------------------------------------------------------------------
+-- Listings (right) ------------------------------------------------------------------------------
 
 local function RefreshOffers()
     local entry = sell.entry
@@ -220,7 +220,7 @@ local function RefreshOffers()
         row.cells[3]:SetText(chip)
         row:SetSelected(false)
         row:SetScript("OnClick", function()
-            -- Preis eines Angebots übernehmen (1 unter diesem)
+            -- take a listing's price (1 below it)
             if data.price then
                 sell.touched = true
                 sell.price:SetValue(RoundPrice(math.max(data.price - (data.own and 0 or ItemStep()), ItemStep())))
@@ -263,7 +263,7 @@ local function QueryOffers()
     end
 end
 
--- Gegenstand wählen (Liste links, Rechtsklick in der Tasche, Ziehen ins Feld)
+-- Select item (list on the left, right-click in bags, drag into the slot)
 function AH.SetSellItem(loc)
     if not (loc and C_Item.DoesItemExist(loc)) or not sell.form then return end
     if not C_AuctionHouse.IsSellItemValid(loc, true) then return end
@@ -315,7 +315,7 @@ local function ClearSell()
     sell.offerCount:SetText("")
 end
 
--- Einstellen (mit Blizzards Rückfrage bei auffälligem Preis) -------------------------------------
+-- Posting (with Blizzard's confirmation on unusual prices) ---------------------------------------
 
 local pending
 local function DoPost(confirm)
@@ -329,7 +329,7 @@ local function DoPost(confirm)
         if confirm then C_AuctionHouse.ConfirmPostItem(p.loc, p.duration, p.qty, p.bid, p.buyout)
         else needsConfirm = C_AuctionHouse.PostItem(p.loc, p.duration, p.qty, p.bid, p.buyout) end
     end
-    -- Protokoll für die Fehlersuche (DevLog-Addon im Workspace, sonst nichts)
+    -- debug log (DevLog addon in the workspace, otherwise nothing)
     if DevLog then
         DevLog("MeredanUI", ("AH post %s: loc=%s dur=%s qty=%s price=%s bid=%s buyout=%s copper=%s valid=%s ready=%s confirm=%s -> %s"):format(
             p.commodity and "commodity" or "item", tostring(p.loc and p.loc:IsValid() and table.concat({ p.loc:GetBagAndSlot() }, "/")),
@@ -337,7 +337,7 @@ local function DoPost(confirm)
             tostring(C_AuctionHouse.SupportsCopperValues()), tostring(C_AuctionHouse.IsSellItemValid(p.loc, false)), tostring(C_AuctionHouse.IsThrottledMessageSystemReady()),
             tostring(confirm), tostring(needsConfirm)))
     end
-    if needsConfirm then return end -- AUCTION_HOUSE_POST_WARNING folgt
+    if needsConfirm then return end -- AUCTION_HOUSE_POST_WARNING follows
 end
 
 StaticPopupDialogs["MEREDANUI_AH_POST_WARNING"] = {
@@ -390,7 +390,7 @@ ns:On("AUCTION_HOUSE_AUCTION_CREATED", function(_, auctionID)
     PlaySound(SOUNDKIT.AUCTION_WINDOW_OPEN or SOUNDKIT.LOOT_WINDOW_COIN_SOUND)
     if pending and AH.RecordPosted then AH.RecordPosted(auctionID, pending) end
     pending = nil
-    -- gleicher Gegenstand noch da? Dann gewählt lassen, sonst leeren
+    -- same item still there? Keep it selected, otherwise clear
     C_Timer.After(0.3, function()
         if AH.current ~= "sell" then return end
         local entry = sell.entry
@@ -403,11 +403,11 @@ ns:On("AUCTION_HOUSE_AUCTION_CREATED", function(_, auctionID)
     end)
 end)
 
--- Aufbau ---------------------------------------------------------------------------------------
+-- Setup -----------------------------------------------------------------------------------------
 
 function AH.CreateSellView(view)
     local UI = ns.UI
-    -- Taschen
+    -- bags
     local bags = AH.Panel(view)
     bags:SetPoint("TOPLEFT")
     bags:SetPoint("BOTTOMLEFT")
@@ -430,7 +430,7 @@ function AH.CreateSellView(view)
     sell.bagEmpty:SetWordWrap(true)
     sell.bagEmpty:SetText(L["Nothing in your bags can be sold here."])
 
-    -- Angebote
+    -- listings
     local offersFrame = CreateFrame("Frame", nil, view)
     offersFrame:SetPoint("TOPRIGHT")
     offersFrame:SetPoint("BOTTOMRIGHT")
@@ -450,7 +450,7 @@ function AH.CreateSellView(view)
     sell.offersEmpty:SetText(L["No offers right now."])
     sell.offersEmpty:Hide()
 
-    -- Formular
+    -- form
     local form = AH.Panel(view)
     form:SetPoint("TOPLEFT", bags, "TOPRIGHT", 10, 0)
     form:SetPoint("BOTTOMRIGHT", offersFrame, "BOTTOMLEFT", -10, 0)
@@ -464,7 +464,7 @@ function AH.CreateSellView(view)
     content:SetAllPoints()
     content:Hide()
     sell.formContent = content
-    -- Ziehen ins Formular
+    -- drag into the form
     local function Drop()
         local kind, _, _ = GetCursorInfo()
         if kind ~= "item" then return end
@@ -570,7 +570,7 @@ function AH.CreateSellView(view)
     buyoutHint:SetPoint("TOPLEFT", 0, -24)
     buyoutHint:SetText(L["Off: extra bid price, buyout optional"])
 
-    -- Netto-Rechnung
+    -- net calculation
     local summary = CreateFrame("Frame", nil, content)
     summary:SetPoint("BOTTOMLEFT", 16, 60)
     summary:SetPoint("BOTTOMRIGHT", -16, 60)
@@ -613,7 +613,7 @@ ns:On("BAG_UPDATE_DELAYED", function()
     if AH.window and AH.window:IsShown() and AH.current == "sell" then RefreshBags() end
 end)
 
--- Drosselung vorbei / Anfrage raus: Knopf neu bewerten (wie Blizzards Verkaufsfenster)
+-- Throttle over / request sent: re-evaluate the button (like Blizzard's sell frame)
 local function ThrottleChanged()
     if AH.window and AH.window:IsShown() and AH.current == "sell" and sell.entry then AH.UpdateSellSummary() end
 end

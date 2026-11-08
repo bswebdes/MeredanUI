@@ -1,11 +1,11 @@
--- Auktionshaus (WoW Forever) statt Blizzards AuctionHouseFrame – Entwurf „Auktionshaus“ (Benny
--- 2026-11-07). Ein Fenster in der NPC-Familie, Tabs rechts: Kaufen · Verkaufen · Meine Auktionen ·
--- Verlauf. Diese Datei: Fenster, Öffnen/Schließen, gemeinsame Bausteine und Kaufen (Suche,
--- Einzelstück, Massenware). Verkaufen, Meine Auktionen und Verlauf stehen in eigenen Dateien.
+-- Auction house (WoW Forever) replacing Blizzard's AuctionHouseFrame. One window in the NPC
+-- window family, tabs on the right: Buy, Sell, My Auctions, History. This file: window,
+-- open/close, shared building blocks and Buy (search, single items, commodities). The other
+-- tabs live in their own files.
 --
--- Technik: Blizzards Fenster wird beim Laden unsichtbar geparkt (vor dem ersten Zeigen, damit sein
--- OnShow/OnHide nie läuft – OnHide würde das Auktionshaus schließen). Kaufen, Bieten, Abbrechen
--- laufen über Blizzards eigene Bestätigungsdialoge (BUYOUT_AUCTION, BID_AUCTION, CANCEL_AUCTION).
+-- Blizzard's frame is parked invisibly at load (before it is ever shown, so its OnShow/OnHide
+-- never run - OnHide would close the AH). Buy, bid and cancel go through Blizzard's own
+-- confirmation dialogs (BUYOUT_AUCTION, BID_AUCTION, CANCEL_AUCTION).
 local _, ns = ...
 local L = ns.L
 
@@ -29,11 +29,11 @@ AH.current = "buy"
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.auctionWindow ~= false and C_AuctionHouse ~= nil
-        and not ns.OtherAddon(ns.AUCTION_ADDONS) -- anderes Auktionshaus-Addon: unseres bleibt aus
+        and not ns.OtherAddon(ns.AUCTION_ADDONS) -- another auction addon: ours stays off
 end
 AH.Enabled = Enabled
 
--- Symbole im Text: die mUI-Schrift hat kein ▾/✓/★ – stattdessen kleine Grafiken
+-- Symbols in text: the mUI font lacks the triangle/check/star glyphs, so small textures instead
 function AH.IconMarkup(name, size, color)
     local c = color or ns.UI.TEXT
     return ("|T%sIcons\\%s:%d:%d:0:0:16:16:0:16:0:16:%d:%d:%d|t"):format(ns.MEDIA, name, size, size,
@@ -42,7 +42,7 @@ end
 local function Chevron() return AH.IconMarkup("ChevronDown", 12) end
 local function Tick() return AH.IconMarkup("Check", 12, ns.UI.ACCENT) end
 
--- Bausteine -------------------------------------------------------------------------------------
+-- Building blocks --------------------------------------------------------------------------------
 
 function AH.Money(copper)
     if not copper or copper <= 0 then return "–" end
@@ -54,7 +54,7 @@ function AH.QualityColor(quality)
     return r or 1, g or 1, b or 1
 end
 
--- Geldeingabe: Gold, Silber, Kupfer (Kupfer nur, wenn das Auktionshaus Kupfer kennt)
+-- Money input: gold, silver, copper (copper only if the AH supports copper)
 function AH.MoneyInput(parent, onChange)
     local UI = ns.UI
     local frame = CreateFrame("Frame", nil, parent)
@@ -99,7 +99,7 @@ function AH.MoneyInput(parent, onChange)
     return frame
 end
 
--- Kupfer erlaubt? Sonst auf Silber runden (wie Blizzards SanitizeAuctionHousePrice)
+-- Copper allowed? Otherwise round to silver (like Blizzard's SanitizeAuctionHousePrice)
 function AH.Sanitize(copper)
     if C_AuctionHouse.SupportsCopperValues and C_AuctionHouse.SupportsCopperValues() then return copper end
     return math.ceil((copper or 0) / 100) * 100
@@ -109,7 +109,7 @@ function AH.Step()
     return (C_AuctionHouse.SupportsCopperValues and C_AuctionHouse.SupportsCopperValues()) and 1 or 100
 end
 
--- Name, Symbol und Qualität eines ItemKeys (kann erst nach ITEM_KEY_ITEM_INFO_RECEIVED da sein)
+-- Name, icon and quality of an ItemKey (may only be available after ITEM_KEY_ITEM_INFO_RECEIVED)
 function AH.KeyInfo(itemKey)
     return itemKey and C_AuctionHouse.GetItemKeyInfo(itemKey)
 end
@@ -130,8 +130,8 @@ function AH.IsOwn(owners)
     return false
 end
 
--- Spalten setzen: feste Spalten links vom flexiblen von links, rechts davon von rechts; die eine
--- Spalte ohne Breite nimmt den Rest (darf auch in der Mitte stehen).
+-- Lay out columns: fixed columns left of the flexible one from the left, right of it from the
+-- right; the one column without width takes the rest (may sit in the middle).
 local function PlaceColumns(frame, columns, place)
     local flex
     for i, column in ipairs(columns) do if not column.width then flex = i break end end
@@ -150,7 +150,7 @@ local function PlaceColumns(frame, columns, place)
 end
 AH.PlaceColumns = PlaceColumns
 
--- Tabellenkopf mit Spalten { title, width (nil = Rest), align }
+-- Table header with columns { title, width (nil = rest), align }
 function AH.Header(parent, columns)
     local UI = ns.UI
     local header = CreateFrame("Frame", nil, parent)
@@ -174,7 +174,7 @@ function AH.Header(parent, columns)
     return header
 end
 
--- Zeile mit Zellen passend zu AH.Header; row.cells[i] (Text), optional Symbol in Zelle 1
+-- Row with cells matching AH.Header; row.cells[i] (text), optional icon in cell 1
 function AH.Row(parent, columns, withIcon)
     local UI = ns.UI
     local row = CreateFrame("Button", nil, parent)
@@ -230,7 +230,7 @@ function AH.Row(parent, columns, withIcon)
     return row
 end
 
--- Liste aus Zeilen in einer ScrollArea; fill(row, data, i) füllt eine Zeile
+-- List of rows in a ScrollArea; fill(row, data, i) fills a row
 function AH.List(parent, columns, withIcon)
     local UI = ns.UI
     local list = { rows = {} }
@@ -265,7 +265,7 @@ function AH.Panel(parent)
     return panel
 end
 
--- Symbolknopf „Aktualisieren“
+-- "Refresh" icon button
 function AH.RefreshButton(parent, onClick)
     local UI = ns.UI
     local button = UI.IconButton(parent, "Reset", onClick, 28)
@@ -280,7 +280,7 @@ end
 
 function AH.SetFooter(text) if footerText then footerText:SetText(text or "") end end
 
--- Kaufen: Kategorien --------------------------------------------------------------------------------
+-- Buy: categories ------------------------------------------------------------------------------------
 
 local buy = { catRows = {}, results = {}, mode = "browse" }
 AH.buy = buy
@@ -341,7 +341,7 @@ local function CatRow(i)
             local same = buy.cat1 == p[1] and buy.cat2 == p[2] and buy.cat3 == p[3]
             buy.favorites = false
             if same and #p == 1 then
-                buy.cat1, buy.cat2, buy.cat3 = nil, nil, nil -- zuklappen
+                buy.cat1, buy.cat2, buy.cat3 = nil, nil, nil -- collapse
             else
                 buy.cat1, buy.cat2, buy.cat3 = p[1], p[2], p[3]
             end
@@ -381,9 +381,9 @@ local function LayoutCategories()
     buy.catArea:SetContentHeight(#list * 26)
 end
 
--- Kaufen: Suche und Ergebnisse ----------------------------------------------------------------------
+-- Buy: search and results ----------------------------------------------------------------------------
 
-local SORT = { { sortOrder = 0, reverseSort = false }, { sortOrder = 1, reverseSort = false } } -- Preis, Name
+local SORT = { { sortOrder = 0, reverseSort = false }, { sortOrder = 1, reverseSort = false } } -- price, name
 
 local function DefaultFilters()
     local list = {}
@@ -492,7 +492,7 @@ function AH.RefreshResults()
         or L["Right-click an item: favorite"])
 end
 
--- Kaufen: Einzelstück -------------------------------------------------------------------------------
+-- Buy: single item -----------------------------------------------------------------------------------
 
 local item = {}
 buy.item = item
@@ -539,7 +539,7 @@ function AH.RefreshItem()
     end)
     item.count:SetText(L["%d available"]:format(#rows))
     item.empty:SetShown(#rows == 0)
-    -- unten: Gebot und Sofortkauf
+    -- bottom: bid and buyout
     item.selected = selected
     local canBid = selected and not AH.IsOwn(selected.owners) and selected.minBid ~= nil
     local canBuy = selected and not AH.IsOwn(selected.owners) and selected.buyoutAmount ~= nil
@@ -572,7 +572,7 @@ function AH.OpenItem(itemKey, isCommodity, minPrice)
     AH.SetFooter(L["Loading …"])
 end
 
--- Kaufen: Massenware --------------------------------------------------------------------------------
+-- Buy: commodities -----------------------------------------------------------------------------------
 
 local commodity = { ladderRows = {} }
 buy.commodity = commodity
@@ -586,7 +586,7 @@ function AH.RefreshCommodity()
     local itemID = buy.itemKey.itemID
     local count = C_AuctionHouse.GetNumCommoditySearchResults(itemID)
     local quantity = CommodityQuantity()
-    -- Preis für die gewünschte Menge (Blizzards Rechnung: günstigste zuerst, eigene nicht mitzählen)
+    -- price for the requested quantity (Blizzard's calculation: cheapest first, own listings excluded)
     local total, totalPrice, used = 0, 0, 0
     local rows = {}
     for i = 1, count do
@@ -608,7 +608,7 @@ function AH.RefreshCommodity()
         row.cells[3]:SetText((result.numOwnerItems or 0) > 0 and ("|cff8ecbb4" .. L["You"] .. "|r") or "")
         row:SetSelected(i <= used and quantity > 0)
         row:SetScript("OnClick", function()
-            -- alles bis zu dieser Preisstufe kaufen
+            -- buy everything up to this price tier
             local sum = 0
             for j = 1, i do sum = sum + rows[j].quantity - (rows[j].numOwnerItems or 0) end
             commodity.quantity:SetText(tostring(math.max(sum, 1)))
@@ -629,7 +629,7 @@ function AH.RefreshCommodity()
     commodity.empty:SetShown(count == 0)
 end
 
--- Kaufbestätigung für Massenware (Blizzard: erst Preis anfragen, dann bestätigen)
+-- Purchase confirmation for commodities (Blizzard: request price first, then confirm)
 local dialog
 local function CloseDialog()
     if dialog and dialog:IsShown() then dialog:Hide() end
@@ -728,7 +728,7 @@ ns:On("COMMODITY_PURCHASE_FAILED", function()
     if dialog and dialog:IsShown() then dialog.state:SetText("|cffe65050" .. L["Price is no longer available."] .. "|r") end
 end)
 
--- Kaufen: Aufbau ------------------------------------------------------------------------------------
+-- Buy: setup -----------------------------------------------------------------------------------------
 
 local function Star(parent)
     local star = CreateFrame("Button", nil, parent)
@@ -810,7 +810,7 @@ end
 
 local function CreateBuyView(view)
     local UI = ns.UI
-    -- Suche
+    -- search
     local favButton = UI.IconButton(view, "Close", function()
         buy.cat1, buy.cat2, buy.cat3, buy.favorites = nil, nil, nil, true
         AH.Search()
@@ -846,7 +846,7 @@ local function CreateBuyView(view)
         UI.OpenList(self, items, nil, function(value) self:SetText(value) self:ClearFocus() buy.favorites = false AH.Search() end)
     end)
 
-    -- Kategorien
+    -- categories
     local catPanel = AH.Panel(view)
     catPanel:SetPoint("TOPLEFT", 0, -38)
     catPanel:SetPoint("BOTTOMLEFT")
@@ -855,7 +855,7 @@ local function CreateBuyView(view)
     buy.catArea:SetPoint("TOPLEFT", 2, -4)
     buy.catArea:SetPoint("BOTTOMRIGHT", -14, 4)
 
-    -- Ergebnisse
+    -- results
     local area = CreateFrame("Frame", nil, view)
     area:SetPoint("TOPLEFT", catPanel, "TOPRIGHT", 10, 0)
     area:SetPoint("BOTTOMRIGHT")
@@ -873,7 +873,7 @@ local function CreateBuyView(view)
     buy.more:SetHeight(26)
     buy.more:SetPoint("BOTTOM", 0, 0)
 
-    -- Einzelstück
+    -- single item
     local itemFrame = CreateFrame("Frame", nil, view)
     itemFrame:SetPoint("TOPLEFT", catPanel, "TOPRIGHT", 10, 0)
     itemFrame:SetPoint("BOTTOMRIGHT")
@@ -920,7 +920,7 @@ local function CreateBuyView(view)
         for _, e in ipairs(ns.AddBorder(b, true)) do e:SetVertexColor(unpack(UI.ACCENT)) end
     end
 
-    -- Massenware
+    -- commodities
     local comFrame = CreateFrame("Frame", nil, view)
     comFrame:SetPoint("TOPLEFT", catPanel, "TOPRIGHT", 10, 0)
     comFrame:SetPoint("BOTTOMRIGHT")
@@ -990,7 +990,7 @@ function AH.ShowBuyMode()
     if buy.mode ~= "commodity" then CloseDialog() end
 end
 
--- Filter-Menü: Stufen, nutzbar, Seltenheit (wie Blizzards Filter)
+-- Filter menu: levels, usable, rarity (like Blizzard's filter)
 function AH.OpenFilter(owner)
     local items = {
         { value = "usable", label = (buy.usableOnly and (Tick() .. "  ") or "      ") .. (AUCTION_HOUSE_FILTER_USABLE_ONLY or L["Usable only"]) },
@@ -1014,7 +1014,7 @@ function AH.OpenFilter(owner)
     end)
 end
 
--- Fenster, Tabs, Öffnen ---------------------------------------------------------------------------
+-- Window, tabs, opening ---------------------------------------------------------------------------
 
 local TABS = {
     { key = "buy", icon = "Interface\\Icons\\INV_Misc_Coin_02", name = L["Buy"] },
@@ -1092,7 +1092,7 @@ local function CreateWindow()
     footerText:SetPoint("RIGHT", window, "RIGHT", -240, 0)
     goldText = UI.Text(window, 13, "RIGHT")
     goldText:SetPoint("BOTTOMRIGHT", -PAD, 20)
-    AH.footerRight = CreateFrame("Frame", nil, window) -- Platz für Knöpfe der Ansichten (links vom Gold)
+    AH.footerRight = CreateFrame("Frame", nil, window) -- space for view buttons (left of the gold)
     AH.footerRight:SetSize(1, 28)
     AH.footerRight:SetPoint("RIGHT", goldText, "LEFT", -12, 0)
 
@@ -1129,22 +1129,22 @@ function AH.UpdateGold()
     if goldText and window and window:IsShown() then goldText:SetText(GetMoneyString(GetMoney(), true)) end
 end
 
--- Sperre aus Blizzards geparktem Verkaufsfenster lösen (sein OnHide, das das sonst tut, läuft nie)
+-- Release the lock from Blizzard's parked sell frame (its OnHide, which normally does this, never runs)
 function AH.ReleaseBlizzardItem()
     if AuctionHouseFrame and AuctionHouseFrame.ClearPostItem then AuctionHouseFrame:ClearPostItem() end
 end
 
 local function Park()
-    -- vor dem ersten Zeigen parken: dann läuft Blizzards OnShow/OnHide nie (OnHide schlösse das AH)
+    -- park before the first show: then Blizzard's OnShow/OnHide never run (OnHide would close the AH)
     if AuctionHouseFrame and AuctionHouseFrame:GetParent() ~= hidden then
         AuctionHouseFrame:SetParent(hidden)
-        -- Blizzards Rückfrage beim Einstellen hängt an seinem eigenen Verkaufsfenster – wir fragen selbst
+        -- Blizzard's post confirmation is tied to its own sell frame - we ask ourselves
         AuctionHouseFrame:UnregisterEvent("AUCTION_HOUSE_POST_WARNING")
         AuctionHouseFrame:UnregisterEvent("AUCTION_HOUSE_POST_ERROR")
-        -- Rechtsklick auf Taschen-Gegenstände ruft AuctionHouseFrame:SetPostItem auf. Blizzards Fassung
-        -- sperrt den Gegenstand in seinem (geparkten, nie eingerichteten) Verkaufsfenster und stürzt bei
-        -- Massenware ab (QueryItem: searchContext nil) – Folge: Gegenstand ausgegraut, Wechseln
-        -- unmöglich, Server lehnt das Einstellen ab (Benny 2026-11-07). Deshalb direkt zu uns.
+        -- Right-clicking bag items calls AuctionHouseFrame:SetPostItem. Blizzard's version locks the
+        -- item in its (parked, never initialized) sell frame and errors on commodities (QueryItem:
+        -- searchContext nil) - the item stays grayed out, can't be switched and the server rejects
+        -- the post. So route it to us directly.
         AuctionHouseFrame.SetPostItem = function(_, itemLocation)
             if not (window and window:IsShown() and AH.SetSellItem) then return end
             if not (itemLocation and itemLocation:IsValid()) then return end

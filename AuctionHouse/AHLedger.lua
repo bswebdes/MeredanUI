@@ -1,10 +1,10 @@
--- Auktionshaus · Verlauf (Entwurf Ansicht 6, neu). Accountweit in ns.root.ahLedger.
--- Quellen:
---   Gekauft:     sofort beim Kauf (Sofortkauf, Massenware); gewonnene Gebote über die Rechnung in der Post
---   Verkauft:    Verkaufsrechnung in der Post (Erlös = Gebot, Gebühr = AH-Anteil)
---   Abgebrochen: AUCTION_CANCELED → Einzahlung verloren
---   Abgelaufen:  AUCTION_HOUSE_AUCTIONS_EXPIRED → Einzahlung verloren
--- Einzahlungen merken wir uns beim Einstellen pro Auktion (AH.RecordPosted).
+-- Auction house - history tab. Account-wide in ns.root.ahLedger.
+-- Sources:
+--   Bought:    immediately on purchase (buyout, commodities); won bids via the invoice mail
+--   Sold:      sale invoice mail (proceeds = bid, fee = AH cut)
+--   Cancelled: AUCTION_CANCELED -> deposit lost
+--   Expired:   AUCTION_HOUSE_AUCTIONS_EXPIRED -> deposit lost
+-- Deposits are remembered per auction when posting (AH.RecordPosted).
 local _, ns = ...
 local L = ns.L
 local AH = ns.AH
@@ -42,17 +42,17 @@ local function Add(kind, name, qty, price, fee, net, key)
     if AH.window and AH.window:IsShown() and AH.current == "ledger" then AH.RefreshLedger() end
 end
 
--- Einstellen: Einzahlung merken (für Abbrechen/Ablaufen)
+-- Posting: remember the deposit (for cancel/expiry)
 function AH.RecordPosted(auctionID, p)
     if not auctionID then return end
     Data().deposits[auctionID] = { name = p.name, qty = p.qty, deposit = p.deposit or 0, t = time() }
-    -- „Eingestellt“: Angebotswert, Einzahlung als Gebühr (zählt nicht zu den Summen)
+    -- "Posted": listing value, deposit as fee (not counted in totals)
     local value = p.commodity and (p.price or 0) * (p.qty or 1) or (p.buyout or p.bid or 0)
     Add("posted", p.name, p.qty, value, p.deposit or 0, 0, "post:" .. auctionID)
 end
 
--- Abbrechen aus „Meine Auktionen“: Name/Menge/Abbruchgebühr vorher merken (auch für Auktionen, die
--- nicht über mUI eingestellt wurden)
+-- Cancel from "My Auctions": remember name/quantity/cancel fee beforehand (also for auctions
+-- not posted via mUI)
 local pendingCancels, lastCancel = {}, nil
 function AH.MarkPendingCancel(auctionID, name, qty)
     if not auctionID then return end
@@ -61,12 +61,11 @@ function AH.MarkPendingCancel(auctionID, name, qty)
     lastCancel = entry
 end
 
--- Wirklich abgebrochen = Abbrechen bestätigt (C_AuctionHouse.CancelAuction, auch aus Blizzards
--- Dialog). Forever meldet AUCTION_CANCELED auch, wenn eine Auktion abläuft ODER verkauft wird
--- (Benny 2026-11-07: Mystikerarmreifen nach 8 Std. „abgebrochen“, Stachelkeule verkauft und als
--- „abgelaufen“ gezählt). Ohne bestätigten Abbruch wird AUCTION_CANCELED daher ignoriert; was
--- wirklich passiert ist, sagt AUCTION_HOUSE_SHOW_FORMATTED_NOTIFICATION (verkauft/abgelaufen, mit
--- Auktionsnummer) bzw. offline die Post („Auktion abgelaufen: …“).
+-- Really cancelled = cancel confirmed (C_AuctionHouse.CancelAuction, also from Blizzard's
+-- dialog). Forever also fires AUCTION_CANCELED when an auction expires OR sells, so without a
+-- confirmed cancel AUCTION_CANCELED is ignored. What actually happened comes from
+-- AUCTION_HOUSE_SHOW_FORMATTED_NOTIFICATION (sold/expired, with auction ID) or, when offline,
+-- from the mail ("Auction expired: ...").
 local confirmedCancel -- { id, t }
 hooksecurefunc(C_AuctionHouse, "CancelAuction", function(auctionID)
     confirmedCancel = { id = auctionID, t = GetTime() }
@@ -74,13 +73,13 @@ hooksecurefunc(C_AuctionHouse, "CancelAuction", function(auctionID)
         pendingCancels[auctionID] = { id = auctionID, cost = C_AuctionHouse.GetCancelCost(auctionID) or 0, t = GetTime() }
     end
 end)
--- nur das Zeitfenster zählt: Massenware meldet beim Abbrechen evtl. eine andere Nummer
+-- only the time window counts: commodities may report a different ID on cancel
 local function WasConfirmed()
     return confirmedCancel ~= nil and GetTime() - confirmedCancel.t <= 30
 end
 
--- Einzahlung zu einer Auktion: erst über die Nummer, sonst über Gegenstand + Menge (Massenware
--- meldet beim Abbrechen eine andere Nummer als beim Einstellen)
+-- Deposit for an auction: by ID first, otherwise by item + quantity (commodities report a
+-- different ID on cancel than on posting)
 local function TakeDeposit(auctionID, name, qty)
     local d = Data()
     if d.deposits[auctionID] then
@@ -97,7 +96,7 @@ local function TakeDeposit(auctionID, name, qty)
     return best
 end
 
--- Sofortkauf: Daten merken, eingetragen wird bei AUCTION_HOUSE_PURCHASE_COMPLETED
+-- Buyout: remember the data, the entry is written on AUCTION_HOUSE_PURCHASE_COMPLETED
 local pendingBuyouts = {}
 function AH.MarkPendingBuyout(result, itemKey)
     if not result or not result.auctionID then return end
@@ -112,7 +111,7 @@ function AH.OnPurchaseCompleted(auctionID)
     if not p then return end
     pendingBuyouts[auctionID] = nil
     Add("bought", p.name, p.qty, p.price, 0, -p.price)
-    Data().seen["buy:" .. (p.name or "") .. ":" .. p.price] = time() -- Rechnung in der Post später nicht doppelt zählen
+    Data().seen["buy:" .. (p.name or "") .. ":" .. p.price] = time() -- don't count the invoice mail again later
 end
 
 function AH.RecordPurchase(name, _, qty, total)
@@ -120,7 +119,7 @@ function AH.RecordPurchase(name, _, qty, total)
     Data().seen["buy:" .. (name or "") .. ":" .. total] = time()
 end
 
--- Abgelaufen: über die Nummer, sonst über den Namen (Post kennt keine Nummer)
+-- Expired: by ID, otherwise by name (mail has no ID)
 local function RecordExpired(auctionID, name)
     local dep = TakeDeposit(auctionID or 0, name)
     if not dep then return end
@@ -129,10 +128,10 @@ local function RecordExpired(auctionID, name)
 end
 
 ns:On("AUCTION_CANCELED", function(_, auctionID)
-    -- kein bestätigter Abbruch > verkauft oder abgelaufen, das klären Meldung bzw. Post (s. o.)
+    -- no confirmed cancel -> sold or expired; the notification or mail resolves it (see above)
     if not WasConfirmed() then return end
     confirmedCancel = nil
-    -- welche Auktion? Nummer passt bei Massenware nicht → den gerade bestätigten Abbruch nehmen
+    -- which auction? ID doesn't match for commodities -> take the just-confirmed cancel
     local pend = auctionID and pendingCancels[auctionID]
     if not pend and lastCancel and GetTime() - lastCancel.t < 30 then pend = lastCancel end
     if pend then
@@ -148,18 +147,18 @@ end)
 
 ns:On("AUCTION_HOUSE_AUCTIONS_EXPIRED", function(_, auctionID) RecordExpired(auctionID) end)
 
--- Blizzards Meldung „Käufer gefunden“ / „abgelaufen“ (kommt auch bei geschlossenem Auktionshaus)
+-- Blizzard's "buyer found" / "expired" notification (also fires with the AH closed)
 local NOTE = Enum.AuctionHouseNotification
 ns:On("AUCTION_HOUSE_SHOW_FORMATTED_NOTIFICATION", function(_, notification, text, auctionID)
     if not NOTE then return end
     if notification == NOTE.AuctionExpired then
         RecordExpired(auctionID, text)
     elseif notification == NOTE.AuctionSold then
-        TakeDeposit(auctionID or 0, text) -- Einzahlung kommt mit der Verkaufsrechnung zurück, nichts eintragen
+        TakeDeposit(auctionID or 0, text) -- deposit comes back with the sale invoice, record nothing
     end
 end)
 
--- Post-Betreff „Auktion abgelaufen: <Gegenstand>“ > Gegenstand (für Ablauf, während du offline warst)
+-- Mail subject "Auction expired: <item>" -> item (for expiry while you were offline)
 local function ExpiredMailItem(subject)
     if not (subject and AUCTION_EXPIRED_MAIL_SUBJECT) then return end
     local pre, post = AUCTION_EXPIRED_MAIL_SUBJECT:match("^(.-)%%s(.*)$")
@@ -168,15 +167,15 @@ local function ExpiredMailItem(subject)
     return subject:sub(#pre + 1, #subject - #post)
 end
 
--- Post: Rechnungen auswerten. Schlüssel aus Inhalt + ungefährer Sendezeit (Stunde), damit dieselbe
--- Rechnung beim nächsten Öffnen nicht noch einmal zählt.
+-- Mail: parse invoices. Key from content + approximate send time (hour), so the same
+-- invoice isn't counted again the next time the mailbox opens.
 local function ScanMail()
     local d = Data()
     local now = time()
     for i = 1, GetInboxNumItems() do
         local invoiceType, itemName, _, bid, buyout, deposit, consignment, _, _, _, count = GetInboxInvoiceInfo(i)
         local expiredItem = not invoiceType and ExpiredMailItem(select(4, GetInboxHeaderInfo(i)))
-        if expiredItem then RecordExpired(nil, expiredItem) end -- nur wenn die Einzahlung noch offen ist
+        if expiredItem then RecordExpired(nil, expiredItem) end -- only if the deposit is still open
         if invoiceType == "seller" or invoiceType == "buyer" then
             local daysLeft = select(7, GetInboxHeaderInfo(i)) or 0
             local sent = math.floor((now - (30 - daysLeft) * 86400) / 3600)
@@ -184,10 +183,10 @@ local function ScanMail()
             if not d.seen[key] then
                 if invoiceType == "seller" then
                     local net = (bid or 0) + (deposit or 0) - (consignment or 0)
-                    -- Einzahlung kommt zurück → nicht als Gebühr; Gebühr = AH-Anteil
+                    -- deposit comes back -> not a fee; fee = AH cut
                     Add("sold", itemName, count, bid or 0, consignment or 0, net - (deposit or 0), key)
                 else
-                    -- Sofortkäufe sind schon eingetragen; hier nur gewonnene Gebote
+                    -- buyouts are already recorded; only won bids here
                     if d.seen["buy:" .. (itemName or "") .. ":" .. (bid or 0)] then
                         d.seen[key] = now
                     else
@@ -197,13 +196,13 @@ local function ScanMail()
             end
         end
     end
-    -- alte Merker aufräumen (60 Tage)
+    -- prune old markers (60 days)
     for key, t in pairs(d.seen) do if now - t > 60 * 86400 then d.seen[key] = nil end end
     for id, dep in pairs(d.deposits) do if now - (dep.t or 0) > 4 * 86400 then d.deposits[id] = nil end end
 end
 ns:On("MAIL_INBOX_UPDATE", ScanMail)
 
--- Anzeige --------------------------------------------------------------------------------------
+-- Display ---------------------------------------------------------------------------------------
 
 local PERIODS = {
     { key = "today", label = "Today" }, { key = "week", label = "Week" }, { key = "month", label = "Month" },
@@ -215,7 +214,7 @@ local function PeriodStart()
     local now = date("*t")
     if led.period == "today" then return time({ year = now.year, month = now.month, day = now.day, hour = 0 }) end
     if led.period == "week" then
-        local wday = (now.wday + 5) % 7 -- Montag = 0
+        local wday = (now.wday + 5) % 7 -- Monday = 0
         return time({ year = now.year, month = now.month, day = now.day - wday, hour = 0 })
     end
     if led.period == "month" then return time({ year = now.year, month = now.month, day = 1, hour = 0 }) end
@@ -263,7 +262,7 @@ function AH.RefreshLedger()
         row.cells[4]:SetText(e.qty)
         row.cells[5]:SetText(e.price > 0 and AH.Money(e.price) or "|cff99978f–|r")
         if e.kind == "posted" then
-            -- Einzahlung: kommt bei Verkauf zurück, daher grau
+            -- deposit: returned on sale, hence gray
             row.cells[6]:SetText(e.fee > 0 and ("|cff99978f" .. GetMoneyString(e.fee, true) .. "|r") or "|cff99978f–|r")
         else
             row.cells[6]:SetText(e.fee > 0 and ("|cffe6a050− " .. GetMoneyString(e.fee, true) .. "|r") or "|cff99978f–|r")
@@ -303,7 +302,7 @@ function AH.CreateLedgerView(view)
         for _, edge in ipairs(chip.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
         return chip
     end
-    -- Zeitraum
+    -- period
     led.periodChips = {}
     local last
     for _, p in ipairs(PERIODS) do
@@ -319,7 +318,7 @@ function AH.CreateLedgerView(view)
     led.charButton:SetHeight(26)
     led.charButton:SetPoint("TOPRIGHT")
 
-    -- Karten
+    -- cards
     led.cards = {}
     local cardHolder = CreateFrame("Frame", nil, view)
     cardHolder:SetPoint("TOPLEFT", 0, -36)
@@ -353,7 +352,7 @@ function AH.CreateLedgerView(view)
         end
     end)
 
-    -- Filter und Suche
+    -- filter and search
     led.filterChips = {}
     last = nil
     for _, key in ipairs(FILTERS) do
@@ -373,7 +372,7 @@ function AH.CreateLedgerView(view)
     hint:SetText(L["Search item"])
     led.search:HookScript("OnTextChanged", function(self) hint:SetShown(self:GetText() == "") end)
 
-    -- Liste
+    -- list
     led.list = AH.List(view, {
         { title = L["Date"], width = 110 }, { title = L["Type"], width = 100 }, { title = L["Item"] },
         { title = L["Qty"], width = 50, align = "RIGHT" }, { title = L["Price"], width = 120, align = "RIGHT" },
