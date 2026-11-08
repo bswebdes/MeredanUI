@@ -690,7 +690,11 @@ local PAGES = {
                 for _, key in ipairs(group[2]) do
                     local entry = WINDOW_BY_KEY[key]
                     if entry then
-                        entries[#entries + 1] = { label = L[entry[2]], get = function() return ns.db[key] ~= false end,
+                        local label = L[entry[2]]
+                        -- anderes Auktionshaus-Addon aktiv: Hinweis, unseres bleibt aus
+                        local other = key == "auctionWindow" and ns.OtherAddon(ns.AUCTION_ADDONS)
+                        if other then label = label .. "  |cffd9b25b" .. L["%s active"]:format(other) .. "|r" end
+                        entries[#entries + 1] = { label = label, get = function() return ns.db[key] ~= false end,
                             set = Setter(key), opts = Help(L[entry[3]], true) }
                     end
                 end

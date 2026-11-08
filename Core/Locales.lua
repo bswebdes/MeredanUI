@@ -28,6 +28,7 @@ if GetLocale() == "deDE" then
     L["MOVER_bar7"] = "Leiste 7 (unten links)"
     L["MOVER_bar8"] = "Leiste 8 (unten rechts)"
     L["Extra bars"] = "Zusatzleisten"
+    L["%s active"] = "%s aktiv"
     L["Bar below the icon"] = "Leiste unter dem Icon"
     L["Key binding"] = "Tastenbelegung"
     L["Macro name"] = "Makroname"

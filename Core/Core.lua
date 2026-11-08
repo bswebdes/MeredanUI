@@ -79,6 +79,20 @@ function ns:Off(event)
     eventFrame:UnregisterEvent(event)
 end
 
+-- Läuft ein anderes Addon für dieselbe Aufgabe? Liefert dessen Ordnernamen (erstes geladenes aus
+-- der Liste) oder nil. Ordnernamen exakt wie im AddOns-Ordner.
+function ns.OtherAddon(names)
+    local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
+    if not loaded then return end
+    for _, name in ipairs(names) do
+        if loaded(name) then return name end
+    end
+end
+
+-- Auktionshaus-Addons (Benny 2026-11-08): läuft eins davon, bleibt das mUI-Auktionshaus aus –
+-- kein Skin, kein Eingriff; Händler schwören auf ihr eigenes.
+ns.AUCTION_ADDONS = { "Auctionator", "TradeSkillMaster", "Auc-Advanced", "AuctionFaster", "aux-addon" }
+
 -- Aktion außerhalb des Kampfes ausführen (sofort oder nach PLAYER_REGEN_ENABLED).
 local afterCombat = {}
 function ns.AfterCombat(fn)

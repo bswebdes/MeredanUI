@@ -29,6 +29,7 @@ AH.current = "buy"
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.auctionWindow ~= false and C_AuctionHouse ~= nil
+        and not ns.OtherAddon(ns.AUCTION_ADDONS) -- anderes Auktionshaus-Addon: unseres bleibt aus
 end
 AH.Enabled = Enabled
 
