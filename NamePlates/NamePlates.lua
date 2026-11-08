@@ -703,6 +703,17 @@ local function PetOwner(unit)
     end
 end
 
+-- Titel eines NPCs aus der Tooltip-Zeile unter dem Namen („Bergbaulehrer“); Stufen-Zeilen zählen nicht
+local function NpcTitle(unit)
+    if not (C_TooltipInfo and C_TooltipInfo.GetUnit) then return end
+    local ok, data = pcall(C_TooltipInfo.GetUnit, unit)
+    local line = ok and data and data.lines and data.lines[2]
+    local text = line and line.leftText
+    if type(text) ~= "string" or (issecretvalue and issecretvalue(text)) or text == "" then return end
+    if text:find("%d") then return end -- „Stufe 30“, „Level 12 Humanoid“
+    return text
+end
+
 -- „Kalitheras Begleiter“ / „Mox' Begleiter“ (deutscher Genitiv), sonst „Kalithera's pet“
 local function PetTitle(owner)
     if GetLocale() == "deDE" then
@@ -724,20 +735,36 @@ local function ApplyFriendly(frame, unit)
     frame.NameText:SetParent(friendly and frame or frame.Health)
     local controlled = friendly and UnitPlayerControlled(unit)
     if issecretvalue and issecretvalue(controlled) then controlled = false end -- in Instanzen ggf. geschützt
-    local owner = controlled and not UnitIsPlayer(unit) and PetOwner(unit) or nil
+    local isPlayer = UnitIsPlayer(unit)
+    if issecretvalue and issecretvalue(isPlayer) then isPlayer = false end
+    local owner = controlled and not isPlayer and PetOwner(unit) or nil
+    -- zweite Zeile: Besitzer beim Begleiter, sonst Titel des NPCs („Bergbaulehrer“)
+    local subline = owner and PetTitle(owner) or (friendly and not isPlayer and not controlled and NpcTitle(unit)) or nil
     ns.SetFont(frame.NameText, friendly and 14 or 12, "OUTLINE")
-    frame.SubText:SetShown(owner ~= nil)
-    if owner then
+    frame.SubText:SetShown(subline ~= nil)
+    if subline then
         frame.SubText:ClearAllPoints()
         frame.SubText:SetPoint("TOP", frame.NameText, "BOTTOM", 0, -1)
-        frame.SubText:SetText(PetTitle(owner))
+        frame.SubText:SetText(subline)
     end
     if friendly then
-        frame.NameText:SetPoint("CENTER", frame, "CENTER", 0, owner and 6 or 0)
+        frame.NameText:SetPoint("CENTER", frame, "CENTER", 0, subline and 6 or 0)
         frame.NameText:SetJustifyH("CENTER")
+        -- Spieler: Klassenfarbe; NPCs/Begleiter: freundlich Salbei, neutral gelb, feindlich (nicht
+        -- angreifbar, z. B. Horde auf PvE) rot (Benny 2026-11-08)
         local _, class = UnitClass(unit)
-        local color = UnitIsPlayer(unit) and Readable(class) and class and RAID_CLASS_COLORS[class]
-        if color then frame.NameText:SetTextColor(color.r, color.g, color.b) else frame.NameText:SetTextColor(1, 1, 1) end
+        local color = isPlayer and Readable(class) and class and RAID_CLASS_COLORS[class]
+        if color then
+            frame.NameText:SetTextColor(color.r, color.g, color.b)
+        elseif not isPlayer then
+            local reaction = UnitReaction(unit, "player")
+            if not Readable(reaction) then reaction = nil end
+            local c = (reaction and reaction >= 5 and ns.UI.ACCENT) or (reaction == 4 and C.neutral)
+                or (reaction and reaction <= 3 and C.hostile) or ns.UI.ACCENT
+            frame.NameText:SetTextColor(c[1], c[2], c[3])
+        else
+            frame.NameText:SetTextColor(1, 1, 1)
+        end
         frame.PercentText:Hide()
     else
         frame.NameText:SetPoint("LEFT", frame.Health, "LEFT", 4, 0)
@@ -812,6 +839,17 @@ oUF:Factory(function(self)
             if C_CVar.GetCVar("nameplateShowFriendlyPlayerPets") then C_CVar.SetCVar("nameplateShowFriendlyPlayerPets", "1") end
             if C_CVar.GetCVar("UnitNameFriendlyPetName") then C_CVar.SetCVar("UnitNameFriendlyPetName", "0") end
             ns.db.nameplatesPetsSet = true
+        end)
+    end
+    -- Freundliche NPCs (Händler, Lehrer …) mit unserer Namens-Plate statt Blizzards Weltnamen (einmalig;
+    -- wer es danach umstellt, behält es) – Benny 2026-11-08
+    if not ns.db.nameplatesNpcSet then
+        ns.AfterCombat(function()
+            if C_CVar.GetCVar("nameplateShowFriendlyNpcs") then C_CVar.SetCVar("nameplateShowFriendlyNpcs", "1") end
+            for _, cvar in ipairs({ "UnitNameNPC", "UnitNameFriendlySpecialNPCName", "UnitNameInteractiveNPC" }) do
+                if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, "0") end
+            end
+            ns.db.nameplatesNpcSet = true
         end)
     end
     -- Plates immer zeigen, nicht nur im Kampf (einmalig; wer es danach umstellt, behält es)
