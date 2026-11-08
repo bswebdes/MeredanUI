@@ -49,7 +49,8 @@ local timeBars = {} -- [Leiste] = Aura-Knopf
 C_Timer.NewTicker(0.2, function()
     if not barCurve then return end
     for bar, button in pairs(timeBars) do
-        if bar:IsVisible() and button.GetAuraDuration then
+        -- Sichtbarkeit der Aura-Knöpfe ist geschützt (Secret) – nicht prüfen, einfach alle färben
+        if button.GetAuraDuration then
             local ok, duration = pcall(button.GetAuraDuration, button)
             if ok and duration and duration.EvaluateRemainingPercent then
                 local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
