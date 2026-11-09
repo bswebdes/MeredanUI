@@ -693,45 +693,38 @@ local function SkinPicker(f, buttons)
     for _, button in ipairs(buttons) do SkinButton(button) end
 end
 
--- Blizzard cuts the class icons out of an old sheet with uneven built-in frames: use the single,
--- frameless class icons instead (cropped like our tab icons)
+-- Class counters next to the invite list, built like our side tabs: dark box, 1px border, own
+-- frameless class icon 2px inset (Blizzard's normal texture is hidden: it shifts with button state),
+-- grey while the class has nobody invited (button disabled), white highlight on hover.
 local CLASS_ICONS = { WARRIOR = 626008, PALADIN = 626003, HUNTER = 626000, ROGUE = 626005, PRIEST = 626004,
     DEATHKNIGHT = 625998, SHAMAN = 626006, MAGE = 626001, WARLOCK = 626007, MONK = 626002, DRUID = 625999,
     DEMONHUNTER = 1260827, EVOKER = 4574311 }
-local function ClassIcon(button)
-    local icon = button:GetNormalTexture()
-    local file = button.class and CLASS_ICONS[button.class]
-    if not IsTexture(icon) or not file or icon.muiClass == button.class then return end
-    icon:SetTexture(file)
-    icon:SetTexCoord(0.12, 0.88, 0.12, 0.88)
-    icon.muiClass = button.class
-end
 
--- Class counters next to the invite list
 local function SkinClassButtons()
     local UI = ns.UI
     local i = 1
     while _G["CalendarClassButton" .. i] do
         local button = _G["CalendarClassButton" .. i]
         if Once(button) then
-            local icon = button:GetNormalTexture()
-            FadeRegions(button, icon and { [icon] = true } or nil)
-            -- like our side tabs: bigger box, icon inset, Surf Green edge on hover
+            FadeRegions(button)
+            local normal = button:GetNormalTexture()
+            if normal then normal:SetAlpha(0) end
             button:SetSize(32, 32)
-            local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
+            local bg = Tex(button, "BACKGROUND", -8, ns.STYLE.panelColor)
             bg:SetAllPoints()
-            local edges = Border(button)
-            for _, e in ipairs(edges) do e:SetDrawLayer("OVERLAY", 7) end -- border over the enlarged icon
-            if IsTexture(icon) then
-                icon:ClearAllPoints()
-                icon:SetPoint("TOPLEFT", -1, 1)
-                icon:SetPoint("BOTTOMRIGHT", 1, -1)
-            end
-            ClassIcon(button)
-            if type(edges) == "table" then
-                button:HookScript("OnEnter", function() for _, e in ipairs(edges) do e:SetVertexColor(unpack(UI.ACCENT)) end end)
-                button:HookScript("OnLeave", function() for _, e in ipairs(edges) do e:SetVertexColor(0, 0, 0, 1) end end)
-            end
+            Border(button)
+            local icon = button:CreateTexture(nil, "ARTWORK")
+            own[icon] = true
+            icon:SetPoint("TOPLEFT", 2, -2)
+            icon:SetPoint("BOTTOMRIGHT", -2, 2)
+            icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+            icon:SetTexture(button.class and CLASS_ICONS[button.class] or 134400)
+            local hover = Tex(button, "HIGHLIGHT", 0, { 1, 1, 1, 0.08 })
+            hover:SetAllPoints()
+            local function Reflect() icon:SetDesaturated(not button:IsEnabled()) icon:SetAlpha(button:IsEnabled() and 1 or 0.6) end
+            button:HookScript("OnEnable", Reflect)
+            button:HookScript("OnDisable", Reflect)
+            Reflect()
         end
         i = i + 1
     end
@@ -816,12 +809,6 @@ local function Place()
 end
 
 local function PlaceClassButtons(parent)
-    local i = 1
-    while _G["CalendarClassButton" .. i] do
-        local button = _G["CalendarClassButton" .. i]
-        ClassIcon(button)
-        i = i + 1
-    end
     local container = _G.CalendarClassButtonContainer
     if not container or type(parent) ~= "table" then return end
     container:ClearAllPoints()
