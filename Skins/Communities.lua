@@ -1163,6 +1163,23 @@ local function SkinMemberDetail(detail)
     SkinDropdown(detail.RankDropdown)
     SkinBackdropBox(detail.NoteBackground, 0.8)
     SkinBackdropBox(detail.OfficerNoteBackground, 0.8)
+    -- Blizzard sizes the frame for its own (smaller) fonts: grow it so the buttons sit below the notes
+    local function Fit()
+        local top = detail:GetTop()
+        local box = detail.OfficerNoteBackground
+        if not (type(box) == "table" and box:IsShown()) then box = detail.NoteBackground end
+        local bottom = type(box) == "table" and box:GetBottom()
+        if not (top and bottom) then return end
+        local need = top - bottom + 12 + 22 + 12 -- gap, button, bottom margin
+        if need > detail:GetHeight() + 0.5 then detail:SetHeight(need) end
+    end
+    -- Placed like the other guild sub-windows: top edge shared, right of the side tabs
+    local function Place()
+        if detail:IsShown() and ns.ResetWindowPosition then ns.ResetWindowPosition(detail, "guildsub", false) end
+        Fit()
+    end
+    detail:HookScript("OnShow", function() C_Timer.After(0, Place) end)
+    if detail.DisplayMember then hooksecurefunc(detail, "DisplayMember", function() C_Timer.After(0, Fit) end) end
 end
 
 -- old dialog template (guild log, edit text, news filter): corner border removed, mUI popup

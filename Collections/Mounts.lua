@@ -195,7 +195,7 @@ local function Changed()
     counts.dirty = true
     C.RefreshTab("mounts")
 end
-ns:On("MOUNT_JOURNAL_LIST_UPDATE", Changed)
+ns:On("MOUNT_JOURNAL_SEARCH_UPDATED", Changed) -- Forever has no MOUNT_JOURNAL_LIST_UPDATE
 ns:On("NEW_MOUNT_ADDED", Changed)
 ns:On("COMPANION_UPDATE", function() C.RefreshTab("mounts") end)
 ns:On("MOUNT_JOURNAL_USABILITY_CHANGED", function() C.RefreshTab("mounts") end)

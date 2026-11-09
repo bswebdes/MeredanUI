@@ -68,6 +68,11 @@ end)
 
 function ns:On(event, fn)
     if not handlers[event] then
+        -- events differ between Retail and Forever: an unknown one would throw and abort the calling file
+        if C_EventUtils and C_EventUtils.IsEventValid and not C_EventUtils.IsEventValid(event) then
+            if ns.Debug then ns.Debug("unknown event %s", event) end
+            return
+        end
         handlers[event] = {}
         eventFrame:RegisterEvent(event)
     end
