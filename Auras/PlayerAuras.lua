@@ -42,8 +42,6 @@ if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
 end
 local timeBars = {} -- [bar] = aura button
 local function ColorBar(bar, color) bar:SetStatusBarColor(color:GetRGB()) end -- reused: no closure per tick
--- Auras without a duration get no bar; IsZero may be secret -> alpha from boolean, never compared
-local function HideIfPermanent(bar, isZero) bar:SetAlphaFromBoolean(isZero, 0, 1) end
 -- Recolor every 0.2s from Blizzard's duration object (values may be secret: pass through only)
 C_Timer.NewTicker(0.2, function()
     if not barCurve then return end
@@ -51,10 +49,6 @@ C_Timer.NewTicker(0.2, function()
         -- Aura button visibility is secret - don't check it, just color all
         if button.GetAuraDuration then
             local ok, duration = pcall(button.GetAuraDuration, button)
-            if ok and duration and duration.IsZero then
-                local okZero, isZero = pcall(duration.IsZero, duration)
-                if okZero and isZero ~= nil then pcall(HideIfPermanent, bar, isZero) end
-            end
             if ok and duration and duration.EvaluateRemainingPercent then
                 local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
                 -- Color may be secret: pass through only, swallow errors (bar stays accent-colored)
@@ -124,8 +118,9 @@ local function InitButton(button, size, harmful)
     local time = texts:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
     button.Time = time
     if TimeBar() then
-        -- Bar instead of number: Blizzard drains it itself (SetTimerDuration)
-        local bar = CreateFrame("StatusBar", nil, button)
+        -- Bar instead of number: Blizzard drains it itself (SetTimerDuration). Child of the duration
+        -- cooldown: Blizzard clears (hides) that for auras without a duration, so the bar goes with it
+        local bar = CreateFrame("StatusBar", nil, cooldown)
         -- Inset by the border width: the border sits outside and then lines up with the icon
         local inset = ns.BORDER_PIXELS * ns.PixelSize()
         bar:SetPoint("TOPLEFT", button, "BOTTOMLEFT", inset, -ns.Snap(BAR_GAP))
