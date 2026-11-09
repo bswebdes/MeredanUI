@@ -58,6 +58,17 @@ ns:On("PLAYER_LOGIN", function()
         if mixin and mixin.Generate then hooksecurefunc(mixin, "Generate", FlattenMenu) end
     end
     if MenuVariants then
+        -- hover row: Blizzard's yellow quest-title glow -> soft Surf Green
+        if MenuVariants.CreateHighlight then
+            hooksecurefunc(MenuVariants, "CreateHighlight", function(frame)
+                local h = frame and frame.highlight
+                if h and h.SetColorTexture then
+                    local a = ns.UI.ACCENT
+                    h:SetColorTexture(a[1], a[2], a[3], 0.2)
+                    h:SetBlendMode("BLEND")
+                end
+            end)
+        end
         if MenuVariants.CreateRadio then
             hooksecurefunc(MenuVariants, "CreateRadio", function(_, frame) FlatSelection(frame, false) end)
         end
