@@ -196,6 +196,7 @@ local function SkinDropdown(dropdown)
     local UI = ns.UI
     Fade(dropdown.Background)
     Fade(dropdown.Arrow)
+    if dropdown.Text then dropdown.Text:SetTextColor(unpack(UI.TEXT)) end -- Blizzard's yellow label
     local bg = Tex(dropdown, "BACKGROUND", -8, UI.FIELD)
     bg:SetAllPoints()
     Edges(dropdown, bg)
@@ -368,6 +369,16 @@ local function SkinDayButton(button)
     Fade(button:GetNormalTexture())
     local bg = Tex(button, "BACKGROUND", -8, BOX)
     bg:SetAllPoints()
+    -- subtle stone grain on the cells (Blizzard's dark rock tile), so the grid isn't flat black
+    local grain = button:CreateTexture(nil, "BACKGROUND", nil, -7)
+    grain:SetTexture(374155, "REPEAT", "REPEAT") -- interface/framegeneral/ui-background-rock
+    grain:SetHorizTile(true)
+    grain:SetVertTile(true)
+    grain:SetAllPoints()
+    grain:SetDesaturated(true)
+    grain:SetVertexColor(0.55, 0.55, 0.55)
+    grain:SetAlpha(0.35)
+    own[grain] = true
     -- grid lines: right and bottom edge per cell (outer frame drawn around the grid)
     local px = ns.PixelSize()
     local right = Tex(button, "OVERLAY", 5, BLACK)
