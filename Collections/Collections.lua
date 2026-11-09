@@ -248,17 +248,17 @@ function C.Preview(parent)
     local bg = panel:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(0.045, 0.055, 0.055, 1)
-    local glow = panel:CreateTexture(nil, "BACKGROUND", nil, 1)
-    glow:SetPoint("BOTTOMLEFT")
-    glow:SetPoint("BOTTOMRIGHT")
-    glow:SetHeight(220)
-    glow:SetColorTexture(1, 1, 1, 1)
-    glow:SetGradient("VERTICAL", CreateColor(0.55, 0.8, 0.7, 0.08), CreateColor(0.55, 0.8, 0.7, 0))
+    -- Blizzard's mount journal backdrop, zoomed past its corner ornaments, faded over the mUI ground
+    local art = panel:CreateTexture(nil, "BACKGROUND", nil, 1)
+    art:SetAllPoints()
+    art:SetTexture(651761) -- Interface\\PetBattles\\MountJournal-BG
+    art:SetTexCoord(0.07, 0.715, 0.09, 0.91)
+    art:SetAlpha(0.55)
     ns.AddBorder(panel)
 
     local model = CreateFrame("PlayerModel", nil, panel)
     model:SetPoint("TOPLEFT", 10, -64)
-    model:SetPoint("BOTTOMRIGHT", -10, 96)
+    model:SetPoint("BOTTOMRIGHT", -10, 10)
     panel.model = model
     local facing, zoom = 0.6, 0
     model:EnableMouse(true)
@@ -286,8 +286,8 @@ function C.Preview(parent)
     panel.sub:SetPoint("TOPLEFT", panel.name, "BOTTOMLEFT", 0, -4)
     panel.sub:SetPoint("RIGHT", -60, 0)
 
-    panel.hint = UI.Text(panel, 11, "CENTER", { 0.36, 0.39, 0.38 })
-    panel.hint:SetPoint("BOTTOM", 0, 82)
+    panel.hint = UI.Text(panel, 11, "CENTER", { 0.6, 0.59, 0.56 })
+    panel.hint:SetPoint("BOTTOM", 0, 14)
     panel.hint:SetText(L["Drag to rotate · mouse wheel to zoom"])
 
     local function Box(anchorLeft)
@@ -323,6 +323,10 @@ function C.Preview(parent)
         self.lore.text:SetText(opts.lore or "")
         self.source:SetShown(opts.source ~= nil and opts.source ~= "")
         self.lore:SetShown(opts.lore ~= nil and opts.lore ~= "")
+        -- the model fills the panel down to the bottom; with info boxes it stops above them
+        local boxes = self.source:IsShown() or self.lore:IsShown()
+        model:SetPoint("BOTTOMRIGHT", -10, boxes and 88 or 10)
+        self.hint:SetPoint("BOTTOM", 0, boxes and 82 or 14)
         model:ClearModel()
         facing, zoom = 0.6, 0
         if opts.displayID and opts.displayID > 0 then
