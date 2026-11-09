@@ -67,6 +67,7 @@ Skins/Communities.lua
 Skins/ReadyCheck.lua
 Skins/DressUp.lua
 Skins/GroupFinder.lua
+Skins/Macros.lua
 NPC/NpcWindow.lua
 Config/AddonList.lua
 NPC/Merchant.lua

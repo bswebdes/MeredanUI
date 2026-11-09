@@ -140,6 +140,7 @@ local WINDOWS = {
     { "readyCheckWindow", "mUI ready check", "Ready check in the mUI look: who asked, time bar, ready / not ready." },
     { "addonListWindow", "mUI addon list", "Addon list in the mUI look: search, groups, this character or all, reload marker; opens from the game menu." },
     { "dressUpSkin", "Dressing room in mUI look", "Blizzard's dressing room in the mUI look, at the fixed window spot next to the other windows; functions stay Blizzard's." },
+    { "macroSkin", "Macros in mUI look", "Blizzard's macro window in the mUI look: macros on the left, large edit area on the right; functions stay Blizzard's." },
     { "groupFinderSkin", "Group finder in mUI look", "Blizzard's group finder in the mUI look: list your group, browse groups, who list; at the fixed window spot, functions stay Blizzard's." },
     { "merchantWindow", "mUI merchant window", "Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk." },
 }
@@ -151,7 +152,7 @@ local SKIN_GROUPS = {
     { L["World"], { "mapWindow", "flightWindow" } },
     { L["NPCs"], { "merchantWindow", "trainerWindow", "gossipWindow", "questWindow", "mailWindow", "tradeWindow", "auctionWindow" } },
     { L["Social"], { "friendsWindow", "guildSkin", "groupFinderSkin", "skinDialogs", "readyCheckWindow", "guildOverview", "guildInactive" } },
-    { L["System"], { "addonListWindow" } },
+    { L["System"], { "addonListWindow", "macroSkin" } },
 }
 
 -- Pages --------------------------------------------------------------------------------

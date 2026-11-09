@@ -1381,6 +1381,8 @@ if GetLocale() == "deDE" then
     L["Dressing room in mUI look"] = "Anprobe im mUI-Look"
     L["Blizzard's dressing room in the mUI look, at the fixed window spot next to the other windows; functions stay Blizzard's."] = "Blizzards Anprobe im mUI-Look, am festen Fensterplatz neben den anderen Fenstern; Funktionen bleiben Blizzards."
     L["Group finder in mUI look"] = "Gruppensuche im mUI-Look"
+    L["Macros in mUI look"] = "Makros im mUI-Look"
+    L["Blizzard's macro window in the mUI look: macros on the left, large edit area on the right; functions stay Blizzard's."] = "Blizzards Makrofenster im mUI-Look: Makros links, großes Textfeld rechts; Funktionen bleiben Blizzards."
     L["Deadmines, Wailing Caverns"] = "Todesminen, Höhlen des Wehklagens"
     L["Blizzard's group finder in the mUI look: list your group, browse groups, who list; at the fixed window spot, functions stay Blizzard's."] = "Blizzards Gruppensuche im mUI-Look: Gruppe eintragen, Gruppen durchsuchen, Wer-Liste; am festen Fensterplatz, Funktionen bleiben Blizzards."
 end
