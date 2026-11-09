@@ -144,6 +144,11 @@ local WINDOWS = {
     { "calendarSkin", "Calendar in mUI look", "Blizzard's calendar in the mUI look: flat day grid, event windows on the right; functions stay Blizzard's." },
     { "stableSkin", "Stable in mUI look", "Blizzard's hunter stable in the mUI look at the fixed window spot; functions stay Blizzard's." },
     { "scoreboardSkin", "Scoreboard in mUI look", "Blizzard's battleground scoreboard and match results in the mUI look; position and functions stay Blizzard's." },
+    { "socketSkin", "Item socketing in mUI look", "Blizzard's socketing window in the mUI look: gem slots in socket colors; functions stay Blizzard's." },
+    { "tabardSkin", "Tabard designer in mUI look", "Blizzard's tabard designer in the mUI look: model left, emblem choices and crest right; functions stay Blizzard's." },
+    { "petitionSkin", "Guild charter in mUI look", "Guild registrar and guild charter in the mUI look on parchment; functions stay Blizzard's." },
+    { "clockSkin", "Clock in mUI look", "Blizzard's clock (alarm, time format) and stopwatch in the mUI look; functions stay Blizzard's." },
+    { "deathRecapSkin", "Death recap in mUI look", "Blizzard's death recap in the mUI look, killing blow in the header; functions stay Blizzard's." },
     { "macroSkin", "Macros in mUI look", "Blizzard's macro window in the mUI look: macros on the left, large edit area on the right; functions stay Blizzard's." },
     { "groupFinderSkin", "Group finder in mUI look", "Blizzard's group finder in the mUI look: list your group, browse groups, who list; at the fixed window spot, functions stay Blizzard's." },
     { "merchantWindow", "mUI merchant window", "Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk." },
@@ -152,11 +157,11 @@ local WINDOW_BY_KEY = {}
 for _, entry in ipairs(WINDOWS) do WINDOW_BY_KEY[entry[1]] = entry end
 -- Skins page in groups
 local SKIN_GROUPS = {
-    { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow", "dressUpSkin", "collectionsWindow", "stableSkin" } },
+    { L["Character"], { "characterWindow", "spellbookWindow", "talentWindow", "professionWindow", "legacyWindow", "dressUpSkin", "collectionsWindow", "stableSkin", "socketSkin", "tabardSkin" } },
     { L["World"], { "mapWindow", "flightWindow" } },
     { L["NPCs"], { "merchantWindow", "trainerWindow", "gossipWindow", "questWindow", "mailWindow", "tradeWindow", "auctionWindow" } },
-    { L["Social"], { "friendsWindow", "guildSkin", "groupFinderSkin", "scoreboardSkin", "skinDialogs", "readyCheckWindow", "guildOverview", "guildInactive" } },
-    { L["System"], { "addonListWindow", "macroSkin", "calendarSkin" } },
+    { L["Social"], { "friendsWindow", "guildSkin", "groupFinderSkin", "scoreboardSkin", "petitionSkin", "skinDialogs", "readyCheckWindow", "guildOverview", "guildInactive" } },
+    { L["System"], { "addonListWindow", "macroSkin", "calendarSkin", "clockSkin", "deathRecapSkin" } },
 }
 
 -- Pages --------------------------------------------------------------------------------
