@@ -71,9 +71,8 @@ end
 
 local function BagStyleItems()
     return {
-        { value = "categories", label = L["Sections (like BetterBags)"] },
+        { value = "categories", label = L["Sections"] },
         { value = "single", label = L["One big bag"] },
-        { value = "separate", label = L["Separate bags"] },
     }
 end
 
@@ -623,9 +622,9 @@ local PAGES = {
         build = function(page)
             page:AddTitle(L["Bags"], L["One window for all bags, sorted into sections."])
             page:AddCheckbox(L["mUI bags"], On("bags"), Setter("bags"), RELOAD)
-            page:AddDropdown(L["Layout"], BagStyleItems, function() return ns.db.bagsStyle or "categories" end,
+            page:AddDropdown(L["Layout"], BagStyleItems, function() return ns.db.bagsStyle == "single" and "single" or "categories" end,
                 Setter("bagsStyle", function() if ns.RefreshBags then ns.RefreshBags() end end),
-                Help(L["Sections like BetterBags, one big bag, or separate bags. Alt+right-click an item to put it into your own section."]))
+                Help(L["Sections or one big bag. Alt+right-click an item to put it into your own section."]))
             page:AddCheckbox(L["Sell junk and repair at merchants"], On("bagsAutoJunk"), Setter("bagsAutoJunk"),
                 Help(L["Repairs use the guild bank when allowed."]))
             page:AddCheckbox(L["Protect profession tools"], On("protectTools"), Setter("protectTools"),

@@ -19,10 +19,7 @@ local _, ns = ...
 local L = ns.L
 
 local SIZE = 36                  -- item buttons
--- button gap and window padding per style (see Layout/ApplyPad): sections and single bag
--- roomier, separate bags compact like Blizzard
-local SPACING = { categories = { gap = 6, pad = 14 }, single = { gap = 6, pad = 14 }, separate = { gap = 4, pad = 10 } }
-local GAP, PAD = 4, 10
+local GAP, PAD = 6, 14
 local HEADER = 16                -- section header height
 local SECTION_GAP = 10           -- gap between sections
 local COLUMN_SLOTS = 7            -- slots per column (like BetterBags)
@@ -30,7 +27,30 @@ local COLUMN_GAP = 20             -- gap between columns
 local MIN_COLUMNS, MAX_COLUMNS = 2, 4
 local BAGS = { 0, 1, 2, 3, 4, 5 } -- backpack, bags 1-4, reagent bag
 local REAGENT_BAG = 5
-local view = "bags" -- tab: "bags" (backpack + bags) or "reagents" (reagent bag)
+-- Forever has the classic keyring (own tab, only while it holds keys)
+local KEYRING = ns.IS_FOREVER and Enum.BagIndex and Enum.BagIndex.Keyring or nil
+if KEYRING then BAGS[#BAGS + 1] = KEYRING end
+local view = "bags" -- tab: "bags" (backpack + bags), "reagents" (reagent bag), "keys" (keyring)
+
+local function ViewOf(bag)
+    if bag == REAGENT_BAG then return "reagents" elseif bag == KEYRING then return "keys" end
+    return "bags"
+end
+
+local function HasKeys()
+    if not (KEYRING and C_ActionBar.ShouldShowKeyring and C_ActionBar.ShouldShowKeyring()) then return false end
+    for slot = 1, C_Container.GetContainerNumSlots(KEYRING) do
+        if C_Container.GetContainerItemID(KEYRING, slot) then return true end
+    end
+    return false
+end
+
+-- special bags (quiver, ammo pouch, soul/herb bags ...): only accept matching items
+local function IsSpecialBag(bag)
+    if bag == 0 or bag == REAGENT_BAG or bag == KEYRING then return false end
+    local _, family = C_Container.GetContainerNumFreeSlots(bag)
+    return family ~= nil and family ~= 0
+end
 
 local NEW, JUNK, OTHER, FREE = "New", "Junk", "Other", "Free"
 -- free slots in special bags (quiver, ammo pouch, soul/herb bags ...) are counted separately:
@@ -400,31 +420,22 @@ end
 -- Styles (Settings > Bags):
 --   "categories" - sections like BetterBags (default)
 --   "single"     - one sorted grid without headers (New first, then item class)
---   "separate"   - one box per bag in bag order; the window is the backpack, the other bags
---                  stack above it (like Blizzard)
--- Columns: combined bag 10 (like Blizzard), separate bags 5 (Blizzard uses 4, too narrow with
--- the mUI border)
+-- Columns: at least 10 (like Blizzard)
 local SINGLE_MIN_COLS, SINGLE_MAX_COLS = 10, 16
-local SEPARATE_COLS = 5
-local SLOTS_MIN_WIDTH = 240 -- backpack window with bag slots shown (next to the gold)
-local BOX_GAP = 8
-local bagBoxes = {} -- "separate": box per bag (except backpack)
 
 local function BagStyle()
-    local style = ns.db.bagsStyle
-    return (style == "single" or style == "separate") and style or "categories"
+    return ns.db.bagsStyle == "single" and "single" or "categories" -- old "separate" -> sections
 end
 
 -- read all slots of visible bags: items (with category) and empty slots per bag
-local function Collect(allBags)
+local function Collect()
     ScanNewItems()
     local items, empties, free = {}, {}, 0
     local special = { count = 0, key = nil, button = nil }
     for _, bag in ipairs(BAGS) do
-        local inView = allBags or ((bag == REAGENT_BAG) == (view == "reagents"))
-        local numSlots = inView and C_Container.GetContainerNumSlots(bag) or 0
+        local numSlots = ViewOf(bag) == view and C_Container.GetContainerNumSlots(bag) or 0
         local _, family = C_Container.GetContainerNumFreeSlots(bag)
-        local isSpecial = bag ~= 0 and bag ~= REAGENT_BAG and family and family ~= 0
+        local isSpecial = IsSpecialBag(bag)
         empties[bag] = {}
         for slot = 1, numSlots do
             local button = GetButton(bag, slot)
@@ -589,13 +600,18 @@ local function SingleSort(a, b)
     return ItemSort(a, b)
 end
 
--- single bag: every slot individually, including empty ones (no "17 free" tile)
+-- single bag: every slot individually, including empty ones (no "17 free" tile); empty slots of
+-- special bags (quiver ...) come last
 local function LayoutSingle(items, empties)
     table.sort(items, SingleSort)
-    for _, bag in ipairs(BAGS) do
-        for _, entry in ipairs(empties[bag] or {}) do
-            if entry.button.muiFree then entry.button.muiFree:SetText("") end
-            items[#items + 1] = entry
+    for pass = 1, 2 do
+        for _, bag in ipairs(BAGS) do
+            if IsSpecialBag(bag) == (pass == 2) then
+                for _, entry in ipairs(empties[bag] or {}) do
+                    if entry.button.muiFree then entry.button.muiFree:SetText("") end
+                    items[#items + 1] = entry
+                end
+            end
         end
     end
     local cols = SINGLE_MIN_COLS
@@ -604,84 +620,21 @@ local function LayoutSingle(items, empties)
     return cols * (SIZE + GAP) - GAP, height
 end
 
-local function GetBox(bag)
-    local box = bagBoxes[bag]
-    if box then return box end
-    box = CreateFrame("Frame", nil, window)
-    box:SetFrameLevel(window:GetFrameLevel())
-    ns.UI.Box(box, ns.STYLE.panelColor)
-    box.title = ns.CreateText(box, 12, "LEFT", "OUTLINE")
-    box.title:SetPoint("TOPLEFT", PAD, -PAD)
-    box.title:SetTextColor(unpack(ns.UI.ACCENT))
-    bagBoxes[bag] = box
-    return box
-end
-
-local function LayoutSeparate(items, empties)
-    local perBag = {}
-    for _, bag in ipairs(BAGS) do perBag[bag] = {} end
-    for _, entry in ipairs(items) do table.insert(perBag[entry.bag], entry) end
-    for _, bag in ipairs(BAGS) do
-        for _, entry in ipairs(empties[bag]) do table.insert(perBag[bag], entry) end
-        table.sort(perBag[bag], function(a, b) return a.slot < b.slot end)
-    end
-    -- backpack in the window (grid left, window at least as wide as its buttons)
-    local gridWidth = SEPARATE_COLS * (SIZE + GAP) - GAP
-    local width = ns.db.bagsShowSlots and math.max(gridWidth, SLOTS_MIN_WIDTH) or gridWidth
-    local height = PlaceGrid(perBag[0], SEPARATE_COLS, 0, 0)
-    local windowHeight = height + 2 * PAD + 58 + 30
-    -- other bags as boxes: column 0 stacks upward above the window (right aligned),
-    -- further columns go to the left of the window
-    local boxWidth = gridWidth + 2 * PAD
-    local windowWidth = width + 2 * PAD
-    local _, _, _, _, bottom = window:GetPoint(1) -- distance of the bottom edge to the screen (fixed anchor)
-    bottom = bottom or 0
-    local limit = UIParent:GetHeight() - ns.SCREEN_MARGIN
-    local col, y = 0, windowHeight + BOX_GAP
-    for i = 1, #BAGS - 1 do
-        local bag = BAGS[i + 1]
-        local list = perBag[bag]
-        local box = GetBox(bag)
-        if #list == 0 then
-            box:Hide()
-        else
-            local gridHeight = PlaceGrid(list, SEPARATE_COLS, PAD, PAD + HEADER, box)
-            local boxHeight = gridHeight + 2 * PAD + HEADER
-            if bottom + y + boxHeight > limit and y > 0 then col, y = col + 1, 0 end
-            box:SetSize(boxWidth, boxHeight)
-            box:ClearAllPoints()
-            local x = col == 0 and 0 or -(windowWidth + BOX_GAP + (col - 1) * (boxWidth + BOX_GAP))
-            box:SetPoint("BOTTOMRIGHT", window, "BOTTOMRIGHT", x, y)
-            box.title:SetText(bag == REAGENT_BAG and L["Reagent bag"] or C_Container.GetBagName(bag) or "")
-            box:Show()
-            y = y + boxHeight + BOX_GAP
-        end
-    end
-    return width, height
-end
-
 function Layout()
     if not window then return end
     if not categoryOf then BuildLookup() end
     dirty = false
 
     local style = BagStyle()
-    local spacing = SPACING[style]
-    if spacing.gap ~= GAP or spacing.pad ~= PAD then
-        GAP, PAD = spacing.gap, spacing.pad
-        window.ApplyPad()
-    end
-    if view == "reagents" and (style == "separate" or C_Container.GetContainerNumSlots(REAGENT_BAG) == 0) then
+    if (view == "reagents" and C_Container.GetContainerNumSlots(REAGENT_BAG) == 0)
+        or (view == "keys" and not HasKeys()) then
         view = "bags"
     end
     for _, header in ipairs(headers) do header:Hide() end
-    for _, box in pairs(bagBoxes) do box:Hide() end
-    local items, empties, free, special = Collect(style == "separate")
+    local items, empties, free, special = Collect()
     local width, height
     if style == "single" then
         width, height = LayoutSingle(items, empties)
-    elseif style == "separate" then
-        width, height = LayoutSeparate(items, empties)
     else
         width, height = LayoutCategories(items, FirstEmpty(empties), free, special)
     end
@@ -699,6 +652,7 @@ function Layout()
     freeText.muiFree, freeText.muiSpecial, freeText.muiSpecialKey = free, special.count, special.key
     goldText:SetText(GetMoneyString(GetMoney(), true))
     window.UpdateTabs()
+    window.PlaceBagSlots()
     for bag, slotButton in pairs(bagSlots) do
         slotButton.icon:SetTexture(GetInventoryItemTexture("player", C_Container.ContainerIDToInventoryID(bag)))
     end
@@ -791,6 +745,7 @@ local function CreateWindow()
     end
     Tab("bags", L["Bags"]):SetPoint("TOPLEFT", PAD, -PAD)
     Tab("reagents", L["Reagents"]):SetPoint("LEFT", tabs.bags, "RIGHT", 14, 0)
+    Tab("keys", L["Keys"])
     function window.ShowView(key)
         if view ~= key then
             view = key
@@ -798,8 +753,10 @@ local function CreateWindow()
         end
     end
     function window.UpdateTabs()
-        -- "separate" style: the reagent bag gets its own box instead of a tab
-        tabs.reagents:SetShown(BagStyle() ~= "separate" and C_Container.GetContainerNumSlots(REAGENT_BAG) > 0)
+        tabs.reagents:SetShown(C_Container.GetContainerNumSlots(REAGENT_BAG) > 0)
+        tabs.keys:SetShown(HasKeys())
+        tabs.keys:ClearAllPoints()
+        tabs.keys:SetPoint("LEFT", tabs.reagents:IsShown() and tabs.reagents or tabs.bags, "RIGHT", 14, 0)
         for key, tab in pairs(tabs) do
             local active = key == view
             tab.text:SetTextColor(unpack(active and UI.ACCENT or UI.MUTED))
@@ -835,7 +792,6 @@ local function CreateWindow()
     local slotsToggle = UI.IconButton(window, "Bag", function()
         ns.db.bagsShowSlots = not ns.db.bagsShowSlots
         UpdateBagSlots()
-        if BagStyle() == "separate" then Layout() end -- window width depends on it
     end, 22)
     slotsToggle:SetPoint("RIGHT", sort, "LEFT", -4, 0)
     slotsToggle:HookScript("OnEnter", function(self)
@@ -898,16 +854,9 @@ local function CreateWindow()
     goldText:SetPoint("BOTTOMLEFT", PAD, PAD + 4)
 
     -- bag bar bottom right: view bags, swap (drag onto), highlight contents
-    local previous
     for bag = 5, 1, -1 do
         local slotButton = CreateFrame("Button", nil, window)
         slotButton:SetSize(22, 22)
-        if previous then
-            slotButton:SetPoint("RIGHT", previous, "LEFT", -4, 0)
-        else
-            slotButton:SetPoint("BOTTOMRIGHT", -PAD, PAD)
-        end
-        previous = slotButton
         ns.AddSlotBackground(slotButton)
         ns.AddBorder(slotButton)
         slotButton.icon = slotButton:CreateTexture(nil, "ARTWORK")
@@ -947,24 +896,26 @@ local function CreateWindow()
         end)
         bagSlots[bag] = slotButton
     end
-    window.UpdateBagSlots()
-
-    -- padding changes with the style: re-anchor everything at the edges
-    function window.ApplyPad()
-        tabs.bags:ClearAllPoints()
-        tabs.bags:SetPoint("TOPLEFT", PAD, -PAD)
-        close:ClearAllPoints()
-        close:SetPoint("TOPRIGHT", -PAD + 2, -PAD + 2)
-        searchBox:ClearAllPoints()
-        searchBox:SetPoint("TOPLEFT", PAD, -PAD - 24)
-        searchBox:SetPoint("TOPRIGHT", -PAD, -PAD - 24)
-        content:ClearAllPoints()
-        content:SetPoint("TOPLEFT", PAD, -PAD - 58)
-        goldText:ClearAllPoints()
-        goldText:SetPoint("BOTTOMLEFT", PAD, PAD + 4)
-        bagSlots[5]:ClearAllPoints()
-        bagSlots[5]:SetPoint("BOTTOMRIGHT", -PAD, PAD)
+    -- order left to right: normal bags, special bags (quiver, ammo pouch ...), reagent bag
+    function window.PlaceBagSlots()
+        local order = {}
+        for bag = 1, 4 do if not IsSpecialBag(bag) then order[#order + 1] = bag end end
+        for bag = 1, 4 do if IsSpecialBag(bag) then order[#order + 1] = bag end end
+        order[#order + 1] = REAGENT_BAG
+        local previous
+        for i = #order, 1, -1 do
+            local slotButton = bagSlots[order[i]]
+            slotButton:ClearAllPoints()
+            if previous then
+                slotButton:SetPoint("RIGHT", previous, "LEFT", -4, 0)
+            else
+                slotButton:SetPoint("BOTTOMRIGHT", -PAD, PAD)
+            end
+            previous = slotButton
+        end
     end
+    window.PlaceBagSlots()
+    window.UpdateBagSlots()
 
     window:SetScript("OnShow", function()
         if dirty then Layout() end
