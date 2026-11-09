@@ -92,6 +92,8 @@ Map/MapExtras.lua
 Map/DungeonMapData.lua
 Map/DungeonMapDataForever.lua
 Map/DungeonMap.lua
+Map/DungeonPinData.lua
+Map/DungeonPins.lua
 Map/WorldMap.lua
 Map/FlightMap.lua
 Social/Friends.lua

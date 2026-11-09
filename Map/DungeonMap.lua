@@ -77,6 +77,7 @@ local function ShowFloor(index)
         chip.text:SetTextColor(unpack(on and ns.UI.ACCENT or ns.UI.TEXT))
     end
     if view.onChange then view.onChange() end
+    if ns.DungeonPins then ns.DungeonPins.Refresh() end
 end
 
 local function LayoutChips()
@@ -134,6 +135,7 @@ function view.Hide()
     view.frame:Hide()
     view.instance = nil
     if view.onChange then view.onChange() end
+    if ns.DungeonPins then ns.DungeonPins.Refresh() end
 end
 
 function view.IsShown() return view.frame and view.frame:IsShown() or false end
