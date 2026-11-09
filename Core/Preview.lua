@@ -11,7 +11,7 @@ local groupKind = "group"
 local function Parts()
     return {
         ns.ReagentsDemo, ns.AurasDemo, ns.MinimapDemo, ns.FlightTimerDemo, ns.DamageMeterDemo,
-        ns.TooltipDemo, ns.ToastsDemo, ns.ChatDemo, ns.CombatAlertDemo, ns.ShardTransferDemo, ns.ReadyCheckDemo,
+        ns.TooltipDemo, ns.ToastsDemo, ns.QueueStatusDemo, ns.ChatDemo, ns.CombatAlertDemo, ns.ShardTransferDemo, ns.ReadyCheckDemo,
         not ns.IS_FOREVER and ns.BossModsDemo or nil, not ns.IS_FOREVER and ns.QuestDemo or nil,
     }
 end

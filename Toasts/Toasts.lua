@@ -56,6 +56,8 @@ local function PlaceHolder()
 end
 
 ns.PlaceToastHolder = PlaceHolder -- called by the mUI meter on show/hide
+ns.TOAST_WIDTH, ns.TOAST_HEIGHT, ns.TOAST_GAP = WIDTH, HEIGHT, GAP
+ns.ToastHolder = holder
 
 -- Toast frames ------------------------------------------------------------------------------
 
@@ -183,8 +185,9 @@ end
 
 -- Stack positions: new toasts snap in place, existing ones slide up in OnUpdate
 function Layout()
+    local top = ns.toastReserve or 0 -- space taken by sticky entries (Toasts/QueueStatus.lua)
     for i, toast in ipairs(shown) do
-        toast.targetY = -(i - 1) * (ns.Snap(HEIGHT) + ns.Snap(GAP))
+        toast.targetY = -top - (i - 1) * (ns.Snap(HEIGHT) + ns.Snap(GAP))
         if not toast.y then
             toast.y = toast.targetY
             toast:ClearAllPoints()
@@ -600,6 +603,12 @@ ns.ToastsDemo = {
     end,
     IsActive = function() return demoTicker ~= nil end,
 }
+
+-- Sticky entries changed their height: move the toast stack (slides like a removed toast)
+function ns.ToastRelayout()
+    if #shown == 0 then PlaceHolder() end
+    Layout()
+end
 
 -- For other modules: returns true if a toast is shown; false (toasts off) means show a fallback
 function ns.AddToast(data)

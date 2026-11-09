@@ -122,6 +122,7 @@ Chat/Reputation.lua
 Chat/Glyphs.lua
 Chat/RPMode.lua
 Toasts/Toasts.lua
+Toasts/QueueStatus.lua
 Toasts/BNetToasts.lua
 Toasts/ShardTransfer.lua
 Toasts/CombatAlert.lua
