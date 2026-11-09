@@ -23,7 +23,7 @@ Zum Einfügen beim Anlegen des Projekts auf CurseForge.
 One addon, one look, one settings window (`/mui`).
 
 ### Why mUI?
-Like many players, I used ElvUI for years and knew it inside out. But with every expansion it grew more
+Like many players, I used one of the big all-in-one UIs for years and knew it inside out. But with every expansion it grew more
 features, more options, more to set up – until I simply didn't enjoy it anymore. I went looking for
 something simpler and never really found it.
 
