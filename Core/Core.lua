@@ -450,7 +450,7 @@ function ns.AddCommand(name, help, fn, dev)
     commands[name] = { help = help, fn = fn, dev = dev }
 end
 
--- Commands without help text (aliases, "help") work but aren't listed
+-- Only player commands are listed; aliases, "help" and developer commands work but never show
 local function ShowHelp()
     ns.Print(L["Commands:"])
     local names = {}
@@ -465,12 +465,6 @@ local function ShowHelp()
     for _, name in ipairs(names) do
         local cmd = commands[name]
         if not cmd.dev then Line(name, cmd.help) end
-    end
-    if not ns.db.debug then return end
-    print("  " .. L["Developer"] .. ":")
-    for _, name in ipairs(names) do
-        local cmd = commands[name]
-        if cmd.dev then Line(name, cmd.help) end
     end
 end
 
