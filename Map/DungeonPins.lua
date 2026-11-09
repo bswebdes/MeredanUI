@@ -306,7 +306,8 @@ local function CreateTray()
     local UI = ns.UI
     local view = ns.DungeonMapView
     tray = CreateFrame("Frame", nil, view.frame)
-    tray:SetPoint("TOPRIGHT", -12, -48)
+    -- beside the map (over the quest log column), never over the art
+    tray:SetPoint("TOPLEFT", view.frame, "TOPRIGHT", 12, 0)
     tray:SetWidth(230)
     tray:SetFrameLevel(view.frame:GetFrameLevel() + 20)
     tray:EnableMouse(true)
