@@ -1163,6 +1163,36 @@ local function SkinMemberDetail(detail)
     SkinDropdown(detail.RankDropdown)
     SkinBackdropBox(detail.NoteBackground, 0.8)
     SkinBackdropBox(detail.OfficerNoteBackground, 0.8)
+    -- wider, clear hierarchy: big name, small grey labels/level, normal values, smaller note text
+    local UI, W = ns.UI, 260
+    detail:SetWidth(W)
+    local function Font(fs, size, role, color)
+        if type(fs) ~= "table" or not fs.SetFont then return end
+        ns.SetFont(fs, size, "", role)
+        if color then fs:SetTextColor(unpack(color)) end
+    end
+    Font(detail.Name, 15, "bold", UI.TEXT)
+    Font(detail.Level, 11, nil, UI.MUTED)
+    for _, key in ipairs({ "ZoneLabel", "RankLabel", "OnlineLabel", "NoteLabel", "OfficerNoteLabel" }) do
+        Font(detail[key], 11, nil, UI.MUTED)
+    end
+    for _, key in ipairs({ "ZoneText", "RankText", "OnlineText" }) do Font(detail[key], 12, nil, UI.TEXT) end
+    for _, pair in ipairs({ { "NoteBackground", "PersonalNoteText" }, { "OfficerNoteBackground", "OfficerNoteText" } }) do
+        local box = detail[pair[1]]
+        if type(box) == "table" then
+            box:SetWidth(W - 32)
+            local text = box[pair[2]] or detail[pair[2]]
+            if type(text) == "table" then text:SetWidth(W - 48) Font(text, 11, nil, UI.TEXT) end
+        end
+    end
+    local remove, invite = detail.RemoveButton, detail.GroupInviteButton
+    if remove and invite then
+        local bw = (W - 32 - 8) / 2
+        remove:SetWidth(bw)
+        invite:SetWidth(bw)
+        invite:ClearAllPoints()
+        invite:SetPoint("LEFT", remove, "RIGHT", 8, 0)
+    end
     -- Blizzard sizes the frame for its own (smaller) fonts: grow it so the buttons sit below the notes
     local function Fit()
         local top = detail:GetTop()
