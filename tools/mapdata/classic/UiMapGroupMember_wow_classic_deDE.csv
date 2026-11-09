@@ -1,0 +1,265 @@
+ID,Name_lang,UiMapGroupID,UiMapID,FloorIndex,RelativeHeightIndex
+485,Tiefenschachtmine,139,38,1,0
+486,"Untere Minen",139,39,2,0
+487,Schwarzfelsspitze,140,33,14,0
+488,Schwarzfelshöhlen,140,34,15,0
+489,Schwarzfelstiefen,140,35,16,0
+493,"Kluft der Schatten",142,86,1,0
+496,"Die Tückische Grotte",144,67,21,0
+497,Faulsporenhöhle,144,68,22,0
+498,"Burg Tiragarde",145,3,10,0
+499,Haupthaus,145,4,11,0
+500,"Vorderer Höhlenteil",146,60,4,0
+501,"Hinterer Höhlenteil",146,61,5,0
+502,"Der Hof",147,310,1,0
+503,Speisesaal,147,311,2,0
+504,"Die Verwaiste Höhle",147,312,3,0
+505,"Tieferes Observatorium",147,313,4,0
+506,"Oberes Observatorium",147,314,5,0
+507,"Lord Godfreys Kammer",147,315,6,0
+508,"Der Wehrgang",147,316,7,0
+509,"Die Todesminen",148,291,1,0
+510,"Eiserne Bucht",148,292,2,0
+511,"Der Teich von Ask'Ar",149,221,1,0
+512,Mondschreinsanktum,149,222,2,0
+513,"Der Vergessene Teich",149,223,3,0
+514,"Halle der Bewahrer",150,230,1,0
+515,"Khaz'goroths Sitz",150,231,2,0
+516,"Die Halle der Zahnräder",151,226,1,0
+517,"Der Schlafsaal",151,227,2,0
+518,Startrampe,151,228,3,0
+519,Tüftlerhof,151,229,4,0
+520,Friedhof,152,302,0,0
+521,Bibliothek,152,303,1,0
+522,Arsenal,152,304,2,0
+523,Kathedrale,152,305,3,0
+524,Tazz'Alor,153,250,1,0
+525,Listspinnertunnel,153,251,2,0
+526,Hordemar,153,252,3,0
+527,Schwarzfausthalle,153,253,4,0
+528,"Halycons Hort",153,254,5,0
+529,"Kammer der Schlachten",153,255,6,0
+530,Gefängnisblock,154,242,1,0
+531,Schattenschmiede,154,243,2,0
+532,"Das Reliquiarium",155,306,1,0
+533,"Kammer der Beschwörung",155,307,2,0
+534,"Oberes Arbeitszimmer",155,308,3,0
+535,"Arbeitszimmer des Direktors",155,309,4,0
+536,Kreuzzüglerplatz,156,317,1,0
+537,"Der Spießrutenlauf",156,318,2,0
+538,"Höhlen von Maraudon",157,280,1,0
+539,"Zaetars Grab",157,281,2,0
+540,Tiefenbahn,158,499,1,0
+541,"Bizmos Boxbar",158,500,2,0
+542,Gordokhallen,159,235,1,0
+543,Hauptstadtgärten,159,236,2,0
+544,"Hof der Hochgeborenen",159,237,3,0
+545,"Gefängnis von Immol'thar",159,238,4,0
+546,Wucherborkenviertel,159,239,5,0
+547,"Schrein von Eldretharr",159,240,6,0
+548,"Garnison des Drachenmals",160,287,1,0
+549,"Hallen des Zwists",160,288,2,0
+550,"Blutrote Labore",160,289,3,0
+551,"Nefarians Unterschlupf",160,290,4,0
+552,"Untergrund des Schwarmbaus",161,319,1,0
+553,"Die Tempeltore",161,320,2,0
+554,"Höhle von C'Thun",161,321,3,0
+555,Bedienstetenunterkünfte,162,350,1,0
+556,"Obere Nobelställe",162,351,2,0
+557,"Der Bankettsaal",162,352,3,0
+558,"Die Gästezimmer",162,353,4,0
+559,"Balkon des Opernsaals",162,354,5,0
+560,"Terrasse des Meisters",162,355,6,0
+561,"Untere Eingestürzte Treppe",162,356,7,0
+562,"Obere Eingestürzte Treppe",162,357,8,0
+563,Menagerie,162,358,9,0
+564,"Bibliothek des Wächters",162,359,10,0
+565,"Das Warenlager",162,360,11,0
+566,"Obere Bibliothek",162,361,12,0
+567,"Die Himmelswacht",162,362,13,0
+568,"Halle der Spiele",162,363,14,0
+569,"Medivhs Gemächer",162,364,15,0
+570,"Die Energiekammer",162,365,16,0
+571,Netherraum,162,366,17,0
+572,"Das Konstruktviertel",163,162,1,0
+573,"Das Arachnidenviertel",163,163,2,0
+574,"Das Militärviertel",163,164,3,0
+575,"Das Seuchenviertel",163,165,4,0
+576,"Die Untere Nekropole",163,166,5,0
+577,"Die Obere Nekropole",163,167,6,0
+578,"Die Dampfkammer",164,263,1,0
+579,"Die Kühlteiche",164,264,2,0
+580,"Stasisblock: Trion",165,269,1,0
+581,"Stasisblock: Maximus",165,270,2,0
+582,Eindämmungskern,165,271,3,0
+583,"Die Mechanar",166,267,1,0
+584,Berechnungskammer,166,268,2,0
+585,Sethekkversteck,167,258,1,0
+586,"Hallen der Trauer",167,259,2,0
+587,"Hallen des Jenseits",168,256,1,0
+588,"Brücke der Seelen",168,257,2,0
+589,"Kanäle von Karabor",169,340,0,0
+590,"Der Schwarze Tempel",169,339,1,0
+591,"Zuflucht der Schatten",169,341,2,0
+592,"Hallen der Pein",169,342,3,0
+593,"Blutschattens Wacht",169,343,4,0
+594,"Hof der Irdischen Gelüste",169,344,5,0
+595,Kommandoraum,169,345,6,0
+596,Tempelspitze,169,346,7,0
+597,Dalaran,170,125,1,0
+598,"Die Schattenseite",170,126,2,0
+599,"Vorbereitung der Njorndir",171,133,1,0
+600,"Aufstieg der Drachenschinder",171,134,2,0
+601,"Tyrs Terrasse",171,135,3,0
+602,"Untere Spitze",172,136,1,0
+603,"Obere Spitze",172,137,2,0
+604,"Ring der Varianz",173,143,1,0
+605,"Ring der Akzeleration",173,144,2,0
+606,"Ring der Transmutation",173,145,3,0
+607,"Ring der Abgleichung",173,146,4,0
+608,Sonnenbrunnenplateau,174,335,0,0
+609,"Schrein der Finsternis",174,336,1,0
+610,"Zuflucht des Großmagisters",175,348,1,0
+611,Beobachtungsplatz,175,349,2,0
+612,"Das Ausmerzen von Stratholme",176,130,0,0
+613,Stratholme,176,131,1,0
+614,"Die Vorhallen von Drak'Tharon",177,160,1,0
+615,"Aussichtspunkt von Drak'Tharon",177,161,2,0
+616,"Die Brutgrube",178,157,1,0
+617,"Hadronox' Hort",178,158,2,0
+618,"Das Vergoldete Tor",178,159,3,0
+619,"Unnachgiebige Garnison",179,138,1,0
+620,"Straße der Schöpfer",179,139,2,0
+621,Ulduar,180,147,0,0
+622,"Die Vorkammer von Ulduar",180,148,1,0
+623,"Das Innere Sanktum von Ulduar",180,149,2,0
+624,"Das Gefängnis von Yogg-Saron",180,150,3,0
+625,"Der Funke der Imagination",180,151,4,0
+626,"Das Gedankenauge",180,152,5,0
+627,"Die Untere Zitadelle",181,186,1,0
+628,"Das Schädelbollwerk",181,187,2,0
+629,"Dom des Todesbringers",181,188,3,0
+630,"Der Hort der Frostkönigin",181,189,4,0
+631,"Der Obere Bereich",181,190,5,0
+632,"Königliche Quartiere",181,191,6,0
+633,"Der Frostthron",181,192,7,0
+634,Frostgram,181,193,8,0
+635,Abyssalhallen,182,322,1,0
+636,"Thron von Neptulon",182,323,2,0
+637,"Die Halle des Lichts",183,297,1,0
+638,"Grab des Erdwüters",183,298,2,0
+639,"Die Vier Sitze",183,299,3,0
+640,"Kammer der Einäscherung",184,283,1,0
+641,Zwielichtschmiede,184,284,2,0
+644,Minentunnel,186,177,3,0
+645,Minenschacht,186,178,4,0
+646,"Das Argentumkolosseum",187,172,1,0
+647,"Die Eisigen Tiefen",187,173,2,0
+648,Erdgeschoss,188,181,2,0
+649,"Oberes Stockwerk",188,182,3,0
+650,"Die Verheerte Halle",189,285,1,0
+651,"Gewölbe der Schattenflamme",189,286,2,0
+652,"Die Zwielichtenklave",190,294,1,0
+653,"Thron der Apokalypse",190,295,2,0
+654,"Die Zwielichthöhlen",190,296,3,0
+655,Feuerlande,191,367,0,0
+656,"Der Amboss der Feuersbrunst",191,368,1,0
+657,Sulfuronfestung,191,369,2,0
+658,"Halle des Halbmonds",192,391,1,0
+659,"Der Kaiserliche Basar",192,392,2,0
+660,"Der Kaisertritt",193,393,3,0
+661,"Das Kaiserliche Kontor",193,394,4,0
+662,"Oberer Steinbruch",194,372,6,0
+663,"Unterer Steinbruch",194,373,7,0
+664,"Obere Tiefe",195,383,11,0
+665,"Untere Tiefe",195,384,12,0
+666,Guo-Lai-Hallen,196,395,18,0
+667,"Die Halle der Schlange",196,396,19,0
+668,"Ruinen von Korun",197,386,20,0
+669,"Krypta von Korun",197,387,21,0
+670,Endzeit,198,401,0,0
+671,Azurdrachenschrein,198,402,1,0
+672,Rubindrachenschrein,198,403,2,0
+673,Obsidiandrachenschrein,198,404,3,0
+674,Smaragddrachenschrein,198,405,4,0
+675,Bronzedrachenschrein,198,406,5,0
+676,"Stunde des Zwielichts",199,399,0,0
+677,Wyrmruhtempel,199,400,1,0
+678,Shado-Pan-Kloster,200,443,0,0
+679,"Meister Wolkenschlags Dojo",200,444,1,0
+680,"Meister Schneewehes Dojo",200,445,2,0
+681,"Versiegelte Kammern",200,446,3,0
+682,"Tempel der Jadeschlange",201,429,1,0
+683,"Das Sanktum des Schriftrollenhüters",201,430,2,0
+684,Kornkeller,202,439,1,0
+685,Sturmbräuhalle,202,440,2,0
+686,"Das Große Rad",202,441,3,0
+687,"Der Verkostungsraum",202,442,4,0
+688,"Tor der Untergehenden Sonne",203,437,1,0
+689,Torwachtturm,203,438,2,0
+690,Drachenseele,204,409,0,0
+691,"Schlund des Go'rath",204,410,1,0
+692,"Schlund des Shu'ma",204,411,2,0
+693,"Auge der Ewigkeit",204,412,3,0
+694,"Die Himmelsfeuer",204,413,4,0
+695,"Todesschwinges Rückgrat",204,414,5,0
+696,"Der Mahlstrom",204,415,6,0
+697,"Die Karminrote Versammlungshalle",205,453,1,0
+698,"Gewölbe der Vergangenen Könige",205,454,2,0
+699,"Thron der Uralten Eroberer",205,455,3,0
+700,Ausbildungsgelände,206,431,1,0
+701,Athenaeum,206,432,2,0
+702,"Unglückseliger Kreuzgang",207,435,1,0
+703,"Kapelle des Kreuzfahrers",207,436,2,0
+704,"Das Reliquiarium",208,476,1,0
+705,"Kammer der Beschwörung",208,477,2,0
+706,"Das Obere Arbeitszimmer",208,478,3,0
+707,"Arbeitszimmer des Direktors",208,479,4,0
+708,"Estrade der Eroberer",209,471,1,0
+709,"Das Warenlager",209,472,2,0
+710,"Schmiede des Unendlichen",209,473,3,0
+711,"Oratorium der Stimme",210,474,1,0
+712,"Herz der Angst",210,475,2,0
+713,"Belagerung des Niuzaotempels",211,457,0,0
+714,"Der Ausgehöhlte Baum",211,458,1,0
+715,"Oberer Baumring",211,459,2,0
+716,"Obere Grabkammer",212,481,1,0
+717,"Tiefen der Gruft",212,482,2,0
+718,Allianzausgrabung,213,419,1,0
+719,"Ruinen von Ogudei",213,420,2,0
+720,"Zutritt der Archäologischen Akademie",213,421,3,0
+721,"Überwucherter Statuenhof",214,508,1,0
+722,"Königliches Amphitheater",214,509,2,0
+723,"Vergessene Tiefen",214,510,3,0
+724,"Horst von Ji-Kun",214,511,4,0
+725,"Hallen der Fleischformer",214,512,5,0
+726,"Halle der Könige",214,513,6,0
+727,"Spitze der Stürme",214,514,7,0
+728,"Versteckte Zelle",214,515,8,0
+729,Dalaran,215,501,1,0
+730,"Die Schattenseite",215,502,2,0
+731,"Der Schwarze Tempel",216,490,0,0
+732,"Kanäle von Karabor",216,491,1,0
+733,"Zuflucht der Schatten",216,492,2,0
+734,"Hallen der Pein",216,493,3,0
+735,"Blutschattens Wacht",216,494,4,0
+736,"Hof der Irdischen Gelüste",216,495,5,0
+737,Kommandoraum,216,496,6,0
+738,Tempelspitze,216,497,7,0
+751,"Schlacht um Orgrimmar",222,556,0,0
+752,"Becken der Macht",222,557,1,0
+753,"Kammer von Y'Shaarj",222,558,2,0
+754,"Tor von Orgrimmar",222,559,3,0
+755,"Das Tal der Stärke",222,560,4,0
+756,"Die Kluft der Schatten",222,561,5,0
+757,"Der Abstieg",222,562,6,0
+758,"Kaserne der Kor'kron",222,563,7,0
+759,"Die Menagerie",222,564,8,0
+760,"Die Belagerungswerke",222,565,9,0
+761,"Kammer der Getreuen",222,566,10,0
+762,"Das Innere Sanktum",222,567,11,0
+763,"Terrasse des Endlosen Frühlings",222,568,12,0
+764,"Tempel der Jadeschlange",222,569,13,0
+765,"Tempel des Roten Kranichs",222,570,14,0
+1184,"Zeitloser Tunnel",143,74,0,0
+1185,"Höhlen der Zeit",143,75,1,0

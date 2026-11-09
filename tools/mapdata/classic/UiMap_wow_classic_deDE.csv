@@ -1,0 +1,537 @@
+Name_lang,ID,ParentUiMapID,Flags,System,Type,Field_5_5_4_67090_006,Field_5_5_4_67090_007,VisibilityPlayerConditionID,HelpTextPosition,Field_1_14_4_50252_011,LevelRangeMin,LevelRangeMax
+Durotar,1,12,4,0,3,0,0,0,0,0,1,10
+"Koven der Brennenden Klinge",2,1,0,0,5,0,0,0,0,0,0,0
+"Burg Tiragarde",3,1,0,0,5,0,0,0,0,0,0,0
+"Burg Tiragarde",4,1,0,0,5,0,0,0,0,0,0,0
+Knochenhöhle,5,1,0,0,5,0,0,0,0,0,0,0
+Staubwindhöhle,6,1,0,0,5,0,0,0,0,0,0,0
+Mulgore,7,12,4,0,3,0,0,0,0,0,1,10
+Bleichmähnenfels,8,7,0,0,5,0,0,0,0,0,0,0
+"Die Mine der Venture Co.",9,7,0,0,5,0,0,0,0,0,0,0
+"Das Brachland",10,12,4,0,3,0,0,0,0,0,10,20
+"Höhlen des Wehklagens",11,10,0,0,5,0,0,0,0,0,0,0
+Kalimdor,12,947,4,0,2,0,0,0,0,0,0,0
+"Östliche Königreiche",13,947,4,0,2,0,0,0,0,0,0,0
+Arathihochland,14,13,4,0,3,0,0,0,0,0,25,30
+Ödland,15,13,4,0,3,0,0,0,0,0,45,48
+Uldaman,16,15,0,0,5,0,0,0,0,0,0,0
+"Verwüstete Lande",17,13,4,0,3,0,0,0,0,0,55,60
+Tirisfal,18,13,4,0,3,0,0,0,0,0,1,10
+"Eingang zum Scharlachroten Kloster",19,18,0,0,5,0,0,0,0,0,0,0
+Silberwald,21,13,4,0,3,0,0,0,0,0,10,20
+"Westliche Pestländer",22,13,4,0,3,0,0,0,0,0,35,40
+"Östliche Pestländer",23,13,4,0,3,0,0,0,0,0,40,45
+"Vorgebirge des Hügellands",25,13,4,0,3,0,0,0,0,0,20,25
+Hinterland,26,13,4,0,3,0,0,0,0,0,30,35
+"Dun Morogh",27,13,4,0,3,0,0,0,0,0,1,10
+Eisklamm,28,27,0,0,5,0,0,0,0,0,0,0
+"Der Graufelsbau",29,27,0,0,5,0,0,0,0,0,0,0
+Neu-Tüftlerstadt,30,27,0,0,5,0,0,0,0,0,0,0
+"Steinbruch Gol'Bolar",31,27,0,0,5,0,0,0,0,0,0,0
+"Sengende Schlucht",32,13,4,0,3,0,0,0,0,0,47,51
+"Der Schwarzfels",33,36,0,0,5,0,0,0,0,0,0,0
+"Der Schwarzfels",34,36,0,0,5,0,0,0,0,0,0,0
+"Der Schwarzfels",35,32,0,0,5,0,0,0,0,0,0,0
+"Brennende Steppe",36,13,4,0,3,0,0,0,0,0,50,52
+"Wald von Elwynn",37,13,4,0,3,0,0,0,0,0,1,10
+Tiefenschachtmine,38,37,0,0,5,0,0,0,0,0,0,0
+Tiefenschachtmine,39,37,0,0,5,0,0,0,0,0,0,0
+Jaspismine,40,37,0,0,5,0,0,0,0,0,0,0
+"Gebirgspass der Totenwinde",42,13,4,0,3,0,0,0,0,0,55,56
+Dämmerwald,47,13,4,0,3,0,0,0,0,0,20,25
+"Loch Modan",48,13,4,0,3,0,0,0,0,0,10,20
+Rotkammgebirge,49,13,4,0,3,0,0,0,0,0,15,20
+"Nördliches Schlingendorntal",50,13,6,0,3,0,0,0,0,0,25,30
+"Sümpfe des Elends",51,13,4,0,3,0,0,0,0,0,52,54
+Westfall,52,13,4,0,3,0,0,0,0,0,10,15
+Goldküstensteinbruch,53,52,0,0,5,0,0,0,0,0,0,0
+Jangoschacht,54,52,0,0,5,0,0,0,0,0,0,0
+Todesminen,55,52,0,0,5,0,0,0,0,0,0,0
+Sumpfland,56,13,4,0,3,0,0,0,0,0,20,25
+Teldrassil,57,12,4,0,3,0,0,0,0,0,1,10
+Schattenweberhöhle,58,57,0,0,5,0,0,0,0,0,0,0
+Teufelsfels,59,57,0,0,5,0,0,0,0,0,0,0
+"Grabhügel von Ban'ethil",60,57,0,0,5,0,0,0,0,0,0,0
+"Grabhügel von Ban'ethil",61,57,0,0,5,0,0,0,0,0,0,0
+Dunkelküste,62,12,4,0,3,0,0,0,0,0,10,20
+Eschental,63,12,4,0,3,0,0,0,0,0,20,25
+"Tausend Nadeln",64,12,4,0,3,0,0,0,0,0,40,45
+Steinkrallengebirge,65,12,4,0,3,0,0,0,0,0,25,30
+Desolace,66,12,4,0,3,0,0,0,0,0,30,35
+Maraudon,67,66,0,0,5,0,0,0,0,0,0,0
+Maraudon,68,66,0,0,5,0,0,0,0,0,0,0
+Feralas,69,12,4,0,3,0,0,0,0,0,35,40
+Düstermarschen,70,12,4,0,3,0,0,0,0,0,35,40
+Tanaris,71,12,4,0,3,0,0,0,0,0,45,50
+"Der Giftige Unterschlupf",72,71,0,0,5,0,0,0,0,0,0,0
+"Die Klaffende Schlucht",73,71,0,0,5,0,0,0,0,0,0,0
+"Höhlen der Zeit",74,71,0,0,5,0,0,0,0,0,0,0
+"Höhlen der Zeit",75,71,0,0,5,0,0,0,0,0,0,0
+Azshara,76,12,4,0,3,0,0,0,0,0,10,20
+Teufelswald,77,12,4,0,3,0,0,0,0,0,45,50
+"Krater von Un'Goro",78,12,4,0,3,0,0,0,0,0,50,55
+"Die Wuchernde Narbe",79,78,0,0,5,0,0,0,0,0,0,0
+Mondlichtung,80,12,4,0,3,0,0,0,0,0,15,15
+Silithus,81,12,4,0,3,0,0,0,0,0,55,60
+"Kavernen des Schattenhammers",82,81,0,0,5,0,0,0,0,0,0,0
+Winterquell,83,12,4,0,3,0,0,0,0,0,50,55
+Sturmwind,84,13,4,0,3,0,0,0,0,0,0,0
+Orgrimmar,85,12,4,0,3,0,0,0,0,0,0,0
+Orgrimmar,86,85,0,0,6,0,0,0,0,0,0,0
+Eisenschmiede,87,13,4,0,3,0,0,0,0,0,0,0
+Donnerfels,88,12,4,0,3,0,0,0,0,0,0,0
+Darnassus,89,12,4,0,3,0,0,0,0,0,0,0
+Alteractal,91,947,4,0,3,0,0,0,0,0,0,0
+Kriegshymnenschlucht,92,947,4,0,3,0,0,0,0,0,0,0
+Arathibecken,93,947,4,0,3,0,0,0,0,0,0,0
+Immersangwald,94,13,4,0,3,0,0,0,0,0,1,10
+Geisterlande,95,13,4,0,3,0,0,0,0,0,10,20
+Amanikatakomben,96,95,0,0,5,0,0,0,0,0,0,0
+Azurmythosinsel,97,12,4,0,3,0,0,0,0,0,1,10
+Gezeitenhöhle,98,97,0,0,5,0,0,0,0,0,0,0
+Tannenruhfeste,99,97,0,0,5,0,0,0,0,0,0,0
+Höllenfeuerhalbinsel,100,1467,4,0,3,0,0,0,0,0,58,63
+Zangarmarschen,102,1467,4,0,3,0,0,0,0,0,60,64
+"Die Exodar",103,12,4,0,3,0,0,0,0,0,0,0
+Schattenmondtal,104,1467,4,0,3,0,0,0,0,0,67,70
+Schergrat,105,1467,4,0,3,0,0,0,0,0,65,68
+Blutmythosinsel,106,12,4,0,3,0,0,0,0,0,10,20
+Nagrand,107,1467,4,0,3,0,0,0,0,0,64,67
+"Wälder von Terokkar",108,1467,4,0,3,0,0,0,0,0,62,65
+Nethersturm,109,1467,4,0,3,0,0,0,0,0,67,70
+Silbermond,110,13,4,0,3,0,0,0,0,0,0,0
+Shattrath,111,1467,4,0,3,0,0,0,0,0,0,0
+"Auge des Sturms",112,109,4,0,3,0,0,0,0,0,0,0
+Nordend,113,947,0,0,2,0,0,0,0,0,0,0
+"Boreanische Tundra",114,113,6,0,3,0,0,0,0,0,68,72
+Drachenöde,115,113,6,0,3,0,0,0,0,0,71,75
+Grizzlyhügel,116,113,6,0,3,0,0,0,0,0,73,75
+"Heulender Fjord",117,113,6,0,3,0,0,0,0,0,68,72
+Eiskrone,118,113,6,0,3,0,0,0,0,0,77,80
+Sholazarbecken,119,113,6,0,3,0,0,0,0,0,76,78
+"Die Sturmgipfel",120,113,6,0,3,0,0,0,0,0,77,80
+Zul'Drak,121,113,6,0,3,0,0,0,0,0,74,76
+"Insel von Quel'Danas",122,13,4,0,3,0,0,0,0,0,70,70
+Tausendwinter,123,113,6,0,3,0,0,0,0,0,77,80
+"Pestländer: Die Scharlachrote Enklave",124,23,0,0,6,0,0,0,0,0,0,0
+Dalaran,125,113,0,0,4,0,0,0,0,0,0,0
+Dalaran,126,127,0,0,4,0,0,0,0,0,0,0
+Kristallsangwald,127,113,6,0,3,0,0,0,0,0,77,80
+"Strand der Uralten",128,115,0,0,6,0,0,0,0,0,0,0
+"Der Nexus",129,114,0,0,4,0,0,0,0,0,0,0
+"Das Ausmerzen von Stratholme",130,71,0,0,4,0,0,0,0,0,0,0
+"Das Ausmerzen von Stratholme",131,130,0,0,4,0,0,0,0,0,0,0
+"Ahn'kahet: Das Alte Königreich",132,115,0,0,4,0,0,0,0,0,0,0
+"Burg Utgarde",133,117,0,0,4,0,0,0,0,0,0,0
+"Burg Utgarde",134,117,0,0,4,0,0,0,0,0,0,0
+"Burg Utgarde",135,117,0,0,4,0,0,0,0,0,0,0
+"Turm Utgarde",136,117,0,0,4,0,0,0,0,0,0,0
+"Turm Utgarde",137,117,0,0,4,0,0,0,0,0,0,0
+"Hallen der Blitze",138,120,0,0,4,0,0,0,0,0,0,0
+"Hallen der Blitze",139,120,0,0,4,0,0,0,0,0,0,0
+"Hallen des Steins",140,120,0,0,4,0,0,0,0,0,0,0
+"Das Auge der Ewigkeit",141,114,0,0,4,0,0,0,0,0,0,0
+"Das Oculus",142,114,0,0,6,0,0,0,0,0,0,0
+"Das Oculus",143,114,0,0,4,0,0,0,0,0,0,0
+"Das Oculus",144,114,0,0,4,0,0,0,0,0,0,0
+"Das Oculus",145,114,0,0,4,0,0,0,0,0,0,0
+"Das Oculus",146,114,0,0,4,0,0,0,0,0,0,0
+Ulduar,147,120,0,0,4,0,0,0,0,0,0,0
+Ulduar,148,147,0,0,4,0,0,0,0,0,0,0
+Ulduar,149,147,0,0,4,0,0,0,0,0,0,0
+Ulduar,150,147,0,0,4,0,0,0,0,0,0,0
+Ulduar,151,147,0,0,4,0,0,0,0,0,0,0
+Ulduar,152,147,0,0,4,0,0,0,0,0,0,0
+Gundrak,153,121,0,0,6,0,0,0,0,0,0,0
+Gundrak,154,121,0,0,4,0,0,0,0,0,0,0
+"Das Obsidiansanktum",155,115,0,0,6,0,0,0,0,0,0,0
+"Archavons Kammer",156,123,0,0,4,0,0,0,0,0,0,0
+Azjol-Nerub,157,115,0,0,4,0,0,0,0,0,0,0
+Azjol-Nerub,158,115,0,0,4,0,0,0,0,0,0,0
+Azjol-Nerub,159,115,0,0,4,0,0,0,0,0,0,0
+"Feste Drak'Tharon",160,121,0,0,4,0,0,0,0,0,0,0
+"Feste Drak'Tharon",161,121,0,0,4,0,0,0,0,0,0,0
+Naxxramas,162,115,0,0,4,0,0,0,0,0,0,0
+Naxxramas,163,115,0,0,4,0,0,0,0,0,0,0
+Naxxramas,164,115,0,0,4,0,0,0,0,0,0,0
+Naxxramas,165,115,0,0,4,0,0,0,0,0,0,0
+Naxxramas,166,115,0,0,4,0,0,0,0,0,0,0
+Naxxramas,167,115,0,0,4,0,0,0,0,0,0,0
+"Violette Festung",168,125,0,0,4,0,0,0,0,0,0,0
+"Insel der Eroberung",169,118,0,0,6,0,0,0,0,0,0,0
+"Hrothgars Landestelle",170,113,6,0,3,0,0,0,0,0,0,0
+"Prüfung des Champions",171,118,0,0,4,0,0,0,0,0,0,0
+"Prüfung des Kreuzfahrers",172,118,0,0,4,0,0,0,0,0,0,0
+"Prüfung des Kreuzfahrers",173,118,0,0,4,0,0,0,0,0,0,0
+"Die Verlorenen Inseln",174,948,6,0,3,0,0,0,0,0,5,12
+Kaja'mithöhle,175,174,0,0,5,0,0,0,0,0,0,0
+"Volcanoths Hort",176,174,0,0,5,0,0,0,0,0,0,0
+"Gallywix' Fronmine",177,174,0,0,5,0,0,0,0,0,0,0
+"Gallywix' Fronmine",178,174,0,0,5,0,0,0,0,0,0,0
+Gilneas,179,13,6,0,6,0,0,0,0,0,1,20
+Glutsteinmine,180,179,0,0,5,0,0,0,0,0,0,0
+Graumähnenanwesen,181,179,0,0,5,0,0,0,0,0,0,0
+Graumähnenanwesen,182,179,0,0,5,0,0,0,0,0,0,0
+"Die Seelenschmiede",183,118,0,0,4,0,0,0,0,0,0,0
+"Grube von Saron",184,118,0,0,6,0,0,0,0,0,0,0
+"Hallen der Reflexion",185,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,186,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,187,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,188,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,189,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,190,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,191,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,192,118,0,0,4,0,0,0,0,0,0,0
+Eiskronenzitadelle,193,118,0,0,4,0,0,0,0,0,0,0
+Kezan,194,948,6,0,3,0,0,0,0,0,1,5
+Kaja'mine,195,194,0,0,5,0,0,0,0,0,0,0
+Kaja'mine,196,194,0,0,5,0,0,0,0,0,0,0
+Kaja'mine,197,194,0,0,5,0,0,0,0,0,0,0
+"Der Hyjal",198,12,6,0,3,0,0,0,0,0,80,82
+"Südliches Brachland",199,12,6,0,3,0,0,0,0,0,30,35
+Rubinsanktum,200,115,0,0,6,0,0,0,0,0,0,0
+Tang'tharwald,201,203,6,0,3,0,0,0,0,0,0,0
+"Gilneas (Stadt)",202,179,6,0,3,0,0,0,0,0,0,0
+Vashj'ir,203,13,6,0,3,0,0,0,0,0,80,82
+"Abyssische Tiefen",204,203,6,0,3,0,0,0,0,0,0,0
+"Schimmernde Weiten",205,203,6,0,3,0,0,0,0,0,0,0
+Zwillingsgipfel,206,241,0,0,6,0,0,0,0,0,0,0
+Tiefenheim,207,948,6,0,3,0,0,0,0,0,82,83
+"Das Schlingendornkap",210,224,6,0,3,0,0,0,0,0,30,35
+Flammenschlund,213,85,0,0,4,0,0,0,0,0,0,0
+"Ruinen von Gilneas",217,13,6,0,3,0,0,0,0,0,14,20
+"Ruinen von Gilneas (Stadt)",218,217,1,0,6,0,0,0,0,0,0,0
+Zul'Farrak,219,71,0,0,6,0,0,0,0,0,0,0
+"Der Tempel von Atal'Hakkar",220,51,0,0,4,0,0,0,0,0,0,0
+"Tiefschwarze Grotte",221,63,0,0,4,0,0,0,0,0,0,0
+"Tiefschwarze Grotte",222,63,0,0,4,0,0,0,0,0,0,0
+"Tiefschwarze Grotte",223,63,0,0,4,0,0,0,0,0,0,0
+Schlingendorntal,224,13,6,0,3,0,0,0,0,0,25,35
+"Das Verlies",225,84,0,0,4,0,0,0,0,0,0,0
+Gnomeregan,226,27,0,0,4,0,0,0,0,0,0,0
+Gnomeregan,227,27,0,0,4,0,0,0,0,0,0,0
+Gnomeregan,228,27,0,0,4,0,0,0,0,0,0,0
+Gnomeregan,229,27,0,0,4,0,0,0,0,0,0,0
+Uldaman,230,15,0,0,4,0,0,0,0,0,0,0
+Uldaman,231,15,0,0,4,0,0,0,0,0,0,0
+"Geschmolzener Kern",232,36,0,0,4,0,0,0,0,0,0,0
+Zul'Gurub,233,50,0,0,6,0,0,0,0,0,0,0
+Düsterbruch,234,69,0,0,6,0,0,0,0,0,0,0
+Düsterbruch,235,69,0,0,4,0,0,0,0,0,0,0
+Düsterbruch,236,69,0,0,4,0,0,0,0,0,0,0
+Düsterbruch,237,69,0,0,4,0,0,0,0,0,0,0
+Düsterbruch,238,69,0,0,4,0,0,0,0,0,0,0
+Düsterbruch,239,69,0,0,4,0,0,0,0,0,0,0
+Düsterbruch,240,69,0,0,4,0,0,0,0,0,0,0
+Schattenhochland,241,13,6,0,3,0,0,0,0,0,84,85
+Schwarzfelstiefen,242,32,0,0,4,0,0,0,0,0,0,0
+Schwarzfelstiefen,243,32,0,0,4,0,0,0,0,0,0,0
+"Tol Barad",244,13,0,0,3,0,0,0,0,0,84,85
+"Halbinsel von Tol Barad",245,13,0,0,3,0,0,0,0,0,85,85
+"Die Zerschmetterten Hallen",246,100,0,0,4,0,0,0,0,0,0,0
+"Ruinen von Ahn'Qiraj",247,81,0,0,6,0,0,0,0,0,0,0
+"Onyxias Hort",248,70,0,0,4,0,0,0,0,0,0,0
+Uldum,249,12,6,0,3,0,0,0,2,0,83,84
+Schwarzfelsspitze,250,36,0,0,4,0,0,0,0,0,0,0
+Schwarzfelsspitze,251,36,0,0,4,0,0,0,0,0,0,0
+Schwarzfelsspitze,252,36,0,0,4,0,0,0,0,0,0,0
+Schwarzfelsspitze,253,36,0,0,4,0,0,0,0,0,0,0
+Schwarzfelsspitze,254,36,0,0,4,0,0,0,0,0,0,0
+Schwarzfelsspitze,255,36,0,0,4,0,0,0,0,0,0,0
+Auchenaikrypta,256,108,0,0,4,0,0,0,0,0,0,0
+Auchenaikrypta,257,108,0,0,4,0,0,0,0,0,0,0
+Sethekkhallen,258,108,0,0,4,0,0,0,0,0,0,0
+Sethekkhallen,259,108,0,0,4,0,0,0,0,0,0,0
+Schattenlabyrinth,260,108,0,0,4,0,0,0,0,0,0,0
+"Der Blutkessel",261,100,0,0,4,0,0,0,0,0,0,0
+"Der Tiefensumpf",262,102,0,0,4,0,0,0,0,0,0,0
+"Die Dampfkammer",263,102,0,0,4,0,0,0,0,0,0,0
+"Die Dampfkammer",264,102,0,0,4,0,0,0,0,0,0,0
+"Die Sklavenunterkünfte",265,102,0,0,4,0,0,0,0,0,0,0
+"Die Botanika",266,109,0,0,4,0,0,0,0,0,0,0
+"Die Mechanar",267,109,0,0,4,0,0,0,0,0,0,0
+"Die Mechanar",268,109,0,0,4,0,0,0,0,0,0,0
+"Die Arkatraz",269,109,0,0,4,0,0,0,0,0,0,0
+"Die Arkatraz",270,109,0,0,4,0,0,0,0,0,0,0
+"Die Arkatraz",271,109,0,0,4,0,0,0,0,0,0,0
+Managruft,272,108,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Morast",273,71,0,0,6,0,0,0,0,0,0,0
+"Vorgebirge des Alten Hügellands",274,71,0,0,6,0,0,0,0,0,0,0
+"Die Schlacht um Gilneas",275,179,0,0,6,0,0,0,0,0,0,0
+"Der Mahlstrom",276,948,6,0,3,0,0,0,0,0,0,0
+"Verlorene Stadt der Tol'vir",277,249,0,0,6,0,0,0,0,0,0,0
+"Höhlen des Wehklagens",279,10,0,0,4,0,0,0,0,0,0,0
+Maraudon,280,66,0,0,4,0,0,0,0,0,0,0
+Maraudon,281,66,0,0,4,0,0,0,0,0,0,0
+Baradinfestung,282,244,0,0,4,0,0,0,0,0,0,0
+Schwarzfelshöhlen,283,36,0,0,4,0,0,0,0,0,0,0
+Schwarzfelshöhlen,284,36,0,0,4,0,0,0,0,0,0,0
+Pechschwingenabstieg,285,36,0,0,4,0,0,0,0,0,0,0
+Pechschwingenabstieg,286,36,0,0,4,0,0,0,0,0,0,0
+Pechschwingenhort,287,36,0,0,4,0,0,0,0,0,0,0
+Pechschwingenhort,288,36,0,0,4,0,0,0,0,0,0,0
+Pechschwingenhort,289,36,0,0,4,0,0,0,0,0,0,0
+Pechschwingenhort,290,36,0,0,4,0,0,0,0,0,0,0
+"Die Todesminen",291,52,0,0,4,0,0,0,0,0,0,0
+"Die Todesminen",292,52,0,0,4,0,0,0,0,0,0,0
+"Grim Batol",293,241,0,0,4,0,0,0,0,0,0,0
+"Die Bastion des Zwielichts",294,241,0,0,4,0,0,0,0,0,0,0
+"Die Bastion des Zwielichts",295,241,0,0,4,0,0,0,0,0,0,0
+"Die Bastion des Zwielichts",296,241,0,0,4,0,0,0,0,0,0,0
+"Hallen des Ursprungs",297,249,0,0,4,0,0,0,0,0,0,0
+"Hallen des Ursprungs",298,249,0,0,4,0,0,0,0,0,0,0
+"Hallen des Ursprungs",299,249,0,0,4,0,0,0,0,0,0,0
+"Hügel der Klingenhauer",300,64,0,0,4,0,0,0,0,0,0,0
+"Kral der Klingenhauer",301,10,0,0,4,0,0,0,0,0,0,0
+"Das Scharlachrote Kloster",302,18,0,0,4,0,0,0,0,0,0,0
+"Das Scharlachrote Kloster",303,18,0,0,4,0,0,0,0,0,0,0
+"Das Scharlachrote Kloster",304,18,0,0,4,0,0,0,0,0,0,0
+"Das Scharlachrote Kloster",305,18,0,0,4,0,0,0,0,0,0,0
+"Scholomance (alt)",306,22,0,0,4,0,0,0,0,0,0,0
+"Scholomance (alt)",307,22,0,0,4,0,0,0,0,0,0,0
+"Scholomance (alt)",308,22,0,0,4,0,0,0,0,0,0,0
+"Scholomance (alt)",309,22,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",310,21,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",311,21,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",312,21,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",313,21,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",314,21,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",315,21,0,0,4,0,0,0,0,0,0,0
+"Burg Schattenfang",316,21,0,0,4,0,0,0,0,0,0,0
+Stratholme,317,23,0,0,4,0,0,0,0,0,0,0
+Stratholme,318,23,0,0,4,0,0,0,0,0,0,0
+Ahn'Qiraj,319,81,0,0,4,0,0,0,0,0,0,0
+Ahn'Qiraj,320,81,0,0,4,0,0,0,0,0,0,0
+Ahn'Qiraj,321,81,0,0,4,0,0,0,0,0,0,0
+"Thron der Gezeiten",322,204,0,0,4,0,0,0,0,0,0,0
+"Thron der Gezeiten",323,204,0,0,4,0,0,0,0,0,0,0
+"Der Steinerne Kern",324,207,0,0,4,0,0,0,0,0,0,0
+"Der Vortexgipfel",325,249,0,0,4,0,0,0,0,0,0,0
+"Ahn'Qiraj: Das Gefallene Königreich",327,12,2,0,6,0,0,0,0,0,0,0
+"Thron der Vier Winde",328,249,0,0,4,0,0,0,0,0,0,0
+Hyjalgipfel,329,71,0,0,6,0,0,0,0,0,0,0
+"Gruuls Unterschlupf",330,105,0,0,4,0,0,0,0,0,0,0
+"Magtheridons Kammer",331,100,0,0,4,0,0,0,0,0,0,0
+"Höhle des Schlangenschreins",332,102,0,0,4,0,0,0,0,0,0,0
+Zul'Aman,333,95,0,0,6,0,0,0,0,0,0,0
+"Festung der Stürme",334,109,0,0,4,0,0,0,0,0,0,0
+Sonnenbrunnenplateau,335,122,0,0,4,0,0,0,0,0,0,0
+Sonnenbrunnenplateau,336,335,0,0,4,0,0,0,0,0,0,0
+Zul'Gurub,337,50,0,0,6,0,0,0,0,0,0,0
+"Geschmolzene Front",338,198,0,0,6,0,0,0,0,0,0,0
+"Der Schwarze Tempel",339,104,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",340,339,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",341,339,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",342,339,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",343,339,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",344,339,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",345,339,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",346,339,0,0,4,0,0,0,0,0,0,0
+Höllenfeuerbollwerk,347,100,0,0,4,0,0,0,0,0,0,0
+"Terrasse der Magister",348,122,0,0,4,0,0,0,0,0,0,0
+"Terrasse der Magister",349,122,0,0,4,0,0,0,0,0,0,0
+Karazhan,350,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,351,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,352,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,353,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,354,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,355,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,356,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,357,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,358,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,359,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,360,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,361,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,362,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,363,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,364,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,365,42,0,0,4,0,0,0,0,0,0,0
+Karazhan,366,42,0,0,4,0,0,0,0,0,0,0
+Feuerlande,367,198,0,0,4,0,0,0,0,0,0,0
+Feuerlande,368,367,0,0,4,0,0,0,0,0,0,0
+Feuerlande,369,367,0,0,4,0,0,0,0,0,0,0
+"Der Nexus",370,114,0,0,4,0,0,0,0,0,0,0
+"Der Jadewald",371,424,6,0,3,0,0,0,0,0,85,86
+Grünsteinbruch,372,371,0,0,5,0,0,0,0,0,0,0
+Grünsteinbruch,373,371,0,0,5,0,0,0,0,0,0,0
+"Das Klagen der Witwe",374,371,0,0,5,0,0,0,0,0,0,0
+"Uuna Kagu",375,371,0,0,5,0,0,0,0,0,0,0
+"Tal der Vier Winde",376,424,6,0,3,0,0,0,0,0,86,87
+"Höhle Endloser Echos",377,376,0,0,5,0,0,0,0,0,0,0
+"Die Wandernde Insel",378,947,2,0,6,0,0,0,0,0,1,20
+Kun-Lai-Gipfel,379,424,6,0,3,0,0,0,0,0,87,88
+Heulwindhöhle,380,379,0,0,5,0,0,0,0,0,0,0
+Witzboldwinkel,381,379,0,0,5,0,0,0,0,0,0,0
+Faustklopploch,382,379,0,0,5,0,0,0,0,0,0,0
+"Die Tiefere",383,379,0,0,5,0,0,0,0,0,0,0
+"Die Tiefere",384,379,0,0,5,0,0,0,0,0,0,0
+"Grab der Eroberer",385,379,0,0,5,0,0,0,0,0,0,0
+"Ruinen von Korun",386,379,0,0,5,0,0,0,0,0,0,0
+"Ruinen von Korun",387,379,0,0,5,0,0,0,0,0,0,0
+Tonlongsteppe,388,424,6,0,3,0,0,0,0,0,88,89
+Niuzaotempel,389,388,0,0,5,0,0,0,0,0,0,0
+"Tal der Ewigen Blüten",390,424,6,0,3,0,0,0,0,0,90,90
+"Schrein der Zwei Monde",391,390,0,0,5,0,0,0,0,0,0,0
+"Schrein der Zwei Monde",392,390,0,0,5,0,0,0,0,0,0,0
+"Schrein der Sieben Sterne",393,390,0,0,5,0,0,0,0,0,0,0
+"Schrein der Sieben Sterne",394,390,0,0,5,0,0,0,0,0,0,0
+Guo-Lai-Hallen,395,390,0,0,5,0,0,0,0,0,0,0
+Guo-Lai-Hallen,396,390,0,0,5,0,0,0,0,0,0,0
+"Auge des Sturms",397,109,0,0,6,0,0,0,0,0,0,0
+"Brunnen der Ewigkeit",398,71,0,0,6,0,0,0,0,0,0,0
+"Stunde des Zwielichts",399,71,0,0,4,0,0,0,0,0,0,0
+"Stunde des Zwielichts",400,399,0,0,4,0,0,0,0,0,0,0
+Endzeit,401,71,0,0,4,0,0,0,0,0,0,0
+Endzeit,402,401,0,0,4,0,0,0,0,0,0,0
+Endzeit,403,401,0,0,4,0,0,0,0,0,0,0
+Endzeit,404,401,0,0,4,0,0,0,0,0,0,0
+Endzeit,405,401,0,0,4,0,0,0,0,0,0,0
+Endzeit,406,401,0,0,4,0,0,0,0,0,0,0
+Dunkelmond-Insel,407,947,0,0,6,0,0,0,0,0,0,0
+Drachenseele,409,71,0,0,4,0,0,0,0,0,0,0
+Drachenseele,410,409,0,0,4,0,0,0,0,0,0,0
+Drachenseele,411,409,0,0,4,0,0,0,0,0,0,0
+Drachenseele,412,409,0,0,4,0,0,0,0,0,0,0
+Drachenseele,413,409,0,0,4,0,0,0,0,0,0,0
+Drachenseele,414,409,0,0,4,0,0,0,0,0,0,0
+Drachenseele,415,409,0,0,4,0,0,0,0,0,0,0
+Düstermarschen,416,70,0,0,6,0,0,0,0,0,0,0
+"Tempel von Katmogu",417,390,0,0,6,0,0,0,0,0,0,0
+Krasarangwildnis,418,424,6,0,3,0,0,0,0,0,86,87
+"Ruinen von Ogudei",419,418,0,0,5,0,0,0,0,0,0,0
+"Ruinen von Ogudei",420,418,0,0,5,0,0,0,0,0,0,0
+"Ruinen von Ogudei",421,418,0,0,5,0,0,0,0,0,0,0
+Schreckensöde,422,424,6,0,3,0,0,0,0,0,89,90
+Silberbruchmine,423,224,0,0,4,0,0,0,0,0,0,0
+Pandaria,424,947,2,0,2,0,0,0,0,0,0,0
+Nordhain,425,37,0,0,3,0,0,0,0,0,0,0
+Echokammmine,426,37,0,0,5,0,0,0,0,0,0,0
+Eisklammtal,427,27,0,0,6,0,0,0,0,0,0,0
+Frostmähnenbau,428,27,0,0,5,0,0,0,0,0,0,0
+"Tempel der Jadeschlange",429,371,0,0,4,0,0,0,0,0,0,0
+"Tempel der Jadeschlange",430,371,0,0,4,0,0,0,0,0,0,0
+"Die Scharlachroten Hallen",431,18,0,0,4,0,0,0,0,0,0,0
+"Die Scharlachroten Hallen",432,18,0,0,4,0,0,0,0,0,0,0
+"Die Verhüllte Treppe",433,424,6,0,3,0,0,0,0,0,0,0
+"Die Uralte Passage",434,379,0,0,5,0,0,0,0,0,0,0
+"Das Scharlachrote Kloster",435,18,0,0,4,0,0,0,0,0,0,0
+"Das Scharlachrote Kloster",436,18,0,0,4,0,0,0,0,0,0,0
+"Tor der Untergehenden Sonne",437,390,0,0,4,0,0,0,0,0,0,0
+"Tor der Untergehenden Sonne",438,390,0,0,4,0,0,0,0,0,0,0
+"Brauerei Sturmbräu",439,376,0,0,4,0,0,0,0,0,0,0
+"Brauerei Sturmbräu",440,376,0,0,4,0,0,0,0,0,0,0
+"Brauerei Sturmbräu",441,376,0,0,4,0,0,0,0,0,0,0
+"Brauerei Sturmbräu",442,376,0,0,4,0,0,0,0,0,0,0
+Shado-Pan-Kloster,443,379,0,0,4,0,0,0,0,0,0,0
+Shado-Pan-Kloster,444,443,0,0,4,0,0,0,0,0,0,0
+Shado-Pan-Kloster,445,443,0,0,4,0,0,0,0,0,0,0
+Shado-Pan-Kloster,446,443,0,0,4,0,0,0,0,0,0,0
+"Ein Sturm braut sich zusammen",447,371,0,0,6,0,0,0,0,0,0,0
+"Der Jadewald",448,371,0,0,6,0,0,0,0,0,0,0
+"Tempel von Katmogu",449,390,0,0,6,0,0,0,0,0,0,0
+"Unga Ingu",450,418,0,0,6,0,0,0,0,0,0,0
+"Angriff auf Zan'vess",451,422,0,0,6,0,0,0,0,0,0,0
+Braumondfest,452,379,0,0,6,0,0,0,0,0,0,0
+Mogu'shanpalast,453,390,0,0,4,0,0,0,0,0,0,0
+Mogu'shanpalast,454,390,0,0,4,0,0,0,0,0,0,0
+Mogu'shanpalast,455,390,0,0,4,0,0,0,0,0,0,0
+"Terrasse des Endlosen Frühlings",456,433,0,0,6,0,0,0,0,0,0,0
+"Belagerung des Niuzaotempels",457,388,0,0,4,0,0,0,0,0,0,0
+"Belagerung des Niuzaotempels",458,457,0,0,4,0,0,0,0,0,0,0
+"Belagerung des Niuzaotempels",459,457,0,0,4,0,0,0,0,0,0,0
+Laubschattental,460,57,6,0,3,0,0,0,0,0,0,0
+"Tal der Prüfungen",461,1,6,0,3,0,0,0,0,0,0,0
+"Camp Narache",462,7,6,0,3,0,0,0,0,0,0,0
+Echoinseln,463,1,6,0,3,0,0,0,0,0,0,0
+Gallschuppenhöhle,464,1,0,0,5,0,0,0,0,0,0,0
+Todesend,465,18,6,0,3,0,0,0,0,0,0,0
+Nachtwebergrund,466,18,0,0,5,0,0,0,0,0,0,0
+"Insel der Sonnenwanderer",467,94,6,0,3,0,0,0,0,0,0,0
+Am'mental,468,97,6,0,3,0,0,0,0,0,0,0
+Neu-Tüftlerstadt,469,27,6,0,3,0,0,0,0,0,0,0
+"Höhle der Frostmähnen",470,27,0,0,5,0,0,0,0,0,0,0
+Mogu'shangewölbe,471,390,0,0,4,0,0,0,0,0,0,0
+Mogu'shangewölbe,472,390,0,0,4,0,0,0,0,0,0,0
+Mogu'shangewölbe,473,390,0,0,4,0,0,0,0,0,0,0
+"Herz der Angst",474,422,0,0,4,0,0,0,0,0,0,0
+"Herz der Angst",475,422,0,0,4,0,0,0,0,0,0,0
+Scholomance,476,22,0,0,4,0,0,0,0,0,0,0
+Scholomance,477,22,0,0,4,0,0,0,0,0,0,0
+Scholomance,478,22,0,0,4,0,0,0,0,0,0,0
+Scholomance,479,22,0,0,4,0,0,0,0,0,0,0
+Feuerprobe,480,379,0,0,4,0,0,0,0,0,0,0
+"Gruft der Vergessenen Könige",481,379,0,0,4,0,0,0,0,0,0,0
+"Gruft der Vergessenen Könige",482,379,0,0,4,0,0,0,0,0,0,0
+Düstermarschen,483,70,0,0,6,0,0,0,0,0,0,0
+Krasarangwildnis,486,418,0,0,6,0,0,0,0,0,0,0
+"Ein wenig Geduld",487,418,0,0,6,0,0,0,0,0,0,0
+"Ein Dolch im Dunkel",488,433,0,0,6,0,0,0,0,0,0,0
+"Ein Dolch im Dunkel",489,379,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",490,104,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",491,490,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",492,490,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",493,490,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",494,490,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",495,490,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",496,490,0,0,4,0,0,0,0,0,0,0
+"Der Schwarze Tempel",497,490,0,0,4,0,0,0,0,0,0,0
+Krasarangwildnis,498,418,0,0,6,0,0,0,0,0,0,0
+Tiefenbahn,499,84,0,0,4,0,0,0,0,0,0,0
+Tiefenbahn,500,84,0,0,4,0,0,0,0,0,0,0
+Dalaran,501,13,0,0,4,0,0,0,0,0,0,0
+Dalaran,502,13,0,0,4,0,0,0,0,0,0,0
+Shlae'gararena,503,85,0,0,4,0,0,0,0,0,0,0
+"Insel des Donners",504,424,6,0,3,0,0,140398,0,0,85,90
+Blitzaderminen,505,504,0,0,5,0,0,0,0,0,0,0
+"Die Prall Gefüllte Kammer",506,504,0,0,5,0,0,0,0,0,0,0
+"Insel der Riesen",507,424,6,0,3,0,0,140440,0,0,85,90
+"Thron des Donners",508,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",509,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",510,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",511,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",512,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",513,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",514,504,0,0,4,0,0,0,0,0,0,0
+"Thron des Donners",515,504,0,0,4,0,0,0,0,0,0,0
+"Insel des Donners",516,424,2,0,6,0,0,140441,0,0,0,0
+Blitzaderminen,517,516,0,0,5,0,0,0,0,0,0,0
+"Zitadelle des Donnerkönigs",518,504,0,0,4,0,0,0,0,0,0,0
+Tiefenwindschlucht,519,376,0,0,6,0,0,0,0,0,0,0
+"Tal der Ewigen Blüten",520,390,0,0,6,0,0,0,0,0,0,0
+"Tal der Ewigen Blüten",521,390,0,0,4,0,0,0,0,0,0,0
+"Geheimnisse des Flammenschlunds",522,85,0,0,4,0,0,0,0,0,0,0
+"Dun Morogh",523,27,0,0,6,0,0,0,0,0,0,0
+"Schlacht auf hoher See",524,12,0,0,6,0,0,0,0,0,0,0
+"Zeitlose Insel",554,424,6,0,3,0,0,140443,0,0,85,90
+"Höhle der Verlorenen Geister",555,554,0,0,5,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",556,390,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",557,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",558,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",559,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",560,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",561,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",562,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",563,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",564,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",565,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",566,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",567,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",568,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",569,556,0,0,4,0,0,0,0,0,0,0
+"Schlacht um Orgrimmar",570,556,0,0,4,0,0,0,0,0,0,0
+"Turnier der Erhabenen",571,554,0,0,6,0,0,0,0,0,0,0
+Kosmisch,946,0,2432,0,0,0,0,0,0,0,0,0
+Azeroth,947,946,2304,0,1,0,0,0,0,0,0,0
+"Der Mahlstrom",948,947,0,0,2,0,0,0,0,0,0,0
+Scherbenwelt,987,0,2052,1,2,0,0,0,0,0,0,0
+Nordend,988,0,4,1,2,0,0,0,0,0,0,0
+Unterstadt,998,13,4,0,3,0,0,0,0,0,0,0
+"Hallen des Steins",1375,120,0,0,4,0,0,0,0,0,0,0
+"Östliche Königreiche",1463,0,0,1,2,0,0,0,0,0,0,0
+Kalimdor,1464,0,0,1,2,0,0,0,0,0,0,0
+Scherbenwelt,1467,946,4,0,2,0,0,0,0,0,0,0
+"Höhle des Schlangenschreins",1554,102,0,0,4,0,0,0,0,0,0,0
+"Festung der Stürme",1555,109,0,0,4,0,0,0,0,0,0,0
+Tausendwinter,2104,947,0,0,3,0,0,0,0,0,0,0
+"Tol Barad",2340,947,0,0,3,0,0,0,0,0,84,85
+Pandaria,2473,0,4,1,2,0,0,0,0,0,0,0
