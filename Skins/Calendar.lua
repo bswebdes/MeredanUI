@@ -677,8 +677,8 @@ local function SkinClassButtons()
             local edges = Border(button)
             if IsTexture(icon) then
                 icon:ClearAllPoints()
-                icon:SetPoint("TOPLEFT", 3, -3)
-                icon:SetPoint("BOTTOMRIGHT", -3, 3) -- no SetTexCoord: Blizzard cuts the class out of one sheet
+                icon:SetPoint("TOPLEFT", 2, -2)
+                icon:SetPoint("BOTTOMRIGHT", -2, 2)
             end
             if type(edges) == "table" then
                 button:HookScript("OnEnter", function() for _, e in ipairs(edges) do e:SetVertexColor(unpack(UI.ACCENT)) end end)
@@ -767,7 +767,25 @@ local function Place()
     end
 end
 
+-- Zoom the class art ~10% inside Blizzard's own sheet cut-out (drops the art's built-in frame).
+-- Blizzard may set new coords on update: re-zoom only when they aren't the ones we applied.
+local function ZoomClassIcon(icon)
+    if not IsTexture(icon) then return end
+    local ulx, uly, _, _, _, _, lrx, lry = icon:GetTexCoord()
+    local z = icon.muiZoom
+    if z and math.abs(ulx - z[1]) < 1e-5 and math.abs(uly - z[2]) < 1e-5 then return end
+    local dx, dy = (lrx - ulx) * 0.1, (lry - uly) * 0.1
+    icon:SetTexCoord(ulx + dx, lrx - dx, uly + dy, lry - dy)
+    icon.muiZoom = { ulx + dx, uly + dy }
+end
+
 local function PlaceClassButtons(parent)
+    local i = 1
+    while _G["CalendarClassButton" .. i] do
+        local button = _G["CalendarClassButton" .. i]
+        ZoomClassIcon(button:GetNormalTexture())
+        i = i + 1
+    end
     local container = _G.CalendarClassButtonContainer
     if not container or type(parent) ~= "table" then return end
     container:ClearAllPoints()
