@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.3.0-beta.4
+- Hall of Thanes: boss pins on the dungeon map
+- Dungeon maps: a few boss and rare positions corrected (Wailing Caverns, Maraudon, Saltspine)
+
 ## v0.3.0-beta.3
 - Dungeon maps on the world map (WoW Forever): click a dungeon portal to open its map, with boss and rare portraits where they stand. Ragefire Chasm, Wailing Caverns and the Hall of Thanes use new mUI maps made from the game's own data on a themed background; the other classic dungeons use Blizzard's maps for now
 - World map: entrances of Forever's new dungeons are shown (approximate at first, exact once you have been inside)
