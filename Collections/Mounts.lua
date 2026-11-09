@@ -141,7 +141,7 @@ local function Create(p)
         C.FillRow(row, {
             icon = item.icon, name = item.name, fav = item.fav, missing = not item.collected,
             sub = item.active and (L["Active"]) or (item.collected and (item.usable and "" or L["Not usable here"]) or (NOT_COLLECTED or L["Not collected"])),
-            right = item.active and "●" or nil,
+            right = nil,
             selected = item.id == selectedID,
         })
     end)
