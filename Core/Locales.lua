@@ -1462,7 +1462,7 @@ if GetLocale() == "deDE" then
     L["Double right-click in the world casts Fishing while a pole is equipped (out of combat)."] = "Doppelter Rechtsklick in die Welt wirft die Angel aus, wenn sie angelegt ist (außerhalb vom Kampf)."
     L["Pin editor off. Pins are saved."] = "Pin-Editor aus. Pins sind gespeichert."
     L["Click: dungeon map"] = "Klick: Dungeon-Karte"
-    L["Approximate entrance (community info) - corrected once you enter."] = "Ungefährer Eingang (Community-Angabe) – wird korrigiert, sobald du die Instanz betrittst."
+    L["Approximate entrance, will be corrected."] = "Ungefährer Eingang, wird korrigiert."
     L["Calendar in mUI look"] = "Kalender im mUI-Look"
     L["Stable in mUI look"] = "Stall im mUI-Look"
     L["Blizzard's hunter stable in the mUI look at the fixed window spot; functions stay Blizzard's."] = "Blizzards Jäger-Stall im mUI-Look am festen Fensterplatz; Funktionen bleiben Blizzards."

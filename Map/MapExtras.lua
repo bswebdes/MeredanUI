@@ -508,7 +508,7 @@ function EntranceProvider:RefreshAllData()
                         GameTooltip:AddLine(ns.L["Click: dungeon map"], 0.56, 0.8, 0.71)
                     end
                     if self.approx then
-                        GameTooltip:AddLine(ns.L["Approximate entrance (community info) - corrected once you enter."], 0.85, 0.71, 0.42, true)
+                        GameTooltip:AddLine(ns.L["Approximate entrance, will be corrected."], 0.85, 0.71, 0.42, true)
                     end
                     -- approach paths only on the zone map
                     local zone = (C_Map.GetMapInfo(provider:GetMap():GetMapID()) or {}).mapType == Enum.UIMapType.Zone
