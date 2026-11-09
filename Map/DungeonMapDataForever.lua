@@ -3,33 +3,13 @@
 local _, ns = ...
 
 ns.DUNGEON_MAPS = ns.DUNGEON_MAPS or {}
-ns.DUNGEON_MAPS[2999] = {
-    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2999_1", texCoord = { 0, 0.75, 0, 1 }, region = { 1242.7, -306.4, -100000.0, 1962.8, 773.8, 100000.0 }, credit = true },
-}
-ns.DUNGEON_MAPS[2998] = {
-    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2998_1", texCoord = { 0, 0.75, 0, 1 }, region = { -4420.4, -2770.3, -100000.0, -3369.5, -1193.9, 100000.0 }, credit = true },
-}
 ns.DUNGEON_MAPS[2959] = {
     { en = "City of Dalaran", de = "Stadt Dalaran", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2959_1", texCoord = { 0, 0.75, 0, 1 }, region = { -796.4, -886.7, -100000.0, 766.5, 1457.6, 100000.0 }, credit = true },
     { en = "Sewers", de = "Kanalisation", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2959_2", texCoord = { 0, 0.75, 0, 1 }, region = { -796.4, -886.7, -100000.0, 766.5, 1457.6, 100000.0 }, credit = true },
 }
-ns.DUNGEON_MAPS[2970] = {
-    { en = "The Drowned City", de = "Die versunkene Stadt", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2970_1", texCoord = { 0, 0.75, 0, 1 }, region = { -14033.6, 1702.9, -100000.0, -12679.1, 3734.7, 100000.0 }, credit = true },
-    { en = "Atal'Byzal", de = "Atal'Byzal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2970_2", texCoord = { 0, 0.75, 0, 1 }, region = { -14033.6, 1702.9, -100000.0, -12679.1, 3734.7, 100000.0 }, credit = true },
-}
-ns.DUNGEON_MAPS[2974] = {
-    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2974_1", texCoord = { 0, 0.75, 0, 1 }, region = { 2978.5, 2492.4, -100000.0, 4055.9, 4108.6, 100000.0 } },
-    { en = "Caverns", de = "Höhlen", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2974_2", texCoord = { 0, 0.75, 0, 1 }, region = { 3256.2, 2567.7, -100000.0, 3831.2, 3430.2, 100000.0 } },
-}
 ns.DUNGEON_MAPS[2994] = {
     { en = "Main Pavilion", de = "Hauptflügel", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2994_1", texCoord = { 0, 0.75, 0, 1 }, region = { -8963.5, 2688.5, -100000.0, -8681.9, 3111.0, 100000.0 }, credit = true },
     { en = "Maximum Security", de = "Hochsicherheitstrakt", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2994_2", texCoord = { 0, 0.75, 0, 1 }, region = { -8963.5, 2688.5, -100000.0, -8681.9, 3111.0, 100000.0 }, credit = true },
-}
-ns.DUNGEON_MAPS[3001] = {
-    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3001_1", texCoord = { 0, 0.75, 0, 1 }, region = { -7201.9, -2937.6, -100000.0, -5059.2, 276.5, 100000.0 }, credit = true },
-}
-ns.DUNGEON_MAPS[3039] = {
-    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3039_1", texCoord = { 0, 0.75, 0, 1 }, region = { -8016.3, -5493.3, -100000.0, -6356.1, -3003.0, 100000.0 }, credit = true },
 }
 ns.DUNGEON_MAPS[43] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\43_1", texCoord = { 0, 0.75, 0, 1 }, region = { -516.2, -540.2, -100000.0, 316.3, 708.6, 100000.0 } },
@@ -39,6 +19,26 @@ ns.DUNGEON_MAPS[389] = {
 }
 ns.DUNGEON_MAPS[3065] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3065_1", texCoord = { 0, 0.75, 0, 1 }, region = { -142.00, -600.40, -100000.00, 646.10, 581.80, 100000.00 } },
+}
+ns.DUNGEON_MAPS[2999] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2999_1", texCoord = { 0, 0.75, 0, 1 }, region = { 1184.40, -177.10, -100000.00, 1924.10, 932.40, 100000.00 } },
+}
+ns.DUNGEON_MAPS[2998] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2998_1", texCoord = { 0, 0.75, 0, 1 }, region = { -4278.50, -2627.20, -100000.00, -3453.90, -1390.40, 100000.00 } },
+}
+ns.DUNGEON_MAPS[2970] = {
+    { en = "The Drowned City", de = "Die versunkene Stadt", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2970_1", texCoord = { 0, 0.75, 0, 1 }, region = { -13577.70, 2325.60, -100000.00, -13016.10, 3167.90, 100000.00 } },
+    { en = "Atal'Byzal", de = "Atal'Byzal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2970_2", texCoord = { 0, 0.75, 0, 1 }, region = { -13676.60, 2427.30, -100000.00, -13392.70, 2853.10, 100000.00 } },
+}
+ns.DUNGEON_MAPS[2974] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2974_1", texCoord = { 0, 0.75, 0, 1 }, region = { 3062.10, 2617.90, -100000.00, 3972.30, 3983.10, 100000.00 } },
+    { en = "Caverns", de = "Höhlen", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2974_2", texCoord = { 0, 0.75, 0, 1 }, region = { 3310.70, 2675.30, -100000.00, 3774.10, 3370.30, 100000.00 } },
+}
+ns.DUNGEON_MAPS[3001] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3001_1", texCoord = { 0, 0.75, 0, 1 }, region = { -7008.60, -2645.60, -100000.00, -5260.80, -23.90, 100000.00 } },
+}
+ns.DUNGEON_MAPS[3039] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3039_1", texCoord = { 0, 0.75, 0, 1 }, region = { -7894.10, -5261.40, -100000.00, -6543.10, -3234.90, 100000.00 } },
 }
 ns.DUNGEON_MAPS[36] = {
     { en = "The Deadmines", de = "Die Todesminen", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\36_1", texCoord = { 0, 0.75, 0, 1 }, region = { -337.51, -796.62, -10000.00, 35.33, -237.36, 1000000.00 } },

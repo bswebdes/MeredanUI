@@ -9,31 +9,33 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 O = 17066.666  # placement origin: world X = O - placement Z, world Y = O - placement X
 # inst, floor, en, de, sc, X1, Z1, s, ox, oy
 FLOORS = [
-    (2999, 1, None, None, 1.0, 16540, 15140, 0.711, 175.7, 25.7),
-    (2998, 1, None, None, 0.7, 18473, 20540, 0.696, 103.5, 50.6),
     (2959, 1, "City of Dalaran", "Stadt Dalaran", 0.6, 16273, 16440, 0.546, 217.5, 45.8),
     (2959, 2, "Sewers", "Kanalisation", 0.6, 16273, 16440, 0.546, 217.5, 45.8),
-    (2970, 1, "The Drowned City", "Die versunkene Stadt", 0.6, 13650, 29950, 0.63, 120.2, 77.2),
-    (2970, 2, "Atal'Byzal", "Atal'Byzal", 0.6, 13650, 29950, 0.63, 120.2, 77.2),
-    (2974, 1, None, None, 0.6, 13073, 13173, 0.792, 54.6, 77.1),
-    (2974, 2, "Caverns", "Höhlen", 0.6, 13073, 13173, 1.484, -501.7, -55.6),
     (2994, 1, "Main Pavilion", "Hauptflügel", 2.0, 14060, 25620, 0.909, 189.6, -233.7),
     (2994, 2, "Maximum Security", "Hochsicherheitstrakt", 2.0, 14060, 25620, 0.909, 189.6, -233.7),
-    (3001, 1, None, None, 0.45, 17600, 22400, 0.531, 193.5, 65.5),
-    (3039, 1, None, None, 0.6, 20607, 23640, 0.514, 165.7, 67.0),
     # classic instances: game-data minimap map on a themed background
     (43, 1, None, None, 1.0, -545, -195, 0.615, 100.6, 74.6),
 ]
 # WMO-only maps place the WMO at 0,0,0: world = -placement there, no 17066 offset
 ORIGIN = {43: 0.0}
-# Santiago Reyes' maps (all but Blackmaw Hold); their regions are the old calibration, only used by
+# Santiago Reyes' maps (kept where game data can't split the floors: Dalaran has no sewer WMO with minimap
+# tiles, Alcaz Prison's two floors are one WMO); their regions are the old calibration, only used by
 # position-based pins, which these instances don't have (pins are placed relative to the art)
-CREDIT = {2999, 2998, 2959, 2970, 2994, 3001, 3039}
+CREDIT = {2959, 2994}
 # game-data maps rendered straight into a region (buildmap.py + compose.py): Blizzard's floor region for
 # classic instances (pins stay valid), the fitted region buildmap.py prints for new instances
 DIRECT = [
     (389, 1, None, None, (-452.95, -285.99, -10000.0, 39.62, 452.87, 1000000.0)),   # SKIP=5,6,7,8,10, --largest
     (3065, 1, None, None, (-142.0, -600.4, -100000.0, 646.1, 581.8, 100000.0)),     # NOADT=1
+    # new Forever instances from game data, half size; region = REGION / fitted region printed by buildmap.py
+    (2999, 1, None, None, (1184.4, -177.1, -100000.0, 1924.1, 932.4, 100000.0)),   # REGION=1184.4,-177.1,1924.1,932.4, --largest
+    (2998, 1, None, None, (-4278.5, -2627.2, -100000.0, -3453.9, -1390.4, 100000.0)),   # REGION=-4278.5,-2627.2,-3453.9,-1390.4, --largest
+    (2970, 1, "The Drowned City", "Die versunkene Stadt", (-13577.7, 2325.6, -100000.0, -13016.1, 3167.9, 100000.0)),   # ZMIN=-30 FLOOR=1
+    (2970, 2, "Atal'Byzal", "Atal'Byzal", (-13676.6, 2427.3, -100000.0, -13392.7, 2853.1, 100000.0)),   # WMO=7748971 NOADT=1 FLOOR=2
+    (2974, 1, None, None, (3062.1, 2617.9, -100000.0, 3972.3, 3983.1, 100000.0)),   # REGION=3062.1,2617.9,3972.3,3983.1 NOWMO=7212893 FLOOR=1
+    (2974, 2, "Caverns", "Höhlen", (3310.7, 2675.3, -100000.0, 3774.1, 3370.3, 100000.0)),   # WMO=7212893 NOADT=1 FLOOR=2 (cave WMO)
+    (3001, 1, None, None, (-7008.6, -2645.6, -100000.0, -5260.8, -23.9, 100000.0)),   # REGION=-7008.6,-2645.6,-5260.8,-23.9
+    (3039, 1, None, None, (-7894.1, -5261.4, -100000.0, -6543.1, -3234.9, 100000.0)),   # REGION=-7894.1,-5261.4,-6543.1,-3234.9, --largest
     # classic instances, half size (compose.py --half), Blizzard's floor regions
     (36, 1, 'The Deadmines', 'Die Todesminen', (-337.51, -796.62, -10000.0, 35.33, -237.36, 1000000.0)),   # plain
     (36, 2, 'Ironclad Cove', 'Eiserne Bucht', (-267.51, -1016.62, -10000.0, 65.33, -517.36, 1000000.0)),

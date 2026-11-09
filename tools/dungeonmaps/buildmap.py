@@ -2,7 +2,10 @@
 WMO minimap tiles (Forever build), floor membership from UiMapAssignment.WMOGroupID (classic), fallback by
 region/height; ADT minimap terrain only on floors Blizzard assigns by area (outdoor parts).
 usage: PYTHONPATH=../pylib python3 buildmap.py <instanceID> [<instanceID> ...]
-out: maps/<inst>_<floor>.png (1536x1024 RGBA, transparent outside the dungeon)"""
+out: maps/<inst>_<floor>.png (1536x1024 RGBA, transparent outside the dungeon)
+env: NOADT=1 no terrain; SKIP=gi,.. drop group indices (e.g. a thorn canopy exterior group); MAINWMO=1 only the
+  biggest WMO; WMO=fdid,.. / NOWMO=fdid,.. keep / drop WMOs; ZMIN/ZMAX group height band; LISTGROUPS=1 print groups;
+  new instances only: REGION=x0,y0,x1,y1 instead of the fitted region, FLOOR=n output index (one floor per run)"""
 import sys, os, re, csv, json, struct, math, subprocess, pathlib
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np
@@ -113,6 +116,9 @@ def build(inst):
     skip = {int(v) for v in os.environ.get('SKIP', '').split(',') if v}   # group indices to leave out
     if skip:
         for w in wmos: w['groups'] = [g for g in w['groups'] if g['gi'] not in skip]
+    keep = {int(v) for v in os.environ.get('WMO', '').split(',') if v}; drop = {int(v) for v in os.environ.get('NOWMO', '').split(',') if v}
+    if keep: wmos = [w for w in wmos if w['p']['fdid'] in keep]   # WMO=fdid,..: a floor that is its own WMO
+    if drop: wmos = [w for w in wmos if w['p']['fdid'] not in drop]
     zmin = float(os.environ.get('ZMIN', '-1e9')); zmax = float(os.environ.get('ZMAX', '1e9'))   # height band (group z centre)
     for w in wmos: w['groups'] = [g for g in w['groups'] if zmin <= g['z'] <= zmax]
     if os.environ.get('LISTGROUPS'):
@@ -146,8 +152,9 @@ def build(inst):
         if hy < hx * 1.5: hy = hx * 1.5
         else: hx = hy / 1.5
         return [cx - hx, cy - hy, -100000.0, cx + hx, cy + hy, 100000.0]
-    if floors is None:
-        floors = [dict(ui=0, en=None, region=fit(allg))]
+    if floors is None:   # new instance: one floor; REGION=x0,y0,x1,y1 forces the region (else fitted around all groups)
+        reg = [float(v) for v in os.environ['REGION'].split(',')] if os.environ.get('REGION') else None
+        floors = [dict(ui=0, en=None, region=[reg[0], reg[1], -100000.0, reg[2], reg[3], 100000.0] if reg else fit(allg))]
         print(f'{inst} fitted region:', ', '.join(f'{v:.1f}' for v in floors[0]['region']), flush=True)
     overview = set()
     for f in floors:   # Blizzard overview floor without a region (Dire Maul): all groups in a fitted region
@@ -244,7 +251,8 @@ def build(inst):
                 tcells = tcells & near
             t = tcells & ~wm; out[t, 3] = 255
             out[~(wm | t), 3] = 0
-        path = f'maps/{inst}_{fi}.png'; Image.fromarray(out, 'RGBA').save(path)
+        # FLOOR=n: output index for one height band (ZMIN/ZMAX) of a multi-floor new instance
+        path = f'maps/{inst}_{os.environ.get("FLOOR", fi)}.png'; Image.fromarray(out, 'RGBA').save(path)
         results.append((fi, f['en'], int((out[..., 3] > 0).sum()), len(drawn), bool(use_adt)))
     json.dump({'O': O}, open(f'maps/{inst}.json', 'w'))
     return results

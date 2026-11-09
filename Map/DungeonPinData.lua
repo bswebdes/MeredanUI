@@ -317,7 +317,7 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 1114, floor = 6, x = 0.3766, y = 0.1604, display = 15945 },
     },
     [2998] = {
-        { kind = "boss", id = 3480, floor = 1, x = 0.7536, y = 0.1252 },
+        { kind = "boss", id = 3480, floor = 1, x = 0.8016, y = 0.0572 },
     },
     [3065] = {
         { kind = "boss", id = 3493, floor = 1, x = 0.4920, y = 0.7290 },
