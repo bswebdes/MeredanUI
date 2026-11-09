@@ -352,7 +352,7 @@ end
 -- ScrollBox rows: after each update skin all visible rows (new and recycled) once
 local function HookScrollBox(box, fn)
     if type(box) ~= "table" or not box.ForEachFrame or not Once(box) then return end
-    local function Each() box:ForEachFrame(fn) end
+    local function Each() if not box.GetView or box:GetView() then box:ForEachFrame(fn) end end -- no view until Blizzard fills the list
     if box.Update then hooksecurefunc(box, "Update", Each) end
     Each()
 end
