@@ -6,7 +6,7 @@ templates; rares: creatures of rank 2/4 spawned in the instance. Position -> flo
 region (Map/DungeonMapData.lua), x/y relative to the map art. Group encounters with no single creature
 of that name (e.g. "The Seven") are left out and placed by hand (/mui pins, dev).
 Output: Map/DungeonPinData.lua (ns.DUNGEON_PINS), keeps hand-placed pins for instances not generated here.
-usage: python3 -I tools/build_dungeon_pins.py <ClassicDB.sql.gz>"""
+usage: python3 -I tools/build_dungeon_pins.py <ClassicDB.sql.gz> [sd2_positions.tsv]"""
 import gzip, re, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -58,12 +58,22 @@ for r in tuples(sql, 'creature'):
     pos = (float(r[4]), float(r[5]), float(r[6]))
     for entry in ([int(r[1])] if int(r[1]) else alt.get(int(r[0]), [])):
         spawns.setdefault(int(r[2]), []).append((entry,) + pos)
+# objects that start a fight (gong, brazier, altar): stand-ins for summoned bosses, entry stored negative
+gotemplates = {int(r[0]): r[3] for r in tuples(sql, 'gameobject_template')}
+for r in tuples(sql, 'gameobject'):
+    if int(r[1]) in gotemplates:
+        spawns.setdefault(int(r[2]), []).append((-int(r[1]), float(r[4]), float(r[5]), float(r[6])))
 # event bosses: summon positions from db scripts (command 10 = summon creature; no map, checked per floor)
 summons = {}
 for table in re.findall(r"CREATE TABLE `(dbscripts_on_\w+)`", sql):
     for r in tuples(sql, table):
         if r[3] == '10' and int(r[4]) in templates:
             summons.setdefault(int(r[4]), (float(r[15]), float(r[16]), float(r[17])))
+# summon positions hard-coded in the server scripts (tools/sd2_positions.py output, optional 2nd arg)
+if len(sys.argv) > 2:
+    for line in open(sys.argv[2]):
+        e, x, y, z = line.split()
+        if int(e) in templates: summons.setdefault(int(e), (float(x), float(y), float(z)))
 
 # floors per instance from the generated map data
 maps = {}
@@ -77,14 +87,33 @@ bosses = {}
 for m in re.finditer(r"\[(\d+)\] = \{ (.*?) \},\n", (ROOT / "Quests" / "DungeonBosses.lua").read_text(encoding="utf-8")):
     bosses[int(m.group(1))] = re.findall(r'\{ (\d+), "((?:[^"\\]|\\.)*)", "(?:[^"\\]|\\.)*" \}', m.group(2))
 
-def place(floors, x, y, z):
+def place(floors, x, y, z, slack=100):
+    """Best floor for a world position: inside the region (small slack, clamped), nearest Z first."""
     best = None
     for i, (x1, y1, z1, x2, y2, z2) in enumerate(floors):
-        if not (x1 <= x <= x2 and y1 <= y <= y2): continue
+        off = max(x1 - x, x - x2, y1 - y, y - y2, 0)
+        if off > slack: continue
         dz = 0 if z1 <= z <= z2 else min(abs(z - z1), abs(z - z2))
-        if best is None or dz < best[0]: best = (dz, i, (y2 - y) / (y2 - y1), (x2 - x) / (x2 - x1))
+        u = min(max((y2 - y) / (y2 - y1), 0.02), 0.98)
+        v = min(max((x2 - x) / (x2 - x1), 0.02), 0.98)
+        if best is None or (off, dz) < best[0]: best = ((off, dz), i, u, v)
     return best
 
+# encounters without a creature of that name: a member/stand-in at the fight's place
+ALIAS = {
+    "Sneed": ["Sneed's Shredder"], "The Lost Dwarves": ["Baelog"], "Weaver": ["Hazzas"],
+    "Dreamscythe": ["Morphaz"], "Ring of Law": ["High Justice Grimstone", "Anub'shiah", "Gorosh the Dervish"],
+    "The Vault": ["Watchman Doomgrip"], "The Seven": ["Doom'rel"], "Ras Frostwhisperer": ["Ras Frostwhisper"],
+    "Edge of Madness": ["Gri'lek", "Hazza'rah", "Renataki", "Wushoolay"], "Balnazzar": ["Grand Crusader Dathrohan"],
+    "Silithid Royalty": ["Lord Kri", "Princess Yauj", "Vem"], "Twin Emperors": ["Emperor Vek'lor", "Emperor Vek'nilash"],
+    "The Four Horsemen": ["Thane Korth'azz", "Highlord Mograine", "Lady Blaumeux", "Sir Zeliek"],
+    "Geilhast": ["Gelihast", "Shrine of Gelihast"], "Avatar of Hakkar": ["Shade of Hakkar", "Altar of Hakkar"],
+    "Tuten'kash": ["Gong"], "Gizrul the Slavener": ["Halycon"], "Lord Valthalak": ["Brazier of Beckoning"],
+    "Kirtonos": ["Brazier of the Herald"], "Kormok": ["Brazier of Invocation"], "Ouro": ["Ouro Spawner"],
+}
+byDisplay = {}
+for entry, (n, disp, rank) in templates.items():
+    if disp: byDisplay.setdefault(n.lower(), disp)
 out = {}
 report = []
 for inst, floors in sorted(maps.items()):
@@ -92,20 +121,23 @@ for inst, floors in sorted(maps.items()):
     here = spawns.get(inst, [])
     byname = {}
     for entry, x, y, z in here:
-        t = templates.get(entry)
-        if t: byname.setdefault(t[0].lower(), []).append((entry, x, y, z))
+        n = templates[entry][0] if entry in templates else gotemplates.get(-entry) if entry < 0 else None
+        if n: byname.setdefault(n.lower(), []).append((entry, x, y, z))
     bossNames = {n.lower() for _, n in bosses.get(inst, [])}
     for enc, name in bosses.get(inst, []):
-        hit = byname.get(name.replace("\\'", "'").lower())
-        if not hit:
-            for entry, pos in summons.items():
-                if templates[entry][0].lower() == name.lower() and place(floors, *pos):
-                    hit = [(entry,) + pos]; break
+        hit = None
+        for want in [name] + ALIAS.get(name, []):
+            hit = byname.get(want.lower())
+            if not hit:
+                for entry, pos in summons.items():
+                    if templates[entry][0].lower() == want.lower() and place(floors, *pos):
+                        hit = [(entry,) + pos]; break
+            if hit: break
         if not hit:
             # name drift between DungeonEncounter and the DB (e.g. "Frostwhisperer"/"Frostwhisper")
             first = name.lower().split()[0]
             for key, h in byname.items():
-                if key.split()[0] == first and len(first) > 3 and templates[h[0][0]][2] in (1, 3):
+                if key.split()[0] == first and len(first) > 3 and h[0][0] > 0 and templates[h[0][0]][2] in (1, 3):
                     hit = h; break
         if not hit:
             report.append(f"{inst}: no spawn for boss '{name}'"); continue
@@ -113,11 +145,12 @@ for inst, floors in sorted(maps.items()):
         p = place(floors, x, y, z)
         if not p:
             report.append(f"{inst}: '{name}' outside all floors"); continue
-        pins.append(('boss', int(enc), p[1] + 1, p[2], p[3], templates[entry][1], None))
+        disp = byDisplay.get(name.lower()) or (templates[entry][1] if entry > 0 else 0)
+        pins.append(('boss', int(enc), p[1] + 1, p[2], p[3], disp, None))
     seen = set()
     for entry, x, y, z in here:
         t = templates.get(entry)
-        if not t or t[2] not in (2, 4) or entry in seen or t[0].lower() in bossNames: continue
+        if entry < 0 or not t or t[2] not in (2, 4) or entry in seen or t[0].lower() in bossNames: continue
         seen.add(entry)
         p = place(floors, x, y, z)
         if p: pins.append(('rare', entry, p[1] + 1, p[2], p[3], t[1], t[0]))
