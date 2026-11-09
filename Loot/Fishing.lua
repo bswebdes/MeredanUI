@@ -145,8 +145,14 @@ local function Record(entries)
     end
 end
 
-ns:On("LOOT_OPENED", function()
-    if not (ns.IS_FOREVER and ns.char and IsFishingLoot and IsFishingLoot()) then return end
+-- Read the loot before it is taken: fast loot (FastLoot.lua) loots on LOOT_READY, so by LOOT_OPENED
+-- the slots can already be empty (depends on latency). FastLoot calls F.Capture first; LOOT_READY
+-- and LOOT_OPENED are fallbacks. One capture per loot window.
+local captured = 0 -- GetTime() of the last capture; time limit in case LOOT_CLOSED is missed
+ns:On("LOOT_CLOSED", function() captured = 0 end)
+
+function F.Capture()
+    if GetTime() - captured < 3 or not (ns.IS_FOREVER and ns.char and IsFishingLoot and IsFishingLoot()) then return end
     local entries = {}
     for i = 1, GetNumLootItems() do
         local link = GetLootSlotLink(i)
@@ -157,9 +163,12 @@ ns:On("LOOT_OPENED", function()
         end
     end
     if #entries == 0 then return end
+    captured = GetTime()
     Record(entries)
     if window and window:IsShown() then F.Refresh() end
-end)
+end
+ns:On("LOOT_READY", function() F.Capture() end)
+ns:On("LOOT_OPENED", function() F.Capture() end)
 
 -- "Your fish got away": counts as a try in this zone (escape rate in the logbook)
 ns:On("UI_ERROR_MESSAGE", function(_, _, message)

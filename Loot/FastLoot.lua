@@ -10,5 +10,6 @@ ns:On("LOOT_READY", function(_, autoLoot)
     local now = GetTime()
     if now - lastLoot < 0.2 then return end
     lastLoot = now
+    if ns.Fishing and ns.Fishing.Capture then ns.Fishing.Capture() end -- before the slots empty
     for slot = GetNumLootItems(), 1, -1 do LootSlot(slot) end
 end)
