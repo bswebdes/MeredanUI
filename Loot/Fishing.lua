@@ -395,9 +395,6 @@ local function CreateBag(page)
         page.slots[i] = b
         Overlay(b)
     end
-    page.hint = UI.Text(page, 11, "LEFT", { 0.36, 0.39, 0.38 })
-    page.hint:SetPoint("TOPLEFT", PAD, -TOP - 162 - 4 * (SLOT + GAP) - 2)
-    page.hint:SetText(L["Right-click: use"])
 
     local reset = UI.Button(page, L["New fishing trip"], function()
         NewSession()
@@ -657,41 +654,61 @@ ns:On("BAG_UPDATE_DELAYED", function() if window and window:IsShown() then F.Ref
 ns:On("UNIT_INVENTORY_CHANGED", function(_, unit) if unit == "player" and window and window:IsShown() then F.Refresh() end end)
 
 -- Double right-click casts Fishing (Comfort) ------------------------------------------------------
--- The second right press binds BUTTON2 to a secure cast button; its release casts, then the binding
--- is cleared. Only with a pole equipped and out of combat.
-local caster, lastRight = nil, 0
+-- Like NaowhForever/EllesmereUI: the second right press on the open world binds BUTTON2 to a secure
+-- cast button just for this click; the button acts on the release, then the binding is cleared
+-- (or after 1 s if no release arrives). Out of combat, pole equipped, not while already fishing.
+local FISHING_RANKS = { 18248, 7732, 7731, 7620 } -- Artisan .. Apprentice
+local DOUBLE_CLICK, HOLD = 0.4, 1
+local caster, clickOwner, lastRight, armRun = nil, nil, 0, 0
 
-local function FishingSpell() return C_Spell.GetSpellName(7620) end
+local function FishingSpellID()
+    for _, id in ipairs(FISHING_RANKS) do
+        if IsPlayerSpell(id) then return id end
+    end
+end
+
+local function Disarm()
+    armRun = armRun + 1
+    if clickOwner and not InCombatLockdown() then ClearOverrideBindings(clickOwner) end
+end
 
 local function Caster()
     if caster then return caster end
+    clickOwner = CreateFrame("Frame")
     caster = CreateFrame("Button", "MeredanUIFishingCast", UIParent, "SecureActionButtonTemplate")
-    caster:RegisterForClicks("AnyUp", "AnyDown")
+    caster:RegisterForClicks("AnyUp")
     caster:SetAttribute("useOnKeyDown", false)
     caster:SetAttribute("type", "spell")
-    caster:HookScript("PostClick", function()
-        C_Timer.After(0, function() if not InCombatLockdown() then ClearOverrideBindings(caster) end end)
-    end)
+    caster:SetScript("PostClick", function() C_Timer.After(0, Disarm) end)
     return caster
 end
 
-WorldFrame:HookScript("OnMouseDown", function(_, button)
-    if button ~= "RightButton" or not (ns.IS_FOREVER and ns.db and ns.db.fishingDoubleClick) then return end
-    if InCombatLockdown() or not PoleEquipped() or IsMounted() then return end
-    local now = GetTime()
-    if now - lastRight < 0.4 then
-        local spell = FishingSpell()
-        if spell then
-            local b = Caster()
-            b:SetAttribute("spell", spell)
-            SetOverrideBindingClick(b, true, "BUTTON2", "MeredanUIFishingCast")
-            C_Timer.After(1, function() if not InCombatLockdown() then ClearOverrideBindings(b) end end)
-        end
+local function OnRightDown()
+    if not (ns.IS_FOREVER and ns.db and ns.db.fishingDoubleClick) then return end
+    local focus = GetMouseFoci()[1]
+    if InCombatLockdown() or (focus and focus ~= WorldFrame) or UnitExists("mouseover")
+        or UnitChannelInfo("player") or IsMounted() or not PoleEquipped() then
         lastRight = 0
-    else
-        lastRight = now
+        return
     end
-end)
+    local now = GetTime()
+    if now - lastRight >= DOUBLE_CLICK then
+        lastRight = now
+        return
+    end
+    lastRight = 0
+    local spellID = FishingSpellID()
+    if not spellID then return end
+    local b = Caster()
+    b:SetAttribute("spell", spellID)
+    armRun = armRun + 1
+    local run = armRun
+    SetOverrideBindingClick(clickOwner, true, "BUTTON2", "MeredanUIFishingCast")
+    C_Timer.After(HOLD, function() if run == armRun then Disarm() end end)
+end
+
+ns:On("GLOBAL_MOUSE_DOWN", function(_, button) if button == "RightButton" then OnRightDown() end end)
+ns:On("PLAYER_REGEN_DISABLED", function() if clickOwner then ClearOverrideBindings(clickOwner) end end)
 
 -- Preview (/mui t) ------------------------------------------------------------------------------
 

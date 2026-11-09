@@ -1442,7 +1442,6 @@ if GetLocale() == "deDE" then
     L["Click: put on the fishing pole"] = "Klick: auf die Angel legen"
     L["This fishing trip"] = "Dieser Angelausflug"
     L["for %d min"] = "seit %d min"
-    L["Right-click: use"] = "Rechtsklick: benutzen"
     L["New fishing trip"] = "Neuer Angelausflug"
     L["All zones"] = "Alle Gebiete"
     L["Here: %s"] = "Hier: %s"
