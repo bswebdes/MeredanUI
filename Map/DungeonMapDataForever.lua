@@ -3,9 +3,6 @@
 local _, ns = ...
 
 ns.DUNGEON_MAPS = ns.DUNGEON_MAPS or {}
-ns.DUNGEON_MAPS[3065] = {
-    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3065_1", texCoord = { 0, 0.75, 0, 1 }, region = { -235.8, -740.8, -100000.0, 739.4, 722.1, 100000.0 }, credit = true },
-}
 ns.DUNGEON_MAPS[2999] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2999_1", texCoord = { 0, 0.75, 0, 1 }, region = { 1242.7, -306.4, -100000.0, 1962.8, 773.8, 100000.0 }, credit = true },
 }
@@ -36,4 +33,10 @@ ns.DUNGEON_MAPS[3039] = {
 }
 ns.DUNGEON_MAPS[43] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\43_1", texCoord = { 0, 0.75, 0, 1 }, region = { -516.2, -540.2, -100000.0, 316.3, 708.6, 100000.0 } },
+}
+ns.DUNGEON_MAPS[389] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\389_1", texCoord = { 0, 0.75, 0, 1 }, region = { -452.95, -285.99, -10000.00, 39.62, 452.87, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[3065] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3065_1", texCoord = { 0, 0.75, 0, 1 }, region = { -142.00, -600.40, -100000.00, 646.10, 581.80, 100000.00 } },
 }
