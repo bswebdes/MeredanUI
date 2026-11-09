@@ -60,6 +60,7 @@ local function PoleEquipped()
     return classID == POLE_CLASS and subclassID == POLE_SUBCLASS
 end
 F.PoleEquipped = PoleEquipped
+F.Enabled = function() return Enabled() end
 
 local function MapID() return C_Map.GetBestMapForUnit("player") end
 
