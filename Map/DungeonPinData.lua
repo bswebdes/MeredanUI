@@ -43,7 +43,7 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 590, floor = 1, x = 0.5876, y = 0.5226, display = 4215 },
         { kind = "boss", id = 591, floor = 1, x = 0.5416, y = 0.4783, display = 4256 },
         { kind = "boss", id = 592, floor = 1, x = 0.3570, y = 0.1986, display = 4088 },
-        { kind = "rare", id = 5912, floor = 1, x = 0.6065, y = 0.3752, display = 1267, name = "Deviate Faerie Dragon" },
+        { kind = "rare", id = 5912, floor = 1, x = 0.6127, y = 0.3887, display = 1267, name = "Deviate Faerie Dragon" },
     },
     [47] = {
         { kind = "boss", id = 2773, floor = 1, x = 0.6482, y = 0.4209, display = 6110 },
@@ -225,7 +225,7 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 422, floor = 1, x = 0.3475, y = 0.1071, display = 11172 },
         { kind = "boss", id = 423, floor = 1, x = 0.1617, y = 0.3402, display = 12389 },
         { kind = "boss", id = 427, floor = 2, x = 0.4840, y = 0.6856, display = 7125 },
-        { kind = "boss", id = 424, floor = 1, x = 0.3766, y = 0.6940, display = 12334 },
+        { kind = "boss", id = 424, floor = 1, x = 0.3771, y = 0.7000, display = 12334 },
         { kind = "boss", id = 425, floor = 1, x = 0.0713, y = 0.7291, display = 12350 },
         { kind = "boss", id = 426, floor = 2, x = 0.4056, y = 0.4824, display = 12293 },
         { kind = "boss", id = 428, floor = 2, x = 0.3326, y = 0.7706, display = 13589 },
@@ -315,5 +315,14 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 1120, floor = 1, x = 0.2661, y = 0.1478, display = 16137 },
         { kind = "boss", id = 1119, floor = 6, x = 0.5618, y = 0.6747, display = 16033 },
         { kind = "boss", id = 1114, floor = 6, x = 0.3766, y = 0.1604, display = 15945 },
+    },
+    [2998] = {
+        { kind = "boss", id = 3480, floor = 1, x = 0.7536, y = 0.1252 },
+    },
+    [3065] = {
+        { kind = "boss", id = 3493, floor = 1, x = 0.4920, y = 0.7290 },
+        { kind = "boss", id = 3494, floor = 1, x = 0.4939, y = 0.6392 },
+        { kind = "boss", id = 3495, floor = 1, x = 0.6291, y = 0.6030 },
+        { kind = "boss", id = 3496, floor = 1, x = 0.4930, y = 0.3728 },
     },
 }
