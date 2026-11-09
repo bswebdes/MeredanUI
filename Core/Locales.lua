@@ -1481,5 +1481,7 @@ if GetLocale() == "deDE" then
     L["Blizzard's calendar in the mUI look: flat day grid, event windows on the right; functions stay Blizzard's."] = "Blizzards Kalender im mUI-Look: flaches Tagesraster, Termin-Fenster rechts daneben; Funktionen bleiben Blizzards."
     L["Blizzard's macro window in the mUI look: macros on the left, large edit area on the right; functions stay Blizzard's."] = "Blizzards Makrofenster im mUI-Look: Makros links, großes Textfeld rechts; Funktionen bleiben Blizzards."
     L["Deadmines, Wailing Caverns"] = "Todesminen, Höhlen des Wehklagens"
+    L["%d applicants"] = "%d Anwärter"
+    L["Waiting: %s"] = "Wartezeit: %s"
     L["Blizzard's group finder in the mUI look: list your group, browse groups, who list; at the fixed window spot, functions stay Blizzard's."] = "Blizzards Gruppensuche im mUI-Look: Gruppe eintragen, Gruppen durchsuchen, Wer-Liste; am festen Fensterplatz, Funktionen bleiben Blizzards."
 end

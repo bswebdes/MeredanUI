@@ -84,15 +84,21 @@ local function CreateEntry()
     entry.title:SetWordWrap(false)
 
     local function Enter()
-        local tip = _G.QueueStatusFrame
-        if not tip then return end
+        local tip = GameTooltip
+        tip:SetOwner(entry, "ANCHOR_NONE")
         tip:ClearAllPoints()
         tip:SetPoint("TOPLEFT", entry, "TOPRIGHT", ns.Snap(6), 0)
+        local r = entry.row
+        if r then
+            local T, M = ns.UI.TEXT, ns.UI.MUTED
+            tip:AddLine(r.status or "", T[1], T[2], T[3])
+            for _, name in ipairs(r.names or { r.title }) do tip:AddLine(name, T[1], T[2], T[3]) end
+            if r.queuedTime then tip:AddLine(ns.L["Waiting: %s"]:format(TimeText(r.queuedTime)), M[1], M[2], M[3]) end
+            if r.detail then tip:AddLine(r.detail, M[1], M[2], M[3]) end
+        end
         tip:Show()
     end
-    local function Leave()
-        if _G.QueueStatusFrame then _G.QueueStatusFrame:Hide() end
-    end
+    local function Leave() GameTooltip:Hide() end
     entry:SetScript("OnEnter", Enter)
     entry:SetScript("OnLeave", Leave)
     -- Clicks go through a secure button that clicks Blizzard's eye: a click forwarded by addon code
@@ -119,8 +125,38 @@ local function ActivityNames()
     return text ~= "" and text or nil
 end
 
+local function AllActivityNames()
+    local info = C_LFGList.GetActiveEntryInfo and C_LFGList.GetActiveEntryInfo()
+    local names = {}
+    for _, id in ipairs(info and info.activityIDs or {}) do
+        local a = C_LFGList.GetActivityInfoTable(id)
+        local name = a and (a.fullName ~= "" and a.fullName or a.shortName)
+        if name and name ~= "" then names[#names + 1] = name end
+    end
+    return #names > 0 and names or nil
+end
+
+-- When the own listing started (kept across reloads, per character); GetTime-based for TimeText
+local function ListedSince()
+    local db = _G.MeredanUIDB
+    if type(db) ~= "table" or not ns.charKey then return nil end
+    db.lfgListedAt = db.lfgListedAt or {}
+    local at = db.lfgListedAt[ns.charKey]
+    if not at then at = time(); db.lfgListedAt[ns.charKey] = at end
+    return GetTime() - (time() - at)
+end
+
 local function Shown(region)
     return region and region:IsShown() and region:GetText() and region:GetText() ~= ""
+end
+
+local function StatusLine(entry)
+    local base = entry.baseLine or ""
+    if entry.queuedTime then
+        local t = TimeText(entry.queuedTime)
+        return base ~= "" and (t .. " · " .. base) or t
+    end
+    return base
 end
 
 local function UpdateTimes()
@@ -128,7 +164,7 @@ local function UpdateTimes()
     for i = 1, used do
         local entry = entries[i]
         if entry.queuedTime then
-            entry.time:SetText(TimeText(entry.queuedTime))
+            entry.status:SetText(StatusLine(entry))
             any = true
         end
     end
@@ -146,7 +182,7 @@ local demo, demoStart = false, 0
 
 -- Blizzard's entries -> plain rows { title, line, queuedTime }
 local function CollectRows()
-    for _, row in ipairs(rows) do row.title, row.line, row.queuedTime = nil, nil, nil end
+    for _, row in ipairs(rows) do row.title, row.line, row.queuedTime, row.status, row.names, row.detail = nil, nil, nil, nil, nil, nil end
     local count = 0
     local frame = _G.QueueStatusFrame
     wipe(sorted)
@@ -166,14 +202,25 @@ local function CollectRows()
         if sub then line = line and (line .. " · " .. sub) or sub end
         row.line = line or QUEUED_STATUS_IN_PROGRESS or ""
         row.title = title ~= "" and title or (status or "")
+        row.status, row.names, row.detail = status or row.line, nil, sub
         -- queuedTime survives pool reuse on Blizzard's side: only trust it while the time line shows
         row.queuedTime = blizz.TimeInQueue and blizz.TimeInQueue:IsShown() and blizz.queuedTime or nil
+        if status == QUEUED_STATUS_LISTED then
+            -- own group listing: "<time> · N applicants", every listed activity in the tooltip
+            local ok, _, active = pcall(C_LFGList.GetNumApplicants)
+            row.line = ns.L["%d applicants"]:format(ok and tonumber(active) or 0)
+            row.detail = nil
+            row.names = AllActivityNames()
+            row.queuedTime = row.queuedTime or ListedSince()
+        end
     end
     if count == 0 and demo then
         count = 1
         rows[1] = rows[1] or {}
         rows[1].title = ns.L["Deadmines, Wailing Caverns"]
-        rows[1].line = (QUEUED_STATUS_LISTED or "Listed") .. " · " .. (LFG_LIST_PENDING_APPLICANTS or "%d"):format(2)
+        rows[1].line = ns.L["%d applicants"]:format(2)
+        rows[1].status = QUEUED_STATUS_LISTED or "Listed"
+        rows[1].names = { ns.L["Deadmines, Wailing Caverns"] }
         rows[1].queuedTime = demoStart
     end
     return count
@@ -231,14 +278,21 @@ local function Refresh()
     end
     local timed = false
     used = CollectRows()
+    local listed = false
+    for i = 1, used do if rows[i].status == QUEUED_STATUS_LISTED then listed = true end end
+    if not listed and not demo and type(_G.MeredanUIDB) == "table" and _G.MeredanUIDB.lfgListedAt and ns.charKey then
+        _G.MeredanUIDB.lfgListedAt[ns.charKey] = nil
+    end
     for i = 1, used do
         local row = rows[i]
         local entry = entries[i] or CreateEntry()
         entries[i] = entry
-        entry.status:SetText(row.line)
+        entry.row = row
+        entry.baseLine = row.line
         entry.title:SetText(row.title)
         entry.queuedTime = row.queuedTime
-        entry.time:SetText(TimeText(row.queuedTime))
+        entry.status:SetText(StatusLine(entry))
+        entry.time:SetText("")
         timed = timed or row.queuedTime ~= nil
         entry:ClearAllPoints()
         entry:SetPoint("TOPLEFT", ns.ToastHolder, "TOPLEFT", 0,
