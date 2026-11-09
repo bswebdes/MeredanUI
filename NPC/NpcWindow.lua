@@ -87,7 +87,7 @@ end
 -- Never NPC interactions (merchant, mail, bank, trainer, quest, AH, ...) - that would end the interaction.
 local CLOSABLE = {
     legacy = true, spellbook = true, talents = true, professions = true, character = true,
-    inspect = true, guild = true, friends = true, dressup = true, groupfinder = true, macros = true,
+    inspect = true, guild = true, friends = true, dressup = true, groupfinder = true, macros = true, calendar = true, collections = true,
 }
 
 -- Find a spot. Returns the desired right edge (incl. outside tabs) in UIParent units, before WoW

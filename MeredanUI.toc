@@ -68,6 +68,7 @@ Skins/ReadyCheck.lua
 Skins/DressUp.lua
 Skins/GroupFinder.lua
 Skins/Macros.lua
+Skins/Calendar.lua
 NPC/NpcWindow.lua
 Config/AddonList.lua
 NPC/Merchant.lua
@@ -122,6 +123,12 @@ Chat/LFGHighlight.lua
 Chat/Reputation.lua
 Chat/Glyphs.lua
 Chat/RPMode.lua
+Collections/Collections.lua
+Collections/Mounts.lua
+Collections/Pets.lua
+Collections/Toys.lua
+Collections/Heirlooms.lua
+Collections/Wardrobe.lua
 Toasts/Toasts.lua
 Toasts/QueueStatus.lua
 Toasts/BNetToasts.lua
