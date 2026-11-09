@@ -1,5 +1,6 @@
 -- Pins on the dungeon maps (bosses, rares) and a development editor to place them in game.
--- Forever has no spawn positions in its client data, so pins are placed by hand:
+-- Classic instances: positions generated from server spawn data (tools/build_dungeon_pins.py);
+-- the rest (event bosses, Forever's new dungeons) is placed by hand:
 --   /mui debug, then /mui pins -> edit mode (dev only, not in the help): a tray with the dungeon's bosses at the bottom of the map; drag one onto
 --                the map to place it, drag pins to move them, right-click removes. "Target as pin" adds
 --                your current target (a rare) to the tray.
@@ -64,35 +65,72 @@ local function RemovePin(instance, kind, id)
     end
 end
 
-local function StylePin(button, kind, number)
-    local UI = ns.UI
-    button:SetSize(PIN, PIN)
+local GOLD, SILVER, DARK = { 0.85, 0.71, 0.42 }, { 0.8, 0.82, 0.86 }, { 0.07, 0.085, 0.085 }
+local DIAMOND = ns.MEDIA .. "Icons\\Diamond"
+local CIRCLE = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
+
+-- Diamond with border (same look as the Legacy window's level ticks)
+local function Diamond(parent, size, layer)
+    local d = CreateFrame("Frame", nil, parent)
+    d:SetSize(size, size)
+    d.edge = d:CreateTexture(nil, layer or "ARTWORK", nil, 1)
+    d.edge:SetTexture(DIAMOND)
+    d.edge:SetAllPoints()
+    d.fill = d:CreateTexture(nil, layer or "ARTWORK", nil, 2)
+    d.fill:SetTexture(DIAMOND)
+    d.fill:SetPoint("TOPLEFT", 2, -2)
+    d.fill:SetPoint("BOTTOMRIGHT", -2, 2)
+    d.fill:SetVertexColor(unpack(DARK))
+    d.text = ns.UI.Text(d, 11, "CENTER")
+    d.text:SetPoint("CENTER", 0, 0)
+    ns.SetFont(d.text, 11, "OUTLINE", "bold")
+    return d
+end
+
+-- Round creature portrait in a ring (boss gold, rare silver) with a small diamond badge
+-- (boss number / rare star); without a display ID: a plain diamond with the number.
+local function StylePin(button, kind, number, display)
     if not button.ring then
         button.ring = button:CreateTexture(nil, "BACKGROUND")
         button.ring:SetAllPoints()
-        button.ring:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask")
-        button.dot = button:CreateTexture(nil, "BORDER")
-        button.dot:SetPoint("TOPLEFT", 2, -2)
-        button.dot:SetPoint("BOTTOMRIGHT", -2, 2)
-        button.dot:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask")
-        button.label = UI.Text(button, 12, "CENTER")
-        button.label:SetPoint("CENTER", 0, 0)
-        ns.SetFont(button.label, 12, "OUTLINE", "bold")
-        local hover = button:CreateTexture(nil, "HIGHLIGHT")
-        hover:SetAllPoints(button.dot)
-        hover:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask")
-        hover:SetVertexColor(1, 1, 1, 0.25)
+        button.ring:SetTexture(CIRCLE)
+        button.portrait = button:CreateTexture(nil, "BORDER")
+        button.portrait:SetPoint("TOPLEFT", 2, -2)
+        button.portrait:SetPoint("BOTTOMRIGHT", -2, 2)
+        button.hover = button:CreateTexture(nil, "HIGHLIGHT")
+        button.hover:SetAllPoints(button.portrait)
+        button.hover:SetTexture(CIRCLE)
+        button.hover:SetVertexColor(1, 1, 1, 0.25)
+        button.badge = Diamond(button, 18)
+        button.badge:SetFrameLevel(button:GetFrameLevel() + 2)
+        button.big = Diamond(button, PIN)
+        button.big:SetPoint("CENTER")
     end
-    if kind == "rare" then
-        button.dot:SetVertexColor(0.16, 0.16, 0.17)
-        button.ring:SetVertexColor(0.85, 0.85, 0.9)
-        button.label:SetText("|T" .. ns.MEDIA .. "Icons\\Star:12:12:0:0|t")
-        button.label:SetTextColor(1, 1, 1)
+    local color = kind == "rare" and SILVER or GOLD
+    local mark = kind == "rare" and ("|T" .. ns.MEDIA .. "Icons\\Star:10:10:0:0|t") or (number or "")
+    local round = display and display > 0
+    button.ring:SetShown(round)
+    button.portrait:SetShown(round)
+    button.badge:SetShown(round)
+    button.big:SetShown(not round)
+    if round then
+        button:SetSize(PIN + 10, PIN + 10)
+        button.ring:SetVertexColor(unpack(color))
+        SetPortraitTextureFromCreatureDisplayID(button.portrait, display)
+        button.badge:ClearAllPoints()
+        button.badge:SetPoint("CENTER", button, "BOTTOMRIGHT", -5, 5)
+        button.badge.edge:SetVertexColor(unpack(color))
+        button.badge.text:SetText(mark)
+        button.badge.text:SetTextColor(unpack(color))
+        button.hover:SetTexture(CIRCLE)
+        button.hover:SetAllPoints(button.portrait)
     else
-        button.dot:SetVertexColor(0.36, 0.12, 0.08)
-        button.ring:SetVertexColor(0.85, 0.71, 0.42)
-        button.label:SetText(number or "")
-        button.label:SetTextColor(0.94, 0.85, 0.69)
+        button:SetSize(PIN, PIN)
+        button.big.edge:SetVertexColor(unpack(color))
+        button.big.text:SetText(mark)
+        button.big.text:SetTextColor(unpack(color))
+        button.hover:SetTexture(DIAMOND)
+        button.hover:SetAllPoints(button.big)
     end
 end
 
@@ -143,7 +181,7 @@ local function MakePin(i)
             RemovePin(view.instance, e.kind, e.id)
         else
             local x, y = CursorToMap(view.art)
-            if x then SavePin(view.instance, { kind = e.kind, id = e.id, name = e.name, floor = view.floor, x = x, y = y }) end
+            if x then SavePin(view.instance, { kind = e.kind, id = e.id, name = e.name, display = e.display, floor = view.floor, x = x, y = y }) end
         end
         Refresh()
     end)
@@ -173,7 +211,7 @@ local function TrayButton(i)
         self:SetScript("OnUpdate", nil)
         local x, y = CursorToMap(view.art)
         local e = self.entry
-        if x and e then SavePin(view.instance, { kind = e.kind, id = e.id, name = e.name, floor = view.floor, x = x, y = y }) end
+        if x and e then SavePin(view.instance, { kind = e.kind, id = e.id, name = e.name, display = e.display, floor = view.floor, x = x, y = y }) end
         Refresh()
     end)
     trayButtons[i] = button
@@ -195,8 +233,8 @@ function Refresh()
             local button = pins[n] or MakePin(n)
             local name, number = p.name, nil
             if p.kind == "boss" then name, number = BossName(instance, p.id) end
-            button.entry = { kind = p.kind, id = p.id, name = name or p.name }
-            StylePin(button, p.kind, number)
+            button.entry = { kind = p.kind, id = p.id, name = name or p.name, display = p.display }
+            StylePin(button, p.kind, number, p.display)
             button:ClearAllPoints()
             button:SetPoint("CENTER", view.art, "TOPLEFT", p.x * view.art:GetWidth(), -p.y * view.art:GetHeight())
             button:Show()
