@@ -28,9 +28,11 @@ end
 
 local function TimeText(queuedTime)
     if not queuedTime then return "" end
-    local elapsed = GetTime() - queuedTime
-    if elapsed < 60 then return "<" .. SecondsToTime(60, true, false, 1) end
-    return SecondsToTime(elapsed, true, false, 1)
+    -- counts up every second: 0:42, 12:05, 1:03:20
+    local t = math.max(0, math.floor(GetTime() - queuedTime))
+    local h, m, sec = math.floor(t / 3600), math.floor(t / 60) % 60, t % 60
+    if h > 0 then return ("%d:%02d:%02d"):format(h, m, sec) end
+    return ("%d:%02d"):format(m, sec)
 end
 
 local function CreateEntry()

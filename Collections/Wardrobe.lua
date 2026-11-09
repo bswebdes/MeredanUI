@@ -249,7 +249,7 @@ local function Create(p)
     local last
     for i, slot in ipairs(SLOTS) do
         local button = CreateFrame("Button", nil, p)
-        button:SetSize(28, 28)
+        button:SetSize(32, 32)
         UI.Box(button)
         ns.AddBorder(button)
         button.icon = button:CreateTexture(nil, "ARTWORK")
@@ -375,16 +375,19 @@ local function Create(p)
     subText = UI.Text(right, 11, "LEFT", UI.MUTED)
     subText:SetPoint("TOPLEFT", nameText, "BOTTOMLEFT", 0, -4)
     subText:SetPoint("RIGHT", -12, 0)
+    -- back to what you are wearing (without the previewed piece)
     local undress = UI.Button(right, L["Reset"], function()
         player:SetUnit("player", false)
-        if mode == "items" and selectedSource then player:TryOn(selectedSource) end
     end, 100)
     undress:SetHeight(28)
     undress:SetPoint("BOTTOMLEFT", 10, 10)
     linkButton = UI.Button(right, L["Link"], function()
         if not selectedSource then return end
-        local link = select(6, C_TransmogCollection.GetAppearanceSourceInfo(selectedSource))
-        if link and ChatEdit_InsertLink then ChatEdit_InsertLink(link) end
+        -- 12.x returns a table; into an open chat line, else open one with the link
+        local info = C_TransmogCollection.GetAppearanceSourceInfo(selectedSource)
+        local link = type(info) == "table" and (info.itemLink ~= "" and info.itemLink or info.transmoglink) or nil
+        if not link or link == "" then return end
+        if not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
     end, 100)
     linkButton:SetHeight(28)
     linkButton:SetPoint("BOTTOMRIGHT", -10, 10)
