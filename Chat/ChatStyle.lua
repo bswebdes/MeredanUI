@@ -863,4 +863,4 @@ ns.AddCommand("chatbuttons", "show Blizzard's chat buttons until /reload (diagno
         end
     end
     ns.Print("Chat-Knöpfe sind bis zum nächsten /reload sichtbar (Bildschirmmitte).")
-end)
+end, true)

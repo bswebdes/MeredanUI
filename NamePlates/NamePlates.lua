@@ -643,7 +643,7 @@ ns.AddCommand("stack", "show the nameplate stacking area", function()
     local value = C_CVar.GetCVar("nameplateStackingTypes")
     local on = C_CVar.GetCVarBitfield and C_CVar.GetCVarBitfield("nameplateStackingTypes", Enum.NamePlateStackType.Enemy)
     ns.Print("Stacking: %s (CVar %s)", tostring(on), tostring(value))
-end)
+end, true)
 
 -- Blizzard marks minor mobs as "simplified" and shrinks their plate internally, so they stack
 -- far too tightly. Our plates always have the same size -> turn it off.

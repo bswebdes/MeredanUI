@@ -1,7 +1,7 @@
 -- Pins on the dungeon maps (bosses, rares) and a development editor to place them in game.
 -- Classic instances: positions generated from server spawn data (tools/build_dungeon_pins.py);
 -- the rest (event bosses, Forever's new dungeons) is placed by hand:
---   /mui debug, then /mui pins -> edit mode (dev only, not in the help): a tray with the dungeon's bosses at the bottom of the map; drag one onto
+--   /mui debug (developer mode), then /mui pins -> edit mode: a tray with the dungeon's bosses at the bottom of the map; drag one onto
 --                the map to place it, drag pins to move them, right-click removes. "Target as pin" adds
 --                your current target (a rare) to the tray.
 -- Placed pins are saved account-wide (MeredanUIDB.dungeonPins) and later copied into
@@ -346,5 +346,5 @@ function P.ToggleEdit()
     Refresh()
 end
 
--- Development tool (to show where bosses are): hidden from /mui help, removed again once all pins are in
+-- Development tool (to show where bosses are): developer mode only, removed again once all pins are in
 ns.AddCommand("pins", "dungeon map: place boss/rare pins (dev)", function() P.ToggleEdit() end, true)

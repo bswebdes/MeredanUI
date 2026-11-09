@@ -1005,7 +1005,7 @@ ns.AddCommand("legacy", L["open the Legacy window (preview)"], function()
     if ns.ToggleLegacy and ns.db.legacyWindow ~= false then return ns.ToggleLegacy(true) end
     if not LegacySystemFrame and LegacySystemFrame_LoadUI then LegacySystemFrame_LoadUI() end
     if LegacySystemFrame then ShowUIPanel(LegacySystemFrame) end
-end)
+end, true)
 
 ns:On("PLAYER_LOGIN", function()
     ns.root.talentLog = nil

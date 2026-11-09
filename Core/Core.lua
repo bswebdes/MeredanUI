@@ -440,23 +440,34 @@ end)
 -------------------------------------------------------------------------------
 local commands = {}
 
--- hidden = development tool: not listed in /mui help
-function ns.AddCommand(name, help, fn, hidden)
-    commands[name] = { help = help, fn = fn, hidden = hidden }
+-- dev = developer tool: only listed and usable in developer mode (/mui debug)
+function ns.AddCommand(name, help, fn, dev)
+    commands[name] = { help = help, fn = fn, dev = dev }
 end
 
 local function ShowHelp()
     ns.Print(L["Commands:"])
-    for name, cmd in pairs(commands) do
-        if not cmd.hidden then print(("  /mui %s – %s"):format(name, cmd.help)) end
+    local names = {}
+    for name in pairs(commands) do names[#names + 1] = name end
+    table.sort(names)
+    for _, name in ipairs(names) do
+        local cmd = commands[name]
+        if not cmd.dev then print(("  /mui %s – %s"):format(name, cmd.help)) end
+    end
+    if not ns.db.debug then return end
+    print("|cff8ecbb4" .. L["Developer"] .. "|r")
+    for _, name in ipairs(names) do
+        local cmd = commands[name]
+        if cmd.dev then print(("  /mui %s – %s"):format(name, cmd.help)) end
     end
 end
 
 ns.AddCommand("help", L["show this help"], ShowHelp)
-ns.AddCommand("debug", L["toggle debug output"], function()
+-- Developer mode: always usable, but not listed for players
+commands.debug = { help = L["developer mode on/off"], fn = function()
     ns.db.debug = not ns.db.debug
-    ns.Print(L["Debug output: %s"], ns.db.debug and L["on"] or L["off"])
-end)
+    ns.Print(L["Developer mode: %s"], ns.db.debug and L["on"] or L["off"])
+end, dev = true }
 
 SLASH_XMEREDANUI1 = "/meredanui"
 SLASH_XMEREDANUI2 = "/mui"
@@ -464,6 +475,7 @@ SlashCmdList["XMEREDANUI"] = function(msg)
     local name, rest = msg:match("^%s*(%S*)%s*(.-)%s*$")
     if name == "" and ns.OpenSettings then return ns.OpenSettings() end
     local cmd = commands[name:lower()]
+    if cmd and cmd.dev and name:lower() ~= "debug" and not ns.db.debug then cmd = nil end
     if cmd then cmd.fn(rest) else ShowHelp() end
 end
 

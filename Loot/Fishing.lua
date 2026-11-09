@@ -627,7 +627,6 @@ function F.Toggle()
 end
 
 ns.AddCommand("angeln", L["open the fishing bag"], F.Toggle)
-ns.AddCommand("fishing", L["open the fishing bag"], F.Toggle, true)
 
 -- Pole on: open; pole off: close
 local hadPole
