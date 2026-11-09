@@ -23,7 +23,7 @@ local WIDTH, HEIGHT = 400, 560
 local PAD = ns.NPC_PAD or 18
 local POLE_SLOT = 16
 local POLE_CLASS, POLE_SUBCLASS = 2, 20
-local SESSION_IDLE = 3600 -- a new session starts after an hour without a catch
+local SESSION_IDLE = 3600 -- a new fishing trip starts after an hour without a catch
 local COLS, SLOT, GAP = 8, 40, 5
 local LOG_ROWS = 10
 -- Fishing lures: item -> skill bonus (Classic/Forever)
@@ -380,7 +380,7 @@ local function CreateBag(page)
 
     local sessionLabel = UI.Text(page, 13, "LEFT", UI.MUTED)
     sessionLabel:SetPoint("TOPLEFT", PAD, -TOP - 140)
-    sessionLabel:SetText(L["This session"])
+    sessionLabel:SetText(L["This fishing trip"])
     page.since = UI.Text(page, 12, "RIGHT", { 0.36, 0.39, 0.38 })
     page.since:SetPoint("TOPRIGHT", -PAD, -TOP - 141)
     page.slots = {}
@@ -395,7 +395,7 @@ local function CreateBag(page)
     page.hint:SetPoint("TOPLEFT", PAD, -TOP - 162 - 4 * (SLOT + GAP) - 2)
     page.hint:SetText(L["Right-click: use · drag: into trade or bag"])
 
-    local reset = UI.Button(page, L["New session"], function()
+    local reset = UI.Button(page, L["New fishing trip"], function()
         NewSession()
         F.Refresh()
     end, WIDTH - 2 * PAD)
