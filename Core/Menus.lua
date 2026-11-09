@@ -53,6 +53,23 @@ local function FlatSelection(frame, isCheckbox)
     if text and box then pcall(text.SetPoint, text, "LEFT", box, "RIGHT", ns.Snap(6), 0) end
 end
 
+-- Section titles: Blizzard colors them NORMAL_FONT_COLOR (yellow) in an initializer right after the
+-- font string is created -> recolor one frame later in Surf Green. Custom title colors (e.g. the class
+-- color of a unit menu) stay. The plain C method is used: the menu wraps SetTextColor and would cache
+-- an addon-written color in its own tables.
+local rawSetTextColor
+local function RecolorTitle(frame)
+    local fs = frame and frame.fontString
+    if not (fs and fs.GetTextColor) then return end
+    local r, g, b = fs:GetTextColor()
+    local y = NORMAL_FONT_COLOR
+    if math.abs(r - y.r) < 0.02 and math.abs(g - y.g) < 0.02 and math.abs(b - y.b) < 0.02 then
+        if not rawSetTextColor then rawSetTextColor = UIParent:CreateFontString().SetTextColor end
+        local a = ns.UI.ACCENT
+        rawSetTextColor(fs, a[1], a[2], a[3])
+    end
+end
+
 ns:On("PLAYER_LOGIN", function()
     for _, mixin in ipairs({ MenuStyle1Mixin, MenuStyle2Mixin }) do
         if mixin and mixin.Generate then hooksecurefunc(mixin, "Generate", FlattenMenu) end
@@ -71,6 +88,22 @@ ns:On("PLAYER_LOGIN", function()
                     h:SetPoint("TOPLEFT", frame, "TOPLEFT", -6, 0)
                     h:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 6, 0)
                 end
+            end)
+        end
+        if MenuVariants.CreateFontString then
+            hooksecurefunc(MenuVariants, "CreateFontString", function(frame)
+                C_Timer.After(0, function() RecolorTitle(frame) end)
+            end)
+        end
+        -- submenu arrow: our chevron, muted, instead of Blizzard's yellow triangle
+        if MenuVariants.CreateSubmenuArrow then
+            hooksecurefunc(MenuVariants, "CreateSubmenuArrow", function(frame)
+                local arrow = frame and frame.arrow
+                if not arrow then return end
+                arrow:SetTexture(ns.MEDIA .. "Icons\\ChevronDown")
+                arrow:SetRotation(math.pi / 2)
+                arrow:SetSize(12, 12)
+                arrow:SetVertexColor(unpack(ns.UI.MUTED))
             end)
         end
         if MenuVariants.CreateRadio then
