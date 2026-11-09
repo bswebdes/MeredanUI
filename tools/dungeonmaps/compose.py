@@ -3,8 +3,9 @@
 Background: _assets/dungeon-backgrounds/<inst>.png, cover-cropped and darkened (x0.6, like Wailing
 Caverns); a soft shadow under the map; map on top. Output: BLP2 DXT1 2048x1024, map in the left
 1536 px (texCoord 0..0.75), plus a preview PNG.
-usage: PYTHONPATH=pylib python3 compose.py <maps/inst_floor.png> <background.png> <out.blp> [--largest]
-  --largest  keep only the biggest connected part (drops stray pieces of neighbouring zones)"""
+usage: PYTHONPATH=pylib python3 compose.py <maps/inst_floor.png> <background.png> <out.blp> [--largest] [--half]
+  --largest  keep only the biggest connected part (drops stray pieces of neighbouring zones)
+  --half     half size: map 768x512 in a 1024x512 BLP (same texCoord 0..0.75, a quarter of the file size)"""
 import sys, pathlib
 from collections import deque
 import numpy as np
@@ -42,13 +43,18 @@ def main():
     mp, bgp, out = args
     m = Image.open(mp).convert('RGBA').resize((W, H))
     if '--largest' in sys.argv: m = largest_part(m)
+    w, h, blur = W, H, 10
+    if '--half' in sys.argv:
+        w, h, blur = W // 2, H // 2, 5
+        m = m.resize((w, h), Image.LANCZOS)
+        S.update(W=w, H=h, TW=1024, TH=512)   # to_blp reads these module globals
     bg = Image.open(bgp).convert('RGB')
-    s = max(W / bg.width, H / bg.height)
+    s = max(w / bg.width, h / bg.height)
     bg = bg.resize((round(bg.width * s), round(bg.height * s)), Image.LANCZOS)
-    l, t = (bg.width - W) // 2, (bg.height - H) // 2
-    bg = np.asarray(bg.crop((l, t, l + W, t + H)), np.float32) * 0.6
+    l, t = (bg.width - w) // 2, (bg.height - h) // 2
+    bg = np.asarray(bg.crop((l, t, l + w, t + h)), np.float32) * 0.6
     alpha = np.asarray(m)[..., 3].astype(np.float32) / 255
-    shadow = np.asarray(Image.fromarray((alpha * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(10)), np.float32) / 255
+    shadow = np.asarray(Image.fromarray((alpha * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(blur)), np.float32) / 255
     bg *= (1 - 0.7 * shadow)[..., None]
     rgb = np.asarray(m)[..., :3].astype(np.float32)
     final = bg * (1 - alpha[..., None]) + rgb * alpha[..., None]

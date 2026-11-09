@@ -3,13 +3,14 @@ WMO minimap tiles (Forever build), floor membership from UiMapAssignment.WMOGrou
 region/height; ADT minimap terrain only on floors Blizzard assigns by area (outdoor parts).
 usage: PYTHONPATH=../pylib python3 buildmap.py <instanceID> [<instanceID> ...]
 out: maps/<inst>_<floor>.png (1536x1024 RGBA, transparent outside the dungeon)"""
-import sys, os, re, csv, json, struct, math, subprocess
+import sys, os, re, csv, json, struct, math, subprocess, pathlib
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np
 from PIL import Image, ImageFilter
 
 BUILD = "1.60.1.70862"; TILE = 1600.0 / 3.0; CH = TILE / 16; OUTW, OUTH = 1536, 1024
-src = open('wmomap.py').read().replace('\nmain()\n', '\n'); _W = {}; exec(compile(src, 'w', 'exec'), _W)
+HERE = pathlib.Path(__file__).resolve().parent
+src = (HERE / 'wmomap.py').read_text().replace('\nmain()\n', '\n'); _W = {}; exec(compile(src, 'w', 'exec'), _W)
 decode_blp = _W['decode_blp']
 os.makedirs('maps', exist_ok=True); os.makedirs('cache', exist_ok=True)
 
@@ -43,7 +44,7 @@ for r in csv.DictReader(open('ej/WMOMinimapTexture.csv')):
     MMT.setdefault(int(r['WMOID']), {}).setdefault(int(r['GroupNum']), []).append((int(r['BlockX']), int(r['BlockY']), int(r['FileDataID'])))
 UIA = list(csv.DictReader(open('ej/UiMapAssignment.csv')))
 AREAS = list(csv.DictReader(open('ej/Area.csv', encoding='utf-8')))
-lua = open('/home/benja/wow-addons/MeredanUI/Map/DungeonMapData.lua', encoding='utf-8').read()
+lua = (HERE.parents[1] / 'Map' / 'DungeonMapData.lua').read_text(encoding='utf-8')
 FLOORS = {}
 for m in re.finditer(r'^    \[(\d+)\] = \{(.*?)^    \},', lua, re.M | re.S):
     FLOORS[int(m.group(1))] = [dict(ui=int(u), en=n, region=[float(x) for x in r.split(',')])
