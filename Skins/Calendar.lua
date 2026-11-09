@@ -378,8 +378,31 @@ local function SkinEventButton(button)
     end
 end
 
+-- Day/event tooltips: Blizzard writes event names in its yellow (NORMAL_FONT_COLOR): Surf Green instead
+local function RecolorTooltip()
+    local tip = GameTooltip
+    if not tip:IsShown() or not tip.NumLines then return end
+    local a = ns.UI.ACCENT
+    for i = 1, tip:NumLines() do
+        for _, side in ipairs({ "Left", "Right" }) do
+            local line = _G["GameTooltipText" .. side .. i]
+            if line and line:IsShown() then
+                local r, g, b = line:GetTextColor()
+                if r and r > 0.95 and g > 0.75 and g < 0.88 and b < 0.1 then line:SetTextColor(a[1], a[2], a[3]) end
+            end
+        end
+    end
+end
+
 local function SkinDayButton(button)
     if type(button) ~= "table" or not Once(button) then return end
+    button:HookScript("OnEnter", RecolorTooltip)
+    local name = button:GetName()
+    local j = 1
+    while name and _G[name .. "EventButton" .. j] do
+        _G[name .. "EventButton" .. j]:HookScript("OnEnter", RecolorTooltip)
+        j = j + 1
+    end
     local UI = ns.UI
     local parts = {}
     cells[button] = parts
