@@ -22,7 +22,7 @@ FLOORS = [
     (2994, 2, "Maximum Security", "Hochsicherheitstrakt", 2.0, 14060, 25620, 0.909, 189.6, -233.7),
     (3001, 1, None, None, 0.45, 17600, 22400, 0.531, 193.5, 65.5),
     (3039, 1, None, None, 0.6, 20607, 23640, 0.514, 165.7, 67.0),
-    # classic instances redrawn in the mUI style (AI-painted over our exact floor plan)
+    # classic instances: game-data minimap map on a themed background
     (43, 1, None, None, 1.0, -545, -195, 0.615, 100.6, 74.6),
 ]
 # WMO-only maps place the WMO at 0,0,0: world = -placement there, no 17066 offset
