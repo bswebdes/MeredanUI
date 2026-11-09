@@ -1418,6 +1418,7 @@ if GetLocale() == "deDE" then
     L["Usable"] = "Benutzbar"
     L["Wardrobe"] = "Garderobe"
     L["Calendar"] = "Kalender"
+    L["Approximate entrance (community info) - corrected once you enter."] = "Ungefährer Eingang (Community-Angabe) – wird korrigiert, sobald du die Instanz betrittst."
     L["Calendar in mUI look"] = "Kalender im mUI-Look"
     L["Stable in mUI look"] = "Stall im mUI-Look"
     L["Blizzard's hunter stable in the mUI look at the fixed window spot; functions stay Blizzard's."] = "Blizzards Jäger-Stall im mUI-Look am festen Fensterplatz; Funktionen bleiben Blizzards."

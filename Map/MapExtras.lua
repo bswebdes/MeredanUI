@@ -299,13 +299,44 @@ local KNOWN = {}
 for _, e in ipairs(ENTRANCES) do KNOWN[e[1]] = true end
 local lastOutside -- { continent, x, y, time } of the last spot before a loading screen
 
+-- Approximate entrances of the new instances from community guides (zone map %, uiMapID), shown
+-- until the real spot is learned. { instanceMap, uiMapID, x, y, raid, name }
+local APPROX = {
+    { 3065, 1455, 43.5, 52.0, false, "The Hall of Thanes" },        -- Old Ironforge, left of the throne room
+    { 2999, 1420, 62.0, 67.0, false, "Ruins of Lordaeron" },        -- east side of the Undercity courtyard (rough)
+    { 2998, 1437, 53.9, 65.4, false, "Excavation Site: Wetlands" }, -- start of the path left of Thelgen Rock
+    { 2959, 1416, 8.8, 59.6, false, "City of Dalaran" },            -- sewer gate, northwest of the city
+    { 2970, 1434, 21.4, 27.8, false, "The Drowned City" },          -- underwater, west of Vile Reef
+    { 2994, 1445, 75.3, 14.1, false, "Alcaz Prison" },              -- tower basement on Alcaz Island
+    { 2974, 1447, 38.4, 32.6, false, "Blackmaw Hold" },             -- tunnel in northern Azshara
+    { 3001, 1449, 48.1, 6.1, false, "Shaper's Terrace" },           -- hill above Marshal's Refuge (unconfirmed)
+}
+local approxWorld -- converted lazily (map API needs the world loaded)
+
+local function ApproxEntrances()
+    if approxWorld then return approxWorld end
+    approxWorld = {}
+    for _, a in ipairs(APPROX) do
+        local continent, world = C_Map.GetWorldPosFromMapPos(a[2], CreateVector2D(a[3] / 100, a[4] / 100))
+        if continent and world then
+            local x, y = world:GetXY()
+            approxWorld[#approxWorld + 1] = { a[1], continent, x, y, a[5], a[6], true }
+        end
+    end
+    local list = approxWorld
+    if #list == 0 then approxWorld = nil end -- map data not ready yet: try again next time
+    return list
+end
+
 local function AllEntrances()
-    local learned = MeredanUIDB and MeredanUIDB.entrances
-    if not learned or not next(learned) then return ENTRANCES end
+    local learned = MeredanUIDB and MeredanUIDB.entrances or {}
     local list = {}
     for _, e in ipairs(ENTRANCES) do list[#list + 1] = e end
     for instance, e in pairs(learned) do
         if not KNOWN[instance] then list[#list + 1] = { instance, e[1], e[2], e[3], e[4], e[5] } end
+    end
+    for _, e in ipairs(ApproxEntrances()) do
+        if not KNOWN[e[1]] and not learned[e[1]] then list[#list + 1] = e end
     end
     return list
 end
@@ -469,6 +500,9 @@ function EntranceProvider:RefreshAllData()
                     else
                         GameTooltip:AddLine(kind, 0.6, 0.59, 0.56)
                     end
+                    if self.approx then
+                        GameTooltip:AddLine(ns.L["Approximate entrance (community info) - corrected once you enter."], 0.85, 0.71, 0.42, true)
+                    end
                     -- approach paths only on the zone map
                     local zone = (C_Map.GetMapInfo(provider:GetMap():GetMapID()) or {}).mapType == Enum.UIMapType.Zone
                     local hints = zone and provider:ShowPaths(self)
@@ -487,7 +521,7 @@ function EntranceProvider:RefreshAllData()
             pin:SetSize(size, size)
             pin:SetFrameLevel(level)
             pin.icon:SetAtlas(e[5] and "raid" or "dungeon")
-            pin.x, pin.y, pin.raid, pin.instance = x, y, e[5], e[1]
+            pin.x, pin.y, pin.raid, pin.instance, pin.approx = x, y, e[5], e[1], e[7]
             pin.name = (GetRealZoneText and GetRealZoneText(e[1])) or e[6]
             if not pin.name or pin.name == "" then pin.name = e[6] end
             pin:Show()
