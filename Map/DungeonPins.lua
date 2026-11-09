@@ -305,11 +305,13 @@ P.Refresh = Refresh
 local function CreateTray()
     local UI = ns.UI
     local view = ns.DungeonMapView
-    tray = CreateFrame("Frame", nil, view.frame)
-    -- beside the map (over the quest log column), never over the art
+    -- beside the map, over the quest log column. Parented to UIParent: the map area clips its children,
+    -- so a child placed outside it was invisible
+    tray = CreateFrame("Frame", nil, UIParent)
+    tray:SetFrameStrata("DIALOG")
     tray:SetPoint("TOPLEFT", view.frame, "TOPRIGHT", 12, 0)
     tray:SetWidth(230)
-    tray:SetFrameLevel(view.frame:GetFrameLevel() + 20)
+    view.frame:HookScript("OnHide", function() tray:Hide() end)
     tray:EnableMouse(true)
     UI.Box(tray, { 0.04, 0.04, 0.04, 0.92 })
     ns.AddBorder(tray)
