@@ -1427,6 +1427,7 @@ if GetLocale() == "deDE" then
     L["Target a rare first."] = "Erst einen Rare ins Ziel nehmen."
     L["Open a dungeon map first (click a dungeon swirl on the map)."] = "Erst eine Dungeon-Karte öffnen (auf der Karte einen Dungeon-Wirbel anklicken)."
     L["Pin editor on."] = "Pin-Editor an."
+    L["All bosses placed."] = "Alle Bosse gesetzt."
     L["Pin editor off. Pins are saved."] = "Pin-Editor aus. Pins sind gespeichert."
     L["Click: dungeon map"] = "Klick: Dungeon-Karte"
     L["Approximate entrance (community info) - corrected once you enter."] = "Ungefährer Eingang (Community-Angabe) – wird korrigiert, sobald du die Instanz betrittst."

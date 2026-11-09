@@ -189,33 +189,64 @@ local function MakePin(i)
     return button
 end
 
--- Tray (edit mode): unplaced bosses + rares added from the target
+-- Tray (edit mode): list at the right edge with every boss not yet on this floor's map
+local ghost
+local function Ghost()
+    if not ghost then
+        ghost = CreateFrame("Frame", nil, UIParent)
+        ghost:SetFrameStrata("TOOLTIP")
+        ghost:Hide()
+    end
+    return ghost
+end
+
+local ROW = 30
 local function TrayButton(i)
     local view = ns.DungeonMapView
-    local button = trayButtons[i]
-    if button then return button end
-    button = CreateFrame("Button", nil, tray)
-    button:RegisterForDrag("LeftButton")
-    button:SetScript("OnEnter", Tooltip)
-    button:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    -- drag from the tray: follow the cursor, drop on the map places the pin
-    button:SetScript("OnDragStart", function(self)
-        self:SetScript("OnUpdate", function(b)
+    local row = trayButtons[i]
+    if row then return row end
+    row = CreateFrame("Button", nil, tray.list)
+    row:SetHeight(ROW)
+    row:SetPoint("TOPLEFT", 0, -(i - 1) * ROW)
+    row:SetPoint("TOPRIGHT", 0, -(i - 1) * ROW)
+    row:RegisterForDrag("LeftButton")
+    local hover = row:CreateTexture(nil, "HIGHLIGHT")
+    hover:SetAllPoints()
+    hover:SetColorTexture(1, 1, 1, 0.06)
+    row.icon = CreateFrame("Button", nil, row)
+    row.icon:EnableMouse(false)
+    row.icon:SetPoint("LEFT", 4, 0)
+    row.name = ns.UI.Text(row, 12, "LEFT")
+    row.name:SetPoint("LEFT", 40, 0)
+    row.name:SetPoint("RIGHT", -4, 0)
+    row.name:SetWordWrap(false)
+    -- drag: a pin follows the cursor, dropping it on the map places it on the shown floor
+    row:SetScript("OnDragStart", function(self)
+        local g = Ghost()
+        g.pin = g.pin or CreateFrame("Button", nil, g)
+        g.pin:EnableMouse(false)
+        StylePin(g.pin, self.entry.kind, self.entry.number, self.entry.display)
+        g:SetSize(g.pin:GetSize())
+        g.pin:SetAllPoints()
+        g:Show()
+        g:SetScript("OnUpdate", function(f)
             local x, y = GetCursorPosition()
-            local s = b:GetEffectiveScale()
-            b:ClearAllPoints()
-            b:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / s, y / s)
+            local s = f:GetEffectiveScale()
+            f:ClearAllPoints()
+            f:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / s, y / s)
         end)
     end)
-    button:SetScript("OnDragStop", function(self)
-        self:SetScript("OnUpdate", nil)
+    row:SetScript("OnDragStop", function(self)
+        local g = Ghost()
+        g:SetScript("OnUpdate", nil)
+        g:Hide()
         local x, y = CursorToMap(view.art)
         local e = self.entry
         if x and e then SavePin(view.instance, { kind = e.kind, id = e.id, name = e.name, display = e.display, floor = view.floor, x = x, y = y }) end
         Refresh()
     end)
-    trayButtons[i] = button
-    return button
+    trayButtons[i] = row
+    return row
 end
 
 function Refresh()
@@ -241,26 +272,33 @@ function Refresh()
         end
     end
     if not editing then return end
-    -- tray: bosses not yet placed, then pending rares
+    -- tray: bosses not placed on any floor yet, then rares added from the target
+    local here = placed
     local list = {}
     for i, b in ipairs(ns.DUNGEON_BOSSES and ns.DUNGEON_BOSSES[instance] or {}) do
-        if not placed["boss:" .. b[1]] then list[#list + 1] = { kind = "boss", id = b[1], number = i } end
+        local key = "boss:" .. b[1]
+        if not here[key] then
+            list[#list + 1] = { kind = "boss", id = b[1], number = i }
+        end
     end
     for _, r in ipairs(P.pendingRares or {}) do
-        if r.instance == instance and not placed["rare:" .. r.id] then list[#list + 1] = { kind = "rare", id = r.id, name = r.name } end
+        if r.instance == instance and not here["rare:" .. r.id] then
+            list[#list + 1] = { kind = "rare", id = r.id, name = r.name }
+        end
     end
-    local prev
     for i, e in ipairs(list) do
-        local button = TrayButton(i)
+        local row = TrayButton(i)
         local name = e.name
         if e.kind == "boss" then name = BossName(instance, e.id) end
-        button.entry = { kind = e.kind, id = e.id, name = name }
-        StylePin(button, e.kind, e.number)
-        button:ClearAllPoints()
-        if prev then button:SetPoint("LEFT", prev, "RIGHT", 6, 0) else button:SetPoint("LEFT", hint, "RIGHT", 10, 0) end
-        button:Show()
-        prev = button
+        row.entry = { kind = e.kind, id = e.id, name = name, number = e.number }
+        StylePin(row.icon, e.kind, e.number)
+        row.icon:ClearAllPoints()
+        row.icon:SetPoint("CENTER", row, "LEFT", 20, 0)
+        row.name:SetText(name or "?")
+        row:Show()
     end
+    tray.empty:SetShown(#list == 0)
+    tray:SetHeight(64 + math.max(#list, 1) * ROW)
 end
 P.Refresh = Refresh
 
@@ -268,15 +306,22 @@ local function CreateTray()
     local UI = ns.UI
     local view = ns.DungeonMapView
     tray = CreateFrame("Frame", nil, view.frame)
-    tray:SetPoint("BOTTOMLEFT", 12, 12)
-    tray:SetPoint("BOTTOMRIGHT", -12, 12)
-    tray:SetHeight(40)
+    tray:SetPoint("TOPRIGHT", -12, -48)
+    tray:SetWidth(230)
     tray:SetFrameLevel(view.frame:GetFrameLevel() + 20)
+    tray:EnableMouse(true)
     UI.Box(tray, { 0.04, 0.04, 0.04, 0.92 })
     ns.AddBorder(tray)
     hint = UI.Text(tray, 12, "LEFT", UI.ACCENT)
-    hint:SetPoint("LEFT", 10, 0)
+    hint:SetPoint("TOPLEFT", 10, -10)
+    hint:SetPoint("TOPRIGHT", -10, -10)
     hint:SetText(L["Pin editor: drag onto the map"])
+    tray.list = CreateFrame("Frame", nil, tray)
+    tray.list:SetPoint("TOPLEFT", 6, -30)
+    tray.list:SetPoint("BOTTOMRIGHT", -6, 36)
+    tray.empty = UI.Text(tray.list, 12, "LEFT", UI.MUTED)
+    tray.empty:SetPoint("TOPLEFT", 6, -8)
+    tray.empty:SetText(L["All bosses placed."])
     targetButton = UI.Button(tray, L["Target as pin"], function()
         if not UnitExists("target") or UnitIsPlayer("target") then return ns.Print(L["Target a rare first."]) end
         local guid = UnitGUID("target")
@@ -286,8 +331,9 @@ local function CreateTray()
         table.insert(P.pendingRares, { instance = view.instance, id = npcID, name = UnitName("target") })
         Refresh()
     end, 120)
-    targetButton:SetHeight(26)
-    targetButton:SetPoint("RIGHT", -8, 0)
+    targetButton:SetHeight(24)
+    targetButton:SetPoint("BOTTOMLEFT", 8, 8)
+    targetButton:SetPoint("BOTTOMRIGHT", -8, 8)
     tray:Hide()
 end
 
@@ -300,8 +346,5 @@ function P.ToggleEdit()
     Refresh()
 end
 
--- Development tool (to show where bosses are): hidden from /mui help, needs /mui debug on
-ns.AddCommand("pins", "dungeon map: place boss/rare pins (dev)", function()
-    if not (ns.db and ns.db.debug) then return end
-    P.ToggleEdit()
-end, true)
+-- Development tool (to show where bosses are): hidden from /mui help, removed again once all pins are in
+ns.AddCommand("pins", "dungeon map: place boss/rare pins (dev)", function() P.ToggleEdit() end, true)
