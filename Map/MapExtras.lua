@@ -291,6 +291,51 @@ local ENTRANCES = {
     { 509, 1, -8114.5, 1526.4, true, "Ruins of Ahn'Qiraj" },
     { 531, 1, -8111.7, 1526.8, true, "Ahn'Qiraj Temple" },
 }
+-- Forever's new instances have no corpse point in the game data, so their entrances are learned:
+-- right before the loading screen into an instance (PLAYER_LEAVING_WORLD) the player still stands at
+-- the portal. That spot is saved account-wide (MeredanUIDB.entrances[instanceMap]) and shown like
+-- the built-in ones. Learned spots can later be copied into ENTRANCES above for everyone.
+local KNOWN = {}
+for _, e in ipairs(ENTRANCES) do KNOWN[e[1]] = true end
+local lastOutside -- { continent, x, y, time } of the last spot before a loading screen
+
+local function AllEntrances()
+    local learned = MeredanUIDB and MeredanUIDB.entrances
+    if not learned or not next(learned) then return ENTRANCES end
+    local list = {}
+    for _, e in ipairs(ENTRANCES) do list[#list + 1] = e end
+    for instance, e in pairs(learned) do
+        if not KNOWN[instance] then list[#list + 1] = { instance, e[1], e[2], e[3], e[4], e[5] } end
+    end
+    return list
+end
+
+ns:On("PLAYER_LEAVING_WORLD", function()
+    lastOutside = nil
+    if IsInInstance() then return end
+    local mapID = C_Map.GetBestMapForUnit("player")
+    local pos = mapID and C_Map.GetPlayerMapPosition(mapID, "player")
+    if not pos then return end
+    local continent, world = C_Map.GetWorldPosFromMapPos(mapID, pos)
+    if not (continent and world) then return end
+    local x, y = world:GetXY()
+    lastOutside = { continent, x, y, GetTime() }
+end)
+
+ns:On("PLAYER_ENTERING_WORLD", function()
+    local spot = lastOutside
+    lastOutside = nil
+    if not spot or GetTime() - spot[4] > 120 or not MeredanUIDB then return end
+    local inInstance, kind = IsInInstance()
+    if not inInstance or (kind ~= "party" and kind ~= "raid") then return end
+    local name, _, _, _, _, _, _, instance = GetInstanceInfo()
+    if not instance or KNOWN[instance] then return end
+    MeredanUIDB.entrances = MeredanUIDB.entrances or {}
+    if MeredanUIDB.entrances[instance] then return end
+    MeredanUIDB.entrances[instance] = { spot[1], spot[2], spot[3], kind == "raid", name or "" }
+    if DevLog then DevLog("MeredanUI", ("Dungeon entrance learned: %s (%d) at %d, %.1f, %.1f"):format(name or "?", instance, spot[1], spot[2], spot[3])) end
+end)
+
 -- size per map level: much larger on the zone map so the entrance stands out
 local PIN_SIZE = { continent = 22, zone = 36 }
 
@@ -394,7 +439,7 @@ function EntranceProvider:RefreshAllData()
     if not info or info.mapType <= Enum.UIMapType.World then return end
     self.pins = self.pins or {}
     local level = map:GetPinFrameLevelsManager():GetValidFrameLevel("PIN_FRAME_LEVEL_DUNGEON_ENTRANCE")
-    for _, e in ipairs(ENTRANCES) do
+    for _, e in ipairs(AllEntrances()) do
         local _, pos = C_Map.GetMapPosFromWorldPos(e[2], CreateVector2D(e[3], e[4]), mapID)
         local x, y
         if pos then x, y = pos:GetXY() end -- not "pos and pos:GetXY()": that yields only one value
