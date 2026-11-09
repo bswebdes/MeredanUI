@@ -188,7 +188,6 @@ local function Overlay(owner)
     o:SetFrameStrata("DIALOG")
     o:RegisterForClicks("AnyUp", "AnyDown")
     o:RegisterForDrag("LeftButton")
-    o:SetAllPoints(owner)
     local hover = o:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.15)
@@ -213,10 +212,13 @@ local function SyncOverlays()
     if InCombatLockdown() then return end
     local visible = window and window:IsVisible()
     for owner, o in pairs(overlays) do
-        local want = visible and owner:IsVisible() and owner.itemID ~= nil
+        local want = visible and owner:IsVisible() and owner.itemID ~= nil and owner:GetLeft() ~= nil
         if want then
+            -- Protected frames may not be anchored to our (unprotected) buttons: place by coordinates
+            local k = owner:GetEffectiveScale() / UIParent:GetEffectiveScale()
             o:ClearAllPoints()
-            o:SetAllPoints(owner)
+            o:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", owner:GetLeft() * k, owner:GetTop() * k)
+            o:SetSize(owner:GetWidth() * k, owner:GetHeight() * k)
             if owner.lure then
                 o:SetAttribute("type", "item")
                 o:SetAttribute("item", "item:" .. owner.itemID)
@@ -595,6 +597,14 @@ local function CreateWindow()
         Select(tab)
     end)
     window:HookScript("OnHide", function() SyncOverlays() end)
+    -- overlays sit at fixed coordinates: follow when the window was dragged
+    window:HookScript("OnUpdate", function(self)
+        local x, y = self:GetLeft(), self:GetTop()
+        if x and (x ~= self.muiLastX or y ~= self.muiLastY) then
+            self.muiLastX, self.muiLastY = x, y
+            SyncOverlays()
+        end
+    end)
     -- lure timer and per-hour rate tick while open
     local elapsed = 0
     window:HookScript("OnUpdate", function(_, delta)
