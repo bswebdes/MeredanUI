@@ -767,23 +767,25 @@ local function Place()
     end
 end
 
--- Zoom the class art ~10% inside Blizzard's own sheet cut-out (drops the art's built-in frame).
--- Blizzard may set new coords on update: re-zoom only when they aren't the ones we applied.
-local function ZoomClassIcon(icon)
-    if not IsTexture(icon) then return end
-    local ulx, uly, _, _, _, _, lrx, lry = icon:GetTexCoord()
-    local z = icon.muiZoom
-    if z and math.abs(ulx - z[1]) < 1e-5 and math.abs(uly - z[2]) < 1e-5 then return end
-    local dx, dy = (lrx - ulx) * 0.1, (lry - uly) * 0.1
-    icon:SetTexCoord(ulx + dx, lrx - dx, uly + dy, lry - dy)
-    icon.muiZoom = { ulx + dx, uly + dy }
+-- Blizzard cuts the class icons out of an old sheet with uneven built-in frames: use the single,
+-- frameless class icons instead (cropped like our tab icons)
+local CLASS_ICONS = { WARRIOR = 626008, PALADIN = 626003, HUNTER = 626000, ROGUE = 626005, PRIEST = 626004,
+    DEATHKNIGHT = 625998, SHAMAN = 626006, MAGE = 626001, WARLOCK = 626007, MONK = 626002, DRUID = 625999,
+    DEMONHUNTER = 1260827, EVOKER = 4574311 }
+local function ClassIcon(button)
+    local icon = button:GetNormalTexture()
+    local file = button.class and CLASS_ICONS[button.class]
+    if not IsTexture(icon) or not file or icon.muiClass == button.class then return end
+    icon:SetTexture(file)
+    icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    icon.muiClass = button.class
 end
 
 local function PlaceClassButtons(parent)
     local i = 1
     while _G["CalendarClassButton" .. i] do
         local button = _G["CalendarClassButton" .. i]
-        ZoomClassIcon(button:GetNormalTexture())
+        ClassIcon(button)
         i = i + 1
     end
     local container = _G.CalendarClassButtonContainer

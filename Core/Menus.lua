@@ -66,6 +66,10 @@ ns:On("PLAYER_LOGIN", function()
                     local a = ns.UI.ACCENT
                     h:SetColorTexture(a[1], a[2], a[3], 0.2)
                     h:SetBlendMode("BLEND")
+                    -- reach the menu's inner edges evenly (the row itself is inset)
+                    h:ClearAllPoints()
+                    h:SetPoint("TOPLEFT", frame, "TOPLEFT", -6, 0)
+                    h:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 6, 0)
                 end
             end)
         end
