@@ -575,7 +575,7 @@ oUF.Tags.Methods["mui:tlevel"] = [[function(u)
     if level <= 0 then return " |cffff2020??|r" end
     local color = GetCreatureDifficultyColor and GetCreatureDifficultyColor(level)
     if not color then return " " .. level end
-    -- „gleiche Stufe“ (Blizzard: gelb) in MUI-Salbei, die übrigen Gefahrenfarben bleiben
+    -- "same level" (Blizzard: yellow) in mUI sage; the other difficulty colors stay
     if QuestDifficultyColors and color == QuestDifficultyColors.difficult then return " |cff8ecbb4" .. level .. "|r" end
     return (" |cff%02x%02x%02x%d|r"):format(color.r * 255, color.g * 255, color.b * 255, level)
 end]]
