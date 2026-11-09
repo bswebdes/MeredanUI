@@ -27,7 +27,6 @@ Icons
 Dungeon maps of WoW Forever's new instances (Media/DungeonMaps)
 - Atlas de Azeroth: Forever by Santiago Reyes – https://sreyesmaps.com – used with the artist's
   permission (2026-11-09); watermarks and credits must stay unaltered, not for sale.
-  Support him: https://ko-fi.com/sr433_20 – https://www.patreon.com/c/SantiagoReyesMaps
   (Blackmaw Hold: own map built from the game's minimap tiles.)
 
 Boss positions on classic dungeon maps (Map/DungeonPinData.lua)

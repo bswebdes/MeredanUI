@@ -65,7 +65,7 @@ windows and all features are MeredanUI's own code. The source code is public on
 - [Twemoji](https://github.com/twitter/twemoji) by Twitter, Inc. and contributors – CC-BY 4.0 (converted to game textures)
 
 **Dungeon maps**
-- Maps of WoW Forever's new dungeons: [Atlas de Azeroth: Forever](https://santiago-reyes-portfolio.vercel.app/post/proyecto-atlas-de-azeroth-forever) by Santiago Reyes ([sreyesmaps.com](https://sreyesmaps.com)) – used with his permission, watermark untouched. If you like them, consider supporting him on [Ko-fi](https://ko-fi.com/sr433_20) or [Patreon](https://www.patreon.com/c/SantiagoReyesMaps)
+- Maps of WoW Forever's new dungeons: [Atlas de Azeroth: Forever](https://santiago-reyes-portfolio.vercel.app/post/proyecto-atlas-de-azeroth-forever) by Santiago Reyes ([sreyesmaps.com](https://sreyesmaps.com)) – used with his permission, watermark untouched
 
 **Data**
 - Boss positions on classic dungeon maps: [cMaNGOS classic-db](https://github.com/cmangos/classic-db) and [mangos-classic](https://github.com/cmangos/mangos-classic) scripts – coordinates only
