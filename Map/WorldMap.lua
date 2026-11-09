@@ -103,6 +103,25 @@ local function CreateCanvas(parent)
     map.BorderFrame:EnableMouse(false)
     Mixin(map, MapCanvasMixin)
     MapCanvasMixin.OnLoad(map)
+    -- AcquirePin calls pin:SetPassThroughButtons, which is blocked for addon code in combat (map opened
+    -- in a fight -> ADDON_ACTION_BLOCKED). Patch every pin our canvas creates: skip it in combat (only
+    -- costs right-click passthrough on pins acquired mid-fight). Pools are hooked on creation, before
+    -- the first Acquire.
+    setmetatable(map.pinPools, { __newindex = function(pools, template, pool)
+        local acquire = pool.Acquire
+        pool.Acquire = function(p, ...)
+            local pin, isNew = acquire(p, ...)
+            if isNew then
+                local check = pin.CheckMouseButtonPassthrough
+                pin.CheckMouseButtonPassthrough = function(self, ...)
+                    if InCombatLockdown() then return end
+                    return check(self, ...)
+                end
+            end
+            return pin, isNew
+        end
+        rawset(pools, template, pool)
+    end })
     -- only accept maps with art (quests in instances etc. yield maps without layers, which breaks
     -- Blizzard's zoom levels)
     local setMapID = map.SetMapID
