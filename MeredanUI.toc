@@ -89,6 +89,9 @@ Talents/Spellbook.lua
 Map/MapRevealData.lua
 Map/DungeonApproaches.lua
 Map/MapExtras.lua
+Map/DungeonMapData.lua
+Map/DungeonMapDataForever.lua
+Map/DungeonMap.lua
 Map/WorldMap.lua
 Map/FlightMap.lua
 Social/Friends.lua

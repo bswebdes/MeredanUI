@@ -482,8 +482,12 @@ function EntranceProvider:RefreshAllData()
                 pin.icon = pin:CreateTexture(nil, "ARTWORK")
                 pin.icon:SetAllPoints()
                 pin:EnableMouse(true)
-                pin:SetMouseClickEnabled(false) -- clicks go to the map (zoom, navigate up)
                 local provider = self
+                -- left-click opens the dungeon map (Map/DungeonMap.lua), right-click: zone up like the map
+                pin:SetScript("OnMouseUp", function(pinFrame, button)
+                    if button == "LeftButton" and ns.OpenDungeonMap and ns.OpenDungeonMap(pinFrame.instance) then return end
+                    if button == "RightButton" then provider:GetMap():NavigateToParentMap() end
+                end)
                 pin:SetScript("OnEnter", function(self)
                     -- above left: the entrance hints sit below their rings
                     GameTooltip:SetOwner(self, "ANCHOR_NONE")
@@ -499,6 +503,9 @@ function EntranceProvider:RefreshAllData()
                             color and color.r or 1, color and color.g or 1, color and color.b or 1)
                     else
                         GameTooltip:AddLine(kind, 0.6, 0.59, 0.56)
+                    end
+                    if ns.DungeonMapView and ns.DungeonMapView.Has(self.instance) then
+                        GameTooltip:AddLine(ns.L["Click: dungeon map"], 0.56, 0.8, 0.71)
                     end
                     if self.approx then
                         GameTooltip:AddLine(ns.L["Approximate entrance (community info) - corrected once you enter."], 0.85, 0.71, 0.42, true)

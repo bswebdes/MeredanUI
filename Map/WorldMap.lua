@@ -124,6 +124,7 @@ local function CreateCanvas(parent)
     end
     function map:OnMapChanged()
         MapCanvasMixin.OnMapChanged(self)
+        if ns.DungeonMapView then ns.DungeonMapView.Hide() end
         C_QuestLog.SetMapForQuestPOIs(self:GetMapID())
         if self.RefreshReveal then self:RefreshReveal() end
         if OnMapChanged then OnMapChanged() end
@@ -725,6 +726,11 @@ end
 OnMapChanged = function()
     if not (window and window:IsShown()) then return end
     Crumbs()
+    local dungeon = ns.DungeonMapView and ns.DungeonMapView.CurrentName()
+    if dungeon then
+        footer:SetText(dungeon)
+        return
+    end
     if Filters().thisMap then RefreshLog() end
     local mapID = canvas:GetMapID()
     local info = C_Map.GetMapInfo(mapID)
@@ -949,6 +955,7 @@ local function CreateWindow()
     pinButton:ClearAllPoints()
     pinButton:SetPoint("TOPLEFT", 12, -12)
     pinButton:SetFrameLevel(9000) -- above all map pins and revealed areas (Map/MapExtras.lua)
+    if ns.DungeonMapView then ns.DungeonMapView.Attach(holder, function() OnMapChanged() end) end
     coords = CreateFrame("Frame", nil, holder)
     coords:SetHeight(22)
     coords:SetPoint("BOTTOMLEFT", 12, 12)
@@ -1044,6 +1051,19 @@ local function CreateWindow()
 
     window:HookScript("OnShow", function()
         PlaySound(SOUNDKIT.IG_QUEST_LOG_OPEN)
+        -- dungeon map: the clicked swirl, else the instance you are in. Next frame, after the canvas
+        -- has set its zone (a map change closes the dungeon view).
+        local view = ns.DungeonMapView
+        if view then
+            local wanted = view.wanted
+            view.wanted = nil
+            C_Timer.After(0, function()
+                if not window:IsShown() then return end
+                local inInstance, kind = IsInInstance()
+                local instance = inInstance and (kind == "party" or kind == "raid") and select(8, GetInstanceInfo())
+                view.Show(wanted or instance)
+            end)
+        end
         OnMapChanged()
         LayoutLog()
         -- On first open Blizzard computes the zoom before layout (map too big, bottom cut off):
@@ -1072,6 +1092,16 @@ local function Open(mapID)
     end
     canvas.wantedMap = mapID
     window:Show()
+end
+
+-- Dungeon swirl click (Map/MapExtras.lua): show that dungeon's map
+function ns.OpenDungeonMap(instance)
+    local view = ns.DungeonMapView
+    if not (view and view.Has(instance)) then return false end
+    if window and window:IsShown() then return view.Show(instance) end
+    view.wanted = instance
+    Open()
+    return true
 end
 
 local function Toggle()

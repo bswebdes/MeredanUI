@@ -1418,6 +1418,8 @@ if GetLocale() == "deDE" then
     L["Usable"] = "Benutzbar"
     L["Wardrobe"] = "Garderobe"
     L["Calendar"] = "Kalender"
+    L["Back to the zone"] = "Zurück zur Zone"
+    L["Click: dungeon map"] = "Klick: Dungeon-Karte"
     L["Approximate entrance (community info) - corrected once you enter."] = "Ungefährer Eingang (Community-Angabe) – wird korrigiert, sobald du die Instanz betrittst."
     L["Calendar in mUI look"] = "Kalender im mUI-Look"
     L["Stable in mUI look"] = "Stall im mUI-Look"
