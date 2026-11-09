@@ -34,7 +34,7 @@ local function Pull(arg)
     local seconds = tonumber(arg) or 10
     if not C_PartyInfo.DoCountdown(seconds) then ns.Print(L["Pull timer not possible right now."]) end
 end
-ns.AddCommand("pull", L["Pull timer for the group (e.g. /mui pull 10)"], Pull)
+ns.AddCommand("pull", nil, Pull)
 if not SlashCmdList.PULL then
     SLASH_MEREDANUIPULL1 = "/pull"
     SlashCmdList.MEREDANUIPULL = Pull

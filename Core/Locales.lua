@@ -253,7 +253,6 @@ if GetLocale() == "deDE" then
     L["Boss timers"] = "Boss-Timer"
     L["Pull timer not possible right now."] = "Pull-Timer gerade nicht möglich."
     L["Damage meter diagnostics to chat + DevLog"] = "Schadensanzeige-Diagnose in Chat + DevLog"
-    L["Pull timer for the group (e.g. /mui pull 10)"] = "Pull-Timer für die Gruppe (z. B. /mui pull 10)"
     L["Renown"] = "Ruhm"
     L["Achievement"] = "Erfolg"
     L["Guild achievement"] = "Gildenerfolg"
@@ -686,7 +685,6 @@ if GetLocale() == "deDE" then
     -- RP mode
     L["RP mode"] = "RP-Modus"
     L["Toggle RP mode"] = "RP-Modus an/aus"
-    L["RP mode on/off (only chat and emotes)"] = "RP-Modus an/aus (nur Chat und Emotes)"
     L["Hides everything except chat and emotes. Again to show it all. Also: /rp"] = "Blendet alles aus außer Chat und Emotes. Nochmal klicken zeigt wieder alles. Auch: /rp"
     L["Ended – you are in combat."] = "Beendet – du bist im Kampf."
     L["Turn on RP mode"] = "RP-Modus einschalten"
@@ -1363,7 +1361,6 @@ if GetLocale() == "deDE" then
     L["class colour"] = "Klassenfarbe"
     L["sage"] = "Salbei"
     L["mUI style"] = "mUI-Stil"
-    L["Run setup again"] = "Einrichtung erneut starten"
     L["unchanged"] = "unverändert"
     -- Addon list, ready check, dressing room
     L["%d of %d loaded"] = "%d von %d geladen"
