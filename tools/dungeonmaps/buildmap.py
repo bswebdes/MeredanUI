@@ -113,6 +113,12 @@ def build(inst):
     skip = {int(v) for v in os.environ.get('SKIP', '').split(',') if v}   # group indices to leave out
     if skip:
         for w in wmos: w['groups'] = [g for g in w['groups'] if g['gi'] not in skip]
+    zmin = float(os.environ.get('ZMIN', '-1e9')); zmax = float(os.environ.get('ZMAX', '1e9'))   # height band (group z centre)
+    for w in wmos: w['groups'] = [g for g in w['groups'] if zmin <= g['z'] <= zmax]
+    if os.environ.get('LISTGROUPS'):
+        for wi, w in enumerate(wmos):
+            for g in sorted(w['groups'], key=lambda g: g['gi']):
+                print(f"  wmo {wi} ({w['p']['fdid']}) gi {g['gi']} gid {g['gid']} ext {int(g['ext'])} z {g['zr'][0]:.0f}..{g['zr'][1]:.0f} img {g['img'].shape[1]}x{g['img'].shape[0]}", flush=True)
     if os.environ.get('MAINWMO'):   # only the instance's own WMO (drops pieces of a neighbouring city WMO)
         wmos = [max(wmos, key=lambda w: len(w['groups']))]
     # floor membership
@@ -132,15 +138,22 @@ def build(inst):
             bb = g['bb']; cs = [to_world(w['p'], x, y) for x in (bb[0], bb[3]) for y in (bb[1], bb[4])]
             g['wb'] = (min(c[0] for c in cs), min(c[1] for c in cs), max(c[0] for c in cs), max(c[1] for c in cs))
             allg.append(g)
-    if floors is None:   # one floor, 3:2 region around all groups with a margin
-        x0 = min(g['wb'][0] for g in allg); y0 = min(g['wb'][1] for g in allg)
-        x1 = max(g['wb'][2] for g in allg); y1 = max(g['wb'][3] for g in allg)
+    def fit(gs):   # 3:2 region around the given groups with a margin
+        x0 = min(g['wb'][0] for g in gs); y0 = min(g['wb'][1] for g in gs)
+        x1 = max(g['wb'][2] for g in gs); y1 = max(g['wb'][3] for g in gs)
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
         hx, hy = (x1 - x0) / 2 * 1.08, (y1 - y0) / 2 * 1.08
         if hy < hx * 1.5: hy = hx * 1.5
         else: hx = hy / 1.5
-        floors = [dict(ui=0, en=None, region=[cx - hx, cy - hy, -100000.0, cx + hx, cy + hy, 100000.0])]
+        return [cx - hx, cy - hy, -100000.0, cx + hx, cy + hy, 100000.0]
+    if floors is None:
+        floors = [dict(ui=0, en=None, region=fit(allg))]
         print(f'{inst} fitted region:', ', '.join(f'{v:.1f}' for v in floors[0]['region']), flush=True)
+    overview = set()
+    for f in floors:   # Blizzard overview floor without a region (Dire Maul): all groups in a fitted region
+        if not any(f['region'][i] for i in (0, 1, 3, 4)):
+            f['region'] = fit(allg); overview.add(f['ui'])
+            print(f'{inst} overview floor {f["en"]} fitted region:', ', '.join(f'{v:.1f}' for v in f['region']), flush=True)
     def ov(a, b):   # overlap of two world XY boxes relative to the smaller one
         ix = max(0, min(a[2], b[2]) - max(a[0], b[0])); iy = max(0, min(a[3], b[3]) - max(a[1], b[1]))
         sa = max(1e-6, min((a[2] - a[0]) * (a[3] - a[1]), (b[2] - b[0]) * (b[3] - b[1])))
@@ -172,7 +185,7 @@ def build(inst):
                 if min(g['zr'][1], hi) - max(g['zr'][0], lo) < 0.5 * max(1.0, g['zr'][1] - g['zr'][0]): continue
             if not any(ov(b, o['wb']) >= 0.15 for o in own):
                 g.setdefault('fill', set()).add(f['ui'])
-    for g in allg: g['floors'] = g['floors'] | g.get('fill', set())
+    for g in allg: g['floors'] = g['floors'] | g.get('fill', set()) | overview
     # instance areas for the terrain mask
     ids = {int(a['ID']) for a in AREAS if a['ContinentID'] == str(inst)}
     results = []

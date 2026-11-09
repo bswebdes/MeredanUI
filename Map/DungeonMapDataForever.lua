@@ -40,3 +40,102 @@ ns.DUNGEON_MAPS[389] = {
 ns.DUNGEON_MAPS[3065] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3065_1", texCoord = { 0, 0.75, 0, 1 }, region = { -142.00, -600.40, -100000.00, 646.10, 581.80, 100000.00 } },
 }
+ns.DUNGEON_MAPS[36] = {
+    { en = "The Deadmines", de = "Die Todesminen", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\36_1", texCoord = { 0, 0.75, 0, 1 }, region = { -337.51, -796.62, -10000.00, 35.33, -237.36, 1000000.00 } },
+    { en = "Ironclad Cove", de = "Eiserne Bucht", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\36_2", texCoord = { 0, 0.75, 0, 1 }, region = { -267.51, -1016.62, -10000.00, 65.33, -517.36, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[33] = {
+    { en = "The Courtyard", de = "Der Hof", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_1", texCoord = { 0, 0.75, 0, 1 }, region = { -319.88, 2003.77, -10000.00, -84.93, 2356.20, 1000000.00 } },
+    { en = "Dining Hall", de = "Speisesaal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_2", texCoord = { 0, 0.75, 0, 1 }, region = { -303.21, 2147.56, -10000.00, -161.60, 2359.98, 1000000.00 } },
+    { en = "The Vacant Den", de = "Die Verwaiste Höhle", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_3", texCoord = { 0, 0.75, 0, 1 }, region = { -193.22, 2103.77, -10000.00, -91.60, 2256.20, 1000000.00 } },
+    { en = "Lower Observatory", de = "Tieferes Observatorium", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_4", texCoord = { 0, 0.75, 0, 1 }, region = { -193.21, 2103.77, 127.00, -91.59, 2256.20, 1000000.00 } },
+    { en = "Upper Observatory", de = "Oberes Observatorium", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_5", texCoord = { 0, 0.75, 0, 1 }, region = { -193.21, 2103.77, -10000.00, -91.59, 2256.20, 1000000.00 } },
+    { en = "Lord Godfrey's Chamber", de = "Lord Godfreys Kammer", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_6", texCoord = { 0, 0.75, 0, 1 }, region = { -182.55, 2080.77, -10000.00, -50.26, 2279.20, 1000000.00 } },
+    { en = "The Wall Walk", de = "Der Wehrgang", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_7", texCoord = { 0, 0.75, 0, 1 }, region = { -278.22, 2023.77, -10000.00, -96.60, 2296.20, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[34] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\34_1", texCoord = { 0, 0.75, 0, 1 }, region = { -31.47, -188.33, -10000.00, 220.63, 189.82, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[48] = {
+    { en = "The Pool of Ask'Ar", de = "Der Teich von Ask'Ar", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\48_1", texCoord = { 0, 0.75, 0, 1 }, region = { -677.15, -381.30, -10000.00, -87.67, 502.92, 1000000.00 } },
+    { en = "Moonshrine Sanctum", de = "Mondschreinsanktum", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\48_2", texCoord = { 0, 0.75, 0, 1 }, region = { -927.15, -581.30, -10000.00, -337.67, 302.92, 1000000.00 } },
+    { en = "The Forgotten Pool", de = "Der Vergessene Teich", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\48_3", texCoord = { 0, 0.75, 0, 1 }, region = { -877.15, -281.30, -10000.00, -687.67, 2.93, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[90] = {
+    { en = "The Hall of Gears", de = "Die Halle der Zahnräder", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\90_1", texCoord = { 0, 0.75, 0, 1 }, region = { -694.00, -277.77, -10000.00, -180.89, 491.90, 1000000.00 } },
+    { en = "The Dormitory", de = "Der Schlafsaal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\90_2", texCoord = { 0, 0.75, 0, 1 }, region = { -714.00, -77.77, -10000.00, -200.89, 691.90, 1000000.00 } },
+    { en = "Launch Bay", de = "Startrampe", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\90_3", texCoord = { 0, 0.75, 0, 1 }, region = { -967.33, -127.77, -10000.00, -387.55, 741.90, 1000000.00 } },
+    { en = "Tinkers' Court", de = "Tüftlerhof", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\90_4", texCoord = { 0, 0.75, 0, 1 }, region = { -937.33, 73.00, -10000.00, -357.55, 942.67, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[47] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\47_1", texCoord = { 0, 0.75, 0, 1 }, region = { 1858.68, 1322.47, -10000.00, 2349.64, 2058.92, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[189] = {
+    { en = "Graveyard", de = "Friedhof", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\189_1", texCoord = { 0, 0.75, 0, 1 }, region = { 1616.86, 947.99, -10000.00, 2030.18, 1567.97, 1000000.00 } },
+    { en = "Library", de = "Bibliothek", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\189_2", texCoord = { 0, 0.75, 0, 1 }, region = { 93.91, -482.46, -10000.00, 307.37, -162.27, 1000000.00 } },
+    { en = "Armory", de = "Arsenal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\189_3", texCoord = { 0, 0.75, 0, 1 }, region = { 1600.64, -562.42, -10000.00, 2009.10, 50.27, 1000000.00 } },
+    { en = "Cathedral", de = "Kathedrale", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\189_4", texCoord = { 0, 0.75, 0, 1 }, region = { 812.42, 1040.69, -10000.00, 1281.29, 1743.99, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[129] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\129_1", texCoord = { 0, 0.75, 0, 1 }, region = { 2209.85, 570.89, -10000.00, 2682.55, 1279.94, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[70] = {
+    { en = "Hall of the Keepers", de = "Halle der Bewahrer", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\70_1", texCoord = { 0, 0.75, 0, 1 }, region = { -391.47, -248.55, -10000.00, 204.31, 645.12, 1000000.00 } },
+    { en = "Khaz'Goroth's Seat", de = "Khaz'goroths Sitz", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\70_2", texCoord = { 0, 0.75, 0, 1 }, region = { -57.77, 52.55, -10000.00, 270.61, 545.12, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[209] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\209_1", texCoord = { 0, 0.75, 0, 1 }, region = { 1129.17, 241.67, -1000000.00, 2052.08, 1625.00, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[349] = {
+    { en = "Caverns of Maraudon", de = "Höhlen von Maraudon", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\349_1", texCoord = { 0, 0.75, 0, 1 }, region = { 550.00, -827.50, -10000.00, 1200.00, 147.50, 1000000.00 } },
+    { en = "Zaetar's Grave", de = "Zaetars Grab", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\349_2", texCoord = { 0, 0.75, 0, 1 }, region = { -208.33, -1158.75, -10000.00, 883.33, 478.75, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[109] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\109_1", texCoord = { 0, 0.75, 0, 1 }, region = { -718.52, -252.27, -10000.00, -255.17, 442.76, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[230] = {
+    { en = "Detention Block", de = "Gefängnisblock", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\230_1", texCoord = { 0, 0.75, 0, 1 }, region = { 248.64, -884.72, -10000.00, 1186.68, 522.34, 1000000.00 } },
+    { en = "Shadowforge City", de = "Schattenschmiede", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\230_2", texCoord = { 0, 0.75, 0, 1 }, region = { 495.30, -934.72, -10000.00, 1500.01, 572.34, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[289] = {
+    { en = "The Reliquary", de = "Das Reliquiarium", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\289_1", texCoord = { 0, 0.75, 0, 1 }, region = { 104.33, -68.64, -10000.00, 317.70, 251.41, 1000000.00 } },
+    { en = "Chamber of Summoning", de = "Kammer der Beschwörung", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\289_2", texCoord = { 0, 0.75, 0, 1 }, region = { 44.33, -128.64, -10000.00, 337.70, 311.41, 1000000.00 } },
+    { en = "The Upper Study", de = "Oberes Arbeitszimmer", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\289_3", texCoord = { 0, 0.75, 0, 1 }, region = { 34.32, -113.64, -10000.00, 307.71, 296.44, 1000000.00 } },
+    { en = "Headmaster's Study", de = "Arbeitszimmer des Direktors", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\289_4", texCoord = { 0, 0.75, 0, 1 }, region = { -66.32, -174.12, -10000.00, 287.71, 356.92, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[329] = {
+    { en = "Crusader's Square", de = "Kreuzzüglerplatz", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\329_1", texCoord = { 0, 0.75, 0, 1 }, region = { 3338.97, -3617.68, -10000.00, 3809.45, -2911.96, 1000000.00 } },
+    { en = "The Gauntlet", de = "Der Spießrutenlauf", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\329_2", texCoord = { 0, 0.75, 0, 1 }, region = { 3498.97, -3967.68, -10000.00, 4169.45, -2961.96, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[309] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\309_1", texCoord = { 0, 0.75, 0, 1 }, region = { -12560.42, -2570.83, -1000000.00, -11308.33, -693.75, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[249] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\249_1", texCoord = { 0, 0.75, 0, 1 }, region = { -223.83, -371.73, -10000.00, 98.25, 111.38, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[409] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\409_1", texCoord = { 0, 0.75, 0, 1 }, region = { 459.86, -1395.56, -10000.00, 1303.06, -130.76, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[469] = {
+    { en = "Dragonmaw Garrison", de = "Garnison des Drachenmals", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\469_1", texCoord = { 0, 0.75, 0, 1 }, region = { -7727.07, -1344.05, -10000.00, -7394.12, -844.62, 1000000.00 } },
+    { en = "Halls of Strife", de = "Hallen des Zwists", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\469_2", texCoord = { 0, 0.75, 0, 1 }, region = { -7777.07, -1379.05, 420.00, -7344.12, -729.62, 1000000.00 } },
+    { en = "Crimson Laboratories", de = "Blutrote Labore", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\469_3", texCoord = { 0, 0.75, 0, 1 }, region = { -7757.07, -1369.05, 445.00, -7324.12, -719.62, 1000000.00 } },
+    { en = "Nefarian's Lair", de = "Nefarians Unterschlupf", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\469_4", texCoord = { 0, 0.75, 0, 1 }, region = { -7637.07, -1419.05, -10000.00, -7204.12, -769.62, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[429] = {
+    { en = "Dire Maul", de = "Düsterbruch", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_1", texCoord = { 0, 0.75, 0, 1 }, region = { 0.00, 0.00, -1000000.00, 0.00, 0.00, 1000000.00 } },
+    { en = "Gordok Commons", de = "Gordokhallen", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_2", texCoord = { 0, 0.75, 0, 1 }, region = { 200.00, -387.50, -10000.00, 1050.00, 887.50, 1000000.00 } },
+    { en = "Capital Gardens", de = "Hauptstadtgärten", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_3", texCoord = { 0, 0.75, 0, 1 }, region = { -150.00, 125.00, -10000.00, 200.00, 650.00, 1000000.00 } },
+    { en = "Court of the Highborne", de = "Hof der Hochgeborenen", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_4", texCoord = { 0, 0.75, 0, 1 }, region = { -150.00, 231.25, -10000.00, 175.00, 718.75, 1000000.00 } },
+    { en = "Prison of Immol'Thar", de = "Gefängnis von Immol'thar", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_5", texCoord = { 0, 0.75, 0, 1 }, region = { -250.00, 325.00, -10000.00, 250.00, 1075.00, 1000000.00 } },
+    { en = "Warpwood Quarter", de = "Wucherborkenviertel", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_6", texCoord = { 0, 0.75, 0, 1 }, region = { -281.67, -900.00, -10000.00, 251.67, -100.00, 1000000.00 } },
+    { en = "The Shrine of Eldretharr", de = "Schrein von Eldretharr", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\429_7", texCoord = { 0, 0.75, 0, 1 }, region = { -200.00, -862.50, -10000.00, 450.00, 112.50, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[509] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\509_1", texCoord = { 0, 0.75, 0, 1 }, region = { -9908.33, 522.92, -1000000.00, -8233.33, 3035.42, 1000000.00 } },
+}
+ns.DUNGEON_MAPS[531] = {
+    { en = "The Hive Undergrounds", de = "Untergrund des Schwarmbaus", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\531_1", texCoord = { 0, 0.75, 0, 1 }, region = { -9510.98, 138.08, -10000.00, -7659.29, 2915.62, 1000000.00 } },
+    { en = "The Temple Gates", de = "Die Tempeltore", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\531_2", texCoord = { 0, 0.75, 0, 1 }, region = { -8703.50, 1538.07, -10000.00, -8051.80, 2515.63, 1000000.00 } },
+    { en = "Vault of C'Thun", de = "Höhle von C'Thun", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\531_3", texCoord = { 0, 0.75, 0, 1 }, region = { -8720.17, 1738.07, -10000.00, -8335.13, 2315.63, 1000000.00 } },
+}
