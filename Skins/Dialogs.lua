@@ -41,6 +41,9 @@ local function SkinButton(button)
         button:GetHighlightTexture() }) do
         if texture then texture:SetAlpha(0) end
     end
+    for _, key in ipairs({ "Left", "Middle", "Right" }) do -- UIPanelButtonTemplate art
+        if button[key] then button[key]:SetAlpha(0) end
+    end
     local bg = button:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(UI.FIELD))
@@ -204,8 +207,36 @@ local function SkinStackSplit(frame)
             end
         end
     end
-    SkinButton(frame.OkayButton)
-    SkinButton(frame.CancelButton)
+    -- OK with text, cancel as a red X (the German "Abbrechen" doesn't fit); both centred
+    local okay, cancel = frame.OkayButton, frame.CancelButton
+    SkinButton(okay)
+    SkinButton(cancel)
+    if okay and cancel then
+        cancel:SetSize(24, 24)
+        local label = cancel:GetFontString()
+        if label then label:SetAlpha(0) end
+        local x = cancel:CreateTexture(nil, "ARTWORK")
+        x:SetTexture(ns.MEDIA .. "Icons\\Close")
+        x:SetSize(14, 14)
+        x:SetPoint("CENTER")
+        local red = { 0.85, 0.35, 0.35 }
+        x:SetVertexColor(unpack(red))
+        cancel:HookScript("OnEnter", function()
+            x:SetVertexColor(1, 0.5, 0.5)
+            GameTooltip:SetOwner(cancel, "ANCHOR_TOP")
+            GameTooltip:SetText(CANCEL, 1, 1, 1)
+            GameTooltip:Show()
+        end)
+        cancel:HookScript("OnLeave", function()
+            x:SetVertexColor(unpack(red))
+            GameTooltip:Hide()
+        end)
+        okay:SetSize(72, 24)
+        okay:ClearAllPoints()
+        okay:SetPoint("BOTTOM", frame, "BOTTOM", -15, 12)
+        cancel:ClearAllPoints()
+        cancel:SetPoint("LEFT", okay, "RIGHT", 6, 0)
+    end
 end
 
 ns:On("PLAYER_LOGIN", function()
