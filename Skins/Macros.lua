@@ -155,8 +155,12 @@ local function SkinButton(button)
     FadeButtonTextures(button)
     local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
     bg:SetAllPoints()
-    local hover = Tex(button, "HIGHLIGHT", 0, UI.HOVER)
+    -- hover below the label (a HIGHLIGHT-layer texture drew over the edit button's text)
+    local hover = Tex(button, "BACKGROUND", -7, UI.HOVER)
     hover:SetAllPoints()
+    hover:Hide()
+    button:HookScript("OnEnter", function(self) if self:IsEnabled() then hover:Show() end end)
+    button:HookScript("OnLeave", function() hover:Hide() end)
     Border(button)
     if button:GetFontString() then
         local f = Fonts()
@@ -476,6 +480,10 @@ local function SkinShell(f)
     Fade(f.PortraitContainer)
     Fade(f.TitleContainer)
     Fade(f.TopTileStreaks)
+    -- Blizzard's unnamed "Create Macros" title on the frame itself (our header shows the name)
+    for _, region in ipairs({ f:GetRegions() }) do
+        if region.IsObjectType and region:IsObjectType("FontString") and region:GetText() == _G.CREATE_MACROS then region:SetAlpha(0) end
+    end
     if _G.MacroFramePortrait then _G.MacroFramePortrait:SetAlpha(0) end
     if f.Inset then Fade(f.Inset.Bg) Fade(f.Inset.NineSlice) end
     Panel(f)
