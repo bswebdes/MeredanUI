@@ -61,6 +61,7 @@ Bags/ToolGuard.lua
 Loot/FastLoot.lua
 Loot/LootWindow.lua
 Loot/LootRoll.lua
+Loot/Fishing.lua
 Bags/Mail.lua
 Skins/Dialogs.lua
 Skins/Communities.lua

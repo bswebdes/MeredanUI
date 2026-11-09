@@ -25,7 +25,7 @@ local COMMON = {
     chatFontSize = "medium", chatShortChannels = true, chatTimestamps = false, chatMentionSound = false,
     emoteBar = "hidden",
     toasts = true, durabilityWarning = true, hideTalkingHead = false,
-    bags = true, protectTools = true, lootWindow = true, lootRolls = true, autoBuy = false,
+    bags = true, protectTools = true, lootWindow = true, lootRolls = true, autoBuy = false, fishingBag = true,
     damageMeterFade = true, damageMeterSecond = false,
 }
 

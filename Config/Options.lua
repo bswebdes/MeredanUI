@@ -637,6 +637,14 @@ local PAGES = {
                 Help(L["Slim need/greed rows instead of Blizzard's group loot frames. Test mode shows examples."], true))
             page:AddCheckbox(L["Fast loot"], On("fastLoot"), Setter("fastLoot"),
                 Help(L["With auto loot on, everything is picked up instantly instead of waiting for the loot window."]))
+            if ns.IS_FOREVER then
+                page:AddHeader(L["Fishing"])
+                page:AddCheckbox(L["Fishing bag"], On("fishingBag"), Setter("fishingBag"),
+                    Help(L["Opens when you equip a fishing pole: this session's catches, lures for the pole, fishing logbook. /mui angeln opens it."]))
+                page:AddCheckbox(L["Double-click to cast"] .. "  |cff8a918e" .. L["Comfort"] .. "|r",
+                    function() return ns.db.fishingDoubleClick == true end, Setter("fishingDoubleClick"),
+                    Help(L["Double right-click in the world casts Fishing while a pole is equipped (out of combat)."]))
+            end
             -- Restock at vendors (Forever only: ammo and reagents only exist there)
             if ns.IS_FOREVER then
                 page:AddHeader(L["Restock at merchants"])

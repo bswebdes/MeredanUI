@@ -277,7 +277,8 @@ local function AddItem(link, quantity, title, force)
         local _, _, _, _, _, classID = C_Item.GetItemInfoInstant(link)
         if not force and quality < MIN_QUALITY and classID ~= Enum.ItemClass.Questitem then return end
         Add({
-            key = "item:" .. link, title = title or L["Loot"], text = item:GetItemName(), link = link,
+            key = "item:" .. link, title = title or (ns.FishingToastTitle and ns.FishingToastTitle(link)) or L["Loot"],
+            text = item:GetItemName(), link = link,
             icon = item:GetItemIcon(), quality = quality, count = quantity or 1, merge = MergeCount,
         })
     end)
