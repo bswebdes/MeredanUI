@@ -22,6 +22,23 @@ Zum Einfügen beim Anlegen des Projekts auf CurseForge.
 **MeredanUI** is a clean, flat all-in-one interface for **WoW Forever** and **Retail (Midnight)**.
 One addon, one look, one settings window (`/mui`).
 
+### Why mUI?
+Like many players, I used ElvUI for years and knew it inside out. But with every expansion it grew more
+features, more options, more to set up – until I simply didn't enjoy it anymore. I went looking for
+something simpler and never really found it.
+
+When I came back to WoW and WoW Forever launched, I decided to build my own interface: one that looks
+the way I always wanted and just works. It kept getting better, so now I'm sharing it.
+
+The idea behind mUI:
+- **Install it and be happy right away.** No hours of setup, no YouTube tutorials needed.
+- **Fixed, clean layouts** instead of moving every frame yourself – you can adjust settings, but you don't have to.
+- **An everyday helper:** the things I actually need while playing, in one place.
+- **Made from one mould:** everything looks like it belongs together, instead of a pile of old addons
+  that are only barely kept alive.
+
+New features are welcome – as long as they're genuinely useful and don't bloat it.
+
 ### Highlights
 - **Unit frames** for player, target, party and raid: big name on top, health and power as numbers in the bar
 - **Action bars**, micro menu and key binding mode
