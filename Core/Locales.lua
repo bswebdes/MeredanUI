@@ -1429,6 +1429,7 @@ if GetLocale() == "deDE" then
     L["Pin editor on."] = "Pin-Editor an."
     L["All bosses placed."] = "Alle Bosse gesetzt."
     L["Fishing bag"] = "Angeltasche"
+    L["Map: Santiago Reyes · sreyesmaps.com"] = "Karte: Santiago Reyes · sreyesmaps.com"
     L["Bag"] = "Tasche"
     L["Logbook"] = "Logbuch"
     L["Lure"] = "Köder"

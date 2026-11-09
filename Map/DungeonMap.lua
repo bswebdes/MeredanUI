@@ -10,7 +10,9 @@
 --
 -- Art: classic instances use Blizzard's map textures shipped with Forever (12 tiles, 1002x668
 -- layer, Map/DungeonMapData.lua); Forever's new instances use own parchment maps
--- (Media/DungeonMaps, Map/DungeonMapDataForever.lua). Display only, nothing protected.
+-- (Media/DungeonMaps, Map/DungeonMapDataForever.lua): Santiago Reyes' Atlas de Azeroth maps (used with his
+-- permission: watermark untouched, credit shown on the map), own parchment maps where he has none yet.
+-- Display only, nothing protected.
 local _, ns = ...
 local L = ns.L
 
@@ -71,6 +73,7 @@ local function ShowFloor(index)
     view.art:ClearAllPoints()
     view.art:SetPoint("TOPLEFT", area, "TOPLEFT", ox, -oy)
     view.art:SetSize(LAYER_W * s, LAYER_H * s)
+    view.credit:SetShown(floor.credit == true)
     for i, chip in ipairs(view.chips) do
         local on = i == index
         for _, e in ipairs(chip.edges) do e:SetShown(on) end
@@ -164,6 +167,16 @@ function view.Attach(holder, onChange)
     bg:SetColorTexture(0.05, 0.04, 0.03, 1)
     view.art = CreateFrame("Frame", nil, frame)
     view.art:SetClipsChildren(true)
+    -- artist credit (Santiago Reyes' maps), above the pins
+    local creditFrame = CreateFrame("Frame", nil, frame)
+    creditFrame:SetAllPoints(view.art)
+    creditFrame:SetFrameLevel(frame:GetFrameLevel() + 30)
+    view.credit = creditFrame:CreateFontString(nil, "OVERLAY")
+    ns.SetFont(view.credit, 11, "OUTLINE")
+    view.credit:SetPoint("TOPRIGHT", view.art, "TOPRIGHT", -10, -8)
+    view.credit:SetTextColor(0.94, 0.88, 0.74, 0.9)
+    view.credit:SetText(L["Map: Santiago Reyes · sreyesmaps.com"])
+    view.credit:Hide()
     frame:SetScript("OnMouseUp", function(_, button)
         if button == "RightButton" then view.Hide() end
     end)
