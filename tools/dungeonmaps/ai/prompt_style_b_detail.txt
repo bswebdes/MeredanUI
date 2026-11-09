@@ -1,0 +1,13 @@
+Image 1 is our finished map style (keep this exact look: dark charcoal-slate paper, soft muted watercolor caves, warm light-grey ink walls, ferns, glowing mushrooms, faint margin sketches).
+Image 2 is the EXACT floor plan of the Wailing Caverns. Image 3 is a top-down satellite view of the same caves at the same position: blue areas are the real water.
+
+Repaint the map in the style of image 1, with the geometry of image 2. Strictly preserve every outline, cave, tunnel, position, size, proportion and orientation - trace it, do not redesign, move, add or remove anything. Paint water ONLY where image 3 shows blue water; do not invent rivers or streams.
+
+Make it feel much more like a real hand-drawn explorer's map, with rich cartographic detail:
+- cave floors with drawn terrain: fine stippling, cracks, scattered pebbles and rubble, small stalagmites, roots and moss patches
+- slopes and ramps shown with fine ink hatching lines, raised rock ledges with cast shadows
+- water with fine ripple lines and darker deep areas, little waterfalls where water drops
+- a delicate ornamental compass rose in one empty corner, a thin double-line map border with small corner ornaments
+- faint grid of very thin lines across the empty paper, like an old survey map
+- keep the druidic margin sketches (serpent, ferns) subtle
+No text, letters, numbers, labels, title, watermark, skulls or icons. Landscape 3:2.
