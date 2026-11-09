@@ -634,6 +634,14 @@ ns:On("PLAYER_LOGIN", function()
         Skin(tooltip)
         tooltip:HookScript("OnTooltipCleared", ResetBorder)
     end
+    -- SetText without a color = Blizzard's yellow default (calendar hints, many UI buttons): our text
+    -- color instead. Explicit colors (item quality, titles) stay untouched.
+    hooksecurefunc(GameTooltip, "SetText", function(self, _, r)
+        if issecretvalue and issecretvalue(r) then return end -- check first: even r == nil errors on a secret
+        if r ~= nil then return end
+        local line = _G[self:GetName() .. "TextLeft1"]
+        if line then line:SetTextColor(unpack(ns.UI.TEXT)) end
+    end)
     hooksecurefunc("GameTooltip_SetDefaultAnchor", PlaceDefault)
     hooksecurefunc("ContainerFrameItemButton_CalculateItemTooltipAnchors", PlaceItemTooltip)
     -- Blizzard recalculates its padding on show and for embedded item tooltips
