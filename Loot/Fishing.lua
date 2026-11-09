@@ -105,7 +105,7 @@ local function QualityColor(quality)
     return 0.91, 0.9, 0.87
 end
 
--- First bag slot holding an item (for tooltip, drag, use)
+-- First bag slot holding an item (for tooltip and use)
 local function FindInBags(itemID)
     for bag = 0, NUM_BAG_SLOTS or 4 do
         for slot = 1, C_Container.GetContainerNumSlots(bag) do
@@ -197,17 +197,11 @@ local function Overlay(owner)
     o = CreateFrame("Button", nil, UIParent, "SecureActionButtonTemplate")
     o:SetFrameStrata("DIALOG")
     o:RegisterForClicks("AnyUp", "AnyDown")
-    o:RegisterForDrag("LeftButton")
     local hover = o:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.15)
     o:SetScript("OnEnter", function() owner:GetScript("OnEnter")(owner) end)
     o:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    o:SetScript("OnDragStart", function()
-        if not owner.itemID or InCombatLockdown() then return end
-        local bag, slot = FindInBags(owner.itemID)
-        if bag then C_Container.PickupContainerItem(bag, slot) end
-    end)
     o:HookScript("OnClick", function(_, button, down)
         if down or button ~= "LeftButton" or not IsModifiedClick("CHATLINK") then return end
         local link = owner.itemID and select(2, C_Item.GetItemInfo(owner.itemID))
@@ -403,7 +397,7 @@ local function CreateBag(page)
     end
     page.hint = UI.Text(page, 11, "LEFT", { 0.36, 0.39, 0.38 })
     page.hint:SetPoint("TOPLEFT", PAD, -TOP - 162 - 4 * (SLOT + GAP) - 2)
-    page.hint:SetText(L["Right-click: use · drag: into trade or bag"])
+    page.hint:SetText(L["Right-click: use"])
 
     local reset = UI.Button(page, L["New fishing trip"], function()
         NewSession()
