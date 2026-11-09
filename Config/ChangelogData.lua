@@ -2,6 +2,25 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.3.0-beta.3", items = {
+        "Dungeon maps on the world map (WoW Forever): click a dungeon portal to open its map, with boss and rare portraits where they stand. Ragefire Chasm, Wailing Caverns and the Hall of Thanes use new mUI maps made from the game's own data on a themed background; the other classic dungeons use Blizzard's maps for now",
+        "World map: entrances of Forever's new dungeons are shown (approximate at first, exact once you have been inside)",
+        "New fishing bag (WoW Forever): opens when you equip a fishing pole. Catches of the current fishing trip, catches per hour, lure bar (click to apply), fishing logbook per zone with escape rate, \"Rare catch!\" toasts. Right-click a catch to use it. Optional: double right-click into the world to cast (Comfort)",
+        "Bags: fishing bag button in the header while a pole is equipped; keyring tab (WoW Forever, only with keys); quiver and ammo pouch always come last. The \"Separate bags\" layout was removed, it now uses \"Sections\"",
+        "New skins: guild and communities window (incl. guild ranks), group finder, macros, calendar, hunter stable, battleground scoreboard, socketing, tabard, guild charter, clock, death recap, addon list, ready check, dressing room, quantity dialog",
+        "Guild: overview tab with classes, level ranges, founding date and main/alt counts; members inactive for 14+ days are marked faintly red",
+        "New collections window (WoW Forever)",
+        "Queue status as a sticky entry on top of the toasts, with waiting time and all listed activities",
+        "Action bars: three optional extra bars, new visibility \"In combat\", per-bar key binding and macro text, key binding text size",
+        "Buffs & debuffs: new time display as a bar below the icon; permanent auras show no bar; sorted by remaining time",
+        "Nameplates: friendly NPCs and companions on name-only mUI plates, new settings for which names to show, name size, NPC titles and companion owners",
+        "Menus and tooltips: Surf Green highlights and section titles instead of Blizzard yellow",
+        "Settings: larger window with new Modules, Skins and Changelog pages; background opacity setting; theme \"Classic green\" is now \"mUI (sage)\"",
+        "Auction house and mailbox stay off when another auction or mail addon is loaded",
+        "/mui help is shorter: settings, key bindings and preview",
+        "Group frames: members joining during combat show up right away",
+        "Performance improvements and many small fixes",
+    } },
     { version = "v0.3.0-beta.2", items = {
         "Status bars now use MeredanUI's own flat texture; third-party bar textures were removed",
         "Mythic+: LibKeystone is no longer bundled; party keystones show when another addon (e.g. BigWigs) provides it",
@@ -43,13 +62,5 @@ ns.CHANGELOG = {
     } },
     { version = "v0.2.0-beta.2", items = {
         "Auction ledger: sold and expired auctions are now recognized correctly (sales no longer show up as \"expired\" or \"cancelled\")",
-    } },
-    { version = "v0.2.0-beta.1", items = {
-        "All-in-one interface for WoW Forever and Retail (Midnight): unit frames, group and raid frames, action bars, minimap, info bars, nameplates, tooltip, chat, bags, bank, mail, auction house, damage meter, loot window and loot rolls",
-        "Setup wizard with two styles (Classic / Comfort) and layouts for melee, ranged, tank and healer",
-        "WoW Forever: own character, talent, spellbook, profession, trainer, vendor and quest windows; talent advisor with leveling builds; class reagents and ammo counter (arrows or bullets, matching your ranged weapon); swing timer, pet helper, spell ranks, flight timer",
-        "Auction house: buy, sell, your auctions and a ledger (income, expenses, fees)",
-        "Auto-restock of ammunition and class reagents at vendors",
-        "English and German",
     } },
 }
