@@ -155,8 +155,12 @@ local function SkinButton(button)
     if name then Fade(_G[name .. "Border"]) end -- UI-Button-Borders art behind footer buttons
     local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
     bg:SetAllPoints()
-    local hover = Tex(button, "HIGHLIGHT", 0, UI.HOVER)
+    -- hover below the label (a HIGHLIGHT-layer texture drew over the text)
+    local hover = Tex(button, "BACKGROUND", -7, UI.HOVER)
     hover:SetAllPoints()
+    hover:Hide()
+    button:HookScript("OnEnter", function(self) if self:IsEnabled() then hover:Show() end end)
+    button:HookScript("OnLeave", function() hover:Hide() end)
     Border(button)
     if button:GetFontString() then
         local f = Fonts()
@@ -213,6 +217,17 @@ local function SkinDropdown(dropdown)
     dropdown:HookScript("OnEnable", Reflect)
     dropdown:HookScript("OnDisable", Reflect)
     Reflect()
+    -- Blizzard re-applies its font object (yellow) and size on every press/open: restore ours
+    local function Restore()
+        if dropdown.Text and dropdown:IsEnabled() then dropdown.Text:SetTextColor(unpack(UI.TEXT)) end
+        if dropdown.muiSize then dropdown:SetSize(dropdown.muiSize[1], dropdown.muiSize[2]) end
+    end
+    if dropdown.OnButtonStateChanged then hooksecurefunc(dropdown, "OnButtonStateChanged", Restore) end
+    dropdown:HookScript("OnEnable", Restore)
+    dropdown:HookScript("OnShow", Restore)
+    dropdown:HookScript("OnMouseDown", Restore)
+    dropdown:HookScript("OnMouseUp", Restore)
+    Restore()
 end
 
 -- Checkbox (UICheckButtonTemplate): dark box, Surf Green check
@@ -229,6 +244,9 @@ local function SkinCheck(check)
     tick:SetPoint("CENTER")
     local hover = Tex(check, "HIGHLIGHT", 0, { 1, 1, 1, 0.08 })
     hover:SetAllPoints(box)
+    -- label: Blizzard's yellow -> text color
+    local label = check.Text or (check:GetName() and _G[check:GetName() .. "Text"])
+    if label and label.SetTextColor then label:SetTextColor(unpack(UI.TEXT)) end
     local function Update()
         tick:SetShown(check:GetChecked() and true or false)
         tick:SetVertexColor(unpack(check:IsEnabled() and UI.ACCENT or UI.MUTED))
@@ -493,6 +511,14 @@ local function RefreshDays()
             for _, edge in ipairs(parts.selected) do edge:SetShown(on) end
             local pending = DayPart(button, "PendingInviteTexture")
             if parts.pending then parts.pending:SetShown(pending and pending:IsShown() and true or false) end
+            -- Blizzard anchors the event shade 40px above the first event: in our shorter cells that
+            -- sticks out over the cell above / the weekday row. Keep it inside the cell, below the date.
+            local eventBg = DayPart(button, "EventBackgroundTexture")
+            if IsTexture(eventBg) then
+                eventBg:ClearAllPoints()
+                eventBg:SetPoint("TOPLEFT", button, "TOPLEFT", 0, -18)
+                eventBg:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
+            end
         end
     end
 end
@@ -550,6 +576,15 @@ local function SkinInviteList(list)
     SkinBox(list)
     SkinScrollBar(list.ScrollBar)
     HookScrollBox(list.ScrollBox, SkinListRow)
+    -- sort arrows in the column headers: Blizzard's yellow arrow -> muted grey
+    for _, child in ipairs({ list:GetChildren() }) do
+        local name = child.GetName and child:GetName()
+        local arrow = name and _G[name .. "Direction"]
+        if IsTexture(arrow) then
+            arrow:SetDesaturated(true)
+            arrow:SetVertexColor(unpack(ns.UI.MUTED))
+        end
+    end
 end
 
 local function SkinViewEvent()
@@ -596,6 +631,14 @@ local function SkinCreateEvent()
         _G.CalendarCreateEventRaidInviteButton, _G.CalendarCreateEventCreateButton }) do
         SkinButton(button)
     end
+    -- name field + "Invite": Blizzard butts them together, our field frame reaches into the button
+    local edit, invite, list = _G.CalendarCreateEventInviteEdit, _G.CalendarCreateEventInviteButton, _G.CalendarCreateEventInviteList
+    if edit and invite and list then
+        edit:SetWidth(180)
+        invite:ClearAllPoints()
+        invite:SetPoint("TOPLEFT", edit, "TOPRIGHT", 12, 1)
+        invite:SetPoint("TOPRIGHT", list, "BOTTOMRIGHT", 0, 1)
+    end
 end
 
 local function SkinMassInvite()
@@ -627,13 +670,20 @@ local function SkinClassButtons()
         if Once(button) then
             local icon = button:GetNormalTexture()
             FadeRegions(button, icon and { [icon] = true } or nil)
+            -- like our side tabs: bigger box, icon inset, Surf Green edge on hover
+            button:SetSize(32, 32)
             local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
             bg:SetAllPoints()
-            Border(button)
+            local edges = Border(button)
             if IsTexture(icon) then
                 icon:ClearAllPoints()
-                icon:SetPoint("TOPLEFT", 1, -1)
-                icon:SetPoint("BOTTOMRIGHT", -1, 1)
+                icon:SetPoint("TOPLEFT", 3, -3)
+                icon:SetPoint("BOTTOMRIGHT", -3, 3)
+                icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+            end
+            if type(edges) == "table" then
+                button:HookScript("OnEnter", function() for _, e in ipairs(edges) do e:SetVertexColor(unpack(UI.ACCENT)) end end)
+                button:HookScript("OnLeave", function() for _, e in ipairs(edges) do e:SetVertexColor(0, 0, 0, 1) end end)
             end
         end
         i = i + 1
@@ -687,6 +737,7 @@ local function Place()
         filter:ClearAllPoints()
         filter:SetPoint("RIGHT", close or f, close and "LEFT" or "TOPRIGHT", -6, 0)
         filter:SetSize(120, 28)
+        filter.muiSize = { 120, 28 }
         if filter.Text then
             filter.Text:ClearAllPoints()
             filter.Text:SetPoint("LEFT", 10, 0)
