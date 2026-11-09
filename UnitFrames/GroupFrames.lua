@@ -528,6 +528,16 @@ local function SpawnGroup(factory, kind, name, visibility, columns, growLeft, ro
         "maxColumns", columns, "unitsPerColumn", rows and rows.per or 5,
         layout[1], layout[2], layout[3], layout[4], layout[5], layout[6], layout[7], layout[8],
         "oUF-initialConfigFunction", ([[ self:SetWidth(%f) self:SetHeight(%f) ]]):format(w, h), ...)
+    -- Create every button now, out of combat: otherwise the header builds them when the first member
+    -- joins - in combat that leaves them unstyled/invisible until a reload. A negative startingIndex
+    -- makes the header lay out placeholder slots; then back to normal and hidden until visibility shows it.
+    if not InCombatLockdown() then
+        local slots = columns * (rows and rows.per or 5)
+        header:SetAttribute("startingIndex", -(slots - 1))
+        header:Show()
+        header:SetAttribute("startingIndex", 1)
+        header:Hide()
+    end
     -- Before visibility: the buttons are only created once the header is shown
     header.muiKind, header.muiWidth, header.muiHeight = kind, w, h
     header.muiVisibility = visibility
