@@ -11,7 +11,7 @@
 local _, ns = ...
 local L = ns.L
 
-local DATA = ns.UPGRADE_DATA
+local DATA = ns.UPGRADE_DATA or { terms = {}, specs = {}, fallback = {} } -- not loaded on Forever
 local Readable = ns.Readable
 local STATS = { "crit", "haste", "mastery", "vers" }
 -- Rating indices (CR_CRIT_MELEE, CR_HASTE_MELEE, CR_MASTERY, CR_VERSATILITY_DAMAGE_DONE)
@@ -393,7 +393,7 @@ local function Rebuild()
     pending = true
     C_Timer.After(0.3, function()
         pending = false
-        BuildWeights()
+        if not ns.IS_FOREVER then BuildWeights() end
         if ns.RefreshBags then ns.RefreshBags() end
     end)
 end
@@ -401,7 +401,7 @@ end
 -- each); the rest is garbage collected
 ns:On("PLAYER_LOGIN", function()
     local _, _, classID = UnitClass("player")
-    if not classID then return end
+    if not classID or ns.IS_FOREVER then return end
     local keep = {}
     for index = 1, C_SpecializationInfo.GetNumSpecializationsForClassID(classID) do
         local specID = GetSpecializationInfoForClassID(classID, index)

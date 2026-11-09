@@ -53,6 +53,7 @@ local tracker, anchor, itemLayer, scroll, content, thumb
 local headers, rows, bossLines, itemButtons = {}, {}, {}, {}
 local instanceBlock
 local pending, itemsPending = false, false
+local lastItems = {}          -- quest items from the last layout (PickBarItems reorders them)
 local barItems = {}           -- { questID, logIndex, link, texture, charges } - active first
 local hasTimers = false
 local hasItems = false      -- several items: re-pick the "nearest quest" periodically
@@ -383,6 +384,31 @@ local function ApplyItems()
     for _, row in ipairs(rows) do
         if row.item then row.item.active:SetShown(row.item:IsShown() and row.questID == active) end
     end
+end
+
+-- Bar order: focus quest first, otherwise the closest quest with an item. force = always reapply;
+-- the 2 s poll only reapplies when the first slot changes (no full tracker rebuild per poll)
+local function PickBarItems(force)
+    local items, superTracked = lastItems, C_SuperTrack.GetSuperTrackedQuestID()
+    local active
+    for _, item in ipairs(items) do
+        if item.questID == superTracked then active = item end
+    end
+    if not active then
+        local best
+        for _, item in ipairs(items) do
+            local dist = C_QuestLog.GetDistanceSqToQuest(item.questID)
+            if dist and not issecretvalue(dist) and (not best or dist < best) then best, active = dist, item end
+        end
+    end
+    active = active or items[1]
+    if not force and active == barItems[1] then return end
+    wipe(barItems)
+    if active then barItems[1] = active end
+    for _, item in ipairs(items) do
+        if item ~= active then barItems[#barItems + 1] = item end
+    end
+    ApplyItems()
 end
 
 -- Data -------------------------------------------------------------------------------------------
@@ -802,25 +828,9 @@ local function Layout()
     tracker.UpdateScroll()
     tracker:SetShown(h > 0 and not bossHidden)
 
-    -- bar: focus quest first, otherwise the nearest quest with an item
-    local active
-    for _, item in ipairs(items) do
-        if item.questID == superTracked then active = item end
-    end
-    if not active then
-        local best
-        for _, item in ipairs(items) do
-            local dist = C_QuestLog.GetDistanceSqToQuest(item.questID)
-            if dist and not issecretvalue(dist) and (not best or dist < best) then best, active = dist, item end
-        end
-    end
-    wipe(barItems)
-    if active or items[1] then barItems[1] = active or items[1] end
-    for _, item in ipairs(items) do
-        if item ~= barItems[1] then barItems[#barItems + 1] = item end
-    end
+    lastItems = items
     hasItems = #items > 1
-    ApplyItems()
+    PickBarItems(true)
 end
 
 local function Refresh()
@@ -990,7 +1000,7 @@ local function Setup()
         self.timerElapsed = (self.timerElapsed or 0) + elapsed
         if self.timerElapsed < (hasTimers and 1 or 2) then return end
         self.timerElapsed = 0
-        Refresh()
+        if hasTimers then Refresh() else PickBarItems(false) end
     end)
 
     for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_WATCH_LIST_CHANGED", "SUPER_TRACKING_CHANGED", "QUEST_ACCEPTED",

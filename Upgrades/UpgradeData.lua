@@ -2,6 +2,8 @@
 -- Stand 2026-10-21, Saison MID2. Quellen: bloodmallet.com (SimulationCraft),
 -- Specs ohne Bloodmallet-Daten (Heiler u. a.): Verhältnis der Sekundärwerte aus Pawn/Ask Mr. Robot.
 local _, ns = ...
+-- Retail-only sims: skip on Forever so ~300 KB of tables are never built (load-time memory spike)
+if ns.IS_FOREVER then return end
 
 ns.UPGRADE_DATA = {
     updated = "2026-10-21",

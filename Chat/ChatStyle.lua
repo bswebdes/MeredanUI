@@ -543,9 +543,20 @@ local function GlassOnUpdate(_, elapsed)
     SetGlassAlpha()
 end
 
+-- Polled every 0.2 s: walk CHAT_FRAMES directly and cache the tab/edit box lookups (no garbage per tick)
+local tabOf, editBoxOf = {}, {}
+local function ChatPart(cache, name, suffix)
+    local part = cache[name]
+    if not part then
+        part = _G[name .. suffix]
+        cache[name] = part
+    end
+    return part
+end
+
 local function AnyTabFlashing()
-    for _, frame in ipairs(ChatFrames()) do
-        local tab = _G[frame:GetName() .. "Tab"]
+    for _, name in ipairs(CHAT_FRAMES or {}) do
+        local tab = ChatPart(tabOf, name, "Tab")
         if tab and tab.muiFlash and tab.muiFlash:IsPlaying() then return true end
     end
     return false
@@ -560,9 +571,9 @@ local function HoverTicker()
     local over = anchor:IsMouseOver()
     -- typing = an edit box really has focus (the "active window" stays set without focus)
     local typing = false
-    for _, frame in ipairs(ChatFrames()) do
-        local editBox = _G[frame:GetName() .. "EditBox"]
-        if editBox and editBox:HasFocus() then typing = true end
+    for _, name in ipairs(CHAT_FRAMES or {}) do
+        local editBox = ChatPart(editBoxOf, name, "EditBox")
+        if editBox and editBox:HasFocus() then typing = true break end
     end
     local active = over or typing
     if active ~= showingAll then

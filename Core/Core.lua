@@ -493,14 +493,14 @@ end
 -- Layer follows target (window dragged or resized): small watcher on the window
 function ns.FollowFrame(layer, target)
     local watcher = CreateFrame("Frame", nil, target)
-    local last = ""
+    local lastL, lastB, lastW, lastH
     watcher:SetScript("OnUpdate", function()
         if InCombatLockdown() then return end
         local l, b, w, h = target:GetRect()
         if not l then return end
-        local key = ("%.1f:%.1f:%.1f:%.1f"):format(l, b, w, h)
-        if key == last then return end
-        last = key
+        -- compare numbers, not a formatted string: this runs every frame while the window is open
+        if l == lastL and b == lastB and w == lastW and h == lastH then return end
+        lastL, lastB, lastW, lastH = l, b, w, h
         ns.MirrorRect(layer, target)
     end)
     ns.MirrorRect(layer, target)

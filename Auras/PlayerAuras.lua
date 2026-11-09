@@ -41,6 +41,7 @@ if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
     barCurve:AddPoint(1, CreateColor(SAGE[1], SAGE[2], SAGE[3]))
 end
 local timeBars = {} -- [bar] = aura button
+local function ColorBar(bar, color) bar:SetStatusBarColor(color:GetRGB()) end -- reused: no closure per tick
 -- Recolor every 0.2s from Blizzard's duration object (values may be secret: pass through only)
 C_Timer.NewTicker(0.2, function()
     if not barCurve then return end
@@ -51,7 +52,7 @@ C_Timer.NewTicker(0.2, function()
             if ok and duration and duration.EvaluateRemainingPercent then
                 local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
                 -- Color may be secret: pass through only, swallow errors (bar stays accent-colored)
-                if okColor and color then pcall(function() bar:SetStatusBarColor(color:GetRGB()) end) end
+                if okColor and color then pcall(ColorBar, bar, color) end
             end
         end
     end

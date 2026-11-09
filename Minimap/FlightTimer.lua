@@ -198,6 +198,11 @@ ns.FlightTimerDemo = {
 }
 
 ns:On("PLAYER_LOGIN", function()
+    -- keep only our faction's table; the other one is never read
+    local data, faction = ns.FLIGHT_TIME_DATA, UnitFactionGroup("player")
+    if data and (faction == "Alliance" or faction == "Horde") then
+        data[faction == "Alliance" and "Horde" or "Alliance"] = nil
+    end
     Create()
     ns.layoutFrames.flight = bar
     ns.OnLayout(Place)
