@@ -157,7 +157,59 @@ local function SkinPopup(popup)
     if popup:IsShown() then ApplyText(popup) end
 end
 
+-- Quantity dialog (buy more at a merchant, split a stack): Blizzard's money-frame art and NineSlice
+-- border hidden (alpha only - Blizzard toggles the two backgrounds with Show/Hide), our panel, a
+-- value field between the arrows, chevron arrows, flat buttons.
+local function SkinStackSplit(frame)
+    if not frame or skinned[frame] then return end
+    skinned[frame] = true
+    local UI = ns.UI
+    for _, region in ipairs({ frame:GetRegions() }) do
+        if region:IsObjectType("Texture") then region:SetAlpha(0) end
+    end
+    for _, child in ipairs({ frame:GetChildren() }) do -- a NineSlice border frame, if any
+        if child.TopLeftCorner or child.Center then child:SetAlpha(0) end
+    end
+    local bg = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
+    bg:SetAllPoints()
+    local c = ns.STYLE.panelColor
+    bg:SetColorTexture(c[1], c[2], c[3], 0.96)
+    ns.AddBorder(frame)
+    local accent = frame:CreateTexture(nil, "ARTWORK")
+    accent:SetColorTexture(unpack(UI.ACCENT))
+    accent:SetPoint("TOPLEFT")
+    accent:SetPoint("TOPRIGHT")
+    accent:SetHeight(2 * ns.PixelSize())
+    local left, right = frame.LeftButton, frame.RightButton
+    if left and right then
+        local field = CreateFrame("Frame", nil, frame)
+        field:SetFrameLevel(frame:GetFrameLevel())
+        field:SetPoint("LEFT", left, "RIGHT", 4, 0)
+        field:SetPoint("RIGHT", right, "LEFT", -4, 0)
+        field:SetHeight(22)
+        local fbg = field:CreateTexture(nil, "BACKGROUND")
+        fbg:SetAllPoints()
+        fbg:SetColorTexture(unpack(UI.FIELD))
+        ns.AddBorder(field)
+        for _, pair in ipairs({ { left, -math.pi / 2 }, { right, math.pi / 2 } }) do
+            local button, rotation = pair[1], pair[2]
+            for _, get in ipairs({ "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture" }) do
+                local t = button[get](button)
+                if t then
+                    t:SetTexture(ns.MEDIA .. "Icons\\ChevronDown")
+                    t:SetRotation(rotation)
+                    t:SetVertexColor(unpack(get == "GetDisabledTexture" and UI.MUTED or UI.TEXT))
+                    if get == "GetDisabledTexture" then t:SetAlpha(0.4) end
+                end
+            end
+        end
+    end
+    SkinButton(frame.OkayButton)
+    SkinButton(frame.CancelButton)
+end
+
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     for i = 1, 4 do SkinPopup(_G["StaticPopup" .. i]) end
+    SkinStackSplit(_G.StackSplitFrame)
 end)
