@@ -1,6 +1,6 @@
--- Pins on the dungeon maps (bosses, rares) and the editor to place them together in game.
+-- Pins on the dungeon maps (bosses, rares) and a development editor to place them in game.
 -- Forever has no spawn positions in its client data, so pins are placed by hand:
---   /mui pins  -> edit mode: a tray with the dungeon's bosses at the bottom of the map; drag one onto
+--   /mui debug, then /mui pins -> edit mode (dev only, not in the help): a tray with the dungeon's bosses at the bottom of the map; drag one onto
 --                the map to place it, drag pins to move them, right-click removes. "Target as pin" adds
 --                your current target (a rare) to the tray.
 -- Placed pins are saved account-wide (MeredanUIDB.dungeonPins) and later copied into
@@ -262,4 +262,8 @@ function P.ToggleEdit()
     Refresh()
 end
 
-ns.AddCommand("pins", L["dungeon map: place boss/rare pins"], function() P.ToggleEdit() end)
+-- Development tool (to show where bosses are): hidden from /mui help, needs /mui debug on
+ns.AddCommand("pins", "dungeon map: place boss/rare pins (dev)", function()
+    if not (ns.db and ns.db.debug) then return end
+    P.ToggleEdit()
+end, true)

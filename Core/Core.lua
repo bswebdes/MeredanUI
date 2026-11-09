@@ -438,14 +438,15 @@ end)
 -------------------------------------------------------------------------------
 local commands = {}
 
-function ns.AddCommand(name, help, fn)
-    commands[name] = { help = help, fn = fn }
+-- hidden = development tool: not listed in /mui help
+function ns.AddCommand(name, help, fn, hidden)
+    commands[name] = { help = help, fn = fn, hidden = hidden }
 end
 
 local function ShowHelp()
     ns.Print(L["Commands:"])
     for name, cmd in pairs(commands) do
-        print(("  /mui %s – %s"):format(name, cmd.help))
+        if not cmd.hidden then print(("  /mui %s – %s"):format(name, cmd.help)) end
     end
 end
 

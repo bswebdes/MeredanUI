@@ -1428,7 +1428,6 @@ if GetLocale() == "deDE" then
     L["Open a dungeon map first (click a dungeon swirl on the map)."] = "Erst eine Dungeon-Karte öffnen (auf der Karte einen Dungeon-Wirbel anklicken)."
     L["Pin editor on."] = "Pin-Editor an."
     L["Pin editor off. Pins are saved."] = "Pin-Editor aus. Pins sind gespeichert."
-    L["dungeon map: place boss/rare pins"] = "Dungeon-Karte: Boss-/Rare-Pins setzen"
     L["Click: dungeon map"] = "Klick: Dungeon-Karte"
     L["Approximate entrance (community info) - corrected once you enter."] = "Ungefährer Eingang (Community-Angabe) – wird korrigiert, sobald du die Instanz betrittst."
     L["Calendar in mUI look"] = "Kalender im mUI-Look"
