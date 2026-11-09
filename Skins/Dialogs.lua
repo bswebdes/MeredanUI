@@ -232,10 +232,15 @@ local function SkinStackSplit(frame)
             GameTooltip:Hide()
         end)
         okay:SetSize(72, 24)
-        okay:ClearAllPoints()
-        okay:SetPoint("BOTTOM", frame, "BOTTOM", -15, 12)
-        cancel:ClearAllPoints()
-        cancel:SetPoint("LEFT", okay, "RIGHT", 6, 0)
+        local function Place()
+            okay:ClearAllPoints()
+            okay:SetPoint("BOTTOM", frame, "BOTTOM", -15, 12)
+            cancel:ClearAllPoints()
+            cancel:SetPoint("LEFT", okay, "RIGHT", 6, 0)
+        end
+        Place()
+        -- Blizzard re-anchors both buttons for single/multi stack mode
+        if frame.ChooseFrameType then hooksecurefunc(frame, "ChooseFrameType", Place) end
     end
 end
 
