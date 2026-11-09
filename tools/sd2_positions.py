@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Summon positions of scripted (event) bosses from cMaNGOS ScriptDevAI sources.
+"""Summon positions of scripted (event) bosses from encounter script sources.
 Finds `NPC_X = id` constants and literal `NPC_X, x, y, z` tuples (summon tables, SummonCreature calls).
-usage: python3 -I tools/sd2_positions.py <ScriptDevAI/scripts dir> > positions.tsv  (entry \t x \t y \t z)"""
+usage: python3 -I tools/sd2_positions.py <scripts dir> > positions.tsv  (entry \t x \t y \t z)"""
 import re, sys, pathlib
 consts, out = {}, []
 files = list(pathlib.Path(sys.argv[1]).rglob("*.[ch]*"))
