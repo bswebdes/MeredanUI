@@ -223,6 +223,8 @@ local function SkinDropdown(dropdown)
         if dropdown.muiSize then dropdown:SetSize(dropdown.muiSize[1], dropdown.muiSize[2]) end
     end
     if dropdown.OnButtonStateChanged then hooksecurefunc(dropdown, "OnButtonStateChanged", Restore) end
+    -- resizeToText: Blizzard sets the width to the label on every text update (menu open/selection)
+    if dropdown.UpdateText then hooksecurefunc(dropdown, "UpdateText", Restore) end
     dropdown:HookScript("OnEnable", Restore)
     dropdown:HookScript("OnShow", Restore)
     dropdown:HookScript("OnMouseDown", Restore)
