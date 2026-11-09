@@ -42,6 +42,8 @@ if C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor then
 end
 local timeBars = {} -- [bar] = aura button
 local function ColorBar(bar, color) bar:SetStatusBarColor(color:GetRGB()) end -- reused: no closure per tick
+-- Auras without a duration get no bar; IsZero may be secret -> alpha from boolean, never compared
+local function HideIfPermanent(bar, isZero) bar:SetAlphaFromBoolean(isZero, 0, 1) end
 -- Recolor every 0.2s from Blizzard's duration object (values may be secret: pass through only)
 C_Timer.NewTicker(0.2, function()
     if not barCurve then return end
@@ -49,6 +51,10 @@ C_Timer.NewTicker(0.2, function()
         -- Aura button visibility is secret - don't check it, just color all
         if button.GetAuraDuration then
             local ok, duration = pcall(button.GetAuraDuration, button)
+            if ok and duration and duration.IsZero then
+                local okZero, isZero = pcall(duration.IsZero, duration)
+                if okZero and isZero ~= nil then pcall(HideIfPermanent, bar, isZero) end
+            end
             if ok and duration and duration.EvaluateRemainingPercent then
                 local okColor, color = pcall(duration.EvaluateRemainingPercent, duration, barCurve)
                 -- Color may be secret: pass through only, swallow errors (bar stays accent-colored)
@@ -161,8 +167,9 @@ local function CreateContainer(name, filter, perRow, rows, iconSize, spacing, li
     local function Init(button) InitButton(button, iconSize, harmful) end
     container:AddAuraGroup(filter, filter, {
         maxFrameCount = perRow * rows,
-        sortMethod = AuraContainerSortMethod.Default,
-        sortDirection = AuraContainerSortDirection.Normal,
+        -- grows left from the right edge: permanent auras rightmost, then longest to shortest remaining
+        sortMethod = AuraContainerSortMethod.ExpirationOnly,
+        sortDirection = AuraContainerSortDirection.Reverse,
         layout = layout,
         initializeFrame = Init,
     })
