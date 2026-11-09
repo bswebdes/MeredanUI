@@ -678,8 +678,7 @@ local function SkinClassButtons()
             if IsTexture(icon) then
                 icon:ClearAllPoints()
                 icon:SetPoint("TOPLEFT", 3, -3)
-                icon:SetPoint("BOTTOMRIGHT", -3, 3)
-                icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+                icon:SetPoint("BOTTOMRIGHT", -3, 3) -- no SetTexCoord: Blizzard cuts the class out of one sheet
             end
             if type(edges) == "table" then
                 button:HookScript("OnEnter", function() for _, e in ipairs(edges) do e:SetVertexColor(unpack(UI.ACCENT)) end end)
