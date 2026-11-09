@@ -637,7 +637,7 @@ function F.Toggle()
     if window and window:IsShown() then window:Hide() else F.Show() end
 end
 
-ns.AddCommand("angeln", L["open the fishing bag"], F.Toggle)
+ns.AddCommand("angeln", ns.IS_FOREVER and L["Fishing bag"] or nil, F.Toggle)
 
 -- Pole on: open; pole off: close
 local hadPole

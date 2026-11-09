@@ -407,8 +407,8 @@ local function Toggle()
     if active then Stop() else Start() end
 end
 
-ns.AddCommand("test", L["test mode: show and animate all frames"], Toggle)
-ns.AddCommand("t", L["short for %s"]:format("test"), Toggle)
+ns.AddCommand("t", L["Preview on/off"], Toggle)
+ns.AddCommand("test", nil, Toggle)
 ns.TestMode = { Start = Start, Stop = Stop, IsActive = function() return active end }
 
 -- Entering combat ends test mode. PLAYER_REGEN_DISABLED fires before lockdown, so protected

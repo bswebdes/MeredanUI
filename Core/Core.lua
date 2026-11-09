@@ -450,26 +450,33 @@ function ns.AddCommand(name, help, fn, dev)
     commands[name] = { help = help, fn = fn, dev = dev }
 end
 
+-- Commands without help text (aliases, "help") work but aren't listed
 local function ShowHelp()
     ns.Print(L["Commands:"])
     local names = {}
-    for name in pairs(commands) do names[#names + 1] = name end
+    for name, cmd in pairs(commands) do
+        if cmd.help then names[#names + 1] = name end
+    end
     table.sort(names)
+    local function Line(name, help)
+        print(("  |cff8ecbb4/mui%s|r  %s"):format(name ~= "" and " " .. name or "", help))
+    end
+    Line("", L["Open settings"])
     for _, name in ipairs(names) do
         local cmd = commands[name]
-        if not cmd.dev then print(("  /mui %s – %s"):format(name, cmd.help)) end
+        if not cmd.dev then Line(name, cmd.help) end
     end
     if not ns.db.debug then return end
-    print("|cff8ecbb4" .. L["Developer"] .. "|r")
+    print("  " .. L["Developer"] .. ":")
     for _, name in ipairs(names) do
         local cmd = commands[name]
-        if cmd.dev then print(("  /mui %s – %s"):format(name, cmd.help)) end
+        if cmd.dev then Line(name, cmd.help) end
     end
 end
 
-ns.AddCommand("help", L["show this help"], ShowHelp)
+ns.AddCommand("help", nil, ShowHelp)
 -- Developer mode: always usable, but not listed for players
-commands.debug = { help = L["developer mode on/off"], fn = function()
+commands.debug = { help = L["Developer mode on/off"], fn = function()
     ns.db.debug = not ns.db.debug
     ns.Print(L["Developer mode: %s"], ns.db.debug and L["on"] or L["off"])
 end, dev = true }

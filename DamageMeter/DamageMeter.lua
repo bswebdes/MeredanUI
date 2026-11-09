@@ -812,4 +812,4 @@ local function Dump()
     end
 end
 
-ns.AddCommand("dmeter", L["damage meter diagnostics to chat + DevLog"], Dump, true)
+ns.AddCommand("dmeter", L["Damage meter diagnostics to chat + DevLog"], Dump, true)

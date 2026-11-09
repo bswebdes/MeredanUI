@@ -209,6 +209,6 @@ ns.ToggleKeyBind = Start
 -- Combat starts: end the mode, keep changes made so far (saved)
 ns:On("PLAYER_REGEN_DISABLED", function() if active then Stop(true) end end)
 
-ns.AddCommand("kb", L["key binding mode: hover a button, press a key"], Start)
+ns.AddCommand("kb", L["Key bindings: hover a button, press a key"], Start)
 SLASH_MEREDANUIKB1 = "/kb"
 SlashCmdList["MEREDANUIKB"] = Start

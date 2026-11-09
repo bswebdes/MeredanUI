@@ -999,7 +999,7 @@ end
 ns.ToggleTalents = Toggle
 
 -- Preview: open the Legacy window even while still locked (view only)
-ns.AddCommand("legacy", L["open the Legacy window (preview)"], function()
+ns.AddCommand("legacy", L["Legacy window (preview, even while locked)"], function()
     if InCombatLockdown() then return end
     -- mUI window (Talents/Legacy.lua), shown as preview even while locked
     if ns.ToggleLegacy and ns.db.legacyWindow ~= false then return ns.ToggleLegacy(true) end

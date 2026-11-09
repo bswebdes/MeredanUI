@@ -635,7 +635,7 @@ local function SetStackBox(frame)
     nameplate:SetStackingBoundsFrame(box)
 end
 
-ns.AddCommand("stack", "show the nameplate stacking area", function()
+ns.AddCommand("stack", L["Show the nameplate stacking area"], function()
     showStackBoxes = not showStackBoxes
     for frame in pairs(plates) do
         if frame.StackBox then frame.StackBox.debug:SetColorTexture(0.1, 0.8, 0.1, showStackBoxes and 0.35 or 0) end

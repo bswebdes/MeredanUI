@@ -348,4 +348,4 @@ function P.ToggleEdit()
 end
 
 -- Development tool (to show where bosses are): developer mode only, removed again once all pins are in
-ns.AddCommand("pins", "dungeon map: place boss/rare pins (dev)", function() P.ToggleEdit() end, true)
+ns.AddCommand("pins", L["Dungeon map: place boss/rare pins"], function() P.ToggleEdit() end, true)

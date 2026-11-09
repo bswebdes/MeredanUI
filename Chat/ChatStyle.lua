@@ -839,7 +839,7 @@ end
 
 -- Diagnostics: /mui chatbuttons temporarily restores Blizzard's chat buttons (until /reload)
 -- and prints their names to chat + DevLog.
-ns.AddCommand("chatbuttons", "show Blizzard's chat buttons until /reload (diagnostics)", function()
+ns.AddCommand("chatbuttons", L["Show Blizzard's chat buttons until /reload"], function()
     if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
     local function Report(frame, depth)
         local name = frame:GetName() or ("<" .. (frame:GetObjectType() or "?") .. ">")

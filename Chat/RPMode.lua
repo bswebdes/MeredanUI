@@ -141,7 +141,7 @@ function MeredanUI_ToggleRPMode() ns.ToggleRPMode() end
 
 SLASH_MEREDANUIRP1 = "/rp"
 SlashCmdList.MEREDANUIRP = function() ns.ToggleRPMode() end
-ns.AddCommand("rp", L["toggle RP mode (only chat and emotes)"], function() ns.ToggleRPMode() end)
+ns.AddCommand("rp", L["RP mode on/off (only chat and emotes)"], function() ns.ToggleRPMode() end)
 
 fader = CreateFrame("Frame")
 

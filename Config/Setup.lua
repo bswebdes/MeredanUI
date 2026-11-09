@@ -734,7 +734,7 @@ function ns.OpenSetup()
     Render()
 end
 
-ns.AddCommand("setup", L["start the setup again"], function() ns.OpenSetup() end)
+ns.AddCommand("setup", L["Run setup again"], function() ns.OpenSetup() end)
 
 -- Once on first login by itself (after the loading screen)
 ns:On("PLAYER_LOGIN", function()
