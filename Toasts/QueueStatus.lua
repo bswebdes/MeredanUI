@@ -83,20 +83,23 @@ local function CreateEntry()
     entry.title:SetJustifyH("LEFT")
     entry.title:SetWordWrap(false)
 
-    entry:SetScript("OnClick", function(_, button)
-        local eye = _G.QueueStatusButton
-        if eye and eye.Click then eye:Click(button) end
-    end)
-    entry:SetScript("OnEnter", function(self)
+    local function Enter()
         local tip = _G.QueueStatusFrame
         if not tip then return end
         tip:ClearAllPoints()
-        tip:SetPoint("TOPLEFT", self, "TOPRIGHT", ns.Snap(6), 0)
+        tip:SetPoint("TOPLEFT", entry, "TOPRIGHT", ns.Snap(6), 0)
         tip:Show()
-    end)
-    entry:SetScript("OnLeave", function()
+    end
+    local function Leave()
         if _G.QueueStatusFrame then _G.QueueStatusFrame:Hide() end
-    end)
+    end
+    entry:SetScript("OnEnter", Enter)
+    entry:SetScript("OnLeave", Leave)
+    -- Clicks go through a secure button that clicks Blizzard's eye: a click forwarded by addon code
+    -- taints Blizzard's menu (e.g. "Unlist my group" -> C_LFGList.Search blocked). The catcher sits on
+    -- UIParent at absolute coordinates (anchoring it to the toast holder would make the holder protected)
+    -- and is re-synced out of combat.
+    entry.muiEnter, entry.muiLeave = Enter, Leave
     return entry
 end
 
@@ -176,8 +179,56 @@ local function CollectRows()
     return count
 end
 
+local function MakeCatcher(entry)
+    local eye = _G.QueueStatusButton
+    if not eye then return end
+    local catcher = CreateFrame("Button", nil, UIParent, "SecureActionButtonTemplate")
+    catcher:SetAttribute("type", "click")
+    catcher:SetAttribute("clickbutton", eye)
+    catcher:SetAttribute("useOnKeyDown", false)
+    catcher:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    catcher:SetFrameStrata(entry:GetFrameStrata())
+    catcher:SetFrameLevel(entry:GetFrameLevel() + 10)
+    catcher:SetScript("OnEnter", entry.muiEnter)
+    catcher:SetScript("OnLeave", entry.muiLeave)
+    catcher:Hide()
+    entry.catcher = catcher
+end
+
+local function SyncCatchers()
+    if InCombatLockdown() then return end
+    local ui = UIParent:GetEffectiveScale()
+    for _, entry in ipairs(entries) do
+        if not entry.catcher and entry:IsVisible() then MakeCatcher(entry) end
+        local c = entry.catcher
+        if c then
+            if entry:IsVisible() and entry:GetLeft() then
+                local k = entry:GetEffectiveScale() / ui
+                c:ClearAllPoints()
+                c:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", entry:GetLeft() * k, entry:GetTop() * k)
+                c:SetSize(entry:GetWidth() * k, entry:GetHeight() * k)
+                c:Show()
+            else
+                c:Hide()
+            end
+        end
+    end
+end
+
+local syncPending = false
+local function QueueSync()
+    if syncPending then return end
+    syncPending = true
+    local function Run() syncPending = false; SyncCatchers() end
+    if InCombatLockdown() then ns.AfterCombat(Run) else C_Timer.After(0, Run) end
+end
+
 local function Refresh()
     if not Enabled() or not ns.ToastHolder then return end
+    if not ns.ToastHolder.muiCatcherHook then
+        ns.ToastHolder.muiCatcherHook = true
+        hooksecurefunc(ns.ToastHolder, "SetPoint", QueueSync)
+    end
     local timed = false
     used = CollectRows()
     for i = 1, used do
@@ -195,6 +246,7 @@ local function Refresh()
         entry:Show()
     end
     for i = used + 1, #entries do entries[i]:Hide() end
+    QueueSync()
 
     if timed and not ticker then ticker = C_Timer.NewTicker(1, UpdateTimes) end
     HideEye(true)
