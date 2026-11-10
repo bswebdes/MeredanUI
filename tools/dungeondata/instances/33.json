@@ -1,0 +1,1130 @@
+{
+ "key": 33,
+ "slug": "shadowfang_keep",
+ "kind": "dungeon",
+ "name_en": "Shadowfang Keep",
+ "level": "22-30",
+ "zone": "Silverpine Forest",
+ "faction": "both (quests Horde)",
+ "status": "live",
+ "status_note": "classic dungeon",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-shadowfang-keep-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "None",
+ "forever_changes": [
+  "Group cap 5 (page says Classic 10)",
+  "Seal of Sylvanas: 6 AP instead of Strength",
+  "Boss abilities much stronger (Arugal Void Bolt 1,399; Rethilgore Soul Drain 178 vs Classic 35)",
+  "Rugged Spaulders blue, +2 all resists; Bloody Apron spell power; Commander's Crest/Baron's Scepter health regen; Fel Steed Saddlebags BoP",
+  "Six new rare boss drops (~1.7-2%): Sorcerer Collar, Blade of Silverlaine, Worgenbane Talisman, Blindwatcher's Sight, Half-Eaten Boots, Worgpelt Leggings; plus Cell Keeper's Claws",
+  "New quest rewards: Tattered Mittens 270030, Tanned Shoulderpads 270023, Bronzed Shoulderguards 270024",
+  "Black Tome 276561 -> Tome of Dalaran 275989 at Ambermill Leyline Focus; summons secret boss in City of Dalaran (zone=16560)",
+  "Blade of Silverlaine can be turned into Coldflame Saber item=276631 by Mages"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Rethilgore",
+   "name_de": "Rotkralle",
+   "encounter_id": 2748,
+   "npcs": [
+    {
+     "id": 3914,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "prison cells near entrance",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.6614,
+    "y": 0.7115
+   },
+   "loot": [
+    {
+     "item_id": 5254,
+     "name": "Rugged Spaulders",
+     "slot": "Shoulder (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 90.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273456,
+     "name": "Cell Keeper's Claws",
+     "slot": "Fist Weapon",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273457,
+     "name": "Sorcerer Collar",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Fel Steed / Shadow Charger",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 3864,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 3865,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "stables in the courtyard",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 932,
+     "name": "Fel Steed Saddlebags",
+     "slot": "Bag",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 6341,
+     "name": "Eerie Stable Lantern",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 6.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Razorclaw the Butcher",
+   "name_de": "Klingenklaue der Metzger",
+   "encounter_id": 2749,
+   "npcs": [
+    {
+     "id": 3886,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "kitchen",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.2788,
+    "y": 0.5008
+   },
+   "loot": [
+    {
+     "item_id": 6226,
+     "name": "Bloody Apron",
+     "slot": "Chest (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 44.0,
+     "chance_wowhead_forever": 41.05,
+     "wowhead_dropped_by": "Razorclaw the Butcher",
+     "chance_repo": 45.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6633,
+     "name": "Butcher's Slicer",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 42.0,
+     "chance_wowhead_forever": 38.9,
+     "wowhead_dropped_by": "Razorclaw the Butcher",
+     "chance_repo": 45.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 1292,
+     "name": "Butcher's Cleaver",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": 11.25,
+     "wowhead_dropped_by": "Razorclaw the Butcher",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273096,
+     "name": "Blueprint: Tanning Rack",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Baron Silverlaine",
+   "name_de": "Baron Silberlein",
+   "encounter_id": 2750,
+   "npcs": [
+    {
+     "id": 3887,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "dining hall",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.167,
+    "y": 0.8104
+   },
+   "loot": [
+    {
+     "item_id": 6323,
+     "name": "Baron's Scepter",
+     "slot": "Main Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 40.0,
+     "chance_wowhead_forever": 37.51,
+     "wowhead_dropped_by": "Baron Silverlaine",
+     "chance_repo": 70.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6321,
+     "name": "Silverlaine's Family Seal",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": 20.3,
+     "wowhead_dropped_by": "Baron Silverlaine",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273637,
+     "name": "Blade of Silverlaine",
+     "slot": "Sword",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.7,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Commander Springvale",
+   "name_de": "Kommandant Grüntal",
+   "encounter_id": 2751,
+   "npcs": [
+    {
+     "id": 4278,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "chapel courtyard with ghost adds",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.2746,
+    "y": 0.5859
+   },
+   "loot": [
+    {
+     "item_id": 3191,
+     "name": "Arced War Axe",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 33.57,
+     "wowhead_dropped_by": "Commander Springvale",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6320,
+     "name": "Commander's Crest",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": 28.95,
+     "wowhead_dropped_by": "Commander Springvale",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273643,
+     "name": "Worgenbane Talisman",
+     "slot": "Trinket",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.7,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273105,
+     "name": "Blueprint: Toxin Study",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Odo the Blindwatcher",
+   "name_de": "Odo der Blindseher",
+   "encounter_id": 2752,
+   "npcs": [
+    {
+     "id": 4279,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "tower ramparts, with two Vile Bats",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5962,
+    "y": 0.646
+   },
+   "loot": [
+    {
+     "item_id": 6319,
+     "name": "Girdle of the Blindwatcher",
+     "slot": "Waist (Leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 61.0,
+     "chance_wowhead_forever": 55.06,
+     "wowhead_dropped_by": "Odo the Blindwatcher",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6318,
+     "name": "Odo's Ley Staff",
+     "slot": "Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 33.06,
+     "wowhead_dropped_by": "Odo the Blindwatcher",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273645,
+     "name": "Blindwatcher's Sight",
+     "slot": "Head (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.7,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Arugal's Voidwalkers",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 4627,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "library guards (non-elite pack)",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 5943,
+     "name": "Rift Bracers",
+     "slot": "Wrist",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.5,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Fenrus the Devourer",
+   "name_de": "Fenrus der Verschlinger",
+   "encounter_id": 2753,
+   "npcs": [
+    {
+     "id": 4274,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "upper floor past the library",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5321,
+    "y": 0.2157
+   },
+   "loot": [
+    {
+     "item_id": 6340,
+     "name": "Fenrus' Hide",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 74.0,
+     "chance_wowhead_forever": 67.72,
+     "wowhead_dropped_by": "Fenrus the Devourer",
+     "chance_repo": 70.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 3230,
+     "name": "Black Wolf Bracers",
+     "slot": "Wrist (Leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.0,
+     "chance_wowhead_forever": 19.62,
+     "wowhead_dropped_by": "Fenrus the Devourer",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273646,
+     "name": "Half-Eaten Boots",
+     "slot": "Feet (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Wolf Master Nandos",
+   "name_de": "Wolfmeister Nandos",
+   "encounter_id": 2754,
+   "npcs": [
+    {
+     "id": 3927,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "worg area before Arugal",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5509,
+    "y": 0.1524
+   },
+   "loot": [
+    {
+     "item_id": 3748,
+     "name": "Feline Mantle",
+     "slot": "Shoulder (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 57.0,
+     "chance_wowhead_forever": 54.22,
+     "wowhead_dropped_by": "Wolf Master Nandos",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6314,
+     "name": "Wolfmaster Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 36.7,
+     "wowhead_dropped_by": "Wolf Master Nandos",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273647,
+     "name": "Worgpelt Leggings",
+     "slot": "Legs (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.8,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": null,
+   "name": "Archmage Arugal",
+   "name_de": "Erzmagier Arugal",
+   "encounter_id": 2755,
+   "npcs": [
+    {
+     "id": 4275,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "top of the keep, final boss",
+   "optional": false,
+   "pin": {
+    "floor": 6,
+    "x": 0.639,
+    "y": 0.2003
+   },
+   "loot": [
+    {
+     "item_id": 6324,
+     "name": "Robes of Arugal",
+     "slot": "Chest",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 34.41,
+     "wowhead_dropped_by": "Archmage Arugal",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6392,
+     "name": "Belt of Arugal",
+     "slot": "Waist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": 33.61,
+     "wowhead_dropped_by": "Archmage Arugal",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6220,
+     "name": "Meteor Shard",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 19.25,
+     "wowhead_dropped_by": "Archmage Arugal",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 5442,
+     "name": "Head of Arugal",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 276561,
+     "name": "Black Tome",
+     "slot": "Quest/Key (object in his room)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 267361,
+     "name": "Enchanted Silver Ingot",
+     "slot": "Quest (object in his room)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Deathsworn Captain",
+   "npc_id": 3872,
+   "wowhead_name": null,
+   "location": "wall walk near Odo, not always spawned",
+   "pin": {
+    "floor": 1,
+    "x": 0.6573,
+    "y": 0.4558
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 6641,
+     "name": "Haunting Blade",
+     "slot": "Two-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 58.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 6642,
+     "name": "Phantom Armor",
+     "slot": "Chest (Mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 1014,
+   "title": "Arugal Must Die",
+   "level": 27,
+   "min_level": 18,
+   "faction": "Horde",
+   "giver": "Dalar Dawnweaver",
+   "giver_npc_id": 1938,
+   "giver_item_id": null,
+   "giver_zone": "Silverpine Forest (The Sepulcher)",
+   "prereq": null,
+   "rewards": [
+    6414
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1013,
+   "title": "The Book of Ur",
+   "level": 26,
+   "min_level": 16,
+   "faction": "Horde",
+   "giver": "Keeper Bel'dugur",
+   "giver_npc_id": 2934,
+   "giver_item_id": null,
+   "giver_zone": "Undercity (Apothecarium)",
+   "prereq": null,
+   "rewards": [
+    270030,
+    6335,
+    4534
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1098,
+   "title": "Deathstalkers in Shadowfang",
+   "level": 25,
+   "min_level": 18,
+   "faction": "Horde",
+   "giver": "High Executor Hadrec",
+   "giver_npc_id": 1952,
+   "giver_item_id": null,
+   "giver_zone": "Silverpine Forest (The Sepulcher)",
+   "prereq": null,
+   "rewards": [
+    3324,
+    270023,
+    270024
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1654,
+   "title": "The Test of Righteousness",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance (Paladin)",
+   "giver": "Jordan Stilwell",
+   "giver_npc_id": 6181,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh",
+   "prereq": "chain 1649 (item=6776) -> 1653; final 1806; needs Jordan's Smithing Hammer item=6895 from SFK courtyard",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 1740,
+   "title": "The Orb of Soran'ruk",
+   "level": 25,
+   "min_level": null,
+   "faction": "Both (Warlock)",
+   "giver": "Doan Karhan",
+   "giver_npc_id": 6247,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 95140,
+   "title": "Old Fire-Eye",
+   "level": 26,
+   "min_level": null,
+   "faction": "Horde (Paladin)",
+   "giver": "Lumina Windsinger",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "chain 95034, 95036, 95111 (Trevan Rol), 95125, 95126; needs Enchanted Silver Ingot item=267361 from Arugal's room",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Rethilgore: 5254 Rugged Spaulders - in Forever guide, missing in DungeonLoot.lua",
+  "Rethilgore: 273456 Cell Keeper's Claws - in Forever guide, missing in DungeonLoot.lua",
+  "Rethilgore: 273457 Sorcerer Collar - in Forever guide, missing in DungeonLoot.lua",
+  "Fel Steed / Shadow Charger: 932 Fel Steed Saddlebags - in Forever guide, missing in DungeonLoot.lua",
+  "Fel Steed / Shadow Charger: 6341 Eerie Stable Lantern - in Forever guide, missing in DungeonLoot.lua",
+  "Razorclaw the Butcher: 273096 Blueprint: Tanning Rack - in Forever guide, missing in DungeonLoot.lua",
+  "Baron Silverlaine: 6323 Baron's Scepter - chance repo 70% vs Forever 37.51%",
+  "Baron Silverlaine: 273637 Blade of Silverlaine - in Forever guide, missing in DungeonLoot.lua",
+  "Commander Springvale: 6320 Commander's Crest - chance repo 50% vs Forever 28.95%",
+  "Commander Springvale: 273643 Worgenbane Talisman - in Forever guide, missing in DungeonLoot.lua",
+  "Commander Springvale: 273105 Blueprint: Toxin Study - in Forever guide, missing in DungeonLoot.lua",
+  "Odo the Blindwatcher: 273645 Blindwatcher's Sight - in Forever guide, missing in DungeonLoot.lua",
+  "Arugal's Voidwalkers: 5943 Rift Bracers - in Forever guide, missing in DungeonLoot.lua",
+  "Fenrus the Devourer: 3230 Black Wolf Bracers - chance repo 30% vs Forever 19.62%",
+  "Fenrus the Devourer: 273646 Half-Eaten Boots - in Forever guide, missing in DungeonLoot.lua",
+  "Wolf Master Nandos: 273647 Worgpelt Leggings - in Forever guide, missing in DungeonLoot.lua"
+ ],
+ "open_questions": [
+  "NPC 3914 (Rethilgore) not found on Wowhead Forever - check ID.",
+  "Boss 'Fel Steed / Shadow Charger' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 3864 (Fel Steed / Shadow Charger) not found on Wowhead Forever - check ID.",
+  "NPC 3865 (Fel Steed / Shadow Charger) not found on Wowhead Forever - check ID.",
+  "NPC 3886 (Razorclaw the Butcher) not found on Wowhead Forever - check ID.",
+  "NPC 3887 (Baron Silverlaine) not found on Wowhead Forever - check ID.",
+  "NPC 4278 (Commander Springvale) not found on Wowhead Forever - check ID.",
+  "NPC 4279 (Odo the Blindwatcher) not found on Wowhead Forever - check ID.",
+  "Boss 'Arugal's Voidwalkers' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 4627 (Arugal's Voidwalkers) not found on Wowhead Forever - check ID.",
+  "NPC 4274 (Fenrus the Devourer) not found on Wowhead Forever - check ID.",
+  "NPC 3927 (Wolf Master Nandos) not found on Wowhead Forever - check ID.",
+  "NPC 4275 (Archmage Arugal) not found on Wowhead Forever - check ID.",
+  "Quest 1014 'Arugal Must Die' not found on Wowhead Forever - check ID.",
+  "Quest 1013 'The Book of Ur' not found on Wowhead Forever - check ID.",
+  "Quest 1098 'Deathstalkers in Shadowfang' not found on Wowhead Forever - check ID.",
+  "Quest 1654 'The Test of Righteousness' not found on Wowhead Forever - check ID.",
+  "Quest 1740 'The Orb of Soran'ruk' not found on Wowhead Forever - check ID.",
+  "Quest 95140 'Old Fire-Eye' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Page says '9 bosses + 1 rare' but lists 10 entries incl. Voidwalker pack",
+  "Locations for Silverlaine, Springvale, Odo, Nandos partly own inference (page vague)",
+  "Many slots/chances missing; page references a loot card not present",
+  "Quest helpers: Deathstalker Adamant npc=3849, Deathstalker Vincent npc=4444, Sorcerer Ashcrombe npc=3850; Book of Ur item=6283 in library",
+  "Rare trash (<0.1%): 1482, 2205, 1935, 2807, 1318, 1484, 3194, 1483, 2292, 1489, 1974",
+  "Quest XP Horde 19,800 (beta values, approximate)",
+  "Class quests (1654, 1740, 95140) are chains tied to the keep, not core SFK quests"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 3,
+  "loot_rows": 31,
+  "loot_confirmed": 28,
+  "loot_with_chance": 28,
+  "forever_confirmed": "yes",
+  "boss_count": 10,
+  "boss_ok": 0,
+  "pin_ok": 8,
+  "enc_count": 8,
+  "q_tot": 6
+ },
+ "top_points": [
+  "3 of 6 quests missing in DungeonQuests.lua",
+  "Boss 'Fel Steed / Shadow Charger' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
+  "NPC 3914 (Rethilgore) not found on Wowhead Forever - check ID. (+16 more)"
+ ]
+}

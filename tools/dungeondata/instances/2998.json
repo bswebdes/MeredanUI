@@ -1,0 +1,776 @@
+{
+ "key": 2998,
+ "slug": "excavation_site_wetlands",
+ "kind": "dungeon",
+ "name_en": "Excavation Site: Wetlands",
+ "level": "24-29",
+ "zone": "Wetlands (near Thelgen Rock)",
+ "faction": "both",
+ "status": "live",
+ "status_note": "new Forever dungeon (Blizzard 24-29; guides/beta 26-31)",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-excavation-site-wetlands-guide/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": "None",
+ "forever_changes": [
+  "New WoW Forever dungeon (not in Classic)",
+  "Achievement Novice Spelunker (62031) awards a Legacy Point"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Saltspine",
+   "name_de": "Salzrücken",
+   "encounter_id": 3480,
+   "npcs": [
+    {
+     "id": 260322,
+     "wowhead_name": "Saltspine",
+     "zone": 16732,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "marsh near start, among elite crocolisks",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.8016,
+    "y": 0.0572
+   },
+   "loot": [
+    {
+     "item_id": 273022,
+     "name": "Supple Bellyskin Leggings",
+     "slot": "Legs (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273023,
+     "name": "Saltscale Girdle",
+     "slot": "Waist (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273024,
+     "name": "Glinteye Slippers",
+     "slot": "Feet (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Shadetooth",
+   "name_de": "Schemenzahn",
+   "encounter_id": 3481,
+   "npcs": [
+    {
+     "id": 260325,
+     "wowhead_name": "Shadetooth",
+     "zone": 16732,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "tall grass, appears after Thicket Matriarch dies",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273027,
+     "name": "Raptor's Gaze",
+     "slot": "Off-hand",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273026,
+     "name": "Garb of Florid Feathers",
+     "slot": "Chest (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273025,
+     "name": "Raptorclaw Greaves",
+     "slot": "Feet (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273106,
+     "name": "Blueprint: Greenhouse",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 8.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Highland Horror",
+   "name_de": "Hochlandschrecken",
+   "encounter_id": 3644,
+   "npcs": [
+    {
+     "id": 260808,
+     "wowhead_name": "Highland Horror",
+     "zone": 16732,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Dragonmaw camp",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 270180,
+     "name": "Horrible Rootcore",
+     "slot": "Quest (95646)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Relic Guardian",
+   "name_de": "Reliktwächter",
+   "encounter_id": 3482,
+   "npcs": [
+    {
+     "id": 260326,
+     "wowhead_name": "Relic Guardian",
+     "zone": 16732,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "end of spider trail; activated via Archival Panel",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273028,
+     "name": "Reliquary Mantle",
+     "slot": "Shoulder (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273029,
+     "name": "Golemsight Long Gun",
+     "slot": "Gun",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273030,
+     "name": "Ring of Power Regulation",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 270865,
+     "name": "Titan Relic (Alliance)",
+     "slot": "Quest starter (95810)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 270866,
+     "name": "Titan Relic (Horde)",
+     "slot": "Quest starter (95664)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273097,
+     "name": "Blueprint: Rock Garden",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 95810,
+   "title": "Lost Relic Carry",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 270865,
+   "giver_zone": "Excavation Site: Wetlands (Relic Guardian drop)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 98824,
+   "title": "Prehistoric Prism",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Prospector Whelgar",
+   "giver_npc_id": 1077,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands (Whelgar's Excavation)",
+   "prereq": "Lost Relic Carry (95810)",
+   "rewards": [
+    271716,
+    271767,
+    271766
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95772,
+   "title": "Songblade Search",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Dorin Songblade",
+   "giver_npc_id": 956,
+   "giver_item_id": null,
+   "giver_zone": "Redridge Mountains (Lakeshire)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95795,
+   "title": "Fallen in the Fen",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Daewyn Songblade's body",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Excavation Site: Wetlands (inside)",
+   "prereq": "Songblade Search (95772)",
+   "rewards": [
+    271769,
+    271768
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95646,
+   "title": "Horrors in the Highland",
+   "level": 31,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Rethiel the Greenwarden",
+   "giver_npc_id": 1244,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands",
+   "prereq": "Blisters on the Land (275)",
+   "rewards": [
+    271667,
+    271670,
+    271664
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 463,
+   "title": "The Greenwarden",
+   "level": 21,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "First Mate Fitzsimmons",
+   "giver_npc_id": 1239,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands (Menethil Harbor)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 276,
+   "title": "Tramping Paws",
+   "level": 21,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Rethiel the Greenwarden",
+   "giver_npc_id": 1244,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands",
+   "prereq": "The Greenwarden (463)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 277,
+   "title": "Fire Taboo",
+   "level": 23,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Rethiel the Greenwarden",
+   "giver_npc_id": 1244,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands",
+   "prereq": "Tramping Paws (276)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 275,
+   "title": "Blisters on the Land",
+   "level": 26,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Rethiel the Greenwarden",
+   "giver_npc_id": 1244,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands",
+   "prereq": "Fire Taboo (277)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95737,
+   "title": "Seeking Caitlin",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Llana",
+   "giver_npc_id": 3970,
+   "giver_item_id": null,
+   "giver_zone": "Ashenvale",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95647,
+   "title": "Lost in the Thicket Things",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Caitlin Grassman",
+   "giver_npc_id": 1480,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands (Menethil Harbor)",
+   "prereq": "Seeking Caitlin (95737)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95809,
+   "title": "Heartwoven",
+   "level": 31,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Ardin Grassman",
+   "giver_npc_id": 262681,
+   "giver_item_id": null,
+   "giver_zone": "Excavation Site: Wetlands (inside)",
+   "prereq": "Lost in the Thicket Things (95647)",
+   "rewards": [
+    280766,
+    2459,
+    1710,
+    3827
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 484,
+   "title": "Young Crocolisk Skins",
+   "level": 22,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "James Halloran",
+   "giver_npc_id": 2094,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands (Menethil Harbor)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 98815,
+   "title": "Highland Hides",
+   "level": 28,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "James Halloran",
+   "giver_npc_id": 2094,
+   "giver_item_id": null,
+   "giver_zone": "Wetlands (Menethil Harbor)",
+   "prereq": "Young Crocolisk Skins (484)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95664,
+   "title": "Elder Knowledge",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 270866,
+   "giver_zone": "Excavation Site: Wetlands (Relic Guardian drop)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 98823,
+   "title": "Earthen Echo",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Bashana Runetotem",
+   "giver_npc_id": 9087,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": "Elder Knowledge (95664)",
+   "rewards": [
+    271766,
+    271767,
+    271719
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95663,
+   "title": "Dragonmaw Rumors",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Zaruk",
+   "giver_npc_id": 2787,
+   "giver_item_id": null,
+   "giver_zone": "Arathi Highlands (Hammerfall)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95682,
+   "title": "Open the Maw",
+   "level": 31,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Deathstalker Agent",
+   "giver_npc_id": 13155,
+   "giver_item_id": null,
+   "giver_zone": "Excavation Site: Wetlands (entrance)",
+   "prereq": "Dragonmaw Rumors (95663)",
+   "rewards": [
+    271740,
+    271732
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95697,
+   "title": "Changing Tastes",
+   "level": 24,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Borstan",
+   "giver_npc_id": 3368,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": null,
+   "rewards": [
+    280766,
+    280805,
+    250185,
+    250077
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [
+  "No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua.",
+  "No pin for 'Highland Horror' (encounter 3644) in DungeonPinData.lua.",
+  "No pin for 'Relic Guardian' (encounter 3482) in DungeonPinData.lua.",
+  "Quest 95810 'Lost Relic Carry' not found on Wowhead Forever - check ID.",
+  "Quest 98824 'Prehistoric Prism' not found on Wowhead Forever - check ID.",
+  "Quest 95772 'Songblade Search' not found on Wowhead Forever - check ID.",
+  "Quest 95795 'Fallen in the Fen' not found on Wowhead Forever - check ID.",
+  "Quest 95646 'Horrors in the Highland' not found on Wowhead Forever - check ID.",
+  "Quest 463 'The Greenwarden' not found on Wowhead Forever - check ID.",
+  "Quest 276 'Tramping Paws' not found on Wowhead Forever - check ID.",
+  "Quest 277 'Fire Taboo' not found on Wowhead Forever - check ID.",
+  "Quest 275 'Blisters on the Land' not found on Wowhead Forever - check ID.",
+  "Quest 95737 'Seeking Caitlin' not found on Wowhead Forever - check ID.",
+  "Quest 95647 'Lost in the Thicket Things' not found on Wowhead Forever - check ID.",
+  "Quest 95809 'Heartwoven' not found on Wowhead Forever - check ID.",
+  "Quest 484 'Young Crocolisk Skins' not found on Wowhead Forever - check ID.",
+  "Quest 98815 'Highland Hides' not found on Wowhead Forever - check ID.",
+  "Quest 95664 'Elder Knowledge' not found on Wowhead Forever - check ID.",
+  "Quest 98823 'Earthen Echo' not found on Wowhead Forever - check ID.",
+  "Quest 95663 'Dragonmaw Rumors' not found on Wowhead Forever - check ID.",
+  "Quest 95682 'Open the Maw' not found on Wowhead Forever - check ID.",
+  "Quest 95697 'Changing Tastes' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Guide quest table lists level 24 for all quests; chain text gives 28 (98815), 31 (95809, 95646, 95682) - used chain values for level, 24 as min_level",
+  "Guide summary placed James Halloran for quest 484 'inside the dungeon'; he is normally in Menethil Harbor - unverified",
+  "Changing Tastes rewards: choice of 280766 or 280805, plus recipe 250185 and 250077",
+  "Quest XP from beta"
+ ],
+ "zone_id": 16732,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "ok",
+  "pins": "partial",
+  "loot": "partial",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 11,
+  "loot_confirmed": 11,
+  "loot_with_chance": 11,
+  "forever_confirmed": "yes",
+  "boss_count": 4,
+  "boss_ok": 4,
+  "pin_ok": 1,
+  "enc_count": 4,
+  "q_tot": 19
+ },
+ "top_points": [
+  "19 of 19 quests missing in DungeonQuests.lua",
+  "No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua. (+2 more)",
+  "Quest 95810 'Lost Relic Carry' not found on Wowhead Forever - check ID. (+18 more)"
+ ]
+}

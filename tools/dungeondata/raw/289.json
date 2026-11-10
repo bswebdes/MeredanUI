@@ -1,0 +1,1143 @@
+{
+ "key": 289,
+ "name_en": "Scholomance",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-scholomance-guide/"
+ ],
+ "level": "58-60",
+ "boss_level": null,
+ "zone": "Western Plaguelands (Caer Darrow)",
+ "zone_id": 28,
+ "instance_zone_id": 2057,
+ "entrance": "Crypt door in Caer Darrow castle courtyard, lake island SE of zone",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Blood Steward of Kirtonos",
+   "npc_ids": [
+    14861
+   ],
+   "location": "porch before Kirtonos",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 13523,
+     "name": "Blood of Innocents",
+     "slot": "Quest",
+     "chance": "~59%",
+     "quest_item": true
+    },
+    {
+     "item_id": 16734,
+     "name": "Boots of Valor",
+     "slot": "Feet",
+     "chance": "~18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13960,
+     "name": "Heart of the Fiend",
+     "slot": "Neck",
+     "chance": "~18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13955,
+     "name": "Stoneform Shoulders",
+     "slot": "Shoulder",
+     "chance": "~18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13983,
+     "name": "Gravestone War Axe",
+     "slot": "Two-Hand Axe",
+     "chance": "14%",
+     "quest_item": false
+    }
+   ],
+   "note": "five more unnamed items ~18% each"
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Kirtonos the Herald",
+   "npc_ids": [
+    10506
+   ],
+   "location": "porch, summoned at brazier with Blood of Innocents",
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Jandice Barov",
+   "npc_ids": [
+    10503
+   ],
+   "location": "upper hall",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16701,
+     "name": "Dreadmist Mantle",
+     "slot": "Shoulder",
+     "chance": "17%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14545,
+     "name": "Ghostloom Leggings",
+     "slot": "Legs",
+     "chance": "16%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18690,
+     "name": "Wraithplate Leggings",
+     "slot": "Legs",
+     "chance": "11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14541,
+     "name": "Barovian Family Sword",
+     "slot": "Two-Hand Sword",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 22394,
+     "name": "Staff of Metanoia",
+     "slot": "Staff",
+     "chance": "8%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Rattlegore",
+   "npc_ids": [
+    11622
+   ],
+   "location": "lower bone pit room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16711,
+     "name": "Shadowcraft Boots",
+     "slot": "Feet",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14531,
+     "name": "Frightskull Shaft",
+     "slot": "Staff",
+     "chance": "~12%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14539,
+     "name": "Bone Ring Helm",
+     "slot": "Head",
+     "chance": "~12%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18686,
+     "name": "Bone Golem Shoulders",
+     "slot": "Shoulder",
+     "chance": "~12%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18782,
+     "name": "Top Half of Advanced Armorsmithing: Volume II",
+     "slot": "Quest/Recipe",
+     "chance": "8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13873,
+     "name": "Viewing Room Key",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Marduk Blackpool",
+   "npc_ids": [
+    10433
+   ],
+   "location": "viewing room balcony",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 18692,
+     "name": "Death Knight Sabatons",
+     "slot": "Feet",
+     "chance": "7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14576,
+     "name": "Ebon Hilt of Marduk",
+     "slot": "One-Hand Sword",
+     "chance": "6%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Vectus",
+   "npc_ids": [
+    10432
+   ],
+   "location": "viewing room",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 14577,
+     "name": "Skullsmoke Pants",
+     "slot": "Legs",
+     "chance": "7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18691,
+     "name": "Dark Advisor's Pendant",
+     "slot": "Neck",
+     "chance": "7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Ras Frostwhisper",
+   "npc_ids": [
+    10508
+   ],
+   "location": "chamber off the viewing room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 13314,
+     "name": "Alanna's Embrace",
+     "slot": "Chest (epic)",
+     "chance": "<1%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16689,
+     "name": "Magister's Mantle",
+     "slot": "Shoulder",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14487,
+     "name": "Bonechill Hammer",
+     "slot": "One-Hand Mace",
+     "chance": "16%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14525,
+     "name": "Boneclenched Gauntlets",
+     "slot": "Hands",
+     "chance": "15%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13521,
+     "name": "Recipe: Flask of Supreme Power",
+     "slot": "Recipe",
+     "chance": "4%",
+     "quest_item": false
+    }
+   ],
+   "note": "nine more unnamed blues ~15% each"
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Kormok",
+   "npc_ids": [
+    16118
+   ],
+   "location": "summoned via Brazier of Beckoning (22052)",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Death Knight Darkreaver",
+   "npc_ids": [
+    14516
+   ],
+   "location": "summoned via Divination Scryer class quest",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 18760,
+     "name": "Necromantic Band",
+     "slot": "Finger",
+     "chance": "~25%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18758,
+     "name": "Specter's Blade",
+     "slot": "Dagger",
+     "chance": "~25%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18761,
+     "name": "Oblivion's Touch",
+     "slot": "Wand",
+     "chance": "~25%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18759,
+     "name": "Malicious Axe",
+     "slot": "Two-Hand Axe",
+     "chance": "~25%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": null,
+   "name": "Instructor Malicia",
+   "npc_ids": [
+    10505
+   ],
+   "location": "side room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16710,
+     "name": "Shadowcraft Bracers",
+     "slot": "Wrist",
+     "chance": "~5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14626,
+     "name": "Necropile Robe",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14637,
+     "name": "Cadaverous Armor",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14611,
+     "name": "Bloodmail Hauberk",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14624,
+     "name": "Deathbone Chestplate",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 11,
+   "wing": null,
+   "name": "Doctor Theolen Krastinov",
+   "npc_ids": [
+    11261
+   ],
+   "location": "side room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16684,
+     "name": "Magister's Gloves",
+     "slot": "Hands",
+     "chance": "~5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14626,
+     "name": "Necropile Robe",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14637,
+     "name": "Cadaverous Armor",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14611,
+     "name": "Bloodmail Hauberk",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14624,
+     "name": "Deathbone Chestplate",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": null,
+   "name": "Lorekeeper Polkelt",
+   "npc_ids": [
+    10901
+   ],
+   "location": "side room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16705,
+     "name": "Dreadmist Wraps",
+     "slot": "Hands",
+     "chance": "~5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14626,
+     "name": "Necropile Robe",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14637,
+     "name": "Cadaverous Armor",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14611,
+     "name": "Bloodmail Hauberk",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14624,
+     "name": "Deathbone Chestplate",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": null,
+   "name": "The Ravenian",
+   "npc_ids": [
+    10507
+   ],
+   "location": "side room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16716,
+     "name": "Wildheart Belt",
+     "slot": "Waist",
+     "chance": "~5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14626,
+     "name": "Necropile Robe",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14637,
+     "name": "Cadaverous Armor",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14611,
+     "name": "Bloodmail Hauberk",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14624,
+     "name": "Deathbone Chestplate",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 14,
+   "wing": null,
+   "name": "Lord Alexei Barov",
+   "npc_ids": [
+    10504
+   ],
+   "location": "side room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16722,
+     "name": "Lightforge Bracers",
+     "slot": "Wrist",
+     "chance": "~5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18683,
+     "name": "Hammer of the Vesper",
+     "slot": "One-Hand Mace",
+     "chance": "~9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18680,
+     "name": "Ancient Bone Bow",
+     "slot": "Bow",
+     "chance": "~9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14626,
+     "name": "Necropile Robe",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14637,
+     "name": "Cadaverous Armor",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14611,
+     "name": "Bloodmail Hauberk",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14624,
+     "name": "Deathbone Chestplate",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 15,
+   "wing": null,
+   "name": "Lady Illucia Barov",
+   "npc_ids": [
+    10502
+   ],
+   "location": "side room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 14626,
+     "name": "Necropile Robe",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14637,
+     "name": "Cadaverous Armor",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14611,
+     "name": "Bloodmail Hauberk",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14624,
+     "name": "Deathbone Chestplate",
+     "slot": "Chest",
+     "chance": "~4.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 16,
+   "wing": null,
+   "name": "Darkmaster Gandling",
+   "npc_ids": [
+    1853
+   ],
+   "location": "central chamber after six side bosses",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16686,
+     "name": "Magister's Crown",
+     "slot": "Head",
+     "chance": "14%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16677,
+     "name": "Beaststalker's Cap",
+     "slot": "Head",
+     "chance": "13%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16731,
+     "name": "Helm of Valor",
+     "slot": "Head",
+     "chance": "12%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16720,
+     "name": "Wildheart Cowl",
+     "slot": "Head",
+     "chance": "~11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16698,
+     "name": "Dreadmist Mask",
+     "slot": "Head",
+     "chance": "~11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16693,
+     "name": "Devout Crown",
+     "slot": "Head",
+     "chance": "~11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16707,
+     "name": "Shadowcraft Cap",
+     "slot": "Head",
+     "chance": "~11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16727,
+     "name": "Lightforge Helm",
+     "slot": "Head",
+     "chance": "7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16667,
+     "name": "Coif of Elements",
+     "slot": "Head",
+     "chance": "4%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13937,
+     "name": "Headmaster's Charge",
+     "slot": "Staff (epic)",
+     "chance": "2%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14514,
+     "name": "Pattern: Robe of the Void",
+     "slot": "Recipe",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13944,
+     "name": "Tombstone Breastplate",
+     "slot": "Chest",
+     "chance": "15%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13501,
+     "name": "Recipe: Major Mana Potion",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "trash_loot": [
+  {
+   "item_id": 16254,
+   "name": "Formula: Enchant Weapon - Lifestealing",
+   "chance": null
+  },
+  {
+   "item_id": 15773,
+   "name": "Pattern: Wicked Leather Armor",
+   "chance": null
+  },
+  {
+   "item_id": 15776,
+   "name": "Pattern: Runic Leather Armor",
+   "chance": null
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 5533,
+   "title": "Scholomance",
+   "level": 55,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Commander Ashlam Valorfist",
+   "giver_npc_id": 10838,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Chillwind Camp)",
+   "prereq": "5097",
+   "rewards": []
+  },
+  {
+   "quest_id": 5537,
+   "title": "Skeletal Fragments",
+   "level": 57,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Alchemist Arbington",
+   "giver_npc_id": 11056,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Chillwind Camp)",
+   "prereq": "5533",
+   "rewards": []
+  },
+  {
+   "quest_id": 5538,
+   "title": "Mold Rhymes With...",
+   "level": 57,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Alchemist Arbington",
+   "giver_npc_id": 11056,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Chillwind Camp)",
+   "prereq": "5537",
+   "rewards": []
+  },
+  {
+   "quest_id": 5801,
+   "title": "Fire Plume Forged",
+   "level": 57,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Krinkle Goodsteel",
+   "giver_npc_id": 5411,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": "5538",
+   "rewards": []
+  },
+  {
+   "quest_id": 5803,
+   "title": "Araj's Scarab",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "5801",
+   "rewards": []
+  },
+  {
+   "quest_id": 5505,
+   "title": "The Key to Scholomance",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Alchemist Arbington",
+   "giver_npc_id": 11056,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Chillwind Camp)",
+   "prereq": "5803",
+   "rewards": [
+    13704
+   ]
+  },
+  {
+   "quest_id": 838,
+   "title": "Scholomance",
+   "level": 55,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "High Executor Derrington",
+   "giver_npc_id": 10837,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (The Bulwark)",
+   "prereq": "5098",
+   "rewards": []
+  },
+  {
+   "quest_id": 964,
+   "title": "Skeletal Fragments",
+   "level": 57,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Apothecary Dithers",
+   "giver_npc_id": 11057,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (The Bulwark)",
+   "prereq": "838",
+   "rewards": []
+  },
+  {
+   "quest_id": 5514,
+   "title": "Mold Rhymes With...",
+   "level": 57,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Apothecary Dithers",
+   "giver_npc_id": 11057,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (The Bulwark)",
+   "prereq": "964",
+   "rewards": []
+  },
+  {
+   "quest_id": 5802,
+   "title": "Fire Plume Forged",
+   "level": 57,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Krinkle Goodsteel",
+   "giver_npc_id": 5411,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": "5514",
+   "rewards": []
+  },
+  {
+   "quest_id": 5804,
+   "title": "Araj's Scarab",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "5802",
+   "rewards": []
+  },
+  {
+   "quest_id": 5511,
+   "title": "The Key to Scholomance",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Apothecary Dithers",
+   "giver_npc_id": 11057,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (The Bulwark)",
+   "prereq": "5804",
+   "rewards": [
+    13704
+   ]
+  },
+  {
+   "quest_id": 5382,
+   "title": "Doctor Theolen Krastinov, the Butcher",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Eva Sarkhoff",
+   "giver_npc_id": 11216,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Caer Darrow)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5515,
+   "title": "Krastinov's Bag of Horrors",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Eva Sarkhoff",
+   "giver_npc_id": 11216,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Caer Darrow)",
+   "prereq": "5382",
+   "rewards": []
+  },
+  {
+   "quest_id": 5384,
+   "title": "Kirtonos the Herald",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Eva Sarkhoff",
+   "giver_npc_id": 11216,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Caer Darrow)",
+   "prereq": "5515",
+   "rewards": [
+    13544,
+    15805,
+    15806
+   ]
+  },
+  {
+   "quest_id": 5466,
+   "title": "The Lich, Ras Frostwhisper",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Magistrate Marduke",
+   "giver_npc_id": 11286,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Caer Darrow)",
+   "prereq": "5465",
+   "rewards": [
+    14002,
+    13982,
+    13986,
+    13984
+   ]
+  },
+  {
+   "quest_id": 5529,
+   "title": "Plagued Hatchlings",
+   "level": 58,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Betina Bigglezink",
+   "giver_npc_id": 11035,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5531,
+   "title": "Betina Bigglezink",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Leonid Barthalomew the Revered",
+   "giver_npc_id": 11036,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 4771,
+   "title": "Dawn's Gambit",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Betina Bigglezink",
+   "giver_npc_id": 11035,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": "5531 (+Egg chain to 4735)",
+   "rewards": [
+    15853,
+    15854
+   ]
+  },
+  {
+   "quest_id": 8969,
+   "title": "The Left Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 8992,
+   "title": "The Right Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5343,
+   "title": "Barov Family Fortune",
+   "level": 60,
+   "min_level": 52,
+   "faction": "Alliance",
+   "giver": "Weldon Barov",
+   "giver_npc_id": 11023,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Chillwind Camp)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5344,
+   "title": "The Last Barov",
+   "level": 60,
+   "min_level": 52,
+   "faction": "Alliance",
+   "giver": "Weldon Barov",
+   "giver_npc_id": 11023,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Chillwind Camp)",
+   "prereq": "5343",
+   "rewards": [
+    14023
+   ]
+  },
+  {
+   "quest_id": 5341,
+   "title": "Barov Family Fortune",
+   "level": 60,
+   "min_level": 52,
+   "faction": "Horde",
+   "giver": "Alexi Barov",
+   "giver_npc_id": 11022,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (The Bulwark)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5342,
+   "title": "The Last Barov",
+   "level": 60,
+   "min_level": 52,
+   "faction": "Horde",
+   "giver": "Alexi Barov",
+   "giver_npc_id": 11022,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (The Bulwark)",
+   "prereq": "5341",
+   "rewards": [
+    14022
+   ]
+  },
+  {
+   "quest_id": 7647,
+   "title": "Judgment and Redemption",
+   "level": null,
+   "min_level": null,
+   "faction": "Paladin",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 8258,
+   "title": "The Darkreaver Menace",
+   "level": null,
+   "min_level": null,
+   "faction": "Shaman",
+   "giver": "Sagorne Creststrider",
+   "giver_npc_id": 13417,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 7629,
+   "title": "Imp Delivery",
+   "level": null,
+   "min_level": null,
+   "faction": "Warlock",
+   "giver": "Gorzeeki Wildeyes",
+   "giver_npc_id": 14437,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": null,
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "Skeleton Key item=13704 from The Key to Scholomance (5505 Alliance / 5511 Horde); 6-step chain starting 5097/5098 (Mold item=14644, Araj's Scarab item=14610 from Araj the Summoner npc=1852). Alternatives: Rogue 280 Lockpicking, Engineer Powerful Seaforium Charge item=18594.",
+ "forever_changes": [
+  "Dungeon set bonuses at 2,3,4,5,6 pieces (was 2,4,6,8)",
+  "Some Spirit traded for Spell Power/Hit/Defense rating",
+  "Boots of Valor 16734 changed",
+  "Necromantic Band 18760: 17 HP5 (was 8) + 15 Shadow Res",
+  "Boneclenched Gauntlets 14525: 7 Defense rating",
+  "Deathbone Chestplate 14624: Defense, Int, mp5, up to 70 SP proc",
+  "Pattern: Robe of the Void 14514 Tailoring 295",
+  "Patterns 15773/15776 LW 280/285 (was 300)"
+ ],
+ "notes": [
+  "Drop rates per guide are Classic values; stats still Classic until Wowhead lists new items",
+  "Guide read to 100000 of 103646 chars (rest is footer)",
+  "Boss count in guide says 15, list has 16 incl. Kormok and Darkreaver; order is mine, roughly the usual route",
+  "Six side-room bosses share a chest table (~4.5% per piece, 1.5% per chest)",
+  "Darkreaver Menace quest link slug shows 7668 in guide, text says 8258",
+  "Quest count conflicting (10 vs 11 per faction)",
+  "Lich chain 5461-5465 before 5466; Blood of Innocents 13523 needed for Kirtonos"
+ ]
+}

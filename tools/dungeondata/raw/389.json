@@ -1,0 +1,267 @@
+{
+ "key": 389,
+ "name_en": "Ragefire Chasm",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-ragefire-chasm-guide/"
+ ],
+ "level": "13-18",
+ "boss_level": 16,
+ "zone": "Orgrimmar",
+ "zone_id": 2437,
+ "entrance": "Portal in Cleft of Shadow, Orgrimmar, beside Neeru Fireblade's tent",
+ "faction": "Horde; Alliance can enter but has no quests",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Oggleflint",
+   "npc_ids": [
+    11517
+   ],
+   "location": "first trogg cave, with two adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 272996,
+     "name": "Trogg Scepter",
+     "slot": "Main Hand Mace",
+     "chance": "3.3%",
+     "quest_item": false
+    },
+    {
+     "item_id": 272999,
+     "name": "Barbaric Crossbow",
+     "slot": "Crossbow",
+     "chance": "3%",
+     "quest_item": false
+    },
+    {
+     "item_id": 272998,
+     "name": "Bone Knuckles",
+     "slot": "Fist Weapon",
+     "chance": "2.7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Taragaman the Hungerer",
+   "npc_ids": [
+    11520
+   ],
+   "location": "lava platform in central chamber",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 14149,
+     "name": "Subterranean Cape",
+     "slot": "Back",
+     "chance": "34.8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14148,
+     "name": "Crystalline Cuffs",
+     "slot": "Wrist (Cloth)",
+     "chance": "32.9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14145,
+     "name": "Cursed Felblade",
+     "slot": "One-Hand Sword",
+     "chance": "17.6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14540,
+     "name": "Taragaman the Hungerer's Heart",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Jergosh the Invoker",
+   "npc_ids": [
+    11518
+   ],
+   "location": "middle of the last room, two adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 14147,
+     "name": "Cavedweller Bracers",
+     "slot": "Wrist (Mail)",
+     "chance": "37.3%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14150,
+     "name": "Robe of Evocation",
+     "slot": "Chest (Cloth)",
+     "chance": "36.4%",
+     "quest_item": false
+    },
+    {
+     "item_id": 14151,
+     "name": "Chanting Blade",
+     "slot": "Dagger",
+     "chance": "17.7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Bazzalan",
+   "npc_ids": [
+    11519
+   ],
+   "location": "up the ramp, right side of last room",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 273003,
+     "name": "Searing Dagger",
+     "slot": "Main Hand Dagger",
+     "chance": "2.9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273005,
+     "name": "Satyrskin Cloak",
+     "slot": "Back",
+     "chance": "2.9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273007,
+     "name": "Chasm Walkers",
+     "slot": "Feet (Leather)",
+     "chance": "2.9%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 5728,
+   "title": "Hidden Enemies",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Thrall",
+   "giver_npc_id": 4949,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Hidden Enemies steps 5726, 5727 (Lieutenant's Insignia item=14544)",
+   "rewards": [
+    15443,
+    15444,
+    15424,
+    15445
+   ]
+  },
+  {
+   "quest_id": 5724,
+   "title": "Returning the Lost Satchel",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Maur Grimtotem (corpse)",
+   "giver_npc_id": 11834,
+   "giver_item_id": null,
+   "giver_zone": "Ragefire Chasm (inside)",
+   "prereq": "Searching for the Lost Satchel (5722) from Rahauro npc=11833, Thunder Bluff; Grimtotem Satchel item=14381",
+   "rewards": [
+    15452,
+    15453,
+    270003
+   ]
+  },
+  {
+   "quest_id": 5725,
+   "title": "The Power to Destroy...",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Varimathras",
+   "giver_npc_id": 2425,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": null,
+   "rewards": [
+    15449,
+    15450,
+    15451
+   ]
+  },
+  {
+   "quest_id": 5761,
+   "title": "Slaying the Beast",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Neeru Fireblade",
+   "giver_npc_id": 3216,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5723,
+   "title": "Testing an Enemy's Strength",
+   "level": 15,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Rahauro",
+   "giver_npc_id": 11833,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 5722,
+   "title": "Searching for the Lost Satchel",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Rahauro",
+   "giver_npc_id": 11833,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": null,
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None",
+ "forever_changes": [
+  "Quest XP about twice Classic",
+  "All boss items are blue",
+  "Oggleflint and Bazzalan had no loot in Classic; now three new items each",
+  "Taragaman and Jergosh drops reworked with better stats",
+  "Subterranean Cape gains 5 health per 5 sec",
+  "Cursed Felblade proc now removes 24 Attack Power",
+  "New items: Garrison Cuffs, Trogg Scepter, Bone Knuckles, Barbaric Crossbow, Searing Dagger, Satyrskin Cloak, Chasm Walkers",
+  "Beta (Oct 8) lowered several quest rewards blue->green (bracers, leggings)"
+ ],
+ "notes": [
+  "Oggleflint/Bazzalan item chances ~3% as stated (seems low, possibly early data)",
+  "Hidden Enemies chain 5726-5730; dungeon step is 5728; page says '3 steps' but lists 5",
+  "Power to Destroy needs Spells of Shadow item=14395 and Incantations from the Nether item=14396 from Searing Blade Cultist npc=11322 / Warlock npc=11324",
+  "Testing an Enemy's Strength: 8 Ragefire Trogg npc=11318, 8 Ragefire Shaman npc=11319",
+  "Beta pages listed patterns item=252781, item=253906 as rare drops",
+  "Slot for Barbaric Crossbow/Cursed Felblade not stated by page; inferred"
+ ]
+}

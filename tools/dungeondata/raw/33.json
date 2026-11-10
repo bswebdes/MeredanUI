@@ -1,0 +1,491 @@
+{
+ "key": 33,
+ "name_en": "Shadowfang Keep",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-shadowfang-keep-guide/"
+ ],
+ "level": "22-30",
+ "boss_level": null,
+ "zone": "Silverpine Forest",
+ "zone_id": 209,
+ "entrance": "Cliffside keep north-west of Pyrewood Village (~45, 68)",
+ "faction": "Both can enter; quests Horde only",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Rethilgore",
+   "npc_ids": [
+    3914
+   ],
+   "location": "prison cells near entrance",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5254,
+     "name": "Rugged Spaulders",
+     "slot": "Shoulder (Leather)",
+     "chance": "~90%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273456,
+     "name": "Cell Keeper's Claws",
+     "slot": "Fist Weapon",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 273457,
+     "name": "Sorcerer Collar",
+     "slot": null,
+     "chance": "~2%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Fel Steed / Shadow Charger",
+   "npc_ids": [
+    3864,
+    3865
+   ],
+   "location": "stables in the courtyard",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 932,
+     "name": "Fel Steed Saddlebags",
+     "slot": "Bag",
+     "chance": "~18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6341,
+     "name": "Eerie Stable Lantern",
+     "slot": null,
+     "chance": "~6%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Razorclaw the Butcher",
+   "npc_ids": [
+    3886
+   ],
+   "location": "kitchen",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6226,
+     "name": "Bloody Apron",
+     "slot": "Chest (Cloth)",
+     "chance": "~44%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6633,
+     "name": "Butcher's Slicer",
+     "slot": null,
+     "chance": "~42%",
+     "quest_item": false
+    },
+    {
+     "item_id": 1292,
+     "name": "Butcher's Cleaver",
+     "slot": null,
+     "chance": "~10%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273096,
+     "name": "Blueprint: Tanning Rack",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Baron Silverlaine",
+   "npc_ids": [
+    3887
+   ],
+   "location": "dining hall",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6323,
+     "name": "Baron's Scepter",
+     "slot": null,
+     "chance": "~40%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6321,
+     "name": "Silverlaine's Family Seal",
+     "slot": "Finger",
+     "chance": "~20%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273637,
+     "name": "Blade of Silverlaine",
+     "slot": "Sword",
+     "chance": "~1.7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Commander Springvale",
+   "npc_ids": [
+    4278
+   ],
+   "location": "chapel courtyard with ghost adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 3191,
+     "name": "Arced War Axe",
+     "slot": null,
+     "chance": "~35%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6320,
+     "name": "Commander's Crest",
+     "slot": "Shield",
+     "chance": "~29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273643,
+     "name": "Worgenbane Talisman",
+     "slot": "Trinket",
+     "chance": "~1.7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273105,
+     "name": "Blueprint: Toxin Study",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Odo the Blindwatcher",
+   "npc_ids": [
+    4279
+   ],
+   "location": "tower ramparts, with two Vile Bats",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6319,
+     "name": "Girdle of the Blindwatcher",
+     "slot": "Waist (Leather)",
+     "chance": "~61%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6318,
+     "name": "Odo's Ley Staff",
+     "slot": "Staff",
+     "chance": "~35%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273645,
+     "name": "Blindwatcher's Sight",
+     "slot": "Head (Cloth)",
+     "chance": "~1.7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Arugal's Voidwalkers",
+   "npc_ids": [
+    4627
+   ],
+   "location": "library guards (non-elite pack)",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5943,
+     "name": "Rift Bracers",
+     "slot": "Wrist",
+     "chance": "~2.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Fenrus the Devourer",
+   "npc_ids": [
+    4274
+   ],
+   "location": "upper floor past the library",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6340,
+     "name": "Fenrus' Hide",
+     "slot": "Back",
+     "chance": "~74%",
+     "quest_item": false
+    },
+    {
+     "item_id": 3230,
+     "name": "Black Wolf Bracers",
+     "slot": "Wrist (Leather)",
+     "chance": "~17%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273646,
+     "name": "Half-Eaten Boots",
+     "slot": "Feet (Mail)",
+     "chance": "~2%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Wolf Master Nandos",
+   "npc_ids": [
+    3927
+   ],
+   "location": "worg area before Arugal",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 3748,
+     "name": "Feline Mantle",
+     "slot": "Shoulder (Cloth)",
+     "chance": "~57%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6314,
+     "name": "Wolfmaster Cape",
+     "slot": "Back",
+     "chance": "~39%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273647,
+     "name": "Worgpelt Leggings",
+     "slot": "Legs (Leather)",
+     "chance": "~1.8%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": null,
+   "name": "Archmage Arugal",
+   "npc_ids": [
+    4275
+   ],
+   "location": "top of the keep, final boss",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6324,
+     "name": "Robes of Arugal",
+     "slot": "Chest",
+     "chance": "~35%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6392,
+     "name": "Belt of Arugal",
+     "slot": "Waist",
+     "chance": "~34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6220,
+     "name": "Meteor Shard",
+     "slot": "Dagger",
+     "chance": "~18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5442,
+     "name": "Head of Arugal",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 276561,
+     "name": "Black Tome",
+     "slot": "Quest/Key (object in his room)",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 267361,
+     "name": "Enchanted Silver Ingot",
+     "slot": "Quest (object in his room)",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Deathsworn Captain",
+   "npc_id": 3872,
+   "location": "wall walk near Odo, not always spawned",
+   "loot": [
+    {
+     "item_id": 6641,
+     "name": "Haunting Blade",
+     "slot": "Two-Hand Sword",
+     "chance": "~58%"
+    },
+    {
+     "item_id": 6642,
+     "name": "Phantom Armor",
+     "slot": "Chest (Mail)",
+     "chance": "~35%"
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 1014,
+   "title": "Arugal Must Die",
+   "level": 27,
+   "min_level": 18,
+   "faction": "Horde",
+   "giver": "Dalar Dawnweaver",
+   "giver_npc_id": 1938,
+   "giver_item_id": null,
+   "giver_zone": "Silverpine Forest (The Sepulcher)",
+   "prereq": null,
+   "rewards": [
+    6414
+   ]
+  },
+  {
+   "quest_id": 1013,
+   "title": "The Book of Ur",
+   "level": 26,
+   "min_level": 16,
+   "faction": "Horde",
+   "giver": "Keeper Bel'dugur",
+   "giver_npc_id": 2934,
+   "giver_item_id": null,
+   "giver_zone": "Undercity (Apothecarium)",
+   "prereq": null,
+   "rewards": [
+    270030,
+    6335,
+    4534
+   ]
+  },
+  {
+   "quest_id": 1098,
+   "title": "Deathstalkers in Shadowfang",
+   "level": 25,
+   "min_level": 18,
+   "faction": "Horde",
+   "giver": "High Executor Hadrec",
+   "giver_npc_id": 1952,
+   "giver_item_id": null,
+   "giver_zone": "Silverpine Forest (The Sepulcher)",
+   "prereq": null,
+   "rewards": [
+    3324,
+    270023,
+    270024
+   ]
+  },
+  {
+   "quest_id": 1654,
+   "title": "The Test of Righteousness",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance (Paladin)",
+   "giver": "Jordan Stilwell",
+   "giver_npc_id": 6181,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh",
+   "prereq": "chain 1649 (item=6776) -> 1653; final 1806; needs Jordan's Smithing Hammer item=6895 from SFK courtyard",
+   "rewards": []
+  },
+  {
+   "quest_id": 1740,
+   "title": "The Orb of Soran'ruk",
+   "level": 25,
+   "min_level": null,
+   "faction": "Both (Warlock)",
+   "giver": "Doan Karhan",
+   "giver_npc_id": 6247,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 95140,
+   "title": "Old Fire-Eye",
+   "level": 26,
+   "min_level": null,
+   "faction": "Horde (Paladin)",
+   "giver": "Lumina Windsinger",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "chain 95034, 95036, 95111 (Trevan Rol), 95125, 95126; needs Enchanted Silver Ingot item=267361 from Arugal's room",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None",
+ "forever_changes": [
+  "Group cap 5 (page says Classic 10)",
+  "Seal of Sylvanas: 6 AP instead of Strength",
+  "Boss abilities much stronger (Arugal Void Bolt 1,399; Rethilgore Soul Drain 178 vs Classic 35)",
+  "Rugged Spaulders blue, +2 all resists; Bloody Apron spell power; Commander's Crest/Baron's Scepter health regen; Fel Steed Saddlebags BoP",
+  "Six new rare boss drops (~1.7-2%): Sorcerer Collar, Blade of Silverlaine, Worgenbane Talisman, Blindwatcher's Sight, Half-Eaten Boots, Worgpelt Leggings; plus Cell Keeper's Claws",
+  "New quest rewards: Tattered Mittens 270030, Tanned Shoulderpads 270023, Bronzed Shoulderguards 270024",
+  "Black Tome 276561 -> Tome of Dalaran 275989 at Ambermill Leyline Focus; summons secret boss in City of Dalaran (zone=16560)",
+  "Blade of Silverlaine can be turned into Coldflame Saber item=276631 by Mages"
+ ],
+ "notes": [
+  "Page says '9 bosses + 1 rare' but lists 10 entries incl. Voidwalker pack",
+  "Locations for Silverlaine, Springvale, Odo, Nandos partly own inference (page vague)",
+  "Many slots/chances missing; page references a loot card not present",
+  "Quest helpers: Deathstalker Adamant npc=3849, Deathstalker Vincent npc=4444, Sorcerer Ashcrombe npc=3850; Book of Ur item=6283 in library",
+  "Rare trash (<0.1%): 1482, 2205, 1935, 2807, 1318, 1484, 3194, 1483, 2292, 1489, 1974",
+  "Quest XP Horde 19,800 (beta values, approximate)",
+  "Class quests (1654, 1740, 95140) are chains tied to the keep, not core SFK quests"
+ ]
+}

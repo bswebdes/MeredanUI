@@ -1,0 +1,48 @@
+{
+  "key": 3001,
+  "name_en": "Shaper's Terrace",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-shapers-terrace-guide/", "https://www.warcrafttavern.com/forever/guides/shapers-terrace/"],
+  "level": "58-60",
+  "boss_level": null,
+  "zone": "Un'Goro Crater",
+  "zone_id": 490,
+  "entrance": "Hill above Marshal's Refuge, temple portal with Meeting Stone (~48.1, 6.1)",
+  "faction": "Both (no restriction stated)",
+  "bosses": [
+    {"order": null, "wing": null, "name": "Bolt", "npc_ids": [], "location": null, "optional": false, "loot": [], "achievement_id": 63592},
+    {"order": null, "wing": null, "name": "Cinder", "npc_ids": [], "location": null, "optional": false, "loot": [], "achievement_id": 63590},
+    {"order": null, "wing": null, "name": "Snowtalon", "npc_ids": [], "location": null, "optional": false, "loot": [], "achievement_id": 63593},
+    {"order": null, "wing": null, "name": "Nanaya", "npc_ids": [], "location": null, "optional": false, "loot": [], "achievement_id": 63574, "note": "likely final boss"}
+  ],
+  "rares": [],
+  "quests": [],
+  "related_items": [
+    {"item_id": 11184, "name": "Blue Power Crystal", "use": "consoles inside dungeon"},
+    {"item_id": 11185, "name": "Green Power Crystal", "use": "consoles inside dungeon"},
+    {"item_id": 11186, "name": "Red Power Crystal", "use": "consoles inside dungeon"},
+    {"item_id": 11188, "name": "Yellow Power Crystal", "use": "consoles inside dungeon"},
+    {"item_id": 271770, "name": "Explorers' League Cartographer's Kit", "use": "quest item referencing Shapers Terrace map; quest unknown"}
+  ],
+  "related_zone_quests": [
+    {"quest_id": 4284, "title": "Crystals of Power", "level": 53, "giver": "J.D. Collie", "giver_npc_id": 9117, "giver_zone": "Un'Goro Crater (Marshal's Refuge)"},
+    {"quest_id": 4285, "title": "The Northern Pylon", "level": 53, "giver": "J.D. Collie", "giver_npc_id": 9117, "giver_zone": "Un'Goro Crater (Marshal's Refuge)"},
+    {"quest_id": 4287, "title": "The Eastern Pylon", "level": 53, "giver": "J.D. Collie", "giver_npc_id": 9117, "giver_zone": "Un'Goro Crater (Marshal's Refuge)"},
+    {"quest_id": 4288, "title": "The Western Pylon", "level": 53, "giver": "J.D. Collie", "giver_npc_id": 9117, "giver_zone": "Un'Goro Crater (Marshal's Refuge)"},
+    {"quest_id": 4321, "title": "Making Sense of It", "level": 53, "giver": "J.D. Collie", "giver_npc_id": 9117, "giver_zone": "Un'Goro Crater (Marshal's Refuge)"}
+  ],
+  "keys_attunement": "None announced. Un'Goro Power Crystals (11184/11185/11186/11188) are used at consoles inside.",
+  "forever_changes": [
+    "New Forever dungeon (launch), only new dungeon starting at 58",
+    "Power Crystal consoles tie dungeon to Un'Goro zone",
+    "New Alchemy transmute Red -> Blue Power Crystal (spell 1289305)",
+    "Counts toward Master Spelunker (achievement 62033)"
+  ],
+  "notes": [
+    "No npc IDs, boss levels, order or locations published (conquestcapped: boss data encrypted in beta); boss names from kill-statistic achievements",
+    "No loot table published on conquestcapped or warcrafttavern; no dungeon quests known (TBA)",
+    "Warcrafttavern says there are likely more bosses than these four",
+    "Pylon quests (related_zone_quests) are NOT tied to the dungeon by Blizzard per guide",
+    "Unconfirmed raid portal behind a closed titan gate north of the dungeon",
+    "Wowhead search for Nanaya npc gave nothing; warcraft.wiki.gg covers only the old Classic Shaper's Terrace area"
+  ]
+}

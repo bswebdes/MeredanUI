@@ -1,0 +1,4449 @@
+{
+ "key": 229,
+ "slug": "blackrock_spire",
+ "kind": "dungeon",
+ "name_en": "Blackrock Spire",
+ "level": "55-60",
+ "zone": "Blackrock Mountain",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon (LBRS 55-60, UBRS 59-60; one map ID)",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-lower-blackrock-spire-guide/",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-upper-blackrock-spire-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "LBRS no key. UBRS needs Seal of Ascension (quests 4742/4743 from Vaelan npc=10296; needs Unadorned Seal item=12219; gemstones 12336/12335/12337; forged by Emberstrife npc=10321 -> Forged Seal of Ascension item=12324). One holder opens the door for the group. Onyxia attunement chains (Drakefire Amulet 6502 / Blood of the Black Dragon Champion 6602) run through UBRS (Blood of the Black Dragon Champion item=16663 from Drakkisath).",
+ "forever_changes": [
+  "Smolderweb Carrier 12529 and Worg Carrier 12264 no longer BoP",
+  "Several quests (5081, 4903, 5089, 5047, 4974, 6502) give slightly less XP",
+  "Boots of Elements 16670: 14 spell power",
+  "Wildheart Spaulders 16718: 20 healing",
+  "Enchant Gloves - Greater Strength 16244: +10 Str (was +7)",
+  "Quartermaster Zigris is a regular elite, not rare",
+  "Dungeon set bonuses at 2-6 pieces (not 8): 2pc +8 all resist, 6pc mana/health regen; some pieces gained Hit/Defense/Spell Pen",
+  "Plans: Demon Forged Breastplate needs BS 260 (was 285)",
+  "Potion of Demon Slaying 180 AP vs demons (was 265)",
+  "Draconian Deflector +10 Defense rating, 8 fire res (was 10)",
+  "Brigam Girdle +10 Hit rating, 18 Sta, 14 Str",
+  "Pattern: Red Dragonscale Breastplate LW 290 (was 300)"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "LBRS",
+   "name": "Highlord Omokk",
+   "name_de": "Hochlord Omokk",
+   "encounter_id": 267,
+   "npcs": [
+    {
+     "id": 9196,
+     "wowhead_name": "Highlord Omokk",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "first ogre area (Spirestone)",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.351,
+    "y": 0.5534
+   },
+   "loot": [
+    {
+     "item_id": 12336,
+     "name": "Gemstone of Spirestone",
+     "slot": "Quest",
+     "quality": 2,
+     "quest_item": true,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": 27.12,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 13.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16670,
+     "name": "Boots of Elements",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 10.7,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 16.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13167,
+     "name": "Fist of Omokk",
+     "slot": "Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": 13.46,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 16.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12534,
+     "name": "Omokk's Head",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 84.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 13166,
+     "name": "Slamshot Shoulders",
+     "slot": "Shoulder Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 12.08,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13168,
+     "name": "Plate of the Shaman King",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 12.64,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13169,
+     "name": "Tressermane Leggings",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 12.9,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13170,
+     "name": "Skyshroud Leggings",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 13.01,
+     "wowhead_dropped_by": "Highlord Omokk",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "LBRS",
+   "name": "Shadow Hunter Vosh'gajin",
+   "name_de": "Schattenjägerin Vosh'gajin",
+   "encounter_id": 268,
+   "npcs": [
+    {
+     "id": 9236,
+     "wowhead_name": "Shadow Hunter Vosh'gajin",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Smolderthorn troll area",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5556,
+    "y": 0.7198
+   },
+   "loot": [
+    {
+     "item_id": 16712,
+     "name": "Shadowcraft Gloves",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.55,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 21.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13255,
+     "name": "Trueaim Gauntlets",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": 34.53,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 21.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12653,
+     "name": "Riphook",
+     "slot": "Bow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": 7.3,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 8.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12654,
+     "name": "Doomshot",
+     "slot": "Ammo Arrow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 27.48,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 30.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12626,
+     "name": "Funeral Cuffs",
+     "slot": "Wrist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.45,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 21.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13257,
+     "name": "Demonic Runed Spaulders",
+     "slot": "Shoulder Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 7.83,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 21.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12651,
+     "name": "Blackcrow",
+     "slot": "Ranged Crossbow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 7.3,
+     "wowhead_dropped_by": "Shadow Hunter Vosh'gajin",
+     "chance_repo": 8.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "LBRS",
+   "name": "War Master Voone",
+   "name_de": "Kriegsmeister Voone",
+   "encounter_id": 269,
+   "npcs": [
+    {
+     "id": 9237,
+     "wowhead_name": "War Master Voone",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Smolderthorn troll area",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5291,
+    "y": 0.5318
+   },
+   "loot": [
+    {
+     "item_id": 12335,
+     "name": "Gemstone of Smolderthorn",
+     "slot": "Quest",
+     "quality": 2,
+     "quest_item": true,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 33.17,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 17.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13173,
+     "name": "Flightblade Throwing Axe",
+     "slot": "Thrown",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 91.0,
+     "chance_wowhead_forever": 91.59,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 100.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16676,
+     "name": "Beaststalker's Gloves",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 18.23,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 21524,
+     "name": "Red Winter Hat",
+     "slot": "Head Cloth",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12582,
+     "name": "Keris of Zul'Serak",
+     "slot": "One-Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.41,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13177,
+     "name": "Talisman of Evasion",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.7,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13179,
+     "name": "Brazecore Armguards",
+     "slot": "Wrist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.08,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22231,
+     "name": "Kayser's Boots of Precision",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 13.13,
+     "wowhead_dropped_by": "War Master Voone",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "LBRS",
+   "name": "Mother Smolderweb",
+   "name_de": "Mutter Glimmernetz",
+   "encounter_id": 270,
+   "npcs": [
+    {
+     "id": 10596,
+     "wowhead_name": "Mother Smolderweb",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Skitterweb Tunnels spider nest",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.65,
+    "y": 0.7441
+   },
+   "loot": [
+    {
+     "item_id": 16715,
+     "name": "Wildheart Boots",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": 15.65,
+     "wowhead_dropped_by": "Mother Smolderweb",
+     "chance_repo": 15.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13213,
+     "name": "Smolderweb's Eye",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 12.0,
+     "chance_wowhead_forever": 14.0,
+     "wowhead_dropped_by": "Mother Smolderweb",
+     "chance_repo": 35.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13244,
+     "name": "Gilded Gauntlets",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 26.66,
+     "wowhead_dropped_by": "Mother Smolderweb",
+     "chance_repo": 35.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13183,
+     "name": "Venomspitter",
+     "slot": "One-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 3.54,
+     "wowhead_dropped_by": "Mother Smolderweb",
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "LBRS",
+   "name": "Urok Doomhowl",
+   "name_de": "Urok Schreckensbote",
+   "encounter_id": 271,
+   "npcs": [
+    {
+     "id": 10584,
+     "wowhead_name": "Urok Doomhowl",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "tribute pile; summoned with Omokk's Head on pike",
+   "optional": true,
+   "pin": {
+    "floor": 1,
+    "x": 0.4538,
+    "y": 0.5554
+   },
+   "loot": [
+    {
+     "item_id": 12712,
+     "name": "Warosh's Mojo",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 13258,
+     "name": "Slaghide Gauntlets",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 24.41,
+     "wowhead_dropped_by": "Urok Doomhowl",
+     "chance_repo": 23.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18784,
+     "name": "Top Half of Advanced Armorsmithing: Volume III",
+     "slot": "Quest/Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 16.88,
+     "wowhead_dropped_by": "Urok Doomhowl",
+     "chance_repo": 16.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13178,
+     "name": "Rosewine Circle",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.78,
+     "wowhead_dropped_by": "Urok Doomhowl",
+     "chance_repo": 23.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13259,
+     "name": "Ribsteel Footguards",
+     "slot": "Feet Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 22.32,
+     "wowhead_dropped_by": "Urok Doomhowl",
+     "chance_repo": 23.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22232,
+     "name": "Marksman's Girdle",
+     "slot": "Waist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.74,
+     "wowhead_dropped_by": "Urok Doomhowl",
+     "chance_repo": 23.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": "LBRS",
+   "name": "Quartermaster Zigris",
+   "name_de": "Rüstmeister Zigris",
+   "encounter_id": 272,
+   "npcs": [
+    {
+     "id": 9736,
+     "wowhead_name": "Quartermaster Zigris",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Hordemar City storeroom",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5483,
+    "y": 0.838
+   },
+   "loot": [
+    {
+     "item_id": 13253,
+     "name": "Hands of Power",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 14.0,
+     "chance_wowhead_forever": 14.21,
+     "wowhead_dropped_by": "Quartermaster Zigris",
+     "chance_repo": 14.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12835,
+     "name": "Plans: Annihilator",
+     "slot": "Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 14.0,
+     "chance_wowhead_forever": 12.6,
+     "wowhead_dropped_by": "Quartermaster Zigris",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13252,
+     "name": "Cloudrunner Girdle",
+     "slot": "Waist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.21,
+     "wowhead_dropped_by": "Quartermaster Zigris",
+     "chance_repo": 16.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "LBRS",
+   "name": "Halycon",
+   "name_de": "Halycon",
+   "encounter_id": 274,
+   "npcs": [
+    {
+     "id": 10220,
+     "wowhead_name": "Halycon",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "worg den (Halycon's Lair)",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3932,
+    "y": 0.8428
+   },
+   "loot": [
+    {
+     "item_id": 13212,
+     "name": "Halycon's Spiked Collar",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 28.0,
+     "chance_wowhead_forever": 28.2,
+     "wowhead_dropped_by": "Halycon",
+     "chance_repo": 28.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13211,
+     "name": "Slashclaw Bracers",
+     "slot": "Wrist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 28.0,
+     "chance_wowhead_forever": 27.14,
+     "wowhead_dropped_by": "Halycon",
+     "chance_repo": 28.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22313,
+     "name": "Ironweave Bracers",
+     "slot": "Wrist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.95,
+     "wowhead_dropped_by": "Halycon",
+     "chance_repo": 28.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13210,
+     "name": "Pads of the Dread Wolf",
+     "slot": "Feet Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.36,
+     "wowhead_dropped_by": "Halycon",
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": "LBRS",
+   "name": "Gizrul the Slavener",
+   "name_de": "Gizrul der Geifernde",
+   "encounter_id": 273,
+   "npcs": [
+    {
+     "id": 10268,
+     "wowhead_name": "Gizrul the Slavener",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "worg den, spawns after Halycon",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3932,
+    "y": 0.8428
+   },
+   "loot": [
+    {
+     "item_id": 16718,
+     "name": "Wildheart Spaulders",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.21,
+     "wowhead_dropped_by": "Gizrul the Slavener",
+     "chance_repo": 15.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13205,
+     "name": "Rhombeard Protector",
+     "slot": "Off Hand Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.88,
+     "wowhead_dropped_by": "Gizrul the Slavener",
+     "chance_repo": 28.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13206,
+     "name": "Wolfshear Leggings",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 25.76,
+     "wowhead_dropped_by": "Gizrul the Slavener",
+     "chance_repo": 28.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13208,
+     "name": "Bleak Howler Armguards",
+     "slot": "Wrist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.5,
+     "wowhead_dropped_by": "Gizrul the Slavener",
+     "chance_repo": 28.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": "LBRS",
+   "name": "Overlord Wyrmthalak",
+   "name_de": "Oberanführer Wyrmthalak",
+   "encounter_id": 275,
+   "npcs": [
+    {
+     "id": 9568,
+     "wowhead_name": "Overlord Wyrmthalak",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "final room of the lower spire",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5602,
+    "y": 0.5531
+   },
+   "loot": [
+    {
+     "item_id": 12337,
+     "name": "Gemstone of Bloodaxe",
+     "slot": "Quest",
+     "quality": 2,
+     "quest_item": true,
+     "chance_guide": 41.0,
+     "chance_wowhead_forever": 40.51,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 26.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12780,
+     "name": "General Drakkisath's Command",
+     "slot": "Quest (starts 5089)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 25.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 16679,
+     "name": "Beaststalker's Mantle",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 17.37,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22321,
+     "name": "Heart of Wyrmthalak",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 11.0,
+     "chance_wowhead_forever": 12.77,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13143,
+     "name": "Mark of the Dragon Lord",
+     "slot": "Finger",
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": 1.71,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 2.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13161,
+     "name": "Trindlehaven Staff",
+     "slot": "Two-Hand Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 15.57,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13162,
+     "name": "Reiver Claws",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.39,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13163,
+     "name": "Relentless Scythe",
+     "slot": "Two-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.83,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": "UBRS",
+   "name": "Pyroguard Emberseer",
+   "name_de": "Feuerwache Glutseher",
+   "encounter_id": 3062,
+   "npcs": [
+    {
+     "id": 9816,
+     "wowhead_name": "Pyroguard Emberseer",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Hall of Binding; start at Blackhand Altar",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3029,
+    "y": 0.2703
+   },
+   "loot": [
+    {
+     "item_id": 12926,
+     "name": "Flaming Band",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 28.0,
+     "chance_wowhead_forever": 26.88,
+     "wowhead_dropped_by": "Pyroguard Emberseer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12905,
+     "name": "Wildfire Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": 25.9,
+     "wowhead_dropped_by": "Pyroguard Emberseer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16672,
+     "name": "Gauntlets of Elements",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.43,
+     "wowhead_dropped_by": "Pyroguard Emberseer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12927,
+     "name": "Truestrike Shoulders",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 11.0,
+     "chance_wowhead_forever": 12.27,
+     "wowhead_dropped_by": "Pyroguard Emberseer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17322,
+     "name": "Eye of the Emberseer",
+     "slot": "Quest (6821)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12929,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 23320,
+     "name": "Tablet of Flame Shock VI",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 0.22,
+     "wowhead_dropped_by": "Pyroguard Emberseer",
+     "chance_repo": 8.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 11,
+   "wing": "UBRS",
+   "name": "Solakar Flamewreath",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 10264,
+     "wowhead_name": "Solakar Flamewreath",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "The Rookery; start at Father Flame",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 12603,
+     "name": "Nightbrace Tunic",
+     "slot": "Chest",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 16695,
+     "name": "Devout Mantle",
+     "slot": "Shoulder",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12606,
+     "name": "Crystallized Girdle",
+     "slot": "Waist",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 17.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": "UBRS",
+   "name": "Goraluk Anvilcrack",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 10899,
+     "wowhead_name": "Goraluk Anvilcrack",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Hall of Blackhand",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 13498,
+     "name": "Handcrafted Mastersmith Leggings",
+     "slot": "Legs",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18048,
+     "name": "Mastersmith's Hammer",
+     "slot": "One-Hand Mace",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12834,
+     "name": "Plans: Arcanite Champion",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12837,
+     "name": "Plans: Masterwork Stormhammer",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": "UBRS",
+   "name": "Warchief Rend Blackhand",
+   "name_de": "Kriegshäuptling Rend Blackhand",
+   "encounter_id": 3063,
+   "npcs": [
+    {
+     "id": 10429,
+     "wowhead_name": "Warchief Rend Blackhand",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Blackrock Stadium; event via Lord Victor Nefarius",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5123,
+    "y": 0.2425
+   },
+   "loot": [
+    {
+     "item_id": 12935,
+     "name": "Warmaster Legguards",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 40.01,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 19.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16733,
+     "name": "Spaulders of Valor",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.75,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 19.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12939,
+     "name": "Dal'Rend's Tribal Guardian",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 11.81,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 19.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12940,
+     "name": "Dal'Rend's Sacred Charge",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 8.0,
+     "chance_wowhead_forever": 7.74,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 16.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12590,
+     "name": "Felstriker",
+     "slot": "Dagger (epic)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12936,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18102,
+     "name": "Dragonrider Boots",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.95,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12583,
+     "name": "Blackhand Doomsaw",
+     "slot": "Two-Hand Polearm",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.81,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12587,
+     "name": "Eye of Rend",
+     "slot": "Head Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.27,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18103,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18104,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22247,
+     "name": "Faith Healer's Boots",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 13.23,
+     "wowhead_dropped_by": "Warchief Rend Blackhand",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 14,
+   "wing": "UBRS",
+   "name": "Gyth",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 10339,
+     "wowhead_name": "Gyth",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Blackrock Stadium, with Rend",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 12952,
+     "name": "Gyth's Skull",
+     "slot": "Head",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 16669,
+     "name": "Pauldrons of Elements",
+     "slot": "Shoulder",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12871,
+     "name": "Chromatic Carapace",
+     "slot": "Crafting (epic)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 4.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 15,
+   "wing": "UBRS",
+   "name": "The Beast",
+   "name_de": "Die Bestie",
+   "encounter_id": 3068,
+   "npcs": [
+    {
+     "id": 10430,
+     "wowhead_name": "The Beast",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "The Furnace",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.6368,
+    "y": 0.3671
+   },
+   "loot": [
+    {
+     "item_id": 12964,
+     "name": "Tristam Legguards",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": 26.24,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12963,
+     "name": "Blademaster Leggings",
+     "slot": "Legs",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 16729,
+     "name": "Lightforge Spaulders",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.0,
+     "chance_wowhead_forever": 18.37,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12709,
+     "name": "Pip's Skinner",
+     "slot": "Dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12969,
+     "name": "Seeping Willow",
+     "slot": "Two-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 14.54,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12731,
+     "name": "Pristine Hide of the Beast",
+     "slot": "Skinning (epic)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12965,
+     "name": "Spiritshroud Leggings",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 21.54,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12966,
+     "name": "Blackmist Armguards",
+     "slot": "Wrist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.85,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12967,
+     "name": "Bloodmoon Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 25.08,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12968,
+     "name": "Frostweaver Cape",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.82,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22311,
+     "name": "Ironweave Boots",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 15.53,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 24101,
+     "name": "Book of Ferocious Bite V",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 5.62,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 13.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 19227,
+     "name": "Ace of Beasts",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 6.04,
+     "wowhead_dropped_by": "The Beast",
+     "chance_repo": 5.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 16,
+   "wing": "UBRS",
+   "name": "Lord Valthalak",
+   "name_de": "Lord Valthalak",
+   "encounter_id": 3070,
+   "npcs": [
+    {
+     "id": 16042,
+     "wowhead_name": "Lord Valthalak",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "summoned in The Beast's room (Brazier of Beckoning 22056)",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 22335,
+     "name": "Lord Valthalak's Staff of Command",
+     "slot": "Staff",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 27.2,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22340,
+     "name": "Pendant of Celerity",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 30.2,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22302,
+     "name": "Ironweave Cowl",
+     "slot": "Head Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 22.76,
+     "wowhead_dropped_by": "Lord Valthalak",
+     "chance_repo": 40.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22337,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 35.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22342,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 35.6,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22343,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 32.6,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22336,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 30.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22339,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 28.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 17,
+   "wing": "UBRS",
+   "name": "General Drakkisath",
+   "name_de": "General Drakkisath",
+   "encounter_id": 3069,
+   "npcs": [
+    {
+     "id": 10363,
+     "wowhead_name": "General Drakkisath",
+     "zone": 1583,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Spire Throne, two Chromatic Elite Guards",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3344,
+    "y": 0.4532
+   },
+   "loot": [
+    {
+     "item_id": 13141,
+     "name": "Tooth of Gnarr",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 26.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 24.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13142,
+     "name": "Brigam Girdle",
+     "slot": "Waist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 22.53,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 24.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12602,
+     "name": "Draconian Deflector",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.01,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 24.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13098,
+     "name": "Painweaver Band",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 24.8,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12592,
+     "name": "Blackblade of Shahram",
+     "slot": "Two-Hand Sword (epic)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 16663,
+     "name": "Blood of the Black Dragon Champion",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 15730,
+     "name": "Pattern: Red Dragonscale Breastplate",
+     "slot": "Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 5.0,
+     "chance_wowhead_forever": 4.71,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 4.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13519,
+     "name": "Recipe: Flask of the Titans",
+     "slot": "Recipe",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": 5.0,
+     "chance_wowhead_forever": 4.05,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 3.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22253,
+     "name": "Tome of the Lost",
+     "slot": "Held In Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 21.97,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22267,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22268,
+     "name": "Draconic Infused Emblem",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 6.8,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22269,
+     "name": "Shadow Prowler's Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.15,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16666,
+     "name": "Vest of Elements",
+     "slot": "Chest Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 5.1,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16674,
+     "name": "Beaststalker's Tunic",
+     "slot": "Chest Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.45,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16688,
+     "name": "Magister's Robes",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.18,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16690,
+     "name": "Devout Robe",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.83,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16700,
+     "name": "Dreadmist Robe",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 12.36,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16706,
+     "name": "Wildheart Vest",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.82,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16721,
+     "name": "Shadowcraft Tunic",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.37,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16726,
+     "name": "Lightforge Breastplate",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 6.78,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16730,
+     "name": "Breastplate of Valor",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 12.07,
+     "wowhead_dropped_by": "General Drakkisath",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Bannok Grimaxe",
+   "npc_id": 9596,
+   "wowhead_name": "Bannok Grimaxe",
+   "location": "Hordemar City",
+   "pin": {
+    "floor": 1,
+    "x": 0.4688,
+    "y": 0.6413
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 12838,
+     "name": "Plans: Arcanite Reaper",
+     "slot": "Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 8.0,
+     "chance_wowhead_forever": 8.24,
+     "wowhead_dropped_by": "Bannok Grimaxe",
+     "chance_repo": 5.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12621,
+     "name": "Demonfork",
+     "slot": "Main Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.86,
+     "wowhead_dropped_by": "Bannok Grimaxe",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12634,
+     "name": "Chiselbrand Girdle",
+     "slot": "Waist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 31.97,
+     "wowhead_dropped_by": "Bannok Grimaxe",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12637,
+     "name": "Backusarian Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 32.04,
+     "wowhead_dropped_by": "Bannok Grimaxe",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Crystal Fang",
+   "npc_id": 10376,
+   "wowhead_name": "Crystal Fang",
+   "location": "Skitterweb Tunnels",
+   "pin": {
+    "floor": 1,
+    "x": 0.5408,
+    "y": 0.7488
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 13184,
+     "name": "Fallbrush Handgrips",
+     "slot": "Hands Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 32.49,
+     "wowhead_dropped_by": "Crystal Fang",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13185,
+     "name": "Sunderseer Mantle",
+     "slot": "Shoulder Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 33.17,
+     "wowhead_dropped_by": "Crystal Fang",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13218,
+     "name": "Fang of the Crystal Spider",
+     "slot": "One-Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.75,
+     "wowhead_dropped_by": "Crystal Fang",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Spirestone Battle Lord",
+   "npc_id": 9218,
+   "wowhead_name": "Spirestone Battle Lord",
+   "location": "near Omokk",
+   "pin": {
+    "floor": 1,
+    "x": 0.358,
+    "y": 0.6035
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 13285,
+     "name": "The Blackrock Slicer",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.88,
+     "wowhead_dropped_by": "Spirestone Battle Lord",
+     "chance_repo": 60.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13284,
+     "name": "Swiftdart Battleboots",
+     "slot": "Feet Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 56.93,
+     "wowhead_dropped_by": "Spirestone Battle Lord",
+     "chance_repo": 40.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Spirestone Lord Magus",
+   "npc_id": 9217,
+   "wowhead_name": "Spirestone Lord Magus",
+   "location": "near Omokk",
+   "pin": {
+    "floor": 1,
+    "x": 0.3736,
+    "y": 0.6144
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 13261,
+     "name": "Globe of D'sak",
+     "slot": "Held In Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 22.31,
+     "wowhead_dropped_by": "Spirestone Lord Magus",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13282,
+     "name": "Ogreseer Tower Boots",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.59,
+     "wowhead_dropped_by": "Spirestone Lord Magus",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13283,
+     "name": "Magus Ring",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 46.49,
+     "wowhead_dropped_by": "Spirestone Lord Magus",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Jed Runewatcher",
+   "npc_id": 10509,
+   "wowhead_name": "Jed Runewatcher",
+   "location": "Hall of Blackhand, not every reset",
+   "pin": {
+    "floor": 1,
+    "x": 0.3027,
+    "y": 0.2703
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 12604,
+     "name": "Starfire Tiara",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.79,
+     "wowhead_dropped_by": "Jed Runewatcher",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12930,
+     "name": "Briarwood Reed",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 30.3,
+     "wowhead_dropped_by": "Jed Runewatcher",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12605,
+     "name": "Serpentine Skuller",
+     "slot": "Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 33.31,
+     "wowhead_dropped_by": "Jed Runewatcher",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Spirestone Butcher",
+   "npc_id": 9219,
+   "wowhead_name": null,
+   "location": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.4484,
+    "y": 0.5775
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 12608,
+     "name": "Butcher's Apron",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 59.06,
+     "wowhead_dropped_by": "Spirestone Butcher",
+     "chance_repo": 50.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13286,
+     "name": "Rivenspike",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.25,
+     "wowhead_dropped_by": "Spirestone Butcher",
+     "chance_repo": 50.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ghok Bashguud",
+   "npc_id": 9718,
+   "wowhead_name": null,
+   "location": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.3481,
+    "y": 0.5999
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 13198,
+     "name": "Hurd Smasher",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.75,
+     "wowhead_dropped_by": "Ghok Bashguud",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13203,
+     "name": "Armswake Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.86,
+     "wowhead_dropped_by": "Ghok Bashguud",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13204,
+     "name": "Bashguuder",
+     "slot": "One-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 33.62,
+     "wowhead_dropped_by": "Ghok Bashguud",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16250,
+     "name": "Formula: Enchant Weapon - Superior Striking",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Spirestone Warlord",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 4742,
+   "title": "Seal of Ascension",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Vaelan",
+   "giver_npc_id": 10296,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "needs Unadorned Seal 12219",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4743,
+   "title": "Seal of Ascension",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Vaelan",
+   "giver_npc_id": 10296,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "4742",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4867,
+   "title": "Urok Doomhowl",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Warosh",
+   "giver_npc_id": 10799,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": null,
+   "rewards": [
+    15867
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4862,
+   "title": "En-Ay-Es-Tee-Why",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Kibler",
+   "giver_npc_id": 10260,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    12529
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4729,
+   "title": "Kibler's Exotic Pets",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Kibler",
+   "giver_npc_id": 10260,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    12264
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4866,
+   "title": "Mother's Milk",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Ragged John",
+   "giver_npc_id": 9563,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    15873
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4734,
+   "title": "Egg Freezing",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Tinkee Steamboil",
+   "giver_npc_id": 10267,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": "4810, 4907",
+   "rewards": [
+    12144
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4735,
+   "title": "Egg Collection",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Tinkee Steamboil",
+   "giver_npc_id": 10267,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": "4734",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8966,
+   "title": "The Left Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8962 (21-step chain)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8989,
+   "title": "The Right Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8986",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8995,
+   "title": "Mea Culpa, Lord Valthalak",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8994",
+   "rewards": [
+    22057
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 4788,
+   "title": "The Final Tablets",
+   "level": 58,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Prospector Ironboot",
+   "giver_npc_id": 10460,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris",
+   "prereq": "5065",
+   "rewards": [
+    20218,
+    20219
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5127,
+   "title": "The Demon Forge",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both (Warrior/Paladin)",
+   "giver": "Lorax",
+   "giver_npc_id": 10918,
+   "giver_item_id": null,
+   "giver_zone": "Winterspring",
+   "prereq": "Lorax's Tale (5126)",
+   "rewards": [
+    12696,
+    12849,
+    9224
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5160,
+   "title": "The Matron Protectorate",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Awbee",
+   "giver_npc_id": 10740,
+   "giver_item_id": null,
+   "giver_zone": "Upper Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5047,
+   "title": "Finkle Einhorn, At Your Service!",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Pip Quickwit",
+   "giver_npc_id": 10776,
+   "giver_item_id": null,
+   "giver_zone": "Upper Blackrock Spire (after The Beast)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5001,
+   "title": "Bijou's Belongings",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 5002,
+   "title": "Message to Maxwell",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "5001",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 5081,
+   "title": "Maxwell's Mission",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Marshal Maxwell",
+   "giver_npc_id": 9560,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "5002",
+   "rewards": [
+    13961,
+    13963,
+    13958,
+    13959,
+    13962
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 4701,
+   "title": "Put Her Down",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Helendis Riverhorn",
+   "giver_npc_id": 9562,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": null,
+   "rewards": [
+    15824,
+    15825,
+    15827
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 5089,
+   "title": "General Drakkisath's Command",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 12780,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 5102,
+   "title": "General Drakkisath's Demise",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Marshal Maxwell",
+   "giver_npc_id": 9560,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "5089",
+   "rewards": [
+    13966,
+    13968,
+    13965
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 4764,
+   "title": "Doomrigger's Clasp",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Alliance",
+   "giver": "Mayara Brightwing",
+   "giver_npc_id": 9565,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "4766",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 4765,
+   "title": "Delivery to Ridgewell",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Alliance",
+   "giver": "Mayara Brightwing",
+   "giver_npc_id": 9565,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "4764",
+   "rewards": [
+    15861,
+    15860
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 6502,
+   "title": "Drakefire Amulet",
+   "level": 60,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Haleh",
+   "giver_npc_id": 10929,
+   "giver_item_id": null,
+   "giver_zone": "Winterspring",
+   "prereq": "6501 (16-step chain)",
+   "rewards": [
+    16309
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 4724,
+   "title": "The Pack Mistress",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Galamav the Marksman",
+   "giver_npc_id": 9081,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    15824,
+    15825,
+    15827
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 4982,
+   "title": "Bijou's Belongings",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "Operative Bijou (4981)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 4983,
+   "title": "Bijou's Reconnaissance Report",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "4982",
+   "rewards": [
+    15858,
+    15859
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 4903,
+   "title": "Warlord's Command",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Warlord Goretooth",
+   "giver_npc_id": 9077,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    13961,
+    13963,
+    13958,
+    13959,
+    13962
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 4974,
+   "title": "For The Horde!",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Thrall",
+   "giver_npc_id": 4949,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Eitrigg's Wisdom (4941)",
+   "rewards": [
+    13966,
+    13968,
+    13965
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6569,
+   "title": "Oculus Illusions",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Myranda the Hag",
+   "giver_npc_id": 11872,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands",
+   "prereq": "6568",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6602,
+   "title": "Blood of the Black Dragon Champion",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Rexxar",
+   "giver_npc_id": 10182,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": "6601 (14-step chain)",
+   "rewards": [
+    16309
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 4768,
+   "title": "The Darkstone Tablet",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Horde",
+   "giver": "Shadowmage Vivian Lagrave",
+   "giver_npc_id": 9078,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "4769 (Apothecary Zinge 5204)",
+   "rewards": [
+    15861,
+    15860
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 7761,
+   "title": "Blackhand's Command",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 18987,
+   "giver_zone": "Upper Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 6821,
+   "title": "Eye of the Emberseer",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Duke Hydraxis",
+   "giver_npc_id": 13278,
+   "giver_item_id": null,
+   "giver_zone": "Azshara",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Highlord Omokk: 13166 Slamshot Shoulders - in DungeonLoot.lua, not in guide (Wowhead Forever: 12.08%)",
+  "Highlord Omokk: 13168 Plate of the Shaman King - in DungeonLoot.lua, not in guide (Wowhead Forever: 12.64%)",
+  "Highlord Omokk: 13169 Tressermane Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 12.9%)",
+  "Highlord Omokk: 13170 Skyshroud Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 13.01%)",
+  "Highlord Omokk: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Highlord Omokk: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Shadow Hunter Vosh'gajin: 13255 Trueaim Gauntlets - chance repo 21% vs Forever 34.53%",
+  "Shadow Hunter Vosh'gajin: 12654 Doomshot - in DungeonLoot.lua, not in guide (Wowhead Forever: 27.48%)",
+  "Shadow Hunter Vosh'gajin: 12626 Funeral Cuffs - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.45%)",
+  "Shadow Hunter Vosh'gajin: 13257 Demonic Runed Spaulders - in DungeonLoot.lua, not in guide (Wowhead Forever: 7.83%)",
+  "Shadow Hunter Vosh'gajin: 13257 Demonic Runed Spaulders - chance repo 21% vs Forever 7.83%",
+  "Shadow Hunter Vosh'gajin: 12651 Blackcrow - in DungeonLoot.lua, not in guide (Wowhead Forever: 7.3%)",
+  "Shadow Hunter Vosh'gajin: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Shadow Hunter Vosh'gajin: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "War Master Voone: 21524 Red Winter Hat - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "War Master Voone: 12582 Keris of Zul'Serak - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.41%)",
+  "War Master Voone: 13177 Talisman of Evasion - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.7%)",
+  "War Master Voone: 13179 Brazecore Armguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.08%)",
+  "War Master Voone: 22231 Kayser's Boots of Precision - in DungeonLoot.lua, not in guide (Wowhead Forever: 13.13%)",
+  "War Master Voone: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "War Master Voone: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Mother Smolderweb: 13213 Smolderweb's Eye - chance repo 35% vs Forever 14%",
+  "Mother Smolderweb: 13244 Gilded Gauntlets - in DungeonLoot.lua, not in guide (Wowhead Forever: 26.66%)",
+  "Mother Smolderweb: 13183 Venomspitter - in DungeonLoot.lua, not in guide (Wowhead Forever: 3.54%)",
+  "Mother Smolderweb: 13183 Venomspitter - chance repo 15% vs Forever 3.54%",
+  "Mother Smolderweb: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Mother Smolderweb: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Urok Doomhowl: 13178 Rosewine Circle - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.78%)",
+  "Urok Doomhowl: 13259 Ribsteel Footguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 22.32%)",
+  "Urok Doomhowl: 22232 Marksman's Girdle - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.74%)",
+  "Quartermaster Zigris: 13252 Cloudrunner Girdle - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.21%)",
+  "Quartermaster Zigris: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Quartermaster Zigris: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Halycon: 22313 Ironweave Bracers - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.95%)",
+  "Halycon: 22313 Ironweave Bracers - chance repo 28.7% vs Forever 16.95%",
+  "Halycon: 13210 Pads of the Dread Wolf - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.36%)",
+  "Halycon: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Halycon: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Gizrul the Slavener: 13205 Rhombeard Protector - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.88%)",
+  "Gizrul the Slavener: 13206 Wolfshear Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 25.76%)",
+  "Gizrul the Slavener: 13208 Bleak Howler Armguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.5%)",
+  "Overlord Wyrmthalak: 13161 Trindlehaven Staff - in DungeonLoot.lua, not in guide (Wowhead Forever: 15.57%)",
+  "Overlord Wyrmthalak: 13162 Reiver Claws - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.39%)",
+  "Overlord Wyrmthalak: 13163 Relentless Scythe - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.83%)",
+  "Overlord Wyrmthalak: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Overlord Wyrmthalak: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Pyroguard Emberseer: 12929 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Pyroguard Emberseer: 23320 Tablet of Flame Shock VI - in DungeonLoot.lua, not in guide (Wowhead Forever: 0.22%)",
+  "Pyroguard Emberseer: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Pyroguard Emberseer: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Solakar Flamewreath: 12603 Nightbrace Tunic - in Forever guide, missing in DungeonLoot.lua",
+  "Solakar Flamewreath: 16695 Devout Mantle - in Forever guide, missing in DungeonLoot.lua",
+  "Solakar Flamewreath: 12606 Crystallized Girdle - in Forever guide, missing in DungeonLoot.lua",
+  "Goraluk Anvilcrack: 13498 Handcrafted Mastersmith Leggings - in Forever guide, missing in DungeonLoot.lua",
+  "Goraluk Anvilcrack: 18048 Mastersmith's Hammer - in Forever guide, missing in DungeonLoot.lua",
+  "Goraluk Anvilcrack: 12834 Plans: Arcanite Champion - in Forever guide, missing in DungeonLoot.lua",
+  "Goraluk Anvilcrack: 12837 Plans: Masterwork Stormhammer - in Forever guide, missing in DungeonLoot.lua",
+  "Warchief Rend Blackhand: 12935 Warmaster Legguards - chance repo 19.8% vs Forever 40.01%",
+  "Warchief Rend Blackhand: 12936 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Warchief Rend Blackhand: 18102 Dragonrider Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: 20.95%)",
+  "Warchief Rend Blackhand: 12583 Blackhand Doomsaw - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.81%)",
+  "Warchief Rend Blackhand: 12587 Eye of Rend - in DungeonLoot.lua, not in guide (Wowhead Forever: 20.27%)",
+  "Warchief Rend Blackhand: 18103 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Warchief Rend Blackhand: 18104 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Warchief Rend Blackhand: 22247 Faith Healer's Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: 13.23%)",
+  "Gyth: 12952 Gyth's Skull - in Forever guide, missing in DungeonLoot.lua",
+  "Gyth: 16669 Pauldrons of Elements - in Forever guide, missing in DungeonLoot.lua",
+  "Gyth: 12871 Chromatic Carapace - in Forever guide, missing in DungeonLoot.lua",
+  "The Beast: 12731 Pristine Hide of the Beast - in Forever guide, missing in DungeonLoot.lua",
+  "The Beast: 12965 Spiritshroud Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 21.54%)",
+  "The Beast: 12966 Blackmist Armguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 20.85%)",
+  "The Beast: 12967 Bloodmoon Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 25.08%)",
+  "The Beast: 12968 Frostweaver Cape - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.82%)",
+  "The Beast: 22311 Ironweave Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: 15.53%)",
+  "The Beast: 24101 Book of Ferocious Bite V - in DungeonLoot.lua, not in guide (Wowhead Forever: 5.62%)",
+  "The Beast: 19227 Ace of Beasts - in DungeonLoot.lua, not in guide (Wowhead Forever: 6.04%)",
+  "The Beast: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "The Beast: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Lord Valthalak: 22302 Ironweave Cowl - in DungeonLoot.lua, not in guide (Wowhead Forever: 22.76%)",
+  "Lord Valthalak: 22302 Ironweave Cowl - chance repo 40.2% vs Forever 22.76%",
+  "Lord Valthalak: 22337 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Valthalak: 22342 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Valthalak: 22343 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Valthalak: 22336 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Valthalak: 22339 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "General Drakkisath: 22253 Tome of the Lost - in DungeonLoot.lua, not in guide (Wowhead Forever: 21.97%)",
+  "General Drakkisath: 22267 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "General Drakkisath: 22268 Draconic Infused Emblem - in DungeonLoot.lua, not in guide (Wowhead Forever: 6.8%)",
+  "General Drakkisath: 22268 Draconic Infused Emblem - chance repo 25% vs Forever 6.8%",
+  "General Drakkisath: 22269 Shadow Prowler's Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.15%)",
+  "General Drakkisath: 16666 Vest of Elements - in DungeonLoot.lua, not in guide (Wowhead Forever: 5.1%)",
+  "General Drakkisath: 16674 Beaststalker's Tunic - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.45%)",
+  "General Drakkisath: 16688 Magister's Robes - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.18%)",
+  "General Drakkisath: 16690 Devout Robe - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.83%)",
+  "General Drakkisath: 16700 Dreadmist Robe - in DungeonLoot.lua, not in guide (Wowhead Forever: 12.36%)",
+  "General Drakkisath: 16706 Wildheart Vest - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.82%)",
+  "General Drakkisath: 16721 Shadowcraft Tunic - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.37%)",
+  "General Drakkisath: 16726 Lightforge Breastplate - in DungeonLoot.lua, not in guide (Wowhead Forever: 6.78%)",
+  "General Drakkisath: 16730 Breastplate of Valor - in DungeonLoot.lua, not in guide (Wowhead Forever: 12.07%)",
+  "General Drakkisath: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "General Drakkisath: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Bannok Grimaxe: 12621 Demonfork - in DungeonLoot.lua, not in guide (Wowhead Forever: 28.86%)",
+  "Bannok Grimaxe: 12634 Chiselbrand Girdle - in DungeonLoot.lua, not in guide (Wowhead Forever: 31.97%)",
+  "Bannok Grimaxe: 12637 Backusarian Gauntlets - in DungeonLoot.lua, not in guide (Wowhead Forever: 32.04%)",
+  "Bannok Grimaxe: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Bannok Grimaxe: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Crystal Fang: 13184 Fallbrush Handgrips - in DungeonLoot.lua, not in guide (Wowhead Forever: 32.49%)",
+  "Crystal Fang: 13185 Sunderseer Mantle - in DungeonLoot.lua, not in guide (Wowhead Forever: 33.17%)",
+  "Crystal Fang: 13218 Fang of the Crystal Spider - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.75%)",
+  "Crystal Fang: 13218 Fang of the Crystal Spider - chance repo 33.3% vs Forever 14.75%",
+  "Crystal Fang: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Crystal Fang: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Spirestone Battle Lord: 13285 The Blackrock Slicer - in DungeonLoot.lua, not in guide (Wowhead Forever: 37.88%)",
+  "Spirestone Battle Lord: 13285 The Blackrock Slicer - chance repo 60% vs Forever 37.88%",
+  "Spirestone Battle Lord: 13284 Swiftdart Battleboots - in DungeonLoot.lua, not in guide (Wowhead Forever: 56.93%)",
+  "Spirestone Lord Magus: 13261 Globe of D'sak - in DungeonLoot.lua, not in guide (Wowhead Forever: 22.31%)",
+  "Spirestone Lord Magus: 13282 Ogreseer Tower Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.59%)",
+  "Spirestone Lord Magus: 13283 Magus Ring - in DungeonLoot.lua, not in guide (Wowhead Forever: 46.49%)",
+  "Spirestone Lord Magus: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Spirestone Lord Magus: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Jed Runewatcher: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Jed Runewatcher: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Spirestone Butcher: 12608 Butcher's Apron - in DungeonLoot.lua, not in guide (Wowhead Forever: 59.06%)",
+  "Spirestone Butcher: 13286 Rivenspike - in DungeonLoot.lua, not in guide (Wowhead Forever: 37.25%)",
+  "Spirestone Butcher: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Spirestone Butcher: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Ghok Bashguud: 13198 Hurd Smasher - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.75%)",
+  "Ghok Bashguud: 13203 Armswake Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 37.86%)",
+  "Ghok Bashguud: 13204 Bashguuder - in DungeonLoot.lua, not in guide (Wowhead Forever: 33.62%)",
+  "Ghok Bashguud: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
+  "Ghok Bashguud: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
+  "Pyroguard Emberseer: 12929  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Warchief Rend Blackhand: 12590 Felstriker - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Warchief Rend Blackhand: 12936  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Warchief Rend Blackhand: 18103  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Warchief Rend Blackhand: 18104  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Beast: 12963 Blademaster Leggings - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Beast: 12709 Pip's Skinner - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22335 Lord Valthalak's Staff of Command - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22340 Pendant of Celerity - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22337  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22342  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22343  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22336  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Valthalak: 22339  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "General Drakkisath: 13141 Tooth of Gnarr - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "General Drakkisath: 13098 Painweaver Band - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "General Drakkisath: 12592 Blackblade of Shahram - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "General Drakkisath: 22267  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
+ "open_questions": [
+  "Boss 'Solakar Flamewreath' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Boss 'Goraluk Anvilcrack' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Boss 'Gyth' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Lord Valthalak' (encounter 3070) in DungeonPinData.lua.",
+  "Rare pin 9219 'Spirestone Butcher' is not mentioned in the guide.",
+  "Rare pin 9718 'Ghok Bashguud' is not mentioned in the guide.",
+  "Quest 4742 'Seal of Ascension' not found on Wowhead Forever - check ID.",
+  "Quest 4743 'Seal of Ascension' not found on Wowhead Forever - check ID.",
+  "Quest 4867 'Urok Doomhowl' not found on Wowhead Forever - check ID.",
+  "Quest 4862 'En-Ay-Es-Tee-Why' not found on Wowhead Forever - check ID.",
+  "Quest 4729 'Kibler's Exotic Pets' not found on Wowhead Forever - check ID.",
+  "Quest 4866 'Mother's Milk' not found on Wowhead Forever - check ID.",
+  "Quest 4734 'Egg Freezing' not found on Wowhead Forever - check ID.",
+  "Quest 4735 'Egg Collection' not found on Wowhead Forever - check ID.",
+  "Quest 8966 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 8989 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 8995 'Mea Culpa, Lord Valthalak' not found on Wowhead Forever - check ID.",
+  "Quest 4788 'The Final Tablets' not found on Wowhead Forever - check ID.",
+  "Quest 5127 'The Demon Forge' not found on Wowhead Forever - check ID.",
+  "Quest 5160 'The Matron Protectorate' not found on Wowhead Forever - check ID.",
+  "Quest 5047 'Finkle Einhorn, At Your Service!' not found on Wowhead Forever - check ID.",
+  "Quest 5001 'Bijou's Belongings' not found on Wowhead Forever - check ID.",
+  "Quest 5002 'Message to Maxwell' not found on Wowhead Forever - check ID.",
+  "Quest 5081 'Maxwell's Mission' not found on Wowhead Forever - check ID.",
+  "Quest 4701 'Put Her Down' not found on Wowhead Forever - check ID.",
+  "Quest 5089 'General Drakkisath's Command' not found on Wowhead Forever - check ID.",
+  "Quest 5102 'General Drakkisath's Demise' not found on Wowhead Forever - check ID.",
+  "Quest 4764 'Doomrigger's Clasp' not found on Wowhead Forever - check ID.",
+  "Quest 4765 'Delivery to Ridgewell' not found on Wowhead Forever - check ID.",
+  "Quest 6502 'Drakefire Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 4724 'The Pack Mistress' not found on Wowhead Forever - check ID.",
+  "Quest 4982 'Bijou's Belongings' not found on Wowhead Forever - check ID.",
+  "Quest 4983 'Bijou's Reconnaissance Report' not found on Wowhead Forever - check ID.",
+  "Quest 4903 'Warlord's Command' not found on Wowhead Forever - check ID.",
+  "Quest 4974 'For The Horde!' not found on Wowhead Forever - check ID.",
+  "Quest 6569 'Oculus Illusions' not found on Wowhead Forever - check ID.",
+  "Quest 6602 'Blood of the Black Dragon Champion' not found on Wowhead Forever - check ID.",
+  "Quest 4768 'The Darkstone Tablet' not found on Wowhead Forever - check ID.",
+  "Quest 7761 'Blackhand's Command' not found on Wowhead Forever - check ID.",
+  "Quest 6821 'Eye of the Emberseer' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "LBRS page read fully; UBRS page read to 100000 of 109453 chars (remaining part is FAQ)",
+  "LBRS text says 9 bosses, map caption 8; UBRS intro says 7 bosses but sections cover 8 (Gyth separate)",
+  "Omokk's Head chance 84% ambiguous",
+  "Drakkisath also drops one of nine dungeon-set chests (6-14% each, not itemized)",
+  "Lord Valthalak loot not in Forever DB; Classic items listed",
+  "Seal of Ascension reward (4743) has no item ID on page; Forged Seal = 12324",
+  "Many unique boss drops lack Forever data on Wowhead per guide",
+  "Quest totals: LBRS page 27 quests (Alliance 22 / Horde 20); UBRS page 24 (Alliance 19 / Horde 18)"
+ ],
+ "zone_id": 1583,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "partial",
+  "pins": "partial",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 151,
+  "loot_confirmed": 115,
+  "loot_with_chance": 121,
+  "forever_confirmed": "partly",
+  "boss_count": 17,
+  "boss_ok": 14,
+  "pin_ok": 13,
+  "enc_count": 14,
+  "q_tot": 34
+ },
+ "top_points": [
+  "34 of 34 quests missing in DungeonQuests.lua",
+  "Boss 'Solakar Flamewreath' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+2 more)",
+  "No pin for 'Lord Valthalak' (encounter 3070) in DungeonPinData.lua."
+ ]
+}

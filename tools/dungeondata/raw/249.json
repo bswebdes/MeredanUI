@@ -1,0 +1,159 @@
+{
+ "key": 249,
+ "name_en": "Onyxia's Lair",
+ "type": "raid",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-onyxias-lair-guide/",
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009",
+  "https://www.warcrafttavern.com/forever/guides/raids/",
+  "https://www.wowhead.com/forever/npc=10184"
+ ],
+ "level": "60",
+ "raid_size": 40,
+ "release": "2026-12-09",
+ "boss_level": null,
+ "zone": "Dustwallow Marsh",
+ "zone_id": null,
+ "instance_map_id": 249,
+ "entrance": "South Dustwallow Marsh cave, ~56,71",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Onyxia",
+   "npc_ids": [
+    10184
+   ],
+   "location": "main cave chamber",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16908,
+     "name": "Bloodfang Hood",
+     "slot": "Head (Rogue T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16939,
+     "name": "Dragonstalker's Helm",
+     "slot": "Head (Hunter T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16921,
+     "name": "Halo of Transcendence",
+     "slot": "Head (Priest T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16963,
+     "name": "Helm of Wrath",
+     "slot": "Head (Warrior T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16947,
+     "name": "Helmet of Ten Storms",
+     "slot": "Head (Shaman T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16955,
+     "name": "Judgement Crown",
+     "slot": "Head (Paladin T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16929,
+     "name": "Nemesis Skullcap",
+     "slot": "Head (Warlock T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16914,
+     "name": "Netherwind Crown",
+     "slot": "Head (Mage T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 16900,
+     "name": "Stormrage Cover",
+     "slot": "Head (Druid T2)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 17068,
+     "name": "Deathbringer",
+     "slot": "One-Hand Axe",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 17075,
+     "name": "Vis'kag the Bloodletter",
+     "slot": "One-Hand Sword",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 17067,
+     "name": "Ancient Cornerstone Grimoire",
+     "slot": "Off-hand",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18205,
+     "name": "Eskhandar's Collar",
+     "slot": "Neck",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18813,
+     "name": "Ring of Binding",
+     "slot": "Finger",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 17078,
+     "name": "Sapphiron Drape",
+     "slot": "Back",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 17064,
+     "name": "Shard of the Scale",
+     "slot": "Trinket",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "keys_attunement": "Drakefire Amulet item=16309 must be in bags (not bank). Alliance chain starts Dragonkin Menace quest=4182 (Helendis Riverhorn, Burning Steppes) ... ends 6502 Drakefire Amulet (Haleh npc=10929). Horde chain starts Warlord's Command quest=4903 (Warlord Goretooth npc=9077, Badlands) ... ends 6602 Blood of the Black Dragon Champion (Rexxar npc=10182). Same as Classic; not account-wide at launch.",
+ "forever_changes": [
+  "Guide states no changes: 40-man, attunement same as Classic; weekly lockout (Blizzard)"
+ ],
+ "notes": [
+  "Loot list is Classic data per conquestcapped; drop chances not listed; Forever loot not verified/published",
+  "npc 10184 from Wowhead Forever page (exists, location unknown, no loot); not given by guide",
+  "Head of Onyxia drop-quests not mentioned by any source checked",
+  "Warcrafttavern encounter link id 261 (classic.warcraftdb encounter)",
+  "Instance map ID 249 = key given by task; no source page shows it"
+ ]
+}

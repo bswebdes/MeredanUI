@@ -1,0 +1,1196 @@
+{
+ "key": 43,
+ "slug": "wailing_caverns",
+ "kind": "dungeon",
+ "name_en": "Wailing Caverns",
+ "level": "17-24",
+ "zone": "The Barrens",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon; released in MeredanUI panel",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-wailing-caverns-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "None",
+ "forever_changes": [
+  "All boss items blue, many with spell power/new effects",
+  "New rare items (1-3%): Cloak of Hermitic Bliss, Slither Cord, Skum's Bucket, Snake Eye Kaleidoscope",
+  "New blueprint drops: Journeyman Campfire (Serpentis), Field Guide (Anacondra)",
+  "Cobrahn, Skum, Mutanus hit several times harder than Classic",
+  "Worn Turtle Shell Shield now blue with bonus armor and mana regen",
+  "Slime-encrusted Pads gain health/mana regen; Mutant Scale Breastplate usable from 18",
+  "Firebelcher gained fire proc",
+  "Embrace of the Viper set rebuilt",
+  "New quest rewards: Hammerbone 270018, Heat Resistant Mitts 270008, Safety Boots 270009"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Lord Cobrahn",
+   "name_de": "Lord Kobrahn",
+   "encounter_id": 586,
+   "npcs": [
+    {
+     "id": 3669,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "end of path in Pit of Fangs, three pythons",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.2356,
+    "y": 0.5615
+   },
+   "loot": [
+    {
+     "item_id": 6465,
+     "name": "Robe of the Moccasin",
+     "slot": "Chest (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 54.7,
+     "chance_wowhead_forever": 49.01,
+     "wowhead_dropped_by": "Lord Cobrahn",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6460,
+     "name": "Cobrahn's Grasp",
+     "slot": "Waist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.1,
+     "chance_wowhead_forever": 20.89,
+     "wowhead_dropped_by": "Lord Cobrahn",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10410,
+     "name": "Leggings of the Fang",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.5,
+     "chance_wowhead_forever": 21.05,
+     "wowhead_dropped_by": "Lord Cobrahn",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Kresh",
+   "name_de": "Kresh",
+   "encounter_id": 587,
+   "npcs": [
+    {
+     "id": 3653,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "giant turtle swimming in the river",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3119,
+    "y": 0.4573
+   },
+   "loot": [
+    {
+     "item_id": 6447,
+     "name": "Worn Turtle Shell Shield",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 66.7,
+     "chance_wowhead_forever": 56.12,
+     "wowhead_dropped_by": "Kresh",
+     "chance_repo": 90.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13245,
+     "name": "Kresh's Back",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.5,
+     "chance_wowhead_forever": 23.65,
+     "wowhead_dropped_by": "Kresh",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273084,
+     "name": "Cloak of Hermitic Bliss",
+     "slot": "Back",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.2,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Lord Pythas",
+   "name_de": "Lord Pythas",
+   "encounter_id": 588,
+   "npcs": [
+    {
+     "id": 3670,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Crag of the Everliving, northeast",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.7605,
+    "y": 0.3357
+   },
+   "loot": [
+    {
+     "item_id": 6473,
+     "name": "Armor of the Fang",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 55.2,
+     "chance_wowhead_forever": 49.06,
+     "wowhead_dropped_by": "Lord Pythas",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6472,
+     "name": "Stinging Viper",
+     "slot": "Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.6,
+     "chance_wowhead_forever": 29.74,
+     "wowhead_dropped_by": "Lord Pythas",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273089,
+     "name": "Slither Cord",
+     "slot": "Waist (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.7,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Skum",
+   "name_de": "Skum",
+   "encounter_id": 589,
+   "npcs": [
+    {
+     "id": 3674,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "chasm water south of Lord Pythas",
+   "optional": true,
+   "pin": {
+    "floor": 1,
+    "x": 0.8164,
+    "y": 0.7206
+   },
+   "loot": [
+    {
+     "item_id": 6448,
+     "name": "Tail Spike",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 46.6,
+     "chance_wowhead_forever": 41.76,
+     "wowhead_dropped_by": "Skum",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6449,
+     "name": "Glowing Lizardscale Cloak",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 45.5,
+     "chance_wowhead_forever": 42.7,
+     "wowhead_dropped_by": "Skum",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273137,
+     "name": "Skum's Bucket",
+     "slot": "Off Hand",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.6,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Lord Serpentis",
+   "name_de": "Lord Serpentis",
+   "encounter_id": 590,
+   "npcs": [
+    {
+     "id": 3673,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "west along south side, then north",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5876,
+    "y": 0.5226
+   },
+   "loot": [
+    {
+     "item_id": 6459,
+     "name": "Savage Trodders",
+     "slot": "Feet Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.3,
+     "chance_wowhead_forever": 28.35,
+     "wowhead_dropped_by": "Lord Serpentis",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10411,
+     "name": "Footpads of the Fang",
+     "slot": "Feet Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.1,
+     "chance_wowhead_forever": 19.14,
+     "wowhead_dropped_by": "Lord Serpentis",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 5970,
+     "name": "Serpent Gloves",
+     "slot": "Hands Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.4,
+     "chance_wowhead_forever": 18.37,
+     "wowhead_dropped_by": "Lord Serpentis",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6469,
+     "name": "Venomstrike",
+     "slot": "Bow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.8,
+     "chance_wowhead_forever": 15.56,
+     "wowhead_dropped_by": "Lord Serpentis",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273087,
+     "name": "Blueprint: Journeyman Campfire",
+     "slot": "Recipe (Cooking)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 0.4,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Verdan the Everliving",
+   "name_de": "Verdan der Ewiglebende",
+   "encounter_id": 591,
+   "npcs": [
+    {
+     "id": 5775,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "right behind Lord Serpentis",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5416,
+    "y": 0.4783
+   },
+   "loot": [
+    {
+     "item_id": 6630,
+     "name": "Seedcloud Buckler",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.2,
+     "chance_wowhead_forever": 36.74,
+     "wowhead_dropped_by": "Verdan the Everliving",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6631,
+     "name": "Living Root",
+     "slot": "Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 37.8,
+     "chance_wowhead_forever": 36.78,
+     "wowhead_dropped_by": "Verdan the Everliving",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6629,
+     "name": "Sporid Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.6,
+     "chance_wowhead_forever": 23.13,
+     "wowhead_dropped_by": "Verdan the Everliving",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Lady Anacondra",
+   "name_de": "Lady Anacondra",
+   "encounter_id": 585,
+   "npcs": [
+    {
+     "id": 3671,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "roams the river cave",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3474,
+    "y": 0.4464
+   },
+   "loot": [
+    {
+     "item_id": 5404,
+     "name": "Serpent's Shoulders",
+     "slot": "Shoulder Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 43.3,
+     "chance_wowhead_forever": 37.71,
+     "wowhead_dropped_by": "Lady Anacondra",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10412,
+     "name": "Belt of the Fang",
+     "slot": "Waist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 9.6,
+     "chance_wowhead_forever": 14.54,
+     "wowhead_dropped_by": "Lady Anacondra",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6446,
+     "name": "Snakeskin Bag",
+     "slot": "Bag (10 slot)",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": 4.7,
+     "chance_wowhead_forever": 5.45,
+     "wowhead_dropped_by": "Lady Anacondra",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273088,
+     "name": "Snake Eye Kaleidoscope",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273098,
+     "name": "Blueprint: Field Guide",
+     "slot": "Recipe (Skinning)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 0.3,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Mutanus the Devourer",
+   "name_de": "Mutanus der Verschlinger",
+   "encounter_id": 592,
+   "npcs": [
+    {
+     "id": 3654,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 3679,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 3678,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "end of Disciple of Naralex escort, north",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.357,
+    "y": 0.1986
+   },
+   "loot": [
+    {
+     "item_id": 6463,
+     "name": "Deep Fathom Ring",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.6,
+     "chance_wowhead_forever": 30.09,
+     "wowhead_dropped_by": "Mutanus the Devourer",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6461,
+     "name": "Slime-encrusted Pads",
+     "slot": "Shoulder Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.6,
+     "chance_wowhead_forever": 29.14,
+     "wowhead_dropped_by": "Mutanus the Devourer",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6627,
+     "name": "Mutant Scale Breastplate",
+     "slot": "Chest",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.5,
+     "chance_wowhead_forever": 24.56,
+     "wowhead_dropped_by": "Mutanus the Devourer",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10441,
+     "name": "Glowing Shard",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Deviate Faerie Dragon",
+   "npc_id": 5912,
+   "wowhead_name": null,
+   "location": "spawns on some runs only",
+   "pin": {
+    "floor": 1,
+    "x": 0.6127,
+    "y": 0.3887
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 5243,
+     "name": "Firebelcher",
+     "slot": "Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 41.9,
+     "chance_wowhead_forever": 41.24,
+     "wowhead_dropped_by": "Deviate Faerie Dragon",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6632,
+     "name": "Feyscale Cloak",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 44.6,
+     "chance_wowhead_forever": 45.36,
+     "wowhead_dropped_by": "Deviate Faerie Dragon",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 1486,
+   "title": "Deviate Hides",
+   "level": 17,
+   "min_level": 13,
+   "faction": "Both",
+   "giver": "Nalpak",
+   "giver_npc_id": 5767,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (skull above entrance)",
+   "prereq": null,
+   "rewards": [
+    6480,
+    918
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 959,
+   "title": "Trouble at the Docks",
+   "level": 18,
+   "min_level": 14,
+   "faction": "Both",
+   "giver": "Crane Operator Bigglefuzz",
+   "giver_npc_id": 3665,
+   "giver_item_id": null,
+   "giver_zone": "Ratchet",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 1491,
+   "title": "Smart Drinks",
+   "level": 18,
+   "min_level": 13,
+   "faction": "Both",
+   "giver": "Mebok Mizzyrix",
+   "giver_npc_id": 3446,
+   "giver_item_id": null,
+   "giver_zone": "Ratchet",
+   "prereq": "Raptor Horns (865)",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 1487,
+   "title": "Deviate Eradication",
+   "level": 21,
+   "min_level": 15,
+   "faction": "Both",
+   "giver": "Ebru",
+   "giver_npc_id": 5768,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (skull above entrance)",
+   "prereq": null,
+   "rewards": [
+    8071,
+    6481,
+    6476
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 6981,
+   "title": "The Glowing Shard",
+   "level": 26,
+   "min_level": 15,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 10441,
+   "giver_zone": "Wailing Caverns (drop from Mutanus)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 3369,
+   "title": "In Nightmares",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Falla Sagewind",
+   "giver_npc_id": 8418,
+   "giver_item_id": null,
+   "giver_zone": "hut above dungeon",
+   "prereq": "The Glowing Shard (6981)",
+   "rewards": [
+    10657,
+    10658
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 914,
+   "title": "Leaders of the Fang",
+   "level": 22,
+   "min_level": 10,
+   "faction": "Horde",
+   "giver": "Nara Wildmane",
+   "giver_npc_id": 5770,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff (Elder Rise)",
+   "prereq": "Nara Wildmane (1490)",
+   "rewards": [
+    270018,
+    6505,
+    6504
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 962,
+   "title": "Serpentbloom",
+   "level": 18,
+   "min_level": 14,
+   "faction": "Horde",
+   "giver": "Apothecary Zamah",
+   "giver_npc_id": 3419,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff (Pools of Vision)",
+   "prereq": null,
+   "rewards": [
+    10919,
+    270008,
+    270009
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 865,
+   "title": "Raptor Horns",
+   "level": 18,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Mebok Mizzyrix",
+   "giver_npc_id": 3446,
+   "giver_item_id": null,
+   "giver_zone": "Ratchet",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 870,
+   "title": "The Forgotten Pools",
+   "level": 13,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 877,
+   "title": "The Stagnant Oasis",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 880,
+   "title": "Altered Beings",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1489,
+   "title": "Hamuul Runetotem",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1490,
+   "title": "Nara Wildmane",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Arch Druid Hamuul Runetotem",
+   "giver_npc_id": 5769,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": "Hamuul Runetotem (1489)",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Kresh: 6447 Worn Turtle Shell Shield - chance repo 90% vs Forever 56.12%",
+  "Kresh: 13245 Kresh's Back - chance repo 10% vs Forever 23.65%",
+  "Kresh: 273084 Cloak of Hermitic Bliss - in Forever guide, missing in DungeonLoot.lua",
+  "Lord Pythas: 273089 Slither Cord - in Forever guide, missing in DungeonLoot.lua",
+  "Skum: 273137 Skum's Bucket - in Forever guide, missing in DungeonLoot.lua",
+  "Lord Serpentis: 273087 Blueprint: Journeyman Campfire - in Forever guide, missing in DungeonLoot.lua",
+  "Lady Anacondra: 273088 Snake Eye Kaleidoscope - in Forever guide, missing in DungeonLoot.lua",
+  "Lady Anacondra: 273098 Blueprint: Field Guide - in Forever guide, missing in DungeonLoot.lua"
+ ],
+ "open_questions": [
+  "NPC 3669 (Lord Cobrahn) not found on Wowhead Forever - check ID.",
+  "NPC 3653 (Kresh) not found on Wowhead Forever - check ID.",
+  "NPC 3670 (Lord Pythas) not found on Wowhead Forever - check ID.",
+  "NPC 3674 (Skum) not found on Wowhead Forever - check ID.",
+  "NPC 3673 (Lord Serpentis) not found on Wowhead Forever - check ID.",
+  "NPC 5775 (Verdan the Everliving) not found on Wowhead Forever - check ID.",
+  "NPC 3671 (Lady Anacondra) not found on Wowhead Forever - check ID.",
+  "NPC 3654 (Mutanus the Devourer) not found on Wowhead Forever - check ID.",
+  "NPC 3679 (Mutanus the Devourer) not found on Wowhead Forever - check ID.",
+  "NPC 3678 (Mutanus the Devourer) not found on Wowhead Forever - check ID.",
+  "Quest 1486 'Deviate Hides' not found on Wowhead Forever - check ID.",
+  "Quest 959 'Trouble at the Docks' not found on Wowhead Forever - check ID.",
+  "Quest 1491 'Smart Drinks' not found on Wowhead Forever - check ID.",
+  "Quest 1487 'Deviate Eradication' not found on Wowhead Forever - check ID.",
+  "Quest 6981 'The Glowing Shard' not found on Wowhead Forever - check ID.",
+  "Quest 3369 'In Nightmares' not found on Wowhead Forever - check ID.",
+  "Quest 914 'Leaders of the Fang' not found on Wowhead Forever - check ID.",
+  "Quest 962 'Serpentbloom' not found on Wowhead Forever - check ID.",
+  "Quest 865 'Raptor Horns' not found on Wowhead Forever - check ID.",
+  "Quest 870 'The Forgotten Pools' not found on Wowhead Forever - check ID.",
+  "Quest 877 'The Stagnant Oasis' not found on Wowhead Forever - check ID.",
+  "Quest 880 'Altered Beings' not found on Wowhead Forever - check ID.",
+  "Quest 1489 'Hamuul Runetotem' not found on Wowhead Forever - check ID.",
+  "Quest 1490 'Nara Wildmane' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Mutanus entry npc_ids include Naralex 3679 and Disciple of Naralex 3678 (escort)",
+  "Gloves of the Fang item=10413 2.4% from trash (Embrace of the Viper set)",
+  "In Nightmares linked as both 3369 and 3370; turn-in Hamuul 5769 (Horde) / Mathrengyl Bearwalker 4217 (Alliance)",
+  "Smart Drinks giver location conflicts: Ratchet vs Barrens (62.4,37.6)",
+  "Many item slots not stated by page (null)",
+  "Boss level not stated",
+  "Quest XP: Alliance 17,550, Horde 25,150"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 9,
+  "loot_rows": 30,
+  "loot_confirmed": 30,
+  "loot_with_chance": 30,
+  "forever_confirmed": "yes",
+  "boss_count": 8,
+  "boss_ok": 0,
+  "pin_ok": 8,
+  "enc_count": 8,
+  "q_tot": 14
+ },
+ "top_points": [
+  "5 of 14 quests missing in DungeonQuests.lua",
+  "NPC 3669 (Lord Cobrahn) not found on Wowhead Forever - check ID. (+23 more)"
+ ]
+}

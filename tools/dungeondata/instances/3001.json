@@ -1,0 +1,209 @@
+{
+ "key": 3001,
+ "slug": "shapers_terrace",
+ "kind": "dungeon",
+ "name_en": "Shaper's Terrace",
+ "level": "58-60",
+ "zone": "Un'Goro Crater (northern hills)",
+ "faction": "both",
+ "status": "live",
+ "status_note": "new Forever dungeon",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-shapers-terrace-guide/",
+  "https://www.warcrafttavern.com/forever/guides/shapers-terrace/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": "None announced. Un'Goro Power Crystals (11184/11185/11186/11188) are used at consoles inside.",
+ "forever_changes": [
+  "New Forever dungeon (launch), only new dungeon starting at 58",
+  "Power Crystal consoles tie dungeon to Un'Goro zone",
+  "New Alchemy transmute Red -> Blue Power Crystal (spell 1289305)",
+  "Counts toward Master Spelunker (achievement 62033)"
+ ],
+ "bosses": [
+  {
+   "order": null,
+   "wing": null,
+   "name": "Bolt",
+   "name_de": "Bolt",
+   "encounter_id": 3505,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Cinder",
+   "name_de": "Zunder",
+   "encounter_id": 3503,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Snowtalon",
+   "name_de": "Schneekralle",
+   "encounter_id": 3597,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Nanaya",
+   "name_de": "Nanaya",
+   "encounter_id": 3502,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Titanosaur",
+   "name_de": "Titanosaurus",
+   "encounter_id": 3498,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Ravasaur Hunters",
+   "name_de": "Ravasaurusjäger",
+   "encounter_id": 3499,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Thunderhoof",
+   "name_de": "Thunderhoof",
+   "encounter_id": 3500,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Venomridge",
+   "name_de": "Giftkamm",
+   "encounter_id": 3501,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Direhorn Matriarch",
+   "name_de": "Terrorhornmatriarchin",
+   "encounter_id": 3507,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "King Op",
+   "name_de": "König Op",
+   "encounter_id": 3504,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Vitrix",
+   "name_de": "Vitrix",
+   "encounter_id": 3600,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [
+  "No pin for 'Bolt' (encounter 3505) in DungeonPinData.lua.",
+  "No pin for 'Cinder' (encounter 3503) in DungeonPinData.lua.",
+  "No pin for 'Snowtalon' (encounter 3597) in DungeonPinData.lua.",
+  "No pin for 'Nanaya' (encounter 3502) in DungeonPinData.lua.",
+  "Encounter 3498 'Titanosaur' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3499 'Ravasaur Hunters' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3500 'Thunderhoof' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3501 'Venomridge' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3507 'Direhorn Matriarch' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3504 'King Op' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3600 'Vitrix' is in DungeonBosses.lua but not in the guide's boss list - check in game."
+ ],
+ "guide_notes": [
+  "No npc IDs, boss levels, order or locations published (conquestcapped: boss data encrypted in beta); boss names from kill-statistic achievements",
+  "No loot table published on conquestcapped or warcrafttavern; no dungeon quests known (TBA)",
+  "Warcrafttavern says there are likely more bosses than these four",
+  "Pylon quests (related_zone_quests) are NOT tied to the dungeon by Blizzard per guide",
+  "Unconfirmed raid portal behind a closed titan gate north of the dungeon",
+  "Wowhead search for Nanaya npc gave nothing; warcraft.wiki.gg covers only the old Classic Shaper's Terrace area"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "missing",
+  "loot": "missing",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 0,
+  "loot_confirmed": 0,
+  "loot_with_chance": 0,
+  "forever_confirmed": "no",
+  "boss_count": 0,
+  "boss_ok": 0,
+  "pin_ok": 0,
+  "enc_count": 11,
+  "q_tot": 0
+ },
+ "top_points": [
+  "No pin for 'Bolt' (encounter 3505) in DungeonPinData.lua. (+3 more)",
+  "Encounter 3498 'Titanosaur' is in DungeonBosses.lua but not in the guide's boss list - check in game. (+6 more)"
+ ]
+}

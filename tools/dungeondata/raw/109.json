@@ -1,0 +1,658 @@
+{
+ "key": 109,
+ "name_en": "Sunken Temple",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-sunken-temple-guide/"
+ ],
+ "level": "50-60 (most routes 50-54)",
+ "boss_level": null,
+ "zone": "Swamp of Sorrows",
+ "zone_id": 8,
+ "entrance": "underwater ruins in Pool of Tears, east Swamp of Sorrows (~69,53)",
+ "faction": "Both factions",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Atal'alarion",
+   "npc_ids": [],
+   "location": "Pit of Refuse basement; summoned by statue sequence",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10798,
+     "name": "Atal'alarion's Tusk Ring",
+     "slot": "Waist (Plate)",
+     "chance": "37%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10800,
+     "name": "Darkwater Bracers",
+     "slot": "Wrist",
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10799,
+     "name": "Headspike",
+     "slot": "Polearm",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 22444,
+     "name": "Putrid Vine",
+     "slot": "Quest (Druid)",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)",
+   "npc_ids": [
+    5713,
+    5714,
+    5715,
+    5712,
+    5717,
+    5716
+   ],
+   "location": "six balconies of the upper ring",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10784,
+     "name": "Atal'ai Breastplate",
+     "slot": "Chest (Mail)",
+     "chance": "3-10%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10787,
+     "name": "Atal'ai Gloves",
+     "slot": "Hands (Cloth)",
+     "chance": "3-10%",
+     "quest_item": false
+    },
+    {
+     "item_id": 20606,
+     "name": "Amber Voodoo Feather",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 20607,
+     "name": "Blue Voodoo Feather",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 20608,
+     "name": "Green Voodoo Feather",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Jammal'an the Prophet",
+   "npc_ids": [
+    5710
+   ],
+   "location": "behind barrier, southeast upper level",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6212,
+     "name": "Head of Jammal'an",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 10808,
+     "name": "Gloves of the Atal'ai Prophet",
+     "slot": "Hands",
+     "chance": "30%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10807,
+     "name": "Kilt of the Atal'ai Prophet",
+     "slot": "Legs",
+     "chance": "27%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10806,
+     "name": "Vestments of the Atal'ai Prophet",
+     "slot": "Chest",
+     "chance": "27%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Ogom the Wretched",
+   "npc_ids": [
+    5711
+   ],
+   "location": "beside Jammal'an",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10804,
+     "name": "Fist of the Damned",
+     "slot": "One-Hand",
+     "chance": "31%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)",
+   "npc_ids": [
+    5721,
+    5720,
+    5719,
+    5722
+   ],
+   "location": "middle floor around the Shade",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12243,
+     "name": "Smoldering Claw",
+     "slot": "Polearm",
+     "chance": "7-11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12465,
+     "name": "Nightfall Drape",
+     "slot": "Back",
+     "chance": "7-11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10795,
+     "name": "Drakeclaw Band",
+     "slot": "Finger",
+     "chance": "7-11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 20019,
+     "name": "Tooth of Morphaz",
+     "slot": "Quest (Hunter, Morphaz)",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 20085,
+     "name": "Arcane Shard",
+     "slot": "Quest (Mage, Morphaz)",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 20025,
+     "name": "Blood of Morphaz",
+     "slot": "Quest (Priest, Morphaz)",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 20022,
+     "name": "Azure Key",
+     "slot": "Quest (Rogue, Morphaz)",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Shade of Eranikus",
+   "npc_ids": [
+    5709
+   ],
+   "location": "central lower chamber; active after Jammal'an dies",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10454,
+     "name": "Essence of Eranikus",
+     "slot": "Quest starter",
+     "chance": "64%",
+     "quest_item": true
+    },
+    {
+     "item_id": 10833,
+     "name": "Horns of Eranikus",
+     "slot": "Head (Mail)",
+     "chance": "31%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10836,
+     "name": "Rod of Corrosion",
+     "slot": "Wand",
+     "chance": "26%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10835,
+     "name": "Crest of Supremacy",
+     "slot": "Shield",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10847,
+     "name": "Dragon's Call",
+     "slot": "Sword (Epic)",
+     "chance": "0.19%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Avatar of Hakkar",
+   "npc_ids": [
+    8443
+   ],
+   "location": "Sanctum of the Fallen God; needs Egg of Hakkar",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 10663,
+     "name": "Essence of Hakkar",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 10844,
+     "name": "Spire of Hakkar",
+     "slot": "Staff",
+     "chance": "14%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10838,
+     "name": "Might of Hakkar",
+     "slot": "Mace",
+     "chance": "14%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10845,
+     "name": "Warrior's Embrace",
+     "slot": "Chest (Plate)",
+     "chance": "27-30%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12462,
+     "name": "Embrace of the Wind Serpent",
+     "slot": null,
+     "chance": "0.15%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Spawn of Hakkar",
+   "npc_id": 5708,
+   "location": "basement corridor",
+   "loot": [
+    {
+     "item_id": 10801,
+     "name": "Slitherscale Boots",
+     "slot": "Feet",
+     "chance": "47%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Murk Worm (trash)",
+   "npc_id": 5226,
+   "location": "temple waters",
+   "loot": [
+    {
+     "item_id": 15733,
+     "name": "Pattern: Green Dragonscale Leggings",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 3528,
+   "title": "The God Hakkar",
+   "level": 53,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Yeh'kinya",
+   "giver_npc_id": 8579,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris",
+   "prereq": "Screecher Spirits (3520) -> The Prophecy of Mosh'aru (3527) -> The Ancient Egg (4787); Egg of Hakkar 10465",
+   "rewards": [
+    10749,
+    10750,
+    10751
+   ]
+  },
+  {
+   "quest_id": 1446,
+   "title": "Jammal'an the Prophet",
+   "level": 53,
+   "min_level": 38,
+   "faction": "Both",
+   "giver": "Atal'ai Exile",
+   "giver_npc_id": 5598,
+   "giver_item_id": null,
+   "giver_zone": "The Hinterlands (Shadra'Alor)",
+   "prereq": null,
+   "rewards": [
+    11123,
+    11124
+   ]
+  },
+  {
+   "quest_id": 3447,
+   "title": "Secret of the Circle",
+   "level": 51,
+   "min_level": 46,
+   "faction": "Both",
+   "giver": "Marvon Rivetseeker",
+   "giver_npc_id": 7771,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris",
+   "prereq": "Into the Depths chain",
+   "rewards": [
+    10773
+   ]
+  },
+  {
+   "quest_id": 3446,
+   "title": "Into the Depths",
+   "level": 51,
+   "min_level": 46,
+   "faction": "Both",
+   "giver": "Marvon Rivetseeker",
+   "giver_npc_id": 7771,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris",
+   "prereq": "The Sunken Temple (3380 H / 3445 A) -> The Stone Circle (3444)",
+   "rewards": []
+  },
+  {
+   "quest_id": 3373,
+   "title": "The Essence of Eranikus",
+   "level": 55,
+   "min_level": 48,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 10454,
+   "giver_zone": null,
+   "prereq": "Starts from Essence of Eranikus 10454 (Shade drop)",
+   "rewards": [
+    10455
+   ]
+  },
+  {
+   "quest_id": 1475,
+   "title": "Into The Temple of Atal'Hakkar",
+   "level": 50,
+   "min_level": 38,
+   "faction": "Alliance",
+   "giver": "Brohann Caskbelly",
+   "giver_npc_id": 5384,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": "1448 -> 1449 -> 1450 -> 1451 -> 1452/1469; 10 Atal'ai Tablets 6288",
+   "rewards": [
+    1490
+   ]
+  },
+  {
+   "quest_id": 4143,
+   "title": "Haze of Evil",
+   "level": 52,
+   "min_level": 47,
+   "faction": "Alliance",
+   "giver": "Gregan Brewspewer",
+   "giver_npc_id": 7775,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": "Muigin and Larion (4141) -> A Visit to Gregan (4142); 5 Atal'ai Haze 11318; turn in Muigin (9119) Un'Goro",
+   "rewards": []
+  },
+  {
+   "quest_id": 1445,
+   "title": "The Temple of Atal'Hakkar",
+   "level": 50,
+   "min_level": 38,
+   "faction": "Horde",
+   "giver": "Fel'zerul",
+   "giver_npc_id": 1443,
+   "giver_item_id": null,
+   "giver_zone": "Swamp of Sorrows (Stonard)",
+   "prereq": "Pool of Tears (1424) -> The Atal'ai Exile (1429) -> Return to Fel'Zerul (1444); 20 Fetish of Hakkar 6181",
+   "rewards": [
+    1490
+   ]
+  },
+  {
+   "quest_id": 4146,
+   "title": "Zapper Fuel",
+   "level": 52,
+   "min_level": 47,
+   "faction": "Horde",
+   "giver": "Liv Rizzlefix",
+   "giver_npc_id": 8496,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (Ratchet)",
+   "prereq": "Larion and Muigin (4145) -> Marvon's Workshop (4147); 5 Atal'ai Haze 11318; turn in Larion (9118), then Bloodpetal Zapper (4148)",
+   "rewards": []
+  },
+  {
+   "quest_id": 9053,
+   "title": "A Better Ingredient",
+   "level": 52,
+   "min_level": null,
+   "faction": "Druid",
+   "giver": "Torwa Pathfinder",
+   "giver_npc_id": 9619,
+   "giver_item_id": null,
+   "giver_zone": "Un'Goro Crater",
+   "prereq": "Putrid Vine 22444",
+   "rewards": [
+    22274,
+    22272,
+    22458
+   ]
+  },
+  {
+   "quest_id": 8232,
+   "title": "The Green Drake",
+   "level": 52,
+   "min_level": null,
+   "faction": "Hunter",
+   "giver": "Ogtinc",
+   "giver_npc_id": 8405,
+   "giver_item_id": null,
+   "giver_zone": "Azshara",
+   "prereq": "Tooth of Morphaz 20019",
+   "rewards": [
+    20083,
+    19991,
+    19992
+   ]
+  },
+  {
+   "quest_id": 8253,
+   "title": "Destroy Morphaz",
+   "level": 52,
+   "min_level": null,
+   "faction": "Mage",
+   "giver": "Archmage Xylem",
+   "giver_npc_id": 8379,
+   "giver_item_id": null,
+   "giver_zone": "Azshara",
+   "prereq": "Arcane Shard 20085",
+   "rewards": [
+    20035,
+    20037,
+    20036
+   ]
+  },
+  {
+   "quest_id": 8418,
+   "title": "Forging the Mightstone",
+   "level": 52,
+   "min_level": null,
+   "faction": "Paladin (Alliance)",
+   "giver": "Commander Ashlam Valorfist",
+   "giver_npc_id": 10838,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands",
+   "prereq": "2x each voodoo feather",
+   "rewards": [
+    20504,
+    20512,
+    20505,
+    20620
+   ]
+  },
+  {
+   "quest_id": 8257,
+   "title": "Blood of Morphaz",
+   "level": 52,
+   "min_level": null,
+   "faction": "Priest",
+   "giver": "Ogtinc",
+   "giver_npc_id": 8405,
+   "giver_item_id": null,
+   "giver_zone": "Azshara",
+   "prereq": "Blood of Morphaz 20025; ends Greta Mosshoof (10922)",
+   "rewards": [
+    19990,
+    20082,
+    20006
+   ]
+  },
+  {
+   "quest_id": 8236,
+   "title": "The Azure Key",
+   "level": 52,
+   "min_level": null,
+   "faction": "Rogue",
+   "giver": "Archmage Xylem",
+   "giver_npc_id": 8379,
+   "giver_item_id": null,
+   "giver_zone": "Azshara",
+   "prereq": "Azure Key 20022; ends Lord Jorach Ravenholdt (6768)",
+   "rewards": [
+    19984,
+    20255,
+    19982
+   ]
+  },
+  {
+   "quest_id": 8413,
+   "title": "Da Voodoo",
+   "level": 52,
+   "min_level": null,
+   "faction": "Shaman (Horde)",
+   "giver": "Bath'rah the Windwatcher",
+   "giver_npc_id": 6176,
+   "giver_item_id": null,
+   "giver_zone": "Alterac Mountains",
+   "prereq": "2x each voodoo feather",
+   "rewards": [
+    20369,
+    20503,
+    20556
+   ]
+  },
+  {
+   "quest_id": 8422,
+   "title": "Trolls of a Feather",
+   "level": 52,
+   "min_level": null,
+   "faction": "Warlock",
+   "giver": "Impsy",
+   "giver_npc_id": 14470,
+   "giver_item_id": null,
+   "giver_zone": "Felwood",
+   "prereq": "2x each voodoo feather",
+   "rewards": [
+    20536,
+    20534,
+    20530
+   ]
+  },
+  {
+   "quest_id": 8425,
+   "title": "Voodoo Feathers",
+   "level": 52,
+   "min_level": null,
+   "faction": "Warrior",
+   "giver": "Fallen Hero of the Horde",
+   "giver_npc_id": 7572,
+   "giver_item_id": null,
+   "giver_zone": "Swamp of Sorrows",
+   "prereq": "2x each voodoo feather",
+   "rewards": [
+    20521,
+    20130,
+    20517
+   ]
+  }
+ ],
+ "keys_attunement": "No key. Egg of Hakkar item=10465 (from Yeh'kinya) needed for Avatar of Hakkar event; Idol of Hakkar object=148838 via statue event.",
+ "forever_changes": [
+  "Item-started quests cannot be shared since Oct 1 beta build (each player needs own Essence of Eranikus)",
+  "Only Hakkari Urn 10773 confirmed as Forever item; other stats Classic values",
+  "Meeting stone does not summon; use Ritual of Summoning"
+ ],
+ "notes": [
+  "Atal'alarion npc ID not linked on page",
+  "Boss levels not stated",
+  "Troll guardian table: other Atal'ai gear 3-10% per piece not itemized",
+  "Ogom also drops two unnamed green one-handers (~30%)",
+  "Avatar: four armor pieces 27-30%, only Warrior's Embrace named",
+  "Statue order: S, N, SW, SE, NW, NE",
+  "Feathers: Amber (Gasher, Zul'Lor), Blue (Hukku, Mijan), Green (Loro, Zolo)",
+  "Instance zone=1477",
+  "Class quest levels taken as 52 per guide",
+  "Order follows guide; Avatar optional"
+ ]
+}

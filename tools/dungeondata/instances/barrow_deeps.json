@@ -1,0 +1,155 @@
+{
+ "key": "barrow_deeps",
+ "slug": "barrow_deeps",
+ "kind": "raid",
+ "name_en": "Barrow Deeps",
+ "level": "60",
+ "zone": "Mount Hyjal (entrances Hyjal, Winterspring, Blackmaw Hold)",
+ "faction": "both",
+ "status": "announced",
+ "status_note": "opens 2026-12-09 (10 players, 8 bosses)",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-barrow-deeps-guide/",
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009",
+  "https://www.warcrafttavern.com/forever/guides/raids/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": "None (any level 60 can enter)",
+ "forever_changes": [
+  "New Forever raid; former prison of Illidan Stormrage (ancient elven prison)",
+  "Weekly lockout"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Deepscar Matriarch",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Khalith the Dreadspinner",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Amethrax",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Ravus and Darlissa",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Elder Tangleclaw",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Well of Sorrow",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Dell'lynar Songwood",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Sonya Darkhallow",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [],
+   "location": null,
+   "optional": false,
+   "pin": null,
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [],
+ "guide_notes": [
+  "Loot not published anywhere checked",
+  "Boss roster is preliminary datamined list (no official list); Blizzard says 8 bosses",
+  "No npc IDs, zone ID or instance map ID in any source",
+  "Spelling: conquestcapped 'Dell'lynar Songwood', warcrafttavern 'Del'lynar Songwood'",
+  "Blackmaw Hold guide also says deep tunnels lead toward this raid"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "missing",
+  "loot": "missing",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 0,
+  "loot_confirmed": 0,
+  "loot_with_chance": 0,
+  "forever_confirmed": "no",
+  "boss_count": 8,
+  "boss_ok": 0,
+  "pin_ok": 0,
+  "enc_count": 0,
+  "q_tot": 0
+ },
+ "top_points": []
+}

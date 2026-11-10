@@ -1,0 +1,94 @@
+{
+  "key": 48,
+  "name_en": "Blackfathom Deeps",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-blackfathom-deeps-guide/"],
+  "level": "24-32",
+  "boss_level": "25-28",
+  "zone": "Ashenvale",
+  "zone_id": 331,
+  "instance_zone_id": 719,
+  "entrance": "Zoram Strand ruins NW Ashenvale (~14,14); swim down central shaft",
+  "faction": "Both; each faction has own quests",
+  "bosses": [
+    {"order": 1, "wing": null, "name": "Ghamoo-ra", "npc_ids": [4887], "location": "Pool of Ask'ar, first cave", "optional": false,
+     "loot": [
+      {"item_id": 6907, "name": "Tortoise Armor", "slot": "Chest (Mail)", "chance": "37%", "quest_item": false},
+      {"item_id": 6908, "name": "Ghamoo-ra's Bind", "slot": "Waist (Cloth)", "chance": "56%", "quest_item": false},
+      {"item_id": 273839, "name": "Spiked Shell Band", "slot": "Finger", "chance": "4%", "quest_item": false}]},
+    {"order": 2, "wing": null, "name": "Lady Sarevess", "npc_ids": [4831], "location": "side cave west of the pool, two naga guards", "optional": false,
+     "loot": [
+      {"item_id": 888, "name": "Naga Battle Gloves", "slot": "Hands (Leather)", "chance": "37%", "quest_item": false},
+      {"item_id": 3078, "name": "Naga Heartpiercer", "slot": "Bow", "chance": "20%", "quest_item": false},
+      {"item_id": 11121, "name": "Darkwater Talwar", "slot": "One-Hand Sword", "chance": "39%", "quest_item": false}]},
+    {"order": 3, "wing": null, "name": "Gelihast", "npc_ids": [6243], "location": "murloc cave east of the pool", "optional": false,
+     "loot": [
+      {"item_id": 6906, "name": "Algae Fists", "slot": "Hands (Mail)", "chance": "44%", "quest_item": false},
+      {"item_id": 6905, "name": "Reef Axe", "slot": "Two-Hand Axe", "chance": "47%", "quest_item": false},
+      {"item_id": 273840, "name": "Cursed Murloc Eye", "slot": "Trinket", "chance": "4%", "quest_item": false},
+      {"item_id": 273141, "name": "Blueprint: Fishing Rack", "slot": "Recipe", "chance": "1%", "quest_item": false}]},
+    {"order": 4, "wing": null, "name": "Lorgus Jett", "npc_ids": [12902], "location": "one of four spawns between trident tunnel and Moonshrine Ruins", "optional": false,
+     "loot": [
+      {"item_id": 273841, "name": "Twilight Maul", "slot": "Mace", "chance": "14%", "quest_item": false},
+      {"item_id": 273842, "name": "Treacherous Treads", "slot": "Feet (Mail)", "chance": "10%", "quest_item": false},
+      {"item_id": 273843, "name": "Fallenroot Longbow", "slot": null, "chance": "10%", "quest_item": false}]},
+    {"order": 5, "wing": null, "name": "Baron Aquanis", "npc_ids": [12876], "location": "Moonshrine Ruins; summoned via Fathom Stone (Horde quest 6921)", "optional": true,
+     "loot": [
+      {"item_id": 16782, "name": "Strange Water Globe", "slot": "Quest starter (6922)", "chance": "93%", "quest_item": true}]},
+    {"order": 6, "wing": null, "name": "Twilight Lord Kelris", "npc_ids": [4832], "location": "altar in Moonshrine Sanctum", "optional": false,
+     "loot": [
+      {"item_id": 1155, "name": "Rod of the Sleepwalker", "slot": "Staff", "chance": "50%", "quest_item": false},
+      {"item_id": 6903, "name": "Gaze Dreamer Pants", "slot": "Legs (Cloth)", "chance": "34%", "quest_item": false},
+      {"item_id": 273846, "name": "Twilight Lord Girdle", "slot": "Waist (Mail)", "chance": "3%", "quest_item": false},
+      {"item_id": 5881, "name": "Head of Kelris", "slot": "Quest (1198)", "chance": null, "quest_item": true}]},
+    {"order": 7, "wing": null, "name": "Old Serra'kis", "npc_ids": [4830], "location": "Forgotten Pool, underwater floor", "optional": false,
+     "loot": [
+      {"item_id": 6901, "name": "Glowing Thresher Cape", "slot": "Back", "chance": "39%", "quest_item": false},
+      {"item_id": 6902, "name": "Bands of Serra'kis", "slot": "Wrist (Leather)", "chance": "34%", "quest_item": false},
+      {"item_id": 6904, "name": "Bite of Serra'kis", "slot": "Dagger", "chance": "21%", "quest_item": false}]},
+    {"order": 8, "wing": null, "name": "Aku'mai", "npc_ids": [4829], "location": "Aku'mai's Lair, end of dungeon after brazier waves", "optional": false,
+     "loot": [
+      {"item_id": 6911, "name": "Moss Cinch", "slot": "Waist (Leather)", "chance": "39%", "quest_item": false},
+      {"item_id": 6910, "name": "Leech Pants", "slot": "Legs (Cloth)", "chance": "36%", "quest_item": false},
+      {"item_id": 6909, "name": "Strike of the Hydra", "slot": "Two-Hand Sword", "chance": "20%", "quest_item": false}]}
+  ],
+  "rares": [],
+  "trash_loot": [
+    {"item_id": 252512, "name": "Brawler's Leather Helm", "slot": "Head (Leather)", "chance": null},
+    {"item_id": 252820, "name": "Pattern: Brawler's Leather Legguards", "slot": "Recipe", "chance": null},
+    {"item_id": 252822, "name": "Pattern: Defender's Leather Kilt", "slot": "Recipe", "chance": null},
+    {"item_id": 3416, "name": "Martyr's Chain", "slot": "Chest (Mail)", "chance": null}
+  ],
+  "quests": [
+    {"quest_id": 971, "title": "Knowledge in the Deeps", "level": 23, "min_level": 18, "faction": "Alliance", "giver": "Gerrig Bonegrip", "giver_npc_id": 2786, "giver_item_id": null, "giver_zone": "Ironforge", "prereq": null, "rewards": [6743], "objective_items": [5359]},
+    {"quest_id": 3765, "title": "The Corruption Abroad", "level": 24, "min_level": null, "faction": "Alliance", "giver": "Argos Nightwhisper", "giver_npc_id": 4984, "giver_item_id": null, "giver_zone": "Stormwind", "prereq": null, "rewards": []},
+    {"quest_id": 1275, "title": "Researching the Corruption", "level": 24, "min_level": 18, "faction": "Alliance", "giver": "Gershala Nightwhisper", "giver_npc_id": 8997, "giver_item_id": null, "giver_zone": "Darkshore", "prereq": "The Corruption Abroad (3765)", "rewards": [7003, 7004, 270021], "objective_items": [5952]},
+    {"quest_id": 1199, "title": "Twilight Falls", "level": 25, "min_level": 20, "faction": "Alliance", "giver": "Argent Guard Manados", "giver_npc_id": 4784, "giver_item_id": null, "giver_zone": "Darnassus", "prereq": null, "rewards": [6998, 7000, 270025], "objective_items": [5879]},
+    {"quest_id": 1198, "title": "In Search of Thaelrid", "level": 24, "min_level": null, "faction": "Alliance", "giver": "Dawnwatcher Shaedlass", "giver_npc_id": 4786, "giver_item_id": null, "giver_zone": "Darnassus", "prereq": null, "rewards": []},
+    {"quest_id": 1200, "title": "Blackfathom Villainy", "level": 27, "min_level": 18, "faction": "Alliance", "giver": "Argent Guard Thaelrid", "giver_npc_id": 4787, "giver_item_id": null, "giver_zone": "Blackfathom Deeps (inside)", "prereq": "In Search of Thaelrid (1198)", "rewards": [7001, 7002, 270031, 270032], "turn_in": "Dawnwatcher Selgorm (4783), Darnassus", "objective_items": [5881]},
+    {"quest_id": 6562, "title": "Trouble in the Deeps", "level": 22, "min_level": null, "faction": "Horde", "giver": "Tsunaman", "giver_npc_id": 11862, "giver_item_id": null, "giver_zone": "Stonetalon Mountains", "prereq": null, "rewards": []},
+    {"quest_id": 6563, "title": "The Essence of Aku'Mai", "level": 22, "min_level": 17, "faction": "Horde", "giver": "Je'neu Sancrea", "giver_npc_id": 12736, "giver_item_id": null, "giver_zone": "Ashenvale (Zoram'gar Outpost)", "prereq": "Trouble in the Deeps (6562)", "rewards": [], "objective_items": [16784]},
+    {"quest_id": 6564, "title": "Allegiance to the Old Gods", "level": 22, "min_level": 17, "faction": "Horde", "giver": null, "giver_npc_id": null, "giver_item_id": 16790, "giver_zone": "Damp Note from Blackfathom Tide Priestess (4802), outside", "prereq": null, "rewards": []},
+    {"quest_id": 6565, "title": "Allegiance to the Old Gods", "level": 26, "min_level": 17, "faction": "Horde", "giver": "Je'neu Sancrea", "giver_npc_id": 12736, "giver_item_id": null, "giver_zone": "Ashenvale (Zoram'gar Outpost)", "prereq": "Allegiance to the Old Gods (6564)", "rewards": [17694, 17695]},
+    {"quest_id": 6921, "title": "Amongst the Ruins", "level": 27, "min_level": 21, "faction": "Horde", "giver": "Je'neu Sancrea", "giver_npc_id": 12736, "giver_item_id": null, "giver_zone": "Ashenvale (Zoram'gar Outpost)", "prereq": null, "rewards": [], "objective_items": [16762]},
+    {"quest_id": 6561, "title": "Blackfathom Villainy", "level": 27, "min_level": 18, "faction": "Horde", "giver": "Argent Guard Thaelrid", "giver_npc_id": 4787, "giver_item_id": null, "giver_zone": "Blackfathom Deeps (inside)", "prereq": null, "rewards": [7001, 7002, 270031, 270032], "turn_in": "Bashana Runetotem (9087), Thunder Bluff", "objective_items": [5881]},
+    {"quest_id": 6922, "title": "Baron Aquanis", "level": 30, "min_level": 21, "faction": "Horde", "giver": null, "giver_npc_id": null, "giver_item_id": 16782, "giver_zone": "Blackfathom Deeps (drop from Baron Aquanis)", "prereq": "Amongst the Ruins (6921)", "rewards": [16886, 16887, 270043]},
+    {"quest_id": 1740, "title": "The Orb of Soran'ruk", "level": 24, "min_level": null, "faction": "Both (Warlock)", "giver": "Doan Karhan", "giver_npc_id": 6247, "giver_item_id": null, "giver_zone": "The Barrens", "prereq": null, "rewards": [6898, 15109], "objective_items": [6914, 6915]},
+    {"quest_id": 95042, "title": "Seeking the Kor Gem", "level": null, "min_level": null, "faction": "Horde (Forsaken Paladin)", "giver": "Ulric Frostveil", "giver_npc_id": 259649, "giver_item_id": null, "giver_zone": "Ashenvale (Zoram'gar Outpost)", "prereq": null, "rewards": [272448], "objective_items": [6995]},
+    {"quest_id": 1654, "title": "The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806)", "level": null, "min_level": null, "faction": "Alliance (Paladin)", "giver": "Duthorian Rall / Daphne Stilwell / Jordan Stilwell", "giver_npc_id": 6171, "giver_item_id": 6776, "giver_zone": "Stormwind / Westfall", "prereq": null, "rewards": []},
+    {"quest_id": 95140, "title": "Old Fire-Eye (chain 95034,95036,95111,95125,95126,95140)", "level": 26, "min_level": null, "faction": "Horde", "giver": "Lumina Windsinger", "giver_npc_id": null, "giver_item_id": null, "giver_zone": null, "prereq": null, "rewards": []}
+  ],
+  "keys_attunement": "None",
+  "forever_changes": [
+    "Four bosses gained new low-chance items (273839-273846)",
+    "New quest reward items 270021, 270025, 270031, 270032, 270043, 272448",
+    "Many caster items traded Int/Spirit for spell power",
+    "Aku'mai Poison Cloud buffed (527 Nature per 5s, was 50)",
+    "Meeting stone does not summon",
+    "Forsaken paladin quest Seeking the Kor Gem (95042) and Horde chain Old Fire-Eye added"
+  ],
+  "notes": [
+    "Guide lists 8 bosses; order follows guide table",
+    "Paladin/Old Fire-Eye chain details summarized only; quest_id given is final step",
+    "Brazier event after Kelris opens door to Aku'mai"
+  ]
+}

@@ -1,0 +1,1640 @@
+{
+ "key": 531,
+ "slug": "temple_of_ahnqiraj",
+ "kind": "raid",
+ "name_en": "Temple of Ahn'Qiraj",
+ "level": "60",
+ "zone": "Silithus",
+ "faction": "both",
+ "status": "not-announced",
+ "status_note": "in game data, no Forever date",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009",
+  "https://www.icy-veins.com/wow-forever/news/warcraft-forever-roadmap-unveils-raid-unlocks-and-major-updates/"
+ ],
+ "guide_sources": [],
+ "new_in_forever": false,
+ "keys_attunement": null,
+ "forever_changes": [],
+ "bosses": [
+  {
+   "order": null,
+   "wing": null,
+   "name": "The Prophet Skeram",
+   "name_de": "Der Prophet Skeram",
+   "encounter_id": 709,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.3005,
+    "y": 0.3709
+   },
+   "loot": [
+    {
+     "item_id": 21698,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21699,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21700,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21701,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21702,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21704,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21705,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21706,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21707,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21708,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21814,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22222,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21128,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21703,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Silithid Royalty",
+   "name_de": "Adel der Silithiden",
+   "encounter_id": 710,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.2659,
+    "y": 0.4901
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Battleguard Sartura",
+   "name_de": "Schlachtwache Sartura",
+   "encounter_id": 711,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.4417,
+    "y": 0.3362
+   },
+   "loot": [
+    {
+     "item_id": 21648,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21674,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21675,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21676,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21678,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21667,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21668,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21669,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21670,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21671,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21672,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21666,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21673,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Fankriss the Unyielding",
+   "name_de": "Fankriss der Unnachgiebige",
+   "encounter_id": 712,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.6189,
+    "y": 0.2301
+   },
+   "loot": [
+    {
+     "item_id": 21627,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21645,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21647,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21651,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21652,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21663,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21664,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21665,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22396,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22402,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21635,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21650,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Viscidus",
+   "name_de": "Viscidus",
+   "encounter_id": 713,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.7154,
+    "y": 0.1841
+   },
+   "loot": [
+    {
+     "item_id": 20928,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20932,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21622,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21623,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21624,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21625,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21626,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21677,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22399,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Princess Huhuran",
+   "name_de": "Prinzessin Huhuran",
+   "encounter_id": 714,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.4389,
+    "y": 0.4714
+   },
+   "loot": [
+    {
+     "item_id": 20928,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20932,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21616,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21617,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21618,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21619,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21620,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21621,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Twin Emperors",
+   "name_de": "Zwillingsimperatoren",
+   "encounter_id": 715,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.6155,
+    "y": 0.6529
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Ouro",
+   "name_de": "Ouro",
+   "encounter_id": 716,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.2923,
+    "y": 0.8178
+   },
+   "loot": [
+    {
+     "item_id": 20927,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20931,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21610,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21611,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21615,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 23557,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 23558,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 23570,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "C'thun",
+   "name_de": "C'Thun",
+   "encounter_id": 717,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.3347,
+    "y": 0.4965
+   },
+   "loot": [
+    {
+     "item_id": 20929,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20933,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21221,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21581,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 21.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21582,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 21.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21583,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 21.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22732,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 21.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21585,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21586,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21596,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22730,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22731,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21579,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21126,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 8.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21134,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 8.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 21839,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 8.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [],
+ "guide_notes": [],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "repo only",
+  "pins": "ok",
+  "loot": "missing",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 80,
+  "loot_confirmed": 0,
+  "loot_with_chance": 0,
+  "forever_confirmed": "no",
+  "boss_count": 0,
+  "boss_ok": 0,
+  "pin_ok": 9,
+  "enc_count": 9,
+  "q_tot": 0
+ },
+ "top_points": [
+  "80 loot rows without drop chance"
+ ]
+}

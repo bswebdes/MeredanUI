@@ -1,0 +1,668 @@
+{
+ "key": 189,
+ "name_en": "Scarlet Monastery",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-scarlet-monastery-guide/"
+ ],
+ "level": "30-46 (Graveyard 30-38, Library 33-41, Armory 36-44, Cathedral 38-46)",
+ "boss_level": null,
+ "zone": "Tirisfal Glades",
+ "zone_id": 85,
+ "entrance": "North-east Tirisfal Glades, east of Brill, via dirt track",
+ "faction": "Both; Horde territory (Alliance usually via Southshore/Alterac)",
+ "wing_levels": {
+  "Graveyard": "30-38",
+  "Library": "33-41",
+  "Armory": "36-44",
+  "Cathedral": "38-46"
+ },
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "Graveyard",
+   "name": "Interrogator Vishas",
+   "npc_ids": [
+    3983
+   ],
+   "location": "Chamber of Atonement",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7683,
+     "name": "Bloody Brass Knuckles",
+     "slot": null,
+     "chance": "52%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7682,
+     "name": "Torturing Poker",
+     "slot": "Dagger",
+     "chance": "6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 274290,
+     "name": "Painwalker Buckler",
+     "slot": "Shield (healer)",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "Graveyard",
+   "name": "Bloodmage Thalnos",
+   "npc_ids": [
+    4543
+   ],
+   "location": "end of Graveyard",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7685,
+     "name": "Orb of the Forgotten Seer",
+     "slot": "Off-hand",
+     "chance": "50%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7684,
+     "name": "Bloodmage Mantle",
+     "slot": null,
+     "chance": "48%",
+     "quest_item": false
+    },
+    {
+     "item_id": 274291,
+     "name": "Polished Skullcap",
+     "slot": "Head (mail)",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "Library",
+   "name": "Houndmaster Loksey",
+   "npc_ids": [
+    3974
+   ],
+   "location": "Library, with three tracking hounds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7756,
+     "name": "Dog Training Gloves",
+     "slot": "Hands",
+     "chance": "56%",
+     "quest_item": false
+    },
+    {
+     "item_id": 3456,
+     "name": "Dog Whistle",
+     "slot": "Trinket",
+     "chance": "25%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7710,
+     "name": "Loksey's Training Stick",
+     "slot": "Staff",
+     "chance": "14%",
+     "quest_item": false
+    },
+    {
+     "item_id": 274292,
+     "name": "Houndmaster Boomerang",
+     "slot": "Thrown",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 273109,
+     "name": "Blueprint: Trapper's Workbench",
+     "slot": null,
+     "chance": "very rare",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "Library",
+   "name": "Arcanist Doan",
+   "npc_ids": [
+    6487
+   ],
+   "location": "end of the Library",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7714,
+     "name": "Hypnotic Blade",
+     "slot": "Dagger",
+     "chance": "47%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7713,
+     "name": "Illusionary Rod",
+     "slot": "Staff",
+     "chance": "47%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7712,
+     "name": "Mantle of Doan",
+     "slot": "Shoulder",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 7711,
+     "name": "Robe of Doan",
+     "slot": "Chest",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 274293,
+     "name": "Spellsever Crossbow",
+     "slot": "Crossbow",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 274294,
+     "name": "Library Walkers",
+     "slot": "Feet",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 252845,
+     "name": "Pattern: Warden's Leather Shoes",
+     "slot": null,
+     "chance": "very rare",
+     "quest_item": false
+    },
+    {
+     "item_id": 252847,
+     "name": "Pattern: Mender's Leather Shoes",
+     "slot": null,
+     "chance": "very rare",
+     "quest_item": false
+    },
+    {
+     "item_id": 7146,
+     "name": "The Scarlet Key",
+     "slot": "Key",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "Armory",
+   "name": "Herod",
+   "npc_ids": [
+    3975
+   ],
+   "location": "Hall of Champions",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7718,
+     "name": "Herod's Shoulder",
+     "slot": null,
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7719,
+     "name": "Raging Berserker's Helm",
+     "slot": null,
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10330,
+     "name": "Scarlet Leggings",
+     "slot": null,
+     "chance": "14%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7717,
+     "name": "Ravager",
+     "slot": "Two-hand axe",
+     "chance": "14%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": "Cathedral",
+   "name": "High Inquisitor Fairbanks",
+   "npc_ids": [
+    4542
+   ],
+   "location": "beside the Cathedral altar",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 19507,
+     "name": "Inquisitor's Shawl",
+     "slot": null,
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 19508,
+     "name": "Branded Leather Bracers",
+     "slot": null,
+     "chance": "32%",
+     "quest_item": false
+    },
+    {
+     "item_id": 19509,
+     "name": "Dusty Mail Boots",
+     "slot": null,
+     "chance": "32%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "Cathedral",
+   "name": "Scarlet Commander Mograine",
+   "npc_ids": [
+    3976
+   ],
+   "location": "Cathedral, before the altar",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7726,
+     "name": "Aegis of the Scarlet Commander",
+     "slot": "Shield",
+     "chance": "43%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7724,
+     "name": "Gauntlets of Divinity",
+     "slot": null,
+     "chance": "20%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7723,
+     "name": "Mograine's Might",
+     "slot": "Two-hand mace",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10330,
+     "name": "Scarlet Leggings",
+     "slot": null,
+     "chance": "15%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": "Cathedral",
+   "name": "High Inquisitor Whitemane",
+   "npc_ids": [
+    3977
+   ],
+   "location": "Cathedral altar, joins after Mograine",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7720,
+     "name": "Whitemane's Chapeau",
+     "slot": "Head",
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7722,
+     "name": "Triune Amulet",
+     "slot": "Neck",
+     "chance": "37%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7721,
+     "name": "Hand of Righteousness",
+     "slot": "One-hand mace",
+     "chance": "19%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Azshir the Sleepless",
+   "npc_id": 6490,
+   "wing": "Graveyard",
+   "location": "Forlorn Cloister, one of six spots, ~1 in 3 runs",
+   "loot": [
+    {
+     "item_id": 7709,
+     "name": "Blighted Leggings",
+     "slot": null,
+     "chance": "31%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7708,
+     "name": "Necrotic Wand",
+     "slot": "Wand",
+     "chance": "32%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7731,
+     "name": "Ghostshard Talisman",
+     "slot": null,
+     "chance": "34%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Fallen Champion",
+   "npc_id": 6488,
+   "wing": "Graveyard",
+   "location": "Forlorn Cloister, one of six spots, ~1 in 3 runs",
+   "loot": [
+    {
+     "item_id": 7691,
+     "name": "Embalmed Shroud",
+     "slot": "Head",
+     "chance": "39%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7690,
+     "name": "Ebon Vise",
+     "slot": null,
+     "chance": "39%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7689,
+     "name": "Morbid Dawn",
+     "slot": "Two-hand sword",
+     "chance": "18%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Ironspine",
+   "npc_id": 6489,
+   "wing": "Graveyard",
+   "location": "Forlorn Cloister, one of six spots, ~1 in 3 runs",
+   "loot": [
+    {
+     "item_id": 7686,
+     "name": "Ironspine's Eye",
+     "slot": null,
+     "chance": "42%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7688,
+     "name": "Ironspine's Ribcage",
+     "slot": null,
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7687,
+     "name": "Ironspine's Fist",
+     "slot": null,
+     "chance": "21%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Scarlet Trainee (trash, after Herod)",
+   "npc_id": 6575,
+   "wing": "Armory",
+   "location": "20 spawn after Herod dies",
+   "loot": [
+    {
+     "item_id": 23192,
+     "name": "Tabard of the Scarlet Crusade",
+     "slot": "Tabard",
+     "chance": "~2%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 96800,
+   "title": "Past Due",
+   "level": 38,
+   "min_level": 30,
+   "faction": "Alliance",
+   "giver": "Magus Olvek",
+   "giver_npc_id": 264265,
+   "giver_item_id": null,
+   "giver_zone": "Dalaran",
+   "prereq": "Book The Lost Magic of the Runemasters (273169) from Library",
+   "rewards": [
+    276898,
+    276899
+   ]
+  },
+  {
+   "quest_id": 1050,
+   "title": "Mythology of the Titans",
+   "level": 38,
+   "min_level": 28,
+   "faction": "Alliance",
+   "giver": "Librarian Mae Paledust",
+   "giver_npc_id": 3979,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Hall of Explorers)",
+   "prereq": "Book Mythology of the Titans (5536) from Library",
+   "rewards": [
+    7746
+   ]
+  },
+  {
+   "quest_id": 1053,
+   "title": "In the Name of the Light",
+   "level": 40,
+   "min_level": 34,
+   "faction": "Alliance",
+   "giver": "Raleigh the Devout",
+   "giver_npc_id": 3980,
+   "giver_item_id": null,
+   "giver_zone": "Southshore (Hillsbrad)",
+   "prereq": "Brother Anton (6141) -> Down the Scarlet Path (261/1052); kill Doan, Herod, Mograine, Whitemane",
+   "rewards": [
+    6829,
+    6830,
+    6831,
+    11262
+   ]
+  },
+  {
+   "quest_id": 1049,
+   "title": "Compendium of the Fallen",
+   "level": 38,
+   "min_level": 28,
+   "faction": "Horde",
+   "giver": "Sage Truthseeker",
+   "giver_npc_id": 3978,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": "Book Compendium of the Fallen (5535) from Library",
+   "rewards": [
+    7747,
+    17508,
+    7749
+   ]
+  },
+  {
+   "quest_id": 1048,
+   "title": "Into The Scarlet Monastery",
+   "level": 42,
+   "min_level": 33,
+   "faction": "Horde",
+   "giver": "Varimathras",
+   "giver_npc_id": 2425,
+   "giver_item_id": null,
+   "giver_zone": "Undercity (Royal Quarter)",
+   "prereq": null,
+   "rewards": [
+    6802,
+    6803,
+    10711
+   ]
+  },
+  {
+   "quest_id": 1051,
+   "title": "Vorrel's Revenge",
+   "level": 33,
+   "min_level": 25,
+   "faction": "Horde",
+   "giver": "Vorrel Sengutz",
+   "giver_npc_id": 3981,
+   "giver_item_id": null,
+   "giver_zone": "Scarlet Monastery Graveyard (prisoner)",
+   "prereq": "Vorrel's Wedding Ring (5538) from Nancy Vishas (3984), Alterac farmhouse; turn in to Monika Sengutz (3982), Tarren Mill",
+   "rewards": [
+    7751,
+    7750,
+    4643
+   ]
+  },
+  {
+   "quest_id": 1160,
+   "title": "Test of Lore",
+   "level": 36,
+   "min_level": 25,
+   "faction": "Horde",
+   "giver": "Parqual Fintallas",
+   "giver_npc_id": 4488,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": "Final Passage chain from Dorn Plainstalker (2986); book Beginnings of the Undead Threat (5861)",
+   "rewards": []
+  },
+  {
+   "quest_id": 1113,
+   "title": "Hearts of Zeal",
+   "level": 33,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": "Master Apothecary Faranell",
+   "giver_npc_id": 2055,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": "Going, Going, Guano! (1109); 20 Heart of Zeal (5805) from Scarlet mobs",
+   "rewards": []
+  },
+  {
+   "quest_id": 1951,
+   "title": "Rituals of Power",
+   "level": null,
+   "min_level": null,
+   "faction": "Mage class",
+   "giver": "Tabetha",
+   "giver_npc_id": 6546,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh",
+   "prereq": "Book in first shelved Library room",
+   "rewards": []
+  },
+  {
+   "quest_id": 78676,
+   "title": "The Eye of Bhossca",
+   "level": null,
+   "min_level": null,
+   "faction": "Rogue class",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "Scarlet Initiate's Uniform (210955), Ruby-Adorned Blade (277246), Eye of Bhossca (210953)",
+   "rewards": []
+  }
+ ],
+ "quest_items": [
+  {
+   "item_id": 5536,
+   "name": "Mythology of the Titans",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 273169,
+   "name": "The Lost Magic of the Runemasters",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 5535,
+   "name": "Compendium of the Fallen",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 5861,
+   "name": "Beginnings of the Undead Threat",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 5805,
+   "name": "Heart of Zeal",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  }
+ ],
+ "keys_attunement": "The Scarlet Key item=7146 from Doan's Strongbox (object=103821) behind Arcanist Doan; each member loots one; opens Armory and Cathedral (Rogue lockpicking also works).",
+ "forever_changes": [
+  "Quest XP raised on most quests (3 unchanged, unnamed)",
+  "New quest Past Due (96800) with new rewards Salve and Salvation (276898), Knucklebound Thimble (276899)",
+  "New loot: Painwalker Buckler 274290, Polished Skullcap 274291, Houndmaster Boomerang 274292, Spellsever Crossbow 274293, Library Walkers 274294 (no chances)",
+  "Five rare leather helms (e.g. Defender's Leather Helm 252455) and Pattern: Defender's Leather Kilt 252822 added; Pattern: Warden's/Mender's Leather Shoes 252845/252847 from Doan; Blueprint: Trapper's Workbench 273109 from Loksey",
+  "Loot restatted: spell power/healing/attack power replace spare Spirit",
+  "Ravager slows wielder's movement by 80%",
+  "Scarlet Crusade set bonuses reworked; set pieces 10328-10333",
+  "Meeting stone does not summon"
+ ],
+ "notes": [
+  "Rewards for 1053 and 1048 marked unconfirmed for Forever on the guide; Classic item IDs listed",
+  "Guide lists Test of Lore as 1160 in table but 1152 as first chain step (multiple Test of Lore quest IDs: 1152,1154,6627,1159,1160,6628)",
+  "Most slots not stated in guide; null where unstated",
+  "Scarlet set drop rates: Leggings ~14%, Belt 10329/Gauntlets 10331/Wristguards 10333 ~2%, Chest 10328/Boots 10332 lower",
+  "Some slot values not stated on guide were filled from Classic item knowledge"
+ ]
+}

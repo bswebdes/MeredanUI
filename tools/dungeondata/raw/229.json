@@ -1,0 +1,1325 @@
+{
+ "key": 229,
+ "name_en": "Blackrock Spire",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-lower-blackrock-spire-guide/",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-upper-blackrock-spire-guide/"
+ ],
+ "level": "LBRS 55-60; UBRS 59-60",
+ "boss_level": null,
+ "zone": "Blackrock Mountain (Burning Steppes / Searing Gorge)",
+ "zone_id": 25,
+ "instance_zone_id": 1583,
+ "entrance": "Inside Blackrock Mountain: climb dwarf statue, balcony door to shared portal; UBRS via sealed door up left stairs",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "LBRS",
+   "name": "Highlord Omokk",
+   "npc_ids": [
+    9196
+   ],
+   "location": "first ogre area (Spirestone)",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12336,
+     "name": "Gemstone of Spirestone",
+     "slot": "Quest",
+     "chance": "27%",
+     "quest_item": true
+    },
+    {
+     "item_id": 16670,
+     "name": "Boots of Elements",
+     "slot": "Feet",
+     "chance": "13%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13167,
+     "name": "Fist of Omokk",
+     "slot": "Weapon",
+     "chance": "15%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12534,
+     "name": "Omokk's Head",
+     "slot": "Quest",
+     "chance": "84%",
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "LBRS",
+   "name": "Shadow Hunter Vosh'gajin",
+   "npc_ids": [
+    9236
+   ],
+   "location": "Smolderthorn troll area",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16712,
+     "name": "Shadowcraft Gloves",
+     "slot": "Hands",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13255,
+     "name": "Trueaim Gauntlets",
+     "slot": "Hands",
+     "chance": "36%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12653,
+     "name": "Riphook",
+     "slot": "Bow",
+     "chance": "7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "LBRS",
+   "name": "War Master Voone",
+   "npc_ids": [
+    9237
+   ],
+   "location": "Smolderthorn troll area",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12335,
+     "name": "Gemstone of Smolderthorn",
+     "slot": "Quest",
+     "chance": "35%",
+     "quest_item": true
+    },
+    {
+     "item_id": 13173,
+     "name": "Flightblade Throwing Axe",
+     "slot": "Thrown",
+     "chance": "91%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16676,
+     "name": "Beaststalker's Gloves",
+     "slot": "Hands",
+     "chance": "19%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "LBRS",
+   "name": "Mother Smolderweb",
+   "npc_ids": [
+    10596
+   ],
+   "location": "Skitterweb Tunnels spider nest",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16715,
+     "name": "Wildheart Boots",
+     "slot": "Feet",
+     "chance": "15%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13213,
+     "name": "Smolderweb's Eye",
+     "slot": "Trinket",
+     "chance": "12%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "LBRS",
+   "name": "Urok Doomhowl",
+   "npc_ids": [
+    10584
+   ],
+   "location": "tribute pile; summoned with Omokk's Head on pike",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 12712,
+     "name": "Warosh's Mojo",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 13258,
+     "name": "Slaghide Gauntlets",
+     "slot": "Hands",
+     "chance": "22%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18784,
+     "name": "Top Half of Advanced Armorsmithing: Vol. III",
+     "slot": "Quest/Recipe",
+     "chance": "13%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": "LBRS",
+   "name": "Quartermaster Zigris",
+   "npc_ids": [
+    9736
+   ],
+   "location": "Hordemar City storeroom",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 13253,
+     "name": "Hands of Power",
+     "slot": "Hands",
+     "chance": "14%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12835,
+     "name": "Plans: Annihilator",
+     "slot": "Recipe",
+     "chance": "14%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "LBRS",
+   "name": "Halycon",
+   "npc_ids": [
+    10220
+   ],
+   "location": "worg den (Halycon's Lair)",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 13212,
+     "name": "Halycon's Spiked Collar",
+     "slot": "Neck",
+     "chance": "28%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13211,
+     "name": "Slashclaw Bracers",
+     "slot": "Wrist",
+     "chance": "28%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": "LBRS",
+   "name": "Gizrul the Slavener",
+   "npc_ids": [
+    10268
+   ],
+   "location": "worg den, spawns after Halycon",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 16718,
+     "name": "Wildheart Spaulders",
+     "slot": "Shoulder",
+     "chance": "18%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": "LBRS",
+   "name": "Overlord Wyrmthalak",
+   "npc_ids": [
+    9568
+   ],
+   "location": "final room of the lower spire",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12337,
+     "name": "Gemstone of Bloodaxe",
+     "slot": "Quest",
+     "chance": "41%",
+     "quest_item": true
+    },
+    {
+     "item_id": 12780,
+     "name": "General Drakkisath's Command",
+     "slot": "Quest (starts 5089)",
+     "chance": "25%",
+     "quest_item": true
+    },
+    {
+     "item_id": 16679,
+     "name": "Beaststalker's Mantle",
+     "slot": "Shoulder",
+     "chance": "16%",
+     "quest_item": false
+    },
+    {
+     "item_id": 22321,
+     "name": "Heart of Wyrmthalak",
+     "slot": "Trinket",
+     "chance": "11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13143,
+     "name": "Mark of the Dragon Lord",
+     "slot": "Finger",
+     "chance": "1%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": "UBRS",
+   "name": "Pyroguard Emberseer",
+   "npc_ids": [
+    9816
+   ],
+   "location": "Hall of Binding; start at Blackhand Altar",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12926,
+     "name": "Flaming Band",
+     "slot": "Finger",
+     "chance": "28%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12905,
+     "name": "Wildfire Cape",
+     "slot": "Back",
+     "chance": "27%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16672,
+     "name": "Gauntlets of Elements",
+     "slot": "Hands",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12927,
+     "name": "Truestrike Shoulders",
+     "slot": "Shoulder",
+     "chance": "11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17322,
+     "name": "Eye of the Emberseer",
+     "slot": "Quest (6821)",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 11,
+   "wing": "UBRS",
+   "name": "Solakar Flamewreath",
+   "npc_ids": [
+    10264
+   ],
+   "location": "The Rookery; start at Father Flame",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12603,
+     "name": "Nightbrace Tunic",
+     "slot": "Chest",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16695,
+     "name": "Devout Mantle",
+     "slot": "Shoulder",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12606,
+     "name": "Crystallized Girdle",
+     "slot": "Waist",
+     "chance": "17%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": "UBRS",
+   "name": "Goraluk Anvilcrack",
+   "npc_ids": [
+    10899
+   ],
+   "location": "Hall of Blackhand",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 13498,
+     "name": "Handcrafted Mastersmith Leggings",
+     "slot": "Legs",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18048,
+     "name": "Mastersmith's Hammer",
+     "slot": "One-Hand Mace",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12834,
+     "name": "Plans: Arcanite Champion",
+     "slot": "Recipe",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12837,
+     "name": "Plans: Masterwork Stormhammer",
+     "slot": "Recipe",
+     "chance": "9%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": "UBRS",
+   "name": "Warchief Rend Blackhand",
+   "npc_ids": [
+    10429
+   ],
+   "location": "Blackrock Stadium; event via Lord Victor Nefarius",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12935,
+     "name": "Warmaster Legguards",
+     "slot": "Legs",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16733,
+     "name": "Spaulders of Valor",
+     "slot": "Shoulder",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12939,
+     "name": "Dal'Rend's Tribal Guardian",
+     "slot": "One-Hand Sword",
+     "chance": "13%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12940,
+     "name": "Dal'Rend's Sacred Charge",
+     "slot": "One-Hand Sword",
+     "chance": "8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12590,
+     "name": "Felstriker",
+     "slot": "Dagger (epic)",
+     "chance": "2%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 14,
+   "wing": "UBRS",
+   "name": "Gyth",
+   "npc_ids": [
+    10339
+   ],
+   "location": "Blackrock Stadium, with Rend",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12952,
+     "name": "Gyth's Skull",
+     "slot": "Head",
+     "chance": "21%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16669,
+     "name": "Pauldrons of Elements",
+     "slot": "Shoulder",
+     "chance": "20%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12871,
+     "name": "Chromatic Carapace",
+     "slot": "Crafting (epic)",
+     "chance": "4%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 15,
+   "wing": "UBRS",
+   "name": "The Beast",
+   "npc_ids": [
+    10430
+   ],
+   "location": "The Furnace",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 12964,
+     "name": "Tristam Legguards",
+     "slot": "Legs",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12963,
+     "name": "Blademaster Leggings",
+     "slot": "Legs",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16729,
+     "name": "Lightforge Spaulders",
+     "slot": "Shoulder",
+     "chance": "17%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12709,
+     "name": "Pip's Skinner",
+     "slot": "Dagger",
+     "chance": "15%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12969,
+     "name": "Seeping Willow",
+     "slot": "Two-Hand Mace",
+     "chance": "13%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12731,
+     "name": "Pristine Hide of the Beast",
+     "slot": "Skinning (epic)",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 16,
+   "wing": "UBRS",
+   "name": "Lord Valthalak",
+   "npc_ids": [
+    16042
+   ],
+   "location": "summoned in The Beast's room (Brazier of Beckoning 22056)",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 22335,
+     "name": "Lord Valthalak's Staff of Command",
+     "slot": "Staff",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 22340,
+     "name": "Pendant of Celerity",
+     "slot": "Neck",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 17,
+   "wing": "UBRS",
+   "name": "General Drakkisath",
+   "npc_ids": [
+    10363
+   ],
+   "location": "Spire Throne, two Chromatic Elite Guards",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 13141,
+     "name": "Tooth of Gnarr",
+     "slot": "Neck",
+     "chance": "26%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13142,
+     "name": "Brigam Girdle",
+     "slot": "Waist",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12602,
+     "name": "Draconian Deflector",
+     "slot": "Shield",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13098,
+     "name": "Painweaver Band",
+     "slot": "Finger",
+     "chance": "22%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12592,
+     "name": "Blackblade of Shahram",
+     "slot": "Two-Hand Sword (epic)",
+     "chance": "1%",
+     "quest_item": false
+    },
+    {
+     "item_id": 16663,
+     "name": "Blood of the Black Dragon Champion",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 15730,
+     "name": "Pattern: Red Dragonscale Breastplate",
+     "slot": "Recipe",
+     "chance": "5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13519,
+     "name": "Recipe: Flask of the Titans",
+     "slot": "Recipe",
+     "chance": "5%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "wing": "LBRS",
+   "name": "Bannok Grimaxe",
+   "npc_id": 9596,
+   "location": "Hordemar City",
+   "loot": [
+    {
+     "item_id": 12838,
+     "name": "Plans: Arcanite Reaper",
+     "slot": "Recipe",
+     "chance": "8%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "wing": "LBRS",
+   "name": "Crystal Fang",
+   "npc_id": 10376,
+   "location": "Skitterweb Tunnels",
+   "loot": []
+  },
+  {
+   "wing": "LBRS",
+   "name": "Spirestone Battle Lord",
+   "npc_id": 9218,
+   "location": "near Omokk",
+   "loot": []
+  },
+  {
+   "wing": "LBRS",
+   "name": "Spirestone Lord Magus",
+   "npc_id": 9217,
+   "location": "near Omokk",
+   "loot": []
+  },
+  {
+   "wing": "UBRS",
+   "name": "Jed Runewatcher",
+   "npc_id": 10509,
+   "location": "Hall of Blackhand, not every reset",
+   "loot": [
+    {
+     "item_id": 12604,
+     "name": "Starfire Tiara",
+     "slot": "Head",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12930,
+     "name": "Briarwood Reed",
+     "slot": "Trinket",
+     "chance": "30%",
+     "quest_item": false
+    },
+    {
+     "item_id": 12605,
+     "name": "Serpentine Skuller",
+     "slot": "Wand",
+     "chance": "33%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "trash_loot": [
+  {
+   "wing": "LBRS",
+   "item_id": 14513,
+   "name": "Pattern: Robe of the Archmage",
+   "chance": "17%",
+   "source": "Firebrand Pyromancers"
+  },
+  {
+   "wing": "LBRS",
+   "item_id": 16244,
+   "name": "Formula: Enchant Gloves - Greater Strength",
+   "chance": null
+  },
+  {
+   "wing": "UBRS",
+   "item_id": 16735,
+   "name": "Bracers of Valor",
+   "chance": "~3%"
+  },
+  {
+   "wing": "UBRS",
+   "item_id": 16696,
+   "name": "Devout Belt",
+   "chance": "~3%"
+  },
+  {
+   "wing": "UBRS",
+   "item_id": 24102,
+   "name": "Manual of Eviscerate IX",
+   "chance": null
+  },
+  {
+   "wing": "UBRS",
+   "item_id": 16247,
+   "name": "Formula: Enchant 2H Weapon - Superior Impact",
+   "chance": null
+  },
+  {
+   "wing": "UBRS",
+   "item_id": 13260,
+   "name": "Wind Dancer Boots",
+   "chance": "very rare"
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 4742,
+   "title": "Seal of Ascension",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Vaelan",
+   "giver_npc_id": 10296,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "needs Unadorned Seal 12219",
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4743,
+   "title": "Seal of Ascension",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Vaelan",
+   "giver_npc_id": 10296,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "4742",
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4867,
+   "title": "Urok Doomhowl",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Warosh",
+   "giver_npc_id": 10799,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": null,
+   "rewards": [
+    15867
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4862,
+   "title": "En-Ay-Es-Tee-Why",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Kibler",
+   "giver_npc_id": 10260,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    12529
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4729,
+   "title": "Kibler's Exotic Pets",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Kibler",
+   "giver_npc_id": 10260,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    12264
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4866,
+   "title": "Mother's Milk",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Ragged John",
+   "giver_npc_id": 9563,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    15873
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4734,
+   "title": "Egg Freezing",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Tinkee Steamboil",
+   "giver_npc_id": 10267,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": "4810, 4907",
+   "rewards": [
+    12144
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 4735,
+   "title": "Egg Collection",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Tinkee Steamboil",
+   "giver_npc_id": 10267,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": "4734",
+   "rewards": [],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 8966,
+   "title": "The Left Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8962 (21-step chain)",
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 8989,
+   "title": "The Right Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8986",
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 8995,
+   "title": "Mea Culpa, Lord Valthalak",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8994",
+   "rewards": [
+    22057
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 4788,
+   "title": "The Final Tablets",
+   "level": 58,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Prospector Ironboot",
+   "giver_npc_id": 10460,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris",
+   "prereq": "5065",
+   "rewards": [
+    20218,
+    20219
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 5127,
+   "title": "The Demon Forge",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both (Warrior/Paladin)",
+   "giver": "Lorax",
+   "giver_npc_id": 10918,
+   "giver_item_id": null,
+   "giver_zone": "Winterspring",
+   "prereq": "Lorax's Tale (5126)",
+   "rewards": [
+    12696,
+    12849,
+    9224
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 5160,
+   "title": "The Matron Protectorate",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Awbee",
+   "giver_npc_id": 10740,
+   "giver_item_id": null,
+   "giver_zone": "Upper Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 5047,
+   "title": "Finkle Einhorn, At Your Service!",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Pip Quickwit",
+   "giver_npc_id": 10776,
+   "giver_item_id": null,
+   "giver_zone": "Upper Blackrock Spire (after The Beast)",
+   "prereq": null,
+   "rewards": [],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 5001,
+   "title": "Bijou's Belongings",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 5002,
+   "title": "Message to Maxwell",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "5001",
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 5081,
+   "title": "Maxwell's Mission",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Marshal Maxwell",
+   "giver_npc_id": 9560,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "5002",
+   "rewards": [
+    13961,
+    13963,
+    13958,
+    13959,
+    13962
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4701,
+   "title": "Put Her Down",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Helendis Riverhorn",
+   "giver_npc_id": 9562,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": null,
+   "rewards": [
+    15824,
+    15825,
+    15827
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 5089,
+   "title": "General Drakkisath's Command",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 12780,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 5102,
+   "title": "General Drakkisath's Demise",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Alliance",
+   "giver": "Marshal Maxwell",
+   "giver_npc_id": 9560,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "5089",
+   "rewards": [
+    13966,
+    13968,
+    13965
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 4764,
+   "title": "Doomrigger's Clasp",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Alliance",
+   "giver": "Mayara Brightwing",
+   "giver_npc_id": 9565,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "4766",
+   "rewards": [],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 4765,
+   "title": "Delivery to Ridgewell",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Alliance",
+   "giver": "Mayara Brightwing",
+   "giver_npc_id": 9565,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": "4764",
+   "rewards": [
+    15861,
+    15860
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 6502,
+   "title": "Drakefire Amulet",
+   "level": 60,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Haleh",
+   "giver_npc_id": 10929,
+   "giver_item_id": null,
+   "giver_zone": "Winterspring",
+   "prereq": "6501 (16-step chain)",
+   "rewards": [
+    16309
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 4724,
+   "title": "The Pack Mistress",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Galamav the Marksman",
+   "giver_npc_id": 9081,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    15824,
+    15825,
+    15827
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4982,
+   "title": "Bijou's Belongings",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "Operative Bijou (4981)",
+   "rewards": [],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4983,
+   "title": "Bijou's Reconnaissance Report",
+   "level": 59,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Bijou",
+   "giver_npc_id": 10257,
+   "giver_item_id": null,
+   "giver_zone": "Lower Blackrock Spire",
+   "prereq": "4982",
+   "rewards": [
+    15858,
+    15859
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4903,
+   "title": "Warlord's Command",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Warlord Goretooth",
+   "giver_npc_id": 9077,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    13961,
+    13963,
+    13958,
+    13959,
+    13962
+   ],
+   "wing": "LBRS"
+  },
+  {
+   "quest_id": 4974,
+   "title": "For The Horde!",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Thrall",
+   "giver_npc_id": 4949,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Eitrigg's Wisdom (4941)",
+   "rewards": [
+    13966,
+    13968,
+    13965
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 6569,
+   "title": "Oculus Illusions",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Myranda the Hag",
+   "giver_npc_id": 11872,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands",
+   "prereq": "6568",
+   "rewards": [],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 6602,
+   "title": "Blood of the Black Dragon Champion",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Horde",
+   "giver": "Rexxar",
+   "giver_npc_id": 10182,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": "6601 (14-step chain)",
+   "rewards": [
+    16309
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 4768,
+   "title": "The Darkstone Tablet",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Horde",
+   "giver": "Shadowmage Vivian Lagrave",
+   "giver_npc_id": 9078,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "4769 (Apothecary Zinge 5204)",
+   "rewards": [
+    15861,
+    15860
+   ],
+   "wing": "UBRS"
+  },
+  {
+   "quest_id": 7761,
+   "title": "Blackhand's Command",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 18987,
+   "giver_zone": "Upper Blackrock Spire",
+   "prereq": null,
+   "rewards": [],
+   "wing": "UBRS",
+   "note": "drops from Scarshield Quartermaster 9046; not in Forever Tools list"
+  },
+  {
+   "quest_id": 6821,
+   "title": "Eye of the Emberseer",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Duke Hydraxis",
+   "giver_npc_id": 13278,
+   "giver_item_id": null,
+   "giver_zone": "Azshara",
+   "prereq": null,
+   "rewards": [],
+   "wing": "UBRS",
+   "note": "not in Forever Tools list"
+  }
+ ],
+ "keys_attunement": "LBRS no key. UBRS needs Seal of Ascension (quests 4742/4743 from Vaelan npc=10296; needs Unadorned Seal item=12219; gemstones 12336/12335/12337; forged by Emberstrife npc=10321 -> Forged Seal of Ascension item=12324). One holder opens the door for the group. Onyxia attunement chains (Drakefire Amulet 6502 / Blood of the Black Dragon Champion 6602) run through UBRS (Blood of the Black Dragon Champion item=16663 from Drakkisath).",
+ "forever_changes": [
+  "Smolderweb Carrier 12529 and Worg Carrier 12264 no longer BoP",
+  "Several quests (5081, 4903, 5089, 5047, 4974, 6502) give slightly less XP",
+  "Boots of Elements 16670: 14 spell power",
+  "Wildheart Spaulders 16718: 20 healing",
+  "Enchant Gloves - Greater Strength 16244: +10 Str (was +7)",
+  "Quartermaster Zigris is a regular elite, not rare",
+  "Dungeon set bonuses at 2-6 pieces (not 8): 2pc +8 all resist, 6pc mana/health regen; some pieces gained Hit/Defense/Spell Pen",
+  "Plans: Demon Forged Breastplate needs BS 260 (was 285)",
+  "Potion of Demon Slaying 180 AP vs demons (was 265)",
+  "Draconian Deflector +10 Defense rating, 8 fire res (was 10)",
+  "Brigam Girdle +10 Hit rating, 18 Sta, 14 Str",
+  "Pattern: Red Dragonscale Breastplate LW 290 (was 300)"
+ ],
+ "notes": [
+  "LBRS page read fully; UBRS page read to 100000 of 109453 chars (remaining part is FAQ)",
+  "LBRS text says 9 bosses, map caption 8; UBRS intro says 7 bosses but sections cover 8 (Gyth separate)",
+  "Omokk's Head chance 84% ambiguous",
+  "Drakkisath also drops one of nine dungeon-set chests (6-14% each, not itemized)",
+  "Lord Valthalak loot not in Forever DB; Classic items listed",
+  "Seal of Ascension reward (4743) has no item ID on page; Forged Seal = 12324",
+  "Many unique boss drops lack Forever data on Wowhead per guide",
+  "Quest totals: LBRS page 27 quests (Alliance 22 / Horde 20); UBRS page 24 (Alliance 19 / Horde 18)"
+ ]
+}

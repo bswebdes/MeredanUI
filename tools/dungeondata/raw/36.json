@@ -1,0 +1,507 @@
+{
+ "key": 36,
+ "name_en": "The Deadmines",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-deadmines-guide/"
+ ],
+ "level": "17-26",
+ "boss_level": null,
+ "zone": "Westfall",
+ "zone_id": 1581,
+ "entrance": "Mine beneath large building in Moonbrook; portal at bottom",
+ "faction": "Alliance quests only; Horde can run for loot/XP",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Rhahk'Zor",
+   "npc_ids": [
+    644
+   ],
+   "location": "near the entrance",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5187,
+     "name": "Rhahk'Zor's Hammer",
+     "slot": null,
+     "chance": "73%",
+     "quest_item": false
+    },
+    {
+     "item_id": 872,
+     "name": "Rockslicer",
+     "slot": null,
+     "chance": "4%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273289,
+     "name": "Ogre Loincloth",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 251363,
+     "name": "Plans: Acolyte's Gloves",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Sneed's Shredder",
+   "npc_ids": [
+    642
+   ],
+   "location": "lumber area, before Sneed",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 2169,
+     "name": "Buzzer Blade",
+     "slot": null,
+     "chance": "52%",
+     "quest_item": false
+    },
+    {
+     "item_id": 1937,
+     "name": "Buzz Saw",
+     "slot": null,
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 285292,
+     "name": "Dull Sawblade",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 7365,
+     "name": "Gnoam Sprecklesprocket",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Sneed",
+   "npc_ids": [
+    643
+   ],
+   "location": "ejected from his Shredder",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5195,
+     "name": "Gold-flecked Gloves",
+     "slot": null,
+     "chance": "67%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5194,
+     "name": "Taskmaster Axe",
+     "slot": null,
+     "chance": "28%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273293,
+     "name": "Bandsaw Wristbands",
+     "slot": "Wrist",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 273092,
+     "name": "Blueprint: Repair Bot",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Gilnid",
+   "npc_ids": [
+    1763
+   ],
+   "location": "foundry, with goblin engineers",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5199,
+     "name": "Smelting Pants",
+     "slot": "Legs",
+     "chance": "57%",
+     "quest_item": false
+    },
+    {
+     "item_id": 1156,
+     "name": "Lavishly Jeweled Ring",
+     "slot": "Finger",
+     "chance": "37%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273297,
+     "name": "Goblin Hammer",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 273086,
+     "name": "Blueprint: Anvil",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Mr. Smite",
+   "npc_ids": [
+    646
+   ],
+   "location": "ship cove, first ship deck",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5192,
+     "name": "Thief's Blade",
+     "slot": null,
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5196,
+     "name": "Smite's Reaver",
+     "slot": null,
+     "chance": "37%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7230,
+     "name": "Smite's Mighty Hammer",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 284715,
+     "name": "First Mate Band",
+     "slot": "Finger",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Captain Greenskin",
+   "npc_ids": [
+    647
+   ],
+   "location": "aboard the ship, with pirate adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5201,
+     "name": "Emberstone Staff",
+     "slot": "Staff",
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5200,
+     "name": "Impaling Harpoon",
+     "slot": null,
+     "chance": "28%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10403,
+     "name": "Blackened Defias Belt",
+     "slot": "Waist",
+     "chance": "27%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Edwin VanCleef",
+   "npc_ids": [
+    639
+   ],
+   "location": "top deck of the ship",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5202,
+     "name": "Corsair's Overshirt",
+     "slot": "Chest",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5193,
+     "name": "Cape of the Brotherhood",
+     "slot": "Back",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5191,
+     "name": "Cruel Barb",
+     "slot": null,
+     "chance": "16%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10399,
+     "name": "Blackened Defias Armor",
+     "slot": "Chest",
+     "chance": "15%",
+     "quest_item": false
+    },
+    {
+     "item_id": 253940,
+     "name": "Pattern: Filigreed Silky Leggings",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 3637,
+     "name": "Head of VanCleef",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 2874,
+     "name": "An Unsent Letter",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Cookie",
+   "npc_ids": [
+    645
+   ],
+   "location": "on the ship deck",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 5197,
+     "name": "Cookie's Tenderizer",
+     "slot": null,
+     "chance": "55%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5198,
+     "name": "Cookie's Stirring Rod",
+     "slot": null,
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273298,
+     "name": "Lookie's Spyglass",
+     "slot": "Trinket",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 273102,
+     "name": "Blueprint: Cookie's Feast",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Miner Johnson",
+   "npc_id": 3586,
+   "location": "mine tunnels, does not always spawn",
+   "loot": [
+    {
+     "item_id": 5444,
+     "name": "Miner's Cape",
+     "slot": "Back",
+     "chance": "56%"
+    },
+    {
+     "item_id": 5443,
+     "name": "Gold-plated Buckler",
+     "slot": "Shield",
+     "chance": "40%"
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 166,
+   "title": "The Defias Brotherhood",
+   "level": 22,
+   "min_level": 14,
+   "faction": "Alliance",
+   "giver": "Gryan Stoutmantle",
+   "giver_npc_id": 234,
+   "giver_item_id": null,
+   "giver_zone": "Westfall",
+   "prereq": "Chain 65, 132, 135, 141, 142, 155",
+   "rewards": [
+    6087,
+    2041,
+    2042
+   ]
+  },
+  {
+   "quest_id": 92753,
+   "title": "Destruction in Deadmines",
+   "level": 18,
+   "min_level": 9,
+   "faction": "Alliance",
+   "giver": "Alba Fairmoon",
+   "giver_npc_id": 253092,
+   "giver_item_id": null,
+   "giver_zone": "Westfall (near Sentinel Hill)",
+   "prereq": "Chain 92742-92752; follow-up 92819 (675 XP)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2040,
+   "title": "Underground Assault",
+   "level": 20,
+   "min_level": 15,
+   "faction": "Alliance",
+   "giver": "Shoni the Shilent",
+   "giver_npc_id": 6579,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": null,
+   "rewards": [
+    7606,
+    7607,
+    270015,
+    270016
+   ]
+  },
+  {
+   "quest_id": 214,
+   "title": "Red Silk Bandanas",
+   "level": 17,
+   "min_level": 14,
+   "faction": "Alliance",
+   "giver": "Scout Riell",
+   "giver_npc_id": 820,
+   "giver_item_id": null,
+   "giver_zone": "Westfall",
+   "prereq": "Defias chain to 155",
+   "rewards": [
+    2074,
+    2089,
+    6094,
+    270005
+   ]
+  },
+  {
+   "quest_id": 167,
+   "title": "Oh Brother...",
+   "level": 20,
+   "min_level": 15,
+   "faction": "Alliance",
+   "giver": "Wilder Thistlenettle",
+   "giver_npc_id": 656,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": null,
+   "rewards": [
+    1893,
+    270012,
+    270013
+   ]
+  },
+  {
+   "quest_id": 168,
+   "title": "Collecting Memories",
+   "level": 18,
+   "min_level": 14,
+   "faction": "Alliance",
+   "giver": "Wilder Thistlenettle",
+   "giver_npc_id": 656,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": null,
+   "rewards": [
+    2037,
+    2036,
+    270007
+   ]
+  },
+  {
+   "quest_id": 1654,
+   "title": "The Test of Righteousness",
+   "level": null,
+   "min_level": 20,
+   "faction": "Alliance (Paladin)",
+   "giver": "Jordan Stilwell",
+   "giver_npc_id": 6181,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh (Ironforge entrance)",
+   "prereq": "Paladin chain 1649 (Tome of Valor item=6776) -> 1650-1653; then 1806",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None",
+ "forever_changes": [
+  "Rhahk'Zor Slam ~330 dmg (Classic 64-86) + 3s stun; Smite Slam ~220 (Classic 50); several abilities ~4x harder",
+  "Five bosses gained new items; most drops have new stats",
+  "Rockslicer mines Copper/Tin/Silver/Iron without Mining",
+  "Smelting Pants smelt 25% faster",
+  "Staff of Westfall gains healing/spell dmg and 2% move speed",
+  "Cookie's Stirring Rod +25% Cooking speed",
+  "Defias Leather set rebuilt, mostly BoP, new set bonuses",
+  "New quest chain: Destruction in Deadmines (92742-92753, 92819)",
+  "New rings: First Mate Band 284715 (Smite) and partner Band of the Better Half 284716 (lvl 60 epic)"
+ ],
+ "notes": [
+  "Sneed's Shredder and Sneed listed as one boss slot in guide (8 bosses + rare Miner Johnson)",
+  "Cookie optional: inferred (ship deck side boss), not stated",
+  "Many item slots not stated (null); boss locations partly inferred from classic layout",
+  "Quest items: Red Silk Bandana 915 (x10), Miners' Union Card 1894 (x4), Thistlenettle's Badge 1875 (Foreman Thistlenettle npc=626), Suspicious Industrial Supplies 254676 (x8), Rough Dynamite 4358 (x10), Extra-Destructive Explosives 254553, Whitestone Oak Lumber 6994 (paladin chain)",
+  "Page also lists Horde 'Old Fire-Eye' chain 95034, 95036, 95111, 95125, 95126, 95140 (lvl 25-26) but says DM has no Horde quests; relation unclear",
+  "Trash rares: 1951, 1929, 1936, 1934 (6%); 10400, 10401, 10402 (3%)",
+  "Quest XP total 19,125 (Alliance)",
+  "Page level column 'from' value used as min_level"
+ ]
+}

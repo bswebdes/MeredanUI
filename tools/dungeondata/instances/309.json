@@ -1,0 +1,1545 @@
+{
+ "key": 309,
+ "slug": "zulgurub",
+ "kind": "raid",
+ "name_en": "Zul'Gurub",
+ "level": "60",
+ "zone": "Stranglethorn Vale",
+ "faction": "both",
+ "status": "not-announced",
+ "status_note": "in game data, no Forever date",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009",
+  "https://www.icy-veins.com/wow-forever/news/warcraft-forever-roadmap-unveils-raid-unlocks-and-major-updates/"
+ ],
+ "guide_sources": [],
+ "new_in_forever": false,
+ "keys_attunement": null,
+ "forever_changes": [],
+ "bosses": [
+  {
+   "order": null,
+   "wing": null,
+   "name": "High Priestess Jeklik",
+   "name_de": "Hohepriesterin Jeklik",
+   "encounter_id": 785,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.3656,
+    "y": 0.7855
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "High Priest Venoxis",
+   "name_de": "Hohepriester Venoxis",
+   "encounter_id": 784,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.5403,
+    "y": 0.5762
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "High Priestess Mar'li",
+   "name_de": "Hohepriesterin Mar'li",
+   "encounter_id": 786,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.4706,
+    "y": 0.8132
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Bloodlord Mandokir",
+   "name_de": "Blutfürst Mandokir",
+   "encounter_id": 787,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.6571,
+    "y": 0.6864
+   },
+   "loot": [
+    {
+     "item_id": 22637,
+     "name": "Primal Hakkari Idol",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19863,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19866,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19867,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19870,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19877,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19893,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19869,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19873,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19874,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19878,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19895,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20038,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19722,
+     "name": "Primal Hakkari Tabard",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19723,
+     "name": "Primal Hakkari Kossack",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19724,
+     "name": "Primal Hakkari Aegis",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19716,
+     "name": "Primal Hakkari Bindings",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19717,
+     "name": "Primal Hakkari Armsplint",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19718,
+     "name": "Primal Hakkari Stanchion",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19719,
+     "name": "Primal Hakkari Girdle",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19720,
+     "name": "Primal Hakkari Sash",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19721,
+     "name": "Primal Hakkari Shawl",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19872,
+     "name": "Swift Razzashi Raptor",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 0.95,
+     "wowhead_dropped_by": "Bloodlord Mandokir",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Edge of Madness",
+   "name_de": "Rand des Wahnsinns",
+   "encounter_id": 788,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.6461,
+    "y": 0.4736
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "High Priest Thekal",
+   "name_de": "Hohepriester Thekal",
+   "encounter_id": 789,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.6953,
+    "y": 0.3135
+   },
+   "loot": [
+    {
+     "item_id": 19896,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19897,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19898,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19899,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19901,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20260,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20266,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19902,
+     "name": "Swift Zulian Tiger",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 0.9,
+     "wowhead_dropped_by": "High Priest Thekal",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Gahz'ranka",
+   "name_de": "Gahz'ranka",
+   "encounter_id": 790,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.5795,
+    "y": 0.3016
+   },
+   "loot": [
+    {
+     "item_id": 22739,
+     "name": "Tome of Polymorph: Turtle",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.15,
+     "wowhead_dropped_by": "Gahz'ranka",
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 19944,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19945,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 10.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "High Priestess Arlokk",
+   "name_de": "Hohepriesterin Arlokk",
+   "encounter_id": 791,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.4976,
+    "y": 0.1856
+   },
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Jin'do the Hexxer",
+   "name_de": "Jin'do der Verhexer",
+   "encounter_id": 792,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.3099,
+    "y": 0.1657
+   },
+   "loot": [
+    {
+     "item_id": 22637,
+     "name": "Primal Hakkari Idol",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19875,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19884,
+     "name": "Jin'do's Judgement",
+     "slot": "Two-Hand Staff",
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.5,
+     "wowhead_dropped_by": "Jin'do the Hexxer",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 19885,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19886,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19887,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19888,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19889,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19890,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19891,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19892,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19894,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19929,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19722,
+     "name": "Primal Hakkari Tabard",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19723,
+     "name": "Primal Hakkari Kossack",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19724,
+     "name": "Primal Hakkari Aegis",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19716,
+     "name": "Primal Hakkari Bindings",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19717,
+     "name": "Primal Hakkari Armsplint",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19718,
+     "name": "Primal Hakkari Stanchion",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19719,
+     "name": "Primal Hakkari Girdle",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19720,
+     "name": "Primal Hakkari Sash",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19721,
+     "name": "Primal Hakkari Shawl",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 9.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Hakkar",
+   "name_de": "Hakkar",
+   "encounter_id": 793,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.5091,
+    "y": 0.3826
+   },
+   "loot": [
+    {
+     "item_id": 19802,
+     "name": "Heart of Hakkar",
+     "slot": null,
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 96.51,
+     "wowhead_dropped_by": "Hakkar",
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 19852,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19853,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19854,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19855,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19856,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19857,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19859,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19861,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19862,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19864,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19865,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 19876,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20257,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 20264,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 14.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Bloodlord Mandokir: 19863  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19866  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19867  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19870  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19877  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19893  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19869  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19873  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19874  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19878  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 19895  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Bloodlord Mandokir: 20038  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 19896  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 19897  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 19898  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 19899  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 19901  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 20260  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "High Priest Thekal: 20266  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gahz'ranka: 19944  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gahz'ranka: 19945  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19875  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19885  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19886  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19887  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19888  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19889  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19890  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19891  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19892  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19894  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Jin'do the Hexxer: 19929  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19852  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19853  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19854  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19855  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19856  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19857  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19859  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19861  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19862  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19864  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19865  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 19876  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 20257  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Hakkar: 20264  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
+ "open_questions": [],
+ "guide_notes": [],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "repo only",
+  "pins": "ok",
+  "loot": "missing",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 71,
+  "loot_confirmed": 5,
+  "loot_with_chance": 5,
+  "forever_confirmed": "partly",
+  "boss_count": 0,
+  "boss_ok": 0,
+  "pin_ok": 10,
+  "enc_count": 10,
+  "q_tot": 0
+ },
+ "top_points": [
+  "66 loot rows without drop chance",
+  "46 items not on Wowhead Forever (404)"
+ ]
+}

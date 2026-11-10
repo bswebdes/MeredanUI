@@ -1,0 +1,538 @@
+{
+ "key": 3065,
+ "slug": "hall_of_thanes",
+ "kind": "dungeon",
+ "name_en": "The Hall of Thanes",
+ "level": "13-18",
+ "zone": "Ironforge (Old Ironforge)",
+ "faction": "Alliance-leaning, Horde can enter",
+ "status": "live",
+ "status_note": "new Forever dungeon",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-hall-of-thanes-guide/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": "None (no attunement or key)",
+ "forever_changes": [
+  "New WoW Forever dungeon with four new bosses dropping blue gear",
+  "Each boss drops one of its three items"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Faldrim Anvilmar",
+   "name_de": "Faldrim Anvilmar",
+   "encounter_id": 3493,
+   "npcs": [
+    {
+     "id": 261306,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Anvilmar's Rest, central hall near entrance",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.492,
+    "y": 0.729
+   },
+   "loot": [
+    {
+     "item_id": 270227,
+     "name": "Ephemeral Choker",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 271096,
+     "name": "Aetherwisp Bracers",
+     "slot": "Wrist (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 271097,
+     "name": "Spiritwraith Drape",
+     "slot": "Back",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Magmatus",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 261316,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Dark Iron dig east of central hall",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 270230,
+     "name": "Kindlegem Girdle",
+     "slot": "Waist (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 270231,
+     "name": "Flamefist Grips",
+     "slot": "Hands (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 271095,
+     "name": "Fang of Magmatus",
+     "slot": "Dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Plunder",
+   "name_de": "Plünderung",
+   "encounter_id": 3494,
+   "npcs": [
+    {
+     "id": 261311,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "hall before the last boss",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.4939,
+    "y": 0.6392
+   },
+   "loot": [
+    {
+     "item_id": 270228,
+     "name": "Golemheart Stave",
+     "slot": "Staff",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 270229,
+     "name": "Treads of the Protector Golem",
+     "slot": "Feet (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 271098,
+     "name": "Golemguard Chest",
+     "slot": "Chest (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Durgen Dirgehammer",
+   "name_de": "Durgen Dirgehammer",
+   "encounter_id": 3496,
+   "npcs": [
+    {
+     "id": 261319,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Reliquary of Kings, far end",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.493,
+    "y": 0.3728
+   },
+   "loot": [
+    {
+     "item_id": 270256,
+     "name": "Durgen's Crescent Axe",
+     "slot": "One-Hand Axe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 28.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 270260,
+     "name": "Direhammer Leggings",
+     "slot": "Legs (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 270261,
+     "name": "Robes of the Disgraced Thane",
+     "slot": "Chest (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274286,
+     "name": "Durgen Dirgehammer's Head",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 50.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Infurnus",
+   "name_de": "Infurnus",
+   "encounter_id": 3495,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.6291,
+    "y": 0.603
+   },
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 96391,
+   "title": "Underground Map",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Earthseer Farsen",
+   "giver_npc_id": 264936,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh",
+   "prereq": "Dark Iron Map item=274268 from Dark Iron Spy npc=6123",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 96393,
+   "title": "Old Ironforge Incursion",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Alliance",
+   "giver": "Earthseer Farsen",
+   "giver_npc_id": 264936,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh",
+   "prereq": "Underground Map (96391)",
+   "rewards": [
+    279895,
+    279896,
+    279894
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 96394,
+   "title": "The Restless Dead",
+   "level": 15,
+   "min_level": 10,
+   "faction": "Alliance",
+   "giver": "Afadra Dunwall",
+   "giver_npc_id": 264943,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": null,
+   "rewards": [
+    279897,
+    280095
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 96395,
+   "title": "An Ancient Grudge",
+   "level": 15,
+   "min_level": 10,
+   "faction": "Both",
+   "giver": "Ghostly Attendant",
+   "giver_npc_id": 265002,
+   "giver_item_id": null,
+   "giver_zone": "The Hall of Thanes (inside)",
+   "prereq": null,
+   "rewards": [
+    279899,
+    279900
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 96403,
+   "title": "Important Heirlooms",
+   "level": 15,
+   "min_level": 10,
+   "faction": "Both",
+   "giver": "Thom Filch",
+   "giver_npc_id": 265003,
+   "giver_item_id": null,
+   "giver_zone": "Old Ironforge (bridge before portal)",
+   "prereq": null,
+   "rewards": [
+    279898,
+    280096
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 98423,
+   "title": "The Treaty of Understanding",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 281030,
+   "giver_zone": "The Hall of Thanes (last room)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [
+  "NPC 261306 (Faldrim Anvilmar) not found on Wowhead Forever - check ID.",
+  "Boss 'Magmatus' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 261316 (Magmatus) not found on Wowhead Forever - check ID.",
+  "NPC 261311 (Plunder) not found on Wowhead Forever - check ID.",
+  "NPC 261319 (Durgen Dirgehammer) not found on Wowhead Forever - check ID.",
+  "Encounter 3495 'Infurnus' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 96391 'Underground Map' not found on Wowhead Forever - check ID.",
+  "Quest 96393 'Old Ironforge Incursion' not found on Wowhead Forever - check ID.",
+  "Quest 96394 'The Restless Dead' not found on Wowhead Forever - check ID.",
+  "Quest 96395 'An Ancient Grudge' not found on Wowhead Forever - check ID.",
+  "Quest 96403 'Important Heirlooms' not found on Wowhead Forever - check ID.",
+  "Quest 98423 'The Treaty of Understanding' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Treaty of Understanding turned in to King Magni Bronzebeard npc=2784",
+  "Important Heirlooms needs 8x Dwarven Heirloom item=274289",
+  "Restless Dead targets: Enraged Apparition npc=263389, Tormented Soul npc=263390",
+  "Magmatus adds: Dark Iron Summoner npc=263438, Fiery Assistant npc=263467; Durgen guarded by Lesser Stone Golem npc=263466",
+  "min_level values given as 'from 9/10' unlabeled in source",
+  "Achievement Novice Spelunker achievement=62031"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 12,
+  "loot_confirmed": 12,
+  "loot_with_chance": 12,
+  "forever_confirmed": "yes",
+  "boss_count": 4,
+  "boss_ok": 0,
+  "pin_ok": 4,
+  "enc_count": 4,
+  "q_tot": 6
+ },
+ "top_points": [
+  "6 of 6 quests missing in DungeonQuests.lua",
+  "Boss 'Magmatus' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Encounter 3495 'Infurnus' is in DungeonBosses.lua but not in the guide's boss list - check in game."
+ ]
+}

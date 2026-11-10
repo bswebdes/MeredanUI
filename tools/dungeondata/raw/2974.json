@@ -1,0 +1,67 @@
+{
+  "key": 2974,
+  "name_en": "Blackmaw Hold",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-blackmaw-hold-guide/"],
+  "level": "55-60",
+  "boss_level": 60,
+  "zone": "Azshara",
+  "zone_id": 16,
+  "instance_zone_id": 16554,
+  "entrance": "Furbolg tunnel ~38.4,32.6 Azshara near Meeting Stone; portal ~35.0,23.4 by Winterspring border",
+  "faction": "Contested, both factions",
+  "bosses": [
+    {"order": 1, "wing": null, "name": "Withermaw", "npc_ids": [247195], "level": 58, "location": null, "optional": false,
+     "loot": [
+      {"item_id": 249697, "name": "Claws of the Great Bear", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 280064, "name": "Withering Grips", "slot": "Hands (Leather)", "chance": null, "quest_item": false}]},
+    {"order": 2, "wing": null, "name": "Impaan the Imprisoner", "npc_ids": [247206], "level": 57, "location": null, "optional": false,
+     "loot": [
+      {"item_id": 280058, "name": "Impish Chain Hood", "slot": "Head (Mail)", "chance": null, "quest_item": false}]},
+    {"order": 3, "wing": null, "name": "Elder Shaman Bloodmane", "npc_ids": [247209], "level": null, "location": null, "optional": false,
+     "loot": [
+      {"item_id": 276893, "name": "Blackmaw Ritual Totem", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 286415, "name": "Reliquary of Tyr", "slot": "Quest (Paladin, epic)", "chance": null, "quest_item": true}]},
+    {"order": 4, "wing": null, "name": "Bonesnout the Unbroken", "npc_ids": [247198], "level": 58, "location": null, "optional": false,
+     "loot": [
+      {"item_id": 249696, "name": "Tusks of the Unbroken", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 280060, "name": "Lucky Shovelnose Tuft", "slot": "Trinket", "chance": null, "quest_item": false}]},
+    {"order": 5, "wing": null, "name": "Varrox Bleakhoof", "npc_ids": [247234], "level": 60, "location": null, "optional": false,
+     "loot": [
+      {"item_id": 249692, "name": "Head of Varrox Bleakhoof", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 272027, "name": "Mark of Xavius", "slot": "Quest", "chance": null, "quest_item": true}]},
+    {"order": 6, "wing": null, "name": "Blackmaw Behemoth", "npc_ids": [247207], "level": null, "location": null, "optional": false, "loot": []},
+    {"order": 7, "wing": null, "name": "Unbound Spirit", "npc_ids": [247231], "level": null, "location": null, "optional": false, "loot": []}
+  ],
+  "rares": [
+    {"name": "Moontouched Wanderer", "npc_id": 269104, "location": null, "loot": [
+      {"item_id": 280080, "name": "Claymore of Two Moons", "slot": "Two-Hand Sword", "chance": null, "quest_item": false}]}
+  ],
+  "trash_loot": [
+    {"npc_name": "Legashi Ritualist", "npc_id": 258668, "item_id": 287036, "name": "Satyr's Touch", "slot": "Wand", "chance": null},
+    {"npc_name": "(party loot)", "npc_id": null, "item_id": 250773, "name": "Nordrassil Root Cap", "slot": "Quest", "chance": null}
+  ],
+  "quests": [
+    {"quest_id": 92069, "title": "Claws That Rend, Tusks that Gore", "level": 58, "min_level": 45, "faction": "Both", "giver": "Ogtinc", "giver_npc_id": 8405, "giver_item_id": null, "giver_zone": "Azshara", "prereq": null, "rewards": [260213, 260214, 260215]},
+    {"quest_id": 92346, "title": "Beneath Nordrassil", "level": 55, "min_level": 45, "faction": "Horde", "giver": "Jediga", "giver_npc_id": 8587, "giver_item_id": null, "giver_zone": "Azshara (Valormok)", "prereq": null, "rewards": []},
+    {"quest_id": 92343, "title": "Get to the Roots of It", "level": 55, "min_level": 45, "faction": "Horde", "giver": "Nara Wildmane", "giver_npc_id": 5770, "giver_item_id": null, "giver_zone": "Thunder Bluff", "prereq": "Beneath Nordrassil (92346)", "rewards": []},
+    {"quest_id": 97198, "title": "Blackmaw Magic", "level": 59, "min_level": 52, "faction": "Horde", "giver": null, "giver_npc_id": null, "giver_item_id": null, "giver_zone": null, "prereq": null, "rewards": []},
+    {"quest_id": 92345, "title": "Beneath Nordrassil", "level": 55, "min_level": 45, "faction": "Alliance", "giver": null, "giver_npc_id": null, "giver_item_id": null, "giver_zone": null, "prereq": null, "rewards": []},
+    {"quest_id": 92344, "title": "Get to the Roots of It", "level": 55, "min_level": 45, "faction": "Alliance", "giver": "Mathrengyl Bearwalker", "giver_npc_id": 4217, "giver_item_id": null, "giver_zone": "Darnassus", "prereq": "Beneath Nordrassil (92345)", "rewards": []},
+    {"quest_id": 97173, "title": "Blackmaw Magic", "level": 59, "min_level": 52, "faction": "Alliance", "giver": null, "giver_npc_id": null, "giver_item_id": null, "giver_zone": "Dalaran? (unconfirmed)", "prereq": null, "rewards": []}
+  ],
+  "keys_attunement": null,
+  "forever_changes": [
+    "New Forever dungeon; the old northern Azshara 'Timbermaw Hold' gate now leads here",
+    "Beneath Nordrassil / Blackmaw Magic quests are Forever content",
+    "Counts toward Master Spelunker (achievement 62033)",
+    "Deep tunnels lead toward Barrow Deeps raid"
+  ],
+  "notes": [
+    "No drop chances published on the guide",
+    "Boss locations not given; order is the guide's encounter numbering",
+    "Ogtinc as giver of 92069 marked 'most likely' by the guide",
+    "Horde Blackmaw Magic linked as 97198 in one place, 97173 in another; 97173 is the Alliance version",
+    "Unassigned quest items: Totem of Ursol 249693, Totem of Ursoc 249694, Feathered Charm Necklace 249698, Blackmaw Pouch 273050",
+    "Get to the Roots of It requires 10x Nordrassil Root Cap (250773)"
+  ]
+}

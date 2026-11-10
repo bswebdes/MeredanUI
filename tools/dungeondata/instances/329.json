@@ -1,0 +1,3854 @@
+{
+ "key": 329,
+ "slug": "stratholme",
+ "kind": "dungeon",
+ "name_en": "Stratholme",
+ "level": "58-60",
+ "zone": "Eastern Plaguelands",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon (Main Gate + Service Gate)",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-stratholme-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "Service Gate locked until Key to the City item=12382 (Magistrate Barthilas npc=10435, ~94%). Baron run (Dead Man's Plea) has 45-minute timer.",
+ "forever_changes": [
+  "Deathcharger's Reins account-wide, needs Journeyman Riding",
+  "Dungeon Set 1 bonuses: 2pc +8 all resist, 3pc +18 SP or +30 AP, more at 4/5/6",
+  "Mask of the Unforgiven +6 Defense, more Stamina",
+  "Vambraces of the Sadist add crit rating",
+  "Shroud of the Nathrezim adds SP and crit rating",
+  "Foresight Girdle 15 HP5 (was 5)",
+  "Stoneskin Gargoyle Cape +50 armor",
+  "Death Grips +5 hit rating",
+  "Ysida Harmon / Dead Man's Plea is a Forever quest; 45-min Baron timer",
+  "The Flesh Does Not Lie asks 20 samples (was 10)",
+  "Item-started quests cannot be shared",
+  "Recipe skill reductions: Ghostweave Pants 245 Tailoring, Wicked Leather Belt 275 LW, Plans: Serenity 260 BS"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "Main Gate",
+   "name": "Postmaster Malown",
+   "name_de": "Postmeister Malown",
+   "encounter_id": 2798,
+   "npcs": [
+    {
+     "id": 11143,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "spawns after opening 3 postboxes",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 13391,
+     "name": "The Postmaster's Treads",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 25.0,
+     "chance_wowhead_forever": 14.94,
+     "wowhead_dropped_by": "Postmaster Malown",
+     "chance_repo": 19.4,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13392,
+     "name": "The Postmaster's Seal",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": 22.99,
+     "wowhead_dropped_by": "Postmaster Malown",
+     "chance_repo": 19.4,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13393,
+     "name": "Malown's Slam",
+     "slot": "Two-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 5.0,
+     "chance_wowhead_forever": 14.94,
+     "wowhead_dropped_by": "Postmaster Malown",
+     "chance_repo": 19.4,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13388,
+     "name": "The Postmaster's Tunic",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.24,
+     "wowhead_dropped_by": "Postmaster Malown",
+     "chance_repo": 19.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13389,
+     "name": "The Postmaster's Trousers",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 13.79,
+     "wowhead_dropped_by": "Postmaster Malown",
+     "chance_repo": 19.4,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13390,
+     "name": "The Postmaster's Band",
+     "slot": "Head Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 3.45,
+     "wowhead_dropped_by": "Postmaster Malown",
+     "chance_repo": 3.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "Main Gate",
+   "name": "Timmy the Cruel",
+   "name_de": "Timmy der Grausame",
+   "encounter_id": 474,
+   "npcs": [
+    {
+     "id": 10808,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "market square",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3906,
+    "y": 0.4139
+   },
+   "loot": [
+    {
+     "item_id": 13400,
+     "name": "Vambraces of the Sadist",
+     "slot": "Wrist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 20.75,
+     "wowhead_dropped_by": "Timmy the Cruel",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13402,
+     "name": "Timmy's Galoshes",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 19.95,
+     "wowhead_dropped_by": "Timmy the Cruel",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13401,
+     "name": "The Cruel Hand of Timmy",
+     "slot": "One-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": 19.58,
+     "wowhead_dropped_by": "Timmy the Cruel",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13403,
+     "name": "Grimgore Noose",
+     "slot": "Waist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.05,
+     "wowhead_dropped_by": "Timmy the Cruel",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16724,
+     "name": "Lightforge Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "Main Gate",
+   "name": "Malor the Zealous",
+   "name_de": "Malor der Eifrige",
+   "encounter_id": 476,
+   "npcs": [
+    {
+     "id": 11032,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "guards Medallion of Faith strongbox",
+   "optional": true,
+   "pin": {
+    "floor": 1,
+    "x": 0.3045,
+    "y": 0.4004
+   },
+   "loot": [
+    {
+     "item_id": 12845,
+     "name": "Medallion of Faith",
+     "slot": "Quest (strongbox)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "Main Gate",
+   "name": "Crimson Hammersmith",
+   "name_de": "Purpurroter Hammerschmied",
+   "encounter_id": 2796,
+   "npcs": [
+    {
+     "id": 11120,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Scarlet Bastion smithy area",
+   "optional": true,
+   "pin": {
+    "floor": 1,
+    "x": 0.13,
+    "y": 0.5064
+   },
+   "loot": [
+    {
+     "item_id": 18781,
+     "name": "Bottom Half of Advanced Armorsmithing: Volume II",
+     "slot": "Quest/Recipe",
+     "quality": 3,
+     "quest_item": true,
+     "chance_guide": 63.0,
+     "chance_wowhead_forever": 63.48,
+     "wowhead_dropped_by": "Crimson Hammersmith",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13351,
+     "name": "Crimson Hammersmith's Apron",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 12811,
+     "name": "Righteous Orb",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 4.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "Main Gate",
+   "name": "Cannon Master Willey",
+   "name_de": "Kanonenmeister Willey",
+   "encounter_id": 475,
+   "npcs": [
+    {
+     "id": 10997,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Scarlet Bastion courtyard",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.0359,
+    "y": 0.5014
+   },
+   "loot": [
+    {
+     "item_id": 18721,
+     "name": "Barrage Girdle",
+     "slot": "Waist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.0,
+     "chance_wowhead_forever": 19.3,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13382,
+     "name": "Cannonball Runner",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.28,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13380,
+     "name": "Willey's Portable Howitzer",
+     "slot": "Gun",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 19.27,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22403,
+     "name": "Nacreous Shell Necklace",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 20.42,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12839,
+     "name": "Plans: Heartseeker",
+     "slot": "Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 11.0,
+     "chance_wowhead_forever": 7.13,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 6.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13377,
+     "name": "Miniature Cannon Balls",
+     "slot": "Ammo Bullet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 91.69,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 21524,
+     "name": "Red Winter Hat",
+     "slot": "Head Cloth",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13381,
+     "name": "Master Cannoneer Boots",
+     "slot": "Feet Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.3,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16708,
+     "name": "Shadowcraft Spaulders",
+     "slot": "Shoulder Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.46,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22404,
+     "name": "Willey's Back Scratcher",
+     "slot": "Main Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 9.52,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22405,
+     "name": "Mantle of the Scarlet Crusade",
+     "slot": "Shoulder Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.55,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22406,
+     "name": "Redemption",
+     "slot": "Two-Hand Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 8.18,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22407,
+     "name": "Helm of the New Moon",
+     "slot": "Head Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.25,
+     "wowhead_dropped_by": "Cannon Master Willey",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": "Main Gate",
+   "name": "Archivist Galford",
+   "name_de": "Archivar Galford",
+   "encounter_id": 477,
+   "npcs": [
+    {
+     "id": 10811,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Scarlet archive/library",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.2713,
+    "y": 0.7513
+   },
+   "loot": [
+    {
+     "item_id": 13385,
+     "name": "Tome of Knowledge",
+     "slot": "Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 14.0,
+     "chance_wowhead_forever": 13.66,
+     "wowhead_dropped_by": "Archivist Galford",
+     "chance_repo": 12.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18716,
+     "name": "Ash Covered Boots",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": 21.03,
+     "wowhead_dropped_by": "Archivist Galford",
+     "chance_repo": 22.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13386,
+     "name": "Archivist Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": 21.42,
+     "wowhead_dropped_by": "Archivist Galford",
+     "chance_repo": 22.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13387,
+     "name": "Foresight Girdle",
+     "slot": "Waist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": 21.15,
+     "wowhead_dropped_by": "Archivist Galford",
+     "chance_repo": 22.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22206,
+     "name": "Bouquet of Red Roses",
+     "slot": "Held In Off-hand",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 16692,
+     "name": "Devout Gloves",
+     "slot": "Hands Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.02,
+     "wowhead_dropped_by": "Archivist Galford",
+     "chance_repo": 22.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12811,
+     "name": "Righteous Orb",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 18.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "Main Gate",
+   "name": "Balnazzar",
+   "name_de": "Balnazzar",
+   "encounter_id": 478,
+   "npcs": [
+    {
+     "id": 10813,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 10812,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "final room; Grand Crusader Dathrohan transforms",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.1879,
+    "y": 0.8366
+   },
+   "loot": [
+    {
+     "item_id": 13250,
+     "name": "Head of Balnazzar",
+     "slot": "Quest (starts 5262)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 13353,
+     "name": "Book of the Dead",
+     "slot": "Off-hand (epic)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 14512,
+     "name": "Pattern: Truefaith Vestments",
+     "slot": "Recipe (epic)",
+     "quality": 4,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 6.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12103,
+     "name": "Star of Mystaria",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18717,
+     "name": "Hammer of the Grand Crusader",
+     "slot": "Two-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18720,
+     "name": "Shroud of the Nathrezim",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22334,
+     "name": "Band of Mending",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 13359,
+     "name": "Crown of Tyranny",
+     "slot": "Head Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13369,
+     "name": "Fire Striders",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13348,
+     "name": "Demonshear",
+     "slot": "Two-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13358,
+     "name": "Wyrmtongue Shoulders",
+     "slot": "Shoulder Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13360,
+     "name": "Gift of the Elven Magi",
+     "slot": "Main Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 16725,
+     "name": "Lightforge Boots",
+     "slot": "Feet Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18718,
+     "name": "Grand Crusader's Helm",
+     "slot": "Head Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 19.8,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12662,
+     "name": "Demonic Rune",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 8.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13520,
+     "name": "Recipe: Flask of Distilled Wisdom",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 3.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": "Service Gate",
+   "name": "Magistrate Barthilas",
+   "name_de": "Magistrat Barthilas",
+   "encounter_id": 482,
+   "npcs": [
+    {
+     "id": 10435,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "near Service Gate / Festival Lane",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.6534,
+    "y": 0.755
+   },
+   "loot": [
+    {
+     "item_id": 12382,
+     "name": "Key to the City",
+     "slot": "Key",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": 94.0,
+     "chance_wowhead_forever": 94.25,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 100.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18722,
+     "name": "Death Grips",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": 14.85,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 16.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18727,
+     "name": "Crimson Felt Hat",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 15.25,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 16.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18725,
+     "name": "Peacemaker",
+     "slot": "Polearm",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 14.95,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 16.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13376,
+     "name": "Royal Tribunal Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.59,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18726,
+     "name": "Magistrate's Cuffs",
+     "slot": "Wrist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.48,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 23198,
+     "name": "Idol of Brutality",
+     "slot": "Relic Idol",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 3.62,
+     "wowhead_dropped_by": "Magistrate Barthilas",
+     "chance_repo": 16.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": "Service Gate",
+   "name": "Baroness Anastari",
+   "name_de": "Baroness Anastari",
+   "encounter_id": 479,
+   "npcs": [
+    {
+     "id": 10436,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "ziggurat",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.7495,
+    "y": 0.4685
+   },
+   "loot": [
+    {
+     "item_id": 18728,
+     "name": "Anastari Heirloom",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.79,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13534,
+     "name": "Banshee Finger",
+     "slot": "Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.0,
+     "chance_wowhead_forever": 17.63,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16704,
+     "name": "Dreadmist Sandals",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.59,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13514,
+     "name": "Wail of the Banshee",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 8.93,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13535,
+     "name": "Coldtouch Phantom Wraps",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.81,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13537,
+     "name": "Chillhide Bracers",
+     "slot": "Wrist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.5,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13538,
+     "name": "Windshrieker Pauldrons",
+     "slot": "Shoulder Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.44,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13539,
+     "name": "Banshee's Touch",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.72,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18729,
+     "name": "Screeching Bow",
+     "slot": "Ranged Bow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.24,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18730,
+     "name": "Shadowy Laced Handwraps",
+     "slot": "Hands Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.26,
+     "wowhead_dropped_by": "Baroness Anastari",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": "Service Gate",
+   "name": "Nerub'enkan",
+   "name_de": "Nerub'enkan",
+   "encounter_id": 480,
+   "npcs": [
+    {
+     "id": 10437,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "ziggurat",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.5637,
+    "y": 0.469
+   },
+   "loot": [
+    {
+     "item_id": 13529,
+     "name": "Husk of Nerub'enkan",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 18.5,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18738,
+     "name": "Carapace Spine Crossbow",
+     "slot": "Crossbow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.04,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16675,
+     "name": "Beaststalker's Boots",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.85,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13508,
+     "name": "Eye of Arachnida",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 8.85,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13530,
+     "name": "Fangdrip Runners",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.26,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13531,
+     "name": "Crypt Stalker Leggings",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.15,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13532,
+     "name": "Darkspinner Claws",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.87,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13533,
+     "name": "Acid-etched Pauldrons",
+     "slot": "Shoulder Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.68,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18739,
+     "name": "Chitinous Plate Legguards",
+     "slot": "Legs Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.79,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18740,
+     "name": "Thuzadin Sash",
+     "slot": "Waist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.18,
+     "wowhead_dropped_by": "Nerub'enkan",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 11,
+   "wing": "Service Gate",
+   "name": "Maleki the Pallid",
+   "name_de": "Maleki der Leichenblasse",
+   "encounter_id": 481,
+   "npcs": [
+    {
+     "id": 10438,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "ziggurat",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.6819,
+    "y": 0.1993
+   },
+   "loot": [
+    {
+     "item_id": 13524,
+     "name": "Skull of Burning Shadows",
+     "slot": "Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.92,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18737,
+     "name": "Bone Slicing Hatchet",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 18.56,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16691,
+     "name": "Devout Sandals",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.18,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12833,
+     "name": "Plans: Hammer of the Titans",
+     "slot": "Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 8.0,
+     "chance_wowhead_forever": 8.08,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 6.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13509,
+     "name": "Clutch of Foresight",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 8.74,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13525,
+     "name": "Darkbind Fingers",
+     "slot": "Hands Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.96,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13526,
+     "name": "Flamescarred Girdle",
+     "slot": "Waist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.24,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13527,
+     "name": "Lavawalker Greaves",
+     "slot": "Feet Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.0,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13528,
+     "name": "Twilight Void Bracers",
+     "slot": "Wrist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.76,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18734,
+     "name": "Pale Moon Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.2,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18735,
+     "name": "Maleki's Footwraps",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.67,
+     "wowhead_dropped_by": "Maleki the Pallid",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": "Service Gate",
+   "name": "Ramstein the Gorger",
+   "name_de": "Ramstein der Verschlinger",
+   "encounter_id": 483,
+   "npcs": [
+    {
+     "id": 10439,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Slaughterhouse entrance",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.4142,
+    "y": 0.204
+   },
+   "loot": [
+    {
+     "item_id": 13373,
+     "name": "Band of Flesh",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 12.0,
+     "chance_wowhead_forever": 11.83,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 14.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13515,
+     "name": "Ramstein's Lightning Bolts",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 12.28,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 14.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13375,
+     "name": "Crest of Retribution",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 12.0,
+     "chance_wowhead_forever": 12.06,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 14.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18723,
+     "name": "Animated Chain Necklace",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 12.0,
+     "chance_wowhead_forever": 11.78,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 14.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16737,
+     "name": "Gauntlets of Valor",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.43,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 12.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12735,
+     "name": "Frayed Abomination Stitching",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13372,
+     "name": "Slavedriver's Cane",
+     "slot": "Two-Hand Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 11.82,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 14.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13374,
+     "name": "Soulstealer Mantle",
+     "slot": "Shoulder Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 12.15,
+     "wowhead_dropped_by": "Ramstein the Gorger",
+     "chance_repo": 14.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": "Service Gate",
+   "name": "Baron Rivendare",
+   "name_de": "Baron Rivendare",
+   "encounter_id": 484,
+   "npcs": [
+    {
+     "id": 10440,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Slaughterhouse, final room",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.3722,
+    "y": 0.1993
+   },
+   "loot": [
+    {
+     "item_id": 13251,
+     "name": "Head of Baron Rivendare",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 16687,
+     "name": "Magister's Leggings",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 10.91,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16709,
+     "name": "Shadowcraft Pants",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 11.0,
+     "chance_wowhead_forever": 10.89,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16694,
+     "name": "Devout Skirt",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": 10.43,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13345,
+     "name": "Seal of Rivendare",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 13.34,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13349,
+     "name": "Scepter of the Unholy",
+     "slot": "One-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 14.38,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13340,
+     "name": "Cape of the Black Baron",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": 14.7,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22412,
+     "name": "Thuzadin Mantle",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.0,
+     "chance_wowhead_forever": 15.26,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22409,
+     "name": "Tunic of the Crescent Moon",
+     "slot": "Chest",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 15.96,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13361,
+     "name": "Skullforge Reaver",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 6.0,
+     "chance_wowhead_forever": 6.79,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13505,
+     "name": "Runeblade of Baron Rivendare",
+     "slot": "Two-Hand Sword (epic)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13335,
+     "name": "Deathcharger's Reins",
+     "slot": "Mount",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 22408,
+     "name": "Ritssyn's Wand of Bad Mojo",
+     "slot": "Ranged Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.43,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22410,
+     "name": "Gauntlets of Deftness",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.01,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22411,
+     "name": "Helm of the Executioner",
+     "slot": "Head Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 13.93,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13344,
+     "name": "Dracorian Gauntlets",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.34,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13346,
+     "name": "Robes of the Exalted",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 14.71,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13368,
+     "name": "Bonescraper",
+     "slot": "One-Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 6.85,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 14.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16668,
+     "name": "Kilt of Elements",
+     "slot": "Legs Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 4.59,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16678,
+     "name": "Beaststalker's Pants",
+     "slot": "Legs Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.49,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16699,
+     "name": "Dreadmist Leggings",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.37,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16719,
+     "name": "Wildheart Kilt",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.24,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16728,
+     "name": "Lightforge Legplates",
+     "slot": "Legs Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 6.45,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16732,
+     "name": "Legplates of Valor",
+     "slot": "Legs Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.91,
+     "wowhead_dropped_by": "Baron Rivendare",
+     "chance_repo": 11.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Ezra Grimm",
+   "name_de": "Ezra Grimm",
+   "encounter_id": 2797,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  }
+ ],
+ "rares": [
+  {
+   "name": "Skul",
+   "npc_id": 10393,
+   "wowhead_name": null,
+   "location": null,
+   "pin": null,
+   "encounter_id": 2799,
+   "loot": [
+    {
+     "item_id": 13396,
+     "name": "Skul's Ghastly Touch",
+     "slot": "Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 30.02,
+     "wowhead_dropped_by": "Skul",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13395,
+     "name": "Skul's Fingerbone Claws",
+     "slot": "Fist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 29.4,
+     "wowhead_dropped_by": "Skul",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13394,
+     "name": "Skul's Cold Embrace",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 30.02,
+     "wowhead_dropped_by": "Skul",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Hearthsinger Forresten",
+   "npc_id": 10558,
+   "wowhead_name": null,
+   "location": null,
+   "pin": null,
+   "encounter_id": 473,
+   "loot": [
+    {
+     "item_id": 13379,
+     "name": "Piccolo of the Flaming Fire",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 19.66,
+     "wowhead_dropped_by": "Hearthsinger Forresten",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13378,
+     "name": "Songbird Blouse",
+     "slot": "Chest",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": 22.72,
+     "wowhead_dropped_by": "Hearthsinger Forresten",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16682,
+     "name": "Magister's Boots",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 13.0,
+     "chance_wowhead_forever": 14.05,
+     "wowhead_dropped_by": "Hearthsinger Forresten",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13383,
+     "name": "Woollies of the Prancing Minstrel",
+     "slot": "Legs Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.82,
+     "wowhead_dropped_by": "Hearthsinger Forresten",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13384,
+     "name": "Rainbow Girdle",
+     "slot": "Waist Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.3,
+     "wowhead_dropped_by": "Hearthsinger Forresten",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "The Unforgiven",
+   "npc_id": 10516,
+   "wowhead_name": null,
+   "location": null,
+   "pin": null,
+   "encounter_id": 472,
+   "loot": [
+    {
+     "item_id": 13404,
+     "name": "Mask of the Unforgiven",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": 20.64,
+     "wowhead_dropped_by": "The Unforgiven",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13405,
+     "name": "Wailing Nightbane Pauldrons",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.23,
+     "wowhead_dropped_by": "The Unforgiven",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13408,
+     "name": "Soul Breaker",
+     "slot": "Main Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.33,
+     "wowhead_dropped_by": "The Unforgiven",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13409,
+     "name": "Tearfall Bracers",
+     "slot": "Wrist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.79,
+     "wowhead_dropped_by": "The Unforgiven",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 16717,
+     "name": "Wildheart Gloves",
+     "slot": "Hands Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Stonespine",
+   "npc_id": 10809,
+   "wowhead_name": null,
+   "location": null,
+   "pin": null,
+   "encounter_id": 2800,
+   "loot": [
+    {
+     "item_id": 13397,
+     "name": "Stoneskin Gargoyle Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": 31.03,
+     "wowhead_dropped_by": "Stonespine",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 12843,
+     "name": "Corruptor's Scourgestone",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 13399,
+     "name": "Gargoyle Shredder Talons",
+     "slot": "Off Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 33.71,
+     "wowhead_dropped_by": "Stonespine",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13954,
+     "name": "Verdant Footpads",
+     "slot": "Feet Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 29.63,
+     "wowhead_dropped_by": "Stonespine",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Black Guard Swordsmith",
+   "npc_id": 11121,
+   "wowhead_name": null,
+   "location": null,
+   "pin": null,
+   "encounter_id": 2795,
+   "loot": [
+    {
+     "item_id": 18783,
+     "name": "Bottom Half of Advanced Armorsmithing: Volume III",
+     "slot": "Quest/Recipe",
+     "quality": 3,
+     "quest_item": true,
+     "chance_guide": 42.0,
+     "chance_wowhead_forever": 42.14,
+     "wowhead_dropped_by": "Black Guard Swordsmith",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 13350,
+     "name": "Insignia of the Black Guard",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 5243,
+   "title": "Houses of the Holy",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Leonid Barthalomew the Revered",
+   "giver_npc_id": 11036,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": [
+    3928,
+    6149,
+    13216,
+    13217
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5212,
+   "title": "The Flesh Does Not Lie",
+   "level": 60,
+   "min_level": 55,
+   "faction": "Both",
+   "giver": "Betina Bigglezink",
+   "giver_npc_id": 11035,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5213,
+   "title": "The Active Agent",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Betina Bigglezink",
+   "giver_npc_id": 11035,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": "5212",
+   "rewards": [
+    13209,
+    19812
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5281,
+   "title": "The Restless Souls",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Caretaker Alen",
+   "giver_npc_id": 11038,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5282,
+   "title": "The Restless Souls",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Egan",
+   "giver_npc_id": 11140,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands",
+   "prereq": "5281",
+   "rewards": [
+    13315
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5214,
+   "title": "The Great Fras Siabi",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Smokey LaRue",
+   "giver_npc_id": 11033,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": [
+    13171
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5122,
+   "title": "The Medallion of Faith",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Aurius",
+   "giver_npc_id": 10917,
+   "giver_item_id": null,
+   "giver_zone": "Stratholme",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5125,
+   "title": "Aurius' Reckoning",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Aurius",
+   "giver_npc_id": 10917,
+   "giver_item_id": null,
+   "giver_zone": "Stratholme",
+   "prereq": "5122",
+   "rewards": [
+    17044,
+    17045
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5251,
+   "title": "The Archivist",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Duke Nicholas Zverenhoff",
+   "giver_npc_id": 11039,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5262,
+   "title": "The Truth Comes Crashing Down",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 13250,
+   "giver_zone": "Stratholme",
+   "prereq": "5251",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5263,
+   "title": "Above and Beyond",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Duke Nicholas Zverenhoff",
+   "giver_npc_id": 11039,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": "5262",
+   "rewards": [
+    13246,
+    13243,
+    13249
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5846,
+   "title": "Of Love and Family",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Tirion Fordring",
+   "giver_npc_id": 1855,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5848,
+   "title": "Of Love and Family",
+   "level": 60,
+   "min_level": 52,
+   "faction": "Both",
+   "giver": "Artist Renfray",
+   "giver_npc_id": 11936,
+   "giver_item_id": null,
+   "giver_zone": "Western Plaguelands (Caer Darrow)",
+   "prereq": "5846",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5463,
+   "title": "Menethil's Gift",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Leonid Barthalomew the Revered",
+   "giver_npc_id": 11036,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Light's Hope)",
+   "prereq": "5462 (Scholomance chain)",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8945,
+   "title": "Dead Man's Plea",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Anthion Harmon",
+   "giver_npc_id": 16016,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (outside Stratholme)",
+   "prereq": "8929/8930",
+   "rewards": [
+    22137
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8968,
+   "title": "The Left Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8962/8964",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8991,
+   "title": "The Right Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "8987",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 6163,
+   "title": "Ramstein",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Horde",
+   "giver": "Nathanos Blightcaller",
+   "giver_npc_id": 11878,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands (Marris Stead)",
+   "prereq": "6135",
+   "rewards": [
+    16999,
+    17001
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 5307,
+   "title": "Corruption",
+   "level": null,
+   "min_level": null,
+   "faction": "Both (Blacksmithing)",
+   "giver": "Seril Scourgebane",
+   "giver_npc_id": 11193,
+   "giver_item_id": null,
+   "giver_zone": "Winterspring",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5305,
+   "title": "Sweet Serenity",
+   "level": null,
+   "min_level": null,
+   "faction": "Both (Blacksmithing)",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Postmaster Malown: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Postmaster Malown: 13388 The Postmaster's Tunic - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.24%)",
+  "Postmaster Malown: 13389 The Postmaster's Trousers - in DungeonLoot.lua, not in guide (Wowhead Forever: 13.79%)",
+  "Postmaster Malown: 13390 The Postmaster's Band - in DungeonLoot.lua, not in guide (Wowhead Forever: 3.45%)",
+  "Timmy the Cruel: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Timmy the Cruel: 13403 Grimgore Noose - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.05%)",
+  "Timmy the Cruel: 16724 Lightforge Gauntlets - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Crimson Hammersmith: 12811 Righteous Orb - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Cannon Master Willey: 13377 Miniature Cannon Balls - in DungeonLoot.lua, not in guide (Wowhead Forever: 91.69%)",
+  "Cannon Master Willey: 21524 Red Winter Hat - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Cannon Master Willey: 13381 Master Cannoneer Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.3%)",
+  "Cannon Master Willey: 16708 Shadowcraft Spaulders - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.46%)",
+  "Cannon Master Willey: 22404 Willey's Back Scratcher - in DungeonLoot.lua, not in guide (Wowhead Forever: 9.52%)",
+  "Cannon Master Willey: 22404 Willey's Back Scratcher - chance repo 20% vs Forever 9.52%",
+  "Cannon Master Willey: 22405 Mantle of the Scarlet Crusade - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.55%)",
+  "Cannon Master Willey: 22406 Redemption - in DungeonLoot.lua, not in guide (Wowhead Forever: 8.18%)",
+  "Cannon Master Willey: 22406 Redemption - chance repo 20% vs Forever 8.18%",
+  "Cannon Master Willey: 22407 Helm of the New Moon - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.25%)",
+  "Archivist Galford: 22206 Bouquet of Red Roses - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Archivist Galford: 16692 Devout Gloves - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.02%)",
+  "Archivist Galford: 12811 Righteous Orb - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 22334 Band of Mending - in Forever guide, missing in DungeonLoot.lua",
+  "Balnazzar: 13359 Crown of Tyranny - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 13369 Fire Striders - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 13348 Demonshear - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 13358 Wyrmtongue Shoulders - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 13360 Gift of the Elven Magi - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 16725 Lightforge Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 18718 Grand Crusader's Helm - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 12662 Demonic Rune - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Balnazzar: 13520 Recipe: Flask of Distilled Wisdom - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Magistrate Barthilas: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Magistrate Barthilas: 13376 Royal Tribunal Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.59%)",
+  "Magistrate Barthilas: 18726 Magistrate's Cuffs - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.48%)",
+  "Magistrate Barthilas: 23198 Idol of Brutality - in DungeonLoot.lua, not in guide (Wowhead Forever: 3.62%)",
+  "Magistrate Barthilas: 23198 Idol of Brutality - chance repo 16.7% vs Forever 3.62%",
+  "Baroness Anastari: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Baroness Anastari: 13514 Wail of the Banshee - in DungeonLoot.lua, not in guide (Wowhead Forever: 8.93%)",
+  "Baroness Anastari: 13514 Wail of the Banshee - chance repo 20% vs Forever 8.93%",
+  "Baroness Anastari: 13535 Coldtouch Phantom Wraps - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.81%)",
+  "Baroness Anastari: 13537 Chillhide Bracers - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.5%)",
+  "Baroness Anastari: 13538 Windshrieker Pauldrons - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.44%)",
+  "Baroness Anastari: 13539 Banshee's Touch - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.72%)",
+  "Baroness Anastari: 18729 Screeching Bow - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.24%)",
+  "Baroness Anastari: 18730 Shadowy Laced Handwraps - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.26%)",
+  "Nerub'enkan: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Nerub'enkan: 13508 Eye of Arachnida - in DungeonLoot.lua, not in guide (Wowhead Forever: 8.85%)",
+  "Nerub'enkan: 13508 Eye of Arachnida - chance repo 20% vs Forever 8.85%",
+  "Nerub'enkan: 13530 Fangdrip Runners - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.26%)",
+  "Nerub'enkan: 13531 Crypt Stalker Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.15%)",
+  "Nerub'enkan: 13532 Darkspinner Claws - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.87%)",
+  "Nerub'enkan: 13533 Acid-etched Pauldrons - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.68%)",
+  "Nerub'enkan: 18739 Chitinous Plate Legguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.79%)",
+  "Nerub'enkan: 18740 Thuzadin Sash - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.18%)",
+  "Maleki the Pallid: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Maleki the Pallid: 13509 Clutch of Foresight - in DungeonLoot.lua, not in guide (Wowhead Forever: 8.74%)",
+  "Maleki the Pallid: 13509 Clutch of Foresight - chance repo 20% vs Forever 8.74%",
+  "Maleki the Pallid: 13525 Darkbind Fingers - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.96%)",
+  "Maleki the Pallid: 13526 Flamescarred Girdle - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.24%)",
+  "Maleki the Pallid: 13527 Lavawalker Greaves - in DungeonLoot.lua, not in guide (Wowhead Forever: 11%)",
+  "Maleki the Pallid: 13528 Twilight Void Bracers - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.76%)",
+  "Maleki the Pallid: 18734 Pale Moon Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.2%)",
+  "Maleki the Pallid: 18735 Maleki's Footwraps - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.67%)",
+  "Ramstein the Gorger: 12735 Frayed Abomination Stitching - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Ramstein the Gorger: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Ramstein the Gorger: 13372 Slavedriver's Cane - in DungeonLoot.lua, not in guide (Wowhead Forever: 11.82%)",
+  "Ramstein the Gorger: 13374 Soulstealer Mantle - in DungeonLoot.lua, not in guide (Wowhead Forever: 12.15%)",
+  "Baron Rivendare: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Baron Rivendare: 22408 Ritssyn's Wand of Bad Mojo - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.43%)",
+  "Baron Rivendare: 22410 Gauntlets of Deftness - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.01%)",
+  "Baron Rivendare: 22411 Helm of the Executioner - in DungeonLoot.lua, not in guide (Wowhead Forever: 13.93%)",
+  "Baron Rivendare: 13344 Dracorian Gauntlets - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.34%)",
+  "Baron Rivendare: 13346 Robes of the Exalted - in DungeonLoot.lua, not in guide (Wowhead Forever: 14.71%)",
+  "Baron Rivendare: 13368 Bonescraper - in DungeonLoot.lua, not in guide (Wowhead Forever: 6.85%)",
+  "Baron Rivendare: 16668 Kilt of Elements - in DungeonLoot.lua, not in guide (Wowhead Forever: 4.59%)",
+  "Baron Rivendare: 16678 Beaststalker's Pants - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.49%)",
+  "Baron Rivendare: 16699 Dreadmist Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.37%)",
+  "Baron Rivendare: 16719 Wildheart Kilt - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.24%)",
+  "Baron Rivendare: 16728 Lightforge Legplates - in DungeonLoot.lua, not in guide (Wowhead Forever: 6.45%)",
+  "Baron Rivendare: 16732 Legplates of Valor - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.91%)",
+  "Skul: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Skul: 13394 Skul's Cold Embrace - in DungeonLoot.lua, not in guide (Wowhead Forever: 30.02%)",
+  "Hearthsinger Forresten: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Hearthsinger Forresten: 13383 Woollies of the Prancing Minstrel - in DungeonLoot.lua, not in guide (Wowhead Forever: 16.82%)",
+  "Hearthsinger Forresten: 13384 Rainbow Girdle - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.3%)",
+  "The Unforgiven: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "The Unforgiven: 13408 Soul Breaker - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.33%)",
+  "The Unforgiven: 13409 Tearfall Bracers - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.79%)",
+  "The Unforgiven: 16717 Wildheart Gloves - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Stonespine: 12843 Corruptor's Scourgestone - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Stonespine: 13399 Gargoyle Shredder Talons - in DungeonLoot.lua, not in guide (Wowhead Forever: 33.71%)",
+  "Stonespine: 13954 Verdant Footpads - in DungeonLoot.lua, not in guide (Wowhead Forever: 29.63%)",
+  "Balnazzar: 13353 Book of the Dead - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Rivendare: 13505 Runeblade of Baron Rivendare - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
+ "open_questions": [
+  "NPC 11143 (Postmaster Malown) not found on Wowhead Forever - check ID.",
+  "No pin for 'Postmaster Malown' (encounter 2798) in DungeonPinData.lua.",
+  "NPC 10808 (Timmy the Cruel) not found on Wowhead Forever - check ID.",
+  "NPC 11032 (Malor the Zealous) not found on Wowhead Forever - check ID.",
+  "NPC 11120 (Crimson Hammersmith) not found on Wowhead Forever - check ID.",
+  "NPC 10997 (Cannon Master Willey) not found on Wowhead Forever - check ID.",
+  "NPC 10811 (Archivist Galford) not found on Wowhead Forever - check ID.",
+  "NPC 10813 (Balnazzar) not found on Wowhead Forever - check ID.",
+  "NPC 10812 (Balnazzar) not found on Wowhead Forever - check ID.",
+  "NPC 10435 (Magistrate Barthilas) not found on Wowhead Forever - check ID.",
+  "NPC 10436 (Baroness Anastari) not found on Wowhead Forever - check ID.",
+  "NPC 10437 (Nerub'enkan) not found on Wowhead Forever - check ID.",
+  "NPC 10438 (Maleki the Pallid) not found on Wowhead Forever - check ID.",
+  "NPC 10439 (Ramstein the Gorger) not found on Wowhead Forever - check ID.",
+  "NPC 10440 (Baron Rivendare) not found on Wowhead Forever - check ID.",
+  "Encounter 473 'Hearthsinger Forresten' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Encounter 472 'The Unforgiven' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Encounter 2795 'Black Guard Swordsmith' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Encounter 2799 'Skul' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Encounter 2800 'Stonespine' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Encounter 2797 'Ezra Grimm' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 5243 'Houses of the Holy' not found on Wowhead Forever - check ID.",
+  "Quest 5212 'The Flesh Does Not Lie' not found on Wowhead Forever - check ID.",
+  "Quest 5213 'The Active Agent' not found on Wowhead Forever - check ID.",
+  "Quest 5281 'The Restless Souls' not found on Wowhead Forever - check ID.",
+  "Quest 5282 'The Restless Souls' not found on Wowhead Forever - check ID.",
+  "Quest 5214 'The Great Fras Siabi' not found on Wowhead Forever - check ID.",
+  "Quest 5122 'The Medallion of Faith' not found on Wowhead Forever - check ID.",
+  "Quest 5125 'Aurius' Reckoning' not found on Wowhead Forever - check ID.",
+  "Quest 5251 'The Archivist' not found on Wowhead Forever - check ID.",
+  "Quest 5262 'The Truth Comes Crashing Down' not found on Wowhead Forever - check ID.",
+  "Quest 5263 'Above and Beyond' not found on Wowhead Forever - check ID.",
+  "Quest 5846 'Of Love and Family' not found on Wowhead Forever - check ID.",
+  "Quest 5848 'Of Love and Family' not found on Wowhead Forever - check ID.",
+  "Quest 5463 'Menethil's Gift' not found on Wowhead Forever - check ID.",
+  "Quest 8945 'Dead Man's Plea' not found on Wowhead Forever - check ID.",
+  "Quest 8968 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 8991 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 6163 'Ramstein' not found on Wowhead Forever - check ID.",
+  "Quest 5307 'Corruption' not found on Wowhead Forever - check ID.",
+  "Quest 5305 'Sweet Serenity' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Guide read to 100000 of 102085 chars (remainder is footer)",
+  "Guide counts Live 7 bosses + 3 rares, Undead 6 bosses + 1 rare; Black Guard Swordsmith is called rare here, so undead count is ambiguous",
+  "Boss order is approximate, mine; guide gives no strict kill order",
+  "Anthion Harmon location conflicting in guide (Main Gate vs EPL 26.1,11.3)",
+  "Other related: Champion of the Banshee Queen 5961 (Sylvanas npc=10181, Horde), Atiesh quest 9257",
+  "Dead Man's Plea reward Ysida's Satchel 22137; Ysida's Locket 22139"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "partial",
+  "loot": "partial",
+  "quests": "missing",
+  "quests_in_addon": 16,
+  "loot_rows": 144,
+  "loot_confirmed": 113,
+  "loot_with_chance": 114,
+  "forever_confirmed": "partly",
+  "boss_count": 13,
+  "boss_ok": 0,
+  "pin_ok": 12,
+  "enc_count": 14,
+  "q_tot": 20
+ },
+ "top_points": [
+  "4 of 20 quests missing in DungeonQuests.lua",
+  "No pin for 'Postmaster Malown' (encounter 2798) in DungeonPinData.lua.",
+  "Encounter 2797 'Ezra Grimm' is in DungeonBosses.lua but not in the guide's boss list - check in game."
+ ]
+}

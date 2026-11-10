@@ -1,0 +1,99 @@
+{
+  "key": 90,
+  "name_en": "Gnomeregan",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-gnomeregan-guide/"],
+  "level": "29-38",
+  "boss_level": 34,
+  "zone": "Dun Morogh",
+  "zone_id": 1,
+  "instance_zone_id": 721,
+  "entrance": "hills west of Brewnall Village, Dun Morogh; elevator down to portal",
+  "faction": "Both; entrance in Alliance territory, Horde use Goblin Transponder",
+  "bosses": [
+    {"order": 1, "wing": null, "name": "Grubbis", "npc_ids": [7361, 6215], "location": "cave off Hall of Gears; event started by Emi Shortfuse", "optional": true,
+     "loot": [
+      {"item_id": 9445, "name": "Grubbis Paws", "slot": "Hands", "chance": "9%", "quest_item": false},
+      {"item_id": 274042, "name": "Skullduggery Belt", "slot": "Waist (Leather)", "chance": null, "quest_item": false},
+      {"item_id": 274043, "name": "Irradiated Shield", "slot": "Shield", "chance": null, "quest_item": false}]},
+    {"order": 2, "wing": null, "name": "Viscous Fallout", "npc_ids": [7079], "location": "passage between Hall of Gears and Grubbis cave", "optional": false,
+     "loot": [
+      {"item_id": 9454, "name": "Acidic Walkers", "slot": "Feet", "chance": "61%", "quest_item": false},
+      {"item_id": 9453, "name": "Toxic Revenger", "slot": "Dagger", "chance": "18%", "quest_item": false},
+      {"item_id": 9452, "name": "Hydrocane", "slot": "Staff", "chance": "19%", "quest_item": false}]},
+    {"order": 3, "wing": null, "name": "Electrocutioner 6000", "npc_ids": [6235], "location": "middle of the Launch Bay", "optional": false,
+     "loot": [
+      {"item_id": 6893, "name": "Workshop Key", "slot": "Key", "chance": "79%", "quest_item": true},
+      {"item_id": 9448, "name": "Spidertank Oilrag", "slot": "Wrist (Cloth)", "chance": "41%", "quest_item": false},
+      {"item_id": 9447, "name": "Electrocutioner Lagnut", "slot": "Finger", "chance": "31%", "quest_item": false},
+      {"item_id": 9446, "name": "Electrocutioner Leg", "slot": "Sword", "chance": "16%", "quest_item": false},
+      {"item_id": 252822, "name": "Pattern: Defender's Leather Kilt", "slot": "Recipe", "chance": null, "quest_item": false}]},
+    {"order": 4, "wing": null, "name": "Crowd Pummeler 9-60", "npc_ids": [6229], "location": "Engineering Labs behind Workshop door", "optional": false,
+     "loot": [
+      {"item_id": 9450, "name": "Gnomebot Operating Boots", "slot": "Feet", "chance": "65%", "quest_item": false},
+      {"item_id": 9449, "name": "Manual Crowd Pummeler", "slot": "Two-Hand Mace", "chance": "33%", "quest_item": false},
+      {"item_id": 274068, "name": "Thermaplugg Medal of Honor", "slot": "Neck", "chance": null, "quest_item": false},
+      {"item_id": 274049, "name": "Schematic: 9-60 Battery Pack", "slot": "Recipe", "chance": "very rare", "quest_item": false}]},
+    {"order": 5, "wing": null, "name": "Mekgineer Thermaplugg", "npc_ids": [7800], "level": 34, "location": "Tinkers' Court, walking bomb adds", "optional": false,
+     "loot": [
+      {"item_id": 9461, "name": "Charged Gear", "slot": "Finger", "chance": "32%", "quest_item": false},
+      {"item_id": 9458, "name": "Thermaplugg's Central Core", "slot": "Shield", "chance": "32%", "quest_item": false},
+      {"item_id": 9459, "name": "Thermaplugg's Left Arm", "slot": "Two-Hand Axe", "chance": "18%", "quest_item": false},
+      {"item_id": 9492, "name": "Electromagnetic Gigaflux Reactivator", "slot": "Head (Cloth)", "chance": "10%", "quest_item": false},
+      {"item_id": 4415, "name": "Schematic: Craftsman's Monocle", "slot": "Recipe", "chance": null, "quest_item": false},
+      {"item_id": 9299, "name": "Thermaplugg's Safe Combination", "slot": "Quest (2841)", "chance": null, "quest_item": true}]}
+  ],
+  "rares": [
+    {"name": "Dark Iron Ambassador", "npc_id": 6228, "location": "passage below Tinkers' Court; not every run", "loot": [
+      {"item_id": 9455, "name": "Emissary Cuffs", "slot": "Wrist", "chance": "43%", "quest_item": false},
+      {"item_id": 9456, "name": "Glass Shooter", "slot": "Gun", "chance": "32%", "quest_item": false},
+      {"item_id": 9457, "name": "Royal Diplomatic Scepter", "slot": "One-Hand Mace", "chance": "21%", "quest_item": false}]},
+    {"name": "Techbot", "npc_id": 6231, "location": "elite outside the instance portal", "loot": [
+      {"item_id": 9277, "name": "Techbot's Memory Core", "slot": "Quest (2922)", "chance": "79%", "quest_item": true}]}
+  ],
+  "trash_loot": [
+    {"item_id": 9486, "name": "Supercharger Battle Axe", "slot": "Two-Hand Axe", "chance": "<1%"},
+    {"item_id": 9489, "name": "Gyromatic Icemaker", "slot": "Wand", "chance": "<1%"},
+    {"item_id": 9309, "name": "Robo-mechanical Guts", "slot": "Quest (2928)", "chance": null, "quest_item": true},
+    {"item_id": 9308, "name": "Grime-Encrusted Object", "slot": "Quest (2951)", "chance": null, "quest_item": true},
+    {"item_id": 9326, "name": "Grime-Encrusted Ring", "slot": "Quest starter (2945), Dark Iron Agents (6212)", "chance": null, "quest_item": true},
+    {"item_id": 9278, "name": "Essential Artificial", "slot": "Quest (2924)", "chance": null, "quest_item": true}
+  ],
+  "quests": [
+    {"quest_id": 2929, "title": "The Grand Betrayal", "level": 35, "min_level": 25, "faction": "Alliance", "giver": "High Tinker Mekkatorque", "giver_npc_id": 7937, "giver_item_id": null, "giver_zone": "Ironforge (Tinker Town)", "prereq": null, "rewards": [9623, 9624, 9625]},
+    {"quest_id": 2930, "title": "Data Rescue", "level": 30, "min_level": 25, "faction": "Alliance", "giver": "Master Mechanic Castpipe", "giver_npc_id": 7950, "giver_item_id": null, "giver_zone": "Ironforge (Tinker Town)", "prereq": "punch card terminals; optional Castpipe's Task (2931)", "rewards": [9605, 9604], "objective_items": [9279, 9316]},
+    {"quest_id": 2928, "title": "Gyrodrillmatic Excavationators", "level": 30, "min_level": 20, "faction": "Alliance", "giver": "Shoni the Shilent", "giver_npc_id": 6579, "giver_item_id": null, "giver_zone": "Stormwind City", "prereq": null, "rewards": [9608, 9609, 270045], "objective_items": [9309]},
+    {"quest_id": 2904, "title": "A Fine Mess", "level": 30, "min_level": 24, "faction": "Both", "giver": "Kernobee", "giver_npc_id": 7850, "giver_item_id": null, "giver_zone": "Gnomeregan (inside)", "prereq": null, "rewards": [9535, 9536, 270042]},
+    {"quest_id": 2923, "title": "Tinkmaster Overspark", "level": null, "min_level": null, "faction": "Alliance", "giver": "Brother Sarno", "giver_npc_id": 7917, "giver_item_id": null, "giver_zone": "Stormwind City", "prereq": null, "rewards": []},
+    {"quest_id": 2922, "title": "Save Techbot's Brain!", "level": 26, "min_level": 20, "faction": "Alliance", "giver": "Tinkmaster Overspark", "giver_npc_id": 7944, "giver_item_id": null, "giver_zone": "Ironforge (Tinker Town)", "prereq": "Tinkmaster Overspark (2923)", "rewards": [], "objective_items": [9277]},
+    {"quest_id": 2927, "title": "The Day After", "level": null, "min_level": null, "faction": "Alliance", "giver": "Gnoarn", "giver_npc_id": 6569, "giver_item_id": null, "giver_zone": "Ironforge (Tinker Town)", "prereq": null, "rewards": []},
+    {"quest_id": 2926, "title": "Gnogaine", "level": 27, "min_level": 20, "faction": "Alliance", "giver": "Ozzie Togglevolt", "giver_npc_id": 1268, "giver_item_id": null, "giver_zone": "Dun Morogh (Kharanos)", "prereq": "The Day After (2927)", "rewards": [], "objective_items": [9283]},
+    {"quest_id": 2962, "title": "The Only Cure is More Green Glow", "level": 30, "min_level": 20, "faction": "Alliance", "giver": "Ozzie Togglevolt", "giver_npc_id": 1268, "giver_item_id": null, "giver_zone": "Dun Morogh (Kharanos)", "prereq": "Gnogaine (2926)", "rewards": []},
+    {"quest_id": 2925, "title": "Klockmort's Essentials", "level": null, "min_level": null, "faction": "Alliance", "giver": "Klockmort Spannerspan", "giver_npc_id": 6169, "giver_item_id": null, "giver_zone": "Ironforge (Tinker Town)", "prereq": null, "rewards": []},
+    {"quest_id": 2924, "title": "Essential Artificials", "level": 30, "min_level": 24, "faction": "Alliance", "giver": "Klockmort Spannerspan", "giver_npc_id": 6169, "giver_item_id": null, "giver_zone": "Ironforge (Tinker Town)", "prereq": "optional Klockmort's Essentials (2925)", "rewards": [], "objective_items": [9278]},
+    {"quest_id": 2945, "title": "Grime-Encrusted Ring", "level": 34, "min_level": 28, "faction": "Both", "giver": null, "giver_npc_id": null, "giver_item_id": 9326, "giver_zone": "Gnomeregan (Dark Iron Agent drop)", "prereq": null, "rewards": [9362]},
+    {"quest_id": 2947, "title": "Return of the Ring", "level": 34, "min_level": 28, "faction": "Alliance", "giver": "The Sparklematic 5200 (object 142487)", "giver_npc_id": null, "giver_item_id": null, "giver_zone": "Gnomeregan (inside)", "prereq": "Grime-Encrusted Ring (2945)", "rewards": [9538]},
+    {"quest_id": 2948, "title": "Gnome Improvement", "level": 35, "min_level": null, "faction": "Alliance", "giver": "Talvash del Kissel", "giver_npc_id": 6826, "giver_item_id": null, "giver_zone": "Ironforge", "prereq": "Return of the Ring (2947)", "rewards": []},
+    {"quest_id": 2951, "title": "The Sparklematic 5200!", "level": 30, "min_level": 25, "faction": "Both", "giver": "The Sparklematic 5200 (object 142487)", "giver_npc_id": null, "giver_item_id": null, "giver_zone": "Gnomeregan (Clean Zone)", "prereq": null, "rewards": [9363], "objective_items": [9308]},
+    {"quest_id": 2952, "title": "The Sparklematic 5200! (part 2)", "level": 30, "min_level": 25, "faction": "Both", "giver": "The Sparklematic 5200 (object 142487)", "giver_npc_id": null, "giver_item_id": null, "giver_zone": "Gnomeregan (Clean Zone)", "prereq": null, "rewards": [9363], "objective_items": [9308]},
+    {"quest_id": 2841, "title": "Rig Wars", "level": 35, "min_level": 25, "faction": "Horde", "giver": "Nogg", "giver_npc_id": 3412, "giver_item_id": null, "giver_zone": "Orgrimmar (Valley of Honor)", "prereq": null, "rewards": [9623, 9624, 9625], "objective_items": [9153]},
+    {"quest_id": 2842, "title": "Chief Engineer Scooty", "level": null, "min_level": null, "faction": "Horde", "giver": "Sovik", "giver_npc_id": 3413, "giver_item_id": null, "giver_zone": "Orgrimmar", "prereq": null, "rewards": []},
+    {"quest_id": 2843, "title": "Gnomer-gooooone!", "level": 35, "min_level": 25, "faction": "Horde", "giver": "Scooty", "giver_npc_id": 7853, "giver_item_id": null, "giver_zone": "Stranglethorn Vale (Booty Bay)", "prereq": "Chief Engineer Scooty (2842)", "rewards": [9173]},
+    {"quest_id": 2949, "title": "Return of the Ring", "level": 34, "min_level": 28, "faction": "Horde", "giver": "The Sparklematic 5200 (object 142487)", "giver_npc_id": null, "giver_item_id": null, "giver_zone": "Gnomeregan (inside)", "prereq": "Grime-Encrusted Ring (2945)", "rewards": [9588]},
+    {"quest_id": 2950, "title": "Nogg's Ring Redo", "level": 35, "min_level": null, "faction": "Horde", "giver": "Nogg", "giver_npc_id": 3412, "giver_item_id": null, "giver_zone": "Orgrimmar", "prereq": "Return of the Ring (2949)", "rewards": []}
+  ],
+  "keys_attunement": "Workshop Key item=6893 (Electrocutioner 6000, ~79%) opens back door to Engineering Labs; Horde Goblin Transponder item=9173 from quest 2843",
+  "forever_changes": [
+    "Classic layout and boss fights kept",
+    "Most loot reworked (spell power/healing/AP instead of Spirit)",
+    "New items: Skullduggery Belt 274042, Irradiated Shield 274043, Thermaplugg Medal of Honor 274068, Schematic: 9-60 Battery Pack 274049, Pattern: Defender's Leather Kilt 252822",
+    "New quest rewards Operator's Gloves 270045, Technician's Bracers 270042",
+    "Meeting stone does not summon"
+  ],
+  "notes": [
+    "Dark Iron Ambassador also drops a new leatherworking pattern (no ID on guide)",
+    "2952 appears only in chain section; giver details copied from 2951",
+    "Save Techbot's Brain giver location: guide says Tinker Town, chain page Ironforge (same city)",
+    "Guide intro says 'two bosses got new rare drops' but boss sections list more new items",
+    "Data Rescue prereq listed oddly on guide (punch card steps); simplified"
+  ]
+}

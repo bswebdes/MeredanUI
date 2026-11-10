@@ -1,0 +1,1263 @@
+{
+ "key": 90,
+ "slug": "gnomeregan",
+ "kind": "dungeon",
+ "name_en": "Gnomeregan",
+ "level": "29-38",
+ "zone": "Dun Morogh",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-gnomeregan-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "Workshop Key item=6893 (Electrocutioner 6000, ~79%) opens back door to Engineering Labs; Horde Goblin Transponder item=9173 from quest 2843",
+ "forever_changes": [
+  "Classic layout and boss fights kept",
+  "Most loot reworked (spell power/healing/AP instead of Spirit)",
+  "New items: Skullduggery Belt 274042, Irradiated Shield 274043, Thermaplugg Medal of Honor 274068, Schematic: 9-60 Battery Pack 274049, Pattern: Defender's Leather Kilt 252822",
+  "New quest rewards Operator's Gloves 270045, Technician's Bracers 270042",
+  "Meeting stone does not summon"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Grubbis",
+   "name_de": "Grubbis",
+   "encounter_id": 2768,
+   "npcs": [
+    {
+     "id": 7361,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 6215,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "cave off Hall of Gears; event started by Emi Shortfuse",
+   "optional": true,
+   "pin": {
+    "floor": 1,
+    "x": 0.7797,
+    "y": 0.5759
+   },
+   "loot": [
+    {
+     "item_id": 9445,
+     "name": "Grubbis Paws",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": 13.01,
+     "wowhead_dropped_by": "Grubbis",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 274042,
+     "name": "Skullduggery Belt",
+     "slot": "Waist (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274043,
+     "name": "Irradiated Shield",
+     "slot": "Shield",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Viscous Fallout",
+   "name_de": "Verflüssigte Ablagerung",
+   "encounter_id": 2769,
+   "npcs": [
+    {
+     "id": 7079,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "passage between Hall of Gears and Grubbis cave",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5761,
+    "y": 0.5662
+   },
+   "loot": [
+    {
+     "item_id": 9454,
+     "name": "Acidic Walkers",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 61.0,
+     "chance_wowhead_forever": 57.54,
+     "wowhead_dropped_by": "Viscous Fallout",
+     "chance_repo": 55.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9453,
+     "name": "Toxic Revenger",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.96,
+     "wowhead_dropped_by": "Viscous Fallout",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9452,
+     "name": "Hydrocane",
+     "slot": "Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 20.77,
+     "wowhead_dropped_by": "Viscous Fallout",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Electrocutioner 6000",
+   "name_de": "Elektrokutor 6000",
+   "encounter_id": 2770,
+   "npcs": [
+    {
+     "id": 6235,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "middle of the Launch Bay",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.2481,
+    "y": 0.6793
+   },
+   "loot": [
+    {
+     "item_id": 6893,
+     "name": "Workshop Key",
+     "slot": "Key",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 79.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 9448,
+     "name": "Spidertank Oilrag",
+     "slot": "Wrist (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 41.0,
+     "chance_wowhead_forever": 39.05,
+     "wowhead_dropped_by": "Electrocutioner 6000",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9447,
+     "name": "Electrocutioner Lagnut",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": 31.68,
+     "wowhead_dropped_by": "Electrocutioner 6000",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9446,
+     "name": "Electrocutioner Leg",
+     "slot": "Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 16.0,
+     "chance_wowhead_forever": 17.78,
+     "wowhead_dropped_by": "Electrocutioner 6000",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 252822,
+     "name": "Pattern: Defender's Leather Kilt",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 9327,
+     "name": "Security DELTA Data Access Card",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Crowd Pummeler 9-60",
+   "name_de": "Meuteverprügler 9-60",
+   "encounter_id": 2771,
+   "npcs": [
+    {
+     "id": 6229,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Engineering Labs behind Workshop door",
+   "optional": false,
+   "pin": {
+    "floor": 3,
+    "x": 0.4384,
+    "y": 0.8651
+   },
+   "loot": [
+    {
+     "item_id": 9450,
+     "name": "Gnomebot Operating Boots",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 65.0,
+     "chance_wowhead_forever": 62.4,
+     "wowhead_dropped_by": "Crowd Pummeler 9-60",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9449,
+     "name": "Manual Crowd Pummeler",
+     "slot": "Two-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.79,
+     "wowhead_dropped_by": "Crowd Pummeler 9-60",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 274068,
+     "name": "Thermaplugg Medal of Honor",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274049,
+     "name": "Schematic: 9-60 Battery Pack",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 11827,
+     "name": "Schematic: Lil' Smoky",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 9327,
+     "name": "Security DELTA Data Access Card",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Mekgineer Thermaplugg",
+   "name_de": "Robogenieur Thermaplugg",
+   "encounter_id": 2772,
+   "npcs": [
+    {
+     "id": 7800,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Tinkers' Court, walking bomb adds",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.0282,
+    "y": 0.644
+   },
+   "loot": [
+    {
+     "item_id": 9461,
+     "name": "Charged Gear",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 31.96,
+     "wowhead_dropped_by": "Mekgineer Thermaplugg",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9458,
+     "name": "Thermaplugg's Central Core",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 31.05,
+     "wowhead_dropped_by": "Mekgineer Thermaplugg",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9459,
+     "name": "Thermaplugg's Left Arm",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.8,
+     "wowhead_dropped_by": "Mekgineer Thermaplugg",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9492,
+     "name": "Electromagnetic Gigaflux Reactivator",
+     "slot": "Head (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": 11.04,
+     "wowhead_dropped_by": "Mekgineer Thermaplugg",
+     "chance_repo": 15.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 4415,
+     "name": "Schematic: Craftsman's Monocle",
+     "slot": "Recipe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 9299,
+     "name": "Thermaplugg's Safe Combination",
+     "slot": "Quest (2841)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 11828,
+     "name": "Schematic: Pet Bombling",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 15.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 4411,
+     "name": "Schematic: Flame Deflector",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 0.51,
+     "wowhead_dropped_by": "Mekgineer Thermaplugg",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 4413,
+     "name": "Schematic: Discombobulator Ray",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 0.52,
+     "wowhead_dropped_by": "Mekgineer Thermaplugg",
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9327,
+     "name": "Security DELTA Data Access Card",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Dark Iron Ambassador",
+   "npc_id": 6228,
+   "wowhead_name": null,
+   "location": "passage below Tinkers' Court; not every run",
+   "pin": {
+    "floor": 2,
+    "x": 0.02,
+    "y": 0.916
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 9455,
+     "name": "Emissary Cuffs",
+     "slot": "Wrist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 43.0,
+     "chance_wowhead_forever": 41.29,
+     "wowhead_dropped_by": "Dark Iron Ambassador",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9456,
+     "name": "Glass Shooter",
+     "slot": "Gun",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 33.51,
+     "wowhead_dropped_by": "Dark Iron Ambassador",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9457,
+     "name": "Royal Diplomatic Scepter",
+     "slot": "One-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": 22.25,
+     "wowhead_dropped_by": "Dark Iron Ambassador",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Techbot",
+   "npc_id": 6231,
+   "wowhead_name": null,
+   "location": "elite outside the instance portal",
+   "pin": null,
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 9277,
+     "name": "Techbot's Memory Core",
+     "slot": "Quest (2922)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 79.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 2929,
+   "title": "The Grand Betrayal",
+   "level": 35,
+   "min_level": 25,
+   "faction": "Alliance",
+   "giver": "High Tinker Mekkatorque",
+   "giver_npc_id": 7937,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Tinker Town)",
+   "prereq": null,
+   "rewards": [
+    9623,
+    9624,
+    9625
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2930,
+   "title": "Data Rescue",
+   "level": 30,
+   "min_level": 25,
+   "faction": "Alliance",
+   "giver": "Master Mechanic Castpipe",
+   "giver_npc_id": 7950,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Tinker Town)",
+   "prereq": "punch card terminals; optional Castpipe's Task (2931)",
+   "rewards": [
+    9605,
+    9604
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2928,
+   "title": "Gyrodrillmatic Excavationators",
+   "level": 30,
+   "min_level": 20,
+   "faction": "Alliance",
+   "giver": "Shoni the Shilent",
+   "giver_npc_id": 6579,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind City",
+   "prereq": null,
+   "rewards": [
+    9608,
+    9609,
+    270045
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2904,
+   "title": "A Fine Mess",
+   "level": 30,
+   "min_level": 24,
+   "faction": "Both",
+   "giver": "Kernobee",
+   "giver_npc_id": 7850,
+   "giver_item_id": null,
+   "giver_zone": "Gnomeregan (inside)",
+   "prereq": null,
+   "rewards": [
+    9535,
+    9536,
+    270042
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2923,
+   "title": "Tinkmaster Overspark",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Brother Sarno",
+   "giver_npc_id": 7917,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind City",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2922,
+   "title": "Save Techbot's Brain!",
+   "level": 26,
+   "min_level": 20,
+   "faction": "Alliance",
+   "giver": "Tinkmaster Overspark",
+   "giver_npc_id": 7944,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Tinker Town)",
+   "prereq": "Tinkmaster Overspark (2923)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2927,
+   "title": "The Day After",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Gnoarn",
+   "giver_npc_id": 6569,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Tinker Town)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2926,
+   "title": "Gnogaine",
+   "level": 27,
+   "min_level": 20,
+   "faction": "Alliance",
+   "giver": "Ozzie Togglevolt",
+   "giver_npc_id": 1268,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh (Kharanos)",
+   "prereq": "The Day After (2927)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2962,
+   "title": "The Only Cure is More Green Glow",
+   "level": 30,
+   "min_level": 20,
+   "faction": "Alliance",
+   "giver": "Ozzie Togglevolt",
+   "giver_npc_id": 1268,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh (Kharanos)",
+   "prereq": "Gnogaine (2926)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2925,
+   "title": "Klockmort's Essentials",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Klockmort Spannerspan",
+   "giver_npc_id": 6169,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Tinker Town)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2924,
+   "title": "Essential Artificials",
+   "level": 30,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Klockmort Spannerspan",
+   "giver_npc_id": 6169,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge (Tinker Town)",
+   "prereq": "optional Klockmort's Essentials (2925)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2945,
+   "title": "Grime-Encrusted Ring",
+   "level": 34,
+   "min_level": 28,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 9326,
+   "giver_zone": "Gnomeregan (Dark Iron Agent drop)",
+   "prereq": null,
+   "rewards": [
+    9362
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2947,
+   "title": "Return of the Ring",
+   "level": 34,
+   "min_level": 28,
+   "faction": "Alliance",
+   "giver": "The Sparklematic 5200 (object 142487)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Gnomeregan (inside)",
+   "prereq": "Grime-Encrusted Ring (2945)",
+   "rewards": [
+    9538
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2948,
+   "title": "Gnome Improvement",
+   "level": 35,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Talvash del Kissel",
+   "giver_npc_id": 6826,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "Return of the Ring (2947)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2951,
+   "title": "The Sparklematic 5200!",
+   "level": 30,
+   "min_level": 25,
+   "faction": "Both",
+   "giver": "The Sparklematic 5200 (object 142487)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Gnomeregan (Clean Zone)",
+   "prereq": null,
+   "rewards": [
+    9363
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2952,
+   "title": "The Sparklematic 5200! (part 2)",
+   "level": 30,
+   "min_level": 25,
+   "faction": "Both",
+   "giver": "The Sparklematic 5200 (object 142487)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Gnomeregan (Clean Zone)",
+   "prereq": null,
+   "rewards": [
+    9363
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2841,
+   "title": "Rig Wars",
+   "level": 35,
+   "min_level": 25,
+   "faction": "Horde",
+   "giver": "Nogg",
+   "giver_npc_id": 3412,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar (Valley of Honor)",
+   "prereq": null,
+   "rewards": [
+    9623,
+    9624,
+    9625
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 2842,
+   "title": "Chief Engineer Scooty",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Sovik",
+   "giver_npc_id": 3413,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 2843,
+   "title": "Gnomer-gooooone!",
+   "level": 35,
+   "min_level": 25,
+   "faction": "Horde",
+   "giver": "Scooty",
+   "giver_npc_id": 7853,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale (Booty Bay)",
+   "prereq": "Chief Engineer Scooty (2842)",
+   "rewards": [
+    9173
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 2949,
+   "title": "Return of the Ring",
+   "level": 34,
+   "min_level": 28,
+   "faction": "Horde",
+   "giver": "The Sparklematic 5200 (object 142487)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Gnomeregan (inside)",
+   "prereq": "Grime-Encrusted Ring (2945)",
+   "rewards": [
+    9588
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 2950,
+   "title": "Nogg's Ring Redo",
+   "level": 35,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Nogg",
+   "giver_npc_id": 3412,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Return of the Ring (2949)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Grubbis: 274042 Skullduggery Belt - in Forever guide, missing in DungeonLoot.lua",
+  "Grubbis: 274043 Irradiated Shield - in Forever guide, missing in DungeonLoot.lua",
+  "Electrocutioner 6000: 252822 Pattern: Defender's Leather Kilt - in Forever guide, missing in DungeonLoot.lua",
+  "Electrocutioner 6000: 9327 Security DELTA Data Access Card - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Crowd Pummeler 9-60: 274068 Thermaplugg Medal of Honor - in Forever guide, missing in DungeonLoot.lua",
+  "Crowd Pummeler 9-60: 274049 Schematic: 9-60 Battery Pack - in Forever guide, missing in DungeonLoot.lua",
+  "Crowd Pummeler 9-60: 11827 Schematic: Lil' Smoky - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Crowd Pummeler 9-60: 9327 Security DELTA Data Access Card - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Mekgineer Thermaplugg: 11828 Schematic: Pet Bombling - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Mekgineer Thermaplugg: 4411 Schematic: Flame Deflector - in DungeonLoot.lua, not in guide (Wowhead Forever: 0.51%)",
+  "Mekgineer Thermaplugg: 4413 Schematic: Discombobulator Ray - in DungeonLoot.lua, not in guide (Wowhead Forever: 0.52%)",
+  "Mekgineer Thermaplugg: 9327 Security DELTA Data Access Card - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)"
+ ],
+ "open_questions": [
+  "NPC 7361 (Grubbis) not found on Wowhead Forever - check ID.",
+  "NPC 6215 (Grubbis) not found on Wowhead Forever - check ID.",
+  "NPC 7079 (Viscous Fallout) not found on Wowhead Forever - check ID.",
+  "NPC 6235 (Electrocutioner 6000) not found on Wowhead Forever - check ID.",
+  "NPC 6229 (Crowd Pummeler 9-60) not found on Wowhead Forever - check ID.",
+  "NPC 7800 (Mekgineer Thermaplugg) not found on Wowhead Forever - check ID.",
+  "Quest 2929 'The Grand Betrayal' not found on Wowhead Forever - check ID.",
+  "Quest 2930 'Data Rescue' not found on Wowhead Forever - check ID.",
+  "Quest 2928 'Gyrodrillmatic Excavationators' not found on Wowhead Forever - check ID.",
+  "Quest 2904 'A Fine Mess' not found on Wowhead Forever - check ID.",
+  "Quest 2923 'Tinkmaster Overspark' not found on Wowhead Forever - check ID.",
+  "Quest 2922 'Save Techbot's Brain!' not found on Wowhead Forever - check ID.",
+  "Quest 2927 'The Day After' not found on Wowhead Forever - check ID.",
+  "Quest 2926 'Gnogaine' not found on Wowhead Forever - check ID.",
+  "Quest 2962 'The Only Cure is More Green Glow' not found on Wowhead Forever - check ID.",
+  "Quest 2925 'Klockmort's Essentials' not found on Wowhead Forever - check ID.",
+  "Quest 2924 'Essential Artificials' not found on Wowhead Forever - check ID.",
+  "Quest 2945 'Grime-Encrusted Ring' not found on Wowhead Forever - check ID.",
+  "Quest 2947 'Return of the Ring' not found on Wowhead Forever - check ID.",
+  "Quest 2948 'Gnome Improvement' not found on Wowhead Forever - check ID.",
+  "Quest 2951 'The Sparklematic 5200!' not found on Wowhead Forever - check ID.",
+  "Quest 2952 'The Sparklematic 5200! (part 2)' not found on Wowhead Forever - check ID.",
+  "Quest 2841 'Rig Wars' not found on Wowhead Forever - check ID.",
+  "Quest 2842 'Chief Engineer Scooty' not found on Wowhead Forever - check ID.",
+  "Quest 2843 'Gnomer-gooooone!' not found on Wowhead Forever - check ID.",
+  "Quest 2949 'Return of the Ring' not found on Wowhead Forever - check ID.",
+  "Quest 2950 'Nogg's Ring Redo' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Dark Iron Ambassador also drops a new leatherworking pattern (no ID on guide)",
+  "2952 appears only in chain section; giver details copied from 2951",
+  "Save Techbot's Brain giver location: guide says Tinker Town, chain page Ironforge (same city)",
+  "Guide intro says 'two bosses got new rare drops' but boss sections list more new items",
+  "Data Rescue prereq listed oddly on guide (punch card steps); simplified"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 29,
+  "loot_confirmed": 19,
+  "loot_with_chance": 18,
+  "forever_confirmed": "partly",
+  "boss_count": 5,
+  "boss_ok": 0,
+  "pin_ok": 5,
+  "enc_count": 5,
+  "q_tot": 21
+ },
+ "top_points": [
+  "21 of 21 quests missing in DungeonQuests.lua",
+  "NPC 7361 (Grubbis) not found on Wowhead Forever - check ID. (+26 more)",
+  "11 loot rows without drop chance"
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "key": "barrow_deeps",
+ "name_en": "The Barrow Deeps",
+ "type": "raid",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-barrow-deeps-guide/",
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009",
+  "https://www.warcrafttavern.com/forever/guides/raids/"
+ ],
+ "level": "60",
+ "raid_size": 10,
+ "release": "2026-12-09",
+ "boss_level": null,
+ "zone": "Mount Hyjal",
+ "zone_id": null,
+ "instance_map_id": null,
+ "entrance": "Three entrances: Mount Hyjal, Winterspring, Blackmaw Hold (per Blizzard); no coordinates",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Deepscar Matriarch",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Khalith the Dreadspinner",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Amethrax",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Ravus and Darlissa",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Elder Tangleclaw",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Well of Sorrow",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Dell'lynar Songwood",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Sonya Darkhallow",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "keys_attunement": "None (any level 60 can enter)",
+ "forever_changes": [
+  "New Forever raid; former prison of Illidan Stormrage (ancient elven prison)",
+  "Weekly lockout"
+ ],
+ "notes": [
+  "Loot not published anywhere checked",
+  "Boss roster is preliminary datamined list (no official list); Blizzard says 8 bosses",
+  "No npc IDs, zone ID or instance map ID in any source",
+  "Spelling: conquestcapped 'Dell'lynar Songwood', warcrafttavern 'Del'lynar Songwood'",
+  "Blackmaw Hold guide also says deep tunnels lead toward this raid"
+ ]
+}

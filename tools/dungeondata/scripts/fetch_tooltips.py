@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 """Fetch Wowhead tooltip JSON (forever or classic namespace) for a list of IDs, politely (one request
 at a time, short pause), and cache it under tools/dungeondata/cache/<ns>_<kind>.json.
-usage: python3 -I fetch_tooltips.py <forever|classic> <item|npc|quest|object> <ids.txt> [pause]"""
+usage: python3 -I fetch_tooltips.py <forever|classic> <item|npc|quest|object> <ids.txt> [pause] [locale]"""
 import json, sys, time, pathlib, urllib.request
 
 ns, kind, idfile = sys.argv[1], sys.argv[2], sys.argv[3]
 pause = float(sys.argv[4]) if len(sys.argv) > 4 else 0.8
-cache = pathlib.Path(__file__).resolve().parent.parent / "cache" / f"{ns}_{kind}.json"
+locale = sys.argv[5] if len(sys.argv) > 5 else "0"
+cache = pathlib.Path(__file__).resolve().parent.parent / "cache" / (f"{ns}_{kind}.json" if locale == "0" else f"{ns}_{kind}_{locale}.json")
 data = json.loads(cache.read_text()) if cache.exists() else {}
 ids = [l.strip() for l in open(idfile) if l.strip()]
 todo = [i for i in dict.fromkeys(ids) if i not in data]
 print(len(todo), "to fetch", flush=True)
 for n, i in enumerate(todo):
-    url = f"https://nether.wowhead.com/{ns}/tooltip/{kind}/{i}?locale=0"
+    url = f"https://nether.wowhead.com/{ns}/tooltip/{kind}/{i}?locale={locale}"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "addon-research/1.0"})
         with urllib.request.urlopen(req, timeout=20) as r:

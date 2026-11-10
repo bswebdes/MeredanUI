@@ -1,0 +1,154 @@
+{
+ "key": "hyjal_summit",
+ "name_en": "Hyjal Summit",
+ "type": "raid",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-hyjal-summit-guide/",
+  "http://worldofwarcraft.blizzard.com/en-us/news/24303009",
+  "https://www.warcrafttavern.com/forever/guides/raids/"
+ ],
+ "level": "60",
+ "raid_size": 20,
+ "release": "2026-12-09",
+ "boss_level": null,
+ "zone": "Mount Hyjal",
+ "zone_id": null,
+ "instance_map_id": null,
+ "entrance": "Peak of Mount Hyjal near Nordrassil; exact spot not released",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Bandalar",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Time-Lost Battalion",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Old Gloomlurker",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Kathris the Haunted",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Elder Minderel",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Council of Thorns",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "The Wild King",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Ancient of Decay",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Sylvestris Dusksong",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 10,
+   "wing": null,
+   "name": "Gharalis the Abyssal",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 11,
+   "wing": null,
+   "name": "Anara Chillwind",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 12,
+   "wing": null,
+   "name": "Tracker Stillwind",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 13,
+   "wing": null,
+   "name": "Nythus the Dreadbound",
+   "npc_ids": [],
+   "location": null,
+   "optional": false,
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [],
+ "keys_attunement": "None",
+ "forever_changes": [
+  "New Forever raid (not the TBC Battle for Mount Hyjal); post-Archimonde story",
+  "Multiple routes above and below ground; opens with ancient guardian fight (Blizzard)",
+  "Rewards include new class tier sets (separate conquestcapped Tier Sets guide)",
+  "Weekly lockout"
+ ],
+ "notes": [
+  "Loot not published (guide: to be added later)",
+  "Boss roster unconfirmed datamined list; Blizzard says 13 bosses",
+  "No npc IDs, zone ID or instance map ID in any source",
+  "Spelling: conquestcapped 'Elder Minderel', warcrafttavern 'Elder Minderei'",
+  "Beta testers could not enter the raid"
+ ]
+}

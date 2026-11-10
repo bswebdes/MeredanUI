@@ -1,0 +1,860 @@
+{
+ "key": 2970,
+ "slug": "drowned_city",
+ "kind": "dungeon",
+ "name_en": "The Drowned City",
+ "level": "35-40",
+ "zone": "Stranglethorn Vale coast (underwater, west of Grom'gol)",
+ "faction": "both",
+ "status": "live",
+ "status_note": "new Forever dungeon",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-the-drowned-city-guide/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": null,
+ "forever_changes": [
+  "Entirely new Forever dungeon (contested, swim-in only)",
+  "Classic quest The Vile Reef (629) extended with new chain 95748/95770/95775",
+  "All quests besides 629 are new; all boss loot is new (item IDs 2746xx)",
+  "Counts toward Experienced Spelunker achievement (62032, 1 Legacy Point)"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Zul'Alai",
+   "name_de": "Zul'Alai",
+   "encounter_id": 3474,
+   "npcs": [
+    {
+     "id": 270882,
+     "wowhead_name": "Zul'Alai",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "top of the hill after first city section",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274600,
+     "name": "Berserker Shackles",
+     "slot": "Wrist (mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274598,
+     "name": "Bloodslash Axe",
+     "slot": "One-hand axe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274599,
+     "name": "Oathbound Bracers",
+     "slot": "Wrist (leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Var'Taka",
+   "name_de": "Var'Taka",
+   "encounter_id": 3475,
+   "npcs": [
+    {
+     "id": 270883,
+     "wowhead_name": "Var'Taka",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Brinescale naga leader with priestesses",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274602,
+     "name": "Brinebelly Leggings",
+     "slot": "Legs (leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274601,
+     "name": "Harpoon of Command",
+     "slot": "Polearm",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Captain Dreadrise",
+   "name_de": "Captain Dreadrise",
+   "encounter_id": 3476,
+   "npcs": [
+    {
+     "id": 270884,
+     "wowhead_name": "Captain Dreadrise",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Saltseer pirate captain",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274604,
+     "name": "Frosty Blunderbuss",
+     "slot": "Gun",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274605,
+     "name": "Briny Sash",
+     "slot": "Waist (cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274603,
+     "name": "Dreadfrost Saber",
+     "slot": "Main-hand sword",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Deathless Marrow",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 270885,
+     "wowhead_name": "Deathless Marrow",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "flooded tomb, shared encounter with Primeval Elemental",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274606,
+     "name": "Bloodspine Staff",
+     "slot": "Staff",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274607,
+     "name": "Viscera Spaulders",
+     "slot": "Shoulder (mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Primeval Elemental",
+   "name_de": "Urtümlicher Elementar",
+   "encounter_id": 3511,
+   "npcs": [
+    {
+     "id": 273738,
+     "wowhead_name": "Primeval Elemental",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "flooded tomb, same encounter as Deathless Marrow",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274612,
+     "name": "Waterlogged Burial Shroud",
+     "slot": "Back",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274611,
+     "name": "Robe of the Drowned",
+     "slot": "Chest (cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274613,
+     "name": "Priestess Cloak",
+     "slot": "Back",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274614,
+     "name": "Knucklebone Ring",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274615,
+     "name": "Heart of the Primeval",
+     "slot": "Trinket",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 276894,
+     "name": "Ancient Gurubashi Idol",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Gill",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 270888,
+     "wowhead_name": "Gill",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Min'loth the Serpent",
+   "name_de": "Min'loth die Schlange",
+   "encounter_id": 3479,
+   "npcs": [
+    {
+     "id": 270886,
+     "wowhead_name": "Min'loth the Serpent",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "final room overlooking sunken pirate ship",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274610,
+     "name": "Ritual-Binder's Gloves",
+     "slot": "Hands (leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274608,
+     "name": "Maw of Min'loth",
+     "slot": "Shield",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274609,
+     "name": "Serpentbane Crown",
+     "slot": "Head (mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Deathless Guardians",
+   "name_de": "Unsterbliche Wächter",
+   "encounter_id": 3478,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 629,
+   "title": "The Vile Reef",
+   "level": 37,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": "Kin'weelay",
+   "giver_npc_id": 2519,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95748,
+   "title": "The Gurubashi Legends of Old",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": "Kin'weelay",
+   "giver_npc_id": 2519,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale",
+   "prereq": "The Vile Reef (629)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95770,
+   "title": "Locating the Lost City",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": "Kin'weelay (likely)",
+   "giver_npc_id": 2519,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale",
+   "prereq": "The Gurubashi Legends of Old (95748)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95775,
+   "title": "The Drowned City",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": "Kin'weelay (likely)",
+   "giver_npc_id": 2519,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale",
+   "prereq": "Locating the Lost City (95770)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95773,
+   "title": "Enemies in the Water",
+   "level": 37,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale (Grom'gol Base Camp)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95776,
+   "title": "The Only Good Brinescale...",
+   "level": 38,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale (Grom'gol Base Camp)",
+   "prereq": "Enemies in the Water (95773)",
+   "rewards": [
+    279888,
+    279889
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 96774,
+   "title": "Ancient Gurubashi Idol",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Horde",
+   "giver": "Mazu'kon",
+   "giver_npc_id": 264074,
+   "giver_item_id": null,
+   "giver_zone": "Mulgore",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 95789,
+   "title": "Shady Saltseers",
+   "level": 40,
+   "min_level": 34,
+   "faction": "Both",
+   "giver": "Krazek",
+   "giver_npc_id": 773,
+   "giver_item_id": null,
+   "giver_zone": "Booty Bay",
+   "prereq": null,
+   "rewards": [
+    279882,
+    279930
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 95791,
+   "title": "The Saltseer Captain",
+   "level": 40,
+   "min_level": 34,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Booty Bay (likely)",
+   "prereq": null,
+   "rewards": [
+    279883,
+    279884
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 95786,
+   "title": "An Acquaintance in Southshore",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Brother Nimetz (likely)",
+   "giver_npc_id": 739,
+   "giver_item_id": null,
+   "giver_zone": "Stranglethorn Vale",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95787,
+   "title": "Take Two With Water",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Alliance",
+   "giver": "Loremaster Dibbs",
+   "giver_npc_id": 2277,
+   "giver_item_id": null,
+   "giver_zone": "Hillsbrad Foothills (Southshore)",
+   "prereq": "An Acquaintance in Southshore (95786)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95799,
+   "title": "Findings for the Explorer's League",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Historian Karnik",
+   "giver_npc_id": 2916,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "Take Two With Water (95787)",
+   "rewards": [
+    279880,
+    279881
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95788,
+   "title": "Magics of the Drowned City",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Alliance",
+   "giver": "Loremaster Dibbs",
+   "giver_npc_id": 2277,
+   "giver_item_id": null,
+   "giver_zone": "Hillsbrad Foothills (Southshore)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95798,
+   "title": "The Web of Magic",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Abra Cadabra",
+   "giver_npc_id": 252019,
+   "giver_item_id": null,
+   "giver_zone": "Dalaran",
+   "prereq": "Magics of the Drowned City (95788)",
+   "rewards": [
+    279879,
+    279878
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 97130,
+   "title": "Ancient Gurubashi Secrets",
+   "level": 40,
+   "min_level": 34,
+   "faction": "Alliance",
+   "giver": "Archmage Timear",
+   "giver_npc_id": 31439,
+   "giver_item_id": null,
+   "giver_zone": "Dalaran (outside Violet Hold)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [
+  "No pin for 'Zul'Alai' (encounter 3474) in DungeonPinData.lua.",
+  "No pin for 'Var'Taka' (encounter 3475) in DungeonPinData.lua.",
+  "No pin for 'Captain Dreadrise' (encounter 3476) in DungeonPinData.lua.",
+  "Boss 'Deathless Marrow' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Primeval Elemental' (encounter 3511) in DungeonPinData.lua.",
+  "Boss 'Gill' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Min'loth the Serpent' (encounter 3479) in DungeonPinData.lua.",
+  "Encounter 3478 'Deathless Guardians' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 629 'The Vile Reef' not found on Wowhead Forever - check ID.",
+  "Quest 95748 'The Gurubashi Legends of Old' not found on Wowhead Forever - check ID.",
+  "Quest 95770 'Locating the Lost City' not found on Wowhead Forever - check ID.",
+  "Quest 95775 'The Drowned City' not found on Wowhead Forever - check ID.",
+  "Quest 95773 'Enemies in the Water' not found on Wowhead Forever - check ID.",
+  "Quest 95776 'The Only Good Brinescale...' not found on Wowhead Forever - check ID.",
+  "Quest 96774 'Ancient Gurubashi Idol' not found on Wowhead Forever - check ID.",
+  "Quest 95789 'Shady Saltseers' not found on Wowhead Forever - check ID.",
+  "Quest 95791 'The Saltseer Captain' not found on Wowhead Forever - check ID.",
+  "Quest 95786 'An Acquaintance in Southshore' not found on Wowhead Forever - check ID.",
+  "Quest 95787 'Take Two With Water' not found on Wowhead Forever - check ID.",
+  "Quest 95799 'Findings for the Explorer's League' not found on Wowhead Forever - check ID.",
+  "Quest 95788 'Magics of the Drowned City' not found on Wowhead Forever - check ID.",
+  "Quest 95798 'The Web of Magic' not found on Wowhead Forever - check ID.",
+  "Quest 97130 'Ancient Gurubashi Secrets' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "No drop chances on guide; 7 of 18 items 'seen', 11 'probable' via journal addon data",
+  "Primeval Elemental (273738) shares encounter with Deathless Marrow; listed separately here because loot is attributed separately",
+  "Gill (270888): level, abilities, loot unknown",
+  "Several quest givers marked likely/unconfirmed by guide",
+  "Zin'aka shark (263742) is not a boss",
+  "Brinescale Trident drops from Brinescale Skirmisher (262397); Voodoo-Infused Artifact from Saltseer pirates"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "partial",
+  "pins": "missing",
+  "loot": "partial",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 18,
+  "loot_confirmed": 18,
+  "loot_with_chance": 0,
+  "forever_confirmed": "yes",
+  "boss_count": 7,
+  "boss_ok": 5,
+  "pin_ok": 0,
+  "enc_count": 6,
+  "q_tot": 15
+ },
+ "top_points": [
+  "15 of 15 quests missing in DungeonQuests.lua",
+  "Boss 'Deathless Marrow' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
+  "No pin for 'Zul'Alai' (encounter 3474) in DungeonPinData.lua. (+4 more)"
+ ]
+}

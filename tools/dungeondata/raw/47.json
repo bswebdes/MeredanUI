@@ -1,0 +1,97 @@
+{
+  "key": 47,
+  "name_en": "Razorfen Kraul",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-razorfen-kraul-guide/"],
+  "level": "29-38",
+  "boss_level": null,
+  "zone": "The Barrens",
+  "zone_id": 17,
+  "instance_zone_id": 491,
+  "entrance": "southern Barrens thorn maze west of road, near Great Lift",
+  "faction": "Both; entrance in Horde territory",
+  "bosses": [
+    {"order": 1, "wing": null, "name": "Roogug", "npc_ids": [6168], "location": "side area near entrance", "optional": false,
+     "loot": [
+      {"item_id": 274152, "name": "Roogug's Severed Head", "slot": "Trinket", "chance": null, "quest_item": false},
+      {"item_id": 274149, "name": "Thornweaver Drape", "slot": "Back", "chance": null, "quest_item": false},
+      {"item_id": 274155, "name": "Geomancer Headdress", "slot": "Head (Leather)", "chance": null, "quest_item": false},
+      {"item_id": 6841, "name": "Vial of Phlogiston", "slot": "Quest (1701/1838, Warrior)", "chance": null, "quest_item": true}]},
+    {"order": 2, "wing": null, "name": "Aggem Thorncurse", "npc_ids": [4424], "location": null, "optional": false,
+     "loot": [
+      {"item_id": 6681, "name": "Thornspike", "slot": "Dagger", "chance": "48%", "quest_item": false},
+      {"item_id": 274158, "name": "Death Prophet Spine", "slot": "Staff", "chance": null, "quest_item": false},
+      {"item_id": 274159, "name": "Thorncursed Grips", "slot": "Hands (Leather)", "chance": null, "quest_item": false}]},
+    {"order": 3, "wing": null, "name": "Death Speaker Jargba", "npc_ids": [4428], "location": null, "optional": false,
+     "loot": [
+      {"item_id": 6682, "name": "Death Speaker Robes", "slot": "Chest (Cloth)", "chance": "43%", "quest_item": false},
+      {"item_id": 6685, "name": "Death Speaker Mantle", "slot": "Shoulder (Cloth)", "chance": "44%", "quest_item": false},
+      {"item_id": 2816, "name": "Death Speaker Scepter", "slot": "One-Hand Mace", "chance": "10%", "quest_item": false}]},
+    {"order": 4, "wing": null, "name": "Overlord Ramtusk", "npc_ids": [4420], "location": "with two Spearhide guards", "optional": false,
+     "loot": [
+      {"item_id": 6686, "name": "Tusken Helm", "slot": "Head", "chance": "62%", "quest_item": false},
+      {"item_id": 6687, "name": "Corpsemaker", "slot": "Two-Hand Axe", "chance": "34%", "quest_item": false},
+      {"item_id": 274161, "name": "Quillord Mail Leggings", "slot": "Legs (Mail)", "chance": null, "quest_item": false}]},
+    {"order": 5, "wing": null, "name": "Agathelos the Raging", "npc_ids": [4422], "location": "sealed behind ward; kill seer and two Ward Guardians", "optional": false,
+     "loot": [
+      {"item_id": 6690, "name": "Ferine Leggings", "slot": "Legs (Leather)", "chance": "62%", "quest_item": false},
+      {"item_id": 6691, "name": "Swinetusk Shank", "slot": "Dagger", "chance": "34%", "quest_item": false},
+      {"item_id": 274160, "name": "Quilrager Throwing Axe", "slot": "Thrown", "chance": null, "quest_item": false}]},
+    {"order": 6, "wing": null, "name": "Charlga Razorflank", "npc_ids": [4421], "location": "final boss", "optional": false,
+     "loot": [
+      {"item_id": 6693, "name": "Agamaggan's Clutch", "slot": "Finger", "chance": "36%", "quest_item": false},
+      {"item_id": 6694, "name": "Heart of Agamaggan", "slot": "Shield", "chance": "33%", "quest_item": false},
+      {"item_id": 6692, "name": "Pronged Reaver", "slot": "One-Hand Axe", "chance": "18%", "quest_item": false},
+      {"item_id": 273103, "name": "Blueprint: Arcane Salvager", "slot": "Recipe", "chance": null, "quest_item": false},
+      {"item_id": 17008, "name": "Small Scroll", "slot": "Quest starter (6522)", "chance": "42%", "quest_item": true},
+      {"item_id": 274463, "name": "Tattered Note", "slot": "Quest (Shaman 96264/79360)", "chance": null, "quest_item": true},
+      {"item_id": 5792, "name": "Razorflank's Medallion", "slot": "Quest (1101)", "chance": null, "quest_item": true},
+      {"item_id": 5793, "name": "Razorflank's Heart", "slot": "Quest (1102)", "chance": null, "quest_item": true}]}
+  ],
+  "rares": [
+    {"name": "Earthcaller Halmgar", "npc_id": 4842, "location": "plateau after Ramtusk", "loot": [
+      {"item_id": 6689, "name": "Wind Spirit Staff", "slot": "Staff", "chance": "49%", "quest_item": false},
+      {"item_id": 6688, "name": "Whisperwind Headdress", "slot": "Head", "chance": "45%", "quest_item": false}]},
+    {"name": "Blind Hunter", "npc_id": 4425, "location": "end of the bat caves", "loot": [
+      {"item_id": 6695, "name": "Stygian Bone Amulet", "slot": "Neck", "chance": "27%", "quest_item": false},
+      {"item_id": 6697, "name": "Batwing Mantle", "slot": "Shoulder", "chance": "33%", "quest_item": false},
+      {"item_id": 6696, "name": "Nightstalker Bow", "slot": "Bow", "chance": "33%", "quest_item": false}]}
+  ],
+  "trash_loot": [
+    {"item_id": 6679, "name": "Armor Piercer", "slot": "Polearm", "chance": "60%", "source": "Razorfen Spearhide (4438)"},
+    {"item_id": 5825, "name": "Treshala's Pendant", "slot": "Quest (1142)", "chance": null, "quest_item": true, "source": "Death's Head Acolyte (4515)"},
+    {"item_id": 5801, "name": "Kraul Guano", "slot": "Quest (1109)", "chance": null, "quest_item": true, "source": "Kraul Bat (4538), Greater Kraul Bat (4539)"},
+    {"item_id": 252512, "name": "Brawler's Leather Helm", "slot": "Head (Leather)", "chance": null, "source": "any boss (one of six helms)"},
+    {"item_id": 252515, "name": "Wisdom's Leather Helm", "slot": "Head (Leather)", "chance": null, "source": "any boss (one of six helms)"}
+  ],
+  "quests": [
+    {"quest_id": 1100, "title": "Lonebrow's Journal", "level": null, "min_level": null, "faction": "Alliance", "giver": null, "giver_npc_id": null, "giver_item_id": 5791, "giver_zone": "Thousand Needles (Henrig Lonebrow's body near Great Lift ~30,24)", "prereq": null, "rewards": []},
+    {"quest_id": 1101, "title": "The Crone of the Kraul", "level": 34, "min_level": 29, "faction": "Alliance", "giver": "Falfindel Waywarder", "giver_npc_id": 4048, "giver_item_id": null, "giver_zone": "Feralas (Thalanaar)", "prereq": "Lonebrow's Journal (1100)", "rewards": [274084, 4197, 6742, 6725], "objective_items": [5792]},
+    {"quest_id": 1144, "title": "Willix the Importer", "level": 30, "min_level": 23, "faction": "Both", "giver": "Willix the Importer", "giver_npc_id": 4508, "giver_item_id": null, "giver_zone": "Razorfen Kraul (inside)", "prereq": null, "rewards": [6748, 6750, 6749, 274078]},
+    {"quest_id": 1142, "title": "Mortality Wanes", "level": 30, "min_level": 25, "faction": "Alliance", "giver": "Heralath Fallowbrook", "giver_npc_id": 4510, "giver_item_id": null, "giver_zone": "Razorfen Kraul (inside, near Charlga)", "prereq": null, "rewards": [6751, 6752, 270047], "turn_in": "Treshala Fallowbrook (4521), Darnassus", "objective_items": [5825]},
+    {"quest_id": 1221, "title": "Blueleaf Tubers", "level": 26, "min_level": 20, "faction": "Both", "giver": "Mebok Mizzyrix", "giver_npc_id": 3446, "giver_item_id": null, "giver_zone": "The Barrens (Ratchet)", "prereq": null, "rewards": [6755], "objective_items": [5876, 5880, 6684, 5897]},
+    {"quest_id": 1102, "title": "A Vengeful Fate", "level": 34, "min_level": 29, "faction": "Horde", "giver": "Auld Stonespire", "giver_npc_id": 4451, "giver_item_id": null, "giver_zone": "Thunder Bluff", "prereq": null, "rewards": [274084, 4197, 6742, 6725], "objective_items": [5793]},
+    {"quest_id": 1109, "title": "Going, Going, Guano!", "level": 33, "min_level": 30, "faction": "Horde", "giver": "Master Apothecary Faranell", "giver_npc_id": 2055, "giver_item_id": null, "giver_zone": "Undercity", "prereq": null, "rewards": [], "objective_items": [5801]},
+    {"quest_id": 6522, "title": "An Unholy Alliance", "level": 36, "min_level": null, "faction": "Horde", "giver": null, "giver_npc_id": null, "giver_item_id": 17008, "giver_zone": "Razorfen Kraul (Charlga drop)", "prereq": null, "rewards": [], "turn_in": "Varimathras (2425), Undercity"},
+    {"quest_id": 96264, "title": "Elemental Aid", "level": null, "min_level": null, "faction": "Alliance (Shaman)", "giver": null, "giver_npc_id": null, "giver_item_id": 274463, "giver_zone": null, "prereq": null, "rewards": []},
+    {"quest_id": 79360, "title": "Elemental Aid", "level": null, "min_level": null, "faction": "Horde (Shaman)", "giver": null, "giver_npc_id": null, "giver_item_id": 274463, "giver_zone": null, "prereq": null, "rewards": []},
+    {"quest_id": 1701, "title": "Fire Hardened Mail", "level": null, "min_level": null, "faction": "Alliance (Warrior)", "giver": null, "giver_npc_id": null, "giver_item_id": null, "giver_zone": null, "prereq": null, "rewards": [], "objective_items": [6841]},
+    {"quest_id": 1838, "title": "Brutal Armor", "level": null, "min_level": null, "faction": "Horde (Warrior)", "giver": null, "giver_npc_id": null, "giver_item_id": null, "giver_zone": null, "prereq": null, "rewards": [], "objective_items": [6841]}
+  ],
+  "keys_attunement": "None",
+  "forever_changes": [
+    "Quilboar Blaster (274084) given to everyone completing Charlga quests (new)",
+    "Berylline Pads Spirit->spell power; Stonefist Girdle +100 armor",
+    "Boss loot reworked (Tusken Helm tank helm, Death Speaker Scepter/Wind Spirit Staff healing, Swinetusk Shank spell power, etc.)",
+    "New items: 274161, 274160, 274158, 274159, 274152, 274149, 274155, 273103, 274078, 270047, six leather helms",
+    "Agamaggan's Clutch +3% move speed in Barrens/Thousand Needles/Razorfen dungeons",
+    "Spearhides are regular elites instead of rare elites",
+    "Item-started quests cannot be shared (since Oct 1 beta)"
+  ],
+  "notes": [
+    "Boss levels not stated on guide",
+    "Shaman Elemental Aid chain ends with Rage of the Storm item 280604; whether Tattered Note starts or is objective of 96264/79360 is unclear",
+    "Unholy Alliance chain continues in Razorfen Downs (6521)",
+    "Going, Going, Guano! opens Hearts of Zeal (1113)",
+    "Boss order follows guide listing"
+  ]
+}

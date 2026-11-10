@@ -1,0 +1,1227 @@
+{
+ "key": 349,
+ "slug": "maraudon",
+ "kind": "dungeon",
+ "name_en": "Maraudon",
+ "level": "46-55",
+ "zone": "Desolace",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-maraudon-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "No key for outer sides. Scepter of Celebras item=17191 (quest 7046) opens portal from outer caves to Earth Song Falls.",
+ "forever_changes": [
+  "Maraudon keeps its Classic layout",
+  "Itemization changes stated: Resurgence Rod 112 healing/37 spell dmg; Thrash Blade extra attack; Inventor's Focal Sword 60 SP/14 crit; Noxious Shooter 5 SP; Vinerot Sandals 6 spell dmg; Phytoskin Spaulders 16 Agi; Satyrmane Sash 14 SP; Blackstone Ring 20 AP/10 hit; Eye of Theradras 14 crit; Gatorbite Axe bleed 210/7s (was 230/30s); Grovekeeper's Drape -5% Charm hit; Claw of Celebras poison ticks 1s for 7s; Fist of Stone 3x mana vs earth elementals/golems/titan-forged; Fungus Shroud Armor 25 Agi; Rotgrip Mantle 13 SP; Albino Crocscale Boots 20 Agi; Sagebrush Girdle 15 Agi; Zealous Shadowshard Pendant 20 AP; Mark of the Chosen 2% proc +25 all stats 1 min",
+  "Several rewards/drops still shown with Classic stats (Forever not published)"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "Orange (Foulspore Cavern)",
+   "name": "Noxxion",
+   "name_de": "Noxxion",
+   "encounter_id": 422,
+   "npcs": [
+    {
+     "id": 13282,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Noxious Hollow, end of orange side",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3475,
+    "y": 0.1071
+   },
+   "loot": [
+    {
+     "item_id": 17702,
+     "name": "Celebrian Rod",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17746,
+     "name": "Noxxion's Shackles",
+     "slot": "Wrist Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": 36.33,
+     "wowhead_dropped_by": "Noxxion",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17744,
+     "name": "Heart of Noxxion",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": 36.01,
+     "wowhead_dropped_by": "Noxxion",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17745,
+     "name": "Noxious Shooter",
+     "slot": "Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.09,
+     "wowhead_dropped_by": "Noxxion",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "Orange (Foulspore Cavern)",
+   "name": "Razorlash",
+   "name_de": "Schlingwurzler",
+   "encounter_id": 423,
+   "npcs": [
+    {
+     "id": 12258,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "roams Foulspore Cavern",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.1617,
+    "y": 0.3402
+   },
+   "loot": [
+    {
+     "item_id": 17748,
+     "name": "Vinerot Sandals",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 23.92,
+     "wowhead_dropped_by": "Razorlash",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17749,
+     "name": "Phytoskin Spaulders",
+     "slot": "Shoulder (Leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 25.0,
+     "chance_wowhead_forever": 24.49,
+     "wowhead_dropped_by": "Razorlash",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17750,
+     "name": "Chloromesh Girdle",
+     "slot": "Waist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.38,
+     "wowhead_dropped_by": "Razorlash",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17751,
+     "name": "Brusslehide Leggings",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.83,
+     "wowhead_dropped_by": "Razorlash",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "Purple (The Wicked Grotto)",
+   "name": "Tinkerer Gizlock",
+   "name_de": "Tüftler Gizlock",
+   "encounter_id": 427,
+   "npcs": [
+    {
+     "id": 13601,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "The Wicked Grotto, purple side",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.484,
+    "y": 0.6856
+   },
+   "loot": [
+    {
+     "item_id": 17719,
+     "name": "Inventor's Focal Sword",
+     "slot": "Main Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 33.05,
+     "wowhead_dropped_by": "Tinkerer Gizlock",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17717,
+     "name": "Megashot Rifle",
+     "slot": "Ranged Gun",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.86,
+     "wowhead_dropped_by": "Tinkerer Gizlock",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17718,
+     "name": "Gizlock's Hypertech Buckler",
+     "slot": "Shield (Buckler)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.79,
+     "wowhead_dropped_by": "Tinkerer Gizlock",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "Purple (The Wicked Grotto)",
+   "name": "Lord Vyletongue",
+   "name_de": "Lord Schlangenzunge",
+   "encounter_id": 424,
+   "npcs": [
+    {
+     "id": 12236,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Vyletongue Seat, end of purple side, two satyr guards",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3771,
+    "y": 0.7
+   },
+   "loot": [
+    {
+     "item_id": 17703,
+     "name": "Celebrian Diamond",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 59.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17755,
+     "name": "Satyrmane Sash",
+     "slot": "Waist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": 27.65,
+     "wowhead_dropped_by": "Lord Vyletongue",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17754,
+     "name": "Infernal Trickster Leggings",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": 28.91,
+     "wowhead_dropped_by": "Lord Vyletongue",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17752,
+     "name": "Satyr's Lash",
+     "slot": "One-Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 28.0,
+     "chance_wowhead_forever": 28.61,
+     "wowhead_dropped_by": "Lord Vyletongue",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Celebras the Cursed",
+   "name_de": "Celebras der Verfluchte",
+   "encounter_id": 425,
+   "npcs": [
+    {
+     "id": 12225,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "north end of Earth Song Falls",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.0713,
+    "y": 0.7291
+   },
+   "loot": [
+    {
+     "item_id": 17740,
+     "name": "Soothsayer's Headdress",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 30.51,
+     "wowhead_dropped_by": "Celebras the Cursed",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17739,
+     "name": "Grovekeeper's Drape",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 32.33,
+     "wowhead_dropped_by": "Celebras the Cursed",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17738,
+     "name": "Claw of Celebras",
+     "slot": "Off Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 31.96,
+     "wowhead_dropped_by": "Celebras the Cursed",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Landslide",
+   "name_de": "Erdrutsch",
+   "encounter_id": 426,
+   "npcs": [
+    {
+     "id": 12203,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Earth Song Falls (no exact spot given)",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.4056,
+    "y": 0.4824
+   },
+   "loot": [
+    {
+     "item_id": 17943,
+     "name": "Fist of Stone",
+     "slot": "Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 26.0,
+     "chance_wowhead_forever": 25.66,
+     "wowhead_dropped_by": "Landslide",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17734,
+     "name": "Helm of the Mountain",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 22.6,
+     "wowhead_dropped_by": "Landslide",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17736,
+     "name": "Rockgrip Gauntlets",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 23.78,
+     "wowhead_dropped_by": "Landslide",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17737,
+     "name": "Cloud Stone",
+     "slot": "Held In Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 25.0,
+     "chance_wowhead_forever": 24.37,
+     "wowhead_dropped_by": "Landslide",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Princess Theradras",
+   "name_de": "Prinzessin Theradras",
+   "encounter_id": 429,
+   "npcs": [
+    {
+     "id": 12201,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "final chamber of Earth Song Falls",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.2416,
+    "y": 0.7836
+   },
+   "loot": [
+    {
+     "item_id": 17766,
+     "name": "Princess Theradras' Scepter",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17713,
+     "name": "Blackstone Ring",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 25.0,
+     "chance_wowhead_forever": 24.51,
+     "wowhead_dropped_by": "Princess Theradras",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17714,
+     "name": "Bracers of the Stone Princess",
+     "slot": "Wrist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 24.25,
+     "wowhead_dropped_by": "Princess Theradras",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17715,
+     "name": "Eye of Theradras",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17710,
+     "name": "Charstone Dirk",
+     "slot": "Dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17711,
+     "name": "Elemental Rockridge Leggings",
+     "slot": "Legs",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17707,
+     "name": "Gemshard Heart",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 17780,
+     "name": "Blade of Eternal Darkness",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 0.26,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Rotgrip",
+   "name_de": "Faulschnapper",
+   "encounter_id": 428,
+   "npcs": [
+    {
+     "id": 13596,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "crocolisk in lake below Princess",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.3326,
+    "y": 0.7706
+   },
+   "loot": [
+    {
+     "item_id": 17730,
+     "name": "Gatorbite Axe",
+     "slot": "Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 24.07,
+     "wowhead_dropped_by": "Rotgrip",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17732,
+     "name": "Rotgrip Mantle",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": 35.53,
+     "wowhead_dropped_by": "Rotgrip",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17728,
+     "name": "Albino Crocscale Boots",
+     "slot": "Feet",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 35.12,
+     "wowhead_dropped_by": "Rotgrip",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Meshlok the Harvester",
+   "npc_id": 12237,
+   "wowhead_name": null,
+   "location": "between orange and purple sides; not always spawned",
+   "pin": {
+    "floor": 1,
+    "x": 0.2461,
+    "y": 0.8737
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 17741,
+     "name": "Nature's Embrace",
+     "slot": "Chest (Robe)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": 28.94,
+     "wowhead_dropped_by": "Meshlok the Harvester",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17742,
+     "name": "Fungus Shroud Armor",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 27.83,
+     "wowhead_dropped_by": "Meshlok the Harvester",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 17767,
+     "name": "Bloomsprout Headpiece",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 29.82,
+     "wowhead_dropped_by": "Meshlok the Harvester",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 7065,
+   "title": "Corruption of Earth and Seed",
+   "level": 51,
+   "min_level": 45,
+   "faction": "Alliance",
+   "giver": "Keeper Marandis",
+   "giver_npc_id": 13698,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (Nijel's Point)",
+   "prereq": null,
+   "rewards": [
+    17705,
+    17743,
+    17753
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 7064,
+   "title": "Corruption of Earth and Seed",
+   "level": 51,
+   "min_level": 45,
+   "faction": "Horde",
+   "giver": "Selendra",
+   "giver_npc_id": 13699,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (near Shadowprey Village)",
+   "prereq": null,
+   "rewards": [
+    17705,
+    17743,
+    17753
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 7044,
+   "title": "Legends of Maraudon",
+   "level": 49,
+   "min_level": 41,
+   "faction": "Both",
+   "giver": "Cavindra",
+   "giver_npc_id": 13697,
+   "giver_item_id": null,
+   "giver_zone": "Maraudon outer caves (Desolace ~32.1,64.0)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7046,
+   "title": "The Scepter of Celebras",
+   "level": 49,
+   "min_level": 41,
+   "faction": "Both",
+   "giver": "Celebras the Redeemed",
+   "giver_npc_id": 13716,
+   "giver_item_id": null,
+   "giver_zone": "Maraudon (inside)",
+   "prereq": "Legends of Maraudon (7044); needs Celebrian Rod 17702 + Celebrian Diamond 17703",
+   "rewards": [
+    17191
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7066,
+   "title": "Seed of Life",
+   "level": 51,
+   "min_level": 45,
+   "faction": "Both",
+   "giver": "Zaetar's Spirit",
+   "giver_npc_id": 12238,
+   "giver_item_id": null,
+   "giver_zone": "Maraudon (after Princess Theradras)",
+   "prereq": "Kill Princess Theradras; turn in to Keeper Remulos (npc 11832), Moonglade",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7067,
+   "title": "The Pariah's Instructions",
+   "level": 48,
+   "min_level": 39,
+   "faction": "Both",
+   "giver": "Centaur Pariah",
+   "giver_npc_id": 13717,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (road south of Mannoroc Coven)",
+   "prereq": "Amulet of Spirits 17757 from The Nameless Prophet (npc 13718); 5 Khan ghosts -> Amulet of Union 17758",
+   "rewards": [
+    17774
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7028,
+   "title": "Twisted Evils",
+   "level": 47,
+   "min_level": 41,
+   "faction": "Both",
+   "giver": "Willow",
+   "giver_npc_id": 13656,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (near Thunder Axe Fortress)",
+   "prereq": "25x Theradric Crystal Carving 17684",
+   "rewards": [
+    17775,
+    17776,
+    17777,
+    17779
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7041,
+   "title": "Vyletongue Corruption",
+   "level": 47,
+   "min_level": 41,
+   "faction": "Alliance",
+   "giver": "Talendria",
+   "giver_npc_id": 11715,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (Nijel's Point)",
+   "prereq": "Coated Cerulean Vial 17693 -> Filled 17696 at orange pool",
+   "rewards": [
+    17768,
+    17778,
+    17770
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 7029,
+   "title": "Vyletongue Corruption",
+   "level": 47,
+   "min_level": 41,
+   "faction": "Horde",
+   "giver": "Vark Battlescar",
+   "giver_npc_id": 11823,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (Shadowprey Village)",
+   "prereq": "Coated Cerulean Vial 17693 -> Filled 17696 at orange pool",
+   "rewards": [
+    17768,
+    17778,
+    17770
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 7070,
+   "title": "Shadowshard Fragments",
+   "level": 42,
+   "min_level": 38,
+   "faction": "Alliance",
+   "giver": "Archmage Tervosh",
+   "giver_npc_id": 4967,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh (Theramore)",
+   "prereq": "10x Shadowshard Fragment 17756",
+   "rewards": [
+    17772,
+    17773
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 7068,
+   "title": "Shadowshard Fragments",
+   "level": 42,
+   "min_level": 38,
+   "faction": "Horde",
+   "giver": "Uthel'nay",
+   "giver_npc_id": 7311,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar (Valley of Spirits)",
+   "prereq": "10x Shadowshard Fragment 17756",
+   "rewards": [
+    17772,
+    17773
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Razorlash: 17750 Chloromesh Girdle - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.38%)",
+  "Razorlash: 17751 Brusslehide Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.83%)",
+  "Princess Theradras: 17766 Princess Theradras' Scepter - in Forever guide, missing in DungeonLoot.lua",
+  "Princess Theradras: 17715 Eye of Theradras - in Forever guide, missing in DungeonLoot.lua",
+  "Princess Theradras: 17710 Charstone Dirk - in Forever guide, missing in DungeonLoot.lua",
+  "Princess Theradras: 17711 Elemental Rockridge Leggings - in Forever guide, missing in DungeonLoot.lua",
+  "Princess Theradras: 17707 Gemshard Heart - in Forever guide, missing in DungeonLoot.lua",
+  "Princess Theradras: 17780 Blade of Eternal Darkness - in Forever guide, missing in DungeonLoot.lua"
+ ],
+ "open_questions": [
+  "NPC 13282 (Noxxion) not found on Wowhead Forever - check ID.",
+  "NPC 12258 (Razorlash) not found on Wowhead Forever - check ID.",
+  "NPC 13601 (Tinkerer Gizlock) not found on Wowhead Forever - check ID.",
+  "NPC 12236 (Lord Vyletongue) not found on Wowhead Forever - check ID.",
+  "NPC 12225 (Celebras the Cursed) not found on Wowhead Forever - check ID.",
+  "NPC 12203 (Landslide) not found on Wowhead Forever - check ID.",
+  "NPC 12201 (Princess Theradras) not found on Wowhead Forever - check ID.",
+  "NPC 13596 (Rotgrip) not found on Wowhead Forever - check ID.",
+  "Quest 7065 'Corruption of Earth and Seed' not found on Wowhead Forever - check ID.",
+  "Quest 7064 'Corruption of Earth and Seed' not found on Wowhead Forever - check ID.",
+  "Quest 7044 'Legends of Maraudon' not found on Wowhead Forever - check ID.",
+  "Quest 7046 'The Scepter of Celebras' not found on Wowhead Forever - check ID.",
+  "Quest 7066 'Seed of Life' not found on Wowhead Forever - check ID.",
+  "Quest 7067 'The Pariah's Instructions' not found on Wowhead Forever - check ID.",
+  "Quest 7028 'Twisted Evils' not found on Wowhead Forever - check ID.",
+  "Quest 7041 'Vyletongue Corruption' not found on Wowhead Forever - check ID.",
+  "Quest 7029 'Vyletongue Corruption' not found on Wowhead Forever - check ID.",
+  "Quest 7070 'Shadowshard Fragments' not found on Wowhead Forever - check ID.",
+  "Quest 7068 'Shadowshard Fragments' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Guide says 8 bosses + 1 rare; quest level range 38-45",
+  "Razorlash also drops two unnamed green items (no IDs on page)",
+  "Boss levels not stated",
+  "Slots null where guide did not state them",
+  "Pariah Khan ghosts: Kolk 13742, Gelk 13741, Magra 13740 (outer); Maraudos 13739, Veng 13738 (inside)"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 9,
+  "loot_rows": 34,
+  "loot_confirmed": 34,
+  "loot_with_chance": 34,
+  "forever_confirmed": "yes",
+  "boss_count": 8,
+  "boss_ok": 0,
+  "pin_ok": 8,
+  "enc_count": 8,
+  "q_tot": 11
+ },
+ "top_points": [
+  "2 of 11 quests missing in DungeonQuests.lua",
+  "NPC 13282 (Noxxion) not found on Wowhead Forever - check ID. (+18 more)"
+ ]
+}

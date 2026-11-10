@@ -1,0 +1,560 @@
+{
+ "key": 43,
+ "name_en": "Wailing Caverns",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-wailing-caverns-guide/"
+ ],
+ "level": "17-24",
+ "boss_level": null,
+ "zone": "The Barrens",
+ "zone_id": 718,
+ "entrance": "Cave in hills above Lushwater Oasis; portal at south end of mushroom cavern",
+ "faction": "Both (Horde 7 quests, Alliance 5)",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Lord Cobrahn",
+   "npc_ids": [
+    3669
+   ],
+   "location": "end of path in Pit of Fangs, three pythons",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6465,
+     "name": "Robe of the Moccasin",
+     "slot": "Chest (Cloth)",
+     "chance": "54.7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6460,
+     "name": "Cobrahn's Grasp",
+     "slot": null,
+     "chance": "18.1%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10410,
+     "name": "Leggings of the Fang",
+     "slot": null,
+     "chance": "17.5%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Kresh",
+   "npc_ids": [
+    3653
+   ],
+   "location": "giant turtle swimming in the river",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6447,
+     "name": "Worn Turtle Shell Shield",
+     "slot": "Shield",
+     "chance": "66.7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 13245,
+     "name": "Kresh's Back",
+     "slot": "Shield",
+     "chance": "13.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273084,
+     "name": "Cloak of Hermitic Bliss",
+     "slot": "Back",
+     "chance": "1.2%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Lord Pythas",
+   "npc_ids": [
+    3670
+   ],
+   "location": "Crag of the Everliving, northeast",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6473,
+     "name": "Armor of the Fang",
+     "slot": null,
+     "chance": "55.2%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6472,
+     "name": "Stinging Viper",
+     "slot": "Mace",
+     "chance": "29.6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273089,
+     "name": "Slither Cord",
+     "slot": "Waist (Cloth)",
+     "chance": "1.7%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Skum",
+   "npc_ids": [
+    3674
+   ],
+   "location": "chasm water south of Lord Pythas",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 6448,
+     "name": "Tail Spike",
+     "slot": "Dagger",
+     "chance": "46.6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6449,
+     "name": "Glowing Lizardscale Cloak",
+     "slot": "Back",
+     "chance": "45.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273137,
+     "name": "Skum's Bucket",
+     "slot": "Off Hand",
+     "chance": "2.6%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Lord Serpentis",
+   "npc_ids": [
+    3673
+   ],
+   "location": "west along south side, then north",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6459,
+     "name": "Savage Trodders",
+     "slot": null,
+     "chance": "23.3%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10411,
+     "name": "Footpads of the Fang",
+     "slot": null,
+     "chance": "21.1%",
+     "quest_item": false
+    },
+    {
+     "item_id": 5970,
+     "name": "Serpent Gloves",
+     "slot": null,
+     "chance": "19.4%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6469,
+     "name": "Venomstrike",
+     "slot": "Bow",
+     "chance": "16.8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273087,
+     "name": "Blueprint: Journeyman Campfire",
+     "slot": "Recipe (Cooking)",
+     "chance": "0.4%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Verdan the Everliving",
+   "npc_ids": [
+    5775
+   ],
+   "location": "right behind Lord Serpentis",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6630,
+     "name": "Seedcloud Buckler",
+     "slot": "Shield",
+     "chance": "39.2%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6631,
+     "name": "Living Root",
+     "slot": "Staff",
+     "chance": "37.8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6629,
+     "name": "Sporid Cape",
+     "slot": "Back",
+     "chance": "19.6%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Lady Anacondra",
+   "npc_ids": [
+    3671
+   ],
+   "location": "roams the river cave",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 5404,
+     "name": "Serpent's Shoulders",
+     "slot": null,
+     "chance": "43.3%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10412,
+     "name": "Belt of the Fang",
+     "slot": null,
+     "chance": "9.6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6446,
+     "name": "Snakeskin Bag",
+     "slot": "Bag (10 slot)",
+     "chance": "4.7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273088,
+     "name": "Snake Eye Kaleidoscope",
+     "slot": "Neck",
+     "chance": "2%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273098,
+     "name": "Blueprint: Field Guide",
+     "slot": "Recipe (Skinning)",
+     "chance": "0.3%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Mutanus the Devourer",
+   "npc_ids": [
+    3654,
+    3679,
+    3678
+   ],
+   "location": "end of Disciple of Naralex escort, north",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 6463,
+     "name": "Deep Fathom Ring",
+     "slot": "Finger",
+     "chance": "30.6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6461,
+     "name": "Slime-encrusted Pads",
+     "slot": null,
+     "chance": "29.6%",
+     "quest_item": false
+    },
+    {
+     "item_id": 6627,
+     "name": "Mutant Scale Breastplate",
+     "slot": "Chest",
+     "chance": "22.5%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10441,
+     "name": "Glowing Shard",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Deviate Faerie Dragon",
+   "npc_id": 5912,
+   "location": "spawns on some runs only",
+   "loot": [
+    {
+     "item_id": 5243,
+     "name": "Firebelcher",
+     "slot": "Wand",
+     "chance": "41.9%"
+    },
+    {
+     "item_id": 6632,
+     "name": "Feyscale Cloak",
+     "slot": "Back",
+     "chance": "44.6%"
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 1486,
+   "title": "Deviate Hides",
+   "level": 17,
+   "min_level": 13,
+   "faction": "Both",
+   "giver": "Nalpak",
+   "giver_npc_id": 5767,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (skull above entrance)",
+   "prereq": null,
+   "rewards": [
+    6480,
+    918
+   ]
+  },
+  {
+   "quest_id": 959,
+   "title": "Trouble at the Docks",
+   "level": 18,
+   "min_level": 14,
+   "faction": "Both",
+   "giver": "Crane Operator Bigglefuzz",
+   "giver_npc_id": 3665,
+   "giver_item_id": null,
+   "giver_zone": "Ratchet",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 1491,
+   "title": "Smart Drinks",
+   "level": 18,
+   "min_level": 13,
+   "faction": "Both",
+   "giver": "Mebok Mizzyrix",
+   "giver_npc_id": 3446,
+   "giver_item_id": null,
+   "giver_zone": "Ratchet",
+   "prereq": "Raptor Horns (865)",
+   "rewards": []
+  },
+  {
+   "quest_id": 1487,
+   "title": "Deviate Eradication",
+   "level": 21,
+   "min_level": 15,
+   "faction": "Both",
+   "giver": "Ebru",
+   "giver_npc_id": 5768,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (skull above entrance)",
+   "prereq": null,
+   "rewards": [
+    8071,
+    6481,
+    6476
+   ]
+  },
+  {
+   "quest_id": 6981,
+   "title": "The Glowing Shard",
+   "level": 26,
+   "min_level": 15,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 10441,
+   "giver_zone": "Wailing Caverns (drop from Mutanus)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 3369,
+   "title": "In Nightmares",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Falla Sagewind",
+   "giver_npc_id": 8418,
+   "giver_item_id": null,
+   "giver_zone": "hut above dungeon",
+   "prereq": "The Glowing Shard (6981)",
+   "rewards": [
+    10657,
+    10658
+   ]
+  },
+  {
+   "quest_id": 914,
+   "title": "Leaders of the Fang",
+   "level": 22,
+   "min_level": 10,
+   "faction": "Horde",
+   "giver": "Nara Wildmane",
+   "giver_npc_id": 5770,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff (Elder Rise)",
+   "prereq": "Nara Wildmane (1490)",
+   "rewards": [
+    270018,
+    6505,
+    6504
+   ]
+  },
+  {
+   "quest_id": 962,
+   "title": "Serpentbloom",
+   "level": 18,
+   "min_level": 14,
+   "faction": "Horde",
+   "giver": "Apothecary Zamah",
+   "giver_npc_id": 3419,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff (Pools of Vision)",
+   "prereq": null,
+   "rewards": [
+    10919,
+    270008,
+    270009
+   ]
+  },
+  {
+   "quest_id": 865,
+   "title": "Raptor Horns",
+   "level": 18,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Mebok Mizzyrix",
+   "giver_npc_id": 3446,
+   "giver_item_id": null,
+   "giver_zone": "Ratchet",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 870,
+   "title": "The Forgotten Pools",
+   "level": 13,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 877,
+   "title": "The Stagnant Oasis",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 880,
+   "title": "Altered Beings",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 1489,
+   "title": "Hamuul Runetotem",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tonga Runetotem",
+   "giver_npc_id": 3448,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 1490,
+   "title": "Nara Wildmane",
+   "level": 16,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Arch Druid Hamuul Runetotem",
+   "giver_npc_id": 5769,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": "Hamuul Runetotem (1489)",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None",
+ "forever_changes": [
+  "All boss items blue, many with spell power/new effects",
+  "New rare items (1-3%): Cloak of Hermitic Bliss, Slither Cord, Skum's Bucket, Snake Eye Kaleidoscope",
+  "New blueprint drops: Journeyman Campfire (Serpentis), Field Guide (Anacondra)",
+  "Cobrahn, Skum, Mutanus hit several times harder than Classic",
+  "Worn Turtle Shell Shield now blue with bonus armor and mana regen",
+  "Slime-encrusted Pads gain health/mana regen; Mutant Scale Breastplate usable from 18",
+  "Firebelcher gained fire proc",
+  "Embrace of the Viper set rebuilt",
+  "New quest rewards: Hammerbone 270018, Heat Resistant Mitts 270008, Safety Boots 270009"
+ ],
+ "notes": [
+  "Mutanus entry npc_ids include Naralex 3679 and Disciple of Naralex 3678 (escort)",
+  "Gloves of the Fang item=10413 2.4% from trash (Embrace of the Viper set)",
+  "In Nightmares linked as both 3369 and 3370; turn-in Hamuul 5769 (Horde) / Mathrengyl Bearwalker 4217 (Alliance)",
+  "Smart Drinks giver location conflicts: Ratchet vs Barrens (62.4,37.6)",
+  "Many item slots not stated by page (null)",
+  "Boss level not stated",
+  "Quest XP: Alliance 17,550, Horde 25,150"
+ ]
+}

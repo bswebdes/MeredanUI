@@ -1,0 +1,261 @@
+{
+ "key": 3065,
+ "name_en": "The Hall of Thanes",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-hall-of-thanes-guide/"
+ ],
+ "level": "13-18",
+ "boss_level": 16,
+ "zone": "Ironforge / Dun Morogh",
+ "zone_id": 16919,
+ "entrance": "Old Ironforge via webbed passage left in High Seat throne room",
+ "faction": "Alliance-built; Horde can enter (only 2 quests)",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Faldrim Anvilmar",
+   "npc_ids": [
+    261306
+   ],
+   "location": "Anvilmar's Rest, central hall near entrance",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 270227,
+     "name": "Ephemeral Choker",
+     "slot": "Neck",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271096,
+     "name": "Aetherwisp Bracers",
+     "slot": "Wrist (Cloth)",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271097,
+     "name": "Spiritwraith Drape",
+     "slot": "Back",
+     "chance": "34%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Magmatus",
+   "npc_ids": [
+    261316
+   ],
+   "location": "Dark Iron dig east of central hall",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 270230,
+     "name": "Kindlegem Girdle",
+     "slot": "Waist (Mail)",
+     "chance": "36%",
+     "quest_item": false
+    },
+    {
+     "item_id": 270231,
+     "name": "Flamefist Grips",
+     "slot": "Hands (Leather)",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271095,
+     "name": "Fang of Magmatus",
+     "slot": "Dagger",
+     "chance": "35%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Plunder",
+   "npc_ids": [
+    261311
+   ],
+   "location": "hall before the last boss",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 270228,
+     "name": "Golemheart Stave",
+     "slot": "Staff",
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 270229,
+     "name": "Treads of the Protector Golem",
+     "slot": "Feet (Mail)",
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271098,
+     "name": "Golemguard Chest",
+     "slot": "Chest (Mail)",
+     "chance": "31%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Durgen Dirgehammer",
+   "npc_ids": [
+    261319
+   ],
+   "location": "Reliquary of Kings, far end",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 270256,
+     "name": "Durgen's Crescent Axe",
+     "slot": "One-Hand Axe",
+     "chance": "28%",
+     "quest_item": false
+    },
+    {
+     "item_id": 270260,
+     "name": "Direhammer Leggings",
+     "slot": "Legs (Leather)",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 270261,
+     "name": "Robes of the Disgraced Thane",
+     "slot": "Chest (Cloth)",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 274286,
+     "name": "Durgen Dirgehammer's Head",
+     "slot": "Quest",
+     "chance": "~50%+",
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 96391,
+   "title": "Underground Map",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Earthseer Farsen",
+   "giver_npc_id": 264936,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh",
+   "prereq": "Dark Iron Map item=274268 from Dark Iron Spy npc=6123",
+   "rewards": []
+  },
+  {
+   "quest_id": 96393,
+   "title": "Old Ironforge Incursion",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Alliance",
+   "giver": "Earthseer Farsen",
+   "giver_npc_id": 264936,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh",
+   "prereq": "Underground Map (96391)",
+   "rewards": [
+    279895,
+    279896,
+    279894
+   ]
+  },
+  {
+   "quest_id": 96394,
+   "title": "The Restless Dead",
+   "level": 15,
+   "min_level": 10,
+   "faction": "Alliance",
+   "giver": "Afadra Dunwall",
+   "giver_npc_id": 264943,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": null,
+   "rewards": [
+    279897,
+    280095
+   ]
+  },
+  {
+   "quest_id": 96395,
+   "title": "An Ancient Grudge",
+   "level": 15,
+   "min_level": 10,
+   "faction": "Both",
+   "giver": "Ghostly Attendant",
+   "giver_npc_id": 265002,
+   "giver_item_id": null,
+   "giver_zone": "The Hall of Thanes (inside)",
+   "prereq": null,
+   "rewards": [
+    279899,
+    279900
+   ]
+  },
+  {
+   "quest_id": 96403,
+   "title": "Important Heirlooms",
+   "level": 15,
+   "min_level": 10,
+   "faction": "Both",
+   "giver": "Thom Filch",
+   "giver_npc_id": 265003,
+   "giver_item_id": null,
+   "giver_zone": "Old Ironforge (bridge before portal)",
+   "prereq": null,
+   "rewards": [
+    279898,
+    280096
+   ]
+  },
+  {
+   "quest_id": 98423,
+   "title": "The Treaty of Understanding",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 281030,
+   "giver_zone": "The Hall of Thanes (last room)",
+   "prereq": null,
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None (no attunement or key)",
+ "forever_changes": [
+  "New WoW Forever dungeon with four new bosses dropping blue gear",
+  "Each boss drops one of its three items"
+ ],
+ "notes": [
+  "Treaty of Understanding turned in to King Magni Bronzebeard npc=2784",
+  "Important Heirlooms needs 8x Dwarven Heirloom item=274289",
+  "Restless Dead targets: Enraged Apparition npc=263389, Tormented Soul npc=263390",
+  "Magmatus adds: Dark Iron Summoner npc=263438, Fiery Assistant npc=263467; Durgen guarded by Lesser Stone Golem npc=263466",
+  "min_level values given as 'from 9/10' unlabeled in source",
+  "Achievement Novice Spelunker achievement=62031"
+ ]
+}

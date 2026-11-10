@@ -1,0 +1,88 @@
+{
+  "key": 34,
+  "name_en": "The Stockade",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-stockade-guide/"],
+  "level": "24-32",
+  "boss_level": "24-29",
+  "zone": "Stormwind City",
+  "zone_id": 1519,
+  "instance_zone_id": 717,
+  "entrance": "Stormwind canal between Trade District and Mage Quarter",
+  "faction": "Alliance; Horde can enter but has no quests",
+  "bosses": [
+    {"order": 1, "wing": null, "name": "Targorr the Dread", "npc_ids": [1696], "level": 24, "location": "cell along central hall", "optional": false,
+     "loot": [
+      {"item_id": 3630, "name": "Head of Targorr", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 273804, "name": "Executioner Mantle", "slot": "Shoulder (Leather)", "chance": null, "quest_item": false},
+      {"item_id": 273805, "name": "Blackrock Harness", "slot": "Chest (Leather)", "chance": null, "quest_item": false},
+      {"item_id": 273806, "name": "Dark Horde Band", "slot": "Finger", "chance": null, "quest_item": false}]},
+    {"order": 2, "wing": null, "name": "Kam Deepfury", "npc_ids": [1666], "level": 27, "location": "cell, north side of east hall", "optional": false,
+     "loot": [
+      {"item_id": 3640, "name": "Head of Deepfury", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 2280, "name": "Kam's Walking Stick", "slot": "Staff", "chance": "0.9%", "quest_item": false},
+      {"item_id": 273807, "name": "Demolition Girdle", "slot": "Waist", "chance": null, "quest_item": false},
+      {"item_id": 273808, "name": "Bridgebreaker Bindings", "slot": "Wrist (Cloth)", "chance": null, "quest_item": false}]},
+    {"order": 3, "wing": null, "name": "Hamhock", "npc_ids": [1717], "level": 28, "location": "round room at east end", "optional": false,
+     "loot": [
+      {"item_id": 273809, "name": "Hamhock's Cleaver", "slot": "Main Hand Axe", "chance": null, "quest_item": false},
+      {"item_id": 273810, "name": "Ogre Grips", "slot": "Hands (Mail)", "chance": null, "quest_item": false},
+      {"item_id": 273811, "name": "Repurposed Rack", "slot": "Shield", "chance": null, "quest_item": false}]},
+    {"order": 4, "wing": null, "name": "Bazil Thredd", "npc_ids": [1716], "level": 29, "location": "cell off the east round room", "optional": false,
+     "loot": [
+      {"item_id": 2926, "name": "Head of Bazil Thredd", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 273827, "name": "Debt Collector", "slot": "One-Hand Sword (caster)", "chance": null, "quest_item": false},
+      {"item_id": 273829, "name": "Concealed Hand Crossbow", "slot": "Crossbow", "chance": null, "quest_item": false},
+      {"item_id": 273825, "name": "Red Wool Cloak", "slot": "Back", "chance": null, "quest_item": false},
+      {"item_id": 273824, "name": "Defias Jailbreakers", "slot": "Hands (Leather)", "chance": null, "quest_item": false}]},
+    {"order": 5, "wing": null, "name": "Dextren Ward", "npc_ids": [1663], "level": 26, "location": "west wing round room or cells", "optional": false,
+     "loot": [
+      {"item_id": 3628, "name": "Hand of Dextren Ward", "slot": "Quest", "chance": null, "quest_item": true},
+      {"item_id": 273817, "name": "Graverobber's Shovel", "slot": "Two-Hand Mace", "chance": null, "quest_item": false},
+      {"item_id": 273819, "name": "Boneslicer", "slot": "Polearm", "chance": null, "quest_item": false},
+      {"item_id": 273820, "name": "Nightskulker Ring", "slot": "Finger", "chance": null, "quest_item": false}]}
+  ],
+  "rares": [
+    {"name": "Bruegal Ironknuckle", "npc_id": 1720, "level": 26, "location": "one of several cells off main hall; not every run", "loot": [
+      {"item_id": 3228, "name": "Jimmied Handcuffs", "slot": null, "chance": "56%", "quest_item": false},
+      {"item_id": 2941, "name": "Prison Shank", "slot": "Dagger", "chance": "19%", "quest_item": false},
+      {"item_id": 2942, "name": "Iron Knuckles", "slot": "Fist Weapon", "chance": "17.5%", "quest_item": false}]}
+  ],
+  "trash_loot": [
+    {"item_id": 1076, "name": "Defias Renegade Ring", "slot": "Finger", "chance": null},
+    {"item_id": 274092, "name": "Sharpened Cutlery", "slot": "Thrown", "chance": null},
+    {"item_id": 2909, "name": "Red Wool Bandana", "slot": "Quest (388, x10)", "chance": null, "quest_item": true},
+    {"item_id": 252512, "name": "Brawler's Leather Helm", "slot": "Head (Leather)", "chance": null, "note": "shared by Kam, Hamhock, Bazil, Dextren"},
+    {"item_id": 252455, "name": "Defender's Leather Helm", "slot": "Head (Leather)", "chance": null},
+    {"item_id": 252513, "name": "Trapper's Leather Helm", "slot": "Head (Leather)", "chance": null},
+    {"item_id": 252456, "name": "Totemic Leather Helm", "slot": "Head (Leather)", "chance": null},
+    {"item_id": 252514, "name": "Stormrider's Leather Helm", "slot": "Head (Leather)", "chance": null},
+    {"item_id": 252515, "name": "Wisdom's Leather Helm", "slot": "Head (Leather)", "chance": null},
+    {"item_id": 252820, "name": "Pattern: Brawler's Leather Legguards", "slot": "Recipe", "chance": null},
+    {"item_id": 252822, "name": "Pattern: Defender's Leather Kilt", "slot": "Recipe", "chance": null}
+  ],
+  "quests": [
+    {"quest_id": 387, "title": "Quell the Uprising", "level": 26, "min_level": 22, "faction": "Alliance", "giver": "Warden Thelwater", "giver_npc_id": 1719, "giver_item_id": null, "giver_zone": "Stormwind City", "prereq": null, "rewards": []},
+    {"quest_id": 388, "title": "The Color of Blood", "level": 26, "min_level": 22, "faction": "Alliance", "giver": "Nikova Raskol", "giver_npc_id": 1721, "giver_item_id": null, "giver_zone": "Stormwind City (Old Town)", "prereq": null, "rewards": [], "objective_items": [2909]},
+    {"quest_id": 378, "title": "The Fury Runs Deep", "level": 27, "min_level": 22, "faction": "Alliance", "giver": "Motley Garmason", "giver_npc_id": 1074, "giver_item_id": null, "giver_zone": "Wetlands (Dun Modr)", "prereq": "The Dark Iron War (303)", "rewards": [1264, 270036, 3562], "objective_items": [3640]},
+    {"quest_id": 377, "title": "Crime and Punishment", "level": 26, "min_level": 22, "faction": "Alliance", "giver": "Councilman Millstipe", "giver_npc_id": 270, "giver_item_id": null, "giver_zone": "Duskwood (Darkshire)", "prereq": null, "rewards": [270029, 2033, 2906], "objective_items": [3628]},
+    {"quest_id": 386, "title": "What Comes Around...", "level": 25, "min_level": 22, "faction": "Alliance", "giver": "Guard Berton", "giver_npc_id": 859, "giver_item_id": null, "giver_zone": "Redridge Mountains (Lakeshire)", "prereq": null, "rewards": [270027, 1317, 3400], "objective_items": [3630]},
+    {"quest_id": 391, "title": "The Stockade Riots", "level": 29, "min_level": 16, "faction": "Alliance", "giver": "Warden Thelwater", "giver_npc_id": 1719, "giver_item_id": null, "giver_zone": "Stormwind City", "prereq": "The Unsent Letter (373) and Bazil Thredd (389)", "rewards": [], "objective_items": [2926]},
+    {"quest_id": 303, "title": "The Dark Iron War", "level": 30, "min_level": null, "faction": "Alliance", "giver": "Motley Garmason", "giver_npc_id": 1074, "giver_item_id": null, "giver_zone": "Wetlands", "prereq": null, "rewards": []},
+    {"quest_id": 373, "title": "The Unsent Letter", "level": 22, "min_level": null, "faction": "Alliance", "giver": null, "giver_npc_id": null, "giver_item_id": 2874, "giver_zone": "The Deadmines (drop from Edwin VanCleef 639)", "prereq": null, "rewards": []},
+    {"quest_id": 389, "title": "Bazil Thredd", "level": 22, "min_level": null, "faction": "Alliance", "giver": "Baros Alexston", "giver_npc_id": 1646, "giver_item_id": null, "giver_zone": "Stormwind City (Cathedral Square)", "prereq": "The Unsent Letter (373)", "rewards": []}
+  ],
+  "keys_attunement": "None",
+  "forever_changes": [
+    "Every boss received new blue items (273804-273829)",
+    "New quest rewards 270036, 270029, 270027",
+    "Dungeon quest XP roughly doubled vs Classic",
+    "Iron Knuckles pummel proc 4 -> 25 damage",
+    "Kam's Walking Stick now 32 spell power"
+  ],
+  "notes": [
+    "Most boss loot has no drop chance on the guide",
+    "Follow-ups after The Stockade Riots: The Curious Visitor (392), Shadow of the Past (393)",
+    "Min level 16 for 391 as per guide table; may be a typo",
+    "Guide states Hamhock, Kam etc. levels; Bruegal treated as rare"
+  ]
+}

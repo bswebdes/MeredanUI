@@ -1,0 +1,517 @@
+{
+ "key": 209,
+ "name_en": "Zul'Farrak",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-zulfarrak-guide/"
+ ],
+ "level": "44-54 (best 46-48)",
+ "boss_level": null,
+ "zone": "Tanaris",
+ "zone_id": 440,
+ "instance_zone_id": 1176,
+ "entrance": "City gate in northwest Tanaris, north of Gadgetzan",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Theka the Martyr",
+   "npc_ids": [
+    7272
+   ],
+   "location": "scarab-filled room near entrance",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10660,
+     "name": "First Mosh'aru Tablet",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Antu'sul",
+   "npc_ids": [
+    8127
+   ],
+   "location": "basilisk basin to the east",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9641,
+     "name": "Lifeblood Amulet",
+     "slot": "Neck",
+     "chance": "35%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9640,
+     "name": "Vice Grips",
+     "slot": "Hands (plate)",
+     "chance": "32%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9639,
+     "name": "The Hand of Antu'sul",
+     "slot": "One-hand mace",
+     "chance": "18%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9379,
+     "name": "Sang'thraze the Deflector",
+     "slot": "One-hand sword",
+     "chance": "1%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Witch Doctor Zum'rah",
+   "npc_ids": [
+    7271
+   ],
+   "location": "graveyard to the north",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18083,
+     "name": "Jumanza Grips",
+     "slot": "Hands",
+     "chance": "35%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18082,
+     "name": "Zum'rah's Vexing Cane",
+     "slot": "Staff",
+     "chance": "15%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Hydromancer Velratha",
+   "npc_ids": [
+    7795
+   ],
+   "location": "sacred pool to the west",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9234,
+     "name": "Tiara of the Deep",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 10661,
+     "name": "Second Mosh'aru Tablet",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Gahz'rilla",
+   "npc_ids": [
+    7273
+   ],
+   "location": "summoned at sacred pool gong with Mallet",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 9469,
+     "name": "Gahz'rilla Scale Armor",
+     "slot": "Chest (mail)",
+     "chance": "45%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9467,
+     "name": "Gahz'rilla Fang",
+     "slot": "Dagger",
+     "chance": "46%",
+     "quest_item": false
+    },
+    {
+     "item_id": 8707,
+     "name": "Gahz'rilla's Electrified Scale",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Nekrum Gutchewer",
+   "npc_ids": [
+    7796
+   ],
+   "location": "pyramid stairs event, last wave",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9471,
+     "name": "Nekrum's Medallion",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Shadowpriest Sezz'ziz",
+   "npc_ids": [
+    7275
+   ],
+   "location": "pyramid stairs event, last wave",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9470,
+     "name": "Bad Mojo Mask",
+     "slot": "Head",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9473,
+     "name": "Jinxed Hoodoo Skin",
+     "slot": "Chest",
+     "chance": "22%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9474,
+     "name": "Jinxed Hoodoo Kilt",
+     "slot": "Legs",
+     "chance": "21%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9475,
+     "name": "Diabolic Skiver",
+     "slot": "Polearm",
+     "chance": "22%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Sergeant Bly",
+   "npc_ids": [
+    7604
+   ],
+   "location": "turns hostile after stairs event",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 8548,
+     "name": "Divino-matic Rod",
+     "slot": null,
+     "chance": "67%",
+     "quest_item": true
+    },
+    {
+     "item_id": 5616,
+     "name": "Gutwrencher",
+     "slot": "Dagger",
+     "chance": "very rare",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Chief Ukorz Sandscalp (with Ruuzlu)",
+   "npc_ids": [
+    7267,
+    7797
+   ],
+   "location": "inside the temple",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9476,
+     "name": "Big Bad Pauldrons",
+     "slot": "Shoulder (plate)",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9477,
+     "name": "The Chief's Enforcer",
+     "slot": "Staff",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9478,
+     "name": "Ripsaw",
+     "slot": "One-hand axe",
+     "chance": "23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9479,
+     "name": "Embrace of the Lycan",
+     "slot": "Head",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11086,
+     "name": "Jang'thraze the Protector",
+     "slot": "Shield",
+     "chance": "1%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Zerillis",
+   "npc_id": 10082,
+   "location": "rare spawn",
+   "loot": [
+    {
+     "item_id": 12470,
+     "name": "Sandstalker Ankleguards",
+     "slot": "Feet (leather)",
+     "chance": "18%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Dustwraith",
+   "npc_id": 10081,
+   "location": "rare spawn",
+   "loot": [
+    {
+     "item_id": 12471,
+     "name": "Desertwalker Cane",
+     "slot": "Off-hand",
+     "chance": "22%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Sandarr Dunereaver",
+   "npc_id": 10080,
+   "location": "rare spawn",
+   "loot": [
+    {
+     "item_id": 9523,
+     "name": "Troll Temper",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "name": "Sandfury Executioner",
+   "npc_id": 7274,
+   "location": "pyramid stairs, before event",
+   "loot": [
+    {
+     "item_id": 8444,
+     "name": "Executioner's Key",
+     "slot": "Key",
+     "chance": "~77%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Trash (BoE, <1%, not yet seen in Forever)",
+   "npc_id": null,
+   "location": "trash",
+   "loot": [
+    {
+     "item_id": 9483,
+     "name": "Flaming Incinerator",
+     "slot": "Wand",
+     "chance": "<1%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9480,
+     "name": "Eyegouger",
+     "slot": "Polearm",
+     "chance": "<1%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9523,
+     "name": "Troll Temper",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 9238,
+     "name": "Uncracked Scarab Shell",
+     "slot": null,
+     "chance": "~10%",
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 2768,
+   "title": "Divino-matic Rod",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Chief Engineer Bilgewhizzle",
+   "giver_npc_id": 7407,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": null,
+   "rewards": [
+    9534,
+    9533
+   ]
+  },
+  {
+   "quest_id": 2770,
+   "title": "Gahz'rilla",
+   "level": 50,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Wizzle Brassbolts",
+   "giver_npc_id": 4453,
+   "giver_item_id": null,
+   "giver_zone": "Thousand Needles (Shimmering Flats)",
+   "prereq": null,
+   "rewards": [
+    11122
+   ]
+  },
+  {
+   "quest_id": 2846,
+   "title": "Tiara of the Deep",
+   "level": 46,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Tabetha",
+   "giver_npc_id": 6546,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh",
+   "prereq": null,
+   "rewards": [
+    9527,
+    9531
+   ]
+  },
+  {
+   "quest_id": 3527,
+   "title": "The Prophecy of Mosh'aru",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Yeh'kinya",
+   "giver_npc_id": 8579,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Steamwheedle Port)",
+   "prereq": "Screecher Spirits (3520)",
+   "rewards": []
+  },
+  {
+   "quest_id": 3042,
+   "title": "Troll Temper",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Trenton Lighthammer",
+   "giver_npc_id": 7804,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 2865,
+   "title": "Scarab Shells",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Tran'rek",
+   "giver_npc_id": 7876,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": "Optional: Tran'rek (2864) from Krazek (773)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2991,
+   "title": "Nekrum's Medallion",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "Thadius Grimshade",
+   "giver_npc_id": 8022,
+   "giver_item_id": null,
+   "giver_zone": "Blasted Lands (Nethergarde Keep)",
+   "prereq": "Witherbark Cages (2988), The Altar of Zul (2989), Thadius Grimshade (2990) from Gryphon Master Talonaxe (5636)",
+   "rewards": [
+    9651,
+    9652
+   ]
+  },
+  {
+   "quest_id": 2936,
+   "title": "The Spider God",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Horde",
+   "giver": "Master Gadrin",
+   "giver_npc_id": 3188,
+   "giver_item_id": null,
+   "giver_zone": "Durotar (Sen'jin Village)",
+   "prereq": "Venom Bottles (2933), Undamaged Venom Sac (2934), Consult Master Gadrin (2935); Tablet of Theka (object 142715)",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None. Mallet of Zul'Farrak item=9240 (from Sacred Mallet item=9241, dropped by Qiaga the Keeper npc=7996, used at Jintha'Alor altar) needed only to summon Gahz'rilla. Executioner's Key item=8444 opens stairs cages. Meeting stone does not summon.",
+ "forever_changes": [
+  "Many items restatted (e.g. Zum'rah's Vexing Cane 54 SP + zombie summon; Gahz'rilla Fang Static Electricity; Chief's Enforcer stun 294 dmg; Vice Grips 14 AP; Big Bad Pauldrons 12 Str/12 Sta)",
+  "Tiara of the Deep rewards lowered rare->uncommon (October beta)",
+  "Quest XP left at Classic values",
+  "Group Finder / meeting stone do not summon"
+ ],
+ "notes": [
+  "Boss levels not stated",
+  "Sul'thraze the Lasher (9372) = Jang'thraze 11086 + Sang'thraze 9379",
+  "Some slots not stated on guide; slot values for Ripsaw/Embrace/Jumanza/Hoodoo items inferred from Classic knowledge",
+  "Some items not yet seen in Forever; Classic stats shown on guide",
+  "Other chains: The Brassbolts Brothers (2769, Klockmort Spannerspan 6169), Tabetha's Task (2861), Summoning Shadra (2937), Saving Sharpbeak (2994)"
+ ]
+}

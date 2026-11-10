@@ -1,0 +1,1342 @@
+{
+ "key": 209,
+ "slug": "zulfarrak",
+ "kind": "dungeon",
+ "name_en": "Zul'Farrak",
+ "level": "44-54",
+ "zone": "Tanaris",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-zulfarrak-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "None. Mallet of Zul'Farrak item=9240 (from Sacred Mallet item=9241, dropped by Qiaga the Keeper npc=7996, used at Jintha'Alor altar) needed only to summon Gahz'rilla. Executioner's Key item=8444 opens stairs cages. Meeting stone does not summon.",
+ "forever_changes": [
+  "Many items restatted (e.g. Zum'rah's Vexing Cane 54 SP + zombie summon; Gahz'rilla Fang Static Electricity; Chief's Enforcer stun 294 dmg; Vice Grips 14 AP; Big Bad Pauldrons 12 Str/12 Sta)",
+  "Tiara of the Deep rewards lowered rare->uncommon (October beta)",
+  "Quest XP left at Classic values",
+  "Group Finder / meeting stone do not summon"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Theka the Martyr",
+   "name_de": "Theka der Märtyrer",
+   "encounter_id": 596,
+   "npcs": [
+    {
+     "id": 7272,
+     "wowhead_name": "Theka the Martyr",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "scarab-filled room near entrance",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5537,
+    "y": 0.2964
+   },
+   "loot": [
+    {
+     "item_id": 10660,
+     "name": "First Mosh'aru Tablet",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 8623,
+     "name": "OOX-17/TN Distress Beacon",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Antu'sul",
+   "name_de": "Antu'sul",
+   "encounter_id": 595,
+   "npcs": [
+    {
+     "id": 8127,
+     "wowhead_name": "Antu'sul",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "basilisk basin to the east",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.6901,
+    "y": 0.256
+   },
+   "loot": [
+    {
+     "item_id": 9641,
+     "name": "Lifeblood Amulet",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 34.49,
+     "wowhead_dropped_by": "Antu'sul",
+     "chance_repo": 35.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9640,
+     "name": "Vice Grips",
+     "slot": "Hands (plate)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 31.85,
+     "wowhead_dropped_by": "Antu'sul",
+     "chance_repo": 35.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9639,
+     "name": "The Hand of Antu'sul",
+     "slot": "One-hand mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 17.78,
+     "wowhead_dropped_by": "Antu'sul",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9379,
+     "name": "Sang'thraze the Deflector",
+     "slot": "One-hand sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": 2.26,
+     "wowhead_dropped_by": "Antu'sul",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9243,
+     "name": "Shriveled Heart",
+     "slot": "Neck",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Witch Doctor Zum'rah",
+   "name_de": "Hexendoktor Zum'rah",
+   "encounter_id": 597,
+   "npcs": [
+    {
+     "id": 7271,
+     "wowhead_name": "Witch Doctor Zum'rah",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "graveyard to the north",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.4402,
+    "y": 0.1516
+   },
+   "loot": [
+    {
+     "item_id": 18083,
+     "name": "Jumanza Grips",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": 34.75,
+     "wowhead_dropped_by": "Witch Doctor Zum'rah",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18082,
+     "name": "Zum'rah's Vexing Cane",
+     "slot": "Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 15.0,
+     "chance_wowhead_forever": 15.32,
+     "wowhead_dropped_by": "Witch Doctor Zum'rah",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9243,
+     "name": "Shriveled Heart",
+     "slot": "Neck",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Hydromancer Velratha",
+   "name_de": "Wasserbeschwörerin Velratha",
+   "encounter_id": 593,
+   "npcs": [
+    {
+     "id": 7795,
+     "wowhead_name": "Hydromancer Velratha",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "sacred pool to the west",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.2891,
+    "y": 0.4026
+   },
+   "loot": [
+    {
+     "item_id": 9234,
+     "name": "Tiara of the Deep",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 10661,
+     "name": "Second Mosh'aru Tablet",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 8623,
+     "name": "OOX-17/TN Distress Beacon",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Gahz'rilla",
+   "name_de": "Gahz'rilla",
+   "encounter_id": 594,
+   "npcs": [
+    {
+     "id": 7273,
+     "wowhead_name": "Gahz'rilla",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "summoned at sacred pool gong with Mallet",
+   "optional": true,
+   "pin": {
+    "floor": 1,
+    "x": 0.314,
+    "y": 0.4167
+   },
+   "loot": [
+    {
+     "item_id": 9469,
+     "name": "Gahz'rilla Scale Armor",
+     "slot": "Chest (mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 45.0,
+     "chance_wowhead_forever": 44.35,
+     "wowhead_dropped_by": "Gahz'rilla",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9467,
+     "name": "Gahz'rilla Fang",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 46.0,
+     "chance_wowhead_forever": 46.27,
+     "wowhead_dropped_by": "Gahz'rilla",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 8707,
+     "name": "Gahz'rilla's Electrified Scale",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Nekrum Gutchewer",
+   "name_de": "Nekrum der Ausweider",
+   "encounter_id": 598,
+   "npcs": [
+    {
+     "id": 7796,
+     "wowhead_name": "Nekrum Gutchewer",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "pyramid stairs event, last wave",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3062,
+    "y": 0.1839
+   },
+   "loot": [
+    {
+     "item_id": 9471,
+     "name": "Nekrum's Medallion",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 8623,
+     "name": "OOX-17/TN Distress Beacon",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Shadowpriest Sezz'ziz",
+   "name_de": "Schattenpriester Sezz'ziz",
+   "encounter_id": 599,
+   "npcs": [
+    {
+     "id": 7275,
+     "wowhead_name": "Shadowpriest Sezz'ziz",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "pyramid stairs event, last wave",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.306,
+    "y": 0.1821
+   },
+   "loot": [
+    {
+     "item_id": 9470,
+     "name": "Bad Mojo Mask",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.63,
+     "wowhead_dropped_by": "Shadowpriest Sezz'ziz",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9473,
+     "name": "Jinxed Hoodoo Skin",
+     "slot": "Chest",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 22.32,
+     "wowhead_dropped_by": "Shadowpriest Sezz'ziz",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9474,
+     "name": "Jinxed Hoodoo Kilt",
+     "slot": "Legs",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": 21.63,
+     "wowhead_dropped_by": "Shadowpriest Sezz'ziz",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9475,
+     "name": "Diabolic Skiver",
+     "slot": "Polearm",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 21.88,
+     "wowhead_dropped_by": "Shadowpriest Sezz'ziz",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9243,
+     "name": "Shriveled Heart",
+     "slot": "Neck",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Sergeant Bly",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 7604,
+     "wowhead_name": "Sergeant Bly",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "turns hostile after stairs event",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 8548,
+     "name": "Divino-matic Rod",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 67.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 5616,
+     "name": "Gutwrencher",
+     "slot": "Dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Chief Ukorz Sandscalp (with Ruuzlu)",
+   "name_de": "Häuptling Ukorz Sandskalp",
+   "encounter_id": 600,
+   "npcs": [
+    {
+     "id": 7267,
+     "wowhead_name": "Chief Ukorz Sandscalp",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": true
+    },
+    {
+     "id": 7797,
+     "wowhead_name": "Ruuzlu",
+     "zone": 1176,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "inside the temple",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.4386,
+    "y": 0.3525
+   },
+   "loot": [
+    {
+     "item_id": 9476,
+     "name": "Big Bad Pauldrons",
+     "slot": "Shoulder (plate)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.59,
+     "wowhead_dropped_by": "Chief Ukorz Sandscalp",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9477,
+     "name": "The Chief's Enforcer",
+     "slot": "Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 23.37,
+     "wowhead_dropped_by": "Chief Ukorz Sandscalp",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9478,
+     "name": "Ripsaw",
+     "slot": "One-hand axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.73,
+     "wowhead_dropped_by": "Chief Ukorz Sandscalp",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9479,
+     "name": "Embrace of the Lycan",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": 10.28,
+     "wowhead_dropped_by": "Chief Ukorz Sandscalp",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 11086,
+     "name": "Jang'thraze the Protector",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": 1.93,
+     "wowhead_dropped_by": "Chief Ukorz Sandscalp",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 9243,
+     "name": "Shriveled Heart",
+     "slot": "Neck",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Zerillis",
+   "npc_id": 10082,
+   "wowhead_name": "Zerillis",
+   "location": "rare spawn",
+   "pin": {
+    "floor": 1,
+    "x": 0.5375,
+    "y": 0.3729
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 12470,
+     "name": "Sandstalker Ankleguards",
+     "slot": "Feet (leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 18.0,
+     "chance_wowhead_forever": 18.48,
+     "wowhead_dropped_by": "Zerillis",
+     "chance_repo": 18.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 8623,
+     "name": "OOX-17/TN Distress Beacon",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Dustwraith",
+   "npc_id": 10081,
+   "wowhead_name": "Dustwraith",
+   "location": "rare spawn",
+   "pin": {
+    "floor": 1,
+    "x": 0.3167,
+    "y": 0.4601
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 12471,
+     "name": "Desertwalker Cane",
+     "slot": "Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 21.66,
+     "wowhead_dropped_by": "Dustwraith",
+     "chance_repo": 18.6,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 8623,
+     "name": "OOX-17/TN Distress Beacon",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Sandarr Dunereaver",
+   "npc_id": 10080,
+   "wowhead_name": "Sandarr Dunereaver",
+   "location": "rare spawn",
+   "pin": {
+    "floor": 1,
+    "x": 0.4627,
+    "y": 0.5781
+   },
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 9523,
+     "name": "Troll Temper",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 9243,
+     "name": "Shriveled Heart",
+     "slot": "Neck",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.1,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 8623,
+     "name": "OOX-17/TN Distress Beacon",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Sandfury Executioner",
+   "npc_id": 7274,
+   "wowhead_name": "Sandfury Executioner",
+   "location": "pyramid stairs, before event",
+   "pin": null,
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 8444,
+     "name": "Executioner's Key",
+     "slot": "Key",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 77.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Trash (BoE, <1%, not yet seen in Forever)",
+   "npc_id": null,
+   "wowhead_name": null,
+   "location": "trash",
+   "pin": null,
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 9483,
+     "name": "Flaming Incinerator",
+     "slot": "Wand",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 9480,
+     "name": "Eyegouger",
+     "slot": "Polearm",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 9523,
+     "name": "Troll Temper",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 9238,
+     "name": "Uncracked Scarab Shell",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 2768,
+   "title": "Divino-matic Rod",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Chief Engineer Bilgewhizzle",
+   "giver_npc_id": 7407,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": null,
+   "rewards": [
+    9534,
+    9533
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2770,
+   "title": "Gahz'rilla",
+   "level": 50,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Wizzle Brassbolts",
+   "giver_npc_id": 4453,
+   "giver_item_id": null,
+   "giver_zone": "Thousand Needles (Shimmering Flats)",
+   "prereq": null,
+   "rewards": [
+    11122
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2846,
+   "title": "Tiara of the Deep",
+   "level": 46,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Tabetha",
+   "giver_npc_id": 6546,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh",
+   "prereq": null,
+   "rewards": [
+    9527,
+    9531
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 3527,
+   "title": "The Prophecy of Mosh'aru",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Yeh'kinya",
+   "giver_npc_id": 8579,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Steamwheedle Port)",
+   "prereq": "Screecher Spirits (3520)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 3042,
+   "title": "Troll Temper",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Trenton Lighthammer",
+   "giver_npc_id": 7804,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2865,
+   "title": "Scarab Shells",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Tran'rek",
+   "giver_npc_id": 7876,
+   "giver_item_id": null,
+   "giver_zone": "Tanaris (Gadgetzan)",
+   "prereq": "Optional: Tran'rek (2864) from Krazek (773)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 2991,
+   "title": "Nekrum's Medallion",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "Thadius Grimshade",
+   "giver_npc_id": 8022,
+   "giver_item_id": null,
+   "giver_zone": "Blasted Lands (Nethergarde Keep)",
+   "prereq": "Witherbark Cages (2988), The Altar of Zul (2989), Thadius Grimshade (2990) from Gryphon Master Talonaxe (5636)",
+   "rewards": [
+    9651,
+    9652
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 2936,
+   "title": "The Spider God",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Horde",
+   "giver": "Master Gadrin",
+   "giver_npc_id": 3188,
+   "giver_item_id": null,
+   "giver_zone": "Durotar (Sen'jin Village)",
+   "prereq": "Venom Bottles (2933), Undamaged Venom Sac (2934), Consult Master Gadrin (2935); Tablet of Theka (object 142715)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Theka the Martyr: 8623 OOX-17/TN Distress Beacon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Antu'sul: 9243 Shriveled Heart - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Witch Doctor Zum'rah: 9243 Shriveled Heart - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Hydromancer Velratha: 8623 OOX-17/TN Distress Beacon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Nekrum Gutchewer: 8623 OOX-17/TN Distress Beacon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Shadowpriest Sezz'ziz: 9243 Shriveled Heart - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Sergeant Bly: 5616 Gutwrencher - in Forever guide, missing in DungeonLoot.lua",
+  "Chief Ukorz Sandscalp (with Ruuzlu): 9243 Shriveled Heart - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Zerillis: 8623 OOX-17/TN Distress Beacon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Dustwraith: 8623 OOX-17/TN Distress Beacon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Sandarr Dunereaver: 9243 Shriveled Heart - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Sandarr Dunereaver: 8623 OOX-17/TN Distress Beacon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Sandfury Executioner: 8444 Executioner's Key - in Forever guide, missing in DungeonLoot.lua",
+  "Trash (BoE, <1%, not yet seen in Forever): 9483 Flaming Incinerator - in Forever guide, missing in DungeonLoot.lua",
+  "Trash (BoE, <1%, not yet seen in Forever): 9480 Eyegouger - in Forever guide, missing in DungeonLoot.lua"
+ ],
+ "open_questions": [
+  "Boss 'Sergeant Bly' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 7797 is 'Ruuzlu' on Wowhead Forever, guide says 'Chief Ukorz Sandscalp (with Ruuzlu)'.",
+  "Quest 2768 'Divino-matic Rod' not found on Wowhead Forever - check ID.",
+  "Quest 2770 'Gahz'rilla' not found on Wowhead Forever - check ID.",
+  "Quest 2846 'Tiara of the Deep' not found on Wowhead Forever - check ID.",
+  "Quest 3527 'The Prophecy of Mosh'aru' not found on Wowhead Forever - check ID.",
+  "Quest 3042 'Troll Temper' not found on Wowhead Forever - check ID.",
+  "Quest 2865 'Scarab Shells' not found on Wowhead Forever - check ID.",
+  "Quest 2991 'Nekrum's Medallion' not found on Wowhead Forever - check ID.",
+  "Quest 2936 'The Spider God' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Boss levels not stated",
+  "Sul'thraze the Lasher (9372) = Jang'thraze 11086 + Sang'thraze 9379",
+  "Some slots not stated on guide; slot values for Ripsaw/Embrace/Jumanza/Hoodoo items inferred from Classic knowledge",
+  "Some items not yet seen in Forever; Classic stats shown on guide",
+  "Other chains: The Brassbolts Brothers (2769, Klockmort Spannerspan 6169), Tabetha's Task (2861), Summoning Shadra (2937), Saving Sharpbeak (2994)"
+ ],
+ "zone_id": 1176,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "partial",
+  "pins": "ok",
+  "loot": "partial",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 34,
+  "loot_confirmed": 23,
+  "loot_with_chance": 22,
+  "forever_confirmed": "partly",
+  "boss_count": 9,
+  "boss_ok": 7,
+  "pin_ok": 8,
+  "enc_count": 8,
+  "q_tot": 8
+ },
+ "top_points": [
+  "8 of 8 quests missing in DungeonQuests.lua",
+  "Boss 'Sergeant Bly' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 7797 is 'Ruuzlu' on Wowhead Forever, guide says 'Chief Ukorz Sandscalp (with Ruuzlu)'."
+ ]
+}

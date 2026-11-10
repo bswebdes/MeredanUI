@@ -1,0 +1,1138 @@
+{
+ "key": 48,
+ "slug": "blackfathom_deeps",
+ "kind": "dungeon",
+ "name_en": "Blackfathom Deeps",
+ "level": "24-32",
+ "zone": "Ashenvale",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-blackfathom-deeps-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "None",
+ "forever_changes": [
+  "Four bosses gained new low-chance items (273839-273846)",
+  "New quest reward items 270021, 270025, 270031, 270032, 270043, 272448",
+  "Many caster items traded Int/Spirit for spell power",
+  "Aku'mai Poison Cloud buffed (527 Nature per 5s, was 50)",
+  "Meeting stone does not summon",
+  "Forsaken paladin quest Seeking the Kor Gem (95042) and Horde chain Old Fire-Eye added"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Ghamoo-ra",
+   "name_de": "Ghamoo-ra",
+   "encounter_id": 2916,
+   "npcs": [
+    {
+     "id": 4887,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Pool of Ask'ar, first cave",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3292,
+    "y": 0.6018
+   },
+   "loot": [
+    {
+     "item_id": 6907,
+     "name": "Tortoise Armor",
+     "slot": "Chest (Mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 37.0,
+     "chance_wowhead_forever": 36.08,
+     "wowhead_dropped_by": "Ghamoo-ra",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6908,
+     "name": "Ghamoo-ra's Bind",
+     "slot": "Waist (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 56.0,
+     "chance_wowhead_forever": 49.69,
+     "wowhead_dropped_by": "Ghamoo-ra",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273839,
+     "name": "Spiked Shell Band",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 4.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Lady Sarevess",
+   "name_de": "Lady Sarevess",
+   "encounter_id": 2915,
+   "npcs": [
+    {
+     "id": 4831,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "side cave west of the pool, two naga guards",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.1008,
+    "y": 0.3601
+   },
+   "loot": [
+    {
+     "item_id": 888,
+     "name": "Naga Battle Gloves",
+     "slot": "Hands (Leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 37.0,
+     "chance_wowhead_forever": 35.9,
+     "wowhead_dropped_by": "Lady Sarevess",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 3078,
+     "name": "Naga Heartpiercer",
+     "slot": "Bow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": 22.4,
+     "wowhead_dropped_by": "Lady Sarevess",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 11121,
+     "name": "Darkwater Talwar",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 37.25,
+     "wowhead_dropped_by": "Lady Sarevess",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Gelihast",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 6243,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "murloc cave east of the pool",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 6906,
+     "name": "Algae Fists",
+     "slot": "Hands (Mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 44.0,
+     "chance_wowhead_forever": 41.0,
+     "wowhead_dropped_by": "Gelihast",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6905,
+     "name": "Reef Axe",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 47.0,
+     "chance_wowhead_forever": 43.43,
+     "wowhead_dropped_by": "Gelihast",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273840,
+     "name": "Cursed Murloc Eye",
+     "slot": "Trinket",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 4.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273141,
+     "name": "Blueprint: Fishing Rack",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 1.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Lorgus Jett",
+   "name_de": "Lorgus Jett",
+   "encounter_id": 2913,
+   "npcs": [
+    {
+     "id": 12902,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "one of four spawns between trident tunnel and Moonshrine Ruins",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.6143,
+    "y": 0.6246
+   },
+   "loot": [
+    {
+     "item_id": 273841,
+     "name": "Twilight Maul",
+     "slot": "Mace",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 14.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273842,
+     "name": "Treacherous Treads",
+     "slot": "Feet (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273843,
+     "name": "Fallenroot Longbow",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Baron Aquanis",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 12876,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Moonshrine Ruins; summoned via Fathom Stone (Horde quest 6921)",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 16782,
+     "name": "Strange Water Globe",
+     "slot": "Quest starter (6922)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": 93.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Twilight Lord Kelris",
+   "name_de": "Twilight-Lord Kelris",
+   "encounter_id": 2911,
+   "npcs": [
+    {
+     "id": 4832,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "altar in Moonshrine Sanctum",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.5185,
+    "y": 0.8162
+   },
+   "loot": [
+    {
+     "item_id": 1155,
+     "name": "Rod of the Sleepwalker",
+     "slot": "Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 50.0,
+     "chance_wowhead_forever": 29.9,
+     "wowhead_dropped_by": "Twilight Lord Kelris",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6903,
+     "name": "Gaze Dreamer Pants",
+     "slot": "Legs (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": 21.23,
+     "wowhead_dropped_by": "Twilight Lord Kelris",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273846,
+     "name": "Twilight Lord Girdle",
+     "slot": "Waist (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 3.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 5881,
+     "name": "Head of Kelris",
+     "slot": "Quest (1198)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Old Serra'kis",
+   "name_de": "Alter Serra'kis",
+   "encounter_id": 2912,
+   "npcs": [
+    {
+     "id": 4830,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Forgotten Pool, underwater floor",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.5342,
+    "y": 0.694
+   },
+   "loot": [
+    {
+     "item_id": 6901,
+     "name": "Glowing Thresher Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 36.76,
+     "wowhead_dropped_by": "Old Serra'kis",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6902,
+     "name": "Bands of Serra'kis",
+     "slot": "Wrist (Leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": 33.0,
+     "wowhead_dropped_by": "Old Serra'kis",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6904,
+     "name": "Bite of Serra'kis",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 21.0,
+     "chance_wowhead_forever": 24.28,
+     "wowhead_dropped_by": "Old Serra'kis",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Aku'mai",
+   "name_de": "Aku'mai",
+   "encounter_id": 2910,
+   "npcs": [
+    {
+     "id": 4829,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Aku'mai's Lair, end of dungeon after brazier waves",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.8559,
+    "y": 0.8665
+   },
+   "loot": [
+    {
+     "item_id": 6911,
+     "name": "Moss Cinch",
+     "slot": "Waist (Leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 34.83,
+     "wowhead_dropped_by": "Aku'mai",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6910,
+     "name": "Leech Pants",
+     "slot": "Legs (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": 34.51,
+     "wowhead_dropped_by": "Aku'mai",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6909,
+     "name": "Strike of the Hydra",
+     "slot": "Two-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": 24.61,
+     "wowhead_dropped_by": "Aku'mai",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Geilhast",
+   "name_de": "Gelihast",
+   "encounter_id": 2914,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 1,
+    "x": 0.5225,
+    "y": 0.5513
+   },
+   "loot": [
+    {
+     "item_id": 6905,
+     "name": "Reef Axe",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Gelihast",
+     "chance_repo": 50.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 6906,
+     "name": "Algae Fists",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Gelihast",
+     "chance_repo": 50.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 971,
+   "title": "Knowledge in the Deeps",
+   "level": 23,
+   "min_level": 18,
+   "faction": "Alliance",
+   "giver": "Gerrig Bonegrip",
+   "giver_npc_id": 2786,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": null,
+   "rewards": [
+    6743
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 3765,
+   "title": "The Corruption Abroad",
+   "level": 24,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Argos Nightwhisper",
+   "giver_npc_id": 4984,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 1275,
+   "title": "Researching the Corruption",
+   "level": 24,
+   "min_level": 18,
+   "faction": "Alliance",
+   "giver": "Gershala Nightwhisper",
+   "giver_npc_id": 8997,
+   "giver_item_id": null,
+   "giver_zone": "Darkshore",
+   "prereq": "The Corruption Abroad (3765)",
+   "rewards": [
+    7003,
+    7004,
+    270021
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 1199,
+   "title": "Twilight Falls",
+   "level": 25,
+   "min_level": 20,
+   "faction": "Alliance",
+   "giver": "Argent Guard Manados",
+   "giver_npc_id": 4784,
+   "giver_item_id": null,
+   "giver_zone": "Darnassus",
+   "prereq": null,
+   "rewards": [
+    6998,
+    7000,
+    270025
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 1198,
+   "title": "In Search of Thaelrid",
+   "level": 24,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Dawnwatcher Shaedlass",
+   "giver_npc_id": 4786,
+   "giver_item_id": null,
+   "giver_zone": "Darnassus",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 1200,
+   "title": "Blackfathom Villainy",
+   "level": 27,
+   "min_level": 18,
+   "faction": "Alliance",
+   "giver": "Argent Guard Thaelrid",
+   "giver_npc_id": 4787,
+   "giver_item_id": null,
+   "giver_zone": "Blackfathom Deeps (inside)",
+   "prereq": "In Search of Thaelrid (1198)",
+   "rewards": [
+    7001,
+    7002,
+    270031,
+    270032
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 6562,
+   "title": "Trouble in the Deeps",
+   "level": 22,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Tsunaman",
+   "giver_npc_id": 11862,
+   "giver_item_id": null,
+   "giver_zone": "Stonetalon Mountains",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6563,
+   "title": "The Essence of Aku'Mai",
+   "level": 22,
+   "min_level": 17,
+   "faction": "Horde",
+   "giver": "Je'neu Sancrea",
+   "giver_npc_id": 12736,
+   "giver_item_id": null,
+   "giver_zone": "Ashenvale (Zoram'gar Outpost)",
+   "prereq": "Trouble in the Deeps (6562)",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6564,
+   "title": "Allegiance to the Old Gods",
+   "level": 22,
+   "min_level": 17,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 16790,
+   "giver_zone": "Damp Note from Blackfathom Tide Priestess (4802), outside",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6565,
+   "title": "Allegiance to the Old Gods",
+   "level": 26,
+   "min_level": 17,
+   "faction": "Horde",
+   "giver": "Je'neu Sancrea",
+   "giver_npc_id": 12736,
+   "giver_item_id": null,
+   "giver_zone": "Ashenvale (Zoram'gar Outpost)",
+   "prereq": "Allegiance to the Old Gods (6564)",
+   "rewards": [
+    17694,
+    17695
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6921,
+   "title": "Amongst the Ruins",
+   "level": 27,
+   "min_level": 21,
+   "faction": "Horde",
+   "giver": "Je'neu Sancrea",
+   "giver_npc_id": 12736,
+   "giver_item_id": null,
+   "giver_zone": "Ashenvale (Zoram'gar Outpost)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6561,
+   "title": "Blackfathom Villainy",
+   "level": 27,
+   "min_level": 18,
+   "faction": "Horde",
+   "giver": "Argent Guard Thaelrid",
+   "giver_npc_id": 4787,
+   "giver_item_id": null,
+   "giver_zone": "Blackfathom Deeps (inside)",
+   "prereq": null,
+   "rewards": [
+    7001,
+    7002,
+    270031,
+    270032
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6922,
+   "title": "Baron Aquanis",
+   "level": 30,
+   "min_level": 21,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 16782,
+   "giver_zone": "Blackfathom Deeps (drop from Baron Aquanis)",
+   "prereq": "Amongst the Ruins (6921)",
+   "rewards": [
+    16886,
+    16887,
+    270043
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1740,
+   "title": "The Orb of Soran'ruk",
+   "level": 24,
+   "min_level": null,
+   "faction": "Both (Warlock)",
+   "giver": "Doan Karhan",
+   "giver_npc_id": 6247,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens",
+   "prereq": null,
+   "rewards": [
+    6898,
+    15109
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 95042,
+   "title": "Seeking the Kor Gem",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde (Forsaken Paladin)",
+   "giver": "Ulric Frostveil",
+   "giver_npc_id": 259649,
+   "giver_item_id": null,
+   "giver_zone": "Ashenvale (Zoram'gar Outpost)",
+   "prereq": null,
+   "rewards": [
+    272448
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1654,
+   "title": "The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806)",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance (Paladin)",
+   "giver": "Duthorian Rall / Daphne Stilwell / Jordan Stilwell",
+   "giver_npc_id": 6171,
+   "giver_item_id": 6776,
+   "giver_zone": "Stormwind / Westfall",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 95140,
+   "title": "Old Fire-Eye (chain 95034,95036,95111,95125,95126,95140)",
+   "level": 26,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Lumina Windsinger",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Ghamoo-ra: 273839 Spiked Shell Band - in Forever guide, missing in DungeonLoot.lua",
+  "Gelihast: 6906 Algae Fists - in Forever guide, missing in DungeonLoot.lua",
+  "Gelihast: 6905 Reef Axe - in Forever guide, missing in DungeonLoot.lua",
+  "Gelihast: 273840 Cursed Murloc Eye - in Forever guide, missing in DungeonLoot.lua",
+  "Gelihast: 273141 Blueprint: Fishing Rack - in Forever guide, missing in DungeonLoot.lua",
+  "Lorgus Jett: 273841 Twilight Maul - in Forever guide, missing in DungeonLoot.lua",
+  "Lorgus Jett: 273842 Treacherous Treads - in Forever guide, missing in DungeonLoot.lua",
+  "Lorgus Jett: 273843 Fallenroot Longbow - in Forever guide, missing in DungeonLoot.lua",
+  "Twilight Lord Kelris: 1155 Rod of the Sleepwalker - chance repo 60% vs Forever 29.9%",
+  "Twilight Lord Kelris: 6903 Gaze Dreamer Pants - chance repo 40% vs Forever 21.23%",
+  "Twilight Lord Kelris: 273846 Twilight Lord Girdle - in Forever guide, missing in DungeonLoot.lua",
+  "Geilhast: 6905 Reef Axe - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Gelihast)",
+  "Geilhast: 6905 Reef Axe - Wowhead Forever lists it as dropped by 'Gelihast'",
+  "Geilhast: 6906 Algae Fists - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Gelihast)",
+  "Geilhast: 6906 Algae Fists - Wowhead Forever lists it as dropped by 'Gelihast'"
+ ],
+ "open_questions": [
+  "NPC 4887 (Ghamoo-ra) not found on Wowhead Forever - check ID.",
+  "NPC 4831 (Lady Sarevess) not found on Wowhead Forever - check ID.",
+  "Boss 'Gelihast' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 6243 (Gelihast) not found on Wowhead Forever - check ID.",
+  "NPC 12902 (Lorgus Jett) not found on Wowhead Forever - check ID.",
+  "Boss 'Baron Aquanis' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 12876 (Baron Aquanis) not found on Wowhead Forever - check ID.",
+  "NPC 4832 (Twilight Lord Kelris) not found on Wowhead Forever - check ID.",
+  "NPC 4830 (Old Serra'kis) not found on Wowhead Forever - check ID.",
+  "NPC 4829 (Aku'mai) not found on Wowhead Forever - check ID.",
+  "Encounter 2914 'Geilhast' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 971 'Knowledge in the Deeps' not found on Wowhead Forever - check ID.",
+  "Quest 3765 'The Corruption Abroad' not found on Wowhead Forever - check ID.",
+  "Quest 1275 'Researching the Corruption' not found on Wowhead Forever - check ID.",
+  "Quest 1199 'Twilight Falls' not found on Wowhead Forever - check ID.",
+  "Quest 1198 'In Search of Thaelrid' not found on Wowhead Forever - check ID.",
+  "Quest 1200 'Blackfathom Villainy' not found on Wowhead Forever - check ID.",
+  "Quest 6562 'Trouble in the Deeps' not found on Wowhead Forever - check ID.",
+  "Quest 6563 'The Essence of Aku'Mai' not found on Wowhead Forever - check ID.",
+  "Quest 6564 'Allegiance to the Old Gods' not found on Wowhead Forever - check ID.",
+  "Quest 6565 'Allegiance to the Old Gods' not found on Wowhead Forever - check ID.",
+  "Quest 6921 'Amongst the Ruins' not found on Wowhead Forever - check ID.",
+  "Quest 6561 'Blackfathom Villainy' not found on Wowhead Forever - check ID.",
+  "Quest 6922 'Baron Aquanis' not found on Wowhead Forever - check ID.",
+  "Quest 1740 'The Orb of Soran'ruk' not found on Wowhead Forever - check ID.",
+  "Quest 95042 'Seeking the Kor Gem' not found on Wowhead Forever - check ID.",
+  "Quest 1654 'The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806)' not found on Wowhead Forever - check ID.",
+  "Quest 95140 'Old Fire-Eye (chain 95034,95036,95111,95125,95126,95140)' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Guide lists 8 bosses; order follows guide table",
+  "Paladin/Old Fire-Eye chain details summarized only; quest_id given is final step",
+  "Brazier event after Kelris opens door to Aku'mai"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "partial",
+  "quests": "missing",
+  "quests_in_addon": 11,
+  "loot_rows": 24,
+  "loot_confirmed": 22,
+  "loot_with_chance": 22,
+  "forever_confirmed": "yes",
+  "boss_count": 8,
+  "boss_ok": 0,
+  "pin_ok": 7,
+  "enc_count": 7,
+  "q_tot": 17
+ },
+ "top_points": [
+  "6 of 17 quests missing in DungeonQuests.lua",
+  "Boss 'Gelihast' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
+  "Encounter 2914 'Geilhast' is in DungeonBosses.lua but not in the guide's boss list - check in game."
+ ]
+}

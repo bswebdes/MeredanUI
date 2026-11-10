@@ -1,0 +1,963 @@
+{
+ "key": 3039,
+ "slug": "kroldok_stronghold",
+ "kind": "dungeon",
+ "name_en": "Krol'dok Stronghold",
+ "level": "40-45",
+ "zone": "Riverglades",
+ "faction": "both",
+ "status": "live",
+ "status_note": "new Forever dungeon",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-kroldok-stronghold-guide/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": "No attunement. Krol'dok Ogre Key item=271721 from Overlord Mugg (shortcut door, unverified). Krol'dok Compound Key item=267089 from Key Ingredients quests (94974 H / 94981 A) after Krol'dok Moulding item=267137; opens a door possibly after Tunk (unconfirmed).",
+ "forever_changes": [
+  "Entirely new Forever dungeon, launched Nov 4; Blizzard corrected level from 40-55 to 40-45",
+  "Quest XP not split in groups",
+  "Quest item drops party-shared since Nov 6 hotfix",
+  "Mounts usable inside",
+  "Krol'dok Battlegear set (item-set 2135): chest 275005 seen, other pieces unknown",
+  "Counts toward Experienced Spelunker (62032)"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Slavecrusher Grox",
+   "name_de": "Sklavenbrecher Grox",
+   "encounter_id": 3450,
+   "npcs": [
+    {
+     "id": 258966,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "after long trash with patrols",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274996,
+     "name": "Resistance Breaker Spaulder",
+     "slot": "Shoulder (mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274997,
+     "name": "Chain of Binding",
+     "slot": "Waist (mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274995,
+     "name": "Slavecrusher Scepter",
+     "slot": "One-hand mace",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Twilight Commander Zarmok",
+   "name_de": "Twilight-Kommandant Zarmok",
+   "encounter_id": 3452,
+   "npcs": [
+    {
+     "id": 258972,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "death opens next gate",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 275000,
+     "name": "Zarmok's Plated Signet",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 274998,
+     "name": "Shadowlight Athame",
+     "slot": "Main-hand dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 267087,
+     "name": "Head of Zarmok",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "War Handler Ashka",
+   "name_de": "Tierführerin Ashka",
+   "encounter_id": 3453,
+   "npcs": [
+    {
+     "id": 259281,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "with two wolves, possibly off main road",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 275001,
+     "name": "Bloodied Gutslicer",
+     "slot": "Two-hand sword",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 275002,
+     "name": "War Handler's Gaze",
+     "slot": "Head (leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Nar'gurk",
+   "name_de": "Nar'gurk",
+   "encounter_id": 3449,
+   "npcs": [
+    {
+     "id": 258964,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "'The Corruptor', mid-dungeon",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 275004,
+     "name": "Chain of the Corruptor",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 275005,
+     "name": "Krol'dok Warplate Chest",
+     "slot": "Chest (plate)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 267104,
+     "name": "Tome of Twilight",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Bossman Toof",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 264773,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "after the bridge, before last boss",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 286430,
+     "name": "Toofbreaker",
+     "slot": "One-hand mace",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 286429,
+     "name": "Big-Belly Belt",
+     "slot": "Waist (cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Overlord Mugg",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 258968,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "top of the hill, final boss",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 267086,
+     "name": "Eye of Mugg",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 271721,
+     "name": "Krol'dok Ogre Key",
+     "slot": "Key",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 275009,
+     "name": "Emblem of Slamming",
+     "slot": "Trinket",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 275007,
+     "name": "Mugg's Jabber",
+     "slot": "Fist weapon",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Overseer Mugg",
+   "name_de": "Aufseher Mugg",
+   "encounter_id": 3451,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  }
+ ],
+ "rares": [
+  {
+   "name": "Tunk (elite ogre blacksmith)",
+   "npc_id": 259256,
+   "wowhead_name": null,
+   "location": "on the way up the hill",
+   "pin": null,
+   "encounter_id": null,
+   "loot": []
+  },
+  {
+   "name": "Trash (probable, unconfirmed)",
+   "npc_id": null,
+   "wowhead_name": null,
+   "location": "trash",
+   "pin": null,
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 275006,
+     "name": "Krol'dok Warplate Helmet",
+     "slot": "Head (plate)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 287014,
+     "name": "Krol'dok Warplate Pauldrons",
+     "slot": "Shoulder (plate)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 287012,
+     "name": "Krol'dok Warplate Gauntlets",
+     "slot": "Hands (plate)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 287013,
+     "name": "Krol'dok Warplate Legplates",
+     "slot": "Legs (plate)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 267137,
+     "name": "Krol'dok Moulding",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 267091,
+     "name": "Cultist Ears",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 267234,
+     "name": "Twilight Bangles",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 94968,
+   "title": "Eye of Mugg",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Horde",
+   "giver": "Krom'rosh",
+   "giver_npc_id": 256418,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Rog'mar)",
+   "prereq": "Report to Rog'mar (95141)",
+   "rewards": [
+    279852,
+    279480,
+    279853
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 94972,
+   "title": "Tome of Twilight",
+   "level": 44,
+   "min_level": 39,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": null,
+   "rewards": [
+    279859,
+    279860
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 94975,
+   "title": "A Token of Vengeance",
+   "level": 42,
+   "min_level": 38,
+   "faction": "Horde",
+   "giver": "Da'grosh (likely)",
+   "giver_npc_id": 258570,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades",
+   "prereq": "Bring Me His Head (94768); 15 Cultist Ears (267091)",
+   "rewards": [
+    267090
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 94973,
+   "title": "Krol'dok Moulding",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Kreza Darkthorn",
+   "giver_npc_id": 256657,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Rog'mar)",
+   "prereq": "Krol'dok Moulding item (267137)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 94974,
+   "title": "Key Ingredients",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Kreza Darkthorn",
+   "giver_npc_id": 256657,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Rog'mar)",
+   "prereq": "Krol'dok Moulding (94973); 4 Thick Leather, 12 Iron Bar",
+   "rewards": [
+    267089
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 94768,
+   "title": "Bring Me His Head",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Da'grosh",
+   "giver_npc_id": 258570,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades",
+   "prereq": "Kill Overlord Kilgar (256881) in Twilight's Shroud",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 94982,
+   "title": "Eye of Mugg",
+   "level": 45,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "Commander Demar Brant",
+   "giver_npc_id": 257558,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Farholde Keep)",
+   "prereq": null,
+   "rewards": [
+    279852,
+    279480,
+    279853
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94984,
+   "title": "Tome of Twilight",
+   "level": 44,
+   "min_level": 39,
+   "faction": "Alliance",
+   "giver": "Ashe Amberhall",
+   "giver_npc_id": 257591,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Farholde Keep)",
+   "prereq": "A Small Favor (94907)",
+   "rewards": [
+    279854,
+    279855
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94983,
+   "title": "Twilight Mementos",
+   "level": 42,
+   "min_level": 38,
+   "faction": "Alliance",
+   "giver": "Sergeant Riftan (likely)",
+   "giver_npc_id": 258023,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades",
+   "prereq": "Bring Me His Head (94890); 8 Twilight Bangles (267234)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 96771,
+   "title": "Vengeance of the Highborne",
+   "level": 45,
+   "min_level": 37,
+   "faction": "Alliance",
+   "giver": "Ranath Nightstride",
+   "giver_npc_id": 268425,
+   "giver_item_id": null,
+   "giver_zone": "Dalaran inn (Alterac Mountains)",
+   "prereq": "Kill Zalfan Moonshadow (268423)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94980,
+   "title": "Krol'dok Moulding",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Alphonse Dumas",
+   "giver_npc_id": 259250,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Farholde Keep)",
+   "prereq": "Krol'dok Moulding item (267137)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94981,
+   "title": "Key Ingredients",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Alphonse Dumas",
+   "giver_npc_id": 259250,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Farholde Keep)",
+   "prereq": "Krol'dok Moulding (94980); 4 Thick Leather, 12 Iron Bar",
+   "rewards": [
+    267089
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94890,
+   "title": "Bring Me His Head",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Sergeant Riftan",
+   "giver_npc_id": 258023,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades",
+   "prereq": "Kilgar's Head (265837)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94907,
+   "title": "A Small Favor",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Ashe Amberhall",
+   "giver_npc_id": 257591,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades (Farholde Keep)",
+   "prereq": "Scraps of Knowledge (94879), Curious Trinkets (94881)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 94998,
+   "title": "Curios of Curiosity",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Riverglades",
+   "prereq": "Satchel of Mementos (268036), turn in Melanie Sable (259287)",
+   "rewards": [
+    279850
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [
+  "NPC 258966 (Slavecrusher Grox) not found on Wowhead Forever - check ID.",
+  "No pin for 'Slavecrusher Grox' (encounter 3450) in DungeonPinData.lua.",
+  "NPC 258972 (Twilight Commander Zarmok) not found on Wowhead Forever - check ID.",
+  "No pin for 'Twilight Commander Zarmok' (encounter 3452) in DungeonPinData.lua.",
+  "NPC 259281 (War Handler Ashka) not found on Wowhead Forever - check ID.",
+  "No pin for 'War Handler Ashka' (encounter 3453) in DungeonPinData.lua.",
+  "NPC 258964 (Nar'gurk) not found on Wowhead Forever - check ID.",
+  "No pin for 'Nar'gurk' (encounter 3449) in DungeonPinData.lua.",
+  "Boss 'Bossman Toof' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 264773 (Bossman Toof) not found on Wowhead Forever - check ID.",
+  "Boss 'Overlord Mugg' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 258968 (Overlord Mugg) not found on Wowhead Forever - check ID.",
+  "Encounter 3451 'Overseer Mugg' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 94968 'Eye of Mugg' not found on Wowhead Forever - check ID.",
+  "Quest 94972 'Tome of Twilight' not found on Wowhead Forever - check ID.",
+  "Quest 94975 'A Token of Vengeance' not found on Wowhead Forever - check ID.",
+  "Quest 94973 'Krol'dok Moulding' not found on Wowhead Forever - check ID.",
+  "Quest 94974 'Key Ingredients' not found on Wowhead Forever - check ID.",
+  "Quest 94768 'Bring Me His Head' not found on Wowhead Forever - check ID.",
+  "Quest 94982 'Eye of Mugg' not found on Wowhead Forever - check ID.",
+  "Quest 94984 'Tome of Twilight' not found on Wowhead Forever - check ID.",
+  "Quest 94983 'Twilight Mementos' not found on Wowhead Forever - check ID.",
+  "Quest 96771 'Vengeance of the Highborne' not found on Wowhead Forever - check ID.",
+  "Quest 94980 'Krol'dok Moulding' not found on Wowhead Forever - check ID.",
+  "Quest 94981 'Key Ingredients' not found on Wowhead Forever - check ID.",
+  "Quest 94890 'Bring Me His Head' not found on Wowhead Forever - check ID.",
+  "Quest 94907 'A Small Favor' not found on Wowhead Forever - check ID.",
+  "Quest 94998 'Curios of Curiosity' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "No drop chances recorded on guide; items marked seen/probable",
+  "War Handler Ashka not found in first runs; optional status unclear",
+  "Bossman Toof is not among the five game-data encounters but guide counts him",
+  "Tome of Twilight (Horde 94972) giver unknown",
+  "Some givers marked likely/unconfirmed"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "missing",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 18,
+  "loot_confirmed": 18,
+  "loot_with_chance": 0,
+  "forever_confirmed": "yes",
+  "boss_count": 6,
+  "boss_ok": 0,
+  "pin_ok": 0,
+  "enc_count": 5,
+  "q_tot": 15
+ },
+ "top_points": [
+  "15 of 15 quests missing in DungeonQuests.lua",
+  "Boss 'Bossman Toof' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
+  "No pin for 'Slavecrusher Grox' (encounter 3450) in DungeonPinData.lua. (+3 more)"
+ ]
+}

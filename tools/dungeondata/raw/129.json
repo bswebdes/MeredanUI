@@ -1,0 +1,395 @@
+{
+ "key": 129,
+ "name_en": "Razorfen Downs",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-razorfen-downs-guide/"
+ ],
+ "level": "37-46",
+ "boss_level": null,
+ "zone": "The Barrens / Thousand Needles border",
+ "zone_id": 17,
+ "instance_zone_id": 722,
+ "entrance": "South Barrens, east of road just before the Great Lift",
+ "faction": "Both; entrance in Horde territory",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Tuten'kash",
+   "npc_ids": [
+    7355
+   ],
+   "location": "gong event, spider follows last wave",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10776,
+     "name": "Silky Spider Cape",
+     "slot": "Back",
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10775,
+     "name": "Carapace of Tuten'kash",
+     "slot": "Chest (plate)",
+     "chance": "32%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10777,
+     "name": "Arachnid Gloves",
+     "slot": "Hands",
+     "chance": "30%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Mordresh Fire Eye",
+   "npc_ids": [
+    7357
+   ],
+   "location": null,
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10769,
+     "name": "Glowing Eye of Mordresh",
+     "slot": "Neck",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10770,
+     "name": "Mordresh's Lifeless Skull",
+     "slot": "Off-hand",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10771,
+     "name": "Deathmage Sash",
+     "slot": "Waist",
+     "chance": "32%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Glutton",
+   "npc_ids": [
+    8567
+   ],
+   "location": null,
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10772,
+     "name": "Glutton's Cleaver",
+     "slot": "One-hand axe",
+     "chance": "50%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10774,
+     "name": "Fleshhide Shoulders",
+     "slot": "Shoulder",
+     "chance": "48%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Plaguemaw the Rotting",
+   "npc_ids": [
+    7356
+   ],
+   "location": null,
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 10760,
+     "name": "Swine Fists",
+     "slot": "Hands",
+     "chance": "63%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10766,
+     "name": "Plaguerot Sprig",
+     "slot": "Wand",
+     "chance": "33%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Amnennar the Coldbringer",
+   "npc_ids": [
+    7358
+   ],
+   "location": "final boss",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 10761,
+     "name": "Coldrage Dagger",
+     "slot": "Dagger",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10762,
+     "name": "Robes of the Lich",
+     "slot": "Chest",
+     "chance": "39%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10763,
+     "name": "Icemetal Barbute",
+     "slot": "Head",
+     "chance": "37%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10764,
+     "name": "Deathchill Armor",
+     "slot": "Chest (mail)",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10765,
+     "name": "Bonefingers",
+     "slot": "Hands (leather)",
+     "chance": "27%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10420,
+     "name": "Skull of the Coldbringer",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Ragglesnout",
+   "npc_id": 7354,
+   "location": "rare spawn, not always present",
+   "loot": [
+    {
+     "item_id": 10768,
+     "name": "Boar Champion's Belt",
+     "slot": "Waist (mail)",
+     "chance": "39%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10767,
+     "name": "Savage Boar's Guard",
+     "slot": "Shield",
+     "chance": "39%",
+     "quest_item": false
+    },
+    {
+     "item_id": 10758,
+     "name": "X'caliboar",
+     "slot": "Two-hand sword",
+     "chance": "20%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Trash (BoE world drops)",
+   "npc_id": null,
+   "location": "various trash",
+   "loot": [
+    {
+     "item_id": 10578,
+     "name": "Thoughtcast Boots",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 10582,
+     "name": "Briar Tredders",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 10584,
+     "name": "Stormgale Fists",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 10571,
+     "name": "Ebony Boneclub",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 10573,
+     "name": "Boneslasher",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "name": "Ambassador Malcin",
+   "npc_id": 12865,
+   "location": "elite outside the portal",
+   "loot": [
+    {
+     "item_id": 17009,
+     "name": "Ambassador Malcin's Head",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 6626,
+   "title": "A Host of Evil",
+   "level": 35,
+   "min_level": 28,
+   "faction": "Both",
+   "giver": "Myriam Moonsinger",
+   "giver_npc_id": 12866,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (outside portal)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 3523,
+   "title": "Scourge of the Downs",
+   "level": 37,
+   "min_level": 32,
+   "faction": "Both",
+   "giver": "Belnistrasz",
+   "giver_npc_id": 8516,
+   "giver_item_id": null,
+   "giver_zone": "Razorfen Downs (inside)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 3525,
+   "title": "Extinguishing the Idol",
+   "level": 37,
+   "min_level": 32,
+   "faction": "Both",
+   "giver": "Belnistrasz",
+   "giver_npc_id": 8516,
+   "giver_item_id": null,
+   "giver_zone": "Razorfen Downs (inside)",
+   "prereq": "Scourge of the Downs (3523); escort, ends at Belnistrasz's Brazier (object 152097)",
+   "rewards": [
+    10710
+   ]
+  },
+  {
+   "quest_id": 3636,
+   "title": "Bring the Light",
+   "level": 42,
+   "min_level": 39,
+   "faction": "Alliance",
+   "giver": "Archbishop Benedictus",
+   "giver_npc_id": 1284,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": null,
+   "rewards": [
+    10823,
+    10824
+   ]
+  },
+  {
+   "quest_id": 3341,
+   "title": "Bring the End",
+   "level": 42,
+   "min_level": 37,
+   "faction": "Horde",
+   "giver": "Andrew Brownell",
+   "giver_npc_id": 2308,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": "Skull of the Coldbringer (10420) from Amnennar",
+   "rewards": [
+    10823,
+    10824
+   ]
+  },
+  {
+   "quest_id": 6522,
+   "title": "An Unholy Alliance",
+   "level": 36,
+   "min_level": 28,
+   "faction": "Horde",
+   "giver": "Small Scroll (item)",
+   "giver_npc_id": null,
+   "giver_item_id": 17008,
+   "giver_zone": "Razorfen Kraul (drop from Charlga Razorflank 4421)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 6521,
+   "title": "An Unholy Alliance",
+   "level": 36,
+   "min_level": 28,
+   "faction": "Horde",
+   "giver": "Varimathras",
+   "giver_npc_id": 2425,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": "An Unholy Alliance (6522); Ambassador Malcin's Head (17009)",
+   "rewards": [
+    17039,
+    17042,
+    17043,
+    270054
+   ]
+  }
+ ],
+ "keys_attunement": null,
+ "forever_changes": [
+  "New reward Cultist's Chestguard (270054, leather chest) on An Unholy Alliance (6521)",
+  "An Unholy Alliance rewards lowered rare->uncommon (Oct 8 beta)",
+  "XP raised on four quests; escort and both Amnennar quests unchanged",
+  "Most boss items restatted (e.g. Silky Spider Cape movement-impair reduction, Glutton's Cleaver bleed 70/7s, Coldrage Dagger slow, Bonefingers mana restore)",
+  "Item-started quests not shareable since Oct 1 beta; Bring the End shareable, Bring the Light not"
+ ],
+ "notes": [
+  "Vanquisher's Sword, Amberglow Talisman, Dragonclaw Ring and some optional-boss items lack Forever data; Classic IDs used",
+  "Savage Boar's Guard (10767) mapping uncertain per guide (shield lacks Forever data)",
+  "Trash rare drop chances not given",
+  "Belnistrasz's Oathstone (10682) given by Belnistrasz; Henry Stern (8696) teaches Goldthorn Tea",
+  "Some slot values not stated on guide were filled from Classic item knowledge"
+ ]
+}

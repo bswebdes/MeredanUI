@@ -1,0 +1,474 @@
+{
+ "key": 2999,
+ "name_en": "Ruins of Lordaeron",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-ruins-of-lordaeron-guide/"
+ ],
+ "level": "15-20",
+ "boss_level": "17-20",
+ "zone": "Tirisfal Glades (above Undercity)",
+ "zone_id": 16611,
+ "entrance": "Portal behind portcullis, east side of courtyard above Undercity",
+ "faction": "Horde-leaning; Alliance can enter",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "The Baron",
+   "npc_ids": [
+    250660
+   ],
+   "location": "guards one of the city streets",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 271205,
+     "name": "Abomination Bones",
+     "slot": "Chest (Mail)",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271206,
+     "name": "Leftover Abomination Skin",
+     "slot": "Chest (Cloth)",
+     "chance": "31%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271204,
+     "name": "Meathook Slicer",
+     "slot": "Dagger",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 280438,
+     "name": "Abominable Head",
+     "slot": "Quest",
+     "chance": "~41%",
+     "quest_item": true
+    },
+    {
+     "item_id": 268518,
+     "name": "Head of the Baron",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Witherfang",
+   "npc_ids": [
+    250483
+   ],
+   "location": "King's Alley, giant spider with patrols",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 271203,
+     "name": "Segmented Spider Leg",
+     "slot": "Staff",
+     "chance": "31%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271202,
+     "name": "Witherbite Bracers",
+     "slot": "Wrist (Leather)",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271201,
+     "name": "Atrophic Girdle",
+     "slot": "Waist (Mail)",
+     "chance": "26%",
+     "quest_item": false
+    },
+    {
+     "item_id": 275443,
+     "name": "Highly Toxic Strain",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "The Abandoned",
+   "npc_ids": [
+    250631
+   ],
+   "location": "event from statue with glowing green eyes",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 271207,
+     "name": "Rotmender's Leggings",
+     "slot": "Legs (Cloth)",
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271216,
+     "name": "Scepter of the Abandoned",
+     "slot": "One-Hand Mace",
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271208,
+     "name": "Grip of Fear",
+     "slot": "Hands (Mail)",
+     "chance": "32%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Bjork",
+   "npc_ids": [
+    256097
+   ],
+   "location": "courtyard with walls and pavilion",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 271217,
+     "name": "Corpse Chopper",
+     "slot": "Two-Hand Axe",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271210,
+     "name": "Tuskwrap Belt",
+     "slot": "Waist (Cloth)",
+     "chance": "34%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271209,
+     "name": "Bonerust Leggings",
+     "slot": "Legs (Mail)",
+     "chance": "33%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Viktor the Vile",
+   "npc_ids": [
+    256035
+   ],
+   "location": "burned house at south end; light chimney fire",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 271211,
+     "name": "Vilewalkers",
+     "slot": "Feet (Mail)",
+     "chance": "35%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271212,
+     "name": "Bloodied Chestwraps",
+     "slot": "Chest (Leather)",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271218,
+     "name": "Vileblood Scimitar",
+     "slot": "One-Hand Sword",
+     "chance": "32%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Rath'mael",
+   "npc_ids": [
+    250657
+   ],
+   "location": "graveyard, usually last",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 271213,
+     "name": "Mirror of Rath'mael",
+     "slot": "Shield",
+     "chance": "37%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271215,
+     "name": "Coldspire Staff",
+     "slot": "Staff",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 271214,
+     "name": "Rotmender's Treads",
+     "slot": "Feet (Cloth)",
+     "chance": "30%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273085,
+     "name": "Blueprint: Fermenter",
+     "slot": "Recipe",
+     "chance": "~8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 273103,
+     "name": "Blueprint: Arcane Salvager",
+     "slot": "Recipe",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Lordaeron Captain",
+   "npc_id": 255699,
+   "location": "roams north-west on some runs",
+   "loot": [
+    6641,
+    6642
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 95195,
+   "title": "Bloodied Insignia",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 268540,
+   "giver_zone": "Ruins of Lordaeron (drop inside); turn in General Marcus Jonathan npc=466, Stormwind",
+   "prereq": "needs 10 insignias",
+   "rewards": [
+    279868,
+    279869
+   ]
+  },
+  {
+   "quest_id": 92415,
+   "title": "Remember That I Love You",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 251522,
+   "giver_zone": "Ruins of Lordaeron (graveyard); turn in Orphan Matron Nightingale npc=14450, Stormwind",
+   "prereq": null,
+   "rewards": [
+    279870
+   ]
+  },
+  {
+   "quest_id": 95161,
+   "title": "Remember That I Love You (step 2)",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Avette Fellwood",
+   "giver_npc_id": 228,
+   "giver_item_id": null,
+   "giver_zone": "Duskwood",
+   "prereq": "92415",
+   "rewards": []
+  },
+  {
+   "quest_id": 95189,
+   "title": "Crest of Lordaeron",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 268579,
+   "giver_zone": "Ruins of Lordaeron (inside); turn in Lady Dena Kennedy npc=15991, Stormwind",
+   "prereq": null,
+   "rewards": [
+    280567
+   ]
+  },
+  {
+   "quest_id": 95250,
+   "title": "Abominable Creatures",
+   "level": 21,
+   "min_level": 15,
+   "faction": "Alliance",
+   "giver": "Captain Truman",
+   "giver_npc_id": 265701,
+   "giver_item_id": null,
+   "giver_zone": "Ruins of Lordaeron (inside entrance)",
+   "prereq": "Head of the Baron item=268518",
+   "rewards": [
+    279864,
+    279865,
+    279867
+   ]
+  },
+  {
+   "quest_id": 92422,
+   "title": "The Wrath of Rath'mael",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Horde",
+   "giver": "Deathguard Kristof",
+   "giver_npc_id": 251001,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades (SE of Brill)",
+   "prereq": "Rear Guard Patrol (356) and Rear Guard Patrol (99156, kill Riptear npc=276020)",
+   "rewards": [
+    251533,
+    251534
+   ]
+  },
+  {
+   "quest_id": 95216,
+   "title": "The New Plague",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Horde",
+   "giver": "Theodore Griffs",
+   "giver_npc_id": 11835,
+   "giver_item_id": null,
+   "giver_zone": "Undercity (Apothecarium)",
+   "prereq": "A Recipe For Death 447 -> 450 -> 451",
+   "rewards": [
+    279876,
+    279877
+   ]
+  },
+  {
+   "quest_id": 95204,
+   "title": "Crest of Lordaeron",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 275521,
+   "giver_zone": "Ruins of Lordaeron (inside); turn in Oran Snakewrithe npc=7825, Undercity",
+   "prereq": null,
+   "rewards": [
+    280567
+   ]
+  },
+  {
+   "quest_id": 97288,
+   "title": "Unending Torment",
+   "level": 21,
+   "min_level": 15,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": 280438,
+   "giver_zone": "Ruins of Lordaeron (Abominable Head from The Baron)",
+   "prereq": "chain ends at 97290; needs items 281246, 281300, 8923, 281327",
+   "rewards": [
+    279864,
+    279865,
+    279867
+   ]
+  },
+  {
+   "quest_id": 92421,
+   "title": "Light's Justice",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Horde",
+   "giver": "Morbin Lightbane",
+   "giver_npc_id": 266484,
+   "giver_item_id": null,
+   "giver_zone": "Undercity (Royal Quarter)",
+   "prereq": "25 Intact Limbs item=268580",
+   "rewards": [
+    279874,
+    279875
+   ]
+  },
+  {
+   "quest_id": 92401,
+   "title": "A Frightened Request",
+   "level": 22,
+   "min_level": 15,
+   "faction": "Horde",
+   "giver": "Tabitha Heartweaver",
+   "giver_npc_id": 250686,
+   "giver_item_id": null,
+   "giver_zone": "Silverpine Forest (Sepulcher)",
+   "prereq": null,
+   "rewards": [
+    251485,
+    251486
+   ]
+  },
+  {
+   "quest_id": 356,
+   "title": "Rear Guard Patrol",
+   "level": 11,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Deathguard Linnea",
+   "giver_npc_id": 1495,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 99156,
+   "title": "Rear Guard Patrol (Riptear)",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Tirisfal Glades",
+   "prereq": "356",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "None",
+ "forever_changes": [
+  "New WoW Forever dungeon: open city, six bosses in any order",
+  "The Abandoned and Viktor the Vile appear only after events",
+  "Since Nov 4 launch, Wrath of Rath'mael and New Plague have pre-quest chains",
+  "Since Nov 2 update all quests available from level 15"
+ ],
+ "notes": [
+  "Per-boss levels not given",
+  "Rare loot item IDs listed as integers (Haunting Blade 6641, Phantom Armor 6642, level 22)",
+  "Trash: Stone Watcher npc=250629 drops Rotmender's Gloves item=286979 ~8%; Rotmender's Sash 286980 and Garb 286978 from trash",
+  "Two head items: Abominable Head 280438 (~41%, starts Unending Torment) vs Head of the Baron 268518 (Abominable Creatures); page is ambiguous",
+  "Page says bosses drop blue gear but some items labeled green",
+  "Quest XP: Horde 29,800, Alliance 22,500"
+ ]
+}

@@ -1,0 +1,4700 @@
+{
+ "key": 429,
+ "slug": "dire_maul",
+ "kind": "dungeon",
+ "name_en": "Dire Maul",
+ "level": "54-60",
+ "zone": "Feralas",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon, 3 wings (East 54-60, West/North 56-60)",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dire-maul-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "No attunement. Crescent Key item=18249 (Pusillin, East) opens West and North doors, permanent; Gordok Shackle Key item=18250 (North guards) for Free Knot!; Brazier of Beckoning item=22050 summons Isalien.",
+ "forever_changes": [
+  "Pattern: Big Bag of Enchantment needs only 255 Tailoring",
+  "Glove patterns need 280 Tailoring, leather patterns 290 Leatherworking",
+  "Slip'kik's Savvy has no effect in raid instances",
+  "Many reward items still show Classic stats"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "East",
+   "name": "Pusillin",
+   "name_de": "Pusillin",
+   "encounter_id": 2792,
+   "npcs": [
+    {
+     "id": 14354,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "chase through Warpwood Quarter with imp adds",
+   "optional": false,
+   "pin": {
+    "floor": 6,
+    "x": 0.1224,
+    "y": 0.3103
+   },
+   "loot": [
+    {
+     "item_id": 18249,
+     "name": "Crescent Key",
+     "slot": "Key",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18261,
+     "name": "Book of Incantations",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18267,
+     "name": "Recipe: Runn Tum Tuber Surprise",
+     "slot": "Recipe",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": 83.0,
+     "chance_wowhead_forever": 82.7,
+     "wowhead_dropped_by": "Pusillin",
+     "chance_repo": 100.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "East",
+   "name": "Zevrim Thornhoof",
+   "name_de": "Zevrim Dornhuf",
+   "encounter_id": 343,
+   "npcs": [
+    {
+     "id": 11490,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "satyr shrine in East wing",
+   "optional": false,
+   "pin": {
+    "floor": 6,
+    "x": 0.435,
+    "y": 0.5375
+   },
+   "loot": [
+    {
+     "item_id": 18313,
+     "name": "Helm of Awareness",
+     "slot": "Head Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 19.31,
+     "wowhead_dropped_by": "Zevrim Thornhoof",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18323,
+     "name": "Satyr's Bow",
+     "slot": "Ranged Bow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 19.25,
+     "wowhead_dropped_by": "Zevrim Thornhoof",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18319,
+     "name": "Fervent Helm",
+     "slot": "Head Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": 9.97,
+     "wowhead_dropped_by": "Zevrim Thornhoof",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18306,
+     "name": "Gloves of Shadowy Mist",
+     "slot": "Hands Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.73,
+     "wowhead_dropped_by": "Zevrim Thornhoof",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18308,
+     "name": "Clever Hat",
+     "slot": "Head Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.5,
+     "wowhead_dropped_by": "Zevrim Thornhoof",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "East",
+   "name": "Hydrospawn",
+   "name_de": "Hydrobrut",
+   "encounter_id": 344,
+   "npcs": [
+    {
+     "id": 13280,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "pool chamber in East wing",
+   "optional": false,
+   "pin": {
+    "floor": 6,
+    "x": 0.423,
+    "y": 0.4633
+   },
+   "loot": [
+    {
+     "item_id": 18317,
+     "name": "Tempest Talisman",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 18.97,
+     "wowhead_dropped_by": "Hydrospawn",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18322,
+     "name": "Waterspout Boots",
+     "slot": "Feet Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 19.64,
+     "wowhead_dropped_by": "Hydrospawn",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18324,
+     "name": "Waveslicer",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": 9.76,
+     "wowhead_dropped_by": "Hydrospawn",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 19268,
+     "name": "Ace of Elementals",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18299,
+     "name": "Hydrospawn Essence",
+     "slot": "Quest (Mage)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18305,
+     "name": "Breakwater Legguards",
+     "slot": "Legs Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.24,
+     "wowhead_dropped_by": "Hydrospawn",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18307,
+     "name": "Riptide Shoes",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.67,
+     "wowhead_dropped_by": "Hydrospawn",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 7080,
+     "name": "Essence of Water",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 11.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "East",
+   "name": "Lethtendris",
+   "name_de": "Lethtendris",
+   "encounter_id": 345,
+   "npcs": [
+    {
+     "id": 14327,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 14349,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "East wing, with imp Pimgib",
+   "optional": false,
+   "pin": {
+    "floor": 6,
+    "x": 0.4264,
+    "y": 0.4821
+   },
+   "loot": [
+    {
+     "item_id": 18325,
+     "name": "Felhide Cap",
+     "slot": "Head Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": 28.62,
+     "wowhead_dropped_by": "Lethtendris",
+     "chance_repo": 30.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18311,
+     "name": "Quel'dorai Channeling Rod",
+     "slot": "Two-Hand Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": 9.27,
+     "wowhead_dropped_by": "Lethtendris",
+     "chance_repo": 10.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18426,
+     "name": "Lethtendris's Web",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18354,
+     "name": "Pimgib's Collar",
+     "slot": "(from Pimgib)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18301,
+     "name": "Lethtendris's Wand",
+     "slot": "Ranged Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 27.98,
+     "wowhead_dropped_by": "Lethtendris",
+     "chance_repo": 30.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18302,
+     "name": "Band of Vigor",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.86,
+     "wowhead_dropped_by": "Lethtendris",
+     "chance_repo": 30.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "East",
+   "name": "Old Ironbark",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 11491,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "East wing; opens path to shrine (no fight)",
+   "optional": false,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 6,
+   "wing": "East",
+   "name": "Alzzin the Wildshaper",
+   "name_de": "Alzzin der Wildformer",
+   "encounter_id": 346,
+   "npcs": [],
+   "location": "Shrine of the Eldretharr, end of East wing",
+   "optional": false,
+   "pin": {
+    "floor": 7,
+    "x": 0.5536,
+    "y": 0.2695
+   },
+   "loot": [
+    {
+     "item_id": 18312,
+     "name": "Energized Chestplate",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 18.76,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18321,
+     "name": "Energetic Rod",
+     "slot": "Main Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 19.1,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18310,
+     "name": "Fiendish Machete",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 19.12,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18309,
+     "name": "Gloves of Restoration",
+     "slot": "Hands Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.74,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18314,
+     "name": "Ring of Demonic Guile",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.07,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18315,
+     "name": "Ring of Demonic Potency",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.87,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18318,
+     "name": "Merciful Greaves",
+     "slot": "Feet Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.53,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18326,
+     "name": "Razor Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.73,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18327,
+     "name": "Whipvine Cord",
+     "slot": "Waist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.67,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18328,
+     "name": "Shadewood Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 18.92,
+     "wowhead_dropped_by": "Alzzin the Wildshaper",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "East",
+   "name": "Isalien",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 16097,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "summoned via Brazier of Beckoning 22050",
+   "optional": true,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": 8,
+   "wing": "West",
+   "name": "Tendris Warpwood",
+   "name_de": "Tendris Wucherborke",
+   "encounter_id": 350,
+   "npcs": [
+    {
+     "id": 11489,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Capital Gardens, first boss",
+   "optional": false,
+   "pin": {
+    "floor": 3,
+    "x": 0.3317,
+    "y": 0.5303
+   },
+   "loot": [
+    {
+     "item_id": 18393,
+     "name": "Warpwood Binding",
+     "slot": "Waist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 23.98,
+     "wowhead_dropped_by": "Tendris Warpwood",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18390,
+     "name": "Tanglemoss Leggings",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 24.85,
+     "wowhead_dropped_by": "Tendris Warpwood",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18352,
+     "name": "Petrified Bark Shield",
+     "slot": "Off Hand Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.82,
+     "wowhead_dropped_by": "Tendris Warpwood",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18353,
+     "name": "Stoneflower Staff",
+     "slot": "Two-Hand Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.82,
+     "wowhead_dropped_by": "Tendris Warpwood",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": "West",
+   "name": "Illyanna Ravenoak",
+   "name_de": "Illyanna Rabeneiche",
+   "encounter_id": 347,
+   "npcs": [
+    {
+     "id": 11488,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 14308,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Capital Gardens, with bear Ferra",
+   "optional": false,
+   "pin": {
+    "floor": 3,
+    "x": 0.202,
+    "y": 0.8124
+   },
+   "loot": [
+    {
+     "item_id": 18383,
+     "name": "Force Imbued Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 23.56,
+     "wowhead_dropped_by": "Illyanna Ravenoak",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18386,
+     "name": "Padre's Trousers",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 22.0,
+     "chance_wowhead_forever": 22.24,
+     "wowhead_dropped_by": "Illyanna Ravenoak",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22206,
+     "name": "Bouquet of Red Roses",
+     "slot": "Held In Off-hand",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18347,
+     "name": "Well Balanced Axe",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.68,
+     "wowhead_dropped_by": "Illyanna Ravenoak",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18349,
+     "name": "Gauntlets of Accuracy",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.01,
+     "wowhead_dropped_by": "Illyanna Ravenoak",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": "West",
+   "name": "Magister Kalendris",
+   "name_de": "Magister Kalendris",
+   "encounter_id": 348,
+   "npcs": [
+    {
+     "id": 11487,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Court of the Highborne",
+   "optional": false,
+   "pin": {
+    "floor": 3,
+    "x": 0.1418,
+    "y": 0.4767
+   },
+   "loot": [
+    {
+     "item_id": 18374,
+     "name": "Flamescarred Shoulders",
+     "slot": "Shoulder Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.77,
+     "wowhead_dropped_by": "Magister Kalendris",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18397,
+     "name": "Elder Magus Pendant",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.39,
+     "wowhead_dropped_by": "Magister Kalendris",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18371,
+     "name": "Mindtap Talisman",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": 8.64,
+     "wowhead_dropped_by": "Magister Kalendris",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 22309,
+     "name": "Pattern: Big Bag of Enchantment",
+     "slot": "Pattern",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 1.56,
+     "wowhead_dropped_by": "Magister Kalendris",
+     "chance_repo": 15.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18350,
+     "name": "Amplifying Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 25.11,
+     "wowhead_dropped_by": "Magister Kalendris",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18351,
+     "name": "Magically Sealed Bracers",
+     "slot": "Wrist Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.51,
+     "wowhead_dropped_by": "Magister Kalendris",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 11,
+   "wing": "West",
+   "name": "Immol'thar",
+   "name_de": "Immol'thar",
+   "encounter_id": 349,
+   "npcs": [
+    {
+     "id": 11496,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "prison chamber after pylons",
+   "optional": false,
+   "pin": {
+    "floor": 5,
+    "x": 0.3501,
+    "y": 0.5762
+   },
+   "loot": [
+    {
+     "item_id": 18370,
+     "name": "Vigilance Charm",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 9.0,
+     "chance_wowhead_forever": 8.69,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18391,
+     "name": "Eyestalk Cord",
+     "slot": "Waist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.84,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18379,
+     "name": "Odious Greaves",
+     "slot": "Feet Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.39,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18372,
+     "name": "Blade of the New Moon",
+     "slot": "Main Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 9.76,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18377,
+     "name": "Quickdraw Gloves",
+     "slot": "Hands Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 25.72,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18381,
+     "name": "Evil Eye Pendant",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.66,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18384,
+     "name": "Bile-etched Spaulders",
+     "slot": "Shoulder Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.5,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18385,
+     "name": "Robe of Everlasting Night",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 21.03,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18389,
+     "name": "Cloak of the Cosmos",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.36,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18394,
+     "name": "Demon Howl Wristguards",
+     "slot": "Wrist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.3,
+     "wowhead_dropped_by": "Immol'thar",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": "West",
+   "name": "Prince Tortheldrin",
+   "name_de": "Prinz Tortheldrin",
+   "encounter_id": 361,
+   "npcs": [
+    {
+     "id": 11486,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Court of the Highborne, final",
+   "optional": false,
+   "pin": {
+    "floor": 3,
+    "x": 0.0459,
+    "y": 0.1925
+   },
+   "loot": [
+    {
+     "item_id": 18382,
+     "name": "Fluctuating Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.64,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18395,
+     "name": "Emerald Flame Ring",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.99,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18396,
+     "name": "Mind Carver",
+     "slot": "Main Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.15,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 21525,
+     "name": "Green Winter Hat",
+     "slot": "Head Cloth",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 100.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18373,
+     "name": "Chestplate of Tranquility",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 9.38,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18375,
+     "name": "Bracers of the Eclipse",
+     "slot": "Wrist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.31,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18376,
+     "name": "Timeworn Mace",
+     "slot": "One-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 17.99,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18378,
+     "name": "Silvermoon Leggings",
+     "slot": "Legs Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 21.4,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18380,
+     "name": "Eldritch Reinforced Legplates",
+     "slot": "Legs Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.18,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18388,
+     "name": "Stoneshatter",
+     "slot": "Ranged Crossbow",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 10.31,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18392,
+     "name": "Distracting Dagger",
+     "slot": "Off Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 19.08,
+     "wowhead_dropped_by": "Prince Tortheldrin",
+     "chance_repo": 20.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": "West",
+   "name": "Lord Hel'nurath",
+   "name_de": "Lord Hel'nurath",
+   "encounter_id": 2793,
+   "npcs": [
+    {
+     "id": 14506,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "summoned (warlock mount chain)",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 18755,
+     "name": "Xorothian Firestick",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 26.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18756,
+     "name": "Dreadguard's Protector",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 26.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18754,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18757,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 12662,
+     "name": "Demonic Rune",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 6.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 14,
+   "wing": "North",
+   "name": "Guard Mol'dar",
+   "name_de": "Wache Mol'dar",
+   "encounter_id": 362,
+   "npcs": [
+    {
+     "id": 14326,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.6985,
+    "y": 0.7521
+   },
+   "loot": [
+    {
+     "item_id": 18494,
+     "name": "Denwatcher's Shoulders",
+     "slot": "Shoulder Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18493,
+     "name": "Bulky Iron Spaulders",
+     "slot": "Shoulder Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18496,
+     "name": "Heliotrope Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18497,
+     "name": "Sublime Wristguards",
+     "slot": "Wrist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18498,
+     "name": "Hedgecutter",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": "Key",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 13.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18450,
+     "name": "Robe of Combustion",
+     "slot": "Chest Cloth",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18451,
+     "name": "Hyena Hide Belt",
+     "slot": "Waist Leather",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18458,
+     "name": "Modest Armguards",
+     "slot": "Wrist Mail",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18459,
+     "name": "Gallant's Wristguards",
+     "slot": "Wrist Plate",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18460,
+     "name": "Unsophisticated Hand Cannon",
+     "slot": "Ranged Gun",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18462,
+     "name": "Jagged Bone Fist",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18463,
+     "name": "Ogre Pocket Knife",
+     "slot": "One-Hand Sword",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18464,
+     "name": "Gordok Nose Ring",
+     "slot": "Finger",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 15,
+   "wing": "North",
+   "name": "Stomper Kreeg",
+   "name_de": "Stampfer Kreeg",
+   "encounter_id": 363,
+   "npcs": [
+    {
+     "id": 14322,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.6197,
+    "y": 0.6574
+   },
+   "loot": [
+    {
+     "item_id": 18425,
+     "name": "Kreeg's Mug",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 16,
+   "wing": "North",
+   "name": "Guard Fengus",
+   "name_de": "Wache Fengus",
+   "encounter_id": 364,
+   "npcs": [
+    {
+     "id": 14321,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.4935,
+    "y": 0.8155
+   },
+   "loot": [
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": "Key",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 13.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18450,
+     "name": "Robe of Combustion",
+     "slot": "Chest Cloth",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18451,
+     "name": "Hyena Hide Belt",
+     "slot": "Waist Leather",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18458,
+     "name": "Modest Armguards",
+     "slot": "Wrist Mail",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18459,
+     "name": "Gallant's Wristguards",
+     "slot": "Wrist Plate",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18460,
+     "name": "Unsophisticated Hand Cannon",
+     "slot": "Ranged Gun",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18462,
+     "name": "Jagged Bone Fist",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18463,
+     "name": "Ogre Pocket Knife",
+     "slot": "One-Hand Sword",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18464,
+     "name": "Gordok Nose Ring",
+     "slot": "Finger",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 12.5,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 17,
+   "wing": "North",
+   "name": "Guard Slip'kik",
+   "name_de": "Wache Slip'kik",
+   "encounter_id": 365,
+   "npcs": [
+    {
+     "id": 14323,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.2775,
+    "y": 0.5878
+   },
+   "loot": [
+    {
+     "item_id": 18494,
+     "name": "Denwatcher's Shoulders",
+     "slot": "Shoulder Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18493,
+     "name": "Bulky Iron Spaulders",
+     "slot": "Shoulder Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18496,
+     "name": "Heliotrope Cloak",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18497,
+     "name": "Sublime Wristguards",
+     "slot": "Wrist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18498,
+     "name": "Hedgecutter",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": "Key",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 13.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18450,
+     "name": "Robe of Combustion",
+     "slot": "Chest Cloth",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18451,
+     "name": "Hyena Hide Belt",
+     "slot": "Waist Leather",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18458,
+     "name": "Modest Armguards",
+     "slot": "Wrist Mail",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18459,
+     "name": "Gallant's Wristguards",
+     "slot": "Wrist Plate",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18460,
+     "name": "Unsophisticated Hand Cannon",
+     "slot": "Ranged Gun",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18462,
+     "name": "Jagged Bone Fist",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18463,
+     "name": "Ogre Pocket Knife",
+     "slot": "One-Hand Sword",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18464,
+     "name": "Gordok Nose Ring",
+     "slot": "Finger",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 7.7,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 18,
+   "wing": "North",
+   "name": "Knot Thimblejack (cache)",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 14338,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "shackled; freeing opens Knot Thimblejack's Cache",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 18417,
+     "name": "Pattern: Mooncloth Gloves",
+     "slot": "Pattern",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18515,
+     "name": "Pattern: Mongoose Boots",
+     "slot": "Pattern",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 18414,
+     "name": "Pattern: Belt of the Archmage",
+     "slot": "Pattern",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 19,
+   "wing": "North",
+   "name": "Captain Kromcrush",
+   "name_de": "Hauptmann Krombruch",
+   "encounter_id": 366,
+   "npcs": [
+    {
+     "id": 14325,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "Gordok Commons, before throne",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.3183,
+    "y": 0.497
+   },
+   "loot": [
+    {
+     "item_id": 18503,
+     "name": "Kromcrush's Chestplate",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.79,
+     "wowhead_dropped_by": "Captain Kromcrush",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18507,
+     "name": "Boots of the Full Moon",
+     "slot": "Feet Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.59,
+     "wowhead_dropped_by": "Captain Kromcrush",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18502,
+     "name": "Monstrous Glaive",
+     "slot": "Two-Hand Polearm",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.06,
+     "wowhead_dropped_by": "Captain Kromcrush",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18505,
+     "name": "Mugger's Belt",
+     "slot": "Waist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 23.0,
+     "chance_wowhead_forever": 22.29,
+     "wowhead_dropped_by": "Captain Kromcrush",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 13.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 20,
+   "wing": "North",
+   "name": "King Gordok",
+   "name_de": "König Gordok",
+   "encounter_id": 368,
+   "npcs": [
+    {
+     "id": 11501,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    },
+    {
+     "id": 14324,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "throne room, with Cho'Rush the Observer",
+   "optional": false,
+   "pin": {
+    "floor": 2,
+    "x": 0.3186,
+    "y": 0.2592
+   },
+   "loot": [
+    {
+     "item_id": 18524,
+     "name": "Leggings of Destruction",
+     "slot": "Legs Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 24.26,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18527,
+     "name": "Harmonious Gauntlets",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 24.04,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18526,
+     "name": "Crown of the Ogre King",
+     "slot": "Head Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 24.0,
+     "chance_wowhead_forever": 23.67,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18520,
+     "name": "Barbarous Blade",
+     "slot": "Two-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.7,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18521,
+     "name": "Grimy Metal Boots",
+     "slot": "Feet Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.72,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18522,
+     "name": "Band of the Ogre King",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.52,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18523,
+     "name": "Brightly Glowing Stone",
+     "slot": "Held In Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.17,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18525,
+     "name": "Bracers of Prosperity",
+     "slot": "Wrist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.86,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18780,
+     "name": "Top Half of Advanced Armorsmithing: Volume I",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 8.86,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 9.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 19258,
+     "name": "Ace of Warlords",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 3.17,
+     "wowhead_dropped_by": "King Gordok",
+     "chance_repo": 7.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Cho'Rush the Observer",
+   "name_de": "Cho'Rush der Beobachter",
+   "encounter_id": 367,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": {
+    "floor": 2,
+    "x": 0.3121,
+    "y": 0.2541
+   },
+   "loot": [
+    {
+     "item_id": 18483,
+     "name": "Mana Channeling Wand",
+     "slot": "Ranged Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 42.72,
+     "wowhead_dropped_by": "Cho'Rush the Observer",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18484,
+     "name": "Cho'Rush's Blade",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 43.54,
+     "wowhead_dropped_by": "Cho'Rush the Observer",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18485,
+     "name": "Observer's Shield",
+     "slot": "Off Hand Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 42.26,
+     "wowhead_dropped_by": "Cho'Rush the Observer",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18490,
+     "name": "Insightful Hood",
+     "slot": "Head Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 42.26,
+     "wowhead_dropped_by": "Cho'Rush the Observer",
+     "chance_repo": 25.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18332,
+     "name": "Libram of Rapidity",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18333,
+     "name": "Libram of Focus",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    },
+    {
+     "item_id": 18334,
+     "name": "Libram of Protection",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.0,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Tsu'zee",
+   "npc_id": 11467,
+   "wowhead_name": null,
+   "location": "Dire Maul West (near Kalendris)",
+   "pin": null,
+   "encounter_id": 2794,
+   "loot": [
+    {
+     "item_id": 18387,
+     "name": "Brightspark Gloves",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 30.09,
+     "wowhead_dropped_by": "Tsu'zee",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18345,
+     "name": "Murmuring Ring",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 62.73,
+     "wowhead_dropped_by": "Tsu'zee",
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 18346,
+     "name": null,
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 33.3,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 7441,
+   "title": "Pusillin and the Elder Azj'Tordin",
+   "level": 58,
+   "min_level": 54,
+   "faction": "Both",
+   "giver": "Azj'Tordin",
+   "giver_npc_id": 14355,
+   "giver_item_id": null,
+   "giver_zone": "Feralas (Lariss Pavilion)",
+   "prereq": null,
+   "rewards": [
+    18411,
+    18410
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7488,
+   "title": "Lethtendris's Web",
+   "level": 57,
+   "min_level": 54,
+   "faction": "Alliance",
+   "giver": "Latronicus Moonspear",
+   "giver_npc_id": 7877,
+   "giver_item_id": null,
+   "giver_zone": "Feralas (Feathermoon Stronghold)",
+   "prereq": "Feathermoon Stronghold (Crier Goodman, Stormwind)",
+   "rewards": [
+    18491
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 7489,
+   "title": "Lethtendris's Web",
+   "level": 57,
+   "min_level": 54,
+   "faction": "Horde",
+   "giver": "Talo Thornhoof",
+   "giver_npc_id": 7776,
+   "giver_item_id": null,
+   "giver_zone": "Feralas (Camp Mojache)",
+   "prereq": "Camp Mojache (Warcaller Gorlach, Orgrimmar)",
+   "rewards": [
+    18491
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 7463,
+   "title": "Arcane Refreshment",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both (Mage)",
+   "giver": "Lorekeeper Lydros",
+   "giver_npc_id": 14368,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West",
+   "prereq": "Hydrospawn Essence 18299",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8967,
+   "title": "The Left Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "Dungeon Set 2 chain",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8990,
+   "title": "The Right Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "More Components of Importance",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7461,
+   "title": "The Madness Within",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Both",
+   "giver": "Shen'dralar Ancient",
+   "giver_npc_id": 14358,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West (Court of the Highborne)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7462,
+   "title": "The Treasure of the Shen'dralar",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Alliance",
+   "giver": "Shen'dralar Ancient",
+   "giver_npc_id": 14358,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West",
+   "prereq": "The Madness Within (7461)",
+   "rewards": [
+    18420,
+    18421,
+    18424
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 7877,
+   "title": "The Treasure of the Shen'dralar",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Horde",
+   "giver": "Shen'dralar Ancient",
+   "giver_npc_id": 14358,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West",
+   "prereq": "The Madness Within (7461)",
+   "rewards": [
+    18420,
+    18421,
+    18424
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 8950,
+   "title": "The Instigator's Enchantment",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Falrin Treeshaper",
+   "giver_npc_id": 16032,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (Athenaeum)",
+   "prereq": null,
+   "rewards": [
+    21986
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5518,
+   "title": "The Gordok Ogre Suit",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Both",
+   "giver": "Knot Thimblejack",
+   "giver_npc_id": 14338,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "4x Bolt of Runecloth 14048, 8x Rugged Leather 8170, 2x Rune Thread 14341, 1x Ogre Tannin 18240",
+   "rewards": [
+    18258
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5525,
+   "title": "Free Knot!",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Knot Thimblejack",
+   "giver_npc_id": 14338,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "Gordok Shackle Key 18250",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 1318,
+   "title": "Unfinished Gordok Business",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Both",
+   "giver": "Captain Kromcrush",
+   "giver_npc_id": 14325,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "tribute run; Gauntlet of Gordok Might 18336 from Prince's Chest",
+   "rewards": [
+    18366,
+    18367,
+    18368,
+    18369
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5528,
+   "title": "The Gordok Taste Test",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Stomper Kreeg",
+   "giver_npc_id": 14322,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "Kreeg survives tribute run",
+   "rewards": [
+    18269,
+    18284
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8949,
+   "title": "Falrin's Vendetta",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Falrin Treeshaper",
+   "giver_npc_id": 16032,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (Athenaeum)",
+   "prereq": "25x Ogre Warbeads 21982",
+   "rewards": [
+    22150,
+    22149
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7498,
+   "title": "Garona: A Study on Stealth and Treachery",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Rogue)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18465
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7499,
+   "title": "Codex of Defense",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Warrior)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18466
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7500,
+   "title": "The Arcanist's Cookbook",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Mage)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18468
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7501,
+   "title": "The Light and How To Swing It",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Paladin)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18472
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7502,
+   "title": "Harnessing Shadows",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Warlock)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18467
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7503,
+   "title": "The Greatest Race of Hunters",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Hunter)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18473
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7504,
+   "title": "Holy Bologna: What the Light Won't Tell You",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Priest)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18469
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7505,
+   "title": "Frost Shock and You",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Shaman)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18471
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7506,
+   "title": "The Emerald Dream...",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Druid)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18470
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7507,
+   "title": "Foror's Compendium",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both (Warrior/Paladin)",
+   "giver": "Nostro's Compendium of Dragon Slaying",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul",
+   "prereq": "item-started",
+   "rewards": [
+    18401
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7508,
+   "title": "The Forging of Quel'Serrar",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both",
+   "giver": "A Dull and Flat Elven Blade",
+   "giver_npc_id": null,
+   "giver_item_id": 18513,
+   "giver_zone": "Dire Maul (from Lorekeeper Lydros)",
+   "prereq": "final step 7509; Onyxia; 18489 -> 18488",
+   "rewards": [
+    18348
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 8948,
+   "title": "Anthion's Old Friend",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Anthion Harmon",
+   "giver_npc_id": 16016,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7483,
+   "title": "Libram of Rapidity",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (library)",
+   "prereq": null,
+   "rewards": [
+    18329
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7484,
+   "title": "Libram of Focus",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (library)",
+   "prereq": null,
+   "rewards": [
+    18330
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7485,
+   "title": "Libram of Protection",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (library)",
+   "prereq": null,
+   "rewards": [
+    18331
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 5526,
+   "title": "Shards of the Felvine",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Rabine Saturna",
+   "giver_npc_id": 11801,
+   "giver_item_id": null,
+   "giver_zone": "Moonglade",
+   "prereq": "Felvine Shard 18501",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7482,
+   "title": "Elven Legends",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Scholar Runethorn",
+   "giver_npc_id": 14374,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 7481,
+   "title": "Elven Legends",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Sage Korolusk",
+   "giver_npc_id": 14373,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 1193,
+   "title": "A Broken Trap",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul East",
+   "prereq": "repeatable; used for tribute runs",
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 7631,
+   "title": "Dreadsteed of Xoroth",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both (Warlock)",
+   "giver": "Mor'zul Bloodbringer",
+   "giver_npc_id": 14436,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes",
+   "prereq": "warlock mount chain final step",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  }
+ ],
+ "repo_quests_not_in_guide": [
+  {
+   "id": 7492,
+   "title": "Camp Mojache",
+   "level": 57
+  },
+  {
+   "id": 7494,
+   "title": "Feathermoon Stronghold",
+   "level": 57
+  },
+  {
+   "id": 5519,
+   "title": "The Gordok Ogre Suit",
+   "level": 60
+  },
+  {
+   "id": 7429,
+   "title": "Free Knot!",
+   "level": 60
+  },
+  {
+   "id": 7703,
+   "title": "Unfinished Gordok Business",
+   "level": 60
+  }
+ ],
+ "loot_differences": [
+  "Pusillin: 18249 Crescent Key - in Forever guide, missing in DungeonLoot.lua",
+  "Zevrim Thornhoof: 18319 Fervent Helm - chance repo 20% vs Forever 9.97%",
+  "Zevrim Thornhoof: 18306 Gloves of Shadowy Mist - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.73%)",
+  "Zevrim Thornhoof: 18308 Clever Hat - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.5%)",
+  "Hydrospawn: 18305 Breakwater Legguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.24%)",
+  "Hydrospawn: 18307 Riptide Shoes - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.67%)",
+  "Hydrospawn: 7080 Essence of Water - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lethtendris: 18354 Pimgib's Collar - in Forever guide, missing in DungeonLoot.lua",
+  "Lethtendris: 18301 Lethtendris's Wand - in DungeonLoot.lua, not in guide (Wowhead Forever: 27.98%)",
+  "Lethtendris: 18302 Band of Vigor - in DungeonLoot.lua, not in guide (Wowhead Forever: 28.86%)",
+  "Alzzin the Wildshaper: 18309 Gloves of Restoration - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.74%)",
+  "Alzzin the Wildshaper: 18314 Ring of Demonic Guile - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.07%)",
+  "Alzzin the Wildshaper: 18315 Ring of Demonic Potency - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.87%)",
+  "Alzzin the Wildshaper: 18318 Merciful Greaves - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.53%)",
+  "Alzzin the Wildshaper: 18326 Razor Gauntlets - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.73%)",
+  "Alzzin the Wildshaper: 18327 Whipvine Cord - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.67%)",
+  "Alzzin the Wildshaper: 18328 Shadewood Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 18.92%)",
+  "Tendris Warpwood: 18352 Petrified Bark Shield - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.82%)",
+  "Tendris Warpwood: 18353 Stoneflower Staff - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.82%)",
+  "Tendris Warpwood: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Tendris Warpwood: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Tendris Warpwood: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Illyanna Ravenoak: 22206 Bouquet of Red Roses - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Illyanna Ravenoak: 18347 Well Balanced Axe - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.68%)",
+  "Illyanna Ravenoak: 18349 Gauntlets of Accuracy - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.01%)",
+  "Illyanna Ravenoak: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Illyanna Ravenoak: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Illyanna Ravenoak: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Magister Kalendris: 18371 Mindtap Talisman - chance repo 20% vs Forever 8.64%",
+  "Magister Kalendris: 22309 Pattern: Big Bag of Enchantment - chance repo 15% vs Forever 1.56%",
+  "Magister Kalendris: 18350 Amplifying Cloak - in DungeonLoot.lua, not in guide (Wowhead Forever: 25.11%)",
+  "Magister Kalendris: 18351 Magically Sealed Bracers - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.51%)",
+  "Magister Kalendris: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Magister Kalendris: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Magister Kalendris: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Immol'thar: 18370 Vigilance Charm - chance repo 20% vs Forever 8.69%",
+  "Immol'thar: 18372 Blade of the New Moon - in DungeonLoot.lua, not in guide (Wowhead Forever: 9.76%)",
+  "Immol'thar: 18372 Blade of the New Moon - chance repo 20% vs Forever 9.76%",
+  "Immol'thar: 18377 Quickdraw Gloves - in DungeonLoot.lua, not in guide (Wowhead Forever: 25.72%)",
+  "Immol'thar: 18381 Evil Eye Pendant - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.66%)",
+  "Immol'thar: 18384 Bile-etched Spaulders - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.5%)",
+  "Immol'thar: 18385 Robe of Everlasting Night - in DungeonLoot.lua, not in guide (Wowhead Forever: 21.03%)",
+  "Immol'thar: 18389 Cloak of the Cosmos - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.36%)",
+  "Immol'thar: 18394 Demon Howl Wristguards - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.3%)",
+  "Immol'thar: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Immol'thar: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Immol'thar: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Prince Tortheldrin: 21525 Green Winter Hat - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Prince Tortheldrin: 18373 Chestplate of Tranquility - in DungeonLoot.lua, not in guide (Wowhead Forever: 9.38%)",
+  "Prince Tortheldrin: 18373 Chestplate of Tranquility - chance repo 20% vs Forever 9.38%",
+  "Prince Tortheldrin: 18375 Bracers of the Eclipse - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.31%)",
+  "Prince Tortheldrin: 18376 Timeworn Mace - in DungeonLoot.lua, not in guide (Wowhead Forever: 17.99%)",
+  "Prince Tortheldrin: 18378 Silvermoon Leggings - in DungeonLoot.lua, not in guide (Wowhead Forever: 21.4%)",
+  "Prince Tortheldrin: 18380 Eldritch Reinforced Legplates - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.18%)",
+  "Prince Tortheldrin: 18388 Stoneshatter - in DungeonLoot.lua, not in guide (Wowhead Forever: 10.31%)",
+  "Prince Tortheldrin: 18392 Distracting Dagger - in DungeonLoot.lua, not in guide (Wowhead Forever: 19.08%)",
+  "Prince Tortheldrin: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Prince Tortheldrin: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Prince Tortheldrin: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Hel'nurath: 18754 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Hel'nurath: 18757 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Hel'nurath: 12662 Demonic Rune - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18450 Robe of Combustion - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18451 Hyena Hide Belt - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18458 Modest Armguards - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18459 Gallant's Wristguards - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18460 Unsophisticated Hand Cannon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18462 Jagged Bone Fist - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18463 Ogre Pocket Knife - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18464 Gordok Nose Ring - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Mol'dar: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Stomper Kreeg: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Stomper Kreeg: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Stomper Kreeg: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18450 Robe of Combustion - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18451 Hyena Hide Belt - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18458 Modest Armguards - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18459 Gallant's Wristguards - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18460 Unsophisticated Hand Cannon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18462 Jagged Bone Fist - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18463 Ogre Pocket Knife - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18464 Gordok Nose Ring - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Fengus: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18450 Robe of Combustion - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18451 Hyena Hide Belt - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18458 Modest Armguards - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18459 Gallant's Wristguards - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18460 Unsophisticated Hand Cannon - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18462 Jagged Bone Fist - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18463 Ogre Pocket Knife - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18464 Gordok Nose Ring - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Guard Slip'kik: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Knot Thimblejack (cache): 18417 Pattern: Mooncloth Gloves - in Forever guide, missing in DungeonLoot.lua",
+  "Knot Thimblejack (cache): 18515 Pattern: Mongoose Boots - in Forever guide, missing in DungeonLoot.lua",
+  "Knot Thimblejack (cache): 18414 Pattern: Belt of the Archmage - in Forever guide, missing in DungeonLoot.lua",
+  "Captain Kromcrush: 18250 Gordok Shackle Key - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Captain Kromcrush: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Captain Kromcrush: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Captain Kromcrush: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "King Gordok: 18520 Barbarous Blade - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.7%)",
+  "King Gordok: 18521 Grimy Metal Boots - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.72%)",
+  "King Gordok: 18522 Band of the Ogre King - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.52%)",
+  "King Gordok: 18523 Brightly Glowing Stone - in DungeonLoot.lua, not in guide (Wowhead Forever: 24.17%)",
+  "King Gordok: 18525 Bracers of Prosperity - in DungeonLoot.lua, not in guide (Wowhead Forever: 23.86%)",
+  "King Gordok: 18780 Top Half of Advanced Armorsmithing: Volume I - in DungeonLoot.lua, not in guide (Wowhead Forever: 8.86%)",
+  "King Gordok: 19258 Ace of Warlords - in DungeonLoot.lua, not in guide (Wowhead Forever: 3.17%)",
+  "King Gordok: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "King Gordok: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "King Gordok: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Cho'Rush the Observer: 18483 Mana Channeling Wand - in DungeonLoot.lua, not in guide (Wowhead Forever: 42.72%)",
+  "Cho'Rush the Observer: 18483 Mana Channeling Wand - chance repo 25% vs Forever 42.72%",
+  "Cho'Rush the Observer: 18484 Cho'Rush's Blade - in DungeonLoot.lua, not in guide (Wowhead Forever: 43.54%)",
+  "Cho'Rush the Observer: 18484 Cho'Rush's Blade - chance repo 25% vs Forever 43.54%",
+  "Cho'Rush the Observer: 18485 Observer's Shield - in DungeonLoot.lua, not in guide (Wowhead Forever: 42.26%)",
+  "Cho'Rush the Observer: 18485 Observer's Shield - chance repo 25% vs Forever 42.26%",
+  "Cho'Rush the Observer: 18490 Insightful Hood - in DungeonLoot.lua, not in guide (Wowhead Forever: 42.26%)",
+  "Cho'Rush the Observer: 18490 Insightful Hood - chance repo 25% vs Forever 42.26%",
+  "Cho'Rush the Observer: 18332 Libram of Rapidity - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Cho'Rush the Observer: 18333 Libram of Focus - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Cho'Rush the Observer: 18334 Libram of Protection - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Tsu'zee: 18345 Murmuring Ring - in DungeonLoot.lua, not in guide (Wowhead Forever: 62.73%)",
+  "Tsu'zee: 18345 Murmuring Ring - chance repo 33.3% vs Forever 62.73%",
+  "Tsu'zee: 18346 None - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Lord Hel'nurath: 18755 Xorothian Firestick - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Hel'nurath: 18756 Dreadguard's Protector - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Hel'nurath: 18754  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Lord Hel'nurath: 18757  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Stomper Kreeg: 18425 Kreeg's Mug - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Tsu'zee: 18346  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
+ "open_questions": [
+  "NPC 14354 (Pusillin) not found on Wowhead Forever - check ID.",
+  "NPC 11490 (Zevrim Thornhoof) not found on Wowhead Forever - check ID.",
+  "NPC 13280 (Hydrospawn) not found on Wowhead Forever - check ID.",
+  "NPC 14327 (Lethtendris) not found on Wowhead Forever - check ID.",
+  "NPC 14349 (Lethtendris) not found on Wowhead Forever - check ID.",
+  "Boss 'Old Ironbark' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 11491 (Old Ironbark) not found on Wowhead Forever - check ID.",
+  "Boss 'Isalien' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 16097 (Isalien) not found on Wowhead Forever - check ID.",
+  "NPC 11489 (Tendris Warpwood) not found on Wowhead Forever - check ID.",
+  "NPC 11488 (Illyanna Ravenoak) not found on Wowhead Forever - check ID.",
+  "NPC 14308 (Illyanna Ravenoak) not found on Wowhead Forever - check ID.",
+  "NPC 11487 (Magister Kalendris) not found on Wowhead Forever - check ID.",
+  "NPC 11496 (Immol'thar) not found on Wowhead Forever - check ID.",
+  "NPC 11486 (Prince Tortheldrin) not found on Wowhead Forever - check ID.",
+  "NPC 14506 (Lord Hel'nurath) not found on Wowhead Forever - check ID.",
+  "No pin for 'Lord Hel'nurath' (encounter 2793) in DungeonPinData.lua.",
+  "NPC 14326 (Guard Mol'dar) not found on Wowhead Forever - check ID.",
+  "NPC 14322 (Stomper Kreeg) not found on Wowhead Forever - check ID.",
+  "NPC 14321 (Guard Fengus) not found on Wowhead Forever - check ID.",
+  "NPC 14323 (Guard Slip'kik) not found on Wowhead Forever - check ID.",
+  "Boss 'Knot Thimblejack (cache)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "NPC 14338 (Knot Thimblejack (cache)) not found on Wowhead Forever - check ID.",
+  "NPC 14325 (Captain Kromcrush) not found on Wowhead Forever - check ID.",
+  "NPC 11501 (King Gordok) not found on Wowhead Forever - check ID.",
+  "NPC 14324 (King Gordok) not found on Wowhead Forever - check ID.",
+  "Encounter 2794 'Tsu'zee' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Encounter 367 'Cho'Rush the Observer' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 7441 'Pusillin and the Elder Azj'Tordin' not found on Wowhead Forever - check ID.",
+  "Quest 7488 'Lethtendris's Web' not found on Wowhead Forever - check ID.",
+  "Quest 7489 'Lethtendris's Web' not found on Wowhead Forever - check ID.",
+  "Quest 7463 'Arcane Refreshment' not found on Wowhead Forever - check ID.",
+  "Quest 8967 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 8990 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
+  "Quest 7461 'The Madness Within' not found on Wowhead Forever - check ID.",
+  "Quest 7462 'The Treasure of the Shen'dralar' not found on Wowhead Forever - check ID.",
+  "Quest 7877 'The Treasure of the Shen'dralar' not found on Wowhead Forever - check ID.",
+  "Quest 8950 'The Instigator's Enchantment' not found on Wowhead Forever - check ID.",
+  "Quest 5518 'The Gordok Ogre Suit' not found on Wowhead Forever - check ID.",
+  "Quest 5525 'Free Knot!' not found on Wowhead Forever - check ID.",
+  "Quest 1318 'Unfinished Gordok Business' not found on Wowhead Forever - check ID.",
+  "Quest 5528 'The Gordok Taste Test' not found on Wowhead Forever - check ID.",
+  "Quest 8949 'Falrin's Vendetta' not found on Wowhead Forever - check ID.",
+  "Quest 7498 'Garona: A Study on Stealth and Treachery' not found on Wowhead Forever - check ID.",
+  "Quest 7499 'Codex of Defense' not found on Wowhead Forever - check ID.",
+  "Quest 7500 'The Arcanist's Cookbook' not found on Wowhead Forever - check ID.",
+  "Quest 7501 'The Light and How To Swing It' not found on Wowhead Forever - check ID.",
+  "Quest 7502 'Harnessing Shadows' not found on Wowhead Forever - check ID.",
+  "Quest 7503 'The Greatest Race of Hunters' not found on Wowhead Forever - check ID.",
+  "Quest 7504 'Holy Bologna: What the Light Won't Tell You' not found on Wowhead Forever - check ID.",
+  "Quest 7505 'Frost Shock and You' not found on Wowhead Forever - check ID.",
+  "Quest 7506 'The Emerald Dream...' not found on Wowhead Forever - check ID.",
+  "Quest 7507 'Foror's Compendium' not found on Wowhead Forever - check ID.",
+  "Quest 7508 'The Forging of Quel'Serrar' not found on Wowhead Forever - check ID.",
+  "Quest 8948 'Anthion's Old Friend' not found on Wowhead Forever - check ID.",
+  "Quest 7483 'Libram of Rapidity' not found on Wowhead Forever - check ID.",
+  "Quest 7484 'Libram of Focus' not found on Wowhead Forever - check ID.",
+  "Quest 7485 'Libram of Protection' not found on Wowhead Forever - check ID.",
+  "Quest 5526 'Shards of the Felvine' not found on Wowhead Forever - check ID.",
+  "Quest 7482 'Elven Legends' not found on Wowhead Forever - check ID.",
+  "Quest 7481 'Elven Legends' not found on Wowhead Forever - check ID.",
+  "Quest 1193 'A Broken Trap' not found on Wowhead Forever - check ID.",
+  "Quest 7631 'Dreadsteed of Xoroth' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Instance zone=2557; Feralas zone_id 357 is from general knowledge, not linked on page",
+  "Alzzin the Wildshaper npc ID not on page (Classic ID 11492, unverified)",
+  "Alzzin loot list says 'including' (may be incomplete)",
+  "Lord Hel'nurath: four blues 22-26%, only two named",
+  "Guard Fengus and Cho'Rush loot not listed; Gordok Shackle Key can drop from Mol'dar, Slip'kik, Fengus",
+  "Gordok Tribute chest (object 179564, Mizzle 14353): Tarnished Elven Ring 18500 23%, Elemental Plate Girdle 18529 19%, Barrier Shield 18499, Counterattack Lodestone 18537, Treant's Bane 18538 very rare",
+  "Tribute buffs: Mol'dar's Moxie spell 22818, Fengus' Ferocity 22817, Slip'kik's Savvy 22820",
+  "Prince's Chest object 179545; Knot's Cache object 179501",
+  "Page says 27 quests but tables list 25 per faction; XP total discrepancy (159,760 vs ~166,810)",
+  "Quest 7488 giver npc 7877 equals Horde Treasure quest id 7877 coincidentally - as stated on page",
+  "No slots stated on page; slots null",
+  "Full class book quest titles partly from page short names"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "partial",
+  "loot": "partial",
+  "quests": "missing",
+  "quests_in_addon": 32,
+  "loot_rows": 169,
+  "loot_confirmed": 91,
+  "loot_with_chance": 91,
+  "forever_confirmed": "partly",
+  "boss_count": 20,
+  "boss_ok": 0,
+  "pin_ok": 17,
+  "enc_count": 18,
+  "q_tot": 35
+ },
+ "top_points": [
+  "3 of 35 quests missing in DungeonQuests.lua",
+  "Boss 'Old Ironbark' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+2 more)",
+  "No pin for 'Lord Hel'nurath' (encounter 2793) in DungeonPinData.lua."
+ ]
+}

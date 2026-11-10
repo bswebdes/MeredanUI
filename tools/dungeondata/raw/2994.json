@@ -1,0 +1,310 @@
+{
+ "key": 2994,
+ "name_en": "Alcaz Prison",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-alcaz-prison-guide/",
+  "https://www.warcrafttavern.com/forever/guides/alcaz-island-prison/"
+ ],
+ "level": "48-53",
+ "boss_level": 53,
+ "zone": "Dustwallow Marsh (Alcaz Island)",
+ "zone_id": 15,
+ "entrance": "basement of old tower on Alcaz Island, portal ~75.3,14.1",
+ "faction": "Contested; both factions use the same portal",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Overseer Wrex",
+   "npc_ids": [],
+   "location": "jail room near entrance; calls jailers on pull",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 263992,
+     "name": "Overseer's Keyring",
+     "slot": "Key (opens lower floor)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276733,
+     "name": "Grips of Control",
+     "slot": "Hands (Plate)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276734,
+     "name": "Wrex's Pinky Ring",
+     "slot": "Finger",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "The Questioner",
+   "npc_ids": [
+    256236
+   ],
+   "location": "interrogation area (game list puts him 4th)",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 276742,
+     "name": "Girdle of Extracted Answers",
+     "slot": "Waist (Plate)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276743,
+     "name": "Fingerbreaker Stamp",
+     "slot": "Trinket",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276741,
+     "name": "Defias Enforcer's Shoulderpads",
+     "slot": "Shoulder (Leather)",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Tidemistress Ca'zass",
+   "npc_ids": [
+    255997
+   ],
+   "location": "naga room with caster adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 276735,
+     "name": "Tidesong Wand",
+     "slot": "Wand",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276736,
+     "name": "Seascale Bracers",
+     "slot": "Wrist (Mail)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276737,
+     "name": "Cloak of the Tidemistress",
+     "slot": "Back",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 273883,
+     "name": "Ca'zass's Head",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Katerina the Cleaner",
+   "npc_ids": [
+    257016
+   ],
+   "location": "room with chained prisoners",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 276739,
+     "name": "Cutthroat Chestguard",
+     "slot": "Chest (Mail)",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 276738,
+     "name": "Katerina's Shanker",
+     "slot": "One-Hand Dagger",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Blazeroar",
+   "npc_ids": [
+    255702,
+    255707
+   ],
+   "location": "final room; disguised as prisoner Zarla Ober",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 276890,
+     "name": "Zarla's Journal",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": null,
+   "title": "No Orc Left Behind",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Sergeant Ulka",
+   "giver_npc_id": 260383,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh (outside prison, 70.4,19.0)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": null,
+   "title": "The Honor of the Kor'kron",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Commander Folkar",
+   "giver_npc_id": 260386,
+   "giver_item_id": null,
+   "giver_zone": "Alcaz Prison (cells)",
+   "prereq": "No Orc Left Behind",
+   "rewards": []
+  },
+  {
+   "quest_id": null,
+   "title": "Bad News for Folkar",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Perfumed Note",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Alcaz Prison (hidden room behind Blazeroar)",
+   "prereq": "The Honor of the Kor'kron",
+   "rewards": []
+  },
+  {
+   "quest_id": null,
+   "title": "Thrall Needs to Know",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Commander Folkar",
+   "giver_npc_id": 260386,
+   "giver_item_id": null,
+   "giver_zone": "Alcaz Prison",
+   "prereq": "Bad News for Folkar; turn in Thrall (npc 4949) Orgrimmar",
+   "rewards": [
+    279831,
+    279833,
+    279474
+   ]
+  },
+  {
+   "quest_id": null,
+   "title": "Blood Red Bandanas",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "unconfirmed (Kor'kron at prison?)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "8x Blood Red Bandana 274028; turn in Eitrigg (npc 3144) Orgrimmar",
+   "rewards": [
+    279448,
+    279473
+   ]
+  },
+  {
+   "quest_id": null,
+   "title": "A Little Payback",
+   "level": 53,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "15 Strashaz Soldier (255995), 8 Strashaz Enchantress, Ca'zass's Head 273883",
+   "rewards": []
+  },
+  {
+   "quest_id": 96772,
+   "title": "The Dragon's Journal",
+   "level": 53,
+   "min_level": 46,
+   "faction": "Alliance",
+   "giver": "Archmage Lan'dalock (probable)",
+   "giver_npc_id": 20735,
+   "giver_item_id": null,
+   "giver_zone": "Alterac Mountains (Dalaran)",
+   "prereq": "Zarla's Journal 276890 from Blazeroar; rewards rep only",
+   "rewards": []
+  },
+  {
+   "quest_id": 95283,
+   "title": "The Missing Kor'kron",
+   "level": 53,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh",
+   "prereq": "probable lead-up; ends Nazeer Bloodpike (4791) Brackenwall",
+   "rewards": []
+  },
+  {
+   "quest_id": 95284,
+   "title": "The Elite of the Elite",
+   "level": 53,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh",
+   "prereq": "probable lead-up; link to Ulka unconfirmed",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "No entry key. Overseer's Keyring item=263992 (Overseer Wrex) opens lower-floor door.",
+ "forever_changes": [
+  "Entirely new Forever dungeon (instance zone=16620), open since Nov 4 launch",
+  "Counts toward Master Spelunker achievement=62033",
+  "New item set Defias Enforcer's Garb item-set=2136 (leather)"
+ ],
+ "notes": [
+  "conquestcapped: no drop chances stated; many quest IDs not public yet",
+  "Boss levels: Wrex 50, Questioner 51, Ca'zass 50, Katerina 52, Blazeroar 53",
+  "Overseer Wrex npc ID not listed on either source",
+  "Cloak of the Tidemistress and Katerina's Shanker are 'probable' attributions",
+  "Blazeroar boss loot not recorded yet",
+  "Unattributed probable loot: Alcaz Willcrusher 276732 (2H Mace), Sentimental Locket 276740 (Neck), Defias Enforcer's Legguards 276746 (Legs leather); trash BoE: Defias Enforcer's Prowlers 287021, Mask 287019, Chest 287020",
+  "warcrafttavern says level 48-55, pre-launch page with no IDs/quests",
+  "Quest level range from conquestcapped: quests open at 46 or 48",
+  "Commander Folkar hostile to Alliance; Horde equivalent giver note: Mazu'kon (264074) Mulgore"
+ ]
+}

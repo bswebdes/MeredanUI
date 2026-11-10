@@ -1,0 +1,83 @@
+{
+  "key": 2998,
+  "name_en": "Excavation Site: Wetlands",
+  "source_urls": ["https://conquestcapped.com/guides/wow-forever/wow-forever-excavation-site-wetlands-guide/"],
+  "level": "26-31",
+  "boss_level": "28-31",
+  "zone": "Wetlands",
+  "zone_id": 11,
+  "instance_zone_id": 16732,
+  "entrance": "Wetlands 47.7,56.2, hill above Whelgar's Excavation",
+  "faction": "Alliance and Horde",
+  "bosses": [
+    {"order": 1, "wing": null, "name": "Saltspine", "npc_ids": [260322], "location": "marsh near start, among elite crocolisks", "optional": false,
+     "loot": [
+      {"item_id": 273022, "name": "Supple Bellyskin Leggings", "slot": "Legs (Leather)", "chance": "35%", "quest_item": false},
+      {"item_id": 273023, "name": "Saltscale Girdle", "slot": "Waist (Mail)", "chance": "34%", "quest_item": false},
+      {"item_id": 273024, "name": "Glinteye Slippers", "slot": "Feet (Cloth)", "chance": "31%", "quest_item": false}]},
+    {"order": 2, "wing": null, "name": "Shadetooth", "npc_ids": [260325], "location": "tall grass, appears after Thicket Matriarch dies", "optional": false,
+     "loot": [
+      {"item_id": 273027, "name": "Raptor's Gaze", "slot": "Off-hand", "chance": "34%", "quest_item": false},
+      {"item_id": 273026, "name": "Garb of Florid Feathers", "slot": "Chest (Leather)", "chance": "32%", "quest_item": false},
+      {"item_id": 273025, "name": "Raptorclaw Greaves", "slot": "Feet (Mail)", "chance": "27%", "quest_item": false},
+      {"item_id": 273106, "name": "Blueprint: Greenhouse", "slot": "Recipe", "chance": "8%", "quest_item": false}]},
+    {"order": 3, "wing": null, "name": "Highland Horror", "npc_ids": [260808], "level": 28, "location": "Dragonmaw camp", "optional": true,
+     "loot": [
+      {"item_id": 270180, "name": "Horrible Rootcore", "slot": "Quest (95646)", "chance": null, "quest_item": true}]},
+    {"order": 4, "wing": null, "name": "Relic Guardian", "npc_ids": [260326], "location": "end of spider trail; activated via Archival Panel", "optional": false,
+     "loot": [
+      {"item_id": 273028, "name": "Reliquary Mantle", "slot": "Shoulder (Mail)", "chance": "34%", "quest_item": false},
+      {"item_id": 273029, "name": "Golemsight Long Gun", "slot": "Gun", "chance": "31%", "quest_item": false},
+      {"item_id": 273030, "name": "Ring of Power Regulation", "slot": "Finger", "chance": "30%", "quest_item": false},
+      {"item_id": 270865, "name": "Titan Relic (Alliance)", "slot": "Quest starter (95810)", "chance": "27%", "quest_item": true},
+      {"item_id": 270866, "name": "Titan Relic (Horde)", "slot": "Quest starter (95664)", "chance": "27%", "quest_item": true},
+      {"item_id": 273097, "name": "Blueprint: Rock Garden", "slot": "Recipe", "chance": "7%", "quest_item": false}]}
+  ],
+  "rares": [],
+  "other_npcs": [
+    {"name": "Thicket Matriarch", "npc_id": 260802},
+    {"name": "Thicket Hunter", "npc_id": 260801},
+    {"name": "Dragonmaw Saboteur", "npc_id": 275045},
+    {"name": "Dragonmaw Warder", "npc_id": 275044},
+    {"name": "Dragonmaw Thaumaturgist", "npc_id": 275046}
+  ],
+  "trash_loot": [
+    {"item_id": 287068, "name": "Excavated Dagger", "slot": "Thrown", "chance": null},
+    {"item_id": 286983, "name": "Ancient Cleaver", "slot": "Two-Hand Axe", "chance": null},
+    {"item_id": 284845, "name": "Thicket Raptor Hide", "slot": "Quest (98815)", "chance": null, "quest_item": true},
+    {"item_id": 271100, "name": "Thicket Raptor Meat", "slot": "Quest (95697)", "chance": null, "quest_item": true},
+    {"item_id": 284844, "name": "Dragonmaw Dispatch", "slot": "Quest (95682), from Dragonmaw Thaumaturgist", "chance": null, "quest_item": true}
+  ],
+  "quests": [
+    {"quest_id": 95810, "title": "Lost Relic Carry", "level": 24, "min_level": 24, "faction": "Alliance", "giver": null, "giver_npc_id": null, "giver_item_id": 270865, "giver_zone": "Excavation Site: Wetlands (Relic Guardian drop)", "prereq": null, "rewards": []},
+    {"quest_id": 98824, "title": "Prehistoric Prism", "level": 24, "min_level": 24, "faction": "Alliance", "giver": "Prospector Whelgar", "giver_npc_id": 1077, "giver_item_id": null, "giver_zone": "Wetlands (Whelgar's Excavation)", "prereq": "Lost Relic Carry (95810)", "rewards": [271716, 271767, 271766], "turn_in": "High Explorer Magellas (5387), Ironforge"},
+    {"quest_id": 95772, "title": "Songblade Search", "level": 24, "min_level": 24, "faction": "Alliance", "giver": "Dorin Songblade", "giver_npc_id": 956, "giver_item_id": null, "giver_zone": "Redridge Mountains (Lakeshire)", "prereq": null, "rewards": []},
+    {"quest_id": 95795, "title": "Fallen in the Fen", "level": 24, "min_level": 24, "faction": "Alliance", "giver": "Daewyn Songblade's body", "giver_npc_id": null, "giver_item_id": null, "giver_zone": "Excavation Site: Wetlands (inside)", "prereq": "Songblade Search (95772)", "rewards": [271769, 271768]},
+    {"quest_id": 95646, "title": "Horrors in the Highland", "level": 31, "min_level": 24, "faction": "Alliance", "giver": "Rethiel the Greenwarden", "giver_npc_id": 1244, "giver_item_id": null, "giver_zone": "Wetlands", "prereq": "Blisters on the Land (275)", "rewards": [271667, 271670, 271664], "objective_items": [270180]},
+    {"quest_id": 463, "title": "The Greenwarden", "level": 21, "min_level": null, "faction": "Alliance", "giver": "First Mate Fitzsimmons", "giver_npc_id": 1239, "giver_item_id": null, "giver_zone": "Wetlands (Menethil Harbor)", "prereq": null, "rewards": []},
+    {"quest_id": 276, "title": "Tramping Paws", "level": 21, "min_level": null, "faction": "Alliance", "giver": "Rethiel the Greenwarden", "giver_npc_id": 1244, "giver_item_id": null, "giver_zone": "Wetlands", "prereq": "The Greenwarden (463)", "rewards": []},
+    {"quest_id": 277, "title": "Fire Taboo", "level": 23, "min_level": null, "faction": "Alliance", "giver": "Rethiel the Greenwarden", "giver_npc_id": 1244, "giver_item_id": null, "giver_zone": "Wetlands", "prereq": "Tramping Paws (276)", "rewards": []},
+    {"quest_id": 275, "title": "Blisters on the Land", "level": 26, "min_level": null, "faction": "Alliance", "giver": "Rethiel the Greenwarden", "giver_npc_id": 1244, "giver_item_id": null, "giver_zone": "Wetlands", "prereq": "Fire Taboo (277)", "rewards": []},
+    {"quest_id": 95737, "title": "Seeking Caitlin", "level": 24, "min_level": 24, "faction": "Alliance", "giver": "Llana", "giver_npc_id": 3970, "giver_item_id": null, "giver_zone": "Ashenvale", "prereq": null, "rewards": []},
+    {"quest_id": 95647, "title": "Lost in the Thicket Things", "level": 24, "min_level": 24, "faction": "Alliance", "giver": "Caitlin Grassman", "giver_npc_id": 1480, "giver_item_id": null, "giver_zone": "Wetlands (Menethil Harbor)", "prereq": "Seeking Caitlin (95737)", "rewards": []},
+    {"quest_id": 95809, "title": "Heartwoven", "level": 31, "min_level": 24, "faction": "Alliance", "giver": "Ardin Grassman", "giver_npc_id": 262681, "giver_item_id": null, "giver_zone": "Excavation Site: Wetlands (inside)", "prereq": "Lost in the Thicket Things (95647)", "rewards": [280766, 2459, 1710, 3827]},
+    {"quest_id": 484, "title": "Young Crocolisk Skins", "level": 22, "min_level": null, "faction": "Alliance", "giver": "James Halloran", "giver_npc_id": 2094, "giver_item_id": null, "giver_zone": "Wetlands (Menethil Harbor)", "prereq": null, "rewards": []},
+    {"quest_id": 98815, "title": "Highland Hides", "level": 28, "min_level": 24, "faction": "Alliance", "giver": "James Halloran", "giver_npc_id": 2094, "giver_item_id": null, "giver_zone": "Wetlands (Menethil Harbor)", "prereq": "Young Crocolisk Skins (484)", "rewards": [], "objective_items": [284845]},
+    {"quest_id": 95664, "title": "Elder Knowledge", "level": 24, "min_level": 24, "faction": "Horde", "giver": null, "giver_npc_id": null, "giver_item_id": 270866, "giver_zone": "Excavation Site: Wetlands (Relic Guardian drop)", "prereq": null, "rewards": []},
+    {"quest_id": 98823, "title": "Earthen Echo", "level": 24, "min_level": 24, "faction": "Horde", "giver": "Bashana Runetotem", "giver_npc_id": 9087, "giver_item_id": null, "giver_zone": "Thunder Bluff", "prereq": "Elder Knowledge (95664)", "rewards": [271766, 271767, 271719], "turn_in": "Muln Earthfury (259118), Mulgore"},
+    {"quest_id": 95663, "title": "Dragonmaw Rumors", "level": 24, "min_level": 24, "faction": "Horde", "giver": "Zaruk", "giver_npc_id": 2787, "giver_item_id": null, "giver_zone": "Arathi Highlands (Hammerfall)", "prereq": null, "rewards": []},
+    {"quest_id": 95682, "title": "Open the Maw", "level": 31, "min_level": 24, "faction": "Horde", "giver": "Deathstalker Agent", "giver_npc_id": 13155, "giver_item_id": null, "giver_zone": "Excavation Site: Wetlands (entrance)", "prereq": "Dragonmaw Rumors (95663)", "rewards": [271740, 271732], "objective_items": [284844]},
+    {"quest_id": 95697, "title": "Changing Tastes", "level": 24, "min_level": 24, "faction": "Horde", "giver": "Borstan", "giver_npc_id": 3368, "giver_item_id": null, "giver_zone": "Orgrimmar", "prereq": null, "rewards": [280766, 280805, 250185, 250077], "objective_items": [271100]}
+  ],
+  "keys_attunement": "None",
+  "forever_changes": [
+    "New WoW Forever dungeon (not in Classic)",
+    "Achievement Novice Spelunker (62031) awards a Legacy Point"
+  ],
+  "notes": [
+    "Guide quest table lists level 24 for all quests; chain text gives 28 (98815), 31 (95809, 95646, 95682) - used chain values for level, 24 as min_level",
+    "Guide summary placed James Halloran for quest 484 'inside the dungeon'; he is normally in Menethil Harbor - unverified",
+    "Changing Tastes rewards: choice of 280766 or 280805, plus recipe 250185 and 250077",
+    "Quest XP from beta"
+  ]
+}

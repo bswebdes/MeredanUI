@@ -1,0 +1,1015 @@
+{
+ "key": 2959,
+ "slug": "city_of_dalaran",
+ "kind": "dungeon",
+ "name_en": "City of Dalaran",
+ "level": "28-33",
+ "zone": "Alterac Mountains",
+ "faction": "both (attunement quest per faction)",
+ "status": "live",
+ "status_note": "new Forever dungeon",
+ "sources": [
+  "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-city-of-dalaran-guide/"
+ ],
+ "new_in_forever": true,
+ "keys_attunement": "Dalaran Sewer Key item=277507 (reward of Heart of Disruption 92458/96984); one key holder opens for group; attunement quests need level 30. Lyn the Ignored needs Tome of Dalaran item=275989 (from Black Tome item=276561 in Arugal's room, Shadowfang Keep)",
+ "forever_changes": [
+  "New WoW Forever dungeon (released Nov 4)",
+  "Since Oct 15 update Horde attacked on sight in open-world city; key still works",
+  "Quest XP 9,400 each (older beta lists 3,950)"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Atrexis the Grave Knight",
+   "name_de": "Atrexis der Grabritter",
+   "encounter_id": 3311,
+   "npcs": [
+    {
+     "id": 247126,
+     "wowhead_name": "Atrexis the Grave Knight",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "sewers ritual circle, necromancer adds",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273036,
+     "name": "Graveweave Bindings",
+     "slot": "Wrist",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273032,
+     "name": "Bonebinder's Signet",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273033,
+     "name": "Gravespike Repeater",
+     "slot": "Crossbow",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Lyn the Ignored",
+   "name_de": "Lyn der Ignorierte",
+   "encounter_id": 3310,
+   "npcs": [
+    {
+     "id": 247032,
+     "wowhead_name": "Lyn the Ignored",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "sewers NE market-stall room past Atrexis; needs Tome of Dalaran",
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273055,
+     "name": "Bonepile Gaze",
+     "slot": "Shield",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 43.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273054,
+     "name": "Cartilage Shapers",
+     "slot": "Hands (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273053,
+     "name": "Tendonscraper Dagger",
+     "slot": "Dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Arcane Anomaly",
+   "name_de": "Arkananomalie",
+   "encounter_id": 3298,
+   "npcs": [
+    {
+     "id": 245999,
+     "wowhead_name": "Arcane Anomaly",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "city streets",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273035,
+     "name": "Mana-Warped Chain Shirt",
+     "slot": "Chest (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273034,
+     "name": "Ephemeral Grips",
+     "slot": "Hands (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273031,
+     "name": "Runemender's Seal",
+     "slot": "Finger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Arcanic Enigma",
+   "name_de": null,
+   "encounter_id": null,
+   "npcs": [
+    {
+     "id": 246016,
+     "wowhead_name": "Arcanic Enigma",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "city streets",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273045,
+     "name": "Drape of Shifting Energy",
+     "slot": "Back",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273044,
+     "name": "Violet Sorcerer's Robes",
+     "slot": "Chest (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273043,
+     "name": "Wand of Mana Concentration",
+     "slot": "Wand",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Unstable Sentinel",
+   "name_de": "Instabile Schildwache",
+   "encounter_id": 3302,
+   "npcs": [
+    {
+     "id": 246017,
+     "wowhead_name": "Unstable Sentinel",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "city streets, Angry Tome adds",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273046,
+     "name": "Guardian's Dualblade",
+     "slot": "Two-Hand Axe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273048,
+     "name": "Refractory Scaleguards",
+     "slot": "Legs (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273047,
+     "name": "Unstable Crystalline Shoulderpads",
+     "slot": "Shoulder (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273099,
+     "name": "Blueprint: Spinning Wheel",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 8.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Mana Devourer",
+   "name_de": "Manaschlinger",
+   "encounter_id": 3300,
+   "npcs": [
+    {
+     "id": 246008,
+     "wowhead_name": "Mana Devourer",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "city streets; whole room aggroes on pull",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273040,
+     "name": "Spine of the Devourer",
+     "slot": "Staff",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273042,
+     "name": "Manascale Treads",
+     "slot": "Feet (Mail)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273041,
+     "name": "Slitherwrap Girdle",
+     "slot": "Waist (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Fel Ancient",
+   "name_de": "Teufelsurtum",
+   "encounter_id": 3299,
+   "npcs": [
+    {
+     "id": 246003,
+     "wowhead_name": "Fel Ancient",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "city center behind magic barrier, treants in front",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 273039,
+     "name": "Blightleaf Rope",
+     "slot": "Waist (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273038,
+     "name": "Garb of Fallen Felbark",
+     "slot": "Chest (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 31.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273037,
+     "name": "Felbough Arm",
+     "slot": "Polearm",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 36.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Shade of the Archmage",
+   "name_de": "Schemen des Erzmagiers",
+   "encounter_id": 3303,
+   "npcs": [
+    {
+     "id": 246020,
+     "wowhead_name": "Shade of the Archmage",
+     "zone": 36,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Violet Chamber, final boss",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 251961,
+     "name": "Arcane Mote",
+     "slot": "Quest (Heart of Disruption)",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273052,
+     "name": "Ponderous Orb",
+     "slot": "Off-hand",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 26.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273051,
+     "name": "Violet Sorcerer's Mantle",
+     "slot": "Shoulder (Cloth)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 35.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273049,
+     "name": "Archmagister's Faceted Pendant",
+     "slot": "Neck",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 38.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273103,
+     "name": "Blueprint: Arcane Salvager",
+     "slot": "Recipe",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 7.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Mana Elemental",
+   "name_de": "Manaelementar",
+   "encounter_id": 3301,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  },
+  {
+   "order": null,
+   "wing": null,
+   "name": "Mana Wraith",
+   "name_de": "Managespenst",
+   "encounter_id": 3312,
+   "npcs": [],
+   "location": null,
+   "optional": null,
+   "pin": null,
+   "loot": []
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 92432,
+   "title": "An Alarming Request",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Emissary Jacques",
+   "giver_npc_id": 247264,
+   "giver_item_id": null,
+   "giver_zone": "Hillsbrad Foothills (Southshore town hall)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 92458,
+   "title": "Heart of Disruption",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Image of Archmage Modera",
+   "giver_npc_id": 269127,
+   "giver_item_id": null,
+   "giver_zone": "Alterac Mountains (sewer gate)",
+   "prereq": "An Alarming Request (92432)",
+   "rewards": [
+    279839,
+    279840,
+    279841,
+    277507
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 92457,
+   "title": "Starving Arcane",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Image of Archmage Modera",
+   "giver_npc_id": 269127,
+   "giver_item_id": null,
+   "giver_zone": "Alterac Mountains (sewer gate)",
+   "prereq": "An Alarming Request (92432)",
+   "rewards": [
+    279837,
+    279838
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 92489,
+   "title": "Power Overwhelming",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "High Sorcerer Andromath",
+   "giver_npc_id": 5694,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind City (Mage Quarter)",
+   "prereq": null,
+   "rewards": [
+    251962,
+    279849
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 92456,
+   "title": "A Green Sample",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Alliance",
+   "giver": "Shylamiir",
+   "giver_npc_id": 5502,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind City (The Park)",
+   "prereq": null,
+   "rewards": [
+    279835,
+    279836
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 544,
+   "title": "Prison Break In",
+   "level": 34,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Magus Wordeen Voidglare",
+   "giver_npc_id": 2410,
+   "giver_item_id": null,
+   "giver_zone": "Hillsbrad Foothills (61.6,20.9)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 93680,
+   "title": "Key to the City",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Magus Wordeen Voidglare",
+   "giver_npc_id": 2410,
+   "giver_item_id": null,
+   "giver_zone": "Hillsbrad Foothills",
+   "prereq": "Prison Break In (544)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 545,
+   "title": "Dalaran Patrols",
+   "level": 35,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "Key to the City (93680)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 92434,
+   "title": "Blood in the Streets",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": null,
+   "prereq": "Dalaran Patrols (545)",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 96984,
+   "title": "Heart of Disruption",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Image of Archmage Modera",
+   "giver_npc_id": 269127,
+   "giver_item_id": null,
+   "giver_zone": "Alterac Mountains (sewer gate); turn in Tarren Mill",
+   "prereq": "Blood in the Streets (92434)",
+   "rewards": [
+    279842,
+    279843,
+    279844,
+    277507
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 96986,
+   "title": "The Grave Knight",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Melisara",
+   "giver_npc_id": 2278,
+   "giver_item_id": null,
+   "giver_zone": "Hillsbrad Foothills (Tarren Mill)",
+   "prereq": null,
+   "rewards": [
+    251963,
+    251965
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 96988,
+   "title": "Source of Power",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Doctor Martin Felben",
+   "giver_npc_id": 11044,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": null,
+   "rewards": [
+    279847,
+    279848
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 96987,
+   "title": "Opportunistic Education",
+   "level": 33,
+   "min_level": 24,
+   "faction": "Horde",
+   "giver": "Rexxie Copperclutch",
+   "giver_npc_id": 268743,
+   "giver_item_id": null,
+   "giver_zone": "Alterac Mountains (by sewer entrance)",
+   "prereq": null,
+   "rewards": [
+    279845,
+    279846
+   ],
+   "in_repo": false,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [],
+ "open_questions": [
+  "No pin for 'Atrexis the Grave Knight' (encounter 3311) in DungeonPinData.lua.",
+  "No pin for 'Lyn the Ignored' (encounter 3310) in DungeonPinData.lua.",
+  "No pin for 'Arcane Anomaly' (encounter 3298) in DungeonPinData.lua.",
+  "Boss 'Arcanic Enigma' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Unstable Sentinel' (encounter 3302) in DungeonPinData.lua.",
+  "No pin for 'Mana Devourer' (encounter 3300) in DungeonPinData.lua.",
+  "No pin for 'Fel Ancient' (encounter 3299) in DungeonPinData.lua.",
+  "No pin for 'Shade of the Archmage' (encounter 3303) in DungeonPinData.lua.",
+  "Encounter 3301 'Mana Elemental' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Encounter 3312 'Mana Wraith' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Quest 92432 'An Alarming Request' not found on Wowhead Forever - check ID.",
+  "Quest 92458 'Heart of Disruption' not found on Wowhead Forever - check ID.",
+  "Quest 92457 'Starving Arcane' not found on Wowhead Forever - check ID.",
+  "Quest 92489 'Power Overwhelming' not found on Wowhead Forever - check ID.",
+  "Quest 92456 'A Green Sample' not found on Wowhead Forever - check ID.",
+  "Quest 544 'Prison Break In' not found on Wowhead Forever - check ID.",
+  "Quest 93680 'Key to the City' not found on Wowhead Forever - check ID.",
+  "Quest 545 'Dalaran Patrols' not found on Wowhead Forever - check ID.",
+  "Quest 92434 'Blood in the Streets' not found on Wowhead Forever - check ID.",
+  "Quest 96984 'Heart of Disruption' not found on Wowhead Forever - check ID.",
+  "Quest 96986 'The Grave Knight' not found on Wowhead Forever - check ID.",
+  "Quest 96988 'Source of Power' not found on Wowhead Forever - check ID.",
+  "Quest 96987 'Opportunistic Education' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Boss order follows guide listing; Shade is always last",
+  "Lyn's drop chances from small sample",
+  "Guide inconsistent on where Wordeen gives Prison Break In/Key to the City (Tarren Mill vs Lordamere Internment Camp)",
+  "No levels given for 92432, 93680, 92434; givers for 545/92434 not stated",
+  "Heart of Disruption not sharable"
+ ],
+ "zone_id": 36,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "partial",
+  "pins": "missing",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 0,
+  "loot_rows": 26,
+  "loot_confirmed": 26,
+  "loot_with_chance": 26,
+  "forever_confirmed": "yes",
+  "boss_count": 8,
+  "boss_ok": 7,
+  "pin_ok": 0,
+  "enc_count": 9,
+  "q_tot": 13
+ },
+ "top_points": [
+  "13 of 13 quests missing in DungeonQuests.lua",
+  "Boss 'Arcanic Enigma' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Atrexis the Grave Knight' (encounter 3311) in DungeonPinData.lua. (+6 more)"
+ ]
+}

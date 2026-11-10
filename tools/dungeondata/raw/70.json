@@ -1,0 +1,757 @@
+{
+ "key": 70,
+ "name_en": "Uldaman",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-uldaman-guide/"
+ ],
+ "level": "41-51",
+ "boss_level": null,
+ "zone": "Badlands",
+ "zone_id": 3,
+ "instance_zone_id": 1337,
+ "entrance": "Northern Badlands (43,13) south of Loch Modan; back door Dustwind Gulch (66,43)",
+ "faction": "Both; most chains start in Alliance cities",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Revelosh",
+   "npc_ids": [
+    6910
+   ],
+   "location": "front half",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7741,
+     "name": "The Shaft of Tsol",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 9387,
+     "name": "Revelosh's Boots",
+     "slot": "Feet (plate)",
+     "chance": "~21-23%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "The Lost Dwarves (Baelog, Eric \"The Swift\", Olaf)",
+   "npc_ids": [
+    6906,
+    6907,
+    6908
+   ],
+   "location": "front half; chest holds Gni'kiv Medallion",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9398,
+     "name": "Worn Running Boots",
+     "slot": "Feet",
+     "chance": "80%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9394,
+     "name": "Horned Viking Helmet",
+     "slot": "Head",
+     "chance": "8%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9400,
+     "name": "Baelog's Shortbow",
+     "slot": "Bow",
+     "chance": "40%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9401,
+     "name": "Nordic Longshank",
+     "slot": "Two-hand sword",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9403,
+     "name": "Battered Viking Shield",
+     "slot": "Shield",
+     "chance": "78%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9404,
+     "name": "Olaf's All Purpose Shield",
+     "slot": "Shield",
+     "chance": "13%",
+     "quest_item": false
+    },
+    {
+     "item_id": 7740,
+     "name": "Gni'kiv Medallion",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Ironaya",
+   "npc_ids": [
+    7228
+   ],
+   "location": "Map Chamber, opened with Staff of Prehistoria",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 9407,
+     "name": "Stoneweaver Leggings",
+     "slot": "Legs",
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9409,
+     "name": "Ironaya's Bracers",
+     "slot": "Wrist",
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9408,
+     "name": "Ironshod Bludgeon",
+     "slot": "Two-hand mace",
+     "chance": "21%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Obsidian Sentinel",
+   "npc_ids": [
+    7023
+   ],
+   "location": "back half, near back entrance",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 274430,
+     "name": "Rock Sentinel Slicer",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 274428,
+     "name": "Dark Golem Breastplate",
+     "slot": "Chest",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 274485,
+     "name": "Axe of Lingering Dread",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 274425,
+     "name": "White Obsidian Wand",
+     "slot": "Wand",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 251400,
+     "name": "Plans: Warder's Boots",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 8053,
+     "name": "Obsidian Power Source",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Ancient Stone Keeper",
+   "npc_ids": [
+    7206
+   ],
+   "location": "back half",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9410,
+     "name": "Cragfists",
+     "slot": "Hands",
+     "chance": "48%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9411,
+     "name": "Rockshard Pauldrons",
+     "slot": "Shoulder",
+     "chance": "47%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Galgann Firehammer",
+   "npc_ids": [
+    7291
+   ],
+   "location": "with Shadowforge Geologist adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 9419,
+     "name": "Galgann's Firehammer",
+     "slot": "One-hand mace",
+     "chance": "20%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11311,
+     "name": "Emberscale Cape",
+     "slot": "Back",
+     "chance": "38%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11310,
+     "name": "Flameseer Mantle",
+     "slot": "Shoulder",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9412,
+     "name": "Galgann's Fireblaster",
+     "slot": "Gun",
+     "chance": "18%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Grimlok",
+   "npc_ids": [
+    4854
+   ],
+   "location": "trogg area",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7670,
+     "name": "Shattered Necklace Sapphire",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 9415,
+     "name": "Grimlok's Tribal Vestments",
+     "slot": "Chest",
+     "chance": "40%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9414,
+     "name": "Oilskin Leggings",
+     "slot": "Legs",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9416,
+     "name": "Grimlok's Charge",
+     "slot": "Polearm",
+     "chance": "19%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Archaedas",
+   "npc_ids": [
+    2748
+   ],
+   "location": "Khaz'goroth's Seat, final boss",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 7672,
+     "name": "Shattered Necklace Power Source",
+     "slot": null,
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 11118,
+     "name": "Archaedic Stone",
+     "slot": "Finger",
+     "chance": "62%",
+     "quest_item": false
+    },
+    {
+     "item_id": 9413,
+     "name": "The Rockpounder",
+     "slot": "Two-hand mace",
+     "chance": "14%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 709,
+   "title": "Solution to Doom",
+   "level": 40,
+   "min_level": 30,
+   "faction": "Both",
+   "giver": "Theldurin the Lost",
+   "giver_npc_id": 2785,
+   "giver_item_id": null,
+   "giver_zone": "Badlands",
+   "prereq": null,
+   "rewards": [
+    270075,
+    270074,
+    4746
+   ]
+  },
+  {
+   "quest_id": 2418,
+   "title": "Power Stones",
+   "level": 36,
+   "min_level": 30,
+   "faction": "Both",
+   "giver": "Rigglefuzz",
+   "giver_npc_id": 2817,
+   "giver_item_id": null,
+   "giver_zone": "Badlands",
+   "prereq": null,
+   "rewards": [
+    9522,
+    10358,
+    10359,
+    270055
+   ]
+  },
+  {
+   "quest_id": 704,
+   "title": "Agmond's Fate",
+   "level": 38,
+   "min_level": 30,
+   "faction": "Alliance",
+   "giver": "Prospector Ironband",
+   "giver_npc_id": 1344,
+   "giver_item_id": null,
+   "giver_zone": "Loch Modan",
+   "prereq": "Ironband Wants You (707), Find Agmond (738), Murdaloc (739); Carved Stone Urns (4610)",
+   "rewards": [
+    4980,
+    270059,
+    270060
+   ]
+  },
+  {
+   "quest_id": 1139,
+   "title": "The Lost Tablets of Will",
+   "level": 45,
+   "min_level": 35,
+   "faction": "Alliance",
+   "giver": "Advisor Belgrum",
+   "giver_npc_id": 2918,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "Hammertoe chain (720,721,722,723,724,725,726,762); Tablet of Will (5824)",
+   "rewards": [
+    6723
+   ]
+  },
+  {
+   "quest_id": 2240,
+   "title": "The Hidden Chamber",
+   "level": 40,
+   "min_level": 35,
+   "faction": "Alliance",
+   "giver": "Baelog",
+   "giver_npc_id": 6906,
+   "giver_item_id": null,
+   "giver_zone": "Uldaman (inside)",
+   "prereq": "The Lost Dwarves (2398)",
+   "rewards": [
+    9626,
+    9627
+   ]
+  },
+  {
+   "quest_id": 722,
+   "title": "Amulet of Secrets",
+   "level": 40,
+   "min_level": 35,
+   "faction": "Alliance",
+   "giver": "Hammertoe Grez",
+   "giver_npc_id": 2909,
+   "giver_item_id": null,
+   "giver_zone": "Uldaman excavation (outside)",
+   "prereq": "Hammertoe chain",
+   "rewards": []
+  },
+  {
+   "quest_id": 1360,
+   "title": "Reclaimed Treasures",
+   "level": 43,
+   "min_level": 33,
+   "faction": "Alliance",
+   "giver": "Krom Stoutarm",
+   "giver_npc_id": 6294,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 17,
+   "title": "Uldaman Reagent Run",
+   "level": 42,
+   "min_level": 36,
+   "faction": "Alliance",
+   "giver": "Ghak Healtouch",
+   "giver_npc_id": 1470,
+   "giver_item_id": null,
+   "giver_zone": "Loch Modan",
+   "prereq": "Badlands Reagent Run (2500)",
+   "rewards": [
+    9030
+   ]
+  },
+  {
+   "quest_id": 2198,
+   "title": "The Shattered Necklace",
+   "level": 41,
+   "min_level": 37,
+   "faction": "Alliance",
+   "giver": "Shattered Necklace (item)",
+   "giver_npc_id": null,
+   "giver_item_id": 7666,
+   "giver_zone": "Uldaman (drop)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 2199,
+   "title": "Lore for a Price",
+   "level": 41,
+   "min_level": 37,
+   "faction": "Alliance",
+   "giver": "Talvash del Kissel",
+   "giver_npc_id": 6826,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "The Shattered Necklace (2198); 5 Silver Bar (2842)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2201,
+   "title": "Find the Gems",
+   "level": 43,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "Remains of a Paladin",
+   "giver_npc_id": 6912,
+   "giver_item_id": null,
+   "giver_zone": "Uldaman (inside)",
+   "prereq": "Back to Uldaman (2200)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2204,
+   "title": "Restoring the Necklace",
+   "level": 44,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "Talvash's Scrying Bowl (object 112877)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Uldaman (inside)",
+   "prereq": "Find the Gems (2201)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2361,
+   "title": "Restoring the Necklace",
+   "level": 44,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "Talvash del Kissel",
+   "giver_npc_id": 6826,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "Restoring the Necklace (2204)",
+   "rewards": [
+    7673
+   ]
+  },
+  {
+   "quest_id": 2279,
+   "title": "The Platinum Discs",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Alliance",
+   "giver": "The Discs of Norgannon (object 131474)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Uldaman (inside)",
+   "prereq": "The Platinum Discs (2278)",
+   "rewards": [
+    9587,
+    3928,
+    6149
+   ]
+  },
+  {
+   "quest_id": 2342,
+   "title": "Reclaimed Treasures",
+   "level": 43,
+   "min_level": 33,
+   "faction": "Horde",
+   "giver": "Patrick Garrett",
+   "giver_npc_id": 5651,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 2202,
+   "title": "Uldaman Reagent Run",
+   "level": 42,
+   "min_level": 36,
+   "faction": "Horde",
+   "giver": "Jarkal Mossmeld",
+   "giver_npc_id": 6868,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "Badlands Reagent Run (2258)",
+   "rewards": [
+    9030
+   ]
+  },
+  {
+   "quest_id": 2283,
+   "title": "Necklace Recovery",
+   "level": 41,
+   "min_level": 37,
+   "faction": "Horde",
+   "giver": "Dran Droffers",
+   "giver_npc_id": 6986,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 2338,
+   "title": "Translating the Journal",
+   "level": 42,
+   "min_level": 37,
+   "faction": "Horde",
+   "giver": "Jarkal Mossmeld",
+   "giver_npc_id": 6868,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "Necklace Recovery, Take 2 (2284), Translating the Journal (2318)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2339,
+   "title": "Find the Gems and Power Source",
+   "level": 44,
+   "min_level": 37,
+   "faction": "Horde",
+   "giver": "Jarkal Mossmeld",
+   "giver_npc_id": 6868,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "Translating the Journal (2338)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2340,
+   "title": "Deliver the Gems",
+   "level": 44,
+   "min_level": 37,
+   "faction": "Horde",
+   "giver": "Jarkal Mossmeld",
+   "giver_npc_id": 6868,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "Find the Gems and Power Source (2339)",
+   "rewards": []
+  },
+  {
+   "quest_id": 2341,
+   "title": "Necklace Recovery, Take 3",
+   "level": 44,
+   "min_level": 40,
+   "faction": "Horde",
+   "giver": "Dran Droffers",
+   "giver_npc_id": 6986,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Deliver the Gems (2340)",
+   "rewards": [
+    7888
+   ]
+  },
+  {
+   "quest_id": 2280,
+   "title": "The Platinum Discs",
+   "level": 47,
+   "min_level": 40,
+   "faction": "Horde",
+   "giver": "The Discs of Norgannon (object 131474)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Uldaman (inside)",
+   "prereq": "The Platinum Discs (2278)",
+   "rewards": [
+    9587,
+    3928,
+    6149
+   ]
+  },
+  {
+   "quest_id": 1956,
+   "title": "Power in Uldaman",
+   "level": 40,
+   "min_level": null,
+   "faction": "Mage class",
+   "giver": "Tabetha",
+   "giver_npc_id": 6546,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh",
+   "prereq": "Return to the Marsh (1953), The Infernal Orb (1954), The Exorcism (1955); Obsidian Power Source (8053)",
+   "rewards": []
+  }
+ ],
+ "quest_items": [
+  {
+   "item_id": 7666,
+   "name": "Shattered Necklace",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 7669,
+   "name": "Shattered Necklace Ruby",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 7670,
+   "name": "Shattered Necklace Sapphire",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 7671,
+   "name": "Shattered Necklace Topaz",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 7672,
+   "name": "Shattered Necklace Power Source",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 4631,
+   "name": "Tablet of Ryun'eh",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 4610,
+   "name": "Carved Stone Urn",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 5824,
+   "name": "Tablet of Will",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 8053,
+   "name": "Obsidian Power Source",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  },
+  {
+   "item_id": 7733,
+   "name": "Staff of Prehistoria",
+   "slot": null,
+   "chance": null,
+   "quest_item": true
+  }
+ ],
+ "keys_attunement": "None required. Staff of Prehistoria item=7733 (from Gni'kiv Medallion 7740 + The Shaft of Tsol 7741) opens Ironaya's chamber.",
+ "forever_changes": [
+  "Solution to Doom XP raised to 6,150",
+  "New green rewards: Fists of Impending Doom 270075, Doomcaller's Pants 270074, Restorer's Fine Gloves 270059, Excavator Gauntlets 270060, Charged Leather Bracers 270055",
+  "Obsidian Sentinel has new loot table (274430, 274428, 274485, 274425, Plans 251400)",
+  "Galgann's Firehammer now caster mace (54 SP); Battered Viking Shield now healer shield; The Rockpounder +28 crit rating; Ironaya's Bracers +50 armor",
+  "Item-started quests unshareable since Oct 1 beta; each player loots own Shattered Necklace",
+  "Stoneslayer (9418) not in Forever database"
+ ],
+ "notes": [
+  "Revelosh drops 4 armor pieces (one per armor type, ~21-23%); only Revelosh's Boots 9387 named on guide",
+  "Obsidian Sentinel drop chances not recorded",
+  "Unconfirmed in Forever: 9626, 9627, 7673, 7888",
+  "Boss levels not stated",
+  "Annora (11073) Artisan Enchanting trainer appears after side-room scorpids die",
+  "Guide says 8 encounters / 10 bosses (Lost Dwarves counted as one encounter here)",
+  "Some slot values not stated on guide were filled from Classic item knowledge"
+ ]
+}

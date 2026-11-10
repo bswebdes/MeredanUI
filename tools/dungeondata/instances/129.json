@@ -1,0 +1,854 @@
+{
+ "key": 129,
+ "slug": "razorfen_downs",
+ "kind": "dungeon",
+ "name_en": "Razorfen Downs",
+ "level": "37-46",
+ "zone": "The Barrens / Thousand Needles",
+ "faction": "both",
+ "status": "live",
+ "status_note": "classic dungeon",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-razorfen-downs-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": null,
+ "forever_changes": [
+  "New reward Cultist's Chestguard (270054, leather chest) on An Unholy Alliance (6521)",
+  "An Unholy Alliance rewards lowered rare->uncommon (Oct 8 beta)",
+  "XP raised on four quests; escort and both Amnennar quests unchanged",
+  "Most boss items restatted (e.g. Silky Spider Cape movement-impair reduction, Glutton's Cleaver bleed 70/7s, Coldrage Dagger slow, Bonefingers mana restore)",
+  "Item-started quests not shareable since Oct 1 beta; Bring the End shareable, Bring the Light not"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Tuten'kash",
+   "name_de": "Tuten'kash",
+   "encounter_id": 2780,
+   "npcs": [
+    {
+     "id": 7355,
+     "wowhead_name": "Tuten'kash",
+     "zone": 722,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "gong event, spider follows last wave",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5965,
+    "y": 0.2752
+   },
+   "loot": [
+    {
+     "item_id": 10776,
+     "name": "Silky Spider Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 34.0,
+     "chance_wowhead_forever": 34.27,
+     "wowhead_dropped_by": "Tuten'kash",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10775,
+     "name": "Carapace of Tuten'kash",
+     "slot": "Chest (plate)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 32.28,
+     "wowhead_dropped_by": "Tuten'kash",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10777,
+     "name": "Arachnid Gloves",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 30.0,
+     "chance_wowhead_forever": 30.23,
+     "wowhead_dropped_by": "Tuten'kash",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Mordresh Fire Eye",
+   "name_de": "Mordresh Feuerauge",
+   "encounter_id": 2782,
+   "npcs": [
+    {
+     "id": 7357,
+     "wowhead_name": "Mordresh Fire Eye",
+     "zone": 722,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": null,
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.8582,
+    "y": 0.4568
+   },
+   "loot": [
+    {
+     "item_id": 10769,
+     "name": "Glowing Eye of Mordresh",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.52,
+     "wowhead_dropped_by": "Mordresh Fire Eye",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10770,
+     "name": "Mordresh's Lifeless Skull",
+     "slot": "Off-hand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 32.58,
+     "wowhead_dropped_by": "Mordresh Fire Eye",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10771,
+     "name": "Deathmage Sash",
+     "slot": "Waist",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.0,
+     "chance_wowhead_forever": 31.99,
+     "wowhead_dropped_by": "Mordresh Fire Eye",
+     "chance_repo": 33.3,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Glutton",
+   "name_de": "Nimmersatt",
+   "encounter_id": 2784,
+   "npcs": [
+    {
+     "id": 8567,
+     "wowhead_name": "Glutton",
+     "zone": 722,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": null,
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3852,
+    "y": 0.4524
+   },
+   "loot": [
+    {
+     "item_id": 10772,
+     "name": "Glutton's Cleaver",
+     "slot": "One-hand axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 50.0,
+     "chance_wowhead_forever": 49.95,
+     "wowhead_dropped_by": "Glutton",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10774,
+     "name": "Fleshhide Shoulders",
+     "slot": "Shoulder",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 48.0,
+     "chance_wowhead_forever": 47.88,
+     "wowhead_dropped_by": "Glutton",
+     "chance_repo": 50.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Plaguemaw the Rotting",
+   "name_de": "Plaguemaw der Faulende",
+   "encounter_id": 2781,
+   "npcs": [
+    {
+     "id": 7356,
+     "wowhead_name": "Plaguemaw the Rotting",
+     "zone": 722,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": null,
+   "optional": true,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 10760,
+     "name": "Swine Fists",
+     "slot": "Hands",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 63.0,
+     "chance_wowhead_forever": 61.33,
+     "wowhead_dropped_by": "Plaguemaw the Rotting",
+     "chance_repo": 60.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10766,
+     "name": "Plaguerot Sprig",
+     "slot": "Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 33.0,
+     "chance_wowhead_forever": 33.12,
+     "wowhead_dropped_by": "Plaguemaw the Rotting",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Amnennar the Coldbringer",
+   "name_de": "Amnennar der Kältebringer",
+   "encounter_id": 2785,
+   "npcs": [
+    {
+     "id": 7358,
+     "wowhead_name": "Amnennar the Coldbringer",
+     "zone": 722,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "final boss",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.4499,
+    "y": 0.5906
+   },
+   "loot": [
+    {
+     "item_id": 10761,
+     "name": "Coldrage Dagger",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 19.0,
+     "chance_wowhead_forever": 19.11,
+     "wowhead_dropped_by": "Amnennar the Coldbringer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10762,
+     "name": "Robes of the Lich",
+     "slot": "Chest",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 38.73,
+     "wowhead_dropped_by": "Amnennar the Coldbringer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10763,
+     "name": "Icemetal Barbute",
+     "slot": "Head",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 37.0,
+     "chance_wowhead_forever": 36.86,
+     "wowhead_dropped_by": "Amnennar the Coldbringer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10764,
+     "name": "Deathchill Armor",
+     "slot": "Chest (mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 29.0,
+     "chance_wowhead_forever": 28.49,
+     "wowhead_dropped_by": "Amnennar the Coldbringer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10765,
+     "name": "Bonefingers",
+     "slot": "Hands (leather)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 27.0,
+     "chance_wowhead_forever": 27.37,
+     "wowhead_dropped_by": "Amnennar the Coldbringer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10420,
+     "name": "Skull of the Coldbringer",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Ragglesnout",
+   "npc_id": 7354,
+   "wowhead_name": "Ragglesnout",
+   "location": "rare spawn, not always present",
+   "pin": null,
+   "encounter_id": 2783,
+   "loot": [
+    {
+     "item_id": 10768,
+     "name": "Boar Champion's Belt",
+     "slot": "Waist (mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 37.9,
+     "wowhead_dropped_by": "Ragglesnout",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10767,
+     "name": "Savage Boar's Guard",
+     "slot": "Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 39.0,
+     "chance_wowhead_forever": 40.2,
+     "wowhead_dropped_by": "Ragglesnout",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 10758,
+     "name": "X'caliboar",
+     "slot": "Two-hand sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 20.0,
+     "chance_wowhead_forever": 19.73,
+     "wowhead_dropped_by": "Ragglesnout",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Trash (BoE world drops)",
+   "npc_id": null,
+   "wowhead_name": null,
+   "location": "various trash",
+   "pin": null,
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 10578,
+     "name": "Thoughtcast Boots",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 10582,
+     "name": "Briar Tredders",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 10584,
+     "name": "Stormgale Fists",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 10571,
+     "name": "Ebony Boneclub",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 10573,
+     "name": "Boneslasher",
+     "slot": null,
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ambassador Malcin",
+   "npc_id": 12865,
+   "wowhead_name": "Ambassador Malcin",
+   "location": "elite outside the portal",
+   "pin": null,
+   "encounter_id": null,
+   "loot": [
+    {
+     "item_id": 17009,
+     "name": "Ambassador Malcin's Head",
+     "slot": null,
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 6626,
+   "title": "A Host of Evil",
+   "level": 35,
+   "min_level": 28,
+   "faction": "Both",
+   "giver": "Myriam Moonsinger",
+   "giver_npc_id": 12866,
+   "giver_item_id": null,
+   "giver_zone": "The Barrens (outside portal)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 3523,
+   "title": "Scourge of the Downs",
+   "level": 37,
+   "min_level": 32,
+   "faction": "Both",
+   "giver": "Belnistrasz",
+   "giver_npc_id": 8516,
+   "giver_item_id": null,
+   "giver_zone": "Razorfen Downs (inside)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 3525,
+   "title": "Extinguishing the Idol",
+   "level": 37,
+   "min_level": 32,
+   "faction": "Both",
+   "giver": "Belnistrasz",
+   "giver_npc_id": 8516,
+   "giver_item_id": null,
+   "giver_zone": "Razorfen Downs (inside)",
+   "prereq": "Scourge of the Downs (3523); escort, ends at Belnistrasz's Brazier (object 152097)",
+   "rewards": [
+    10710
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 0
+  },
+  {
+   "quest_id": 3636,
+   "title": "Bring the Light",
+   "level": 42,
+   "min_level": 39,
+   "faction": "Alliance",
+   "giver": "Archbishop Benedictus",
+   "giver_npc_id": 1284,
+   "giver_item_id": null,
+   "giver_zone": "Stormwind",
+   "prereq": null,
+   "rewards": [
+    10823,
+    10824
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 77
+  },
+  {
+   "quest_id": 3341,
+   "title": "Bring the End",
+   "level": 42,
+   "min_level": 37,
+   "faction": "Horde",
+   "giver": "Andrew Brownell",
+   "giver_npc_id": 2308,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": "Skull of the Coldbringer (10420) from Amnennar",
+   "rewards": [
+    10823,
+    10824
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6522,
+   "title": "An Unholy Alliance",
+   "level": 36,
+   "min_level": 28,
+   "faction": "Horde",
+   "giver": "Small Scroll (item)",
+   "giver_npc_id": null,
+   "giver_item_id": 17008,
+   "giver_zone": "Razorfen Kraul (drop from Charlga Razorflank 4421)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 6521,
+   "title": "An Unholy Alliance",
+   "level": 36,
+   "min_level": 28,
+   "faction": "Horde",
+   "giver": "Varimathras",
+   "giver_npc_id": 2425,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": "An Unholy Alliance (6522); Ambassador Malcin's Head (17009)",
+   "rewards": [
+    17039,
+    17042,
+    17043,
+    270054
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Amnennar the Coldbringer: 10762 Robes of the Lich - chance repo 20% vs Forever 38.73%",
+  "Amnennar the Coldbringer: 10763 Icemetal Barbute - chance repo 20% vs Forever 36.86%",
+  "Trash (BoE world drops): 10578 Thoughtcast Boots - in Forever guide, missing in DungeonLoot.lua",
+  "Trash (BoE world drops): 10582 Briar Tredders - in Forever guide, missing in DungeonLoot.lua",
+  "Trash (BoE world drops): 10584 Stormgale Fists - in Forever guide, missing in DungeonLoot.lua",
+  "Trash (BoE world drops): 10571 Ebony Boneclub - in Forever guide, missing in DungeonLoot.lua",
+  "Trash (BoE world drops): 10573 Boneslasher - in Forever guide, missing in DungeonLoot.lua"
+ ],
+ "open_questions": [
+  "No pin for 'Plaguemaw the Rotting' (encounter 2781) in DungeonPinData.lua.",
+  "Encounter 2783 'Ragglesnout' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
+  "Quest 6626 'A Host of Evil' not found on Wowhead Forever - check ID.",
+  "Quest 3523 'Scourge of the Downs' not found on Wowhead Forever - check ID.",
+  "Quest 3525 'Extinguishing the Idol' not found on Wowhead Forever - check ID.",
+  "Quest 3636 'Bring the Light' not found on Wowhead Forever - check ID.",
+  "Quest 3341 'Bring the End' not found on Wowhead Forever - check ID.",
+  "Quest 6522 'An Unholy Alliance' not found on Wowhead Forever - check ID.",
+  "Quest 6521 'An Unholy Alliance' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Vanquisher's Sword, Amberglow Talisman, Dragonclaw Ring and some optional-boss items lack Forever data; Classic IDs used",
+  "Savage Boar's Guard (10767) mapping uncertain per guide (shield lacks Forever data)",
+  "Trash rare drop chances not given",
+  "Belnistrasz's Oathstone (10682) given by Belnistrasz; Henry Stern (8696) teaches Goldthorn Tea",
+  "Some slot values not stated on guide were filled from Classic item knowledge"
+ ],
+ "zone_id": 722,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "ok",
+  "pins": "partial",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 7,
+  "loot_rows": 23,
+  "loot_confirmed": 18,
+  "loot_with_chance": 18,
+  "forever_confirmed": "partly",
+  "boss_count": 5,
+  "boss_ok": 5,
+  "pin_ok": 4,
+  "enc_count": 5,
+  "q_tot": 7
+ },
+ "top_points": [
+  "No pin for 'Plaguemaw the Rotting' (encounter 2781) in DungeonPinData.lua.",
+  "Quest 6626 'A Host of Evil' not found on Wowhead Forever - check ID. (+6 more)",
+  "5 loot rows without drop chance"
+ ]
+}

@@ -1,0 +1,586 @@
+{
+ "key": 389,
+ "slug": "ragefire_chasm",
+ "kind": "dungeon",
+ "name_en": "Ragefire Chasm",
+ "level": "13-18",
+ "zone": "Orgrimmar",
+ "faction": "Horde city (Alliance can enter, no quests)",
+ "status": "live",
+ "status_note": "classic dungeon in Forever's group finder list",
+ "sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/",
+  "https://www.warcrafttavern.com/forever/guides/dungeons/"
+ ],
+ "guide_sources": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-ragefire-chasm-guide/"
+ ],
+ "new_in_forever": false,
+ "keys_attunement": "None",
+ "forever_changes": [
+  "Quest XP about twice Classic",
+  "All boss items are blue",
+  "Oggleflint and Bazzalan had no loot in Classic; now three new items each",
+  "Taragaman and Jergosh drops reworked with better stats",
+  "Subterranean Cape gains 5 health per 5 sec",
+  "Cursed Felblade proc now removes 24 Attack Power",
+  "New items: Garrison Cuffs, Trogg Scepter, Bone Knuckles, Barbaric Crossbow, Searing Dagger, Satyrskin Cloak, Chasm Walkers",
+  "Beta (Oct 8) lowered several quest rewards blue->green (bracers, leggings)"
+ ],
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "Oggleflint",
+   "name_de": "Flintauge",
+   "encounter_id": 2732,
+   "npcs": [
+    {
+     "id": 11517,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "first trogg cave, with two adds",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.5605,
+    "y": 0.38
+   },
+   "loot": [
+    {
+     "item_id": 272996,
+     "name": "Trogg Scepter",
+     "slot": "Main Hand Mace",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 3.3,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 272999,
+     "name": "Barbaric Crossbow",
+     "slot": "Crossbow",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 3.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 272998,
+     "name": "Bone Knuckles",
+     "slot": "Fist Weapon",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.7,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 1210,
+     "name": "Shadowgem",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 1.9,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Taragaman the Hungerer",
+   "name_de": "Taragaman der Hungerleider",
+   "encounter_id": 2733,
+   "npcs": [
+    {
+     "id": 11520,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "lava platform in central chamber",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.4098,
+    "y": 0.5773
+   },
+   "loot": [
+    {
+     "item_id": 14149,
+     "name": "Subterranean Cape",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 34.8,
+     "chance_wowhead_forever": 31.93,
+     "wowhead_dropped_by": "Taragaman the Hungerer",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 14148,
+     "name": "Crystalline Cuffs",
+     "slot": "Wrist (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 32.9,
+     "chance_wowhead_forever": 30.4,
+     "wowhead_dropped_by": "Taragaman the Hungerer",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 14145,
+     "name": "Cursed Felblade",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.6,
+     "chance_wowhead_forever": 18.38,
+     "wowhead_dropped_by": "Taragaman the Hungerer",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 14540,
+     "name": "Taragaman the Hungerer's Heart",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Jergosh the Invoker",
+   "name_de": "Jergosh der Herbeirufer",
+   "encounter_id": 2734,
+   "npcs": [
+    {
+     "id": 11518,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "middle of the last room, two adds",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.3298,
+    "y": 0.8454
+   },
+   "loot": [
+    {
+     "item_id": 14147,
+     "name": "Cavedweller Bracers",
+     "slot": "Wrist (Mail)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 37.3,
+     "chance_wowhead_forever": 33.26,
+     "wowhead_dropped_by": "Jergosh the Invoker",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 14150,
+     "name": "Robe of Evocation",
+     "slot": "Chest (Cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 36.4,
+     "chance_wowhead_forever": 36.11,
+     "wowhead_dropped_by": "Jergosh the Invoker",
+     "chance_repo": 40.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 14151,
+     "name": "Chanting Blade",
+     "slot": "Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": 17.7,
+     "chance_wowhead_forever": 18.67,
+     "wowhead_dropped_by": "Jergosh the Invoker",
+     "chance_repo": 20.0,
+     "in_guide": true,
+     "in_repo": true,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "repo",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "Bazzalan",
+   "name_de": "Bazzalan",
+   "encounter_id": 2735,
+   "npcs": [
+    {
+     "id": 11519,
+     "wowhead_name": null,
+     "zone": null,
+     "name_de": null,
+     "name_ok": false
+    }
+   ],
+   "location": "up the ramp, right side of last room",
+   "optional": false,
+   "pin": {
+    "floor": 1,
+    "x": 0.4153,
+    "y": 0.8618
+   },
+   "loot": [
+    {
+     "item_id": 273003,
+     "name": "Searing Dagger",
+     "slot": "Main Hand Dagger",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.9,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273005,
+     "name": "Satyrskin Cloak",
+     "slot": "Back",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.9,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 273007,
+     "name": "Chasm Walkers",
+     "slot": "Feet (Leather)",
+     "quality": null,
+     "quest_item": false,
+     "chance_guide": 2.9,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    },
+    {
+     "item_id": 1210,
+     "name": "Shadowgem",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": 2.2,
+     "in_guide": false,
+     "in_repo": true,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "repo"
+     ]
+    }
+   ]
+  }
+ ],
+ "rares": [],
+ "quests": [
+  {
+   "quest_id": 5728,
+   "title": "Hidden Enemies",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Thrall",
+   "giver_npc_id": 4949,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Hidden Enemies steps 5726, 5727 (Lieutenant's Insignia item=14544)",
+   "rewards": [
+    15443,
+    15444,
+    15424,
+    15445
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 5724,
+   "title": "Returning the Lost Satchel",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Maur Grimtotem (corpse)",
+   "giver_npc_id": 11834,
+   "giver_item_id": null,
+   "giver_zone": "Ragefire Chasm (inside)",
+   "prereq": "Searching for the Lost Satchel (5722) from Rahauro npc=11833, Thunder Bluff; Grimtotem Satchel item=14381",
+   "rewards": [
+    15452,
+    15453,
+    270003
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 5725,
+   "title": "The Power to Destroy...",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Varimathras",
+   "giver_npc_id": 2425,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": null,
+   "rewards": [
+    15449,
+    15450,
+    15451
+   ],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 5761,
+   "title": "Slaying the Beast",
+   "level": 16,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Neeru Fireblade",
+   "giver_npc_id": 3216,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 5723,
+   "title": "Testing an Enemy's Strength",
+   "level": 15,
+   "min_level": 9,
+   "faction": "Horde",
+   "giver": "Rahauro",
+   "giver_npc_id": 11833,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  },
+  {
+   "quest_id": 5722,
+   "title": "Searching for the Lost Satchel",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Rahauro",
+   "giver_npc_id": 11833,
+   "giver_item_id": null,
+   "giver_zone": "Thunder Bluff",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": true,
+   "wowhead_title": null,
+   "wowhead_level": null,
+   "races": 178
+  }
+ ],
+ "repo_quests_not_in_guide": [],
+ "loot_differences": [
+  "Oggleflint: 272996 Trogg Scepter - in Forever guide, missing in DungeonLoot.lua",
+  "Oggleflint: 272999 Barbaric Crossbow - in Forever guide, missing in DungeonLoot.lua",
+  "Oggleflint: 272998 Bone Knuckles - in Forever guide, missing in DungeonLoot.lua",
+  "Oggleflint: 1210 Shadowgem - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)",
+  "Bazzalan: 273003 Searing Dagger - in Forever guide, missing in DungeonLoot.lua",
+  "Bazzalan: 273005 Satyrskin Cloak - in Forever guide, missing in DungeonLoot.lua",
+  "Bazzalan: 273007 Chasm Walkers - in Forever guide, missing in DungeonLoot.lua",
+  "Bazzalan: 1210 Shadowgem - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)"
+ ],
+ "open_questions": [
+  "NPC 11517 (Oggleflint) not found on Wowhead Forever - check ID.",
+  "NPC 11520 (Taragaman the Hungerer) not found on Wowhead Forever - check ID.",
+  "NPC 11518 (Jergosh the Invoker) not found on Wowhead Forever - check ID.",
+  "NPC 11519 (Bazzalan) not found on Wowhead Forever - check ID.",
+  "Quest 5728 'Hidden Enemies' not found on Wowhead Forever - check ID.",
+  "Quest 5724 'Returning the Lost Satchel' not found on Wowhead Forever - check ID.",
+  "Quest 5725 'The Power to Destroy...' not found on Wowhead Forever - check ID.",
+  "Quest 5761 'Slaying the Beast' not found on Wowhead Forever - check ID.",
+  "Quest 5723 'Testing an Enemy's Strength' not found on Wowhead Forever - check ID.",
+  "Quest 5722 'Searching for the Lost Satchel' not found on Wowhead Forever - check ID."
+ ],
+ "guide_notes": [
+  "Oggleflint/Bazzalan item chances ~3% as stated (seems low, possibly early data)",
+  "Hidden Enemies chain 5726-5730; dungeon step is 5728; page says '3 steps' but lists 5",
+  "Power to Destroy needs Spells of Shadow item=14395 and Incantations from the Nether item=14396 from Searing Blade Cultist npc=11322 / Warlock npc=11324",
+  "Testing an Enemy's Strength: 8 Ragefire Trogg npc=11318, 8 Ragefire Shaman npc=11319",
+  "Beta pages listed patterns item=252781, item=253906 as rare drops",
+  "Slot for Barbaric Crossbow/Cursed Felblade not stated by page; inferred"
+ ],
+ "zone_id": null,
+ "zone_name_en": null,
+ "zone_name_de": null,
+ "assessment": {
+  "bosses": "missing",
+  "pins": "ok",
+  "loot": "ok",
+  "quests": "missing",
+  "quests_in_addon": 6,
+  "loot_rows": 14,
+  "loot_confirmed": 12,
+  "loot_with_chance": 12,
+  "forever_confirmed": "yes",
+  "boss_count": 4,
+  "boss_ok": 0,
+  "pin_ok": 4,
+  "enc_count": 4,
+  "q_tot": 6
+ },
+ "top_points": [
+  "NPC 11517 (Oggleflint) not found on Wowhead Forever - check ID. (+9 more)",
+  "2 loot rows without drop chance"
+ ]
+}

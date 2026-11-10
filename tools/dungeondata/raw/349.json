@@ -1,0 +1,547 @@
+{
+ "key": 349,
+ "name_en": "Maraudon",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-maraudon-guide/"
+ ],
+ "level": "46-55",
+ "boss_level": null,
+ "zone": "Desolace",
+ "zone_id": 405,
+ "entrance": "Valley of Spears, western Desolace, north of Shadowprey (~29,62)",
+ "faction": "Both factions, same quests and rewards",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "Orange (Foulspore Cavern)",
+   "name": "Noxxion",
+   "npc_ids": [
+    13282
+   ],
+   "location": "Noxious Hollow, end of orange side",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17702,
+     "name": "Celebrian Rod",
+     "slot": null,
+     "chance": "34%",
+     "quest_item": true
+    },
+    {
+     "item_id": 17746,
+     "name": "Noxxion's Shackles",
+     "slot": null,
+     "chance": "36%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17744,
+     "name": "Heart of Noxxion",
+     "slot": "Trinket",
+     "chance": "36%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17745,
+     "name": "Noxious Shooter",
+     "slot": "Wand",
+     "chance": "18%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "Orange (Foulspore Cavern)",
+   "name": "Razorlash",
+   "npc_ids": [
+    12258
+   ],
+   "location": "roams Foulspore Cavern",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17748,
+     "name": "Vinerot Sandals",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17749,
+     "name": "Phytoskin Spaulders",
+     "slot": "Shoulder (Leather)",
+     "chance": "25%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "Purple (The Wicked Grotto)",
+   "name": "Tinkerer Gizlock",
+   "npc_ids": [
+    13601
+   ],
+   "location": "The Wicked Grotto, purple side",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17719,
+     "name": "Inventor's Focal Sword",
+     "slot": "Main Hand Sword",
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17717,
+     "name": "Megashot Rifle",
+     "slot": null,
+     "chance": "33%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17718,
+     "name": "Gizlock's Hypertech Buckler",
+     "slot": "Shield (Buckler)",
+     "chance": "33%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "Purple (The Wicked Grotto)",
+   "name": "Lord Vyletongue",
+   "npc_ids": [
+    12236
+   ],
+   "location": "Vyletongue Seat, end of purple side, two satyr guards",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17703,
+     "name": "Celebrian Diamond",
+     "slot": null,
+     "chance": "59%",
+     "quest_item": true
+    },
+    {
+     "item_id": 17755,
+     "name": "Satyrmane Sash",
+     "slot": null,
+     "chance": "27%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17754,
+     "name": "Infernal Trickster Leggings",
+     "slot": "Legs",
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17752,
+     "name": "Satyr's Lash",
+     "slot": null,
+     "chance": "28%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Celebras the Cursed",
+   "npc_ids": [
+    12225
+   ],
+   "location": "north end of Earth Song Falls",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17740,
+     "name": "Soothsayer's Headdress",
+     "slot": "Head",
+     "chance": "30%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17739,
+     "name": "Grovekeeper's Drape",
+     "slot": null,
+     "chance": "32%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17738,
+     "name": "Claw of Celebras",
+     "slot": null,
+     "chance": "33%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Landslide",
+   "npc_ids": [
+    12203
+   ],
+   "location": "Earth Song Falls (no exact spot given)",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17943,
+     "name": "Fist of Stone",
+     "slot": "Mace",
+     "chance": "26%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17734,
+     "name": "Helm of the Mountain",
+     "slot": "Head",
+     "chance": "22%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17736,
+     "name": "Rockgrip Gauntlets",
+     "slot": "Hands",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17737,
+     "name": "Cloud Stone",
+     "slot": null,
+     "chance": "25%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Princess Theradras",
+   "npc_ids": [
+    12201
+   ],
+   "location": "final chamber of Earth Song Falls",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17766,
+     "name": "Princess Theradras' Scepter",
+     "slot": null,
+     "chance": "20%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17713,
+     "name": "Blackstone Ring",
+     "slot": "Finger",
+     "chance": "25%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17714,
+     "name": "Bracers of the Stone Princess",
+     "slot": "Wrist",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17715,
+     "name": "Eye of Theradras",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17710,
+     "name": "Charstone Dirk",
+     "slot": "Dagger",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17711,
+     "name": "Elemental Rockridge Leggings",
+     "slot": "Legs",
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17707,
+     "name": "Gemshard Heart",
+     "slot": null,
+     "chance": "20%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17780,
+     "name": "Blade of Eternal Darkness",
+     "slot": null,
+     "chance": "0.26%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": "Inner (Earth Song Falls)",
+   "name": "Rotgrip",
+   "npc_ids": [
+    13596
+   ],
+   "location": "crocolisk in lake below Princess",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 17730,
+     "name": "Gatorbite Axe",
+     "slot": "Axe",
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17732,
+     "name": "Rotgrip Mantle",
+     "slot": "Shoulder",
+     "chance": "36%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17728,
+     "name": "Albino Crocscale Boots",
+     "slot": "Feet",
+     "chance": "35%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Meshlok the Harvester",
+   "npc_id": 12237,
+   "location": "between orange and purple sides; not always spawned",
+   "loot": [
+    {
+     "item_id": 17741,
+     "name": "Nature's Embrace",
+     "slot": "Chest (Robe)",
+     "chance": "31%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17742,
+     "name": "Fungus Shroud Armor",
+     "slot": null,
+     "chance": "32%",
+     "quest_item": false
+    },
+    {
+     "item_id": 17767,
+     "name": "Bloomsprout Headpiece",
+     "slot": "Head",
+     "chance": "30%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 7065,
+   "title": "Corruption of Earth and Seed",
+   "level": 51,
+   "min_level": 45,
+   "faction": "Alliance",
+   "giver": "Keeper Marandis",
+   "giver_npc_id": 13698,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (Nijel's Point)",
+   "prereq": null,
+   "rewards": [
+    17705,
+    17743,
+    17753
+   ]
+  },
+  {
+   "quest_id": 7064,
+   "title": "Corruption of Earth and Seed",
+   "level": 51,
+   "min_level": 45,
+   "faction": "Horde",
+   "giver": "Selendra",
+   "giver_npc_id": 13699,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (near Shadowprey Village)",
+   "prereq": null,
+   "rewards": [
+    17705,
+    17743,
+    17753
+   ]
+  },
+  {
+   "quest_id": 7044,
+   "title": "Legends of Maraudon",
+   "level": 49,
+   "min_level": 41,
+   "faction": "Both",
+   "giver": "Cavindra",
+   "giver_npc_id": 13697,
+   "giver_item_id": null,
+   "giver_zone": "Maraudon outer caves (Desolace ~32.1,64.0)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 7046,
+   "title": "The Scepter of Celebras",
+   "level": 49,
+   "min_level": 41,
+   "faction": "Both",
+   "giver": "Celebras the Redeemed",
+   "giver_npc_id": 13716,
+   "giver_item_id": null,
+   "giver_zone": "Maraudon (inside)",
+   "prereq": "Legends of Maraudon (7044); needs Celebrian Rod 17702 + Celebrian Diamond 17703",
+   "rewards": [
+    17191
+   ]
+  },
+  {
+   "quest_id": 7066,
+   "title": "Seed of Life",
+   "level": 51,
+   "min_level": 45,
+   "faction": "Both",
+   "giver": "Zaetar's Spirit",
+   "giver_npc_id": 12238,
+   "giver_item_id": null,
+   "giver_zone": "Maraudon (after Princess Theradras)",
+   "prereq": "Kill Princess Theradras; turn in to Keeper Remulos (npc 11832), Moonglade",
+   "rewards": []
+  },
+  {
+   "quest_id": 7067,
+   "title": "The Pariah's Instructions",
+   "level": 48,
+   "min_level": 39,
+   "faction": "Both",
+   "giver": "Centaur Pariah",
+   "giver_npc_id": 13717,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (road south of Mannoroc Coven)",
+   "prereq": "Amulet of Spirits 17757 from The Nameless Prophet (npc 13718); 5 Khan ghosts -> Amulet of Union 17758",
+   "rewards": [
+    17774
+   ]
+  },
+  {
+   "quest_id": 7028,
+   "title": "Twisted Evils",
+   "level": 47,
+   "min_level": 41,
+   "faction": "Both",
+   "giver": "Willow",
+   "giver_npc_id": 13656,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (near Thunder Axe Fortress)",
+   "prereq": "25x Theradric Crystal Carving 17684",
+   "rewards": [
+    17775,
+    17776,
+    17777,
+    17779
+   ]
+  },
+  {
+   "quest_id": 7041,
+   "title": "Vyletongue Corruption",
+   "level": 47,
+   "min_level": 41,
+   "faction": "Alliance",
+   "giver": "Talendria",
+   "giver_npc_id": 11715,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (Nijel's Point)",
+   "prereq": "Coated Cerulean Vial 17693 -> Filled 17696 at orange pool",
+   "rewards": [
+    17768,
+    17778,
+    17770
+   ]
+  },
+  {
+   "quest_id": 7029,
+   "title": "Vyletongue Corruption",
+   "level": 47,
+   "min_level": 41,
+   "faction": "Horde",
+   "giver": "Vark Battlescar",
+   "giver_npc_id": 11823,
+   "giver_item_id": null,
+   "giver_zone": "Desolace (Shadowprey Village)",
+   "prereq": "Coated Cerulean Vial 17693 -> Filled 17696 at orange pool",
+   "rewards": [
+    17768,
+    17778,
+    17770
+   ]
+  },
+  {
+   "quest_id": 7070,
+   "title": "Shadowshard Fragments",
+   "level": 42,
+   "min_level": 38,
+   "faction": "Alliance",
+   "giver": "Archmage Tervosh",
+   "giver_npc_id": 4967,
+   "giver_item_id": null,
+   "giver_zone": "Dustwallow Marsh (Theramore)",
+   "prereq": "10x Shadowshard Fragment 17756",
+   "rewards": [
+    17772,
+    17773
+   ]
+  },
+  {
+   "quest_id": 7068,
+   "title": "Shadowshard Fragments",
+   "level": 42,
+   "min_level": 38,
+   "faction": "Horde",
+   "giver": "Uthel'nay",
+   "giver_npc_id": 7311,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar (Valley of Spirits)",
+   "prereq": "10x Shadowshard Fragment 17756",
+   "rewards": [
+    17772,
+    17773
+   ]
+  }
+ ],
+ "keys_attunement": "No key for outer sides. Scepter of Celebras item=17191 (quest 7046) opens portal from outer caves to Earth Song Falls.",
+ "forever_changes": [
+  "Maraudon keeps its Classic layout",
+  "Itemization changes stated: Resurgence Rod 112 healing/37 spell dmg; Thrash Blade extra attack; Inventor's Focal Sword 60 SP/14 crit; Noxious Shooter 5 SP; Vinerot Sandals 6 spell dmg; Phytoskin Spaulders 16 Agi; Satyrmane Sash 14 SP; Blackstone Ring 20 AP/10 hit; Eye of Theradras 14 crit; Gatorbite Axe bleed 210/7s (was 230/30s); Grovekeeper's Drape -5% Charm hit; Claw of Celebras poison ticks 1s for 7s; Fist of Stone 3x mana vs earth elementals/golems/titan-forged; Fungus Shroud Armor 25 Agi; Rotgrip Mantle 13 SP; Albino Crocscale Boots 20 Agi; Sagebrush Girdle 15 Agi; Zealous Shadowshard Pendant 20 AP; Mark of the Chosen 2% proc +25 all stats 1 min",
+  "Several rewards/drops still shown with Classic stats (Forever not published)"
+ ],
+ "notes": [
+  "Guide says 8 bosses + 1 rare; quest level range 38-45",
+  "Razorlash also drops two unnamed green items (no IDs on page)",
+  "Boss levels not stated",
+  "Slots null where guide did not state them",
+  "Pariah Khan ghosts: Kolk 13742, Gelk 13741, Magra 13740 (outer); Maraudos 13739, Veng 13738 (inside)"
+ ]
+}

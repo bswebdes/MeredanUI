@@ -1,0 +1,995 @@
+{
+ "key": 230,
+ "name_en": "Blackrock Depths",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-blackrock-depths-guide/",
+  "https://www.warcrafttavern.com/forever/guides/blackrock-depths/"
+ ],
+ "level": "52-60",
+ "boss_level": null,
+ "zone": "Blackrock Mountain (Searing Gorge / Burning Steppes)",
+ "zone_id": 25,
+ "entrance": "portal at bottom of Blackrock Mountain",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": null,
+   "name": "High Interrogator Gerstahn",
+   "npc_ids": [
+    9018
+   ],
+   "location": "Detention Block",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11140,
+     "name": "Prison Cell Key",
+     "slot": "Key",
+     "chance": "one per kill",
+     "quest_item": false
+    },
+    {
+     "item_id": 22240,
+     "name": "Greaves of Withering Despair",
+     "slot": null,
+     "chance": "12%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": null,
+   "name": "Lord Roccor",
+   "npc_ids": [
+    9025
+   ],
+   "location": "Detention Block",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11631,
+     "name": "Stoneshell Guard",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": null,
+   "name": "Houndmaster Grebmar",
+   "npc_ids": [
+    9319
+   ],
+   "location": "Detention Block",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11627,
+     "name": "Fleetfoot Greaves",
+     "slot": null,
+     "chance": "43%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11628,
+     "name": "Houndmaster's Bow",
+     "slot": "Bow",
+     "chance": "10%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": null,
+   "name": "High Justice Grimstone",
+   "npc_ids": [
+    10096
+   ],
+   "location": "Ring of the Law (runs arena waves)",
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Gorosh the Dervish",
+   "npc_ids": [
+    9027
+   ],
+   "location": "Ring of the Law (random)",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11726,
+     "name": "Savage Gladiator Chain",
+     "slot": "Chest (Epic)",
+     "chance": "14%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Grizzle",
+   "npc_ids": [
+    9028
+   ],
+   "location": "Ring of the Law (random)",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11610,
+     "name": "Plans: Dark Iron Pulverizer",
+     "slot": "Plans",
+     "chance": "93%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Ok'thor the Breaker",
+   "npc_ids": [
+    9030
+   ],
+   "location": "Ring of the Law (random)",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Anub'shiah",
+   "npc_ids": [
+    9031
+   ],
+   "location": "Ring of the Law (random)",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Hedrum the Creeper",
+   "npc_ids": [
+    9032
+   ],
+   "location": "Ring of the Law (random)",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 10,
+   "wing": null,
+   "name": "Eviscerator",
+   "npc_ids": [
+    9029
+   ],
+   "location": "Ring of the Law (random)",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 11,
+   "wing": null,
+   "name": "Pyromancer Loregrain",
+   "npc_ids": [
+    9024
+   ],
+   "location": "Dark Iron area past the arena",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11750,
+     "name": "Kindling Stave",
+     "slot": "Staff",
+     "chance": "20%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": null,
+   "name": "Warder Stilgiss / Verek",
+   "npc_ids": [
+    9041,
+    9042
+   ],
+   "location": "Black Vault",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11309,
+     "name": "Heart of the Mountain",
+     "slot": "Quest (Secret Safe)",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": null,
+   "name": "Watchman Doomgrip",
+   "npc_ids": [
+    9476
+   ],
+   "location": "Black Vault; spawns after all 12 Relic Coffers opened",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 22205,
+     "name": "Black Steel Bindings",
+     "slot": "Wrist",
+     "chance": "one of four (safe box)",
+     "quest_item": false
+    },
+    {
+     "item_id": 22255,
+     "name": "Magma Forged Band",
+     "slot": "Finger",
+     "chance": "one of four (safe box)",
+     "quest_item": false
+    },
+    {
+     "item_id": 22256,
+     "name": "Mana Shaping Handwraps",
+     "slot": "Hands",
+     "chance": "one of four (safe box)",
+     "quest_item": false
+    },
+    {
+     "item_id": 22254,
+     "name": "Wand of Eternal Light",
+     "slot": "Wand",
+     "chance": "one of four (safe box)",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 14,
+   "wing": null,
+   "name": "Fineous Darkvire",
+   "npc_ids": [
+    9056
+   ],
+   "location": "Hall of Crafting",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 10999,
+     "name": "Ironfel",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 11841,
+     "name": "Senior Designer's Pantaloons",
+     "slot": "Legs",
+     "chance": "23%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 15,
+   "wing": null,
+   "name": "Lord Incendius",
+   "npc_ids": [
+    9017
+   ],
+   "location": "Black Anvil",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11764,
+     "name": "Cinderhide Armsplints",
+     "slot": "Wrist",
+     "chance": "~12% (one of four fire-res bracers)",
+     "quest_item": false
+    },
+    {
+     "item_id": 11126,
+     "name": "Tablet of Kurniya",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 16,
+   "wing": null,
+   "name": "Bael'Gar",
+   "npc_ids": [
+    9016
+   ],
+   "location": "lava at end of Dark Iron Highway",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 11803,
+     "name": "Force of Magma",
+     "slot": null,
+     "chance": "34%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 17,
+   "wing": null,
+   "name": "General Angerforge",
+   "npc_ids": [
+    9033
+   ],
+   "location": "West Garrison",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11821,
+     "name": "Warstrife Leggings",
+     "slot": "Legs",
+     "chance": "11%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11817,
+     "name": "Lord General's Sword",
+     "slot": "Sword",
+     "chance": "8%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 18,
+   "wing": null,
+   "name": "Golem Lord Argelmach",
+   "npc_ids": [
+    8983
+   ],
+   "location": "Manufactory beside the garrison",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11669,
+     "name": "Naglering",
+     "slot": "Finger",
+     "chance": "10%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11819,
+     "name": "Second Wind",
+     "slot": "Trinket",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11822,
+     "name": "Omnicast Boots",
+     "slot": "Feet",
+     "chance": "37%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 19,
+   "wing": null,
+   "name": "Hurley Blackbreath",
+   "npc_ids": [
+    9537
+   ],
+   "location": "Grim Guzzler; appears after kegs broken",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 20,
+   "wing": null,
+   "name": "Plugger Spazzring",
+   "npc_ids": [
+    9499
+   ],
+   "location": "Grim Guzzler bar (vendor; sells Dark Iron Ale Mug 11325)",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 21,
+   "wing": null,
+   "name": "Phalanx",
+   "npc_ids": [
+    9502
+   ],
+   "location": "Grim Guzzler exit",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11745,
+     "name": "Fists of Phalanx",
+     "slot": "Hands",
+     "chance": "31%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 22,
+   "wing": null,
+   "name": "Ambassador Flamelash",
+   "npc_ids": [
+    9156
+   ],
+   "location": "Chamber of Enchantment, rune pillars",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11832,
+     "name": "Burst of Knowledge",
+     "slot": "Trinket",
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11808,
+     "name": "Circle of Flame",
+     "slot": null,
+     "chance": "very rare",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 23,
+   "wing": null,
+   "name": "The Seven (Doom'rel and six ghosts)",
+   "npc_ids": [
+    9039
+   ],
+   "location": "Summoners' Tomb",
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 24,
+   "wing": null,
+   "name": "Magmus",
+   "npc_ids": [
+    9938
+   ],
+   "location": "Lyceum, before throne room door",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11746,
+     "name": "Golem Skull Helm",
+     "slot": "Head",
+     "chance": "20%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 25,
+   "wing": null,
+   "name": "Emperor Dagran Thaurissan",
+   "npc_ids": [
+    9019
+   ],
+   "location": "Imperial Seat (throne room)",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 11815,
+     "name": "Hand of Justice",
+     "slot": "Trinket",
+     "chance": "16%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11928,
+     "name": "Thaurissan's Royal Scepter",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11934,
+     "name": "Emperor's Seal",
+     "slot": null,
+     "chance": "17%",
+     "quest_item": false
+    },
+    {
+     "item_id": 11684,
+     "name": "Ironfoe",
+     "slot": "Mace (Epic)",
+     "chance": "<1%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 26,
+   "wing": null,
+   "name": "Princess Moira Bronzebeard",
+   "npc_ids": [
+    8929
+   ],
+   "location": "throne room beside the Emperor",
+   "optional": true,
+   "loot": []
+  }
+ ],
+ "rares": [
+  {
+   "name": "Dark Keeper (random named spawn)",
+   "npc_id": null,
+   "location": "from Dark Keeper Portrait",
+   "loot": [
+    {
+     "item_id": 11197,
+     "name": "Dark Keeper Key",
+     "slot": "Key",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 3802,
+   "title": "Dark Iron Legacy",
+   "level": 52,
+   "min_level": 48,
+   "faction": "Both",
+   "giver": "Franclorn Forgewright (ghost)",
+   "giver_npc_id": 8888,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "3801",
+   "rewards": [
+    11000
+   ]
+  },
+  {
+   "quest_id": 4136,
+   "title": "Ribbly Screwspigot",
+   "level": 53,
+   "min_level": 48,
+   "faction": "Both",
+   "giver": "Yuka Screwspigot",
+   "giver_npc_id": 9544,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": null,
+   "rewards": [
+    11865,
+    11963,
+    12049
+   ]
+  },
+  {
+   "quest_id": 4201,
+   "title": "The Love Potion",
+   "level": 54,
+   "min_level": 50,
+   "faction": "Both",
+   "giver": "Mistress Nagmara",
+   "giver_npc_id": 9500,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Depths (Grim Guzzler)",
+   "prereq": null,
+   "rewards": [
+    11962,
+    11866
+   ]
+  },
+  {
+   "quest_id": 4123,
+   "title": "The Heart of the Mountain",
+   "level": 55,
+   "min_level": 50,
+   "faction": "Both",
+   "giver": "Maxwort Uberglint",
+   "giver_npc_id": 9536,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Flame Crest)",
+   "prereq": "Heart of the Mountain 11309",
+   "rewards": []
+  },
+  {
+   "quest_id": 4083,
+   "title": "The Spectral Chalice",
+   "level": 55,
+   "min_level": 40,
+   "faction": "Both",
+   "giver": "Spectral Chalice (object 164869)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Depths",
+   "prereq": "teaches Smelt Dark Iron from Gloom'rel (9037)",
+   "rewards": []
+  },
+  {
+   "quest_id": 4024,
+   "title": "A Taste of Flame",
+   "level": 58,
+   "min_level": 52,
+   "faction": "Both",
+   "giver": "Cyrus Therepentous",
+   "giver_npc_id": 9459,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes",
+   "prereq": null,
+   "rewards": [
+    12066,
+    12082,
+    12083
+   ]
+  },
+  {
+   "quest_id": 9015,
+   "title": "The Challenge",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Falrin Treeshaper",
+   "giver_npc_id": 16032,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 7604,
+   "title": "A Binding Contract",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both",
+   "giver": "Thorium Brotherhood Contract",
+   "giver_npc_id": null,
+   "giver_item_id": 18628,
+   "giver_zone": null,
+   "prereq": "item-started",
+   "rewards": [
+    18592
+   ]
+  },
+  {
+   "quest_id": 7848,
+   "title": "Attunement to the Core",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Lothos Riftwaker",
+   "giver_npc_id": 14387,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "Core Fragment 18412",
+   "rewards": []
+  },
+  {
+   "quest_id": 4242,
+   "title": "Abandoned Hope",
+   "level": 54,
+   "min_level": 48,
+   "faction": "Alliance",
+   "giver": "Marshal Windsor",
+   "giver_npc_id": 9023,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes",
+   "prereq": null,
+   "rewards": [
+    12018,
+    12021,
+    12041
+   ]
+  },
+  {
+   "quest_id": 4263,
+   "title": "Incendius!",
+   "level": 56,
+   "min_level": 48,
+   "faction": "Alliance",
+   "giver": "Jalinda Sprig",
+   "giver_npc_id": 9561,
+   "giver_item_id": null,
+   "giver_zone": "Searing Gorge (Thorium Point)",
+   "prereq": null,
+   "rewards": [
+    12113,
+    12114,
+    12112,
+    12115
+   ]
+  },
+  {
+   "quest_id": 4126,
+   "title": "Hurley Blackbreath",
+   "level": 55,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Ragnar Thunderbrew",
+   "giver_npc_id": 1267,
+   "giver_item_id": null,
+   "giver_zone": "Dun Morogh (Kharanos)",
+   "prereq": null,
+   "rewards": [
+    12003,
+    11964,
+    12000
+   ]
+  },
+  {
+   "quest_id": 4286,
+   "title": "The Good Stuff",
+   "level": 56,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Oralius",
+   "giver_npc_id": 9177,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes (Morgan's Vigil)",
+   "prereq": null,
+   "rewards": [
+    11883
+   ]
+  },
+  {
+   "quest_id": 4264,
+   "title": "A Crumpled Up Note",
+   "level": 58,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "A Crumpled Up Note",
+   "giver_npc_id": null,
+   "giver_item_id": 11446,
+   "giver_zone": "Blackrock Depths",
+   "prereq": "item-started, drops inside",
+   "rewards": []
+  },
+  {
+   "quest_id": 4282,
+   "title": "A Shred of Hope",
+   "level": 58,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Marshal Windsor",
+   "giver_npc_id": 9023,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Depths",
+   "prereq": "A Crumpled Up Note (4264)",
+   "rewards": []
+  },
+  {
+   "quest_id": 4322,
+   "title": "Jail Break!",
+   "level": 58,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Marshal Windsor",
+   "giver_npc_id": 9023,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Depths",
+   "prereq": "A Shred of Hope (4282)",
+   "rewards": [
+    12065,
+    12061,
+    12062
+   ]
+  },
+  {
+   "quest_id": 4362,
+   "title": "The Fate of the Kingdom",
+   "level": 59,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "King Magni Bronzebeard",
+   "giver_npc_id": 2784,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "Kharan Mighthammer chain (4341, npc 9021)",
+   "rewards": []
+  },
+  {
+   "quest_id": 4363,
+   "title": "The Princess's Surprise",
+   "level": 59,
+   "min_level": 50,
+   "faction": "Alliance",
+   "giver": "Princess Moira Bronzebeard",
+   "giver_npc_id": 8929,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Depths",
+   "prereq": "The Fate of the Kingdom (4362)",
+   "rewards": [
+    12548,
+    12543
+   ]
+  },
+  {
+   "quest_id": 4081,
+   "title": "KILL ON SIGHT: Dark Iron Dwarves",
+   "level": 52,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": "WANTED poster (object 164867)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 4082,
+   "title": "KILL ON SIGHT: High Ranking Dark Iron Officials",
+   "level": 54,
+   "min_level": 50,
+   "faction": "Horde",
+   "giver": "KILL ON SIGHT poster (object 164868)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": "4081",
+   "rewards": []
+  },
+  {
+   "quest_id": 7201,
+   "title": "The Last Element",
+   "level": 54,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": "Vivian Lagrave",
+   "giver_npc_id": 9078,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    12038
+   ]
+  },
+  {
+   "quest_id": 4134,
+   "title": "Lost Thunderbrew Recipe",
+   "level": 55,
+   "min_level": 50,
+   "faction": "Horde",
+   "giver": "Vivian Lagrave",
+   "giver_npc_id": 9078,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    3928,
+    6149,
+    11964,
+    12000
+   ]
+  },
+  {
+   "quest_id": 3907,
+   "title": "Disharmony of Fire",
+   "level": 56,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": "Thunderheart",
+   "giver_npc_id": 9084,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    12113,
+    12114,
+    12112,
+    12115
+   ]
+  },
+  {
+   "quest_id": 4132,
+   "title": "Operation: Death to Angerforge",
+   "level": 58,
+   "min_level": 52,
+   "faction": "Horde",
+   "giver": "Warlord Goretooth",
+   "giver_npc_id": 9077,
+   "giver_item_id": null,
+   "giver_zone": "Badlands (Kargath)",
+   "prereq": null,
+   "rewards": [
+    12059
+   ]
+  },
+  {
+   "quest_id": 4121,
+   "title": "Precarious Predicament",
+   "level": 58,
+   "min_level": 52,
+   "faction": "Horde",
+   "giver": "Grark Lorkrub",
+   "giver_npc_id": 9520,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes",
+   "prereq": "capture with Thorium Shackles 11286",
+   "rewards": []
+  },
+  {
+   "quest_id": 4063,
+   "title": "The Rise of the Machines",
+   "level": 58,
+   "min_level": 52,
+   "faction": "Horde",
+   "giver": "Lotwil Veriatus",
+   "giver_npc_id": 2921,
+   "giver_item_id": null,
+   "giver_zone": "Badlands",
+   "prereq": null,
+   "rewards": [
+    12109,
+    12110,
+    12108,
+    12111
+   ]
+  },
+  {
+   "quest_id": 4003,
+   "title": "The Royal Rescue",
+   "level": 59,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": "Thrall",
+   "giver_npc_id": 4949,
+   "giver_item_id": null,
+   "giver_zone": "Orgrimmar",
+   "prereq": "Commander Gor'shak chain (3981)",
+   "rewards": []
+  },
+  {
+   "quest_id": 4004,
+   "title": "The Princess Saved?",
+   "level": 60,
+   "min_level": 48,
+   "faction": "Horde",
+   "giver": "Princess Moira Bronzebeard",
+   "giver_npc_id": 8929,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Depths",
+   "prereq": "The Royal Rescue (4003)",
+   "rewards": [
+    12544,
+    12545
+   ]
+  }
+ ],
+ "keys_attunement": "No entry key. Shadowforge Key item=11000 (quest 3802) opens side doors; Prison Cell Key item=11140 (Gerstahn); Relic Coffer Key item=11078; Dark Keeper Key item=11197; Ironfel item=10999; Thorium Shackles item=11286; Molten Core attunement quest 7848 (Lothos Riftwaker 14387, Core Fragment 18412).",
+ "forever_changes": [
+  "Guide says drop chances shown are Classic values; Forever stat claims unverified",
+  "Some chain quests item-started and not shareable"
+ ],
+ "notes": [
+  "conquestcapped page lists only notable loot per boss, not full tables (page not truncated; refers to a loot card absent from text)",
+  "warcrafttavern page has no drop chances or boss loot lists; full loot tables not obtainable from allowed sources",
+  "Guide totals: 27 quests (17 Alliance, 18 Horde, 8 shared); 105,850 XP Alliance / 112,550 Horde",
+  "Ring of the Law: one random arena boss per run (Gorosh, Grizzle, Ok'thor, Anub'shiah, Hedrum, Eviscerator); rest of Gladiator set unitemized",
+  "Lord Incendius: four fire-res bracers ~12% each, only Cinderhide Armsplints named",
+  "Ragefury Eyepatch 11735 (8%) drops in the tavern, source NPC not stated",
+  "Commander Gor'shak: warcrafttavern npc 9020; conquestcapped text paired 3981 with npc 9081 (that ID is Galamav) - likely 9020",
+  "Seven: Chest of the Seven object=169243; Hammer of Grace named without ID",
+  "Dark Coffer mats: 11751, 11752, 11753 -> Librams 11736, 11732, 11734",
+  "Instance zone=1584; boss levels not stated; boss order is guide route order; optional flags are my judgement"
+ ]
+}

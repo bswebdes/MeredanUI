@@ -1,0 +1,1212 @@
+{
+ "key": 429,
+ "name_en": "Dire Maul",
+ "source_urls": [
+  "https://conquestcapped.com/guides/wow-forever/wow-forever-dire-maul-guide/"
+ ],
+ "level": "East 54-60, West 56-60, North 56-60",
+ "boss_level": null,
+ "zone": "Feralas",
+ "zone_id": 357,
+ "entrance": "ruins in northern Feralas west of Camp Mojache; East outer side, West/North from courtyard",
+ "faction": "Both",
+ "bosses": [
+  {
+   "order": 1,
+   "wing": "East",
+   "name": "Pusillin",
+   "npc_ids": [
+    14354
+   ],
+   "location": "chase through Warpwood Quarter with imp adds",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18249,
+     "name": "Crescent Key",
+     "slot": "Key",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18261,
+     "name": "Book of Incantations",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 18267,
+     "name": "Recipe: Runn Tum Tuber Surprise",
+     "slot": "Recipe",
+     "chance": "83%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 2,
+   "wing": "East",
+   "name": "Zevrim Thornhoof",
+   "npc_ids": [
+    11490
+   ],
+   "location": "satyr shrine in East wing",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18313,
+     "name": "Helm of Awareness",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18323,
+     "name": "Satyr's Bow",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18319,
+     "name": "Fervent Helm",
+     "slot": null,
+     "chance": "10%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 3,
+   "wing": "East",
+   "name": "Hydrospawn",
+   "npc_ids": [
+    13280
+   ],
+   "location": "pool chamber in East wing",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18317,
+     "name": "Tempest Talisman",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18322,
+     "name": "Waterspout Boots",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18324,
+     "name": "Waveslicer",
+     "slot": null,
+     "chance": "10%",
+     "quest_item": false
+    },
+    {
+     "item_id": 19268,
+     "name": "Ace of Elementals",
+     "slot": null,
+     "chance": "rare",
+     "quest_item": false
+    },
+    {
+     "item_id": 18299,
+     "name": "Hydrospawn Essence",
+     "slot": "Quest (Mage)",
+     "chance": null,
+     "quest_item": true
+    }
+   ]
+  },
+  {
+   "order": 4,
+   "wing": "East",
+   "name": "Lethtendris",
+   "npc_ids": [
+    14327,
+    14349
+   ],
+   "location": "East wing, with imp Pimgib",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18325,
+     "name": "Felhide Cap",
+     "slot": null,
+     "chance": "29%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18311,
+     "name": "Quel'dorai Channeling Rod",
+     "slot": null,
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18426,
+     "name": "Lethtendris's Web",
+     "slot": "Quest",
+     "chance": null,
+     "quest_item": true
+    },
+    {
+     "item_id": 18354,
+     "name": "Pimgib's Collar",
+     "slot": "(from Pimgib)",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": "East",
+   "name": "Old Ironbark",
+   "npc_ids": [
+    11491
+   ],
+   "location": "East wing; opens path to shrine (no fight)",
+   "optional": false,
+   "loot": []
+  },
+  {
+   "order": 6,
+   "wing": "East",
+   "name": "Alzzin the Wildshaper",
+   "npc_ids": [],
+   "location": "Shrine of the Eldretharr, end of East wing",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18312,
+     "name": "Energized Chestplate",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18321,
+     "name": "Energetic Rod",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18310,
+     "name": "Fiendish Machete",
+     "slot": null,
+     "chance": "19%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": "East",
+   "name": "Isalien",
+   "npc_ids": [
+    16097
+   ],
+   "location": "summoned via Brazier of Beckoning 22050",
+   "optional": true,
+   "loot": []
+  },
+  {
+   "order": 8,
+   "wing": "West",
+   "name": "Tendris Warpwood",
+   "npc_ids": [
+    11489
+   ],
+   "location": "Capital Gardens, first boss",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18393,
+     "name": "Warpwood Binding",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18390,
+     "name": "Tanglemoss Leggings",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": "West",
+   "name": "Illyanna Ravenoak",
+   "npc_ids": [
+    11488,
+    14308
+   ],
+   "location": "Capital Gardens, with bear Ferra",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18383,
+     "name": "Force Imbued Gauntlets",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18386,
+     "name": "Padre's Trousers",
+     "slot": null,
+     "chance": "22%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": "West",
+   "name": "Magister Kalendris",
+   "npc_ids": [
+    11487
+   ],
+   "location": "Court of the Highborne",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18374,
+     "name": "Flamescarred Shoulders",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18397,
+     "name": "Elder Magus Pendant",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18371,
+     "name": "Mindtap Talisman",
+     "slot": null,
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 22309,
+     "name": "Pattern: Big Bag of Enchantment",
+     "slot": "Pattern",
+     "chance": "rare",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 11,
+   "wing": "West",
+   "name": "Immol'thar",
+   "npc_ids": [
+    11496
+   ],
+   "location": "prison chamber after pylons",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18370,
+     "name": "Vigilance Charm",
+     "slot": null,
+     "chance": "9%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18391,
+     "name": "Eyestalk Cord",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18379,
+     "name": "Odious Greaves",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 12,
+   "wing": "West",
+   "name": "Prince Tortheldrin",
+   "npc_ids": [
+    11486
+   ],
+   "location": "Court of the Highborne, final",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18382,
+     "name": "Fluctuating Cloak",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18395,
+     "name": "Emerald Flame Ring",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18396,
+     "name": "Mind Carver",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 13,
+   "wing": "West",
+   "name": "Lord Hel'nurath",
+   "npc_ids": [
+    14506
+   ],
+   "location": "summoned (warlock mount chain)",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 18755,
+     "name": "Xorothian Firestick",
+     "slot": null,
+     "chance": "22-26%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18756,
+     "name": "Dreadguard's Protector",
+     "slot": null,
+     "chance": "22-26%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 14,
+   "wing": "North",
+   "name": "Guard Mol'dar",
+   "npc_ids": [
+    14326
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18494,
+     "name": "Denwatcher's Shoulders",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18493,
+     "name": "Bulky Iron Spaulders",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18496,
+     "name": "Heliotrope Cloak",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18497,
+     "name": "Sublime Wristguards",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18498,
+     "name": "Hedgecutter",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": "Key",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 15,
+   "wing": "North",
+   "name": "Stomper Kreeg",
+   "npc_ids": [
+    14322
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18425,
+     "name": "Kreeg's Mug",
+     "slot": null,
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 16,
+   "wing": "North",
+   "name": "Guard Fengus",
+   "npc_ids": [
+    14321
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": "Key",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 17,
+   "wing": "North",
+   "name": "Guard Slip'kik",
+   "npc_ids": [
+    14323
+   ],
+   "location": "Gordok Commons",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18494,
+     "name": "Denwatcher's Shoulders",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18493,
+     "name": "Bulky Iron Spaulders",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18496,
+     "name": "Heliotrope Cloak",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18497,
+     "name": "Sublime Wristguards",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18498,
+     "name": "Hedgecutter",
+     "slot": null,
+     "chance": "6-7%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18250,
+     "name": "Gordok Shackle Key",
+     "slot": "Key",
+     "chance": null,
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 18,
+   "wing": "North",
+   "name": "Knot Thimblejack (cache)",
+   "npc_ids": [
+    14338
+   ],
+   "location": "shackled; freeing opens Knot Thimblejack's Cache",
+   "optional": true,
+   "loot": [
+    {
+     "item_id": 18417,
+     "name": "Pattern: Mooncloth Gloves",
+     "slot": "Pattern",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18515,
+     "name": "Pattern: Mongoose Boots",
+     "slot": "Pattern",
+     "chance": null,
+     "quest_item": false
+    },
+    {
+     "item_id": 18414,
+     "name": "Pattern: Belt of the Archmage",
+     "slot": "Pattern",
+     "chance": "rare",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 19,
+   "wing": "North",
+   "name": "Captain Kromcrush",
+   "npc_ids": [
+    14325
+   ],
+   "location": "Gordok Commons, before throne",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18503,
+     "name": "Kromcrush's Chestplate",
+     "slot": null,
+     "chance": "21-23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18507,
+     "name": "Boots of the Full Moon",
+     "slot": null,
+     "chance": "21-23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18502,
+     "name": "Monstrous Glaive",
+     "slot": null,
+     "chance": "21-23%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18505,
+     "name": "Mugger's Belt",
+     "slot": null,
+     "chance": "21-23%",
+     "quest_item": false
+    }
+   ]
+  },
+  {
+   "order": 20,
+   "wing": "North",
+   "name": "King Gordok",
+   "npc_ids": [
+    11501,
+    14324
+   ],
+   "location": "throne room, with Cho'Rush the Observer",
+   "optional": false,
+   "loot": [
+    {
+     "item_id": 18524,
+     "name": "Leggings of Destruction",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18527,
+     "name": "Harmonious Gauntlets",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    },
+    {
+     "item_id": 18526,
+     "name": "Crown of the Ogre King",
+     "slot": null,
+     "chance": "24%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "rares": [
+  {
+   "name": "Tsu'zee",
+   "npc_id": 11467,
+   "location": "Dire Maul West (near Kalendris)",
+   "loot": [
+    {
+     "item_id": 18387,
+     "name": "Brightspark Gloves",
+     "slot": "Hands",
+     "chance": "30%",
+     "quest_item": false
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "quest_id": 7441,
+   "title": "Pusillin and the Elder Azj'Tordin",
+   "level": 58,
+   "min_level": 54,
+   "faction": "Both",
+   "giver": "Azj'Tordin",
+   "giver_npc_id": 14355,
+   "giver_item_id": null,
+   "giver_zone": "Feralas (Lariss Pavilion)",
+   "prereq": null,
+   "rewards": [
+    18411,
+    18410
+   ]
+  },
+  {
+   "quest_id": 7488,
+   "title": "Lethtendris's Web",
+   "level": 57,
+   "min_level": 54,
+   "faction": "Alliance",
+   "giver": "Latronicus Moonspear",
+   "giver_npc_id": 7877,
+   "giver_item_id": null,
+   "giver_zone": "Feralas (Feathermoon Stronghold)",
+   "prereq": "Feathermoon Stronghold (Crier Goodman, Stormwind)",
+   "rewards": [
+    18491
+   ]
+  },
+  {
+   "quest_id": 7489,
+   "title": "Lethtendris's Web",
+   "level": 57,
+   "min_level": 54,
+   "faction": "Horde",
+   "giver": "Talo Thornhoof",
+   "giver_npc_id": 7776,
+   "giver_item_id": null,
+   "giver_zone": "Feralas (Camp Mojache)",
+   "prereq": "Camp Mojache (Warcaller Gorlach, Orgrimmar)",
+   "rewards": [
+    18491
+   ]
+  },
+  {
+   "quest_id": 7463,
+   "title": "Arcane Refreshment",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both (Mage)",
+   "giver": "Lorekeeper Lydros",
+   "giver_npc_id": 14368,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West",
+   "prereq": "Hydrospawn Essence 18299",
+   "rewards": []
+  },
+  {
+   "quest_id": 8967,
+   "title": "The Left Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "Dungeon Set 2 chain",
+   "rewards": []
+  },
+  {
+   "quest_id": 8990,
+   "title": "The Right Piece of Lord Valthalak's Amulet",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Bodley",
+   "giver_npc_id": 16033,
+   "giver_item_id": null,
+   "giver_zone": "Blackrock Mountain",
+   "prereq": "More Components of Importance",
+   "rewards": []
+  },
+  {
+   "quest_id": 7461,
+   "title": "The Madness Within",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Both",
+   "giver": "Shen'dralar Ancient",
+   "giver_npc_id": 14358,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West (Court of the Highborne)",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 7462,
+   "title": "The Treasure of the Shen'dralar",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Alliance",
+   "giver": "Shen'dralar Ancient",
+   "giver_npc_id": 14358,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West",
+   "prereq": "The Madness Within (7461)",
+   "rewards": [
+    18420,
+    18421,
+    18424
+   ]
+  },
+  {
+   "quest_id": 7877,
+   "title": "The Treasure of the Shen'dralar",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Horde",
+   "giver": "Shen'dralar Ancient",
+   "giver_npc_id": 14358,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul West",
+   "prereq": "The Madness Within (7461)",
+   "rewards": [
+    18420,
+    18421,
+    18424
+   ]
+  },
+  {
+   "quest_id": 8950,
+   "title": "The Instigator's Enchantment",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Falrin Treeshaper",
+   "giver_npc_id": 16032,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (Athenaeum)",
+   "prereq": null,
+   "rewards": [
+    21986
+   ]
+  },
+  {
+   "quest_id": 5518,
+   "title": "The Gordok Ogre Suit",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Both",
+   "giver": "Knot Thimblejack",
+   "giver_npc_id": 14338,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "4x Bolt of Runecloth 14048, 8x Rugged Leather 8170, 2x Rune Thread 14341, 1x Ogre Tannin 18240",
+   "rewards": [
+    18258
+   ]
+  },
+  {
+   "quest_id": 5525,
+   "title": "Free Knot!",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Knot Thimblejack",
+   "giver_npc_id": 14338,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "Gordok Shackle Key 18250",
+   "rewards": []
+  },
+  {
+   "quest_id": 1318,
+   "title": "Unfinished Gordok Business",
+   "level": 60,
+   "min_level": 56,
+   "faction": "Both",
+   "giver": "Captain Kromcrush",
+   "giver_npc_id": 14325,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "tribute run; Gauntlet of Gordok Might 18336 from Prince's Chest",
+   "rewards": [
+    18366,
+    18367,
+    18368,
+    18369
+   ]
+  },
+  {
+   "quest_id": 5528,
+   "title": "The Gordok Taste Test",
+   "level": 60,
+   "min_level": 57,
+   "faction": "Both",
+   "giver": "Stomper Kreeg",
+   "giver_npc_id": 14322,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul North",
+   "prereq": "Kreeg survives tribute run",
+   "rewards": [
+    18269,
+    18284
+   ]
+  },
+  {
+   "quest_id": 8949,
+   "title": "Falrin's Vendetta",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Falrin Treeshaper",
+   "giver_npc_id": 16032,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (Athenaeum)",
+   "prereq": "25x Ogre Warbeads 21982",
+   "rewards": [
+    22150,
+    22149
+   ]
+  },
+  {
+   "quest_id": 7498,
+   "title": "Garona: A Study on Stealth and Treachery",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Rogue)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18465
+   ]
+  },
+  {
+   "quest_id": 7499,
+   "title": "Codex of Defense",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Warrior)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18466
+   ]
+  },
+  {
+   "quest_id": 7500,
+   "title": "The Arcanist's Cookbook",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Mage)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18468
+   ]
+  },
+  {
+   "quest_id": 7501,
+   "title": "The Light and How To Swing It",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Paladin)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18472
+   ]
+  },
+  {
+   "quest_id": 7502,
+   "title": "Harnessing Shadows",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Warlock)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18467
+   ]
+  },
+  {
+   "quest_id": 7503,
+   "title": "The Greatest Race of Hunters",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Hunter)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18473
+   ]
+  },
+  {
+   "quest_id": 7504,
+   "title": "Holy Bologna: What the Light Won't Tell You",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Priest)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18469
+   ]
+  },
+  {
+   "quest_id": 7505,
+   "title": "Frost Shock and You",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Shaman)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18471
+   ]
+  },
+  {
+   "quest_id": 7506,
+   "title": "The Emerald Dream...",
+   "level": 60,
+   "min_level": 54,
+   "faction": "Both (Druid)",
+   "giver": "A Dusty Tome (object 179548)",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (any wing)",
+   "prereq": "class book drop; turn in Athenaeum",
+   "rewards": [
+    18470
+   ]
+  },
+  {
+   "quest_id": 7507,
+   "title": "Foror's Compendium",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both (Warrior/Paladin)",
+   "giver": "Nostro's Compendium of Dragon Slaying",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul",
+   "prereq": "item-started",
+   "rewards": [
+    18401
+   ]
+  },
+  {
+   "quest_id": 7508,
+   "title": "The Forging of Quel'Serrar",
+   "level": 60,
+   "min_level": 60,
+   "faction": "Both",
+   "giver": "A Dull and Flat Elven Blade",
+   "giver_npc_id": null,
+   "giver_item_id": 18513,
+   "giver_zone": "Dire Maul (from Lorekeeper Lydros)",
+   "prereq": "final step 7509; Onyxia; 18489 -> 18488",
+   "rewards": [
+    18348
+   ]
+  },
+  {
+   "quest_id": 8948,
+   "title": "Anthion's Old Friend",
+   "level": 60,
+   "min_level": 58,
+   "faction": "Both",
+   "giver": "Anthion Harmon",
+   "giver_npc_id": 16016,
+   "giver_item_id": null,
+   "giver_zone": "Eastern Plaguelands",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 7483,
+   "title": "Libram of Rapidity",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (library)",
+   "prereq": null,
+   "rewards": [
+    18329
+   ]
+  },
+  {
+   "quest_id": 7484,
+   "title": "Libram of Focus",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (library)",
+   "prereq": null,
+   "rewards": [
+    18330
+   ]
+  },
+  {
+   "quest_id": 7485,
+   "title": "Libram of Protection",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul (library)",
+   "prereq": null,
+   "rewards": [
+    18331
+   ]
+  },
+  {
+   "quest_id": 5526,
+   "title": "Shards of the Felvine",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Rabine Saturna",
+   "giver_npc_id": 11801,
+   "giver_item_id": null,
+   "giver_zone": "Moonglade",
+   "prereq": "Felvine Shard 18501",
+   "rewards": []
+  },
+  {
+   "quest_id": 7482,
+   "title": "Elven Legends",
+   "level": null,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Scholar Runethorn",
+   "giver_npc_id": 14374,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 7481,
+   "title": "Elven Legends",
+   "level": null,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Sage Korolusk",
+   "giver_npc_id": 14373,
+   "giver_item_id": null,
+   "giver_zone": "Feralas",
+   "prereq": null,
+   "rewards": []
+  },
+  {
+   "quest_id": 1193,
+   "title": "A Broken Trap",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Dire Maul East",
+   "prereq": "repeatable; used for tribute runs",
+   "rewards": []
+  },
+  {
+   "quest_id": 7631,
+   "title": "Dreadsteed of Xoroth",
+   "level": 60,
+   "min_level": null,
+   "faction": "Both (Warlock)",
+   "giver": "Mor'zul Bloodbringer",
+   "giver_npc_id": 14436,
+   "giver_item_id": null,
+   "giver_zone": "Burning Steppes",
+   "prereq": "warlock mount chain final step",
+   "rewards": []
+  }
+ ],
+ "keys_attunement": "No attunement. Crescent Key item=18249 (Pusillin, East) opens West and North doors, permanent; Gordok Shackle Key item=18250 (North guards) for Free Knot!; Brazier of Beckoning item=22050 summons Isalien.",
+ "forever_changes": [
+  "Pattern: Big Bag of Enchantment needs only 255 Tailoring",
+  "Glove patterns need 280 Tailoring, leather patterns 290 Leatherworking",
+  "Slip'kik's Savvy has no effect in raid instances",
+  "Many reward items still show Classic stats"
+ ],
+ "notes": [
+  "Instance zone=2557; Feralas zone_id 357 is from general knowledge, not linked on page",
+  "Alzzin the Wildshaper npc ID not on page (Classic ID 11492, unverified)",
+  "Alzzin loot list says 'including' (may be incomplete)",
+  "Lord Hel'nurath: four blues 22-26%, only two named",
+  "Guard Fengus and Cho'Rush loot not listed; Gordok Shackle Key can drop from Mol'dar, Slip'kik, Fengus",
+  "Gordok Tribute chest (object 179564, Mizzle 14353): Tarnished Elven Ring 18500 23%, Elemental Plate Girdle 18529 19%, Barrier Shield 18499, Counterattack Lodestone 18537, Treant's Bane 18538 very rare",
+  "Tribute buffs: Mol'dar's Moxie spell 22818, Fengus' Ferocity 22817, Slip'kik's Savvy 22820",
+  "Prince's Chest object 179545; Knot's Cache object 179501",
+  "Page says 27 quests but tables list 25 per faction; XP total discrepancy (159,760 vs ~166,810)",
+  "Quest 7488 giver npc 7877 equals Horde Treasure quest id 7877 coincidentally - as stated on page",
+  "No slots stated on page; slots null",
+  "Full class book quest titles partly from page short names"
+ ]
+}
