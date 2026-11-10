@@ -23,8 +23,8 @@ local function Markup(class)
     if markup[key] == nil then
         local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
         if not C_Texture.GetAtlasInfo(atlas) then atlas = "groupfinder-icon-class-" .. class:lower() end
-        -- y -1: centred on the letters (0 sat a little high)
-        markup[key] = C_Texture.GetAtlasInfo(atlas) and CreateAtlasMarkup(atlas, size, size, 0, -1) or false
+        -- y -3: centred on the letters (higher values sat too high)
+        markup[key] = C_Texture.GetAtlasInfo(atlas) and CreateAtlasMarkup(atlas, size, size, 0, -3) or false
     end
     return markup[key] or nil
 end
@@ -52,7 +52,7 @@ function ns.ChatClassIcons(text)
         local class = classByLine[tonumber(lineID)]
         local icon = class and Markup(class)
         if not icon then return nil end
-        return icon .. " " .. link
+        return icon .. link -- no space: the gap before "[" already balances the one after "[G]"
     end, 1))
 end
 
