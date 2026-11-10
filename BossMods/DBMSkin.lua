@@ -7,7 +7,7 @@
 -- Set once per character (ns.char.dbmProfile); switch ns.db.dbmStyle (Modules page / setup).
 local _, ns = ...
 
-local PROFILE, PROFILE_VERSION = "MeredanUI", 3
+local PROFILE, PROFILE_VERSION = "MeredanUI", 4
 local BAR_WIDTH, BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 220, 22, 260, 26
 local ICON_GAP = 4
 local ABOVE_GAP = 8       -- between the player's buff row and the bars
@@ -55,20 +55,23 @@ local function Positions(bars, options)
     local h = UIParent:GetHeight()
     local player = ns.frames and ns.frames.player
     if player and player:GetLeft() then
-        -- icon flush with the player frame's left edge, bar after it, together as wide as the frame
+        -- icon flush with the player frame's left edge, bar after it: together exactly as wide as the frame
         local left = player:GetLeft() + BAR_HEIGHT + ICON_GAP
-        local width = math.floor(math.min(BAR_WIDTH, player:GetRight() - left))
+        local width = math.floor(player:GetRight() - left + 0.5)
         bars.Width = width
         bars.TimerPoint, bars.ExpandUpwards = "BOTTOMLEFT", true
         -- above the player's buff row (UnitFrames.lua: one row at aurasAbove, icon size buff)
         local S = player.Sizes or {}
-        local above = (S.aurasAbove or 20) + (S.buff or 30) + ns.Snap(ABOVE_GAP)
+        -- DBM places the bar's vertical centre on the anchor: half a bar more
+        local above = (S.aurasAbove or 20) + (S.buff or 30) + ns.Snap(ABOVE_GAP) + BAR_HEIGHT / 2
         bars.TimerX, bars.TimerY = Offset("BOTTOMLEFT", left + width / 2, player:GetTop() + above)
     end
-    local hugeTop = -math.floor(h * 0.26)
+    -- big bars a bit higher; warnings stacked tighter above them, clear of Blizzard's error and
+    -- zone texts (top -122 to about -180)
+    local hugeTop = -math.floor(h * 0.22)
     bars.HugeTimerPoint, bars.HugeTimerX, bars.HugeTimerY, bars.ExpandUpwardsLarge = "TOP", 0, hugeTop, false
-    options.WarningPoint, options.WarningX, options.WarningY = "TOP", 0, hugeTop + 70
-    options.SpecialWarningPoint, options.SpecialWarningX, options.SpecialWarningY = "TOP", 0, hugeTop + 140
+    options.WarningPoint, options.WarningX, options.WarningY = "TOP", 0, hugeTop + 50
+    options.SpecialWarningPoint, options.SpecialWarningX, options.SpecialWarningY = "TOP", 0, hugeTop + 100
     local target = ns.frames and ns.frames.target
     if target and target:GetRight() and ns.RightOfTargetEdge then
         options.InfoFramePoint = "BOTTOMLEFT"
