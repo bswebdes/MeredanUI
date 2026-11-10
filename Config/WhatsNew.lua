@@ -51,7 +51,8 @@ local function CreateWindow()
     window = CreateFrame("Frame", "MeredanUIWhatsNew", UIParent)
     window:SetSize(W, H)
     window:SetPoint("CENTER", 0, 60)
-    window:SetFrameStrata("DIALOG")
+    window:SetFrameStrata("FULLSCREEN_DIALOG") -- above the settings window it can be opened from
+    window:SetToplevel(true)
     window:SetClampedToScreen(true)
     window:EnableMouse(true)
     window:SetMovable(true)
@@ -144,6 +145,7 @@ function ns.ShowWhatsNew(entries, fromButton)
     index = 1
     Render()
     window:Show()
+    window:Raise()
     PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
 end
 
