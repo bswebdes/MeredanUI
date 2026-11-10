@@ -61,6 +61,30 @@ end
 
 local function ZoneName(instance) return GetRealZoneText and GetRealZoneText(instance) or "" end
 
+-- Drop chance from the dungeon loot data (Map/DungeonLoot.lua)
+local function Chance(entry, id)
+    local loot = ns.DUNGEON_LOOT and ns.DUNGEON_LOOT[entry.instance]
+    for _, e in ipairs(loot and loot[entry.source] or {}) do
+        if e[1] == id then return e[2] end
+    end
+end
+
+local function LinkToChat(id)
+    local _, link = C_Item.GetItemInfo(id)
+    if not link then return end
+    local done = ChatFrameUtil and ChatFrameUtil.InsertLink and ChatFrameUtil.InsertLink(link)
+    if not done and ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
+end
+
+-- Dungeon map with the item's boss chosen in the dungeon panel
+local function ShowOnMap(entry)
+    if not (entry and ns.OpenDungeonMap) then return end
+    ns.OpenDungeonMap(entry.instance)
+    C_Timer.After(0, function()
+        if ns.DungeonPanel and entry.source then ns.DungeonPanel.Select(entry.source) end
+    end)
+end
+
 -- "Lord Cobrahn · Wailing Caverns"
 function W.SourceText(entry)
     if not entry then return "" end
@@ -88,28 +112,43 @@ local function NewRow(view)
     row.name = UI.Text(row, 13, "LEFT")
     ns.SetFont(row.name, 13, "", "bold")
     row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 8, -1)
-    row.name:SetPoint("RIGHT", -36, 0)
+    row.name:SetPoint("RIGHT", -88, 0)
     row.name:SetWordWrap(false)
     row.source = UI.Text(row, 11, "LEFT", UI.MUTED)
     row.source:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 8, 1)
-    row.source:SetPoint("RIGHT", -36, 0)
+    row.source:SetPoint("RIGHT", -88, 0)
     row.source:SetWordWrap(false)
-    row.star = CreateFrame("Button", nil, row)
-    row.star:SetSize(24, 24)
+    -- small buttons right: map, chat link, star (remove)
+    local function Small(icon, color, tip, onClick)
+        local b = CreateFrame("Button", nil, row)
+        b:SetSize(24, 24)
+        local bg = b:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints()
+        bg:SetColorTexture(0.098, 0.098, 0.11, 1)
+        ns.AddBorder(b)
+        b.icon = UI.Icon(b, icon, 14, color)
+        b.icon:SetPoint("CENTER")
+        b:SetScript("OnClick", onClick)
+        b:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:SetText(tip, 1, 1, 1)
+            GameTooltip:Show()
+        end)
+        b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        return b
+    end
+    row.star = Small("Star", GOLD, L["Remove from wishlist"], function() W.Toggle(row.itemID) end)
     row.star:SetPoint("RIGHT", -6, 0)
-    local sbg = row.star:CreateTexture(nil, "BACKGROUND")
-    sbg:SetAllPoints()
-    sbg:SetColorTexture(0.098, 0.098, 0.11, 1)
-    ns.AddBorder(row.star)
-    local star = UI.Icon(row.star, "Star", 14, GOLD)
-    star:SetPoint("CENTER")
-    row.star:SetScript("OnClick", function() W.Toggle(row.itemID) end)
-    row.star:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:SetText(L["Remove from wishlist"], 1, 1, 1)
-        GameTooltip:Show()
-    end)
-    row.star:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    row.chat = Small("Copy", UI.TEXT, L["Link in chat"], function() LinkToChat(row.itemID) end)
+    row.chat:SetPoint("RIGHT", row.star, "LEFT", -4, 0)
+    row.map = Small("Map", UI.TEXT, L["Show on the dungeon map"], function() ShowOnMap(List()[row.itemID]) end)
+    row.map:SetPoint("RIGHT", row.chat, "LEFT", -4, 0)
+    row.selected = row:CreateTexture(nil, "ARTWORK")
+    row.selected:SetPoint("TOPLEFT")
+    row.selected:SetPoint("BOTTOMLEFT")
+    row.selected:SetWidth(2)
+    row.selected:SetColorTexture(unpack(UI.ACCENT))
+    row.selected:Hide()
     row:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetItemByID(self.itemID)
@@ -117,10 +156,8 @@ local function NewRow(view)
     end)
     row:SetScript("OnLeave", function() GameTooltip:Hide() end)
     row:SetScript("OnClick", function(self)
-        if IsModifiedClick("CHATLINK") then
-            local _, link = C_Item.GetItemInfo(self.itemID)
-            if link and ChatFrameUtil and ChatFrameUtil.InsertLink then ChatFrameUtil.InsertLink(link) end
-        end
+        if IsModifiedClick("CHATLINK") then return LinkToChat(self.itemID) end
+        if view.OnSelect then view.OnSelect(self.itemID) end
     end)
     return row
 end
@@ -180,7 +217,10 @@ local function Populate(view, filter)
             row.icon:SetTexture(C_Item.GetItemIconByID(id))
             local boss = BossName(list[id])
             local owned = Owned(id)
-            row.source:SetText((boss or "") .. (owned and ("  ·  |cff8ecbb4" .. L["Owned"] .. "|r") or ""))
+            local chance = Chance(list[id], id)
+            row.source:SetText((boss or "") .. (chance and ("  ·  " .. chance .. " %") or "")
+                .. (owned and ("  ·  |cff8ecbb4" .. L["Owned"] .. "|r") or ""))
+            row.selected:SetShown(view.selected == id)
             row:SetAlpha(owned and filter == "all" and 0.55 or 1)
             row.name:SetText("")
             local item = Item:CreateFromItemID(id)
@@ -312,25 +352,80 @@ Char.AddTab({
     Create = function(view)
         local UI = ns.UI
         view.rows, view.heads, view.filter = {}, {}, "open"
-        view.title = UI.Text(view, 14, "LEFT")
-        ns.SetFont(view.title, 14, "", "bold")
-        view.title:SetPoint("TOPLEFT", 4, -4)
-        view.title:SetText(L["Wishlist"])
         local buttons = FilterButtons(view, view, 300)
         for i, b in ipairs(buttons) do
-            if i == 1 then b:SetPoint("TOPRIGHT", view, "TOPRIGHT", -12 - 2 * (b:GetWidth() + 6), 0)
+            if i == 1 then b:SetPoint("TOPRIGHT", view, "TOPRIGHT", -2 * (b:GetWidth() + 6), 0)
             else b:SetPoint("LEFT", buttons[i - 1], "RIGHT", 6, 0) end
         end
+        -- right: try-on preview of the chosen item + progress; left: the list
+        local side = CreateFrame("Frame", nil, view)
+        side:SetPoint("TOPRIGHT", 0, -40)
+        side:SetPoint("BOTTOMRIGHT")
+        UI.Box(side, { 0, 0, 0, 0.25 })
+        view.side = side
+        local model = CreateFrame("DressUpModel", nil, side)
+        model:SetPoint("TOPLEFT", 1, -1)
+        model:SetPoint("BOTTOMRIGHT", -1, 70)
+        model:SetUnit("player", false)
+        model:EnableMouse(true)
+        -- drag to turn
+        model:SetScript("OnMouseDown", function(self) self.dragX = GetCursorPosition() end)
+        model:SetScript("OnMouseUp", function(self) self.dragX = nil end)
+        model:SetScript("OnUpdate", function(self)
+            if not self.dragX then return end
+            local x = GetCursorPosition()
+            self:SetFacing((self:GetFacing() or 0) + (x - self.dragX) * 0.02)
+            self.dragX = x
+        end)
+        view.model = model
+        local hint = UI.Text(side, 12, "CENTER", UI.MUTED)
+        hint:SetPoint("BOTTOM", model, "BOTTOM", 0, 10)
+        hint:SetText(L["Click an item to try it on"])
+        view.hint = hint
+        view.progress = UI.Text(side, 12, "LEFT", UI.TEXT)
+        view.progress:SetPoint("BOTTOMLEFT", 12, 40)
+        local bar = CreateFrame("StatusBar", nil, side)
+        bar:SetPoint("BOTTOMLEFT", 12, 18)
+        bar:SetPoint("BOTTOMRIGHT", -12, 18)
+        bar:SetHeight(10)
+        bar:SetStatusBarTexture("Interface\\Buttons\\WHITE8X8")
+        bar:SetStatusBarColor(unpack(UI.ACCENT))
+        local bbg = bar:CreateTexture(nil, "BACKGROUND")
+        bbg:SetAllPoints()
+        bbg:SetColorTexture(0.12, 0.12, 0.13, 1)
+        ns.AddBorder(bar)
+        view.bar = bar
+
         view.scroll = UI.ScrollArea(view)
         view.scroll:SetPoint("TOPLEFT", 0, -40)
-        view.scroll:SetPoint("BOTTOMRIGHT", -12, 0)
-        view.scroll.child:SetWidth(view:GetWidth() > 0 and view:GetWidth() - 12 or 600)
-        view:SetScript("OnSizeChanged", function(self, w) self.scroll.child:SetWidth(w - 12) end)
+        view.scroll:SetPoint("BOTTOMRIGHT", side, "BOTTOMLEFT", -22, 0)
+        local function Size(w)
+            side:SetWidth(math.floor(w * 0.38))
+            view.scroll.child:SetWidth(w - math.floor(w * 0.38) - 22)
+        end
+        Size(view:GetWidth() > 0 and view:GetWidth() or 900)
+        view:SetScript("OnSizeChanged", function(_, w) Size(w) end)
         view.empty = UI.Text(view, 13, "CENTER", UI.MUTED)
-        view.empty:SetPoint("CENTER")
+        view.empty:SetPoint("CENTER", view.scroll, "CENTER")
+        view.OnSelect = function(id)
+            view.selected = id
+            model:SetUnit("player", false)
+            model:TryOn("item:" .. id)
+            hint:Hide()
+            PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
+            view.Refresh()
+        end
         view.Refresh = function()
             view.StyleFilters()
             Populate(view, view.filter)
+            local total, owned = 0, 0
+            for id in pairs(List()) do
+                total = total + 1
+                if Owned(id) then owned = owned + 1 end
+            end
+            view.progress:SetText(L["%d of %d owned"]:format(owned, total))
+            bar:SetMinMaxValues(0, math.max(total, 1))
+            bar:SetValue(owned)
         end
     end,
     Refresh = function(view) view.Refresh() end,

@@ -1609,4 +1609,8 @@ if GetLocale() == "deDE" then
     L["Click: active quest in the tracker"] = "Klick: aktive Quest im Tracker"
     L["Click: map pin on the quest giver"] = "Klick: Kartenpunkt auf den Questgeber"
     L["Quest data from classic, Forever can differ."] = "Quest-Daten aus Classic, in Forever kann es abweichen."
+    L["Link in chat"] = "In den Chat verlinken"
+    L["Show on the dungeon map"] = "In der Dungeon-Karte zeigen"
+    L["Click an item to try it on"] = "Klick auf ein Teil zum Anprobieren"
+    L["%d of %d owned"] = "%d von %d erhalten"
 end
