@@ -2,6 +2,8 @@
 -- functions/skins.lua): flat dark panel, 1 px border, mUI fonts and the flat mUI bar texture,
 -- class-coloured bars. Built on Details' "ElvUI Style II" values. Applied to every window once per
 -- window (instance.skin) while the switch is on; afterwards Details' own options stay usable.
+-- Window 1 sits where mUI's damage meter sits (top left, same width, 5 rows) and is locked - set on
+-- every login, like mUI's fixed layouts.
 -- Switch: ns.db.detailsStyle (Dungeons & raids page, only while Details is active).
 local _, ns = ...
 
@@ -9,6 +11,20 @@ local SKIN = "MeredanUI"
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 
 local function Styled() return ns.db and ns.db.detailsStyle ~= false end
+
+local WIDTH = 335          -- as mUI's damage meter (DamageMeter/DamageMeter.lua)
+local ROWS_HEIGHT = 5 * 21 + 4 -- five 20 px rows with 1 px gaps
+local TITLE = 20           -- Details' title bar sits above the window frame
+
+local function Place(instance)
+    local frame = instance.baseframe
+    if not frame or InCombatLockdown() then return end
+    local margin = ns.Snap(ns.SCREEN_MARGIN)
+    frame:ClearAllPoints()
+    frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -(margin + TITLE))
+    instance:SetSize(WIDTH, ROWS_HEIGHT) -- also saves the position in Details
+    if instance.LockInstance and not instance.isLocked then instance:LockInstance(true) end
+end
 
 -- 1 px black border around the window (Details' side bars are off)
 local function Border(instance)
@@ -147,7 +163,10 @@ function ns.ApplyDetailsStyle()
             elseif not Styled() and instance.skin == SKIN then
                 instance:ChangeSkin("Minimalistic")
             end
-            if instance.skin == SKIN then Border(instance) end
+            if instance.skin == SKIN then
+                Border(instance)
+                if id == 1 then Place(instance) end
+            end
         end
     end
 end
