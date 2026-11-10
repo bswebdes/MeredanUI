@@ -479,7 +479,7 @@ end
 local function UpdateArrow()
     for _, row in ipairs(rows) do
         local dist = row.dist
-        if dist and dist:IsShown() then
+        if dist and row:IsShown() and dist:IsShown() then
             local angle
             if row == arrowRow and ns.Questie then
                 local ok, a = pcall(ns.Questie.Direction, dist.target)
@@ -1108,7 +1108,7 @@ local function Setup()
                 if self.distElapsed >= 1 then
                     self.distElapsed = 0
                     for _, row in ipairs(rows) do
-                        if row.dist:IsShown() and row.questID then
+                        if row:IsShown() and row.dist:IsShown() and row.questID then
                             local target = ns.Questie.Nearest(row.questID)
                             -- appeared/vanished: full layout (heights change), else only the text
                             if (target == nil) ~= (row.dist.target == nil) then Refresh() break end
