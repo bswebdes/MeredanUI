@@ -829,6 +829,10 @@ local function Layout()
     hasTargets, arrowRow = false, nil
     local y, h, r, b, z = 0, 0, 0, 0, 0
     local superTracked = C_SuperTrack.GetSuperTrackedQuestID()
+    -- Distance line only on the active quest (super-tracked and watched, else the first with a target):
+    -- the others need no distance and cost a Questie lookup each
+    local activeQuest = superTracked and superTracked ~= 0 and C_QuestLog.GetQuestWatchType(superTracked) ~= nil
+        and superTracked or nil
     local items = {}
     -- boss frames above the tracker: move below them, instance quests only (see BossShift)
     local shift = BossShift()
@@ -946,7 +950,8 @@ local function Layout()
             height = height + 4 + 12
         end
         row.dist.target, row.dist.complete = nil, complete
-        if QuestieOn("trackerQuestieDistance") and not failed and not folded then
+        if QuestieOn("trackerQuestieDistance") and not failed and not folded
+            and (activeQuest and questID == activeQuest or not activeQuest and not arrowRow) then
             row.dist.target = ns.Questie.Nearest(questID)
         end
         row.dist:SetShown(row.dist.target ~= nil)
@@ -957,7 +962,7 @@ local function Layout()
             row.dist:SetWidth(WIDTH - 26 - right)
             UpdateDistance(row)
             height = height + 4 + 14
-            if not arrowRow or questID == superTracked then arrowRow = row end
+            arrowRow = row
         end
         height = math.max(height + 7, hasItem and (ICON_SIZE + 12) or 0)
         row:SetHeight(height)
