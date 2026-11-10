@@ -26,12 +26,16 @@ local BAR_ADDONS = { "Bartender4", "Dominos" }
 local AREA_BY_KEY = {}
 for _, area in ipairs(ns.OTHER_ADDON_AREAS) do AREA_BY_KEY[area.key] = area end
 
-local function Character() return UnitName("player") end
+-- The AddOn API wants the player GUID (like Blizzard's addon list): a name doesn't match any
+-- character in Forever (first + last name), so the "all characters" state was read instead.
+local function Character() return UnitGUID("player") end
 
 -- Enabled for this character and able to load (or already loaded)
 local function Active(name)
     if not C_AddOns.DoesAddOnExist(name) then return false end
     if C_AddOns.IsAddOnLoaded(name) then return true end
+    -- after login every enabled non-LoD addon is loaded: not loaded = off for this character
+    if IsLoggedIn() and not C_AddOns.IsAddOnLoadOnDemand(name) then return false end
     if C_AddOns.GetAddOnEnableState(name, Character()) == 0 then return false end
     if C_AddOns.IsAddOnLoadOnDemand(name) then return false end
     return (C_AddOns.IsAddOnLoadable(name, Character())) == true
