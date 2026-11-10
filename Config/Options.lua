@@ -115,6 +115,13 @@ local function Setter(key, after)
 end
 local RELOAD = { reload = true }
 local function Help(text, reload) return { help = text, reload = reload } end
+-- Settings of a module another addon has taken over: greyed out, tooltip names the addon
+local function LockForOther(page, key, first, last)
+    local other = ns.OtherAddonFor and ns.OtherAddonFor(key)
+    if not other or first > (last or #page.items) then return end
+    page:LockRows(first, last, L["%s does this job right now. These settings apply again when you switch back to mUI on the Modules page."]:format(ns.OtherAddonTitle(other)))
+end
+
 -- Module label + grey "<Addon> active" while another addon does the job (Core/OtherAddons.lua)
 local function ModuleLabel(label, key)
     local other = ns.OtherAddonFor and ns.OtherAddonFor(key)
@@ -341,6 +348,7 @@ local PAGES = {
             end
             page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
                 Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
+            LockForOther(page, "nameplates", #page.items, #page.items)
             -- Display: Blizzard's own nameplate toggles in one place (take effect immediately)
             page:AddHeader(L["Show"])
             -- one checkbox can set several Blizzard CVars (e.g. companions, guardians, minions, totems)
@@ -369,6 +377,7 @@ local PAGES = {
                 CVarCheck(L["Minor enemies"], "nameplateShowEnemyMinus"),
             }, 2)
             -- Names above everything you can't attack
+            local namesFirst = #page.items + 1
             page:AddHeader(L["Names"])
             page:AddCheckbox(L["mUI names instead of Blizzard names"], On("npMuiNames"), function(on)
                 if ns.SetMuiNames then ns.SetMuiNames(on) end
@@ -379,6 +388,7 @@ local PAGES = {
             end)
             page:AddCheckbox(L["Title below NPC names"], On("npNpcTitle"), Setter("npNpcTitle", ns.RefreshNamePlates))
             page:AddCheckbox(L["Owner below companions"], On("npPetOwner"), Setter("npPetOwner", ns.RefreshNamePlates))
+            LockForOther(page, "nameplates", namesFirst)
         end,
     },
     {
@@ -427,6 +437,7 @@ local PAGES = {
         key = "actionbars", label = L["Action bars"], group = L["Screen"],
         build = function(page)
             page:AddTitle(L["Action bars"], L["Arrangement and when each bar is visible."])
+            local barsFirst = #page.items + 1
             page:AddDropdown(L["Arrangement"], function()
                 return {
                     { value = "center", label = L["Centre (2 × 6)"] },
@@ -491,6 +502,7 @@ local PAGES = {
                         ns.UpdateAddonBar()
                     end)
             end
+            LockForOther(page, "actionBarModule", barsFirst)
         end,
     },
     {
@@ -654,6 +666,7 @@ local PAGES = {
                 page:AddCheckbox(L["Bagnon in the mUI look"], On("bagnonStyle"), Setter("bagnonStyle", ns.ApplyBagnonStyle),
                     Help(L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."]))
             end
+            local bagsFirst = #page.items + 1
             page:AddDropdown(L["Layout"], BagStyleItems, function() return ns.db.bagsStyle == "single" and "single" or "categories" end,
                 Setter("bagsStyle", function() if ns.RefreshBags then ns.RefreshBags() end end),
                 Help(L["Sections or one big bag. Alt+right-click an item to put it into your own section."]))
@@ -661,6 +674,7 @@ local PAGES = {
                 Help(L["Repairs use the guild bank when allowed."]))
             page:AddCheckbox(L["Protect profession tools"], On("protectTools"), Setter("protectTools"),
                 Help(L["Skinning knife, mining pick, blacksmith hammer, fishing poles and other tools can't be deleted by accident. Off: deleting asks with a big red warning instead."]))
+            LockForOther(page, "bags", bagsFirst, #page.items)
             page:AddHeader(L["Loot"])
             page:AddCheckbox(L["mUI loot window"], On("lootWindow"), Setter("lootWindow"),
                 Help(L["Slim loot window at the mouse instead of Blizzard's. Upgrades show an arrow."], true))
@@ -731,6 +745,7 @@ local PAGES = {
             page:AddCheckbox(L["Second window"], On("damageMeterSecond"), Setter("damageMeterSecond", function()
                 if ns.RelayoutDamageMeter then ns.RelayoutDamageMeter() end
             end))
+            LockForOther(page, "damageMeter", #page.items, #page.items)
             if not ns.IS_FOREVER then -- Forever has no Mythic+
                 page:AddHeader(L["Mythic+"])
                 page:AddCheckbox(L["Chest timers (+3 / +2)"], On("mplusChests"), Live("mplusChests"),

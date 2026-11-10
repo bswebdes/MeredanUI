@@ -347,6 +347,23 @@ function UI.Page(parent)
         return row
     end
 
+    -- Rows first..last (page.items indices) greyed out and not clickable, e.g. while another addon
+    -- does the job; a mouse-catching layer on top explains why (reason = tooltip text)
+    function page:LockRows(first, last, reason)
+        for i = first, math.min(last or #self.items, #self.items) do
+            local row = self.items[i]
+            row:SetAlpha(0.35)
+            local shield = CreateFrame("Frame", nil, row)
+            shield:SetAllPoints()
+            shield:SetFrameLevel(row:GetFrameLevel() + 60) -- above checkboxes, dropdowns and "i"
+            shield:EnableMouse(true)
+            if reason then
+                shield:SetScript("OnEnter", function(self) UI.ShowHelp(self, reason) end)
+                shield:SetScript("OnLeave", function() UI.HideHelp() end)
+            end
+        end
+    end
+
     -- Extras after a label: "Reload" badge (gold) and an "i" with an explanation tooltip.
     -- opts = { reload = true, help = "..." }
     local function Decorate(row, after, opts)
