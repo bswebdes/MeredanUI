@@ -156,6 +156,8 @@ end
 -- 500000 for targets on another continent/instance, those only report their zone.
 local FAR = 500000
 local nearestCache = {} -- questID -> { time, result }
+local turnInCache = {}  -- questID -> { name, zone } or false; cleared on Questie's quest updates
+local NEAREST_TTL = 2   -- >= the tracker's per-row refresh, so a refresh never recomputes twice
 
 local function Quest(questID)
     local db = Module("QuestieDB")
@@ -185,7 +187,7 @@ end
 function Bridge.Nearest(questID)
     local now = GetTime()
     local cached = nearestCache[questID]
-    if cached and now - cached[1] < 1 then return cached[2] end
+    if cached and now - cached[1] < NEAREST_TTL then return cached[2] end
     local result
     local quest = Quest(questID)
     local distance = Module("DistanceUtils")
@@ -196,18 +198,36 @@ function Bridge.Nearest(questID)
                 yards = yards < FAR and yards or nil }
         end
     end
-    nearestCache[questID] = { now, result }
+    if cached then
+        cached[1], cached[2] = now, result
+    else
+        nearestCache[questID] = { now, result }
+    end
     return result
 end
 
 -- Turn-in NPC/object: name, zone name (nearest friendly finisher) or nil
-function Bridge.TurnIn(questID)
+local function ScanTurnIn(questID)
     local quest = Quest(questID)
     local distance = Module("DistanceUtils")
     if not (quest and quest.Finisher and distance and type(distance.GetNearestFinisherOrStarter) == "function") then return nil end
     local ok, _, areaID, name = pcall(distance.GetNearestFinisherOrStarter, quest.Finisher)
     if not (ok and name) then return nil end
     return name, areaID and ZoneName(areaID) or nil
+end
+
+-- Cached per quest: the tracker asks on every rebuild for each finished quest. "Nearest" finisher
+-- depends on where you are, so a zone change clears it.
+ns:On("ZONE_CHANGED_NEW_AREA", function() wipe(turnInCache) end)
+function Bridge.TurnIn(questID)
+    local cached = turnInCache[questID]
+    if cached == nil then
+        local name, zone = ScanTurnIn(questID)
+        cached = name and { name, zone } or false
+        turnInCache[questID] = cached
+    end
+    if cached then return cached[1], cached[2] end
+    return nil
 end
 
 -- Usable quest item IDs from Questie's database (the quest log's special item comes first if owned)
@@ -323,7 +343,7 @@ function Bridge.OnQuestUpdate(fn)
     Bridge.OnReady(function()
         local api = G("Questie").API
         if type(api.RegisterForQuestUpdates) == "function" then
-            api.RegisterForQuestUpdates(function() wipe(nearestCache) fn() end)
+            api.RegisterForQuestUpdates(function() wipe(nearestCache); wipe(turnInCache); fn() end)
         end
         fn()
     end)

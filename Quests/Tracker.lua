@@ -58,7 +58,7 @@ local barItems = {}           -- { questID, logIndex, link, texture, charges } -
 local hasTimers = false
 local hasItems = false      -- several items: re-pick the "nearest quest" periodically
 local bossHidden = false
-local hasTargets = false    -- Questie distances shown: refresh them every second
+local hasTargets = false    -- Questie distances shown: refresh them in turn (UpdateNextDistance)
 local arrowRow              -- row with the direction arrow (focus quest, else the first with a distance)
 local instanceCollapse      -- in instances: quests collapsed (nil = saved setting)
 local combatCollapse = false -- "Collapse in combat" while in combat
@@ -502,7 +502,25 @@ local function UpdateHotkey()
 end
 
 -- Assign the bar (out of combat only); then the quest rows show which one is active
+local appliedSig -- bar content last assigned (skip SetAttribute when nothing changed)
+local function ItemsSig()
+    local sig = ""
+    for _, item in ipairs(barItems) do
+        sig = sig .. (item.questID or 0) .. ":" .. tostring(item.itemID or item.link) .. ":" .. (item.charges or 0) .. ";"
+    end
+    return sig
+end
+
+local function MarkActiveRow()
+    local active = itemButtons[1] and itemButtons[1]:IsShown() and itemButtons[1].questID
+    for _, row in ipairs(rows) do
+        if row.item then row.item.active:SetShown(row.item:IsShown() and row.questID == active) end
+    end
+end
+
 local function ApplyItems()
+    local sig = ItemsSig()
+    if sig == appliedSig then return MarkActiveRow() end
     if InCombatLockdown() then
         if not itemsPending then
             itemsPending = true
@@ -523,12 +541,10 @@ local function ApplyItems()
         itemButtons[i].questID, itemButtons[i].logIndex, itemButtons[i].itemID = nil, nil, nil
         itemButtons[i]:Hide()
     end
+    appliedSig = sig
     UpdateHotkey()
     UpdateCooldowns()
-    local active = itemButtons[1] and itemButtons[1]:IsShown() and itemButtons[1].questID
-    for _, row in ipairs(rows) do
-        if row.item then row.item.active:SetShown(row.item:IsShown() and row.questID == active) end
-    end
+    MarkActiveRow()
 end
 
 -- Bar order: focus quest first, otherwise the closest quest with an item. force = always reapply;
@@ -577,10 +593,9 @@ end
 local function UpdateDistance(row)
     local target, dist = row.dist.target, row.dist
     if not target then return end
-    local parts = {}
-    if not dist.complete and target.name then parts[#parts + 1] = target.name end
-    if target.yards then parts[#parts + 1] = L["%d yd"]:format(math.floor(target.yards + 0.5)) end
-    local text = table.concat(parts, "  ·  ")
+    local name = not dist.complete and target.name or nil
+    local yards = target.yards and L["%d yd"]:format(math.floor(target.yards + 0.5)) or nil
+    local text = (name and yards) and (name .. "  ·  " .. yards) or name or yards or ""
     if not dist.complete and target.zone and target.zone ~= GetZoneText() then
         text = text .. (text ~= "" and "  " or "") .. "(" .. target.zone .. ")"
     end
@@ -589,22 +604,59 @@ end
 
 -- Direction arrow on one row only (focus quest, else the first with a distance); hidden where the
 -- game hides the player position (instances)
-local function UpdateArrow()
-    for _, row in ipairs(rows) do
-        local dist = row.dist
-        if dist and row:IsShown() and dist:IsShown() then
-            local angle
-            if row == arrowRow and ns.Questie and Opt("trackerQuestieArrow") then
-                local ok, a = pcall(ns.Questie.Direction, dist.target)
-                angle = ok and a or nil
+-- Round-robin distance refresh (see the tracker's OnUpdate)
+local distIndex = 0
+local MOVE_YARDS = 5
+local function UpdateNextDistance()
+    local count = #rows
+    for _ = 1, count do
+        distIndex = distIndex % count + 1
+        local row = rows[distIndex]
+        if row:IsShown() and row.dist:IsShown() and row.questID then
+            local x, y = UnitPosition("player")
+            if x and not issecretvalue(x) and not issecretvalue(y) and row.dist.px
+                and (x - row.dist.px) ^ 2 + (y - row.dist.py) ^ 2 < MOVE_YARDS * MOVE_YARDS then
+                return -- standing still: the old distance is still right
             end
-            dist.arrow:SetShown(angle ~= nil)
-            if angle then dist.arrow:SetRotation(angle + math.pi) end -- chevron art points down
-            dist.text:ClearAllPoints()
-            dist.text:SetPoint("LEFT", angle and 16 or 0, 0)
-            dist.text:SetPoint("RIGHT")
+            if x and not issecretvalue(x) and not issecretvalue(y) then row.dist.px, row.dist.py = x, y end
+            local target = ns.Questie.Nearest(row.questID)
+            -- appeared/vanished: full layout (heights change), else only the text
+            if (target == nil) ~= (row.dist.target == nil) then return tracker.Refresh() end
+            row.dist.target = target
+            UpdateDistance(row)
+            return
         end
     end
+end
+
+-- Re-anchoring only when the arrow appears/disappears (it runs ~20x per second)
+local function SetArrowShown(dist, on)
+    if dist.arrowOn == on then return end
+    dist.arrowOn = on
+    dist.arrow:SetShown(on)
+    dist.text:ClearAllPoints()
+    dist.text:SetPoint("LEFT", on and 16 or 0, 0)
+    dist.text:SetPoint("RIGHT")
+end
+
+-- full = after a layout (rows may have changed quests): reset every row; otherwise only the
+-- arrow row is touched
+local function UpdateArrow(full)
+    if full then
+        for _, row in ipairs(rows) do
+            if row.dist and row ~= arrowRow then SetArrowShown(row.dist, false) end
+        end
+    end
+    local row = arrowRow
+    local dist = row and row.dist
+    if not (dist and row:IsShown() and dist:IsShown()) then return end
+    local angle
+    if ns.Questie and Opt("trackerQuestieArrow") then
+        local ok, a = pcall(ns.Questie.Direction, dist.target)
+        angle = ok and a or nil
+    end
+    SetArrowShown(dist, angle ~= nil)
+    if angle then dist.arrow:SetRotation(angle + math.pi) end -- chevron art points down
 end
 
 -- A quest's objectives: lines (text) and optional percent for the bar
@@ -1101,16 +1153,17 @@ local function Layout()
     tracker.UpdateScroll()
     tracker:SetShown(h > 0 and not bossHidden)
 
-    UpdateArrow()
+    UpdateArrow(true)
     lastItems = items
     hasItems = #items > 1
     PickBarItems(true)
 end
 
+-- Batched: quest/bag events come in bursts (kills, loot), one rebuild per 0.2 s is enough
 local function Refresh()
     if pending or not tracker then return end
     pending = true
-    C_Timer.After(0, Layout)
+    C_Timer.After(0.2, Layout)
 end
 
 -- Position: right edge left of the inner right bar, top edge level with that bar (at most below the buffs)
@@ -1276,17 +1329,11 @@ local function Setup()
             if self.arrowElapsed >= 0.05 then
                 self.distElapsed = (self.distElapsed or 0) + self.arrowElapsed
                 self.arrowElapsed = 0
-                if self.distElapsed >= 1 then
+                -- one row per 0.5 s in turn (spreads Questie's spawn search), not in combat,
+                -- and only when you moved since that row was last computed
+                if self.distElapsed >= 0.5 and not InCombatLockdown() and not IsInInstance() then
                     self.distElapsed = 0
-                    for _, row in ipairs(rows) do
-                        if row:IsShown() and row.dist:IsShown() and row.questID then
-                            local target = ns.Questie.Nearest(row.questID)
-                            -- appeared/vanished: full layout (heights change), else only the text
-                            if (target == nil) ~= (row.dist.target == nil) then Refresh() break end
-                            row.dist.target = target
-                            UpdateDistance(row)
-                        end
-                    end
+                    UpdateNextDistance()
                 end
                 UpdateArrow()
             end
@@ -1300,9 +1347,17 @@ local function Setup()
 
     for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_WATCH_LIST_CHANGED", "SUPER_TRACKING_CHANGED", "QUEST_ACCEPTED",
         "QUEST_REMOVED", "QUEST_TURNED_IN", "SCENARIO_UPDATE", "SCENARIO_CRITERIA_UPDATE", "TRACKED_RECIPE_UPDATE",
-        "BAG_UPDATE_DELAYED", "ZONE_CHANGED_NEW_AREA" }) do
+        "ZONE_CHANGED_NEW_AREA" }) do
         ns:On(event, Refresh)
     end
+    -- Loot fires this constantly: only rebuild when bag contents are shown (quest items, recipe
+    -- reagents) or Questie may know items for tracked quests
+    ns:On("BAG_UPDATE_DELAYED", function()
+        if #lastItems > 0 or QuestieOn("trackerQuestieItems")
+            or (C_TradeSkillUI.GetRecipesTracked and #(C_TradeSkillUI.GetRecipesTracked(false) or {}) > 0) then
+            Refresh()
+        end
+    end)
     -- Questie: turn-in NPC, distances and database items once it is ready and on its quest updates
     if ns.Questie and ns.Questie.IsLoaded() then ns.Questie.OnQuestUpdate(Refresh) end
     ns:On("BAG_UPDATE_COOLDOWN", UpdateCooldowns)
