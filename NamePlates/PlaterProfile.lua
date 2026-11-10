@@ -5,7 +5,7 @@
 -- Switch: ns.db.platerStyle (Nameplates page, only while Plater is active).
 local _, ns = ...
 
-local PROFILE_VERSION = 2
+local PROFILE_VERSION = 3
 local BAR_BG = { 0, 0, 0, 0.5 }
 
 -- Every font setting Plater knows (keys ending in "_font", found in its defaults) -> "mUI"
@@ -57,6 +57,7 @@ function ns.ApplyPlaterProfile(force)
         npc.only_names = true
         local a = ns.UI.ACCENT
         npc.big_actorname_text_color = { a[1], a[2], a[3] }
+        npc.big_actortitle_text_color = { 1, 1, 1 } -- titles / "<Owner's Pet>" white like mUI's
         Size(npc)
     end
 
