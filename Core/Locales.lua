@@ -1486,4 +1486,7 @@ end
 -- Questie integration (Quests/QuestieBridge.lua)
 if GetLocale() == "deDE" then
     L["Turn off Questie's tracker? mUI shows Questie's info in its own tracker."] = "Questie-Tracker ausschalten? mUI zeigt die Questie-Infos im eigenen Tracker."
+    L["Click: hide Questie icons"] = "Klick: Questie-Symbole ausblenden"
+    L["Click: show Questie icons"] = "Klick: Questie-Symbole einblenden"
+    L["Right-click: Questie menu"] = "Rechtsklick: Questie-Menü"
 end

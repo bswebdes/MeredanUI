@@ -974,6 +974,47 @@ local function CreateWindow()
     pinButton:ClearAllPoints()
     pinButton:SetPoint("TOPLEFT", 12, -12)
     pinButton:SetFrameLevel(9000) -- above all map pins and revealed areas (Map/MapExtras.lua)
+    -- Questie installed: its icons move onto our map (Quests/QuestieBridge.lua), toggle below the pin button
+    if ns.Questie and ns.Questie.IsLoaded() then
+        ns.Questie.AttachMap(canvas)
+        local questieButton = CreateFrame("Button", nil, holder)
+        questieButton:SetSize(26, 26)
+        questieButton:SetPoint("TOP", pinButton, "BOTTOM", 0, -6)
+        questieButton:SetFrameLevel(9000)
+        questieButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        local bg = UI.Box(questieButton)
+        local icon = questieButton:CreateTexture(nil, "ARTWORK")
+        icon:SetSize(18, 18)
+        icon:SetPoint("CENTER")
+        icon:SetTexture("Interface\\AddOns\\Questie\\Icons\\available")
+        local active = ns.AddBorder(questieButton, true, 2)
+        for _, e in ipairs(active) do e:SetVertexColor(unpack(UI.ACCENT)) end
+        local function Update()
+            local on = ns.Questie.IconsShown()
+            for _, e in ipairs(active) do e:SetShown(on) end
+            icon:SetDesaturated(not on)
+        end
+        local function Tooltip(self)
+            GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+            GameTooltip:SetText("Questie", 1, 1, 1)
+            GameTooltip:AddLine(ns.Questie.IconsShown() and L["Click: hide Questie icons"] or L["Click: show Questie icons"], 0.56, 0.8, 0.71)
+            GameTooltip:AddLine(L["Right-click: Questie menu"], 0.56, 0.8, 0.71)
+            GameTooltip:Show()
+        end
+        questieButton:SetScript("OnClick", function(self, button)
+            if button == "RightButton" then
+                ns.Questie.ToggleMenu()
+            else
+                ns.Questie.ToggleIcons()
+                Update()
+                Tooltip(self)
+            end
+        end)
+        questieButton:SetScript("OnEnter", function(self) bg:SetColorTexture(unpack(UI.HOVER)) Tooltip(self) end)
+        questieButton:SetScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) GameTooltip:Hide() end)
+        questieButton:SetScript("OnShow", Update)
+        Update()
+    end
     if ns.DungeonMapView then ns.DungeonMapView.Attach(holder, function() OnMapChanged() end) end
     coords = CreateFrame("Frame", nil, holder)
     coords:SetHeight(22)
