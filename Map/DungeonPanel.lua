@@ -17,7 +17,8 @@ local P = {}
 ns.DungeonPanel = P
 
 local BOSS_ROW, LOOT_ROW, GAP = 42, 38, 4
-local frame, list, tab, wishButton, filterBar, note
+local frame, list, bossTab, questTab, wishButton, filterBar, note
+local current = "bosses" -- tab: "bosses" or "quests"
 local bossRows, lootRows = {}, {}
 local selected -- encounter ID or "rare:<npcID>"
 local shownInstance
@@ -253,7 +254,10 @@ local function Place(region, y, indent)
     region:SetPoint("RIGHT", list.child, "RIGHT")
 end
 
+local QUEST_NOTE, LOOT_NOTE
+
 local function Layout(instance)
+    note:SetText(LOOT_NOTE)
     for _, r in ipairs(bossRows) do r:Hide() end
     for _, r in ipairs(lootRows) do r:Hide() end
     filterBar:Hide()
@@ -293,10 +297,166 @@ local function Layout(instance)
     list.child:SetHeight(y + 40)
 end
 
+-- Quest tab ---------------------------------------------------------------------------------------
+-- All quests of the dungeon (Quests/DungeonQuests.lua) for this race/class: ready to turn in, open (in
+-- the quest log), not done yet (with giver and zone; click = map pin on the giver), completed.
+
+local QUEST_ROW = 44
+local questRows = {}
+local YELLOW = { 1, 0.82, 0 }
+local ORDER = { ready = 1, open = 2, avail = 3, done = 4 }
+
+local function ForPlayer(q)
+    local race, class = select(3, UnitRace("player")), select(3, UnitClass("player"))
+    if q.races ~= 0 and q.races ~= 255 and race and bit.band(q.races, bit.lshift(1, race - 1)) == 0 then return false end
+    if q.classes ~= 0 and class and bit.band(q.classes, bit.lshift(1, class - 1)) == 0 then return false end
+    return true
+end
+
+local function QuestState(id)
+    if C_QuestLog.GetLogIndexForQuestID(id) then return C_QuestLog.IsComplete(id) and "ready" or "open" end
+    if C_QuestLog.IsQuestFlaggedCompleted(id) then return "done" end
+    return "avail"
+end
+
+-- Giver position from continent + world x/y (map pin and zone name)
+local function GiverPlace(q)
+    if not (q.map and C_Map.GetMapPosFromWorldPos) then return end
+    local ok, uiMap, pos = pcall(C_Map.GetMapPosFromWorldPos, q.map, CreateVector2D(q.x, q.y))
+    if ok and uiMap and pos then return uiMap, pos end
+end
+
+local function QuestTitle(q)
+    local title = C_QuestLog.GetTitleForQuestID(q.id)
+    if not title or title == "" then
+        if C_QuestLog.RequestLoadQuestByID then C_QuestLog.RequestLoadQuestByID(q.id) end
+        title = q.title
+    end
+    return title
+end
+
+local function QuestSub(q, state)
+    if state == "ready" then return L["Ready to turn in"] end
+    if state == "done" then return L["Completed"] end
+    if state == "open" then
+        for _, o in ipairs(C_QuestLog.GetQuestObjectives(q.id) or {}) do
+            if not o.finished and o.text and o.text ~= "" then return L["In your quest log"] .. "  ·  " .. o.text end
+        end
+        return L["In your quest log"]
+    end
+    if q.item then
+        return L["Starts from an item: %s"]:format(C_Item.GetItemNameByID(q.item) or ("#" .. q.item))
+    end
+    local uiMap = GiverPlace(q)
+    local info = uiMap and C_Map.GetMapInfo(uiMap)
+    return L["Quest giver: %s"]:format(q.giver or "?") .. (info and ("  ·  " .. info.name) or "")
+end
+
+local function QuestRow(i)
+    if questRows[i] then return questRows[i] end
+    local UI = ns.UI
+    local row = CreateFrame("Button", nil, list.child)
+    row:SetHeight(QUEST_ROW)
+    row.bg = row:CreateTexture(nil, "BACKGROUND")
+    row.bg:SetAllPoints()
+    row.bg:SetColorTexture(unpack(ROW_BG))
+    ns.AddBorder(row)
+    local hover = row:CreateTexture(nil, "HIGHLIGHT")
+    hover:SetAllPoints()
+    hover:SetColorTexture(1, 1, 1, 0.04)
+    row.badge = UI.Text(row, 18, "CENTER")
+    ns.SetFont(row.badge, 18, "OUTLINE", "bold")
+    row.badge:SetShadowOffset(0, 0)
+    row.badge:SetPoint("CENTER", row, "LEFT", 18, 0)
+    row.check = UI.Icon(row, "Check", 16, UI.ACCENT)
+    row.check:SetPoint("CENTER", row, "LEFT", 18, 0)
+    row.cross = UI.Icon(row, "Close", 12, { 0.75, 0.35, 0.3 })
+    row.cross:SetPoint("CENTER", row, "LEFT", 18, 0)
+    row.name = UI.Text(row, 13, "LEFT")
+    ns.SetFont(row.name, 13, "", "bold")
+    row.name:SetPoint("TOPLEFT", 36, -7)
+    row.name:SetPoint("RIGHT", -8, 0)
+    row.name:SetWordWrap(false)
+    row.sub = UI.Text(row, 11, "LEFT", UI.MUTED)
+    row.sub:SetPoint("BOTTOMLEFT", 36, 7)
+    row.sub:SetPoint("RIGHT", -8, 0)
+    row.sub:SetWordWrap(false)
+    row:SetScript("OnClick", function(self)
+        local q, state = self.quest, self.state
+        if state == "open" or state == "ready" then
+            C_SuperTrack.SetSuperTrackedQuestID(q.id)
+            PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+        elseif state == "avail" then
+            local uiMap, pos = GiverPlace(q)
+            if not (uiMap and pos) then return end
+            local target = { name = q.giver, uiMapID = uiMap, x = pos.x * 100, y = pos.y * 100 }
+            local set = ns.Questie and ns.Questie.SetWaypoint and ns.Questie.SetWaypoint(target)
+            if not set and C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(uiMap) then
+                C_Map.SetUserWaypoint({ uiMapID = uiMap, position = pos })
+                C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+                set = true
+            end
+            if set then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) end
+        end
+    end)
+    row:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:SetText(self.name:GetText() or "", 1, 1, 1)
+        GameTooltip:AddLine(self.sub:GetText() or "", 0.6, 0.59, 0.56, true)
+        local hint = (self.state == "open" or self.state == "ready") and L["Click: active quest in the tracker"]
+            or (self.state == "avail" and self.quest.map and L["Click: map pin on the quest giver"])
+        if hint then GameTooltip:AddLine(hint, 0.56, 0.8, 0.71) end
+        GameTooltip:Show()
+    end)
+    row:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    questRows[i] = row
+    return row
+end
+
+local function QuestLayout(instance)
+    note:SetText(QUEST_NOTE)
+    local list_ = {}
+    for _, q in ipairs(ns.DUNGEON_QUESTS and ns.DUNGEON_QUESTS[instance] or {}) do
+        if ForPlayer(q) then list_[#list_ + 1] = { q = q, state = QuestState(q.id) } end
+    end
+    table.sort(list_, function(a, b)
+        if a.state ~= b.state then return ORDER[a.state] < ORDER[b.state] end
+        return a.q.level < b.q.level
+    end)
+    for _, r in ipairs(questRows) do r:Hide() end
+    local y = 0
+    for i, e in ipairs(list_) do
+        local row, q, state = QuestRow(i), e.q, e.state
+        row.quest, row.state = q, state
+        -- done: sage check; not done yet: X; in the quest log: yellow ! (open) or ? (ready)
+        local done = state == "done"
+        row.check:SetShown(done)
+        row.cross:SetShown(state == "avail")
+        row.badge:SetShown(state == "open" or state == "ready")
+        row.badge:SetText(state == "ready" and "?" or "!")
+        row.badge:SetTextColor(unpack(YELLOW))
+        local color = GetQuestDifficultyColor and GetQuestDifficultyColor(q.level)
+        local level = color and ("|cff%02x%02x%02x[%d]|r "):format(color.r * 255, color.g * 255, color.b * 255, q.level) or ("[%d] "):format(q.level)
+        row.name:SetText(level .. (QuestTitle(q) or ""))
+        row.name:SetTextColor(unpack(ns.UI.TEXT))
+        row.sub:SetText(QuestSub(q, state))
+        row:SetAlpha(1)
+        Place(row, y)
+        row:Show()
+        y = y + QUEST_ROW + GAP
+    end
+    note:ClearAllPoints()
+    note:SetPoint("TOPLEFT", list.child, "TOPLEFT", 2, -(y + 6))
+    note:SetPoint("RIGHT", list.child, "RIGHT", -2, 0)
+    list.child:SetHeight(y + 40)
+end
+
 local function UpdateHeader()
     wishButton.text:SetText(ns.Wishlist.Count())
     local open = ns.Wishlist.IsWindowShown()
     for _, e in ipairs(wishButton.edges) do e:SetVertexColor(unpack(open and GOLD or BLACK)) end
+    TabStyle(bossTab, current == "bosses")
+    TabStyle(questTab, current == "quests")
     TabStyle(filterBar.mine, FilterMine())
     TabStyle(filterBar.all, not FilterMine())
 end
@@ -312,13 +472,25 @@ function P.Refresh()
     for _, f in ipairs(hiddenFrames) do f:SetAlpha(active and 0 or 1) end
     if not active then return end
     if instance ~= shownInstance then selected, shownInstance = nil, instance end
+    local hasQuests = ns.DUNGEON_QUESTS and ns.DUNGEON_QUESTS[instance] ~= nil
+    questTab:SetEnabled(hasQuests)
+    if not hasQuests then current = "bosses" end
     UpdateHeader()
-    Layout(instance)
+    if current == "quests" then
+        for _, r in ipairs(bossRows) do r:Hide() end
+        for _, r in ipairs(lootRows) do r:Hide() end
+        filterBar:Hide()
+        QuestLayout(instance)
+    else
+        for _, r in ipairs(questRows) do r:Hide() end
+        Layout(instance)
+    end
 end
 
 -- Called by a boss pin click (Map/DungeonPins.lua) or a list row; nil closes the open boss
 function P.Select(key)
     selected = key
+    if key then current = "bosses" end
     PlaySound(key and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
     P.Refresh()
     if ns.DungeonPins then ns.DungeonPins.Refresh() end
@@ -336,11 +508,20 @@ function P.Attach(parent, topLeft, bottomRight, hide)
     frame:EnableMouse(true)
     frame:Hide()
 
-    tab = SmallButton(frame, L["Bosses"], 10, 30)
-    tab:SetPoint("TOPLEFT")
-    tab:SetPoint("TOPRIGHT", -70, 0)
-    ns.SetFont(tab.text, 13, "", "bold")
-    TabStyle(tab, true)
+    bossTab = SmallButton(frame, L["Bosses"], 10, 30)
+    bossTab:SetPoint("TOPLEFT")
+    questTab = SmallButton(frame, L["Quests"], 10, 30)
+    questTab:SetPoint("TOPRIGHT", -70, 0)
+    bossTab:SetPoint("RIGHT", questTab, "LEFT", -6, 0)
+    frame:SetScript("OnSizeChanged", function(_, w) questTab:SetWidth(math.max((w - 70 - 6) / 2, 10)) end)
+    for key, b in pairs({ bosses = bossTab, quests = questTab }) do
+        ns.SetFont(b.text, 13, "", "bold")
+        b:SetScript("OnClick", function()
+            current = key
+            PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
+            P.Refresh()
+        end)
+    end
 
     wishButton = SmallButton(frame, "0", 64, 30)
     wishButton:SetPoint("TOPRIGHT")
@@ -362,7 +543,7 @@ function P.Attach(parent, topLeft, bottomRight, hide)
     wishButton:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
     list = UI.ScrollArea(frame)
-    list:SetPoint("TOPLEFT", tab, "BOTTOMLEFT", 0, -8)
+    list:SetPoint("TOPLEFT", bossTab, "BOTTOMLEFT", 0, -8)
     list:SetPoint("BOTTOMRIGHT", -8, 0)
     list.child:SetWidth(1)
     list:SetScript("OnSizeChanged", function(self, w) self.child:SetWidth(w) end)
@@ -382,7 +563,16 @@ function P.Attach(parent, topLeft, bottomRight, hide)
 
     note = UI.Text(list.child, 11, "LEFT", UI.MUTED)
     note:SetWordWrap(true)
-    note:SetText(L["Drop chances from classic data, Forever can differ. Check mark: seen dropping in Forever."])
+    LOOT_NOTE = L["Drop chances from classic data, Forever can differ. Check mark: seen dropping in Forever."]
+    QUEST_NOTE = L["Quest data from classic, Forever can differ."]
+    -- quest log changes and late quest titles refresh the quest tab
+    for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_DATA_LOAD_RESULT", "QUEST_TURNED_IN" }) do frame:RegisterEvent(event) end
+    frame:SetScript("OnEvent", function(self)
+        if self:IsShown() and current == "quests" and not self.pending then
+            self.pending = true
+            C_Timer.After(0.2, function() self.pending = nil; P.Refresh() end)
+        end
+    end)
 
     ns.Wishlist.AddListener(function()
         if frame:IsShown() then P.Refresh() end

@@ -130,6 +130,7 @@ Tooltip/Tooltip.lua
 Tooltip/AltItems.lua
 Auras/PlayerAuras.lua
 Quests/DungeonBosses.lua
+Quests/DungeonQuests.lua
 Quests/QuestieBridge.lua
 Quests/Tracker.lua
 Quests/QuestTracker.lua

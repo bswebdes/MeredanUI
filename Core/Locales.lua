@@ -1603,4 +1603,10 @@ if GetLocale() == "deDE" then
     L["Rare Elite"] = "Rare Elite"
     L["Rare and elite behind NPC names"] = "Rare und Elite hinter NPC-Namen"
     L["1 item"] = "1 Gegenstand"
+    L["In your quest log"] = "Im Questlog"
+    L["Starts from an item: %s"] = "Startet mit einem Gegenstand: %s"
+    L["Quest giver: %s"] = "Questgeber: %s"
+    L["Click: active quest in the tracker"] = "Klick: aktive Quest im Tracker"
+    L["Click: map pin on the quest giver"] = "Klick: Kartenpunkt auf den Questgeber"
+    L["Quest data from classic, Forever can differ."] = "Quest-Daten aus Classic, in Forever kann es abweichen."
 end
