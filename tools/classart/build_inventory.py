@@ -202,7 +202,7 @@ FAMILIES = [
          usage="GarrisonLandingPageMinimapButton (Legion)",
          collect=lambda: atlas_family("legionmission-landingbutton-<C>-up")),
     dict(key="artifact_book", title="Artefaktbuch-Wappen gold (Interface/Pictures/artifactbook-<class>-cover)", fit="good",
-         why="Large cut-out golden class crest on transparency (same designs as the bronze ones, higher resolution); the strongest single 'class moment', desaturate/tint for mUI.",
+         why="Large cut-out golden class crest on transparency (same designs as the bronze ones, 256x256); the strongest single 'class moment', desaturate/tint for mUI.",
          usage="Artifact quest books (Legion)",
          collect=lambda: [F(c, "cover", f"Interface/Pictures/ArtifactBook-{c}-Cover") for c in CLASSES]),
     dict(key="artifact_header", title="Artefakt-Kopfleisten und -Hintergründe (artifacts-<class>-header/-bg)", fit="poor",
@@ -236,7 +236,7 @@ FAMILIES = [
              ("druid", "Interface/HUD/UIDruidCombopoints.blp"), ("mage", "Interface/HUD/UIMageArcaneCharge.blp"),
              ("shaman", "Interface/HUD/UIShamanMaelstrom.blp"), ("druid", "Interface/HUD/UIDruidAstralPower.blp")]]),
     dict(key="spellbook_bg", title="Zauberbuch-Hintergrund mit Klassenbezug", fit="poor",
-         why="Only one class version exists (druid) and it is almost empty dark art - not usable as a per-class theme.",
+         why="Only one class file exists (druid) and it is a 16x16 placeholder - not usable.",
          usage="Interface/Spellbook/SpellbookBackgroundDruid (retail spellbook)",
          collect=lambda: [F("druid", "spellbookbackground", "Interface/Spellbook/SpellbookBackgroundDruid.blp")]),
 ]
