@@ -189,6 +189,7 @@ local function Register(Bagnon)
         template = "BagnonOnePixelTemplate", -- ships with Bagnon: Center + four 1 px edges
         font = titleFont, fontH = titleFontH,
         x = 1, y = 1, x1 = -1, y1 = -1, margin = 2,
+        inset = 6, -- more room between header, items and footer
         closeX = Bagnon.IsMainline and -4 or nil, closeY = Bagnon.IsMainline and -4 or nil,
         load = function(bg)
             Paint(bg)
