@@ -7,7 +7,7 @@
 local _, ns = ...
 local BigWigs, BigWigsAPI -- globals of BigWigs, read when needed
 
-local STYLE, PROFILE_VERSION = "MeredanUI", 1
+local STYLE, PROFILE_VERSION = "MeredanUI", 2
 local BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 22, 260, 26
 local ICON_GAP, ABOVE_GAP = 4, 16
 
@@ -123,7 +123,10 @@ local function Positions(profile)
         profile.normalWidth = math.floor(player:GetWidth() + 0.5)
         profile.normalPosition = { "BOTTOMLEFT", "BOTTOMLEFT", player:GetLeft(), player:GetTop() + above, "UIParent" }
     end
-    profile.expPosition = { "TOP", "TOP", 0, -math.floor(UIParent:GetHeight() * 0.22), "UIParent" }
+    -- big bars below BigWigs' message area: its messages start 262 px below the top edge (clear of
+    -- Blizzard's error, raid warning and boss emote texts, see BigWigs_Plugins/Messages.lua), room
+    -- for about four message lines, then the big bars growing down
+    profile.expPosition = { "TOP", "TOP", 0, -(262 + 100), "UIParent" }
 end
 
 function ns.ApplyBigWigsProfile(force)
