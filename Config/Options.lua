@@ -297,6 +297,12 @@ local PAGES = {
             page:AddCheckbox(L["Accept invites from friends and guild"], Getter("autoInvite"), Setter("autoInvite"),
                 Help(L["Battle.net friends, friends and guild members only. Invites from anyone else still ask."]))
             page:AddCheckbox(L["Confirm role checks with your spec role"], On("autoRole"), Setter("autoRole"))
+            page:AddCheckbox(L["Accept summons"], Getter("autoSummon"), Setter("autoSummon"),
+                Help(L["Out of combat, after 5 seconds. Decline the pop-up to stop it."]))
+            page:AddCheckbox(L["Accept resurrections"], Getter("autoResurrect"), Setter("autoResurrect"),
+                Help(L["Not while the caster is still fighting."]))
+            page:AddCheckbox(L["Decline duels"], Getter("declineDuels"), Setter("declineDuels"),
+                Help(L["Friends and guild members can still ask."]))
             page:AddCheckbox(L["Ready check: remind me of missing food, flask and rune"], On("readyCheckReminder"),
                 Setter("readyCheckReminder"))
             page:AddHeader(L["Preview"])
@@ -614,6 +620,7 @@ local PAGES = {
             page:AddCheckbox(L["Hide combat error messages"], On("hideErrors"),
                 Setter("hideErrors", ns.ApplyErrorMessages),
                 Help(L["Red text like \"Not enough energy\", \"Out of range\", \"Not ready yet\" while pressing keys. All other messages (bags full, quest progress …) stay. The character's voice is Blizzard's setting: Audio > Error speech."]))
+            page:AddCheckbox(L["Skip cinematics you have seen"], Getter("skipCinematics"), Setter("skipCinematics"))
             page:AddCheckbox(L["Hide NPC speech pop-ups"], On("hideTalkingHead"), Setter("hideTalkingHead"),
                 Help(L["The talking head that appears during quests and in dungeons."]))
         end,

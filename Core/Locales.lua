@@ -1549,4 +1549,12 @@ if GetLocale() == "deDE" then
     L["Highest sell value"] = "Höchster Verkaufswert"
     L["Mark the most valuable reward"] = "Wertvollste Belohnung markieren"
     L["Gold coin on the reward that sells for the most."] = "Goldmünze an der Belohnung, die beim Händler am meisten bringt."
+    L["Accepting the summon from %s (%s) in %d seconds."] = "Beschwörung von %s (%s) wird in %d Sekunden angenommen."
+    L["Accept summons"] = "Beschwörungen annehmen"
+    L["Out of combat, after 5 seconds. Decline the pop-up to stop it."] = "Außerhalb des Kampfes, nach 5 Sekunden. Zum Abbrechen das Fenster ablehnen."
+    L["Accept resurrections"] = "Wiederbelebungen annehmen"
+    L["Not while the caster is still fighting."] = "Nicht, solange der Wiederbeleber noch kämpft."
+    L["Decline duels"] = "Duelle ablehnen"
+    L["Friends and guild members can still ask."] = "Freunde und Gildenmitglieder dürfen trotzdem fragen."
+    L["Skip cinematics you have seen"] = "Bekannte Filme überspringen"
 end
