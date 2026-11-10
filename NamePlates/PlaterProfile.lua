@@ -5,7 +5,7 @@
 -- Switch: ns.db.platerStyle (Nameplates page, only while Plater is active).
 local _, ns = ...
 
-local PROFILE_VERSION = 3
+local PROFILE_VERSION = 4
 local BAR_BG = { 0, 0, 0, 0.5 }
 
 -- Every font setting Plater knows (keys ending in "_font", found in its defaults) -> "mUI"
@@ -38,6 +38,26 @@ function ns.ApplyPlaterProfile(force)
     profile.cast_statusbar_bgcolor = BAR_BG
     profile.border_color = { 0, 0, 0, 1 }
     profile.border_thickness = 1
+
+    -- Enemy plates like mUI's: wider, taller bar, name inside on the left, percent inside on the
+    -- right (no decimals, no raw health), no level text, border stays black (no aggro colour)
+    if type(profile.aggro_modifies) == "table" then profile.aggro_modifies.border_color = false end
+    for _, kind in ipairs({ "enemynpc", "enemyplayer" }) do
+        local cfg = profile.plate_config and profile.plate_config[kind]
+        if type(cfg) == "table" then
+            cfg.health = { 140, 16 }
+            cfg.cast = { 140, 12 }
+            cfg.actorname_text_size = 12
+            cfg.actorname_text_anchor = { side = 10, x = 3, y = 0 }  -- inside left
+            cfg.percent_text_enabled = true
+            cfg.percent_show_percent = true
+            cfg.percent_show_health = false
+            cfg.percent_text_show_decimals = false
+            cfg.percent_text_size = 11
+            cfg.percent_text_anchor = { side = 11, x = -3, y = 0 }   -- inside right
+            cfg.level_text_enabled = false
+        end
+    end
 
     -- Friendly plates like mUI's: only the name, players in class colour, NPCs in mUI's accent,
     -- 14 px like mUI's "medium" name size ("big_" = Plater's name-only mode)
