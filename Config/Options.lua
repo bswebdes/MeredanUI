@@ -645,6 +645,10 @@ local PAGES = {
         build = function(page)
             page:AddTitle(L["Bags"], L["One window for all bags, sorted into sections."])
             page:AddCheckbox(ModuleLabel(L["mUI bags"], "bags"), On("bags"), Setter("bags"), RELOAD)
+            if ns.OtherAddonFor("bags") == "Bagnon" then
+                page:AddCheckbox(L["Bagnon in the mUI look"], On("bagnonStyle"), Setter("bagnonStyle", ns.ApplyBagnonStyle),
+                    Help(L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."]))
+            end
             page:AddDropdown(L["Layout"], BagStyleItems, function() return ns.db.bagsStyle == "single" and "single" or "categories" end,
                 Setter("bagsStyle", function() if ns.RefreshBags then ns.RefreshBags() end end),
                 Help(L["Sections or one big bag. Alt+right-click an item to put it into your own section."]))

@@ -56,6 +56,7 @@ Minimap/FlightTimeData.lua
 Minimap/FlightTimer.lua
 Bags/BagsData.lua
 Bags/Bags.lua
+Bags/BagnonSkin.lua
 Bags/Bank.lua
 Bags/GuildBank.lua
 Bags/AutoBuy.lua

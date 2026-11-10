@@ -68,7 +68,8 @@ local function PlaceCorner(tooltip)
     local side = Px(PAD)
     tooltip:ClearAllPoints()
     local bags = _G["MeredanUIBags"]
-    if bags and bags:IsShown() then
+    if not (bags and bags:IsShown()) then bags = ns.BagnonInventory and ns.BagnonInventory() end
+    if bags then
         tooltip:SetPoint("BOTTOMRIGHT", bags, "TOPRIGHT", -side, ns.Snap(GAP) + below)
     else
         tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, margin + ns.Snap(MICRO_STACK + GAP) + below)
@@ -93,8 +94,9 @@ end
 -- window) - put it above the bags instead
 local function InMUIBags(frame)
     local bags = _G["MeredanUIBags"]
+    local bagnon = ns.BagnonInventory and ns.BagnonInventory()
     while frame do
-        if frame == bags then return true end
+        if frame == bags or (bagnon and frame == bagnon) then return true end
         frame = frame:GetParent()
     end
 end
