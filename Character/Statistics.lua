@@ -68,7 +68,7 @@ local function Refresh(view)
             entries[#entries + 1] = { header = true, text = name, collapsed = isCollapsed, onClick = toggle }
         else
             entries[#entries + 1] = {
-                text = (isCollapsed and "|cff8ecbb4+|r  " or "|cff8ecbb4−|r  ") .. name, indent = depth * 16, height = 26,
+                text = (isCollapsed and (ns.UI.ACCENT_HEX .. "+|r  ") or (ns.UI.ACCENT_HEX .. "−|r  ")) .. name, indent = depth * 16, height = 26,
                 onClick = toggle,
             }
         end

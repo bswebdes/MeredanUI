@@ -822,7 +822,7 @@ local function CreateWindow()
     adviceButton = UI.Button(window, "", function(self)
         GameTooltip:Hide()
         -- by category: Leveling / PvE / PvP / Own, each listing only the tree name
-        local ACCENT_HEX, GREY = "|cff8ecbb4", "|cff6a6a66"
+        local ACCENT_HEX, GREY = ns.UI.ACCENT_HEX, "|cff6a6a66"
         local items = { { value = "__off", label = L["Off"] } }
         local trees = {}
         items[#items + 1] = { value = "__h1", inert = true, label = ACCENT_HEX .. L["Leveling"]:upper() .. "|r" }

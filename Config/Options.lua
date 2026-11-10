@@ -196,6 +196,8 @@ local PAGES = {
             end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
                 Help(L["Class colour: health in class colour. Dark: dark health bars, class-coloured power. Classic green: green health bars."]))
+            page:AddCheckbox(L["Accent in your class colour"], On("classAccent"), Setter("classAccent"),
+                Help(L["Lines, headings and selections in a muted class colour instead of mUI green."], true))
             page:AddCheckbox(L["Use the mUI font in Blizzard windows too"], On("fontEverywhere"),
                 Setter("fontEverywhere", ns.ApplyGlobalFonts),
                 Help(L["Windows, menus and tooltips. Turning it off needs a reload."], true))
@@ -392,6 +394,7 @@ local PAGES = {
             page:AddCheckbox(L["Item count on your characters"], On("altItemCount"), Setter("altItemCount"),
                 Help(L["Bags, bank and mail of all your characters. Bank and mail as of your last visit."]))
             page:AddHeader(L["Players"])
+            page:AddCheckbox(L["Class icon"], On("tooltipClassIcon"), Live("tooltipClassIcon"))
             page:AddCheckbox(L["Item level"], On("tooltipItemLevel"), Live("tooltipItemLevel"))
             if not ns.IS_FOREVER then -- Forever: no Mythic+
                 page:AddCheckbox(L["Mythic+ rating"], On("tooltipMythic"), Live("tooltipMythic"))

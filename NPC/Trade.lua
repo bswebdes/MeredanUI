@@ -116,7 +116,7 @@ local function UpdateMoney()
     local g, s, c = Split(GetPlayerTradeMoney())
     for i, value in ipairs({ g, s, c }) do
         local field = fields[i]
-        local caret = focusField == i and (math.floor(caretTime * 2) % 2 == 0) and "|cff8ecbb4|||r" or ""
+        local caret = focusField == i and (math.floor(caretTime * 2) % 2 == 0) and (ns.UI.ACCENT_HEX .. "|||r") or ""
         field.text:SetText((value > 0 or focusField == i) and (value > 0 and value or "") .. caret or "0")
         field.text:SetTextColor(unpack(value > 0 and ns.UI.TEXT or ns.UI.MUTED))
         for _, e in ipairs(field.focus) do e:SetShown(focusField == i) end

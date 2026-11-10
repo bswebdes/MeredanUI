@@ -410,7 +410,7 @@ local function RefreshBag(page)
     local rank, maxRank, bonus = Skill()
     if demo then rank, maxRank, bonus = 187, 225, 25 end
     if rank and maxRank and maxRank > 0 then
-        page.skill:SetText(("%d / %d"):format(rank, maxRank) .. (bonus > 0 and ("  |cff8ecbb4+" .. bonus .. "|r") or ""))
+        page.skill:SetText(("%d / %d"):format(rank, maxRank) .. (bonus > 0 and ("  " .. ns.UI.ACCENT_HEX .. "+" .. bonus .. "|r") or ""))
         page.fill:SetWidth(math.max(page.bar:GetWidth() * rank / maxRank, 0.01))
     else
         page.skill:SetText("–")
@@ -537,7 +537,7 @@ local function RefreshLog(page)
     local attempts = tries and (tries.caught + tries.escaped) or 0
     if attempts >= 10 then
         local rate = tries.escaped / attempts
-        page.info.text:SetText(rate == 0 and ("|cff8ecbb4" .. L["Nothing gets away here anymore"] .. "|r")
+        page.info.text:SetText(rate == 0 and (ns.UI.ACCENT_HEX .. L["Nothing gets away here anymore"] .. "|r")
             or L["Gets away here: %d %%"]:format(math.floor(rate * 100 + 0.5)))
     else
         page.info.text:SetText("|cff8a918e" .. L["Escape rate shows after 10 casts here"] .. "|r")

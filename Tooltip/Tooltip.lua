@@ -278,6 +278,16 @@ local function ClassColor(unit)
     return C_ClassColor.GetClassColor(class)
 end
 
+-- Small round class icon (Forever's group finder set) in front of the level line
+local function ClassIconMarkup(unit)
+    local _, class = UnitClass(unit)
+    if not Readable(class) then return end
+    local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
+    if not (C_Texture.GetAtlasInfo(atlas)) then atlas = "groupfinder-icon-class-" .. class:lower() end
+    if not (C_Texture.GetAtlasInfo(atlas)) then return end
+    return CreateAtlasMarkup(atlas, 14, 14, 0, 1)
+end
+
 local function UnitColor(unit)
     if ns.Plain(UnitIsPlayer(unit)) then
         local color = ClassColor(unit)
@@ -354,15 +364,23 @@ local function AddUnitLines(tooltip, unit)
     local factionColor = Readable(faction) and FACTION_COLORS[faction]
     local playerTag = type(PLAYER) == "string" and ("%s*%(" .. PLAYER:gsub("%p", "%%%0") .. "%)")
     local levelTag = type(LEVEL) == "string" and ("^" .. LEVEL:gsub("%p", "%%%0"))
+    local classIcon = Enabled("tooltipClassIcon") and ClassIconMarkup(unit)
     for i = 2, tooltip:NumLines() do
         local line = _G["GameTooltipTextLeft" .. i]
         local text = line and line:GetText()
         if Readable(text) then
-            if levelTag and text:find(levelTag) then starts[i] = true end
+            local isLevel = levelTag and text:find(levelTag)
+            if isLevel then starts[i] = true end
             if factionColor and Readable(factionName) and text == factionName then
                 line:SetTextColor(unpack(factionColor))
-            elseif playerTag and text:find(playerTag) then
-                line:SetText((text:gsub(playerTag, "")))
+            else
+                local newText = text
+                if playerTag and text:find(playerTag) then newText = newText:gsub(playerTag, "") end
+                if isLevel and classIcon then
+                    newText = classIcon .. " " .. newText
+                    classIcon = nil
+                end
+                if newText ~= text then line:SetText(newText) end
             end
         end
     end

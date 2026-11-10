@@ -178,6 +178,8 @@ local DEFAULTS = {
     tooltipAnchor = "corner",
     tooltipHideInCombat = false, -- hide in combat (Shift still shows it)
     tooltipItemLevel = true, tooltipMythic = true, tooltipTarget = true,
+    tooltipClassIcon = true,     -- class icon in front of the level line
+    classAccent = false,         -- accent in muted class colour instead of Surf Green (reload)
     chatBubbles = true,          -- mUI-styled chat bubbles (Chat/ChatBubbles.lua)
     emoteBar = "hidden",         -- emote bar (Chat/EmoteBar.lua): "always", "mouseover", "hidden"
     emoteBarEmotes = {},         -- [emote] = true/false; missing = default (ns.EMOTE_DEFAULTS)
@@ -470,6 +472,7 @@ function ns.UseProfile(name)
     ns.ApplyDefaults(profiles[name], DEFAULTS)
     ns.db = profiles[name]
     ns.profileName = name
+    if ns.UI and ns.UI.ApplyClassAccent then ns.UI.ApplyClassAccent() end
 end
 
 ns:On("PLAYER_LOGIN", function()

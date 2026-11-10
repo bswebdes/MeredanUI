@@ -9,6 +9,24 @@ ns.UI = UI
 
 -- Brand accent color: Surf Green
 UI.ACCENT = { 0.557, 0.796, 0.706 } -- #8ecbb4
+UI.ACCENT_HEX = "|cff8ecbb4"
+
+-- Optional class accent: Blizzard class colours brought to Surf Green's lightness and chroma
+-- (OKLCH), hue kept. Priest gets a warm grey since white has no hue.
+local CLASS_ACCENTS = {
+    WARRIOR = "dbb48b", PALADIN = "e1a9c0", HUNTER = "afc594", ROGUE = "c2bf8a", PRIEST = "ccc8c0",
+    SHAMAN = "9ebee9", MAGE = "87c7db", WARLOCK = "b3b7e9", DRUID = "e2af93",
+}
+-- Called once the profile is loaded, before windows are built; changes in place so every
+-- reference to UI.ACCENT sees it. Switching back needs a reload.
+function UI.ApplyClassAccent()
+    if not (ns.db and ns.db.classAccent) then return end
+    local _, class = UnitClass("player")
+    local hex = class and CLASS_ACCENTS[class]
+    if not hex then return end
+    for i = 1, 3 do UI.ACCENT[i] = tonumber(hex:sub(i * 2 - 1, i * 2), 16) / 255 end
+    UI.ACCENT_HEX = "|cff" .. hex
+end
 UI.TEXT = { 0.91, 0.9, 0.87 }
 UI.MUTED = { 0.6, 0.59, 0.56 }
 UI.FIELD = { 0.1, 0.1, 0.11, 1 }

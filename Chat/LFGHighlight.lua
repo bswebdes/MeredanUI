@@ -72,7 +72,7 @@ end
 local function Tag(dungeon)
     local r, g, b = ns.UI.ACCENT[1] * 255, ns.UI.ACCENT[2] * 255, ns.UI.ACCENT[3] * 255
     local icon = ("|T%sIcons\\LFG:14:14:0:0:64:64:0:64:0:64:%d:%d:%d|t"):format(ns.MEDIA, r, g, b)
-    return ("%s |cff8ecbb4%s|r "):format(icon, L[dungeon[1]])
+    return ("%s " .. ns.UI.ACCENT_HEX .. "%s|r "):format(icon, L[dungeon[1]])
 end
 
 local function Filter(_, _, message, author, ...)

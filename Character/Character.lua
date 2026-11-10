@@ -462,6 +462,17 @@ local function CreateWindow()
     window.extraRight = TAB_STEP
     Char.window = window
 
+    -- Round class icon next to the close button (shipped with the client, hidden if missing)
+    local _, classFile = UnitClass("player")
+    local atlas = classFile and ("ui-hud-unitframe-player-portrait-classicon-" .. classFile:lower() .. "-2x")
+    if atlas and C_Texture.GetAtlasInfo(atlas) then
+        local classIcon = window.header:CreateTexture(nil, "ARTWORK")
+        classIcon:SetAtlas(atlas)
+        classIcon:SetSize(28, 28)
+        classIcon:SetPoint("RIGHT", window.close, "LEFT", -8, 0)
+        window.npcName:SetPoint("RIGHT", classIcon, "LEFT", -8, 0)
+    end
+
     for i, def in ipairs(Char.tabs) do
         local button = CreateFrame("Button", nil, window)
         button:SetSize(TAB_SIZE, TAB_SIZE)

@@ -240,7 +240,7 @@ local function Layout()
         if money and money > 0 then extras[#extras + 1] = GetMoneyString(money, true) end
     end
     if #extras > 0 then
-        extraLine:SetText("|cff8ecbb4" .. L["Also"] .. "|r   " .. table.concat(extras, "    "))
+        extraLine:SetText(ns.UI.ACCENT_HEX .. L["Also"] .. "|r   " .. table.concat(extras, "    "))
         Place(extraLine, 8)
     else
         extraLine:Hide()

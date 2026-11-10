@@ -1568,5 +1568,8 @@ if GetLocale() == "deDE" then
     L["Mail"] = "Post"
     L["Worn"] = "Angelegt"
     L["Item count on your characters"] = "Anzahl auf deinen Charakteren"
+    L["Class icon"] = "Klassensymbol"
+    L["Accent in your class colour"] = "Akzent in Klassenfarbe"
+    L["Lines, headings and selections in a muted class colour instead of mUI green."] = "Linien, Überschriften und Auswahl in gedämpfter Klassenfarbe statt mUI-Grün."
     L["Bags, bank and mail of all your characters. Bank and mail as of your last visit."] = "Taschen, Bank und Post aller deiner Charaktere. Bank und Post vom letzten Besuch."
 end

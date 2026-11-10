@@ -251,7 +251,7 @@ local function RefreshRewards(page)
         end
         card.kind:SetText(kind and kind:upper() or "")
         card.tag:SetShown(isNext)
-        card.need:SetText(earned and ("|cff8ecbb4" .. L["Earned"] .. "|r")
+        card.need:SetText(earned and (ns.UI.ACCENT_HEX .. L["Earned"] .. "|r")
             or L["%d more points"]:format(li.level - points))
         local edge = (earned or isNext) and UI.ACCENT or { 0.15, 0.18, 0.17, 1 }
         for _, e in ipairs(card.edges) do e:SetVertexColor(unpack(edge)) end

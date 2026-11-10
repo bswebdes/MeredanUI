@@ -182,7 +182,7 @@ local function LinkURLs(text)
         if not (run:match("^https?://%w") or run:match("^www%.[%w%-]+%.")) then return nil end
         local url = run:gsub("[%.,;:%)]+$", "") -- trailing punctuation is not part of the URL
         local rest = run:sub(#url + 1)
-        return ("|cff8ecbb4|H%s:%s|h[%s]|h|r%s"):format(URL_LINK, url, url, rest)
+        return ((ns.UI.ACCENT_HEX .. "|H%s:%s|h[%s]|h|r%s")):format(URL_LINK, url, url, rest)
     end))
 end
 
