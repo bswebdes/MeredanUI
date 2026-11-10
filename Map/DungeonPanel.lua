@@ -403,6 +403,13 @@ local function QuestRow(i)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
         GameTooltip:SetText(self.name:GetText() or "", 1, 1, 1)
         GameTooltip:AddLine(self.sub:GetText() or "", 0.6, 0.59, 0.56, true)
+        if self.state == "avail" and self.quest.map then
+            local uiMap, pos = GiverPlace(self.quest)
+            local info = uiMap and C_Map.GetMapInfo(uiMap)
+            if info and pos then
+                GameTooltip:AddLine(("%s  %.1f, %.1f"):format(info.name, pos.x * 100, pos.y * 100), 1, 1, 1)
+            end
+        end
         local hint = (self.state == "open" or self.state == "ready") and L["Click: active quest in the tracker"]
             or (self.state == "avail" and self.quest.map and L["Click: map pin on the quest giver"])
         if hint then GameTooltip:AddLine(hint, 0.56, 0.8, 0.71) end
