@@ -120,10 +120,16 @@ end
 
 function ns.ApplyBigWigsProfile(force)
     BigWigs = _G.BigWigs
-    if not Styled() or InCombatLockdown() or not BigWigs or not BigWigs.GetPlugin then return end
+    if not Styled() or InCombatLockdown() or not BigWigs then return end
     if not force and (ns.char.bigwigsProfile or 0) >= PROFILE_VERSION then return end
-    local bars = BigWigs:GetPlugin("Bars", true)
-    local profile = bars and bars.db and bars.db.profile
+    -- BigWigs:GetPlugin only hands out a few functions: read the plugin settings from BigWigs'
+    -- database namespace instead ("BigWigs_Plugins_<name>", BigWigs_Core/Core.lua NewPlugin)
+    local root = _G.BigWigsLoader and _G.BigWigsLoader.db
+    local function Profile(name)
+        local db = root and root.GetNamespace and root:GetNamespace("BigWigs_Plugins_" .. name, true)
+        return db and db.profile
+    end
+    local profile = Profile("Bars")
     if not profile then return end
     ns.char.bigwigsProfile = PROFILE_VERSION
     profile.barStyle = STYLE
@@ -133,8 +139,7 @@ function ns.ApplyBigWigsProfile(force)
     profile.growup, profile.emphasizeGrowup = true, false
     profile.icon, profile.iconPosition, profile.spacing = true, "LEFT", 4
     Positions(profile)
-    local messages = BigWigs:GetPlugin("Messages", true)
-    local mp = messages and messages.db and messages.db.profile
+    local mp = Profile("Messages")
     if mp then mp.fontName, mp.emphFontName = "mUI", "mUI" end
     -- let the plugins re-read their profile, the way BigWigs' own profile import does it
     if BigWigs.SendMessage then BigWigs:SendMessage("BigWigs_ProfileUpdate") end
