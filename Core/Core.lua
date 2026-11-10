@@ -84,6 +84,23 @@ function ns:Off(event)
     eventFrame:UnregisterEvent(event)
 end
 
+-- "Quests changed": QUEST_LOG_UPDATE comes in bursts (every kill, loot, objective). Subscribers
+-- run once per burst, 0.2 s after the first event.
+local questSubscribers, questPending = {}, false
+function ns.OnQuestsChanged(fn)
+    if #questSubscribers == 0 then
+        ns:On("QUEST_LOG_UPDATE", function()
+            if questPending then return end
+            questPending = true
+            C_Timer.After(0.2, function()
+                questPending = false
+                for i = 1, #questSubscribers do SafeCall(questSubscribers[i]) end
+            end)
+        end)
+    end
+    questSubscribers[#questSubscribers + 1] = fn
+end
+
 -- Is another addon for the same job loaded? Returns its folder name (first loaded from the
 -- list) or nil. Names must match the AddOns folder exactly.
 function ns.OtherAddon(names)

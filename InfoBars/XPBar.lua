@@ -287,7 +287,12 @@ function ns.XPBarBottom()
     if petBar and petBar:IsVisible() then return petBar end
     if bar and bar:IsVisible() then return bar end
 end
-ns:On("QUEST_LOG_UPDATE", function() UpdateQuestXP(); Update() end)
+-- Quest XP only matters below max level (no quest log scan at 60)
+ns.OnQuestsChanged(function()
+    if AtMaxLevel() then return end
+    UpdateQuestXP()
+    Update()
+end)
 -- Kill XP: the combat XP message arrives either before or after the XP update - handle both.
 ns:On("CHAT_MSG_COMBAT_XP_GAIN", function()
     if lastGain and lastGainTime and GetTime() - lastGainTime < 0.2 then

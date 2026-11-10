@@ -223,7 +223,7 @@ ns:On("PLAYER_LOGIN", function()
     GossipFrame:SetParent(hidden)
     ns:On("GOSSIP_SHOW", function() ShowFor("gossip", GossipFrame, "npc") end)
     ns:On("GOSSIP_CLOSED", function() if source == "gossip" then window:Hide() end end)
-    ns:On("QUEST_LOG_UPDATE", function() if window:IsShown() then Layout() end end)
+    ns.OnQuestsChanged(function() if window:IsShown() then Layout() end end)
     -- Quest-only NPCs greet via Blizzard's QuestFrame, which NPC/Quest.lua parks
     ns:On("QUEST_GREETING", function() ShowFor("greeting", QuestFrame, "questnpc") end)
     ns:On("QUEST_FINISHED", function() if source == "greeting" and window:IsShown() then window:Hide() end end)
