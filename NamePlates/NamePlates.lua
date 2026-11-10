@@ -9,7 +9,8 @@
 --   +--+--------------------------------+          tick = where your interrupt is ready again
 --   12.5 %                                      <- M+ forces of the mob (M+ only)
 --
--- Target: 15 % larger, white arrows left and right. Other plates are dimmed (unless casting).
+-- Target: 15 % larger, white arrows left and right, soft accent glow above and below. Other plates
+-- are dimmed (unless casting).
 -- Mouseover brightens the bar.
 --
 -- Health colors (highest priority first):
@@ -341,6 +342,19 @@ local function Style(self, unit)
         local arrow = ns.UI.Icon(targetBorder, "ChevronDown", HEALTH + 8, { 1, 1, 1 })
         arrow:SetPoint(side[1], health, side[2], side[3], 0)
         arrow:SetRotation(side[4])
+    end
+    -- plus a soft accent glow above and below the bar, fading outwards (like Plater's target highlight)
+    local accent = ns.UI.ACCENT
+    local strong, clear = CreateColor(accent[1], accent[2], accent[3], 0.5), CreateColor(accent[1], accent[2], accent[3], 0)
+    -- SetGradient("VERTICAL", bottom colour, top colour)
+    local px = ns.PixelSize() -- start outside the bar's 1 px border
+    for _, side in ipairs({ { "BOTTOM", "TOP", strong, clear, px }, { "TOP", "BOTTOM", clear, strong, -px } }) do
+        local glow = targetBorder:CreateTexture(nil, "BACKGROUND")
+        glow:SetPoint(side[1] .. "LEFT", health, side[2] .. "LEFT", 0, side[5])
+        glow:SetPoint(side[1] .. "RIGHT", health, side[2] .. "RIGHT", 0, side[5])
+        glow:SetHeight(10)
+        glow:SetColorTexture(1, 1, 1, 1)
+        glow:SetGradient("VERTICAL", side[3], side[4])
     end
     targetBorder:Hide()
     self.targetBorder = targetBorder
