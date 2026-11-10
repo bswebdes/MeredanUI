@@ -183,6 +183,13 @@ function ns.ApplyDetailsStyle()
             if instance.skin == SKIN then
                 Border(instance)
                 if id == 1 then Place(instance) end
+                -- mUI's "Hide out of combat" (damageMeterFade) through Details' context rule 2
+                -- ("while out of combat": window alpha in percent)
+                local rule = instance.hide_on_context and instance.hide_on_context[2]
+                if rule then
+                    rule.enabled, rule.inverse, rule.value = ns.db.damageMeterFade ~= false, false, 0
+                    if instance.AdjustAlphaByContext then instance:AdjustAlphaByContext() end
+                end
             end
         end
     end

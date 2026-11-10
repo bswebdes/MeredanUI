@@ -719,7 +719,9 @@ local PAGES = {
                 page:AddCheckbox(L["Details! in the mUI look"], On("detailsStyle"), Setter("detailsStyle", ns.ApplyDetailsStyle),
                     Help(L["Flat mUI window, font and bars. Details' own settings stay usable."]))
             end
-            page:AddCheckbox(L["Hide out of combat"], On("damageMeterFade"), Setter("damageMeterFade"),
+            page:AddCheckbox(L["Hide out of combat"], On("damageMeterFade"), Setter("damageMeterFade", function()
+                if ns.ApplyDetailsStyle then ns.ApplyDetailsStyle() end -- Details follows the same switch
+            end),
                 Help(L["Mouse over shows it."]))
             page:AddCheckbox(L["Second window"], On("damageMeterSecond"), Setter("damageMeterSecond", function()
                 if ns.RelayoutDamageMeter then ns.RelayoutDamageMeter() end
