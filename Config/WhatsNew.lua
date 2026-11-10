@@ -18,7 +18,7 @@ ns.WHATS_NEW = {
       text = "Click a boss on the dungeon map to see its loot with drop chances, filtered for your class." },
     { id = "wishlist", image = "Wishlist", title = "Wishlist",
       text = "Star the loot you want. The wishlist shows where it drops, lets you try it on and ticks it off once you have it." },
-    { id = "dungeon-quests", draft = true, image = "DungeonQuests", title = "Dungeon quests",
+    { id = "dungeon-quests", image = "DungeonQuests", title = "Dungeon quests",
       text = "All quests of a dungeon at a glance: done, still open, or where the quest giver stands." },
 }
 
