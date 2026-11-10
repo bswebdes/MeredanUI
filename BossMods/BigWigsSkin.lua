@@ -7,10 +7,12 @@
 local _, ns = ...
 local BigWigs, BigWigsAPI -- globals of BigWigs, read when needed
 
-local STYLE, PROFILE_VERSION = "MeredanUI", 3
+local STYLE, PROFILE_VERSION = "MeredanUI", 4
 local BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 22, 260, 26
 local ICON_GAP, ABOVE_GAP = 4, 16
-local BIG_TOP = 190        -- big bars: distance of their top edge from the screen top
+-- Spots Benny dragged in BigWigs (2026-11-10, 1920x1080): messages from 122 px below the top
+-- (where Blizzard's error text starts), big bars from 269 px below the top
+local MESSAGES_TOP, BIG_TOP = 122, 269
 
 local function Styled() return ns.db and ns.db.bigwigsStyle ~= false end
 
@@ -124,8 +126,7 @@ local function Positions(profile)
         profile.normalWidth = math.floor(player:GetWidth() + 0.5)
         profile.normalPosition = { "BOTTOMLEFT", "BOTTOMLEFT", player:GetLeft(), player:GetTop() + above, "UIParent" }
     end
-    -- big bars higher up (190 px below the top, growing down); BigWigs' messages right above them,
-    -- stacking upwards (Messages profile below)
+    -- big bars growing down from BIG_TOP; BigWigs' messages above them (Messages profile below)
     profile.expPosition = { "TOP", "TOP", 0, -BIG_TOP, "UIParent" }
 end
 
@@ -153,9 +154,8 @@ function ns.ApplyBigWigsProfile(force)
     local mp = Profile("Messages")
     if mp then
         mp.fontName, mp.emphFontName = "mUI", "mUI"
-        -- messages sit just above the big bars and stack upwards
-        mp.normalPosition = { "BOTTOM", "TOP", 0, -(BIG_TOP - 6) }
-        mp.growUpwards = true
+        mp.normalPosition = { "TOP", "TOP", 0, -MESSAGES_TOP }
+        mp.growUpwards = false
     end
     -- let the plugins re-read their profile, the way BigWigs' own profile import does it
     if BigWigs.SendMessage then BigWigs:SendMessage("BigWigs_ProfileUpdate") end
