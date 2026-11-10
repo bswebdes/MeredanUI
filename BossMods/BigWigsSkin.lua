@@ -150,7 +150,15 @@ ns:On("ADDON_LOADED", function(_, name)
     if name == "BigWigs" or name == "BigWigs_Core" then RegisterStyle() end
     if name == "BigWigs_Plugins" then
         RegisterStyle()
-        C_Timer.After(0, function() ns.ApplyBigWigsProfile() end)
+        -- plugins register their settings a moment later: try a few times
+        local tries = 0
+        local function Try()
+            tries = tries + 1
+            if (ns.char.bigwigsProfile or 0) >= PROFILE_VERSION or tries > 10 then return end
+            ns.ApplyBigWigsProfile()
+            C_Timer.After(1, Try)
+        end
+        C_Timer.After(0, Try)
     end
 end)
 ns:On("PLAYER_LOGIN", function()
