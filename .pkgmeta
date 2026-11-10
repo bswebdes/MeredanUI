@@ -26,6 +26,10 @@ externals:
     url: https://github.com/oUF-wow/oUF.git
     tag: 14.2.0
 
+# CurseForge "Relations": Questie is built in (Quests/QuestieBridge.lua) but not required
+optional-dependencies:
+  - questie
+
 ignore:
   - README.md
   - .luarc.json

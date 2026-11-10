@@ -10,12 +10,17 @@ One addon, one look, one settings window (`/mui`). English and German.
 ## What's inside
 - **Unit frames, nameplates, action bars, auras, chat, tooltips, minimap, bags** – all in one flat look
 - **Own windows** for character, talents, spellbook, map, quests, merchants, mail, auction house, guild and more
-- **Dungeon maps** for WoW Forever, with boss positions
-- **Quest tracker** with Questie support: turn-in NPC, distance and direction arrow
+- **Dungeon maps** for WoW Forever: bosses where they stand, their loot with drop chances, all dungeon quests and a wishlist with try-on
+- **Quest tracker** with turn-in NPC, distance and direction arrow
 - **Damage meter**, threat bar, ready check with consumables
 - **Comfort helpers** (each with its own switch): auto quests, summons, resurrects, buff reminders, item counts across your characters
 - **Plays nice with other addons**: Plater, Details, DBM/BigWigs, Bagnon & co. take over their part if you prefer them
 - Setup wizard with two presets: **Classic** (plain) or **Comfort** (all helpers on)
+
+## Recommended: Questie
+MeredanUI works best together with [Questie](https://github.com/Questie/Questie). It is built right in:
+Questie's icons sit on the mUI map (click one to make the quest active, hold Shift for details), and the
+quest tracker shows the nearest objective, its distance and a direction arrow.
 
 ## Found a bug?
 Please [open an issue](https://github.com/bswebdes/MeredanUI/issues/new/choose) and include:
