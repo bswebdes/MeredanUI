@@ -1102,7 +1102,7 @@ local function CreateWindow()
     logList:SetPoint("TOPLEFT", logSearch, "BOTTOMLEFT", 0, -10)
     logList:SetPoint("BOTTOMRIGHT", -PAD - 8, 40)
     logList.child:SetWidth(LOG_W - 8)
-    if ns.DungeonPanel then ns.DungeonPanel.Attach(window, logSearch, logList) end
+    if ns.DungeonPanel then ns.DungeonPanel.Attach(window, logSearch, logList, { logSearch, filterButton, logCount, trackAll, logList }) end
 
     footer = UI.Text(window, 12, "LEFT", UI.MUTED)
     footer:SetPoint("BOTTOMLEFT", PAD, 14)

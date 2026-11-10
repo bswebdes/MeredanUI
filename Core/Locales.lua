@@ -1593,8 +1593,11 @@ if GetLocale() == "deDE" then
     L["Nothing on your wishlist yet."] = "Noch nichts auf der Merkliste."
     L["On your wishlist"] = "Auf deiner Merkliste"
     L["Bosses"] = "Bosse"
-    L["All loot"] = "Alle Beute"
-    L["Weapons & shields"] = "Waffen & Schilde"
     L["Nothing for this filter."] = "Nichts für diesen Filter."
     L["Loot from AtlasLoot data, not confirmed in Forever yet."] = "Beute aus AtlasLoot-Daten, in Forever noch nicht bestätigt."
+    L["For me"] = "Für mich"
+    L["Open"] = "Offen"
+    L["Owned"] = "Erhalten"
+    L["Click a dungeon to show it on the map."] = "Klick auf einen Dungeon zeigt ihn in der Karte."
+    L["%d items · all dungeons"] = "%d Gegenstände · alle Dungeons"
 end

@@ -265,8 +265,15 @@ function Refresh()
             if p.kind == "boss" then name, number = BossName(instance, p.id) end
             button.entry = { kind = p.kind, id = p.id, name = name or p.name, display = p.display }
             StylePin(button, p.kind, number, p.display)
+            -- boss chosen in the panel (Map/DungeonPanel.lua): bigger, accent ring
+            local key = p.kind == "rare" and ("rare:" .. p.id) or p.id
+            local chosen = not editing and ns.DungeonPanel and ns.DungeonPanel.Selected() == key
+            button:SetScale(chosen and 1.25 or 1)
+            button:SetFrameLevel(view.art:GetFrameLevel() + (chosen and 8 or 5))
+            if chosen then button.ring:SetVertexColor(unpack(ns.UI.ACCENT)) end
             button:ClearAllPoints()
-            button:SetPoint("CENTER", view.art, "TOPLEFT", p.x * view.art:GetWidth(), -p.y * view.art:GetHeight())
+            local scale = button:GetScale() -- offsets count in the pin's own (scaled) units
+            button:SetPoint("CENTER", view.art, "TOPLEFT", p.x * view.art:GetWidth() / scale, -p.y * view.art:GetHeight() / scale)
             button:Show()
         end
     end

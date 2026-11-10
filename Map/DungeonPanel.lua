@@ -1,49 +1,67 @@
--- Boss panel in the world map's right column while a dungeon map is shown (instead of the quest log):
--- boss list in map pin order, click a boss (in the list or its pin on the map) for its loot, filter
--- by armour type, star items for the wishlist (Character/Wishlist.lua).
+-- Dungeon panel in the world map's right column while a dungeon map is shown (replaces the quest log):
+-- "Bosses" tab + wishlist button, bosses as an accordion in map pin order. Clicking a boss (row or its
+-- pin on the map) opens its loot below it with a "For me / All" filter; the star keeps an item on the
+-- wishlist (Character/Wishlist.lua, own window docked right of the map).
 --
---   +- right column -------------------------+
---   | Bosses              [All armour v]     |   list: number, name, loot count
---   | (1) Lady Anacondra               3 >   |
---   | ...                                    |
---   +----------------------------------------+
---   | [<] Lady Anacondra                      |   detail: loot rows with star
---   | [icon] Belt of the Fang   Leather Waist * |
---   | Loot from AtlasLoot data, not confirmed |
+--   +- right column ---------------------------+
+--   | [ Bosses                    ] [* 3]       |
+--   | <1> Lady Anacondra              3 items   |
+--   |   [For me] [All]                          |
+--   |   [icon] Belt of the Fang     Leather  *  |
+--   | <2> Lord Cobrahn                3 items   |
+--   | Loot from AtlasLoot data, not confirmed   |
 local _, ns = ...
 local L = ns.L
 
 local P = {}
 ns.DungeonPanel = P
 
-local ROW, LOOT_ROW = 32, 40
-local frame, list, title, back, filterButton, note
-local rows, lootRows = {}, {}
+local BOSS_ROW, LOOT_ROW, GAP = 34, 38, 4
+local frame, list, tab, wishButton, filterBar, note
+local bossRows, lootRows = {}, {}
 local selected -- encounter ID or "rare:<npcID>"
 local shownInstance
-local filter = "all"
+local hiddenFrames = {}
 
--- Armour filter: Item class 4 (armour) subclasses; weapons and the rest have their own entries
-local FILTERS = {
-    { value = "all", label = "All loot" },
-    { value = 1 }, { value = 2 }, { value = 3 }, { value = 4 }, -- labels from the client (GetItemSubClassInfo)
-    { value = "weapon", label = "Weapons & shields" },
-    { value = "other", label = "Other" },
+local GOLD, SILVER = { 0.85, 0.71, 0.42 }, { 0.8, 0.82, 0.86 }
+local BLACK = { 0, 0, 0, 1 }
+local SELECTED_BG = { 0.10, 0.145, 0.137, 1 }
+local ROW_BG = { 0.08, 0.094, 0.094, 1 }
+
+-- "For me": best armour type and usable weapons per class (classic proficiencies, trainable ones count).
+-- Weapon subclasses (Enum.ItemWeaponSubclass): 0 axe1H, 1 axe2H, 2 bow, 3 gun, 4 mace1H, 5 mace2H,
+-- 6 polearm, 7 sword1H, 8 sword2H, 10 staff, 13 fist, 15 dagger, 16 thrown, 18 crossbow, 19 wand.
+local ARMOUR = { WARRIOR = 4, PALADIN = 4, HUNTER = 3, SHAMAN = 3, ROGUE = 2, DRUID = 2, PRIEST = 1, MAGE = 1, WARLOCK = 1 }
+local SHIELD = { WARRIOR = true, PALADIN = true, SHAMAN = true }
+local function Set(...) local t = {} for _, v in ipairs({ ... }) do t[v] = true end return t end
+local WEAPONS = {
+    WARRIOR = Set(0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 16, 18),
+    PALADIN = Set(0, 1, 4, 5, 6, 7, 8),
+    HUNTER = Set(0, 1, 2, 3, 6, 7, 8, 10, 13, 15, 16, 18),
+    ROGUE = Set(2, 3, 4, 7, 13, 15, 16, 18),
+    PRIEST = Set(4, 10, 15, 19),
+    SHAMAN = Set(0, 1, 4, 5, 10, 13, 15),
+    MAGE = Set(7, 10, 15, 19),
+    WARLOCK = Set(7, 10, 15, 19),
+    DRUID = Set(4, 5, 10, 13, 15),
 }
+local ANY_SLOT = Set("INVTYPE_CLOAK", "INVTYPE_NECK", "INVTYPE_FINGER", "INVTYPE_TRINKET", "INVTYPE_HOLDABLE")
 
-local function FilterLabel(f)
-    if f.label then return L[f.label] end
-    return C_Item.GetItemSubClassInfo(Enum.ItemClass.Armor, f.value) or tostring(f.value)
-end
-
-local function Matches(itemID)
-    if filter == "all" then return true end
+local function ForMe(itemID)
     local _, _, _, equipLoc, _, classID, subclassID = C_Item.GetItemInfoInstant(itemID)
-    local armour = classID == Enum.ItemClass.Armor
-    if filter == "weapon" then return classID == Enum.ItemClass.Weapon or (armour and subclassID == 6) end
-    if filter == "other" then return not armour and classID ~= Enum.ItemClass.Weapon or (armour and (subclassID == 0 or equipLoc == "INVTYPE_CLOAK")) end
-    return armour and subclassID == filter and equipLoc ~= "INVTYPE_CLOAK"
+    local class = select(2, UnitClass("player"))
+    if classID == Enum.ItemClass.Armor then
+        if ANY_SLOT[equipLoc] or subclassID == 0 then return true end
+        if subclassID == 6 then return SHIELD[class] or false end
+        if subclassID >= 1 and subclassID <= 4 then return subclassID == ARMOUR[class] end
+        return true
+    elseif classID == Enum.ItemClass.Weapon then
+        return WEAPONS[class] == nil or WEAPONS[class][subclassID] or false
+    end
+    return true -- bags, recipes, quest items
 end
+
+local function FilterMine() return not (ns.char and ns.char.dungeonLootAll) end
 
 -- Bosses of the instance in pin/number order, plus rares that have loot
 local function Sources(instance)
@@ -59,76 +77,94 @@ local function Sources(instance)
     return out
 end
 
-local function SourceByKey(instance, key)
-    for _, s in ipairs(Sources(instance)) do if s.key == key then return s end end
+local function Visible(items)
+    if not FilterMine() then return items end
+    local out = {}
+    for _, id in ipairs(items) do if ForMe(id) then out[#out + 1] = id end end
+    return out
 end
 
-local function NumberMark(row, s)
-    if s.rare then
-        row.mark:SetText("|T" .. ns.MEDIA .. "Icons\\Star:11:11:0:0|t")
-    else
-        row.mark:SetText(s.number)
-    end
+-- Flat button with 1px border; TabStyle marks the active one (accent border + text)
+local function SmallButton(parent, label, w, h)
+    local b = CreateFrame("Button", nil, parent)
+    b:SetSize(w, h)
+    local bg = b:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(0.098, 0.098, 0.11, 1)
+    b.edges = ns.AddBorder(b)
+    b.text = ns.UI.Text(b, 12, "CENTER")
+    b.text:SetPoint("CENTER")
+    b.text:SetText(label)
+    return b
+end
+
+local function TabStyle(button, active)
+    for _, e in ipairs(button.edges) do e:SetVertexColor(unpack(active and ns.UI.ACCENT or BLACK)) end
+    button.text:SetTextColor(unpack(active and ns.UI.ACCENT or ns.UI.MUTED))
 end
 
 local function BossRow(i)
-    local row = rows[i]
-    if row then return row end
+    if bossRows[i] then return bossRows[i] end
     local UI = ns.UI
-    row = CreateFrame("Button", nil, list.child)
-    row:SetHeight(ROW)
-    row:SetPoint("TOPLEFT", 0, -(i - 1) * (ROW + 2))
-    row:SetPoint("RIGHT", list.child, "RIGHT")
-    UI.Box(row, { 0.08, 0.08, 0.09, 0.9 })
+    local row = CreateFrame("Button", nil, list.child)
+    row:SetHeight(BOSS_ROW)
+    row.bg = row:CreateTexture(nil, "BACKGROUND")
+    row.bg:SetAllPoints()
+    ns.AddBorder(row)
+    row.bar = row:CreateTexture(nil, "ARTWORK")
+    row.bar:SetPoint("TOPLEFT")
+    row.bar:SetPoint("BOTTOMLEFT")
+    row.bar:SetWidth(2)
+    row.bar:SetColorTexture(unpack(UI.ACCENT))
     local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
-    hover:SetColorTexture(1, 1, 1, 0.05)
-    row.diamond = UI.Icon(row, "Diamond", 22, { 0.85, 0.71, 0.42 })
-    row.diamond:SetPoint("LEFT", 6, 0)
+    hover:SetColorTexture(1, 1, 1, 0.04)
+    row.diamond = UI.Icon(row, "Diamond", 22, GOLD)
+    row.diamond:SetPoint("LEFT", 8, 0)
     row.mark = UI.Text(row, 11, "CENTER", { 0.07, 0.07, 0.07 })
     ns.SetFont(row.mark, 11, "", "bold")
     row.mark:SetPoint("CENTER", row.diamond, "CENTER", 0, 0)
     row.name = UI.Text(row, 13, "LEFT")
-    row.name:SetPoint("LEFT", row.diamond, "RIGHT", 10, 0)
-    row.name:SetPoint("RIGHT", -60, 0)
+    row.name:SetPoint("LEFT", row.diamond, "RIGHT", 8, 0)
+    row.name:SetPoint("RIGHT", -70, 0)
     row.name:SetWordWrap(false)
-    row.count = UI.Text(row, 12, "RIGHT", UI.MUTED)
-    row.count:SetPoint("RIGHT", -26, 0)
-    row.chevron = UI.Icon(row, "ChevronDown", 10, UI.MUTED)
-    row.chevron:SetRotation(math.pi / 2)
-    row.chevron:SetPoint("RIGHT", -10, 0)
-    row:SetScript("OnClick", function(self) P.Select(self.key) end)
-    rows[i] = row
+    row.count = UI.Text(row, 11, "RIGHT", UI.MUTED)
+    row.count:SetPoint("RIGHT", -10, 0)
+    row:SetScript("OnClick", function(self)
+        if selected == self.key then P.Select(nil) else P.Select(self.key) end
+    end)
+    bossRows[i] = row
     return row
 end
 
 local function LootRow(i)
-    local row = lootRows[i]
-    if row then return row end
+    if lootRows[i] then return lootRows[i] end
     local UI = ns.UI
-    row = CreateFrame("Button", nil, list.child)
+    local row = CreateFrame("Button", nil, list.child)
     row:SetHeight(LOOT_ROW)
-    row:SetPoint("RIGHT", list.child, "RIGHT")
-    UI.Box(row, { 0.08, 0.08, 0.09, 0.9 })
+    local bg = row:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(unpack(ROW_BG))
+    ns.AddBorder(row)
     local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
-    hover:SetColorTexture(1, 1, 1, 0.05)
+    hover:SetColorTexture(1, 1, 1, 0.04)
     row.icon = row:CreateTexture(nil, "ARTWORK")
-    row.icon:SetSize(LOOT_ROW - 10, LOOT_ROW - 10)
-    row.icon:SetPoint("LEFT", 5, 0)
+    row.icon:SetSize(28, 28)
+    row.icon:SetPoint("LEFT", 6, 0)
     row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     row.name = UI.Text(row, 13, "LEFT")
-    row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 10, -2)
+    ns.SetFont(row.name, 13, "", "bold")
+    row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 8, 0)
     row.name:SetPoint("RIGHT", -38, 0)
     row.name:SetWordWrap(false)
     row.kind = UI.Text(row, 11, "LEFT", UI.MUTED)
-    row.kind:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 10, 2)
+    row.kind:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 8, 0)
     row.kind:SetPoint("RIGHT", -38, 0)
     row.kind:SetWordWrap(false)
-    row.star = CreateFrame("Button", nil, row)
-    row.star:SetSize(26, 26)
+    row.star = SmallButton(row, "", 24, 24)
     row.star:SetPoint("RIGHT", -6, 0)
-    row.star.icon = UI.Icon(row.star, "Star", 16, UI.MUTED)
+    row.star.icon = UI.Icon(row.star, "Star", 14, GOLD)
     row.star.icon:SetPoint("CENTER")
     row.star:SetScript("OnClick", function()
         ns.Wishlist.Toggle(row.itemID, ns.DungeonMapView.instance, selected)
@@ -155,156 +191,169 @@ local function LootRow(i)
     return row
 end
 
--- "Leather · Waist" from the instant item data (no server round trip)
+-- "Waist · Leather" from the instant item data (no server round trip)
 local function KindText(itemID)
     local _, _, subType, equipLoc = C_Item.GetItemInfoInstant(itemID)
     local slot = equipLoc and equipLoc ~= "" and _G[equipLoc] or nil
-    if slot and subType and subType ~= "" then return subType .. "  ·  " .. slot end
+    if slot and subType and subType ~= "" and subType ~= slot then return slot .. "  ·  " .. subType end
     return slot or subType or ""
 end
 
-local function ShowList(instance)
-    for _, r in ipairs(lootRows) do r:Hide() end
-    back:Hide()
-    title:ClearAllPoints()
-    title:SetPoint("LEFT", frame.header, "LEFT", 2, 0)
-    title:SetText(L["Bosses"])
-    local sources = Sources(instance)
-    for _, r in ipairs(rows) do r:Hide() end
-    for i, s in ipairs(sources) do
-        local row = BossRow(i)
-        row.key = s.key
-        NumberMark(row, s)
-        row.diamond:SetVertexColor(unpack(s.rare and { 0.8, 0.82, 0.86 } or { 0.85, 0.71, 0.42 }))
-        row.name:SetText(s.name or "")
-        local n = 0
-        for _, id in ipairs(s.items) do if Matches(id) then n = n + 1 end end
-        row.count:SetText(#s.items > 0 and n or "–")
-        row:Show()
-    end
-    list.child:SetHeight(math.max(#sources * (ROW + 2), 1))
-    note:Hide()
+local function FillLoot(row, id)
+    row.itemID = id
+    row.icon:SetTexture(C_Item.GetItemIconByID(id))
+    row.kind:SetText(KindText(id))
+    row.name:SetText("")
+    row.star.icon:SetAlpha(ns.Wishlist.Has(id) and 1 or 0.3)
+    local item = Item:CreateFromItemID(id)
+    item:ContinueOnItemLoad(function()
+        if row.itemID ~= id then return end
+        row.name:SetText(item:GetItemName() or "")
+        local color = item:GetItemQualityColor()
+        if color then row.name:SetTextColor(color.r, color.g, color.b) end
+    end)
 end
 
-local function ShowLoot(s)
-    for _, r in ipairs(rows) do r:Hide() end
-    back:Show()
-    title:ClearAllPoints()
-    title:SetPoint("LEFT", back, "RIGHT", 8, 0)
-    title:SetText(s.name or "")
+local function Place(region, y, indent)
+    region:ClearAllPoints()
+    region:SetPoint("TOPLEFT", list.child, "TOPLEFT", indent or 0, -y)
+    region:SetPoint("RIGHT", list.child, "RIGHT")
+end
+
+local function Layout(instance)
+    for _, r in ipairs(bossRows) do r:Hide() end
     for _, r in ipairs(lootRows) do r:Hide() end
-    local n, y = 0, 0
-    for _, id in ipairs(s.items) do
-        if Matches(id) then
-            n = n + 1
-            local row = LootRow(n)
-            row.itemID = id
-            row:ClearAllPoints()
-            row:SetPoint("TOPLEFT", 0, -y)
-            row:SetPoint("RIGHT", list.child, "RIGHT")
-            row.icon:SetTexture(C_Item.GetItemIconByID(id))
-            row.kind:SetText(KindText(id))
-            row.name:SetText("")
-            local wished = ns.Wishlist.Has(id)
-            row.star.icon:SetVertexColor(unpack(wished and ns.UI.ACCENT or ns.UI.MUTED))
-            row.star.icon:SetAlpha(wished and 1 or 0.55)
-            local item = Item:CreateFromItemID(id)
-            item:ContinueOnItemLoad(function()
-                if row.itemID ~= id then return end
-                row.name:SetText(item:GetItemName() or "")
-                local color = item:GetItemQualityColor()
-                if color then row.name:SetTextColor(color.r, color.g, color.b) end
-            end)
-            row:Show()
-            y = y + LOOT_ROW + 2
+    filterBar:Hide()
+    local y, nLoot = 0, 0
+    for i, s in ipairs(Sources(instance)) do
+        local row = BossRow(i)
+        local open = s.key == selected
+        local visible = Visible(s.items)
+        row.key = s.key
+        row.mark:SetText(s.rare and ("|T" .. ns.MEDIA .. "Icons\\Star:10:10:0:0|t") or s.number)
+        row.diamond:SetVertexColor(unpack(s.rare and SILVER or GOLD))
+        row.name:SetText(s.name or "")
+        row.name:SetTextColor(unpack(open and ns.UI.ACCENT or ns.UI.TEXT))
+        row.bg:SetColorTexture(unpack(open and SELECTED_BG or ROW_BG))
+        row.bar:SetShown(open)
+        row.count:SetText(#s.items == 0 and "" or L["%d items"]:format(#visible))
+        Place(row, y)
+        row:Show()
+        y = y + BOSS_ROW + GAP
+        if open then
+            Place(filterBar, y + 2, 8)
+            filterBar:Show()
+            y = y + 24 + GAP + 4
+            for _, id in ipairs(visible) do
+                nLoot = nLoot + 1
+                local loot = LootRow(nLoot)
+                FillLoot(loot, id)
+                Place(loot, y, 8)
+                loot:Show()
+                y = y + LOOT_ROW + GAP
+            end
+            y = y + 6
         end
     end
     note:ClearAllPoints()
-    note:SetPoint("TOPLEFT", list.child, "TOPLEFT", 2, -(y + 8))
+    note:SetPoint("TOPLEFT", list.child, "TOPLEFT", 2, -(y + 6))
     note:SetPoint("RIGHT", list.child, "RIGHT", -2, 0)
-    note:SetText(n == 0 and L["Nothing for this filter."] or L["Loot from AtlasLoot data, not confirmed in Forever yet."])
-    note:Show()
     list.child:SetHeight(y + 40)
 end
 
+local function UpdateHeader()
+    wishButton.text:SetText(ns.Wishlist.Count())
+    local open = ns.Wishlist.IsWindowShown()
+    for _, e in ipairs(wishButton.edges) do e:SetVertexColor(unpack(open and GOLD or BLACK)) end
+    TabStyle(filterBar.mine, FilterMine())
+    TabStyle(filterBar.all, not FilterMine())
+end
+
+function P.Selected() return frame and frame:IsShown() and selected or nil end
+
 function P.Refresh()
+    if not frame then return end
     local view = ns.DungeonMapView
     local instance = view and view.IsShown() and view.instance
-    local active = frame and instance and ns.DUNGEON_LOOT[instance] ~= nil
-    if not frame then return end
-    frame:SetShown(active and true or false)
+    local active = instance and ns.DUNGEON_LOOT[instance] ~= nil or false
+    frame:SetShown(active)
+    for _, f in ipairs(hiddenFrames) do f:SetAlpha(active and 0 or 1) end
     if not active then return end
     if instance ~= shownInstance then selected, shownInstance = nil, instance end
-    local s = selected and SourceByKey(instance, selected)
-    if s then ShowLoot(s) else selected = nil ShowList(instance) end
-    local label
-    for _, f in ipairs(FILTERS) do if f.value == filter then label = FilterLabel(f) end end
-    filterButton.text:SetText(label or "")
+    UpdateHeader()
+    Layout(instance)
 end
 
--- Called by a boss pin click (Map/DungeonPins.lua) or a list row
+-- Called by a boss pin click (Map/DungeonPins.lua) or a list row; nil closes the open boss
 function P.Select(key)
     selected = key
-    PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+    PlaySound(key and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
     P.Refresh()
+    if ns.DungeonPins then ns.DungeonPins.Refresh() end
 end
 
--- Build over the quest log column: anchors = top-left and bottom-right frames of that column
-function P.Attach(parent, topLeft, bottomRight)
+-- Build over the quest log column. topLeft/bottomRight = corner frames of that column; hide = the
+-- quest log's own widgets (faded out while the panel shows, so nothing shines through)
+function P.Attach(parent, topLeft, bottomRight, hide)
     local UI = ns.UI
+    hiddenFrames = hide or {}
     frame = CreateFrame("Frame", nil, parent)
     frame:SetPoint("TOPLEFT", topLeft, "TOPLEFT", 0, 0)
     frame:SetPoint("BOTTOMRIGHT", bottomRight, "BOTTOMRIGHT", 8, 0)
     frame:SetFrameLevel(parent:GetFrameLevel() + 50)
     frame:EnableMouse(true)
-    local bg = frame:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(ns.STYLE.panelColor))
     frame:Hide()
 
-    frame.header = CreateFrame("Frame", nil, frame)
-    frame.header:SetPoint("TOPLEFT")
-    frame.header:SetPoint("TOPRIGHT")
-    frame.header:SetHeight(30)
-    back = UI.IconButton(frame.header, "ChevronDown", function()
-        selected = nil
-        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-        P.Refresh()
-    end, 26)
-    back.icon:SetRotation(-math.pi / 2)
-    back:SetPoint("LEFT")
-    title = UI.Text(frame.header, 15, "LEFT")
-    ns.SetFont(title, 15, "", "bold")
-    title:SetPoint("RIGHT", frame.header, "RIGHT", -140, 0)
-    title:SetWordWrap(false)
+    tab = SmallButton(frame, L["Bosses"], 10, 30)
+    tab:SetPoint("TOPLEFT")
+    tab:SetPoint("TOPRIGHT", -70, 0)
+    ns.SetFont(tab.text, 13, "", "bold")
+    TabStyle(tab, true)
 
-    filterButton = CreateFrame("Button", nil, frame.header)
-    filterButton:SetSize(130, 26)
-    filterButton:SetPoint("RIGHT")
-    UI.Box(filterButton, { 0.06, 0.06, 0.06, 0.88 })
-    ns.AddBorder(filterButton)
-    filterButton.text = UI.Text(filterButton, 12, "LEFT")
-    filterButton.text:SetPoint("LEFT", 8, 0)
-    filterButton.text:SetPoint("RIGHT", -22, 0)
-    filterButton.text:SetWordWrap(false)
-    local chevron = UI.Icon(filterButton, "ChevronDown", 10, UI.MUTED)
-    chevron:SetPoint("RIGHT", -8, 0)
-    filterButton:SetScript("OnClick", function(self)
-        local items = {}
-        for i, f in ipairs(FILTERS) do items[i] = { value = f.value, label = FilterLabel(f) } end
-        UI.OpenList(self, items, filter, function(value)
-            filter = value
-            P.Refresh()
-        end)
+    wishButton = SmallButton(frame, "0", 64, 30)
+    wishButton:SetPoint("TOPRIGHT")
+    wishButton.text:ClearAllPoints()
+    wishButton.text:SetPoint("LEFT", wishButton, "CENTER", 0, 0)
+    wishButton.text:SetTextColor(unpack(GOLD))
+    ns.SetFont(wishButton.text, 13, "", "bold")
+    local star = UI.Icon(wishButton, "Star", 14, GOLD)
+    star:SetPoint("RIGHT", wishButton, "CENTER", -4, 0)
+    wishButton:SetScript("OnClick", function()
+        ns.Wishlist.ToggleWindow()
+        UpdateHeader()
     end)
+    wishButton:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:SetText(L["Wishlist"], 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    wishButton:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
     list = UI.ScrollArea(frame)
-    list:SetPoint("TOPLEFT", frame.header, "BOTTOMLEFT", 0, -10)
+    list:SetPoint("TOPLEFT", tab, "BOTTOMLEFT", 0, -8)
     list:SetPoint("BOTTOMRIGHT", -8, 0)
     list.child:SetWidth(1)
     list:SetScript("OnSizeChanged", function(self, w) self.child:SetWidth(w) end)
+
+    filterBar = CreateFrame("Frame", nil, list.child)
+    filterBar:SetHeight(24)
+    filterBar.mine = SmallButton(filterBar, L["For me"], 80, 24)
+    filterBar.mine:SetPoint("LEFT")
+    filterBar.all = SmallButton(filterBar, L["All"], 60, 24)
+    filterBar.all:SetPoint("LEFT", filterBar.mine, "RIGHT", 4, 0)
+    local function SetAll(all)
+        if ns.char then ns.char.dungeonLootAll = all or nil end
+        P.Refresh()
+    end
+    filterBar.mine:SetScript("OnClick", function() SetAll(false) end)
+    filterBar.all:SetScript("OnClick", function() SetAll(true) end)
+
     note = UI.Text(list.child, 11, "LEFT", UI.MUTED)
     note:SetWordWrap(true)
+    note:SetText(L["Loot from AtlasLoot data, not confirmed in Forever yet."])
 
-    ns.Wishlist.onChange = function() if frame:IsShown() then P.Refresh() end end
+    ns.Wishlist.AddListener(function()
+        if frame:IsShown() then P.Refresh() end
+    end)
+    parent:HookScript("OnHide", function() ns.Wishlist.HideWindow() end)
 end
