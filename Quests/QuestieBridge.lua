@@ -147,9 +147,26 @@ local function MoveProvider()
     if not ok and DevLog then DevLog("MeredanUI", "Questie map: " .. tostring(err)) end
 end
 
+-- "Hold Shift" (detailed icon tooltip): Questie redraws it on Shift only over Blizzard's WorldMapFrame;
+-- do the same over mUI's map with Questie's own rebuild function
+local shiftWatch = CreateFrame("Frame")
+shiftWatch:SetScript("OnEvent", function(_, _, key)
+    if key ~= "LSHIFT" and key ~= "RSHIFT" then return end
+    if not (mapCanvas and mapCanvas:IsVisible() and mapCanvas:IsMouseOver()) then return end
+    local tip = GameTooltip
+    if not (tip and tip:IsShown() and type(tip._Rebuild) == "function") then return end
+    tip:Hide()
+    tip:ClearLines()
+    tip:SetOwner(tip._owner or mapCanvas, "ANCHOR_CURSOR")
+    pcall(tip._Rebuild, tip)
+    tip:SetFrameStrata("TOOLTIP")
+    tip:Show()
+end)
+
 -- Called by Map/WorldMap.lua once its canvas exists
 function Bridge.AttachMap(canvas)
     mapCanvas = canvas
+    shiftWatch:RegisterEvent("MODIFIER_STATE_CHANGED")
     MoveProvider()
     -- if Questie (or a newer copy of its library) registers with WorldMapFrame again: move back
     canvas:HookScript("OnShow", MoveProvider)

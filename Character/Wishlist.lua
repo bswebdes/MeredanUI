@@ -348,7 +348,7 @@ end
 -- Character window tab --------------------------------------------------------------------------
 
 Char.AddTab({
-    key = "wishlist", order = 7, tip = L["Wishlist"], icon = "Interface\\Icons\\INV_Misc_Note_05",
+    key = "wishlist", order = 7, tip = L["Wishlist"], icon = "Interface\\Icons\\INV_Misc_Gift_02",
     Create = function(view)
         local UI = ns.UI
         view.rows, view.heads, view.filter = {}, {}, "open"
