@@ -7,10 +7,10 @@
 -- Set once per character (ns.char.dbmProfile); switch ns.db.dbmStyle (Modules page / setup).
 local _, ns = ...
 
-local PROFILE, PROFILE_VERSION = "MeredanUI", 4
+local PROFILE, PROFILE_VERSION = "MeredanUI", 5
 local BAR_WIDTH, BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 220, 22, 260, 26
 local ICON_GAP = 4
-local ABOVE_GAP = 8       -- between the player's buff row and the bars
+local ABOVE_GAP = 16      -- between the player's buff row and the bars
 
 local function Available()
     return DBM ~= nil and DBT ~= nil and DBM.Options ~= nil and DBT.Options ~= nil
