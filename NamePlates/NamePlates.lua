@@ -9,7 +9,7 @@
 --   +--+--------------------------------+          tick = where your interrupt is ready again
 --   12.5 %                                      <- M+ forces of the mob (M+ only)
 --
--- Target: 15 % larger, white arrows left and right, soft accent glow above and below. Other plates
+-- Target: 15 % larger, white arrows left and right, soft accent glow behind the bar. Other plates
 -- are dimmed (unless casting).
 -- Mouseover brightens the bar.
 --
@@ -288,6 +288,7 @@ local function UpdateAlpha(frame)
     end
     local target = Readable(isTarget) and isTarget or false
     frame.targetBorder:SetShown(target)
+    frame.targetGlow:SetShown(target)
     -- Scale around the center (oUF frame fills the plate, content is anchored centrally)
     local scale = target and TARGET_SCALE or 1
     if frame.muiScale ~= scale then
@@ -343,21 +344,17 @@ local function Style(self, unit)
         arrow:SetPoint(side[1], health, side[2], side[3], 0)
         arrow:SetRotation(side[4])
     end
-    -- plus a soft accent glow above and below the bar, fading outwards (like Plater's target highlight)
-    local accent = ns.UI.ACCENT
-    local strong, clear = CreateColor(accent[1], accent[2], accent[3], 0.5), CreateColor(accent[1], accent[2], accent[3], 0)
-    -- SetGradient("VERTICAL", bottom colour, top colour)
-    local px = ns.PixelSize() -- start outside the bar's 1 px border
-    for _, side in ipairs({ { "BOTTOM", "TOP", strong, clear, px }, { "TOP", "BOTTOM", clear, strong, -px } }) do
-        local glow = targetBorder:CreateTexture(nil, "BACKGROUND")
-        glow:SetPoint(side[1] .. "LEFT", health, side[2] .. "LEFT", 0, side[5])
-        glow:SetPoint(side[1] .. "RIGHT", health, side[2] .. "RIGHT", 0, side[5])
-        glow:SetHeight(10)
-        glow:SetColorTexture(1, 1, 1, 1)
-        glow:SetGradient("VERTICAL", side[3], side[4])
-    end
     targetBorder:Hide()
     self.targetBorder = targetBorder
+    -- plus a soft accent glow behind the bar, fading out on all sides (like Plater's target highlight).
+    -- On the plate itself, so it sits under the bar (the bar is a child frame).
+    local glow = self:CreateTexture(nil, "BACKGROUND")
+    glow:SetTexture(ns.MEDIA .. "Glow")
+    glow:SetPoint("TOPLEFT", health, "TOPLEFT", -30, 14)
+    glow:SetPoint("BOTTOMRIGHT", health, "BOTTOMRIGHT", 30, -14)
+    glow:SetVertexColor(ns.UI.ACCENT[1], ns.UI.ACCENT[2], ns.UI.ACCENT[3], 0.35)
+    glow:Hide()
+    self.targetGlow = glow
 
     -- Mouseover: bar brightens slightly
     local hoverGlow = health:CreateTexture(nil, "OVERLAY", nil, 1)
