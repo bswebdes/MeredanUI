@@ -1538,3 +1538,12 @@ if GetLocale() == "deDE" then
     L["Functions (total ms, calls, peak ms):"] = "Funktionen (gesamt ms, Aufrufe, Spitze ms):"
     L["Memory: %.1f MB  ·  garbage (all addons): %.0f KB per minute"] = "Speicher: %.1f MB  ·  Müll (alle Addons): %.0f KB pro Minute"
 end
+-- Comfort helpers (quests, rewards, auto-accept, buff reminder, alt item counts)
+if GetLocale() == "deDE" then
+    L["Accept quests automatically"] = "Quests automatisch annehmen"
+    L["Grey quests are skipped. Hold Shift to talk normally."] = "Graue Quests werden übersprungen. Mit gedrückter Umschalttaste redest du normal."
+    L["Hand in quests automatically"] = "Quests automatisch abgeben"
+    L["Not when you have to pick a reward or the quest costs gold or materials."] = "Nicht, wenn du eine Belohnung wählen musst oder die Quest Gold oder Material kostet."
+    L["Skip single conversation options"] = "Einzelne Gesprächsoptionen überspringen"
+    L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."] = "NPCs ohne Quests mit nur einer Gesprächsoption. Nie Händler, Lehrer oder Flugmeister."
+end

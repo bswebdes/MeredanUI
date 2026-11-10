@@ -43,6 +43,7 @@ local STYLE_VALUES = {
         hideErrors = false,
         bagsStyle = "single", bagsAutoJunk = false, fastLoot = false,
         damageMeter = false,
+        questAutoAccept = false, questAutoTurnIn = false, questAutoGossip = false,
     },
     comfort = {
         theme = "class", afkScreen = true, auraTime = "bar",
@@ -57,6 +58,7 @@ local STYLE_VALUES = {
         hideErrors = true,
         bagsStyle = "categories", bagsAutoJunk = true, fastLoot = true,
         damageMeter = true,
+        questAutoAccept = true, questAutoTurnIn = true, questAutoGossip = true,
     },
 }
 

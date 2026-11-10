@@ -81,6 +81,7 @@ NPC/Merchant.lua
 NPC/Trainer.lua
 NPC/Gossip.lua
 NPC/Quest.lua
+NPC/AutoQuest.lua
 NPC/ItemText.lua
 NPC/Mail.lua
 NPC/Trade.lua

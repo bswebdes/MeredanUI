@@ -920,6 +920,13 @@ if ns.IS_FOREVER then
                 TrackerSetter("trackerCollapseDone"))
             page:AddCheckbox(L["Collapse in combat"], function() return ns.db.trackerCombatCollapse == true end,
                 TrackerSetter("trackerCombatCollapse"))
+            page:AddHeader(L["Helpers"])
+            page:AddCheckbox(L["Accept quests automatically"], Getter("questAutoAccept"), Setter("questAutoAccept"),
+                Help(L["Grey quests are skipped. Hold Shift to talk normally."]))
+            page:AddCheckbox(L["Hand in quests automatically"], Getter("questAutoTurnIn"), Setter("questAutoTurnIn"),
+                Help(L["Not when you have to pick a reward or the quest costs gold or materials."]))
+            page:AddCheckbox(L["Skip single conversation options"], Getter("questAutoGossip"), Setter("questAutoGossip"),
+                Help(L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."]))
             if ns.Questie and ns.Questie.IsLoaded() then
                 page:AddHeader("Questie")
                 page:AddCheckbox(L["Next objective with distance"], On("trackerQuestieDistance"), TrackerSetter("trackerQuestieDistance"))
