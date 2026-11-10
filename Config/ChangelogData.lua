@@ -2,6 +2,27 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.3.0-beta.6", items = {
+        "MeredanUI is now made for WoW Forever only",
+        "New Comfort helpers, each with its own switch (all on with the Comfort style, off with Classic):",
+        "Quests: accept and hand in quests automatically, skip single conversation options; hold Shift to pause. Grey quests, reward choices and quests that cost gold or materials are left alone",
+        "Quest window: a gold coin marks the reward with the highest vendor value",
+        "Accept summons (out of combat) and resurrections, decline duels from strangers, skip cinematics you have seen before",
+        "Buff reminder: a toast for missing class buffs, outdated buff ranks and expired weapon oils or stones; the ready check counts classic elixirs",
+        "Item tooltips show how many you have on your other characters (bags, bank, mail, worn)",
+        "Camera zooms further out for everyone",
+        "Class touches: class icon in player tooltips and in front of names in guild, group, raid and whisper chat, class icon in the character window, class line in the tooltip in class colour, optional accent in your class colour (Appearance)",
+        "Player buffs above the player frame: one row, shortest left to longest right",
+        "Questie support: Questie icons on the mUI world map, mUI's quest tracker shows the turn-in NPC, the nearest objective with distance and a direction arrow coloured by distance, Questie-style right-click menu and Ctrl-click waypoint, new \"Quests\" settings page, Questie's settings window in the mUI look",
+        "Other addons: Plater, Bagnon, Details, DBM, BigWigs, Bartender4 and others are detected. Pick in the setup or once in a dialog whether the addon or mUI does the job; mUI's settings for that part are greyed out while the addon is in charge",
+        "Bagnon, Details, Plater, DBM and BigWigs get a matching mUI look and fixed spots that fit the mUI layout (each can be turned off)",
+        "Dungeon maps: Blackrock Spire with all six floors, cleaner Zul'Farrak and Alcaz Prison maps; bosses without a portrait show a ring with a question mark",
+        "Chat tabs \"General\" and \"Combat Log\" follow your game language",
+        "Fixed: the bank closed right after opening it through a banker's conversation option",
+        "Fixed: a disabled nameplate, bag or damage meter addon could switch off mUI's own module",
+        "Lua errors from MeredanUI are reported anonymously through the Wago app (only if you use it), so bugs get fixed without a report",
+        "Performance: nameplates, threat bar, quest tracker and idle work do much less",
+    } },
     { version = "v0.3.0-beta.5", items = {
         "Dungeon maps: almost every dungeon and raid now has a new mUI map made from the game's own data, including all floors. Blackrock Spire, City of Dalaran and Alcaz Prison keep their previous maps for now",
         "Dungeon maps: floors are picked from a dropdown next to the dungeon name instead of a row of buttons",
@@ -59,12 +80,5 @@ ns.CHANGELOG = {
         "The setup wizard now reliably appears on every character that hasn't done it yet",
         "New command /mui legacy to preview the Legacy window",
         "Fixed a Lua error in the quest window",
-    } },
-    { version = "v0.2.0-beta.4", items = {
-        "Every character gets its own profile, named after the character (first and last name in WoW Forever); existing characters keep their settings",
-        "The setup wizard now appears once per character instead of once per account",
-        "Friends, spellbook and profession windows can be opened and closed in combat again",
-        "Chat snaps back into place if something else moves it",
-        "Shorter realm names in the gold overview, e.g. \"Koratal (RP)\"",
     } },
 }
