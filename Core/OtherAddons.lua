@@ -4,9 +4,10 @@
 --   bags        -> mUI bags/bank/guild bank (ns.db.bags)
 --   bossmods    -> mUI boss timers     (ns.db.bossMods)
 --   meter       -> mUI damage meter    (ns.db.damageMeter)
+--   actionbars  -> mUI action bars + micro menu (ns.db.actionBarModule)
 -- Picking mUI disables the other addon for this character and reloads; picking the addon just
 -- remembers the answer (the mUI module is already off). Asked in the setup (step "Other addons") or
--- once in a dialog when a new one shows up. Action bar addons are not supported: one hint only.
+-- once in a dialog when a new one shows up.
 -- Detection works at file load already (enable state), not only after the other addon has loaded.
 local _, ns = ...
 local L = ns.L
@@ -20,8 +21,9 @@ ns.OTHER_ADDON_AREAS = {
         addons = { "DBM-Core", "BigWigs" } },
     { id = "meter", key = "damageMeter", label = L["Damage meter"],
         addons = { "Details", "Skada", "Recount" } },
+    { id = "actionbars", key = "actionBarModule", label = L["Action bars"],
+        addons = { "Bartender4", "Dominos" } },
 }
-local BAR_ADDONS = { "Bartender4", "Dominos" }
 
 local AREA_BY_KEY = {}
 for _, area in ipairs(ns.OTHER_ADDON_AREAS) do AREA_BY_KEY[area.key] = area end
@@ -141,14 +143,8 @@ ns:On("PLAYER_LOGIN", function()
         if not ns.char or not ns.char.setupDone then return end
         local asked = ns.char.otherAddons or {}
         for _, entry in ipairs(ns.OtherAddonsFound()) do
-            if not asked[entry.addon] then queue[#queue + 1] = entry end
-        end
-        -- action bar addons: not supported, one hint per addon
-        for _, name in ipairs(BAR_ADDONS) do
-            if Active(name) and not asked[name] then
-                Remember(name, "hint")
-                ns.Print(L["%s is not supported: its bars overlap mUI's action bars."]:format(Title(name)))
-            end
+            -- "hint": answered back when bar addons were only hinted at - ask properly now
+            if not asked[entry.addon] or asked[entry.addon] == "hint" then queue[#queue + 1] = entry end
         end
         ns.ShowNextOtherAddon()
     end)

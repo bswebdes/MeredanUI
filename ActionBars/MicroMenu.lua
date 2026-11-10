@@ -218,6 +218,7 @@ function ns.UpdateMicroMenu()
 end
 
 local function Setup()
+    if ns.ModuleOn and not ns.ModuleOn("actionBarModule") then return end -- bar addon brings its own
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     local container = MicroMenuContainer
     if container then

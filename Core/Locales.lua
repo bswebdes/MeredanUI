@@ -1292,7 +1292,7 @@ if GetLocale() == "deDE" then
     L["Skins"] = "Skins"
     L["Changelog"] = "Changelog"
     L["mUI's own building blocks. Turned off, Blizzard or another addon takes over. Takes effect after a reload."] = "Eigene Bausteine von mUI. Ausgeschaltet übernimmt Blizzard oder ein anderes Addon. Wirkt nach dem Neuladen."
-    L["Always on: unit frames, action bars, minimap and chat."] = "Immer an: Einheitenfenster, Aktionsleisten, Minimap und Chat."
+    L["Always on: unit frames, minimap and chat."] = "Immer an: Einheitenfenster, Minimap und Chat."
     L["Bags & loot"] = "Taschen & Beute"
     L["Group & raid frames"] = "Gruppe & Schlachtzug"
     L["Bags & bank"] = "Taschen & Bank"

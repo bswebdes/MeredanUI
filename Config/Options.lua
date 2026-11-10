@@ -741,7 +741,7 @@ local PAGES = {
         key = "modules", label = L["Modules"], extra = true,
         build = function(page)
             page:AddTitle(L["Modules"], L["mUI's own building blocks. Turned off, Blizzard or another addon takes over. Takes effect after a reload."])
-            page:AddNote(L["Always on: unit frames, action bars, minimap and chat."])
+            page:AddNote(L["Always on: unit frames, minimap and chat."])
             local function Module(key, label, comfort)
                 local other = ns.OtherAddonFor(key)
                 if other then label = label .. "  |cff8a918e" .. L["%s active"]:format(ns.OtherAddonTitle(other)) .. "|r" end
@@ -757,6 +757,7 @@ local PAGES = {
             }, 2)
             page:AddHeader(L["Screen"])
             page:AddCheckboxGrid({
+                Module("actionBarModule", L["Action bars"]),
                 Module("toasts", L["Alerts"]),
                 Module("damageMeter", L["Damage meter"]),
             }, 2)

@@ -765,6 +765,8 @@ local function SkinExtraButtons()
 end
 
 local function Setup()
+    -- Bartender4/Dominos (or the switch) take over: no mUI bars at all (Core/OtherAddons.lua)
+    if ns.ModuleOn and not ns.ModuleOn("actionBarModule") then return end
     HideBlizzard()
     local gap = GAP_PIXELS * ns.PixelSize()
     -- Stacked (healer or chosen): main bar as one row of 12 at extra-bar size (bottom, above Alt/Shift)
