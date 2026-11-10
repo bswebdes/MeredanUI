@@ -312,7 +312,8 @@ local function Row(i)
     -- Questie: nearest objective / turn-in with distance; click opens the map there
     row.dist = CreateFrame("Button", nil, row)
     row.dist:SetHeight(14)
-    row.dist.arrow = UI.Icon(row.dist, "ChevronDown", 12, UI.ACCENT)
+    -- same filled arrow as the upgrade marker in bags: reads better than the thin chevron
+    row.dist.arrow = UI.Icon(row.dist, "Upgrade", 14, ns.UPGRADE_COLOR or UI.ACCENT)
     row.dist.arrow:SetPoint("LEFT", 0, 0)
     row.dist.text = UI.Text(row.dist, 12, "LEFT", UI.MUTED)
     row.dist.text:SetWordWrap(false)
@@ -636,7 +637,7 @@ local function SetArrowShown(dist, on)
     dist.arrowOn = on
     dist.arrow:SetShown(on)
     dist.text:ClearAllPoints()
-    dist.text:SetPoint("LEFT", on and 16 or 0, 0)
+    dist.text:SetPoint("LEFT", on and 18 or 0, 0)
     dist.text:SetPoint("RIGHT")
 end
 
@@ -657,7 +658,7 @@ local function UpdateArrow(full)
         angle = ok and a or nil
     end
     SetArrowShown(dist, angle ~= nil)
-    if angle then dist.arrow:SetRotation(angle + math.pi) end -- chevron art points down
+    if angle then dist.arrow:SetRotation(angle) end -- upgrade art points up
 end
 UpdateArrow = ns.PerfProbe("Tracker: arrow", UpdateArrow)
 
