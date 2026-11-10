@@ -1620,4 +1620,7 @@ if GetLocale() == "deDE" then
     L["Star the loot you want. The wishlist shows where it drops, lets you try it on and ticks it off once you have it."] = "Markier die Beute, die du willst, mit dem Stern. Die Merkliste zeigt, wo sie droppt, lässt dich sie anprobieren und hakt sie ab, sobald du sie hast."
     L["All quests of a dungeon at a glance: done, still open, or where the quest giver stands."] = "Alle Quests eines Dungeons auf einen Blick: erledigt, noch offen oder wo der Questgeber steht."
     L["What's new"] = "Was ist neu"
+    L["Performance measurement started. Play normally, then /mui perf again to stop and show the results."] = "Performance-Messung gestartet. Normal weiterspielen, dann nochmal /mui perf zum Beenden und für das Ergebnis."
+    L["No measurement running. Start one with /mui perf."] = "Keine Messung aktiv. Starten mit /mui perf."
+    L["/mui perf: start a measurement, /mui perf again: stop and show the results."] = "/mui perf: Messung starten, nochmal /mui perf: beenden und Ergebnis zeigen."
 end

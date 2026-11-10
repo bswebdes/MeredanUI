@@ -1,6 +1,6 @@
 -- Performance measurement (developer tool, never listed in /mui help):
---   /mui perf start   reset and start measuring
---   /mui perf report  print the results (chat + DevLog) and stop
+--   /mui perf         start measuring; again: print the results (chat + DevLog) and stop
+--   /mui perf start / report   the same, explicitly
 --
 -- Sources: Blizzard's AddOn profiler (whole addon, since startup: only the tick counters are
 -- shown as deltas), mUI's event dispatcher (time per event, Core.lua) and probes around hot
@@ -57,7 +57,7 @@ local function Start()
     startOver5 = Metric and AddonMetric(Metric.CountTimeOver5Ms) or 0
     startOver10 = Metric and AddonMetric(Metric.CountTimeOver10Ms) or 0
     ns.SetEventSink(EventSink)
-    ns.Print(L["Measuring. /mui perf report shows the results."])
+    ns.Print(L["Performance measurement started. Play normally, then /mui perf again to stop and show the results."])
 end
 
 local function Top(store, count)
@@ -121,9 +121,13 @@ local function Report()
     P(L["Memory: %.1f MB  ·  garbage (all addons): %.0f KB per minute"], memory / 1024, garbage)
 end
 
+-- /mui perf toggles: start, then stop + results; "start" / "report" (or "stop") still work
 ns.AddCommand("perf", nil, function(arg)
     arg = (arg or ""):lower()
-    if arg == "start" then return Start() end
-    if arg == "report" or arg == "stop" then return Report() end
-    ns.Print("/mui perf start  ·  /mui perf report")
+    if arg == "start" or (arg == "" and not active) then return Start() end
+    if arg == "report" or arg == "stop" or arg == "" then
+        if not active then return ns.Print(L["No measurement running. Start one with /mui perf."]) end
+        return Report()
+    end
+    ns.Print(L["/mui perf: start a measurement, /mui perf again: stop and show the results."])
 end)
