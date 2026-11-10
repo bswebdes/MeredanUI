@@ -5,7 +5,7 @@
 -- Switch: ns.db.platerStyle (Nameplates page, only while Plater is active).
 local _, ns = ...
 
-local PROFILE_VERSION = 1
+local PROFILE_VERSION = 2
 local BAR_BG = { 0, 0, 0, 0.5 }
 
 -- Every font setting Plater knows (keys ending in "_font", found in its defaults) -> "mUI"
@@ -38,6 +38,27 @@ function ns.ApplyPlaterProfile(force)
     profile.cast_statusbar_bgcolor = BAR_BG
     profile.border_color = { 0, 0, 0, 1 }
     profile.border_thickness = 1
+
+    -- Friendly plates like mUI's: only the name, players in class colour, NPCs in mUI's accent,
+    -- 14 px like mUI's "medium" name size ("big_" = Plater's name-only mode)
+    local plates = profile.plate_config
+    local player, npc = plates and plates.friendlyplayer, plates and plates.friendlynpc
+    local function Size(cfg)
+        cfg.actorname_text_size = 14
+        if cfg.big_actorname_text_size ~= nil then cfg.big_actorname_text_size = 14 end
+    end
+    if type(player) == "table" then
+        player.only_thename = true
+        player.actorname_use_class_color = true
+        if player.big_actorname_use_class_color ~= nil then player.big_actorname_use_class_color = true end
+        Size(player)
+    end
+    if type(npc) == "table" then
+        npc.only_names = true
+        local a = ns.UI.ACCENT
+        npc.big_actorname_text_color = { a[1], a[2], a[3] }
+        Size(npc)
+    end
 
     if Plater.RefreshDBUpvalues then Plater.RefreshDBUpvalues() end
     if Plater.UpdateAllPlates then Plater.UpdateAllPlates(true) end
