@@ -120,6 +120,7 @@ Upgrades/ItemLevels.lua
 Tooltip/Tooltip.lua
 Auras/PlayerAuras.lua
 Quests/DungeonBosses.lua
+Quests/QuestieBridge.lua
 Quests/Tracker.lua
 Quests/QuestTracker.lua
 Quests/MythicPlus.lua

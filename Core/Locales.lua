@@ -1482,3 +1482,8 @@ if GetLocale() == "deDE" then
     L["Waiting: %s"] = "Wartezeit: %s"
     L["Blizzard's group finder in the mUI look: list your group, browse groups, who list; at the fixed window spot, functions stay Blizzard's."] = "Blizzards Gruppensuche im mUI-Look: Gruppe eintragen, Gruppen durchsuchen, Wer-Liste; am festen Fensterplatz, Funktionen bleiben Blizzards."
 end
+
+-- Questie integration (Quests/QuestieBridge.lua)
+if GetLocale() == "deDE" then
+    L["Turn off Questie's tracker? mUI shows Questie's info in its own tracker."] = "Questie-Tracker ausschalten? mUI zeigt die Questie-Infos im eigenen Tracker."
+end
