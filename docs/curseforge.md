@@ -55,6 +55,9 @@ New features are welcome – as long as they're genuinely useful and don't bloat
 - `/mui t` – test mode
 - `/mui help` – all commands
 
+### Privacy
+If you use the Wago app, MeredanUI sends anonymous statistics through Wago Analytics: which style, modules and helpers are switched on, and Lua errors from MeredanUI – so bugs get fixed even when nobody reports them. Nothing is sent without the Wago app.
+
 ### Languages
 English and German (deDE).
 

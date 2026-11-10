@@ -19,6 +19,9 @@ externals:
     url: https://github.com/Nevcairiel/LibActionButton-1.0.git
     # Master statt Tag 0.62: erst dort Forever-Unterstützung (Stand 05.11.2026)
     commit: bc1da7a581d21dad5d7da114263c6a513f448f32
+  libs/WagoAnalyticsShim:
+    url: https://github.com/wagoio/WagoAnalyticsShim.git
+    branch: main
   libs/oUF:
     url: https://github.com/oUF-wow/oUF.git
     tag: 14.2.0

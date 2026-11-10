@@ -10,6 +10,7 @@ Libraries (libs/)
 - LibSharedMedia-3.0 – LGPL v2.1 – https://www.wowace.com/projects/libsharedmedia-3-0
 - CallbackHandler-1.0 – BSD License – https://www.wowace.com/projects/callbackhandler
 - LibStub – Public Domain – https://www.wowace.com/projects/libstub
+- WagoAnalyticsShim – MIT License – https://github.com/wagoio/WagoAnalyticsShim
 
 Fonts (Media/)
 - mUI, mUI Text, mUI Bold (Media/Fonts) – based on Blue Highway by Raymond Larabie

@@ -26,6 +26,10 @@ Please [open an issue](https://github.com/bswebdes/MeredanUI/issues/new/choose) 
 
 Ideas and feedback are welcome too.
 
+## Privacy
+If you use the Wago app, MeredanUI sends anonymous statistics through Wago Analytics: which style,
+modules and helpers are switched on, and Lua errors from MeredanUI. Nothing is sent without the Wago app.
+
 ## Commands
 - `/mui` – settings
 - `/mui t` – test mode

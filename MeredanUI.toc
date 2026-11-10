@@ -7,6 +7,7 @@
 ## Category: User Interface
 ## AllowLoadGameType: standard, camelot
 ## SavedVariables: MeredanUIDB
+## OptionalDependencies: WagoAnalytics
 ## AddonCompartmentFunc: MeredanUI_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\MeredanUI\Media\Logo
 ## X-oUF: MeredanUIoUF
@@ -16,6 +17,7 @@
 ## X-Wago-ID: b6XyDPKp
 
 libs/LibStub/LibStub.lua
+libs/WagoAnalyticsShim/Shim.lua
 libs/CallbackHandler-1.0/CallbackHandler-1.0.xml
 libs/LibSharedMedia-3.0/lib.xml
 libs/LibActionButton-1.0/LibActionButton-1.0.lua
@@ -160,6 +162,7 @@ AFK/AFK.lua
 Core/Profiles.lua
 Core/Layouts.lua
 Core/Presets.lua
+Core/Analytics.lua
 Core/Preview.lua
 
 # Einstellungsfenster
