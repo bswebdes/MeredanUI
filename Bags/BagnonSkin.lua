@@ -158,6 +158,20 @@ local function StyleClose(close)
     end)
 end
 
+-- Search field: flat mUI input instead of the tooltip backdrop
+local function StyleSearch(box)
+    if box.muiStyled or not Styled() then return end
+    box.muiStyled = true
+    if box.NineSlice then box.NineSlice:SetAlpha(0) end
+    local bg = box:CreateTexture(nil, "BACKGROUND", nil, -7)
+    bg:SetAllPoints()
+    bg:SetColorTexture(unpack(ns.UI.FIELD))
+    ns.AddBorder(box)
+    box:SetTextInsets(8, 8, 0, 0)
+    local font = box:GetFontObject()
+    if font then box:SetFont(ns.FontFor(), ns.FontPx(12), "") end
+end
+
 -- Walk a Bagnon frame once it shows: header buttons and the close button
 local function StyleFrame(frame)
     if not Styled() then return end
@@ -166,8 +180,10 @@ local function StyleFrame(frame)
         for _, child in ipairs({ parent:GetChildren() }) do
             if child.IconBorder then
                 UpdateItem(child)
-            elseif child.Border and child.Icon and child:IsObjectType("Button") then
-                StyleButton(child)
+            elseif child.Icon and (child.Border or child.FilterIcon) and child:IsObjectType("Button") then
+                StyleButton(child) -- header buttons and bag slots
+            elseif child:IsObjectType("EditBox") and child.NineSlice then
+                StyleSearch(child)
             end
             if depth < 4 then Walk(child, depth + 1) end
         end
@@ -176,6 +192,11 @@ local function StyleFrame(frame)
 end
 
 local function HookClasses(Bagnon)
+    local Bag, Search = Bagnon.Bag, Bagnon.SearchBar
+    if Bag and rawget(Bag, "Update") then
+        hooksecurefunc(Bag, "Update", function(self) if Styled() then StyleButton(self) end end)
+    end
+    if Search and rawget(Search, "OnShow") then hooksecurefunc(Search, "OnShow", StyleSearch) end
     for _, class in ipairs({ Bagnon.Item, Bagnon.ContainerItem }) do
         if class and rawget(class, "Update") then hooksecurefunc(class, "Update", UpdateItem) end
         if class and rawget(class, "UpdateBorder") then hooksecurefunc(class, "UpdateBorder", ColorItem) end
