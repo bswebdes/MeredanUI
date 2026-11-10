@@ -7,7 +7,7 @@
 -- Set once per character (ns.char.dbmProfile); switch ns.db.dbmStyle (Modules page / setup).
 local _, ns = ...
 
-local PROFILE, PROFILE_VERSION = "MeredanUI", 5
+local PROFILE, PROFILE_VERSION = "MeredanUI", 6
 local BAR_WIDTH, BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 220, 22, 260, 26
 local ICON_GAP = 4
 local ABOVE_GAP = 16      -- between the player's buff row and the bars
@@ -24,6 +24,8 @@ local function BarLook()
         FontShadow = false, Spark = false, BarStyle = "NoAnim", Scale = 1, Alpha = 1,
         Height = BAR_HEIGHT, Width = BAR_WIDTH, BarYOffset = 4, TextXOffset = 0, TextYOffset = 0,
         IconLeft = true, IconRight = false, IconLocked = true,
+        -- the grey "~" part (timer that can fire earlier or later): flat mUI texture, softer
+        VarianceTexture = ns.STYLE.barTexture, VarianceAlpha = 0.35,
         BackgroundColorR = r, BackgroundColorG = g, BackgroundColorB = b, BackgroundAlpha = 0.9,
         BorderEnabled = true, BorderSize = 1, BorderColorR = 0, BorderColorG = 0, BorderColorB = 0, BorderAlpha = 1,
         HugeScale = 1, HugeAlpha = 1, HugeWidth = HUGE_WIDTH, HugeHeight = HUGE_HEIGHT, HugeBarYOffset = 4,
