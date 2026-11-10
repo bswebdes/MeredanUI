@@ -70,13 +70,21 @@ local function ApplyStyle(bar)
         statusbar:SetPoint("TOPLEFT", bar:IsIconVisible() and iconFrame or bar,
             bar:IsIconVisible() and "TOPRIGHT" or "TOPLEFT", bar:IsIconVisible() and ICON_GAP or 0, 0)
     end
-    bd:SetAllPoints(statusbar)
+    -- frame one pixel outside the bar so the fill doesn't cover the border; dark mUI field behind
+    local px = ns.PixelSize()
+    bd:SetPoint("TOPLEFT", statusbar, "TOPLEFT", -px, px)
+    bd:SetPoint("BOTTOMRIGHT", statusbar, "BOTTOMRIGHT", px, -px)
     bd:Show()
+    if bar.candyBarBackground then
+        bar.candyBarBackground:SetTexture("Interface\\Buttons\\WHITE8X8")
+        bar.candyBarBackground:SetVertexColor(panel[1], panel[2], panel[3], 0.9)
+    end
 
     iconBd:SetBackdrop(backdrop)
     iconBd:SetBackdropColor(0, 0, 0, 0)
     iconBd:SetBackdropBorderColor(0, 0, 0, 1)
-    iconBd:SetAllPoints(iconFrame)
+    iconBd:SetPoint("TOPLEFT", iconFrame, "TOPLEFT", -px, px)
+    iconBd:SetPoint("BOTTOMRIGHT", iconFrame, "BOTTOMRIGHT", px, -px)
     iconBd:SetShown(bar:IsIconVisible())
     if reApplyIcon then iconFrame:SetTexture(reApplyIcon) end
     if iconFrame.SetTexCoord then iconFrame:SetTexCoord(0.08, 0.92, 0.08, 0.92) end
@@ -95,7 +103,7 @@ local function RegisterStyle()
     registered = true
     BigWigsAPI:RegisterBarStyle(STYLE, {
         apiVersion = 1,
-        version = 2,
+        version = 3,
         barHeight = BAR_HEIGHT,
         fontSizeNormal = 12,
         fontSizeEmphasized = 13,
