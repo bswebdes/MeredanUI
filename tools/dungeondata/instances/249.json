@@ -32,10 +32,10 @@
    "npcs": [
     {
      "id": 10184,
-     "wowhead_name": null,
+     "wowhead_name": "Onyxia",
      "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Onyxia",
+     "name_ok": true
     }
    ],
    "location": "main cave chamber",
@@ -362,7 +362,7 @@
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -381,7 +381,7 @@
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -400,7 +400,7 @@
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -419,7 +419,7 @@
      "chance_repo": 40.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -456,9 +456,7 @@
   "Onyxia: 17078 Sapphiron Drape - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Onyxia: 17064 Shard of the Scale - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
  ],
- "open_questions": [
-  "NPC 10184 (Onyxia) not found on Wowhead Forever - check ID."
- ],
+ "open_questions": [],
  "guide_notes": [
   "Loot list is Classic data per conquestcapped; drop chances not listed; Forever loot not verified/published",
   "npc 10184 from Wowhead Forever page (exists, location unknown, no loot); not given by guide",
@@ -470,23 +468,22 @@
  "zone_name_en": null,
  "zone_name_de": null,
  "assessment": {
-  "bosses": "missing",
+  "bosses": "ok",
   "pins": "ok",
-  "loot": "ok",
+  "loot": "missing",
   "quests": "missing",
   "quests_in_addon": 0,
   "loot_rows": 20,
-  "loot_confirmed": 4,
+  "loot_confirmed": 0,
   "loot_with_chance": 4,
-  "forever_confirmed": "partly",
+  "forever_confirmed": "no",
   "boss_count": 1,
-  "boss_ok": 0,
+  "boss_ok": 1,
   "pin_ok": 1,
   "enc_count": 1,
   "q_tot": 0
  },
  "top_points": [
-  "NPC 10184 (Onyxia) not found on Wowhead Forever - check ID.",
   "16 loot rows without drop chance",
   "16 items not on Wowhead Forever (404)"
  ]

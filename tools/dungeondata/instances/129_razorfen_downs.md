@@ -25,7 +25,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Tuten'kash
 
@@ -66,7 +66,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 10763 | Icemetal Barbute | Head | 37 | 36.86 | 20 | ✔ | guide+repo+wowhead-forever |
 | 10764 | Deathchill Armor | Chest (mail) | 29 | 28.49 | 20 | ✔ | guide+repo+wowhead-forever |
 | 10765 | Bonefingers | Hands (leather) | 27 | 27.37 | 20 | ✔ | guide+repo+wowhead-forever |
-| 10420 | Skull of the Coldbringer (quest) |  |  |  |  |  | guide |
+| 10420 | Skull of the Coldbringer (quest) | Quest Item |  | 11.81 |  | ✔ | guide+wowhead-forever |
 
 ### Ragglesnout
 
@@ -80,17 +80,17 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 10578 | Thoughtcast Boots |  |  |  |  |  | guide |
-| 10582 | Briar Tredders |  |  |  |  |  | guide |
-| 10584 | Stormgale Fists |  |  |  |  |  | guide |
-| 10571 | Ebony Boneclub |  |  |  |  |  | guide |
-| 10573 | Boneslasher |  |  |  |  |  | guide |
+| 10578 | Thoughtcast Boots | Feet Cloth |  |  |  | ✔ | guide |
+| 10582 | Briar Tredders | Feet Leather |  |  |  | ✔ | guide |
+| 10584 | Stormgale Fists | Hands Mail |  |  |  | ✔ | guide |
+| 10571 | Ebony Boneclub | One-Hand Mace |  |  |  | ✔ | guide |
+| 10573 | Boneslasher | Two-Hand Sword |  |  |  | ✔ | guide |
 
 ### Ambassador Malcin
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 17009 | Ambassador Malcin's Head (quest) |  |  |  |  |  | guide |
+| 17009 | Ambassador Malcin's Head (quest) | Quest Item |  | 82.26 |  | ✔ | guide+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -126,13 +126,6 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 - [ ] No pin for 'Plaguemaw the Rotting' (encounter 2781) in DungeonPinData.lua.
 - [ ] Encounter 2783 'Ragglesnout' is listed as a rare in the guide (DungeonBosses.lua has it as boss).
-- [ ] Quest 6626 'A Host of Evil' not found on Wowhead Forever - check ID.
-- [ ] Quest 3523 'Scourge of the Downs' not found on Wowhead Forever - check ID.
-- [ ] Quest 3525 'Extinguishing the Idol' not found on Wowhead Forever - check ID.
-- [ ] Quest 3636 'Bring the Light' not found on Wowhead Forever - check ID.
-- [ ] Quest 3341 'Bring the End' not found on Wowhead Forever - check ID.
-- [ ] Quest 6522 'An Unholy Alliance' not found on Wowhead Forever - check ID.
-- [ ] Quest 6521 'An Unholy Alliance' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

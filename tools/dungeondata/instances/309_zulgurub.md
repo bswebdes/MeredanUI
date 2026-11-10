@@ -22,7 +22,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Bloodlord Mandokir
 
@@ -50,7 +50,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 19719 | Primal Hakkari Girdle |  |  |  | 9.2 |  | repo |
 | 19720 | Primal Hakkari Sash |  |  |  | 9.2 |  | repo |
 | 19721 | Primal Hakkari Shawl |  |  |  | 9.2 |  | repo |
-| 19872 | Swift Razzashi Raptor |  |  | 0.95 | 2 | ✔ | repo+wowhead-forever |
+| 19872 | Swift Razzashi Raptor |  |  | 0.95 | 2 |  | repo+wowhead-forever |
 
 ### High Priest Thekal
 
@@ -63,13 +63,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 19901 |  |  |  |  | 14 | ✘ 404 | repo |
 | 20260 |  |  |  |  | 14 | ✘ 404 | repo |
 | 20266 |  |  |  |  | 14 | ✘ 404 | repo |
-| 19902 | Swift Zulian Tiger |  |  | 0.9 | 2 | ✔ | repo+wowhead-forever |
+| 19902 | Swift Zulian Tiger |  |  | 0.9 | 2 |  | repo+wowhead-forever |
 
 ### Gahz'ranka
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 22739 | Tome of Polymorph: Turtle |  |  | 20.15 | 15 | ✔ | repo+wowhead-forever |
+| 22739 | Tome of Polymorph: Turtle |  |  | 20.15 | 15 |  | repo+wowhead-forever |
 | 19944 |  |  |  |  | 10 | ✘ 404 | repo |
 | 19945 |  |  |  |  | 10 | ✘ 404 | repo |
 
@@ -79,7 +79,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 22637 | Primal Hakkari Idol |  |  |  | 100 |  | repo |
 | 19875 |  |  |  |  | 16.7 | ✘ 404 | repo |
-| 19884 | Jin'do's Judgement | Two-Hand Staff |  | 14.5 | 16.7 | ✔ | repo+wowhead-forever |
+| 19884 | Jin'do's Judgement | Two-Hand Staff |  | 14.5 | 16.7 |  | repo+wowhead-forever |
 | 19885 |  |  |  |  | 16.7 | ✘ 404 | repo |
 | 19886 |  |  |  |  | 16.7 | ✘ 404 | repo |
 | 19887 |  |  |  |  | 16.7 | ✘ 404 | repo |
@@ -104,7 +104,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 19802 | Heart of Hakkar |  |  | 96.51 | 100 | ✔ | repo+wowhead-forever |
+| 19802 | Heart of Hakkar |  |  | 96.51 | 100 |  | repo+wowhead-forever |
 | 19852 |  |  |  |  | 14.3 | ✘ 404 | repo |
 | 19853 |  |  |  |  | 14.3 | ✘ 404 | repo |
 | 19854 |  |  |  |  | 14.3 | ✘ 404 | repo |

@@ -45,7 +45,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -63,7 +63,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -81,7 +81,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -99,7 +99,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -117,7 +117,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -135,7 +135,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -153,7 +153,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -171,7 +171,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -189,7 +189,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -224,7 +224,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -242,7 +242,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -260,7 +260,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -278,7 +278,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -296,7 +296,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -314,7 +314,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -332,7 +332,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -350,7 +350,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -368,7 +368,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -403,7 +403,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -421,7 +421,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -439,7 +439,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -457,7 +457,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -475,7 +475,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -493,7 +493,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -511,7 +511,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -529,7 +529,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -547,7 +547,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -582,16 +582,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19395,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Rejuvenating Gem",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -618,16 +618,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19397,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of Blackrock",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -643,38 +643,40 @@
     },
     {
      "item_id": 19343,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Scrolls of Blinding Light",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.85,
+     "wowhead_dropped_by": "Firemaw",
      "chance_repo": 12.5,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 19344,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Natural Alignment Crystal",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 6.87,
+     "wowhead_dropped_by": "Firemaw",
      "chance_repo": 12.5,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -690,7 +692,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -708,7 +710,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -726,7 +728,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -744,7 +746,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -762,7 +764,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -780,7 +782,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -798,7 +800,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -816,7 +818,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -834,7 +836,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -852,7 +854,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -870,7 +872,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -888,7 +890,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -906,7 +908,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -924,7 +926,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -942,7 +944,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -960,7 +962,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -978,7 +980,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1002,38 +1004,40 @@
    "loot": [
     {
      "item_id": 19345,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Aegis of Preservation",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.43,
+     "wowhead_dropped_by": "Ebonroc",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 19403,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Band of Forced Concentration",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 17.14,
+     "wowhead_dropped_by": "Ebonroc",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1049,27 +1053,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19406,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Drake Fang Talisman",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.13,
+     "wowhead_dropped_by": "Ebonroc",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1085,7 +1090,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1103,16 +1108,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19395,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Rejuvenating Gem",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1139,16 +1144,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19397,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of Blackrock",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1175,7 +1180,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1193,7 +1198,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1211,7 +1216,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1229,7 +1234,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1247,7 +1252,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1265,7 +1270,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1283,7 +1288,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1301,7 +1306,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1319,7 +1324,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1337,7 +1342,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1355,7 +1360,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1373,7 +1378,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1408,45 +1413,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19431,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Styleen's Impeding Scarab",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.35,
+     "wowhead_dropped_by": "Flamegor",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 19432,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Circle of Applied Force",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.76,
+     "wowhead_dropped_by": "Flamegor",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1462,7 +1469,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1480,16 +1487,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19395,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Rejuvenating Gem",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1516,16 +1523,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19397,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of Blackrock",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1552,7 +1559,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1570,7 +1577,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1588,7 +1595,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1606,7 +1613,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1624,7 +1631,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1642,7 +1649,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1660,7 +1667,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1678,7 +1685,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1696,7 +1703,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1714,7 +1721,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1732,7 +1739,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1750,7 +1757,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1768,7 +1775,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1803,7 +1810,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1821,7 +1828,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1839,7 +1846,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1857,7 +1864,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1875,7 +1882,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1893,7 +1900,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1911,27 +1918,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19392,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Girdle of the Fallen Crusader",
+     "slot": "Waist Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 10.64,
+     "wowhead_dropped_by": "Chromaggus",
      "chance_repo": 16.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1947,7 +1955,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1965,7 +1973,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1983,7 +1991,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2001,7 +2009,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2019,7 +2027,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2037,7 +2045,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2055,7 +2063,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2073,7 +2081,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2091,7 +2099,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2109,7 +2117,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2127,7 +2135,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2145,7 +2153,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2163,7 +2171,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2181,7 +2189,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2205,38 +2213,40 @@
    "loot": [
     {
      "item_id": 19002,
-     "name": null,
+     "name": "Head of Nefarian",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 42.69,
+     "wowhead_dropped_by": "Nefarian",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 19003,
-     "name": null,
+     "name": "Head of Nefarian",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 53.67,
+     "wowhead_dropped_by": "Nefarian",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2252,45 +2262,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19376,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Archimtiros' Ring of Reckoning",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.55,
+     "wowhead_dropped_by": "Nefarian",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 19377,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Prestor's Talisman of Connivery",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.75,
+     "wowhead_dropped_by": "Nefarian",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2306,27 +2318,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19379,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Neltharion's Tear",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.79,
+     "wowhead_dropped_by": "Nefarian",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2342,7 +2355,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2360,27 +2373,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19382,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Pure Elementium Band",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.36,
+     "wowhead_dropped_by": "Nefarian",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2396,7 +2410,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2414,7 +2428,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2432,7 +2446,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2450,7 +2464,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2468,7 +2482,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2486,7 +2500,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2504,7 +2518,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2522,7 +2536,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2540,7 +2554,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2558,7 +2572,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2576,7 +2590,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2594,7 +2608,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2612,7 +2626,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2623,7 +2637,127 @@
  "rares": [],
  "quests": [],
  "repo_quests_not_in_guide": [],
- "loot_differences": [],
+ "loot_differences": [
+  "Nefarian: 19002 Head of Nefarian - chance repo 100% vs Forever 42.69%",
+  "Nefarian: 19003 Head of Nefarian - chance repo 100% vs Forever 53.67%",
+  "Razorgore the Untamed: 16904  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16911  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16918  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16926  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16934  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16935  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16943  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16951  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Razorgore the Untamed: 16959  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16818  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16903  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16910  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16925  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16933  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16936  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16944  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16952  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Vaelastrasz the Corrupt: 16960  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16898  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16906  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16912  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16919  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16927  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16941  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16949  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16957  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Broodlord Lashlayer: 16965  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19394  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19396  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19365  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19398  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19399  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19400  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19401  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19402  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16899  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16907  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16913  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16920  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16928  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16940  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16948  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16956  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 16964  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19353  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Firemaw: 19355  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19405  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19407  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19394  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19396  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19368  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16899  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16907  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16913  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16920  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16928  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16940  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16948  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16956  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 16964  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19353  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ebonroc: 19355  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19430  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19433  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19394  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19396  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19357  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19367  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16899  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16907  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16913  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16920  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16928  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16940  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16948  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16956  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 16964  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19353  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Flamegor: 19355  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19385  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19387  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19388  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19389  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19386  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19390  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19391  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19393  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16832  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16902  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16917  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16924  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16932  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16937  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16945  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16953  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 16961  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19347  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19349  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19352  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Chromaggus: 19361  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19375  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19378  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19380  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19381  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16897  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16905  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16916  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16923  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16931  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16942  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16950  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16958  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 16966  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19356  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19360  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19363  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Nefarian: 19364  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
  "open_questions": [],
  "guide_notes": [],
  "zone_id": null,
@@ -2637,7 +2771,7 @@
   "quests_in_addon": 0,
   "loot_rows": 137,
   "loot_confirmed": 0,
-  "loot_with_chance": 0,
+  "loot_with_chance": 14,
   "forever_confirmed": "no",
   "boss_count": 0,
   "boss_ok": 0,
@@ -2646,6 +2780,7 @@
   "q_tot": 0
  },
  "top_points": [
-  "137 loot rows without drop chance"
+  "123 loot rows without drop chance",
+  "117 items not on Wowhead Forever (404)"
  ]
 }

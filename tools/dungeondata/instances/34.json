@@ -34,10 +34,10 @@
    "npcs": [
     {
      "id": 1696,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Targorr the Dread",
+     "zone": 717,
+     "name_de": "Targorr der Schreckliche",
+     "name_ok": true
     }
    ],
    "location": "cell along central hall",
@@ -52,72 +52,76 @@
      "item_id": 3630,
      "name": "Head of Targorr",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 37.1,
+     "wowhead_dropped_by": "Targorr the Dread",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273804,
      "name": "Executioner Mantle",
      "slot": "Shoulder (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.29,
+     "wowhead_dropped_by": "Targorr the Dread",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273805,
      "name": "Blackrock Harness",
      "slot": "Chest (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.51,
+     "wowhead_dropped_by": "Targorr the Dread",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273806,
      "name": "Dark Horde Band",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.52,
+     "wowhead_dropped_by": "Targorr the Dread",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -131,10 +135,10 @@
    "npcs": [
     {
      "id": 1666,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Kam Deepfury",
+     "zone": 717,
+     "name_de": "Kam Deepfury",
+     "name_ok": true
     }
    ],
    "location": "cell, north side of east hall",
@@ -149,18 +153,19 @@
      "item_id": 3640,
      "name": "Head of Deepfury",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.11,
+     "wowhead_dropped_by": "Kam Deepfury",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -187,36 +192,38 @@
      "item_id": 273807,
      "name": "Demolition Girdle",
      "slot": "Waist",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 4.72,
+     "wowhead_dropped_by": "Kam Deepfury",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273808,
      "name": "Bridgebreaker Bindings",
      "slot": "Wrist (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 4.12,
+     "wowhead_dropped_by": "Kam Deepfury",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -230,10 +237,10 @@
    "npcs": [
     {
      "id": 1717,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Hamhock",
+     "zone": 717,
+     "name_de": "Hamhock",
+     "name_ok": true
     }
    ],
    "location": "round room at east end",
@@ -248,54 +255,57 @@
      "item_id": 273809,
      "name": "Hamhock's Cleaver",
      "slot": "Main Hand Axe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.76,
+     "wowhead_dropped_by": "Hamhock",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273810,
      "name": "Ogre Grips",
      "slot": "Hands (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 2.96,
+     "wowhead_dropped_by": "Hamhock",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273811,
      "name": "Repurposed Rack",
      "slot": "Shield",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.72,
+     "wowhead_dropped_by": "Hamhock",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -309,10 +319,10 @@
    "npcs": [
     {
      "id": 1716,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Bazil Thredd",
+     "zone": 717,
+     "name_de": "Bazil Thredd",
+     "name_ok": true
     }
    ],
    "location": "cell off the east round room",
@@ -327,90 +337,95 @@
      "item_id": 2926,
      "name": "Head of Bazil Thredd",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 43.26,
+     "wowhead_dropped_by": "Bazil Thredd",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273827,
      "name": "Debt Collector",
      "slot": "One-Hand Sword (caster)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 2.63,
+     "wowhead_dropped_by": "Bazil Thredd",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273829,
      "name": "Concealed Hand Crossbow",
      "slot": "Crossbow",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 1.85,
+     "wowhead_dropped_by": "Bazil Thredd",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273825,
      "name": "Red Wool Cloak",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 2.19,
+     "wowhead_dropped_by": "Bazil Thredd",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273824,
      "name": "Defias Jailbreakers",
      "slot": "Hands (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 2.3,
+     "wowhead_dropped_by": "Bazil Thredd",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -424,10 +439,10 @@
    "npcs": [
     {
      "id": 1663,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Dextren Ward",
+     "zone": 717,
+     "name_de": "Dextren Ward",
+     "name_ok": true
     }
    ],
    "location": "west wing round room or cells",
@@ -442,72 +457,76 @@
      "item_id": 3628,
      "name": "Hand of Dextren Ward",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 44.05,
+     "wowhead_dropped_by": "Dextren Ward",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273817,
      "name": "Graverobber's Shovel",
      "slot": "Two-Hand Mace",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 4.27,
+     "wowhead_dropped_by": "Dextren Ward",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273819,
      "name": "Boneslicer",
      "slot": "Polearm",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.94,
+     "wowhead_dropped_by": "Dextren Ward",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273820,
      "name": "Nightskulker Ring",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.25,
+     "wowhead_dropped_by": "Dextren Ward",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -517,7 +536,7 @@
   {
    "name": "Bruegal Ironknuckle",
    "npc_id": 1720,
-   "wowhead_name": null,
+   "wowhead_name": "Bruegal Ironknuckle",
    "location": "one of several cells off main hall; not every run",
    "pin": {
     "floor": 1,
@@ -603,8 +622,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Quell the Uprising",
+   "wowhead_level": 26,
    "races": 77
   },
   {
@@ -620,8 +639,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Color of Blood",
+   "wowhead_level": 26,
    "races": 77
   },
   {
@@ -641,8 +660,8 @@
     3562
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Fury Runs Deep",
+   "wowhead_level": 27,
    "races": 77
   },
   {
@@ -662,8 +681,8 @@
     2906
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Crime and Punishment",
+   "wowhead_level": 26,
    "races": 77
   },
   {
@@ -683,8 +702,8 @@
     3400
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "What Comes Around...",
+   "wowhead_level": 25,
    "races": 77
   },
   {
@@ -700,8 +719,8 @@
    "prereq": "The Unsent Letter (373) and Bazil Thredd (389)",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Stockade Riots",
+   "wowhead_level": 29,
    "races": 77
   },
   {
@@ -717,8 +736,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Dark Iron War",
+   "wowhead_level": 30,
    "races": 77
   },
   {
@@ -734,8 +753,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Unsent Letter",
+   "wowhead_level": 22,
    "races": 77
   },
   {
@@ -751,7 +770,7 @@
    "prereq": "The Unsent Letter (373)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Bazil Thredd",
    "wowhead_level": null,
    "races": 77
   }
@@ -777,50 +796,33 @@
   "Bruegal Ironknuckle: 2941 Prison Shank - chance repo 33.3% vs Forever 20.12%",
   "Bruegal Ironknuckle: 2942 Iron Knuckles - chance repo 33.3% vs Forever 18.76%"
  ],
- "open_questions": [
-  "NPC 1696 (Targorr the Dread) not found on Wowhead Forever - check ID.",
-  "NPC 1666 (Kam Deepfury) not found on Wowhead Forever - check ID.",
-  "NPC 1717 (Hamhock) not found on Wowhead Forever - check ID.",
-  "NPC 1716 (Bazil Thredd) not found on Wowhead Forever - check ID.",
-  "NPC 1663 (Dextren Ward) not found on Wowhead Forever - check ID.",
-  "Quest 387 'Quell the Uprising' not found on Wowhead Forever - check ID.",
-  "Quest 388 'The Color of Blood' not found on Wowhead Forever - check ID.",
-  "Quest 378 'The Fury Runs Deep' not found on Wowhead Forever - check ID.",
-  "Quest 377 'Crime and Punishment' not found on Wowhead Forever - check ID.",
-  "Quest 386 'What Comes Around...' not found on Wowhead Forever - check ID.",
-  "Quest 391 'The Stockade Riots' not found on Wowhead Forever - check ID.",
-  "Quest 303 'The Dark Iron War' not found on Wowhead Forever - check ID.",
-  "Quest 373 'The Unsent Letter' not found on Wowhead Forever - check ID.",
-  "Quest 389 'Bazil Thredd' not found on Wowhead Forever - check ID."
- ],
+ "open_questions": [],
  "guide_notes": [
   "Most boss loot has no drop chance on the guide",
   "Follow-ups after The Stockade Riots: The Curious Visitor (392), Shadow of the Past (393)",
   "Min level 16 for 391 as per guide table; may be a typo",
   "Guide states Hamhock, Kam etc. levels; Bruegal treated as rare"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 717,
+ "zone_name_en": "The Stockade",
+ "zone_name_de": "Das Verlies",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "ok",
   "pins": "ok",
-  "loot": "partial",
-  "quests": "missing",
+  "loot": "ok",
+  "quests": "ok",
   "quests_in_addon": 6,
   "loot_rows": 19,
-  "loot_confirmed": 4,
-  "loot_with_chance": 4,
-  "forever_confirmed": "partly",
+  "loot_confirmed": 19,
+  "loot_with_chance": 19,
+  "forever_confirmed": "yes",
   "boss_count": 5,
-  "boss_ok": 0,
+  "boss_ok": 5,
   "pin_ok": 5,
   "enc_count": 5,
   "q_tot": 9
  },
  "top_points": [
-  "3 of 9 quests missing in DungeonQuests.lua",
-  "NPC 1696 (Targorr the Dread) not found on Wowhead Forever - check ID. (+13 more)",
-  "15 loot rows without drop chance"
+  "3 of 9 quests missing in DungeonQuests.lua"
  ]
 }

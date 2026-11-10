@@ -44,7 +44,7 @@
      "id": 9196,
      "wowhead_name": "Highlord Omokk",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Hochlord Omokk",
      "name_ok": true
     }
    ],
@@ -120,18 +120,19 @@
      "item_id": 12534,
      "name": "Omokk's Head",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 84.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 84.11,
+     "wowhead_dropped_by": "Highlord Omokk",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -146,7 +147,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -165,7 +166,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -184,7 +185,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -203,7 +204,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -242,7 +243,7 @@
      "id": 9236,
      "wowhead_name": "Shadow Hunter Vosh'gajin",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Schattenjägerin Vosh'gajin",
      "name_ok": true
     }
    ],
@@ -326,7 +327,7 @@
      "chance_repo": 30.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -345,7 +346,7 @@
      "chance_repo": 21.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -364,7 +365,7 @@
      "chance_repo": 21.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -383,7 +384,7 @@
      "chance_repo": 8.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -422,7 +423,7 @@
      "id": 9237,
      "wowhead_name": "War Master Voone",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Kriegsmeister Voone",
      "name_ok": true
     }
    ],
@@ -524,7 +525,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -543,7 +544,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -562,7 +563,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -581,7 +582,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -620,7 +621,7 @@
      "id": 10596,
      "wowhead_name": "Mother Smolderweb",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Mutter Glimmernetz",
      "name_ok": true
     }
    ],
@@ -684,7 +685,7 @@
      "chance_repo": 35.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -703,7 +704,7 @@
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -742,7 +743,7 @@
      "id": 10584,
      "wowhead_name": "Urok Doomhowl",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Urok Schreckensbote",
      "name_ok": true
     }
    ],
@@ -758,18 +759,19 @@
      "item_id": 12712,
      "name": "Warosh's Mojo",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 41.56,
+     "wowhead_dropped_by": "Urok Doomhowl",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -824,7 +826,7 @@
      "chance_repo": 23.8,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -843,7 +845,7 @@
      "chance_repo": 23.8,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -862,7 +864,7 @@
      "chance_repo": 23.8,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -882,7 +884,7 @@
      "id": 9736,
      "wowhead_name": "Quartermaster Zigris",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Rüstmeister Zigris",
      "name_ok": true
     }
    ],
@@ -946,7 +948,7 @@
      "chance_repo": 16.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -985,7 +987,7 @@
      "id": 10220,
      "wowhead_name": "Halycon",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Halycon",
      "name_ok": true
     }
    ],
@@ -1049,7 +1051,7 @@
      "chance_repo": 28.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1068,7 +1070,7 @@
      "chance_repo": 14.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1107,7 +1109,7 @@
      "id": 10268,
      "wowhead_name": "Gizrul the Slavener",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Gizrul der Geifernde",
      "name_ok": true
     }
    ],
@@ -1151,7 +1153,7 @@
      "chance_repo": 28.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1170,7 +1172,7 @@
      "chance_repo": 28.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1189,7 +1191,7 @@
      "chance_repo": 28.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1209,7 +1211,7 @@
      "id": 9568,
      "wowhead_name": "Overlord Wyrmthalak",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Oberanführer Wyrmthalak",
      "name_ok": true
     }
    ],
@@ -1245,18 +1247,19 @@
      "item_id": 12780,
      "name": "General Drakkisath's Command",
      "slot": "Quest (starts 5089)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 25.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 24.58,
+     "wowhead_dropped_by": "Overlord Wyrmthalak",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -1331,7 +1334,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1350,7 +1353,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1369,7 +1372,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1408,7 +1411,7 @@
      "id": 9816,
      "wowhead_name": "Pyroguard Emberseer",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Feuerwache Glutseher",
      "name_ok": true
     }
    ],
@@ -1504,18 +1507,19 @@
      "item_id": 17322,
      "name": "Eye of the Emberseer",
      "slot": "Quest (6821)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.76,
+     "wowhead_dropped_by": "Pyroguard Emberseer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -1548,7 +1552,7 @@
      "chance_repo": 8.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1580,14 +1584,14 @@
    "order": 11,
    "wing": "UBRS",
    "name": "Solakar Flamewreath",
-   "name_de": null,
+   "name_de": "Solakar Feuerkrone",
    "encounter_id": null,
    "npcs": [
     {
      "id": 10264,
      "wowhead_name": "Solakar Flamewreath",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Solakar Feuerkrone",
      "name_ok": true
     }
    ],
@@ -1599,54 +1603,57 @@
      "item_id": 12603,
      "name": "Nightbrace Tunic",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 18.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 17.99,
+     "wowhead_dropped_by": "Solakar Flamewreath",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 16695,
      "name": "Devout Mantle",
      "slot": "Shoulder",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 18.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.38,
+     "wowhead_dropped_by": "Solakar Flamewreath",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 12606,
      "name": "Crystallized Girdle",
      "slot": "Waist",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 17.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 17.32,
+     "wowhead_dropped_by": "Solakar Flamewreath",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1655,14 +1662,14 @@
    "order": 12,
    "wing": "UBRS",
    "name": "Goraluk Anvilcrack",
-   "name_de": null,
+   "name_de": "Goraluk Hammerbruch",
    "encounter_id": null,
    "npcs": [
     {
      "id": 10899,
      "wowhead_name": "Goraluk Anvilcrack",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Goraluk Hammerbruch",
      "name_ok": true
     }
    ],
@@ -1682,8 +1689,8 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "guide"
      ]
@@ -1700,8 +1707,8 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "guide"
      ]
@@ -1710,36 +1717,38 @@
      "item_id": 12834,
      "name": "Plans: Arcanite Champion",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 9.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.69,
+     "wowhead_dropped_by": "Goraluk Anvilcrack",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 12837,
      "name": "Plans: Masterwork Stormhammer",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 9.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.77,
+     "wowhead_dropped_by": "Goraluk Anvilcrack",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1755,7 +1764,7 @@
      "id": 10429,
      "wowhead_name": "Warchief Rend Blackhand",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Kriegshäuptling Rend Blackhand",
      "name_ok": true
     }
    ],
@@ -1896,7 +1905,7 @@
      "chance_repo": 19.8,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1915,7 +1924,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1934,7 +1943,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1989,7 +1998,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2002,14 +2011,14 @@
    "order": 14,
    "wing": "UBRS",
    "name": "Gyth",
-   "name_de": null,
+   "name_de": "Gyth",
    "encounter_id": null,
    "npcs": [
     {
      "id": 10339,
      "wowhead_name": "Gyth",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Gyth",
      "name_ok": true
     }
    ],
@@ -2021,54 +2030,57 @@
      "item_id": 12952,
      "name": "Gyth's Skull",
      "slot": "Head",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 21.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.2,
+     "wowhead_dropped_by": "Gyth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 16669,
      "name": "Pauldrons of Elements",
      "slot": "Shoulder",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 20.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.07,
+     "wowhead_dropped_by": "Gyth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 12871,
      "name": "Chromatic Carapace",
      "slot": "Crafting (epic)",
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": 4.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 5.97,
+     "wowhead_dropped_by": "Gyth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -2084,7 +2096,7 @@
      "id": 10430,
      "wowhead_name": "The Beast",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Die Bestie",
      "name_ok": true
     }
    ],
@@ -2207,7 +2219,7 @@
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "guide"
      ]
@@ -2224,7 +2236,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2243,7 +2255,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2262,7 +2274,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2281,7 +2293,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2300,7 +2312,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2319,7 +2331,7 @@
      "chance_repo": 13.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2338,7 +2350,7 @@
      "chance_repo": 5.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2377,7 +2389,7 @@
      "id": 16042,
      "wowhead_name": "Lord Valthalak",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "Lord Valthalak",
      "name_ok": true
     }
    ],
@@ -2435,7 +2447,7 @@
      "chance_repo": 40.2,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2545,7 +2557,7 @@
      "id": 10363,
      "wowhead_name": "General Drakkisath",
      "zone": 1583,
-     "name_de": null,
+     "name_de": "General Drakkisath",
      "name_ok": true
     }
    ],
@@ -2658,18 +2670,19 @@
      "item_id": 16663,
      "name": "Blood of the Black Dragon Champion",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.88,
+     "wowhead_dropped_by": "General Drakkisath",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -2724,7 +2737,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2761,7 +2774,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2780,7 +2793,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2799,7 +2812,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2818,7 +2831,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2837,7 +2850,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2856,7 +2869,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2875,7 +2888,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2894,7 +2907,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2913,7 +2926,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2932,7 +2945,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2951,7 +2964,7 @@
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3025,7 +3038,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3044,7 +3057,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3063,7 +3076,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3115,7 +3128,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3134,7 +3147,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3153,7 +3166,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3205,7 +3218,7 @@
      "chance_repo": 60.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3224,7 +3237,7 @@
      "chance_repo": 40.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3257,7 +3270,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3276,7 +3289,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3295,7 +3308,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3440,7 +3453,7 @@
      "chance_repo": 50.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3459,7 +3472,7 @@
      "chance_repo": 50.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3511,7 +3524,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3530,7 +3543,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3549,7 +3562,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3592,8 +3605,8 @@
    "prereq": "needs Unadorned Seal 12219",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Seal of Ascension",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3609,8 +3622,8 @@
    "prereq": "4742",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Seal of Ascension",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3628,8 +3641,8 @@
     15867
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Urok Doomhowl",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3647,8 +3660,8 @@
     12529
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "En-Ay-Es-Tee-Why",
+   "wowhead_level": 59,
    "races": 0
   },
   {
@@ -3666,8 +3679,8 @@
     12264
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Kibler's Exotic Pets",
+   "wowhead_level": 59,
    "races": 0
   },
   {
@@ -3685,8 +3698,8 @@
     15873
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Mother's Milk",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3704,8 +3717,8 @@
     12144
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Egg Freezing",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3721,8 +3734,8 @@
    "prereq": "4734",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Egg Collection",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3738,8 +3751,8 @@
    "prereq": "8962 (21-step chain)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Left Piece of Lord Valthalak's Amulet",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3755,8 +3768,8 @@
    "prereq": "8986",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Right Piece of Lord Valthalak's Amulet",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3774,8 +3787,8 @@
     22057
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Mea Culpa, Lord Valthalak",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3794,8 +3807,8 @@
     20219
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Final Tablets",
+   "wowhead_level": 58,
    "races": 0
   },
   {
@@ -3815,8 +3828,8 @@
     9224
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Demon Forge",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3832,8 +3845,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Matron Protectorate",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3849,8 +3862,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Pip Quickwit, At Your Service!",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3866,8 +3879,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Bijou's Belongings",
+   "wowhead_level": 59,
    "races": 77
   },
   {
@@ -3883,8 +3896,8 @@
    "prereq": "5001",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Message to Maxwell",
+   "wowhead_level": 59,
    "races": 77
   },
   {
@@ -3906,8 +3919,8 @@
     13962
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Maxwell's Mission",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -3927,8 +3940,8 @@
     15827
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Put Her Down",
+   "wowhead_level": 59,
    "races": 77
   },
   {
@@ -3944,8 +3957,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "General Drakkisath's Command",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -3965,8 +3978,8 @@
     13965
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "General Drakkisath's Demise",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -3982,8 +3995,8 @@
    "prereq": "4766",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Doomrigger's Clasp",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -4002,7 +4015,7 @@
     15860
    ],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Delivery to Ridgewell",
    "wowhead_level": null,
    "races": 77
   },
@@ -4021,8 +4034,8 @@
     16309
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Drakefire Amulet",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -4042,8 +4055,8 @@
     15827
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Pack Mistress",
+   "wowhead_level": 59,
    "races": 178
   },
   {
@@ -4059,8 +4072,8 @@
    "prereq": "Operative Bijou (4981)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Bijou's Belongings",
+   "wowhead_level": 59,
    "races": 178
   },
   {
@@ -4079,8 +4092,8 @@
     15859
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Bijou's Reconnaissance Report",
+   "wowhead_level": 59,
    "races": 178
   },
   {
@@ -4102,8 +4115,8 @@
     13962
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Warlord's Command",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -4123,8 +4136,8 @@
     13965
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "For The Horde!",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -4140,8 +4153,8 @@
    "prereq": "6568",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Oculus Illusions",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -4159,8 +4172,8 @@
     16309
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Blood of the Black Dragon Champion",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -4179,8 +4192,8 @@
     15860
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Darkstone Tablet",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -4196,8 +4209,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Blackhand's Command",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4213,8 +4226,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Eye of the Emberseer",
+   "wowhead_level": 60,
    "races": 0
   }
  ],
@@ -4352,12 +4365,15 @@
   "Ghok Bashguud: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)",
   "Ghok Bashguud: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'",
   "Pyroguard Emberseer: 12929  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Goraluk Anvilcrack: 13498 Handcrafted Mastersmith Leggings - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Goraluk Anvilcrack: 18048 Mastersmith's Hammer - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Warchief Rend Blackhand: 12590 Felstriker - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Warchief Rend Blackhand: 12936  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Warchief Rend Blackhand: 18103  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Warchief Rend Blackhand: 18104  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "The Beast: 12963 Blademaster Leggings - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "The Beast: 12709 Pip's Skinner - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Beast: 12731 Pristine Hide of the Beast - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Lord Valthalak: 22335 Lord Valthalak's Staff of Command - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Lord Valthalak: 22340 Pendant of Celerity - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Lord Valthalak: 22337  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
@@ -4377,40 +4393,8 @@
   "No pin for 'Lord Valthalak' (encounter 3070) in DungeonPinData.lua.",
   "Rare pin 9219 'Spirestone Butcher' is not mentioned in the guide.",
   "Rare pin 9718 'Ghok Bashguud' is not mentioned in the guide.",
-  "Quest 4742 'Seal of Ascension' not found on Wowhead Forever - check ID.",
-  "Quest 4743 'Seal of Ascension' not found on Wowhead Forever - check ID.",
-  "Quest 4867 'Urok Doomhowl' not found on Wowhead Forever - check ID.",
-  "Quest 4862 'En-Ay-Es-Tee-Why' not found on Wowhead Forever - check ID.",
-  "Quest 4729 'Kibler's Exotic Pets' not found on Wowhead Forever - check ID.",
-  "Quest 4866 'Mother's Milk' not found on Wowhead Forever - check ID.",
-  "Quest 4734 'Egg Freezing' not found on Wowhead Forever - check ID.",
-  "Quest 4735 'Egg Collection' not found on Wowhead Forever - check ID.",
-  "Quest 8966 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 8989 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 8995 'Mea Culpa, Lord Valthalak' not found on Wowhead Forever - check ID.",
-  "Quest 4788 'The Final Tablets' not found on Wowhead Forever - check ID.",
-  "Quest 5127 'The Demon Forge' not found on Wowhead Forever - check ID.",
-  "Quest 5160 'The Matron Protectorate' not found on Wowhead Forever - check ID.",
-  "Quest 5047 'Finkle Einhorn, At Your Service!' not found on Wowhead Forever - check ID.",
-  "Quest 5001 'Bijou's Belongings' not found on Wowhead Forever - check ID.",
-  "Quest 5002 'Message to Maxwell' not found on Wowhead Forever - check ID.",
-  "Quest 5081 'Maxwell's Mission' not found on Wowhead Forever - check ID.",
-  "Quest 4701 'Put Her Down' not found on Wowhead Forever - check ID.",
-  "Quest 5089 'General Drakkisath's Command' not found on Wowhead Forever - check ID.",
-  "Quest 5102 'General Drakkisath's Demise' not found on Wowhead Forever - check ID.",
-  "Quest 4764 'Doomrigger's Clasp' not found on Wowhead Forever - check ID.",
-  "Quest 4765 'Delivery to Ridgewell' not found on Wowhead Forever - check ID.",
-  "Quest 6502 'Drakefire Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 4724 'The Pack Mistress' not found on Wowhead Forever - check ID.",
-  "Quest 4982 'Bijou's Belongings' not found on Wowhead Forever - check ID.",
-  "Quest 4983 'Bijou's Reconnaissance Report' not found on Wowhead Forever - check ID.",
-  "Quest 4903 'Warlord's Command' not found on Wowhead Forever - check ID.",
-  "Quest 4974 'For The Horde!' not found on Wowhead Forever - check ID.",
-  "Quest 6569 'Oculus Illusions' not found on Wowhead Forever - check ID.",
-  "Quest 6602 'Blood of the Black Dragon Champion' not found on Wowhead Forever - check ID.",
-  "Quest 4768 'The Darkstone Tablet' not found on Wowhead Forever - check ID.",
-  "Quest 7761 'Blackhand's Command' not found on Wowhead Forever - check ID.",
-  "Quest 6821 'Eye of the Emberseer' not found on Wowhead Forever - check ID."
+  "Pins of 'Halycon' and 'Gizrul the Slavener' are almost on the same spot (floor 1) - intended?",
+  "Quest 5047: guide title 'Finkle Einhorn, At Your Service!', Wowhead Forever 'Pip Quickwit, At Your Service!'."
  ],
  "guide_notes": [
   "LBRS page read fully; UBRS page read to 100000 of 109453 chars (remaining part is FAQ)",
@@ -4423,16 +4407,16 @@
   "Quest totals: LBRS page 27 quests (Alliance 22 / Horde 20); UBRS page 24 (Alliance 19 / Horde 18)"
  ],
  "zone_id": 1583,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_name_en": "Blackrock Spire",
+ "zone_name_de": "Blackrockspitze",
  "assessment": {
   "bosses": "partial",
   "pins": "partial",
-  "loot": "ok",
-  "quests": "missing",
+  "loot": "partial",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 151,
-  "loot_confirmed": 115,
+  "loot_confirmed": 46,
   "loot_with_chance": 121,
   "forever_confirmed": "partly",
   "boss_count": 17,

@@ -35,7 +35,7 @@
      "id": 270882,
      "wowhead_name": "Zul'Alai",
      "zone": null,
-     "name_de": null,
+     "name_de": "Zul'Alai",
      "name_ok": true
     }
    ],
@@ -47,54 +47,57 @@
      "item_id": 274600,
      "name": "Berserker Shackles",
      "slot": "Wrist (mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.84,
+     "wowhead_dropped_by": "Zul'Alai",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274598,
      "name": "Bloodslash Axe",
      "slot": "One-hand axe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 26.96,
+     "wowhead_dropped_by": "Zul'Alai",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274599,
      "name": "Oathbound Bracers",
      "slot": "Wrist (leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 40.2,
+     "wowhead_dropped_by": "Zul'Alai",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -110,7 +113,7 @@
      "id": 270883,
      "wowhead_name": "Var'Taka",
      "zone": null,
-     "name_de": null,
+     "name_de": "Var'Taka",
      "name_ok": true
     }
    ],
@@ -122,36 +125,38 @@
      "item_id": 274602,
      "name": "Brinebelly Leggings",
      "slot": "Legs (leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.52,
+     "wowhead_dropped_by": "Var'Taka",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274601,
      "name": "Harpoon of Command",
      "slot": "Polearm",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 39.84,
+     "wowhead_dropped_by": "Var'Taka",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -167,7 +172,7 @@
      "id": 270884,
      "wowhead_name": "Captain Dreadrise",
      "zone": null,
-     "name_de": null,
+     "name_de": "Captain Dreadrise",
      "name_ok": true
     }
    ],
@@ -179,54 +184,57 @@
      "item_id": 274604,
      "name": "Frosty Blunderbuss",
      "slot": "Gun",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.71,
+     "wowhead_dropped_by": "Captain Dreadrise",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274605,
      "name": "Briny Sash",
      "slot": "Waist (cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.14,
+     "wowhead_dropped_by": "Captain Dreadrise",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274603,
      "name": "Dreadfrost Saber",
      "slot": "Main-hand sword",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.14,
+     "wowhead_dropped_by": "Captain Dreadrise",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -235,14 +243,14 @@
    "order": 4,
    "wing": null,
    "name": "Deathless Marrow",
-   "name_de": null,
-   "encounter_id": null,
+   "name_de": "Unsterbliche Wächter",
+   "encounter_id": 3478,
    "npcs": [
     {
      "id": 270885,
      "wowhead_name": "Deathless Marrow",
      "zone": null,
-     "name_de": null,
+     "name_de": "Unsterbliches Mark",
      "name_ok": true
     }
    ],
@@ -254,36 +262,38 @@
      "item_id": 274606,
      "name": "Bloodspine Staff",
      "slot": "Staff",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.6,
+     "wowhead_dropped_by": "Deathless Marrow",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274607,
      "name": "Viscera Spaulders",
      "slot": "Shoulder (mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 27.2,
+     "wowhead_dropped_by": "Deathless Marrow",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -299,7 +309,7 @@
      "id": 273738,
      "wowhead_name": "Primeval Elemental",
      "zone": null,
-     "name_de": null,
+     "name_de": "[Primeval Elemental]",
      "name_ok": true
     }
    ],
@@ -311,97 +321,102 @@
      "item_id": 274612,
      "name": "Waterlogged Burial Shroud",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 24.29,
+     "wowhead_dropped_by": "Primeval Elemental",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274611,
      "name": "Robe of the Drowned",
      "slot": "Chest (cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.86,
+     "wowhead_dropped_by": "Primeval Elemental",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274613,
      "name": "Priestess Cloak",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Var'Taka",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274614,
      "name": "Knucklebone Ring",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Deathless Marrow",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274615,
      "name": "Heart of the Primeval",
      "slot": "Trinket",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 42.86,
+     "wowhead_dropped_by": "Primeval Elemental",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 276894,
      "name": "Ancient Gurubashi Idol",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -421,14 +436,14 @@
    "order": 6,
    "wing": null,
    "name": "Gill",
-   "name_de": null,
+   "name_de": "Gill",
    "encounter_id": null,
    "npcs": [
     {
      "id": 270888,
      "wowhead_name": "Gill",
      "zone": null,
-     "name_de": null,
+     "name_de": "Gill",
      "name_ok": true
     }
    ],
@@ -448,7 +463,7 @@
      "id": 270886,
      "wowhead_name": "Min'loth the Serpent",
      "zone": null,
-     "name_de": null,
+     "name_de": "Min'loth die Schlange",
      "name_ok": true
     }
    ],
@@ -460,69 +475,60 @@
      "item_id": 274610,
      "name": "Ritual-Binder's Gloves",
      "slot": "Hands (leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.17,
+     "wowhead_dropped_by": "Min'loth the Serpent",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274608,
      "name": "Maw of Min'loth",
      "slot": "Shield",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 35.0,
+     "wowhead_dropped_by": "Min'loth the Serpent",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274609,
      "name": "Serpentbane Crown",
      "slot": "Head (mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.83,
+     "wowhead_dropped_by": "Min'loth the Serpent",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Deathless Guardians",
-   "name_de": "Unsterbliche Wächter",
-   "encounter_id": 3478,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": null,
-   "loot": []
   }
  ],
  "rares": [],
@@ -540,8 +546,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Vile Reef",
+   "wowhead_level": 37,
    "races": 178
   },
   {
@@ -557,7 +563,7 @@
    "prereq": "The Vile Reef (629)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "The Gurubashi Legends of Old",
    "wowhead_level": null,
    "races": 178
   },
@@ -574,7 +580,7 @@
    "prereq": "The Gurubashi Legends of Old (95748)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Locating the Lost City",
    "wowhead_level": null,
    "races": 178
   },
@@ -591,8 +597,8 @@
    "prereq": "Locating the Lost City (95770)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Drowned City",
+   "wowhead_level": 40,
    "races": 178
   },
   {
@@ -608,7 +614,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Enemies in the Water",
    "wowhead_level": null,
    "races": 178
   },
@@ -628,8 +634,8 @@
     279889
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Only Good Brinescale...",
+   "wowhead_level": 38,
    "races": 178
   },
   {
@@ -645,8 +651,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Ancient Gurubashi Idol",
+   "wowhead_level": 40,
    "races": 178
   },
   {
@@ -665,8 +671,8 @@
     279930
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Shady Saltseers",
+   "wowhead_level": 40,
    "races": 0
   },
   {
@@ -685,8 +691,8 @@
     279884
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Saltseer Captain",
+   "wowhead_level": 40,
    "races": 0
   },
   {
@@ -702,7 +708,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "An Acquaintance in Southshore",
    "wowhead_level": null,
    "races": 77
   },
@@ -719,8 +725,8 @@
    "prereq": "An Acquaintance in Southshore (95786)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Take Two With Water",
+   "wowhead_level": 40,
    "races": 77
   },
   {
@@ -739,7 +745,7 @@
     279881
    ],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Findings for the Explorer's League",
    "wowhead_level": null,
    "races": 77
   },
@@ -756,8 +762,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Magics of the Drowned City",
+   "wowhead_level": 40,
    "races": 77
   },
   {
@@ -776,7 +782,7 @@
     279878
    ],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "The Web of Magic",
    "wowhead_level": null,
    "races": 77
   },
@@ -793,37 +799,22 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Ancient Gurubashi Secrets",
+   "wowhead_level": 40,
    "races": 77
   }
  ],
  "repo_quests_not_in_guide": [],
  "loot_differences": [],
  "open_questions": [
+  "Guide 'Deathless Marrow' mapped to encounter 3478 'Deathless Guardians' (assumed same fight). Check in game.",
   "No pin for 'Zul'Alai' (encounter 3474) in DungeonPinData.lua.",
   "No pin for 'Var'Taka' (encounter 3475) in DungeonPinData.lua.",
   "No pin for 'Captain Dreadrise' (encounter 3476) in DungeonPinData.lua.",
-  "Boss 'Deathless Marrow' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Deathless Marrow' (encounter 3478) in DungeonPinData.lua.",
   "No pin for 'Primeval Elemental' (encounter 3511) in DungeonPinData.lua.",
   "Boss 'Gill' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "No pin for 'Min'loth the Serpent' (encounter 3479) in DungeonPinData.lua.",
-  "Encounter 3478 'Deathless Guardians' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Quest 629 'The Vile Reef' not found on Wowhead Forever - check ID.",
-  "Quest 95748 'The Gurubashi Legends of Old' not found on Wowhead Forever - check ID.",
-  "Quest 95770 'Locating the Lost City' not found on Wowhead Forever - check ID.",
-  "Quest 95775 'The Drowned City' not found on Wowhead Forever - check ID.",
-  "Quest 95773 'Enemies in the Water' not found on Wowhead Forever - check ID.",
-  "Quest 95776 'The Only Good Brinescale...' not found on Wowhead Forever - check ID.",
-  "Quest 96774 'Ancient Gurubashi Idol' not found on Wowhead Forever - check ID.",
-  "Quest 95789 'Shady Saltseers' not found on Wowhead Forever - check ID.",
-  "Quest 95791 'The Saltseer Captain' not found on Wowhead Forever - check ID.",
-  "Quest 95786 'An Acquaintance in Southshore' not found on Wowhead Forever - check ID.",
-  "Quest 95787 'Take Two With Water' not found on Wowhead Forever - check ID.",
-  "Quest 95799 'Findings for the Explorer's League' not found on Wowhead Forever - check ID.",
-  "Quest 95788 'Magics of the Drowned City' not found on Wowhead Forever - check ID.",
-  "Quest 95798 'The Web of Magic' not found on Wowhead Forever - check ID.",
-  "Quest 97130 'Ancient Gurubashi Secrets' not found on Wowhead Forever - check ID."
+  "No pin for 'Min'loth the Serpent' (encounter 3479) in DungeonPinData.lua."
  ],
  "guide_notes": [
   "No drop chances on guide; 7 of 18 items 'seen', 11 'probable' via journal addon data",
@@ -840,21 +831,21 @@
   "bosses": "partial",
   "pins": "missing",
   "loot": "partial",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 18,
   "loot_confirmed": 18,
-  "loot_with_chance": 0,
+  "loot_with_chance": 16,
   "forever_confirmed": "yes",
   "boss_count": 7,
-  "boss_ok": 5,
+  "boss_ok": 6,
   "pin_ok": 0,
   "enc_count": 6,
   "q_tot": 15
  },
  "top_points": [
   "15 of 15 quests missing in DungeonQuests.lua",
-  "Boss 'Deathless Marrow' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
-  "No pin for 'Zul'Alai' (encounter 3474) in DungeonPinData.lua. (+4 more)"
+  "Boss 'Gill' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "No pin for 'Zul'Alai' (encounter 3474) in DungeonPinData.lua. (+5 more)"
  ]
 }

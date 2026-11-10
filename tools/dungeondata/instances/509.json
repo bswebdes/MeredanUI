@@ -34,9 +34,9 @@
    "loot": [
     {
      "item_id": 20885,
-     "name": null,
+     "name": "Qiraji Martial Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -52,9 +52,9 @@
     },
     {
      "item_id": 20889,
-     "name": null,
+     "name": "Qiraji Regal Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -70,9 +70,9 @@
     },
     {
      "item_id": 20884,
-     "name": null,
+     "name": "Qiraji Magisterial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -88,9 +88,9 @@
     },
     {
      "item_id": 20888,
-     "name": null,
+     "name": "Qiraji Ceremonial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -117,7 +117,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -135,7 +135,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -159,9 +159,9 @@
    "loot": [
     {
      "item_id": 20885,
-     "name": null,
+     "name": "Qiraji Martial Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -177,9 +177,9 @@
     },
     {
      "item_id": 20889,
-     "name": null,
+     "name": "Qiraji Regal Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -195,9 +195,9 @@
     },
     {
      "item_id": 20884,
-     "name": null,
+     "name": "Qiraji Magisterial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -213,9 +213,9 @@
     },
     {
      "item_id": 20888,
-     "name": null,
+     "name": "Qiraji Ceremonial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -242,7 +242,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -260,7 +260,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -284,9 +284,9 @@
    "loot": [
     {
      "item_id": 20886,
-     "name": null,
+     "name": "Qiraji Spiked Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -302,9 +302,9 @@
     },
     {
      "item_id": 20890,
-     "name": null,
+     "name": "Qiraji Ornate Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -331,7 +331,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -349,7 +349,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -367,7 +367,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -385,34 +385,35 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22220,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Plans: Black Grasp of the Destroyer",
+     "slot": "Hands Mail",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 14.02,
+     "wowhead_dropped_by": "Moam",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 20884,
-     "name": null,
+     "name": "Qiraji Magisterial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -428,9 +429,9 @@
     },
     {
      "item_id": 20888,
-     "name": null,
+     "name": "Qiraji Ceremonial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -457,7 +458,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -475,7 +476,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -493,7 +494,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -511,7 +512,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -535,9 +536,9 @@
    "loot": [
     {
      "item_id": 20884,
-     "name": null,
+     "name": "Qiraji Magisterial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -553,9 +554,9 @@
     },
     {
      "item_id": 20885,
-     "name": null,
+     "name": "Qiraji Martial Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -571,9 +572,9 @@
     },
     {
      "item_id": 20886,
-     "name": null,
+     "name": "Qiraji Spiked Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -589,9 +590,9 @@
     },
     {
      "item_id": 20888,
-     "name": null,
+     "name": "Qiraji Ceremonial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -607,9 +608,9 @@
     },
     {
      "item_id": 20889,
-     "name": null,
+     "name": "Qiraji Regal Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -625,9 +626,9 @@
     },
     {
      "item_id": 20890,
-     "name": null,
+     "name": "Qiraji Ornate Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -654,7 +655,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -672,7 +673,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -690,7 +691,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -714,9 +715,9 @@
    "loot": [
     {
      "item_id": 20884,
-     "name": null,
+     "name": "Qiraji Magisterial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -732,9 +733,9 @@
     },
     {
      "item_id": 20888,
-     "name": null,
+     "name": "Qiraji Ceremonial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -750,9 +751,9 @@
     },
     {
      "item_id": 20885,
-     "name": null,
+     "name": "Qiraji Martial Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -768,9 +769,9 @@
     },
     {
      "item_id": 20886,
-     "name": null,
+     "name": "Qiraji Spiked Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -786,9 +787,9 @@
     },
     {
      "item_id": 20889,
-     "name": null,
+     "name": "Qiraji Regal Drape",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -804,9 +805,9 @@
     },
     {
      "item_id": 20890,
-     "name": null,
+     "name": "Qiraji Ornate Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -833,7 +834,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -851,7 +852,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -869,7 +870,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -893,27 +894,28 @@
    "loot": [
     {
      "item_id": 21220,
-     "name": null,
+     "name": "Head of Ossirian the Unscarred",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 95.09,
+     "wowhead_dropped_by": "Ossirian the Unscarred",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 20886,
-     "name": null,
+     "name": "Qiraji Spiked Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -929,9 +931,9 @@
     },
     {
      "item_id": 20890,
-     "name": null,
+     "name": "Qiraji Ornate Hilt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -958,7 +960,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -976,7 +978,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -994,7 +996,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1012,7 +1014,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1030,7 +1032,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1048,7 +1050,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1066,7 +1068,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1084,7 +1086,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1102,7 +1104,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1120,16 +1122,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 20884,
-     "name": null,
+     "name": "Qiraji Magisterial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1145,9 +1147,9 @@
     },
     {
      "item_id": 20888,
-     "name": null,
+     "name": "Qiraji Ceremonial Ring",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1174,7 +1176,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1192,7 +1194,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1203,7 +1205,38 @@
  "rares": [],
  "quests": [],
  "repo_quests_not_in_guide": [],
- "loot_differences": [],
+ "loot_differences": [
+  "Kurinnaxx: 21498  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kurinnaxx: 21499  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "General Rajaxx: 21492  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "General Rajaxx: 21493  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21455  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21468  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21469  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21470  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21467  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21471  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21472  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Moam: 21479  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Buru the Gorger: 21485  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Buru the Gorger: 21486  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Buru the Gorger: 21487  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ayamiss the Hunter: 21478  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ayamiss the Hunter: 21466  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ayamiss the Hunter: 21479  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21452  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21453  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21454  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21456  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21458  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21460  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21461  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21462  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21463  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21464  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21459  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ossirian the Unscarred: 21715  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
  "open_questions": [],
  "guide_notes": [],
  "zone_id": null,
@@ -1217,7 +1250,7 @@
   "quests_in_addon": 0,
   "loot_rows": 60,
   "loot_confirmed": 0,
-  "loot_with_chance": 0,
+  "loot_with_chance": 2,
   "forever_confirmed": "no",
   "boss_count": 0,
   "boss_ok": 0,
@@ -1226,6 +1259,7 @@
   "q_tot": 0
  },
  "top_points": [
-  "60 loot rows without drop chance"
+  "58 loot rows without drop chance",
+  "30 items not on Wowhead Forever (404)"
  ]
 }

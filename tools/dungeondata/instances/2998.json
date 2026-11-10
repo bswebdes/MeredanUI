@@ -33,7 +33,7 @@
      "id": 260322,
      "wowhead_name": "Saltspine",
      "zone": 16732,
-     "name_de": null,
+     "name_de": "Salzrücken",
      "name_ok": true
     }
    ],
@@ -49,54 +49,57 @@
      "item_id": 273022,
      "name": "Supple Bellyskin Leggings",
      "slot": "Legs (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 35.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.96,
+     "wowhead_dropped_by": "Saltspine",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273023,
      "name": "Saltscale Girdle",
      "slot": "Waist (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.06,
+     "wowhead_dropped_by": "Saltspine",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273024,
      "name": "Glinteye Slippers",
      "slot": "Feet (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.8,
+     "wowhead_dropped_by": "Saltspine",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -112,7 +115,7 @@
      "id": 260325,
      "wowhead_name": "Shadetooth",
      "zone": 16732,
-     "name_de": null,
+     "name_de": "Schemenzahn",
      "name_ok": true
     }
    ],
@@ -124,72 +127,76 @@
      "item_id": 273027,
      "name": "Raptor's Gaze",
      "slot": "Off-hand",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.96,
+     "wowhead_dropped_by": "Shadetooth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273026,
      "name": "Garb of Florid Feathers",
      "slot": "Chest (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 32.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 29.32,
+     "wowhead_dropped_by": "Shadetooth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273025,
      "name": "Raptorclaw Greaves",
      "slot": "Feet (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 27.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 28.05,
+     "wowhead_dropped_by": "Shadetooth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273106,
      "name": "Blueprint: Greenhouse",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": 8.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.37,
+     "wowhead_dropped_by": "Shadetooth",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -205,7 +212,7 @@
      "id": 260808,
      "wowhead_name": "Highland Horror",
      "zone": 16732,
-     "name_de": null,
+     "name_de": "Hochlandschrecken",
      "name_ok": true
     }
    ],
@@ -217,18 +224,19 @@
      "item_id": 270180,
      "name": "Horrible Rootcore",
      "slot": "Quest (95646)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 70.49,
+     "wowhead_dropped_by": "Highland Horror",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -244,7 +252,7 @@
      "id": 260326,
      "wowhead_name": "Relic Guardian",
      "zone": 16732,
-     "name_de": null,
+     "name_de": "Reliktwächter",
      "name_ok": true
     }
    ],
@@ -256,108 +264,114 @@
      "item_id": 273028,
      "name": "Reliquary Mantle",
      "slot": "Shoulder (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.48,
+     "wowhead_dropped_by": "Relic Guardian",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273029,
      "name": "Golemsight Long Gun",
      "slot": "Gun",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.79,
+     "wowhead_dropped_by": "Relic Guardian",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273030,
      "name": "Ring of Power Regulation",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 30.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 28.66,
+     "wowhead_dropped_by": "Relic Guardian",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 270865,
-     "name": "Titan Relic (Alliance)",
+     "name": "Titan Relic",
      "slot": "Quest starter (95810)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 27.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 29.08,
+     "wowhead_dropped_by": "Relic Guardian",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 270866,
-     "name": "Titan Relic (Horde)",
+     "name": "Titan Relic",
      "slot": "Quest starter (95664)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 27.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 28.19,
+     "wowhead_dropped_by": "Relic Guardian",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273097,
      "name": "Blueprint: Rock Garden",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": 7.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 6.96,
+     "wowhead_dropped_by": "Relic Guardian",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -378,8 +392,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Lost Relic Carry",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -399,8 +413,8 @@
     271766
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Prehistoric Prism",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -416,8 +430,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Songblade Search",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -436,8 +450,8 @@
     271768
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Fallen in the Fen",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -457,8 +471,8 @@
     271664
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Horrors in the Highland",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -474,7 +488,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "The Greenwarden",
    "wowhead_level": null,
    "races": 77
   },
@@ -491,7 +505,7 @@
    "prereq": "The Greenwarden (463)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Tramping Paws",
    "wowhead_level": null,
    "races": 77
   },
@@ -508,7 +522,7 @@
    "prereq": "Tramping Paws (276)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Fire Taboo",
    "wowhead_level": null,
    "races": 77
   },
@@ -525,7 +539,7 @@
    "prereq": "Fire Taboo (277)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Blisters on the Land",
    "wowhead_level": null,
    "races": 77
   },
@@ -542,8 +556,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Seeking Caitlin",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -559,8 +573,8 @@
    "prereq": "Seeking Caitlin (95737)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Lost in the Thicket Things",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -581,8 +595,8 @@
     3827
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Heartwoven",
+   "wowhead_level": 31,
    "races": 77
   },
   {
@@ -598,7 +612,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Young Crocolisk Skins",
    "wowhead_level": null,
    "races": 77
   },
@@ -615,8 +629,8 @@
    "prereq": "Young Crocolisk Skins (484)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Highland Hides",
+   "wowhead_level": 28,
    "races": 77
   },
   {
@@ -632,8 +646,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Elder Knowledge",
+   "wowhead_level": 31,
    "races": 178
   },
   {
@@ -653,8 +667,8 @@
     271719
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Earthen Echo",
+   "wowhead_level": 31,
    "races": 178
   },
   {
@@ -670,8 +684,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Dragonmaw Rumors",
+   "wowhead_level": 31,
    "races": 178
   },
   {
@@ -690,8 +704,8 @@
     271732
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Open the Maw",
+   "wowhead_level": 31,
    "races": 178
   },
   {
@@ -712,8 +726,8 @@
     250077
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Changing Tastes",
+   "wowhead_level": 31,
    "races": 178
   }
  ],
@@ -722,26 +736,7 @@
  "open_questions": [
   "No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua.",
   "No pin for 'Highland Horror' (encounter 3644) in DungeonPinData.lua.",
-  "No pin for 'Relic Guardian' (encounter 3482) in DungeonPinData.lua.",
-  "Quest 95810 'Lost Relic Carry' not found on Wowhead Forever - check ID.",
-  "Quest 98824 'Prehistoric Prism' not found on Wowhead Forever - check ID.",
-  "Quest 95772 'Songblade Search' not found on Wowhead Forever - check ID.",
-  "Quest 95795 'Fallen in the Fen' not found on Wowhead Forever - check ID.",
-  "Quest 95646 'Horrors in the Highland' not found on Wowhead Forever - check ID.",
-  "Quest 463 'The Greenwarden' not found on Wowhead Forever - check ID.",
-  "Quest 276 'Tramping Paws' not found on Wowhead Forever - check ID.",
-  "Quest 277 'Fire Taboo' not found on Wowhead Forever - check ID.",
-  "Quest 275 'Blisters on the Land' not found on Wowhead Forever - check ID.",
-  "Quest 95737 'Seeking Caitlin' not found on Wowhead Forever - check ID.",
-  "Quest 95647 'Lost in the Thicket Things' not found on Wowhead Forever - check ID.",
-  "Quest 95809 'Heartwoven' not found on Wowhead Forever - check ID.",
-  "Quest 484 'Young Crocolisk Skins' not found on Wowhead Forever - check ID.",
-  "Quest 98815 'Highland Hides' not found on Wowhead Forever - check ID.",
-  "Quest 95664 'Elder Knowledge' not found on Wowhead Forever - check ID.",
-  "Quest 98823 'Earthen Echo' not found on Wowhead Forever - check ID.",
-  "Quest 95663 'Dragonmaw Rumors' not found on Wowhead Forever - check ID.",
-  "Quest 95682 'Open the Maw' not found on Wowhead Forever - check ID.",
-  "Quest 95697 'Changing Tastes' not found on Wowhead Forever - check ID."
+  "No pin for 'Relic Guardian' (encounter 3482) in DungeonPinData.lua."
  ],
  "guide_notes": [
   "Guide quest table lists level 24 for all quests; chain text gives 28 (98815), 31 (95809, 95646, 95682) - used chain values for level, 24 as min_level",
@@ -750,13 +745,13 @@
   "Quest XP from beta"
  ],
  "zone_id": 16732,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_name_en": "Excavation Site: Wetlands",
+ "zone_name_de": "Ausgrabungsstätte: Sumpfland",
  "assessment": {
   "bosses": "ok",
   "pins": "partial",
   "loot": "partial",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 11,
   "loot_confirmed": 11,
@@ -770,7 +765,6 @@
  },
  "top_points": [
   "19 of 19 quests missing in DungeonQuests.lua",
-  "No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua. (+2 more)",
-  "Quest 95810 'Lost Relic Carry' not found on Wowhead Forever - check ID. (+18 more)"
+  "No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua. (+2 more)"
  ]
 }

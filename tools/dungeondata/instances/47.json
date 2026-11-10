@@ -36,10 +36,10 @@
    "npcs": [
     {
      "id": 6168,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Roogug",
+     "zone": 491,
+     "name_de": "Roogug",
+     "name_ok": true
     }
    ],
    "location": "side area near entrance",
@@ -54,72 +54,76 @@
      "item_id": 274152,
      "name": "Roogug's Severed Head",
      "slot": "Trinket",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.77,
+     "wowhead_dropped_by": "Roogug",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274149,
      "name": "Thornweaver Drape",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.14,
+     "wowhead_dropped_by": "Roogug",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274155,
      "name": "Geomancer Headdress",
      "slot": "Head (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.76,
+     "wowhead_dropped_by": "Roogug",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 6841,
      "name": "Vial of Phlogiston",
      "slot": "Quest (1701/1838, Warrior)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 50.28,
+     "wowhead_dropped_by": "Roogug",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -133,10 +137,10 @@
    "npcs": [
     {
      "id": 4424,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Aggem Thorncurse",
+     "zone": 491,
+     "name_de": "Aggem Dornfluch",
+     "name_ok": true
     }
    ],
    "location": null,
@@ -151,54 +155,57 @@
      "item_id": 6681,
      "name": "Thornspike",
      "slot": "Dagger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 48.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 43.49,
+     "wowhead_dropped_by": "Aggem Thorncurse",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274158,
      "name": "Death Prophet Spine",
      "slot": "Staff",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.44,
+     "wowhead_dropped_by": "Aggem Thorncurse",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274159,
      "name": "Thorncursed Grips",
      "slot": "Hands (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.51,
+     "wowhead_dropped_by": "Aggem Thorncurse",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -212,10 +219,10 @@
    "npcs": [
     {
      "id": 4428,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Death Speaker Jargba",
+     "zone": 491,
+     "name_de": "Todessprecher Jargba",
+     "name_ok": true
     }
    ],
    "location": null,
@@ -297,10 +304,10 @@
    "npcs": [
     {
      "id": 4420,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Overlord Ramtusk",
+     "zone": 491,
+     "name_de": "Oberanführer Rammhauer",
+     "name_ok": true
     }
    ],
    "location": "with two Spearhide guards",
@@ -355,18 +362,19 @@
      "item_id": 274161,
      "name": "Quillord Mail Leggings",
      "slot": "Legs (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 4.72,
+     "wowhead_dropped_by": "Overlord Ramtusk",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -380,10 +388,10 @@
    "npcs": [
     {
      "id": 4422,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Agathelos the Raging",
+     "zone": 491,
+     "name_de": "Agathelos der Tobende",
+     "name_ok": true
     }
    ],
    "location": "sealed behind ward; kill seer and two Ward Guardians",
@@ -438,18 +446,19 @@
      "item_id": 274160,
      "name": "Quilrager Throwing Axe",
      "slot": "Thrown",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 5.56,
+     "wowhead_dropped_by": "Agathelos the Raging",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -463,10 +472,10 @@
    "npcs": [
     {
      "id": 4421,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Charlga Razorflank",
+     "zone": 491,
+     "name_de": "Charlga Razorflank",
+     "name_ok": true
     }
    ],
    "location": "final boss",
@@ -541,27 +550,9 @@
      "item_id": 273103,
      "name": "Blueprint: Arcane Salvager",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide"
-     ]
-    },
-    {
-     "item_id": 17008,
-     "name": "Small Scroll",
-     "slot": "Quest starter (6522)",
-     "quality": null,
-     "quest_item": true,
-     "chance_guide": 42.0,
      "chance_wowhead_forever": null,
      "wowhead_dropped_by": null,
      "chance_repo": null,
@@ -574,57 +565,79 @@
      ]
     },
     {
-     "item_id": 274463,
-     "name": "Tattered Note",
-     "slot": "Quest (Shaman 96264/79360)",
-     "quality": null,
+     "item_id": 17008,
+     "name": "Small Scroll",
+     "slot": "Quest starter (6522)",
+     "quality": 1,
      "quest_item": true,
-     "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_guide": 42.0,
+     "chance_wowhead_forever": 42.35,
+     "wowhead_dropped_by": "Charlga Razorflank",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 274463,
+     "name": "Tattered Note",
+     "slot": "Quest (Shaman 96264/79360)",
+     "quality": 1,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": 1.21,
+     "wowhead_dropped_by": "Charlga Razorflank",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 5792,
      "name": "Razorflank's Medallion",
      "slot": "Quest (1101)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 11.24,
+     "wowhead_dropped_by": "Charlga Razorflank",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 5793,
      "name": "Razorflank's Heart",
      "slot": "Quest (1102)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 37.52,
+     "wowhead_dropped_by": "Charlga Razorflank",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -634,7 +647,7 @@
   {
    "name": "Earthcaller Halmgar",
    "npc_id": 4842,
-   "wowhead_name": null,
+   "wowhead_name": "Earthcaller Halmgar",
    "location": "plateau after Ramtusk",
    "pin": {
     "floor": 1,
@@ -688,7 +701,7 @@
   {
    "name": "Blind Hunter",
    "npc_id": 4425,
-   "wowhead_name": null,
+   "wowhead_name": "Blind Hunter",
    "location": "end of the bat caves",
    "pin": {
     "floor": 1,
@@ -783,7 +796,7 @@
      "chance_repo": 79.6,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -807,8 +820,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Lonebrow's Journal",
+   "wowhead_level": 34,
    "races": 77
   },
   {
@@ -829,8 +842,8 @@
     6725
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Crone of the Kraul",
+   "wowhead_level": 34,
    "races": 77
   },
   {
@@ -851,8 +864,8 @@
     274078
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Willix the Importer",
+   "wowhead_level": 30,
    "races": 0
   },
   {
@@ -872,8 +885,8 @@
     270047
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Mortality Wanes",
+   "wowhead_level": 30,
    "races": 77
   },
   {
@@ -891,8 +904,8 @@
     6755
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Blueleaf Tubers",
+   "wowhead_level": 26,
    "races": 0
   },
   {
@@ -913,8 +926,8 @@
     6725
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "A Vengeful Fate",
+   "wowhead_level": 34,
    "races": 178
   },
   {
@@ -930,8 +943,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Going, Going, Guano!",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -947,8 +960,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "An Unholy Alliance",
+   "wowhead_level": 36,
    "races": 178
   },
   {
@@ -964,8 +977,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Elemental Aid",
+   "wowhead_level": 33,
    "races": 77
   },
   {
@@ -981,8 +994,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Elemental Aid",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -998,8 +1011,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Fire Hardened Mail",
+   "wowhead_level": 28,
    "races": 77
   },
   {
@@ -1015,7 +1028,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Brutal Armor",
    "wowhead_level": null,
    "races": 178
   }
@@ -1034,25 +1047,7 @@
   "Razorfen Spearhide: 6679 Armor Piercer - in DungeonLoot.lua, not in guide (Wowhead Forever: 62.32%)"
  ],
  "open_questions": [
-  "NPC 6168 (Roogug) not found on Wowhead Forever - check ID.",
-  "NPC 4424 (Aggem Thorncurse) not found on Wowhead Forever - check ID.",
-  "NPC 4428 (Death Speaker Jargba) not found on Wowhead Forever - check ID.",
-  "NPC 4420 (Overlord Ramtusk) not found on Wowhead Forever - check ID.",
-  "NPC 4422 (Agathelos the Raging) not found on Wowhead Forever - check ID.",
-  "NPC 4421 (Charlga Razorflank) not found on Wowhead Forever - check ID.",
-  "Rare pin 4438 'Razorfen Spearhide' is not mentioned in the guide.",
-  "Quest 1100 'Lonebrow's Journal' not found on Wowhead Forever - check ID.",
-  "Quest 1101 'The Crone of the Kraul' not found on Wowhead Forever - check ID.",
-  "Quest 1144 'Willix the Importer' not found on Wowhead Forever - check ID.",
-  "Quest 1142 'Mortality Wanes' not found on Wowhead Forever - check ID.",
-  "Quest 1221 'Blueleaf Tubers' not found on Wowhead Forever - check ID.",
-  "Quest 1102 'A Vengeful Fate' not found on Wowhead Forever - check ID.",
-  "Quest 1109 'Going, Going, Guano!' not found on Wowhead Forever - check ID.",
-  "Quest 6522 'An Unholy Alliance' not found on Wowhead Forever - check ID.",
-  "Quest 96264 'Elemental Aid' not found on Wowhead Forever - check ID.",
-  "Quest 79360 'Elemental Aid' not found on Wowhead Forever - check ID.",
-  "Quest 1701 'Fire Hardened Mail' not found on Wowhead Forever - check ID.",
-  "Quest 1838 'Brutal Armor' not found on Wowhead Forever - check ID."
+  "Rare pin 4438 'Razorfen Spearhide' is not mentioned in the guide."
  ],
  "guide_notes": [
   "Boss levels not stated on guide",
@@ -1061,28 +1056,27 @@
   "Going, Going, Guano! opens Hearts of Zeal (1113)",
   "Boss order follows guide listing"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 491,
+ "zone_name_en": "Razorfen Kraul",
+ "zone_name_de": "Der Kral von Razorfen",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "ok",
   "pins": "ok",
-  "loot": "partial",
-  "quests": "missing",
+  "loot": "ok",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 25,
-  "loot_confirmed": 17,
-  "loot_with_chance": 17,
-  "forever_confirmed": "partly",
+  "loot_confirmed": 24,
+  "loot_with_chance": 24,
+  "forever_confirmed": "yes",
   "boss_count": 6,
-  "boss_ok": 0,
+  "boss_ok": 6,
   "pin_ok": 6,
   "enc_count": 6,
   "q_tot": 12
  },
  "top_points": [
   "12 of 12 quests missing in DungeonQuests.lua",
-  "NPC 6168 (Roogug) not found on Wowhead Forever - check ID. (+17 more)",
-  "8 loot rows without drop chance"
+  "1 loot rows without drop chance"
  ]
 }

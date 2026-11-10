@@ -10,46 +10,46 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Blood Steward of Kirtonos | Kirtonos | 2805 | 14861 ⚠ | 2 0.49,0.04 | porch before Kirtonos |
-| 2 |  | Kirtonos the Herald |  | — | 10506 ⚠ | — | porch, summoned at brazier with Blood of Innocents |
-| 3 |  | Jandice Barov | Jandice Barov | 2804 | 10503 ⚠ | 1 0.56,0.23 | upper hall |
-| 4 |  | Rattlegore | Blutrippe | 2811 | 11622 ⚠ | 1 0.25,0.85 | lower bone pit room |
-| 5 |  | Marduk Blackpool (optional) | Marduk Schwarzborn | 2809 | 10433 ⚠ | 1 0.42,0.78 | viewing room balcony |
-| 6 |  | Vectus (optional) | Vectus | 2813 | 10432 ⚠ | 1 0.48,0.82 | viewing room |
-| 7 |  | Ras Frostwhisper | Ras Frostraunen | 2810 | 10508 ⚠ | 4 0.41,0.88 | chamber off the viewing room |
-| 8 |  | Kormok (optional) | Kormok | 3055 | 16118 ⚠ | — | summoned via Brazier of Beckoning (22052) |
-| 9 |  | Death Knight Darkreaver (optional) |  | — | 14516 ⚠ | — | summoned via Divination Scryer class quest |
-| 10 |  | Instructor Malicia | Instrukteurin Malicia | 2803 | 10505 ⚠ | 2 0.71,0.86 | side room |
-| 11 |  | Doctor Theolen Krastinov | Doktor Theolen Krastinov | 2802 | 11261 ⚠ | 2 0.92,0.53 | side room |
-| 12 |  | Lorekeeper Polkelt | Hüter des Wissens Polkelt | 2808 | 10901 ⚠ | 1 0.78,0.20 | side room |
-| 13 |  | The Ravenian | Der Ravenier | 2812 | 10507 ⚠ | 2 0.71,0.80 | side room |
-| 14 |  | Lord Alexei Barov | Lord Alexei Barov | 2807 | 10504 ⚠ | 2 0.91,0.54 | side room |
-| 15 |  | Lady Illucia Barov | Lady Illucia Barov | 2806 | 10502 ⚠ | 1 0.78,0.24 | side room |
-| 16 |  | Darkmaster Gandling | Dunkelmeister Gandling | 2801 | 1853 ⚠ | 1 0.80,0.64 | central chamber after six side bosses |
+| 1 |  | Blood Steward of Kirtonos | Blutdiener von Kirtonos | — | 14861 | — | porch before Kirtonos |
+| 2 |  | Kirtonos the Herald | Kirtonos | 2805 | 10506 | 2 0.49,0.04 | porch, summoned at brazier with Blood of Innocents |
+| 3 |  | Jandice Barov | Jandice Barov | 2804 | 10503 | 1 0.56,0.23 | upper hall |
+| 4 |  | Rattlegore | Blutrippe | 2811 | 11622 | 1 0.25,0.85 | lower bone pit room |
+| 5 |  | Marduk Blackpool (optional) | Marduk Schwarzborn | 2809 | 10433 | 1 0.42,0.78 | viewing room balcony |
+| 6 |  | Vectus (optional) | Vectus | 2813 | 10432 | 1 0.48,0.82 | viewing room |
+| 7 |  | Ras Frostwhisper | Ras Frostraunen | 2810 | 10508 | 4 0.41,0.88 | chamber off the viewing room |
+| 8 |  | Kormok (optional) | Kormok | 3055 | 16118 | — | summoned via Brazier of Beckoning (22052) |
+| 9 |  | Death Knight Darkreaver (optional) | Todesritter Schattensichel | — | 14516 | — | summoned via Divination Scryer class quest |
+| 10 |  | Instructor Malicia | Instrukteurin Malicia | 2803 | 10505 | 2 0.71,0.86 | side room |
+| 11 |  | Doctor Theolen Krastinov | Doktor Theolen Krastinov | 2802 | 11261 | 2 0.92,0.53 | side room |
+| 12 |  | Lorekeeper Polkelt | Hüter des Wissens Polkelt | 2808 | 10901 | 1 0.78,0.20 | side room |
+| 13 |  | The Ravenian | Der Ravenier | 2812 | 10507 | 2 0.71,0.80 | side room |
+| 14 |  | Lord Alexei Barov | Lord Alexei Barov | 2807 | 10504 | 2 0.91,0.54 | side room |
+| 15 |  | Lady Illucia Barov | Lady Illucia Barov | 2806 | 10502 | 1 0.78,0.24 | side room |
+| 16 |  | Darkmaster Gandling | Dunkelmeister Gandling | 2801 | 1853 | 1 0.80,0.64 | central chamber after six side bosses |
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Blood Steward of Kirtonos
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 13523 | Blood of Innocents (quest) | Quest | 59 |  |  | ✔ | guide |
-| 16734 | Boots of Valor | Feet | 18 |  |  | ✔ | guide |
-| 13960 | Heart of the Fiend | Neck | 18 |  |  | ✔ | guide |
-| 13955 | Stoneform Shoulders | Shoulder | 18 |  |  | ✔ | guide |
-| 13983 | Gravestone War Axe | Two-Hand Axe | 14 |  |  | ✔ | guide |
+| 16734 | Boots of Valor | Feet | 18 |  |  | ✔ | guide+wowhead-forever |
+| 13960 | Heart of the Fiend | Neck | 18 |  |  | ✔ | guide+wowhead-forever |
+| 13955 | Stoneform Shoulders | Shoulder | 18 |  |  | ✔ | guide+wowhead-forever |
+| 13983 | Gravestone War Axe | Two-Hand Axe | 14 |  |  | ✔ | guide+wowhead-forever |
 
 ### Jandice Barov
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 16701 | Dreadmist Mantle | Shoulder | 17 | 16.82 | 17 | ✔ | guide+repo+wowhead-forever |
-| 14545 | Ghostloom Leggings | Legs | 16 |  |  | ✔ | guide |
-| 18690 | Wraithplate Leggings | Legs | 11 |  |  | ✔ | guide |
-| 14541 | Barovian Family Sword | Two-Hand Sword | 9 |  |  | ✔ | guide |
-| 22394 | Staff of Metanoia | Staff | 8 |  |  | ✔ | guide |
+| 14545 | Ghostloom Leggings | Legs | 16 | 11.87 |  | ✔ | guide+wowhead-forever |
+| 18690 | Wraithplate Leggings | Legs | 11 | 11.06 |  | ✔ | guide+wowhead-forever |
+| 14541 | Barovian Family Sword | Two-Hand Sword | 9 | 10.56 |  | ✔ | guide+wowhead-forever |
+| 22394 | Staff of Metanoia | Staff | 8 | 9.06 |  | ✔ | guide+wowhead-forever |
 | 12843 | Corruptor's Scourgestone |  |  |  | 100 |  | repo |
 | 12808 | Essence of Undeath |  |  |  | 2.2 |  | repo |
 | 18335 | Pristine Black Diamond |  |  |  | 1 |  | repo |
@@ -63,10 +63,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 14539 | Bone Ring Helm | Head | 12 | 12.49 | 14 | ✔ | guide+repo+wowhead-forever |
 | 18686 | Bone Golem Shoulders | Shoulder | 12 | 11.76 | 14 | ✔ | guide+repo+wowhead-forever |
 | 18782 | Top Half of Advanced Armorsmithing: Volume II | Quest/Recipe | 8 | 8.43 | 40 | ✔ | guide+repo+wowhead-forever |
-| 13873 | Viewing Room Key (quest) | Quest |  |  |  |  | guide |
-| 14528 | Rattlecage Buckler | Off Hand Shield |  | 12.23 | 14 | ✔ | repo+wowhead-forever |
-| 14537 | Corpselight Greaves | Feet Plate |  | 12.16 | 14 | ✔ | repo+wowhead-forever |
-| 14538 | Deadwalker Mantle | Shoulder Cloth |  | 11.91 | 14 | ✔ | repo+wowhead-forever |
+| 13873 | Viewing Room Key (quest) | Quest |  | 27.21 |  | ✔ | guide+wowhead-forever |
+| 14528 | Rattlecage Buckler | Off Hand Shield |  | 12.23 | 14 |  | repo+wowhead-forever |
+| 14537 | Corpselight Greaves | Feet Plate |  | 12.16 | 14 |  | repo+wowhead-forever |
+| 14538 | Deadwalker Mantle | Shoulder Cloth |  | 11.91 | 14 |  | repo+wowhead-forever |
 | 12808 | Essence of Undeath |  |  |  | 2.1 |  | repo |
 | 18335 | Pristine Black Diamond |  |  |  | 1 |  | repo |
 
@@ -96,22 +96,22 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 14525 | Boneclenched Gauntlets | Hands | 15 | 14.75 | 16.7 | ✔ | guide+repo+wowhead-forever |
 | 13521 | Recipe: Flask of Supreme Power | Recipe | 4 | 4.46 | 4 | ✔ | guide+repo+wowhead-forever |
 | 12843 | Corruptor's Scourgestone |  |  |  | 100 |  | repo |
-| 13952 | Iceblade Hacker | Main Hand Axe |  | 14.93 | 16.7 | ✔ | repo+wowhead-forever |
-| 14340 | Freezing Lich Robes | Chest Cloth |  | 14.53 | 16.7 | ✔ | repo+wowhead-forever |
-| 14502 | Frostbite Girdle | Waist Leather |  | 15.61 | 16.7 | ✔ | repo+wowhead-forever |
-| 14503 | Death's Clutch | Shoulder Leather |  | 14.19 | 16.7 | ✔ | repo+wowhead-forever |
-| 14522 | Maelstrom Leggings | Legs Mail |  | 14.87 | 16.7 | ✔ | repo+wowhead-forever |
-| 18693 | Shivery Handwraps | Hands Cloth |  | 15.33 | 16.7 | ✔ | repo+wowhead-forever |
-| 18694 | Shadowy Mail Greaves | Feet Mail |  | 15.71 | 16.7 | ✔ | repo+wowhead-forever |
-| 18695 | Spellbound Tome | Held In Off-hand |  | 15.24 | 16.7 | ✔ | repo+wowhead-forever |
-| 18696 | Intricately Runed Shield | Off Hand Shield |  | 15.5 | 16.7 | ✔ | repo+wowhead-forever |
+| 13952 | Iceblade Hacker | Main Hand Axe |  | 14.93 | 16.7 |  | repo+wowhead-forever |
+| 14340 | Freezing Lich Robes | Chest Cloth |  | 14.53 | 16.7 |  | repo+wowhead-forever |
+| 14502 | Frostbite Girdle | Waist Leather |  | 15.61 | 16.7 |  | repo+wowhead-forever |
+| 14503 | Death's Clutch | Shoulder Leather |  | 14.19 | 16.7 |  | repo+wowhead-forever |
+| 14522 | Maelstrom Leggings | Legs Mail |  | 14.87 | 16.7 |  | repo+wowhead-forever |
+| 18693 | Shivery Handwraps | Hands Cloth |  | 15.33 | 16.7 |  | repo+wowhead-forever |
+| 18694 | Shadowy Mail Greaves | Feet Mail |  | 15.71 | 16.7 |  | repo+wowhead-forever |
+| 18695 | Spellbound Tome | Held In Off-hand |  | 15.24 | 16.7 |  | repo+wowhead-forever |
+| 18696 | Intricately Runed Shield | Off Hand Shield |  | 15.5 | 16.7 |  | repo+wowhead-forever |
 | 12808 | Essence of Undeath |  |  |  | 2.4 |  | repo |
 
 ### Kormok
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 22303 | Ironweave Pants | Legs Cloth |  | 15.61 | 20 | ✔ | repo+wowhead-forever |
+| 22303 | Ironweave Pants | Legs Cloth |  | 15.61 | 20 |  | repo+wowhead-forever |
 | 22326 |  |  |  |  | 20 | ✘ 404 | repo |
 | 22331 |  |  |  |  | 20 | ✘ 404 | repo |
 | 22332 |  |  |  |  | 20 | ✘ 404 | repo |
@@ -121,10 +121,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 18760 | Necromantic Band | Finger | 25 |  |  | ✔ | guide |
-| 18758 | Specter's Blade | Dagger | 25 |  |  | ✔ | guide |
-| 18761 | Oblivion's Touch | Wand | 25 |  |  | ✔ | guide |
-| 18759 | Malicious Axe | Two-Hand Axe | 25 |  |  | ✔ | guide |
+| 18760 | Necromantic Band | Finger | 25 | 24.73 |  | ✔ | guide+wowhead-forever |
+| 18758 | Specter's Blade | Dagger | 25 |  |  | ✘ 404 | guide |
+| 18761 | Oblivion's Touch | Wand | 25 |  |  | ✘ 404 | guide |
+| 18759 | Malicious Axe | Two-Hand Axe | 25 |  |  | ✘ 404 | guide |
 
 ### Instructor Malicia
 
@@ -228,13 +228,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 13501 | Recipe: Major Mana Potion | Recipe |  | 8.85 | 10 | ✔ | guide+repo+wowhead-forever |
 | 12843 | Corruptor's Scourgestone |  |  |  | 100 |  | repo |
 | 21525 | Green Winter Hat | Head Cloth |  |  | 100 |  | repo |
-| 13398 | Boots of the Shrieker | Feet Leather |  | 12.56 | 14.3 | ✔ | repo+wowhead-forever |
-| 13938 | Bonecreeper Stylus | Ranged Wand |  | 13.3 | 14.3 | ✔ | repo+wowhead-forever |
-| 13951 | Vigorsteel Vambraces | Wrist Plate |  | 14.26 | 14.3 | ✔ | repo+wowhead-forever |
-| 13953 | Silent Fang | Main Hand Sword |  | 12.64 | 14.3 | ✔ | repo+wowhead-forever |
-| 13964 | Witchblade | Main Hand Dagger |  | 12.76 | 14.3 | ✔ | repo+wowhead-forever |
-| 22433 | Don Mauricio's Band of Domination | Finger |  | 12.34 | 14.3 | ✔ | repo+wowhead-forever |
-| 19276 | Ace of Portals |  |  | 4.13 | 3 | ✔ | repo+wowhead-forever |
+| 13398 | Boots of the Shrieker | Feet Leather |  | 12.56 | 14.3 |  | repo+wowhead-forever |
+| 13938 | Bonecreeper Stylus | Ranged Wand |  | 13.3 | 14.3 |  | repo+wowhead-forever |
+| 13951 | Vigorsteel Vambraces | Wrist Plate |  | 14.26 | 14.3 |  | repo+wowhead-forever |
+| 13953 | Silent Fang | Main Hand Sword |  | 12.64 | 14.3 |  | repo+wowhead-forever |
+| 13964 | Witchblade | Main Hand Dagger |  | 12.76 | 14.3 |  | repo+wowhead-forever |
+| 22433 | Don Mauricio's Band of Domination | Finger |  | 12.34 | 14.3 |  | repo+wowhead-forever |
+| 19276 | Ace of Portals |  |  | 4.13 | 3 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -343,6 +343,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Kormok: 22331  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Kormok: 22332  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Kormok: 22333  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Death Knight Darkreaver: 18758 Specter's Blade - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Death Knight Darkreaver: 18761 Oblivion's Touch - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Death Knight Darkreaver: 18759 Malicious Axe - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 
 ## Quests
 
@@ -373,9 +376,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 5344 | The Last Barov | 60 | Alliance | Weldon Barov (11023) | Western Plaguelands (Chillwind Camp) | 5343 | **no** |
 | 5341 | Barov Family Fortune | 60 | Horde | Alexi Barov (11022) | Tirisfal Glades (The Bulwark) |  | yes |
 | 5342 | The Last Barov | 60 | Horde | Alexi Barov (11022) | Tirisfal Glades (The Bulwark) | 5341 | **no** |
-| 7647 | Judgment and Redemption |  | Paladin |  |  |  | **no** |
-| 8258 | The Darkreaver Menace |  | Shaman | Sagorne Creststrider (13417) | Orgrimmar |  | **no** |
-| 7629 | Imp Delivery |  | Warlock | Gorzeeki Wildeyes (14437) |  |  | **no** |
+| 7647 | Judgment and Redemption | 60 | Paladin |  |  |  | **no** |
+| 8258 | The Darkreaver Menace | 60 | Shaman | Sagorne Creststrider (13417) | Orgrimmar |  | **no** |
+| 7629 | Imp Delivery | 60 | Warlock | Gorzeeki Wildeyes (14437) |  |  | **no** |
 
 In DungeonQuests.lua but not in the guide (check if still in Forever):
 
@@ -394,53 +397,11 @@ In DungeonQuests.lua but not in the guide (check if still in Forever):
 
 ## Open questions (check in game)
 
-- [ ] NPC 14861 (Blood Steward of Kirtonos) not found on Wowhead Forever - check ID.
-- [ ] Boss 'Kirtonos the Herald' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 10506 (Kirtonos the Herald) not found on Wowhead Forever - check ID.
-- [ ] NPC 10503 (Jandice Barov) not found on Wowhead Forever - check ID.
-- [ ] NPC 11622 (Rattlegore) not found on Wowhead Forever - check ID.
-- [ ] NPC 10433 (Marduk Blackpool) not found on Wowhead Forever - check ID.
-- [ ] NPC 10432 (Vectus) not found on Wowhead Forever - check ID.
-- [ ] NPC 10508 (Ras Frostwhisper) not found on Wowhead Forever - check ID.
-- [ ] NPC 16118 (Kormok) not found on Wowhead Forever - check ID.
+- [ ] Kirtonos the Herald = encounter 2805 'Kirtonos'.
+- [ ] Boss 'Blood Steward of Kirtonos' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 - [ ] No pin for 'Kormok' (encounter 3055) in DungeonPinData.lua.
 - [ ] Boss 'Death Knight Darkreaver' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 14516 (Death Knight Darkreaver) not found on Wowhead Forever - check ID.
-- [ ] NPC 10505 (Instructor Malicia) not found on Wowhead Forever - check ID.
-- [ ] NPC 11261 (Doctor Theolen Krastinov) not found on Wowhead Forever - check ID.
-- [ ] NPC 10901 (Lorekeeper Polkelt) not found on Wowhead Forever - check ID.
-- [ ] NPC 10507 (The Ravenian) not found on Wowhead Forever - check ID.
-- [ ] NPC 10504 (Lord Alexei Barov) not found on Wowhead Forever - check ID.
-- [ ] NPC 10502 (Lady Illucia Barov) not found on Wowhead Forever - check ID.
-- [ ] NPC 1853 (Darkmaster Gandling) not found on Wowhead Forever - check ID.
-- [ ] Quest 5533 'Scholomance' not found on Wowhead Forever - check ID.
-- [ ] Quest 5537 'Skeletal Fragments' not found on Wowhead Forever - check ID.
-- [ ] Quest 5538 'Mold Rhymes With...' not found on Wowhead Forever - check ID.
-- [ ] Quest 5801 'Fire Plume Forged' not found on Wowhead Forever - check ID.
-- [ ] Quest 5803 'Araj's Scarab' not found on Wowhead Forever - check ID.
-- [ ] Quest 5505 'The Key to Scholomance' not found on Wowhead Forever - check ID.
-- [ ] Quest 838 'Scholomance' not found on Wowhead Forever - check ID.
-- [ ] Quest 964 'Skeletal Fragments' not found on Wowhead Forever - check ID.
-- [ ] Quest 5514 'Mold Rhymes With...' not found on Wowhead Forever - check ID.
-- [ ] Quest 5802 'Fire Plume Forged' not found on Wowhead Forever - check ID.
-- [ ] Quest 5804 'Araj's Scarab' not found on Wowhead Forever - check ID.
-- [ ] Quest 5511 'The Key to Scholomance' not found on Wowhead Forever - check ID.
-- [ ] Quest 5382 'Doctor Theolen Krastinov, the Butcher' not found on Wowhead Forever - check ID.
-- [ ] Quest 5515 'Krastinov's Bag of Horrors' not found on Wowhead Forever - check ID.
-- [ ] Quest 5384 'Kirtonos the Herald' not found on Wowhead Forever - check ID.
-- [ ] Quest 5466 'The Lich, Ras Frostwhisper' not found on Wowhead Forever - check ID.
-- [ ] Quest 5529 'Plagued Hatchlings' not found on Wowhead Forever - check ID.
-- [ ] Quest 5531 'Betina Bigglezink' not found on Wowhead Forever - check ID.
-- [ ] Quest 4771 'Dawn's Gambit' not found on Wowhead Forever - check ID.
-- [ ] Quest 8969 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 8992 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 5343 'Barov Family Fortune' not found on Wowhead Forever - check ID.
-- [ ] Quest 5344 'The Last Barov' not found on Wowhead Forever - check ID.
-- [ ] Quest 5341 'Barov Family Fortune' not found on Wowhead Forever - check ID.
-- [ ] Quest 5342 'The Last Barov' not found on Wowhead Forever - check ID.
-- [ ] Quest 7647 'Judgment and Redemption' not found on Wowhead Forever - check ID.
-- [ ] Quest 8258 'The Darkreaver Menace' not found on Wowhead Forever - check ID.
-- [ ] Quest 7629 'Imp Delivery' not found on Wowhead Forever - check ID.
+- [ ] Pins of 'Doctor Theolen Krastinov' and 'Lord Alexei Barov' are almost on the same spot (floor 2) - intended?
 
 ## Research notes
 

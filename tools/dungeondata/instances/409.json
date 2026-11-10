@@ -44,7 +44,7 @@
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -494,7 +494,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1645,7 +1645,7 @@
      "chance_repo": 4.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1754,7 +1754,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1772,7 +1772,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1790,7 +1790,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2023,7 +2023,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2041,7 +2041,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2059,7 +2059,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2077,7 +2077,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2095,7 +2095,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2113,16 +2113,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 17010,
-     "name": null,
+     "name": "Fiery Core",
      "slot": null,
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -2138,20 +2138,21 @@
     },
     {
      "item_id": 18563,
-     "name": null,
+     "name": "Bindings of the Windseeker",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 4.26,
+     "wowhead_dropped_by": "Baron Geddon",
      "chance_repo": 4.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -2202,7 +2203,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2220,7 +2221,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2238,7 +2239,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2256,7 +2257,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2274,7 +2275,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2514,20 +2515,21 @@
     },
     {
      "item_id": 17203,
-     "name": null,
+     "name": "Sulfuron Ingot",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.09,
+     "wowhead_dropped_by": "Golemagg the Incinerator",
      "chance_repo": 37.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2543,7 +2545,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2561,7 +2563,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2579,7 +2581,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2597,7 +2599,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2615,7 +2617,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2633,7 +2635,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2651,7 +2653,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2669,7 +2671,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2687,7 +2689,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2705,7 +2707,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2723,7 +2725,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2741,7 +2743,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3026,7 +3028,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3044,7 +3046,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3062,7 +3064,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3080,45 +3082,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 18814,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Choker of the Fire Lord",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 17.65,
+     "wowhead_dropped_by": "Ragnaros",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 18815,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Essence of the Pure Flame",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 24.37,
+     "wowhead_dropped_by": "Ragnaros",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -3134,7 +3138,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3152,7 +3156,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3170,27 +3174,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 19138,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Band of Sulfuras",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.13,
+     "wowhead_dropped_by": "Ragnaros",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -3206,7 +3211,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3224,7 +3229,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3242,7 +3247,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3260,7 +3265,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3278,7 +3283,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3296,7 +3301,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3314,7 +3319,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3332,7 +3337,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3350,7 +3355,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3368,7 +3373,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3386,7 +3391,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -3404,27 +3409,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 17204,
-     "name": null,
+     "name": "Eye of Sulfuras",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 5.88,
+     "wowhead_dropped_by": "Ragnaros",
      "chance_repo": 3.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -3521,6 +3527,9 @@
   "Shazzrah: 16801  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 16831  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 16852  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Shazzrah: 16803  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Shazzrah: 16811  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Shazzrah: 16824  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 17077  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 18861  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 18870  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
@@ -3529,6 +3538,17 @@
   "Shazzrah: 18878  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 19145  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Shazzrah: 19146  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Geddon: 16797  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Geddon: 16807  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Geddon: 17110  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Geddon: 16836  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Geddon: 16844  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Baron Geddon: 16856  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sulfuron Harbinger: 16816  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sulfuron Harbinger: 16848  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sulfuron Harbinger: 17074  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sulfuron Harbinger: 16823  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sulfuron Harbinger: 16868  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Sulfuron Harbinger: 17077  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Sulfuron Harbinger: 18861  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Sulfuron Harbinger: 18870  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
@@ -3537,6 +3557,18 @@
   "Sulfuron Harbinger: 18878  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Sulfuron Harbinger: 19145  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Sulfuron Harbinger: 19146  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16798  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16809  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16815  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16820  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 17072  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 17103  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 18842  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16833  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16841  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16845  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16853  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Golemagg the Incinerator: 16865  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Golemagg the Incinerator: 18822  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Golemagg the Incinerator: 18823  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Golemagg the Incinerator: 18824  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
@@ -3545,7 +3577,26 @@
   "Golemagg the Incinerator: 19136  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Golemagg the Incinerator: 19142  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Golemagg the Incinerator: 19143  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
-  "Golemagg the Incinerator: 19144  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+  "Golemagg the Incinerator: 19144  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17063  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17102  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17106  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17107  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 18816  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 18817  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 19137  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16901  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16909  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16915  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16922  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16930  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16938  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16946  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16954  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 16962  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17076  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17082  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Ragnaros: 17104  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
  ],
  "open_questions": [],
  "guide_notes": [],
@@ -3559,9 +3610,9 @@
   "quests": "missing",
   "quests_in_addon": 0,
   "loot_rows": 180,
-  "loot_confirmed": 3,
-  "loot_with_chance": 3,
-  "forever_confirmed": "partly",
+  "loot_confirmed": 0,
+  "loot_with_chance": 9,
+  "forever_confirmed": "no",
   "boss_count": 0,
   "boss_ok": 0,
   "pin_ok": 10,
@@ -3569,7 +3620,7 @@
   "q_tot": 0
  },
  "top_points": [
-  "177 loot rows without drop chance",
-  "100 items not on Wowhead Forever (404)"
+  "171 loot rows without drop chance",
+  "145 items not on Wowhead Forever (404)"
  ]
 }

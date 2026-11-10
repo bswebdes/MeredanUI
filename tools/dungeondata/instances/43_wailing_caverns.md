@@ -10,14 +10,14 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Lord Cobrahn | Lord Kobrahn | 586 | 3669 ⚠ | 1 0.24,0.56 | end of path in Pit of Fangs, three pythons |
-| 2 |  | Kresh | Kresh | 587 | 3653 ⚠ | 1 0.31,0.46 | giant turtle swimming in the river |
-| 3 |  | Lord Pythas | Lord Pythas | 588 | 3670 ⚠ | 1 0.76,0.34 | Crag of the Everliving, northeast |
-| 4 |  | Skum (optional) | Skum | 589 | 3674 ⚠ | 1 0.82,0.72 | chasm water south of Lord Pythas |
-| 5 |  | Lord Serpentis | Lord Serpentis | 590 | 3673 ⚠ | 1 0.59,0.52 | west along south side, then north |
-| 6 |  | Verdan the Everliving | Verdan der Ewiglebende | 591 | 5775 ⚠ | 1 0.54,0.48 | right behind Lord Serpentis |
-| 7 |  | Lady Anacondra | Lady Anacondra | 585 | 3671 ⚠ | 1 0.35,0.45 | roams the river cave |
-| 8 |  | Mutanus the Devourer | Mutanus der Verschlinger | 592 | 3654 ⚠, 3679 ⚠, 3678 ⚠ | 1 0.36,0.20 | end of Disciple of Naralex escort, north |
+| 1 |  | Lord Cobrahn | Lord Kobrahn | 586 | 3669 | 1 0.24,0.56 | end of path in Pit of Fangs, three pythons |
+| 2 |  | Kresh | Kresh | 587 | 3653 | 1 0.31,0.46 | giant turtle swimming in the river |
+| 3 |  | Lord Pythas | Lord Pythas | 588 | 3670 | 1 0.76,0.34 | Crag of the Everliving, northeast |
+| 4 |  | Skum (optional) | Skum | 589 | 3674 | 1 0.82,0.72 | chasm water south of Lord Pythas |
+| 5 |  | Lord Serpentis | Lord Serpentis | 590 | 3673 | 1 0.59,0.52 | west along south side, then north |
+| 6 |  | Verdan the Everliving | Verdan der Ewiglebende | 591 | 5775 | 1 0.54,0.48 | right behind Lord Serpentis |
+| 7 |  | Lady Anacondra | Lady Anacondra | 585 | 3671 | 1 0.35,0.45 | roams the river cave |
+| 8 |  | Mutanus the Devourer | Mutanus der Verschlinger | 592 | 3654, 3679 ⚠, 3678 ⚠ | 1 0.36,0.20 | end of Disciple of Naralex escort, north |
 
 ### Rares
 
@@ -27,7 +27,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Lord Cobrahn
 
@@ -43,7 +43,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 6447 | Worn Turtle Shell Shield | Shield | 66.7 | 56.12 | 90 | ✔ | guide+repo+wowhead-forever |
 | 13245 | Kresh's Back | Shield | 13.5 | 23.65 | 10 | ✔ | guide+repo+wowhead-forever |
-| 273084 | Cloak of Hermitic Bliss | Back | 1.2 |  |  | ✔ | guide |
+| 273084 | Cloak of Hermitic Bliss | Back | 1.2 | 3.35 |  | ✔ | guide+wowhead-forever |
 
 ### Lord Pythas
 
@@ -51,7 +51,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 6473 | Armor of the Fang | Chest Leather | 55.2 | 49.06 | 60 | ✔ | guide+repo+wowhead-forever |
 | 6472 | Stinging Viper | Mace | 29.6 | 29.74 | 40 | ✔ | guide+repo+wowhead-forever |
-| 273089 | Slither Cord | Waist (Cloth) | 1.7 |  |  | ✔ | guide |
+| 273089 | Slither Cord | Waist (Cloth) | 1.7 | 6.01 |  | ✔ | guide+wowhead-forever |
 
 ### Skum
 
@@ -59,7 +59,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 6448 | Tail Spike | Dagger | 46.6 | 41.76 | 50 | ✔ | guide+repo+wowhead-forever |
 | 6449 | Glowing Lizardscale Cloak | Back | 45.5 | 42.7 | 50 | ✔ | guide+repo+wowhead-forever |
-| 273137 | Skum's Bucket | Off Hand | 2.6 |  |  | ✔ | guide |
+| 273137 | Skum's Bucket | Off Hand | 2.6 | 7.57 |  | ✔ | guide+wowhead-forever |
 
 ### Lord Serpentis
 
@@ -69,7 +69,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 10411 | Footpads of the Fang | Feet Leather | 21.1 | 19.14 | 25 | ✔ | guide+repo+wowhead-forever |
 | 5970 | Serpent Gloves | Hands Cloth | 19.4 | 18.37 | 25 | ✔ | guide+repo+wowhead-forever |
 | 6469 | Venomstrike | Bow | 16.8 | 15.56 | 25 | ✔ | guide+repo+wowhead-forever |
-| 273087 | Blueprint: Journeyman Campfire | Recipe (Cooking) | 0.4 |  |  | ✔ | guide |
+| 273087 | Blueprint: Journeyman Campfire | Recipe (Cooking) | 0.4 | 1.36 |  | ✔ | guide+wowhead-forever |
 
 ### Verdan the Everliving
 
@@ -86,8 +86,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 5404 | Serpent's Shoulders | Shoulder Leather | 43.3 | 37.71 | 40 | ✔ | guide+repo+wowhead-forever |
 | 10412 | Belt of the Fang | Waist Leather | 9.6 | 14.54 | 10 | ✔ | guide+repo+wowhead-forever |
 | 6446 | Snakeskin Bag | Bag (10 slot) | 4.7 | 5.45 | 10 | ✔ | guide+repo+wowhead-forever |
-| 273088 | Snake Eye Kaleidoscope | Neck | 2 |  |  | ✔ | guide |
-| 273098 | Blueprint: Field Guide | Recipe (Skinning) | 0.3 |  |  | ✔ | guide |
+| 273088 | Snake Eye Kaleidoscope | Neck | 2 | 6.85 |  | ✔ | guide+wowhead-forever |
+| 273098 | Blueprint: Field Guide | Recipe (Skinning) | 0.3 | 1.35 |  | ✔ | guide+wowhead-forever |
 
 ### Mutanus the Devourer
 
@@ -96,7 +96,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 6463 | Deep Fathom Ring | Finger | 30.6 | 30.09 | 33.3 | ✔ | guide+repo+wowhead-forever |
 | 6461 | Slime-encrusted Pads | Shoulder Cloth | 29.6 | 29.14 | 33.3 | ✔ | guide+repo+wowhead-forever |
 | 6627 | Mutant Scale Breastplate | Chest | 22.5 | 24.56 | 33.3 | ✔ | guide+repo+wowhead-forever |
-| 10441 | Glowing Shard (quest) | Quest |  |  |  |  | guide |
+| 10441 | Glowing Shard (quest) | Quest |  | 65.08 |  | ✔ | guide+wowhead-forever |
 
 ### Deviate Faerie Dragon
 
@@ -149,30 +149,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 3669 (Lord Cobrahn) not found on Wowhead Forever - check ID.
-- [ ] NPC 3653 (Kresh) not found on Wowhead Forever - check ID.
-- [ ] NPC 3670 (Lord Pythas) not found on Wowhead Forever - check ID.
-- [ ] NPC 3674 (Skum) not found on Wowhead Forever - check ID.
-- [ ] NPC 3673 (Lord Serpentis) not found on Wowhead Forever - check ID.
-- [ ] NPC 5775 (Verdan the Everliving) not found on Wowhead Forever - check ID.
-- [ ] NPC 3671 (Lady Anacondra) not found on Wowhead Forever - check ID.
-- [ ] NPC 3654 (Mutanus the Devourer) not found on Wowhead Forever - check ID.
-- [ ] NPC 3679 (Mutanus the Devourer) not found on Wowhead Forever - check ID.
-- [ ] NPC 3678 (Mutanus the Devourer) not found on Wowhead Forever - check ID.
-- [ ] Quest 1486 'Deviate Hides' not found on Wowhead Forever - check ID.
-- [ ] Quest 959 'Trouble at the Docks' not found on Wowhead Forever - check ID.
-- [ ] Quest 1491 'Smart Drinks' not found on Wowhead Forever - check ID.
-- [ ] Quest 1487 'Deviate Eradication' not found on Wowhead Forever - check ID.
-- [ ] Quest 6981 'The Glowing Shard' not found on Wowhead Forever - check ID.
-- [ ] Quest 3369 'In Nightmares' not found on Wowhead Forever - check ID.
-- [ ] Quest 914 'Leaders of the Fang' not found on Wowhead Forever - check ID.
-- [ ] Quest 962 'Serpentbloom' not found on Wowhead Forever - check ID.
-- [ ] Quest 865 'Raptor Horns' not found on Wowhead Forever - check ID.
-- [ ] Quest 870 'The Forgotten Pools' not found on Wowhead Forever - check ID.
-- [ ] Quest 877 'The Stagnant Oasis' not found on Wowhead Forever - check ID.
-- [ ] Quest 880 'Altered Beings' not found on Wowhead Forever - check ID.
-- [ ] Quest 1489 'Hamuul Runetotem' not found on Wowhead Forever - check ID.
-- [ ] Quest 1490 'Nara Wildmane' not found on Wowhead Forever - check ID.
+- [ ] NPC 3679 is 'Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'.
+- [ ] NPC 3678 is 'Disciple of Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'.
 
 ## Research notes
 

@@ -10,11 +10,11 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Onyxia | Onyxia | 1084 | 10184 ⚠ | 1 0.68,0.32 | main cave chamber |
+| 1 |  | Onyxia | Onyxia | 1084 | 10184 | 1 0.68,0.32 | main cave chamber |
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Onyxia
 
@@ -36,10 +36,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18813 | Ring of Binding | Finger |  |  | 25 | ✘ 404 | guide+repo |
 | 17078 | Sapphiron Drape | Back |  |  | 25 | ✘ 404 | guide+repo |
 | 17064 | Shard of the Scale | Trinket |  |  | 8 | ✘ 404 | guide+repo |
-| 17966 | Onyxia Hide Backpack | 18 Slot Bag |  | 84.43 | 100 | ✔ | repo+wowhead-forever |
-| 18422 | Head of Onyxia |  |  | 43.34 | 100 | ✔ | repo+wowhead-forever |
-| 18423 | Head of Onyxia |  |  | 45.2 | 100 | ✔ | repo+wowhead-forever |
-| 18705 | Mature Black Dragon Sinew |  |  | 43.59 | 40 | ✔ | repo+wowhead-forever |
+| 17966 | Onyxia Hide Backpack | 18 Slot Bag |  | 84.43 | 100 |  | repo+wowhead-forever |
+| 18422 | Head of Onyxia |  |  | 43.34 | 100 |  | repo+wowhead-forever |
+| 18423 | Head of Onyxia |  |  | 45.2 | 100 |  | repo+wowhead-forever |
+| 18705 | Mature Black Dragon Sinew |  |  | 43.59 | 40 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -76,7 +76,7 @@ No quest data collected.
 
 ## Open questions (check in game)
 
-- [ ] NPC 10184 (Onyxia) not found on Wowhead Forever - check ID.
+- none found
 
 ## Research notes
 

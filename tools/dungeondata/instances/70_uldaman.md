@@ -10,40 +10,40 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Revelosh | Revelosh | 547 | 6910 ⚠ | 1 0.54,0.72 | front half |
-| 2 |  | The Lost Dwarves (Baelog, Eric "The Swift", Olaf) | Die verschollenen Zwerge | 548 | 6906 ⚠, 6907 ⚠, 6908 ⚠ | 1 0.59,0.94 | front half; chest holds Gni'kiv Medallion |
-| 3 |  | Ironaya (optional) | Ironaya | 549 | 7228 ⚠ | 1 0.38,0.74 | Map Chamber, opened with Staff of Prehistoria |
-| 4 |  | Obsidian Sentinel | Obsidianschildwache | 1887 | 7023 ⚠ | 1 0.29,0.62 | back half, near back entrance |
-| 5 |  | Ancient Stone Keeper | Uralter Steinbewahrer | 551 | 7206 ⚠ | 1 0.47,0.41 | back half |
-| 6 |  | Galgann Firehammer | Galgann Feuerhammer | 552 | 7291 ⚠ | 1 0.26,0.36 | with Shadowforge Geologist adds |
-| 7 |  | Grimlok | Grimlok | 553 | 4854 ⚠ | 1 0.21,0.25 | trogg area |
-| 8 |  | Archaedas | Archaedas | 554 | 2748 ⚠ | 1 0.42,0.17 | Khaz'goroth's Seat, final boss |
+| 1 |  | Revelosh | Revelosh | 547 | 6910 | 1 0.54,0.72 | front half |
+| 2 |  | The Lost Dwarves (Baelog, Eric "The Swift", Olaf) | Die verschollenen Zwerge | 548 | 6906, 6907, 6908 | 1 0.59,0.94 | front half; chest holds Gni'kiv Medallion |
+| 3 |  | Ironaya (optional) | Ironaya | 549 | 7228 | 1 0.38,0.74 | Map Chamber, opened with Staff of Prehistoria |
+| 4 |  | Obsidian Sentinel | Obsidianschildwache | 1887 | 7023 | 1 0.29,0.62 | back half, near back entrance |
+| 5 |  | Ancient Stone Keeper | Uralter Steinbewahrer | 551 | 7206 | 1 0.47,0.41 | back half |
+| 6 |  | Galgann Firehammer | Galgann Feuerhammer | 552 | 7291 | 1 0.26,0.36 | with Shadowforge Geologist adds |
+| 7 |  | Grimlok | Grimlok | 553 | 4854 | 1 0.21,0.25 | trogg area |
+| 8 |  | Archaedas | Archaedas | 554 | 2748 | 1 0.42,0.17 | Khaz'goroth's Seat, final boss |
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Revelosh
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 7741 | The Shaft of Tsol (quest) |  |  |  |  |  | guide |
+| 7741 | The Shaft of Tsol (quest) |  |  | 40.51 |  | ✔ | guide+wowhead-forever |
 | 9387 | Revelosh's Boots | Feet (plate) | 23 | 23.06 | 25 | ✔ | guide+repo+wowhead-forever |
-| 9388 | Revelosh's Armguards | Wrist Mail |  | 20.82 | 25 | ✔ | repo+wowhead-forever |
-| 9389 | Revelosh's Spaulders | Shoulder Leather |  | 23.4 | 25 | ✔ | repo+wowhead-forever |
-| 9390 | Revelosh's Gloves | Hands Cloth |  | 21.18 | 25 | ✔ | repo+wowhead-forever |
+| 9388 | Revelosh's Armguards | Wrist Mail |  | 20.82 | 25 |  | repo+wowhead-forever |
+| 9389 | Revelosh's Spaulders | Shoulder Leather |  | 23.4 | 25 |  | repo+wowhead-forever |
+| 9390 | Revelosh's Gloves | Hands Cloth |  | 21.18 | 25 |  | repo+wowhead-forever |
 
 ### The Lost Dwarves (Baelog, Eric "The Swift", Olaf)
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 9398 | Worn Running Boots | Feet | 80 |  |  | ✔ | guide |
-| 9394 | Horned Viking Helmet | Head | 8 |  |  | ✔ | guide |
-| 9400 | Baelog's Shortbow | Bow | 40 |  |  | ✔ | guide |
-| 9401 | Nordic Longshank | Two-hand sword | 9 |  |  | ✔ | guide |
-| 9403 | Battered Viking Shield | Shield | 78 |  |  | ✔ | guide |
-| 9404 | Olaf's All Purpose Shield | Shield | 13 |  |  | ✔ | guide |
-| 7740 | Gni'kiv Medallion (quest) |  |  |  |  |  | guide |
+| 9398 | Worn Running Boots | Feet | 80 |  |  | ✔ | guide+wowhead-forever |
+| 9394 | Horned Viking Helmet | Head | 8 |  |  | ✔ | guide+wowhead-forever |
+| 9400 | Baelog's Shortbow | Bow | 40 |  |  | ✔ | guide+wowhead-forever |
+| 9401 | Nordic Longshank | Two-hand sword | 9 |  |  | ✔ | guide+wowhead-forever |
+| 9403 | Battered Viking Shield | Shield | 78 |  |  | ✔ | guide+wowhead-forever |
+| 9404 | Olaf's All Purpose Shield | Shield | 13 |  |  | ✔ | guide+wowhead-forever |
+| 7740 | Gni'kiv Medallion (quest) |  |  |  |  | ✔ | guide+wowhead-forever |
 
 ### Ironaya
 
@@ -57,12 +57,12 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 274430 | Rock Sentinel Slicer |  |  |  |  |  | guide |
-| 274428 | Dark Golem Breastplate | Chest |  |  |  |  | guide |
-| 274485 | Axe of Lingering Dread |  |  |  |  |  | guide |
-| 274425 | White Obsidian Wand | Wand |  |  |  |  | guide |
-| 251400 | Plans: Warder's Boots |  |  |  |  |  | guide |
-| 8053 | Obsidian Power Source (quest) |  |  |  |  |  | guide |
+| 274430 | Rock Sentinel Slicer | Two-Hand Axe |  | 0.23 |  | ✔ | guide+wowhead-forever |
+| 274428 | Dark Golem Breastplate | Chest |  | 0.17 |  | ✔ | guide+wowhead-forever |
+| 274485 | Axe of Lingering Dread | Two-Hand Axe |  | 0.17 |  | ✔ | guide+wowhead-forever |
+| 274425 | White Obsidian Wand | Wand |  | 0.11 |  | ✔ | guide+wowhead-forever |
+| 251400 | Plans: Warder's Boots | Feet Plate |  |  |  | ✔ | guide |
+| 8053 | Obsidian Power Source (quest) | Quest Item |  | 27.83 |  | ✔ | guide+wowhead-forever |
 
 ### Ancient Stone Keeper
 
@@ -84,7 +84,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 7670 | Shattered Necklace Sapphire (quest) |  |  |  |  |  | guide |
+| 7670 | Shattered Necklace Sapphire (quest) | Quest Item |  | 31.33 |  | ✔ | guide+wowhead-forever |
 | 9415 | Grimlok's Tribal Vestments | Chest | 40 | 39.2 | 40 | ✔ | guide+repo+wowhead-forever |
 | 9414 | Oilskin Leggings | Legs | 29 | 29.22 | 40 | ✔ | guide+repo+wowhead-forever |
 | 9416 | Grimlok's Charge | Polearm | 19 | 19.35 | 20 | ✔ | guide+repo+wowhead-forever |
@@ -93,10 +93,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 7672 | Shattered Necklace Power Source (quest) |  |  |  |  |  | guide |
+| 7672 | Shattered Necklace Power Source (quest) | Quest Item |  | 27.96 |  | ✔ | guide+wowhead-forever |
 | 11118 | Archaedic Stone | Finger | 62 | 62.62 | 60 | ✔ | guide+repo+wowhead-forever |
 | 9413 | The Rockpounder | Two-hand mace | 14 | 13.8 | 20 | ✔ | guide+repo+wowhead-forever |
-| 9418 | Stoneslayer | Two-Hand Sword |  | 13.59 | 20 | ✔ | repo+wowhead-forever |
+| 9418 | Stoneslayer | Two-Hand Sword |  | 13.59 | 20 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -155,39 +155,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 6910 (Revelosh) not found on Wowhead Forever - check ID.
-- [ ] NPC 6906 (The Lost Dwarves (Baelog, Eric "The Swift", Olaf)) not found on Wowhead Forever - check ID.
-- [ ] NPC 6907 (The Lost Dwarves (Baelog, Eric "The Swift", Olaf)) not found on Wowhead Forever - check ID.
-- [ ] NPC 6908 (The Lost Dwarves (Baelog, Eric "The Swift", Olaf)) not found on Wowhead Forever - check ID.
-- [ ] NPC 7228 (Ironaya) not found on Wowhead Forever - check ID.
-- [ ] NPC 7023 (Obsidian Sentinel) not found on Wowhead Forever - check ID.
-- [ ] NPC 7206 (Ancient Stone Keeper) not found on Wowhead Forever - check ID.
-- [ ] NPC 7291 (Galgann Firehammer) not found on Wowhead Forever - check ID.
-- [ ] NPC 4854 (Grimlok) not found on Wowhead Forever - check ID.
-- [ ] NPC 2748 (Archaedas) not found on Wowhead Forever - check ID.
-- [ ] Quest 709 'Solution to Doom' not found on Wowhead Forever - check ID.
-- [ ] Quest 2418 'Power Stones' not found on Wowhead Forever - check ID.
-- [ ] Quest 704 'Agmond's Fate' not found on Wowhead Forever - check ID.
-- [ ] Quest 1139 'The Lost Tablets of Will' not found on Wowhead Forever - check ID.
-- [ ] Quest 2240 'The Hidden Chamber' not found on Wowhead Forever - check ID.
-- [ ] Quest 722 'Amulet of Secrets' not found on Wowhead Forever - check ID.
-- [ ] Quest 1360 'Reclaimed Treasures' not found on Wowhead Forever - check ID.
-- [ ] Quest 17 'Uldaman Reagent Run' not found on Wowhead Forever - check ID.
-- [ ] Quest 2198 'The Shattered Necklace' not found on Wowhead Forever - check ID.
-- [ ] Quest 2199 'Lore for a Price' not found on Wowhead Forever - check ID.
-- [ ] Quest 2201 'Find the Gems' not found on Wowhead Forever - check ID.
-- [ ] Quest 2204 'Restoring the Necklace' not found on Wowhead Forever - check ID.
-- [ ] Quest 2361 'Restoring the Necklace' not found on Wowhead Forever - check ID.
-- [ ] Quest 2279 'The Platinum Discs' not found on Wowhead Forever - check ID.
-- [ ] Quest 2342 'Reclaimed Treasures' not found on Wowhead Forever - check ID.
-- [ ] Quest 2202 'Uldaman Reagent Run' not found on Wowhead Forever - check ID.
-- [ ] Quest 2283 'Necklace Recovery' not found on Wowhead Forever - check ID.
-- [ ] Quest 2338 'Translating the Journal' not found on Wowhead Forever - check ID.
-- [ ] Quest 2339 'Find the Gems and Power Source' not found on Wowhead Forever - check ID.
-- [ ] Quest 2340 'Deliver the Gems' not found on Wowhead Forever - check ID.
-- [ ] Quest 2341 'Necklace Recovery, Take 3' not found on Wowhead Forever - check ID.
-- [ ] Quest 2280 'The Platinum Discs' not found on Wowhead Forever - check ID.
-- [ ] Quest 1956 'Power in Uldaman' not found on Wowhead Forever - check ID.
+- none found
 
 ## Research notes
 

@@ -10,12 +10,12 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Roogug | Roogug | 2773 | 6168 ⚠ | 1 0.65,0.42 | side area near entrance |
-| 2 |  | Aggem Thorncurse | Aggem Dornfluch | 2774 | 4424 ⚠ | 1 0.81,0.54 |  |
-| 3 |  | Death Speaker Jargba | Todessprecher Jargba | 2775 | 4428 ⚠ | 1 0.88,0.41 |  |
-| 4 |  | Overlord Ramtusk | Oberanführer Rammhauer | 2776 | 4420 ⚠ | 1 0.57,0.30 | with two Spearhide guards |
-| 5 |  | Agathelos the Raging | Agathelos der Tobende | 2777 | 4422 ⚠ | 1 0.11,0.72 | sealed behind ward; kill seer and two Ward Guardians |
-| 6 |  | Charlga Razorflank | Charlga Klingenflanke | 2778 | 4421 ⚠ | 1 0.26,0.32 | final boss |
+| 1 |  | Roogug | Roogug | 2773 | 6168 | 1 0.65,0.42 | side area near entrance |
+| 2 |  | Aggem Thorncurse | Aggem Dornfluch | 2774 | 4424 | 1 0.81,0.54 |  |
+| 3 |  | Death Speaker Jargba | Todessprecher Jargba | 2775 | 4428 | 1 0.88,0.41 |  |
+| 4 |  | Overlord Ramtusk | Oberanführer Rammhauer | 2776 | 4420 | 1 0.57,0.30 | with two Spearhide guards |
+| 5 |  | Agathelos the Raging | Agathelos der Tobende | 2777 | 4422 | 1 0.11,0.72 | sealed behind ward; kill seer and two Ward Guardians |
+| 6 |  | Charlga Razorflank | Charlga Klingenflanke | 2778 | 4421 | 1 0.26,0.32 | final boss |
 
 ### Rares
 
@@ -27,24 +27,24 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Roogug
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 274152 | Roogug's Severed Head | Trinket |  |  |  |  | guide |
-| 274149 | Thornweaver Drape | Back |  |  |  |  | guide |
-| 274155 | Geomancer Headdress | Head (Leather) |  |  |  |  | guide |
-| 6841 | Vial of Phlogiston (quest) | Quest (1701/1838, Warrior) |  |  |  |  | guide |
+| 274152 | Roogug's Severed Head | Trinket |  | 8.77 |  | ✔ | guide+wowhead-forever |
+| 274149 | Thornweaver Drape | Back |  | 7.14 |  | ✔ | guide+wowhead-forever |
+| 274155 | Geomancer Headdress | Head (Leather) |  | 7.76 |  | ✔ | guide+wowhead-forever |
+| 6841 | Vial of Phlogiston (quest) | Quest (1701/1838, Warrior) |  | 50.28 |  | ✔ | guide+wowhead-forever |
 
 ### Aggem Thorncurse
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 6681 | Thornspike | Dagger | 48 |  |  | ✔ | guide |
-| 274158 | Death Prophet Spine | Staff |  |  |  |  | guide |
-| 274159 | Thorncursed Grips | Hands (Leather) |  |  |  |  | guide |
+| 6681 | Thornspike | Dagger | 48 | 43.49 |  | ✔ | guide+wowhead-forever |
+| 274158 | Death Prophet Spine | Staff |  | 7.44 |  | ✔ | guide+wowhead-forever |
+| 274159 | Thorncursed Grips | Hands (Leather) |  | 8.51 |  | ✔ | guide+wowhead-forever |
 
 ### Death Speaker Jargba
 
@@ -60,7 +60,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 6686 | Tusken Helm | Head | 62 | 57.61 | 60 | ✔ | guide+repo+wowhead-forever |
 | 6687 | Corpsemaker | Two-Hand Axe | 34 | 34.04 | 40 | ✔ | guide+repo+wowhead-forever |
-| 274161 | Quillord Mail Leggings | Legs (Mail) |  |  |  |  | guide |
+| 274161 | Quillord Mail Leggings | Legs (Mail) |  | 4.72 |  | ✔ | guide+wowhead-forever |
 
 ### Agathelos the Raging
 
@@ -68,7 +68,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 6690 | Ferine Leggings | Legs (Leather) | 62 | 57.29 | 60 | ✔ | guide+repo+wowhead-forever |
 | 6691 | Swinetusk Shank | Dagger | 34 | 33.21 | 40 | ✔ | guide+repo+wowhead-forever |
-| 274160 | Quilrager Throwing Axe | Thrown |  |  |  |  | guide |
+| 274160 | Quilrager Throwing Axe | Thrown |  | 5.56 |  | ✔ | guide+wowhead-forever |
 
 ### Charlga Razorflank
 
@@ -77,11 +77,11 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 6693 | Agamaggan's Clutch | Finger | 36 | 34.65 | 40 | ✔ | guide+repo+wowhead-forever |
 | 6694 | Heart of Agamaggan | Shield | 33 | 33.36 | 40 | ✔ | guide+repo+wowhead-forever |
 | 6692 | Pronged Reaver | One-Hand Axe | 18 | 19.42 | 20 | ✔ | guide+repo+wowhead-forever |
-| 273103 | Blueprint: Arcane Salvager | Recipe |  |  |  |  | guide |
-| 17008 | Small Scroll (quest) | Quest starter (6522) | 42 |  |  | ✔ | guide |
-| 274463 | Tattered Note (quest) | Quest (Shaman 96264/79360) |  |  |  |  | guide |
-| 5792 | Razorflank's Medallion (quest) | Quest (1101) |  |  |  |  | guide |
-| 5793 | Razorflank's Heart (quest) | Quest (1102) |  |  |  |  | guide |
+| 273103 | Blueprint: Arcane Salvager | Recipe |  |  |  | ✔ | guide |
+| 17008 | Small Scroll (quest) | Quest starter (6522) | 42 | 42.35 |  | ✔ | guide+wowhead-forever |
+| 274463 | Tattered Note (quest) | Quest (Shaman 96264/79360) |  | 1.21 |  | ✔ | guide+wowhead-forever |
+| 5792 | Razorflank's Medallion (quest) | Quest (1101) |  | 11.24 |  | ✔ | guide+wowhead-forever |
+| 5793 | Razorflank's Heart (quest) | Quest (1102) |  | 37.52 |  | ✔ | guide+wowhead-forever |
 
 ### Earthcaller Halmgar
 
@@ -102,7 +102,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 6679 | Armor Piercer | Two-Hand Polearm |  | 62.32 | 79.6 | ✔ | repo+wowhead-forever |
+| 6679 | Armor Piercer | Two-Hand Polearm |  | 62.32 | 79.6 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -121,7 +121,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Quest ID | Title | Lvl | Faction | Giver (NPC ID) | Giver zone | Prerequisite / notes | In DungeonQuests.lua |
 |---|---|---|---|---|---|---|---|
-| 1100 | Lonebrow's Journal |  | Alliance |  (item 5791) | Thousand Needles (Henrig Lonebrow's body near Great Lift ~30,24) |  | **no** |
+| 1100 | Lonebrow's Journal | 34 | Alliance |  (item 5791) | Thousand Needles (Henrig Lonebrow's body near Great Lift ~30,24) |  | **no** |
 | 1101 | The Crone of the Kraul | 34 | Alliance | Falfindel Waywarder (4048) | Feralas (Thalanaar) | Lonebrow's Journal (1100) | **no** |
 | 1144 | Willix the Importer | 30 | Both | Willix the Importer (4508) | Razorfen Kraul (inside) |  | **no** |
 | 1142 | Mortality Wanes | 30 | Alliance | Heralath Fallowbrook (4510) | Razorfen Kraul (inside, near Charlga) |  | **no** |
@@ -129,9 +129,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 1102 | A Vengeful Fate | 34 | Horde | Auld Stonespire (4451) | Thunder Bluff |  | **no** |
 | 1109 | Going, Going, Guano! | 33 | Horde | Master Apothecary Faranell (2055) | Undercity |  | **no** |
 | 6522 | An Unholy Alliance | 36 | Horde |  (item 17008) | Razorfen Kraul (Charlga drop) |  | **no** |
-| 96264 | Elemental Aid |  | Alliance (Shaman) |  (item 274463) |  |  | **no** |
-| 79360 | Elemental Aid |  | Horde (Shaman) |  (item 274463) |  |  | **no** |
-| 1701 | Fire Hardened Mail |  | Alliance (Warrior) |  |  |  | **no** |
+| 96264 | Elemental Aid | 33 | Alliance (Shaman) |  (item 274463) |  |  | **no** |
+| 79360 | Elemental Aid | 33 | Horde (Shaman) |  (item 274463) |  |  | **no** |
+| 1701 | Fire Hardened Mail | 28 | Alliance (Warrior) |  |  |  | **no** |
 | 1838 | Brutal Armor |  | Horde (Warrior) |  |  |  | **no** |
 
 ## Forever changes noted by guides
@@ -146,25 +146,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 6168 (Roogug) not found on Wowhead Forever - check ID.
-- [ ] NPC 4424 (Aggem Thorncurse) not found on Wowhead Forever - check ID.
-- [ ] NPC 4428 (Death Speaker Jargba) not found on Wowhead Forever - check ID.
-- [ ] NPC 4420 (Overlord Ramtusk) not found on Wowhead Forever - check ID.
-- [ ] NPC 4422 (Agathelos the Raging) not found on Wowhead Forever - check ID.
-- [ ] NPC 4421 (Charlga Razorflank) not found on Wowhead Forever - check ID.
 - [ ] Rare pin 4438 'Razorfen Spearhide' is not mentioned in the guide.
-- [ ] Quest 1100 'Lonebrow's Journal' not found on Wowhead Forever - check ID.
-- [ ] Quest 1101 'The Crone of the Kraul' not found on Wowhead Forever - check ID.
-- [ ] Quest 1144 'Willix the Importer' not found on Wowhead Forever - check ID.
-- [ ] Quest 1142 'Mortality Wanes' not found on Wowhead Forever - check ID.
-- [ ] Quest 1221 'Blueleaf Tubers' not found on Wowhead Forever - check ID.
-- [ ] Quest 1102 'A Vengeful Fate' not found on Wowhead Forever - check ID.
-- [ ] Quest 1109 'Going, Going, Guano!' not found on Wowhead Forever - check ID.
-- [ ] Quest 6522 'An Unholy Alliance' not found on Wowhead Forever - check ID.
-- [ ] Quest 96264 'Elemental Aid' not found on Wowhead Forever - check ID.
-- [ ] Quest 79360 'Elemental Aid' not found on Wowhead Forever - check ID.
-- [ ] Quest 1701 'Fire Hardened Mail' not found on Wowhead Forever - check ID.
-- [ ] Quest 1838 'Brutal Armor' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

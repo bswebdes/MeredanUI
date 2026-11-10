@@ -38,10 +38,10 @@
    "npcs": [
     {
      "id": 644,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Rhahk'Zor",
+     "zone": 1581,
+     "name_de": "Rhahk'Zor",
+     "name_ok": true
     }
    ],
    "location": "near the entrance",
@@ -95,26 +95,27 @@
     {
      "item_id": 273289,
      "name": "Ogre Loincloth",
-     "slot": null,
-     "quality": null,
+     "slot": "Legs Cloth",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 5.73,
+     "wowhead_dropped_by": "Rhahk'Zor",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 251363,
      "name": "Plans: Acolyte's Gloves",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -122,7 +123,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -134,15 +135,15 @@
    "order": 2,
    "wing": null,
    "name": "Sneed's Shredder",
-   "name_de": null,
+   "name_de": "Sneeds Schredder",
    "encounter_id": null,
    "npcs": [
     {
      "id": 642,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Sneed's Shredder",
+     "zone": 1581,
+     "name_de": "Sneeds Schredder",
+     "name_ok": true
     }
    ],
    "location": "lumber area, before Sneed",
@@ -152,73 +153,77 @@
     {
      "item_id": 2169,
      "name": "Buzzer Blade",
-     "slot": null,
-     "quality": null,
+     "slot": "Main Hand Dagger",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 52.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 47.24,
+     "wowhead_dropped_by": "Sneed's Shredder",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 1937,
      "name": "Buzz Saw",
-     "slot": null,
-     "quality": null,
+     "slot": "One-Hand Sword",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 9.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.48,
+     "wowhead_dropped_by": "Sneed's Shredder",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 285292,
      "name": "Dull Sawblade",
-     "slot": null,
-     "quality": null,
+     "slot": "Thrown Thrown",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 5.37,
+     "wowhead_dropped_by": "Sneed's Shredder",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 7365,
      "name": "Gnoam Sprecklesprocket",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 46.58,
+     "wowhead_dropped_by": "Sneed's Shredder",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -232,10 +237,10 @@
    "npcs": [
     {
      "id": 643,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Sneed",
+     "zone": 1581,
+     "name_de": "Sneed",
+     "name_ok": true
     }
    ],
    "location": "ejected from his Shredder",
@@ -290,36 +295,38 @@
      "item_id": 273293,
      "name": "Bandsaw Wristbands",
      "slot": "Wrist",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.34,
+     "wowhead_dropped_by": "Sneed",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273092,
      "name": "Blueprint: Repair Bot",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.8,
+     "wowhead_dropped_by": "Sneed",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -351,10 +358,10 @@
    "npcs": [
     {
      "id": 1763,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Gilnid",
+     "zone": 1581,
+     "name_de": "Gilnid",
+     "name_ok": true
     }
    ],
    "location": "foundry, with goblin engineers",
@@ -408,37 +415,39 @@
     {
      "item_id": 273297,
      "name": "Goblin Hammer",
-     "slot": null,
-     "quality": null,
+     "slot": "Main Hand Mace",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 4.55,
+     "wowhead_dropped_by": "Gilnid",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273086,
      "name": "Blueprint: Anvil",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.92,
+     "wowhead_dropped_by": "Gilnid",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -452,10 +461,10 @@
    "npcs": [
     {
      "id": 646,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Mr. Smite",
+     "zone": 1581,
+     "name_de": "Mr. Smite",
+     "name_ok": true
     }
    ],
    "location": "ship cove, first ship deck",
@@ -530,18 +539,19 @@
      "item_id": 284715,
      "name": "First Mate Band",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.57,
+     "wowhead_dropped_by": "Mr. Smite",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -555,10 +565,10 @@
    "npcs": [
     {
      "id": 647,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Captain Greenskin",
+     "zone": 1581,
+     "name_de": "Captain Greenskin",
+     "name_ok": true
     }
    ],
    "location": "aboard the ship, with pirate adds",
@@ -640,10 +650,10 @@
    "npcs": [
     {
      "id": 639,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Edwin VanCleef",
+     "zone": 1581,
+     "name_de": "Edwin van Cleef",
+     "name_ok": true
     }
    ],
    "location": "top deck of the ship",
@@ -738,7 +748,7 @@
      "item_id": 253940,
      "name": "Pattern: Filigreed Silky Leggings",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -746,7 +756,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -756,36 +766,38 @@
      "item_id": 3637,
      "name": "Head of VanCleef",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.2,
+     "wowhead_dropped_by": "Edwin VanCleef",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 2874,
      "name": "An Unsent Letter",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 55.67,
+     "wowhead_dropped_by": "Edwin VanCleef",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -799,10 +811,10 @@
    "npcs": [
     {
      "id": 645,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Cookie",
+     "zone": 1581,
+     "name_de": "Cookie",
+     "name_ok": true
     }
    ],
    "location": "on the ship deck",
@@ -857,36 +869,38 @@
      "item_id": 273298,
      "name": "Lookie's Spyglass",
      "slot": "Trinket",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 3.7,
+     "wowhead_dropped_by": "Cookie",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273102,
      "name": "Blueprint: Cookie's Feast",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.84,
+     "wowhead_dropped_by": "Cookie",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -914,7 +928,7 @@
   {
    "name": "Miner Johnson",
    "npc_id": 3586,
-   "wowhead_name": null,
+   "wowhead_name": "Miner Johnson",
    "location": "mine tunnels, does not always spawn",
    "pin": null,
    "encounter_id": 3676,
@@ -980,8 +994,8 @@
     2042
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Defias Brotherhood",
+   "wowhead_level": 22,
    "races": 77
   },
   {
@@ -997,8 +1011,8 @@
    "prereq": "Chain 92742-92752; follow-up 92819 (675 XP)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Destruction in Deadmines",
+   "wowhead_level": 18,
    "races": 77
   },
   {
@@ -1019,8 +1033,8 @@
     270016
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Underground Assault",
+   "wowhead_level": 20,
    "races": 77
   },
   {
@@ -1041,8 +1055,8 @@
     270005
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Red Silk Bandanas",
+   "wowhead_level": 17,
    "races": 77
   },
   {
@@ -1062,8 +1076,8 @@
     270013
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Oh Brother...",
+   "wowhead_level": 20,
    "races": 77
   },
   {
@@ -1083,8 +1097,8 @@
     270007
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Collecting Memories",
+   "wowhead_level": 18,
    "races": 77
   },
   {
@@ -1100,8 +1114,8 @@
    "prereq": "Paladin chain 1649 (Tome of Valor item=6776) -> 1650-1653; then 1806",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Test of Righteousness",
+   "wowhead_level": 22,
    "races": 77
   }
  ],
@@ -1124,23 +1138,8 @@
   "Cookie: 11982 Viridian Band - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)"
  ],
  "open_questions": [
-  "NPC 644 (Rhahk'Zor) not found on Wowhead Forever - check ID.",
   "Boss 'Sneed's Shredder' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 642 (Sneed's Shredder) not found on Wowhead Forever - check ID.",
-  "NPC 643 (Sneed) not found on Wowhead Forever - check ID.",
-  "NPC 1763 (Gilnid) not found on Wowhead Forever - check ID.",
-  "NPC 646 (Mr. Smite) not found on Wowhead Forever - check ID.",
-  "NPC 647 (Captain Greenskin) not found on Wowhead Forever - check ID.",
-  "NPC 639 (Edwin VanCleef) not found on Wowhead Forever - check ID.",
-  "NPC 645 (Cookie) not found on Wowhead Forever - check ID.",
-  "Encounter 3676 'Miner Johnson' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
-  "Quest 166 'The Defias Brotherhood' not found on Wowhead Forever - check ID.",
-  "Quest 92753 'Destruction in Deadmines' not found on Wowhead Forever - check ID.",
-  "Quest 2040 'Underground Assault' not found on Wowhead Forever - check ID.",
-  "Quest 214 'Red Silk Bandanas' not found on Wowhead Forever - check ID.",
-  "Quest 167 'Oh Brother...' not found on Wowhead Forever - check ID.",
-  "Quest 168 'Collecting Memories' not found on Wowhead Forever - check ID.",
-  "Quest 1654 'The Test of Righteousness' not found on Wowhead Forever - check ID."
+  "Encounter 3676 'Miner Johnson' is listed as a rare in the guide (DungeonBosses.lua has it as boss)."
  ],
  "guide_notes": [
   "Sneed's Shredder and Sneed listed as one boss slot in guide (8 bosses + rare Miner Johnson)",
@@ -1152,21 +1151,21 @@
   "Quest XP total 19,125 (Alliance)",
   "Page level column 'from' value used as min_level"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 1581,
+ "zone_name_en": "The Deadmines",
+ "zone_name_de": "Die Todesminen",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "partial",
   "pins": "ok",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 35,
-  "loot_confirmed": 22,
-  "loot_with_chance": 22,
-  "forever_confirmed": "partly",
+  "loot_confirmed": 33,
+  "loot_with_chance": 31,
+  "forever_confirmed": "yes",
   "boss_count": 8,
-  "boss_ok": 0,
+  "boss_ok": 7,
   "pin_ok": 7,
   "enc_count": 7,
   "q_tot": 7
@@ -1174,6 +1173,6 @@
  "top_points": [
   "7 of 7 quests missing in DungeonQuests.lua",
   "Boss 'Sneed's Shredder' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 644 (Rhahk'Zor) not found on Wowhead Forever - check ID. (+14 more)"
+  "4 loot rows without drop chance"
  ]
 }

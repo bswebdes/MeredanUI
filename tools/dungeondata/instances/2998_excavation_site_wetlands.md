@@ -17,41 +17,41 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Saltspine
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 273022 | Supple Bellyskin Leggings | Legs (Leather) | 35 |  |  | ✔ | guide |
-| 273023 | Saltscale Girdle | Waist (Mail) | 34 |  |  | ✔ | guide |
-| 273024 | Glinteye Slippers | Feet (Cloth) | 31 |  |  | ✔ | guide |
+| 273022 | Supple Bellyskin Leggings | Legs (Leather) | 35 | 34.96 |  | ✔ | guide+wowhead-forever |
+| 273023 | Saltscale Girdle | Waist (Mail) | 34 | 31.06 |  | ✔ | guide+wowhead-forever |
+| 273024 | Glinteye Slippers | Feet (Cloth) | 31 | 30.8 |  | ✔ | guide+wowhead-forever |
 
 ### Shadetooth
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 273027 | Raptor's Gaze | Off-hand | 34 |  |  | ✔ | guide |
-| 273026 | Garb of Florid Feathers | Chest (Leather) | 32 |  |  | ✔ | guide |
-| 273025 | Raptorclaw Greaves | Feet (Mail) | 27 |  |  | ✔ | guide |
-| 273106 | Blueprint: Greenhouse | Recipe | 8 |  |  | ✔ | guide |
+| 273027 | Raptor's Gaze | Off-hand | 34 | 32.96 |  | ✔ | guide+wowhead-forever |
+| 273026 | Garb of Florid Feathers | Chest (Leather) | 32 | 29.32 |  | ✔ | guide+wowhead-forever |
+| 273025 | Raptorclaw Greaves | Feet (Mail) | 27 | 28.05 |  | ✔ | guide+wowhead-forever |
+| 273106 | Blueprint: Greenhouse | Recipe | 8 | 7.37 |  | ✔ | guide+wowhead-forever |
 
 ### Highland Horror
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 270180 | Horrible Rootcore (quest) | Quest (95646) |  |  |  | ✔ | guide |
+| 270180 | Horrible Rootcore (quest) | Quest (95646) |  | 70.49 |  | ✔ | guide+wowhead-forever |
 
 ### Relic Guardian
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 273028 | Reliquary Mantle | Shoulder (Mail) | 34 |  |  | ✔ | guide |
-| 273029 | Golemsight Long Gun | Gun | 31 |  |  | ✔ | guide |
-| 273030 | Ring of Power Regulation | Finger | 30 |  |  | ✔ | guide |
-| 270865 | Titan Relic (Alliance) (quest) | Quest starter (95810) | 27 |  |  | ✔ | guide |
-| 270866 | Titan Relic (Horde) (quest) | Quest starter (95664) | 27 |  |  | ✔ | guide |
-| 273097 | Blueprint: Rock Garden | Recipe | 7 |  |  | ✔ | guide |
+| 273028 | Reliquary Mantle | Shoulder (Mail) | 34 | 32.48 |  | ✔ | guide+wowhead-forever |
+| 273029 | Golemsight Long Gun | Gun | 31 | 32.79 |  | ✔ | guide+wowhead-forever |
+| 273030 | Ring of Power Regulation | Finger | 30 | 28.66 |  | ✔ | guide+wowhead-forever |
+| 270865 | Titan Relic (quest) | Quest starter (95810) | 27 | 29.08 |  | ✔ | guide+wowhead-forever |
+| 270866 | Titan Relic (quest) | Quest starter (95664) | 27 | 28.19 |  | ✔ | guide+wowhead-forever |
+| 273097 | Blueprint: Rock Garden | Recipe | 7 | 6.96 |  | ✔ | guide+wowhead-forever |
 
 ## Quests
 
@@ -87,25 +87,6 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - [ ] No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua.
 - [ ] No pin for 'Highland Horror' (encounter 3644) in DungeonPinData.lua.
 - [ ] No pin for 'Relic Guardian' (encounter 3482) in DungeonPinData.lua.
-- [ ] Quest 95810 'Lost Relic Carry' not found on Wowhead Forever - check ID.
-- [ ] Quest 98824 'Prehistoric Prism' not found on Wowhead Forever - check ID.
-- [ ] Quest 95772 'Songblade Search' not found on Wowhead Forever - check ID.
-- [ ] Quest 95795 'Fallen in the Fen' not found on Wowhead Forever - check ID.
-- [ ] Quest 95646 'Horrors in the Highland' not found on Wowhead Forever - check ID.
-- [ ] Quest 463 'The Greenwarden' not found on Wowhead Forever - check ID.
-- [ ] Quest 276 'Tramping Paws' not found on Wowhead Forever - check ID.
-- [ ] Quest 277 'Fire Taboo' not found on Wowhead Forever - check ID.
-- [ ] Quest 275 'Blisters on the Land' not found on Wowhead Forever - check ID.
-- [ ] Quest 95737 'Seeking Caitlin' not found on Wowhead Forever - check ID.
-- [ ] Quest 95647 'Lost in the Thicket Things' not found on Wowhead Forever - check ID.
-- [ ] Quest 95809 'Heartwoven' not found on Wowhead Forever - check ID.
-- [ ] Quest 484 'Young Crocolisk Skins' not found on Wowhead Forever - check ID.
-- [ ] Quest 98815 'Highland Hides' not found on Wowhead Forever - check ID.
-- [ ] Quest 95664 'Elder Knowledge' not found on Wowhead Forever - check ID.
-- [ ] Quest 98823 'Earthen Echo' not found on Wowhead Forever - check ID.
-- [ ] Quest 95663 'Dragonmaw Rumors' not found on Wowhead Forever - check ID.
-- [ ] Quest 95682 'Open the Maw' not found on Wowhead Forever - check ID.
-- [ ] Quest 95697 'Changing Tastes' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

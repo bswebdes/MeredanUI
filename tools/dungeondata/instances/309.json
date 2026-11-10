@@ -488,7 +488,7 @@
      "chance_repo": 2.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -666,7 +666,7 @@
      "chance_repo": 2.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -702,7 +702,7 @@
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -826,7 +826,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1204,7 +1204,7 @@
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1529,9 +1529,9 @@
   "quests": "missing",
   "quests_in_addon": 0,
   "loot_rows": 71,
-  "loot_confirmed": 5,
+  "loot_confirmed": 0,
   "loot_with_chance": 5,
-  "forever_confirmed": "partly",
+  "forever_confirmed": "no",
   "boss_count": 0,
   "boss_ok": 0,
   "pin_ok": 10,

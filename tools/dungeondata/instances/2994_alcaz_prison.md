@@ -18,7 +18,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Overseer Wrex
 
@@ -34,7 +34,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 276742 | Girdle of Extracted Answers | Waist (Plate) |  |  |  | ✔ | guide |
 | 276743 | Fingerbreaker Stamp | Trinket |  |  |  | ✔ | guide |
-| 276741 | Defias Enforcer's Shoulderpads | Shoulder (Leather) |  |  |  | ✔ | guide |
+| 276741 | Defias Enforcer's Shoulderpads | Shoulder (Leather) |  | 100 |  | ✔ | guide+wowhead-forever |
 
 ### Tidemistress Ca'zass
 
@@ -86,9 +86,6 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - [ ] No pin for 'Katerina the Cleaner' (encounter 3418) in DungeonPinData.lua.
 - [ ] NPC 255707 is 'Zarla Ober' on Wowhead Forever, guide says 'Blazeroar'.
 - [ ] No pin for 'Blazeroar' (encounter 3409) in DungeonPinData.lua.
-- [ ] Quest 96772 'The Dragon's Journal' not found on Wowhead Forever - check ID.
-- [ ] Quest 95283 'The Missing Kor'kron' not found on Wowhead Forever - check ID.
-- [ ] Quest 95284 'The Elite of the Elite' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

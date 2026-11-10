@@ -10,22 +10,22 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Oggleflint | Flintauge | 2732 | 11517 ⚠ | 1 0.56,0.38 | first trogg cave, with two adds |
-| 2 |  | Taragaman the Hungerer | Taragaman der Hungerleider | 2733 | 11520 ⚠ | 1 0.41,0.58 | lava platform in central chamber |
-| 3 |  | Jergosh the Invoker | Jergosh der Herbeirufer | 2734 | 11518 ⚠ | 1 0.33,0.85 | middle of the last room, two adds |
-| 4 |  | Bazzalan | Bazzalan | 2735 | 11519 ⚠ | 1 0.42,0.86 | up the ramp, right side of last room |
+| 1 |  | Oggleflint | Flintauge | 2732 | 11517 | 1 0.56,0.38 | first trogg cave, with two adds |
+| 2 |  | Taragaman the Hungerer | Taragaman der Hungerleider | 2733 | 11520 | 1 0.41,0.58 | lava platform in central chamber |
+| 3 |  | Jergosh the Invoker | Jergosh der Herbeirufer | 2734 | 11518 | 1 0.33,0.85 | middle of the last room, two adds |
+| 4 |  | Bazzalan | Bazzalan | 2735 | 11519 | 1 0.42,0.86 | up the ramp, right side of last room |
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Oggleflint
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 272996 | Trogg Scepter | Main Hand Mace | 3.3 |  |  | ✔ | guide |
-| 272999 | Barbaric Crossbow | Crossbow | 3 |  |  | ✔ | guide |
-| 272998 | Bone Knuckles | Fist Weapon | 2.7 |  |  | ✔ | guide |
+| 272996 | Trogg Scepter | Main Hand Mace | 3.3 | 13.46 |  | ✔ | guide+wowhead-forever |
+| 272999 | Barbaric Crossbow | Crossbow | 3 | 12.48 |  | ✔ | guide+wowhead-forever |
+| 272998 | Bone Knuckles | Fist Weapon | 2.7 | 13.79 |  | ✔ | guide+wowhead-forever |
 | 1210 | Shadowgem |  |  |  | 1.9 |  | repo |
 
 ### Taragaman the Hungerer
@@ -35,7 +35,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 14149 | Subterranean Cape | Back | 34.8 | 31.93 | 40 | ✔ | guide+repo+wowhead-forever |
 | 14148 | Crystalline Cuffs | Wrist (Cloth) | 32.9 | 30.4 | 40 | ✔ | guide+repo+wowhead-forever |
 | 14145 | Cursed Felblade | One-Hand Sword | 17.6 | 18.38 | 20 | ✔ | guide+repo+wowhead-forever |
-| 14540 | Taragaman the Hungerer's Heart (quest) | Quest |  |  |  |  | guide |
+| 14540 | Taragaman the Hungerer's Heart (quest) | Quest |  | 39.54 |  | ✔ | guide+wowhead-forever |
 
 ### Jergosh the Invoker
 
@@ -49,9 +49,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 273003 | Searing Dagger | Main Hand Dagger | 2.9 |  |  | ✔ | guide |
-| 273005 | Satyrskin Cloak | Back | 2.9 |  |  | ✔ | guide |
-| 273007 | Chasm Walkers | Feet (Leather) | 2.9 |  |  | ✔ | guide |
+| 273003 | Searing Dagger | Main Hand Dagger | 2.9 | 12.64 |  | ✔ | guide+wowhead-forever |
+| 273005 | Satyrskin Cloak | Back | 2.9 | 12.28 |  | ✔ | guide+wowhead-forever |
+| 273007 | Chasm Walkers | Feet (Leather) | 2.9 | 11.35 |  | ✔ | guide+wowhead-forever |
 | 1210 | Shadowgem |  |  |  | 2.2 |  | repo |
 
 ### Differences to Map/DungeonLoot.lua
@@ -74,7 +74,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 5725 | The Power to Destroy... | 16 | Horde | Varimathras (2425) | Undercity |  | yes |
 | 5761 | Slaying the Beast | 16 | Horde | Neeru Fireblade (3216) | Orgrimmar |  | yes |
 | 5723 | Testing an Enemy's Strength | 15 | Horde | Rahauro (11833) | Thunder Bluff |  | yes |
-| 5722 | Searching for the Lost Satchel |  | Horde | Rahauro (11833) | Thunder Bluff |  | yes |
+| 5722 | Searching for the Lost Satchel | 16 | Horde | Rahauro (11833) | Thunder Bluff |  | yes |
 
 ## Forever changes noted by guides
 
@@ -89,16 +89,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 11517 (Oggleflint) not found on Wowhead Forever - check ID.
-- [ ] NPC 11520 (Taragaman the Hungerer) not found on Wowhead Forever - check ID.
-- [ ] NPC 11518 (Jergosh the Invoker) not found on Wowhead Forever - check ID.
-- [ ] NPC 11519 (Bazzalan) not found on Wowhead Forever - check ID.
-- [ ] Quest 5728 'Hidden Enemies' not found on Wowhead Forever - check ID.
-- [ ] Quest 5724 'Returning the Lost Satchel' not found on Wowhead Forever - check ID.
-- [ ] Quest 5725 'The Power to Destroy...' not found on Wowhead Forever - check ID.
-- [ ] Quest 5761 'Slaying the Beast' not found on Wowhead Forever - check ID.
-- [ ] Quest 5723 'Testing an Enemy's Strength' not found on Wowhead Forever - check ID.
-- [ ] Quest 5722 'Searching for the Lost Satchel' not found on Wowhead Forever - check ID.
+- none found
 
 ## Research notes
 

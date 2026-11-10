@@ -4,8 +4,8 @@ local _, ns = ...
 
 ns.DUNGEON_QUESTS = {
     [389] = { -- Ragefire Chasm
-        { id = 5722, level = 16, min = 9, races = 178, classes = 0, title = "Searching for the Lost Satchel", giver = "Rahauro", map = 1, x = -1055.4, y = -215.4 },
         { id = 5723, level = 15, min = 9, races = 178, classes = 0, title = "Testing an Enemy's Strength", giver = "Rahauro", map = 1, x = -1055.4, y = -215.4 },
+        { id = 5722, level = 16, min = 9, races = 178, classes = 0, title = "Searching for the Lost Satchel", giver = "Rahauro", map = 1, x = -1055.4, y = -215.4 },
         { id = 5724, level = 16, min = 9, races = 178, classes = 0, title = "Returning the Lost Satchel", giver = "Maur Grimtotem", map = 389, x = -148.1, y = 23.6 },
         { id = 5725, level = 16, min = 9, races = 178, classes = 0, title = "The Power to Destroy...", giver = "Varimathras", map = 0, x = 1287.8, y = 333.5 },
         { id = 5728, level = 16, min = 9, races = 178, classes = 0, title = "Hidden Enemies", giver = "Thrall", map = 1, x = 1920.1, y = -4125.7 },
@@ -21,8 +21,8 @@ ns.DUNGEON_QUESTS = {
     },
     [2999] = { -- Ruins of Lordaeron
         { id = 95161, level = 0, min = 0, races = 77, classes = 0, title = "Remember That I Love You (step 2)", giver = "Avette Fellwood" }, -- NEW, giver zone: Duskwood
-        { id = 99156, level = 0, min = 0, races = 178, classes = 0, title = "Rear Guard Patrol (Riptear)", giver = "?" }, -- NEW, giver zone: Tirisfal Glades
         { id = 356, level = 11, min = 0, races = 178, classes = 0, title = "Rear Guard Patrol", giver = "Deathguard Linnea" }, -- NEW, giver zone: Tirisfal Glades
+        { id = 99156, level = 13, min = 0, races = 178, classes = 0, title = "Rear Guard Patrol (Riptear)", giver = "?" }, -- NEW, giver zone: Tirisfal Glades
         { id = 95250, level = 21, min = 15, races = 77, classes = 0, title = "Abominable Creatures", giver = "Captain Truman" }, -- NEW, giver zone: Ruins of Lordaeron (inside entrance)
         { id = 97288, level = 21, min = 15, races = 178, classes = 0, title = "Unending Torment", item = 280438 }, -- NEW, giver zone: Ruins of Lordaeron (Abominable Head from The Baron)
         { id = 92401, level = 22, min = 15, races = 178, classes = 0, title = "A Frightened Request", giver = "Tabitha Heartweaver" }, -- NEW, giver zone: Silverpine Forest (Sepulcher)
@@ -51,16 +51,16 @@ ns.DUNGEON_QUESTS = {
         { id = 6981, level = 26, min = 15, races = 255, classes = 0, title = "The Glowing Shard", item = 10441 },
     },
     [36] = { -- The Deadmines
-        { id = 1654, level = 0, min = 20, races = 77, classes = 0, title = "The Test of Righteousness", giver = "Jordan Stilwell" }, -- NEW, giver zone: Dun Morogh (Ironforge entrance)
         { id = 214, level = 17, min = 14, races = 77, classes = 0, title = "Red Silk Bandanas", giver = "Scout Riell" }, -- NEW, giver zone: Westfall
         { id = 168, level = 18, min = 14, races = 77, classes = 0, title = "Collecting Memories", giver = "Wilder Thistlenettle" }, -- NEW, giver zone: Stormwind
         { id = 92753, level = 18, min = 9, races = 77, classes = 0, title = "Destruction in Deadmines", giver = "Alba Fairmoon" }, -- NEW, giver zone: Westfall (near Sentinel Hill)
         { id = 167, level = 20, min = 15, races = 77, classes = 0, title = "Oh Brother...", giver = "Wilder Thistlenettle" }, -- NEW, giver zone: Stormwind
         { id = 2040, level = 20, min = 15, races = 77, classes = 0, title = "Underground Assault", giver = "Shoni the Shilent" }, -- NEW, giver zone: Stormwind
         { id = 166, level = 22, min = 14, races = 77, classes = 0, title = "The Defias Brotherhood", giver = "Gryan Stoutmantle" }, -- NEW, giver zone: Westfall
+        { id = 1654, level = 22, min = 20, races = 77, classes = 0, title = "The Test of Righteousness", giver = "Jordan Stilwell" }, -- NEW, giver zone: Dun Morogh (Ironforge entrance)
     },
     [33] = { -- Shadowfang Keep
-        { id = 1654, level = 0, min = 0, races = 77, classes = 0, title = "The Test of Righteousness", giver = "Jordan Stilwell" }, -- NEW, giver zone: Dun Morogh
+        { id = 1654, level = 22, min = 0, races = 77, classes = 0, title = "The Test of Righteousness", giver = "Jordan Stilwell" }, -- NEW, giver zone: Dun Morogh
         { id = 1098, level = 25, min = 18, races = 178, classes = 0, title = "Deathstalkers in Shadowfang", giver = "High Executor Hadrec", map = 0, x = 522.4, y = 1626.2 },
         { id = 1740, level = 25, min = 0, races = 0, classes = 0, title = "The Orb of Soran'ruk", giver = "Doan Karhan" }, -- NEW, giver zone: The Barrens
         { id = 1013, level = 26, min = 16, races = 178, classes = 0, title = "The Book of Ur", giver = "Keeper Bel'dugur", map = 0, x = 1529.4, y = 357.6 },
@@ -68,8 +68,7 @@ ns.DUNGEON_QUESTS = {
         { id = 1014, level = 27, min = 18, races = 178, classes = 0, title = "Arugal Must Die", giver = "Dalar Dawnweaver", map = 0, x = 552.1, y = 1593.6 },
     },
     [48] = { -- Blackfathom Deeps
-        { id = 1654, level = 0, min = 0, races = 77, classes = 0, title = "The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806)", giver = "Duthorian Rall / Daphne Stilwell / Jordan Stilwell" }, -- NEW, giver zone: Stormwind / Westfall
-        { id = 95042, level = 0, min = 0, races = 178, classes = 0, title = "Seeking the Kor Gem", giver = "Ulric Frostveil" }, -- NEW, giver zone: Ashenvale (Zoram'gar Outpost)
+        { id = 1654, level = 22, min = 0, races = 77, classes = 0, title = "The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806)", giver = "Duthorian Rall / Daphne Stilwell / Jordan Stilwell" }, -- NEW, giver zone: Stormwind / Westfall
         { id = 6562, level = 22, min = 17, races = 178, classes = 0, title = "Trouble in the Deeps", giver = "Tsunaman", map = 1, x = 824.6, y = 933.3 },
         { id = 6563, level = 22, min = 17, races = 178, classes = 0, title = "The Essence of Aku'Mai", giver = "Je'neu Sancrea", map = 1, x = 3355.1, y = 1033.1 },
         { id = 6564, level = 22, min = 17, races = 178, classes = 0, title = "Allegiance to the Old Gods", item = 16790 },
@@ -79,6 +78,7 @@ ns.DUNGEON_QUESTS = {
         { id = 1740, level = 24, min = 0, races = 0, classes = 0, title = "The Orb of Soran'ruk", giver = "Doan Karhan" }, -- NEW, giver zone: The Barrens
         { id = 3765, level = 24, min = 0, races = 77, classes = 0, title = "The Corruption Abroad", giver = "Argos Nightwhisper" }, -- NEW, giver zone: Stormwind
         { id = 1199, level = 25, min = 20, races = 77, classes = 0, title = "Twilight Falls", giver = "Argent Guard Manados", map = 1, x = 10069.0, y = 2353.8 },
+        { id = 95042, level = 25, min = 0, races = 178, classes = 0, title = "Seeking the Kor Gem", giver = "Ulric Frostveil" }, -- NEW, giver zone: Ashenvale (Zoram'gar Outpost)
         { id = 6565, level = 26, min = 17, races = 178, classes = 0, title = "Allegiance to the Old Gods", giver = "Je'neu Sancrea", map = 1, x = 3355.1, y = 1033.1 },
         { id = 95140, level = 26, min = 0, races = 178, classes = 0, title = "Old Fire-Eye (chain 95034,95036,95111,95125,95126,95140)", giver = "Lumina Windsinger" }, -- NEW, giver zone: ?
         { id = 1200, level = 27, min = 18, races = 77, classes = 0, title = "Blackfathom Villainy", giver = "Argent Guard Thaelrid", map = 48, x = -531.6, y = 319.0 },
@@ -135,13 +135,13 @@ ns.DUNGEON_QUESTS = {
     },
     [90] = { -- Gnomeregan
         { id = 2842, level = 0, min = 0, races = 178, classes = 0, title = "Chief Engineer Scooty", giver = "Sovik" }, -- NEW, giver zone: Orgrimmar
-        { id = 2923, level = 0, min = 0, races = 77, classes = 0, title = "Tinkmaster Overspark", giver = "Brother Sarno" }, -- NEW, giver zone: Stormwind City
-        { id = 2925, level = 0, min = 0, races = 77, classes = 0, title = "Klockmort's Essentials", giver = "Klockmort Spannerspan" }, -- NEW, giver zone: Ironforge (Tinker Town)
-        { id = 2927, level = 0, min = 0, races = 77, classes = 0, title = "The Day After", giver = "Gnoarn" }, -- NEW, giver zone: Ironforge (Tinker Town)
         { id = 2922, level = 26, min = 20, races = 77, classes = 0, title = "Save Techbot's Brain!", giver = "Tinkmaster Overspark" }, -- NEW, giver zone: Ironforge (Tinker Town)
+        { id = 2923, level = 26, min = 0, races = 77, classes = 0, title = "Tinkmaster Overspark", giver = "Brother Sarno" }, -- NEW, giver zone: Stormwind City
         { id = 2926, level = 27, min = 20, races = 77, classes = 0, title = "Gnogaine", giver = "Ozzie Togglevolt" }, -- NEW, giver zone: Dun Morogh (Kharanos)
+        { id = 2927, level = 27, min = 0, races = 77, classes = 0, title = "The Day After", giver = "Gnoarn" }, -- NEW, giver zone: Ironforge (Tinker Town)
         { id = 2904, level = 30, min = 24, races = 0, classes = 0, title = "A Fine Mess", giver = "Kernobee" }, -- NEW, giver zone: Gnomeregan (inside)
         { id = 2924, level = 30, min = 24, races = 77, classes = 0, title = "Essential Artificials", giver = "Klockmort Spannerspan" }, -- NEW, giver zone: Ironforge (Tinker Town)
+        { id = 2925, level = 30, min = 0, races = 77, classes = 0, title = "Klockmort's Essentials", giver = "Klockmort Spannerspan" }, -- NEW, giver zone: Ironforge (Tinker Town)
         { id = 2928, level = 30, min = 20, races = 77, classes = 0, title = "Gyrodrillmatic Excavationators", giver = "Shoni the Shilent" }, -- NEW, giver zone: Stormwind City
         { id = 2930, level = 30, min = 25, races = 77, classes = 0, title = "Data Rescue", giver = "Master Mechanic Castpipe" }, -- NEW, giver zone: Ironforge (Tinker Town)
         { id = 2951, level = 30, min = 25, races = 0, classes = 0, title = "The Sparklematic 5200!", giver = "The Sparklematic 5200 (object 142487)" }, -- NEW, giver zone: Gnomeregan (Clean Zone)
@@ -157,21 +157,20 @@ ns.DUNGEON_QUESTS = {
         { id = 2950, level = 35, min = 0, races = 178, classes = 0, title = "Nogg's Ring Redo", giver = "Nogg" }, -- NEW, giver zone: Orgrimmar
     },
     [47] = { -- Razorfen Kraul
-        { id = 1100, level = 0, min = 0, races = 77, classes = 0, title = "Lonebrow's Journal", item = 5791 }, -- NEW, giver zone: Thousand Needles (Henrig Lonebrow's body near Great Lift ~30,24)
-        { id = 1701, level = 0, min = 0, races = 77, classes = 0, title = "Fire Hardened Mail", giver = "?" }, -- NEW, giver zone: ?
         { id = 1838, level = 0, min = 0, races = 178, classes = 0, title = "Brutal Armor", giver = "?" }, -- NEW, giver zone: ?
-        { id = 79360, level = 0, min = 0, races = 178, classes = 0, title = "Elemental Aid", item = 274463 }, -- NEW, giver zone: ?
-        { id = 96264, level = 0, min = 0, races = 77, classes = 0, title = "Elemental Aid", item = 274463 }, -- NEW, giver zone: ?
         { id = 1221, level = 26, min = 20, races = 0, classes = 0, title = "Blueleaf Tubers", giver = "Mebok Mizzyrix" }, -- NEW, giver zone: The Barrens (Ratchet)
+        { id = 1701, level = 28, min = 0, races = 77, classes = 0, title = "Fire Hardened Mail", giver = "?" }, -- NEW, giver zone: ?
         { id = 1142, level = 30, min = 25, races = 77, classes = 0, title = "Mortality Wanes", giver = "Heralath Fallowbrook" }, -- NEW, giver zone: Razorfen Kraul (inside, near Charlga)
         { id = 1144, level = 30, min = 23, races = 0, classes = 0, title = "Willix the Importer", giver = "Willix the Importer" }, -- NEW, giver zone: Razorfen Kraul (inside)
         { id = 1109, level = 33, min = 30, races = 178, classes = 0, title = "Going, Going, Guano!", giver = "Master Apothecary Faranell" }, -- NEW, giver zone: Undercity
+        { id = 79360, level = 33, min = 0, races = 178, classes = 0, title = "Elemental Aid", item = 274463 }, -- NEW, giver zone: ?
+        { id = 96264, level = 33, min = 0, races = 77, classes = 0, title = "Elemental Aid", item = 274463 }, -- NEW, giver zone: ?
+        { id = 1100, level = 34, min = 0, races = 77, classes = 0, title = "Lonebrow's Journal", item = 5791 }, -- NEW, giver zone: Thousand Needles (Henrig Lonebrow's body near Great Lift ~30,24)
         { id = 1101, level = 34, min = 29, races = 77, classes = 0, title = "The Crone of the Kraul", giver = "Falfindel Waywarder" }, -- NEW, giver zone: Feralas (Thalanaar)
         { id = 1102, level = 34, min = 29, races = 178, classes = 0, title = "A Vengeful Fate", giver = "Auld Stonespire" }, -- NEW, giver zone: Thunder Bluff
         { id = 6522, level = 36, min = 0, races = 178, classes = 0, title = "An Unholy Alliance", item = 17008 }, -- NEW, giver zone: Razorfen Kraul (Charlga drop)
     },
     [189] = { -- Scarlet Monastery
-        { id = 1951, level = 0, min = 0, races = 0, classes = 0, title = "Rituals of Power", giver = "Tabetha" }, -- NEW, giver zone: Dustwallow Marsh
         { id = 78676, level = 0, min = 0, races = 0, classes = 0, title = "The Eye of Bhossca", giver = "?" }, -- NEW, giver zone: ?
         { id = 1051, level = 33, min = 25, races = 178, classes = 0, title = "Vorrel's Revenge", giver = "Vorrel Sengutz", map = 189, x = 1786.2, y = 1119.5 },
         { id = 1113, level = 33, min = 30, races = 178, classes = 0, title = "Hearts of Zeal", giver = "Master Apothecary Faranell", map = 0, x = 1434.5, y = 404.9 },
@@ -180,6 +179,7 @@ ns.DUNGEON_QUESTS = {
         { id = 1050, level = 38, min = 28, races = 77, classes = 0, title = "Mythology of the Titans", giver = "Librarian Mae Paledust", map = 0, x = -4635.1, y = -1306.4 },
         { id = 96800, level = 38, min = 30, races = 77, classes = 0, title = "Past Due", giver = "Magus Olvek" }, -- NEW, giver zone: Dalaran
         { id = 1053, level = 40, min = 34, races = 77, classes = 0, title = "In the Name of the Light", giver = "Raleigh the Devout", map = 0, x = -844.9, y = -580.3 },
+        { id = 1951, level = 40, min = 0, races = 0, classes = 0, title = "Rituals of Power", giver = "Tabetha" }, -- NEW, giver zone: Dustwallow Marsh
         { id = 1048, level = 42, min = 33, races = 178, classes = 0, title = "Into The Scarlet Monastery", giver = "Varimathras", map = 0, x = 1287.8, y = 333.5 },
     },
     [2970] = { -- The Drowned City
@@ -209,8 +209,6 @@ ns.DUNGEON_QUESTS = {
         { id = 3636, level = 42, min = 39, races = 77, classes = 0, title = "Bring the Light", giver = "Archbishop Benedictus", map = 0, x = -8522.6, y = 848.8 },
     },
     [3039] = { -- Krol'dok Stronghold
-        { id = 94768, level = 0, min = 0, races = 178, classes = 0, title = "Bring Me His Head", giver = "Da'grosh" }, -- NEW, giver zone: Riverglades
-        { id = 94890, level = 0, min = 0, races = 77, classes = 0, title = "Bring Me His Head", giver = "Sergeant Riftan" }, -- NEW, giver zone: Riverglades
         { id = 94907, level = 0, min = 0, races = 77, classes = 0, title = "A Small Favor", giver = "Ashe Amberhall" }, -- NEW, giver zone: Riverglades (Farholde Keep)
         { id = 94973, level = 0, min = 0, races = 178, classes = 0, title = "Krol'dok Moulding", giver = "Kreza Darkthorn" }, -- NEW, giver zone: Riverglades (Rog'mar)
         { id = 94974, level = 0, min = 0, races = 178, classes = 0, title = "Key Ingredients", giver = "Kreza Darkthorn" }, -- NEW, giver zone: Riverglades (Rog'mar)
@@ -224,6 +222,8 @@ ns.DUNGEON_QUESTS = {
         { id = 94968, level = 45, min = 40, races = 178, classes = 0, title = "Eye of Mugg", giver = "Krom'rosh" }, -- NEW, giver zone: Riverglades (Rog'mar)
         { id = 94982, level = 45, min = 40, races = 77, classes = 0, title = "Eye of Mugg", giver = "Commander Demar Brant" }, -- NEW, giver zone: Riverglades (Farholde Keep)
         { id = 96771, level = 45, min = 37, races = 77, classes = 0, title = "Vengeance of the Highborne", giver = "Ranath Nightstride" }, -- NEW, giver zone: Dalaran inn (Alterac Mountains)
+        { id = 94768, level = 46, min = 0, races = 178, classes = 0, title = "Bring Me His Head", giver = "Da'grosh" }, -- NEW, giver zone: Riverglades
+        { id = 94890, level = 46, min = 0, races = 77, classes = 0, title = "Bring Me His Head", giver = "Sergeant Riftan" }, -- NEW, giver zone: Riverglades
     },
     [70] = { -- Uldaman
         { id = 2418, level = 36, min = 30, races = 0, classes = 0, title = "Power Stones", giver = "Rigglefuzz" }, -- NEW, giver zone: Badlands
@@ -299,7 +299,6 @@ ns.DUNGEON_QUESTS = {
         { id = 3373, level = 55, min = 48, races = 255, classes = 0, title = "The Essence of Eranikus", item = 10454 },
     },
     [230] = { -- Blackrock Depths
-        { id = 7848, level = 0, min = 0, races = 0, classes = 0, title = "Attunement to the Core", giver = "Lothos Riftwaker" }, -- NEW, giver zone: Blackrock Mountain
         { id = 3802, level = 52, min = 48, races = 0, classes = 0, title = "Dark Iron Legacy", giver = "Franclorn Forgewright (ghost)" }, -- NEW, giver zone: Blackrock Mountain
         { id = 4081, level = 52, min = 48, races = 178, classes = 0, title = "KILL ON SIGHT: Dark Iron Dwarves", giver = "WANTED poster (object 164867)" }, -- NEW, giver zone: Badlands (Kargath)
         { id = 4136, level = 53, min = 48, races = 0, classes = 0, title = "Ribbly Screwspigot", giver = "Yuka Screwspigot" }, -- NEW, giver zone: Burning Steppes (Flame Crest)
@@ -326,26 +325,27 @@ ns.DUNGEON_QUESTS = {
         { id = 4363, level = 59, min = 50, races = 77, classes = 0, title = "The Princess's Surprise", giver = "Princess Moira Bronzebeard" }, -- NEW, giver zone: Blackrock Depths
         { id = 4004, level = 60, min = 48, races = 178, classes = 0, title = "The Princess Saved?", giver = "Princess Moira Bronzebeard" }, -- NEW, giver zone: Blackrock Depths
         { id = 7604, level = 60, min = 60, races = 0, classes = 0, title = "A Binding Contract", giver = "Thorium Brotherhood Contract" }, -- NEW, giver zone: ?
+        { id = 7848, level = 60, min = 0, races = 0, classes = 0, title = "Attunement to the Core", giver = "Lothos Riftwaker" }, -- NEW, giver zone: Blackrock Mountain
         { id = 9015, level = 60, min = 58, races = 0, classes = 0, title = "The Challenge", giver = "Falrin Treeshaper" }, -- NEW, giver zone: Dire Maul
     },
     [429] = { -- Dire Maul
+        { id = 7488, level = 57, min = 54, races = 77, classes = 0, title = "Lethtendris's Web", giver = "Latronicus Moonspear", map = 1, x = -4505.9, y = 3330.3 },
+        { id = 7489, level = 57, min = 54, races = 178, classes = 0, title = "Lethtendris's Web", giver = "Talo Thornhoof", map = 1, x = -4397.7, y = 146.9 },
+        { id = 7441, level = 58, min = 54, races = 255, classes = 0, title = "Pusillin and the Elder Azj'Tordin", giver = "Azj'Tordin", map = 1, x = -4097.2, y = 96.5 },
         { id = 1193, level = 60, min = 56, races = 255, classes = 0, title = "A Broken Trap", giver = "Broken Trap", map = 429, x = 558.8, y = 550.1 },
-        { id = 5526, level = 0, min = 0, races = 0, classes = 0, title = "Shards of the Felvine", giver = "Rabine Saturna" }, -- NEW, giver zone: Moonglade
+        { id = 1318, level = 60, min = 56, races = 0, classes = 0, title = "Unfinished Gordok Business", giver = "Captain Kromcrush" }, -- NEW, giver zone: Dire Maul North
+        { id = 5518, level = 60, min = 56, races = 255, classes = 0, title = "The Gordok Ogre Suit", giver = "Knot Thimblejack", map = 429, x = 581.1, y = 523.3 },
+        { id = 5525, level = 60, min = 57, races = 255, classes = 0, title = "Free Knot!", giver = "Knot Thimblejack", map = 429, x = 581.1, y = 523.3 },
+        { id = 5526, level = 60, min = 0, races = 0, classes = 0, title = "Shards of the Felvine", giver = "Rabine Saturna" }, -- NEW, giver zone: Moonglade
+        { id = 5528, level = 60, min = 57, races = 255, classes = 0, title = "The Gordok Taste Test", giver = "Stomper Kreeg", map = 429, x = 491.2, y = 97.4 },
+        { id = 7461, level = 60, min = 56, races = 255, classes = 0, title = "The Madness Within", giver = "Shen'dralar Ancient", map = 429, x = 11.7, y = 396.1 },
+        { id = 7462, level = 60, min = 56, races = 77, classes = 0, title = "The Treasure of the Shen'dralar", giver = "Shen'dralar Ancient", map = 429, x = 11.7, y = 396.1 },
+        { id = 7463, level = 60, min = 60, races = 255, classes = 128, title = "Arcane Refreshment", giver = "Lorekeeper Lydros", map = 429, x = 164.3, y = 522.5 },
         { id = 7481, level = 60, min = 54, races = 178, classes = 0, title = "Elven Legends", giver = "Sage Korolusk", map = 1, x = -4394.1, y = 212.5 },
         { id = 7482, level = 60, min = 54, races = 77, classes = 0, title = "Elven Legends", giver = "Scholar Runethorn", map = 1, x = -4401.7, y = 3275.5 },
         { id = 7483, level = 60, min = 58, races = 255, classes = 0, title = "Libram of Rapidity", giver = "Lorekeeper Lydros", map = 429, x = 164.3, y = 522.5 },
         { id = 7484, level = 60, min = 58, races = 255, classes = 0, title = "Libram of Focus", giver = "Lorekeeper Lydros", map = 429, x = 164.3, y = 522.5 },
         { id = 7485, level = 60, min = 58, races = 255, classes = 0, title = "Libram of Protection", giver = "Lorekeeper Lydros", map = 429, x = 164.3, y = 522.5 },
-        { id = 7488, level = 57, min = 54, races = 77, classes = 0, title = "Lethtendris's Web", giver = "Latronicus Moonspear", map = 1, x = -4505.9, y = 3330.3 },
-        { id = 7489, level = 57, min = 54, races = 178, classes = 0, title = "Lethtendris's Web", giver = "Talo Thornhoof", map = 1, x = -4397.7, y = 146.9 },
-        { id = 7441, level = 58, min = 54, races = 255, classes = 0, title = "Pusillin and the Elder Azj'Tordin", giver = "Azj'Tordin", map = 1, x = -4097.2, y = 96.5 },
-        { id = 1318, level = 60, min = 56, races = 0, classes = 0, title = "Unfinished Gordok Business", giver = "Captain Kromcrush" }, -- NEW, giver zone: Dire Maul North
-        { id = 5518, level = 60, min = 56, races = 255, classes = 0, title = "The Gordok Ogre Suit", giver = "Knot Thimblejack", map = 429, x = 581.1, y = 523.3 },
-        { id = 5525, level = 60, min = 57, races = 255, classes = 0, title = "Free Knot!", giver = "Knot Thimblejack", map = 429, x = 581.1, y = 523.3 },
-        { id = 5528, level = 60, min = 57, races = 255, classes = 0, title = "The Gordok Taste Test", giver = "Stomper Kreeg", map = 429, x = 491.2, y = 97.4 },
-        { id = 7461, level = 60, min = 56, races = 255, classes = 0, title = "The Madness Within", giver = "Shen'dralar Ancient", map = 429, x = 11.7, y = 396.1 },
-        { id = 7462, level = 60, min = 56, races = 77, classes = 0, title = "The Treasure of the Shen'dralar", giver = "Shen'dralar Ancient", map = 429, x = 11.7, y = 396.1 },
-        { id = 7463, level = 60, min = 60, races = 255, classes = 128, title = "Arcane Refreshment", giver = "Lorekeeper Lydros", map = 429, x = 164.3, y = 522.5 },
         { id = 7498, level = 60, min = 54, races = 255, classes = 8, title = "Garona: A Study on Stealth and Treachery", item = 18356 },
         { id = 7499, level = 60, min = 54, races = 255, classes = 1, title = "Codex of Defense", item = 18357 },
         { id = 7500, level = 60, min = 54, races = 255, classes = 128, title = "The Arcanist's Cookbook", item = 18358 },
@@ -366,8 +366,6 @@ ns.DUNGEON_QUESTS = {
         { id = 8990, level = 60, min = 58, races = 255, classes = 0, title = "The Right Piece of Lord Valthalak's Amulet", giver = "Bodley", map = 0, x = -7534.8, y = -1212.6 },
     },
     [229] = { -- Blackrock Spire
-        { id = 6821, level = 0, min = 0, races = 0, classes = 0, title = "Eye of the Emberseer", giver = "Duke Hydraxis" }, -- NEW, giver zone: Azshara
-        { id = 7761, level = 0, min = 0, races = 0, classes = 0, title = "Blackhand's Command", item = 18987 }, -- NEW, giver zone: Upper Blackrock Spire
         { id = 4788, level = 58, min = 40, races = 0, classes = 0, title = "The Final Tablets", giver = "Prospector Ironboot" }, -- NEW, giver zone: Tanaris
         { id = 4701, level = 59, min = 55, races = 77, classes = 0, title = "Put Her Down", giver = "Helendis Riverhorn" }, -- NEW, giver zone: Burning Steppes (Morgan's Vigil)
         { id = 4724, level = 59, min = 55, races = 178, classes = 0, title = "The Pack Mistress", giver = "Galamav the Marksman" }, -- NEW, giver zone: Badlands (Kargath)
@@ -397,6 +395,8 @@ ns.DUNGEON_QUESTS = {
         { id = 6502, level = 60, min = 50, races = 77, classes = 0, title = "Drakefire Amulet", giver = "Haleh" }, -- NEW, giver zone: Winterspring
         { id = 6569, level = 60, min = 55, races = 178, classes = 0, title = "Oculus Illusions", giver = "Myranda the Hag" }, -- NEW, giver zone: Western Plaguelands
         { id = 6602, level = 60, min = 55, races = 178, classes = 0, title = "Blood of the Black Dragon Champion", giver = "Rexxar" }, -- NEW, giver zone: Feralas
+        { id = 6821, level = 60, min = 0, races = 0, classes = 0, title = "Eye of the Emberseer", giver = "Duke Hydraxis" }, -- NEW, giver zone: Azshara
+        { id = 7761, level = 60, min = 0, races = 0, classes = 0, title = "Blackhand's Command", item = 18987 }, -- NEW, giver zone: Upper Blackrock Spire
         { id = 8966, level = 60, min = 58, races = 0, classes = 0, title = "The Left Piece of Lord Valthalak's Amulet", giver = "Bodley" }, -- NEW, giver zone: Blackrock Mountain
         { id = 8989, level = 60, min = 58, races = 0, classes = 0, title = "The Right Piece of Lord Valthalak's Amulet", giver = "Bodley" }, -- NEW, giver zone: Blackrock Mountain
         { id = 8995, level = 60, min = 58, races = 0, classes = 0, title = "Mea Culpa, Lord Valthalak", giver = "Bodley" }, -- NEW, giver zone: Blackrock Mountain
@@ -411,11 +411,8 @@ ns.DUNGEON_QUESTS = {
         { id = 97198, level = 59, min = 52, races = 178, classes = 0, title = "Blackmaw Magic", giver = "?" }, -- NEW, giver zone: ?
     },
     [329] = { -- Stratholme
-        { id = 5122, level = 60, min = 55, races = 255, classes = 0, title = "The Medallion of Faith", giver = "Aurius", map = 329, x = 3680.5, y = -3643.8 },
-        { id = 5281, level = 0, min = 0, races = 0, classes = 0, title = "The Restless Souls", giver = "Caretaker Alen" }, -- NEW, giver zone: Eastern Plaguelands (Light's Hope)
-        { id = 5305, level = 0, min = 0, races = 0, classes = 0, title = "Sweet Serenity", giver = "?" }, -- NEW, giver zone: ?
-        { id = 5307, level = 0, min = 0, races = 0, classes = 0, title = "Corruption", giver = "Seril Scourgebane" }, -- NEW, giver zone: Winterspring
         { id = 5846, level = 0, min = 0, races = 0, classes = 0, title = "Of Love and Family", giver = "Tirion Fordring" }, -- NEW, giver zone: Eastern Plaguelands
+        { id = 5122, level = 60, min = 55, races = 255, classes = 0, title = "The Medallion of Faith", giver = "Aurius", map = 329, x = 3680.5, y = -3643.8 },
         { id = 5125, level = 60, min = 55, races = 255, classes = 0, title = "Aurius' Reckoning", giver = "Aurius", map = 329, x = 3680.5, y = -3643.8 },
         { id = 5212, level = 60, min = 55, races = 255, classes = 0, title = "The Flesh Does Not Lie", giver = "Betina Bigglezink", map = 0, x = 2260.1, y = -5339.0 },
         { id = 5213, level = 60, min = 55, races = 255, classes = 0, title = "The Active Agent", giver = "Betina Bigglezink", map = 0, x = 2260.1, y = -5339.0 },
@@ -424,7 +421,10 @@ ns.DUNGEON_QUESTS = {
         { id = 5251, level = 60, min = 55, races = 255, classes = 0, title = "The Archivist", giver = "Duke Nicholas Zverenhoff", map = 0, x = 2255.9, y = -5337.7 },
         { id = 5262, level = 60, min = 55, races = 255, classes = 0, title = "The Truth Comes Crashing Down", item = 13250 },
         { id = 5263, level = 60, min = 55, races = 255, classes = 0, title = "Above and Beyond", giver = "Duke Nicholas Zverenhoff", map = 0, x = 2255.9, y = -5337.7 },
+        { id = 5281, level = 60, min = 0, races = 0, classes = 0, title = "The Restless Souls", giver = "Caretaker Alen" }, -- NEW, giver zone: Eastern Plaguelands (Light's Hope)
         { id = 5282, level = 60, min = 55, races = 255, classes = 0, title = "The Restless Souls", giver = "Egan", map = 0, x = 2929.1, y = -2744.7 },
+        { id = 5305, level = 60, min = 0, races = 0, classes = 0, title = "Sweet Serenity", giver = "?" }, -- NEW, giver zone: ?
+        { id = 5307, level = 60, min = 0, races = 0, classes = 0, title = "Corruption", giver = "Seril Scourgebane" }, -- NEW, giver zone: Winterspring
         { id = 5463, level = 60, min = 57, races = 255, classes = 0, title = "Menethil's Gift", giver = "Leonid Barthalomew the Revered", map = 0, x = 2307.2, y = -5348.9 },
         { id = 5848, level = 60, min = 52, races = 255, classes = 0, title = "Of Love and Family", giver = "Artist Renfray", map = 0, x = 1206.1, y = -2411.5 },
         { id = 6163, level = 60, min = 56, races = 178, classes = 0, title = "Ramstein", giver = "Nathanos Blightcaller", map = 0, x = 1871.0, y = -3212.7 },
@@ -433,9 +433,6 @@ ns.DUNGEON_QUESTS = {
         { id = 8991, level = 60, min = 58, races = 255, classes = 0, title = "The Right Piece of Lord Valthalak's Amulet", giver = "Bodley", map = 0, x = -7534.8, y = -1212.6 },
     },
     [289] = { -- Scholomance
-        { id = 7629, level = 0, min = 0, races = 0, classes = 0, title = "Imp Delivery", giver = "Gorzeeki Wildeyes" }, -- NEW, giver zone: ?
-        { id = 7647, level = 0, min = 0, races = 0, classes = 0, title = "Judgment and Redemption", giver = "?" }, -- NEW, giver zone: ?
-        { id = 8258, level = 0, min = 0, races = 0, classes = 0, title = "The Darkreaver Menace", giver = "Sagorne Creststrider" }, -- NEW, giver zone: Orgrimmar
         { id = 838, level = 55, min = 0, races = 178, classes = 0, title = "Scholomance", giver = "High Executor Derrington" }, -- NEW, giver zone: Tirisfal Glades (The Bulwark)
         { id = 5533, level = 55, min = 0, races = 77, classes = 0, title = "Scholomance", giver = "Commander Ashlam Valorfist" }, -- NEW, giver zone: Western Plaguelands (Chillwind Camp)
         { id = 964, level = 57, min = 55, races = 178, classes = 0, title = "Skeletal Fragments", giver = "Apothecary Dithers" }, -- NEW, giver zone: Tirisfal Glades (The Bulwark)
@@ -459,6 +456,9 @@ ns.DUNGEON_QUESTS = {
         { id = 5531, level = 60, min = 57, races = 255, classes = 0, title = "Betina Bigglezink", giver = "Leonid Barthalomew the Revered", map = 0, x = 2307.2, y = -5348.9 },
         { id = 5803, level = 60, min = 55, races = 77, classes = 0, title = "Araj's Scarab", giver = "?" }, -- NEW, giver zone: ?
         { id = 5804, level = 60, min = 55, races = 178, classes = 0, title = "Araj's Scarab", giver = "?" }, -- NEW, giver zone: ?
+        { id = 7629, level = 60, min = 0, races = 0, classes = 0, title = "Imp Delivery", giver = "Gorzeeki Wildeyes" }, -- NEW, giver zone: ?
+        { id = 7647, level = 60, min = 0, races = 0, classes = 0, title = "Judgment and Redemption", giver = "?" }, -- NEW, giver zone: ?
+        { id = 8258, level = 60, min = 0, races = 0, classes = 0, title = "The Darkreaver Menace", giver = "Sagorne Creststrider" }, -- NEW, giver zone: Orgrimmar
         { id = 8969, level = 60, min = 58, races = 255, classes = 0, title = "The Left Piece of Lord Valthalak's Amulet", giver = "Bodley", map = 0, x = -7534.8, y = -1212.6 },
         { id = 8992, level = 60, min = 58, races = 255, classes = 0, title = "The Right Piece of Lord Valthalak's Amulet", giver = "Bodley", map = 0, x = -7534.8, y = -1212.6 },
     },

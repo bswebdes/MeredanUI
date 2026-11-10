@@ -23,13 +23,13 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Lucifron
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 16665 | Tome of Tranquilizing Shot |  |  | 91.18 | 100 | ✔ | repo+wowhead-forever |
+| 16665 | Tome of Tranquilizing Shot |  |  | 91.18 | 100 |  | repo+wowhead-forever |
 | 7078 | Essence of Fire |  |  |  | 40 |  | repo |
 | 16805 |  |  |  |  | 33 | ✘ 404 | repo |
 | 16863 |  |  |  |  | 33 | ✘ 404 | repo |
@@ -58,7 +58,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 16814 |  |  |  |  | 20 | ✘ 404 | repo |
 | 16822 |  |  |  |  | 20 | ✘ 404 | repo |
 | 17069 |  |  |  |  | 20 | ✘ 404 | repo |
-| 17073 | Earthshaker | Two-Hand Mace |  | 19.81 | 20 | ✔ | repo+wowhead-forever |
+| 17073 | Earthshaker | Two-Hand Mace |  | 19.81 | 20 |  | repo+wowhead-forever |
 | 18203 |  |  |  |  | 20 | ✘ 404 | repo |
 | 16835 |  |  |  |  | 16.7 | ✘ 404 | repo |
 | 16843 |  |  |  |  | 16.7 | ✘ 404 | repo |
@@ -130,7 +130,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 19142 |  |  |  |  | 5.5 | ✘ 404 | repo |
 | 19143 |  |  |  |  | 5.5 | ✘ 404 | repo |
 | 19144 |  |  |  |  | 5.5 | ✘ 404 | repo |
-| 18564 | Bindings of the Windseeker |  |  | 4.06 | 4 | ✔ | repo+wowhead-forever |
+| 18564 | Bindings of the Windseeker |  |  | 4.06 | 4 |  | repo+wowhead-forever |
 
 ### Shazzrah
 
@@ -140,9 +140,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 16801 |  |  |  |  | 33.3 | ✘ 404 | repo |
 | 16831 |  |  |  |  | 33.3 | ✘ 404 | repo |
 | 16852 |  |  |  |  | 33.3 | ✘ 404 | repo |
-| 16803 |  |  |  |  | 25 |  | repo |
-| 16811 |  |  |  |  | 25 |  | repo |
-| 16824 |  |  |  |  | 25 |  | repo |
+| 16803 |  |  |  |  | 25 | ✘ 404 | repo |
+| 16811 |  |  |  |  | 25 | ✘ 404 | repo |
+| 16824 |  |  |  |  | 25 | ✘ 404 | repo |
 | 17077 |  |  |  |  | 2.5 | ✘ 404 | repo |
 | 18861 |  |  |  |  | 2.5 | ✘ 404 | repo |
 | 18870 |  |  |  |  | 2.5 | ✘ 404 | repo |
@@ -159,25 +159,25 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 7078 | Essence of Fire |  |  |  | 50 |  | repo |
-| 16797 |  |  |  |  | 33.3 |  | repo |
-| 16807 |  |  |  |  | 33.3 |  | repo |
-| 17110 |  |  |  |  | 33.3 |  | repo |
-| 16836 |  |  |  |  | 30 |  | repo |
-| 16844 |  |  |  |  | 30 |  | repo |
-| 16856 |  |  |  |  | 30 |  | repo |
-| 17010 |  |  |  |  | 14 |  | repo |
-| 18563 |  |  |  |  | 4 |  | repo |
+| 16797 |  |  |  |  | 33.3 | ✘ 404 | repo |
+| 16807 |  |  |  |  | 33.3 | ✘ 404 | repo |
+| 17110 |  |  |  |  | 33.3 | ✘ 404 | repo |
+| 16836 |  |  |  |  | 30 | ✘ 404 | repo |
+| 16844 |  |  |  |  | 30 | ✘ 404 | repo |
+| 16856 |  |  |  |  | 30 | ✘ 404 | repo |
+| 17010 | Fiery Core |  |  |  | 14 |  | repo |
+| 18563 | Bindings of the Windseeker |  |  | 4.26 | 4 |  | repo+wowhead-forever |
 
 ### Sulfuron Harbinger
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 7078 | Essence of Fire |  |  |  | 40 |  | repo |
-| 16816 |  |  |  |  | 33.3 |  | repo |
-| 16848 |  |  |  |  | 33.3 |  | repo |
-| 17074 |  |  |  |  | 33.3 |  | repo |
-| 16823 |  |  |  |  | 33 |  | repo |
-| 16868 |  |  |  |  | 33 |  | repo |
+| 16816 |  |  |  |  | 33.3 | ✘ 404 | repo |
+| 16848 |  |  |  |  | 33.3 | ✘ 404 | repo |
+| 17074 |  |  |  |  | 33.3 | ✘ 404 | repo |
+| 16823 |  |  |  |  | 33 | ✘ 404 | repo |
+| 16868 |  |  |  |  | 33 | ✘ 404 | repo |
 | 17077 |  |  |  |  | 3.4 | ✘ 404 | repo |
 | 18861 |  |  |  |  | 3.4 | ✘ 404 | repo |
 | 18870 |  |  |  |  | 3.4 | ✘ 404 | repo |
@@ -195,19 +195,19 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 7076 | Essence of Earth |  |  |  | 40 |  | repo |
 | 7078 | Essence of Fire |  |  |  | 40 |  | repo |
-| 17203 |  |  |  |  | 37 |  | repo |
-| 16798 |  |  |  |  | 25 |  | repo |
-| 16809 |  |  |  |  | 25 |  | repo |
-| 16815 |  |  |  |  | 25 |  | repo |
-| 16820 |  |  |  |  | 25 |  | repo |
-| 17072 |  |  |  |  | 25 |  | repo |
-| 17103 |  |  |  |  | 25 |  | repo |
-| 18842 |  |  |  |  | 25 |  | repo |
-| 16833 |  |  |  |  | 20 |  | repo |
-| 16841 |  |  |  |  | 20 |  | repo |
-| 16845 |  |  |  |  | 20 |  | repo |
-| 16853 |  |  |  |  | 20 |  | repo |
-| 16865 |  |  |  |  | 20 |  | repo |
+| 17203 | Sulfuron Ingot |  |  | 33.09 | 37 |  | repo+wowhead-forever |
+| 16798 |  |  |  |  | 25 | ✘ 404 | repo |
+| 16809 |  |  |  |  | 25 | ✘ 404 | repo |
+| 16815 |  |  |  |  | 25 | ✘ 404 | repo |
+| 16820 |  |  |  |  | 25 | ✘ 404 | repo |
+| 17072 |  |  |  |  | 25 | ✘ 404 | repo |
+| 17103 |  |  |  |  | 25 | ✘ 404 | repo |
+| 18842 |  |  |  |  | 25 | ✘ 404 | repo |
+| 16833 |  |  |  |  | 20 | ✘ 404 | repo |
+| 16841 |  |  |  |  | 20 | ✘ 404 | repo |
+| 16845 |  |  |  |  | 20 | ✘ 404 | repo |
+| 16853 |  |  |  |  | 20 | ✘ 404 | repo |
+| 16865 |  |  |  |  | 20 | ✘ 404 | repo |
 | 17011 | Lava Core |  |  |  | 14 |  | repo |
 | 18820 | Talisman of Ephemeral Power | Trinket |  |  | 2.3 |  | repo |
 | 18821 | Quick Strike Ring | Finger |  |  | 2.3 |  | repo |
@@ -226,29 +226,29 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 7078 | Essence of Fire |  |  |  | 40 |  | repo |
-| 17063 |  |  |  |  | 20 |  | repo |
-| 17102 |  |  |  |  | 20 |  | repo |
-| 17106 |  |  |  |  | 20 |  | repo |
-| 17107 |  |  |  |  | 20 |  | repo |
-| 18814 |  |  |  |  | 20 |  | repo |
-| 18815 |  |  |  |  | 20 |  | repo |
-| 18816 |  |  |  |  | 20 |  | repo |
-| 18817 |  |  |  |  | 20 |  | repo |
-| 19137 |  |  |  |  | 20 |  | repo |
-| 19138 |  |  |  |  | 20 |  | repo |
-| 16901 |  |  |  |  | 11.1 |  | repo |
-| 16909 |  |  |  |  | 11.1 |  | repo |
-| 16915 |  |  |  |  | 11.1 |  | repo |
-| 16922 |  |  |  |  | 11.1 |  | repo |
-| 16930 |  |  |  |  | 11.1 |  | repo |
-| 16938 |  |  |  |  | 11.1 |  | repo |
-| 16946 |  |  |  |  | 11.1 |  | repo |
-| 16954 |  |  |  |  | 11.1 |  | repo |
-| 16962 |  |  |  |  | 11.1 |  | repo |
-| 17076 |  |  |  |  | 8 |  | repo |
-| 17082 |  |  |  |  | 8 |  | repo |
-| 17104 |  |  |  |  | 8 |  | repo |
-| 17204 |  |  |  |  | 3 |  | repo |
+| 17063 |  |  |  |  | 20 | ✘ 404 | repo |
+| 17102 |  |  |  |  | 20 | ✘ 404 | repo |
+| 17106 |  |  |  |  | 20 | ✘ 404 | repo |
+| 17107 |  |  |  |  | 20 | ✘ 404 | repo |
+| 18814 | Choker of the Fire Lord | Neck |  | 17.65 | 20 |  | repo+wowhead-forever |
+| 18815 | Essence of the Pure Flame | Trinket |  | 24.37 | 20 |  | repo+wowhead-forever |
+| 18816 |  |  |  |  | 20 | ✘ 404 | repo |
+| 18817 |  |  |  |  | 20 | ✘ 404 | repo |
+| 19137 |  |  |  |  | 20 | ✘ 404 | repo |
+| 19138 | Band of Sulfuras | Finger |  | 15.13 | 20 |  | repo+wowhead-forever |
+| 16901 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16909 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16915 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16922 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16930 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16938 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16946 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16954 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 16962 |  |  |  |  | 11.1 | ✘ 404 | repo |
+| 17076 |  |  |  |  | 8 | ✘ 404 | repo |
+| 17082 |  |  |  |  | 8 | ✘ 404 | repo |
+| 17104 |  |  |  |  | 8 | ✘ 404 | repo |
+| 17204 | Eye of Sulfuras |  |  | 5.88 | 3 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -327,6 +327,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Shazzrah: 16801  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 16831  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 16852  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Shazzrah: 16803  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Shazzrah: 16811  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Shazzrah: 16824  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 17077  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 18861  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 18870  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
@@ -335,6 +338,17 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Shazzrah: 18878  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 19145  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Shazzrah: 19146  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Baron Geddon: 16797  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Baron Geddon: 16807  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Baron Geddon: 17110  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Baron Geddon: 16836  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Baron Geddon: 16844  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Baron Geddon: 16856  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Sulfuron Harbinger: 16816  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Sulfuron Harbinger: 16848  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Sulfuron Harbinger: 17074  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Sulfuron Harbinger: 16823  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Sulfuron Harbinger: 16868  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Sulfuron Harbinger: 17077  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Sulfuron Harbinger: 18861  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Sulfuron Harbinger: 18870  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
@@ -343,6 +357,18 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Sulfuron Harbinger: 18878  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Sulfuron Harbinger: 19145  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Sulfuron Harbinger: 19146  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16798  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16809  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16815  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16820  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 17072  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 17103  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 18842  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16833  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16841  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16845  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16853  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Golemagg the Incinerator: 16865  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Golemagg the Incinerator: 18822  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Golemagg the Incinerator: 18823  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Golemagg the Incinerator: 18824  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
@@ -352,6 +378,25 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Golemagg the Incinerator: 19142  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Golemagg the Incinerator: 19143  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Golemagg the Incinerator: 19144  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17063  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17102  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17106  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17107  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 18816  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 18817  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 19137  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16901  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16909  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16915  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16922  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16930  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16938  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16946  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16954  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 16962  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17076  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17082  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Ragnaros: 17104  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 
 ## Quests
 

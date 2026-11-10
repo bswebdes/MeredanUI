@@ -20,10 +20,10 @@
 | 8 | LBRS | Gizrul the Slavener | Gizrul der Geifernde | 273 | 10268 | 1 0.39,0.84 | worg den, spawns after Halycon |
 | 9 | LBRS | Overlord Wyrmthalak | Oberanführer Wyrmthalak | 275 | 9568 | 1 0.56,0.55 | final room of the lower spire |
 | 10 | UBRS | Pyroguard Emberseer | Feuerwache Glutseher | 3062 | 9816 | 1 0.30,0.27 | Hall of Binding; start at Blackhand Altar |
-| 11 | UBRS | Solakar Flamewreath |  | — | 10264 | — | The Rookery; start at Father Flame |
-| 12 | UBRS | Goraluk Anvilcrack (optional) |  | — | 10899 | — | Hall of Blackhand |
+| 11 | UBRS | Solakar Flamewreath | Solakar Feuerkrone | — | 10264 | — | The Rookery; start at Father Flame |
+| 12 | UBRS | Goraluk Anvilcrack (optional) | Goraluk Hammerbruch | — | 10899 | — | Hall of Blackhand |
 | 13 | UBRS | Warchief Rend Blackhand | Kriegshäuptling Rend Blackhand | 3063 | 10429 | 1 0.51,0.24 | Blackrock Stadium; event via Lord Victor Nefarius |
-| 14 | UBRS | Gyth |  | — | 10339 | — | Blackrock Stadium, with Rend |
+| 14 | UBRS | Gyth | Gyth | — | 10339 | — | Blackrock Stadium, with Rend |
 | 15 | UBRS | The Beast | Die Bestie | 3068 | 10430 | 1 0.64,0.37 | The Furnace |
 | 16 | UBRS | Lord Valthalak (optional) | Lord Valthalak | 3070 | 16042 | — | summoned in The Beast's room (Brazier of Beckoning 22056) |
 | 17 | UBRS | General Drakkisath | General Drakkisath | 3069 | 10363 | 1 0.33,0.45 | Spire Throne, two Chromatic Elite Guards |
@@ -42,7 +42,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Highlord Omokk
 
@@ -51,11 +51,11 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 12336 | Gemstone of Spirestone (quest) | Quest | 27 | 27.12 | 13 | ✔ | guide+repo+wowhead-forever |
 | 16670 | Boots of Elements | Feet | 13 | 10.7 | 16.7 | ✔ | guide+repo+wowhead-forever |
 | 13167 | Fist of Omokk | Weapon | 15 | 13.46 | 16.7 | ✔ | guide+repo+wowhead-forever |
-| 12534 | Omokk's Head (quest) | Quest | 84 |  |  | ✔ | guide |
-| 13166 | Slamshot Shoulders | Shoulder Plate |  | 12.08 | 16.7 | ✔ | repo+wowhead-forever |
-| 13168 | Plate of the Shaman King | Chest Plate |  | 12.64 | 16.7 | ✔ | repo+wowhead-forever |
-| 13169 | Tressermane Leggings | Legs Leather |  | 12.9 | 16.7 | ✔ | repo+wowhead-forever |
-| 13170 | Skyshroud Leggings | Legs Cloth |  | 13.01 | 16.7 | ✔ | repo+wowhead-forever |
+| 12534 | Omokk's Head (quest) | Quest | 84 | 84.11 |  | ✔ | guide+wowhead-forever |
+| 13166 | Slamshot Shoulders | Shoulder Plate |  | 12.08 | 16.7 |  | repo+wowhead-forever |
+| 13168 | Plate of the Shaman King | Chest Plate |  | 12.64 | 16.7 |  | repo+wowhead-forever |
+| 13169 | Tressermane Leggings | Legs Leather |  | 12.9 | 16.7 |  | repo+wowhead-forever |
+| 13170 | Skyshroud Leggings | Legs Cloth |  | 13.01 | 16.7 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Shadow Hunter Vosh'gajin
@@ -65,10 +65,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 16712 | Shadowcraft Gloves | Hands | 18 | 17.55 | 21 | ✔ | guide+repo+wowhead-forever |
 | 13255 | Trueaim Gauntlets | Hands | 36 | 34.53 | 21 | ✔ | guide+repo+wowhead-forever |
 | 12653 | Riphook | Bow | 7 | 7.3 | 8 | ✔ | guide+repo+wowhead-forever |
-| 12654 | Doomshot | Ammo Arrow |  | 27.48 | 30 | ✔ | repo+wowhead-forever |
-| 12626 | Funeral Cuffs | Wrist Cloth |  | 18.45 | 21 | ✔ | repo+wowhead-forever |
-| 13257 | Demonic Runed Spaulders | Shoulder Leather |  | 7.83 | 21 | ✔ | repo+wowhead-forever |
-| 12651 | Blackcrow | Ranged Crossbow |  | 7.3 | 8 | ✔ | repo+wowhead-forever |
+| 12654 | Doomshot | Ammo Arrow |  | 27.48 | 30 |  | repo+wowhead-forever |
+| 12626 | Funeral Cuffs | Wrist Cloth |  | 18.45 | 21 |  | repo+wowhead-forever |
+| 13257 | Demonic Runed Spaulders | Shoulder Leather |  | 7.83 | 21 |  | repo+wowhead-forever |
+| 12651 | Blackcrow | Ranged Crossbow |  | 7.3 | 8 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### War Master Voone
@@ -79,10 +79,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 13173 | Flightblade Throwing Axe | Thrown | 91 | 91.59 | 100 | ✔ | guide+repo+wowhead-forever |
 | 16676 | Beaststalker's Gloves | Hands | 19 | 18.23 | 20 | ✔ | guide+repo+wowhead-forever |
 | 21524 | Red Winter Hat | Head Cloth |  |  | 100 |  | repo |
-| 12582 | Keris of Zul'Serak | One-Hand Dagger |  | 14.41 | 20 | ✔ | repo+wowhead-forever |
-| 13177 | Talisman of Evasion | Neck |  | 17.7 | 20 | ✔ | repo+wowhead-forever |
-| 13179 | Brazecore Armguards | Wrist Mail |  | 19.08 | 20 | ✔ | repo+wowhead-forever |
-| 22231 | Kayser's Boots of Precision | Feet Cloth |  | 13.13 | 20 | ✔ | repo+wowhead-forever |
+| 12582 | Keris of Zul'Serak | One-Hand Dagger |  | 14.41 | 20 |  | repo+wowhead-forever |
+| 13177 | Talisman of Evasion | Neck |  | 17.7 | 20 |  | repo+wowhead-forever |
+| 13179 | Brazecore Armguards | Wrist Mail |  | 19.08 | 20 |  | repo+wowhead-forever |
+| 22231 | Kayser's Boots of Precision | Feet Cloth |  | 13.13 | 20 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Mother Smolderweb
@@ -91,20 +91,20 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 16715 | Wildheart Boots | Feet | 15 | 15.65 | 15 | ✔ | guide+repo+wowhead-forever |
 | 13213 | Smolderweb's Eye | Trinket | 12 | 14 | 35 | ✔ | guide+repo+wowhead-forever |
-| 13244 | Gilded Gauntlets | Hands Mail |  | 26.66 | 35 | ✔ | repo+wowhead-forever |
-| 13183 | Venomspitter | One-Hand Mace |  | 3.54 | 15 | ✔ | repo+wowhead-forever |
+| 13244 | Gilded Gauntlets | Hands Mail |  | 26.66 | 35 |  | repo+wowhead-forever |
+| 13183 | Venomspitter | One-Hand Mace |  | 3.54 | 15 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Urok Doomhowl
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 12712 | Warosh's Mojo (quest) | Quest |  |  |  |  | guide |
+| 12712 | Warosh's Mojo (quest) | Quest |  | 41.56 |  | ✔ | guide+wowhead-forever |
 | 13258 | Slaghide Gauntlets | Hands | 22 | 24.41 | 23.8 | ✔ | guide+repo+wowhead-forever |
 | 18784 | Top Half of Advanced Armorsmithing: Volume III | Quest/Recipe | 13 | 16.88 | 16 | ✔ | guide+repo+wowhead-forever |
-| 13178 | Rosewine Circle | Finger |  | 14.78 | 23.8 | ✔ | repo+wowhead-forever |
-| 13259 | Ribsteel Footguards | Feet Plate |  | 22.32 | 23.8 | ✔ | repo+wowhead-forever |
-| 22232 | Marksman's Girdle | Waist Mail |  | 16.74 | 23.8 | ✔ | repo+wowhead-forever |
+| 13178 | Rosewine Circle | Finger |  | 14.78 | 23.8 |  | repo+wowhead-forever |
+| 13259 | Ribsteel Footguards | Feet Plate |  | 22.32 | 23.8 |  | repo+wowhead-forever |
+| 22232 | Marksman's Girdle | Waist Mail |  | 16.74 | 23.8 |  | repo+wowhead-forever |
 
 ### Quartermaster Zigris
 
@@ -112,7 +112,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 13253 | Hands of Power | Hands | 14 | 14.21 | 14 | ✔ | guide+repo+wowhead-forever |
 | 12835 | Plans: Annihilator | Recipe | 14 | 12.6 | 10 | ✔ | guide+repo+wowhead-forever |
-| 13252 | Cloudrunner Girdle | Waist Leather |  | 16.21 | 16 | ✔ | repo+wowhead-forever |
+| 13252 | Cloudrunner Girdle | Waist Leather |  | 16.21 | 16 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Halycon
@@ -121,8 +121,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 13212 | Halycon's Spiked Collar | Neck | 28 | 28.2 | 28.7 | ✔ | guide+repo+wowhead-forever |
 | 13211 | Slashclaw Bracers | Wrist | 28 | 27.14 | 28.7 | ✔ | guide+repo+wowhead-forever |
-| 22313 | Ironweave Bracers | Wrist Cloth |  | 16.95 | 28.7 | ✔ | repo+wowhead-forever |
-| 13210 | Pads of the Dread Wolf | Feet Leather |  | 17.36 | 14 | ✔ | repo+wowhead-forever |
+| 22313 | Ironweave Bracers | Wrist Cloth |  | 16.95 | 28.7 |  | repo+wowhead-forever |
+| 13210 | Pads of the Dread Wolf | Feet Leather |  | 17.36 | 14 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Gizrul the Slavener
@@ -130,22 +130,22 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 16718 | Wildheart Spaulders | Shoulder | 18 | 18.21 | 15 | ✔ | guide+repo+wowhead-forever |
-| 13205 | Rhombeard Protector | Off Hand Shield |  | 24.88 | 28.3 | ✔ | repo+wowhead-forever |
-| 13206 | Wolfshear Leggings | Legs Cloth |  | 25.76 | 28.3 | ✔ | repo+wowhead-forever |
-| 13208 | Bleak Howler Armguards | Wrist Leather |  | 24.5 | 28.3 | ✔ | repo+wowhead-forever |
+| 13205 | Rhombeard Protector | Off Hand Shield |  | 24.88 | 28.3 |  | repo+wowhead-forever |
+| 13206 | Wolfshear Leggings | Legs Cloth |  | 25.76 | 28.3 |  | repo+wowhead-forever |
+| 13208 | Bleak Howler Armguards | Wrist Leather |  | 24.5 | 28.3 |  | repo+wowhead-forever |
 
 ### Overlord Wyrmthalak
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 12337 | Gemstone of Bloodaxe (quest) | Quest | 41 | 40.51 | 26 | ✔ | guide+repo+wowhead-forever |
-| 12780 | General Drakkisath's Command (quest) | Quest (starts 5089) | 25 |  |  | ✔ | guide |
+| 12780 | General Drakkisath's Command (quest) | Quest (starts 5089) | 25 | 24.58 |  | ✔ | guide+wowhead-forever |
 | 16679 | Beaststalker's Mantle | Shoulder | 16 | 17.37 | 20 | ✔ | guide+repo+wowhead-forever |
 | 22321 | Heart of Wyrmthalak | Trinket | 11 | 12.77 | 20 | ✔ | guide+repo+wowhead-forever |
 | 13143 | Mark of the Dragon Lord | Finger | 1 | 1.71 | 2 | ✔ | guide+repo+wowhead-forever |
-| 13161 | Trindlehaven Staff | Two-Hand Staff |  | 15.57 | 20 | ✔ | repo+wowhead-forever |
-| 13162 | Reiver Claws | Hands Plate |  | 14.39 | 20 | ✔ | repo+wowhead-forever |
-| 13163 | Relentless Scythe | Two-Hand Sword |  | 14.83 | 20 | ✔ | repo+wowhead-forever |
+| 13161 | Trindlehaven Staff | Two-Hand Staff |  | 15.57 | 20 |  | repo+wowhead-forever |
+| 13162 | Reiver Claws | Hands Plate |  | 14.39 | 20 |  | repo+wowhead-forever |
+| 13163 | Relentless Scythe | Two-Hand Sword |  | 14.83 | 20 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Pyroguard Emberseer
@@ -156,27 +156,27 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 12905 | Wildfire Cape | Back | 27 | 25.9 | 20 | ✔ | guide+repo+wowhead-forever |
 | 16672 | Gauntlets of Elements | Hands | 18 | 18.43 | 20 | ✔ | guide+repo+wowhead-forever |
 | 12927 | Truestrike Shoulders | Shoulder | 11 | 12.27 | 20 | ✔ | guide+repo+wowhead-forever |
-| 17322 | Eye of the Emberseer (quest) | Quest (6821) |  |  |  |  | guide |
+| 17322 | Eye of the Emberseer (quest) | Quest (6821) |  | 8.76 |  | ✔ | guide+wowhead-forever |
 | 12929 |  |  |  |  | 20 | ✘ 404 | repo |
-| 23320 | Tablet of Flame Shock VI |  |  | 0.22 | 8 | ✔ | repo+wowhead-forever |
+| 23320 | Tablet of Flame Shock VI |  |  | 0.22 | 8 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Solakar Flamewreath
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 12603 | Nightbrace Tunic | Chest | 18 |  |  | ✔ | guide |
-| 16695 | Devout Mantle | Shoulder | 18 |  |  | ✔ | guide |
-| 12606 | Crystallized Girdle | Waist | 17 |  |  | ✔ | guide |
+| 12603 | Nightbrace Tunic | Chest | 18 | 17.99 |  | ✔ | guide+wowhead-forever |
+| 16695 | Devout Mantle | Shoulder | 18 | 18.38 |  | ✔ | guide+wowhead-forever |
+| 12606 | Crystallized Girdle | Waist | 17 | 17.32 |  | ✔ | guide+wowhead-forever |
 
 ### Goraluk Anvilcrack
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 13498 | Handcrafted Mastersmith Leggings | Legs | 29 |  |  | ✔ | guide |
-| 18048 | Mastersmith's Hammer | One-Hand Mace | 24 |  |  | ✔ | guide |
-| 12834 | Plans: Arcanite Champion | Recipe | 9 |  |  | ✔ | guide |
-| 12837 | Plans: Masterwork Stormhammer | Recipe | 9 |  |  | ✔ | guide |
+| 13498 | Handcrafted Mastersmith Leggings | Legs | 29 |  |  | ✘ 404 | guide |
+| 18048 | Mastersmith's Hammer | One-Hand Mace | 24 |  |  | ✘ 404 | guide |
+| 12834 | Plans: Arcanite Champion | Recipe | 9 | 8.69 |  | ✔ | guide+wowhead-forever |
+| 12837 | Plans: Masterwork Stormhammer | Recipe | 9 | 8.77 |  | ✔ | guide+wowhead-forever |
 
 ### Warchief Rend Blackhand
 
@@ -188,20 +188,20 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 12940 | Dal'Rend's Sacred Charge | One-Hand Sword | 8 | 7.74 | 16.7 | ✔ | guide+repo+wowhead-forever |
 | 12590 | Felstriker | Dagger (epic) | 2 |  | 1 | ✘ 404 | guide+repo |
 | 12936 |  |  |  |  | 19.8 | ✘ 404 | repo |
-| 18102 | Dragonrider Boots | Feet Cloth |  | 20.95 | 19.8 | ✔ | repo+wowhead-forever |
-| 12583 | Blackhand Doomsaw | Two-Hand Polearm |  | 11.81 | 16.7 | ✔ | repo+wowhead-forever |
-| 12587 | Eye of Rend | Head Leather |  | 20.27 | 16.7 | ✔ | repo+wowhead-forever |
+| 18102 | Dragonrider Boots | Feet Cloth |  | 20.95 | 19.8 |  | repo+wowhead-forever |
+| 12583 | Blackhand Doomsaw | Two-Hand Polearm |  | 11.81 | 16.7 |  | repo+wowhead-forever |
+| 12587 | Eye of Rend | Head Leather |  | 20.27 | 16.7 |  | repo+wowhead-forever |
 | 18103 |  |  |  |  | 16.7 | ✘ 404 | repo |
 | 18104 |  |  |  |  | 16.7 | ✘ 404 | repo |
-| 22247 | Faith Healer's Boots | Feet Cloth |  | 13.23 | 16.7 | ✔ | repo+wowhead-forever |
+| 22247 | Faith Healer's Boots | Feet Cloth |  | 13.23 | 16.7 |  | repo+wowhead-forever |
 
 ### Gyth
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 12952 | Gyth's Skull | Head | 21 |  |  | ✔ | guide |
-| 16669 | Pauldrons of Elements | Shoulder | 20 |  |  | ✔ | guide |
-| 12871 | Chromatic Carapace | Crafting (epic) | 4 |  |  | ✔ | guide |
+| 12952 | Gyth's Skull | Head | 21 | 20.2 |  | ✔ | guide+wowhead-forever |
+| 16669 | Pauldrons of Elements | Shoulder | 20 | 19.07 |  | ✔ | guide+wowhead-forever |
+| 12871 | Chromatic Carapace | Crafting (epic) | 4 | 5.97 |  | ✔ | guide+wowhead-forever |
 
 ### The Beast
 
@@ -212,14 +212,14 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 16729 | Lightforge Spaulders | Shoulder | 17 | 18.37 | 20 | ✔ | guide+repo+wowhead-forever |
 | 12709 | Pip's Skinner | Dagger | 15 |  | 20 | ✘ 404 | guide+repo |
 | 12969 | Seeping Willow | Two-Hand Mace | 13 | 14.54 | 20 | ✔ | guide+repo+wowhead-forever |
-| 12731 | Pristine Hide of the Beast | Skinning (epic) |  |  |  |  | guide |
-| 12965 | Spiritshroud Leggings | Legs Cloth |  | 21.54 | 20 | ✔ | repo+wowhead-forever |
-| 12966 | Blackmist Armguards | Wrist Leather |  | 20.85 | 20 | ✔ | repo+wowhead-forever |
-| 12967 | Bloodmoon Cloak |  |  | 25.08 | 20 | ✔ | repo+wowhead-forever |
-| 12968 | Frostweaver Cape |  |  | 19.82 | 20 | ✔ | repo+wowhead-forever |
-| 22311 | Ironweave Boots | Feet Cloth |  | 15.53 | 20 | ✔ | repo+wowhead-forever |
-| 24101 | Book of Ferocious Bite V |  |  | 5.62 | 13 | ✔ | repo+wowhead-forever |
-| 19227 | Ace of Beasts |  |  | 6.04 | 5 | ✔ | repo+wowhead-forever |
+| 12731 | Pristine Hide of the Beast | Skinning (epic) |  |  |  | ✘ 404 | guide |
+| 12965 | Spiritshroud Leggings | Legs Cloth |  | 21.54 | 20 |  | repo+wowhead-forever |
+| 12966 | Blackmist Armguards | Wrist Leather |  | 20.85 | 20 |  | repo+wowhead-forever |
+| 12967 | Bloodmoon Cloak |  |  | 25.08 | 20 |  | repo+wowhead-forever |
+| 12968 | Frostweaver Cape |  |  | 19.82 | 20 |  | repo+wowhead-forever |
+| 22311 | Ironweave Boots | Feet Cloth |  | 15.53 | 20 |  | repo+wowhead-forever |
+| 24101 | Book of Ferocious Bite V |  |  | 5.62 | 13 |  | repo+wowhead-forever |
+| 19227 | Ace of Beasts |  |  | 6.04 | 5 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Lord Valthalak
@@ -228,7 +228,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 22335 | Lord Valthalak's Staff of Command | Staff |  |  | 27.2 | ✘ 404 | guide+repo |
 | 22340 | Pendant of Celerity | Neck |  |  | 30.2 | ✘ 404 | guide+repo |
-| 22302 | Ironweave Cowl | Head Cloth |  | 22.76 | 40.2 | ✔ | repo+wowhead-forever |
+| 22302 | Ironweave Cowl | Head Cloth |  | 22.76 | 40.2 |  | repo+wowhead-forever |
 | 22337 |  |  |  |  | 35.9 | ✘ 404 | repo |
 | 22342 |  |  |  |  | 35.6 | ✘ 404 | repo |
 | 22343 |  |  |  |  | 32.6 | ✘ 404 | repo |
@@ -244,22 +244,22 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 12602 | Draconian Deflector | Shield | 23 | 22.01 | 24.8 | ✔ | guide+repo+wowhead-forever |
 | 13098 | Painweaver Band | Finger | 22 |  | 24.8 | ✘ 404 | guide+repo |
 | 12592 | Blackblade of Shahram | Two-Hand Sword (epic) | 1 |  | 1 | ✘ 404 | guide+repo |
-| 16663 | Blood of the Black Dragon Champion (quest) | Quest |  |  |  |  | guide |
+| 16663 | Blood of the Black Dragon Champion (quest) | Quest |  | 18.88 |  | ✔ | guide+wowhead-forever |
 | 15730 | Pattern: Red Dragonscale Breastplate | Recipe | 5 | 4.71 | 4 | ✔ | guide+repo+wowhead-forever |
 | 13519 | Recipe: Flask of the Titans | Recipe | 5 | 4.05 | 3 | ✔ | guide+repo+wowhead-forever |
-| 22253 | Tome of the Lost | Held In Off-hand |  | 21.97 | 25 | ✔ | repo+wowhead-forever |
+| 22253 | Tome of the Lost | Held In Off-hand |  | 21.97 | 25 |  | repo+wowhead-forever |
 | 22267 |  |  |  |  | 25 | ✘ 404 | repo |
-| 22268 | Draconic Infused Emblem | Trinket |  | 6.8 | 25 | ✔ | repo+wowhead-forever |
-| 22269 | Shadow Prowler's Cloak |  |  | 18.15 | 25 | ✔ | repo+wowhead-forever |
-| 16666 | Vest of Elements | Chest Mail |  | 5.1 | 11.1 | ✔ | repo+wowhead-forever |
-| 16674 | Beaststalker's Tunic | Chest Mail |  | 11.45 | 11.1 | ✔ | repo+wowhead-forever |
-| 16688 | Magister's Robes | Chest Cloth |  | 11.18 | 11.1 | ✔ | repo+wowhead-forever |
-| 16690 | Devout Robe | Chest Cloth |  | 10.83 | 11.1 | ✔ | repo+wowhead-forever |
-| 16700 | Dreadmist Robe | Chest Cloth |  | 12.36 | 11.1 | ✔ | repo+wowhead-forever |
-| 16706 | Wildheart Vest | Chest Leather |  | 11.82 | 11.1 | ✔ | repo+wowhead-forever |
-| 16721 | Shadowcraft Tunic | Chest Leather |  | 10.37 | 11.1 | ✔ | repo+wowhead-forever |
-| 16726 | Lightforge Breastplate | Chest Plate |  | 6.78 | 11.1 | ✔ | repo+wowhead-forever |
-| 16730 | Breastplate of Valor | Chest Plate |  | 12.07 | 11.1 | ✔ | repo+wowhead-forever |
+| 22268 | Draconic Infused Emblem | Trinket |  | 6.8 | 25 |  | repo+wowhead-forever |
+| 22269 | Shadow Prowler's Cloak |  |  | 18.15 | 25 |  | repo+wowhead-forever |
+| 16666 | Vest of Elements | Chest Mail |  | 5.1 | 11.1 |  | repo+wowhead-forever |
+| 16674 | Beaststalker's Tunic | Chest Mail |  | 11.45 | 11.1 |  | repo+wowhead-forever |
+| 16688 | Magister's Robes | Chest Cloth |  | 11.18 | 11.1 |  | repo+wowhead-forever |
+| 16690 | Devout Robe | Chest Cloth |  | 10.83 | 11.1 |  | repo+wowhead-forever |
+| 16700 | Dreadmist Robe | Chest Cloth |  | 12.36 | 11.1 |  | repo+wowhead-forever |
+| 16706 | Wildheart Vest | Chest Leather |  | 11.82 | 11.1 |  | repo+wowhead-forever |
+| 16721 | Shadowcraft Tunic | Chest Leather |  | 10.37 | 11.1 |  | repo+wowhead-forever |
+| 16726 | Lightforge Breastplate | Chest Plate |  | 6.78 | 11.1 |  | repo+wowhead-forever |
+| 16730 | Breastplate of Valor | Chest Plate |  | 12.07 | 11.1 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Bannok Grimaxe
@@ -267,34 +267,34 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 12838 | Plans: Arcanite Reaper | Recipe | 8 | 8.24 | 5 | ✔ | guide+repo+wowhead-forever |
-| 12621 | Demonfork | Main Hand Axe |  | 28.86 | 33.3 | ✔ | repo+wowhead-forever |
-| 12634 | Chiselbrand Girdle | Waist Mail |  | 31.97 | 33.3 | ✔ | repo+wowhead-forever |
-| 12637 | Backusarian Gauntlets | Hands Plate |  | 32.04 | 33.3 | ✔ | repo+wowhead-forever |
+| 12621 | Demonfork | Main Hand Axe |  | 28.86 | 33.3 |  | repo+wowhead-forever |
+| 12634 | Chiselbrand Girdle | Waist Mail |  | 31.97 | 33.3 |  | repo+wowhead-forever |
+| 12637 | Backusarian Gauntlets | Hands Plate |  | 32.04 | 33.3 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Crystal Fang
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 13184 | Fallbrush Handgrips | Hands Leather |  | 32.49 | 33.3 | ✔ | repo+wowhead-forever |
-| 13185 | Sunderseer Mantle | Shoulder Cloth |  | 33.17 | 33.3 | ✔ | repo+wowhead-forever |
-| 13218 | Fang of the Crystal Spider | One-Hand Dagger |  | 14.75 | 33.3 | ✔ | repo+wowhead-forever |
+| 13184 | Fallbrush Handgrips | Hands Leather |  | 32.49 | 33.3 |  | repo+wowhead-forever |
+| 13185 | Sunderseer Mantle | Shoulder Cloth |  | 33.17 | 33.3 |  | repo+wowhead-forever |
+| 13218 | Fang of the Crystal Spider | One-Hand Dagger |  | 14.75 | 33.3 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Spirestone Battle Lord
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 13285 | The Blackrock Slicer | Two-Hand Axe |  | 37.88 | 60 | ✔ | repo+wowhead-forever |
-| 13284 | Swiftdart Battleboots | Feet Mail |  | 56.93 | 40 | ✔ | repo+wowhead-forever |
+| 13285 | The Blackrock Slicer | Two-Hand Axe |  | 37.88 | 60 |  | repo+wowhead-forever |
+| 13284 | Swiftdart Battleboots | Feet Mail |  | 56.93 | 40 |  | repo+wowhead-forever |
 
 ### Spirestone Lord Magus
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 13261 | Globe of D'sak | Held In Off-hand |  | 22.31 | 33.3 | ✔ | repo+wowhead-forever |
-| 13282 | Ogreseer Tower Boots | Feet Cloth |  | 24.59 | 33.3 | ✔ | repo+wowhead-forever |
-| 13283 | Magus Ring | Finger |  | 46.49 | 33.3 | ✔ | repo+wowhead-forever |
+| 13261 | Globe of D'sak | Held In Off-hand |  | 22.31 | 33.3 |  | repo+wowhead-forever |
+| 13282 | Ogreseer Tower Boots | Feet Cloth |  | 24.59 | 33.3 |  | repo+wowhead-forever |
+| 13283 | Magus Ring | Finger |  | 46.49 | 33.3 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 1 |  | repo+wowhead-forever |
 
 ### Jed Runewatcher
@@ -310,17 +310,17 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 12608 | Butcher's Apron |  |  | 59.06 | 50 | ✔ | repo+wowhead-forever |
-| 13286 | Rivenspike | One-Hand Axe |  | 37.25 | 50 | ✔ | repo+wowhead-forever |
+| 12608 | Butcher's Apron |  |  | 59.06 | 50 |  | repo+wowhead-forever |
+| 13286 | Rivenspike | One-Hand Axe |  | 37.25 | 50 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Ghok Bashguud
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 13198 | Hurd Smasher | One-Hand Fist Weapon |  | 23.75 | 33.3 | ✔ | repo+wowhead-forever |
-| 13203 | Armswake Cloak |  |  | 37.86 | 33.3 | ✔ | repo+wowhead-forever |
-| 13204 | Bashguuder | One-Hand Mace |  | 33.62 | 33.3 | ✔ | repo+wowhead-forever |
+| 13198 | Hurd Smasher | One-Hand Fist Weapon |  | 23.75 | 33.3 |  | repo+wowhead-forever |
+| 13203 | Armswake Cloak |  |  | 37.86 | 33.3 |  | repo+wowhead-forever |
+| 13204 | Bashguuder | One-Hand Mace |  | 33.62 | 33.3 |  | repo+wowhead-forever |
 | 16250 | Formula: Enchant Weapon - Superior Striking |  |  |  | 2 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
@@ -457,12 +457,15 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Ghok Bashguud: 16250 Formula: Enchant Weapon - Superior Striking - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Spirestone Warlord)
 - Ghok Bashguud: 16250 Formula: Enchant Weapon - Superior Striking - Wowhead Forever lists it as dropped by 'Spirestone Warlord'
 - Pyroguard Emberseer: 12929  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Goraluk Anvilcrack: 13498 Handcrafted Mastersmith Leggings - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- Goraluk Anvilcrack: 18048 Mastersmith's Hammer - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Warchief Rend Blackhand: 12590 Felstriker - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Warchief Rend Blackhand: 12936  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Warchief Rend Blackhand: 18103  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Warchief Rend Blackhand: 18104  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - The Beast: 12963 Blademaster Leggings - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - The Beast: 12709 Pip's Skinner - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
+- The Beast: 12731 Pristine Hide of the Beast - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Lord Valthalak: 22335 Lord Valthalak's Staff of Command - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Lord Valthalak: 22340 Pendant of Celerity - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
 - Lord Valthalak: 22337  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet
@@ -511,8 +514,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 6569 | Oculus Illusions | 60 | Horde | Myranda the Hag (11872) | Western Plaguelands | 6568 | **no** |
 | 6602 | Blood of the Black Dragon Champion | 60 | Horde | Rexxar (10182) | Feralas | 6601 (14-step chain) | **no** |
 | 4768 | The Darkstone Tablet | 60 | Horde | Shadowmage Vivian Lagrave (9078) | Badlands (Kargath) | 4769 (Apothecary Zinge 5204) | **no** |
-| 7761 | Blackhand's Command |  | Both |  (item 18987) | Upper Blackrock Spire |  | **no** |
-| 6821 | Eye of the Emberseer |  | Both | Duke Hydraxis (13278) | Azshara |  | **no** |
+| 7761 | Blackhand's Command | 60 | Both |  (item 18987) | Upper Blackrock Spire |  | **no** |
+| 6821 | Eye of the Emberseer | 60 | Both | Duke Hydraxis (13278) | Azshara |  | **no** |
 
 ## Forever changes noted by guides
 
@@ -537,40 +540,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - [ ] No pin for 'Lord Valthalak' (encounter 3070) in DungeonPinData.lua.
 - [ ] Rare pin 9219 'Spirestone Butcher' is not mentioned in the guide.
 - [ ] Rare pin 9718 'Ghok Bashguud' is not mentioned in the guide.
-- [ ] Quest 4742 'Seal of Ascension' not found on Wowhead Forever - check ID.
-- [ ] Quest 4743 'Seal of Ascension' not found on Wowhead Forever - check ID.
-- [ ] Quest 4867 'Urok Doomhowl' not found on Wowhead Forever - check ID.
-- [ ] Quest 4862 'En-Ay-Es-Tee-Why' not found on Wowhead Forever - check ID.
-- [ ] Quest 4729 'Kibler's Exotic Pets' not found on Wowhead Forever - check ID.
-- [ ] Quest 4866 'Mother's Milk' not found on Wowhead Forever - check ID.
-- [ ] Quest 4734 'Egg Freezing' not found on Wowhead Forever - check ID.
-- [ ] Quest 4735 'Egg Collection' not found on Wowhead Forever - check ID.
-- [ ] Quest 8966 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 8989 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 8995 'Mea Culpa, Lord Valthalak' not found on Wowhead Forever - check ID.
-- [ ] Quest 4788 'The Final Tablets' not found on Wowhead Forever - check ID.
-- [ ] Quest 5127 'The Demon Forge' not found on Wowhead Forever - check ID.
-- [ ] Quest 5160 'The Matron Protectorate' not found on Wowhead Forever - check ID.
-- [ ] Quest 5047 'Finkle Einhorn, At Your Service!' not found on Wowhead Forever - check ID.
-- [ ] Quest 5001 'Bijou's Belongings' not found on Wowhead Forever - check ID.
-- [ ] Quest 5002 'Message to Maxwell' not found on Wowhead Forever - check ID.
-- [ ] Quest 5081 'Maxwell's Mission' not found on Wowhead Forever - check ID.
-- [ ] Quest 4701 'Put Her Down' not found on Wowhead Forever - check ID.
-- [ ] Quest 5089 'General Drakkisath's Command' not found on Wowhead Forever - check ID.
-- [ ] Quest 5102 'General Drakkisath's Demise' not found on Wowhead Forever - check ID.
-- [ ] Quest 4764 'Doomrigger's Clasp' not found on Wowhead Forever - check ID.
-- [ ] Quest 4765 'Delivery to Ridgewell' not found on Wowhead Forever - check ID.
-- [ ] Quest 6502 'Drakefire Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 4724 'The Pack Mistress' not found on Wowhead Forever - check ID.
-- [ ] Quest 4982 'Bijou's Belongings' not found on Wowhead Forever - check ID.
-- [ ] Quest 4983 'Bijou's Reconnaissance Report' not found on Wowhead Forever - check ID.
-- [ ] Quest 4903 'Warlord's Command' not found on Wowhead Forever - check ID.
-- [ ] Quest 4974 'For The Horde!' not found on Wowhead Forever - check ID.
-- [ ] Quest 6569 'Oculus Illusions' not found on Wowhead Forever - check ID.
-- [ ] Quest 6602 'Blood of the Black Dragon Champion' not found on Wowhead Forever - check ID.
-- [ ] Quest 4768 'The Darkstone Tablet' not found on Wowhead Forever - check ID.
-- [ ] Quest 7761 'Blackhand's Command' not found on Wowhead Forever - check ID.
-- [ ] Quest 6821 'Eye of the Emberseer' not found on Wowhead Forever - check ID.
+- [ ] Pins of 'Halycon' and 'Gizrul the Slavener' are almost on the same spot (floor 1) - intended?
+- [ ] Quest 5047: guide title 'Finkle Einhorn, At Your Service!', Wowhead Forever 'Pip Quickwit, At Your Service!'.
 
 ## Research notes
 

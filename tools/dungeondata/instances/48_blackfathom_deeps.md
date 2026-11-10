@@ -10,19 +10,18 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Ghamoo-ra | Ghamoo-ra | 2916 | 4887 ⚠ | 1 0.33,0.60 | Pool of Ask'ar, first cave |
-| 2 |  | Lady Sarevess | Lady Sarevess | 2915 | 4831 ⚠ | 1 0.10,0.36 | side cave west of the pool, two naga guards |
-| 3 |  | Gelihast |  | — | 6243 ⚠ | — | murloc cave east of the pool |
-| 4 |  | Lorgus Jett | Lorgus Jett | 2913 | 12902 ⚠ | 1 0.61,0.62 | one of four spawns between trident tunnel and Moonshrine Ruins |
-| 5 |  | Baron Aquanis (optional) |  | — | 12876 ⚠ | — | Moonshrine Ruins; summoned via Fathom Stone (Horde quest 6921) |
-| 6 |  | Twilight Lord Kelris | Twilight-Lord Kelris | 2911 | 4832 ⚠ | 2 0.52,0.82 | altar in Moonshrine Sanctum |
-| 7 |  | Old Serra'kis | Alter Serra'kis | 2912 | 4830 ⚠ | 2 0.53,0.69 | Forgotten Pool, underwater floor |
-| 8 |  | Aku'mai | Aku'mai | 2910 | 4829 ⚠ | 2 0.86,0.87 | Aku'mai's Lair, end of dungeon after brazier waves |
-| – |  | Geilhast | Gelihast | 2914 | ? | 1 0.52,0.55 |  |
+| 1 |  | Ghamoo-ra | Ghamoo-ra | 2916 | 4887 | 1 0.33,0.60 | Pool of Ask'ar, first cave |
+| 2 |  | Lady Sarevess | Lady Sarevess | 2915 | 4831 | 1 0.10,0.36 | side cave west of the pool, two naga guards |
+| 3 |  | Gelihast | Gelihast | 2914 | 6243 | 1 0.52,0.55 | murloc cave east of the pool |
+| 4 |  | Lorgus Jett | Lorgus Jett | 2913 | 12902 | 1 0.61,0.62 | one of four spawns between trident tunnel and Moonshrine Ruins |
+| 5 |  | Baron Aquanis (optional) | Baron Aquanis | — | 12876 | — | Moonshrine Ruins; summoned via Fathom Stone (Horde quest 6921) |
+| 6 |  | Twilight Lord Kelris | Twilight-Lord Kelris | 2911 | 4832 | 2 0.52,0.82 | altar in Moonshrine Sanctum |
+| 7 |  | Old Serra'kis | Alter Serra'kis | 2912 | 4830 | 2 0.53,0.69 | Forgotten Pool, underwater floor |
+| 8 |  | Aku'mai | Aku'mai | 2910 | 4829 | 2 0.86,0.87 | Aku'mai's Lair, end of dungeon after brazier waves |
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Ghamoo-ra
 
@@ -30,7 +29,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 6907 | Tortoise Armor | Chest (Mail) | 37 | 36.08 | 40 | ✔ | guide+repo+wowhead-forever |
 | 6908 | Ghamoo-ra's Bind | Waist (Cloth) | 56 | 49.69 | 60 | ✔ | guide+repo+wowhead-forever |
-| 273839 | Spiked Shell Band | Finger | 4 |  |  | ✔ | guide |
+| 273839 | Spiked Shell Band | Finger | 4 | 8.29 |  | ✔ | guide+wowhead-forever |
 
 ### Lady Sarevess
 
@@ -44,24 +43,24 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 6906 | Algae Fists | Hands (Mail) | 44 | 41 |  | ✔ | guide+wowhead-forever |
-| 6905 | Reef Axe | Two-Hand Axe | 47 | 43.43 |  | ✔ | guide+wowhead-forever |
-| 273840 | Cursed Murloc Eye | Trinket | 4 |  |  | ✔ | guide |
-| 273141 | Blueprint: Fishing Rack | Recipe | 1 |  |  | ✔ | guide |
+| 6906 | Algae Fists | Hands (Mail) | 44 | 41 | 50 | ✔ | guide+repo+wowhead-forever |
+| 6905 | Reef Axe | Two-Hand Axe | 47 | 43.43 | 50 | ✔ | guide+repo+wowhead-forever |
+| 273840 | Cursed Murloc Eye | Trinket | 4 | 8.68 |  | ✔ | guide+wowhead-forever |
+| 273141 | Blueprint: Fishing Rack | Recipe | 1 | 1.87 |  | ✔ | guide+wowhead-forever |
 
 ### Lorgus Jett
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 273841 | Twilight Maul | Mace | 14 |  |  | ✔ | guide |
-| 273842 | Treacherous Treads | Feet (Mail) | 10 |  |  | ✔ | guide |
-| 273843 | Fallenroot Longbow |  | 10 |  |  | ✔ | guide |
+| 273841 | Twilight Maul | Mace | 14 | 21.22 |  | ✔ | guide+wowhead-forever |
+| 273842 | Treacherous Treads | Feet (Mail) | 10 | 17.21 |  | ✔ | guide+wowhead-forever |
+| 273843 | Fallenroot Longbow | Ranged Bow | 10 | 18.56 |  | ✔ | guide+wowhead-forever |
 
 ### Baron Aquanis
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 16782 | Strange Water Globe (quest) | Quest starter (6922) | 93 |  |  | ✔ | guide |
+| 16782 | Strange Water Globe (quest) | Quest starter (6922) | 93 | 91.9 |  | ✔ | guide+wowhead-forever |
 
 ### Twilight Lord Kelris
 
@@ -69,8 +68,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 1155 | Rod of the Sleepwalker | Staff | 50 | 29.9 | 60 | ✔ | guide+repo+wowhead-forever |
 | 6903 | Gaze Dreamer Pants | Legs (Cloth) | 34 | 21.23 | 40 | ✔ | guide+repo+wowhead-forever |
-| 273846 | Twilight Lord Girdle | Waist (Mail) | 3 |  |  | ✔ | guide |
-| 5881 | Head of Kelris (quest) | Quest (1198) |  |  |  |  | guide |
+| 273846 | Twilight Lord Girdle | Waist (Mail) | 3 | 4.64 |  | ✔ | guide+wowhead-forever |
+| 5881 | Head of Kelris (quest) | Quest (1198) |  |  |  | ✔ | guide |
 
 ### Old Serra'kis
 
@@ -88,18 +87,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 6910 | Leech Pants | Legs (Cloth) | 36 | 34.51 | 40 | ✔ | guide+repo+wowhead-forever |
 | 6909 | Strike of the Hydra | Two-Hand Sword | 20 | 24.61 | 20 | ✔ | guide+repo+wowhead-forever |
 
-### Geilhast
-
-| Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
-|---|---|---|---|---|---|---|---|
-| 6905 | Reef Axe | Two-Hand Axe |  |  | 50 |  | repo+wowhead-forever |
-| 6906 | Algae Fists | Hands Mail |  |  | 50 |  | repo+wowhead-forever |
-
 ### Differences to Map/DungeonLoot.lua
 
 - Ghamoo-ra: 273839 Spiked Shell Band - in Forever guide, missing in DungeonLoot.lua
-- Gelihast: 6906 Algae Fists - in Forever guide, missing in DungeonLoot.lua
-- Gelihast: 6905 Reef Axe - in Forever guide, missing in DungeonLoot.lua
 - Gelihast: 273840 Cursed Murloc Eye - in Forever guide, missing in DungeonLoot.lua
 - Gelihast: 273141 Blueprint: Fishing Rack - in Forever guide, missing in DungeonLoot.lua
 - Lorgus Jett: 273841 Twilight Maul - in Forever guide, missing in DungeonLoot.lua
@@ -108,10 +98,6 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - Twilight Lord Kelris: 1155 Rod of the Sleepwalker - chance repo 60% vs Forever 29.9%
 - Twilight Lord Kelris: 6903 Gaze Dreamer Pants - chance repo 40% vs Forever 21.23%
 - Twilight Lord Kelris: 273846 Twilight Lord Girdle - in Forever guide, missing in DungeonLoot.lua
-- Geilhast: 6905 Reef Axe - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Gelihast)
-- Geilhast: 6905 Reef Axe - Wowhead Forever lists it as dropped by 'Gelihast'
-- Geilhast: 6906 Algae Fists - in DungeonLoot.lua, not in guide (Wowhead Forever says dropped by Gelihast)
-- Geilhast: 6906 Algae Fists - Wowhead Forever lists it as dropped by 'Gelihast'
 
 ## Quests
 
@@ -131,8 +117,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 6561 | Blackfathom Villainy | 27 | Horde | Argent Guard Thaelrid (4787) | Blackfathom Deeps (inside) |  | yes |
 | 6922 | Baron Aquanis | 30 | Horde |  (item 16782) | Blackfathom Deeps (drop from Baron Aquanis) | Amongst the Ruins (6921) | **no** |
 | 1740 | The Orb of Soran'ruk | 24 | Both (Warlock) | Doan Karhan (6247) | The Barrens |  | **no** |
-| 95042 | Seeking the Kor Gem |  | Horde (Forsaken Paladin) | Ulric Frostveil (259649) | Ashenvale (Zoram'gar Outpost) |  | **no** |
-| 1654 | The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806) |  | Alliance (Paladin) | Duthorian Rall / Daphne Stilwell / Jordan Stilwell (6171) (item 6776) | Stormwind / Westfall |  | **no** |
+| 95042 | Seeking the Kor Gem | 25 | Horde (Forsaken Paladin) | Ulric Frostveil (259649) | Ashenvale (Zoram'gar Outpost) |  | **no** |
+| 1654 | The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806) | 22 | Alliance (Paladin) | Duthorian Rall / Daphne Stilwell / Jordan Stilwell (6171) (item 6776) | Stormwind / Westfall |  | **no** |
 | 95140 | Old Fire-Eye (chain 95034,95036,95111,95125,95126,95140) | 26 | Horde | Lumina Windsinger |  |  | **no** |
 
 ## Forever changes noted by guides
@@ -146,34 +132,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 4887 (Ghamoo-ra) not found on Wowhead Forever - check ID.
-- [ ] NPC 4831 (Lady Sarevess) not found on Wowhead Forever - check ID.
-- [ ] Boss 'Gelihast' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 6243 (Gelihast) not found on Wowhead Forever - check ID.
-- [ ] NPC 12902 (Lorgus Jett) not found on Wowhead Forever - check ID.
+- [ ] DungeonEncounter 2914 is spelled 'Geilhast' in the English game data (German: Gelihast); NPC name is Gelihast. Typo in Blizzard's data - panel shows the encounter name.
 - [ ] Boss 'Baron Aquanis' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 12876 (Baron Aquanis) not found on Wowhead Forever - check ID.
-- [ ] NPC 4832 (Twilight Lord Kelris) not found on Wowhead Forever - check ID.
-- [ ] NPC 4830 (Old Serra'kis) not found on Wowhead Forever - check ID.
-- [ ] NPC 4829 (Aku'mai) not found on Wowhead Forever - check ID.
-- [ ] Encounter 2914 'Geilhast' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Quest 971 'Knowledge in the Deeps' not found on Wowhead Forever - check ID.
-- [ ] Quest 3765 'The Corruption Abroad' not found on Wowhead Forever - check ID.
-- [ ] Quest 1275 'Researching the Corruption' not found on Wowhead Forever - check ID.
-- [ ] Quest 1199 'Twilight Falls' not found on Wowhead Forever - check ID.
-- [ ] Quest 1198 'In Search of Thaelrid' not found on Wowhead Forever - check ID.
-- [ ] Quest 1200 'Blackfathom Villainy' not found on Wowhead Forever - check ID.
-- [ ] Quest 6562 'Trouble in the Deeps' not found on Wowhead Forever - check ID.
-- [ ] Quest 6563 'The Essence of Aku'Mai' not found on Wowhead Forever - check ID.
-- [ ] Quest 6564 'Allegiance to the Old Gods' not found on Wowhead Forever - check ID.
-- [ ] Quest 6565 'Allegiance to the Old Gods' not found on Wowhead Forever - check ID.
-- [ ] Quest 6921 'Amongst the Ruins' not found on Wowhead Forever - check ID.
-- [ ] Quest 6561 'Blackfathom Villainy' not found on Wowhead Forever - check ID.
-- [ ] Quest 6922 'Baron Aquanis' not found on Wowhead Forever - check ID.
-- [ ] Quest 1740 'The Orb of Soran'ruk' not found on Wowhead Forever - check ID.
-- [ ] Quest 95042 'Seeking the Kor Gem' not found on Wowhead Forever - check ID.
-- [ ] Quest 1654 'The Test of Righteousness (chain 1649,1650,1651,1652,1653,1654,1806)' not found on Wowhead Forever - check ID.
-- [ ] Quest 95140 'Old Fire-Eye (chain 95034,95036,95111,95125,95126,95140)' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

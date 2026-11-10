@@ -10,26 +10,26 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 | East | Pusillin | Pusillin | 2792 | 14354 ⚠ | 6 0.12,0.31 | chase through Warpwood Quarter with imp adds |
-| 2 | East | Zevrim Thornhoof | Zevrim Dornhuf | 343 | 11490 ⚠ | 6 0.43,0.54 | satyr shrine in East wing |
-| 3 | East | Hydrospawn | Hydrobrut | 344 | 13280 ⚠ | 6 0.42,0.46 | pool chamber in East wing |
-| 4 | East | Lethtendris | Lethtendris | 345 | 14327 ⚠, 14349 ⚠ | 6 0.43,0.48 | East wing, with imp Pimgib |
-| 5 | East | Old Ironbark |  | — | 11491 ⚠ | — | East wing; opens path to shrine (no fight) |
+| 1 | East | Pusillin | Pusillin | 2792 | 14354 | 6 0.12,0.31 | chase through Warpwood Quarter with imp adds |
+| 2 | East | Zevrim Thornhoof | Zevrim Dornhuf | 343 | 11490 | 6 0.43,0.54 | satyr shrine in East wing |
+| 3 | East | Hydrospawn | Hydrobrut | 344 | 13280 | 6 0.42,0.46 | pool chamber in East wing |
+| 4 | East | Lethtendris | Lethtendris | 345 | 14327, 14349 ⚠ | 6 0.43,0.48 | East wing, with imp Pimgib |
+| 5 | East | Old Ironbark | Eisenborke der Große | — | 11491 | — | East wing; opens path to shrine (no fight) |
 | 6 | East | Alzzin the Wildshaper | Alzzin der Wildformer | 346 | ? | 7 0.55,0.27 | Shrine of the Eldretharr, end of East wing |
-| 7 | East | Isalien (optional) |  | — | 16097 ⚠ | — | summoned via Brazier of Beckoning 22050 |
-| 8 | West | Tendris Warpwood | Tendris Wucherborke | 350 | 11489 ⚠ | 3 0.33,0.53 | Capital Gardens, first boss |
-| 9 | West | Illyanna Ravenoak | Illyanna Rabeneiche | 347 | 11488 ⚠, 14308 ⚠ | 3 0.20,0.81 | Capital Gardens, with bear Ferra |
-| 10 | West | Magister Kalendris | Magister Kalendris | 348 | 11487 ⚠ | 3 0.14,0.48 | Court of the Highborne |
-| 11 | West | Immol'thar | Immol'thar | 349 | 11496 ⚠ | 5 0.35,0.58 | prison chamber after pylons |
-| 12 | West | Prince Tortheldrin | Prinz Tortheldrin | 361 | 11486 ⚠ | 3 0.05,0.19 | Court of the Highborne, final |
-| 13 | West | Lord Hel'nurath (optional) | Lord Hel'nurath | 2793 | 14506 ⚠ | — | summoned (warlock mount chain) |
-| 14 | North | Guard Mol'dar | Wache Mol'dar | 362 | 14326 ⚠ | 2 0.70,0.75 | Gordok Commons |
-| 15 | North | Stomper Kreeg | Stampfer Kreeg | 363 | 14322 ⚠ | 2 0.62,0.66 | Gordok Commons |
-| 16 | North | Guard Fengus | Wache Fengus | 364 | 14321 ⚠ | 2 0.49,0.82 | Gordok Commons |
-| 17 | North | Guard Slip'kik | Wache Slip'kik | 365 | 14323 ⚠ | 2 0.28,0.59 | Gordok Commons |
-| 18 | North | Knot Thimblejack (cache) (optional) |  | — | 14338 ⚠ | — | shackled; freeing opens Knot Thimblejack's Cache |
-| 19 | North | Captain Kromcrush | Hauptmann Krombruch | 366 | 14325 ⚠ | 2 0.32,0.50 | Gordok Commons, before throne |
-| 20 | North | King Gordok | König Gordok | 368 | 11501 ⚠, 14324 ⚠ | 2 0.32,0.26 | throne room, with Cho'Rush the Observer |
+| 7 | East | Isalien (optional) | Isalien | — | 16097 | — | summoned via Brazier of Beckoning 22050 |
+| 8 | West | Tendris Warpwood | Tendris Wucherborke | 350 | 11489 | 3 0.33,0.53 | Capital Gardens, first boss |
+| 9 | West | Illyanna Ravenoak | Illyanna Rabeneiche | 347 | 11488, 14308 ⚠ | 3 0.20,0.81 | Capital Gardens, with bear Ferra |
+| 10 | West | Magister Kalendris | Magister Kalendris | 348 | 11487 | 3 0.14,0.48 | Court of the Highborne |
+| 11 | West | Immol'thar | Immol'thar | 349 | 11496 | 5 0.35,0.58 | prison chamber after pylons |
+| 12 | West | Prince Tortheldrin | Prinz Tortheldrin | 361 | 11486 | 3 0.05,0.19 | Court of the Highborne, final |
+| 13 | West | Lord Hel'nurath (optional) | Lord Hel'nurath | 2793 | 14506 | — | summoned (warlock mount chain) |
+| 14 | North | Guard Mol'dar | Wache Mol'dar | 362 | 14326 | 2 0.70,0.75 | Gordok Commons |
+| 15 | North | Stomper Kreeg | Stampfer Kreeg | 363 | 14322 | 2 0.62,0.66 | Gordok Commons |
+| 16 | North | Guard Fengus | Wache Fengus | 364 | 14321 | 2 0.49,0.82 | Gordok Commons |
+| 17 | North | Guard Slip'kik | Wache Slip'kik | 365 | 14323 | 2 0.28,0.59 | Gordok Commons |
+| 18 | North | Knot Thimblejack (cache) (optional) | Knot Thimblejack | — | 14338 | — | shackled; freeing opens Knot Thimblejack's Cache |
+| 19 | North | Captain Kromcrush | Hauptmann Krombruch | 366 | 14325 | 2 0.32,0.50 | Gordok Commons, before throne |
+| 20 | North | King Gordok | König Gordok | 368 | 11501, 14324 ⚠ | 2 0.32,0.26 | throne room, with Cho'Rush the Observer |
 | – |  | Cho'Rush the Observer | Cho'Rush der Beobachter | 367 | ? | 2 0.31,0.25 |  |
 
 ### Rares
@@ -40,14 +40,14 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Pusillin
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 18249 | Crescent Key | Key |  |  |  |  | guide |
-| 18261 | Book of Incantations (quest) | Quest |  |  |  |  | guide |
+| 18249 | Crescent Key | Key |  | 80.62 |  | ✔ | guide+wowhead-forever |
+| 18261 | Book of Incantations (quest) | Quest |  | 36.17 |  | ✔ | guide+wowhead-forever |
 | 18267 | Recipe: Runn Tum Tuber Surprise | Recipe | 83 | 82.7 | 100 | ✔ | guide+repo+wowhead-forever |
 
 ### Zevrim Thornhoof
@@ -57,8 +57,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18313 | Helm of Awareness | Head Plate | 19 | 19.31 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18323 | Satyr's Bow | Ranged Bow | 19 | 19.25 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18319 | Fervent Helm | Head Mail | 10 | 9.97 | 20 | ✔ | guide+repo+wowhead-forever |
-| 18306 | Gloves of Shadowy Mist | Hands Cloth |  | 24.73 | 20 | ✔ | repo+wowhead-forever |
-| 18308 | Clever Hat | Head Leather |  | 24.5 | 20 | ✔ | repo+wowhead-forever |
+| 18306 | Gloves of Shadowy Mist | Hands Cloth |  | 24.73 | 20 |  | repo+wowhead-forever |
+| 18308 | Clever Hat | Head Leather |  | 24.5 | 20 |  | repo+wowhead-forever |
 
 ### Hydrospawn
 
@@ -68,9 +68,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18322 | Waterspout Boots | Feet Leather | 19 | 19.64 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18324 | Waveslicer | Two-Hand Axe | 10 | 9.76 | 10 | ✔ | guide+repo+wowhead-forever |
 | 19268 | Ace of Elementals |  |  |  | 2 | ✔ | guide+repo |
-| 18299 | Hydrospawn Essence (quest) | Quest (Mage) |  |  |  |  | guide |
-| 18305 | Breakwater Legguards | Legs Plate |  | 24.24 | 25 | ✔ | repo+wowhead-forever |
-| 18307 | Riptide Shoes | Feet Cloth |  | 23.67 | 25 | ✔ | repo+wowhead-forever |
+| 18299 | Hydrospawn Essence (quest) | Quest (Mage) |  | 2.26 |  | ✔ | guide+wowhead-forever |
+| 18305 | Breakwater Legguards | Legs Plate |  | 24.24 | 25 |  | repo+wowhead-forever |
+| 18307 | Riptide Shoes | Feet Cloth |  | 23.67 | 25 |  | repo+wowhead-forever |
 | 7080 | Essence of Water |  |  |  | 11 |  | repo |
 
 ### Lethtendris
@@ -79,10 +79,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 18325 | Felhide Cap | Head Leather | 29 | 28.62 | 30 | ✔ | guide+repo+wowhead-forever |
 | 18311 | Quel'dorai Channeling Rod | Two-Hand Staff | 9 | 9.27 | 10 | ✔ | guide+repo+wowhead-forever |
-| 18426 | Lethtendris's Web (quest) | Quest |  |  |  |  | guide |
-| 18354 | Pimgib's Collar | (from Pimgib) |  |  |  |  | guide |
-| 18301 | Lethtendris's Wand | Ranged Wand |  | 27.98 | 30 | ✔ | repo+wowhead-forever |
-| 18302 | Band of Vigor | Finger |  | 28.86 | 30 | ✔ | repo+wowhead-forever |
+| 18426 | Lethtendris's Web (quest) | Quest |  | 19.51 |  | ✔ | guide+wowhead-forever |
+| 18354 | Pimgib's Collar | (from Pimgib) |  |  |  | ✔ | guide+wowhead-forever |
+| 18301 | Lethtendris's Wand | Ranged Wand |  | 27.98 | 30 |  | repo+wowhead-forever |
+| 18302 | Band of Vigor | Finger |  | 28.86 | 30 |  | repo+wowhead-forever |
 
 ### Alzzin the Wildshaper
 
@@ -91,13 +91,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18312 | Energized Chestplate | Chest Plate | 19 | 18.76 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18321 | Energetic Rod | Main Hand Mace | 19 | 19.1 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18310 | Fiendish Machete | One-Hand Sword | 19 | 19.12 | 20 | ✔ | guide+repo+wowhead-forever |
-| 18309 | Gloves of Restoration | Hands Leather |  | 18.74 | 20 | ✔ | repo+wowhead-forever |
-| 18314 | Ring of Demonic Guile | Finger |  | 19.07 | 20 | ✔ | repo+wowhead-forever |
-| 18315 | Ring of Demonic Potency | Finger |  | 18.87 | 20 | ✔ | repo+wowhead-forever |
-| 18318 | Merciful Greaves | Feet Mail |  | 18.53 | 20 | ✔ | repo+wowhead-forever |
-| 18326 | Razor Gauntlets | Hands Plate |  | 18.73 | 20 | ✔ | repo+wowhead-forever |
-| 18327 | Whipvine Cord | Waist Cloth |  | 18.67 | 20 | ✔ | repo+wowhead-forever |
-| 18328 | Shadewood Cloak |  |  | 18.92 | 20 | ✔ | repo+wowhead-forever |
+| 18309 | Gloves of Restoration | Hands Leather |  | 18.74 | 20 |  | repo+wowhead-forever |
+| 18314 | Ring of Demonic Guile | Finger |  | 19.07 | 20 |  | repo+wowhead-forever |
+| 18315 | Ring of Demonic Potency | Finger |  | 18.87 | 20 |  | repo+wowhead-forever |
+| 18318 | Merciful Greaves | Feet Mail |  | 18.53 | 20 |  | repo+wowhead-forever |
+| 18326 | Razor Gauntlets | Hands Plate |  | 18.73 | 20 |  | repo+wowhead-forever |
+| 18327 | Whipvine Cord | Waist Cloth |  | 18.67 | 20 |  | repo+wowhead-forever |
+| 18328 | Shadewood Cloak |  |  | 18.92 | 20 |  | repo+wowhead-forever |
 
 ### Tendris Warpwood
 
@@ -105,8 +105,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 18393 | Warpwood Binding | Waist Mail | 24 | 23.98 | 25 | ✔ | guide+repo+wowhead-forever |
 | 18390 | Tanglemoss Leggings | Legs Leather | 24 | 24.85 | 25 | ✔ | guide+repo+wowhead-forever |
-| 18352 | Petrified Bark Shield | Off Hand Shield |  | 23.82 | 25 | ✔ | repo+wowhead-forever |
-| 18353 | Stoneflower Staff | Two-Hand Staff |  | 23.82 | 25 | ✔ | repo+wowhead-forever |
+| 18352 | Petrified Bark Shield | Off Hand Shield |  | 23.82 | 25 |  | repo+wowhead-forever |
+| 18353 | Stoneflower Staff | Two-Hand Staff |  | 23.82 | 25 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -118,8 +118,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18383 | Force Imbued Gauntlets | Hands Plate | 24 | 23.56 | 25 | ✔ | guide+repo+wowhead-forever |
 | 18386 | Padre's Trousers | Legs Cloth | 22 | 22.24 | 25 | ✔ | guide+repo+wowhead-forever |
 | 22206 | Bouquet of Red Roses | Held In Off-hand |  |  | 100 |  | repo |
-| 18347 | Well Balanced Axe | One-Hand Axe |  | 24.68 | 25 | ✔ | repo+wowhead-forever |
-| 18349 | Gauntlets of Accuracy | Hands Mail |  | 24.01 | 25 | ✔ | repo+wowhead-forever |
+| 18347 | Well Balanced Axe | One-Hand Axe |  | 24.68 | 25 |  | repo+wowhead-forever |
+| 18349 | Gauntlets of Accuracy | Hands Mail |  | 24.01 | 25 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -132,8 +132,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18397 | Elder Magus Pendant | Neck |  | 19.39 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18371 | Mindtap Talisman | Trinket | 9 | 8.64 | 20 | ✔ | guide+repo+wowhead-forever |
 | 22309 | Pattern: Big Bag of Enchantment | Pattern |  | 1.56 | 15 | ✔ | guide+repo+wowhead-forever |
-| 18350 | Amplifying Cloak |  |  | 25.11 | 20 | ✔ | repo+wowhead-forever |
-| 18351 | Magically Sealed Bracers | Wrist Plate |  | 23.51 | 20 | ✔ | repo+wowhead-forever |
+| 18350 | Amplifying Cloak |  |  | 25.11 | 20 |  | repo+wowhead-forever |
+| 18351 | Magically Sealed Bracers | Wrist Plate |  | 23.51 | 20 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -145,13 +145,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18370 | Vigilance Charm | Trinket | 9 | 8.69 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18391 | Eyestalk Cord | Waist Leather |  | 23.84 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18379 | Odious Greaves | Feet Mail |  | 24.39 | 20 | ✔ | guide+repo+wowhead-forever |
-| 18372 | Blade of the New Moon | Main Hand Dagger |  | 9.76 | 20 | ✔ | repo+wowhead-forever |
-| 18377 | Quickdraw Gloves | Hands Leather |  | 25.72 | 20 | ✔ | repo+wowhead-forever |
-| 18381 | Evil Eye Pendant | Neck |  | 23.66 | 20 | ✔ | repo+wowhead-forever |
-| 18384 | Bile-etched Spaulders | Shoulder Plate |  | 19.5 | 20 | ✔ | repo+wowhead-forever |
-| 18385 | Robe of Everlasting Night | Chest Cloth |  | 21.03 | 20 | ✔ | repo+wowhead-forever |
-| 18389 | Cloak of the Cosmos |  |  | 19.36 | 20 | ✔ | repo+wowhead-forever |
-| 18394 | Demon Howl Wristguards | Wrist Mail |  | 19.3 | 20 | ✔ | repo+wowhead-forever |
+| 18372 | Blade of the New Moon | Main Hand Dagger |  | 9.76 | 20 |  | repo+wowhead-forever |
+| 18377 | Quickdraw Gloves | Hands Leather |  | 25.72 | 20 |  | repo+wowhead-forever |
+| 18381 | Evil Eye Pendant | Neck |  | 23.66 | 20 |  | repo+wowhead-forever |
+| 18384 | Bile-etched Spaulders | Shoulder Plate |  | 19.5 | 20 |  | repo+wowhead-forever |
+| 18385 | Robe of Everlasting Night | Chest Cloth |  | 21.03 | 20 |  | repo+wowhead-forever |
+| 18389 | Cloak of the Cosmos |  |  | 19.36 | 20 |  | repo+wowhead-forever |
+| 18394 | Demon Howl Wristguards | Wrist Mail |  | 19.3 | 20 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -164,13 +164,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18395 | Emerald Flame Ring | Finger |  | 23.99 | 20 | ✔ | guide+repo+wowhead-forever |
 | 18396 | Mind Carver | Main Hand Sword |  | 20.15 | 20 | ✔ | guide+repo+wowhead-forever |
 | 21525 | Green Winter Hat | Head Cloth |  |  | 100 |  | repo |
-| 18373 | Chestplate of Tranquility | Chest Leather |  | 9.38 | 20 | ✔ | repo+wowhead-forever |
-| 18375 | Bracers of the Eclipse | Wrist Leather |  | 17.31 | 20 | ✔ | repo+wowhead-forever |
-| 18376 | Timeworn Mace | One-Hand Mace |  | 17.99 | 20 | ✔ | repo+wowhead-forever |
-| 18378 | Silvermoon Leggings | Legs Mail |  | 21.4 | 20 | ✔ | repo+wowhead-forever |
-| 18380 | Eldritch Reinforced Legplates | Legs Plate |  | 23.18 | 20 | ✔ | repo+wowhead-forever |
-| 18388 | Stoneshatter | Ranged Crossbow |  | 10.31 | 20 | ✔ | repo+wowhead-forever |
-| 18392 | Distracting Dagger | Off Hand Dagger |  | 19.08 | 20 | ✔ | repo+wowhead-forever |
+| 18373 | Chestplate of Tranquility | Chest Leather |  | 9.38 | 20 |  | repo+wowhead-forever |
+| 18375 | Bracers of the Eclipse | Wrist Leather |  | 17.31 | 20 |  | repo+wowhead-forever |
+| 18376 | Timeworn Mace | One-Hand Mace |  | 17.99 | 20 |  | repo+wowhead-forever |
+| 18378 | Silvermoon Leggings | Legs Mail |  | 21.4 | 20 |  | repo+wowhead-forever |
+| 18380 | Eldritch Reinforced Legplates | Legs Plate |  | 23.18 | 20 |  | repo+wowhead-forever |
+| 18388 | Stoneshatter | Ranged Crossbow |  | 10.31 | 20 |  | repo+wowhead-forever |
+| 18392 | Distracting Dagger | Off Hand Dagger |  | 19.08 | 20 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -194,7 +194,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18496 | Heliotrope Cloak |  | 7 |  | 7.7 | ✔ | guide+repo |
 | 18497 | Sublime Wristguards | Wrist Cloth | 7 |  | 7.7 | ✔ | guide+repo |
 | 18498 | Hedgecutter | One-Hand Axe | 7 |  | 7.7 | ✔ | guide+repo |
-| 18250 | Gordok Shackle Key | Key |  |  | 13 |  | guide+repo |
+| 18250 | Gordok Shackle Key | Key |  |  | 13 | ✔ | guide+repo |
 | 18450 | Robe of Combustion | Chest Cloth |  |  | 7.7 |  | repo |
 | 18451 | Hyena Hide Belt | Waist Leather |  |  | 7.7 |  | repo |
 | 18458 | Modest Armguards | Wrist Mail |  |  | 7.7 |  | repo |
@@ -220,7 +220,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 18250 | Gordok Shackle Key | Key |  |  | 13 |  | guide+repo |
+| 18250 | Gordok Shackle Key | Key |  |  | 13 | ✔ | guide+repo |
 | 18450 | Robe of Combustion | Chest Cloth |  |  | 12.5 |  | repo |
 | 18451 | Hyena Hide Belt | Waist Leather |  |  | 12.5 |  | repo |
 | 18458 | Modest Armguards | Wrist Mail |  |  | 12.5 |  | repo |
@@ -242,7 +242,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18496 | Heliotrope Cloak |  | 7 |  | 7.7 | ✔ | guide+repo |
 | 18497 | Sublime Wristguards | Wrist Cloth | 7 |  | 7.7 | ✔ | guide+repo |
 | 18498 | Hedgecutter | One-Hand Axe | 7 |  | 7.7 | ✔ | guide+repo |
-| 18250 | Gordok Shackle Key | Key |  |  | 13 |  | guide+repo |
+| 18250 | Gordok Shackle Key | Key |  |  | 13 | ✔ | guide+repo |
 | 18450 | Robe of Combustion | Chest Cloth |  |  | 7.7 |  | repo |
 | 18451 | Hyena Hide Belt | Waist Leather |  |  | 7.7 |  | repo |
 | 18458 | Modest Armguards | Wrist Mail |  |  | 7.7 |  | repo |
@@ -259,8 +259,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 18417 | Pattern: Mooncloth Gloves | Pattern |  |  |  |  | guide |
-| 18515 | Pattern: Mongoose Boots | Pattern |  |  |  |  | guide |
+| 18417 | Pattern: Mooncloth Gloves | Pattern |  |  |  | ✔ | guide |
+| 18515 | Pattern: Mongoose Boots | Pattern |  |  |  | ✔ | guide |
 | 18414 | Pattern: Belt of the Archmage | Pattern |  |  |  | ✔ | guide |
 
 ### Captain Kromcrush
@@ -283,13 +283,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 18524 | Leggings of Destruction | Legs Mail | 24 | 24.26 | 25 | ✔ | guide+repo+wowhead-forever |
 | 18527 | Harmonious Gauntlets | Hands Mail | 24 | 24.04 | 25 | ✔ | guide+repo+wowhead-forever |
 | 18526 | Crown of the Ogre King | Head Cloth | 24 | 23.67 | 25 | ✔ | guide+repo+wowhead-forever |
-| 18520 | Barbarous Blade | Two-Hand Sword |  | 23.7 | 25 | ✔ | repo+wowhead-forever |
-| 18521 | Grimy Metal Boots | Feet Plate |  | 24.72 | 25 | ✔ | repo+wowhead-forever |
-| 18522 | Band of the Ogre King | Finger |  | 23.52 | 25 | ✔ | repo+wowhead-forever |
-| 18523 | Brightly Glowing Stone | Held In Off-hand |  | 24.17 | 25 | ✔ | repo+wowhead-forever |
-| 18525 | Bracers of Prosperity | Wrist Leather |  | 23.86 | 25 | ✔ | repo+wowhead-forever |
-| 18780 | Top Half of Advanced Armorsmithing: Volume I |  |  | 8.86 | 9 | ✔ | repo+wowhead-forever |
-| 19258 | Ace of Warlords |  |  | 3.17 | 7 | ✔ | repo+wowhead-forever |
+| 18520 | Barbarous Blade | Two-Hand Sword |  | 23.7 | 25 |  | repo+wowhead-forever |
+| 18521 | Grimy Metal Boots | Feet Plate |  | 24.72 | 25 |  | repo+wowhead-forever |
+| 18522 | Band of the Ogre King | Finger |  | 23.52 | 25 |  | repo+wowhead-forever |
+| 18523 | Brightly Glowing Stone | Held In Off-hand |  | 24.17 | 25 |  | repo+wowhead-forever |
+| 18525 | Bracers of Prosperity | Wrist Leather |  | 23.86 | 25 |  | repo+wowhead-forever |
+| 18780 | Top Half of Advanced Armorsmithing: Volume I |  |  | 8.86 | 9 |  | repo+wowhead-forever |
+| 19258 | Ace of Warlords |  |  | 3.17 | 7 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -298,10 +298,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 18483 | Mana Channeling Wand | Ranged Wand |  | 42.72 | 25 | ✔ | repo+wowhead-forever |
-| 18484 | Cho'Rush's Blade | One-Hand Sword |  | 43.54 | 25 | ✔ | repo+wowhead-forever |
-| 18485 | Observer's Shield | Off Hand Shield |  | 42.26 | 25 | ✔ | repo+wowhead-forever |
-| 18490 | Insightful Hood | Head Leather |  | 42.26 | 25 | ✔ | repo+wowhead-forever |
+| 18483 | Mana Channeling Wand | Ranged Wand |  | 42.72 | 25 |  | repo+wowhead-forever |
+| 18484 | Cho'Rush's Blade | One-Hand Sword |  | 43.54 | 25 |  | repo+wowhead-forever |
+| 18485 | Observer's Shield | Off Hand Shield |  | 42.26 | 25 |  | repo+wowhead-forever |
+| 18490 | Insightful Hood | Head Leather |  | 42.26 | 25 |  | repo+wowhead-forever |
 | 18332 | Libram of Rapidity |  |  |  | 2 |  | repo |
 | 18333 | Libram of Focus |  |  |  | 2 |  | repo |
 | 18334 | Libram of Protection |  |  |  | 2 |  | repo |
@@ -311,7 +311,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 18387 | Brightspark Gloves | Hands | 30 | 30.09 | 33.3 | ✔ | guide+repo+wowhead-forever |
-| 18345 | Murmuring Ring | Finger |  | 62.73 | 33.3 | ✔ | repo+wowhead-forever |
+| 18345 | Murmuring Ring | Finger |  | 62.73 | 33.3 |  | repo+wowhead-forever |
 | 18346 |  |  |  |  | 33.3 | ✘ 404 | repo |
 
 ### Differences to Map/DungeonLoot.lua
@@ -483,13 +483,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 7507 | Foror's Compendium | 60 | Both (Warrior/Paladin) | Nostro's Compendium of Dragon Slaying | Dire Maul | item-started | yes |
 | 7508 | The Forging of Quel'Serrar | 60 | Both | A Dull and Flat Elven Blade (item 18513) | Dire Maul (from Lorekeeper Lydros) | final step 7509; Onyxia; 18489 -> 18488 | yes |
 | 8948 | Anthion's Old Friend | 60 | Both | Anthion Harmon (16016) | Eastern Plaguelands |  | yes |
-| 7483 | Libram of Rapidity |  | Both |  | Dire Maul (library) |  | yes |
-| 7484 | Libram of Focus |  | Both |  | Dire Maul (library) |  | yes |
-| 7485 | Libram of Protection |  | Both |  | Dire Maul (library) |  | yes |
-| 5526 | Shards of the Felvine |  | Both | Rabine Saturna (11801) | Moonglade | Felvine Shard 18501 | **no** |
-| 7482 | Elven Legends |  | Alliance | Scholar Runethorn (14374) | Feralas |  | yes |
-| 7481 | Elven Legends |  | Horde | Sage Korolusk (14373) | Feralas |  | yes |
-| 1193 | A Broken Trap |  | Both |  | Dire Maul East | repeatable; used for tribute runs | yes |
+| 7483 | Libram of Rapidity | 60 | Both |  | Dire Maul (library) |  | yes |
+| 7484 | Libram of Focus | 60 | Both |  | Dire Maul (library) |  | yes |
+| 7485 | Libram of Protection | 60 | Both |  | Dire Maul (library) |  | yes |
+| 5526 | Shards of the Felvine | 60 | Both | Rabine Saturna (11801) | Moonglade | Felvine Shard 18501 | **no** |
+| 7482 | Elven Legends | 60 | Alliance | Scholar Runethorn (14374) | Feralas |  | yes |
+| 7481 | Elven Legends | 60 | Horde | Sage Korolusk (14373) | Feralas |  | yes |
+| 1193 | A Broken Trap | 60 | Both |  | Dire Maul East | repeatable; used for tribute runs | yes |
 | 7631 | Dreadsteed of Xoroth | 60 | Both (Warlock) | Mor'zul Bloodbringer (14436) | Burning Steppes | warlock mount chain final step | **no** |
 
 In DungeonQuests.lua but not in the guide (check if still in Forever):
@@ -509,69 +509,18 @@ In DungeonQuests.lua but not in the guide (check if still in Forever):
 
 ## Open questions (check in game)
 
-- [ ] NPC 14354 (Pusillin) not found on Wowhead Forever - check ID.
-- [ ] NPC 11490 (Zevrim Thornhoof) not found on Wowhead Forever - check ID.
-- [ ] NPC 13280 (Hydrospawn) not found on Wowhead Forever - check ID.
-- [ ] NPC 14327 (Lethtendris) not found on Wowhead Forever - check ID.
-- [ ] NPC 14349 (Lethtendris) not found on Wowhead Forever - check ID.
+- [ ] NPC 14349 is 'Pimgib' on Wowhead Forever, guide says 'Lethtendris'.
 - [ ] Boss 'Old Ironbark' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 11491 (Old Ironbark) not found on Wowhead Forever - check ID.
 - [ ] Boss 'Isalien' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 16097 (Isalien) not found on Wowhead Forever - check ID.
-- [ ] NPC 11489 (Tendris Warpwood) not found on Wowhead Forever - check ID.
-- [ ] NPC 11488 (Illyanna Ravenoak) not found on Wowhead Forever - check ID.
-- [ ] NPC 14308 (Illyanna Ravenoak) not found on Wowhead Forever - check ID.
-- [ ] NPC 11487 (Magister Kalendris) not found on Wowhead Forever - check ID.
-- [ ] NPC 11496 (Immol'thar) not found on Wowhead Forever - check ID.
-- [ ] NPC 11486 (Prince Tortheldrin) not found on Wowhead Forever - check ID.
-- [ ] NPC 14506 (Lord Hel'nurath) not found on Wowhead Forever - check ID.
+- [ ] NPC 14308 is 'Ferra' on Wowhead Forever, guide says 'Illyanna Ravenoak'.
 - [ ] No pin for 'Lord Hel'nurath' (encounter 2793) in DungeonPinData.lua.
-- [ ] NPC 14326 (Guard Mol'dar) not found on Wowhead Forever - check ID.
-- [ ] NPC 14322 (Stomper Kreeg) not found on Wowhead Forever - check ID.
-- [ ] NPC 14321 (Guard Fengus) not found on Wowhead Forever - check ID.
-- [ ] NPC 14323 (Guard Slip'kik) not found on Wowhead Forever - check ID.
 - [ ] Boss 'Knot Thimblejack (cache)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 14338 (Knot Thimblejack (cache)) not found on Wowhead Forever - check ID.
-- [ ] NPC 14325 (Captain Kromcrush) not found on Wowhead Forever - check ID.
-- [ ] NPC 11501 (King Gordok) not found on Wowhead Forever - check ID.
-- [ ] NPC 14324 (King Gordok) not found on Wowhead Forever - check ID.
+- [ ] NPC 14324 is 'Cho'Rush the Observer' on Wowhead Forever, guide says 'King Gordok'.
 - [ ] Encounter 2794 'Tsu'zee' is listed as a rare in the guide (DungeonBosses.lua has it as boss).
 - [ ] Encounter 367 'Cho'Rush the Observer' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Quest 7441 'Pusillin and the Elder Azj'Tordin' not found on Wowhead Forever - check ID.
-- [ ] Quest 7488 'Lethtendris's Web' not found on Wowhead Forever - check ID.
-- [ ] Quest 7489 'Lethtendris's Web' not found on Wowhead Forever - check ID.
-- [ ] Quest 7463 'Arcane Refreshment' not found on Wowhead Forever - check ID.
-- [ ] Quest 8967 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 8990 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.
-- [ ] Quest 7461 'The Madness Within' not found on Wowhead Forever - check ID.
-- [ ] Quest 7462 'The Treasure of the Shen'dralar' not found on Wowhead Forever - check ID.
-- [ ] Quest 7877 'The Treasure of the Shen'dralar' not found on Wowhead Forever - check ID.
-- [ ] Quest 8950 'The Instigator's Enchantment' not found on Wowhead Forever - check ID.
-- [ ] Quest 5518 'The Gordok Ogre Suit' not found on Wowhead Forever - check ID.
-- [ ] Quest 5525 'Free Knot!' not found on Wowhead Forever - check ID.
-- [ ] Quest 1318 'Unfinished Gordok Business' not found on Wowhead Forever - check ID.
-- [ ] Quest 5528 'The Gordok Taste Test' not found on Wowhead Forever - check ID.
-- [ ] Quest 8949 'Falrin's Vendetta' not found on Wowhead Forever - check ID.
-- [ ] Quest 7498 'Garona: A Study on Stealth and Treachery' not found on Wowhead Forever - check ID.
-- [ ] Quest 7499 'Codex of Defense' not found on Wowhead Forever - check ID.
-- [ ] Quest 7500 'The Arcanist's Cookbook' not found on Wowhead Forever - check ID.
-- [ ] Quest 7501 'The Light and How To Swing It' not found on Wowhead Forever - check ID.
-- [ ] Quest 7502 'Harnessing Shadows' not found on Wowhead Forever - check ID.
-- [ ] Quest 7503 'The Greatest Race of Hunters' not found on Wowhead Forever - check ID.
-- [ ] Quest 7504 'Holy Bologna: What the Light Won't Tell You' not found on Wowhead Forever - check ID.
-- [ ] Quest 7505 'Frost Shock and You' not found on Wowhead Forever - check ID.
-- [ ] Quest 7506 'The Emerald Dream...' not found on Wowhead Forever - check ID.
-- [ ] Quest 7507 'Foror's Compendium' not found on Wowhead Forever - check ID.
-- [ ] Quest 7508 'The Forging of Quel'Serrar' not found on Wowhead Forever - check ID.
-- [ ] Quest 8948 'Anthion's Old Friend' not found on Wowhead Forever - check ID.
-- [ ] Quest 7483 'Libram of Rapidity' not found on Wowhead Forever - check ID.
-- [ ] Quest 7484 'Libram of Focus' not found on Wowhead Forever - check ID.
-- [ ] Quest 7485 'Libram of Protection' not found on Wowhead Forever - check ID.
-- [ ] Quest 5526 'Shards of the Felvine' not found on Wowhead Forever - check ID.
-- [ ] Quest 7482 'Elven Legends' not found on Wowhead Forever - check ID.
-- [ ] Quest 7481 'Elven Legends' not found on Wowhead Forever - check ID.
-- [ ] Quest 1193 'A Broken Trap' not found on Wowhead Forever - check ID.
-- [ ] Quest 7631 'Dreadsteed of Xoroth' not found on Wowhead Forever - check ID.
+- [ ] Pins of 'Hydrospawn' and 'Lethtendris' are almost on the same spot (floor 6) - intended?
+- [ ] Pins of 'Cho'Rush the Observer' and 'King Gordok' are almost on the same spot (floor 2) - intended?
+- [ ] Quest 7507: guide title 'Foror's Compendium', Wowhead Forever 'Nostro's Compendium'.
 
 ## Research notes
 

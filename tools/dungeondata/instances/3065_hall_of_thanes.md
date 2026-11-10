@@ -10,48 +10,47 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Faldrim Anvilmar | Faldrim Anvilmar | 3493 | 261306 ⚠ | 1 0.49,0.73 | Anvilmar's Rest, central hall near entrance |
-| 2 |  | Magmatus |  | — | 261316 ⚠ | — | Dark Iron dig east of central hall |
-| 3 |  | Plunder | Plünderung | 3494 | 261311 ⚠ | 1 0.49,0.64 | hall before the last boss |
-| 4 |  | Durgen Dirgehammer | Durgen Dirgehammer | 3496 | 261319 ⚠ | 1 0.49,0.37 | Reliquary of Kings, far end |
-| – |  | Infurnus | Infurnus | 3495 | ? | 1 0.63,0.60 |  |
+| 1 |  | Faldrim Anvilmar | Faldrim Anvilmar | 3493 | 261306 | 1 0.49,0.73 | Anvilmar's Rest, central hall near entrance |
+| 2 |  | Magmatus | Infurnus | 3495 | 261316 | 1 0.63,0.60 | Dark Iron dig east of central hall |
+| 3 |  | Plunder | Plünderung | 3494 | 261311 | 1 0.49,0.64 | hall before the last boss |
+| 4 |  | Durgen Dirgehammer | Durgen Dirgehammer | 3496 | 261319 | 1 0.49,0.37 | Reliquary of Kings, far end |
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Faldrim Anvilmar
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 270227 | Ephemeral Choker | Neck | 33 |  |  | ✔ | guide |
-| 271096 | Aetherwisp Bracers | Wrist (Cloth) | 33 |  |  | ✔ | guide |
-| 271097 | Spiritwraith Drape | Back | 34 |  |  | ✔ | guide |
+| 270227 | Ephemeral Choker | Neck | 33 | 33.48 |  | ✔ | guide+wowhead-forever |
+| 271096 | Aetherwisp Bracers | Wrist (Cloth) | 33 | 31.83 |  | ✔ | guide+wowhead-forever |
+| 271097 | Spiritwraith Drape | Back | 34 | 34.59 |  | ✔ | guide+wowhead-forever |
 
 ### Magmatus
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 270230 | Kindlegem Girdle | Waist (Mail) | 36 |  |  | ✔ | guide |
-| 270231 | Flamefist Grips | Hands (Leather) | 29 |  |  | ✔ | guide |
-| 271095 | Fang of Magmatus | Dagger | 35 |  |  | ✔ | guide |
+| 270230 | Kindlegem Girdle | Waist (Mail) | 36 | 33.77 |  | ✔ | guide+wowhead-forever |
+| 270231 | Flamefist Grips | Hands (Leather) | 29 | 30.17 |  | ✔ | guide+wowhead-forever |
+| 271095 | Fang of Magmatus | Dagger | 35 | 36.06 |  | ✔ | guide+wowhead-forever |
 
 ### Plunder
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 270228 | Golemheart Stave | Staff | 34 |  |  | ✔ | guide |
-| 270229 | Treads of the Protector Golem | Feet (Mail) | 34 |  |  | ✔ | guide |
-| 271098 | Golemguard Chest | Chest (Mail) | 31 |  |  | ✔ | guide |
+| 270228 | Golemheart Stave | Staff | 34 | 33.71 |  | ✔ | guide+wowhead-forever |
+| 270229 | Treads of the Protector Golem | Feet (Mail) | 34 | 33.45 |  | ✔ | guide+wowhead-forever |
+| 271098 | Golemguard Chest | Chest (Mail) | 31 | 32.8 |  | ✔ | guide+wowhead-forever |
 
 ### Durgen Dirgehammer
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 270256 | Durgen's Crescent Axe | One-Hand Axe | 28 |  |  | ✔ | guide |
-| 270260 | Direhammer Leggings | Legs (Leather) | 23 |  |  | ✔ | guide |
-| 270261 | Robes of the Disgraced Thane | Chest (Cloth) | 23 |  |  | ✔ | guide |
-| 274286 | Durgen Dirgehammer's Head (quest) | Quest | 50 |  |  | ✔ | guide |
+| 270256 | Durgen's Crescent Axe | One-Hand Axe | 28 | 28.4 |  | ✔ | guide+wowhead-forever |
+| 270260 | Direhammer Leggings | Legs (Leather) | 23 | 25.41 |  | ✔ | guide+wowhead-forever |
+| 270261 | Robes of the Disgraced Thane | Chest (Cloth) | 23 | 24.68 |  | ✔ | guide+wowhead-forever |
+| 274286 | Durgen Dirgehammer's Head (quest) | Quest | 50 | 54.31 |  | ✔ | guide+wowhead-forever |
 
 ## Quests
 
@@ -71,18 +70,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 261306 (Faldrim Anvilmar) not found on Wowhead Forever - check ID.
-- [ ] Boss 'Magmatus' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 261316 (Magmatus) not found on Wowhead Forever - check ID.
-- [ ] NPC 261311 (Plunder) not found on Wowhead Forever - check ID.
-- [ ] NPC 261319 (Durgen Dirgehammer) not found on Wowhead Forever - check ID.
-- [ ] Encounter 3495 'Infurnus' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Quest 96391 'Underground Map' not found on Wowhead Forever - check ID.
-- [ ] Quest 96393 'Old Ironforge Incursion' not found on Wowhead Forever - check ID.
-- [ ] Quest 96394 'The Restless Dead' not found on Wowhead Forever - check ID.
-- [ ] Quest 96395 'An Ancient Grudge' not found on Wowhead Forever - check ID.
-- [ ] Quest 96403 'Important Heirlooms' not found on Wowhead Forever - check ID.
-- [ ] Quest 98423 'The Treaty of Understanding' not found on Wowhead Forever - check ID.
+- [ ] Guide and Wowhead's dungeon journal call boss 2 'Magmatus'; the game's DungeonEncounter 3495 is 'Infurnus'. Same boss renamed? Check the name in game.
 
 ## Research notes
 

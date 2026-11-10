@@ -37,10 +37,10 @@
    "npcs": [
     {
      "id": 11517,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Oggleflint",
+     "zone": 2437,
+     "name_de": "Flintauge",
+     "name_ok": true
     }
    ],
    "location": "first trogg cave, with two adds",
@@ -55,54 +55,57 @@
      "item_id": 272996,
      "name": "Trogg Scepter",
      "slot": "Main Hand Mace",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 3.3,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.46,
+     "wowhead_dropped_by": "Oggleflint",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 272999,
      "name": "Barbaric Crossbow",
      "slot": "Crossbow",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 3.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 12.48,
+     "wowhead_dropped_by": "Oggleflint",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 272998,
      "name": "Bone Knuckles",
      "slot": "Fist Weapon",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 2.7,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.79,
+     "wowhead_dropped_by": "Oggleflint",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -134,10 +137,10 @@
    "npcs": [
     {
      "id": 11520,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Taragaman the Hungerer",
+     "zone": 2437,
+     "name_de": "Taragaman der Hungerleider",
+     "name_ok": true
     }
    ],
    "location": "lava platform in central chamber",
@@ -212,18 +215,19 @@
      "item_id": 14540,
      "name": "Taragaman the Hungerer's Heart",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 39.54,
+     "wowhead_dropped_by": "Taragaman the Hungerer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -237,10 +241,10 @@
    "npcs": [
     {
      "id": 11518,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Jergosh the Invoker",
+     "zone": 2437,
+     "name_de": "Jergosh der Herbeirufer",
+     "name_ok": true
     }
    ],
    "location": "middle of the last room, two adds",
@@ -322,10 +326,10 @@
    "npcs": [
     {
      "id": 11519,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Bazzalan",
+     "zone": 2437,
+     "name_de": "Bazzalan",
+     "name_ok": true
     }
    ],
    "location": "up the ramp, right side of last room",
@@ -340,54 +344,57 @@
      "item_id": 273003,
      "name": "Searing Dagger",
      "slot": "Main Hand Dagger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 2.9,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 12.64,
+     "wowhead_dropped_by": "Bazzalan",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273005,
      "name": "Satyrskin Cloak",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 2.9,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 12.28,
+     "wowhead_dropped_by": "Bazzalan",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273007,
      "name": "Chasm Walkers",
      "slot": "Feet (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 2.9,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 11.35,
+     "wowhead_dropped_by": "Bazzalan",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -431,8 +438,8 @@
     15445
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Hidden Enemies",
+   "wowhead_level": 16,
    "races": 178
   },
   {
@@ -452,8 +459,8 @@
     270003
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Returning the Lost Satchel",
+   "wowhead_level": 16,
    "races": 178
   },
   {
@@ -473,8 +480,8 @@
     15451
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Power to Destroy...",
+   "wowhead_level": 16,
    "races": 178
   },
   {
@@ -490,8 +497,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Slaying the Beast",
+   "wowhead_level": 16,
    "races": 178
   },
   {
@@ -507,8 +514,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Testing an Enemy's Strength",
+   "wowhead_level": 15,
    "races": 178
   },
   {
@@ -524,8 +531,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Searching for the Lost Satchel",
+   "wowhead_level": 16,
    "races": 178
   }
  ],
@@ -540,18 +547,7 @@
   "Bazzalan: 273007 Chasm Walkers - in Forever guide, missing in DungeonLoot.lua",
   "Bazzalan: 1210 Shadowgem - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)"
  ],
- "open_questions": [
-  "NPC 11517 (Oggleflint) not found on Wowhead Forever - check ID.",
-  "NPC 11520 (Taragaman the Hungerer) not found on Wowhead Forever - check ID.",
-  "NPC 11518 (Jergosh the Invoker) not found on Wowhead Forever - check ID.",
-  "NPC 11519 (Bazzalan) not found on Wowhead Forever - check ID.",
-  "Quest 5728 'Hidden Enemies' not found on Wowhead Forever - check ID.",
-  "Quest 5724 'Returning the Lost Satchel' not found on Wowhead Forever - check ID.",
-  "Quest 5725 'The Power to Destroy...' not found on Wowhead Forever - check ID.",
-  "Quest 5761 'Slaying the Beast' not found on Wowhead Forever - check ID.",
-  "Quest 5723 'Testing an Enemy's Strength' not found on Wowhead Forever - check ID.",
-  "Quest 5722 'Searching for the Lost Satchel' not found on Wowhead Forever - check ID."
- ],
+ "open_questions": [],
  "guide_notes": [
   "Oggleflint/Bazzalan item chances ~3% as stated (seems low, possibly early data)",
   "Hidden Enemies chain 5726-5730; dungeon step is 5728; page says '3 steps' but lists 5",
@@ -560,27 +556,26 @@
   "Beta pages listed patterns item=252781, item=253906 as rare drops",
   "Slot for Barbaric Crossbow/Cursed Felblade not stated by page; inferred"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 2437,
+ "zone_name_en": "Ragefire Chasm",
+ "zone_name_de": "Ragefireabgrund",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "ok",
   "pins": "ok",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 6,
   "loot_rows": 14,
   "loot_confirmed": 12,
   "loot_with_chance": 12,
   "forever_confirmed": "yes",
   "boss_count": 4,
-  "boss_ok": 0,
+  "boss_ok": 4,
   "pin_ok": 4,
   "enc_count": 4,
   "q_tot": 6
  },
  "top_points": [
-  "NPC 11517 (Oggleflint) not found on Wowhead Forever - check ID. (+9 more)",
   "2 loot rows without drop chance"
  ]
 }

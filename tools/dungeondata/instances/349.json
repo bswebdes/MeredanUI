@@ -32,10 +32,10 @@
    "npcs": [
     {
      "id": 13282,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Noxxion",
+     "zone": 2100,
+     "name_de": "Noxxion",
+     "name_ok": true
     }
    ],
    "location": "Noxious Hollow, end of orange side",
@@ -49,19 +49,20 @@
     {
      "item_id": 17702,
      "name": "Celebrian Rod",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.18,
+     "wowhead_dropped_by": "Noxxion",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -135,10 +136,10 @@
    "npcs": [
     {
      "id": 12258,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Razorlash",
+     "zone": 2100,
+     "name_de": "Schlingwurzler",
+     "name_ok": true
     }
    ],
    "location": "roams Foulspore Cavern",
@@ -201,7 +202,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -220,7 +221,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -238,10 +239,10 @@
    "npcs": [
     {
      "id": 13601,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Tinkerer Gizlock",
+     "zone": 2100,
+     "name_de": "Tüftler Gizlock",
+     "name_ok": true
     }
    ],
    "location": "The Wicked Grotto, purple side",
@@ -323,10 +324,10 @@
    "npcs": [
     {
      "id": 12236,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Lord Vyletongue",
+     "zone": 2100,
+     "name_de": "Lord Schlangenzunge",
+     "name_ok": true
     }
    ],
    "location": "Vyletongue Seat, end of purple side, two satyr guards",
@@ -340,19 +341,20 @@
     {
      "item_id": 17703,
      "name": "Celebrian Diamond",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 59.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 58.86,
+     "wowhead_dropped_by": "Lord Vyletongue",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -426,10 +428,10 @@
    "npcs": [
     {
      "id": 12225,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Celebras the Cursed",
+     "zone": 2100,
+     "name_de": "Celebras der Verfluchte",
+     "name_ok": true
     }
    ],
    "location": "north end of Earth Song Falls",
@@ -511,10 +513,10 @@
    "npcs": [
     {
      "id": 12203,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Landslide",
+     "zone": 2100,
+     "name_de": "Erdrutsch",
+     "name_ok": true
     }
    ],
    "location": "Earth Song Falls (no exact spot given)",
@@ -616,10 +618,10 @@
    "npcs": [
     {
      "id": 12201,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Princess Theradras",
+     "zone": 2100,
+     "name_de": "Prinzessin Theradras",
+     "name_ok": true
     }
    ],
    "location": "final chamber of Earth Song Falls",
@@ -633,19 +635,20 @@
     {
      "item_id": 17766,
      "name": "Princess Theradras' Scepter",
-     "slot": null,
-     "quality": null,
+     "slot": "Two-Hand Mace",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 20.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.53,
+     "wowhead_dropped_by": "Princess Theradras",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -691,91 +694,96 @@
     {
      "item_id": 17715,
      "name": "Eye of Theradras",
-     "slot": null,
-     "quality": null,
+     "slot": "Head Cloth",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 19.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.5,
+     "wowhead_dropped_by": "Princess Theradras",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 17710,
      "name": "Charstone Dirk",
      "slot": "Dagger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 19.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.47,
+     "wowhead_dropped_by": "Princess Theradras",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 17711,
      "name": "Elemental Rockridge Leggings",
      "slot": "Legs",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 19.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.42,
+     "wowhead_dropped_by": "Princess Theradras",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 17707,
      "name": "Gemshard Heart",
-     "slot": null,
-     "quality": null,
+     "slot": "Neck",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 20.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.56,
+     "wowhead_dropped_by": "Princess Theradras",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 17780,
      "name": "Blade of Eternal Darkness",
-     "slot": null,
-     "quality": null,
+     "slot": "Main Hand Dagger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": 0.26,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.31,
+     "wowhead_dropped_by": "Princess Theradras",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -789,10 +797,10 @@
    "npcs": [
     {
      "id": 13596,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Rotgrip",
+     "zone": 2100,
+     "name_de": "Faulschnapper",
+     "name_ok": true
     }
    ],
    "location": "crocolisk in lake below Princess",
@@ -870,7 +878,7 @@
   {
    "name": "Meshlok the Harvester",
    "npc_id": 12237,
-   "wowhead_name": null,
+   "wowhead_name": "Meshlok the Harvester",
    "location": "between orange and purple sides; not always spawned",
    "pin": {
     "floor": 1,
@@ -960,8 +968,8 @@
     17753
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Corruption of Earth and Seed",
+   "wowhead_level": 51,
    "races": 77
   },
   {
@@ -981,8 +989,8 @@
     17753
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Corruption of Earth and Seed",
+   "wowhead_level": 51,
    "races": 178
   },
   {
@@ -998,8 +1006,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Legends of Maraudon",
+   "wowhead_level": 49,
    "races": 0
   },
   {
@@ -1017,8 +1025,8 @@
     17191
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Scepter of Celebras",
+   "wowhead_level": 49,
    "races": 0
   },
   {
@@ -1034,8 +1042,8 @@
    "prereq": "Kill Princess Theradras; turn in to Keeper Remulos (npc 11832), Moonglade",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Seed of Life",
+   "wowhead_level": 51,
    "races": 0
   },
   {
@@ -1053,8 +1061,8 @@
     17774
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Pariah's Instructions",
+   "wowhead_level": 48,
    "races": 0
   },
   {
@@ -1075,8 +1083,8 @@
     17779
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Twisted Evils",
+   "wowhead_level": 47,
    "races": 0
   },
   {
@@ -1096,8 +1104,8 @@
     17770
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Vyletongue Corruption",
+   "wowhead_level": 47,
    "races": 77
   },
   {
@@ -1117,8 +1125,8 @@
     17770
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Vyletongue Corruption",
+   "wowhead_level": 47,
    "races": 178
   },
   {
@@ -1137,8 +1145,8 @@
     17773
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Shadowshard Fragments",
+   "wowhead_level": 42,
    "races": 77
   },
   {
@@ -1157,8 +1165,8 @@
     17773
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Shadowshard Fragments",
+   "wowhead_level": 42,
    "races": 178
   }
  ],
@@ -1173,27 +1181,7 @@
   "Princess Theradras: 17707 Gemshard Heart - in Forever guide, missing in DungeonLoot.lua",
   "Princess Theradras: 17780 Blade of Eternal Darkness - in Forever guide, missing in DungeonLoot.lua"
  ],
- "open_questions": [
-  "NPC 13282 (Noxxion) not found on Wowhead Forever - check ID.",
-  "NPC 12258 (Razorlash) not found on Wowhead Forever - check ID.",
-  "NPC 13601 (Tinkerer Gizlock) not found on Wowhead Forever - check ID.",
-  "NPC 12236 (Lord Vyletongue) not found on Wowhead Forever - check ID.",
-  "NPC 12225 (Celebras the Cursed) not found on Wowhead Forever - check ID.",
-  "NPC 12203 (Landslide) not found on Wowhead Forever - check ID.",
-  "NPC 12201 (Princess Theradras) not found on Wowhead Forever - check ID.",
-  "NPC 13596 (Rotgrip) not found on Wowhead Forever - check ID.",
-  "Quest 7065 'Corruption of Earth and Seed' not found on Wowhead Forever - check ID.",
-  "Quest 7064 'Corruption of Earth and Seed' not found on Wowhead Forever - check ID.",
-  "Quest 7044 'Legends of Maraudon' not found on Wowhead Forever - check ID.",
-  "Quest 7046 'The Scepter of Celebras' not found on Wowhead Forever - check ID.",
-  "Quest 7066 'Seed of Life' not found on Wowhead Forever - check ID.",
-  "Quest 7067 'The Pariah's Instructions' not found on Wowhead Forever - check ID.",
-  "Quest 7028 'Twisted Evils' not found on Wowhead Forever - check ID.",
-  "Quest 7041 'Vyletongue Corruption' not found on Wowhead Forever - check ID.",
-  "Quest 7029 'Vyletongue Corruption' not found on Wowhead Forever - check ID.",
-  "Quest 7070 'Shadowshard Fragments' not found on Wowhead Forever - check ID.",
-  "Quest 7068 'Shadowshard Fragments' not found on Wowhead Forever - check ID."
- ],
+ "open_questions": [],
  "guide_notes": [
   "Guide says 8 bosses + 1 rare; quest level range 38-45",
   "Razorlash also drops two unnamed green items (no IDs on page)",
@@ -1201,27 +1189,26 @@
   "Slots null where guide did not state them",
   "Pariah Khan ghosts: Kolk 13742, Gelk 13741, Magra 13740 (outer); Maraudos 13739, Veng 13738 (inside)"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 2100,
+ "zone_name_en": "Maraudon",
+ "zone_name_de": "Maraudon",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "ok",
   "pins": "ok",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 9,
   "loot_rows": 34,
-  "loot_confirmed": 34,
+  "loot_confirmed": 32,
   "loot_with_chance": 34,
   "forever_confirmed": "yes",
   "boss_count": 8,
-  "boss_ok": 0,
+  "boss_ok": 8,
   "pin_ok": 8,
   "enc_count": 8,
   "q_tot": 11
  },
  "top_points": [
-  "2 of 11 quests missing in DungeonQuests.lua",
-  "NPC 13282 (Noxxion) not found on Wowhead Forever - check ID. (+18 more)"
+  "2 of 11 quests missing in DungeonQuests.lua"
  ]
 }

@@ -25,13 +25,13 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Withermaw
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 249697 | Claws of the Great Bear (quest) | Quest |  |  |  | ✔ | guide |
+| 249697 | Claws of the Great Bear (quest) | Quest |  | 100 |  | ✔ | guide+wowhead-forever |
 | 280064 | Withering Grips | Hands (Leather) |  |  |  | ✔ | guide |
 
 ### Impaan the Imprisoner
@@ -44,22 +44,22 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 276893 | Blackmaw Ritual Totem (quest) | Quest |  |  |  | ✔ | guide |
-| 286415 | Reliquary of Tyr (quest) | Quest (Paladin, epic) |  |  |  | ✔ | guide |
+| 276893 | Blackmaw Ritual Totem (quest) | Quest |  | 100 |  | ✔ | guide+wowhead-forever |
+| 286415 | Reliquary of Tyr (quest) | Quest (Paladin, epic) |  | 100 |  | ✔ | guide+wowhead-forever |
 
 ### Bonesnout the Unbroken
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 249696 | Tusks of the Unbroken (quest) | Quest |  |  |  | ✔ | guide |
+| 249696 | Tusks of the Unbroken (quest) | Quest |  | 100 |  | ✔ | guide+wowhead-forever |
 | 280060 | Lucky Shovelnose Tuft | Trinket |  |  |  | ✔ | guide |
 
 ### Varrox Bleakhoof
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 249692 | Head of Varrox Bleakhoof (quest) | Quest |  |  |  | ✔ | guide |
-| 272027 | Mark of Xavius (quest) | Quest |  |  |  | ✔ | guide |
+| 249692 | Head of Varrox Bleakhoof (quest) | Quest |  | 100 |  | ✔ | guide+wowhead-forever |
+| 272027 | Mark of Xavius (quest) | Quest |  | 100 |  | ✔ | guide+wowhead-forever |
 
 ### Moontouched Wanderer
 
@@ -96,13 +96,6 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - [ ] NPC 247207 (Blackmaw Behemoth) not found on Wowhead Forever - check ID.
 - [ ] No pin for 'Blackmaw Behemoth' (encounter 3323) in DungeonPinData.lua.
 - [ ] No pin for 'Unbound Spirit' (encounter 3336) in DungeonPinData.lua.
-- [ ] Quest 92069 'Claws That Rend, Tusks that Gore' not found on Wowhead Forever - check ID.
-- [ ] Quest 92346 'Beneath Nordrassil' not found on Wowhead Forever - check ID.
-- [ ] Quest 92343 'Get to the Roots of It' not found on Wowhead Forever - check ID.
-- [ ] Quest 97198 'Blackmaw Magic' not found on Wowhead Forever - check ID.
-- [ ] Quest 92345 'Beneath Nordrassil' not found on Wowhead Forever - check ID.
-- [ ] Quest 92344 'Get to the Roots of It' not found on Wowhead Forever - check ID.
-- [ ] Quest 97173 'Blackmaw Magic' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

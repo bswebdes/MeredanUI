@@ -10,14 +10,14 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Rhahk'Zor | Rhahk'Zor | 2741 | 644 ⚠ | 1 0.39,0.61 | near the entrance |
-| 2 |  | Sneed's Shredder |  | — | 642 ⚠ | — | lumber area, before Sneed |
-| 3 |  | Sneed | Sneed | 2742 | 643 ⚠ | 1 0.49,0.92 | ejected from his Shredder |
-| 4 |  | Gilnid | Gilnid | 2743 | 1763 ⚠ | 1 0.61,0.57 | foundry, with goblin engineers |
-| 5 |  | Mr. Smite | Handlanger Pein | 2745 | 646 ⚠ | 2 0.56,0.26 | ship cove, first ship deck |
-| 6 |  | Captain Greenskin | Kapitän Grünhaut | 2744 | 647 ⚠ | 2 0.63,0.39 | aboard the ship, with pirate adds |
-| 7 |  | Edwin VanCleef | Edwin van Cleef | 2747 | 639 ⚠ | 2 0.61,0.46 | top deck of the ship |
-| 8 |  | Cookie (optional) | Krümel | 2746 | 645 ⚠ | 2 0.67,0.40 | on the ship deck |
+| 1 |  | Rhahk'Zor | Rhahk'Zor | 2741 | 644 | 1 0.39,0.61 | near the entrance |
+| 2 |  | Sneed's Shredder | Sneeds Schredder | — | 642 | — | lumber area, before Sneed |
+| 3 |  | Sneed | Sneed | 2742 | 643 | 1 0.49,0.92 | ejected from his Shredder |
+| 4 |  | Gilnid | Gilnid | 2743 | 1763 | 1 0.61,0.57 | foundry, with goblin engineers |
+| 5 |  | Mr. Smite | Handlanger Pein | 2745 | 646 | 2 0.56,0.26 | ship cove, first ship deck |
+| 6 |  | Captain Greenskin | Kapitän Grünhaut | 2744 | 647 | 2 0.63,0.39 | aboard the ship, with pirate adds |
+| 7 |  | Edwin VanCleef | Edwin van Cleef | 2747 | 639 | 2 0.61,0.46 | top deck of the ship |
+| 8 |  | Cookie (optional) | Krümel | 2746 | 645 | 2 0.67,0.40 | on the ship deck |
 
 ### Rares
 
@@ -27,7 +27,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Rhahk'Zor
 
@@ -35,17 +35,17 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 5187 | Rhahk'Zor's Hammer | Two-Hand Mace | 73 | 65.39 | 95 | ✔ | guide+repo+wowhead-forever |
 | 872 | Rockslicer | Two-Hand Axe | 4 | 8.73 | 5 | ✔ | guide+repo+wowhead-forever |
-| 273289 | Ogre Loincloth |  |  |  |  |  | guide |
-| 251363 | Plans: Acolyte's Gloves | Recipe |  |  |  |  | guide |
+| 273289 | Ogre Loincloth | Legs Cloth |  | 5.73 |  | ✔ | guide+wowhead-forever |
+| 251363 | Plans: Acolyte's Gloves | Recipe |  |  |  | ✔ | guide |
 
 ### Sneed's Shredder
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 2169 | Buzzer Blade |  | 52 |  |  | ✔ | guide |
-| 1937 | Buzz Saw |  | 9 |  |  | ✔ | guide |
-| 285292 | Dull Sawblade |  |  |  |  |  | guide |
-| 7365 | Gnoam Sprecklesprocket (quest) | Quest |  |  |  |  | guide |
+| 2169 | Buzzer Blade | Main Hand Dagger | 52 | 47.24 |  | ✔ | guide+wowhead-forever |
+| 1937 | Buzz Saw | One-Hand Sword | 9 | 13.48 |  | ✔ | guide+wowhead-forever |
+| 285292 | Dull Sawblade | Thrown Thrown |  | 5.37 |  | ✔ | guide+wowhead-forever |
+| 7365 | Gnoam Sprecklesprocket (quest) | Quest |  | 46.58 |  | ✔ | guide+wowhead-forever |
 
 ### Sneed
 
@@ -53,8 +53,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 5195 | Gold-flecked Gloves | Hands Cloth | 67 | 64.38 | 65 | ✔ | guide+repo+wowhead-forever |
 | 5194 | Taskmaster Axe | Two-Hand Axe | 28 | 27.48 | 35 | ✔ | guide+repo+wowhead-forever |
-| 273293 | Bandsaw Wristbands | Wrist |  |  |  |  | guide |
-| 273092 | Blueprint: Repair Bot | Recipe |  |  |  |  | guide |
+| 273293 | Bandsaw Wristbands | Wrist |  | 3.34 |  | ✔ | guide+wowhead-forever |
+| 273092 | Blueprint: Repair Bot | Recipe |  | 0.8 |  | ✔ | guide+wowhead-forever |
 | 1210 | Shadowgem |  |  |  | 1 |  | repo |
 
 ### Gilnid
@@ -63,8 +63,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 5199 | Smelting Pants | Legs | 57 | 52.78 | 55 | ✔ | guide+repo+wowhead-forever |
 | 1156 | Lavishly Jeweled Ring | Finger | 37 | 36.89 | 45 | ✔ | guide+repo+wowhead-forever |
-| 273297 | Goblin Hammer |  |  |  |  |  | guide |
-| 273086 | Blueprint: Anvil | Recipe |  |  |  |  | guide |
+| 273297 | Goblin Hammer | Main Hand Mace |  | 4.55 |  | ✔ | guide+wowhead-forever |
+| 273086 | Blueprint: Anvil | Recipe |  | 0.92 |  | ✔ | guide+wowhead-forever |
 
 ### Mr. Smite
 
@@ -73,7 +73,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 5192 | Thief's Blade | One-Hand Sword | 38 | 36.63 | 40 | ✔ | guide+repo+wowhead-forever |
 | 5196 | Smite's Reaver | One-Hand Axe | 37 | 35.47 | 40 | ✔ | guide+repo+wowhead-forever |
 | 7230 | Smite's Mighty Hammer | Two-Hand Mace | 19 | 19.27 | 20 | ✔ | guide+repo+wowhead-forever |
-| 284715 | First Mate Band | Finger |  |  |  |  | guide |
+| 284715 | First Mate Band | Finger |  | 3.57 |  | ✔ | guide+wowhead-forever |
 
 ### Captain Greenskin
 
@@ -91,9 +91,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 5193 | Cape of the Brotherhood | Back | 23 | 22.5 | 30 | ✔ | guide+repo+wowhead-forever |
 | 5191 | Cruel Barb | One-Hand Sword | 16 | 16.32 | 20 | ✔ | guide+repo+wowhead-forever |
 | 10399 | Blackened Defias Armor | Chest | 15 | 15.85 | 20 | ✔ | guide+repo+wowhead-forever |
-| 253940 | Pattern: Filigreed Silky Leggings | Recipe |  |  |  |  | guide |
-| 3637 | Head of VanCleef (quest) | Quest |  |  |  |  | guide |
-| 2874 | An Unsent Letter (quest) | Quest |  |  |  |  | guide |
+| 253940 | Pattern: Filigreed Silky Leggings | Recipe |  |  |  | ✔ | guide |
+| 3637 | Head of VanCleef (quest) | Quest |  | 31.2 |  | ✔ | guide+wowhead-forever |
+| 2874 | An Unsent Letter (quest) | Quest |  | 55.67 |  | ✔ | guide+wowhead-forever |
 
 ### Cookie
 
@@ -101,8 +101,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 5197 | Cookie's Tenderizer | One-Hand Mace | 55 | 52 | 65 | ✔ | guide+repo+wowhead-forever |
 | 5198 | Cookie's Stirring Rod | Ranged Wand | 33 | 33.43 | 35 | ✔ | guide+repo+wowhead-forever |
-| 273298 | Lookie's Spyglass | Trinket |  |  |  |  | guide |
-| 273102 | Blueprint: Cookie's Feast | Recipe |  |  |  |  | guide |
+| 273298 | Lookie's Spyglass | Trinket |  | 3.7 |  | ✔ | guide+wowhead-forever |
+| 273102 | Blueprint: Cookie's Feast | Recipe |  | 0.84 |  | ✔ | guide+wowhead-forever |
 | 11982 | Viridian Band | Finger |  |  | 6 |  | repo |
 
 ### Miner Johnson
@@ -140,7 +140,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 214 | Red Silk Bandanas | 17 | Alliance | Scout Riell (820) | Westfall | Defias chain to 155 | **no** |
 | 167 | Oh Brother... | 20 | Alliance | Wilder Thistlenettle (656) | Stormwind |  | **no** |
 | 168 | Collecting Memories | 18 | Alliance | Wilder Thistlenettle (656) | Stormwind |  | **no** |
-| 1654 | The Test of Righteousness |  | Alliance (Paladin) | Jordan Stilwell (6181) | Dun Morogh (Ironforge entrance) | Paladin chain 1649 (Tome of Valor item=6776) -> 1650-1653; then 1806 | **no** |
+| 1654 | The Test of Righteousness | 22 | Alliance (Paladin) | Jordan Stilwell (6181) | Dun Morogh (Ironforge entrance) | Paladin chain 1649 (Tome of Valor item=6776) -> 1650-1653; then 1806 | **no** |
 
 ## Forever changes noted by guides
 
@@ -156,23 +156,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 644 (Rhahk'Zor) not found on Wowhead Forever - check ID.
 - [ ] Boss 'Sneed's Shredder' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 642 (Sneed's Shredder) not found on Wowhead Forever - check ID.
-- [ ] NPC 643 (Sneed) not found on Wowhead Forever - check ID.
-- [ ] NPC 1763 (Gilnid) not found on Wowhead Forever - check ID.
-- [ ] NPC 646 (Mr. Smite) not found on Wowhead Forever - check ID.
-- [ ] NPC 647 (Captain Greenskin) not found on Wowhead Forever - check ID.
-- [ ] NPC 639 (Edwin VanCleef) not found on Wowhead Forever - check ID.
-- [ ] NPC 645 (Cookie) not found on Wowhead Forever - check ID.
 - [ ] Encounter 3676 'Miner Johnson' is listed as a rare in the guide (DungeonBosses.lua has it as boss).
-- [ ] Quest 166 'The Defias Brotherhood' not found on Wowhead Forever - check ID.
-- [ ] Quest 92753 'Destruction in Deadmines' not found on Wowhead Forever - check ID.
-- [ ] Quest 2040 'Underground Assault' not found on Wowhead Forever - check ID.
-- [ ] Quest 214 'Red Silk Bandanas' not found on Wowhead Forever - check ID.
-- [ ] Quest 167 'Oh Brother...' not found on Wowhead Forever - check ID.
-- [ ] Quest 168 'Collecting Memories' not found on Wowhead Forever - check ID.
-- [ ] Quest 1654 'The Test of Righteousness' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

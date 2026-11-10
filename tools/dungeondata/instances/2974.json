@@ -35,7 +35,7 @@
      "id": 247195,
      "wowhead_name": "Withermaw",
      "zone": null,
-     "name_de": null,
+     "name_de": "[Withermaw]",
      "name_ok": true
     }
    ],
@@ -47,25 +47,26 @@
      "item_id": 249697,
      "name": "Claws of the Great Bear",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 100.0,
+     "wowhead_dropped_by": "Withermaw",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 280064,
      "name": "Withering Grips",
      "slot": "Hands (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -92,7 +93,7 @@
      "id": 247206,
      "wowhead_name": "Impaan the Imprisoner",
      "zone": null,
-     "name_de": null,
+     "name_de": "[Impaan the Imprisoner]",
      "name_ok": true
     }
    ],
@@ -104,7 +105,7 @@
      "item_id": 280058,
      "name": "Impish Chain Hood",
      "slot": "Head (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -131,7 +132,7 @@
      "id": 247209,
      "wowhead_name": "Elder Shaman Bloodmane",
      "zone": null,
-     "name_de": null,
+     "name_de": "[Elder Shaman Bloodmane]",
      "name_ok": true
     }
    ],
@@ -143,36 +144,38 @@
      "item_id": 276893,
      "name": "Blackmaw Ritual Totem",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 100.0,
+     "wowhead_dropped_by": "Elder Shaman Bloodmane",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 286415,
      "name": "Reliquary of Tyr",
      "slot": "Quest (Paladin, epic)",
-     "quality": null,
+     "quality": 4,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 100.0,
+     "wowhead_dropped_by": "Elder Shaman Bloodmane",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -188,7 +191,7 @@
      "id": 247198,
      "wowhead_name": "Bonesnout the Unbroken",
      "zone": null,
-     "name_de": null,
+     "name_de": "[Bonesnout the Unbroken]",
      "name_ok": true
     }
    ],
@@ -200,25 +203,26 @@
      "item_id": 249696,
      "name": "Tusks of the Unbroken",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 100.0,
+     "wowhead_dropped_by": "Bonesnout the Unbroken",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 280060,
      "name": "Lucky Shovelnose Tuft",
      "slot": "Trinket",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -245,7 +249,7 @@
      "id": 247234,
      "wowhead_name": "Varrox Bleakhoof",
      "zone": null,
-     "name_de": null,
+     "name_de": "Varrox Bleakhoof",
      "name_ok": true
     }
    ],
@@ -257,36 +261,38 @@
      "item_id": 249692,
      "name": "Head of Varrox Bleakhoof",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 100.0,
+     "wowhead_dropped_by": "Varrox Bleakhoof",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 272027,
      "name": "Mark of Xavius",
      "slot": "Quest",
-     "quality": null,
+     "quality": 3,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 100.0,
+     "wowhead_dropped_by": "Varrox Bleakhoof",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -302,7 +308,7 @@
      "id": 247207,
      "wowhead_name": null,
      "zone": null,
-     "name_de": null,
+     "name_de": "[Blackmaw Behemoth]",
      "name_ok": false
     }
    ],
@@ -322,7 +328,7 @@
      "id": 247231,
      "wowhead_name": "Unbound Spirit",
      "zone": null,
-     "name_de": null,
+     "name_de": "[Unbound Spirit]",
      "name_ok": true
     }
    ],
@@ -345,7 +351,7 @@
      "item_id": 280080,
      "name": "Claymore of Two Moons",
      "slot": "Two-Hand Sword",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -380,8 +386,8 @@
     260215
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Claws That Rend, Tusks that Gore",
+   "wowhead_level": 58,
    "races": 0
   },
   {
@@ -397,7 +403,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Beneath Nordrassil",
    "wowhead_level": null,
    "races": 178
   },
@@ -414,8 +420,8 @@
    "prereq": "Beneath Nordrassil (92346)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Get to the Roots of It",
+   "wowhead_level": 55,
    "races": 178
   },
   {
@@ -431,8 +437,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Blackmaw Magic",
+   "wowhead_level": 59,
    "races": 178
   },
   {
@@ -448,7 +454,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Beneath Nordrassil",
    "wowhead_level": null,
    "races": 77
   },
@@ -465,8 +471,8 @@
    "prereq": "Beneath Nordrassil (92345)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Get to the Roots of It",
+   "wowhead_level": 55,
    "races": 77
   },
   {
@@ -482,8 +488,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Blackmaw Magic",
+   "wowhead_level": 59,
    "races": 77
   }
  ],
@@ -497,14 +503,7 @@
   "No pin for 'Varrox Bleakhoof' (encounter 3334) in DungeonPinData.lua.",
   "NPC 247207 (Blackmaw Behemoth) not found on Wowhead Forever - check ID.",
   "No pin for 'Blackmaw Behemoth' (encounter 3323) in DungeonPinData.lua.",
-  "No pin for 'Unbound Spirit' (encounter 3336) in DungeonPinData.lua.",
-  "Quest 92069 'Claws That Rend, Tusks that Gore' not found on Wowhead Forever - check ID.",
-  "Quest 92346 'Beneath Nordrassil' not found on Wowhead Forever - check ID.",
-  "Quest 92343 'Get to the Roots of It' not found on Wowhead Forever - check ID.",
-  "Quest 97198 'Blackmaw Magic' not found on Wowhead Forever - check ID.",
-  "Quest 92345 'Beneath Nordrassil' not found on Wowhead Forever - check ID.",
-  "Quest 92344 'Get to the Roots of It' not found on Wowhead Forever - check ID.",
-  "Quest 97173 'Blackmaw Magic' not found on Wowhead Forever - check ID."
+  "No pin for 'Unbound Spirit' (encounter 3336) in DungeonPinData.lua."
  ],
  "guide_notes": [
   "No drop chances published on the guide",
@@ -521,7 +520,7 @@
   "bosses": "partial",
   "pins": "missing",
   "loot": "partial",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 4,
   "loot_confirmed": 4,
@@ -536,6 +535,6 @@
  "top_points": [
   "7 of 7 quests missing in DungeonQuests.lua",
   "No pin for 'Withermaw' (encounter 3315) in DungeonPinData.lua. (+6 more)",
-  "NPC 247207 (Blackmaw Behemoth) not found on Wowhead Forever - check ID. (+7 more)"
+  "NPC 247207 (Blackmaw Behemoth) not found on Wowhead Forever - check ID."
  ]
 }

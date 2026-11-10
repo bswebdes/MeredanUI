@@ -102,7 +102,7 @@
      "item_id": 22444,
      "name": "Putrid Vine",
      "slot": "Quest (Druid)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -110,7 +110,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -129,43 +129,43 @@
      "id": 5713,
      "wowhead_name": "Gasher",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Schlitzer",
+     "name_ok": true
     },
     {
      "id": 5714,
      "wowhead_name": "Loro",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Loro",
+     "name_ok": true
     },
     {
      "id": 5715,
      "wowhead_name": "Hukku",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Hukku",
+     "name_ok": true
     },
     {
      "id": 5712,
      "wowhead_name": "Zolo",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Zolo",
+     "name_ok": true
     },
     {
      "id": 5717,
      "wowhead_name": "Mijan",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Mijan",
+     "name_ok": true
     },
     {
      "id": 5716,
      "wowhead_name": "Zul'Lor",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Zul'Lor",
+     "name_ok": true
     }
    ],
    "location": "six balconies of the upper ring",
@@ -176,7 +176,7 @@
      "item_id": 10784,
      "name": "Atal'ai Breastplate",
      "slot": "Chest (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 10.0,
      "chance_wowhead_forever": null,
@@ -194,7 +194,7 @@
      "item_id": 10787,
      "name": "Atal'ai Gloves",
      "slot": "Hands (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 10.0,
      "chance_wowhead_forever": null,
@@ -212,7 +212,7 @@
      "item_id": 20606,
      "name": "Amber Voodoo Feather",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -220,7 +220,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -230,7 +230,7 @@
      "item_id": 20607,
      "name": "Blue Voodoo Feather",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -238,7 +238,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -248,7 +248,7 @@
      "item_id": 20608,
      "name": "Green Voodoo Feather",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -256,7 +256,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -275,7 +275,7 @@
      "id": 5710,
      "wowhead_name": "Jammal'an the Prophet",
      "zone": 1477,
-     "name_de": null,
+     "name_de": "Jammal'an der Prophet",
      "name_ok": true
     }
    ],
@@ -291,7 +291,7 @@
      "item_id": 6212,
      "name": "Head of Jammal'an",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -299,7 +299,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -371,14 +371,14 @@
    "order": 4,
    "wing": null,
    "name": "Ogom the Wretched",
-   "name_de": null,
+   "name_de": "Ogom der Elende",
    "encounter_id": null,
    "npcs": [
     {
      "id": 5711,
      "wowhead_name": "Ogom the Wretched",
      "zone": 1477,
-     "name_de": null,
+     "name_de": "Ogom der Elende",
      "name_ok": true
     }
    ],
@@ -390,18 +390,19 @@
      "item_id": 10804,
      "name": "Fist of the Damned",
      "slot": "One-Hand",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.48,
+     "wowhead_dropped_by": "Ogom the Wretched",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -417,40 +418,84 @@
      "id": 5721,
      "wowhead_name": "Dreamscythe",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Traumsense",
+     "name_ok": true
     },
     {
      "id": 5720,
      "wowhead_name": "Weaver",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Wirker",
+     "name_ok": true
     },
     {
      "id": 5719,
      "wowhead_name": "Morphaz",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Morphaz",
+     "name_ok": true
     },
     {
      "id": 5722,
      "wowhead_name": "Hazzas",
      "zone": 1477,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Hazzas",
+     "name_ok": true
     }
    ],
    "location": "middle floor around the Shade",
    "optional": false,
    "pin": null,
+   "group_encounters": [
+    3585,
+    3586,
+    3587,
+    3588
+   ],
+   "group_pins": [
+    {
+     "encounter_id": 3585,
+     "name": "Hazzas",
+     "pin": {
+      "floor": 1,
+      "x": 0.4477,
+      "y": 0.8514
+     }
+    },
+    {
+     "encounter_id": 3586,
+     "name": "Morphaz",
+     "pin": {
+      "floor": 1,
+      "x": 0.4613,
+      "y": 0.8445
+     }
+    },
+    {
+     "encounter_id": 3587,
+     "name": "Weaver",
+     "pin": {
+      "floor": 1,
+      "x": 0.4477,
+      "y": 0.8514
+     }
+    },
+    {
+     "encounter_id": 3588,
+     "name": "Dreamscythe",
+     "pin": {
+      "floor": 1,
+      "x": 0.4613,
+      "y": 0.8445
+     }
+    }
+   ],
    "loot": [
     {
      "item_id": 12243,
      "name": "Smoldering Claw",
      "slot": "Polearm",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 11.0,
      "chance_wowhead_forever": null,
@@ -468,7 +513,7 @@
      "item_id": 12465,
      "name": "Nightfall Drape",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 11.0,
      "chance_wowhead_forever": null,
@@ -486,7 +531,7 @@
      "item_id": 10795,
      "name": "Drakeclaw Band",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 11.0,
      "chance_wowhead_forever": null,
@@ -504,7 +549,7 @@
      "item_id": 20019,
      "name": "Tooth of Morphaz",
      "slot": "Quest (Hunter, Morphaz)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -512,7 +557,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -522,7 +567,7 @@
      "item_id": 20085,
      "name": "Arcane Shard",
      "slot": "Quest (Mage, Morphaz)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -530,7 +575,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -540,7 +585,7 @@
      "item_id": 20025,
      "name": "Blood of Morphaz",
      "slot": "Quest (Priest, Morphaz)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -548,7 +593,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -558,7 +603,7 @@
      "item_id": 20022,
      "name": "Azure Key",
      "slot": "Quest (Rogue, Morphaz)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -566,7 +611,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -585,7 +630,7 @@
      "id": 5709,
      "wowhead_name": "Shade of Eranikus",
      "zone": 1477,
-     "name_de": null,
+     "name_de": "Eranikus' Schemen",
      "name_ok": true
     }
    ],
@@ -681,18 +726,19 @@
      "item_id": 10847,
      "name": "Dragon's Call",
      "slot": "Sword (Epic)",
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": 0.19,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.38,
+     "wowhead_dropped_by": "Shade of Eranikus",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -707,7 +753,7 @@
      "chance_repo": 39.9,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -726,7 +772,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -745,7 +791,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -765,7 +811,7 @@
      "id": 8443,
      "wowhead_name": "Avatar of Hakkar",
      "zone": 1477,
-     "name_de": null,
+     "name_de": "Avatar von Hakkar",
      "name_ok": true
     }
    ],
@@ -781,7 +827,7 @@
      "item_id": 10663,
      "name": "Essence of Hakkar",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -789,7 +835,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -855,19 +901,20 @@
     {
      "item_id": 12462,
      "name": "Embrace of the Wind Serpent",
-     "slot": null,
-     "quality": null,
+     "slot": "Chest Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": 0.15,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Shade of Hakkar",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -925,70 +972,6 @@
      ]
     }
    ]
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Hazzas",
-   "name_de": "Hazzas",
-   "encounter_id": 3585,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": {
-    "floor": 1,
-    "x": 0.4477,
-    "y": 0.8514
-   },
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Morphaz",
-   "name_de": "Morphaz",
-   "encounter_id": 3586,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": {
-    "floor": 1,
-    "x": 0.4613,
-    "y": 0.8445
-   },
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Weaver",
-   "name_de": "Wirker",
-   "encounter_id": 3587,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": {
-    "floor": 1,
-    "x": 0.4477,
-    "y": 0.8514
-   },
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Dreamscythe",
-   "name_de": "Traumsense",
-   "encounter_id": 3588,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": {
-    "floor": 1,
-    "x": 0.4613,
-    "y": 0.8445
-   },
-   "loot": []
   }
  ],
  "rares": [
@@ -1004,18 +987,19 @@
      "item_id": 10801,
      "name": "Slitherscale Boots",
      "slot": "Feet",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 47.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 47.34,
+     "wowhead_dropped_by": "Spawn of Hakkar",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1032,18 +1016,19 @@
      "item_id": 15733,
      "name": "Pattern: Green Dragonscale Leggings",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 2.56,
+     "wowhead_dropped_by": "Murk Worm",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1067,8 +1052,8 @@
     10751
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The God Hakkar",
+   "wowhead_level": 53,
    "races": 0
   },
   {
@@ -1087,8 +1072,8 @@
     11124
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Jammal'an the Prophet",
+   "wowhead_level": 53,
    "races": 0
   },
   {
@@ -1106,8 +1091,8 @@
     10773
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Secret of the Circle",
+   "wowhead_level": 51,
    "races": 0
   },
   {
@@ -1123,8 +1108,8 @@
    "prereq": "The Sunken Temple (3380 H / 3445 A) -> The Stone Circle (3444)",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Into the Depths",
+   "wowhead_level": 51,
    "races": 0
   },
   {
@@ -1142,8 +1127,8 @@
     10455
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Essence of Eranikus",
+   "wowhead_level": 55,
    "races": 0
   },
   {
@@ -1161,8 +1146,8 @@
     1490
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Into The Temple of Atal'Hakkar",
+   "wowhead_level": 50,
    "races": 77
   },
   {
@@ -1178,8 +1163,8 @@
    "prereq": "Muigin and Larion (4141) -> A Visit to Gregan (4142); 5 Atal'ai Haze 11318; turn in Muigin (9119) Un'Goro",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Haze of Evil",
+   "wowhead_level": 52,
    "races": 77
   },
   {
@@ -1197,8 +1182,8 @@
     1490
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Temple of Atal'Hakkar",
+   "wowhead_level": 50,
    "races": 178
   },
   {
@@ -1214,8 +1199,8 @@
    "prereq": "Larion and Muigin (4145) -> Marvon's Workshop (4147); 5 Atal'ai Haze 11318; turn in Larion (9118), then Bloodpetal Zapper (4148)",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Zapper Fuel",
+   "wowhead_level": 52,
    "races": 178
   },
   {
@@ -1235,8 +1220,8 @@
     22458
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "A Better Ingredient",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1256,8 +1241,8 @@
     19992
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Green Drake",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1277,8 +1262,8 @@
     20036
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Destroy Morphaz",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1299,8 +1284,8 @@
     20620
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Forging the Mightstone",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1320,8 +1305,8 @@
     20006
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Blood of Morphaz",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1341,8 +1326,8 @@
     19982
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Azure Key",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1362,8 +1347,8 @@
     20556
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Da Voodoo",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1383,8 +1368,8 @@
     20530
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Trolls of a Feather",
+   "wowhead_level": 52,
    "races": 0
   },
   {
@@ -1404,8 +1389,8 @@
     20517
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Voodoo Feathers",
+   "wowhead_level": 52,
    "races": 0
   }
  ],
@@ -1436,40 +1421,8 @@
  ],
  "open_questions": [
   "Boss 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 5713 is 'Gasher' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.",
-  "NPC 5714 is 'Loro' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.",
-  "NPC 5715 is 'Hukku' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.",
-  "NPC 5712 is 'Zolo' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.",
-  "NPC 5717 is 'Mijan' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.",
-  "NPC 5716 is 'Zul'Lor' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.",
   "Boss 'Ogom the Wretched' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "Boss 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 5721 is 'Dreamscythe' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.",
-  "NPC 5720 is 'Weaver' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.",
-  "NPC 5719 is 'Morphaz' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.",
-  "NPC 5722 is 'Hazzas' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.",
-  "Encounter 3585 'Hazzas' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3586 'Morphaz' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3587 'Weaver' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3588 'Dreamscythe' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Quest 3528 'The God Hakkar' not found on Wowhead Forever - check ID.",
-  "Quest 1446 'Jammal'an the Prophet' not found on Wowhead Forever - check ID.",
-  "Quest 3447 'Secret of the Circle' not found on Wowhead Forever - check ID.",
-  "Quest 3446 'Into the Depths' not found on Wowhead Forever - check ID.",
-  "Quest 3373 'The Essence of Eranikus' not found on Wowhead Forever - check ID.",
-  "Quest 1475 'Into The Temple of Atal'Hakkar' not found on Wowhead Forever - check ID.",
-  "Quest 4143 'Haze of Evil' not found on Wowhead Forever - check ID.",
-  "Quest 1445 'The Temple of Atal'Hakkar' not found on Wowhead Forever - check ID.",
-  "Quest 4146 'Zapper Fuel' not found on Wowhead Forever - check ID.",
-  "Quest 9053 'A Better Ingredient' not found on Wowhead Forever - check ID.",
-  "Quest 8232 'The Green Drake' not found on Wowhead Forever - check ID.",
-  "Quest 8253 'Destroy Morphaz' not found on Wowhead Forever - check ID.",
-  "Quest 8418 'Forging the Mightstone' not found on Wowhead Forever - check ID.",
-  "Quest 8257 'Blood of Morphaz' not found on Wowhead Forever - check ID.",
-  "Quest 8236 'The Azure Key' not found on Wowhead Forever - check ID.",
-  "Quest 8413 'Da Voodoo' not found on Wowhead Forever - check ID.",
-  "Quest 8422 'Trolls of a Feather' not found on Wowhead Forever - check ID.",
-  "Quest 8425 'Voodoo Feathers' not found on Wowhead Forever - check ID."
+  "Boss 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?"
  ],
  "guide_notes": [
   "Atal'alarion npc ID not linked on page",
@@ -1484,27 +1437,27 @@
   "Order follows guide; Avatar optional"
  ],
  "zone_id": 1477,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_name_en": "The Temple of Atal'Hakkar",
+ "zone_name_de": "Der Tempel von Atal'Hakkar",
  "assessment": {
   "bosses": "partial",
   "pins": "ok",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 8,
   "loot_rows": 28,
-  "loot_confirmed": 24,
-  "loot_with_chance": 24,
-  "forever_confirmed": "yes",
+  "loot_confirmed": 22,
+  "loot_with_chance": 25,
+  "forever_confirmed": "partly",
   "boss_count": 7,
   "boss_ok": 3,
-  "pin_ok": 8,
-  "enc_count": 8,
+  "pin_ok": 4,
+  "enc_count": 4,
   "q_tot": 18
  },
  "top_points": [
   "10 of 18 quests missing in DungeonQuests.lua",
   "Boss 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+2 more)",
-  "Encounter 3585 'Hazzas' is in DungeonBosses.lua but not in the guide's boss list - check in game. (+3 more)"
+  "3 loot rows without drop chance"
  ]
 }

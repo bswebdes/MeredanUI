@@ -39,7 +39,7 @@
      "id": 3983,
      "wowhead_name": "Interrogator Vishas",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Befrager Vishas",
      "name_ok": true
     }
    ],
@@ -95,18 +95,19 @@
      "item_id": 274290,
      "name": "Painwalker Buckler",
      "slot": "Shield (healer)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 1.67,
+     "wowhead_dropped_by": "Interrogator Vishas",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -122,7 +123,7 @@
      "id": 4543,
      "wowhead_name": "Bloodmage Thalnos",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Blutmagier Thalnos",
      "name_ok": true
     }
    ],
@@ -178,18 +179,19 @@
      "item_id": 274291,
      "name": "Polished Skullcap",
      "slot": "Head (mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 1.23,
+     "wowhead_dropped_by": "Bloodmage Thalnos",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -205,7 +207,7 @@
      "id": 3974,
      "wowhead_name": "Houndmaster Loksey",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Hundemeister Loksey",
      "name_ok": true
     }
    ],
@@ -281,36 +283,38 @@
      "item_id": 274292,
      "name": "Houndmaster Boomerang",
      "slot": "Thrown",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide"
-     ]
-    },
-    {
-     "item_id": 273109,
-     "name": "Blueprint: Trapper's Workbench",
-     "slot": null,
-     "quality": null,
-     "quest_item": false,
-     "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.5,
+     "wowhead_dropped_by": "Houndmaster Loksey",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 273109,
+     "name": "Blueprint: Trapper's Workbench",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 0.08,
+     "wowhead_dropped_by": "Houndmaster Loksey",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -326,7 +330,7 @@
      "id": 6487,
      "wowhead_name": "Arcanist Doan",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Arkanist Doan",
      "name_ok": true
     }
    ],
@@ -422,43 +426,45 @@
      "item_id": 274293,
      "name": "Spellsever Crossbow",
      "slot": "Crossbow",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.48,
+     "wowhead_dropped_by": "Arcanist Doan",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 274294,
      "name": "Library Walkers",
      "slot": "Feet",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 0.46,
+     "wowhead_dropped_by": "Arcanist Doan",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 252845,
      "name": "Pattern: Warden's Leather Shoes",
-     "slot": null,
-     "quality": null,
+     "slot": "Feet Leather",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -475,8 +481,8 @@
     {
      "item_id": 252847,
      "name": "Pattern: Mender's Leather Shoes",
-     "slot": null,
-     "quality": null,
+     "slot": "Feet Leather",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -494,7 +500,7 @@
      "item_id": 7146,
      "name": "The Scarlet Key",
      "slot": "Key",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -502,7 +508,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -521,7 +527,7 @@
      "id": 3975,
      "wowhead_name": "Herod",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Herod",
      "name_ok": true
     }
    ],
@@ -625,7 +631,7 @@
      "id": 4542,
      "wowhead_name": "High Inquisitor Fairbanks",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Hochinquisitor Fairbanks",
      "name_ok": true
     }
    ],
@@ -703,14 +709,14 @@
    "order": 7,
    "wing": "Cathedral",
    "name": "Scarlet Commander Mograine",
-   "name_de": null,
+   "name_de": "Scharlachroter Kommandant Mograine",
    "encounter_id": null,
    "npcs": [
     {
      "id": 3976,
      "wowhead_name": "Scarlet Commander Mograine",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Scharlachroter Kommandant Mograine",
      "name_ok": true
     }
    ],
@@ -722,54 +728,57 @@
      "item_id": 7726,
      "name": "Aegis of the Scarlet Commander",
      "slot": "Shield",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 43.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 43.01,
+     "wowhead_dropped_by": "Scarlet Commander Mograine",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 7724,
      "name": "Gauntlets of Divinity",
-     "slot": null,
-     "quality": null,
+     "slot": "Hands Mail",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 20.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.77,
+     "wowhead_dropped_by": "Scarlet Commander Mograine",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 7723,
      "name": "Mograine's Might",
      "slot": "Two-hand mace",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 19.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.14,
+     "wowhead_dropped_by": "Scarlet Commander Mograine",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -803,7 +812,7 @@
      "id": 3977,
      "wowhead_name": "High Inquisitor Whitemane",
      "zone": 796,
-     "name_de": null,
+     "name_de": "Hochinquisitor Whitemane",
      "name_ok": true
     }
    ],
@@ -1113,18 +1122,19 @@
      "item_id": 23192,
      "name": "Tabard of the Scarlet Crusade",
      "slot": "Tabard",
-     "quality": null,
+     "quality": 1,
      "quest_item": false,
      "chance_guide": 2.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 1.95,
+     "wowhead_dropped_by": "Scarlet Trainee",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1147,8 +1157,8 @@
     276899
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Past Due",
+   "wowhead_level": 38,
    "races": 77
   },
   {
@@ -1166,8 +1176,8 @@
     7746
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Mythology of the Titans",
+   "wowhead_level": 38,
    "races": 77
   },
   {
@@ -1188,8 +1198,8 @@
     11262
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "In the Name of the Light",
+   "wowhead_level": 40,
    "races": 77
   },
   {
@@ -1209,8 +1219,8 @@
     7749
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Compendium of the Fallen",
+   "wowhead_level": 38,
    "races": 178
   },
   {
@@ -1230,8 +1240,8 @@
     10711
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Into The Scarlet Monastery",
+   "wowhead_level": 42,
    "races": 178
   },
   {
@@ -1251,8 +1261,8 @@
     4643
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Vorrel's Revenge",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -1268,8 +1278,8 @@
    "prereq": "Final Passage chain from Dorn Plainstalker (2986); book Beginnings of the Undead Threat (5861)",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Test of Lore",
+   "wowhead_level": 36,
    "races": 178
   },
   {
@@ -1285,8 +1295,8 @@
    "prereq": "Going, Going, Guano! (1109); 20 Heart of Zeal (5805) from Scarlet mobs",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Hearts of Zeal",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -1302,8 +1312,8 @@
    "prereq": "Book in first shelved Library room",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Rituals of Power",
+   "wowhead_level": 40,
    "races": 0
   },
   {
@@ -1319,7 +1329,7 @@
    "prereq": "Scarlet Initiate's Uniform (210955), Ruby-Adorned Blade (277246), Eye of Bhossca (210953)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "The Eye of Bhossca",
    "wowhead_level": null,
    "races": 0
   }
@@ -1349,17 +1359,7 @@
   "Scarlet Trainee (trash, after Herod): 23192 Tabard of the Scarlet Crusade - in Forever guide, missing in DungeonLoot.lua"
  ],
  "open_questions": [
-  "Boss 'Scarlet Commander Mograine' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "Quest 96800 'Past Due' not found on Wowhead Forever - check ID.",
-  "Quest 1050 'Mythology of the Titans' not found on Wowhead Forever - check ID.",
-  "Quest 1053 'In the Name of the Light' not found on Wowhead Forever - check ID.",
-  "Quest 1049 'Compendium of the Fallen' not found on Wowhead Forever - check ID.",
-  "Quest 1048 'Into The Scarlet Monastery' not found on Wowhead Forever - check ID.",
-  "Quest 1051 'Vorrel's Revenge' not found on Wowhead Forever - check ID.",
-  "Quest 1160 'Test of Lore' not found on Wowhead Forever - check ID.",
-  "Quest 1113 'Hearts of Zeal' not found on Wowhead Forever - check ID.",
-  "Quest 1951 'Rituals of Power' not found on Wowhead Forever - check ID.",
-  "Quest 78676 'The Eye of Bhossca' not found on Wowhead Forever - check ID."
+  "Boss 'Scarlet Commander Mograine' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?"
  ],
  "guide_notes": [
   "Rewards for 1053 and 1048 marked unconfirmed for Forever on the guide; Classic item IDs listed",
@@ -1369,17 +1369,17 @@
   "Some slot values not stated on guide were filled from Classic item knowledge"
  ],
  "zone_id": 796,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_name_en": "Scarlet Monastery",
+ "zone_name_de": "Das Scharlachrote Kloster",
  "assessment": {
   "bosses": "partial",
   "pins": "ok",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 7,
   "loot_rows": 44,
-  "loot_confirmed": 38,
-  "loot_with_chance": 35,
+  "loot_confirmed": 44,
+  "loot_with_chance": 41,
   "forever_confirmed": "yes",
   "boss_count": 8,
   "boss_ok": 7,
@@ -1390,6 +1390,6 @@
  "top_points": [
   "3 of 10 quests missing in DungeonQuests.lua",
   "Boss 'Scarlet Commander Mograine' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "Quest 96800 'Past Due' not found on Wowhead Forever - check ID. (+9 more)"
+  "3 loot rows without drop chance"
  ]
 }

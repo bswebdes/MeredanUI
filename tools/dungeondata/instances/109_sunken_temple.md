@@ -11,16 +11,12 @@
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
 | 1 |  | Atal'alarion | Atal'alarion | 3582 | ? | 1 0.50,0.46 | Pit of Refuse basement; summoned by statue sequence |
-| 2 |  | Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor) |  | — | 5713 ⚠, 5714 ⚠, 5715 ⚠, 5712 ⚠, 5717 ⚠, 5716 ⚠ | — | six balconies of the upper ring |
+| 2 |  | Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor) |  | — | 5713, 5714, 5715, 5712, 5717, 5716 | — | six balconies of the upper ring |
 | 3 |  | Jammal'an the Prophet | Jammal'an der Prophet | 3589 | 5710 | 1 0.76,0.37 | behind barrier, southeast upper level |
-| 4 |  | Ogom the Wretched |  | — | 5711 | — | beside Jammal'an |
-| 5 |  | Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas) |  | — | 5721 ⚠, 5720 ⚠, 5719 ⚠, 5722 ⚠ | — | middle floor around the Shade |
+| 4 |  | Ogom the Wretched | Ogom der Elende | — | 5711 | — | beside Jammal'an |
+| 5 |  | Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas) |  | 3585+3586+3587+3588 | 5721, 5720, 5719, 5722 | 3585: 1 0.45,0.85; 3586: 1 0.46,0.84; 3587: 1 0.45,0.85; 3588: 1 0.46,0.84 | middle floor around the Shade |
 | 6 |  | Shade of Eranikus | Eranikus' Schemen | 3584 | 5709 | 1 0.69,0.87 | central lower chamber; active after Jammal'an dies |
 | 7 |  | Avatar of Hakkar (optional) | Avatar von Hakkar | 3583 | 8443 | 1 0.25,0.46 | Sanctum of the Fallen God; needs Egg of Hakkar |
-| – |  | Hazzas | Hazzas | 3585 | ? | 1 0.45,0.85 |  |
-| – |  | Morphaz | Morphaz | 3586 | ? | 1 0.46,0.84 |  |
-| – |  | Weaver | Wirker | 3587 | ? | 1 0.45,0.85 |  |
-| – |  | Dreamscythe | Traumsense | 3588 | ? | 1 0.46,0.84 |  |
 
 ### Rares
 
@@ -31,7 +27,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Atal'alarion
 
@@ -40,7 +36,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 10798 | Atal'alarion's Tusk Ring | Waist (Plate) | 37 | 37.04 | 39.9 | ✔ | guide+repo+wowhead-forever |
 | 10800 | Darkwater Bracers | Wrist | 38 | 37.5 | 39.9 | ✔ | guide+repo+wowhead-forever |
 | 10799 | Headspike | Polearm | 18 | 18.04 | 20 | ✔ | guide+repo+wowhead-forever |
-| 22444 | Putrid Vine (quest) | Quest (Druid) |  |  |  |  | guide |
+| 22444 | Putrid Vine (quest) | Quest (Druid) |  |  |  | ✔ | guide |
 
 ### Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)
 
@@ -48,15 +44,15 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 10784 | Atal'ai Breastplate | Chest (Mail) | 10 |  |  | ✔ | guide |
 | 10787 | Atal'ai Gloves | Hands (Cloth) | 10 |  |  | ✔ | guide |
-| 20606 | Amber Voodoo Feather (quest) | Quest |  |  |  |  | guide |
-| 20607 | Blue Voodoo Feather (quest) | Quest |  |  |  |  | guide |
-| 20608 | Green Voodoo Feather (quest) | Quest |  |  |  |  | guide |
+| 20606 | Amber Voodoo Feather (quest) | Quest |  |  |  | ✔ | guide |
+| 20607 | Blue Voodoo Feather (quest) | Quest |  |  |  | ✔ | guide |
+| 20608 | Green Voodoo Feather (quest) | Quest |  |  |  | ✔ | guide |
 
 ### Jammal'an the Prophet
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 6212 | Head of Jammal'an (quest) | Quest |  |  |  |  | guide |
+| 6212 | Head of Jammal'an (quest) | Quest |  |  |  | ✔ | guide |
 | 10808 | Gloves of the Atal'ai Prophet | Hands | 30 | 29.52 | 33.2 | ✔ | guide+repo+wowhead-forever |
 | 10807 | Kilt of the Atal'ai Prophet | Legs | 27 | 27.64 | 33.2 | ✔ | guide+repo+wowhead-forever |
 | 10806 | Vestments of the Atal'ai Prophet | Chest | 27 | 27.12 | 33.2 | ✔ | guide+repo+wowhead-forever |
@@ -65,7 +61,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 10804 | Fist of the Damned | One-Hand | 31 |  |  | ✔ | guide |
+| 10804 | Fist of the Damned | One-Hand | 31 | 30.48 |  | ✔ | guide+wowhead-forever |
 
 ### Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)
 
@@ -74,10 +70,10 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 12243 | Smoldering Claw | Polearm | 11 |  |  | ✔ | guide |
 | 12465 | Nightfall Drape | Back | 11 |  |  | ✔ | guide |
 | 10795 | Drakeclaw Band | Finger | 11 |  |  | ✔ | guide |
-| 20019 | Tooth of Morphaz (quest) | Quest (Hunter, Morphaz) |  |  |  |  | guide |
-| 20085 | Arcane Shard (quest) | Quest (Mage, Morphaz) |  |  |  |  | guide |
-| 20025 | Blood of Morphaz (quest) | Quest (Priest, Morphaz) |  |  |  |  | guide |
-| 20022 | Azure Key (quest) | Quest (Rogue, Morphaz) |  |  |  |  | guide |
+| 20019 | Tooth of Morphaz (quest) | Quest (Hunter, Morphaz) |  |  |  | ✔ | guide |
+| 20085 | Arcane Shard (quest) | Quest (Mage, Morphaz) |  |  |  | ✔ | guide |
+| 20025 | Blood of Morphaz (quest) | Quest (Priest, Morphaz) |  |  |  | ✔ | guide |
+| 20022 | Azure Key (quest) | Quest (Rogue, Morphaz) |  |  |  | ✔ | guide |
 
 ### Shade of Eranikus
 
@@ -87,20 +83,20 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 10833 | Horns of Eranikus | Head (Mail) | 31 | 31.39 | 39.9 | ✔ | guide+repo+wowhead-forever |
 | 10836 | Rod of Corrosion | Wand | 26 | 26.95 | 39.8 | ✔ | guide+repo+wowhead-forever |
 | 10835 | Crest of Supremacy | Shield | 29 | 28.88 | 39.8 | ✔ | guide+repo+wowhead-forever |
-| 10847 | Dragon's Call | Sword (Epic) | 0.19 |  |  | ✔ | guide |
-| 10829 | Dragon's Eye | Neck |  | 31.98 | 39.9 | ✔ | repo+wowhead-forever |
-| 10828 | Dire Nail | Main Hand Dagger |  | 16.74 | 20 | ✔ | repo+wowhead-forever |
-| 10837 | Tooth of Eranikus | Main Hand Axe |  | 14.38 | 20 | ✔ | repo+wowhead-forever |
+| 10847 | Dragon's Call | Sword (Epic) | 0.19 | 0.38 |  | ✔ | guide+wowhead-forever |
+| 10829 | Dragon's Eye | Neck |  | 31.98 | 39.9 |  | repo+wowhead-forever |
+| 10828 | Dire Nail | Main Hand Dagger |  | 16.74 | 20 |  | repo+wowhead-forever |
+| 10837 | Tooth of Eranikus | Main Hand Axe |  | 14.38 | 20 |  | repo+wowhead-forever |
 
 ### Avatar of Hakkar
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 10663 | Essence of Hakkar (quest) | Quest |  |  |  |  | guide |
+| 10663 | Essence of Hakkar (quest) | Quest |  |  |  | ✔ | guide |
 | 10844 | Spire of Hakkar | Staff | 14 |  | 20 | ✔ | guide+repo |
 | 10838 | Might of Hakkar | Mace | 14 |  | 20 | ✔ | guide+repo |
 | 10845 | Warrior's Embrace | Chest (Plate) | 30 |  | 39.8 | ✔ | guide+repo |
-| 12462 | Embrace of the Wind Serpent |  | 0.15 |  |  | ✔ | guide |
+| 12462 | Embrace of the Wind Serpent | Chest Cloth | 0.15 |  |  | ✔ | guide+wowhead-forever |
 | 10842 | Windscale Sarong | Legs Leather |  |  | 40 |  | repo |
 | 10843 | Featherskin Cape |  |  |  | 40 |  | repo |
 | 10846 | Bloodshot Greaves | Feet Mail |  |  | 39.8 |  | repo |
@@ -109,13 +105,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 10801 | Slitherscale Boots | Feet | 47 |  |  | ✔ | guide |
+| 10801 | Slitherscale Boots | Feet | 47 | 47.34 |  | ✔ | guide+wowhead-forever |
 
 ### Murk Worm (trash)
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 15733 | Pattern: Green Dragonscale Leggings | Recipe |  |  |  |  | guide |
+| 15733 | Pattern: Green Dragonscale Leggings | Recipe |  | 2.56 |  | ✔ | guide+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -172,40 +168,8 @@ In DungeonQuests.lua but not in the guide (check if still in Forever):
 ## Open questions (check in game)
 
 - [ ] Boss 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 5713 is 'Gasher' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.
-- [ ] NPC 5714 is 'Loro' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.
-- [ ] NPC 5715 is 'Hukku' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.
-- [ ] NPC 5712 is 'Zolo' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.
-- [ ] NPC 5717 is 'Mijan' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.
-- [ ] NPC 5716 is 'Zul'Lor' on Wowhead Forever, guide says 'Troll Guardians (Gasher, Loro, Hukku, Zolo, Mijan, Zul'Lor)'.
 - [ ] Boss 'Ogom the Wretched' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 - [ ] Boss 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 5721 is 'Dreamscythe' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.
-- [ ] NPC 5720 is 'Weaver' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.
-- [ ] NPC 5719 is 'Morphaz' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.
-- [ ] NPC 5722 is 'Hazzas' on Wowhead Forever, guide says 'Green Dragons (Dreamscythe, Weaver, Morphaz, Hazzas)'.
-- [ ] Encounter 3585 'Hazzas' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Encounter 3586 'Morphaz' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Encounter 3587 'Weaver' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Encounter 3588 'Dreamscythe' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Quest 3528 'The God Hakkar' not found on Wowhead Forever - check ID.
-- [ ] Quest 1446 'Jammal'an the Prophet' not found on Wowhead Forever - check ID.
-- [ ] Quest 3447 'Secret of the Circle' not found on Wowhead Forever - check ID.
-- [ ] Quest 3446 'Into the Depths' not found on Wowhead Forever - check ID.
-- [ ] Quest 3373 'The Essence of Eranikus' not found on Wowhead Forever - check ID.
-- [ ] Quest 1475 'Into The Temple of Atal'Hakkar' not found on Wowhead Forever - check ID.
-- [ ] Quest 4143 'Haze of Evil' not found on Wowhead Forever - check ID.
-- [ ] Quest 1445 'The Temple of Atal'Hakkar' not found on Wowhead Forever - check ID.
-- [ ] Quest 4146 'Zapper Fuel' not found on Wowhead Forever - check ID.
-- [ ] Quest 9053 'A Better Ingredient' not found on Wowhead Forever - check ID.
-- [ ] Quest 8232 'The Green Drake' not found on Wowhead Forever - check ID.
-- [ ] Quest 8253 'Destroy Morphaz' not found on Wowhead Forever - check ID.
-- [ ] Quest 8418 'Forging the Mightstone' not found on Wowhead Forever - check ID.
-- [ ] Quest 8257 'Blood of Morphaz' not found on Wowhead Forever - check ID.
-- [ ] Quest 8236 'The Azure Key' not found on Wowhead Forever - check ID.
-- [ ] Quest 8413 'Da Voodoo' not found on Wowhead Forever - check ID.
-- [ ] Quest 8422 'Trolls of a Feather' not found on Wowhead Forever - check ID.
-- [ ] Quest 8425 'Voodoo Feathers' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

@@ -13,16 +13,16 @@
 | 1 |  | High Interrogator Gerstahn | Verhörmeisterin Gerstahn | 227 | 9018 | 1 0.48,0.93 | Detention Block |
 | 2 |  | Lord Roccor (optional) | Lord Roccor | 228 | 9025 | 1 0.49,0.57 | Detention Block |
 | 3 |  | Houndmaster Grebmar (optional) | Hundemeister Grebmar | 229 | 9319 | 1 0.50,0.62 | Detention Block |
-| 4 |  | High Justice Grimstone |  | — | 10096 | — | Ring of the Law (runs arena waves) |
-| 5 |  | Gorosh the Dervish (optional) |  | — | 9027 | — | Ring of the Law (random) |
-| 6 |  | Grizzle (optional) |  | — | 9028 | — | Ring of the Law (random) |
-| 7 |  | Ok'thor the Breaker (optional) |  | — | 9030 | — | Ring of the Law (random) |
-| 8 |  | Anub'shiah (optional) |  | — | 9031 | — | Ring of the Law (random) |
-| 9 |  | Hedrum the Creeper (optional) |  | — | 9032 | — | Ring of the Law (random) |
-| 10 |  | Eviscerator (optional) |  | — | 9029 | — | Ring of the Law (random) |
+| 4 |  | High Justice Grimstone | Oberrichter Grimmstein | — | 10096 | — | Ring of the Law (runs arena waves) |
+| 5 |  | Gorosh the Dervish (optional) | Gorosh der Derwisch | — | 9027 | — | Ring of the Law (random) |
+| 6 |  | Grizzle (optional) | Grizzle | — | 9028 | — | Ring of the Law (random) |
+| 7 |  | Ok'thor the Breaker (optional) | Ok'thor der Zerstörer | — | 9030 | — | Ring of the Law (random) |
+| 8 |  | Anub'shiah (optional) | Anub'shiah | — | 9031 | — | Ring of the Law (random) |
+| 9 |  | Hedrum the Creeper (optional) | Hedrum der Krabbler | — | 9032 | — | Ring of the Law (random) |
+| 10 |  | Eviscerator (optional) | Ausweider | — | 9029 | — | Ring of the Law (random) |
 | 11 |  | Pyromancer Loregrain (optional) | Pyromant Weisenkorn | 231 | 9024 | 1 0.54,0.70 | Dark Iron area past the arena |
 | 12 |  | Warder Stilgiss / Verek (optional) | Wärter Stilgiss | 233 | 9041, 9042 | 1 0.61,0.39 | Black Vault |
-| 13 |  | Watchman Doomgrip (optional) |  | — | 9476 | — | Black Vault; spawns after all 12 Relic Coffers opened |
+| 13 |  | Watchman Doomgrip (optional) | Wachmann Stahlgriff | — | 9476 | — | Black Vault; spawns after all 12 Relic Coffers opened |
 | 14 |  | Fineous Darkvire (optional) | Fineous Dunkelader | 234 | 9056 | 1 0.61,0.24 | Hall of Crafting |
 | 15 |  | Lord Incendius (optional) | Lord Incendius | 232 | 9017 | 1 0.56,0.31 | Black Anvil |
 | 16 |  | Bael'Gar (optional) | Bael'Gar | 235 | 9016 | 1 0.24,0.52 | lava at end of Dark Iron Highway |
@@ -32,7 +32,7 @@
 | 20 |  | Plugger Spazzring (optional) | Stöpsel Zapfring | 241 | 9499 | 1 0.50,0.32 | Grim Guzzler bar (vendor; sells Dark Iron Ale Mug 11325) |
 | 21 |  | Phalanx | Phalanx | 239 | 9502 | 1 0.53,0.36 | Grim Guzzler exit |
 | 22 |  | Ambassador Flamelash | Botschafter Flammenschlag | 242 | 9156 | 1 0.54,0.19 | Chamber of Enchantment, rune pillars |
-| 23 |  | The Seven (Doom'rel and six ghosts) | Die Sieben | 243 | 9039 ⚠ | 2 0.57,0.22 | Summoners' Tomb |
+| 23 |  | The Seven (Doom'rel and six ghosts) | Die Sieben | 243 | 9039 | 2 0.57,0.22 | Summoners' Tomb |
 | 24 |  | Magmus | Magmus | 244 | 9938 | 2 0.82,0.12 | Lyceum, before throne room door |
 | 25 |  | Emperor Dagran Thaurissan | Imperator Dagran Thaurissan | 2790 | 9019 | 2 0.93,0.12 | Imperial Seat (throne room) |
 | 26 |  | Princess Moira Bronzebeard (optional) | Prinzessin Moira Bronzebeard | 2789 | 8929 | 2 0.93,0.11 | throne room beside the Emperor |
@@ -50,28 +50,28 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### High Interrogator Gerstahn
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11140 | Prison Cell Key | Key |  |  |  | ✔ | guide |
+| 11140 | Prison Cell Key | Key |  | 47.6 |  | ✔ | guide+wowhead-forever |
 | 22240 | Greaves of Withering Despair | Feet Mail | 12 | 12.55 | 25 | ✔ | guide+repo+wowhead-forever |
-| 11624 | Kentic Amice | Shoulder Cloth |  | 26.69 | 25 | ✔ | repo+wowhead-forever |
-| 11625 | Enthralled Sphere | Held In Off-hand |  | 14.44 | 25 | ✔ | repo+wowhead-forever |
-| 11626 | Blackveil Cape |  |  | 13.05 | 25 | ✔ | repo+wowhead-forever |
+| 11624 | Kentic Amice | Shoulder Cloth |  | 26.69 | 25 |  | repo+wowhead-forever |
+| 11625 | Enthralled Sphere | Held In Off-hand |  | 14.44 | 25 |  | repo+wowhead-forever |
+| 11626 | Blackveil Cape |  |  | 13.05 | 25 |  | repo+wowhead-forever |
 
 ### Lord Roccor
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 11631 | Stoneshell Guard | Off Hand Shield | 24 | 27.55 | 25 | ✔ | guide+repo+wowhead-forever |
-| 11632 | Earthslag Shoulders | Shoulder Plate |  | 27.96 | 25 | ✔ | repo+wowhead-forever |
-| 22234 | Mantle of Lost Hope | Shoulder Cloth |  | 16.94 | 25 | ✔ | repo+wowhead-forever |
-| 22397 | Idol of Ferocity | Relic Idol |  | 17.65 | 25 | ✔ | repo+wowhead-forever |
-| 11630 | Rockshard Pellets | Ammo Bullet |  | 13.62 | 16 | ✔ | repo+wowhead-forever |
-| 11813 | Formula: Smoking Heart of the Mountain | Trinket |  | 24.05 | 15 | ✔ | repo+wowhead-forever |
+| 11632 | Earthslag Shoulders | Shoulder Plate |  | 27.96 | 25 |  | repo+wowhead-forever |
+| 22234 | Mantle of Lost Hope | Shoulder Cloth |  | 16.94 | 25 |  | repo+wowhead-forever |
+| 22397 | Idol of Ferocity | Relic Idol |  | 17.65 | 25 |  | repo+wowhead-forever |
+| 11630 | Rockshard Pellets | Ammo Bullet |  | 13.62 | 16 |  | repo+wowhead-forever |
+| 11813 | Formula: Smoking Heart of the Mountain | Trinket |  | 24.05 | 15 |  | repo+wowhead-forever |
 
 ### Houndmaster Grebmar
 
@@ -79,40 +79,40 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 11627 | Fleetfoot Greaves | Feet Mail | 43 | 36.73 | 35 | ✔ | guide+repo+wowhead-forever |
 | 11628 | Houndmaster's Bow | Bow | 10 | 10.28 | 15 | ✔ | guide+repo+wowhead-forever |
-| 11623 | Spritecaster Cape |  |  | 19.65 | 35 | ✔ | repo+wowhead-forever |
-| 11629 | Houndmaster's Rifle | Ranged Gun |  | 12.09 | 15 | ✔ | repo+wowhead-forever |
+| 11623 | Spritecaster Cape |  |  | 19.65 | 35 |  | repo+wowhead-forever |
+| 11629 | Houndmaster's Rifle | Ranged Gun |  | 12.09 | 15 |  | repo+wowhead-forever |
 
 ### Gorosh the Dervish
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11726 | Savage Gladiator Chain | Chest (Epic) | 14 |  |  | ✔ | guide |
+| 11726 | Savage Gladiator Chain | Chest (Epic) | 14 | 12.3 |  | ✔ | guide+wowhead-forever |
 
 ### Grizzle
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11610 | Plans: Dark Iron Pulverizer | Plans | 93 |  |  | ✔ | guide |
+| 11610 | Plans: Dark Iron Pulverizer | Plans | 93 | 92.65 |  | ✔ | guide+wowhead-forever |
 
 ### Pyromancer Loregrain
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 11750 | Kindling Stave | Staff | 20 | 19.9 | 20 | ✔ | guide+repo+wowhead-forever |
-| 11207 | Formula: Enchant Weapon - Fiery Weapon |  |  | 41.41 | 40 | ✔ | repo+wowhead-forever |
-| 11747 | Flamestrider Robes | Chest Leather |  | 24.15 | 26.7 | ✔ | repo+wowhead-forever |
-| 11748 | Pyric Caduceus | Ranged Wand |  | 28.38 | 26.7 | ✔ | repo+wowhead-forever |
-| 11749 | Searingscale Leggings | Legs Mail |  | 23.69 | 26.7 | ✔ | repo+wowhead-forever |
+| 11207 | Formula: Enchant Weapon - Fiery Weapon |  |  | 41.41 | 40 |  | repo+wowhead-forever |
+| 11747 | Flamestrider Robes | Chest Leather |  | 24.15 | 26.7 |  | repo+wowhead-forever |
+| 11748 | Pyric Caduceus | Ranged Wand |  | 28.38 | 26.7 |  | repo+wowhead-forever |
+| 11749 | Searingscale Leggings | Legs Mail |  | 23.69 | 26.7 |  | repo+wowhead-forever |
 
 ### Warder Stilgiss / Verek
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11309 | Heart of the Mountain (quest) | Quest (Secret Safe) |  |  |  |  | guide |
-| 11782 | Boreal Mantle | Shoulder Cloth |  | 24.8 | 25 | ✔ | repo+wowhead-forever |
-| 11783 | Chillsteel Girdle | Waist Mail |  | 25.55 | 25 | ✔ | repo+wowhead-forever |
-| 11784 | Arbiter's Blade | Main Hand Sword |  | 21.74 | 25 | ✔ | repo+wowhead-forever |
-| 22241 | Dark Warder's Pauldrons | Shoulder Leather |  | 18.94 | 25 | ✔ | repo+wowhead-forever |
+| 11309 | The Heart of the Mountain (quest) | Quest (Secret Safe) |  |  |  | ✔ | guide |
+| 11782 | Boreal Mantle | Shoulder Cloth |  | 24.8 | 25 |  | repo+wowhead-forever |
+| 11783 | Chillsteel Girdle | Waist Mail |  | 25.55 | 25 |  | repo+wowhead-forever |
+| 11784 | Arbiter's Blade | Main Hand Sword |  | 21.74 | 25 |  | repo+wowhead-forever |
+| 22241 | Dark Warder's Pauldrons | Shoulder Leather |  | 18.94 | 25 |  | repo+wowhead-forever |
 
 ### Watchman Doomgrip
 
@@ -127,21 +127,21 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 10999 | Ironfel (quest) | Quest |  |  |  |  | guide |
+| 10999 | Ironfel (quest) | Quest |  | 38.85 |  | ✔ | guide+wowhead-forever |
 | 11841 | Senior Designer's Pantaloons | Legs | 23 | 26.79 | 25 | ✔ | guide+repo+wowhead-forever |
-| 11839 | Chief Architect's Monocle | Head Cloth |  | 17.94 | 25 | ✔ | repo+wowhead-forever |
-| 11842 | Lead Surveyor's Mantle | Shoulder Mail |  | 25.28 | 25 | ✔ | repo+wowhead-forever |
-| 22223 | Foreman's Head Protector | Head Plate |  | 14.78 | 25 | ✔ | repo+wowhead-forever |
+| 11839 | Chief Architect's Monocle | Head Cloth |  | 17.94 | 25 |  | repo+wowhead-forever |
+| 11842 | Lead Surveyor's Mantle | Shoulder Mail |  | 25.28 | 25 |  | repo+wowhead-forever |
+| 22223 | Foreman's Head Protector | Head Plate |  | 14.78 | 25 |  | repo+wowhead-forever |
 
 ### Lord Incendius
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 11764 | Cinderhide Armsplints | Wrist | 12 | 13.68 | 25 | ✔ | guide+repo+wowhead-forever |
-| 11126 | Tablet of Kurniya (quest) | Quest |  |  |  |  | guide |
-| 11765 | Pyremail Wristguards | Wrist Mail |  | 13.22 | 25 | ✔ | repo+wowhead-forever |
-| 11766 | Flameweave Cuffs | Wrist Cloth |  | 13.62 | 25 | ✔ | repo+wowhead-forever |
-| 11767 | Emberplate Armguards | Wrist Plate |  | 13.56 | 25 | ✔ | repo+wowhead-forever |
+| 11126 | Tablet of Kurniya (quest) | Quest |  | 9.29 |  | ✔ | guide+wowhead-forever |
+| 11765 | Pyremail Wristguards | Wrist Mail |  | 13.22 | 25 |  | repo+wowhead-forever |
+| 11766 | Flameweave Cuffs | Wrist Cloth |  | 13.62 | 25 |  | repo+wowhead-forever |
+| 11767 | Emberplate Armguards | Wrist Plate |  | 13.56 | 25 |  | repo+wowhead-forever |
 | 19268 | Ace of Elementals |  |  |  | 2 |  | repo |
 
 ### Bael'Gar
@@ -149,9 +149,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 11803 | Force of Magma | Two-Hand Mace | 34 | 33.47 | 32 | ✔ | guide+repo+wowhead-forever |
-| 11802 | Lavacrest Leggings | Legs Plate |  | 35.21 | 32 | ✔ | repo+wowhead-forever |
-| 11805 | Rubidium Hammer | Main Hand Mace |  | 6.14 | 18 | ✔ | repo+wowhead-forever |
-| 11807 | Sash of the Burning Heart | Waist Cloth |  | 18.69 | 18 | ✔ | repo+wowhead-forever |
+| 11802 | Lavacrest Leggings | Legs Plate |  | 35.21 | 32 |  | repo+wowhead-forever |
+| 11805 | Rubidium Hammer | Main Hand Mace |  | 6.14 | 18 |  | repo+wowhead-forever |
+| 11807 | Sash of the Burning Heart | Waist Cloth |  | 18.69 | 18 |  | repo+wowhead-forever |
 
 ### General Angerforge
 
@@ -159,9 +159,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 11821 | Warstrife Leggings | Legs | 11 | 12.13 | 20 | ✔ | guide+repo+wowhead-forever |
 | 11817 | Lord General's Sword | Sword | 8 | 10.36 | 20 | ✔ | guide+repo+wowhead-forever |
-| 11810 | Force of Will | Trinket |  | 7.5 | 20 | ✔ | repo+wowhead-forever |
-| 11816 | Angerforge's Battle Axe | Two-Hand Axe |  | 26.65 | 20 | ✔ | repo+wowhead-forever |
-| 11820 | Royal Decorated Armor | Chest Mail |  | 27.98 | 20 | ✔ | repo+wowhead-forever |
+| 11810 | Force of Will | Trinket |  | 7.5 | 20 |  | repo+wowhead-forever |
+| 11816 | Angerforge's Battle Axe | Two-Hand Axe |  | 26.65 | 20 |  | repo+wowhead-forever |
+| 11820 | Royal Decorated Armor | Chest Mail |  | 27.98 | 20 |  | repo+wowhead-forever |
 
 ### Golem Lord Argelmach
 
@@ -170,32 +170,32 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 11669 | Naglering | Finger | 10 | 10.9 | 30.7 | ✔ | guide+repo+wowhead-forever |
 | 11819 | Second Wind | Trinket | 9 | 8.99 | 8 | ✔ | guide+repo+wowhead-forever |
 | 11822 | Omnicast Boots | Feet | 37 | 35.95 | 30.7 | ✔ | guide+repo+wowhead-forever |
-| 11823 | Luminary Kilt | Legs Leather |  | 36.51 | 30.7 | ✔ | repo+wowhead-forever |
+| 11823 | Luminary Kilt | Legs Leather |  | 36.51 | 30.7 |  | repo+wowhead-forever |
 
 ### Hurley Blackbreath
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 18043 | Coal Miner Boots | Feet Leather |  | 23.72 | 30.3 | ✔ | repo+wowhead-forever |
-| 18044 | Hurley's Tankard | Main Hand Mace |  | 25.92 | 30.3 | ✔ | repo+wowhead-forever |
-| 22275 | Firemoss Boots | Feet Leather |  | 19.54 | 30.3 | ✔ | repo+wowhead-forever |
-| 11735 | Ragefury Eyepatch | Head Leather |  | 9.55 | 9 | ✔ | repo+wowhead-forever |
+| 18043 | Coal Miner Boots | Feet Leather |  | 23.72 | 30.3 |  | repo+wowhead-forever |
+| 18044 | Hurley's Tankard | Main Hand Mace |  | 25.92 | 30.3 |  | repo+wowhead-forever |
+| 22275 | Firemoss Boots | Feet Leather |  | 19.54 | 30.3 |  | repo+wowhead-forever |
+| 11735 | Ragefury Eyepatch | Head Leather |  | 9.55 | 9 |  | repo+wowhead-forever |
 
 ### Plugger Spazzring
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 12791 | Barman Shanker | Main Hand Dagger |  | 10.39 | 33.3 | ✔ | repo+wowhead-forever |
-| 12793 | Mixologist's Tunic | Chest Leather |  | 29.38 | 33.3 | ✔ | repo+wowhead-forever |
-| 18653 | Schematic: Goblin Jumper Cables XL | Trinket |  | 17.07 | 33.3 | ✔ | repo+wowhead-forever |
+| 12791 | Barman Shanker | Main Hand Dagger |  | 10.39 | 33.3 |  | repo+wowhead-forever |
+| 12793 | Mixologist's Tunic | Chest Leather |  | 29.38 | 33.3 |  | repo+wowhead-forever |
+| 18653 | Schematic: Goblin Jumper Cables XL | Trinket |  | 17.07 | 33.3 |  | repo+wowhead-forever |
 
 ### Phalanx
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 11745 | Fists of Phalanx | Hands | 31 | 28.89 | 33.3 | ✔ | guide+repo+wowhead-forever |
-| 11744 | Bloodfist | One-Hand Fist Weapon |  | 26.6 | 33.3 | ✔ | repo+wowhead-forever |
-| 22212 | Golem Fitted Pauldrons | Shoulder Mail |  | 22.89 | 33.3 | ✔ | repo+wowhead-forever |
+| 11744 | Bloodfist | One-Hand Fist Weapon |  | 26.6 | 33.3 |  | repo+wowhead-forever |
+| 22212 | Golem Fitted Pauldrons | Shoulder Mail |  | 22.89 | 33.3 |  | repo+wowhead-forever |
 
 ### Ambassador Flamelash
 
@@ -203,19 +203,19 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 11832 | Burst of Knowledge | Trinket | 9 | 9.63 | 17 | ✔ | guide+repo+wowhead-forever |
 | 11808 | Circle of Flame | Head Cloth |  | 0.35 | 1 | ✔ | guide+repo+wowhead-forever |
-| 11812 | Cape of the Fire Salamander |  |  | 38.74 | 31 | ✔ | repo+wowhead-forever |
-| 11814 | Molten Fists | Hands Mail |  | 37.53 | 31 | ✔ | repo+wowhead-forever |
-| 11809 | Flame Wrath | Two-Hand Polearm |  | 10.31 | 20 | ✔ | repo+wowhead-forever |
+| 11812 | Cape of the Fire Salamander |  |  | 38.74 | 31 |  | repo+wowhead-forever |
+| 11814 | Molten Fists | Hands Mail |  | 37.53 | 31 |  | repo+wowhead-forever |
+| 11809 | Flame Wrath | Two-Hand Polearm |  | 10.31 | 20 |  | repo+wowhead-forever |
 
 ### Magmus
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
 | 11746 | Golem Skull Helm | Head | 20 |  | 20 | ✔ | guide+repo |
-| 11935 | Magmus Stone | Held In Off-hand |  | 20.74 | 20 | ✔ | repo+wowhead-forever |
-| 22208 | Lavastone Hammer | Two-Hand Mace |  | 20.4 | 20 | ✔ | repo+wowhead-forever |
-| 22395 | Totem of Rage | Relic Totem |  | 7.95 | 20 | ✔ | repo+wowhead-forever |
-| 22400 | Libram of Truth | Relic Libram |  | 12.33 | 20 | ✔ | repo+wowhead-forever |
+| 11935 | Magmus Stone | Held In Off-hand |  | 20.74 | 20 |  | repo+wowhead-forever |
+| 22208 | Lavastone Hammer | Two-Hand Mace |  | 20.4 | 20 |  | repo+wowhead-forever |
+| 22395 | Totem of Rage | Relic Totem |  | 7.95 | 20 |  | repo+wowhead-forever |
+| 22400 | Libram of Truth | Relic Libram |  | 12.33 | 20 |  | repo+wowhead-forever |
 
 ### Emperor Dagran Thaurissan
 
@@ -226,13 +226,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 11934 | Emperor's Seal | Finger | 17 | 17.9 | 20 | ✔ | guide+repo+wowhead-forever |
 | 11684 | Ironfoe | Mace (Epic) | 1 | 0.94 | 1 | ✔ | guide+repo+wowhead-forever |
 | 21524 | Red Winter Hat | Head Cloth |  |  | 100 |  | repo |
-| 11924 | Robes of the Royal Crown | Chest Cloth |  | 20.24 | 20 | ✔ | repo+wowhead-forever |
-| 11932 | Guiding Stave of Wisdom | Two-Hand Staff |  | 19.34 | 20 | ✔ | repo+wowhead-forever |
-| 22207 | Sash of the Grand Hunt | Waist Mail |  | 15.06 | 20 | ✔ | repo+wowhead-forever |
-| 11930 | The Emperor's New Cape |  |  | 17.74 | 19.8 | ✔ | repo+wowhead-forever |
-| 11931 | Dreadforge Retaliator | Two-Hand Axe |  | 19.54 | 19.8 | ✔ | repo+wowhead-forever |
-| 11933 | Imperial Jewel | Neck |  | 16.43 | 19.8 | ✔ | repo+wowhead-forever |
-| 22204 | Wristguards of Renown | Wrist Leather |  | 15.03 | 19.8 | ✔ | repo+wowhead-forever |
+| 11924 | Robes of the Royal Crown | Chest Cloth |  | 20.24 | 20 |  | repo+wowhead-forever |
+| 11932 | Guiding Stave of Wisdom | Two-Hand Staff |  | 19.34 | 20 |  | repo+wowhead-forever |
+| 22207 | Sash of the Grand Hunt | Waist Mail |  | 15.06 | 20 |  | repo+wowhead-forever |
+| 11930 | The Emperor's New Cape |  |  | 17.74 | 19.8 |  | repo+wowhead-forever |
+| 11931 | Dreadforge Retaliator | Two-Hand Axe |  | 19.54 | 19.8 |  | repo+wowhead-forever |
+| 11933 | Imperial Jewel | Neck |  | 16.43 | 19.8 |  | repo+wowhead-forever |
+| 22204 | Wristguards of Renown | Wrist Leather |  | 15.03 | 19.8 |  | repo+wowhead-forever |
 
 ### Princess Moira Bronzebeard
 
@@ -248,32 +248,32 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11612 | Plans: Dark Iron Plate | Chest Plate |  | 13.65 | 34 | ✔ | repo+wowhead-forever |
-| 11742 | Wayfarer's Knapsack | 16 Slot Bag |  | 15.17 | 34 | ✔ | repo+wowhead-forever |
-| 2662 | Ribbly's Quiver | 16 Slot Quiver |  | 9.43 | 16 | ✔ | repo+wowhead-forever |
-| 2663 | Ribbly's Bandolier | 16 Slot Ammo Pouch |  | 10.07 | 16 | ✔ | repo+wowhead-forever |
+| 11612 | Plans: Dark Iron Plate | Chest Plate |  | 13.65 | 34 |  | repo+wowhead-forever |
+| 11742 | Wayfarer's Knapsack | 16 Slot Bag |  | 15.17 | 34 |  | repo+wowhead-forever |
+| 2662 | Ribbly's Quiver | 16 Slot Quiver |  | 9.43 | 16 |  | repo+wowhead-forever |
+| 2663 | Ribbly's Bandolier | 16 Slot Ammo Pouch |  | 10.07 | 16 |  | repo+wowhead-forever |
 
 ### Dark Keeper (random named spawn)
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11197 | Dark Keeper Key | Key |  |  |  |  | guide |
+| 11197 | Dark Keeper Key | Key |  |  |  | ✔ | guide |
 
 ### Panzor the Invincible
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 11785 | Rock Golem Bulwark | Off Hand Shield |  | 22.61 | 25 | ✔ | repo+wowhead-forever |
-| 11786 | Stone of the Earth | Two-Hand Sword |  | 24.24 | 25 | ✔ | repo+wowhead-forever |
-| 11787 | Shalehusk Boots | Feet Plate |  | 30.54 | 25 | ✔ | repo+wowhead-forever |
-| 22245 | Soot Encrusted Footwear | Feet Cloth |  | 16.32 | 25 | ✔ | repo+wowhead-forever |
+| 11785 | Rock Golem Bulwark | Off Hand Shield |  | 22.61 | 25 |  | repo+wowhead-forever |
+| 11786 | Stone of the Earth | Two-Hand Sword |  | 24.24 | 25 |  | repo+wowhead-forever |
+| 11787 | Shalehusk Boots | Feet Plate |  | 30.54 | 25 |  | repo+wowhead-forever |
+| 22245 | Soot Encrusted Footwear | Feet Cloth |  | 16.32 | 25 |  | repo+wowhead-forever |
 
 ### Verek
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 22242 | Verek's Leash | Waist Mail |  | 9.21 | 13 | ✔ | repo+wowhead-forever |
-| 11755 | Verek's Collar | Neck |  | 13.34 | 12 | ✔ | repo+wowhead-forever |
+| 22242 | Verek's Leash | Waist Mail |  | 9.21 | 13 |  | repo+wowhead-forever |
+| 11755 | Verek's Collar | Neck |  | 13.34 | 12 |  | repo+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -387,7 +387,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 4024 | A Taste of Flame | 58 | Both | Cyrus Therepentous (9459) | Burning Steppes |  | **no** |
 | 9015 | The Challenge | 60 | Both | Falrin Treeshaper (16032) | Dire Maul |  | **no** |
 | 7604 | A Binding Contract | 60 | Both | Thorium Brotherhood Contract (item 18628) |  | item-started | **no** |
-| 7848 | Attunement to the Core |  | Both | Lothos Riftwaker (14387) | Blackrock Mountain | Core Fragment 18412 | **no** |
+| 7848 | Attunement to the Core | 60 | Both | Lothos Riftwaker (14387) | Blackrock Mountain | Core Fragment 18412 | **no** |
 | 4242 | Abandoned Hope | 54 | Alliance | Marshal Windsor (9023) | Burning Steppes |  | **no** |
 | 4263 | Incendius! | 56 | Alliance | Jalinda Sprig (9561) | Searing Gorge (Thorium Point) |  | **no** |
 | 4126 | Hurley Blackbreath | 55 | Alliance | Ragnar Thunderbrew (1267) | Dun Morogh (Kharanos) |  | **no** |
@@ -423,40 +423,14 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 - [ ] Boss 'Hedrum the Creeper' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 - [ ] Boss 'Eviscerator' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 - [ ] Boss 'Watchman Doomgrip' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 9039 is 'Doom'rel' on Wowhead Forever, guide says 'The Seven (Doom'rel and six ghosts)'.
 - [ ] Encounter 230 'Ring of Law' is in DungeonBosses.lua but not in the guide's boss list - check in game.
 - [ ] Encounter 240 'Ribbly Screwspigot' is in DungeonBosses.lua but not in the guide's boss list - check in game.
 - [ ] Encounter 2791 'The Vault' is in DungeonBosses.lua but not in the guide's boss list - check in game.
 - [ ] Rare pin 8923 'Panzor the Invincible' is not mentioned in the guide.
 - [ ] Rare pin 9042 'Verek' is not mentioned in the guide.
-- [ ] Quest 3802 'Dark Iron Legacy' not found on Wowhead Forever - check ID.
-- [ ] Quest 4136 'Ribbly Screwspigot' not found on Wowhead Forever - check ID.
-- [ ] Quest 4201 'The Love Potion' not found on Wowhead Forever - check ID.
-- [ ] Quest 4123 'The Heart of the Mountain' not found on Wowhead Forever - check ID.
-- [ ] Quest 4083 'The Spectral Chalice' not found on Wowhead Forever - check ID.
-- [ ] Quest 4024 'A Taste of Flame' not found on Wowhead Forever - check ID.
-- [ ] Quest 9015 'The Challenge' not found on Wowhead Forever - check ID.
-- [ ] Quest 7604 'A Binding Contract' not found on Wowhead Forever - check ID.
-- [ ] Quest 7848 'Attunement to the Core' not found on Wowhead Forever - check ID.
-- [ ] Quest 4242 'Abandoned Hope' not found on Wowhead Forever - check ID.
-- [ ] Quest 4263 'Incendius!' not found on Wowhead Forever - check ID.
-- [ ] Quest 4126 'Hurley Blackbreath' not found on Wowhead Forever - check ID.
-- [ ] Quest 4286 'The Good Stuff' not found on Wowhead Forever - check ID.
-- [ ] Quest 4264 'A Crumpled Up Note' not found on Wowhead Forever - check ID.
-- [ ] Quest 4282 'A Shred of Hope' not found on Wowhead Forever - check ID.
-- [ ] Quest 4322 'Jail Break!' not found on Wowhead Forever - check ID.
-- [ ] Quest 4362 'The Fate of the Kingdom' not found on Wowhead Forever - check ID.
-- [ ] Quest 4363 'The Princess's Surprise' not found on Wowhead Forever - check ID.
-- [ ] Quest 4081 'KILL ON SIGHT: Dark Iron Dwarves' not found on Wowhead Forever - check ID.
-- [ ] Quest 4082 'KILL ON SIGHT: High Ranking Dark Iron Officials' not found on Wowhead Forever - check ID.
-- [ ] Quest 7201 'The Last Element' not found on Wowhead Forever - check ID.
-- [ ] Quest 4134 'Lost Thunderbrew Recipe' not found on Wowhead Forever - check ID.
-- [ ] Quest 3907 'Disharmony of Fire' not found on Wowhead Forever - check ID.
-- [ ] Quest 4132 'Operation: Death to Angerforge' not found on Wowhead Forever - check ID.
-- [ ] Quest 4121 'Precarious Predicament' not found on Wowhead Forever - check ID.
-- [ ] Quest 4063 'The Rise of the Machines' not found on Wowhead Forever - check ID.
-- [ ] Quest 4003 'The Royal Rescue' not found on Wowhead Forever - check ID.
-- [ ] Quest 4004 'The Princess Saved?' not found on Wowhead Forever - check ID.
+- [ ] Pins of 'Warder Stilgiss' and 'The Vault' are almost on the same spot (floor 1) - intended?
+- [ ] Pins of 'Ribbly Screwspigot' and 'Plugger Spazzring' are almost on the same spot (floor 1) - intended?
+- [ ] Pins of 'Princess Moira Bronzebeard' and 'Emperor Dagran Thaurissan' are almost on the same spot (floor 2) - intended?
 
 ## Research notes
 

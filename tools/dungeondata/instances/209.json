@@ -35,7 +35,7 @@
      "id": 7272,
      "wowhead_name": "Theka the Martyr",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Theka der Märtyrer",
      "name_ok": true
     }
    ],
@@ -50,8 +50,8 @@
     {
      "item_id": 10660,
      "name": "First Mosh'aru Tablet",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -59,7 +59,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -96,7 +96,7 @@
      "id": 8127,
      "wowhead_name": "Antu'sul",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Antu'sul",
      "name_ok": true
     }
    ],
@@ -219,7 +219,7 @@
      "id": 7271,
      "wowhead_name": "Witch Doctor Zum'rah",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Hexendoktor Zum'rah",
      "name_ok": true
     }
    ],
@@ -302,7 +302,7 @@
      "id": 7795,
      "wowhead_name": "Hydromancer Velratha",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Wasserbeschwörerin Velratha",
      "name_ok": true
     }
    ],
@@ -317,37 +317,39 @@
     {
      "item_id": 9234,
      "name": "Tiara of the Deep",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 61.11,
+     "wowhead_dropped_by": "Hydromancer Velratha",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 10661,
      "name": "Second Mosh'aru Tablet",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 49.11,
+     "wowhead_dropped_by": "Hydromancer Velratha",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -381,7 +383,7 @@
      "id": 7273,
      "wowhead_name": "Gahz'rilla",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Gahz'rilla",
      "name_ok": true
     }
    ],
@@ -436,19 +438,20 @@
     {
      "item_id": 8707,
      "name": "Gahz'rilla's Electrified Scale",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 50.73,
+     "wowhead_dropped_by": "Gahz'rilla",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -464,7 +467,7 @@
      "id": 7796,
      "wowhead_name": "Nekrum Gutchewer",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Nekrum der Ausweider",
      "name_ok": true
     }
    ],
@@ -479,19 +482,20 @@
     {
      "item_id": 9471,
      "name": "Nekrum's Medallion",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 38.9,
+     "wowhead_dropped_by": "Nekrum Gutchewer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -525,7 +529,7 @@
      "id": 7275,
      "wowhead_name": "Shadowpriest Sezz'ziz",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Schattenpriester Sezz'ziz",
      "name_ok": true
     }
    ],
@@ -641,14 +645,14 @@
    "order": 8,
    "wing": null,
    "name": "Sergeant Bly",
-   "name_de": null,
+   "name_de": "Sergeant Bly",
    "encounter_id": null,
    "npcs": [
     {
      "id": 7604,
      "wowhead_name": "Sergeant Bly",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Sergeant Bly",
      "name_ok": true
     }
    ],
@@ -659,26 +663,27 @@
     {
      "item_id": 8548,
      "name": "Divino-matic Rod",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 67.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 66.97,
+     "wowhead_dropped_by": "Sergeant Bly",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 5616,
      "name": "Gutwrencher",
      "slot": "Dagger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -705,15 +710,15 @@
      "id": 7267,
      "wowhead_name": "Chief Ukorz Sandscalp",
      "zone": 1176,
-     "name_de": null,
+     "name_de": "Häuptling Ukorz Sandskalp",
      "name_ok": true
     },
     {
      "id": 7797,
      "wowhead_name": "Ruuzlu",
      "zone": 1176,
-     "name_de": null,
-     "name_ok": false
+     "name_de": "Ruuzlu",
+     "name_ok": true
     }
    ],
    "location": "inside the temple",
@@ -965,8 +970,8 @@
     {
      "item_id": 9523,
      "name": "Troll Temper",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -974,7 +979,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -1030,18 +1035,19 @@
      "item_id": 8444,
      "name": "Executioner's Key",
      "slot": "Key",
-     "quality": null,
+     "quality": 1,
      "quest_item": false,
      "chance_guide": 77.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 76.98,
+     "wowhead_dropped_by": "Sandfury Executioner",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1058,7 +1064,7 @@
      "item_id": 9483,
      "name": "Flaming Incinerator",
      "slot": "Wand",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 1.0,
      "chance_wowhead_forever": null,
@@ -1076,7 +1082,7 @@
      "item_id": 9480,
      "name": "Eyegouger",
      "slot": "Polearm",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 1.0,
      "chance_wowhead_forever": null,
@@ -1093,28 +1099,10 @@
     {
      "item_id": 9523,
      "name": "Troll Temper",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide"
-     ]
-    },
-    {
-     "item_id": 9238,
-     "name": "Uncracked Scarab Shell",
-     "slot": null,
-     "quality": null,
-     "quest_item": true,
-     "chance_guide": 10.0,
      "chance_wowhead_forever": null,
      "wowhead_dropped_by": null,
      "chance_repo": null,
@@ -1124,6 +1112,25 @@
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
+     ]
+    },
+    {
+     "item_id": 9238,
+     "name": "Uncracked Scarab Shell",
+     "slot": "Quest Item",
+     "quality": 1,
+     "quest_item": true,
+     "chance_guide": 10.0,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": "Scarab",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1146,8 +1153,8 @@
     9533
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Divino-matic Rod",
+   "wowhead_level": 47,
    "races": 0
   },
   {
@@ -1165,8 +1172,8 @@
     11122
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Gahz'rilla",
+   "wowhead_level": 50,
    "races": 0
   },
   {
@@ -1185,8 +1192,8 @@
     9531
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Tiara of the Deep",
+   "wowhead_level": 46,
    "races": 0
   },
   {
@@ -1202,8 +1209,8 @@
    "prereq": "Screecher Spirits (3520)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Prophecy of Mosh'aru",
+   "wowhead_level": 47,
    "races": 0
   },
   {
@@ -1219,8 +1226,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Troll Temper",
+   "wowhead_level": 45,
    "races": 0
   },
   {
@@ -1236,8 +1243,8 @@
    "prereq": "Optional: Tran'rek (2864) from Krazek (773)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Scarab Shells",
+   "wowhead_level": 45,
    "races": 0
   },
   {
@@ -1256,8 +1263,8 @@
     9652
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Nekrum's Medallion",
+   "wowhead_level": 47,
    "races": 77
   },
   {
@@ -1273,8 +1280,8 @@
    "prereq": "Venom Bottles (2933), Undamaged Venom Sac (2934), Consult Master Gadrin (2935); Tablet of Theka (object 142715)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Spider God",
+   "wowhead_level": 45,
    "races": 178
   }
  ],
@@ -1298,15 +1305,7 @@
  ],
  "open_questions": [
   "Boss 'Sergeant Bly' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 7797 is 'Ruuzlu' on Wowhead Forever, guide says 'Chief Ukorz Sandscalp (with Ruuzlu)'.",
-  "Quest 2768 'Divino-matic Rod' not found on Wowhead Forever - check ID.",
-  "Quest 2770 'Gahz'rilla' not found on Wowhead Forever - check ID.",
-  "Quest 2846 'Tiara of the Deep' not found on Wowhead Forever - check ID.",
-  "Quest 3527 'The Prophecy of Mosh'aru' not found on Wowhead Forever - check ID.",
-  "Quest 3042 'Troll Temper' not found on Wowhead Forever - check ID.",
-  "Quest 2865 'Scarab Shells' not found on Wowhead Forever - check ID.",
-  "Quest 2991 'Nekrum's Medallion' not found on Wowhead Forever - check ID.",
-  "Quest 2936 'The Spider God' not found on Wowhead Forever - check ID."
+  "Pins of 'Nekrum Gutchewer' and 'Shadowpriest Sezz'ziz' are almost on the same spot (floor 1) - intended?"
  ],
  "guide_notes": [
   "Boss levels not stated",
@@ -1316,20 +1315,20 @@
   "Other chains: The Brassbolts Brothers (2769, Klockmort Spannerspan 6169), Tabetha's Task (2861), Summoning Shadra (2937), Saving Sharpbeak (2994)"
  ],
  "zone_id": 1176,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_name_en": "Zul'Farrak",
+ "zone_name_de": "Zul'Farrak",
  "assessment": {
   "bosses": "partial",
   "pins": "ok",
   "loot": "partial",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 34,
   "loot_confirmed": 23,
   "loot_with_chance": 22,
   "forever_confirmed": "partly",
   "boss_count": 9,
-  "boss_ok": 7,
+  "boss_ok": 8,
   "pin_ok": 8,
   "enc_count": 8,
   "q_tot": 8
@@ -1337,6 +1336,6 @@
  "top_points": [
   "8 of 8 quests missing in DungeonQuests.lua",
   "Boss 'Sergeant Bly' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 7797 is 'Ruuzlu' on Wowhead Forever, guide says 'Chief Ukorz Sandscalp (with Ruuzlu)'."
+  "12 loot rows without drop chance"
  ]
 }

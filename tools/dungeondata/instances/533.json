@@ -34,9 +34,9 @@
    "loot": [
     {
      "item_id": 22355,
-     "name": null,
+     "name": "Desecrated Bracers",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -52,9 +52,9 @@
     },
     {
      "item_id": 22362,
-     "name": null,
+     "name": "Desecrated Wristguards",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -70,9 +70,9 @@
     },
     {
      "item_id": 22369,
-     "name": null,
+     "name": "Desecrated Bindings",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -88,9 +88,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -106,20 +106,21 @@
     },
     {
      "item_id": 22935,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Touch of Frost",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.27,
+     "wowhead_dropped_by": "Anub'Rekhan",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -135,7 +136,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -153,7 +154,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -171,27 +172,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22939,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Band of Unanswered Prayers",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.12,
+     "wowhead_dropped_by": "Anub'Rekhan",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -213,9 +215,9 @@
    "loot": [
     {
      "item_id": 22355,
-     "name": null,
+     "name": "Desecrated Bracers",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -231,9 +233,9 @@
     },
     {
      "item_id": 22362,
-     "name": null,
+     "name": "Desecrated Wristguards",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -249,9 +251,9 @@
     },
     {
      "item_id": 22369,
-     "name": null,
+     "name": "Desecrated Bindings",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -267,9 +269,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -296,45 +298,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22940,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Icebane Pauldrons",
+     "slot": "Shoulder Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.0,
+     "wowhead_dropped_by": "Grand Widow Faerlina",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22941,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Polar Shoulder Pads",
+     "slot": "Shoulder Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.96,
+     "wowhead_dropped_by": "Grand Widow Faerlina",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -350,27 +354,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22943,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Malice Stone Pendant",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.04,
+     "wowhead_dropped_by": "Grand Widow Faerlina",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -392,63 +397,66 @@
    "loot": [
     {
      "item_id": 22357,
-     "name": null,
+     "name": "Desecrated Gauntlets",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 56.67,
+     "wowhead_dropped_by": "Maexxna",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22364,
-     "name": null,
+     "name": "Desecrated Handguards",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 52.57,
+     "wowhead_dropped_by": "Maexxna",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22371,
-     "name": null,
+     "name": "Desecrated Gloves",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 52.28,
+     "wowhead_dropped_by": "Maexxna",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -481,9 +489,9 @@
    "loot": [
     {
      "item_id": 22356,
-     "name": null,
+     "name": "Desecrated Waistguard",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -499,9 +507,9 @@
     },
     {
      "item_id": 22363,
-     "name": null,
+     "name": "Desecrated Girdle",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -517,9 +525,9 @@
     },
     {
      "item_id": 22370,
-     "name": null,
+     "name": "Desecrated Belt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -535,9 +543,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -564,63 +572,66 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23005,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Totem of Flowing Water",
+     "slot": "Relic Totem",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 6.36,
+     "wowhead_dropped_by": "Noth the Plaguebringer",
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23006,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Libram of Light",
+     "slot": "Relic Libram",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 9.96,
+     "wowhead_dropped_by": "Noth the Plaguebringer",
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23028,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Hailstone Band",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.57,
+     "wowhead_dropped_by": "Noth the Plaguebringer",
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -636,7 +647,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -654,27 +665,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23031,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Band of the Inevitable",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.76,
+     "wowhead_dropped_by": "Noth the Plaguebringer",
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -696,9 +708,9 @@
    "loot": [
     {
      "item_id": 22356,
-     "name": null,
+     "name": "Desecrated Waistguard",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -714,9 +726,9 @@
     },
     {
      "item_id": 22363,
-     "name": null,
+     "name": "Desecrated Girdle",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -732,9 +744,9 @@
     },
     {
      "item_id": 22370,
-     "name": null,
+     "name": "Desecrated Belt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -750,9 +762,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -768,38 +780,40 @@
     },
     {
      "item_id": 23019,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Icebane Helmet",
+     "slot": "Head Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.97,
+     "wowhead_dropped_by": "Heigan the Unclean",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23033,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Icy Scale Coif",
+     "slot": "Head Mail",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.74,
+     "wowhead_dropped_by": "Heigan the Unclean",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -815,27 +829,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23036,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Necklace of Necropsy",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.42,
+     "wowhead_dropped_by": "Heigan the Unclean",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -851,7 +866,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -875,63 +890,66 @@
    "loot": [
     {
      "item_id": 22352,
-     "name": null,
+     "name": "Desecrated Legplates",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 52.76,
+     "wowhead_dropped_by": "Loatheb",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22359,
-     "name": null,
+     "name": "Desecrated Legguards",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 53.78,
+     "wowhead_dropped_by": "Loatheb",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22366,
-     "name": null,
+     "name": "Desecrated Leggings",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 55.45,
+     "wowhead_dropped_by": "Loatheb",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -964,9 +982,9 @@
    "loot": [
     {
      "item_id": 22358,
-     "name": null,
+     "name": "Desecrated Sabatons",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -982,9 +1000,9 @@
     },
     {
      "item_id": 22365,
-     "name": null,
+     "name": "Desecrated Boots",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1000,9 +1018,9 @@
     },
     {
      "item_id": 22372,
-     "name": null,
+     "name": "Desecrated Sandals",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1018,9 +1036,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1036,20 +1054,21 @@
     },
     {
      "item_id": 23004,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Idol of Longevity",
+     "slot": "Relic Idol",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.01,
+     "wowhead_dropped_by": "Instructor Razuvious",
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1065,7 +1084,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1083,7 +1102,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1101,27 +1120,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23018,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Signet of the Fallen Defender",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.73,
+     "wowhead_dropped_by": "Instructor Razuvious",
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1137,7 +1157,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1161,9 +1181,9 @@
    "loot": [
     {
      "item_id": 22358,
-     "name": null,
+     "name": "Desecrated Sabatons",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1179,9 +1199,9 @@
     },
     {
      "item_id": 22365,
-     "name": null,
+     "name": "Desecrated Boots",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1197,9 +1217,9 @@
     },
     {
      "item_id": 22372,
-     "name": null,
+     "name": "Desecrated Sandals",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1215,9 +1235,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1233,20 +1253,21 @@
     },
     {
      "item_id": 23020,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Polar Helmet",
+     "slot": "Head Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.24,
+     "wowhead_dropped_by": "Gothik the Harvester",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1262,45 +1283,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23023,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Sadist's Collar",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.19,
+     "wowhead_dropped_by": "Gothik the Harvester",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23032,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Glacial Headdress",
+     "slot": "Head Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.38,
+     "wowhead_dropped_by": "Gothik the Harvester",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1316,7 +1339,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1356,9 +1379,9 @@
    "loot": [
     {
      "item_id": 22354,
-     "name": null,
+     "name": "Desecrated Pauldrons",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1374,9 +1397,9 @@
     },
     {
      "item_id": 22361,
-     "name": null,
+     "name": "Desecrated Spaulders",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1392,9 +1415,9 @@
     },
     {
      "item_id": 22368,
-     "name": null,
+     "name": "Desecrated Shoulderpads",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1410,9 +1433,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1439,7 +1462,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1457,7 +1480,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1475,7 +1498,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1493,27 +1516,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22961,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Band of Reanimation",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.74,
+     "wowhead_dropped_by": "Patchwerk",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1535,9 +1559,9 @@
    "loot": [
     {
      "item_id": 22354,
-     "name": null,
+     "name": "Desecrated Pauldrons",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1553,9 +1577,9 @@
     },
     {
      "item_id": 22361,
-     "name": null,
+     "name": "Desecrated Spaulders",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1571,9 +1595,9 @@
     },
     {
      "item_id": 22368,
-     "name": null,
+     "name": "Desecrated Shoulderpads",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1589,9 +1613,9 @@
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1618,7 +1642,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1636,45 +1660,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22967,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Icy Scale Spaulders",
+     "slot": "Shoulder Mail",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.56,
+     "wowhead_dropped_by": "Grobbulus",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22968,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Glacial Mantle",
+     "slot": "Shoulder Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.42,
+     "wowhead_dropped_by": "Grobbulus",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1690,7 +1716,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1714,9 +1740,9 @@
    "loot": [
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1743,27 +1769,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22981,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gluth's Missing Collar",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.05,
+     "wowhead_dropped_by": "Gluth",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1779,7 +1806,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1797,7 +1824,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1815,16 +1842,16 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22354,
-     "name": null,
+     "name": "Desecrated Pauldrons",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1840,9 +1867,9 @@
     },
     {
      "item_id": 22355,
-     "name": null,
+     "name": "Desecrated Bracers",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1858,9 +1885,9 @@
     },
     {
      "item_id": 22356,
-     "name": null,
+     "name": "Desecrated Waistguard",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1876,9 +1903,9 @@
     },
     {
      "item_id": 22358,
-     "name": null,
+     "name": "Desecrated Sabatons",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1894,9 +1921,9 @@
     },
     {
      "item_id": 22361,
-     "name": null,
+     "name": "Desecrated Spaulders",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1912,9 +1939,9 @@
     },
     {
      "item_id": 22362,
-     "name": null,
+     "name": "Desecrated Wristguards",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1930,9 +1957,9 @@
     },
     {
      "item_id": 22363,
-     "name": null,
+     "name": "Desecrated Girdle",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1948,9 +1975,9 @@
     },
     {
      "item_id": 22365,
-     "name": null,
+     "name": "Desecrated Boots",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1966,9 +1993,9 @@
     },
     {
      "item_id": 22368,
-     "name": null,
+     "name": "Desecrated Shoulderpads",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1984,9 +2011,9 @@
     },
     {
      "item_id": 22369,
-     "name": null,
+     "name": "Desecrated Bindings",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -2002,9 +2029,9 @@
     },
     {
      "item_id": 22370,
-     "name": null,
+     "name": "Desecrated Belt",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -2020,9 +2047,9 @@
     },
     {
      "item_id": 22372,
-     "name": null,
+     "name": "Desecrated Sandals",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -2055,63 +2082,66 @@
    "loot": [
     {
      "item_id": 22353,
-     "name": null,
+     "name": "Desecrated Helmet",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 52.56,
+     "wowhead_dropped_by": "Thaddius",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22360,
-     "name": null,
+     "name": "Desecrated Headpiece",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 52.26,
+     "wowhead_dropped_by": "Thaddius",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22367,
-     "name": null,
+     "name": "Desecrated Circlet",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 53.95,
+     "wowhead_dropped_by": "Thaddius",
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22726,
-     "name": null,
+     "name": "Splinter of Atiesh",
      "slot": null,
-     "quality": null,
+     "quality": 5,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -2144,110 +2174,116 @@
    "loot": [
     {
      "item_id": 23545,
-     "name": null,
+     "name": "Power of the Scourge",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 48.59,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 50.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23547,
-     "name": null,
+     "name": "Resilience of the Scourge",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 49.15,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 50.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23548,
-     "name": null,
+     "name": "Might of the Scourge",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 46.89,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 50.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23549,
-     "name": null,
+     "name": "Fortitude of the Scourge",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 50.28,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 50.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23040,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Glyph of Deflection",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 21.47,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23041,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Slayer's Crest",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 21.47,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2263,7 +2299,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2281,45 +2317,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23046,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "The Restrained Essence of Sapphiron",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.82,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23047,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Eye of the Dead",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 22.03,
+     "wowhead_dropped_by": "Sapphiron",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2335,7 +2373,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2353,7 +2391,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2371,7 +2409,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2389,7 +2427,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2413,20 +2451,21 @@
    "loot": [
     {
      "item_id": 22520,
-     "name": null,
+     "name": "The Phylactery of Kel'Thuzad",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 90.85,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2442,7 +2481,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2460,7 +2499,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2478,7 +2517,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2496,27 +2535,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23057,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gem of Trapped Innocents",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 12.12,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2532,7 +2572,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2550,7 +2590,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2568,27 +2608,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23053,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Stormrage's Talisman of Seething",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.61,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -2604,7 +2645,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -2622,171 +2663,180 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 23059,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Dreadnaught",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.5,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23060,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Bonescythe Ring",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 23.05,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23061,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of Faith",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.26,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23062,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Frostfire Ring",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.32,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23063,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Plagueheart Ring",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.62,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23064,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Dreamwalker",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.74,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23065,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Earthshatterer",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 6.65,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23066,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of Redemption",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.09,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23067,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Cryptstalker",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.08,
+     "wowhead_dropped_by": "Kel'Thuzad",
      "chance_repo": 11.1,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -2795,7 +2845,60 @@
  "rares": [],
  "quests": [],
  "repo_quests_not_in_guide": [],
- "loot_differences": [],
+ "loot_differences": [
+  "Maexxna: 22357 Desecrated Gauntlets - chance repo 33.3% vs Forever 56.67%",
+  "Maexxna: 22364 Desecrated Handguards - chance repo 33.3% vs Forever 52.57%",
+  "Maexxna: 22371 Desecrated Gloves - chance repo 33.3% vs Forever 52.28%",
+  "Loatheb: 22352 Desecrated Legplates - chance repo 33.3% vs Forever 52.76%",
+  "Loatheb: 22359 Desecrated Legguards - chance repo 33.3% vs Forever 53.78%",
+  "Loatheb: 22366 Desecrated Leggings - chance repo 33.3% vs Forever 55.45%",
+  "Thaddius: 22353 Desecrated Helmet - chance repo 33.3% vs Forever 52.56%",
+  "Thaddius: 22360 Desecrated Headpiece - chance repo 33.3% vs Forever 52.26%",
+  "Thaddius: 22367 Desecrated Circlet - chance repo 33.3% vs Forever 53.95%",
+  "Kel'Thuzad: 23060 Bonescythe Ring - chance repo 11.1% vs Forever 23.05%",
+  "Anub'Rekhan: 22936  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Anub'Rekhan: 22937  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Anub'Rekhan: 22938  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Grand Widow Faerlina: 22806  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Grand Widow Faerlina: 22942  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Noth the Plaguebringer: 22816  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Noth the Plaguebringer: 23029  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Noth the Plaguebringer: 23030  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Heigan the Unclean: 23035  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Heigan the Unclean: 23068  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Instructor Razuvious: 23009  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Instructor Razuvious: 23014  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Instructor Razuvious: 23017  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Instructor Razuvious: 23219  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gothik the Harvester: 23021  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gothik the Harvester: 23073  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Patchwerk: 22815  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Patchwerk: 22818  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Patchwerk: 22820  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Patchwerk: 22960  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Grobbulus: 22803  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Grobbulus: 22810  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Grobbulus: 22988  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gluth: 22813  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gluth: 22983  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gluth: 22994  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Gluth: 23075  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sapphiron: 23043  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sapphiron: 23045  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sapphiron: 23048  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sapphiron: 23049  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sapphiron: 23050  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Sapphiron: 23242  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 22799  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 22819  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 22821  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 23056  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 22798  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 22802  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 22812  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 23054  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Kel'Thuzad: 23577  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
  "open_questions": [],
  "guide_notes": [],
  "zone_id": null,
@@ -2809,7 +2912,7 @@
   "quests_in_addon": 0,
   "loot_rows": 140,
   "loot_confirmed": 0,
-  "loot_with_chance": 0,
+  "loot_with_chance": 50,
   "forever_confirmed": "no",
   "boss_count": 0,
   "boss_ok": 0,
@@ -2818,6 +2921,7 @@
   "q_tot": 0
  },
  "top_points": [
-  "140 loot rows without drop chance"
+  "90 loot rows without drop chance",
+  "42 items not on Wowhead Forever (404)"
  ]
 }

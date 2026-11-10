@@ -10,12 +10,12 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | The Baron |  | — | 250660 ⚠ | — | guards one of the city streets |
-| 2 |  | Witherfang | Welkzahn | 3353 | 250483 ⚠ | — | King's Alley, giant spider with patrols |
-| 3 |  | The Abandoned (optional) | Der Verlassene | 3357 | 250631 ⚠ | — | event from statue with glowing green eyes |
-| 4 |  | Bjork | Bjork | 3412 | 256097 ⚠ | — | courtyard with walls and pavilion |
-| 5 |  | Viktor the Vile (optional) | Viktor der Üble | 3411 | 256035 ⚠ | — | burned house at south end; light chimney fire |
-| 6 |  | Rath'mael | Rath'mael | 3354 | 250657 ⚠ | — | graveyard, usually last |
+| 1 |  | The Baron | Der Baron | — | 250660 | — | guards one of the city streets |
+| 2 |  | Witherfang | Welkzahn | 3353 | 250483 | — | King's Alley, giant spider with patrols |
+| 3 |  | The Abandoned (optional) | Der Verlassene | 3357 | 250631 | — | event from statue with glowing green eyes |
+| 4 |  | Bjork | Bjork | 3412 | 256097 | — | courtyard with walls and pavilion |
+| 5 |  | Viktor the Vile (optional) | Viktor der Üble | 3411 | 256035 | — | burned house at south end; light chimney fire |
+| 6 |  | Rath'mael | Rath'mael | 3354 | 250657 | — | graveyard, usually last |
 | – |  | The Butcher | Der Schlächter | 3355 | ? | — |  |
 
 ### Rares
@@ -26,59 +26,59 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### The Baron
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 271205 | Abomination Bones | Chest (Mail) | 29 |  |  | ✔ | guide |
-| 271206 | Leftover Abomination Skin | Chest (Cloth) | 31 |  |  | ✔ | guide |
-| 271204 | Meathook Slicer | Dagger |  |  |  | ✔ | guide |
-| 280438 | Abominable Head (quest) | Quest | 41 |  |  | ✔ | guide |
-| 268518 | Head of the Baron (quest) | Quest |  |  |  | ✔ | guide |
+| 271205 | Abomination Bones | Chest (Mail) | 29 | 30.07 |  | ✔ | guide+wowhead-forever |
+| 271206 | Leftover Abomination Skin | Chest (Cloth) | 31 | 30.89 |  | ✔ | guide+wowhead-forever |
+| 271204 | Meathook Slicer | Dagger |  | 31.03 |  | ✔ | guide+wowhead-forever |
+| 280438 | Abominable Head (quest) | Quest | 41 | 38.43 |  | ✔ | guide+wowhead-forever |
+| 268518 | Head of the Baron (quest) | Quest |  | 17.4 |  | ✔ | guide+wowhead-forever |
 
 ### Witherfang
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 271203 | Segmented Spider Leg | Staff | 31 |  |  | ✔ | guide |
-| 271202 | Witherbite Bracers | Wrist (Leather) | 29 |  |  | ✔ | guide |
-| 271201 | Atrophic Girdle | Waist (Mail) | 26 |  |  | ✔ | guide |
-| 275443 | Highly Toxic Strain (quest) | Quest |  |  |  | ✔ | guide |
+| 271203 | Segmented Spider Leg | Staff | 31 | 32.92 |  | ✔ | guide+wowhead-forever |
+| 271202 | Witherbite Bracers | Wrist (Leather) | 29 | 31.29 |  | ✔ | guide+wowhead-forever |
+| 271201 | Atrophic Girdle | Waist (Mail) | 26 | 27.67 |  | ✔ | guide+wowhead-forever |
+| 275443 | Highly Toxic Strain (quest) | Quest |  | 29.24 |  | ✔ | guide+wowhead-forever |
 
 ### The Abandoned
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 271207 | Rotmender's Leggings | Legs (Cloth) | 34 |  |  | ✔ | guide |
-| 271216 | Scepter of the Abandoned | One-Hand Mace | 34 |  |  | ✔ | guide |
-| 271208 | Grip of Fear | Hands (Mail) | 32 |  |  | ✔ | guide |
+| 271207 | Rotmender's Leggings | Legs (Cloth) | 34 | 32.16 |  | ✔ | guide+wowhead-forever |
+| 271216 | Scepter of the Abandoned | One-Hand Mace | 34 | 33.84 |  | ✔ | guide+wowhead-forever |
+| 271208 | Grip of Fear | Hands (Mail) | 32 | 34 |  | ✔ | guide+wowhead-forever |
 
 ### Bjork
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 271217 | Corpse Chopper | Two-Hand Axe | 33 |  |  | ✔ | guide |
-| 271210 | Tuskwrap Belt | Waist (Cloth) | 34 |  |  | ✔ | guide |
-| 271209 | Bonerust Leggings | Legs (Mail) | 33 |  |  | ✔ | guide |
+| 271217 | Corpse Chopper | Two-Hand Axe | 33 | 35.71 |  | ✔ | guide+wowhead-forever |
+| 271210 | Tuskwrap Belt | Waist (Cloth) | 34 | 32.29 |  | ✔ | guide+wowhead-forever |
+| 271209 | Bonerust Leggings | Legs (Mail) | 33 | 32.01 |  | ✔ | guide+wowhead-forever |
 
 ### Viktor the Vile
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 271211 | Vilewalkers | Feet (Mail) | 35 |  |  | ✔ | guide |
-| 271212 | Bloodied Chestwraps | Chest (Leather) | 33 |  |  | ✔ | guide |
-| 271218 | Vileblood Scimitar | One-Hand Sword | 32 |  |  | ✔ | guide |
+| 271211 | Vilewalkers | Feet (Mail) | 35 | 32.21 |  | ✔ | guide+wowhead-forever |
+| 271212 | Bloodied Chestwraps | Chest (Leather) | 33 | 34.82 |  | ✔ | guide+wowhead-forever |
+| 271218 | Vileblood Scimitar | One-Hand Sword | 32 | 32.98 |  | ✔ | guide+wowhead-forever |
 
 ### Rath'mael
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 271213 | Mirror of Rath'mael | Shield | 37 |  |  | ✔ | guide |
-| 271215 | Coldspire Staff | Staff | 33 |  |  | ✔ | guide |
-| 271214 | Rotmender's Treads | Feet (Cloth) | 30 |  |  | ✔ | guide |
-| 273085 | Blueprint: Fermenter | Recipe | 8 |  |  | ✔ | guide |
+| 271213 | Mirror of Rath'mael | Shield | 37 | 34.48 |  | ✔ | guide+wowhead-forever |
+| 271215 | Coldspire Staff | Staff | 33 | 33.28 |  | ✔ | guide+wowhead-forever |
+| 271214 | Rotmender's Treads | Feet (Cloth) | 30 | 31.49 |  | ✔ | guide+wowhead-forever |
+| 273085 | Blueprint: Fermenter | Recipe | 8 | 7.21 |  | ✔ | guide+wowhead-forever |
 | 273103 | Blueprint: Arcane Salvager | Recipe |  |  |  | ✔ | guide |
 
 ### Lordaeron Captain
@@ -104,7 +104,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 92421 | Light's Justice | 22 | Horde | Morbin Lightbane (266484) | Undercity (Royal Quarter) | 25 Intact Limbs item=268580 | **no** |
 | 92401 | A Frightened Request | 22 | Horde | Tabitha Heartweaver (250686) | Silverpine Forest (Sepulcher) |  | **no** |
 | 356 | Rear Guard Patrol | 11 | Horde | Deathguard Linnea (1495) | Tirisfal Glades |  | **no** |
-| 99156 | Rear Guard Patrol (Riptear) |  | Horde |  | Tirisfal Glades | 356 | **no** |
+| 99156 | Rear Guard Patrol (Riptear) | 13 | Horde |  | Tirisfal Glades | 356 | **no** |
 
 ## Forever changes noted by guides
 
@@ -116,32 +116,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 ## Open questions (check in game)
 
 - [ ] Boss 'The Baron' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 250660 (The Baron) not found on Wowhead Forever - check ID.
-- [ ] NPC 250483 (Witherfang) not found on Wowhead Forever - check ID.
 - [ ] No pin for 'Witherfang' (encounter 3353) in DungeonPinData.lua.
-- [ ] NPC 250631 (The Abandoned) not found on Wowhead Forever - check ID.
 - [ ] No pin for 'The Abandoned' (encounter 3357) in DungeonPinData.lua.
-- [ ] NPC 256097 (Bjork) not found on Wowhead Forever - check ID.
 - [ ] No pin for 'Bjork' (encounter 3412) in DungeonPinData.lua.
-- [ ] NPC 256035 (Viktor the Vile) not found on Wowhead Forever - check ID.
 - [ ] No pin for 'Viktor the Vile' (encounter 3411) in DungeonPinData.lua.
-- [ ] NPC 250657 (Rath'mael) not found on Wowhead Forever - check ID.
 - [ ] No pin for 'Rath'mael' (encounter 3354) in DungeonPinData.lua.
 - [ ] Encounter 3408 'Lordaeron Captain' is listed as a rare in the guide (DungeonBosses.lua has it as boss).
 - [ ] Encounter 3355 'The Butcher' is in DungeonBosses.lua but not in the guide's boss list - check in game.
-- [ ] Quest 95195 'Bloodied Insignia' not found on Wowhead Forever - check ID.
-- [ ] Quest 92415 'Remember That I Love You' not found on Wowhead Forever - check ID.
-- [ ] Quest 95161 'Remember That I Love You (step 2)' not found on Wowhead Forever - check ID.
-- [ ] Quest 95189 'Crest of Lordaeron' not found on Wowhead Forever - check ID.
-- [ ] Quest 95250 'Abominable Creatures' not found on Wowhead Forever - check ID.
-- [ ] Quest 92422 'The Wrath of Rath'mael' not found on Wowhead Forever - check ID.
-- [ ] Quest 95216 'The New Plague' not found on Wowhead Forever - check ID.
-- [ ] Quest 95204 'Crest of Lordaeron' not found on Wowhead Forever - check ID.
-- [ ] Quest 97288 'Unending Torment' not found on Wowhead Forever - check ID.
-- [ ] Quest 92421 'Light's Justice' not found on Wowhead Forever - check ID.
-- [ ] Quest 92401 'A Frightened Request' not found on Wowhead Forever - check ID.
-- [ ] Quest 356 'Rear Guard Patrol' not found on Wowhead Forever - check ID.
-- [ ] Quest 99156 'Rear Guard Patrol (Riptear)' not found on Wowhead Forever - check ID.
 
 ## Research notes
 

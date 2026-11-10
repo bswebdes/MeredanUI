@@ -29,6 +29,9 @@ def norm(s):
     s = re.sub(r"\b(the|of|and)\b", " ", s)
     return re.sub(r"[^a-z0-9]+", "", s)
 
+def loose(s):
+    return re.sub(r"[^a-z0-9]+", "", (s or "").lower().replace("’", "'"))
+
 def strip(s):
     return html.unescape(re.sub(r"<[^>]+>", " ", s or "")).strip()
 
@@ -91,6 +94,15 @@ def match_encounter(name, encs, used):
 
 RACE = {"alliance": 77, "horde": 178}
 
+# Guide boss name -> DungeonEncounter ID where the names differ (checked by hand; each adds an open question)
+ALIASES = {
+    (3065, "Magmatus"): (3495, "Guide and Wowhead's dungeon journal call boss 2 'Magmatus'; the game's DungeonEncounter 3495 is 'Infurnus'. Same boss renamed? Check the name in game."),
+    (48, "Gelihast"): (2914, "DungeonEncounter 2914 is spelled 'Geilhast' in the English game data (German: Gelihast); NPC name is Gelihast. Typo in Blizzard's data - panel shows the encounter name."),
+    (3039, "Overlord Mugg"): (3451, "Guide says 'Overlord Mugg', game data 'Overseer Mugg' (3451). Check name in game."),
+    (2970, "Deathless Marrow"): (3478, "Guide 'Deathless Marrow' mapped to encounter 3478 'Deathless Guardians' (assumed same fight). Check in game."),
+    (289, "Kirtonos the Herald"): (2805, "Kirtonos the Herald = encounter 2805 'Kirtonos'."),
+}
+
 def build_instance(row):
     key, slug, kind, name_en, level, zone, faction, status, status_note, sources, new = row
     raw = RAW.get(str(key)) or {}
@@ -104,6 +116,10 @@ def build_instance(row):
     # ---- bosses
     used, bosses = set(), []
     pre = {}
+    for i, b in enumerate(raw.get("bosses", [])):  # pass 0: known renames (see ALIASES)
+        a = ALIASES.get((mid, b.get("name")))
+        if a and any(e[0] == a[0] for e in encs):
+            pre[i] = a[0]; used.add(a[0]); open_q.append(a[1])
     for i, b in enumerate(raw.get("bosses", [])):  # pass 1: exact names
         for eid, en, de in encs:
             if eid not in used and norm(en) == norm(b.get("name")):
@@ -121,10 +137,10 @@ def build_instance(row):
             de = npc_info(nid, True)
             npcs.append({"id": nid, "wowhead_name": info and info["name"], "zone": info and info["zone"],
                          "name_de": de and de["name"],
-                         "name_ok": bool(info and norm(info["name"]) and (norm(info["name"]) in norm(b.get("name")) or norm(b.get("name")) in norm(info["name"])))})
+                         "name_ok": bool(info and loose(info["name"]) and (loose(info["name"]) in loose(b.get("name")) or loose(b.get("name")) in loose(info["name"]) or norm(info["name"]) in norm(b.get("name"))))})
         pin = next((p for p in pins if p["kind"] == "boss" and p["id"] == eid), None) if eid else None
         bosses.append({"order": b.get("order"), "wing": b.get("wing"), "name": b.get("name"),
-                       "name_de": enc[2] if enc else (npcs[0]["name_de"] if npcs else None),
+                       "name_de": enc[2] if enc else (npcs[0]["name_de"] if len(npcs) == 1 else None),
                        "encounter_id": eid, "npcs": npcs, "location": b.get("location"),
                        "optional": b.get("optional"),
                        "pin": pin and {"floor": pin["floor"], "x": pin["x"], "y": pin["y"]}, "loot_raw": b["loot"]})
@@ -137,6 +153,14 @@ def build_instance(row):
                 open_q.append(f"NPC {n['id']} is '{n['wowhead_name']}' on Wowhead Forever, guide says '{b.get('name')}'.")
         if eid and not pin and mid:
             open_q.append(f"No pin for '{b.get('name')}' (encounter {eid}) in DungeonPinData.lua.")
+    for eid, en, de in encs:  # encounters that are part of a grouped guide entry ("Green Dragons (A, B, C)")
+        if eid in used: continue
+        for b in bosses:
+            if loose(en) and loose(en) in loose(b["name"]):
+                used.add(eid); b.setdefault("group_encounters", []).append(eid)
+                pin = next((p for p in pins if p["kind"] == "boss" and p["id"] == eid), None)
+                b.setdefault("group_pins", []).append({"encounter_id": eid, "name": en, "pin": pin and {"floor": pin["floor"], "x": pin["x"], "y": pin["y"]}})
+                break
     rare_names = {norm(r.get("name")) for r in raw.get("rares", [])}
     for eid, en, de in encs:
         if eid not in used and norm(en) in rare_names:
@@ -164,6 +188,20 @@ def build_instance(row):
                           "location": None, "pin": {"floor": p["floor"], "x": p["x"], "y": p["y"]}, "loot_raw": []})
             if raw: open_q.append(f"Rare pin {p['id']} '{p['name']}' is not mentioned in the guide.")
 
+    # ---- pin sanity: two different bosses (not in the same group entry) almost on the same spot
+    bp = [p for p in pins if p["kind"] == "boss"]
+    grouped = {e for b in bosses for e in b.get("group_encounters", [])}
+    encname = {e[0]: e[1] for e in encs}
+    for i in range(len(bp)):
+        for j in range(i + 1, len(bp)):
+            a, c = bp[i], bp[j]
+            if a["floor"] == c["floor"] and abs(a["x"] - c["x"]) < 0.02 and abs(a["y"] - c["y"]) < 0.02 and not (a["id"] in grouped and c["id"] in grouped):
+                open_q.append(f"Pins of '{encname.get(a['id'], a['id'])}' and '{encname.get(c['id'], c['id'])}' are almost on the same spot (floor {a['floor']}) - intended?")
+    known = {e[0] for e in encs}
+    for p in bp:
+        if p["id"] not in known:
+            open_q.append(f"Pin with encounter ID {p['id']} has no boss in DungeonBosses.lua.")
+
     # ---- loot (merge guide + repo + Wowhead Forever tooltip)
     def loot_rows(owner_name, raw_loot, repo_rows):
         rows, seen = [], set()
@@ -187,7 +225,10 @@ def build_instance(row):
         if g: src.append("guide")
         if repo_c is not None: src.append("repo")
         if info and info["chance"] is not None: src.append("wowhead-forever")
-        confirmed = wh_match or bool(g and (new or (g.get("chance") is not None)))
+        # Forever-confirmed = named for this boss by a Forever guide, or a new Forever item that Wowhead Forever
+        # ties to this boss. Wowhead Forever drop chances alone are NOT proof: Wowhead shows them even for raids
+        # that are not open in Forever (probably imported classic statistics).
+        confirmed = bool(g) or bool(wh_match and iid and iid >= 250000)
         return {"item_id": iid, "name": (info and info["name"]) or (g and g.get("name")),
                 "slot": (g and g.get("slot")) or (info and info["slot"]),
                 "quality": info and info["quality"], "quest_item": bool(g and g.get("quest_item")),
@@ -277,7 +318,10 @@ def write_md(d):
         npcs = ", ".join(f"{n['id']}" + ("" if n["name_ok"] else " ⚠") for n in b["npcs"]) or "?"
         pin = f"{b['pin']['floor']} {b['pin']['x']:.2f},{b['pin']['y']:.2f}" if b["pin"] else "—"
         opt = " (optional)" if b.get("optional") else ""
-        L.append(f"| {b['order'] or '–'} | {md_cell(b['wing'] or '')} | {md_cell(b['name'])}{opt} | {md_cell(b['name_de'] or '')} | {b['encounter_id'] or '—'} | {npcs} | {pin} | {md_cell(b['location'] or '')} |")
+        enc = str(b['encounter_id'] or '') + (" " + "+".join(str(e) for e in b.get("group_encounters", [])) if b.get("group_encounters") else "")
+        if b.get("group_pins"):
+            pin = (pin + "; " if b["pin"] else "") + "; ".join(f"{g['encounter_id']}: " + (f"{g['pin']['floor']} {g['pin']['x']:.2f},{g['pin']['y']:.2f}" if g["pin"] else "—") for g in b["group_pins"])
+        L.append(f"| {b['order'] or '–'} | {md_cell(b['wing'] or '')} | {md_cell(b['name'])}{opt} | {md_cell(b['name_de'] or '')} | {enc.strip() or '—'} | {npcs} | {pin} | {md_cell(b['location'] or '')} |")
     if d["rares"]:
         L.append("\n### Rares\n")
         L.append("| NPC ID | Name | Pin | Location (guide) |")
@@ -286,7 +330,7 @@ def write_md(d):
             pin = f"{r['pin']['floor']} {r['pin']['x']:.2f},{r['pin']['y']:.2f}" if r["pin"] else "—"
             L.append(f"| {r['npc_id'] or '?'} | {md_cell(r['name'])} | {pin} | {md_cell(r['location'] or '')} |")
     L.append("\n## Loot\n")
-    L.append("Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).\n")
+    L.append("Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.\n")
     for b in d["bosses"] + d["rares"]:
         if not b["loot"]: continue
         L.append(f"### {b['name']}\n")
@@ -370,7 +414,7 @@ def write_index(all_data):
          "- `instances/<mapID>_<name>.md` - bosses, pins, loot, quests, differences and open questions per instance; `instances/<mapID>.json` - same data machine-readable",
          "- `proposed/DungeonLoot.proposed.lua`, `proposed/DungeonQuests.proposed.lua` - blocks in the exact format of the real files, to copy per dungeon",
          "- `scripts/` - how it was built: `fetch_tooltips.py` (Wowhead Forever tooltips, cached in `cache/`, not committed), `build.py` (merges guide extracts + repo data + tooltips)", "",
-         "Legend: ok / partial / missing = research data completeness. Bosses ok = every guide boss has a checked NPC ID (name matches Wowhead Forever) and a DungeonEncounter ID. Pins = encounters with a pin in DungeonPinData.lua. Loot ok = every boss has loot confirmed for Forever. Quests = quest IDs found on Wowhead Forever (number in brackets = already in DungeonQuests.lua). Forever-confirmed = share of loot rows confirmed by Forever sources (yes >= 80 %).", "",
+         "Legend: ok / partial / missing = research data completeness. Bosses ok = every guide boss has a checked NPC ID (name matches Wowhead Forever) and a DungeonEncounter ID. Pins = encounters with a pin in DungeonPinData.lua. Loot ok = every boss has at least one item confirmed for Forever (named by a Forever guide or a new Forever item). Quests = quest IDs found on Wowhead Forever (number in brackets = already in DungeonQuests.lua). Forever-confirmed = share of loot rows confirmed by Forever sources (yes >= 80 %).", "",
          "| Map | Instance | Level | Status | Bosses | Pins | Loot (confirmed/rows) | Quests (in addon) | Forever-confirmed | Most important open points |",
          "|---|---|---|---|---|---|---|---|---|---|"]
     for d in all_data:
@@ -381,7 +425,17 @@ def write_index(all_data):
     R += ["", "## General findings", ""] + [f"- {x}" for x in GENERAL] + [""]
     (HERE / "README.md").write_text("\n".join(R) + "\n", encoding="utf-8")
 
-GENERAL = []
+GENERAL = [
+    "Quests: the live instances have 411 dungeon quests in the guides; 280 of them are missing in Quests/DungeonQuests.lua. build_dungeon_quests.py only finds quests whose zone is the dungeon's top area, so Deadmines, Gnomeregan, Razorfen Kraul, Uldaman, Zul'Farrak, Blackrock Depths, Blackrock Spire and all new Forever dungeons have no quest list in the addon.",
+    "Bug in Quests/DungeonQuests.lua: block [0] holds 32 Dun Morogh quests. DungeonBosses.lua has a map 0 entry ('No Longer in Use'), and AreaTable's first area on continent 0 is Dun Morogh, so the quest builder treated it as a dungeon. Harmless while no dungeon has map ID 0, but the generator should skip map 0.",
+    "Forever changed classic loot: about 200 new item IDs (250000+) drop from bosses of the live instances (many classic bosses got extra Forever items). These are in the guide data and in proposed/DungeonLoot.proposed.lua, but not in Map/DungeonLoot.lua.",
+    "Wowhead Forever tooltips (nether.wowhead.com/forever/tooltip/item/ID) show 'Dropped by' and a drop chance. They also show chances for raids that are not open in Forever (Molten Core, AQ40), so these numbers are partly imported classic statistics - useful, but not proof.",
+    "41 loot items of live dungeons (and ~400 raid items, e.g. tier sets) return 404 on Wowhead Forever (e.g. Felstriker 12590, Pip's Skinner 12709, Lord Valthalak's Staff of Command 22335). Either removed/replaced in Forever or simply not datamined yet - check in game before showing them.",
+    "German instance names differ between the client tables: Map table says 'Ragefireabgrund' / 'Burg Shadowfang', the group finder table (LFGDungeons) says 'Flammenschlund' / 'Burg Schattenfang'. Wowhead's German zone names follow the Map table. Check which one the German client shows.",
+    "New Forever instances have no pins yet except Hall of Thanes (3065) and partly Excavation Site (2998). Boss locations from the guides are in each instance file to help placing them with /mui pins.",
+    "Shaper's Terrace (3001), Barrow Deeps and Hyjal Summit: no loot, NPC IDs or quests published by any source checked (Conquest Capped, Warcraft Tavern, Wowhead). Shaper's Terrace has 11 encounters in the game data (bosses are summoned at consoles).",
+    "Sources: Conquest Capped Forever guides (read with a web reader; boss/item/quest IDs from their links), Blizzard news, Wowhead Forever tooltips for checking names/IDs. warcraft.wiki.gg blocks automated requests (HTTP 403); Wowhead pages show loot tables only with JavaScript, so loot lists came from the guides.",
+]
 
 def lua_str(s):
     return '"' + str(s).replace("\\", "\\\\").replace('"', '\\"') + '"'

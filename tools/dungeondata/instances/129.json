@@ -36,7 +36,7 @@
      "id": 7355,
      "wowhead_name": "Tuten'kash",
      "zone": 722,
-     "name_de": null,
+     "name_de": "Tuten'kash",
      "name_ok": true
     }
    ],
@@ -121,7 +121,7 @@
      "id": 7357,
      "wowhead_name": "Mordresh Fire Eye",
      "zone": 722,
-     "name_de": null,
+     "name_de": "Mordresh Feuerauge",
      "name_ok": true
     }
    ],
@@ -206,7 +206,7 @@
      "id": 8567,
      "wowhead_name": "Glutton",
      "zone": 722,
-     "name_de": null,
+     "name_de": "Nimmersatt",
      "name_ok": true
     }
    ],
@@ -271,7 +271,7 @@
      "id": 7356,
      "wowhead_name": "Plaguemaw the Rotting",
      "zone": 722,
-     "name_de": null,
+     "name_de": "Plaguemaw der Faulende",
      "name_ok": true
     }
    ],
@@ -332,7 +332,7 @@
      "id": 7358,
      "wowhead_name": "Amnennar the Coldbringer",
      "zone": 722,
-     "name_de": null,
+     "name_de": "Amnennar der Kältebringer",
      "name_ok": true
     }
    ],
@@ -447,19 +447,20 @@
     {
      "item_id": 10420,
      "name": "Skull of the Coldbringer",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 11.81,
+     "wowhead_dropped_by": "Amnennar the Coldbringer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -547,8 +548,8 @@
     {
      "item_id": 10578,
      "name": "Thoughtcast Boots",
-     "slot": null,
-     "quality": null,
+     "slot": "Feet Cloth",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -556,7 +557,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -565,8 +566,8 @@
     {
      "item_id": 10582,
      "name": "Briar Tredders",
-     "slot": null,
-     "quality": null,
+     "slot": "Feet Leather",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -574,7 +575,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -583,8 +584,8 @@
     {
      "item_id": 10584,
      "name": "Stormgale Fists",
-     "slot": null,
-     "quality": null,
+     "slot": "Hands Mail",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -592,7 +593,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -601,8 +602,8 @@
     {
      "item_id": 10571,
      "name": "Ebony Boneclub",
-     "slot": null,
-     "quality": null,
+     "slot": "One-Hand Mace",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -610,7 +611,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -619,8 +620,8 @@
     {
      "item_id": 10573,
      "name": "Boneslasher",
-     "slot": null,
-     "quality": null,
+     "slot": "Two-Hand Sword",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -628,7 +629,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -647,19 +648,20 @@
     {
      "item_id": 17009,
      "name": "Ambassador Malcin's Head",
-     "slot": null,
-     "quality": null,
+     "slot": "Quest Item",
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 82.26,
+     "wowhead_dropped_by": "Ambassador Malcin",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -679,8 +681,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "A Host of Evil",
+   "wowhead_level": 35,
    "races": 0
   },
   {
@@ -696,8 +698,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Scourge of the Downs",
+   "wowhead_level": 37,
    "races": 0
   },
   {
@@ -715,8 +717,8 @@
     10710
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Extinguishing the Idol",
+   "wowhead_level": 37,
    "races": 0
   },
   {
@@ -735,8 +737,8 @@
     10824
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Bring the Light",
+   "wowhead_level": 42,
    "races": 77
   },
   {
@@ -755,8 +757,8 @@
     10824
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Bring the End",
+   "wowhead_level": 42,
    "races": 178
   },
   {
@@ -772,8 +774,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "An Unholy Alliance",
+   "wowhead_level": 36,
    "races": 178
   },
   {
@@ -794,8 +796,8 @@
     270054
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "An Unholy Alliance",
+   "wowhead_level": 36,
    "races": 178
   }
  ],
@@ -811,14 +813,7 @@
  ],
  "open_questions": [
   "No pin for 'Plaguemaw the Rotting' (encounter 2781) in DungeonPinData.lua.",
-  "Encounter 2783 'Ragglesnout' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
-  "Quest 6626 'A Host of Evil' not found on Wowhead Forever - check ID.",
-  "Quest 3523 'Scourge of the Downs' not found on Wowhead Forever - check ID.",
-  "Quest 3525 'Extinguishing the Idol' not found on Wowhead Forever - check ID.",
-  "Quest 3636 'Bring the Light' not found on Wowhead Forever - check ID.",
-  "Quest 3341 'Bring the End' not found on Wowhead Forever - check ID.",
-  "Quest 6522 'An Unholy Alliance' not found on Wowhead Forever - check ID.",
-  "Quest 6521 'An Unholy Alliance' not found on Wowhead Forever - check ID."
+  "Encounter 2783 'Ragglesnout' is listed as a rare in the guide (DungeonBosses.lua has it as boss)."
  ],
  "guide_notes": [
   "Vanquisher's Sword, Amberglow Talisman, Dragonclaw Ring and some optional-boss items lack Forever data; Classic IDs used",
@@ -828,18 +823,18 @@
   "Some slot values not stated on guide were filled from Classic item knowledge"
  ],
  "zone_id": 722,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_name_en": "Razorfen Downs",
+ "zone_name_de": "Die Hügel von Razorfen",
  "assessment": {
   "bosses": "ok",
   "pins": "partial",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 7,
   "loot_rows": 23,
-  "loot_confirmed": 18,
+  "loot_confirmed": 23,
   "loot_with_chance": 18,
-  "forever_confirmed": "partly",
+  "forever_confirmed": "yes",
   "boss_count": 5,
   "boss_ok": 5,
   "pin_ok": 4,
@@ -848,7 +843,6 @@
  },
  "top_points": [
   "No pin for 'Plaguemaw the Rotting' (encounter 2781) in DungeonPinData.lua.",
-  "Quest 6626 'A Host of Evil' not found on Wowhead Forever - check ID. (+6 more)",
   "5 loot rows without drop chance"
  ]
 }

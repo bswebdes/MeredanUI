@@ -28,15 +28,15 @@
    "order": 1,
    "wing": null,
    "name": "The Baron",
-   "name_de": null,
+   "name_de": "Der Baron",
    "encounter_id": null,
    "npcs": [
     {
      "id": 250660,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "The Baron",
+     "zone": 16611,
+     "name_de": "Der Baron",
+     "name_ok": true
     }
    ],
    "location": "guards one of the city streets",
@@ -47,90 +47,95 @@
      "item_id": 271205,
      "name": "Abomination Bones",
      "slot": "Chest (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 29.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.07,
+     "wowhead_dropped_by": "The Baron",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271206,
      "name": "Leftover Abomination Skin",
      "slot": "Chest (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.89,
+     "wowhead_dropped_by": "The Baron",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271204,
      "name": "Meathook Slicer",
      "slot": "Dagger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.03,
+     "wowhead_dropped_by": "The Baron",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 280438,
      "name": "Abominable Head",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 41.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 38.43,
+     "wowhead_dropped_by": "The Baron",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 268518,
      "name": "Head of the Baron",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 17.4,
+     "wowhead_dropped_by": "The Baron",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -144,10 +149,10 @@
    "npcs": [
     {
      "id": 250483,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Witherfang",
+     "zone": 16611,
+     "name_de": "Welkzahn",
+     "name_ok": true
     }
    ],
    "location": "King's Alley, giant spider with patrols",
@@ -158,72 +163,76 @@
      "item_id": 271203,
      "name": "Segmented Spider Leg",
      "slot": "Staff",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.92,
+     "wowhead_dropped_by": "Witherfang",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271202,
      "name": "Witherbite Bracers",
      "slot": "Wrist (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 29.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.29,
+     "wowhead_dropped_by": "Witherfang",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271201,
      "name": "Atrophic Girdle",
      "slot": "Waist (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 26.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 27.67,
+     "wowhead_dropped_by": "Witherfang",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 275443,
      "name": "Highly Toxic Strain",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 29.24,
+     "wowhead_dropped_by": "Witherfang",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -237,10 +246,10 @@
    "npcs": [
     {
      "id": 250631,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "The Abandoned",
+     "zone": 16611,
+     "name_de": "Der Verlassene",
+     "name_ok": true
     }
    ],
    "location": "event from statue with glowing green eyes",
@@ -251,54 +260,57 @@
      "item_id": 271207,
      "name": "Rotmender's Leggings",
      "slot": "Legs (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.16,
+     "wowhead_dropped_by": "The Abandoned",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271216,
      "name": "Scepter of the Abandoned",
      "slot": "One-Hand Mace",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.84,
+     "wowhead_dropped_by": "The Abandoned",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271208,
      "name": "Grip of Fear",
      "slot": "Hands (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 32.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.0,
+     "wowhead_dropped_by": "The Abandoned",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -312,10 +324,10 @@
    "npcs": [
     {
      "id": 256097,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Bjork",
+     "zone": 16611,
+     "name_de": "Bjork",
+     "name_ok": true
     }
    ],
    "location": "courtyard with walls and pavilion",
@@ -326,54 +338,57 @@
      "item_id": 271217,
      "name": "Corpse Chopper",
      "slot": "Two-Hand Axe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 35.71,
+     "wowhead_dropped_by": "Bjork",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271210,
      "name": "Tuskwrap Belt",
      "slot": "Waist (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 34.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.29,
+     "wowhead_dropped_by": "Bjork",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271209,
      "name": "Bonerust Leggings",
      "slot": "Legs (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.01,
+     "wowhead_dropped_by": "Bjork",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -387,10 +402,10 @@
    "npcs": [
     {
      "id": 256035,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Viktor the Vile",
+     "zone": 16611,
+     "name_de": "Viktor der Üble",
+     "name_ok": true
     }
    ],
    "location": "burned house at south end; light chimney fire",
@@ -401,54 +416,57 @@
      "item_id": 271211,
      "name": "Vilewalkers",
      "slot": "Feet (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 35.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.21,
+     "wowhead_dropped_by": "Viktor the Vile",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271212,
      "name": "Bloodied Chestwraps",
      "slot": "Chest (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.82,
+     "wowhead_dropped_by": "Viktor the Vile",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271218,
      "name": "Vileblood Scimitar",
      "slot": "One-Hand Sword",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 32.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.98,
+     "wowhead_dropped_by": "Viktor the Vile",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -462,10 +480,10 @@
    "npcs": [
     {
      "id": 250657,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Rath'mael",
+     "zone": 16611,
+     "name_de": "Rath'mael",
+     "name_ok": true
     }
    ],
    "location": "graveyard, usually last",
@@ -476,79 +494,83 @@
      "item_id": 271213,
      "name": "Mirror of Rath'mael",
      "slot": "Shield",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 37.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.48,
+     "wowhead_dropped_by": "Rath'mael",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271215,
      "name": "Coldspire Staff",
      "slot": "Staff",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.28,
+     "wowhead_dropped_by": "Rath'mael",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 271214,
      "name": "Rotmender's Treads",
      "slot": "Feet (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 30.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.49,
+     "wowhead_dropped_by": "Rath'mael",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273085,
      "name": "Blueprint: Fermenter",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": 8.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.21,
+     "wowhead_dropped_by": "Rath'mael",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273103,
      "name": "Blueprint: Arcane Salvager",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -581,7 +603,7 @@
   {
    "name": "Lordaeron Captain",
    "npc_id": 255699,
-   "wowhead_name": null,
+   "wowhead_name": "Lordaeron Captain",
    "location": "roams north-west on some runs",
    "pin": null,
    "encounter_id": 3408,
@@ -642,8 +664,8 @@
     279869
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Bloodied Insignia",
+   "wowhead_level": 22,
    "races": 77
   },
   {
@@ -661,8 +683,8 @@
     279870
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Remember That I Love You",
+   "wowhead_level": 22,
    "races": 77
   },
   {
@@ -678,7 +700,7 @@
    "prereq": "92415",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Remember That I Love You",
    "wowhead_level": null,
    "races": 77
   },
@@ -697,8 +719,8 @@
     280567
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Crest of Lordaeron",
+   "wowhead_level": 22,
    "races": 77
   },
   {
@@ -718,8 +740,8 @@
     279867
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Abominable Creatures",
+   "wowhead_level": 21,
    "races": 77
   },
   {
@@ -738,8 +760,8 @@
     251534
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Wrath of Rath'mael",
+   "wowhead_level": 22,
    "races": 178
   },
   {
@@ -758,8 +780,8 @@
     279877
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The New Plague",
+   "wowhead_level": 22,
    "races": 178
   },
   {
@@ -777,8 +799,8 @@
     280567
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Crest of Lordaeron",
+   "wowhead_level": 22,
    "races": 178
   },
   {
@@ -798,8 +820,8 @@
     279867
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Unending Torment",
+   "wowhead_level": 21,
    "races": 178
   },
   {
@@ -818,8 +840,8 @@
     279875
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Light's Justice",
+   "wowhead_level": 22,
    "races": 178
   },
   {
@@ -838,8 +860,8 @@
     251486
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "A Frightened Request",
+   "wowhead_level": 22,
    "races": 178
   },
   {
@@ -855,7 +877,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Rear Guard Patrol",
    "wowhead_level": null,
    "races": 178
   },
@@ -872,8 +894,8 @@
    "prereq": "356",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Rear Guard Patrol",
+   "wowhead_level": 13,
    "races": 178
   }
  ],
@@ -881,32 +903,13 @@
  "loot_differences": [],
  "open_questions": [
   "Boss 'The Baron' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 250660 (The Baron) not found on Wowhead Forever - check ID.",
-  "NPC 250483 (Witherfang) not found on Wowhead Forever - check ID.",
   "No pin for 'Witherfang' (encounter 3353) in DungeonPinData.lua.",
-  "NPC 250631 (The Abandoned) not found on Wowhead Forever - check ID.",
   "No pin for 'The Abandoned' (encounter 3357) in DungeonPinData.lua.",
-  "NPC 256097 (Bjork) not found on Wowhead Forever - check ID.",
   "No pin for 'Bjork' (encounter 3412) in DungeonPinData.lua.",
-  "NPC 256035 (Viktor the Vile) not found on Wowhead Forever - check ID.",
   "No pin for 'Viktor the Vile' (encounter 3411) in DungeonPinData.lua.",
-  "NPC 250657 (Rath'mael) not found on Wowhead Forever - check ID.",
   "No pin for 'Rath'mael' (encounter 3354) in DungeonPinData.lua.",
   "Encounter 3408 'Lordaeron Captain' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
-  "Encounter 3355 'The Butcher' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Quest 95195 'Bloodied Insignia' not found on Wowhead Forever - check ID.",
-  "Quest 92415 'Remember That I Love You' not found on Wowhead Forever - check ID.",
-  "Quest 95161 'Remember That I Love You (step 2)' not found on Wowhead Forever - check ID.",
-  "Quest 95189 'Crest of Lordaeron' not found on Wowhead Forever - check ID.",
-  "Quest 95250 'Abominable Creatures' not found on Wowhead Forever - check ID.",
-  "Quest 92422 'The Wrath of Rath'mael' not found on Wowhead Forever - check ID.",
-  "Quest 95216 'The New Plague' not found on Wowhead Forever - check ID.",
-  "Quest 95204 'Crest of Lordaeron' not found on Wowhead Forever - check ID.",
-  "Quest 97288 'Unending Torment' not found on Wowhead Forever - check ID.",
-  "Quest 92421 'Light's Justice' not found on Wowhead Forever - check ID.",
-  "Quest 92401 'A Frightened Request' not found on Wowhead Forever - check ID.",
-  "Quest 356 'Rear Guard Patrol' not found on Wowhead Forever - check ID.",
-  "Quest 99156 'Rear Guard Patrol (Riptear)' not found on Wowhead Forever - check ID."
+  "Encounter 3355 'The Butcher' is in DungeonBosses.lua but not in the guide's boss list - check in game."
  ],
  "guide_notes": [
   "Per-boss levels not given",
@@ -916,21 +919,21 @@
   "Page says bosses drop blue gear but some items labeled green",
   "Quest XP: Horde 29,800, Alliance 22,500"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 16611,
+ "zone_name_en": "Ruins of Lordaeron",
+ "zone_name_de": "Die Ruinen von Lordaeron",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "partial",
   "pins": "missing",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 22,
   "loot_confirmed": 22,
-  "loot_with_chance": 18,
+  "loot_with_chance": 19,
   "forever_confirmed": "yes",
   "boss_count": 6,
-  "boss_ok": 0,
+  "boss_ok": 5,
   "pin_ok": 0,
   "enc_count": 6,
   "q_tot": 13

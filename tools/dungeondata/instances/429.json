@@ -33,10 +33,10 @@
    "npcs": [
     {
      "id": 14354,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Pusillin",
+     "zone": 2557,
+     "name_de": "Pusillin",
+     "name_ok": true
     }
    ],
    "location": "chase through Warpwood Quarter with imp adds",
@@ -51,36 +51,38 @@
      "item_id": 18249,
      "name": "Crescent Key",
      "slot": "Key",
-     "quality": null,
+     "quality": 1,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 80.62,
+     "wowhead_dropped_by": "Pusillin",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 18261,
      "name": "Book of Incantations",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 36.17,
+     "wowhead_dropped_by": "Pusillin",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -114,10 +116,10 @@
    "npcs": [
     {
      "id": 11490,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Zevrim Thornhoof",
+     "zone": 2557,
+     "name_de": "Zevrim Dornhuf",
+     "name_ok": true
     }
    ],
    "location": "satyr shrine in East wing",
@@ -200,7 +202,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -219,7 +221,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -237,10 +239,10 @@
    "npcs": [
     {
      "id": 13280,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Hydrospawn",
+     "zone": 2557,
+     "name_de": "Hydrobrut",
+     "name_ok": true
     }
    ],
    "location": "pool chamber in East wing",
@@ -334,18 +336,19 @@
      "item_id": 18299,
      "name": "Hydrospawn Essence",
      "slot": "Quest (Mage)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 2.26,
+     "wowhead_dropped_by": "Hydrospawn",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -360,7 +363,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -379,7 +382,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -415,16 +418,16 @@
    "npcs": [
     {
      "id": 14327,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Lethtendris",
+     "zone": 2557,
+     "name_de": "Lethtendris",
+     "name_ok": true
     },
     {
      "id": 14349,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
+     "wowhead_name": "Pimgib",
+     "zone": 2557,
+     "name_de": "Pimgib",
      "name_ok": false
     }
    ],
@@ -480,36 +483,38 @@
      "item_id": 18426,
      "name": "Lethtendris's Web",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 19.51,
+     "wowhead_dropped_by": "Lethtendris",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 18354,
      "name": "Pimgib's Collar",
      "slot": "(from Pimgib)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Pimgib",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -524,7 +529,7 @@
      "chance_repo": 30.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -543,7 +548,7 @@
      "chance_repo": 30.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -556,15 +561,15 @@
    "order": 5,
    "wing": "East",
    "name": "Old Ironbark",
-   "name_de": null,
+   "name_de": "Eisenborke der Große",
    "encounter_id": null,
    "npcs": [
     {
      "id": 11491,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Old Ironbark",
+     "zone": 2557,
+     "name_de": "Eisenborke der Große",
+     "name_ok": true
     }
    ],
    "location": "East wing; opens path to shrine (no fight)",
@@ -659,7 +664,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -678,7 +683,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -697,7 +702,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -716,7 +721,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -735,7 +740,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -754,7 +759,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -773,7 +778,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -786,15 +791,15 @@
    "order": 7,
    "wing": "East",
    "name": "Isalien",
-   "name_de": null,
+   "name_de": "Isalien",
    "encounter_id": null,
    "npcs": [
     {
      "id": 16097,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Isalien",
+     "zone": 2557,
+     "name_de": "Isalien",
+     "name_ok": true
     }
    ],
    "location": "summoned via Brazier of Beckoning 22050",
@@ -811,10 +816,10 @@
    "npcs": [
     {
      "id": 11489,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Tendris Warpwood",
+     "zone": 2557,
+     "name_de": "Tendris Wucherborke",
+     "name_ok": true
     }
    ],
    "location": "Capital Gardens, first boss",
@@ -877,7 +882,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -896,7 +901,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -968,16 +973,16 @@
    "npcs": [
     {
      "id": 11488,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Illyanna Ravenoak",
+     "zone": 2557,
+     "name_de": "Illyanna Rabeneiche",
+     "name_ok": true
     },
     {
      "id": 14308,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
+     "wowhead_name": "Ferra",
+     "zone": 2557,
+     "name_de": "Ferra",
      "name_ok": false
     }
    ],
@@ -1059,7 +1064,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1078,7 +1083,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1150,10 +1155,10 @@
    "npcs": [
     {
      "id": 11487,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Magister Kalendris",
+     "zone": 2557,
+     "name_de": "Magister Kalendris",
+     "name_ok": true
     }
    ],
    "location": "Court of the Highborne",
@@ -1256,7 +1261,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1275,7 +1280,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1347,10 +1352,10 @@
    "npcs": [
     {
      "id": 11496,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Immol'thar",
+     "zone": 2557,
+     "name_de": "Immol'thar",
+     "name_ok": true
     }
    ],
    "location": "prison chamber after pylons",
@@ -1433,7 +1438,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1452,7 +1457,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1471,7 +1476,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1490,7 +1495,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1509,7 +1514,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1528,7 +1533,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1547,7 +1552,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1619,10 +1624,10 @@
    "npcs": [
     {
      "id": 11486,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Prince Tortheldrin",
+     "zone": 2557,
+     "name_de": "Prinz Tortheldrin",
+     "name_ok": true
     }
    ],
    "location": "Court of the Highborne, final",
@@ -1723,7 +1728,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1742,7 +1747,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1761,7 +1766,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1780,7 +1785,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1799,7 +1804,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1818,7 +1823,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1837,7 +1842,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1909,10 +1914,10 @@
    "npcs": [
     {
      "id": 14506,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Lord Hel'nurath",
+     "zone": 2557,
+     "name_de": "Lord Hel'nurath",
+     "name_ok": true
     }
    ],
    "location": "summoned (warlock mount chain)",
@@ -2022,10 +2027,10 @@
    "npcs": [
     {
      "id": 14326,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Guard Mol'dar",
+     "zone": 2557,
+     "name_de": "Wache  Mol'dar",
+     "name_ok": true
     }
    ],
    "location": "Gordok Commons",
@@ -2143,7 +2148,7 @@
      "chance_repo": 13.0,
      "in_guide": true,
      "in_repo": true,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide",
@@ -2359,10 +2364,10 @@
    "npcs": [
     {
      "id": 14322,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Stomper Kreeg",
+     "zone": 2557,
+     "name_de": "Stampfer Kreeg",
+     "name_ok": true
     }
    ],
    "location": "Gordok Commons",
@@ -2457,10 +2462,10 @@
    "npcs": [
     {
      "id": 14321,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Guard Fengus",
+     "zone": 2557,
+     "name_de": "Wache Fengus",
+     "name_ok": true
     }
    ],
    "location": "Gordok Commons",
@@ -2483,7 +2488,7 @@
      "chance_repo": 13.0,
      "in_guide": true,
      "in_repo": true,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide",
@@ -2699,10 +2704,10 @@
    "npcs": [
     {
      "id": 14323,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Guard Slip'kik",
+     "zone": 2557,
+     "name_de": "Wache Slip'kik",
+     "name_ok": true
     }
    ],
    "location": "Gordok Commons",
@@ -2820,7 +2825,7 @@
      "chance_repo": 13.0,
      "in_guide": true,
      "in_repo": true,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide",
@@ -3031,15 +3036,15 @@
    "order": 18,
    "wing": "North",
    "name": "Knot Thimblejack (cache)",
-   "name_de": null,
+   "name_de": "Knot Thimblejack",
    "encounter_id": null,
    "npcs": [
     {
      "id": 14338,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Knot Thimblejack",
+     "zone": 2557,
+     "name_de": "Knot Thimblejack",
+     "name_ok": true
     }
    ],
    "location": "shackled; freeing opens Knot Thimblejack's Cache",
@@ -3050,7 +3055,7 @@
      "item_id": 18417,
      "name": "Pattern: Mooncloth Gloves",
      "slot": "Pattern",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -3058,7 +3063,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -3068,7 +3073,7 @@
      "item_id": 18515,
      "name": "Pattern: Mongoose Boots",
      "slot": "Pattern",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -3076,7 +3081,7 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
       "guide"
@@ -3086,7 +3091,7 @@
      "item_id": 18414,
      "name": "Pattern: Belt of the Archmage",
      "slot": "Pattern",
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -3111,10 +3116,10 @@
    "npcs": [
     {
      "id": 14325,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Captain Kromcrush",
+     "zone": 2557,
+     "name_de": "Captain Kromcrush",
+     "name_ok": true
     }
    ],
    "location": "Gordok Commons, before throne",
@@ -3288,16 +3293,16 @@
    "npcs": [
     {
      "id": 11501,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "King Gordok",
+     "zone": 2557,
+     "name_de": "König Gordok",
+     "name_ok": true
     },
     {
      "id": 14324,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
+     "wowhead_name": "Cho'Rush the Observer",
+     "zone": 2557,
+     "name_de": "Cho'Rush der Beobachter",
      "name_ok": false
     }
    ],
@@ -3381,7 +3386,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3400,7 +3405,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3419,7 +3424,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3438,7 +3443,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3457,7 +3462,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3476,7 +3481,7 @@
      "chance_repo": 9.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3495,7 +3500,7 @@
      "chance_repo": 7.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3585,7 +3590,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3604,7 +3609,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3623,7 +3628,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3642,7 +3647,7 @@
      "chance_repo": 25.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3710,7 +3715,7 @@
   {
    "name": "Tsu'zee",
    "npc_id": 11467,
-   "wowhead_name": null,
+   "wowhead_name": "Tsu'zee",
    "location": "Dire Maul West (near Kalendris)",
    "pin": null,
    "encounter_id": 2794,
@@ -3747,7 +3752,7 @@
      "chance_repo": 33.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -3792,8 +3797,8 @@
     18410
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Pusillin and the Elder Azj'Tordin",
+   "wowhead_level": 58,
    "races": 0
   },
   {
@@ -3811,8 +3816,8 @@
     18491
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Lethtendris's Web",
+   "wowhead_level": 57,
    "races": 77
   },
   {
@@ -3830,8 +3835,8 @@
     18491
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Lethtendris's Web",
+   "wowhead_level": 57,
    "races": 178
   },
   {
@@ -3847,8 +3852,8 @@
    "prereq": "Hydrospawn Essence 18299",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Arcane Refreshment",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3864,8 +3869,8 @@
    "prereq": "Dungeon Set 2 chain",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Left Piece of Lord Valthalak's Amulet",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3881,8 +3886,8 @@
    "prereq": "More Components of Importance",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Right Piece of Lord Valthalak's Amulet",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3898,8 +3903,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Madness Within",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3919,8 +3924,8 @@
     18424
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Treasure of the Shen'dralar",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -3940,8 +3945,8 @@
     18424
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Treasure of the Shen'dralar",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -3959,8 +3964,8 @@
     21986
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Instigator's Enchantment",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3978,8 +3983,8 @@
     18258
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Gordok Ogre Suit",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3995,8 +4000,8 @@
    "prereq": "Gordok Shackle Key 18250",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Free Knot!",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4017,8 +4022,8 @@
     18369
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Unfinished Gordok Business",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4037,8 +4042,8 @@
     18284
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Gordok Taste Test",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4057,8 +4062,8 @@
     22149
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Falrin's Vendetta",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4076,8 +4081,8 @@
     18465
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Garona: A Study on Stealth and Treachery",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4095,8 +4100,8 @@
     18466
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Codex of Defense",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4114,8 +4119,8 @@
     18468
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Arcanist's Cookbook",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4133,8 +4138,8 @@
     18472
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Light and How To Swing It",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4152,8 +4157,8 @@
     18467
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Harnessing Shadows",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4171,8 +4176,8 @@
     18473
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Greatest Race of Hunters",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4190,8 +4195,8 @@
     18469
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Holy Bologna: What the Light Won't Tell You",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4209,8 +4214,8 @@
     18471
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Frost Shock and You",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4228,8 +4233,8 @@
     18470
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Emerald Dream...",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4247,8 +4252,8 @@
     18401
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Nostro's Compendium",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4266,8 +4271,8 @@
     18348
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Forging of Quel'Serrar",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4283,8 +4288,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Anthion's Old Friend",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4302,8 +4307,8 @@
     18329
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Libram of Rapidity",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4321,8 +4326,8 @@
     18330
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Libram of Focus",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4340,8 +4345,8 @@
     18331
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Libram of Protection",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4357,8 +4362,8 @@
    "prereq": "Felvine Shard 18501",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Shards of the Felvine",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4374,8 +4379,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Elven Legends",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -4391,8 +4396,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Elven Legends",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -4408,8 +4413,8 @@
    "prereq": "repeatable; used for tribute runs",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "A Broken Trap",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -4425,8 +4430,8 @@
    "prereq": "warlock mount chain final step",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Dreadsteed of Xoroth",
+   "wowhead_level": 60,
    "races": 0
   }
  ],
@@ -4595,69 +4600,18 @@
   "Tsu'zee: 18346  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
  ],
  "open_questions": [
-  "NPC 14354 (Pusillin) not found on Wowhead Forever - check ID.",
-  "NPC 11490 (Zevrim Thornhoof) not found on Wowhead Forever - check ID.",
-  "NPC 13280 (Hydrospawn) not found on Wowhead Forever - check ID.",
-  "NPC 14327 (Lethtendris) not found on Wowhead Forever - check ID.",
-  "NPC 14349 (Lethtendris) not found on Wowhead Forever - check ID.",
+  "NPC 14349 is 'Pimgib' on Wowhead Forever, guide says 'Lethtendris'.",
   "Boss 'Old Ironbark' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 11491 (Old Ironbark) not found on Wowhead Forever - check ID.",
   "Boss 'Isalien' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 16097 (Isalien) not found on Wowhead Forever - check ID.",
-  "NPC 11489 (Tendris Warpwood) not found on Wowhead Forever - check ID.",
-  "NPC 11488 (Illyanna Ravenoak) not found on Wowhead Forever - check ID.",
-  "NPC 14308 (Illyanna Ravenoak) not found on Wowhead Forever - check ID.",
-  "NPC 11487 (Magister Kalendris) not found on Wowhead Forever - check ID.",
-  "NPC 11496 (Immol'thar) not found on Wowhead Forever - check ID.",
-  "NPC 11486 (Prince Tortheldrin) not found on Wowhead Forever - check ID.",
-  "NPC 14506 (Lord Hel'nurath) not found on Wowhead Forever - check ID.",
+  "NPC 14308 is 'Ferra' on Wowhead Forever, guide says 'Illyanna Ravenoak'.",
   "No pin for 'Lord Hel'nurath' (encounter 2793) in DungeonPinData.lua.",
-  "NPC 14326 (Guard Mol'dar) not found on Wowhead Forever - check ID.",
-  "NPC 14322 (Stomper Kreeg) not found on Wowhead Forever - check ID.",
-  "NPC 14321 (Guard Fengus) not found on Wowhead Forever - check ID.",
-  "NPC 14323 (Guard Slip'kik) not found on Wowhead Forever - check ID.",
   "Boss 'Knot Thimblejack (cache)' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 14338 (Knot Thimblejack (cache)) not found on Wowhead Forever - check ID.",
-  "NPC 14325 (Captain Kromcrush) not found on Wowhead Forever - check ID.",
-  "NPC 11501 (King Gordok) not found on Wowhead Forever - check ID.",
-  "NPC 14324 (King Gordok) not found on Wowhead Forever - check ID.",
+  "NPC 14324 is 'Cho'Rush the Observer' on Wowhead Forever, guide says 'King Gordok'.",
   "Encounter 2794 'Tsu'zee' is listed as a rare in the guide (DungeonBosses.lua has it as boss).",
   "Encounter 367 'Cho'Rush the Observer' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Quest 7441 'Pusillin and the Elder Azj'Tordin' not found on Wowhead Forever - check ID.",
-  "Quest 7488 'Lethtendris's Web' not found on Wowhead Forever - check ID.",
-  "Quest 7489 'Lethtendris's Web' not found on Wowhead Forever - check ID.",
-  "Quest 7463 'Arcane Refreshment' not found on Wowhead Forever - check ID.",
-  "Quest 8967 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 8990 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 7461 'The Madness Within' not found on Wowhead Forever - check ID.",
-  "Quest 7462 'The Treasure of the Shen'dralar' not found on Wowhead Forever - check ID.",
-  "Quest 7877 'The Treasure of the Shen'dralar' not found on Wowhead Forever - check ID.",
-  "Quest 8950 'The Instigator's Enchantment' not found on Wowhead Forever - check ID.",
-  "Quest 5518 'The Gordok Ogre Suit' not found on Wowhead Forever - check ID.",
-  "Quest 5525 'Free Knot!' not found on Wowhead Forever - check ID.",
-  "Quest 1318 'Unfinished Gordok Business' not found on Wowhead Forever - check ID.",
-  "Quest 5528 'The Gordok Taste Test' not found on Wowhead Forever - check ID.",
-  "Quest 8949 'Falrin's Vendetta' not found on Wowhead Forever - check ID.",
-  "Quest 7498 'Garona: A Study on Stealth and Treachery' not found on Wowhead Forever - check ID.",
-  "Quest 7499 'Codex of Defense' not found on Wowhead Forever - check ID.",
-  "Quest 7500 'The Arcanist's Cookbook' not found on Wowhead Forever - check ID.",
-  "Quest 7501 'The Light and How To Swing It' not found on Wowhead Forever - check ID.",
-  "Quest 7502 'Harnessing Shadows' not found on Wowhead Forever - check ID.",
-  "Quest 7503 'The Greatest Race of Hunters' not found on Wowhead Forever - check ID.",
-  "Quest 7504 'Holy Bologna: What the Light Won't Tell You' not found on Wowhead Forever - check ID.",
-  "Quest 7505 'Frost Shock and You' not found on Wowhead Forever - check ID.",
-  "Quest 7506 'The Emerald Dream...' not found on Wowhead Forever - check ID.",
-  "Quest 7507 'Foror's Compendium' not found on Wowhead Forever - check ID.",
-  "Quest 7508 'The Forging of Quel'Serrar' not found on Wowhead Forever - check ID.",
-  "Quest 8948 'Anthion's Old Friend' not found on Wowhead Forever - check ID.",
-  "Quest 7483 'Libram of Rapidity' not found on Wowhead Forever - check ID.",
-  "Quest 7484 'Libram of Focus' not found on Wowhead Forever - check ID.",
-  "Quest 7485 'Libram of Protection' not found on Wowhead Forever - check ID.",
-  "Quest 5526 'Shards of the Felvine' not found on Wowhead Forever - check ID.",
-  "Quest 7482 'Elven Legends' not found on Wowhead Forever - check ID.",
-  "Quest 7481 'Elven Legends' not found on Wowhead Forever - check ID.",
-  "Quest 1193 'A Broken Trap' not found on Wowhead Forever - check ID.",
-  "Quest 7631 'Dreadsteed of Xoroth' not found on Wowhead Forever - check ID."
+  "Pins of 'Hydrospawn' and 'Lethtendris' are almost on the same spot (floor 6) - intended?",
+  "Pins of 'Cho'Rush the Observer' and 'King Gordok' are almost on the same spot (floor 2) - intended?",
+  "Quest 7507: guide title 'Foror's Compendium', Wowhead Forever 'Nostro's Compendium'."
  ],
  "guide_notes": [
   "Instance zone=2557; Feralas zone_id 357 is from general knowledge, not linked on page",
@@ -4673,21 +4627,21 @@
   "No slots stated on page; slots null",
   "Full class book quest titles partly from page short names"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 2557,
+ "zone_name_en": "Dire Maul",
+ "zone_name_de": "Düsterbruch",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "partial",
   "pins": "partial",
   "loot": "partial",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 32,
   "loot_rows": 169,
-  "loot_confirmed": 91,
-  "loot_with_chance": 91,
+  "loot_confirmed": 53,
+  "loot_with_chance": 92,
   "forever_confirmed": "partly",
   "boss_count": 20,
-  "boss_ok": 0,
+  "boss_ok": 13,
   "pin_ok": 17,
   "enc_count": 18,
   "q_tot": 35

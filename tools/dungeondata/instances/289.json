@@ -32,30 +32,26 @@
    "order": 1,
    "wing": null,
    "name": "Blood Steward of Kirtonos",
-   "name_de": "Kirtonos",
-   "encounter_id": 2805,
+   "name_de": "Blutdiener von Kirtonos",
+   "encounter_id": null,
    "npcs": [
     {
      "id": 14861,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Blood Steward of Kirtonos",
+     "zone": 2057,
+     "name_de": "Blutdiener von Kirtonos",
+     "name_ok": true
     }
    ],
    "location": "porch before Kirtonos",
    "optional": false,
-   "pin": {
-    "floor": 2,
-    "x": 0.4949,
-    "y": 0.0429
-   },
+   "pin": null,
    "loot": [
     {
      "item_id": 13523,
      "name": "Blood of Innocents",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": 59.0,
      "chance_wowhead_forever": null,
@@ -73,72 +69,76 @@
      "item_id": 16734,
      "name": "Boots of Valor",
      "slot": "Feet",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 18.0,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Kirtonos the Herald",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 13960,
      "name": "Heart of the Fiend",
      "slot": "Neck",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 18.0,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Kirtonos the Herald",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 13955,
      "name": "Stoneform Shoulders",
      "slot": "Shoulder",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 18.0,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Kirtonos the Herald",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 13983,
      "name": "Gravestone War Axe",
      "slot": "Two-Hand Axe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 14.0,
      "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "wowhead_dropped_by": "Kirtonos the Herald",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -147,20 +147,24 @@
    "order": 2,
    "wing": null,
    "name": "Kirtonos the Herald",
-   "name_de": null,
-   "encounter_id": null,
+   "name_de": "Kirtonos",
+   "encounter_id": 2805,
    "npcs": [
     {
      "id": 10506,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Kirtonos the Herald",
+     "zone": 2057,
+     "name_de": "Kirtonos der Herold",
+     "name_ok": true
     }
    ],
    "location": "porch, summoned at brazier with Blood of Innocents",
    "optional": false,
-   "pin": null,
+   "pin": {
+    "floor": 2,
+    "x": 0.4949,
+    "y": 0.0429
+   },
    "loot": []
   },
   {
@@ -172,10 +176,10 @@
    "npcs": [
     {
      "id": 10503,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Jandice Barov",
+     "zone": 2057,
+     "name_de": "Jandice Barov",
+     "name_ok": true
     }
    ],
    "location": "upper hall",
@@ -210,72 +214,76 @@
      "item_id": 14545,
      "name": "Ghostloom Leggings",
      "slot": "Legs",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 16.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 11.87,
+     "wowhead_dropped_by": "Jandice Barov",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 18690,
      "name": "Wraithplate Leggings",
      "slot": "Legs",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 11.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 11.06,
+     "wowhead_dropped_by": "Jandice Barov",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 14541,
      "name": "Barovian Family Sword",
      "slot": "Two-Hand Sword",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 9.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 10.56,
+     "wowhead_dropped_by": "Jandice Barov",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22394,
      "name": "Staff of Metanoia",
      "slot": "Staff",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 8.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 9.06,
+     "wowhead_dropped_by": "Jandice Barov",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -343,10 +351,10 @@
    "npcs": [
     {
      "id": 11622,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Rattlegore",
+     "zone": 2057,
+     "name_de": "Blutrippe",
+     "name_ok": true
     }
    ],
    "location": "lower bone pit room",
@@ -461,18 +469,19 @@
      "item_id": 13873,
      "name": "Viewing Room Key",
      "slot": "Quest",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 27.21,
+     "wowhead_dropped_by": "Rattlegore",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": false,
+     "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -487,7 +496,7 @@
      "chance_repo": 14.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -506,7 +515,7 @@
      "chance_repo": 14.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -525,7 +534,7 @@
      "chance_repo": 14.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -579,10 +588,10 @@
    "npcs": [
     {
      "id": 10433,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Marduk Blackpool",
+     "zone": 2057,
+     "name_de": "Marduk Blackpool",
+     "name_ok": true
     }
    ],
    "location": "viewing room balcony",
@@ -660,10 +669,10 @@
    "npcs": [
     {
      "id": 10432,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Vectus",
+     "zone": 2057,
+     "name_de": "Vectus",
+     "name_ok": true
     }
    ],
    "location": "viewing room",
@@ -741,10 +750,10 @@
    "npcs": [
     {
      "id": 10508,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Ras Frostwhisper",
+     "zone": 2057,
+     "name_de": "Ras Frostraunen",
+     "name_ok": true
     }
    ],
    "location": "chamber off the viewing room",
@@ -885,7 +894,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -904,7 +913,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -923,7 +932,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -942,7 +951,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -961,7 +970,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -980,7 +989,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -999,7 +1008,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1018,7 +1027,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1037,7 +1046,7 @@
      "chance_repo": 16.7,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1073,10 +1082,10 @@
    "npcs": [
     {
      "id": 16118,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Kormok",
+     "zone": 2057,
+     "name_de": "Kormok",
+     "name_ok": true
     }
    ],
    "location": "summoned via Brazier of Beckoning (22052)",
@@ -1095,7 +1104,7 @@
      "chance_repo": 20.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -1180,15 +1189,15 @@
    "order": 9,
    "wing": null,
    "name": "Death Knight Darkreaver",
-   "name_de": null,
+   "name_de": "Todesritter Schattensichel",
    "encounter_id": null,
    "npcs": [
     {
      "id": 14516,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Death Knight Darkreaver",
+     "zone": 2057,
+     "name_de": "Todesritter Schattensichel",
+     "name_ok": true
     }
    ],
    "location": "summoned via Divination Scryer class quest",
@@ -1199,18 +1208,19 @@
      "item_id": 18760,
      "name": "Necromantic Band",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 25.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 24.73,
+     "wowhead_dropped_by": "Death Knight Darkreaver",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -1225,8 +1235,8 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "guide"
      ]
@@ -1243,8 +1253,8 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "guide"
      ]
@@ -1261,8 +1271,8 @@
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "guide"
      ]
@@ -1278,10 +1288,10 @@
    "npcs": [
     {
      "id": 10505,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Instructor Malicia",
+     "zone": 2057,
+     "name_de": "Instrukteurin Malicia",
+     "name_ok": true
     }
    ],
    "location": "side room",
@@ -1315,7 +1325,7 @@
      "item_id": 14626,
      "name": "Necropile Robe",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1333,7 +1343,7 @@
      "item_id": 14637,
      "name": "Cadaverous Armor",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1351,7 +1361,7 @@
      "item_id": 14611,
      "name": "Bloodmail Hauberk",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1369,7 +1379,7 @@
      "item_id": 14624,
      "name": "Deathbone Chestplate",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1466,10 +1476,10 @@
    "npcs": [
     {
      "id": 11261,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Doctor Theolen Krastinov",
+     "zone": 2057,
+     "name_de": "Doktor Theolen Krastinov",
+     "name_ok": true
     }
    ],
    "location": "side room",
@@ -1503,7 +1513,7 @@
      "item_id": 14626,
      "name": "Necropile Robe",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1521,7 +1531,7 @@
      "item_id": 14637,
      "name": "Cadaverous Armor",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1539,7 +1549,7 @@
      "item_id": 14611,
      "name": "Bloodmail Hauberk",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1557,7 +1567,7 @@
      "item_id": 14624,
      "name": "Deathbone Chestplate",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1618,10 +1628,10 @@
    "npcs": [
     {
      "id": 10901,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Lorekeeper Polkelt",
+     "zone": 2057,
+     "name_de": "Hüter des Wissens Polkelt",
+     "name_ok": true
     }
    ],
    "location": "side room",
@@ -1655,7 +1665,7 @@
      "item_id": 14626,
      "name": "Necropile Robe",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1673,7 +1683,7 @@
      "item_id": 14637,
      "name": "Cadaverous Armor",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1691,7 +1701,7 @@
      "item_id": 14611,
      "name": "Bloodmail Hauberk",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1709,7 +1719,7 @@
      "item_id": 14624,
      "name": "Deathbone Chestplate",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1824,10 +1834,10 @@
    "npcs": [
     {
      "id": 10507,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "The Ravenian",
+     "zone": 2057,
+     "name_de": "Der Ravenier",
+     "name_ok": true
     }
    ],
    "location": "side room",
@@ -1861,7 +1871,7 @@
      "item_id": 14626,
      "name": "Necropile Robe",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1879,7 +1889,7 @@
      "item_id": 14637,
      "name": "Cadaverous Armor",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1897,7 +1907,7 @@
      "item_id": 14611,
      "name": "Bloodmail Hauberk",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -1915,7 +1925,7 @@
      "item_id": 14624,
      "name": "Deathbone Chestplate",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2030,10 +2040,10 @@
    "npcs": [
     {
      "id": 10504,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Lord Alexei Barov",
+     "zone": 2057,
+     "name_de": "Lord Alexei Barov",
+     "name_ok": true
     }
    ],
    "location": "side room",
@@ -2067,7 +2077,7 @@
      "item_id": 18683,
      "name": "Hammer of the Vesper",
      "slot": "One-Hand Mace",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 9.0,
      "chance_wowhead_forever": null,
@@ -2085,7 +2095,7 @@
      "item_id": 18680,
      "name": "Ancient Bone Bow",
      "slot": "Bow",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 9.0,
      "chance_wowhead_forever": null,
@@ -2103,7 +2113,7 @@
      "item_id": 14626,
      "name": "Necropile Robe",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2121,7 +2131,7 @@
      "item_id": 14637,
      "name": "Cadaverous Armor",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2139,7 +2149,7 @@
      "item_id": 14611,
      "name": "Bloodmail Hauberk",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2157,7 +2167,7 @@
      "item_id": 14624,
      "name": "Deathbone Chestplate",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2200,10 +2210,10 @@
    "npcs": [
     {
      "id": 10502,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Lady Illucia Barov",
+     "zone": 2057,
+     "name_de": "Lady Illucia Barov",
+     "name_ok": true
     }
    ],
    "location": "side room",
@@ -2218,7 +2228,7 @@
      "item_id": 14626,
      "name": "Necropile Robe",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2236,7 +2246,7 @@
      "item_id": 14637,
      "name": "Cadaverous Armor",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2254,7 +2264,7 @@
      "item_id": 14611,
      "name": "Bloodmail Hauberk",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2272,7 +2282,7 @@
      "item_id": 14624,
      "name": "Deathbone Chestplate",
      "slot": "Chest",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 4.5,
      "chance_wowhead_forever": null,
@@ -2387,10 +2397,10 @@
    "npcs": [
     {
      "id": 1853,
-     "wowhead_name": null,
-     "zone": null,
-     "name_de": null,
-     "name_ok": false
+     "wowhead_name": "Darkmaster Gandling",
+     "zone": 2057,
+     "name_de": "Dunkelmeister Gandling",
+     "name_ok": true
     }
    ],
    "location": "central chamber after six side bosses",
@@ -2709,7 +2719,7 @@
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2728,7 +2738,7 @@
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2747,7 +2757,7 @@
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2766,7 +2776,7 @@
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2785,7 +2795,7 @@
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2804,7 +2814,7 @@
      "chance_repo": 14.3,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2823,7 +2833,7 @@
      "chance_repo": 3.0,
      "in_guide": false,
      "in_repo": true,
-     "forever_confirmed": true,
+     "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
       "repo",
@@ -2848,7 +2858,7 @@
    "prereq": "5097",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Scholomance",
    "wowhead_level": null,
    "races": 77
   },
@@ -2865,7 +2875,7 @@
    "prereq": "5533",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Skeletal Fragments",
    "wowhead_level": null,
    "races": 77
   },
@@ -2882,7 +2892,7 @@
    "prereq": "5537",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Mold Rhymes With...",
    "wowhead_level": null,
    "races": 77
   },
@@ -2899,7 +2909,7 @@
    "prereq": "5538",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Fire Plume Forged",
    "wowhead_level": null,
    "races": 77
   },
@@ -2916,8 +2926,8 @@
    "prereq": "5801",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Araj's Scarab",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -2935,7 +2945,7 @@
     13704
    ],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "The Key to Scholomance",
    "wowhead_level": null,
    "races": 77
   },
@@ -2952,7 +2962,7 @@
    "prereq": "5098",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Scholomance",
    "wowhead_level": null,
    "races": 178
   },
@@ -2969,7 +2979,7 @@
    "prereq": "838",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Skeletal Fragments",
    "wowhead_level": null,
    "races": 178
   },
@@ -2986,7 +2996,7 @@
    "prereq": "964",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Mold Rhymes With...",
    "wowhead_level": null,
    "races": 178
   },
@@ -3003,7 +3013,7 @@
    "prereq": "5514",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Fire Plume Forged",
    "wowhead_level": null,
    "races": 178
   },
@@ -3020,8 +3030,8 @@
    "prereq": "5802",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Araj's Scarab",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -3039,7 +3049,7 @@
     13704
    ],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "The Key to Scholomance",
    "wowhead_level": null,
    "races": 178
   },
@@ -3056,8 +3066,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Doctor Theolen Krastinov, the Butcher",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3073,8 +3083,8 @@
    "prereq": "5382",
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Krastinov's Bag of Horrors",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3094,8 +3104,8 @@
     15806
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Kirtonos the Herald",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3116,8 +3126,8 @@
     13984
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Lich, Ras Frostwhisper",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3133,8 +3143,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Plagued Hatchlings",
+   "wowhead_level": 58,
    "races": 0
   },
   {
@@ -3150,8 +3160,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Betina Bigglezink",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3170,8 +3180,8 @@
     15854
    ],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Dawn's Gambit",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3187,8 +3197,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Left Piece of Lord Valthalak's Amulet",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3204,8 +3214,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Right Piece of Lord Valthalak's Amulet",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3221,8 +3231,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Barov Family Fortune",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -3240,8 +3250,8 @@
     14023
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Last Barov",
+   "wowhead_level": 60,
    "races": 77
   },
   {
@@ -3257,8 +3267,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": true,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Barov Family Fortune",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -3276,8 +3286,8 @@
     14022
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Last Barov",
+   "wowhead_level": 60,
    "races": 178
   },
   {
@@ -3293,8 +3303,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Judgment and Redemption",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3310,8 +3320,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Darkreaver Menace",
+   "wowhead_level": 60,
    "races": 0
   },
   {
@@ -3327,8 +3337,8 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Imp Delivery",
+   "wowhead_level": 60,
    "races": 0
   }
  ],
@@ -3444,56 +3454,17 @@
   "Kormok: 22326  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Kormok: 22331  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
   "Kormok: 22332  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
-  "Kormok: 22333  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+  "Kormok: 22333  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Death Knight Darkreaver: 18758 Specter's Blade - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Death Knight Darkreaver: 18761 Oblivion's Touch - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Death Knight Darkreaver: 18759 Malicious Axe - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
  ],
  "open_questions": [
-  "NPC 14861 (Blood Steward of Kirtonos) not found on Wowhead Forever - check ID.",
-  "Boss 'Kirtonos the Herald' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 10506 (Kirtonos the Herald) not found on Wowhead Forever - check ID.",
-  "NPC 10503 (Jandice Barov) not found on Wowhead Forever - check ID.",
-  "NPC 11622 (Rattlegore) not found on Wowhead Forever - check ID.",
-  "NPC 10433 (Marduk Blackpool) not found on Wowhead Forever - check ID.",
-  "NPC 10432 (Vectus) not found on Wowhead Forever - check ID.",
-  "NPC 10508 (Ras Frostwhisper) not found on Wowhead Forever - check ID.",
-  "NPC 16118 (Kormok) not found on Wowhead Forever - check ID.",
+  "Kirtonos the Herald = encounter 2805 'Kirtonos'.",
+  "Boss 'Blood Steward of Kirtonos' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
   "No pin for 'Kormok' (encounter 3055) in DungeonPinData.lua.",
   "Boss 'Death Knight Darkreaver' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "NPC 14516 (Death Knight Darkreaver) not found on Wowhead Forever - check ID.",
-  "NPC 10505 (Instructor Malicia) not found on Wowhead Forever - check ID.",
-  "NPC 11261 (Doctor Theolen Krastinov) not found on Wowhead Forever - check ID.",
-  "NPC 10901 (Lorekeeper Polkelt) not found on Wowhead Forever - check ID.",
-  "NPC 10507 (The Ravenian) not found on Wowhead Forever - check ID.",
-  "NPC 10504 (Lord Alexei Barov) not found on Wowhead Forever - check ID.",
-  "NPC 10502 (Lady Illucia Barov) not found on Wowhead Forever - check ID.",
-  "NPC 1853 (Darkmaster Gandling) not found on Wowhead Forever - check ID.",
-  "Quest 5533 'Scholomance' not found on Wowhead Forever - check ID.",
-  "Quest 5537 'Skeletal Fragments' not found on Wowhead Forever - check ID.",
-  "Quest 5538 'Mold Rhymes With...' not found on Wowhead Forever - check ID.",
-  "Quest 5801 'Fire Plume Forged' not found on Wowhead Forever - check ID.",
-  "Quest 5803 'Araj's Scarab' not found on Wowhead Forever - check ID.",
-  "Quest 5505 'The Key to Scholomance' not found on Wowhead Forever - check ID.",
-  "Quest 838 'Scholomance' not found on Wowhead Forever - check ID.",
-  "Quest 964 'Skeletal Fragments' not found on Wowhead Forever - check ID.",
-  "Quest 5514 'Mold Rhymes With...' not found on Wowhead Forever - check ID.",
-  "Quest 5802 'Fire Plume Forged' not found on Wowhead Forever - check ID.",
-  "Quest 5804 'Araj's Scarab' not found on Wowhead Forever - check ID.",
-  "Quest 5511 'The Key to Scholomance' not found on Wowhead Forever - check ID.",
-  "Quest 5382 'Doctor Theolen Krastinov, the Butcher' not found on Wowhead Forever - check ID.",
-  "Quest 5515 'Krastinov's Bag of Horrors' not found on Wowhead Forever - check ID.",
-  "Quest 5384 'Kirtonos the Herald' not found on Wowhead Forever - check ID.",
-  "Quest 5466 'The Lich, Ras Frostwhisper' not found on Wowhead Forever - check ID.",
-  "Quest 5529 'Plagued Hatchlings' not found on Wowhead Forever - check ID.",
-  "Quest 5531 'Betina Bigglezink' not found on Wowhead Forever - check ID.",
-  "Quest 4771 'Dawn's Gambit' not found on Wowhead Forever - check ID.",
-  "Quest 8969 'The Left Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 8992 'The Right Piece of Lord Valthalak's Amulet' not found on Wowhead Forever - check ID.",
-  "Quest 5343 'Barov Family Fortune' not found on Wowhead Forever - check ID.",
-  "Quest 5344 'The Last Barov' not found on Wowhead Forever - check ID.",
-  "Quest 5341 'Barov Family Fortune' not found on Wowhead Forever - check ID.",
-  "Quest 5342 'The Last Barov' not found on Wowhead Forever - check ID.",
-  "Quest 7647 'Judgment and Redemption' not found on Wowhead Forever - check ID.",
-  "Quest 8258 'The Darkreaver Menace' not found on Wowhead Forever - check ID.",
-  "Quest 7629 'Imp Delivery' not found on Wowhead Forever - check ID."
+  "Pins of 'Doctor Theolen Krastinov' and 'Lord Alexei Barov' are almost on the same spot (floor 2) - intended?"
  ],
  "guide_notes": [
   "Drop rates per guide are Classic values; stats still Classic until Wowhead lists new items",
@@ -3504,28 +3475,28 @@
   "Quest count conflicting (10 vs 11 per faction)",
   "Lich chain 5461-5465 before 5466; Blood of Innocents 13523 needed for Kirtonos"
  ],
- "zone_id": null,
- "zone_name_en": null,
- "zone_name_de": null,
+ "zone_id": 2057,
+ "zone_name_en": "Scholomance",
+ "zone_name_de": "Scholomance",
  "assessment": {
-  "bosses": "missing",
+  "bosses": "partial",
   "pins": "partial",
   "loot": "partial",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 11,
   "loot_rows": 128,
-  "loot_confirmed": 87,
+  "loot_confirmed": 64,
   "loot_with_chance": 91,
   "forever_confirmed": "partly",
   "boss_count": 16,
-  "boss_ok": 0,
+  "boss_ok": 14,
   "pin_ok": 13,
   "enc_count": 14,
   "q_tot": 28
  },
  "top_points": [
   "17 of 28 quests missing in DungeonQuests.lua",
-  "Boss 'Kirtonos the Herald' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
+  "Boss 'Blood Steward of Kirtonos' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)",
   "No pin for 'Kormok' (encounter 3055) in DungeonPinData.lua."
  ]
 }

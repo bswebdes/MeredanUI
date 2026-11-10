@@ -17,8 +17,8 @@
 | 5 |  | Gahz'rilla (optional) | Gahz'rilla | 594 | 7273 | 1 0.31,0.42 | summoned at sacred pool gong with Mallet |
 | 6 |  | Nekrum Gutchewer | Nekrum der Ausweider | 598 | 7796 | 1 0.31,0.18 | pyramid stairs event, last wave |
 | 7 |  | Shadowpriest Sezz'ziz | Schattenpriester Sezz'ziz | 599 | 7275 | 1 0.31,0.18 | pyramid stairs event, last wave |
-| 8 |  | Sergeant Bly |  | — | 7604 | — | turns hostile after stairs event |
-| 9 |  | Chief Ukorz Sandscalp (with Ruuzlu) | Häuptling Ukorz Sandskalp | 600 | 7267, 7797 ⚠ | 1 0.44,0.35 | inside the temple |
+| 8 |  | Sergeant Bly | Sergeant Bly | — | 7604 | — | turns hostile after stairs event |
+| 9 |  | Chief Ukorz Sandscalp (with Ruuzlu) | Häuptling Ukorz Sandskalp | 600 | 7267, 7797 | 1 0.44,0.35 | inside the temple |
 
 ### Rares
 
@@ -32,13 +32,13 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Theka the Martyr
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 10660 | First Mosh'aru Tablet (quest) |  |  |  |  |  | guide |
+| 10660 | First Mosh'aru Tablet (quest) | Quest Item |  |  |  | ✔ | guide |
 | 8623 | OOX-17/TN Distress Beacon |  |  |  | 1 |  | repo |
 
 ### Antu'sul
@@ -63,8 +63,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 9234 | Tiara of the Deep (quest) |  |  |  |  |  | guide |
-| 10661 | Second Mosh'aru Tablet (quest) |  |  |  |  |  | guide |
+| 9234 | Tiara of the Deep (quest) | Quest Item |  | 61.11 |  | ✔ | guide+wowhead-forever |
+| 10661 | Second Mosh'aru Tablet (quest) | Quest Item |  | 49.11 |  | ✔ | guide+wowhead-forever |
 | 8623 | OOX-17/TN Distress Beacon |  |  |  | 1 |  | repo |
 
 ### Gahz'rilla
@@ -73,13 +73,13 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 9469 | Gahz'rilla Scale Armor | Chest (mail) | 45 | 44.35 | 50 | ✔ | guide+repo+wowhead-forever |
 | 9467 | Gahz'rilla Fang | Dagger | 46 | 46.27 | 50 | ✔ | guide+repo+wowhead-forever |
-| 8707 | Gahz'rilla's Electrified Scale (quest) |  |  |  |  |  | guide |
+| 8707 | Gahz'rilla's Electrified Scale (quest) | Quest Item |  | 50.73 |  | ✔ | guide+wowhead-forever |
 
 ### Nekrum Gutchewer
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 9471 | Nekrum's Medallion (quest) |  |  |  |  |  | guide |
+| 9471 | Nekrum's Medallion (quest) | Quest Item |  | 38.9 |  | ✔ | guide+wowhead-forever |
 | 8623 | OOX-17/TN Distress Beacon |  |  |  | 1 |  | repo |
 
 ### Shadowpriest Sezz'ziz
@@ -96,7 +96,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 8548 | Divino-matic Rod (quest) |  | 67 |  |  | ✔ | guide |
+| 8548 | Divino-matic Rod (quest) | Quest Item | 67 | 66.97 |  | ✔ | guide+wowhead-forever |
 | 5616 | Gutwrencher | Dagger |  |  |  | ✔ | guide |
 
 ### Chief Ukorz Sandscalp (with Ruuzlu)
@@ -128,7 +128,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 9523 | Troll Temper (quest) |  |  |  |  |  | guide |
+| 9523 | Troll Temper (quest) | Quest Item |  |  |  | ✔ | guide |
 | 9243 | Shriveled Heart | Neck |  |  | 2.1 |  | repo |
 | 8623 | OOX-17/TN Distress Beacon |  |  |  | 1 |  | repo |
 
@@ -136,7 +136,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 8444 | Executioner's Key | Key | 77 |  |  | ✔ | guide |
+| 8444 | Executioner's Key | Key | 77 | 76.98 |  | ✔ | guide+wowhead-forever |
 
 ### Trash (BoE, <1%, not yet seen in Forever)
 
@@ -144,8 +144,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 9483 | Flaming Incinerator | Wand | 1 |  |  | ✔ | guide |
 | 9480 | Eyegouger | Polearm | 1 |  |  | ✔ | guide |
-| 9523 | Troll Temper (quest) |  |  |  |  |  | guide |
-| 9238 | Uncracked Scarab Shell (quest) |  | 10 |  |  | ✔ | guide |
+| 9523 | Troll Temper (quest) | Quest Item |  |  |  | ✔ | guide |
+| 9238 | Uncracked Scarab Shell (quest) | Quest Item | 10 |  |  | ✔ | guide+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -188,15 +188,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 ## Open questions (check in game)
 
 - [ ] Boss 'Sergeant Bly' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] NPC 7797 is 'Ruuzlu' on Wowhead Forever, guide says 'Chief Ukorz Sandscalp (with Ruuzlu)'.
-- [ ] Quest 2768 'Divino-matic Rod' not found on Wowhead Forever - check ID.
-- [ ] Quest 2770 'Gahz'rilla' not found on Wowhead Forever - check ID.
-- [ ] Quest 2846 'Tiara of the Deep' not found on Wowhead Forever - check ID.
-- [ ] Quest 3527 'The Prophecy of Mosh'aru' not found on Wowhead Forever - check ID.
-- [ ] Quest 3042 'Troll Temper' not found on Wowhead Forever - check ID.
-- [ ] Quest 2865 'Scarab Shells' not found on Wowhead Forever - check ID.
-- [ ] Quest 2991 'Nekrum's Medallion' not found on Wowhead Forever - check ID.
-- [ ] Quest 2936 'The Spider God' not found on Wowhead Forever - check ID.
+- [ ] Pins of 'Nekrum Gutchewer' and 'Shadowpriest Sezz'ziz' are almost on the same spot (floor 1) - intended?
 
 ## Research notes
 

@@ -34,7 +34,7 @@
      "id": 247126,
      "wowhead_name": "Atrexis the Grave Knight",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Atrexis der Grabritter",
      "name_ok": true
     }
    ],
@@ -46,54 +46,57 @@
      "item_id": 273036,
      "name": "Graveweave Bindings",
      "slot": "Wrist",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 35.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.08,
+     "wowhead_dropped_by": "Atrexis the Grave Knight",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273032,
      "name": "Bonebinder's Signet",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 36.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 35.25,
+     "wowhead_dropped_by": "Atrexis the Grave Knight",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273033,
      "name": "Gravespike Repeater",
      "slot": "Crossbow",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 29.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.57,
+     "wowhead_dropped_by": "Atrexis the Grave Knight",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -109,7 +112,7 @@
      "id": 247032,
      "wowhead_name": "Lyn the Ignored",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Lyn der Ignorierte",
      "name_ok": true
     }
    ],
@@ -121,54 +124,57 @@
      "item_id": 273055,
      "name": "Bonepile Gaze",
      "slot": "Shield",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 43.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.03,
+     "wowhead_dropped_by": "Lyn the Ignored",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273054,
      "name": "Cartilage Shapers",
      "slot": "Hands (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 39.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.83,
+     "wowhead_dropped_by": "Lyn the Ignored",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273053,
      "name": "Tendonscraper Dagger",
      "slot": "Dagger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 19.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 35.14,
+     "wowhead_dropped_by": "Lyn the Ignored",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -184,7 +190,7 @@
      "id": 245999,
      "wowhead_name": "Arcane Anomaly",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Arkananomalie",
      "name_ok": true
     }
    ],
@@ -196,54 +202,57 @@
      "item_id": 273035,
      "name": "Mana-Warped Chain Shirt",
      "slot": "Chest (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.73,
+     "wowhead_dropped_by": "Arcane Anomaly",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273034,
      "name": "Ephemeral Grips",
      "slot": "Hands (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 39.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.97,
+     "wowhead_dropped_by": "Arcane Anomaly",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273031,
      "name": "Runemender's Seal",
      "slot": "Finger",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 30.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.3,
+     "wowhead_dropped_by": "Arcane Anomaly",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -252,14 +261,14 @@
    "order": 4,
    "wing": null,
    "name": "Arcanic Enigma",
-   "name_de": null,
+   "name_de": "Arkanes Mysterium",
    "encounter_id": null,
    "npcs": [
     {
      "id": 246016,
      "wowhead_name": "Arcanic Enigma",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Arkanes Mysterium",
      "name_ok": true
     }
    ],
@@ -271,54 +280,57 @@
      "item_id": 273045,
      "name": "Drape of Shifting Energy",
      "slot": "Back",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 37.34,
+     "wowhead_dropped_by": "Arcanic Enigma",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273044,
      "name": "Violet Sorcerer's Robes",
      "slot": "Chest (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 39.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.23,
+     "wowhead_dropped_by": "Arcanic Enigma",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273043,
      "name": "Wand of Mana Concentration",
      "slot": "Wand",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 30.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.42,
+     "wowhead_dropped_by": "Arcanic Enigma",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -334,7 +346,7 @@
      "id": 246017,
      "wowhead_name": "Unstable Sentinel",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Instabile Schildwache",
      "name_ok": true
     }
    ],
@@ -346,72 +358,76 @@
      "item_id": 273046,
      "name": "Guardian's Dualblade",
      "slot": "Two-Hand Axe",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 35.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.07,
+     "wowhead_dropped_by": "Unstable Sentinel",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273048,
      "name": "Refractory Scaleguards",
      "slot": "Legs (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 32.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 31.23,
+     "wowhead_dropped_by": "Unstable Sentinel",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273047,
      "name": "Unstable Crystalline Shoulderpads",
      "slot": "Shoulder (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.6,
+     "wowhead_dropped_by": "Unstable Sentinel",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273099,
      "name": "Blueprint: Spinning Wheel",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": 8.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.62,
+     "wowhead_dropped_by": "Unstable Sentinel",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -427,7 +443,7 @@
      "id": 246008,
      "wowhead_name": "Mana Devourer",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Manaschlinger",
      "name_ok": true
     }
    ],
@@ -439,54 +455,57 @@
      "item_id": 273040,
      "name": "Spine of the Devourer",
      "slot": "Staff",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.54,
+     "wowhead_dropped_by": "Mana Devourer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273042,
      "name": "Manascale Treads",
      "slot": "Feet (Mail)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 35.51,
+     "wowhead_dropped_by": "Mana Devourer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273041,
      "name": "Slitherwrap Girdle",
      "slot": "Waist (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 36.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.94,
+     "wowhead_dropped_by": "Mana Devourer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -502,7 +521,7 @@
      "id": 246003,
      "wowhead_name": "Fel Ancient",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Teufelsurtum",
      "name_ok": true
     }
    ],
@@ -514,54 +533,57 @@
      "item_id": 273039,
      "name": "Blightleaf Rope",
      "slot": "Waist (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 33.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.11,
+     "wowhead_dropped_by": "Fel Ancient",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273038,
      "name": "Garb of Fallen Felbark",
      "slot": "Chest (Leather)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 31.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 35.86,
+     "wowhead_dropped_by": "Fel Ancient",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273037,
      "name": "Felbough Arm",
      "slot": "Polearm",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 36.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.03,
+     "wowhead_dropped_by": "Fel Ancient",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -577,7 +599,7 @@
      "id": 246020,
      "wowhead_name": "Shade of the Archmage",
      "zone": 36,
-     "name_de": null,
+     "name_de": "Schemen des Erzmagiers",
      "name_ok": true
     }
    ],
@@ -589,7 +611,7 @@
      "item_id": 251961,
      "name": "Arcane Mote",
      "slot": "Quest (Heart of Disruption)",
-     "quality": null,
+     "quality": 1,
      "quest_item": true,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -607,61 +629,64 @@
      "item_id": 273052,
      "name": "Ponderous Orb",
      "slot": "Off-hand",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 26.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.85,
+     "wowhead_dropped_by": "Shade of the Archmage",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273051,
      "name": "Violet Sorcerer's Mantle",
      "slot": "Shoulder (Cloth)",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 35.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.72,
+     "wowhead_dropped_by": "Shade of the Archmage",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273049,
      "name": "Archmagister's Faceted Pendant",
      "slot": "Neck",
-     "quality": null,
+     "quality": 3,
      "quest_item": false,
      "chance_guide": 38.0,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.82,
+     "wowhead_dropped_by": "Shade of the Archmage",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 273103,
      "name": "Blueprint: Arcane Salvager",
      "slot": "Recipe",
-     "quality": null,
+     "quality": 2,
      "quest_item": false,
      "chance_guide": 7.0,
      "chance_wowhead_forever": null,
@@ -717,7 +742,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "An Alarming Request",
    "wowhead_level": null,
    "races": 77
   },
@@ -739,8 +764,8 @@
     277507
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Heart of Disruption",
+   "wowhead_level": 33,
    "races": 77
   },
   {
@@ -759,8 +784,8 @@
     279838
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Starving Arcane",
+   "wowhead_level": 33,
    "races": 77
   },
   {
@@ -779,8 +804,8 @@
     279849
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Power Overwhelming",
+   "wowhead_level": 33,
    "races": 77
   },
   {
@@ -799,8 +824,8 @@
     279836
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "A Green Sample",
+   "wowhead_level": 33,
    "races": 77
   },
   {
@@ -816,7 +841,7 @@
    "prereq": null,
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Prison Break In",
    "wowhead_level": null,
    "races": 178
   },
@@ -833,7 +858,7 @@
    "prereq": "Prison Break In (544)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Key to the City",
    "wowhead_level": null,
    "races": 178
   },
@@ -850,7 +875,7 @@
    "prereq": "Key to the City (93680)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Dalaran Patrols",
    "wowhead_level": null,
    "races": 178
   },
@@ -867,7 +892,7 @@
    "prereq": "Dalaran Patrols (545)",
    "rewards": [],
    "in_repo": false,
-   "wowhead_title": null,
+   "wowhead_title": "Blood in the Streets",
    "wowhead_level": null,
    "races": 178
   },
@@ -889,8 +914,8 @@
     277507
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Heart of Disruption",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -909,8 +934,8 @@
     251965
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "The Grave Knight",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -929,8 +954,8 @@
     279848
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Source of Power",
+   "wowhead_level": 33,
    "races": 178
   },
   {
@@ -949,8 +974,8 @@
     279846
    ],
    "in_repo": false,
-   "wowhead_title": null,
-   "wowhead_level": null,
+   "wowhead_title": "Opportunistic Education",
+   "wowhead_level": 33,
    "races": 178
   }
  ],
@@ -966,20 +991,7 @@
   "No pin for 'Fel Ancient' (encounter 3299) in DungeonPinData.lua.",
   "No pin for 'Shade of the Archmage' (encounter 3303) in DungeonPinData.lua.",
   "Encounter 3301 'Mana Elemental' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3312 'Mana Wraith' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Quest 92432 'An Alarming Request' not found on Wowhead Forever - check ID.",
-  "Quest 92458 'Heart of Disruption' not found on Wowhead Forever - check ID.",
-  "Quest 92457 'Starving Arcane' not found on Wowhead Forever - check ID.",
-  "Quest 92489 'Power Overwhelming' not found on Wowhead Forever - check ID.",
-  "Quest 92456 'A Green Sample' not found on Wowhead Forever - check ID.",
-  "Quest 544 'Prison Break In' not found on Wowhead Forever - check ID.",
-  "Quest 93680 'Key to the City' not found on Wowhead Forever - check ID.",
-  "Quest 545 'Dalaran Patrols' not found on Wowhead Forever - check ID.",
-  "Quest 92434 'Blood in the Streets' not found on Wowhead Forever - check ID.",
-  "Quest 96984 'Heart of Disruption' not found on Wowhead Forever - check ID.",
-  "Quest 96986 'The Grave Knight' not found on Wowhead Forever - check ID.",
-  "Quest 96988 'Source of Power' not found on Wowhead Forever - check ID.",
-  "Quest 96987 'Opportunistic Education' not found on Wowhead Forever - check ID."
+  "Encounter 3312 'Mana Wraith' is in DungeonBosses.lua but not in the guide's boss list - check in game."
  ],
  "guide_notes": [
   "Boss order follows guide listing; Shade is always last",
@@ -995,7 +1007,7 @@
   "bosses": "partial",
   "pins": "missing",
   "loot": "ok",
-  "quests": "missing",
+  "quests": "ok",
   "quests_in_addon": 0,
   "loot_rows": 26,
   "loot_confirmed": 26,

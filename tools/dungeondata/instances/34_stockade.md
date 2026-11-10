@@ -10,11 +10,11 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Targorr the Dread | Targorr der Schreckliche | 2756 | 1696 ⚠ | 1 0.50,0.24 | cell along central hall |
-| 2 |  | Kam Deepfury | Kam Tiefenzorn | 2757 | 1666 ⚠ | 1 0.69,0.31 | cell, north side of east hall |
-| 3 |  | Hamhock | Hamhock | 2758 | 1717 ⚠ | 1 0.78,0.46 | round room at east end |
-| 4 |  | Bazil Thredd | Bazil Thredd | 2760 | 1716 ⚠ | 1 0.86,0.51 | cell off the east round room |
-| 5 |  | Dextren Ward | Dextren Ward | 2759 | 1663 ⚠ | 1 0.15,0.21 | west wing round room or cells |
+| 1 |  | Targorr the Dread | Targorr der Schreckliche | 2756 | 1696 | 1 0.50,0.24 | cell along central hall |
+| 2 |  | Kam Deepfury | Kam Tiefenzorn | 2757 | 1666 | 1 0.69,0.31 | cell, north side of east hall |
+| 3 |  | Hamhock | Hamhock | 2758 | 1717 | 1 0.78,0.46 | round room at east end |
+| 4 |  | Bazil Thredd | Bazil Thredd | 2760 | 1716 | 1 0.86,0.51 | cell off the east round room |
+| 5 |  | Dextren Ward | Dextren Ward | 2759 | 1663 | 1 0.15,0.21 | west wing round room or cells |
 
 ### Rares
 
@@ -24,52 +24,52 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Targorr the Dread
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 3630 | Head of Targorr (quest) | Quest |  |  |  |  | guide |
-| 273804 | Executioner Mantle | Shoulder (Leather) |  |  |  |  | guide |
-| 273805 | Blackrock Harness | Chest (Leather) |  |  |  |  | guide |
-| 273806 | Dark Horde Band | Finger |  |  |  |  | guide |
+| 3630 | Head of Targorr (quest) | Quest |  | 37.1 |  | ✔ | guide+wowhead-forever |
+| 273804 | Executioner Mantle | Shoulder (Leather) |  | 3.29 |  | ✔ | guide+wowhead-forever |
+| 273805 | Blackrock Harness | Chest (Leather) |  | 3.51 |  | ✔ | guide+wowhead-forever |
+| 273806 | Dark Horde Band | Finger |  | 3.52 |  | ✔ | guide+wowhead-forever |
 
 ### Kam Deepfury
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 3640 | Head of Deepfury (quest) | Quest |  |  |  |  | guide |
+| 3640 | Head of Deepfury (quest) | Quest |  | 20.11 |  | ✔ | guide+wowhead-forever |
 | 2280 | Kam's Walking Stick | Staff | 0.9 | 5.42 | 1.2 | ✔ | guide+repo+wowhead-forever |
-| 273807 | Demolition Girdle | Waist |  |  |  |  | guide |
-| 273808 | Bridgebreaker Bindings | Wrist (Cloth) |  |  |  |  | guide |
+| 273807 | Demolition Girdle | Waist |  | 4.72 |  | ✔ | guide+wowhead-forever |
+| 273808 | Bridgebreaker Bindings | Wrist (Cloth) |  | 4.12 |  | ✔ | guide+wowhead-forever |
 
 ### Hamhock
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 273809 | Hamhock's Cleaver | Main Hand Axe |  |  |  |  | guide |
-| 273810 | Ogre Grips | Hands (Mail) |  |  |  |  | guide |
-| 273811 | Repurposed Rack | Shield |  |  |  |  | guide |
+| 273809 | Hamhock's Cleaver | Main Hand Axe |  | 3.76 |  | ✔ | guide+wowhead-forever |
+| 273810 | Ogre Grips | Hands (Mail) |  | 2.96 |  | ✔ | guide+wowhead-forever |
+| 273811 | Repurposed Rack | Shield |  | 3.72 |  | ✔ | guide+wowhead-forever |
 
 ### Bazil Thredd
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 2926 | Head of Bazil Thredd (quest) | Quest |  |  |  |  | guide |
-| 273827 | Debt Collector | One-Hand Sword (caster) |  |  |  |  | guide |
-| 273829 | Concealed Hand Crossbow | Crossbow |  |  |  |  | guide |
-| 273825 | Red Wool Cloak | Back |  |  |  |  | guide |
-| 273824 | Defias Jailbreakers | Hands (Leather) |  |  |  |  | guide |
+| 2926 | Head of Bazil Thredd (quest) | Quest |  | 43.26 |  | ✔ | guide+wowhead-forever |
+| 273827 | Debt Collector | One-Hand Sword (caster) |  | 2.63 |  | ✔ | guide+wowhead-forever |
+| 273829 | Concealed Hand Crossbow | Crossbow |  | 1.85 |  | ✔ | guide+wowhead-forever |
+| 273825 | Red Wool Cloak | Back |  | 2.19 |  | ✔ | guide+wowhead-forever |
+| 273824 | Defias Jailbreakers | Hands (Leather) |  | 2.3 |  | ✔ | guide+wowhead-forever |
 
 ### Dextren Ward
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 3628 | Hand of Dextren Ward (quest) | Quest |  |  |  |  | guide |
-| 273817 | Graverobber's Shovel | Two-Hand Mace |  |  |  |  | guide |
-| 273819 | Boneslicer | Polearm |  |  |  |  | guide |
-| 273820 | Nightskulker Ring | Finger |  |  |  |  | guide |
+| 3628 | Hand of Dextren Ward (quest) | Quest |  | 44.05 |  | ✔ | guide+wowhead-forever |
+| 273817 | Graverobber's Shovel | Two-Hand Mace |  | 4.27 |  | ✔ | guide+wowhead-forever |
+| 273819 | Boneslicer | Polearm |  | 3.94 |  | ✔ | guide+wowhead-forever |
+| 273820 | Nightskulker Ring | Finger |  | 3.25 |  | ✔ | guide+wowhead-forever |
 
 ### Bruegal Ironknuckle
 
@@ -124,20 +124,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 1696 (Targorr the Dread) not found on Wowhead Forever - check ID.
-- [ ] NPC 1666 (Kam Deepfury) not found on Wowhead Forever - check ID.
-- [ ] NPC 1717 (Hamhock) not found on Wowhead Forever - check ID.
-- [ ] NPC 1716 (Bazil Thredd) not found on Wowhead Forever - check ID.
-- [ ] NPC 1663 (Dextren Ward) not found on Wowhead Forever - check ID.
-- [ ] Quest 387 'Quell the Uprising' not found on Wowhead Forever - check ID.
-- [ ] Quest 388 'The Color of Blood' not found on Wowhead Forever - check ID.
-- [ ] Quest 378 'The Fury Runs Deep' not found on Wowhead Forever - check ID.
-- [ ] Quest 377 'Crime and Punishment' not found on Wowhead Forever - check ID.
-- [ ] Quest 386 'What Comes Around...' not found on Wowhead Forever - check ID.
-- [ ] Quest 391 'The Stockade Riots' not found on Wowhead Forever - check ID.
-- [ ] Quest 303 'The Dark Iron War' not found on Wowhead Forever - check ID.
-- [ ] Quest 373 'The Unsent Letter' not found on Wowhead Forever - check ID.
-- [ ] Quest 389 'Bazil Thredd' not found on Wowhead Forever - check ID.
+- none found
 
 ## Research notes
 

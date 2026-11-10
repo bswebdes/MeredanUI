@@ -10,14 +10,14 @@
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 | Orange (Foulspore Cavern) | Noxxion | Noxxion | 422 | 13282 ⚠ | 1 0.35,0.11 | Noxious Hollow, end of orange side |
-| 2 | Orange (Foulspore Cavern) | Razorlash | Schlingwurzler | 423 | 12258 ⚠ | 1 0.16,0.34 | roams Foulspore Cavern |
-| 3 | Purple (The Wicked Grotto) | Tinkerer Gizlock | Tüftler Gizlock | 427 | 13601 ⚠ | 2 0.48,0.69 | The Wicked Grotto, purple side |
-| 4 | Purple (The Wicked Grotto) | Lord Vyletongue | Lord Schlangenzunge | 424 | 12236 ⚠ | 1 0.38,0.70 | Vyletongue Seat, end of purple side, two satyr guards |
-| 5 | Inner (Earth Song Falls) | Celebras the Cursed | Celebras der Verfluchte | 425 | 12225 ⚠ | 1 0.07,0.73 | north end of Earth Song Falls |
-| 6 | Inner (Earth Song Falls) | Landslide | Erdrutsch | 426 | 12203 ⚠ | 2 0.41,0.48 | Earth Song Falls (no exact spot given) |
-| 7 | Inner (Earth Song Falls) | Princess Theradras | Prinzessin Theradras | 429 | 12201 ⚠ | 2 0.24,0.78 | final chamber of Earth Song Falls |
-| 8 | Inner (Earth Song Falls) | Rotgrip | Faulschnapper | 428 | 13596 ⚠ | 2 0.33,0.77 | crocolisk in lake below Princess |
+| 1 | Orange (Foulspore Cavern) | Noxxion | Noxxion | 422 | 13282 | 1 0.35,0.11 | Noxious Hollow, end of orange side |
+| 2 | Orange (Foulspore Cavern) | Razorlash | Schlingwurzler | 423 | 12258 | 1 0.16,0.34 | roams Foulspore Cavern |
+| 3 | Purple (The Wicked Grotto) | Tinkerer Gizlock | Tüftler Gizlock | 427 | 13601 | 2 0.48,0.69 | The Wicked Grotto, purple side |
+| 4 | Purple (The Wicked Grotto) | Lord Vyletongue | Lord Schlangenzunge | 424 | 12236 | 1 0.38,0.70 | Vyletongue Seat, end of purple side, two satyr guards |
+| 5 | Inner (Earth Song Falls) | Celebras the Cursed | Celebras der Verfluchte | 425 | 12225 | 1 0.07,0.73 | north end of Earth Song Falls |
+| 6 | Inner (Earth Song Falls) | Landslide | Erdrutsch | 426 | 12203 | 2 0.41,0.48 | Earth Song Falls (no exact spot given) |
+| 7 | Inner (Earth Song Falls) | Princess Theradras | Prinzessin Theradras | 429 | 12201 | 2 0.24,0.78 | final chamber of Earth Song Falls |
+| 8 | Inner (Earth Song Falls) | Rotgrip | Faulschnapper | 428 | 13596 | 2 0.33,0.77 | crocolisk in lake below Princess |
 
 ### Rares
 
@@ -27,13 +27,13 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Noxxion
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 17702 | Celebrian Rod (quest) |  | 34 |  |  | ✔ | guide |
+| 17702 | Celebrian Rod (quest) | Quest Item | 34 | 34.18 |  | ✔ | guide+wowhead-forever |
 | 17746 | Noxxion's Shackles | Wrist Plate | 36 | 36.33 | 40 | ✔ | guide+repo+wowhead-forever |
 | 17744 | Heart of Noxxion | Trinket | 36 | 36.01 | 40 | ✔ | guide+repo+wowhead-forever |
 | 17745 | Noxious Shooter | Wand | 18 | 18.09 | 20 | ✔ | guide+repo+wowhead-forever |
@@ -44,8 +44,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 17748 | Vinerot Sandals | Feet Cloth | 24 | 23.92 | 25 | ✔ | guide+repo+wowhead-forever |
 | 17749 | Phytoskin Spaulders | Shoulder (Leather) | 25 | 24.49 | 25 | ✔ | guide+repo+wowhead-forever |
-| 17750 | Chloromesh Girdle | Waist Cloth |  | 24.38 | 25 | ✔ | repo+wowhead-forever |
-| 17751 | Brusslehide Leggings | Legs Leather |  | 23.83 | 25 | ✔ | repo+wowhead-forever |
+| 17750 | Chloromesh Girdle | Waist Cloth |  | 24.38 | 25 |  | repo+wowhead-forever |
+| 17751 | Brusslehide Leggings | Legs Leather |  | 23.83 | 25 |  | repo+wowhead-forever |
 
 ### Tinkerer Gizlock
 
@@ -59,7 +59,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 17703 | Celebrian Diamond (quest) |  | 59 |  |  | ✔ | guide |
+| 17703 | Celebrian Diamond (quest) | Quest Item | 59 | 58.86 |  | ✔ | guide+wowhead-forever |
 | 17755 | Satyrmane Sash | Waist Cloth | 27 | 27.65 | 33.3 | ✔ | guide+repo+wowhead-forever |
 | 17754 | Infernal Trickster Leggings | Legs | 29 | 28.91 | 33.3 | ✔ | guide+repo+wowhead-forever |
 | 17752 | Satyr's Lash | One-Hand Dagger | 28 | 28.61 | 33.3 | ✔ | guide+repo+wowhead-forever |
@@ -85,14 +85,14 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 17766 | Princess Theradras' Scepter |  | 20 |  |  | ✔ | guide |
+| 17766 | Princess Theradras' Scepter | Two-Hand Mace | 20 | 19.53 |  | ✔ | guide+wowhead-forever |
 | 17713 | Blackstone Ring | Finger | 25 | 24.51 | 25 | ✔ | guide+repo+wowhead-forever |
 | 17714 | Bracers of the Stone Princess | Wrist | 24 | 24.25 | 25 | ✔ | guide+repo+wowhead-forever |
-| 17715 | Eye of Theradras |  | 19 |  |  | ✔ | guide |
-| 17710 | Charstone Dirk | Dagger | 19 |  |  | ✔ | guide |
-| 17711 | Elemental Rockridge Leggings | Legs | 19 |  |  | ✔ | guide |
-| 17707 | Gemshard Heart |  | 20 |  |  | ✔ | guide |
-| 17780 | Blade of Eternal Darkness |  | 0.26 |  |  | ✔ | guide |
+| 17715 | Eye of Theradras | Head Cloth | 19 | 19.5 |  | ✔ | guide+wowhead-forever |
+| 17710 | Charstone Dirk | Dagger | 19 | 19.47 |  | ✔ | guide+wowhead-forever |
+| 17711 | Elemental Rockridge Leggings | Legs | 19 | 19.42 |  | ✔ | guide+wowhead-forever |
+| 17707 | Gemshard Heart | Neck | 20 | 19.56 |  | ✔ | guide+wowhead-forever |
+| 17780 | Blade of Eternal Darkness | Main Hand Dagger | 0.26 | 0.31 |  | ✔ | guide+wowhead-forever |
 
 ### Rotgrip
 
@@ -145,25 +145,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 ## Open questions (check in game)
 
-- [ ] NPC 13282 (Noxxion) not found on Wowhead Forever - check ID.
-- [ ] NPC 12258 (Razorlash) not found on Wowhead Forever - check ID.
-- [ ] NPC 13601 (Tinkerer Gizlock) not found on Wowhead Forever - check ID.
-- [ ] NPC 12236 (Lord Vyletongue) not found on Wowhead Forever - check ID.
-- [ ] NPC 12225 (Celebras the Cursed) not found on Wowhead Forever - check ID.
-- [ ] NPC 12203 (Landslide) not found on Wowhead Forever - check ID.
-- [ ] NPC 12201 (Princess Theradras) not found on Wowhead Forever - check ID.
-- [ ] NPC 13596 (Rotgrip) not found on Wowhead Forever - check ID.
-- [ ] Quest 7065 'Corruption of Earth and Seed' not found on Wowhead Forever - check ID.
-- [ ] Quest 7064 'Corruption of Earth and Seed' not found on Wowhead Forever - check ID.
-- [ ] Quest 7044 'Legends of Maraudon' not found on Wowhead Forever - check ID.
-- [ ] Quest 7046 'The Scepter of Celebras' not found on Wowhead Forever - check ID.
-- [ ] Quest 7066 'Seed of Life' not found on Wowhead Forever - check ID.
-- [ ] Quest 7067 'The Pariah's Instructions' not found on Wowhead Forever - check ID.
-- [ ] Quest 7028 'Twisted Evils' not found on Wowhead Forever - check ID.
-- [ ] Quest 7041 'Vyletongue Corruption' not found on Wowhead Forever - check ID.
-- [ ] Quest 7029 'Vyletongue Corruption' not found on Wowhead Forever - check ID.
-- [ ] Quest 7070 'Shadowshard Fragments' not found on Wowhead Forever - check ID.
-- [ ] Quest 7068 'Shadowshard Fragments' not found on Wowhead Forever - check ID.
+- none found
 
 ## Research notes
 

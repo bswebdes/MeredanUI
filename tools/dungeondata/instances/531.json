@@ -45,7 +45,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -63,27 +63,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21700,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Pendant of the Qiraji Guardian",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.9,
+     "wowhead_dropped_by": "The Prophet Skeram",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -99,27 +100,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21702,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Amulet of Foul Warding",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.68,
+     "wowhead_dropped_by": "The Prophet Skeram",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -135,7 +137,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -153,7 +155,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -171,27 +173,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21707,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of Swarming Thought",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.66,
+     "wowhead_dropped_by": "The Prophet Skeram",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -207,7 +210,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -225,27 +228,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 22222,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Plans: Thick Obsidian Breastplate",
+     "slot": "Chest Plate",
+     "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.72,
+     "wowhead_dropped_by": "The Prophet Skeram",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -261,7 +265,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -279,7 +283,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -319,38 +323,40 @@
    "loot": [
     {
      "item_id": 21648,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Recomposed Boots",
+     "slot": "Feet Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.09,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21674,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gauntlets of Steadfast Determination",
+     "slot": "Hands Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.78,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -366,7 +372,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -384,45 +390,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21678,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Necklace of Purity",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.62,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21667,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Legplates of Blazing Light",
+     "slot": "Legs Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.62,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -438,45 +446,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21669,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Creeping Vine Helm",
+     "slot": "Head Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.53,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21670,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Badge of the Swarmguard",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.41,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -492,27 +502,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21672,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gloves of Enforcement",
+     "slot": "Hands Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.94,
+     "wowhead_dropped_by": "Battleguard Sartura",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -528,7 +539,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -546,7 +557,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -581,45 +592,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21645,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Hive Tunneler's Boots",
+     "slot": "Feet Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.56,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21647,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Fetish of the Sand Reaver",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.33,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -635,7 +648,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -653,99 +666,104 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21663,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Robes of the Guardian Saint",
+     "slot": "Chest Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.97,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21664,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Barbed Choker",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.09,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21665,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Mantle of Wicked Revenge",
+     "slot": "Shoulder Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.77,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22396,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Totem of Life",
+     "slot": "Relic Totem",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.13,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22402,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Libram of Grace",
+     "slot": "Relic Libram",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 9.02,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 18.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -761,27 +779,28 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21650,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ancient Qiraji Ripper",
+     "slot": "One-Hand Sword",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 9.05,
+     "wowhead_dropped_by": "Fankriss the Unyielding",
      "chance_repo": 10.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -803,9 +822,9 @@
    "loot": [
     {
      "item_id": 20928,
-     "name": null,
+     "name": "Qiraji Bindings of Command",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -821,9 +840,9 @@
     },
     {
      "item_id": 20932,
-     "name": null,
+     "name": "Qiraji Bindings of Dominance",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -839,74 +858,78 @@
     },
     {
      "item_id": 21622,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Sharpened Silithid Femur",
+     "slot": "Main Hand Sword",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.18,
+     "wowhead_dropped_by": "Viscidus",
      "chance_repo": 12.9,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21623,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gauntlets of the Righteous Champion",
+     "slot": "Hands Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.96,
+     "wowhead_dropped_by": "Viscidus",
      "chance_repo": 12.9,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21624,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gauntlets of Kalimdor",
+     "slot": "Hands Mail",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.08,
+     "wowhead_dropped_by": "Viscidus",
      "chance_repo": 12.9,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21625,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Scarab Brooch",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 14.93,
+     "wowhead_dropped_by": "Viscidus",
      "chance_repo": 12.9,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -922,45 +945,47 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21677,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Qiraji Fury",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.54,
+     "wowhead_dropped_by": "Viscidus",
      "chance_repo": 12.9,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22399,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Idol of Health",
+     "slot": "Relic Idol",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 14.52,
+     "wowhead_dropped_by": "Viscidus",
      "chance_repo": 12.9,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -982,9 +1007,9 @@
    "loot": [
     {
      "item_id": 20928,
-     "name": null,
+     "name": "Qiraji Bindings of Command",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1000,9 +1025,9 @@
     },
     {
      "item_id": 20932,
-     "name": null,
+     "name": "Qiraji Bindings of Dominance",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": null,
@@ -1018,20 +1043,21 @@
     },
     {
      "item_id": 21616,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Huhuran's Stinger",
+     "slot": "Ranged Bow",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 8.77,
+     "wowhead_dropped_by": "Princess Huhuran",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1047,63 +1073,66 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21618,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Hive Defiler Wristguards",
+     "slot": "Wrist Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.7,
+     "wowhead_dropped_by": "Princess Huhuran",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21619,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gloves of the Messiah",
+     "slot": "Hands Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.22,
+     "wowhead_dropped_by": "Princess Huhuran",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21620,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Martyr",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 15.75,
+     "wowhead_dropped_by": "Princess Huhuran",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1119,7 +1148,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1159,146 +1188,154 @@
    "loot": [
     {
      "item_id": 20927,
-     "name": null,
+     "name": "Ouro's Intact Hide",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 79.14,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 20931,
-     "name": null,
+     "name": "Skin of the Great Sandworm",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 81.63,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21610,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Wormscale Blocker",
+     "slot": "Off Hand Shield",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.43,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21611,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Burrower Bracers",
+     "slot": "Wrist Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.19,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21615,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Don Rigoberto's Lost Hat",
+     "slot": "Head Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.05,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23557,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Larvae of the Great Worm",
+     "slot": "Ranged Gun",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.91,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23558,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "The Burrower's Shell",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.25,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 23570,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Jom Gabbar",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 13.43,
+     "wowhead_dropped_by": "Ouro",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1320,182 +1357,192 @@
    "loot": [
     {
      "item_id": 20929,
-     "name": null,
+     "name": "Carapace of the Old God",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 91.36,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 20933,
-     "name": null,
+     "name": "Husk of the Old God",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 93.32,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21221,
-     "name": null,
+     "name": "Eye of C'Thun",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 92.93,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 100.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21581,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Gauntlets of Annihilation",
+     "slot": "Hands Plate",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 21.22,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 21.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21582,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Grasp of the Old God",
+     "slot": "Waist Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.11,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 21.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21583,
-     "name": null,
+     "name": "Cloak of Clarity",
      "slot": null,
-     "quality": null,
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 20.43,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 21.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 22732,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Mark of C'Thun",
+     "slot": "Neck",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 18.86,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 21.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21585,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Dark Storm Gauntlets",
+     "slot": "Hands Cloth",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.11,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 18.4,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21586,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Belt of Never-ending Agony",
+     "slot": "Waist Leather",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 17.49,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 18.4,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21596,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Ring of the Godslayer",
+     "slot": "Finger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 16.7,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 18.4,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
@@ -1511,7 +1558,7 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
@@ -1529,81 +1576,85 @@
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
-     "not_on_wowhead_forever": false,
+     "not_on_wowhead_forever": true,
      "sources": [
       "repo"
      ]
     },
     {
      "item_id": 21579,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Vanquished Tentacle of C'Thun",
+     "slot": "Trinket",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 12.57,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 15.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21126,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Death's Sting",
+     "slot": "One-Hand Dagger",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 9.23,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 8.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21134,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Dark Edge of Insanity",
+     "slot": "Two-Hand Axe",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.86,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 8.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     },
     {
      "item_id": 21839,
-     "name": null,
-     "slot": null,
-     "quality": null,
+     "name": "Scepter of the False Prophet",
+     "slot": "Main Hand Mace",
+     "quality": 4,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 7.47,
+     "wowhead_dropped_by": "C'Thun",
      "chance_repo": 8.0,
      "in_guide": false,
      "in_repo": true,
      "forever_confirmed": false,
      "not_on_wowhead_forever": false,
      "sources": [
-      "repo"
+      "repo",
+      "wowhead-forever"
      ]
     }
    ]
@@ -1612,7 +1663,34 @@
  "rares": [],
  "quests": [],
  "repo_quests_not_in_guide": [],
- "loot_differences": [],
+ "loot_differences": [
+  "Fankriss the Unyielding: 22396 Totem of Life - chance repo 18% vs Forever 7.13%",
+  "The Prophet Skeram: 21698  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21699  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21701  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21704  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21705  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21706  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21708  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21814  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21128  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "The Prophet Skeram: 21703  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Battleguard Sartura: 21675  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Battleguard Sartura: 21676  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Battleguard Sartura: 21668  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Battleguard Sartura: 21671  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Battleguard Sartura: 21666  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Battleguard Sartura: 21673  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Fankriss the Unyielding: 21627  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Fankriss the Unyielding: 21651  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Fankriss the Unyielding: 21652  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Fankriss the Unyielding: 21635  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Viscidus: 21626  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Princess Huhuran: 21617  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "Princess Huhuran: 21621  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "C'thun: 22730  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet",
+  "C'thun: 22731  - item does NOT exist on Wowhead Forever (404): removed, replaced or not datamined yet"
+ ],
  "open_questions": [],
  "guide_notes": [],
  "zone_id": null,
@@ -1626,7 +1704,7 @@
   "quests_in_addon": 0,
   "loot_rows": 80,
   "loot_confirmed": 0,
-  "loot_with_chance": 0,
+  "loot_with_chance": 51,
   "forever_confirmed": "no",
   "boss_count": 0,
   "boss_ok": 0,
@@ -1635,6 +1713,7 @@
   "q_tot": 0
  },
  "top_points": [
-  "80 loot rows without drop chance"
+  "29 loot rows without drop chance",
+  "25 items not on Wowhead Forever (404)"
  ]
 }

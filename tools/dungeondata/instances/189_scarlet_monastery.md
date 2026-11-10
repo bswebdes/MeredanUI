@@ -16,7 +16,7 @@
 | 4 | Library | Arcanist Doan | Arkanist Doan | 447 | 6487 | 2 0.83,0.75 | end of the Library |
 | 5 | Armory | Herod | Herod | 448 | 3975 | 3 0.79,0.11 | Hall of Champions |
 | 6 | Cathedral | High Inquisitor Fairbanks (optional) | Hochinquisitor Schönufer | 449 | 4542 | 4 0.55,0.26 | beside the Cathedral altar |
-| 7 | Cathedral | Scarlet Commander Mograine |  | — | 3976 | — | Cathedral, before the altar |
+| 7 | Cathedral | Scarlet Commander Mograine | Scharlachroter Kommandant Mograine | — | 3976 | — | Cathedral, before the altar |
 | 8 | Cathedral | High Inquisitor Whitemane | Hochinquisitorin Weißsträhne | 450 | 3977 | 4 0.49,0.17 | Cathedral altar, joins after Mograine |
 
 ### Rares
@@ -30,7 +30,7 @@
 
 ## Loot
 
-Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only when Wowhead's top source is this boss); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (Wowhead Forever drop data for this boss, or listed with chance / as new item in a Forever guide).
+Columns: guide % = Forever guide (some guides say their chances are classic values); WH-F % = Wowhead Forever tooltip drop chance (only when Wowhead's top source is this boss; caution: Wowhead shows such chances even for raids not open in Forever, so they are partly imported classic statistics); repo % = Map/DungeonLoot.lua (classic tables). ✔ = confirmed for Forever (named for this boss by a Forever guide, or a new Forever item that Wowhead Forever ties to this boss). ✘ 404 = item ID does not exist on Wowhead Forever.
 
 ### Interrogator Vishas
 
@@ -38,7 +38,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 7683 | Bloody Brass Knuckles | One-Hand Fist Weapon | 52 | 50.28 | 90 | ✔ | guide+repo+wowhead-forever |
 | 7682 | Torturing Poker | Dagger | 6 | 8.05 | 10 | ✔ | guide+repo+wowhead-forever |
-| 274290 | Painwalker Buckler | Shield (healer) |  |  |  |  | guide |
+| 274290 | Painwalker Buckler | Shield (healer) |  | 1.67 |  | ✔ | guide+wowhead-forever |
 
 ### Bloodmage Thalnos
 
@@ -46,7 +46,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 |---|---|---|---|---|---|---|---|
 | 7685 | Orb of the Forgotten Seer | Off-hand | 50 | 49.23 | 50 | ✔ | guide+repo+wowhead-forever |
 | 7684 | Bloodmage Mantle | Shoulder Cloth | 48 | 47.43 | 50 | ✔ | guide+repo+wowhead-forever |
-| 274291 | Polished Skullcap | Head (mail) |  |  |  |  | guide |
+| 274291 | Polished Skullcap | Head (mail) |  | 1.23 |  | ✔ | guide+wowhead-forever |
 
 ### Houndmaster Loksey
 
@@ -55,8 +55,8 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 7756 | Dog Training Gloves | Hands | 56 | 55.62 | 60 | ✔ | guide+repo+wowhead-forever |
 | 3456 | Dog Whistle | Trinket | 25 | 25.04 | 30 | ✔ | guide+repo+wowhead-forever |
 | 7710 | Loksey's Training Stick | Staff | 14 | 14.64 | 10 | ✔ | guide+repo+wowhead-forever |
-| 274292 | Houndmaster Boomerang | Thrown |  |  |  |  | guide |
-| 273109 | Blueprint: Trapper's Workbench |  |  |  |  | ✔ | guide |
+| 274292 | Houndmaster Boomerang | Thrown |  | 0.5 |  | ✔ | guide+wowhead-forever |
+| 273109 | Blueprint: Trapper's Workbench |  |  | 0.08 |  | ✔ | guide+wowhead-forever |
 
 ### Arcanist Doan
 
@@ -66,11 +66,11 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 7713 | Illusionary Rod | Staff | 47 | 46.6 | 25 | ✔ | guide+repo+wowhead-forever |
 | 7712 | Mantle of Doan | Shoulder |  | 47.14 | 25 | ✔ | guide+repo+wowhead-forever |
 | 7711 | Robe of Doan | Chest |  | 46.11 | 25 | ✔ | guide+repo+wowhead-forever |
-| 274293 | Spellsever Crossbow | Crossbow |  |  |  |  | guide |
-| 274294 | Library Walkers | Feet |  |  |  |  | guide |
-| 252845 | Pattern: Warden's Leather Shoes |  |  |  |  | ✔ | guide |
-| 252847 | Pattern: Mender's Leather Shoes |  |  |  |  | ✔ | guide |
-| 7146 | The Scarlet Key | Key |  |  |  |  | guide |
+| 274293 | Spellsever Crossbow | Crossbow |  | 0.48 |  | ✔ | guide+wowhead-forever |
+| 274294 | Library Walkers | Feet |  | 0.46 |  | ✔ | guide+wowhead-forever |
+| 252845 | Pattern: Warden's Leather Shoes | Feet Leather |  |  |  | ✔ | guide |
+| 252847 | Pattern: Mender's Leather Shoes | Feet Leather |  |  |  | ✔ | guide |
+| 7146 | The Scarlet Key | Key |  |  |  | ✔ | guide |
 
 ### Herod
 
@@ -93,9 +93,9 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 7726 | Aegis of the Scarlet Commander | Shield | 43 |  |  | ✔ | guide |
-| 7724 | Gauntlets of Divinity |  | 20 |  |  | ✔ | guide |
-| 7723 | Mograine's Might | Two-hand mace | 19 |  |  | ✔ | guide |
+| 7726 | Aegis of the Scarlet Commander | Shield | 43 | 43.01 |  | ✔ | guide+wowhead-forever |
+| 7724 | Gauntlets of Divinity | Hands Mail | 20 | 19.77 |  | ✔ | guide+wowhead-forever |
+| 7723 | Mograine's Might | Two-hand mace | 19 | 19.14 |  | ✔ | guide+wowhead-forever |
 | 10330 | Scarlet Leggings | Legs Mail | 15 |  |  | ✔ | guide |
 
 ### High Inquisitor Whitemane
@@ -134,7 +134,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 23192 | Tabard of the Scarlet Crusade | Tabard | 2 |  |  | ✔ | guide |
+| 23192 | Tabard of the Scarlet Crusade | Tabard | 2 | 1.95 |  | ✔ | guide+wowhead-forever |
 
 ### Differences to Map/DungeonLoot.lua
 
@@ -172,7 +172,7 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 | 1051 | Vorrel's Revenge | 33 | Horde | Vorrel Sengutz (3981) | Scarlet Monastery Graveyard (prisoner) | Vorrel's Wedding Ring (5538) from Nancy Vishas (3984), Alterac farmhouse; turn in to Monika Sengutz (3982), Tarren Mill | yes |
 | 1160 | Test of Lore | 36 | Horde | Parqual Fintallas (4488) | Undercity | Final Passage chain from Dorn Plainstalker (2986); book Beginnings of the Undead Threat (5861) | yes |
 | 1113 | Hearts of Zeal | 33 | Horde | Master Apothecary Faranell (2055) | Undercity | Going, Going, Guano! (1109); 20 Heart of Zeal (5805) from Scarlet mobs | yes |
-| 1951 | Rituals of Power |  | Mage class | Tabetha (6546) | Dustwallow Marsh | Book in first shelved Library room | **no** |
+| 1951 | Rituals of Power | 40 | Mage class | Tabetha (6546) | Dustwallow Marsh | Book in first shelved Library room | **no** |
 | 78676 | The Eye of Bhossca |  | Rogue class |  |  | Scarlet Initiate's Uniform (210955), Ruby-Adorned Blade (277246), Eye of Bhossca (210953) | **no** |
 
 ## Forever changes noted by guides
@@ -189,16 +189,6 @@ Columns: guide % = Forever guide; WH-F % = Wowhead Forever drop chance (only whe
 ## Open questions (check in game)
 
 - [ ] Boss 'Scarlet Commander Mograine' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
-- [ ] Quest 96800 'Past Due' not found on Wowhead Forever - check ID.
-- [ ] Quest 1050 'Mythology of the Titans' not found on Wowhead Forever - check ID.
-- [ ] Quest 1053 'In the Name of the Light' not found on Wowhead Forever - check ID.
-- [ ] Quest 1049 'Compendium of the Fallen' not found on Wowhead Forever - check ID.
-- [ ] Quest 1048 'Into The Scarlet Monastery' not found on Wowhead Forever - check ID.
-- [ ] Quest 1051 'Vorrel's Revenge' not found on Wowhead Forever - check ID.
-- [ ] Quest 1160 'Test of Lore' not found on Wowhead Forever - check ID.
-- [ ] Quest 1113 'Hearts of Zeal' not found on Wowhead Forever - check ID.
-- [ ] Quest 1951 'Rituals of Power' not found on Wowhead Forever - check ID.
-- [ ] Quest 78676 'The Eye of Bhossca' not found on Wowhead Forever - check ID.
 
 ## Research notes
 
