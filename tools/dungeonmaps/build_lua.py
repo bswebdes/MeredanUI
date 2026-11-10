@@ -11,17 +11,15 @@ O = 17066.666  # placement origin: world X = O - placement Z, world Y = O - plac
 FLOORS = [
     (2959, 1, "City of Dalaran", "Stadt Dalaran", 0.6, 16273, 16440, 0.546, 217.5, 45.8),
     (2959, 2, "Sewers", "Kanalisation", 0.6, 16273, 16440, 0.546, 217.5, 45.8),
-    (2994, 1, "Main Pavilion", "Hauptflügel", 2.0, 14060, 25620, 0.909, 189.6, -233.7),
-    (2994, 2, "Maximum Security", "Hochsicherheitstrakt", 2.0, 14060, 25620, 0.909, 189.6, -233.7),
     # classic instances: game-data minimap map on a themed background
     (43, 1, None, None, 1.0, -545, -195, 0.615, 100.6, 74.6),
 ]
 # WMO-only maps place the WMO at 0,0,0: world = -placement there, no 17066 offset
 ORIGIN = {43: 0.0}
 # Santiago Reyes' maps (kept where game data can't split the floors: Dalaran has no sewer WMO with minimap
-# tiles, Alcaz Prison's two floors are one WMO); their regions are the old calibration, only used by
+# tiles); their regions are the old calibration, only used by
 # position-based pins, which these instances don't have (pins are placed relative to the art)
-CREDIT = {2959, 2994}
+CREDIT = {2959}
 # game-data maps rendered straight into a region (buildmap.py + compose.py): Blizzard's floor region for
 # classic instances (pins stay valid), the fitted region buildmap.py prints for new instances
 DIRECT = [
@@ -35,6 +33,7 @@ DIRECT = [
     (2974, 1, None, None, (3062.1, 2617.9, -100000.0, 3972.3, 3983.1, 100000.0)),   # REGION=3062.1,2617.9,3972.3,3983.1 NOWMO=7212893 FLOOR=1
     (2974, 2, "Caverns", "Höhlen", (3310.7, 2675.3, -100000.0, 3774.1, 3370.3, 100000.0)),   # WMO=7212893 NOADT=1 FLOOR=2 (cave WMO)
     (3001, 1, None, None, (-7008.6, -2645.6, -100000.0, -5260.8, -23.9, 100000.0)),   # REGION=-7008.6,-2645.6,-5260.8,-23.9
+    (2994, 1, None, None, (-8936.8, 2731.6, -100000.0, -8709.8, 3072.2, 100000.0)),   # NOADT=1, fitted region; one floor (no clean height split)
     (3039, 1, None, None, (-7894.1, -5261.4, -100000.0, -6543.1, -3234.9, 100000.0)),   # REGION=-7894.1,-5261.4,-6543.1,-3234.9, --largest
     # classic instances, half size (compose.py --half), Blizzard's floor regions
     (36, 1, 'The Deadmines', 'Die Todesminen', (-337.51, -796.62, -10000.0, 35.33, -237.36, 1000000.0)),   # plain

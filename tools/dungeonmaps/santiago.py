@@ -16,8 +16,6 @@ MAPS = [
     (2959, 2, "59306714ec76d9bdd2c0a47661782ba05fe357ab"),  # Dalaran sewers
     (2970, 1, "54dae4b3bd673a65eb8af548503f630f5ed1da12"),  # The Drowned City
     (2970, 2, "3ce86151f7ab78c323fc1e2c8471c9c3fc1e6f3d"),  # Atal'Byzal
-    (2994, 1, "7a9fa5d64f38cda71216ec3fab454e03726e9860"),  # Alcaz Prison: main pavilion
-    (2994, 2, "faddb79c0a9aeb39a738d1068ce8697d31a221fd"),  # Alcaz Prison: maximum security
     (3001, 1, "7389e3424ed2de6fb969502e3afc5ad8e365328b"),  # Shaper's Terrace
     (3039, 1, "8c76db457e5bef41effc364b3cd45fa3c86fb8ec"),  # Krol'dok (pre-beta)
 ]

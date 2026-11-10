@@ -11,7 +11,6 @@ Unchanged: Wailing Caverns (43), Ragefire Chasm (389), Hall of Thanes (3065) - f
 |---|---|
 | 533 Naxxramas | Forever's Naxxramas geometry doesn't fit Blizzard's floor regions: floors 1-4 all show the whole necropolis, floor 5 is empty. Stays on Blizzard's map. |
 | 2959 City of Dalaran | City renders fine, but there is no sewer WMO with minimap tiles, so floor 2 (Sewers) can't be built. Stays on Santiago's maps. |
-| 2994 Alcaz Prison | Both floors (Main Pavilion, Maximum Security) are one WMO at nearly the same height - no clean split. Stays on Santiago's maps. |
 
 ## New maps
 

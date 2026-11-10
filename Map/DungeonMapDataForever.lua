@@ -7,10 +7,6 @@ ns.DUNGEON_MAPS[2959] = {
     { en = "City of Dalaran", de = "Stadt Dalaran", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2959_1", texCoord = { 0, 0.75, 0, 1 }, region = { -796.4, -886.7, -100000.0, 766.5, 1457.6, 100000.0 }, credit = true },
     { en = "Sewers", de = "Kanalisation", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2959_2", texCoord = { 0, 0.75, 0, 1 }, region = { -796.4, -886.7, -100000.0, 766.5, 1457.6, 100000.0 }, credit = true },
 }
-ns.DUNGEON_MAPS[2994] = {
-    { en = "Main Pavilion", de = "Hauptflügel", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2994_1", texCoord = { 0, 0.75, 0, 1 }, region = { -8963.5, 2688.5, -100000.0, -8681.9, 3111.0, 100000.0 }, credit = true },
-    { en = "Maximum Security", de = "Hochsicherheitstrakt", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2994_2", texCoord = { 0, 0.75, 0, 1 }, region = { -8963.5, 2688.5, -100000.0, -8681.9, 3111.0, 100000.0 }, credit = true },
-}
 ns.DUNGEON_MAPS[43] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\43_1", texCoord = { 0, 0.75, 0, 1 }, region = { -516.2, -540.2, -100000.0, 316.3, 708.6, 100000.0 } },
 }
@@ -36,6 +32,9 @@ ns.DUNGEON_MAPS[2974] = {
 }
 ns.DUNGEON_MAPS[3001] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3001_1", texCoord = { 0, 0.75, 0, 1 }, region = { -7008.60, -2645.60, -100000.00, -5260.80, -23.90, 100000.00 } },
+}
+ns.DUNGEON_MAPS[2994] = {
+    { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\2994_1", texCoord = { 0, 0.75, 0, 1 }, region = { -8936.80, 2731.60, -100000.00, -8709.80, 3072.20, 100000.00 } },
 }
 ns.DUNGEON_MAPS[3039] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\3039_1", texCoord = { 0, 0.75, 0, 1 }, region = { -7894.10, -5261.40, -100000.00, -6543.10, -3234.90, 100000.00 } },
