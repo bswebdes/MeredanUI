@@ -45,6 +45,7 @@ local EXTRA_TOOLTIPS = {
     "PetBattlePrimaryAbilityTooltip", "SettingsTooltip", "LibDBIconTooltip", "QueueStatusFrame",
     "GameSmallHeaderTooltip", "NamePlateTooltip", "GarrisonFollowerTooltip", "GarrisonFollowerAbilityTooltip",
     "GarrisonMissionMechanicTooltip", "GarrisonMissionMechanicFollowerCounterTooltip", "PerksProgramTooltip",
+    "QuestieWaypointMinimapTooltip", "QuestieGamepadMapTooltip", -- Questie (created on first use)
 }
 
 local Readable = ns.Readable

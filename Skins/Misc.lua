@@ -1,7 +1,8 @@
 -- Small, rarely used Blizzard windows in mUI style (WoW Forever). Each section has its own option key
 -- and is applied when its Blizzard addon is loaded:
 --   item socketing (socketSkin), tabard designer (tabardSkin), guild registrar + charter
---   (petitionSkin), clock + stopwatch (clockSkin), death recap (deathRecapSkin).
+--   (petitionSkin), clock + stopwatch (clockSkin), death recap (deathRecapSkin), Questie's settings
+--   window (questieSkin, only with Questie).
 -- Blizzard's frames keep doing all the work; we only restyle and re-place them.
 -- Rules as in Skins/Communities.lua: art only via SetAlpha(0) or recolor, no SetScript on Blizzard
 -- frames, no fields on Blizzard tables (weak tables below), no SetText on Blizzard edit boxes, no
@@ -1299,6 +1300,99 @@ local function ApplyRecap()
     f:HookScript("OnShow", PlaceRecap)
 end
 
+-- Questie settings (QuestieStandaloneSettings, addon window) -------------------------------------------
+-- Questie builds the window on first open (PortraitFrameTemplate) and its side tabs right after; we
+-- hook its window module through Quests/QuestieBridge.lua. Not a Blizzard frame, nothing protected.
+-- Only the shell and tabs: the option widgets inside are Questie's own and stay as they are.
+local TAB, TAB_GAP = 40, 6
+local questieApplied = false
+
+local function SkinQuestieTab(tab)
+    if type(tab) ~= "table" or not Once(tab) then return end
+    if tab.Mask and tab.Icon then tab.Icon:RemoveMaskTexture(tab.Mask) end
+    Fade(tab.Background)
+    Fade(tab.Selected)
+    Fade(tab.Highlight)
+    tab:SetSize(TAB, TAB)
+    local bg = Tex(tab, "BACKGROUND", -8, ns.UI.FIELD)
+    bg:SetAllPoints()
+    Border(tab)
+    tab.muiActive = Border(tab, true, 2)
+    for _, e in ipairs(tab.muiActive) do e:SetVertexColor(unpack(ns.UI.ACCENT)) e:Hide() end
+    if tab.Icon then
+        tab.Icon:SetSize(TAB - 6, TAB - 6)
+        tab.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    end
+    if tab.button then
+        tab.button:ClearAllPoints()
+        tab.button:SetAllPoints(tab)
+        local hover = Tex(tab.button, "HIGHLIGHT", 0, { 1, 1, 1, 0.08 })
+        hover:SetAllPoints(tab)
+    end
+end
+
+local function PlaceQuestieTabs(f)
+    local i = 0
+    for _, child in ipairs({ f:GetChildren() }) do
+        local name = child:GetName()
+        if name and name:find("^QuestieStandaloneSettings_Tab_") then
+            SkinQuestieTab(child)
+            child:ClearAllPoints()
+            child:SetPoint("TOPLEFT", f, "TOPRIGHT", TAB_GAP, -60 - i * (TAB + TAB_GAP))
+            -- Questie re-anchors the icon by 1 px while pressed, around the tab's center
+            if child.Icon then child.Icon:ClearAllPoints() child.Icon:SetPoint("CENTER", child, "CENTER") end
+            i = i + 1
+        end
+    end
+end
+
+-- inactive tabs desaturated (mUI rule), active one with the Surf Green edge
+local function MarkQuestieTab(tab, isSelected)
+    if type(tab) ~= "table" or not tab.muiActive then return end
+    for _, e in ipairs(tab.muiActive) do e:SetShown(isSelected) end
+    if tab.Icon then
+        tab.Icon:SetDesaturated(not isSelected)
+        tab.Icon:SetAlpha(isSelected and 1 or 0.7)
+    end
+end
+
+local function SkinQuestieWindow(f)
+    if not Once(f) then return end
+    SkinShell(f)
+    Fade(f.PortraitFrame)
+    local parts = Header(f, { texture = "Interface\\AddOns\\Questie\\Icons\\questie_portrait.png", title = "Questie",
+        close = f.CloseButton })
+    parts.portrait:SetTexCoord(0.16, 0.86, 0.17, 0.87)
+    -- Questie's own drag strip lies along the top edge: keep the close box above it
+    if f.CloseButton then f.CloseButton:SetFrameLevel(f:GetFrameLevel() + 10) end
+    parts.subtitle:SetText(ns.L["Settings"])
+    if f.canvasContainer then
+        f.canvasContainer:ClearAllPoints()
+        f.canvasContainer:SetPoint("TOPLEFT", f, "TOPLEFT", PAD - 8, -HEADER_BOTTOM)
+        f.canvasContainer:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -(PAD - 8), PAD - 8)
+    end
+    f:HookScript("OnShow", function() PlaceQuestieTabs(f) end)
+end
+
+local function ApplyQuestie()
+    if questieApplied or not Enabled("questieSkin") or not (ns.Questie and ns.Questie.IsLoaded()) then return end
+    local window = ns.Questie.Module("QuestieOptionsWindow")
+    if not (window and type(window.Create) == "function" and type(window.SetSideTabSelected) == "function") then return end
+    questieApplied = true
+    local function Skin()
+        local f = _G["QuestieStandaloneSettings"]
+        if type(f) ~= "table" then return end
+        Try(SkinQuestieWindow, f)
+        Try(PlaceQuestieTabs, f)
+    end
+    hooksecurefunc(window, "Create", function() C_Timer.After(0, Skin) end)
+    hooksecurefunc(window, "SetSideTabSelected", function(tab, isSelected)
+        Skin()
+        MarkQuestieTab(tab, isSelected)
+    end)
+    Skin() -- already created (e.g. after a mUI reload of this module)
+end
+
 -- Loading ------------------------------------------------------------------------------------------
 
 local BY_ADDON = {
@@ -1316,6 +1410,7 @@ ns:On("PLAYER_LOGIN", function()
     -- Tabard, registrar and charter are part of Blizzard_UIPanels_Game (always loaded)
     ApplyTabard()
     ApplyPetition()
+    ApplyQuestie()
     if not (C_AddOns and C_AddOns.IsAddOnLoaded) then return end
     for addon, apply in pairs(BY_ADDON) do
         if C_AddOns.IsAddOnLoaded(addon) then apply() end

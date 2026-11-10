@@ -1492,4 +1492,6 @@ if GetLocale() == "deDE" then
     L["Turn in: %s"] = "Abgabe: %s"
     L["%d yd"] = "%d m"
     L["Click: show on map"] = "Klick: auf der Karte zeigen"
+    L["Questie settings in mUI look"] = "Questie-Einstellungen im mUI-Look"
+    L["Questie's settings window in the mUI look (only with Questie installed); functions stay Questie's."] = "Questies Einstellungsfenster im mUI-Look (nur mit installiertem Questie); Funktionen bleiben Questies."
 end

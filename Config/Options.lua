@@ -148,6 +148,7 @@ local WINDOWS = {
     { "petitionSkin", "Guild charter in mUI look", "Guild registrar and guild charter in the mUI look on parchment; functions stay Blizzard's." },
     { "clockSkin", "Clock in mUI look", "Blizzard's clock (alarm, time format) and stopwatch in the mUI look; functions stay Blizzard's." },
     { "deathRecapSkin", "Death recap in mUI look", "Blizzard's death recap in the mUI look, killing blow in the header; functions stay Blizzard's." },
+    { "questieSkin", "Questie settings in mUI look", "Questie's settings window in the mUI look (only with Questie installed); functions stay Questie's." },
     { "macroSkin", "Macros in mUI look", "Blizzard's macro window in the mUI look: macros on the left, large edit area on the right; functions stay Blizzard's." },
     { "groupFinderSkin", "Group finder in mUI look", "Blizzard's group finder in the mUI look: list your group, browse groups, who list; at the fixed window spot, functions stay Blizzard's." },
     { "merchantWindow", "mUI merchant window", "Own merchant window in the bag look instead of Blizzard's: cards in two columns, search, buyback, repair and sell junk." },
@@ -160,7 +161,7 @@ local SKIN_GROUPS = {
     { L["World"], { "mapWindow", "flightWindow" } },
     { L["NPCs"], { "merchantWindow", "trainerWindow", "gossipWindow", "questWindow", "mailWindow", "tradeWindow", "auctionWindow" } },
     { L["Social"], { "friendsWindow", "guildSkin", "groupFinderSkin", "scoreboardSkin", "petitionSkin", "skinDialogs", "readyCheckWindow", "guildOverview", "guildInactive" } },
-    { L["System"], { "addonListWindow", "macroSkin", "calendarSkin", "clockSkin", "deathRecapSkin" } },
+    { L["System"], { "addonListWindow", "macroSkin", "calendarSkin", "clockSkin", "deathRecapSkin", "questieSkin" } },
 }
 
 -- Pages --------------------------------------------------------------------------------
