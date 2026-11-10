@@ -2,8 +2,8 @@
 -- no public API, so internals are read defensively (pcall + function checks). If Questie is missing or
 -- changes, the bridge simply reports "not ready" and mUI behaves exactly as without it.
 --
---   1. Tracker conflict: Questie brings its own tracker; with mUI's Forever tracker the player would
---      see two. Asked once whether to turn Questie's off (it reloads the UI).
+--   1. Tracker conflict: Questie brings its own tracker; mUI's Forever tracker stays the only one,
+--      Questie's is switched off silently.
 --   2. Map: Questie's HereBeDragons world map provider is moved onto mUI's map canvas (Map/WorldMap.lua).
 --   3. Tracker data: turn-in NPC, nearest objective + distance, quest items from Questie's database.
 local _, ns = ...
@@ -49,29 +49,24 @@ Bridge.Profile = Profile
 
 -- 1. Tracker conflict --------------------------------------------------------------------------
 
-StaticPopupDialogs["MEREDANUI_QUESTIE_TRACKER"] = {
-    text = L["Turn off Questie's tracker? mUI shows Questie's info in its own tracker."],
-    button1 = G("YES") or "Yes",
-    button2 = G("NO") or "No",
-    OnAccept = function()
-        G("MeredanUIDB").questieTrackerAsked = true
-        ns.AfterCombat(function()
-            local tracker = Module("QuestieTracker")
-            if tracker and type(tracker.Disable) == "function" then pcall(tracker.Disable, tracker) end -- reloads the UI
-        end)
-    end,
-    OnCancel = function() G("MeredanUIDB").questieTrackerAsked = true end,
-    timeout = 0,
-    whileDead = true,
-    hideOnEscape = false,
-}
+-- mUI's tracker is the only tracker (it shows Questie's info itself), no question asked: Questie's
+-- tracker option is switched off (applies from the next load) and its frame is kept hidden right away.
+local function HideQuestieTracker()
+    local frame = G("Questie_BaseFrame")
+    if not frame or frame.mUIHidden then return end
+    frame.mUIHidden = true
+    frame:Hide()
+    hooksecurefunc(frame, "Show", function(self) self:Hide() end)
+end
 
 local function CheckTrackerConflict()
-    local db = G("MeredanUIDB")
-    if not ns.IS_FOREVER or not db or db.questieTrackerAsked then return end
+    if not ns.IS_FOREVER then return end
     local profile = Profile()
-    if not (profile and profile.trackerEnabled) then return end
-    ns.AfterCombat(function() StaticPopup_Show("MEREDANUI_QUESTIE_TRACKER") end)
+    if profile and profile.trackerEnabled then profile.trackerEnabled = false end
+    HideQuestieTracker()
+    -- Questie builds its tracker frame a bit after it is ready
+    C_Timer.After(2, HideQuestieTracker)
+    C_Timer.After(10, HideQuestieTracker)
 end
 
 -- 2. Map ----------------------------------------------------------------------------------------
