@@ -12,7 +12,7 @@
 ## IconTexture: Interface\AddOns\MeredanUI\Media\Logo
 ## X-oUF: MeredanUIoUF
 ## X-License: All Rights Reserved
-## X-Website: https://github.com/bswebdes/MeredanUI
+## X-Website: https://meredanui.com
 ## X-Curse-Project-ID: 1790218
 ## X-Wago-ID: b6XyDPKp
 
