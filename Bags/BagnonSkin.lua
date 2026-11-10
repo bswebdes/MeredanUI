@@ -13,6 +13,8 @@ local CROP = { 0.08, 0.92, 0.08, 0.92 }
 local BAG_CROP = { 0.12, 0.88, 0.12, 0.88 } -- bag icons have a wide bevel baked in
 local HEADER_PAD = 10      -- header buttons: distance to the frame edge
 local HEADER_STEP = 26     -- header buttons: 22 px + 4 px gap
+local INSET = 6            -- Bagnon's content inset for this skin
+local FOOTER_LIFT = 12     -- footer (gold, currencies) 10 px above the bottom edge instead of -2
 
 local titleFont, titleFontH
 
@@ -254,7 +256,16 @@ local function Register(Bagnon)
         template = "BagnonOnePixelTemplate", -- ships with Bagnon: Center + four 1 px edges
         font = titleFont, fontH = titleFontH,
         x = 1, y = 1, x1 = -1, y1 = -1, margin = 2,
-        inset = 6, -- more room between header, items and footer
+        inset = INSET, -- more room between header, items and footer
+        -- after each Bagnon layout: taller frame and the footer lifted by the same amount
+        layout = function(bg)
+            local frame = bg:GetParent()
+            if not (frame and frame.Footer) then return end
+            frame:SetHeight(frame:GetHeight() + FOOTER_LIFT)
+            frame.Footer:ClearAllPoints()
+            frame.Footer:SetPoint("BOTTOMLEFT", INSET, 4 - INSET + FOOTER_LIFT)
+            frame.Footer:SetPoint("BOTTOMRIGHT", -INSET, 4 - INSET + FOOTER_LIFT)
+        end,
         closeX = -(HEADER_PAD - 2), closeY = -(HEADER_PAD - 2), -- Bagnon adds -2 itself
         load = function(bg)
             Paint(bg)
