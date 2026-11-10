@@ -84,6 +84,7 @@ local function Diamond(parent, size, layer)
     d.text = ns.UI.Text(d, 11, "CENTER")
     d.text:SetPoint("CENTER", 0, 0)
     ns.SetFont(d.text, 11, "OUTLINE", "bold")
+    d.text:SetShadowOffset(0, 0) -- outline only: a drop shadow on top makes the small number mushy
     return d
 end
 
@@ -307,6 +308,7 @@ function Refresh()
     tray:SetHeight(64 + math.max(#list, 1) * ROW)
 end
 P.Refresh = Refresh
+P.StylePin = function(...) return StylePin(...) end -- also used by the boss list (Map/DungeonPanel.lua)
 
 local function CreateTray()
     local UI = ns.UI

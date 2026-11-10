@@ -1602,4 +1602,5 @@ if GetLocale() == "deDE" then
     L["%d items · all dungeons"] = "%d Gegenstände · alle Dungeons"
     L["Rare Elite"] = "Rare Elite"
     L["Rare and elite behind NPC names"] = "Rare und Elite hinter NPC-Namen"
+    L["1 item"] = "1 Gegenstand"
 end

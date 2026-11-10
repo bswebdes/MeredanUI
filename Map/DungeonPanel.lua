@@ -16,14 +16,14 @@ local L = ns.L
 local P = {}
 ns.DungeonPanel = P
 
-local BOSS_ROW, LOOT_ROW, GAP = 34, 38, 4
+local BOSS_ROW, LOOT_ROW, GAP = 42, 38, 4
 local frame, list, tab, wishButton, filterBar, note
 local bossRows, lootRows = {}, {}
 local selected -- encounter ID or "rare:<npcID>"
 local shownInstance
 local hiddenFrames = {}
 
-local GOLD, SILVER = { 0.85, 0.71, 0.42 }, { 0.8, 0.82, 0.86 }
+local GOLD = { 0.85, 0.71, 0.42 }
 local BLACK = { 0, 0, 0, 1 }
 local SELECTED_BG = { 0.10, 0.145, 0.137, 1 }
 local ROW_BG = { 0.08, 0.094, 0.094, 1 }
@@ -67,12 +67,18 @@ local function FilterMine() return not (ns.char and ns.char.dungeonLootAll) end
 local function Sources(instance)
     local out = {}
     local loot = ns.DUNGEON_LOOT[instance] or {}
+    local pins = ns.DUNGEON_PINS and ns.DUNGEON_PINS[instance] or {}
+    local display = {}
+    for _, p in ipairs(pins) do if p.kind == "boss" then display[p.id] = p.display end end
     for i, b in ipairs(ns.DUNGEON_BOSSES and ns.DUNGEON_BOSSES[instance] or {}) do
-        out[#out + 1] = { key = b[1], number = i, name = GetLocale() == "deDE" and b[3] or b[2], items = loot[b[1]] or {} }
+        out[#out + 1] = { key = b[1], number = i, name = GetLocale() == "deDE" and b[3] or b[2], items = loot[b[1]] or {},
+            display = display[b[1]] }
     end
-    for _, p in ipairs(ns.DUNGEON_PINS and ns.DUNGEON_PINS[instance] or {}) do
+    for _, p in ipairs(pins) do
         local key = "rare:" .. p.id
-        if p.kind == "rare" and loot[key] then out[#out + 1] = { key = key, rare = true, name = p.name, items = loot[key] } end
+        if p.kind == "rare" and loot[key] then
+            out[#out + 1] = { key = key, rare = true, name = p.name, items = loot[key], display = p.display }
+        end
     end
     return out
 end
@@ -119,13 +125,11 @@ local function BossRow(i)
     local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.04)
-    row.diamond = UI.Icon(row, "Diamond", 22, GOLD)
-    row.diamond:SetPoint("LEFT", 8, 0)
-    row.mark = UI.Text(row, 11, "CENTER", { 0.07, 0.07, 0.07 })
-    ns.SetFont(row.mark, 11, "", "bold")
-    row.mark:SetPoint("CENTER", row.diamond, "CENTER", 0, 0)
+    -- same round boss portrait + number badge as the pin on the map (Map/DungeonPins.lua)
+    row.pin = CreateFrame("Frame", nil, row)
+    row.pin:SetPoint("LEFT", 6, 0)
     row.name = UI.Text(row, 13, "LEFT")
-    row.name:SetPoint("LEFT", row.diamond, "RIGHT", 8, 0)
+    row.name:SetPoint("LEFT", row, "LEFT", 54, 0)
     row.name:SetPoint("RIGHT", -70, 0)
     row.name:SetWordWrap(false)
     row.count = UI.Text(row, 11, "RIGHT", UI.MUTED)
@@ -230,13 +234,12 @@ local function Layout(instance)
         local open = s.key == selected
         local visible = Visible(s.items)
         row.key = s.key
-        row.mark:SetText(s.rare and ("|T" .. ns.MEDIA .. "Icons\\Star:10:10:0:0|t") or s.number)
-        row.diamond:SetVertexColor(unpack(s.rare and SILVER or GOLD))
+        ns.DungeonPins.StylePin(row.pin, s.rare and "rare" or "boss", s.number, s.display)
         row.name:SetText(s.name or "")
         row.name:SetTextColor(unpack(open and ns.UI.ACCENT or ns.UI.TEXT))
         row.bg:SetColorTexture(unpack(open and SELECTED_BG or ROW_BG))
         row.bar:SetShown(open)
-        row.count:SetText(#s.items == 0 and "" or L["%d items"]:format(#visible))
+        row.count:SetText(#s.items == 0 and "" or #visible == 1 and L["1 item"] or L["%d items"]:format(#visible))
         Place(row, y)
         row:Show()
         y = y + BOSS_ROW + GAP
