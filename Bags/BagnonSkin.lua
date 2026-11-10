@@ -292,10 +292,11 @@ end
 
 -- mUI profile for Bagnon: set once (Bagnon.sets.muiProfile), afterwards the player's changes stay.
 -- One clean grid like mUI's bags: no gaps between bags, newest items first, no sidebar or broker.
-local PROFILE_VERSION = 1
+local PROFILE_VERSION = 2
 local PROFILE = {
     inventory = { bagBreak = 0, reverseSlots = true, sidebar = false, broker = false },
-    bank = { bagBreak = 0, reverseSlots = true, sidebar = false, broker = false },
+    -- bank: compact (Bagnon's 22 columns run across half the screen), filled slots first
+    bank = { bagBreak = 0, reverseSlots = false, sidebar = false, broker = false, columns = 12 },
     vault = { broker = false },
     guild = { broker = false },
 }
