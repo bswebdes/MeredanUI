@@ -125,9 +125,20 @@ local function CreateWindow()
     window.next.Text:SetTextColor(unpack(UI.ACCENT))
 end
 
--- entries = list to page through (default: all)
-function ns.ShowWhatsNew(entries)
-    pages = entries or ns.WHATS_NEW
+-- Settings button badge: newest entry not opened via the button yet
+local function Newest()
+    for i = #ns.WHATS_NEW, 1, -1 do if not ns.WHATS_NEW[i].draft then return ns.WHATS_NEW[i].id end end
+end
+function ns.WhatsNewUnopened() return Newest() ~= nil and MeredanUIDB.newsOpened ~= Newest() end
+
+-- entries = list to page through (default: all released); fromButton = opened from the settings
+function ns.ShowWhatsNew(entries, fromButton)
+    if fromButton then MeredanUIDB.newsOpened = Newest() end
+    if not entries then
+        entries = {}
+        for _, e in ipairs(ns.WHATS_NEW) do if not e.draft then entries[#entries + 1] = e end end
+    end
+    pages = entries
     if #pages == 0 then return end
     if not window then CreateWindow() end
     index = 1
@@ -146,6 +157,7 @@ ns:On("PLAYER_LOGIN", function()
         for _, data in pairs(MeredanUIDB.chars or {}) do if data.setupDone then known = true end end
         if not known then -- fresh install: nothing is new
             for _, e in ipairs(ns.WHATS_NEW) do seen[e.id] = true end
+            MeredanUIDB.newsOpened = Newest()
             return
         end
         local setup = _G["MeredanUISetup"]

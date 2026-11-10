@@ -779,6 +779,13 @@ local PAGES = {
     -- Bottom, subdued grey: Modules = own components, Skins = Blizzard frames in mUI style,
     -- Changelog. Profiles below.
     {
+        -- opens the "New in mUI" window (Config/WhatsNew.lua) instead of a page; Blizzard's NEW badge
+        -- until clicked once after an update with new entries
+        key = "whatsnew", label = L["What's new"], extra = true, build = function() end,
+        action = function() if ns.ShowWhatsNew then ns.ShowWhatsNew(nil, true) end end,
+        badge = function() return ns.WhatsNewUnopened and ns.WhatsNewUnopened() end,
+    },
+    {
         key = "modules", label = L["Modules"], extra = true,
         build = function(page)
             page:AddTitle(L["Modules"], L["mUI's own building blocks. Turned off, Blizzard or another addon takes over. Takes effect after a reload."])
@@ -1206,7 +1213,19 @@ local function CreateWindow()
         button.text:SetText(entry.label)
         button:SetScript("OnEnter", function() hover:Show() end)
         button:SetScript("OnLeave", function() hover:Hide() end)
-        button:SetScript("OnClick", function() SelectPage(entry.key) end)
+        button:SetScript("OnClick", function()
+            if not entry.action then return SelectPage(entry.key) end
+            entry.action()
+            if button.badge then button.badge:SetShown(entry.badge()) end
+        end)
+        if entry.badge then
+            local badge = CreateFrame("Frame", nil, button, "NewFeatureLabelTemplate")
+            badge:SetScale(0.8)
+            badge:SetPoint("LEFT", button.text, "LEFT", (button.text:GetUnboundedStringWidth() + 10) / 0.8, 0)
+            badge:SetShown(entry.badge())
+            button.badge = badge
+            button:HookScript("OnShow", function() badge:SetShown(entry.badge()) end)
+        end
         entry.nav = button
 
         entry.page = UI.Page(content)

@@ -1619,4 +1619,5 @@ if GetLocale() == "deDE" then
     L["Click a boss on the dungeon map to see its loot with drop chances, filtered for your class."] = "Klick auf einen Boss in der Dungeon-Karte zeigt seine Beute mit Drop-Chancen, passend zu deiner Klasse."
     L["Star the loot you want. The wishlist shows where it drops, lets you try it on and ticks it off once you have it."] = "Markier die Beute, die du willst, mit dem Stern. Die Merkliste zeigt, wo sie droppt, lässt dich sie anprobieren und hakt sie ab, sobald du sie hast."
     L["All quests of a dungeon at a glance: done, still open, or where the quest giver stands."] = "Alle Quests eines Dungeons auf einen Blick: erledigt, noch offen oder wo der Questgeber steht."
+    L["What's new"] = "Was ist neu"
 end
