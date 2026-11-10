@@ -115,6 +115,12 @@ local function Setter(key, after)
 end
 local RELOAD = { reload = true }
 local function Help(text, reload) return { help = text, reload = reload } end
+-- Module label + grey "<Addon> active" while another addon does the job (Core/OtherAddons.lua)
+local function ModuleLabel(label, key)
+    local other = ns.OtherAddonFor and ns.OtherAddonFor(key)
+    if not other then return label end
+    return label .. "  |cff8a918e" .. L["%s active"]:format(ns.OtherAddonTitle(other)) .. "|r"
+end
 
 -- Own windows (Forever): key in ns.db, label, explanation
 local WINDOWS = {
@@ -327,7 +333,7 @@ local PAGES = {
             page:AddTitle(L["Nameplates"], ns.IS_FOREVER -- Forever: no Mythic+
                 and L["Enemy plates with priority colours, interrupt-ready cast bar and your debuffs. Friendly plates show names only."]
                 or L["Enemy plates with priority colours, interrupt-ready cast bar, Mythic+ percentage and your debuffs. Friendly plates show names only."])
-            page:AddCheckbox(L["mUI nameplates"], On("nameplates"), Setter("nameplates"), RELOAD)
+            page:AddCheckbox(ModuleLabel(L["mUI nameplates"], "nameplates"), On("nameplates"), Setter("nameplates"), RELOAD)
             page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
                 Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
             -- Display: Blizzard's own nameplate toggles in one place (take effect immediately)
@@ -638,7 +644,7 @@ local PAGES = {
         key = "bags", label = L["Bags"], group = L["Windows"],
         build = function(page)
             page:AddTitle(L["Bags"], L["One window for all bags, sorted into sections."])
-            page:AddCheckbox(L["mUI bags"], On("bags"), Setter("bags"), RELOAD)
+            page:AddCheckbox(ModuleLabel(L["mUI bags"], "bags"), On("bags"), Setter("bags"), RELOAD)
             page:AddDropdown(L["Layout"], BagStyleItems, function() return ns.db.bagsStyle == "single" and "single" or "categories" end,
                 Setter("bagsStyle", function() if ns.RefreshBags then ns.RefreshBags() end end),
                 Help(L["Sections or one big bag. Alt+right-click an item to put it into your own section."]))
@@ -697,12 +703,12 @@ local PAGES = {
             page:AddTitle(L["Dungeons & raids"], ns.IS_FOREVER and L["Damage meter."] or L["Boss timers, damage meter and Mythic+."])
             if not ns.IS_FOREVER then -- Forever has no Blizzard boss timeline/warnings
                 page:AddHeader(L["Boss timers"])
-                page:AddCheckbox(L["mUI boss timers and warnings"], On("bossMods"), Setter("bossMods"),
+                page:AddCheckbox(ModuleLabel(L["mUI boss timers and warnings"], "bossMods"), On("bossMods"), Setter("bossMods"),
                     Help(L["Uses Blizzard's own boss data (encounter timeline and warnings), the same data boss mods get in Midnight. Bars left of the player frame, big abilities at the top centre. Pull timer: /pull 10. Which warnings you see is set in Blizzard's options (Gameplay > Combat > Boss warnings)."], true))
                 page:AddCheckbox(L["Warning sound before an ability"], On("bossModsSound"), Setter("bossModsSound"))
             end
             page:AddHeader(L["Damage meter"])
-            page:AddCheckbox(L["mUI damage meter"], On("damageMeter"), Setter("damageMeter", function()
+            page:AddCheckbox(ModuleLabel(L["mUI damage meter"], "damageMeter"), On("damageMeter"), Setter("damageMeter", function()
                 if ns.SyncDamageMeterCVar then ns.SyncDamageMeterCVar() end
             end), Help(L["Own window top left with Blizzard's numbers. Also turns Blizzard's damage meter on or off (Options > Advanced)."], true))
             page:AddCheckbox(L["Hide out of combat"], On("damageMeterFade"), Setter("damageMeterFade"),
