@@ -95,11 +95,11 @@ local function RegisterStyle()
     registered = true
     BigWigsAPI:RegisterBarStyle(STYLE, {
         apiVersion = 1,
-        version = 1,
+        version = 2,
         barHeight = BAR_HEIGHT,
         fontSizeNormal = 12,
         fontSizeEmphasized = 13,
-        GetSpacing = function(bar) return bar:GetHeight() + 4 end,
+        -- no GetSpacing: BigWigs then uses the profile's spacing (4 px) between bars
         ApplyStyle = ApplyStyle,
         BarStopped = RemoveStyle,
         GetStyleName = function() return "MeredanUI" end,
