@@ -1242,6 +1242,8 @@ if GetLocale() == "deDE" then
     L["Progress bars"] = "Fortschrittsleisten"
     L["RP mode: hide everything except chat and emotes, also nameplates and names. Mask button at the end of the emote bar, /rp or your own key (Key Bindings > AddOns > MeredanUI). Combat ends it."] = "RP-Modus: alles außer Chat und Emotes ausblenden, auch Namensplaketten und Namen. Masken-Knopf am Ende der Emote-Leiste, /rp oder eigene Taste (Tastaturbelegung > AddOns > MeredanUI). Kampf beendet ihn."
     L["Short channel names ([G], [P], [1] …)"] = "Kurze Kanalnamen ([G], [P], [1] …)"
+    L["Details! in the mUI look"] = "Details! im mUI-Look"
+    L["Flat mUI window, font and bars. Details' own settings stay usable."] = "Flaches mUI-Fenster, mUI-Schrift und -Balken. Details' eigene Einstellungen bleiben nutzbar."
     L["Bagnon in the mUI look"] = "Bagnon im mUI-Look"
     L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."] = "Flacher mUI-Rahmen und mUI-Schrift, fester Platz unten rechts, Tooltips darüber."
     L["Class icons before names"] = "Klassensymbole vor Namen"

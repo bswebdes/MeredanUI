@@ -157,6 +157,7 @@ Toasts/ProfessionReminder.lua
 Toasts/BuffReminder.lua
 BossMods/BossMods.lua
 DamageMeter/DamageMeter.lua
+DamageMeter/DetailsSkin.lua
 CombatText/CombatText.lua
 AFK/AFK.lua
 Core/Profiles.lua

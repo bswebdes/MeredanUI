@@ -715,6 +715,10 @@ local PAGES = {
             page:AddCheckbox(ModuleLabel(L["mUI damage meter"], "damageMeter"), On("damageMeter"), Setter("damageMeter", function()
                 if ns.SyncDamageMeterCVar then ns.SyncDamageMeterCVar() end
             end), Help(L["Own window top left with Blizzard's numbers. Also turns Blizzard's damage meter on or off (Options > Advanced)."], true))
+            if ns.OtherAddonFor("damageMeter") == "Details" then
+                page:AddCheckbox(L["Details! in the mUI look"], On("detailsStyle"), Setter("detailsStyle", ns.ApplyDetailsStyle),
+                    Help(L["Flat mUI window, font and bars. Details' own settings stay usable."]))
+            end
             page:AddCheckbox(L["Hide out of combat"], On("damageMeterFade"), Setter("damageMeterFade"),
                 Help(L["Mouse over shows it."]))
             page:AddCheckbox(L["Second window"], On("damageMeterSecond"), Setter("damageMeterSecond", function()
