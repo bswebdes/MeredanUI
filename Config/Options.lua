@@ -586,7 +586,8 @@ local PAGES = {
                 local items = {}
                 for i, group in ipairs(ns.EMOTE_GROUPS or {}) do items[#items + 1] = { value = i, label = L[group.title] } end
                 return items
-            end, function() return selectedGroup end, ShowGroup)
+            end, function() return selectedGroup end, ShowGroup,
+                Help(L["Up to 12 emotes on the bar, plus the RP mode button."]))
             local startY, maxY = page.y, page.y
             for i, group in ipairs(ns.EMOTE_GROUPS or {}) do
                 page.y = startY
@@ -595,14 +596,15 @@ local PAGES = {
                 for _, token in ipairs(group.list) do
                     emotes[#emotes + 1] = {
                         label = ns.EmoteLabel(token),
-                        get = function()
-                            local choice = ns.db.emoteBarEmotes[token]
-                            if choice == nil then return ns.EMOTE_DEFAULTS[token] or false end
-                            return choice
+                        get = function() return ns.EmoteChosen(token) end,
+                        -- twelve picked: the rest is greyed out until one is removed
+                        disabled = function()
+                            return not ns.EmoteChosen(token) and ns.EmoteChosenCount() >= ns.EMOTE_MAX
                         end,
                         set = function(value)
                             ns.db.emoteBarEmotes[token] = value
                             if ns.UpdateEmoteBar then ns.UpdateEmoteBar() end
+                            page:Refresh() -- other checkboxes grey out or come back
                         end,
                     }
                 end

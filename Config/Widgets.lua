@@ -512,7 +512,8 @@ function UI.Page(parent)
 
     -- Checkbox with text; click toggles.
     -- Many short checkboxes side by side (e.g. emotes): `columns` per row, equal-width columns.
-    -- entries = { { label = ..., get = fn, set = fn }, ... }
+    -- entries = { { label = ..., get = fn, set = fn, disabled = fn? }, ... }; disabled() greys an
+    -- entry out and ignores clicks (e.g. a limit is reached)
     function page:AddCheckboxGrid(entries, columns)
         columns = columns or 3
         for first = 1, #entries, columns do
@@ -544,10 +545,15 @@ function UI.Page(parent)
                     text:SetPoint("RIGHT", button, "RIGHT", 0, 0)
                     text:SetWordWrap(false)
                     text:SetText(entry.label)
-                    refreshers[#refreshers + 1] = function() check:SetShown(entry.get() and true or false) end
-                    button:SetScript("OnClick", function()
-                        set(not entry.get())
+                    local function Refresh()
                         check:SetShown(entry.get() and true or false)
+                        button:SetAlpha(entry.disabled and entry.disabled() and 0.35 or 1)
+                    end
+                    refreshers[#refreshers + 1] = Refresh
+                    button:SetScript("OnClick", function()
+                        if entry.disabled and entry.disabled() then return end
+                        set(not entry.get())
+                        Refresh()
                     end)
                 end
             end

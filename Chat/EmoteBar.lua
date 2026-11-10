@@ -21,11 +21,11 @@ ns.EMOTES = {}
 for _, group in ipairs(ns.EMOTE_GROUPS) do
     for _, token in ipairs(group.list) do ns.EMOTES[#ns.EMOTES + 1] = token end
 end
--- Defaults: the most common RP emotes
+-- Defaults: the most common RP emotes (twelve, the bar's maximum)
+ns.EMOTE_MAX = 12
 ns.EMOTE_DEFAULTS = {
     WAVE = true, BOW = true, DANCE = true, APPLAUD = true, LAUGH = true, CRY = true, SALUTE = true,
     SHY = true, KISS = true, SIT = true, KNEEL = true, POINT = true,
-    THANK = true, BYE = true,
 }
 
 local bar
@@ -51,6 +51,13 @@ local function Chosen(token)
     local choice = ns.db.emoteBarEmotes and ns.db.emoteBarEmotes[token]
     if choice == nil then return ns.EMOTE_DEFAULTS[token] or false end
     return choice
+end
+ns.EmoteChosen = Chosen
+
+function ns.EmoteChosenCount()
+    local count = 0
+    for _, token in ipairs(ns.EMOTES) do if Chosen(token) then count = count + 1 end end
+    return count
 end
 
 local function Perform(token)
@@ -137,10 +144,11 @@ end
 local function Layout()
     if not bar then return end
     local size, gap = ns.Snap(SIZE), GAP_PIXELS * ns.PixelSize()
-    local x = 0
+    local x, shown = 0, 0
     for _, token in ipairs(ns.EMOTES) do
         local button = buttons[token] or CreateButton(token)
-        if Chosen(token) then
+        if Chosen(token) and shown < ns.EMOTE_MAX then -- older picks beyond twelve stay hidden
+            shown = shown + 1
             button:ClearAllPoints()
             button:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x, 0)
             button:Show()
