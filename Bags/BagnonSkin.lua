@@ -65,9 +65,7 @@ local function StyleItem(b)
         icon:SetPoint("TOPLEFT", 1, -1)
         icon:SetPoint("BOTTOMRIGHT", -1, 1)
     end
-    b.muiBg = b:CreateTexture(nil, "BACKGROUND", nil, -7)
-    b.muiBg:SetAllPoints()
-    b.muiBg:SetColorTexture(unpack(ns.UI.FIELD))
+    ns.AddSlotBackground(b) -- same empty-slot art as mUI's bags and action bars
     b.muiEdges = ns.AddBorder(b, true)
     FlatHighlight(b)
 end
@@ -87,16 +85,36 @@ local function UpdateItem(b)
         if b.hasItem then
             icon:SetTexCoord(unpack(CROP))
         else
-            icon:SetTexture(nil) -- empty slot: just the dark field
+            icon:SetTexture(nil) -- empty slot: the slot background shows
         end
     end
     ColorItem(b)
+end
+
+-- Header buttons that get an mUI icon instead of Blizzard's (class = Bagnon class name)
+local HEADER_ICONS = { BagToggle = "Bag", SortButton = "Sort", SearchToggle = "Search", OptionsToggle = "Settings" }
+
+local function HeaderIcon(b)
+    local Bagnon = _G.Bagnon
+    for class, icon in pairs(HEADER_ICONS) do
+        local c = Bagnon and Bagnon[class]
+        if c and rawget(c, "OnClick") and b.OnClick == rawget(c, "OnClick") then return icon end
+    end
 end
 
 -- Bagnon's small icon buttons (bag toggle, sort, search, options ...) and bag slots
 local function StyleButton(b)
     if b.muiStyled then return end
     b.muiStyled = true
+    local mui = HeaderIcon(b)
+    if mui then
+        -- flat mUI symbol on the dark field, accent on hover
+        b.Icon:SetAlpha(0)
+        local glyph = ns.UI.Icon(b, mui, 14, ns.UI.TEXT)
+        glyph:SetPoint("CENTER")
+        b:HookScript("OnEnter", function() glyph:SetVertexColor(unpack(ns.UI.ACCENT)) end)
+        b:HookScript("OnLeave", function() glyph:SetVertexColor(unpack(ns.UI.TEXT)) end)
+    end
     local normal = b:GetNormalTexture()
     if normal then normal:SetAlpha(0) end
     if b.Bg then b.Bg:SetColorTexture(unpack(ns.UI.FIELD)) end
@@ -125,11 +143,19 @@ local function StyleClose(close)
         local tex = close[get] and close[get](close)
         if tex then tex:SetAlpha(0) end
     end
-    close:SetSize(20, 20)
-    local icon = ns.UI.Icon(close, "Close", 12, ns.UI.TEXT)
+    -- like mUI's own window close button (ns.UI.IconButton): dark box, 1 px border, X
+    close:SetSize(24, 24)
+    local bg = ns.UI.Box(close)
+    local icon = ns.UI.Icon(close, "Close", 16, ns.UI.TEXT)
     icon:SetPoint("CENTER")
-    close:HookScript("OnEnter", function() icon:SetVertexColor(unpack(ns.UI.ACCENT)) end)
-    close:HookScript("OnLeave", function() icon:SetVertexColor(unpack(ns.UI.TEXT)) end)
+    close:HookScript("OnEnter", function()
+        bg:SetColorTexture(unpack(ns.UI.HOVER))
+        icon:SetVertexColor(unpack(ns.UI.ACCENT))
+    end)
+    close:HookScript("OnLeave", function()
+        bg:SetColorTexture(unpack(ns.UI.FIELD))
+        icon:SetVertexColor(unpack(ns.UI.TEXT))
+    end)
 end
 
 -- Walk a Bagnon frame once it shows: header buttons and the close button

@@ -19,6 +19,7 @@ https://pictogrammers.com/library/mdi/ – https://github.com/Templarian/Materia
   RoleTank.tga    mdi:shield
   RoleHeal.tga    mdi:plus-thick
   Navigation.tga  mdi:navigation
+  Search.tga      mdi:magnify
   Fishing.tga     mdi:fish
   RoleDamage.tga  mdi:sword
   ChevronDown.tga mdi:chevron-down
