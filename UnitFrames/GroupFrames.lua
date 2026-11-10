@@ -505,7 +505,7 @@ local function FitWidth(width, columns)
     local edge = ns.LeftOfPlayerEdge()
     if not edge then return width end
     -- Reserve boss timer space only if they exist (Forever: no boss data from Blizzard)
-    local reserve = (ns.IS_FOREVER or ns.db.bossMods == false) and 0 or ns.Snap(BOSS_BAR_RESERVE)
+    local reserve = (ns.IS_FOREVER or not ns.ModuleOn("bossMods")) and 0 or ns.Snap(BOSS_BAR_RESERVE)
     local available = edge - reserve - ns.Snap(ns.SCREEN_MARGIN) - (columns - 1) * ns.Snap(GAP)
     return math.max(math.min(width, ns.Snap(math.floor(available / columns))), ns.Snap(40))
 end

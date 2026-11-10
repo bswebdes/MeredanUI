@@ -69,7 +69,7 @@ local headers = {}               -- header pool
 local categoryOf                 -- item ID -> Bears category (built on first open)
 local dirty = true
 
-local function Enabled() return ns.db and ns.db.bags ~= false end
+local function Enabled() return ns.ModuleOn("bags") end
 
 -- Categories ----------------------------------------------------------------------------------
 

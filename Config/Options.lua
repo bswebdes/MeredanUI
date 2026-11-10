@@ -717,6 +717,8 @@ local PAGES = {
             page:AddTitle(L["Modules"], L["mUI's own building blocks. Turned off, Blizzard or another addon takes over. Takes effect after a reload."])
             page:AddNote(L["Always on: unit frames, action bars, minimap and chat."])
             local function Module(key, label, comfort)
+                local other = ns.OtherAddonFor(key)
+                if other then label = label .. "  |cff8a918e" .. L["%s active"]:format(ns.OtherAddonTitle(other)) .. "|r" end
                 return { label = comfort and (label .. "  |cff8a918e" .. L["Comfort"] .. "|r") or label,
                     get = function() return ns.db[key] ~= false end, set = Setter(key), opts = RELOAD }
             end
@@ -741,6 +743,23 @@ local PAGES = {
                     get = function() return ns.db.upgrades ~= "off" end,
                     set = function(value) ns.db.upgrades = value and "damage" or "off" end },
             }, 2)
+            -- Another addon for the same job (Core/OtherAddons.lua): pick mUI or the addon
+            local found = ns.OtherAddonsFound()
+            if #found > 0 then
+                page:AddHeader(L["Other addons"])
+                for _, entry in ipairs(found) do
+                    local areaID, title = entry.area.id, ns.OtherAddonTitle(entry.addon)
+                    local picked = "addon" -- the addon is running; "mUI" disables it for this character
+                    page:AddDropdown(entry.area.label, function()
+                        return { { value = "addon", label = title }, { value = "mui", label = "mUI" } }
+                    end, function() return picked end, function(value)
+                        picked = value
+                        if value == "mui" then ns.ChooseOtherAddon(areaID, "mui") else
+                            C_AddOns.EnableAddOn(entry.addon, UnitName("player"))
+                        end
+                    end, RELOAD)
+                end
+            end
         end,
     },
     {

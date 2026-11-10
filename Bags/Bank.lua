@@ -45,7 +45,7 @@ local bagSlots, pageTabs = {}, {}
 local page = 1
 
 local function Enabled()
-    return ns.IS_FOREVER and ns.db and ns.db.bags ~= false and C_Bank and C_Bank.ShouldUsePlayerBagsInBank
+    return ns.IS_FOREVER and ns.ModuleOn("bags") and C_Bank and C_Bank.ShouldUsePlayerBagsInBank
         and C_Bank.ShouldUsePlayerBagsInBank()
 end
 

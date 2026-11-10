@@ -25,6 +25,7 @@ libs/oUF/oUF.xml
 # Kern: Übersetzungen, Helfer, Optik, Verschieben, Testmodus, Profile
 Core/Locales.lua
 Core/Core.lua
+Core/OtherAddons.lua
 Core/Style.lua
 Core/Menus.lua
 Core/Quiet.lua

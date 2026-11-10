@@ -34,7 +34,7 @@ local modeTabs, fachTabs, slots = {}, {}, {}
 local mode = "bank" -- "bank", "log", "moneylog", "info"
 
 local function Enabled()
-    return ns.IS_FOREVER and ns.db and ns.db.bags ~= false
+    return ns.IS_FOREVER and ns.ModuleOn("bags")
 end
 
 local function MaxTabs() return MAX_GUILDBANK_TABS or 8 end

@@ -781,12 +781,8 @@ end
 oUF:RegisterStyle("MeredanPlate", Style)
 
 oUF:Factory(function(self)
-    if ns.db.nameplates == false then return end
-    -- Two nameplate addons at once don't get along
-    if C_AddOns.IsAddOnLoaded("Plater") then
-        ns.Print(L["Another nameplate addon is active – mUI nameplates stay off. Disable it to use ours."])
-        return
-    end
+    -- off, or another nameplate addon does the job (Core/OtherAddons.lua)
+    if not ns.ModuleOn("nameplates") then return end
     self:SetActiveStyle("MeredanPlate")
     local driver = self:SpawnNamePlates("MeredanUIPlate")
     driver:SetSize(PLATE_W, PLATE_H) -- plate size (the hit area is limited to it)

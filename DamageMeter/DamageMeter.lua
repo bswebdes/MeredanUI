@@ -60,7 +60,7 @@ local PIN_SELF = {
 
 local DEFAULT_TYPES = { Type.DamageDone, Type.HealingDone }
 
-local function Enabled() return ns.db.damageMeter ~= false end
+local function Enabled() return ns.ModuleOn("damageMeter") end
 local function SecondOn() return ns.db.damageMeterSecond == true end
 local function FadeOn() return ns.db.damageMeterFade ~= false end
 local function MeterOn()

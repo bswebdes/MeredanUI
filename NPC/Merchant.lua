@@ -21,7 +21,7 @@ local cards = {}
 local view = "shop" -- "shop" or "buyback"
 
 local function Enabled()
-    return ns.IS_FOREVER and ns.db and ns.db.merchantWindow ~= false and ns.db.bags ~= false
+    return ns.IS_FOREVER and ns.db and ns.db.merchantWindow ~= false and ns.ModuleOn("bags")
 end
 
 local function QualityColor(quality)

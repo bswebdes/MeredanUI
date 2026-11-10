@@ -45,7 +45,7 @@ end
 -- there is nothing to show. Only /pull remains (Blizzard's own countdown).
 if ns.IS_FOREVER then return end
 
-local function Enabled() return ns.db.bossMods ~= false end
+local function Enabled() return ns.ModuleOn("bossMods") end
 local Plain = ns.Plain -- value or nil if secret
 
 -- Set text safely: secret values are only passed through

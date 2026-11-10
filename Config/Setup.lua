@@ -1,5 +1,6 @@
 -- Setup wizard: intro (logo, version, "Start setup") -> size -> role -> style (Classic/Comfort)
--- -> bars (not for healers) -> damage meter -> chat + nickname -> done (reload).
+-- -> bars (not for healers) -> damage meter -> chat + nickname -> other addons (only if found,
+-- Core/OtherAddons.lua) -> done (reload).
 -- On the right a mini screen built from simple rectangles updates with every choice.
 -- Shown once per character on first login (ns.char.setupDone); again via /mui setup or the
 -- button in settings (Layouts). Style only sets starting values (Core/Presets.lua).
@@ -58,6 +59,7 @@ local STEPS = {
         end },
     { id = "meter", key = "meter", title = L["Damage meter?"],
         text = L["Shows damage and healing of your group. Top left."],
+        skip = function() return ns.OtherAddonFor and ns.OtherAddonFor("meter") ~= nil end, -- asked in "others"
         items = function()
             return { { value = true, label = L["Yes, show it"] }, { value = false, label = L["No, thanks"] } }
         end },
@@ -66,6 +68,9 @@ local STEPS = {
         items = function()
             return { { value = true, label = L["Yes, the mUI way"] }, { value = false, label = L["No, leave it"] } }
         end },
+    { id = "others", others = true, title = L["Other addons found"],
+        text = L["These do the same job as a part of mUI. Pick one per row."],
+        skip = function() return not (ns.OtherAddonsFound and #ns.OtherAddonsFound() > 0) end },
     { id = "done" },
 }
 
@@ -348,8 +353,9 @@ local function DrawScreen(target)
         line:SetShown(U(12) + (i - 1) * U(20) + U(5) <= chatH - U(8))
     end
 
-    -- Damage meter top left
-    if st.meter then
+    -- Damage meter top left; another meter addon kept in the setup: same spot, gold dashed outline
+    local otherMeter = st.others and ns.OtherAddonFor and ns.OtherAddonFor("meter") and (st.others.meter or "addon") == "addon"
+    if st.meter or otherMeter then
         local meter = El("meter", function()
             local f = Panel(0.85)
             f.head = Tex(f, "ARTWORK", 0.56, 0.8, 0.71, 0.9)
@@ -367,6 +373,31 @@ local function DrawScreen(target)
             bar:ClearAllPoints()
             bar:SetPoint("TOPLEFT", 2, -U(12) - (i - 1) * (barH + 1))
             bar:SetSize((mw - 4) * (1 - (i - 1) * 0.17), barH)
+        end
+        if otherMeter then
+            local dash = El("meterDash", function()
+                local f = CreateFrame("Frame", nil, screen)
+                f.segs = {}
+                return f
+            end)
+            Place(dash, margin - 2, margin - 2, mw + 4, mh + 4)
+            dash:SetFrameLevel(meter:GetFrameLevel() + 5)
+            -- dashes along all four edges
+            local n, len = 0, 6
+            local function Seg(x, y, w, h)
+                n = n + 1
+                local t = dash.segs[n] or dash:CreateTexture(nil, "OVERLAY")
+                dash.segs[n] = t
+                t:SetColorTexture(0.85, 0.71, 0.42, 1)
+                t:ClearAllPoints()
+                t:SetPoint("TOPLEFT", x, -y)
+                t:SetSize(w, h)
+                t:Show()
+            end
+            local w, h = mw + 4, mh + 4
+            for x = 0, w - len, len * 2 do Seg(x, 0, len, 1); Seg(x, h - 1, len, 1) end
+            for y = 0, h - len, len * 2 do Seg(0, y, 1, len); Seg(w - 1, y, 1, len) end
+            for i = n + 1, #dash.segs do dash.segs[i]:Hide() end
         end
     end
 
@@ -434,6 +465,7 @@ local function Finish(useDefaults)
     if ns.SyncDamageMeterCVar then ns.SyncDamageMeterCVar() end
     if ns.ApplyMouseoverCast then ns.ApplyMouseoverCast() end
     if st.chat and ns.SetupChat then ns.SetupChat() end
+    for areaID, choice in pairs(st.others or {}) do ns.ChooseOtherAddon(areaID, choice) end
     ReloadUI()
 end
 
@@ -461,7 +493,7 @@ local function CreateWindow()
     title:SetPoint("TOPLEFT", 16, -16)
     title:SetText("Meredan|cff8ecbb4UI|r  ·  " .. L["Setup"])
     window.dots = {}
-    for i = 1, 6 do
+    for i = 1, 7 do
         local dot = window:CreateTexture(nil, "ARTWORK")
         dot:SetSize(7, 7)
         dot:SetPoint("LEFT", title, "RIGHT", 14 + (i - 1) * 13, 0)
@@ -545,7 +577,7 @@ local function CreateWindow()
     page.nick:SetScript("OnEnterPressed", page.nick.ClearFocus)
     -- Summary (done)
     page.summary = {}
-    for i = 1, 7 do
+    for i = 1, 8 do
         local row = CreateFrame("Frame", nil, page)
         row:SetSize(LEFT_W, 22)
         row:SetPoint("TOPLEFT", page.text, "BOTTOMLEFT", 0, -16 - (i - 1) * 26)
@@ -559,6 +591,25 @@ local function CreateWindow()
         line:SetPoint("BOTTOMRIGHT")
         line:SetHeight(1)
         page.summary[i] = row
+    end
+
+    -- Other addons: one row per area, label + [mUI] [Addon]
+    page.others = {}
+    for i = 1, #ns.OTHER_ADDON_AREAS do
+        local row = CreateFrame("Frame", nil, page)
+        row:SetSize(LEFT_W, 32)
+        row.label = UI.Text(row, 12, "LEFT", UI.MUTED)
+        row.label:SetPoint("LEFT")
+        row.mui = OptionButton(row)
+        row.addon = OptionButton(row)
+        for _, b in ipairs({ row.mui, row.addon }) do
+            b:SetSize(96, 28)
+            b.title:ClearAllPoints()
+            b.title:SetPoint("CENTER")
+        end
+        row.addon:SetPoint("RIGHT")
+        row.mui:SetPoint("RIGHT", row.addon, "LEFT", -6, 0)
+        page.others[i] = row
     end
 
     local screen = CreateFrame("Frame", nil, page)
@@ -656,6 +707,27 @@ Render = function()
     end
     for i = #options + 1, #page.options do page.options[i]:Hide() end
 
+    -- Other addons
+    local found = step.others and ns.OtherAddonsFound() or {}
+    for i, row in ipairs(page.others) do
+        local entry = found[i]
+        row:SetShown(entry ~= nil)
+        if entry then
+            local id = entry.area.id
+            row:ClearAllPoints()
+            row:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, i == 1 and -16 or -8)
+            row.label:SetText(entry.area.label)
+            row.mui.title:SetText("mUI")
+            row.addon.title:SetText(ns.OtherAddonTitle(entry.addon))
+            local choice = st.others[id] or "addon"
+            row.mui:SetSelected(choice == "mui")
+            row.addon:SetSelected(choice == "addon")
+            row.mui:SetScript("OnClick", function() st.others[id] = "mui"; Render() end)
+            row.addon:SetScript("OnClick", function() st.others[id] = "addon"; Render() end)
+            anchor = row
+        end
+    end
+
     page.nickLabel:SetShown(step.nickname == true)
     page.nick:SetShown(step.nickname == true)
     if step.nickname then
@@ -677,6 +749,11 @@ Render = function()
         { L["Chat"], st.chat and L["mUI style"] or L["unchanged"] },
         (st.nick and st.nick ~= "") and { L["Nickname"], st.nick } or nil,
     }
+    local kept = {}
+    for _, entry in ipairs(ns.OtherAddonsFound()) do
+        if (st.others[entry.area.id] or "addon") == "addon" then kept[#kept + 1] = ns.OtherAddonTitle(entry.addon) end
+    end
+    if #kept > 0 then table.insert(rows, #rows + 1, { L["Other addons"], table.concat(kept, ", ") }) end
     for i, row in ipairs(page.summary) do
         local entry = rows[i]
         row:SetShown(done and entry ~= nil)
@@ -728,6 +805,7 @@ function ns.OpenSetup()
         meter = ns.db.damageMeter ~= false,
         chat = true,
         nick = ns.root.nickname or "",
+        others = {},
     }
     stepIndex = 1
     window:Show()
