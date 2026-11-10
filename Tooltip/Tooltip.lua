@@ -367,6 +367,9 @@ local function AddUnitLines(tooltip, unit)
     local playerTag = type(PLAYER) == "string" and ("%s*%(" .. PLAYER:gsub("%p", "%%%0") .. "%)")
     local levelTag = type(LEVEL) == "string" and ("^" .. LEVEL:gsub("%p", "%%%0"))
     local classIcon = Enabled("tooltipClassIcon") and ClassIconMarkup(unit)
+    -- Forever puts the class on its own line: tint it in the class colour
+    local className = UnitClass(unit)
+    local classColor = ClassColor(unit)
     for i = 2, tooltip:NumLines() do
         local line = _G["GameTooltipTextLeft" .. i]
         local text = line and line:GetText()
@@ -375,6 +378,8 @@ local function AddUnitLines(tooltip, unit)
             if isLevel then starts[i] = true end
             if factionColor and Readable(factionName) and text == factionName then
                 line:SetTextColor(unpack(factionColor))
+            elseif classColor and Readable(className) and text == className then
+                line:SetTextColor(classColor.r, classColor.g, classColor.b)
             else
                 local newText = text
                 if playerTag and text:find(playerTag) then newText = newText:gsub(playerTag, "") end
