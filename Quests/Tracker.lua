@@ -58,6 +58,8 @@ local barItems = {}           -- { questID, logIndex, link, texture, charges } -
 local hasTimers = false
 local hasItems = false      -- several items: re-pick the "nearest quest" periodically
 local bossHidden = false
+local hasTargets = false    -- Questie distances shown: refresh them every second
+local arrowRow              -- row with the direction arrow (focus quest, else the first with a distance)
 local instanceCollapse      -- in instances: quests collapsed (nil = saved setting)
 local kills, killsInstance = {}, nil
 
@@ -219,11 +221,36 @@ local function Row(i)
     row.item:SetScript("OnEnter", function(self)
         row.hover:Show()
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:SetQuestLogSpecialItem(self.logIndex)
+        if self.logIndex then GameTooltip:SetQuestLogSpecialItem(self.logIndex) else GameTooltip:SetItemByID(self.itemID) end
         GameTooltip:Show()
     end)
     row.item:SetScript("OnLeave", function() row.hover:Hide(); GameTooltip:Hide() end)
     row.item:Hide()
+    -- Questie: nearest objective / turn-in with distance; click opens the map there
+    row.dist = CreateFrame("Button", nil, row)
+    row.dist:SetHeight(14)
+    row.dist.arrow = UI.Icon(row.dist, "ChevronDown", 12, UI.ACCENT)
+    row.dist.arrow:SetPoint("LEFT", 0, 0)
+    row.dist.text = UI.Text(row.dist, 12, "LEFT", UI.MUTED)
+    row.dist.text:SetWordWrap(false)
+    row.dist:SetScript("OnClick", function(self)
+        if self.target and self.target.uiMapID and ns.OpenWorldMap then ns.OpenWorldMap(self.target.uiMapID) end
+    end)
+    row.dist:SetScript("OnEnter", function(self)
+        row.hover:Show()
+        self.text:SetTextColor(unpack(UI.TEXT))
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:SetText(self.target and self.target.name or "", 1, 1, 1)
+        if self.target and self.target.zone then GameTooltip:AddLine(self.target.zone, 0.6, 0.59, 0.56) end
+        GameTooltip:AddLine(L["Click: show on map"], 0.56, 0.8, 0.71)
+        GameTooltip:Show()
+    end)
+    row.dist:SetScript("OnLeave", function(self)
+        row.hover:Hide()
+        self.text:SetTextColor(unpack(UI.MUTED))
+        GameTooltip:Hide()
+    end)
+    row.dist:Hide()
     row:SetScript("OnEnter", function(self) self.hover:Show() end)
     row:SetScript("OnLeave", function(self) self.hover:Hide() end)
     row:SetScript("OnClick", function(self, button)
@@ -318,9 +345,9 @@ local function ItemButton(i)
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.15)
     button:SetScript("OnEnter", function(self)
-        if not self.logIndex then return end
+        if not (self.logIndex or self.itemID) then return end
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:SetQuestLogSpecialItem(self.logIndex)
+        if self.logIndex then GameTooltip:SetQuestLogSpecialItem(self.logIndex) else GameTooltip:SetItemByID(self.itemID) end
         local title = self.questID and C_QuestLog.GetTitleForQuestID(self.questID)
         if title then GameTooltip:AddLine(title, DONE[1], DONE[2], DONE[3]) end
         GameTooltip:Show()
@@ -338,8 +365,13 @@ end
 
 local function UpdateCooldowns()
     for _, button in ipairs(itemButtons) do
-        if button:IsShown() and button.logIndex then
-            local start, duration, enable = GetQuestLogSpecialItemCooldown(button.logIndex)
+        if button:IsShown() and (button.logIndex or button.itemID) then
+            local start, duration, enable
+            if button.logIndex then
+                start, duration, enable = GetQuestLogSpecialItemCooldown(button.logIndex)
+            else
+                start, duration, enable = C_Container.GetItemCooldown(button.itemID)
+            end
             if start and duration and duration > 0 and enable ~= 0 then
                 button.cooldown:SetCooldown(start, duration)
             else
@@ -367,7 +399,7 @@ local function ApplyItems()
     end
     for i, item in ipairs(barItems) do
         local button = ItemButton(i)
-        button.questID, button.logIndex = item.questID, item.logIndex
+        button.questID, button.logIndex, button.itemID = item.questID, item.logIndex, item.itemID
         local itemID = C_Item.GetItemInfoInstant(item.link)
         button:SetAttribute("item", itemID and ("item:" .. itemID) or item.link)
         button.icon:SetTexture(item.texture)
@@ -375,7 +407,7 @@ local function ApplyItems()
         button:Show()
     end
     for i = #barItems + 1, #itemButtons do
-        itemButtons[i].questID, itemButtons[i].logIndex = nil, nil
+        itemButtons[i].questID, itemButtons[i].logIndex, itemButtons[i].itemID = nil, nil, nil
         itemButtons[i]:Hide()
     end
     UpdateHotkey()
@@ -427,6 +459,41 @@ local function QuestTag(info)
     if tag and tag.isElite then return L["Elite"] end
 end
 
+-- Questie target line: "Objective · 320 yd (Zone)"; complete quests only the distance (the turn-in
+-- line above already names NPC and zone)
+local function UpdateDistance(row)
+    local target, dist = row.dist.target, row.dist
+    if not target then return end
+    local parts = {}
+    if not dist.complete and target.name then parts[#parts + 1] = target.name end
+    if target.yards then parts[#parts + 1] = L["%d yd"]:format(math.floor(target.yards + 0.5)) end
+    local text = table.concat(parts, "  ·  ")
+    if not dist.complete and target.zone and target.zone ~= GetZoneText() then
+        text = text .. (text ~= "" and "  " or "") .. "(" .. target.zone .. ")"
+    end
+    dist.text:SetText(text)
+end
+
+-- Direction arrow on one row only (focus quest, else the first with a distance); hidden where the
+-- game hides the player position (instances)
+local function UpdateArrow()
+    for _, row in ipairs(rows) do
+        local dist = row.dist
+        if dist and dist:IsShown() then
+            local angle
+            if row == arrowRow and ns.Questie then
+                local ok, a = pcall(ns.Questie.Direction, dist.target)
+                angle = ok and a or nil
+            end
+            dist.arrow:SetShown(angle ~= nil)
+            if angle then dist.arrow:SetRotation(angle + math.pi) end -- chevron art points down
+            dist.text:ClearAllPoints()
+            dist.text:SetPoint("LEFT", angle and 16 or 0, 0)
+            dist.text:SetPoint("RIGHT")
+        end
+    end
+end
+
 -- A quest's objectives: lines (text) and optional percent for the bar
 local function QuestGoals(questID, logIndex, complete, failed)
     local lines, percent = {}, nil
@@ -444,6 +511,11 @@ local function QuestGoals(questID, logIndex, complete, failed)
     if complete and #lines == 0 then
         local text = GetQuestLogCompletionText and GetQuestLogCompletionText(logIndex)
         lines[1] = "|cff8ecbb4" .. ((text and text ~= "") and text or (QUEST_WATCH_QUEST_READY or L["Ready to turn in"])) .. "|r"
+    end
+    -- Questie: who takes the quest back (Classic quests rarely say)
+    if complete and ns.Questie and ns.Questie.IsReady() then
+        local npc, zone = ns.Questie.TurnIn(questID)
+        if npc then lines[#lines + 1] = L["Turn in: %s"]:format(npc .. (zone and (" - " .. zone) or "")) end
     end
     -- Timed quest: time left always red so it stands out; in the last minute the line blinks every
     -- second (the tracker then refreshes every second)
@@ -574,6 +646,7 @@ local function Layout()
     if not tracker then return end
     local UI = ns.UI
     hasTimers = false
+    hasTargets, arrowRow = false, nil
     local y, h, r, b = 0, 0, 0, 0
     local superTracked = C_SuperTrack.GetSuperTrackedQuestID()
     local items = {}
@@ -634,12 +707,25 @@ local function Layout()
         -- item on the right?
         local link, itemTexture, charges, showWhenComplete = GetQuestLogSpecialItemInfo(logIndex)
         local hasItem = link and (not complete or showWhenComplete)
+        local itemLogIndex, itemID = logIndex, nil
+        -- Questie knows usable items Blizzard doesn't flag as quest items
+        if not hasItem and ns.Questie and ns.Questie.IsReady() then
+            for _, id in ipairs(ns.Questie.QuestItems(questID, complete) or {}) do
+                local count = C_Item.GetItemCount(id) or 0
+                if count > 0 then
+                    itemID, itemLogIndex = id, nil
+                    link, itemTexture, charges = "item:" .. id, C_Item.GetItemIconByID(id) or 134400, count
+                    hasItem = true
+                    break
+                end
+            end
+        end
         local right = hasItem and (ICON_SIZE + 10) or 6
         row.item:SetShown(hasItem and true or false)
         if hasItem then
             row.item.icon:SetTexture(itemTexture)
-            row.item.logIndex = logIndex
-            items[#items + 1] = { questID = questID, logIndex = logIndex, link = link, texture = itemTexture, charges = charges }
+            row.item.logIndex, row.item.itemID = itemLogIndex, itemID
+            items[#items + 1] = { questID = questID, logIndex = itemLogIndex, itemID = itemID, link = link, texture = itemTexture, charges = charges }
         end
         row.title:SetWidth(WIDTH - 26 - right)
         local lines, percent, timer = QuestGoals(questID, logIndex, complete, failed)
@@ -666,6 +752,20 @@ local function Layout()
             row.bar.text:SetText(math.floor(percent) .. " %")
             height = height + 4 + 12
         end
+        row.dist.target, row.dist.complete = nil, complete
+        if ns.Questie and ns.Questie.IsReady() and not failed then
+            row.dist.target = ns.Questie.Nearest(questID)
+        end
+        row.dist:SetShown(row.dist.target ~= nil)
+        if row.dist.target then
+            hasTargets = true
+            row.dist:ClearAllPoints()
+            row.dist:SetPoint("TOPLEFT", 26, -(height + 4))
+            row.dist:SetWidth(WIDTH - 26 - right)
+            UpdateDistance(row)
+            height = height + 4 + 14
+            if not arrowRow or questID == superTracked then arrowRow = row end
+        end
         height = math.max(height + 7, hasItem and (ICON_SIZE + 12) or 0)
         row:SetHeight(height)
         row:ClearAllPoints()
@@ -686,6 +786,8 @@ local function Layout()
         row.sign:SetText("")
         row.bar:Hide()
         row.item:Hide()
+        row.dist:Hide()
+        row.dist.target = nil
         row.title:SetText(schematic.name or "")
         row.title:SetTextColor(unpack(UI.TEXT))
         row.title:SetWidth(WIDTH - 32)
@@ -828,6 +930,7 @@ local function Layout()
     tracker.UpdateScroll()
     tracker:SetShown(h > 0 and not bossHidden)
 
+    UpdateArrow()
     lastItems = items
     hasItems = #items > 1
     PickBarItems(true)
@@ -996,6 +1099,27 @@ local function Setup()
     end)
 
     tracker:SetScript("OnUpdate", function(self, elapsed)
+        -- Questie distances: text every second, arrow ~20x per second (facing changes quickly)
+        if hasTargets and self:IsVisible() then
+            self.arrowElapsed = (self.arrowElapsed or 0) + elapsed
+            if self.arrowElapsed >= 0.05 then
+                self.distElapsed = (self.distElapsed or 0) + self.arrowElapsed
+                self.arrowElapsed = 0
+                if self.distElapsed >= 1 then
+                    self.distElapsed = 0
+                    for _, row in ipairs(rows) do
+                        if row.dist:IsShown() and row.questID then
+                            local target = ns.Questie.Nearest(row.questID)
+                            -- appeared/vanished: full layout (heights change), else only the text
+                            if (target == nil) ~= (row.dist.target == nil) then Refresh() break end
+                            row.dist.target = target
+                            UpdateDistance(row)
+                        end
+                    end
+                end
+                UpdateArrow()
+            end
+        end
         if not (hasTimers or (hasItems and not InCombatLockdown())) then return end
         self.timerElapsed = (self.timerElapsed or 0) + elapsed
         if self.timerElapsed < (hasTimers and 1 or 2) then return end
@@ -1008,6 +1132,8 @@ local function Setup()
         "BAG_UPDATE_DELAYED", "ZONE_CHANGED_NEW_AREA" }) do
         ns:On(event, Refresh)
     end
+    -- Questie: turn-in NPC, distances and database items once it is ready and on its quest updates
+    if ns.Questie and ns.Questie.IsLoaded() then ns.Questie.OnQuestUpdate(Refresh) end
     ns:On("BAG_UPDATE_COOLDOWN", UpdateCooldowns)
     ns:On("UPDATE_BINDINGS", UpdateHotkey)
     ns:On("ENCOUNTER_END", function(_, encounterID, name, _, _, success)

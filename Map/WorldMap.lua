@@ -1168,6 +1168,10 @@ local function Toggle()
     if window and window:IsShown() then window:Hide() else Open() end
 end
 ns.ToggleWorldMap = Toggle
+-- open on a given map (tracker: Questie target zone)
+function ns.OpenWorldMap(mapID)
+    if Enabled() then Open(mapID) elseif OpenWorldMap then OpenWorldMap(mapID) end
+end
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end

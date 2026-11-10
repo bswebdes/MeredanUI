@@ -156,6 +156,100 @@ function Bridge.ToggleMenu()
     end
 end
 
+-- 3. Tracker data -------------------------------------------------------------------------------
+-- Read-only lookups for Quests/Tracker.lua. Distances are world yards (HereBeDragons); Questie adds
+-- 500000 for targets on another continent/instance, those only report their zone.
+local FAR = 500000
+local nearestCache = {} -- questID -> { time, result }
+
+local function Quest(questID)
+    local db = Module("QuestieDB")
+    if not (ready and db and type(db.GetQuest) == "function") then return nil end
+    local ok, quest = pcall(db.GetQuest, questID)
+    return ok and type(quest) == "table" and quest or nil
+end
+
+local function ZoneName(areaID)
+    local utils = Module("TrackerUtils")
+    if utils and type(utils.GetZoneNameByID) == "function" then
+        local ok, name = pcall(utils.GetZoneNameByID, utils, areaID)
+        if ok and type(name) == "string" then return name end
+    end
+    return C_Map.GetAreaInfo(areaID)
+end
+
+local function UiMapID(areaID)
+    local zones = Module("ZoneDB")
+    if not (zones and type(zones.GetUiMapIdByAreaId) == "function") then return nil end
+    local ok, id = pcall(zones.GetUiMapIdByAreaId, zones, areaID)
+    return ok and id or nil
+end
+
+-- Nearest objective (or turn-in once complete): { name, zone, uiMapID, x, y (0-100), yards } or nil.
+-- yards is nil when the target is on another continent/instance. Cached for a second.
+function Bridge.Nearest(questID)
+    local now = GetTime()
+    local cached = nearestCache[questID]
+    if cached and now - cached[1] < 1 then return cached[2] end
+    local result
+    local quest = Quest(questID)
+    local distance = Module("DistanceUtils")
+    if quest and distance and type(distance.GetNearestSpawnForQuest) == "function" then
+        local ok, spawn, areaID, name, yards = pcall(distance.GetNearestSpawnForQuest, quest)
+        if ok and type(spawn) == "table" and areaID and type(yards) == "number" and yards < 999999999 then
+            result = { name = name, zone = ZoneName(areaID), uiMapID = UiMapID(areaID), x = spawn[1], y = spawn[2],
+                yards = yards < FAR and yards or nil }
+        end
+    end
+    nearestCache[questID] = { now, result }
+    return result
+end
+
+-- Turn-in NPC/object: name, zone name (nearest friendly finisher) or nil
+function Bridge.TurnIn(questID)
+    local quest = Quest(questID)
+    local distance = Module("DistanceUtils")
+    if not (quest and quest.Finisher and distance and type(distance.GetNearestFinisherOrStarter) == "function") then return nil end
+    local ok, _, areaID, name = pcall(distance.GetNearestFinisherOrStarter, quest.Finisher)
+    if not (ok and name) then return nil end
+    return name, areaID and ZoneName(areaID) or nil
+end
+
+-- Usable quest item IDs from Questie's database (the quest log's special item comes first if owned)
+function Bridge.QuestItems(questID, complete)
+    local quest = Quest(questID)
+    local utils = Module("TrackerUtils")
+    if not (quest and utils and type(utils.GetQuestItemIds) == "function") then return nil end
+    local ok, ids = pcall(utils.GetQuestItemIds, quest, complete and 1 or 0)
+    return ok and type(ids) == "table" and ids or nil
+end
+
+-- fn() after Questie's own quest updates (objective progress, accept, turn-in)
+function Bridge.OnQuestUpdate(fn)
+    Bridge.OnReady(function()
+        local api = G("Questie").API
+        if type(api.RegisterForQuestUpdates) == "function" then
+            api.RegisterForQuestUpdates(function() wipe(nearestCache) fn() end)
+        end
+        fn()
+    end)
+end
+
+-- Direction to a target from the player, relative to the facing (radians, 0 = straight ahead,
+-- counter-clockwise) or nil (no position in instances, facing restricted, other continent)
+function Bridge.Direction(target)
+    local hbd = LibStub and LibStub("HereBeDragonsQuestie-2.0", true)
+    if not (hbd and target and target.uiMapID and target.yards) then return nil end
+    local px, py, instance = hbd:GetPlayerWorldPosition()
+    if issecretvalue(px) or issecretvalue(py) or not (px and py) then return nil end
+    local tx, ty, tInstance = hbd:GetWorldCoordinatesFromZone(target.x / 100, target.y / 100, target.uiMapID)
+    if not tx or instance ~= tInstance then return nil end
+    local angle = hbd:GetWorldVector(instance, px, py, tx, ty)
+    local facing = GetPlayerFacing()
+    if issecretvalue(facing) or not (angle and facing) then return nil end
+    return angle - facing
+end
+
 -- Setup -------------------------------------------------------------------------------------------
 
 local function OnQuestieReady()

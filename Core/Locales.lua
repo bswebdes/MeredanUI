@@ -1489,4 +1489,7 @@ if GetLocale() == "deDE" then
     L["Click: hide Questie icons"] = "Klick: Questie-Symbole ausblenden"
     L["Click: show Questie icons"] = "Klick: Questie-Symbole einblenden"
     L["Right-click: Questie menu"] = "Rechtsklick: Questie-Menü"
+    L["Turn in: %s"] = "Abgabe: %s"
+    L["%d yd"] = "%d m"
+    L["Click: show on map"] = "Klick: auf der Karte zeigen"
 end
