@@ -377,7 +377,8 @@ end
 -- Secret names stay as they are.
 local UTF8_CHAR = "^[%z\1-\127\194-\244][\128-\191]*"
 local nameProbe
-local shortNames = {}
+local shortNames, shortCount = {}, 0
+local SHORT_MAX = 500 -- nameplates bring new names all the time: start over at the cap
 
 -- maxWidth optional: nameplates must not be measured, so the width is passed in.
 function ns.ShortenName(name, fontString, maxWidth)
@@ -407,6 +408,11 @@ function ns.ShortenName(name, fontString, maxWidth)
             result = table.concat(words, " ")
             if Fits(result) then break end
         end
+    end
+    shortCount = shortCount + 1
+    if shortCount > SHORT_MAX then
+        wipe(shortNames)
+        shortCount = 1
     end
     shortNames[key] = result
     return result

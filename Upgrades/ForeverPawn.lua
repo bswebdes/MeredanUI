@@ -103,7 +103,8 @@ local function ReadTooltip(link, stats)
 end
 
 -- Item stats (nil = data not loaded yet); second return value: wearable?
-local itemCache = {}
+local itemCache, itemCount = {}, 0
+local ITEM_MAX = 1000 -- auction house browsing adds hundreds of links: start over at the cap
 local function ItemStats(link)
     local cached = itemCache[link]
     if cached then return cached.stats, cached.usable end
@@ -127,6 +128,11 @@ local function ItemStats(link)
         end
     end
     local usable = ReadTooltip(link, stats)
+    itemCount = itemCount + 1
+    if itemCount > ITEM_MAX then
+        wipe(itemCache)
+        itemCount = 1
+    end
     itemCache[link] = { stats = stats, usable = usable }
     return stats, usable
 end

@@ -300,6 +300,7 @@ end
 
 -- Item level via inspect, cached per GUID for a while
 local inspectCache = {}
+local inspectCount = 0
 local pendingGUID
 
 -- Blizzard already shows the spec ("Assassination Rogue") - only add the item level
@@ -553,6 +554,15 @@ ns:On("INSPECT_READY", function(_, guid)
     local info = { time = GetTime() }
     local ilvl = C_PaperDollInfo.GetInspectItemLevel(unit)
     if Readable(ilvl) and ilvl > 0 then info.ilvl = math.floor(ilvl) end
+    -- drop expired entries now and then (the cache was never cleaned)
+    inspectCount = (inspectCount or 0) + 1
+    if inspectCount >= 50 then
+        inspectCount = 0
+        local now = GetTime()
+        for key, entry in pairs(inspectCache) do
+            if now - entry.time >= INSPECT_CACHE_SECONDS then inspectCache[key] = nil end
+        end
+    end
     inspectCache[guid] = info
     local _, shownUnit = GameTooltip:GetUnit()
     if GameTooltip:IsShown() and Readable(shownUnit) then
