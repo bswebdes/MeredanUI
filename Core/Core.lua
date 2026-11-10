@@ -212,6 +212,7 @@ local DEFAULTS = {
     questAutoAccept = false,     -- Comfort: accept available quests (NPC/AutoQuest.lua, Shift pauses)
     questAutoTurnIn = false,     -- Comfort: hand in finished quests (no reward choice, no costs)
     questAutoGossip = false,     -- Comfort: pick the only chat option of an NPC without quests
+    questBestReward = true,      -- Comfort: coin on the choice reward with the highest vendor value (NPC/Quest.lua)
     autoRole = true,             -- confirm role check with the spec role
     readyCheckReminder = true,   -- ready check: toast when food/flask/rune is missing
     durabilityWarning = true,    -- toast when an item drops below 20% durability

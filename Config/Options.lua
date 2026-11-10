@@ -925,6 +925,8 @@ if ns.IS_FOREVER then
                 Help(L["Grey quests are skipped. Hold Shift to talk normally."]))
             page:AddCheckbox(L["Hand in quests automatically"], Getter("questAutoTurnIn"), Setter("questAutoTurnIn"),
                 Help(L["Not when you have to pick a reward or the quest costs gold or materials."]))
+            page:AddCheckbox(L["Mark the most valuable reward"], On("questBestReward"), Setter("questBestReward"),
+                Help(L["Gold coin on the reward that sells for the most."]))
             page:AddCheckbox(L["Skip single conversation options"], Getter("questAutoGossip"), Setter("questAutoGossip"),
                 Help(L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."]))
             if ns.Questie and ns.Questie.IsLoaded() then

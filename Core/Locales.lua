@@ -1546,4 +1546,7 @@ if GetLocale() == "deDE" then
     L["Not when you have to pick a reward or the quest costs gold or materials."] = "Nicht, wenn du eine Belohnung wählen musst oder die Quest Gold oder Material kostet."
     L["Skip single conversation options"] = "Einzelne Gesprächsoptionen überspringen"
     L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."] = "NPCs ohne Quests mit nur einer Gesprächsoption. Nie Händler, Lehrer oder Flugmeister."
+    L["Highest sell value"] = "Höchster Verkaufswert"
+    L["Mark the most valuable reward"] = "Wertvollste Belohnung markieren"
+    L["Gold coin on the reward that sells for the most."] = "Goldmünze an der Belohnung, die beim Händler am meisten bringt."
 end

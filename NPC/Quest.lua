@@ -16,6 +16,7 @@ local primary, secondary
 local cards = {}
 local mode       -- "detail", "progress", "complete"
 local choice     -- picked reward index
+local bestChoice -- choice with the highest vendor value (Comfort)
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.questWindow ~= false
@@ -58,10 +59,17 @@ local function Card(i)
     card.sub = UI.Text(card, 11, "LEFT", UI.MUTED)
     card.sub:SetPoint("BOTTOMLEFT", holder, "BOTTOMRIGHT", 10, 3)
     card.sub:SetPoint("RIGHT", -8, 0)
+    -- Comfort: coin on the choice with the highest vendor value
+    card.coin = card:CreateTexture(nil, "OVERLAY")
+    card.coin:SetSize(14, 14)
+    card.coin:SetPoint("TOPRIGHT", -6, -6)
+    card.coin:SetAtlas("coin-gold-20x20")
+    card.coin:Hide()
     card:SetScript("OnEnter", function(self)
         self.bg:SetColorTexture(unpack(ns.PARCHMENT_CARD_HOVER))
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetQuestItem(self.kind, self.index)
+        if self.coin:IsShown() then GameTooltip:AddLine(L["Highest sell value"], 1, 0.82, 0) end
         ns.ShowItemCompare(GameTooltip)
         GameTooltip:Show()
         self.UpdateTooltip = self:GetScript("OnEnter") -- refresh compare when shift changes while hovering
@@ -112,6 +120,20 @@ local function ItemEntries(kind, num)
     return entries
 end
 
+-- Index of the choice reward worth the most at a vendor (nil: not shown / unknown / all worthless)
+local function BestChoice(choices)
+    if #choices < 2 or (ns.db and ns.db.questBestReward == false) then return nil end
+    local best, bestValue = nil, 0
+    for _, item in ipairs(choices) do
+        local link = GetQuestItemLink(item.kind, item.index)
+        local price = link and select(11, C_Item.GetItemInfo(link))
+        if not price then return nil end -- item data not loaded yet: GET_ITEM_INFO_RECEIVED relayouts
+        local value = price * math.max(item.count or 1, 1)
+        if value > bestValue then best, bestValue = item.index, value end
+    end
+    return best
+end
+
 local function Layout()
     if not (window and window:IsShown()) then return end
     local UI = ns.UI
@@ -154,12 +176,14 @@ local function Layout()
 
     -- Cards: required items on progress, otherwise rewards (choices + fixed)
     local groups = {}
+    bestChoice = nil
     if mode == "progress" then
         local items = ItemEntries("required", GetNumQuestItems())
         if #items > 0 then groups[#groups + 1] = { title = L["Required"], items = items } end
     else
         local choices = ItemEntries("choice", GetNumQuestChoices())
         if #choices == 1 then choice = 1 end
+        bestChoice = BestChoice(choices)
         if #choices > 0 then
             groups[#groups + 1] = { title = #choices > 1 and L["Choose a reward"] or L["You receive"], items = choices, pick = #choices > 1 }
         end
@@ -191,6 +215,7 @@ local function Layout()
             card.sub:SetText(item.sub)
             local picked = group.pick and choice == item.index and item.kind == "choice"
             for _, e in ipairs(card.pick) do e:SetShown(picked) end
+            card.coin:SetShown(item.kind == "choice" and bestChoice == item.index)
             card:SetWidth(cardW)
             card:ClearAllPoints()
             local col, row = (i - 1) % 2, math.floor((i - 1) / 2)
