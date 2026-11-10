@@ -1,7 +1,7 @@
 -- Small group helpers:
 --   - Auto-accept invites from friends (incl. Battle.net) and guild members (default off).
 --   - Role poll: auto-confirm your current spec role.
---   - Ready check: toast when food, flask or augment rune is missing.
+--   - Ready check: toast when food, flask or augment rune is missing (Forever: food, elixir or flask).
 local _, ns = ...
 local L = ns.L
 
@@ -41,7 +41,9 @@ end)
 -- Ready check ----------------------------------------------------------------------------------
 
 local FOOD_ICON = 136000 -- "Well Fed" icon, used by almost all food buffs
-local FLASK_NAMES = { "Flask", "Phial", "Fläschchen", "Phiole" }
+-- Forever: classic elixirs count like flasks (battle/guardian elixirs, Flask of the Titans ...)
+local FLASK_NAMES = ns.IS_FOREVER and { "Flask", "Fläschchen", "Elixir", "Elixier" }
+    or { "Flask", "Phial", "Fläschchen", "Phiole" }
 local RUNE_NAMES = { "Augment", "Augmentation" }
 
 local function HasAny(name, list)
@@ -66,8 +68,8 @@ local function MissingConsumables()
     end
     local missing = {}
     if not food then missing[#missing + 1] = L["Food"] end
-    if not flask then missing[#missing + 1] = L["Flask"] end
-    if not rune then missing[#missing + 1] = L["Augment rune"] end
+    if not flask then missing[#missing + 1] = ns.IS_FOREVER and L["Elixir or flask"] or L["Flask"] end
+    if not rune and not ns.IS_FOREVER then missing[#missing + 1] = L["Augment rune"] end -- no runes in Forever
     return missing
 end
 

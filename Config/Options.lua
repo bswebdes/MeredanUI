@@ -604,6 +604,8 @@ local PAGES = {
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Class trainer reminder"], On("trainerReminder"), Setter("trainerReminder"),
                     Help(L["On level-up: one notification when new spells are waiting at your class trainer."]))
+                page:AddCheckbox(L["Buff reminder"], On("buffReminder"), Setter("buffReminder"),
+                    Help(L["Your class buffs missing or with an old rank, weapon oil or stone run out. Not in combat or in cities."]))
                 page:AddCheckbox(L["Profession reminder"], On("professionReminder"), Setter("professionReminder"),
                     Help(L["One notification when you can learn the next rank of a profession at the trainer – before the skill is capped."]))
             end

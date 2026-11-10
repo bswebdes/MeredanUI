@@ -1557,4 +1557,12 @@ if GetLocale() == "deDE" then
     L["Decline duels"] = "Duelle ablehnen"
     L["Friends and guild members can still ask."] = "Freunde und Gildenmitglieder dürfen trotzdem fragen."
     L["Skip cinematics you have seen"] = "Bekannte Filme überspringen"
+    L["%s (old rank)"] = "%s (alter Rang)"
+    L["Buff missing"] = "Buff fehlt"
+    L["Weapon enchant expired"] = "Waffenverzauberung abgelaufen"
+    L["Main hand"] = "Waffenhand"
+    L["Off hand"] = "Schildhand"
+    L["Elixir or flask"] = "Elixier oder Fläschchen"
+    L["Buff reminder"] = "Buff-Erinnerung"
+    L["Your class buffs missing or with an old rank, weapon oil or stone run out. Not in combat or in cities."] = "Eigene Klassen-Buffs fehlen oder haben einen alten Rang, Waffenöl oder Wetzstein ist abgelaufen. Nicht im Kampf und nicht in Städten."
 end

@@ -150,6 +150,7 @@ Toasts/ShardTransfer.lua
 Toasts/CombatAlert.lua
 Toasts/Extras.lua
 Toasts/ProfessionReminder.lua
+Toasts/BuffReminder.lua
 BossMods/BossMods.lua
 DamageMeter/DamageMeter.lua
 CombatText/CombatText.lua

@@ -216,6 +216,7 @@ local DEFAULTS = {
     autoResurrect = false,       -- Comfort: accept resurrections unless the caster is in combat
     declineDuels = false,        -- Comfort: decline duels (not from friends/guild)
     skipCinematics = false,      -- Comfort: skip movies/cinematics seen before
+    buffReminder = true,         -- Comfort, Forever: missing/outdated class buffs, expired weapon enchant (Toasts/BuffReminder.lua)
     questBestReward = true,      -- Comfort: coin on the choice reward with the highest vendor value (NPC/Quest.lua)
     autoRole = true,             -- confirm role check with the spec role
     readyCheckReminder = true,   -- ready check: toast when food/flask/rune is missing

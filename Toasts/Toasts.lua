@@ -569,6 +569,9 @@ local function DemoActions()
             text = L["%s can be learned at the trainer"]:format(L["Journeyman"]) },
         { demo = true, title = "Uther#4711", color = { 0.6, 0.59, 0.56 }, icon = ns.MEDIA .. "Icons\\Friends",
             text = BN_TOAST_OFFLINE or "offline" },
+        -- buff reminder (Toasts/BuffReminder.lua, Forever)
+        { demo = true, title = L["Buff missing"], text = "Arkane Intelligenz, " .. L["%s (old rank)"]:format("Frostrüstung"),
+            icon = 135932, color = { 1, 0.82, 0 } },
         { demo = true, title = L["New mount"], text = "Sturmkrallengreif", icon = 132265, color = accent },
         { demo = true, title = L["Quest completed"], text = "Ein Sturm zieht auf", icon = 236669, color = { 1, 0.82, 0 }, countText = "12.500 EP" },
     }
