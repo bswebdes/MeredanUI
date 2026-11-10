@@ -100,17 +100,43 @@ local function Bool(value) -- nil -> false, without touching secret values
     return value and true or false
 end
 
--- Color from a (possibly secret) boolean: Blizzard evaluates, we never read it
-local function Pick(bool, ifTrue, ifFalse)
+-- Color from a (possibly secret) boolean: Blizzard evaluates, we never read it.
+-- Returns r, g, b (no table: runs every 0.1 s per casting plate).
+local function Pick(bool, ifTrue, r, g, b)
     local E = C_CurveUtil.EvaluateColorValueFromBoolean
-    return { E(bool, ifTrue[1], ifFalse[1]), E(bool, ifTrue[2], ifFalse[2]), E(bool, ifTrue[3], ifFalse[3]) }
+    return E(bool, ifTrue[1], r), E(bool, ifTrue[2], g), E(bool, ifTrue[3], b)
 end
 
+-- Spec role is cached (threat colors ask per plate and threat event); reset on spec change
+local specTank
 local function IsTank()
     if ns.LayoutFlag and ns.LayoutFlag("tank") then return true end -- layout "Tank" (secret-safe)
-    local spec = C_SpecializationInfo.GetSpecialization()
-    local role = spec and select(5, C_SpecializationInfo.GetSpecializationInfo(spec))
-    return role == "TANK"
+    if specTank == nil then
+        local spec = C_SpecializationInfo.GetSpecialization()
+        local role = spec and select(5, C_SpecializationInfo.GetSpecializationInfo(spec))
+        specTank = role == "TANK"
+    end
+    return specTank
+end
+for _, event in ipairs({ "PLAYER_SPECIALIZATION_CHANGED", "ACTIVE_TALENT_GROUP_CHANGED", "PLAYER_ENTERING_WORLD" }) do
+    ns:On(event, function() specTank = nil end)
+end
+
+-- Other tanks in the group, rebuilt on roster/role changes instead of per threat check
+local otherTanks = {}
+local function UpdateOtherTanks()
+    wipe(otherTanks)
+    local raid = IsInRaid()
+    for i = 1, GetNumGroupMembers() do
+        local member = (raid and "raid" or "party") .. i
+        if UnitExists(member) and not UnitIsUnit(member, "player") then
+            local role = UnitGroupRolesAssigned(member)
+            if Readable(role) and role == "TANK" then otherTanks[#otherTanks + 1] = member end
+        end
+    end
+end
+for _, event in ipairs({ "GROUP_ROSTER_UPDATE", "PLAYER_ROLES_ASSIGNED", "PLAYER_ENTERING_WORLD" }) do
+    ns:On(event, UpdateOtherTanks)
 end
 
 -- Enemy type: boss, lieutenant, caster (has mana), melee, trivial
@@ -139,13 +165,9 @@ local function ThreatColor(unit)
         if status == 1 or status == 2 then return C.transition end
         if status == nil or status == 0 then
             -- Does another tank have aggro? Then teal, else red (lost)
-            for i = 1, GetNumGroupMembers() do
-                local member = (IsInRaid() and "raid" or "party") .. i
-                if UnitExists(member) and not UnitIsUnit(member, "player")
-                    and UnitGroupRolesAssigned(member) == "TANK" then
-                    local other = UnitThreatSituation(member, unit)
-                    if Readable(other) and other == 3 then return C.offtank end
-                end
+            for _, member in ipairs(otherTanks) do
+                local other = UnitThreatSituation(member, unit)
+                if Readable(other) and other == 3 then return C.offtank end
             end
             return C.warning
         end
@@ -187,15 +209,30 @@ end
 -- Castbar color: uninterruptible (gray) > your interrupt is ready (green) > normal (yellow,
 -- channel blue). Important spells additionally get a pulsing orange border, so every piece of
 -- information stays visible.
-local function UpdateCastColor(castbar)
-    local color = castbar.muiChannel and C.channel or C.cast
-    if kickSpell then
-        local duration = C_Spell.GetSpellCooldownDuration(kickSpell, true)
-        if duration then color = Pick(duration:IsZero(), C.kickReady, color) end
+-- Interrupt cooldown: asked once per frame, shared by all casting plates
+-- IsZero() may be secret: never tested here, only handed to Pick (has = whether there is one)
+local kickAt, kickHas, kickReady
+local function KickReady()
+    local now = GetTime()
+    if kickAt ~= now then
+        kickAt = now
+        local duration = kickSpell and C_Spell.GetSpellCooldownDuration(kickSpell, true)
+        kickHas = duration and true or false
+        if kickHas then kickReady = duration:IsZero() else kickReady = false end
     end
-    color = Pick(Bool(castbar.muiNotInterruptible), C.uninterruptible, color)
-    castbar:SetStatusBarColor(color[1], color[2], color[3])
-    if castbar.importantGlow then
+    return kickHas, kickReady
+end
+
+-- full = cast start/change: also the "important spell" glow (fixed per cast); the 0.1 s
+-- refresh only updates the colors and the "targets you" glow
+local function UpdateCastColor(castbar, full)
+    local base = castbar.muiChannel and C.channel or C.cast
+    local r, g, b = base[1], base[2], base[3]
+    local has, ready = KickReady()
+    if has then r, g, b = Pick(ready, C.kickReady, r, g, b) end
+    r, g, b = Pick(Bool(castbar.muiNotInterruptible), C.uninterruptible, r, g, b)
+    castbar:SetStatusBarColor(r, g, b)
+    if full and castbar.importantGlow then
         -- spellID may be secret: never test it directly, only pass it to Blizzard
         local id, important = castbar.muiSpellID, false
         if issecretvalue(id) or id then important = Bool(C_Spell.IsSpellImportant(id)) end
@@ -242,11 +279,18 @@ local function UpdateAlpha(frame)
     if hasTarget and not (Readable(isTarget) and isTarget) and not casting and not frame.hovered then
         alpha = DIM_ALPHA
     end
-    frame:SetAlpha(alpha)
+    if frame.muiAlpha ~= alpha then
+        frame.muiAlpha = alpha
+        frame:SetAlpha(alpha)
+    end
     local target = Readable(isTarget) and isTarget or false
     frame.targetBorder:SetShown(target)
     -- Scale around the center (oUF frame fills the plate, content is anchored centrally)
-    frame:SetScale(target and TARGET_SCALE or 1)
+    local scale = target and TARGET_SCALE or 1
+    if frame.muiScale ~= scale then
+        frame.muiScale = scale
+        frame:SetScale(scale)
+    end
     frame.hoverGlow:SetShown(frame.hovered or false)
 end
 
@@ -399,13 +443,13 @@ local function Style(self, unit)
         bar.muiChannel = issecretvalue(channel) or channel ~= nil
         bar.muiSpellID = spellID
         bar.muiNotInterruptible = notInterruptible
-        UpdateCastColor(bar)
+        UpdateCastColor(bar, true)
         UpdateKickTick(bar)
         UpdateAlpha(self)
     end
     castbar.PostCastInterruptible = function(bar, _, _, notInterruptible)
         bar.muiNotInterruptible = notInterruptible
-        UpdateCastColor(bar)
+        UpdateCastColor(bar, true)
     end
     castbar.PostCastStop = function() UpdateAlpha(self) end
     castbar.PostCastFail = function(bar)
@@ -483,7 +527,46 @@ end
 -- Progress of the first open quest objective from Blizzard's unit tooltip data
 -- ("3/8 Kobolds slain" -> "3/8", "Area liberated: 45 %" -> "45%"). Secret -> nothing.
 local QUEST_LINE = Enum.TooltipDataLineType.QuestObjective
-local function QuestProgress(unit)
+
+-- Tooltip scans are cached: quest progress per GUID until the next quest update, NPC titles per
+-- NPC ID, pet owners per GUID. GUIDs may be secret (instances): then no cache, scan as before.
+local progressCache, titleCache, ownerCache, cacheCount = {}, {}, {}, 0
+local NONE = false -- cached "nothing found"
+local function CacheKey(unit, npcOnly)
+    local guid = UnitGUID(unit)
+    if not guid or not Readable(guid) then return end
+    if npcOnly then
+        local kind, _, _, _, _, npcID = strsplit("-", guid)
+        if kind ~= "Creature" and kind ~= "Vehicle" then return end
+        return npcID
+    end
+    return guid
+end
+local function CacheStore(cache, key, value)
+    cacheCount = cacheCount + 1
+    if cacheCount > 600 then -- cap: busy cities would grow it forever
+        wipe(progressCache); wipe(titleCache); wipe(ownerCache)
+        cacheCount = 0
+    end
+    if value == nil then cache[key] = NONE else cache[key] = value end
+end
+local function Cached(cache, key, scan, unit)
+    if not key then return scan(unit) end
+    local value = cache[key]
+    if value == nil then
+        value = scan(unit)
+        CacheStore(cache, key, value)
+        return value
+    end
+    if value == NONE then return nil end
+    return value
+end
+ns:On("PLAYER_ENTERING_WORLD", function()
+    wipe(progressCache); wipe(titleCache); wipe(ownerCache)
+    cacheCount = 0
+end)
+
+local function ScanQuestProgress(unit)
     local data = C_TooltipInfo.GetUnit(unit)
     if not Readable(data) or not data or not Readable(data.lines) or not data.lines then return end
     for _, line in ipairs(data.lines) do
@@ -497,6 +580,7 @@ local function QuestProgress(unit)
         end
     end
 end
+local function QuestProgress(unit) return Cached(progressCache, CacheKey(unit), ScanQuestProgress, unit) end
 
 -- Rare/elite icon like Blizzard's plates (NamePlateClassificationFrameMixin)
 local function ClassificationAtlas(unit)
@@ -687,7 +771,7 @@ local function OwnerPatterns()
     return OWNER_PATTERNS
 end
 
-local function PetOwner(unit)
+local function ScanPetOwner(unit)
     if not (C_TooltipInfo and C_TooltipInfo.GetUnit) then return end
     local ok, data = pcall(C_TooltipInfo.GetUnit, unit)
     local lines = ok and data and data.lines
@@ -706,7 +790,7 @@ end
 local FRIENDLY_NAME_SIZE = { small = 12, medium = 14, large = 16 } -- "Name size" setting
 
 -- NPC title from the tooltip line below the name ("Mining Trainer"); level lines don't count
-local function NpcTitle(unit)
+local function ScanNpcTitle(unit)
     if not (C_TooltipInfo and C_TooltipInfo.GetUnit) then return end
     local ok, data = pcall(C_TooltipInfo.GetUnit, unit)
     local line = ok and data and data.lines and data.lines[2]
@@ -715,6 +799,8 @@ local function NpcTitle(unit)
     if text:find("%d") then return end -- "Level 30", "Level 12 Humanoid"
     return text
 end
+local function PetOwner(unit) return Cached(ownerCache, CacheKey(unit), ScanPetOwner, unit) end
+local function NpcTitle(unit) return Cached(titleCache, CacheKey(unit, true), ScanNpcTitle, unit) end
 
 -- German genitive ("Kalitheras" / "Mox'") on deDE, otherwise "Kalithera's pet"
 local function PetTitle(owner)
@@ -917,6 +1003,7 @@ local function QueueQuestUpdate()
     questPending = true
     C_Timer.After(0.2, function()
         questPending = false
+        wipe(progressCache) -- progress changed: scan again
         for frame in pairs(plates) do if UnitOf(frame) then UpdateNamePrefix(frame) end end
     end)
 end
@@ -927,13 +1014,33 @@ ns:On("UNIT_QUEST_LOG_CHANGED", function(_, unit) if unit == "player" then Queue
 ns:On("SCENARIO_CRITERIA_UPDATE", function()
     for frame in pairs(plates) do if UnitOf(frame) then UpdateForces(frame) end end
 end)
-for _, event in ipairs({ "PLAYER_REGEN_DISABLED", "PLAYER_REGEN_ENABLED", "UNIT_THREAT_LIST_UPDATE" }) do
-    ns:On(event, function()
-        for frame in pairs(plates) do
-            if UnitOf(frame) and not frame.isFriendly then UpdateHealthColor(frame) end
-        end
-    end)
+local function RecolorAll()
+    for frame in pairs(plates) do
+        if UnitOf(frame) and not frame.isFriendly then UpdateHealthColor(frame) end
+    end
 end
+ns:On("PLAYER_REGEN_DISABLED", RecolorAll)
+ns:On("PLAYER_REGEN_ENABLED", RecolorAll)
+-- Threat changes come per mob: recolor only that plate. Other tokens (target, boss1 ...) or
+-- events without unit: one batched pass over all plates (threat events are unreliable in
+-- Forever, so nothing is dropped).
+local recolorPending = false
+ns:On("UNIT_THREAT_LIST_UPDATE", function(_, unit)
+    if unit then
+        for frame in pairs(plates) do
+            if UnitOf(frame) == unit then
+                if not frame.isFriendly then UpdateHealthColor(frame) end
+                return
+            end
+        end
+    end
+    if recolorPending then return end
+    recolorPending = true
+    C_Timer.After(0.2, function()
+        recolorPending = false
+        RecolorAll()
+    end)
+end)
 
 -- Mouse over a plate: there is no "mouse left" event, so poll briefly
 local hoverTicker
