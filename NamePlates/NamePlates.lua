@@ -205,6 +205,7 @@ local function UpdateHealthColor(self, event, unit)
     self.Health:SetStatusBarColor(color[1], color[2], color[3])
     ns.ColorBarBackground(self.Health)
 end
+UpdateHealthColor = ns.PerfProbe("Plates: health color", UpdateHealthColor)
 
 -- Castbar color: uninterruptible (gray) > your interrupt is ready (green) > normal (yellow,
 -- channel blue). Important spells additionally get a pulsing orange border, so every piece of
@@ -244,6 +245,7 @@ local function UpdateCastColor(castbar, full)
         castbar.targetGlow:SetAlphaFromBoolean(Bool(ok and targetsMe), 1, 0)
     end
 end
+UpdateCastColor = ns.PerfProbe("Plates: cast color", UpdateCastColor)
 
 -- Interrupt tick: white line on the castbar where your interrupt becomes ready again.
 -- Cooldown and cast time may be secret, so an invisible helper bar (max = cast time,
@@ -642,6 +644,7 @@ local function UpdateNamePrefix(frame)
     name:ClearAllPoints()
     name:SetPoint("LEFT", frame.Health, "LEFT", offset, 0)
 end
+UpdateNamePrefix = ns.PerfProbe("Plates: name prefix", UpdateNamePrefix)
 
 -- M+ forces (computed by Blizzard; active keystones and enemies only)
 local function UpdateForces(frame)
@@ -863,6 +866,7 @@ local function ApplyFriendly(frame, unit)
         frame.PercentText:Show()
     end
 end
+ApplyFriendly = ns.PerfProbe("Plates: friendly", ApplyFriendly)
 
 oUF:RegisterStyle("MeredanPlate", Style)
 

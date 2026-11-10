@@ -51,6 +51,7 @@ local function UpdateQuestXP()
     questXP.complete, questXP.incomplete = complete, incomplete
     questXP.completeCount, questXP.incompleteCount = completeCount, incompleteCount
 end
+UpdateQuestXP = ns.PerfProbe("XP bar: quest XP", UpdateQuestXP)
 
 -- XP gained this session (also across level-ups); kills are counted via the combat XP message.
 local function TrackXP()

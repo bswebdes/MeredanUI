@@ -123,6 +123,7 @@ local function Update()
     if isTanking then return Show(100, true) end -- you have aggro
     Show(scaled or 0)
 end
+Update = ns.PerfProbe("Threat bar", Update)
 
 local function Create()
     bar = CreateFrame("StatusBar", "MeredanUIThreatBar", UIParent)

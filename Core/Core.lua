@@ -60,11 +60,27 @@ local SafeCall = securecallfunction or function(fn, ...)
     if not ok then geterrorhandler()(err) end
 end
 local eventFrame = CreateFrame("Frame")
-eventFrame:SetScript("OnEvent", function(_, event, ...)
+local function Dispatch(_, event, ...)
     local list = handlers[event]
     if not list then return end
     for i = 1, #list do SafeCall(list[i], event, ...) end
-end)
+end
+eventFrame:SetScript("OnEvent", Dispatch)
+
+-- Measurement (/mui perf, Core/Perf.lua): while a sink is set the dispatcher is swapped for a
+-- timed one; otherwise there is no extra cost at all.
+local eventSink
+local function DispatchTimed(_, event, ...)
+    local list = handlers[event]
+    if not list then return end
+    local start = debugprofilestop()
+    for i = 1, #list do SafeCall(list[i], event, ...) end
+    eventSink(event, debugprofilestop() - start)
+end
+function ns.SetEventSink(sink)
+    eventSink = sink
+    eventFrame:SetScript("OnEvent", sink and DispatchTimed or Dispatch)
+end
 
 function ns:On(event, fn)
     if not handlers[event] then

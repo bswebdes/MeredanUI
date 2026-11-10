@@ -628,6 +628,7 @@ local function UpdateNextDistance()
         end
     end
 end
+UpdateNextDistance = ns.PerfProbe("Tracker: distance", UpdateNextDistance)
 
 -- Re-anchoring only when the arrow appears/disappears (it runs ~20x per second)
 local function SetArrowShown(dist, on)
@@ -658,6 +659,7 @@ local function UpdateArrow(full)
     SetArrowShown(dist, angle ~= nil)
     if angle then dist.arrow:SetRotation(angle + math.pi) end -- chevron art points down
 end
+UpdateArrow = ns.PerfProbe("Tracker: arrow", UpdateArrow)
 
 -- A quest's objectives: lines (text) and optional percent for the bar
 local function QuestGoals(questID, logIndex, complete, failed)
@@ -1158,6 +1160,7 @@ local function Layout()
     hasItems = #items > 1
     PickBarItems(true)
 end
+Layout = ns.PerfProbe("Tracker: layout", Layout)
 
 -- Batched: quest/bag events come in bursts (kills, loot), one rebuild per 0.2 s is enough
 local function Refresh()
