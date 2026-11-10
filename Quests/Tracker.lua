@@ -312,8 +312,8 @@ local function Row(i)
     -- Questie: nearest objective / turn-in with distance; click opens the map there
     row.dist = CreateFrame("Button", nil, row)
     row.dist:SetHeight(14)
-    -- same filled arrow as the upgrade marker in bags: reads better than the thin chevron
-    row.dist.arrow = UI.Icon(row.dist, "Upgrade", 14, ns.UPGRADE_COLOR or UI.ACCENT)
+    -- navigation arrow, coloured by distance (DistanceColor)
+    row.dist.arrow = UI.Icon(row.dist, "Navigation", 15, UI.ACCENT)
     row.dist.arrow:SetPoint("LEFT", 0, 0)
     row.dist.text = UI.Text(row.dist, 12, "LEFT", UI.MUTED)
     row.dist.text:SetWordWrap(false)
@@ -591,6 +591,17 @@ end
 
 -- Questie target line: "Objective · 320 yd (Zone)"; complete quests only the distance (the turn-in
 -- line above already names NPC and zone)
+-- Arrow colour by distance: green when close, yellow around 500 yd, red from 1500 yd
+local NEAR, MID, FAR = { 0.44, 0.80, 0.45 }, { 0.92, 0.77, 0.36 }, { 0.88, 0.38, 0.32 }
+local function DistanceColor(yards)
+    local from, to, t
+    if yards <= 100 then return unpack(NEAR) end
+    if yards <= 500 then from, to, t = NEAR, MID, (yards - 100) / 400
+    elseif yards < 1500 then from, to, t = MID, FAR, (yards - 500) / 1000
+    else return unpack(FAR) end
+    return from[1] + (to[1] - from[1]) * t, from[2] + (to[2] - from[2]) * t, from[3] + (to[3] - from[3]) * t
+end
+
 local function UpdateDistance(row)
     local target, dist = row.dist.target, row.dist
     if not target then return end
@@ -600,6 +611,7 @@ local function UpdateDistance(row)
     if not dist.complete and target.zone and target.zone ~= GetZoneText() then
         text = text .. (text ~= "" and "  " or "") .. "(" .. target.zone .. ")"
     end
+    if target.yards then dist.arrow:SetVertexColor(DistanceColor(target.yards)) end
     dist.text:SetText(text)
 end
 
@@ -658,7 +670,7 @@ local function UpdateArrow(full)
         angle = ok and a or nil
     end
     SetArrowShown(dist, angle ~= nil)
-    if angle then dist.arrow:SetRotation(angle) end -- upgrade art points up
+    if angle then dist.arrow:SetRotation(angle) end -- art points up
 end
 UpdateArrow = ns.PerfProbe("Tracker: arrow", UpdateArrow)
 
