@@ -287,7 +287,7 @@ local function ClassIconMarkup(unit)
     local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
     if not (C_Texture.GetAtlasInfo(atlas)) then atlas = "groupfinder-icon-class-" .. class:lower() end
     if not (C_Texture.GetAtlasInfo(atlas)) then return end
-    return CreateAtlasMarkup(atlas, 14, 14, 0, 1)
+    return CreateAtlasMarkup(atlas, 18, 18, 0, -1)
 end
 
 local function UnitColor(unit)
