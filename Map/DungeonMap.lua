@@ -1,9 +1,9 @@
 -- Dungeon maps inside the mUI world map (WoW Forever has no dungeon maps of its own).
--- Clicking a dungeon swirl (Map/MapExtras.lua) shows the dungeon on the map area, with floor tabs;
+-- Clicking a dungeon swirl (Map/MapExtras.lua) shows the dungeon on the map area, with a floor dropdown;
 -- right-click or the back arrow returns to the zone. Inside an instance the map opens on it.
 --
 --   +- map area -------------------------------------------------+
---   | [<] Blackrock Depths   [Detention Block] [Shadowforge City] |
+--   | [<] Blackrock Depths   [Detention Block v]                   |
 --   |                                                            |
 --   |                 Blizzard's drawn dungeon map               |
 --   +------------------------------------------------------------+
@@ -20,10 +20,12 @@ local LAYER_W, LAYER_H, TILE = 1002, 668, 256
 local view = {}
 ns.DungeonMapView = view
 
+-- A floor named like the instance itself (Dire Maul's wing overview) reads as "Overview"
 local function FloorName(instance, floor)
     local name = GetLocale() == "deDE" and floor.de or floor.en
-    if name and name ~= "" then return name end
-    return GetRealZoneText and GetRealZoneText(instance) or ""
+    local zone = GetRealZoneText and GetRealZoneText(instance) or ""
+    if not name or name == "" or name == zone then return L["Overview"] end
+    return name
 end
 
 -- Fit the 3:2 map into the area (letterbox if the area isn't exactly 3:2)
@@ -74,51 +76,15 @@ local function ShowFloor(index)
     view.art:SetPoint("TOPLEFT", area, "TOPLEFT", ox, -oy)
     view.art:SetSize(LAYER_W * s, LAYER_H * s)
     view.credit:SetShown(floor.credit == true)
-    for i, chip in ipairs(view.chips) do
-        local on = i == index
-        for _, e in ipairs(chip.edges) do e:SetShown(on) end
-        chip.text:SetTextColor(unpack(on and ns.UI.ACCENT or ns.UI.TEXT))
+    local count = #ns.DUNGEON_MAPS[view.instance]
+    local drop = view.floorDrop
+    drop:SetShown(count > 1)
+    if count > 1 then
+        drop.text:SetText(FloorName(view.instance, floor))
+        drop:SetWidth(drop.text:GetUnboundedStringWidth() + 38)
     end
     if view.onChange then view.onChange() end
     if ns.DungeonPins then ns.DungeonPins.Refresh() end
-end
-
-local function LayoutChips()
-    local data = ns.DUNGEON_MAPS[view.instance]
-    local UI = ns.UI
-    local prev = view.plate
-    for i = 1, math.max(#data, #view.chips) do
-        local chip = view.chips[i]
-        if i <= #data and #data > 1 then
-            if not chip then
-                chip = CreateFrame("Button", nil, view.bar)
-                chip:SetHeight(26)
-                UI.Box(chip, { 0.06, 0.06, 0.06, 0.88 })
-                ns.AddBorder(chip)
-                chip.edges = ns.AddBorder(chip, true, 2)
-                for _, e in ipairs(chip.edges) do e:SetVertexColor(unpack(UI.ACCENT)) end
-                chip.text = UI.Text(chip, 12, "CENTER")
-                chip.text:SetPoint("CENTER")
-                local hover = chip:CreateTexture(nil, "HIGHLIGHT")
-                hover:SetAllPoints()
-                hover:SetColorTexture(1, 1, 1, 0.06)
-                chip:SetScript("OnClick", function(self)
-                    PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-                    ShowFloor(self.index)
-                end)
-                view.chips[i] = chip
-            end
-            chip.index = i
-            chip.text:SetText(FloorName(view.instance, data[i]))
-            chip:SetWidth(chip.text:GetUnboundedStringWidth() + 20)
-            chip:ClearAllPoints()
-            chip:SetPoint("LEFT", prev, "RIGHT", prev == view.plate and 14 or 6, 0)
-            chip:Show()
-            prev = chip
-        elseif chip then
-            chip:Hide()
-        end
-    end
 end
 
 function view.Show(instance, floor)
@@ -127,7 +93,6 @@ function view.Show(instance, floor)
     view.instance = instance
     view.titleText:SetText(GetRealZoneText and GetRealZoneText(instance) or "")
     view.plate:SetWidth(view.titleText:GetUnboundedStringWidth() + 20)
-    LayoutChips()
     view.frame:Show()
     ShowFloor(math.min(floor or 1, #data))
     return true
@@ -156,7 +121,7 @@ end
 function view.Attach(holder, onChange)
     local UI = ns.UI
     view.onChange = onChange
-    view.tiles, view.chips = {}, {}
+    view.tiles = {}
     local frame = CreateFrame("Frame", nil, holder)
     frame:SetAllPoints(holder)
     frame:SetFrameLevel(9100) -- above map pins and the pin/coords buttons
@@ -183,7 +148,7 @@ function view.Attach(holder, onChange)
     frame:SetScript("OnSizeChanged", function() if frame:IsShown() and view.floor then ShowFloor(view.floor) end end)
     view.frame = frame
 
-    -- top bar: back, name, floor tabs
+    -- top bar: back, name, floor dropdown
     local bar = CreateFrame("Frame", nil, frame)
     bar:SetPoint("TOPLEFT", 12, -12)
     bar:SetSize(10, 26)
@@ -208,4 +173,30 @@ function view.Attach(holder, onChange)
     view.titleText:SetPoint("LEFT", 10, 0)
     view.titleText:SetTextColor(unpack(UI.ACCENT))
     view.plate = plate
+
+    -- floor picker: one dropdown instead of a tab per floor (Dire Maul has 7)
+    local drop = CreateFrame("Button", nil, bar)
+    drop:SetHeight(26)
+    drop:SetPoint("LEFT", plate, "RIGHT", 6, 0)
+    UI.Box(drop, { 0.06, 0.06, 0.06, 0.88 })
+    ns.AddBorder(drop)
+    drop.text = UI.Text(drop, 12, "LEFT")
+    drop.text:SetPoint("LEFT", 10, 0)
+    drop.text:SetTextColor(unpack(UI.TEXT))
+    local chevron = UI.Icon(drop, "ChevronDown", 10, UI.MUTED)
+    chevron:SetPoint("RIGHT", -10, 0)
+    local hover = drop:CreateTexture(nil, "HIGHLIGHT")
+    hover:SetAllPoints()
+    hover:SetColorTexture(1, 1, 1, 0.06)
+    drop:SetScript("OnClick", function(self)
+        local data = ns.DUNGEON_MAPS[view.instance]
+        local items = {}
+        for i, floor in ipairs(data) do items[i] = { value = i, label = FloorName(view.instance, floor) } end
+        UI.OpenList(self, items, view.floor, function(value)
+            PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+            ShowFloor(value)
+        end)
+    end)
+    drop:Hide()
+    view.floorDrop = drop
 end
