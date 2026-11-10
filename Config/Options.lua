@@ -334,6 +334,11 @@ local PAGES = {
                 and L["Enemy plates with priority colours, interrupt-ready cast bar and your debuffs. Friendly plates show names only."]
                 or L["Enemy plates with priority colours, interrupt-ready cast bar, Mythic+ percentage and your debuffs. Friendly plates show names only."])
             page:AddCheckbox(ModuleLabel(L["mUI nameplates"], "nameplates"), On("nameplates"), Setter("nameplates"), RELOAD)
+            if ns.OtherAddonFor("nameplates") == "Plater" then
+                page:AddCheckbox(L["Plater in the mUI look"], On("platerStyle"), Setter("platerStyle", function()
+                    if ns.db.platerStyle ~= false then ns.ApplyPlaterProfile(true) end
+                end), Help(L["mUI font and flat bars, set once in Plater's profile. Everything else stays Plater's."]))
+            end
             page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
                 Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
             -- Display: Blizzard's own nameplate toggles in one place (take effect immediately)

@@ -132,6 +132,7 @@ Quests/Tracker.lua
 Quests/QuestTracker.lua
 Quests/MythicPlus.lua
 NamePlates/NamePlates.lua
+NamePlates/PlaterProfile.lua
 Chat/Chat.lua
 Chat/ChatStyle.lua
 Chat/ClassIcons.lua
