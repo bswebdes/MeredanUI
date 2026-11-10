@@ -320,10 +320,18 @@ local function QuestState(id)
 end
 
 -- Giver position from continent + world x/y (map pin and zone name)
+-- (continent first, then the zone at that spot, coordinates in that zone)
 local function GiverPlace(q)
     if not (q.map and C_Map.GetMapPosFromWorldPos) then return end
-    local ok, uiMap, pos = pcall(C_Map.GetMapPosFromWorldPos, q.map, CreateVector2D(q.x, q.y))
-    if ok and uiMap and pos then return uiMap, pos end
+    local world = CreateVector2D(q.x, q.y)
+    local ok, uiMap, pos = pcall(C_Map.GetMapPosFromWorldPos, q.map, world)
+    if not (ok and uiMap and pos) then return end
+    local zone = C_Map.GetMapInfoAtPosition and C_Map.GetMapInfoAtPosition(uiMap, pos.x, pos.y)
+    if zone and zone.mapID and zone.mapID ~= uiMap then
+        local ok2, zoneMap, zonePos = pcall(C_Map.GetMapPosFromWorldPos, q.map, world, zone.mapID)
+        if ok2 and zoneMap and zonePos then return zoneMap, zonePos end
+    end
+    return uiMap, pos
 end
 
 local function QuestTitle(q)

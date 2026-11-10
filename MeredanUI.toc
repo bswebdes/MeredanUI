@@ -178,5 +178,6 @@ Config/Widgets.lua
 Config/ChangelogData.lua
 Config/Options.lua
 Config/Setup.lua
+Config/WhatsNew.lua
 Config/GameMenu.lua
 Config/Settings.lua
