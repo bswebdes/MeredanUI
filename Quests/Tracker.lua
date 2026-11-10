@@ -50,7 +50,7 @@ end
 if not ns.IS_FOREVER then return end
 
 local tracker, anchor, itemLayer, scroll, content, thumb
-local headers, rows, bossLines, itemButtons = {}, {}, {}, {}
+local headers, rows, bossLines, itemButtons, zoneLabels = {}, {}, {}, {}, {}
 local instanceBlock
 local pending, itemsPending = false, false
 local lastItems = {}          -- quest items from the last layout (PickBarItems reorders them)
@@ -61,9 +61,22 @@ local bossHidden = false
 local hasTargets = false    -- Questie distances shown: refresh them every second
 local arrowRow              -- row with the direction arrow (focus quest, else the first with a distance)
 local instanceCollapse      -- in instances: quests collapsed (nil = saved setting)
+local combatCollapse = false -- "Collapse in combat" while in combat
 local kills, killsInstance = {}, nil
 
+-- Tracker options (Settings > Quests): default on unless noted
+local function Opt(key) return ns.db[key] ~= false end
+local function OptOn(key) return ns.db[key] == true end -- default off
+local function QuestieOn(key) return ns.Questie and ns.Questie.IsReady() and Opt(key) end
+
+local function QuestCollapsed(questID) return ns.db.trackerQuestCollapsed and ns.db.trackerQuestCollapsed[questID] or false end
+local function ToggleQuestCollapsed(questID)
+    ns.db.trackerQuestCollapsed = ns.db.trackerQuestCollapsed or {}
+    ns.db.trackerQuestCollapsed[questID] = not ns.db.trackerQuestCollapsed[questID] or nil
+end
+
 local function Collapsed(key)
+    if key == "quests" and combatCollapse then return true end
     if key == "quests" and instanceCollapse ~= nil then return instanceCollapse end
     return ns.db.trackerCollapsed and ns.db.trackerCollapsed[key] or false
 end
@@ -130,10 +143,61 @@ local function UpdateSticky(offset)
     sticky:Show()
 end
 
+local function WowheadURL(questID)
+    local lang = GetLocale():sub(1, 2)
+    lang = lang == "en" and "" or ((lang == "zh" and "cn" or lang) .. "/")
+    return "https://www.wowhead.com/forever/" .. lang .. "quest=" .. questID
+end
+
+local function LinkQuest(questID)
+    local link = GetQuestLink(questID)
+    if not link then return end
+    if ChatFrameUtil and ChatFrameUtil.GetActiveWindow and ChatFrameUtil.GetActiveWindow() then
+        ChatFrameUtil.InsertLink(link)
+    else
+        local open = _G["ChatFrame_OpenChat"]
+        if open then open(link) end
+    end
+end
+
+-- Waypoint to the nearest objective / turn-in (Questie data): TomTom or Blizzard's map pin
+local function Waypoint(questID)
+    local target = ns.Questie and ns.Questie.IsReady() and ns.Questie.Nearest(questID)
+    if target then ns.Questie.SetWaypoint(target) end
+end
+
+-- Right-click menu, entries like Questie's tracker menu (map ones need Questie)
 local function QuestMenu(row)
     local questID = row.questID
-    -- icons from the MDI set (Media/Icons/CREDITS.txt): map, group, eye crossed out, X
-    local items = { { value = "map", label = L["Show on map"], icon = "Map" } }
+    local Q = ns.Questie and ns.Questie.IsReady() and ns.Questie or nil
+    local complete = C_QuestLog.IsComplete(questID) or C_QuestLog.ReadyForTurnIn(questID)
+    -- icons from the MDI set (Media/Icons/CREDITS.txt)
+    local items = {}
+    local target = Q and Q.Nearest(questID)
+    if Q and not complete then
+        -- objectives: click = show on map, small pin = waypoint
+        for i, o in ipairs(Q.Objectives(questID)) do
+            if i > 4 then break end
+            items[#items + 1] = { value = "obj:" .. o.index, label = o.text or o.name or "?", icon = "Map", actions = {
+                { icon = "Entrance", tooltip = L["Set waypoint"], onClick = function() Q.SetWaypoint(o) end },
+            } }
+        end
+    end
+    if Q and target then
+        items[#items + 1] = { value = "qmap", label = complete and L["Show turn-in on map"] or L["Show on map"], icon = "Map",
+            separator = #items > 0 }
+        items[#items + 1] = { value = "waypoint", label = L["Set waypoint"], icon = "Entrance" }
+    end
+    if Q then
+        items[#items + 1] = { value = "focus", label = Q.IsFocused(questID) and L["Unfocus on map"] or L["Focus on map"], icon = "Star" }
+        items[#items + 1] = { value = "icons", label = Q.IconsHidden(questID) and L["Show map icons"] or L["Hide map icons"],
+            icon = Q.IconsHidden(questID) and "Tracking" or "Phase" }
+    end
+    items[#items + 1] = { value = "collapse", label = QuestCollapsed(questID) and L["Expand quest"] or L["Collapse quest"],
+        icon = QuestCollapsed(questID) and "Plus" or "Minus", separator = Q ~= nil }
+    items[#items + 1] = { value = "log", label = L["Show in quest log"], icon = "Quest" }
+    items[#items + 1] = { value = "link", label = L["Link to chat"], icon = "EmoteTALK" }
+    items[#items + 1] = { value = "wowhead", label = L["Wowhead link"], icon = "Copy" }
     if C_QuestLog.IsPushableQuest(questID) and IsInGroup() then
         items[#items + 1] = { value = "share", label = L["Share"], icon = "Friends" }
     end
@@ -145,8 +209,27 @@ local function QuestMenu(row)
     end
     local title = C_QuestLog.GetTitleForQuestID(questID)
     ns.UI.OpenList(row, items, nil, function(value)
-        if value == "map" then
+        local objective = type(value) == "string" and value:match("^obj:(%d+)$")
+        local bridge = ns.Questie
+        if objective and bridge then
+            bridge.ShowOnMap(questID, tonumber(objective))
+        elseif value == "qmap" and bridge then
+            bridge.ShowOnMap(questID)
+        elseif value == "waypoint" then
+            Waypoint(questID)
+        elseif value == "focus" and bridge then
+            bridge.ToggleFocus(questID)
+        elseif value == "icons" and bridge then
+            bridge.ToggleQuestIcons(questID)
+        elseif value == "collapse" then
+            ToggleQuestCollapsed(questID)
+            tracker.Refresh()
+        elseif value == "log" then
             QuestMapFrame_OpenToQuestDetails(questID)
+        elseif value == "link" then
+            LinkQuest(questID)
+        elseif value == "wowhead" then
+            if ns.ShowLinkWindow then ns.ShowLinkWindow(WowheadURL(questID)) end
         elseif value == "share" then
             QuestLogPushQuest(C_QuestLog.GetLogIndexForQuestID(questID))
         elseif value == "untrack" then
@@ -267,6 +350,7 @@ local function Row(i)
         end
         if button == "RightButton" then return QuestMenu(self) end
         if IsShiftKeyDown() then return C_QuestLog.RemoveQuestWatch(questID) end
+        if IsControlKeyDown() then return Waypoint(questID) end
         if C_SuperTrack.GetSuperTrackedQuestID() == questID then
             QuestMapFrame_OpenToQuestDetails(questID)
         else
@@ -275,6 +359,35 @@ local function Row(i)
     end)
     rows[i] = row
     return row
+end
+
+-- Zone name above a group of quests ("Group by zone")
+local function ZoneLabel(i)
+    if zoneLabels[i] then return zoneLabels[i] end
+    local UI = ns.UI
+    local label = CreateFrame("Frame", nil, content)
+    label:SetHeight(18)
+    label.text = UI.Text(label, 12, "LEFT", UI.MUTED)
+    label.text:SetPoint("LEFT", 4, 0)
+    label.text:SetPoint("RIGHT")
+    label.text:SetWordWrap(false)
+    zoneLabels[i] = label
+    return label
+end
+
+-- Share of a quest's objectives done (0-1), for "By progress"
+local function Progress(questID)
+    if C_QuestLog.IsComplete(questID) or C_QuestLog.ReadyForTurnIn(questID) then return 1 end
+    local done, total = 0, 0
+    for _, obj in ipairs(C_QuestLog.GetQuestObjectives(questID) or {}) do
+        local need = obj.numRequired or 0
+        if need > 0 then
+            done, total = done + math.min(obj.numFulfilled or 0, need) / need, total + 1
+        else
+            done, total = done + (obj.finished and 1 or 0), total + 1
+        end
+    end
+    return total > 0 and done / total or 0
 end
 
 local function BossLine(i)
@@ -481,7 +594,7 @@ local function UpdateArrow()
         local dist = row.dist
         if dist and row:IsShown() and dist:IsShown() then
             local angle
-            if row == arrowRow and ns.Questie then
+            if row == arrowRow and ns.Questie and Opt("trackerQuestieArrow") then
                 local ok, a = pcall(ns.Questie.Direction, dist.target)
                 angle = ok and a or nil
             end
@@ -504,7 +617,7 @@ local function QuestGoals(questID, logIndex, complete, failed)
     for _, obj in ipairs(C_QuestLog.GetQuestObjectives(questID) or {}) do
         if obj.type == "progressbar" and not obj.finished then
             percent = GetQuestProgressBarPercent(questID) or 0
-        elseif obj.text and obj.text ~= "" then
+        elseif obj.text and obj.text ~= "" and not (obj.finished and OptOn("trackerHideDoneGoals")) then
             lines[#lines + 1] = obj.finished and ("|cff8ecbb4" .. obj.text .. "|r") or obj.text
         end
     end
@@ -513,7 +626,7 @@ local function QuestGoals(questID, logIndex, complete, failed)
         lines[1] = "|cff8ecbb4" .. ((text and text ~= "") and text or (QUEST_WATCH_QUEST_READY or L["Ready to turn in"])) .. "|r"
     end
     -- Questie: who takes the quest back (Classic quests rarely say)
-    if complete and ns.Questie and ns.Questie.IsReady() then
+    if complete and QuestieOn("trackerQuestieTurnIn") then
         local npc, zone = ns.Questie.TurnIn(questID)
         if npc then lines[#lines + 1] = L["Turn in: %s"]:format(npc .. (zone and (" - " .. zone) or "")) end
     end
@@ -647,7 +760,7 @@ local function Layout()
     local UI = ns.UI
     hasTimers = false
     hasTargets, arrowRow = false, nil
-    local y, h, r, b = 0, 0, 0, 0
+    local y, h, r, b, z = 0, 0, 0, 0, 0
     local superTracked = C_SuperTrack.GetSuperTrackedQuestID()
     local items = {}
     -- boss frames above the tracker: move below them, instance quests only (see BossShift)
@@ -695,7 +808,8 @@ local function Layout()
         row.sign:SetText(complete and "?" or "!")
         row.sign:SetTextColor(unpack(failed and RED or (complete and { 1, 0.82, 0 } or { 0.55, 0.55, 0.55 })))
         local tag = QuestTag(info)
-        row.title:SetText("|cff99978f[" .. (info.difficultyLevel or info.level or 0) .. "]|r " .. (info.title or "")
+        local level = Opt("trackerShowLevel") and ("|cff99978f[" .. (info.difficultyLevel or info.level or 0) .. "]|r ") or ""
+        row.title:SetText(level .. (info.title or "")
             .. (tag and ("|cff99978f  · " .. tag .. "|r") or ""))
         if failed then
             row.title:SetTextColor(unpack(RED))
@@ -709,7 +823,7 @@ local function Layout()
         local hasItem = link and (not complete or showWhenComplete)
         local itemLogIndex, itemID = logIndex, nil
         -- Questie knows usable items Blizzard doesn't flag as quest items
-        if not hasItem and ns.Questie and ns.Questie.IsReady() then
+        if not hasItem and QuestieOn("trackerQuestieItems") then
             for _, id in ipairs(ns.Questie.QuestItems(questID, complete) or {}) do
                 local count = C_Item.GetItemCount(id) or 0
                 if count > 0 then
@@ -729,6 +843,18 @@ local function Layout()
         end
         row.title:SetWidth(WIDTH - 26 - right)
         local lines, percent, timer = QuestGoals(questID, logIndex, complete, failed)
+        -- collapsed (per quest from the menu, or finished quests with the option): title only,
+        -- finished ones keep their turn-in line
+        local folded = QuestCollapsed(questID) or (complete and OptOn("trackerCollapseDone"))
+        if folded then
+            local keep = {}
+            if complete and not QuestCollapsed(questID) then
+                for _, line in ipairs(lines) do
+                    if line:find(L["Turn in: %s"]:gsub("%%s.*", ""), 1, true) then keep[#keep + 1] = line end
+                end
+            end
+            lines, percent = keep, nil
+        end
         row.goals:SetWidth(WIDTH - 26 - right)
         row.goals:SetText(table.concat(lines, "\n"))
         row.goals:SetShown(#lines > 0)
@@ -753,7 +879,7 @@ local function Layout()
             height = height + 4 + 12
         end
         row.dist.target, row.dist.complete = nil, complete
-        if ns.Questie and ns.Questie.IsReady() and not failed then
+        if QuestieOn("trackerQuestieDistance") and not failed and not folded then
             row.dist.target = ns.Questie.Nearest(questID)
         end
         row.dist:SetShown(row.dist.target ~= nil)
@@ -876,15 +1002,28 @@ local function Layout()
         local questID = C_QuestLog.GetQuestIDForQuestWatchIndex(i)
         if questID and not inDungeonSection[questID] then watched[#watched + 1] = questID end
     end
-    -- Order: focus quest, then quests in the current zone, then the rest (each in the usual order -
-    -- sorting by distance would make the list jump while moving)
-    local rank, order = {}, {}
+    -- Order (Settings > Quests): focus quest always first. "Standard": quests in the current zone,
+    -- then the rest, each in the usual order (no jumping while moving); level / progress / distance
+    -- (Questie) sort the rest.
+    local mode = ns.db.trackerSort or "standard"
+    if mode == "distance" and not (ns.Questie and ns.Questie.IsReady()) then mode = "standard" end
+    local rank, order, key = {}, {}, {}
     for i, questID in ipairs(watched) do
         order[questID] = i
-        rank[questID] = questID == superTracked and 0 or (C_QuestLog.IsOnMap(questID) and 1 or 2)
+        rank[questID] = questID == superTracked and 0 or (mode ~= "standard" and 1 or (C_QuestLog.IsOnMap(questID) and 1 or 2))
+        if mode == "level" then
+            local info = C_QuestLog.GetInfo(C_QuestLog.GetLogIndexForQuestID(questID) or 0)
+            key[questID] = info and (info.difficultyLevel or info.level) or 0
+        elseif mode == "progress" then
+            key[questID] = -Progress(questID)
+        elseif mode == "distance" then
+            local target = ns.Questie.Nearest(questID)
+            key[questID] = target and target.yards or math.huge
+        end
     end
     table.sort(watched, function(a, b)
         if rank[a] ~= rank[b] then return rank[a] < rank[b] end
+        if key[a] and key[b] and key[a] ~= key[b] then return key[a] < key[b] end
         return order[a] < order[b]
     end)
     -- Bosses above the tracker: inside instances only their quests (on top); outside (world boss,
@@ -894,7 +1033,7 @@ local function Layout()
             wipe(watched)
         else
             for i = #watched, 1, -1 do
-                if rank[watched[i]] == 2 then table.remove(watched, i) end
+                if watched[i] ~= superTracked and not C_QuestLog.IsOnMap(watched[i]) then table.remove(watched, i) end
             end
         end
     end
@@ -906,7 +1045,38 @@ local function Layout()
         end
         AddHeader("quests", L["Quests"], numQuests .. "/" .. C_QuestLog.GetMaxNumQuestsCanAccept(), h > 0)
         if not Collapsed("quests") then
-            for _, questID in ipairs(watched) do AddQuest(questID) end
+            if OptOn("trackerGroupZone") then
+                -- zone = the quest log header above the quest; groups in order of their first quest
+                local zoneOf, current = {}, nil
+                for index = 1, C_QuestLog.GetNumQuestLogEntries() do
+                    local info = C_QuestLog.GetInfo(index)
+                    if info and info.isHeader then current = info.title
+                    elseif info and info.questID then zoneOf[info.questID] = current end
+                end
+                local groups, byName = {}, {}
+                for _, questID in ipairs(watched) do
+                    local name = zoneOf[questID] or L["Other"]
+                    if not byName[name] then
+                        byName[name] = { name = name }
+                        groups[#groups + 1] = byName[name]
+                    end
+                    table.insert(byName[name], questID)
+                end
+                for _, group in ipairs(groups) do
+                    z = z + 1
+                    local label = ZoneLabel(z)
+                    label.text:SetText(group.name)
+                    label:ClearAllPoints()
+                    label:SetPoint("TOPLEFT", 0, -y)
+                    label:SetWidth(WIDTH)
+                    label:Show()
+                    y = y + 18 + 2
+                    for _, questID in ipairs(group) do AddQuest(questID) end
+                    y = y + 4
+                end
+            else
+                for _, questID in ipairs(watched) do AddQuest(questID) end
+            end
         end
     end
 
@@ -923,6 +1093,7 @@ local function Layout()
     for i = h + 1, #headers do headers[i]:Hide() end
     for i = r + 1, #rows do rows[i]:Hide() end
     for i = b + 1, #bossLines do bossLines[i]:Hide() end
+    for i = z + 1, #zoneLabels do zoneLabels[i]:Hide() end
     if b == 0 and instanceBlock and not inInstance then instanceBlock:Hide() end
     -- taller than allowed: scroll (mouse wheel, out of combat only)
     content:SetHeight(math.max(y, 1))
@@ -1179,6 +1350,14 @@ local function Setup()
     end
     ns:On("PLAYER_ENTERING_WORLD", OnEnterWorld)
     OnEnterWorld()
+    -- "Collapse in combat": quests fold while fighting, back afterwards
+    ns:On("PLAYER_REGEN_DISABLED", function()
+        if OptOn("trackerCombatCollapse") then combatCollapse = true; Refresh() end
+    end)
+    ns:On("PLAYER_REGEN_ENABLED", function()
+        if combatCollapse then combatCollapse = false; Refresh() end
+    end)
+    ns.RefreshTracker = Refresh
     ns.AfterCombat(SetupBossHiding) -- state drivers can't be set up in combat
     ns.AfterCombat(UpdateInstanceFlag)
     Refresh()

@@ -871,6 +871,47 @@ local PAGES = {
     },
 }
 
+-- Quest tracker (Forever: own tracker, Quests/Tracker.lua), after "Minimap & info bar"
+if ns.IS_FOREVER then
+    local function TrackerSetter(key) return Setter(key, function() if ns.RefreshTracker then ns.RefreshTracker() end end) end
+    local function SortItems()
+        local items = {
+            { value = "standard", label = L["Standard"] },
+            { value = "level", label = L["By level"] },
+            { value = "progress", label = L["By progress"] },
+        }
+        if ns.Questie and ns.Questie.IsLoaded() then items[#items + 1] = { value = "distance", label = L["By distance"] } end
+        return items
+    end
+    local index = #PAGES + 1
+    for i, entry in ipairs(PAGES) do if entry.key == "minimap" then index = i + 1 end end
+    table.insert(PAGES, index, {
+        key = "quests", label = L["Quests"],
+        build = function(page)
+            page:AddTitle(L["Quests"], L["The quest tracker on the right."])
+            page:AddCheckbox(L["Track new quests automatically"], function() return GetCVarBool("autoQuestWatch") end,
+                function(value) SetCVar("autoQuestWatch", value and "1" or "0") end)
+            page:AddDropdown(L["Sort"], SortItems, function() return ns.db.trackerSort or "standard" end, TrackerSetter("trackerSort"),
+                Help(L["The focus quest always stays on top."]))
+            page:AddCheckbox(L["Group by zone"], function() return ns.db.trackerGroupZone == true end, TrackerSetter("trackerGroupZone"))
+            page:AddCheckbox(L["Show quest level"], On("trackerShowLevel"), TrackerSetter("trackerShowLevel"))
+            page:AddCheckbox(L["Hide finished objectives"], function() return ns.db.trackerHideDoneGoals == true end,
+                TrackerSetter("trackerHideDoneGoals"))
+            page:AddCheckbox(L["Collapse finished quests"], function() return ns.db.trackerCollapseDone == true end,
+                TrackerSetter("trackerCollapseDone"))
+            page:AddCheckbox(L["Collapse in combat"], function() return ns.db.trackerCombatCollapse == true end,
+                TrackerSetter("trackerCombatCollapse"))
+            if ns.Questie and ns.Questie.IsLoaded() then
+                page:AddHeader("Questie")
+                page:AddCheckbox(L["Next objective with distance"], On("trackerQuestieDistance"), TrackerSetter("trackerQuestieDistance"))
+                page:AddCheckbox(L["Direction arrow"], On("trackerQuestieArrow"), TrackerSetter("trackerQuestieArrow"))
+                page:AddCheckbox(L["Turn-in NPC"], On("trackerQuestieTurnIn"), TrackerSetter("trackerQuestieTurnIn"))
+                page:AddCheckbox(L["Quest items from Questie"], On("trackerQuestieItems"), TrackerSetter("trackerQuestieItems"))
+            end
+        end,
+    })
+end
+
 -- Window -------------------------------------------------------------------------------
 
 local function SelectPage(key)

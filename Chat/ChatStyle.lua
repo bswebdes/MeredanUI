@@ -155,6 +155,7 @@ local function ShowLinkWindow(url)
     box:SetFocus()
     box:HighlightText()
 end
+ns.ShowLinkWindow = ShowLinkWindow -- also used by the quest tracker (Wowhead link)
 
 -- Copy the history of the given chat frame
 local function CopyChat(frame)

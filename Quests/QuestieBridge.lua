@@ -219,6 +219,105 @@ function Bridge.QuestItems(questID, complete)
     return ok and type(ids) == "table" and ids or nil
 end
 
+-- Objectives with map locations: { { index, text, name, zone, uiMapID, x, y, yards } } (nearest spawn each)
+function Bridge.Objectives(questID)
+    local quest = Quest(questID)
+    local distance = Module("DistanceUtils")
+    local list = {}
+    if not (quest and type(quest.Objectives) == "table" and distance and type(distance.GetNearestObjective) == "function") then
+        return list
+    end
+    for index, objective in pairs(quest.Objectives) do
+        if type(objective) == "table" and objective.spawnList then
+            local ok, spawn, areaID, name, yards = pcall(distance.GetNearestObjective, objective.spawnList)
+            if ok and type(spawn) == "table" and areaID then
+                list[#list + 1] = { index = index, text = objective.Description or name, name = name or objective.Description,
+                    zone = ZoneName(areaID), uiMapID = UiMapID(areaID), x = spawn[1], y = spawn[2],
+                    yards = type(yards) == "number" and yards < FAR and yards or nil }
+            end
+        end
+    end
+    table.sort(list, function(a, b) return a.index < b.index end)
+    return list
+end
+
+-- Opens mUI's map on the target's zone and flashes the quest's icons (or one objective's)
+function Bridge.ShowOnMap(questID, objectiveIndex)
+    local quest = Quest(questID)
+    local target
+    if objectiveIndex then
+        for _, o in ipairs(Bridge.Objectives(questID)) do
+            if o.index == objectiveIndex then target = o end
+        end
+    else
+        target = Bridge.Nearest(questID)
+    end
+    if not (quest and target and target.uiMapID and ns.OpenWorldMap) then return false end
+    ns.OpenWorldMap(target.uiMapID)
+    local utils = Module("TrackerUtils")
+    -- after the map has placed its pins
+    C_Timer.After(0.1, function()
+        if not utils then return end
+        if objectiveIndex and type(utils.FlashObjective) == "function" and quest.Objectives[objectiveIndex] then
+            pcall(utils.FlashObjective, utils, quest.Objectives[objectiveIndex])
+        elseif type(utils.FlashFinisher) == "function" then
+            pcall(utils.FlashFinisher, utils, quest)
+        end
+    end)
+    return true
+end
+
+-- Questie's map focus: only this quest's icons stay bright
+function Bridge.IsFocused(questID)
+    local q = G("Questie")
+    return q and q.db and q.db.char and q.db.char.TrackerFocus == questID or false
+end
+
+function Bridge.ToggleFocus(questID)
+    local utils, questMod = Module("TrackerUtils"), Module("QuestieQuest")
+    if not (utils and questMod and type(questMod.ToggleQuestNotes) == "function") then return end
+    if Bridge.IsFocused(questID) then
+        if type(utils.UnFocus) == "function" and pcall(utils.UnFocus, utils) then pcall(questMod.ToggleQuestNotes, true) end
+    elseif type(utils.FocusQuest) == "function" then
+        local ok, done = pcall(utils.FocusQuest, utils, questID)
+        if ok and done then pcall(questMod.ToggleQuestNotes, false) end
+    end
+end
+
+-- Hide / show one quest's map icons (saved by Questie per character)
+function Bridge.IconsHidden(questID)
+    local q = G("Questie")
+    return q and q.db and q.db.char and q.db.char.TrackerHiddenQuests and q.db.char.TrackerHiddenQuests[questID] and true or false
+end
+
+function Bridge.ToggleQuestIcons(questID)
+    local q, quest, questMod = G("Questie"), Quest(questID), Module("QuestieQuest")
+    if not (q and q.db and q.db.char and q.db.char.TrackerHiddenQuests and quest and questMod
+        and type(questMod.ToggleQuestNotes) == "function") then return end
+    local hide = not Bridge.IconsHidden(questID)
+    quest.HideIcons = hide or nil
+    q.db.char.TrackerHiddenQuests[questID] = hide or nil
+    pcall(questMod.ToggleQuestNotes, not hide)
+end
+
+-- Waypoint to a target ({ name, uiMapID, x, y (0-100) }): TomTom if loaded, else Blizzard's map pin
+local tomWaypoint
+function Bridge.SetWaypoint(target)
+    if not (target and target.uiMapID and target.x and target.y) then return false end
+    local tom = G("TomTom")
+    if type(tom) == "table" and type(tom.AddWaypoint) == "function" then
+        if tomWaypoint and type(tom.RemoveWaypoint) == "function" then pcall(tom.RemoveWaypoint, tom, tomWaypoint) end
+        local ok, uid = pcall(tom.AddWaypoint, tom, target.uiMapID, target.x / 100, target.y / 100,
+            { title = target.name, crazy = true, from = "MeredanUI" })
+        if ok then tomWaypoint = uid end
+        return ok
+    end
+    if not (C_Map.CanSetUserWaypointOnMap and C_Map.CanSetUserWaypointOnMap(target.uiMapID)) then return false end
+    C_Map.SetUserWaypoint({ uiMapID = target.uiMapID, position = CreateVector2D(target.x / 100, target.y / 100) })
+    C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+    return true
+end
+
 -- fn() after Questie's own quest updates (objective progress, accept, turn-in)
 function Bridge.OnQuestUpdate(fn)
     Bridge.OnReady(function()
