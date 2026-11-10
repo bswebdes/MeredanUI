@@ -139,3 +139,11 @@ ns.DUNGEON_MAPS[531] = {
     { en = "The Temple Gates", de = "Die Tempeltore", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\531_2", texCoord = { 0, 0.75, 0, 1 }, region = { -8703.50, 1538.07, -10000.00, -8051.80, 2515.63, 1000000.00 } },
     { en = "Vault of C'Thun", de = "Höhle von C'Thun", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\531_3", texCoord = { 0, 0.75, 0, 1 }, region = { -8720.17, 1738.07, -10000.00, -8335.13, 2315.63, 1000000.00 } },
 }
+ns.DUNGEON_MAPS[229] = {
+    { en = "Tazz'Alor", de = "Tazz'Alor", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\229_1", texCoord = { 0, 0.75, 0, 1 }, region = { -286.83, -876.25, -10000.00, 304.40, 10.59, 1000000.00 } },
+    { en = "Skitterweb Tunnels", de = "Listspinnertunnel", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\229_2", texCoord = { 0, 0.75, 0, 1 }, region = { -286.83, -876.25, 10.00, 304.40, 10.59, 1000000.00 } },
+    { en = "Hordemar City", de = "Hordemar", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\229_3", texCoord = { 0, 0.75, 0, 1 }, region = { -286.83, -876.25, -10000.00, 304.40, 10.59, 1000000.00 } },
+    { en = "Hall of Blackhand", de = "Schwarzfausthalle", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\229_4", texCoord = { 0, 0.75, 0, 1 }, region = { -286.83, -876.25, -10000.00, 304.40, 10.59, 1000000.00 } },
+    { en = "Halycon's Lair", de = "Halycons Hort", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\229_5", texCoord = { 0, 0.75, 0, 1 }, region = { -286.83, -876.25, -10000.00, 304.40, 10.59, 1000000.00 } },
+    { en = "Chamber of Battle", de = "Kammer der Schlachten", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\229_6", texCoord = { 0, 0.75, 0, 1 }, region = { -286.83, -876.25, -10000.00, 304.40, 10.59, 1000000.00 } },
+}

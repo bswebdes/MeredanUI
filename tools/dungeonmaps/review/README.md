@@ -9,12 +9,18 @@ Unchanged: Wailing Caverns (43), Ragefire Chasm (389), Hall of Thanes (3065) - f
 
 | Instance | Why |
 |---|---|
-| 229 Blackrock Spire | Forever uses a new WMO (group IDs don't match Blizzard's 6 floors): everything lands on floor 1 as a mess, floors 2-6 are empty. Stays on Blizzard's map. |
 | 533 Naxxramas | Forever's Naxxramas geometry doesn't fit Blizzard's floor regions: floors 1-4 all show the whole necropolis, floor 5 is empty. Stays on Blizzard's map. |
 | 2959 City of Dalaran | City renders fine, but there is no sewer WMO with minimap tiles, so floor 2 (Sewers) can't be built. Stays on Santiago's maps. |
 | 2994 Alcaz Prison | Both floors (Main Pavilion, Maximum Security) are one WMO at nearly the same height - no clean split. Stays on Santiago's maps. |
 
 ## New maps
+
+### 229 Blackrock Spire
+
+- Floors: 6
+- Switches: `ASSIGNEDONLY=1 CLASSICGID=7952332:108373` (Forever's rebuilt WMO has the classic group order, so floors map by the classic group IDs)
+- Problems: Upper Blackrock Spire has no Blizzard floor and is not shown.
+
 
 ### 36 Deadmines
 
@@ -110,7 +116,8 @@ Unchanged: Wailing Caverns (43), Ragefire Chasm (389), Hall of Thanes (3065) - f
 
 - Floors: 1
 - Switches: plain
-- Problems: Outdoor dungeon: terrain covers the whole region, incl. blocky orange tiles and the edge of a neighbouring zone (top right).
+- Switches: `compose.py --soft` (flat orange fill dropped, outline faded)
+- Problems: Outdoor dungeon: terrain covers the whole region; the edge of the neighbouring canyon stays (top right).
 
 | Floor 1 |
 |---|

@@ -5,6 +5,8 @@ usage: PYTHONPATH=../pylib python3 buildmap.py <instanceID> [<instanceID> ...]
 out: maps/<inst>_<floor>.png (1536x1024 RGBA, transparent outside the dungeon)
 env: NOADT=1 no terrain; SKIP=gi,.. drop group indices (e.g. a thorn canopy exterior group); MAINWMO=1 only the
   biggest WMO; WMO=fdid,.. / NOWMO=fdid,.. keep / drop WMOs; ZMIN/ZMAX group height band; LISTGROUPS=1 print groups;
+  ASSIGNEDONLY=1 only groups in Blizzard's floor table (no region fallback);
+  CLASSICGID=fdid:classicfdid floor membership by the classic WMO's group IDs (same group order);
   new instances only: REGION=x0,y0,x1,y1 instead of the fitted region, FLOOR=n output index (one floor per run)"""
 import sys, os, re, csv, json, struct, math, subprocess, pathlib
 from concurrent.futures import ThreadPoolExecutor
@@ -17,11 +19,23 @@ src = (HERE / 'wmomap.py').read_text().replace('\nmain()\n', '\n'); _W = {}; exe
 decode_blp = _W['decode_blp']
 os.makedirs('maps', exist_ok=True); os.makedirs('cache', exist_ok=True)
 
-def get(fdid):
-    p = f'cache/{fdid}.bin'
+CLASSIC_BUILD = "2.5.6.70577"   # wow_anniversary: classic WMOs whose group IDs Blizzard's floor table uses
+
+def get(fdid, build=BUILD):
+    p = f'cache/{fdid}.bin' if build == BUILD else f'cache/{build}_{fdid}.bin'
     if not os.path.exists(p) or os.path.getsize(p) == 0:
-        subprocess.run(['curl', '-s', '-A', 'MeredanUI', '-o', p, f'https://wago.tools/api/casc/{fdid}?version={BUILD}'])
+        subprocess.run(['curl', '-s', '-A', 'MeredanUI', '-o', p, f'https://wago.tools/api/casc/{fdid}?version={build}'])
     return open(p, 'rb').read()
+
+def classic_gids(root_fdid):
+    """Group IDs per group index of a classic WMO root (Forever rebuilt some WMOs with the same groups
+    under new IDs, e.g. Blackrock Spire: same index = same room, so floors map by index)."""
+    rc = chunks(get(root_fdid, CLASSIC_BUILD)); n = struct.unpack('<I', rc['MOHD'][4:8])[0]
+    gf = struct.unpack(f'<{len(rc["GFID"]) // 4}I', rc['GFID']); out = []
+    for i in range(n):
+        g = get(gf[i], CLASSIC_BUILD); k = g.find(b'PGOM')
+        out.append(struct.unpack('<I', g[k + 8 + 56:k + 8 + 60])[0] if k >= 0 else 0)
+    return out
 
 def chunks(b, o=0, end=None, multi=False):
     end = end or len(b); out = {}
@@ -87,12 +101,16 @@ def build(inst):
         minx = min(int(b[0] * 2) for b in gb); miny = min(int(b[1] * 2) for b in gb)
         resy = max(int(b[4] * 2) for b in gb) - miny
         groups = []
+        # CLASSICGID=forever_root:classic_root,..: take the classic group IDs (by index) for floor membership
+        cmap = dict(tuple(int(x) for x in v.split(':')) for v in os.environ.get('CLASSICGID', '').split(',') if v)
+        cg = classic_gids(cmap[p['fdid']]) if p['fdid'] in cmap else None
         for gi, t in tiles.items():
             if gi >= n: continue
             gid = 0
             if gi < len(gf):
                 g = get(gf[gi]); k = g.find(b'PGOM')
                 if k >= 0: gid = struct.unpack('<I', g[k + 8 + 56:k + 8 + 60])[0]
+            if cg and gi < len(cg): gid = cg[gi]
             mnx = min(a[0] for a in t); mxx = max(a[0] for a in t); mny = min(a[1] for a in t); mxy = max(a[1] for a in t)
             dec = {(bx, by): blp_np(f) for bx, by, f in t}
             if mnx == mxx == mny == mxy == 0:
@@ -168,7 +186,7 @@ def build(inst):
     for w in wmos:
         for g in w['groups']:
             g['floors'] = {f['ui'] for f in floors if any(int(r['WMOGroupID']) == g['gid'] and g['gid'] for r in uim.get(f['ui'], []))}
-            if not g['floors']:   # fallback: smallest floor region holding the group's centre at its height
+            if not g['floors'] and not os.environ.get('ASSIGNEDONLY'):   # fallback: smallest floor region holding the group's centre at its height
                 wx, wy = to_world(w['p'], *g['lc'])
                 cand = [f for f in floors if f['region'][0] <= wx <= f['region'][3] and f['region'][1] <= wy <= f['region'][4]
                         and f['region'][2] <= g['zr'][1] and g['zr'][0] <= f['region'][5]]
