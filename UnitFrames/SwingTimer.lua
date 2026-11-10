@@ -40,10 +40,10 @@ local function OnUpdate()
     if main then
         bar:SetValue(Progress(main, now))
     end
-    local off = Active(T.OffHand, now)
+    local off = Active(T.OffHand, now) and true or false
     if off then offhand:SetValue(Progress(T.OffHand, now)) end
-    offhand:SetShown(off and true or false)
-    bar:SetShown((main or off or demo) and true or false)
+    if offhand:IsShown() ~= off then offhand:SetShown(off) end
+    if not (main or off or demo) then bar:Hide() end
 end
 
 local function StartSwing(swingType, duration)
@@ -91,7 +91,9 @@ local function Create()
     offhand:SetMinMaxValues(0, 1)
     offhand:SetFrameLevel(bar:GetFrameLevel() + 1)
     offhand:Hide()
-    holder:SetScript("OnUpdate", OnUpdate) -- holder stays shown (Edit Mode), only the bar hides
+    -- On the bar, not the holder: the holder stays shown (Edit Mode), the bar hides itself when
+    -- no swing runs, so nothing ticks between swings
+    bar:SetScript("OnUpdate", OnUpdate)
     bar:Hide()
 end
 

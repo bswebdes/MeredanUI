@@ -237,7 +237,8 @@ end
 C_Timer.NewTicker(0.1, function()
     for frame in pairs(mouseoverFrames) do
         if frame.muiMouseover then
-            frame:SetAlpha(Hovered(frame) and 1 or 0)
+            local alpha = Hovered(frame) and 1 or 0
+            if frame:GetAlpha() ~= alpha then frame:SetAlpha(alpha) end
         elseif frame:GetAlpha() < 1 then
             frame:SetAlpha(1)
         end

@@ -278,12 +278,16 @@ local function coordsText() return coords end
 SetupMouseover = function(texts, icons)
     for _, region in ipairs(texts) do if region then mouseoverTexts[#mouseoverTexts + 1] = region end end
     for _, region in ipairs(icons) do if region then mouseoverIcons[#mouseoverIcons + 1] = region end end
+    -- alpha only set when the state changes; every 2 s anyway in case Blizzard reset a region
+    local shown, ticks = nil, 0
     C_Timer.NewTicker(0.1, function()
         local over = holder:IsMouseOver()
-        local showTexts = over or ns.db.minimapExtras ~= "mouseover" -- texts and icons share one setting
-        local showIcons = showTexts
-        for _, region in ipairs(mouseoverTexts) do region:SetAlpha(showTexts and 1 or 0) end
-        for _, region in ipairs(mouseoverIcons) do region:SetAlpha(showIcons and 1 or 0) end
+        local show = over or ns.db.minimapExtras ~= "mouseover" -- texts and icons share one setting
+        ticks = ticks + 1
+        if show == shown and ticks < 20 then return end
+        shown, ticks = show, 0
+        for _, region in ipairs(mouseoverTexts) do region:SetAlpha(show and 1 or 0) end
+        for _, region in ipairs(mouseoverIcons) do region:SetAlpha(show and 1 or 0) end
     end)
 end
 

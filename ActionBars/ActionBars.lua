@@ -576,18 +576,32 @@ end
 -- Smooth fading: each bar has a target (muiTarget), an OnUpdate moves alpha toward it over
 -- FADE_TIME. Alpha may be set in combat.
 local FADE_TIME = 0.15
+-- The fader hides itself once every bar reached its target; WakeFader restarts it.
 local fader = CreateFrame("Frame")
-fader:SetScript("OnUpdate", function(_, elapsed)
+fader:SetScript("OnUpdate", function(self, elapsed)
     local step = elapsed / FADE_TIME
+    local busy = false
     for _, frame in pairs(framesByKey) do
         local target = frame.muiTarget
         if target then
             local alpha = frame:GetAlpha()
-            if alpha < target then frame:SetAlpha(math.min(target, alpha + step))
-            elseif alpha > target then frame:SetAlpha(math.max(target, alpha - step)) end
+            if alpha < target then
+                frame:SetAlpha(math.min(target, alpha + step))
+                busy = true
+            elseif alpha > target then
+                frame:SetAlpha(math.max(target, alpha - step))
+                busy = true
+            end
         end
     end
+    if not busy then self:Hide() end
 end)
+local function WakeFader()
+    if fader:IsShown() then return end
+    for _, frame in pairs(framesByKey) do
+        if frame.muiTarget and frame:GetAlpha() ~= frame.muiTarget then return fader:Show() end
+    end
+end
 
 -- Keybind/macro texts per setting (LAB buttons via their config, Blizzard pet/stance buttons
 -- via alpha)
@@ -636,6 +650,7 @@ function ns.ApplyActionBarVisibility()
             if not (frame.muiMouseover or frame.muiCombat) then frame.muiTarget = 1 end
         end
     end
+    fader:Show()
     -- quest tracker (right) and chat (left) move aside or back
     C_Timer.After(0, function() if ns.Relayout then ns.Relayout() end end)
 end
@@ -663,6 +678,7 @@ C_Timer.NewTicker(0.1, function()
             frame.muiTarget = over and 1 or 0
         end
     end
+    WakeFader()
 end)
 
 -- Setup -------------------------------------------------------------------------------------

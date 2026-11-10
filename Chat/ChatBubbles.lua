@@ -72,8 +72,27 @@ local function Scan()
     end
 end
 
+-- Bubbles only appear after say/yell/party chat: scan for a few seconds after such a message
+-- instead of all the time
+local BUBBLE_EVENTS = { "CHAT_MSG_SAY", "CHAT_MSG_YELL", "CHAT_MSG_PARTY", "CHAT_MSG_PARTY_LEADER",
+    "CHAT_MSG_MONSTER_SAY", "CHAT_MSG_MONSTER_YELL", "CHAT_MSG_MONSTER_PARTY" }
+local SCAN_WINDOW = 8
+local scanUntil, scanTicker = 0, nil
+local function ScanTick()
+    Scan()
+    if GetTime() > scanUntil and scanTicker then
+        scanTicker:Cancel()
+        scanTicker = nil
+    end
+end
+
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() or not C_ChatBubbles then return end
     ApplyFont()
-    C_Timer.NewTicker(SCAN_INTERVAL, Scan)
+    for _, event in ipairs(BUBBLE_EVENTS) do
+        ns:On(event, function()
+            scanUntil = GetTime() + SCAN_WINDOW
+            if not scanTicker then scanTicker = C_Timer.NewTicker(SCAN_INTERVAL, ScanTick) end
+        end)
+    end
 end)

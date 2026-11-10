@@ -615,12 +615,18 @@ ns:On("PLAYER_LOGIN", function()
     ns.OnLayout(Place)
     local combatEnd, wheel = 0, nil
     ns:On("PLAYER_REGEN_ENABLED", function() combatEnd = GetTime() end)
+    local want, wantElapsed = 1, 1
     holder:SetScript("OnUpdate", function(self, delta)
-        -- Fade in/out every frame, alpha only - no Show/Hide, so the mouse can still find it
-        local want = 1
-        if FadeOn() and not demoActive and not UnitAffectingCombat("player") and GetTime() - combatEnd > LINGER
-            and not self:IsMouseOver() and not (openMenu and openMenu:IsShown()) and not (detail and detail:IsShown()) then
-            want = 0
+        -- Fade in/out, alpha only - no Show/Hide, so the mouse can still find it. The target is
+        -- re-evaluated every 0.1 s (mouse/combat checks), the fade itself runs every frame.
+        wantElapsed = wantElapsed + delta
+        if wantElapsed >= 0.1 then
+            wantElapsed = 0
+            want = 1
+            if FadeOn() and not demoActive and not UnitAffectingCombat("player") and GetTime() - combatEnd > LINGER
+                and not self:IsMouseOver() and not (openMenu and openMenu:IsShown()) and not (detail and detail:IsShown()) then
+                want = 0
+            end
         end
         local alpha = self:GetAlpha()
         if alpha ~= want then
