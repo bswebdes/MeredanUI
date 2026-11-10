@@ -124,7 +124,29 @@ local function ShortHeader(editBox)
     editBox:SetTextInsets(15 + header:GetWidth() + language, 13, 0, 0)
 end
 
+-- Default tab names follow the client language. Chat windows keep the name from the language they
+-- were created in (e.g. "Allgemein" on an English client), so Blizzard's default names in other
+-- languages are renamed to this client's. Custom names are left alone.
+local DEFAULT_TABS = {
+    { frame = "ChatFrame1", global = "GENERAL", names = { "General", "Allgemein", "Général", "Generale",
+        "Geral", "Общий", "일반", "综合", "綜合" } },
+    { frame = "ChatFrame2", global = "COMBAT_LOG", names = { "Combat Log", "Kampflog", "Journal de combat",
+        "Registro de combate", "Registro di combattimento", "Registro de Combate", "Журнал боя", "전투 기록",
+        "战斗记录", "戰鬥紀錄" } },
+}
+local function LocalizeTabNames()
+    if not FCF_SetWindowName then return end
+    for _, tab in ipairs(DEFAULT_TABS) do
+        local frame, wanted = _G[tab.frame], _G[tab.global]
+        local current = frame and GetChatWindowInfo(frame:GetID())
+        if type(wanted) == "string" and current and current ~= wanted and tContains(tab.names, current) then
+            FCF_SetWindowName(frame, wanted)
+        end
+    end
+end
+
 ns:On("PLAYER_LOGIN", function()
+    LocalizeTabNames()
     local count = Constants.ChatFrameConstants and Constants.ChatFrameConstants.MaxChatWindows or NUM_CHAT_WINDOWS
     for i = 1, count do
         local editBox = _G["ChatFrame" .. i .. "EditBox"]
