@@ -1242,6 +1242,8 @@ if GetLocale() == "deDE" then
     L["Progress bars"] = "Fortschrittsleisten"
     L["RP mode: hide everything except chat and emotes, also nameplates and names. Mask button at the end of the emote bar, /rp or your own key (Key Bindings > AddOns > MeredanUI). Combat ends it."] = "RP-Modus: alles außer Chat und Emotes ausblenden, auch Namensplaketten und Namen. Masken-Knopf am Ende der Emote-Leiste, /rp oder eigene Taste (Tastaturbelegung > AddOns > MeredanUI). Kampf beendet ihn."
     L["Short channel names ([G], [P], [1] …)"] = "Kurze Kanalnamen ([G], [P], [1] …)"
+    L["BigWigs in the mUI look"] = "BigWigs im mUI-Look"
+    L["Bar style \"MeredanUI\": flat bars above your player frame, big bars top centre, mUI font."] = "Balkenstil „MeredanUI“: flache Balken über deinem Spielerrahmen, große Balken oben mittig, mUI-Schrift."
     L["DBM in the mUI look"] = "DBM im mUI-Look"
     L["Own DBM profile \"MeredanUI\": flat bars left of the player frame, big bars top centre, mUI font. Your old DBM profile stays."] = "Eigenes DBM-Profil „MeredanUI“: flache Balken links neben dem Spielerrahmen, große Balken oben mittig, mUI-Schrift. Dein altes DBM-Profil bleibt."
     L["%s does this job right now. These settings apply again when you switch back to mUI on the Modules page."] = "%s übernimmt das gerade. Diese Einstellungen gelten wieder, wenn du auf der Seite Module zu mUI zurückwechselst."
