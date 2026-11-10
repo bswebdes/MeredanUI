@@ -389,6 +389,8 @@ local PAGES = {
                 Help(L["Adds “From: name” to aura tooltips, also when you're not in a group. Not for Blizzard's own buff bar at the top right (its tooltip is protected)."]))
             page:AddCheckbox(L["Show IDs"], On("tooltipIDs"), Live("tooltipIDs"),
                 Help(L["Spells, items, NPCs. Handy for WeakAuras and macros."]))
+            page:AddCheckbox(L["Item count on your characters"], On("altItemCount"), Setter("altItemCount"),
+                Help(L["Bags, bank and mail of all your characters. Bank and mail as of your last visit."]))
             page:AddHeader(L["Players"])
             page:AddCheckbox(L["Item level"], On("tooltipItemLevel"), Live("tooltipItemLevel"))
             if not ns.IS_FOREVER then -- Forever: no Mythic+

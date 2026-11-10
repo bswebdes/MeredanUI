@@ -1565,4 +1565,8 @@ if GetLocale() == "deDE" then
     L["Elixir or flask"] = "Elixier oder Fläschchen"
     L["Buff reminder"] = "Buff-Erinnerung"
     L["Your class buffs missing or with an old rank, weapon oil or stone run out. Not in combat or in cities."] = "Eigene Klassen-Buffs fehlen oder haben einen alten Rang, Waffenöl oder Wetzstein ist abgelaufen. Nicht im Kampf und nicht in Städten."
+    L["Mail"] = "Post"
+    L["Worn"] = "Angelegt"
+    L["Item count on your characters"] = "Anzahl auf deinen Charakteren"
+    L["Bags, bank and mail of all your characters. Bank and mail as of your last visit."] = "Taschen, Bank und Post aller deiner Charaktere. Bank und Post vom letzten Besuch."
 end

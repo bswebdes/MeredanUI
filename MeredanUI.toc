@@ -122,6 +122,7 @@ Upgrades/ForeverWeights.lua
 Upgrades/ForeverPawn.lua
 Upgrades/ItemLevels.lua
 Tooltip/Tooltip.lua
+Tooltip/AltItems.lua
 Auras/PlayerAuras.lua
 Quests/DungeonBosses.lua
 Quests/QuestieBridge.lua
