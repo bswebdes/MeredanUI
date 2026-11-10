@@ -15,9 +15,9 @@ local function Styled() return ns.db and ns.db.detailsStyle ~= false end
 local WIDTH = 335          -- as mUI's damage meter (DamageMeter/DamageMeter.lua)
 local ROW, ROW_GAP = 20, 3
 local ROWS_HEIGHT = 5 * ROW + 4 * ROW_GAP + 4 -- five rows
-local SKIN_VERSION = 2     -- raise when the skin table changes: windows get it again
--- as light as mUI's own meter: see-through panel, bars on a faint dark background
-local PANEL_ALPHA, TITLE_ALPHA, BAR_BG = 0.35, 0.55, { 0, 0, 0, 0.4 }
+local SKIN_VERSION = 3     -- raise when the skin table changes: windows get it again
+-- like mUI's own meter: no window or title background at all, bars on a faint dark background
+local PANEL_ALPHA, TITLE_ALPHA, BAR_BG = 0, 0, { 0, 0, 0, 0.4 }
 local TITLE = 20           -- Details' title bar sits above the window frame
 
 local function Place(instance)
@@ -28,13 +28,25 @@ local function Place(instance)
     frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -(margin + TITLE))
     instance:SetSize(WIDTH, ROWS_HEIGHT) -- also saves the position in Details
     if instance.LockInstance and not instance.isLocked then instance:LockInstance(true) end
+    if ns.PlaceToastHolder then ns.PlaceToastHolder() end
 end
 
--- 1 px black border around the window (Details' side bars are off)
+-- No frame around the window (mUI's meter has none); toasts follow the window (Toasts/Toasts.lua)
 local function Border(instance)
     local frame = instance and instance.baseframe
-    if not frame or frame.muiBorder then return end
-    frame.muiBorder = ns.AddBorder(frame)
+    if not frame or frame.muiHooked then return end
+    frame.muiHooked = true
+    local function Toasts() if ns.PlaceToastHolder then ns.PlaceToastHolder() end end
+    frame:HookScript("OnShow", Toasts)
+    frame:HookScript("OnHide", Toasts)
+end
+
+-- Window 1 while shown, top edge including Details' title bar (for the toast position)
+function ns.DetailsMeterFrame()
+    local Details = _G.Details
+    local instance = Details and Details.GetInstance and Details:GetInstance(1)
+    local frame = instance and instance.baseframe
+    if frame and frame:IsVisible() and frame:GetTop() then return frame, frame:GetTop() + TITLE end
 end
 
 local function SkinTable()

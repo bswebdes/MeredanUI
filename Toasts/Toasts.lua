@@ -44,11 +44,13 @@ holder:SetFrameStrata("HIGH")
 local function PlaceHolder()
     holder:ClearAllPoints()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- mUI meter (DamageMeter/DamageMeter.lua), else Blizzard's first window
-    local meter = ns.layoutFrames.damagemeter or DamageMeterSessionWindow1
+    -- mUI meter (DamageMeter/DamageMeter.lua), else Details' first window, else Blizzard's
+    local meter, meterTop = ns.layoutFrames.damagemeter, nil
+    if not (meter and meter:IsVisible()) and ns.DetailsMeterFrame then meter, meterTop = ns.DetailsMeterFrame() end
+    meter = meter or DamageMeterSessionWindow1
     -- only next to a visible meter; top edge keeps the screen margin
     if meter and meter:IsVisible() and meter:GetLeft() and meter:GetTop() then
-        local top = math.min(meter:GetTop(), UIParent:GetTop() - margin)
+        local top = math.min(meterTop or meter:GetTop(), UIParent:GetTop() - margin)
         holder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", meter:GetRight() + ns.Snap(10), top)
     else
         holder:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -margin)
