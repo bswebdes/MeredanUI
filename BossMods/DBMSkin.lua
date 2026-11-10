@@ -1,15 +1,16 @@
 -- Deadly Boss Mods in the mUI look - through DBM's own settings, in a DBM profile "MeredanUI"
 -- (the player's previous profile stays untouched and can be picked again in DBM).
 -- Look: flat bars with a 1 px border, mUI texture and font; warnings and info frame in the mUI
--- font. Spots from mUI's layout: bars left of the player frame (top-aligned, growing down), big
+-- font. Spots from mUI's layout: bars above the player frame (left-aligned, growing up), big
 -- bars top centre, warnings above them, info frame right of the target frame.
 -- Only bar icons get code skinning (DBM has no setting to crop them).
 -- Set once per character (ns.char.dbmProfile); switch ns.db.dbmStyle (Modules page / setup).
 local _, ns = ...
 
-local PROFILE, PROFILE_VERSION = "MeredanUI", 1
+local PROFILE, PROFILE_VERSION = "MeredanUI", 2
 local BAR_WIDTH, BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 220, 22, 260, 26
 local ICON_GAP = 4
+local ABOVE_PLAYER = 34    -- room for the player name above the frame
 
 local function Available()
     return DBM ~= nil and DBT ~= nil and DBM.Options ~= nil and DBT.Options ~= nil
@@ -53,13 +54,13 @@ end
 local function Positions(bars, options)
     local h = UIParent:GetHeight()
     local player = ns.frames and ns.frames.player
-    if player and player:GetLeft() and ns.LeftOfPlayerEdge then
-        -- as wide as possible (max BAR_WIDTH), the icon keeps the screen margin
-        local right = ns.LeftOfPlayerEdge()
-        local width = math.floor(math.min(BAR_WIDTH, right - ns.SCREEN_MARGIN - BAR_HEIGHT - ICON_GAP))
+    if player and player:GetLeft() then
+        -- icon flush with the player frame's left edge, bar after it, together as wide as the frame
+        local left = player:GetLeft() + BAR_HEIGHT + ICON_GAP
+        local width = math.floor(math.min(BAR_WIDTH, player:GetRight() - left))
         bars.Width = width
-        bars.TimerPoint, bars.ExpandUpwards = "BOTTOMLEFT", false
-        bars.TimerX, bars.TimerY = Offset("BOTTOMLEFT", right - width / 2, player:GetTop())
+        bars.TimerPoint, bars.ExpandUpwards = "BOTTOMLEFT", true
+        bars.TimerX, bars.TimerY = Offset("BOTTOMLEFT", left + width / 2, player:GetTop() + ns.Snap(ABOVE_PLAYER))
     end
     local hugeTop = -math.floor(h * 0.26)
     bars.HugeTimerPoint, bars.HugeTimerX, bars.HugeTimerY, bars.ExpandUpwardsLarge = "TOP", 0, hugeTop, false
