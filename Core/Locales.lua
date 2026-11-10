@@ -1457,6 +1457,8 @@ if GetLocale() == "deDE" then
     L["Double right-click in the world casts Fishing while a pole is equipped (out of combat)."] = "Doppelter Rechtsklick in die Welt wirft die Angel aus, wenn sie angelegt ist (außerhalb vom Kampf)."
     L["Pin editor off. Pins are saved."] = "Pin-Editor aus. Pins sind gespeichert."
     L["Click: dungeon map"] = "Klick: Dungeon-Karte"
+    L["Opens on December 9"] = "Öffnet am 9. Dezember"
+    L["Not open yet"] = "Noch nicht geöffnet"
     L["Approximate entrance, will be corrected."] = "Ungefährer Eingang, wird korrigiert."
     L["Calendar in mUI look"] = "Kalender im mUI-Look"
     L["Stable in mUI look"] = "Stall im mUI-Look"

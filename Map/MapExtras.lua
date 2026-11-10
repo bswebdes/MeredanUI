@@ -291,6 +291,29 @@ local ENTRANCES = {
     { 509, 1, -8114.5, 1526.4, true, "Ruins of Ahn'Qiraj" },
     { 531, 1, -8111.7, 1526.8, true, "Ahn'Qiraj Temple" },
 }
+-- Instances that exist in Forever's game data but not (yet) in the game. "hidden": not announced
+-- for Forever (Classic leftovers) - no swirl, no dungeon map. A unix time: announced, shown greyed
+-- out with the date until then. Raid list per Blizzard's Forever roadmap (Nov 2026).
+local RAIDS_DEC_9 = 1796774400 -- 2026-12-09 00:00 UTC
+local UNLOCK_TEXT = { [RAIDS_DEC_9] = ns.L["Opens on December 9"] }
+local INSTANCE_STATUS = {
+    [309] = "hidden", -- Zul'Gurub
+    [409] = "hidden", -- Molten Core
+    [469] = "hidden", -- Blackwing Lair
+    [509] = "hidden", -- Ruins of Ahn'Qiraj
+    [531] = "hidden", -- Temple of Ahn'Qiraj
+    [533] = "hidden", -- Naxxramas
+    [249] = RAIDS_DEC_9, -- Onyxia's Lair
+}
+
+-- nil = open, "hidden", or "later" + unlock time
+function ns.InstanceState(instance)
+    local status = INSTANCE_STATUS[instance]
+    if status == "hidden" then return "hidden" end
+    if type(status) == "number" and GetServerTime() < status then return "later", status end
+    return nil
+end
+
 -- Forever's new instances have no corpse point in the game data, so their entrances are learned:
 -- right before the loading screen into an instance (PLAYER_LEAVING_WORLD) the player still stands at
 -- the portal. That spot is saved account-wide (MeredanUIDB.entrances[instanceMap]) and shown like
@@ -471,7 +494,9 @@ function EntranceProvider:RefreshAllData()
     self.pins = self.pins or {}
     local level = map:GetPinFrameLevelsManager():GetValidFrameLevel("PIN_FRAME_LEVEL_DUNGEON_ENTRANCE")
     for _, e in ipairs(AllEntrances()) do
-        local _, pos = C_Map.GetMapPosFromWorldPos(e[2], CreateVector2D(e[3], e[4]), mapID)
+        local state, unlock = ns.InstanceState(e[1])
+        local _, pos = nil, nil
+        if state ~= "hidden" then _, pos = C_Map.GetMapPosFromWorldPos(e[2], CreateVector2D(e[3], e[4]), mapID) end
         local x, y
         if pos then x, y = pos:GetXY() end -- not "pos and pos:GetXY()": that yields only one value
         if x and x >= 0 and x <= 1 and y >= 0 and y <= 1 then
@@ -504,7 +529,9 @@ function EntranceProvider:RefreshAllData()
                     else
                         GameTooltip:AddLine(kind, 0.6, 0.59, 0.56)
                     end
-                    if ns.DungeonMapView and ns.DungeonMapView.Has(self.instance) then
+                    if self.unlock then
+                        GameTooltip:AddLine(UNLOCK_TEXT[self.unlock] or ns.L["Not open yet"], 0.6, 0.59, 0.56, true)
+                    elseif ns.DungeonMapView and ns.DungeonMapView.Has(self.instance) then
                         GameTooltip:AddLine(ns.L["Click: dungeon map"], 0.56, 0.8, 0.71)
                     end
                     if self.approx then
@@ -528,6 +555,9 @@ function EntranceProvider:RefreshAllData()
             pin:SetSize(size, size)
             pin:SetFrameLevel(level)
             pin.icon:SetAtlas(e[5] and "raid" or "dungeon")
+            pin.icon:SetDesaturated(state == "later")
+            pin.icon:SetAlpha(state == "later" and 0.6 or 1)
+            pin.unlock = state == "later" and unlock or nil
             pin.x, pin.y, pin.raid, pin.instance, pin.approx = x, y, e[5], e[1], e[7]
             pin.name = (GetRealZoneText and GetRealZoneText(e[1])) or e[6]
             if not pin.name or pin.name == "" then pin.name = e[6] end

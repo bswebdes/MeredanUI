@@ -107,7 +107,11 @@ function view.Hide()
 end
 
 function view.IsShown() return view.frame and view.frame:IsShown() or false end
-function view.Has(instance) return ns.DUNGEON_MAPS and ns.DUNGEON_MAPS[instance] ~= nil end
+-- not for instances that aren't in the game (yet): see ns.InstanceState in Map/MapExtras.lua
+function view.Has(instance)
+    if ns.InstanceState and ns.InstanceState(instance) then return false end
+    return ns.DUNGEON_MAPS and ns.DUNGEON_MAPS[instance] ~= nil
+end
 
 function view.CurrentName()
     if not view.IsShown() then return nil end
