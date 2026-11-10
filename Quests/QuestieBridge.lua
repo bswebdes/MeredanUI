@@ -78,6 +78,26 @@ end
 local PIN_TEMPLATE = "HereBeDragonsPinsTemplateQuestie"
 local mapCanvas
 
+-- Questie's own icon click only acts on Blizzard's WorldMapFrame (and Shift/Ctrl). On mUI's map a plain
+-- left click makes the quest the active one in mUI's tracker (direction arrow), or - for a quest not yet
+-- accepted - puts Blizzard's map pin on the quest giver. Added after Questie's handler, never instead.
+local hookedIcons = setmetatable({}, { __mode = "k" })
+local function OnIconClick(icon, button)
+    if button ~= "LeftButton" or IsModifierKeyDown() then return end
+    local data = icon.data
+    local questID = data and tonumber(data.Id)
+    if not questID then return end
+    if C_QuestLog.GetLogIndexForQuestID(questID) then
+        C_SuperTrack.SetSuperTrackedQuestID(questID)
+        PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_SUPER_TRACK_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+    elseif icon.UiMapID and icon.x and icon.y then
+        local title = C_QuestLog.GetTitleForQuestID(questID) or data.Name
+        if Bridge.SetWaypoint({ name = title, uiMapID = icon.UiMapID, x = icon.x, y = icon.y }) then
+            PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_CONTROL_CLICK or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+        end
+    end
+end
+
 local function MoveProvider()
     if not (ready and mapCanvas) then return end
     local pins = LibStub and LibStub("HereBeDragonsQuestie-Pins-2.0", true)
@@ -94,7 +114,17 @@ local function MoveProvider()
         local function create()
             local frame = CreateFrame("Frame", nil, mapCanvas:GetCanvas())
             frame:SetSize(1, 1)
-            return Mixin(frame, pinMixin)
+            Mixin(frame, pinMixin)
+            -- our pin frame: wrap OnAcquired to hook each Questie icon it carries (once per icon)
+            local acquired = frame.OnAcquired
+            frame.OnAcquired = function(pin, icon, ...)
+                acquired(pin, icon, ...)
+                if icon and not hookedIcons[icon] and icon.HookScript then
+                    hookedIcons[icon] = true
+                    icon:HookScript("OnClick", OnIconClick)
+                end
+            end
+            return frame
         end
         local function reset(_, pin)
             pin:Hide()
