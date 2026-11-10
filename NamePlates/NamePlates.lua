@@ -352,7 +352,7 @@ local function Style(self, unit)
     glow:SetTexture(ns.MEDIA .. "Glow")
     glow:SetPoint("TOPLEFT", health, "TOPLEFT", -30, 14)
     glow:SetPoint("BOTTOMRIGHT", health, "BOTTOMRIGHT", 30, -14)
-    glow:SetVertexColor(ns.UI.ACCENT[1], ns.UI.ACCENT[2], ns.UI.ACCENT[3], 0.35)
+    glow:SetVertexColor(ns.UI.ACCENT[1], ns.UI.ACCENT[2], ns.UI.ACCENT[3], 0.5)
     glow:Hide()
     self.targetGlow = glow
 
