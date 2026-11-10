@@ -1239,6 +1239,14 @@ local function UpdateInstanceFlag()
 end
 ns.UpdateQuestlogHiding = function() if watcher then UpdateInstanceFlag() end end
 
+-- Created right at PLAYER_LOGIN, not in the delayed Setup: a secure header created during combat
+-- lockdown (reload in combat) gets no frame handle, its state driver then fails ("Invalid 'self'
+-- frame handle").
+local function CreateItemLayer()
+    if itemLayer then return end
+    itemLayer = CreateFrame("Frame", "MeredanUITrackerItems", UIParent, "SecureHandlerStateTemplate")
+end
+
 local function Setup()
     -- park Blizzard's tracker (events keep running)
     local hidden = CreateFrame("Frame")
@@ -1302,7 +1310,7 @@ local function Setup()
         tracker.UpdateScroll()
     end)
 
-    itemLayer = CreateFrame("Frame", "MeredanUITrackerItems", UIParent, "SecureHandlerStateTemplate")
+    CreateItemLayer()
     itemLayer:SetSize(ACTIVE_SIZE, 10)
     -- not parented to the tracker: it would become protected too and couldn't change its height in
     -- combat. The placeholder sits at the same corner and only moves out of combat.
@@ -1435,4 +1443,7 @@ local function Setup()
 end
 
 -- after buffs and action bars (they set up on login)
-ns:On("PLAYER_LOGIN", function() C_Timer.After(0.2, Setup) end)
+ns:On("PLAYER_LOGIN", function()
+    CreateItemLayer()
+    C_Timer.After(0.2, Setup)
+end)
