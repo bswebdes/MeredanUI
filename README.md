@@ -3,9 +3,17 @@
 A clean, flat all-in-one interface for **WoW Forever** and **Retail (Midnight)**.
 One addon, one look, one settings window (`/mui`). English and German.
 
-**Download:** [CurseForge](https://www.curseforge.com/wow/addons/meredanui)
-
 > MeredanUI is in **beta**. Expect bugs and changes between versions.
+
+## What's inside
+- **Unit frames, nameplates, action bars, auras, chat, tooltips, minimap, bags** – all in one flat look
+- **Own windows** for character, talents, spellbook, map, quests, merchants, mail, auction house, guild and more
+- **Dungeon maps** for WoW Forever, with boss positions
+- **Quest tracker** with Questie support: turn-in NPC, distance and direction arrow
+- **Damage meter**, threat bar, ready check with consumables
+- **Comfort helpers** (each with its own switch): auto quests, summons, resurrects, buff reminders, item counts across your characters
+- **Plays nice with other addons**: Plater, Details, DBM/BigWigs, Bagnon & co. take over their part if you prefer them
+- Setup wizard with two presets: **Classic** (plain) or **Comfort** (all helpers on)
 
 ## Found a bug?
 Please [open an issue](https://github.com/bswebdes/MeredanUI/issues/new/choose) and include:
