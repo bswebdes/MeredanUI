@@ -7,10 +7,10 @@
 -- Set once per character (ns.char.dbmProfile); switch ns.db.dbmStyle (Modules page / setup).
 local _, ns = ...
 
-local PROFILE, PROFILE_VERSION = "MeredanUI", 2
+local PROFILE, PROFILE_VERSION = "MeredanUI", 3
 local BAR_WIDTH, BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 220, 22, 260, 26
 local ICON_GAP = 4
-local ABOVE_PLAYER = 34    -- room for the player name above the frame
+local ABOVE_GAP = 8       -- between the player's buff row and the bars
 
 local function Available()
     return DBM ~= nil and DBT ~= nil and DBM.Options ~= nil and DBT.Options ~= nil
@@ -60,7 +60,10 @@ local function Positions(bars, options)
         local width = math.floor(math.min(BAR_WIDTH, player:GetRight() - left))
         bars.Width = width
         bars.TimerPoint, bars.ExpandUpwards = "BOTTOMLEFT", true
-        bars.TimerX, bars.TimerY = Offset("BOTTOMLEFT", left + width / 2, player:GetTop() + ns.Snap(ABOVE_PLAYER))
+        -- above the player's buff row (UnitFrames.lua: one row at aurasAbove, icon size buff)
+        local S = player.Sizes or {}
+        local above = (S.aurasAbove or 20) + (S.buff or 30) + ns.Snap(ABOVE_GAP)
+        bars.TimerX, bars.TimerY = Offset("BOTTOMLEFT", left + width / 2, player:GetTop() + above)
     end
     local hugeTop = -math.floor(h * 0.26)
     bars.HugeTimerPoint, bars.HugeTimerX, bars.HugeTimerY, bars.ExpandUpwardsLarge = "TOP", 0, hugeTop, false
