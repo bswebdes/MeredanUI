@@ -14,6 +14,7 @@ hidden:Hide()
 local window, list, greeting
 local rows, headers = {}, {}
 local source -- "gossip" or "greeting"
+local serverClosed = false -- GOSSIP_CLOSED hid the window: the game ended the gossip already
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.gossipWindow ~= false
@@ -197,6 +198,12 @@ local function CreateWindow()
     end)
     window:HookScript("OnHide", function()
         PlaySound(SOUNDKIT.IG_QUEST_LIST_CLOSE)
+        -- The game already closed the gossip (an option opened the bank, a vendor ...): ending the
+        -- interaction now would close that next window right away
+        if serverClosed then
+            serverClosed = false
+            return
+        end
         -- Only end our own, still running interaction (otherwise it would hit the next NPC)
         if source == "greeting" then
             if ns.StillInteracting("QuestGiver", QuestFrame) then CloseQuest() end
@@ -222,7 +229,12 @@ ns:On("PLAYER_LOGIN", function()
     -- Park invisibly: Blizzard only checks IsShown, and OnShow/OnHide do not fire while parked
     GossipFrame:SetParent(hidden)
     ns:On("GOSSIP_SHOW", function() ShowFor("gossip", GossipFrame, "npc") end)
-    ns:On("GOSSIP_CLOSED", function() if source == "gossip" then window:Hide() end end)
+    ns:On("GOSSIP_CLOSED", function()
+        if source == "gossip" and window:IsShown() then
+            serverClosed = true
+            window:Hide()
+        end
+    end)
     ns.OnQuestsChanged(function() if window:IsShown() then Layout() end end)
     -- Quest-only NPCs greet via Blizzard's QuestFrame, which NPC/Quest.lua parks
     ns:On("QUEST_GREETING", function() ShowFor("greeting", QuestFrame, "questnpc") end)
