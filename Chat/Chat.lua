@@ -126,13 +126,14 @@ end
 
 -- Default tab names follow the client language. Chat windows keep the name from the language they
 -- were created in (e.g. "Allgemein" on an English client), so Blizzard's default names in other
--- languages are renamed to this client's. Custom names are left alone.
+-- languages are renamed to this client's. Custom names are left alone. Non-Latin names as byte
+-- escapes (Russian, Korean, Chinese): mUI's fonts have no glyphs for them.
 local DEFAULT_TABS = {
     { frame = "ChatFrame1", global = "GENERAL", names = { "General", "Allgemein", "Général", "Generale",
-        "Geral", "Общий", "일반", "综合", "綜合" } },
+        "Geral", "\208\158\208\177\209\137\208\184\208\185", "\236\157\188\235\176\152", "\231\187\188\229\144\136", "\231\182\156\229\144\136" } },
     { frame = "ChatFrame2", global = "COMBAT_LOG", names = { "Combat Log", "Kampflog", "Journal de combat",
-        "Registro de combate", "Registro di combattimento", "Registro de Combate", "Журнал боя", "전투 기록",
-        "战斗记录", "戰鬥紀錄" } },
+        "Registro de combate", "Registro di combattimento", "Registro de Combate", "\208\150\209\131\209\128\208\189\208\176\208\187\32\208\177\208\190\209\143", "\236\160\132\237\136\172\32\234\184\176\235\161\157",
+        "\230\136\152\230\150\151\232\174\176\229\189\149", "\230\136\176\233\172\165\231\180\128\233\140\132" } },
 }
 local function LocalizeTabNames()
     if not FCF_SetWindowName then return end
