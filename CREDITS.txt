@@ -30,10 +30,6 @@ Dungeon maps of WoW Forever's new instances (Media/DungeonMaps)
   permission (2026-11-09); watermarks and credits must stay unaltered, not for sale.
   (Blackmaw Hold: own map built from the game's minimap tiles.)
 
-Dungeon loot lists (Map/DungeonLoot.lua)
-- Starting data from AtlasLootClassic – https://github.com/Hoizame/AtlasLootClassic – drop lists
-  used as a data table only, shown as unconfirmed.
-
 Flight time estimates (Minimap/FlightTimeData.lua)
 - Classic flight times from InFlight Taxi Timer – MIT License –
   Copyright (c) 2009-2024 TotalPackage, 2022 Deranjata, 2025-2026 LudiusMaximus –

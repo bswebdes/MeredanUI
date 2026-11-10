@@ -1594,7 +1594,7 @@ if GetLocale() == "deDE" then
     L["On your wishlist"] = "Auf deiner Merkliste"
     L["Bosses"] = "Bosse"
     L["Nothing for this filter."] = "Nichts für diesen Filter."
-    L["Loot from AtlasLoot data, not confirmed in Forever yet."] = "Beute aus AtlasLoot-Daten, in Forever noch nicht bestätigt."
+    L["Drop chances from classic data, Forever can differ. Check mark: seen dropping in Forever."] = "Drop-Chancen aus Classic-Daten, in Forever kann es abweichen. Haken: in Forever schon gedroppt."
     L["For me"] = "Für mich"
     L["Open"] = "Offen"
     L["Owned"] = "Erhalten"

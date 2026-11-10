@@ -9,7 +9,7 @@
 --   |   [For me] [All]                          |
 --   |   [icon] Belt of the Fang     Leather  *  |
 --   | <2> Lord Cobrahn                3 items   |
---   | Loot from AtlasLoot data, not confirmed   |
+--   | Drop chances from classic data ...        |
 local _, ns = ...
 local L = ns.L
 
@@ -86,9 +86,31 @@ end
 local function Visible(items)
     if not FilterMine() then return items end
     local out = {}
-    for _, id in ipairs(items) do if ForMe(id) then out[#out + 1] = id end end
+    for _, entry in ipairs(items) do if ForMe(entry[1]) then out[#out + 1] = entry end end
     return out
 end
+
+-- Instances whose boss pins Benny checked in the game; released one by one (Map/DungeonLoot.lua has more)
+local READY = { [43] = true }
+
+-- Items seen dropping in Forever (account-wide): looting in an instance marks its listed items
+local function Seen()
+    MeredanUIDB.lootSeen = MeredanUIDB.lootSeen or {}
+    return MeredanUIDB.lootSeen
+end
+ns:On("LOOT_OPENED", function()
+    local inInstance = IsInInstance()
+    local instance = inInstance and select(8, GetInstanceInfo())
+    local loot = instance and ns.DUNGEON_LOOT[instance]
+    if not loot then return end
+    local listed = {}
+    for _, items in pairs(loot) do for _, entry in ipairs(items) do listed[entry[1]] = true end end
+    for slot = 1, GetNumLootItems() do
+        local link = GetLootSlotLink(slot)
+        local id = link and not ns.issecretvalue(link) and C_Item.GetItemInfoInstant(link)
+        if id and listed[id] then Seen()[id] = true end
+    end
+end)
 
 -- Flat button with 1px border; TabStyle marks the active one (accent border + text)
 local function SmallButton(parent, label, w, h)
@@ -195,18 +217,25 @@ local function LootRow(i)
     return row
 end
 
--- "Waist · Leather" from the instant item data (no server round trip)
-local function KindText(itemID)
+-- "Waist · Leather · 25 %" from the instant item data (no server round trip); a check mark when the
+-- item was seen dropping in Forever
+local function KindText(itemID, chance)
     local _, _, subType, equipLoc = C_Item.GetItemInfoInstant(itemID)
     local slot = equipLoc and equipLoc ~= "" and _G[equipLoc] or nil
-    if slot and subType and subType ~= "" and subType ~= slot then return slot .. "  ·  " .. subType end
-    return slot or subType or ""
+    local parts = {}
+    if slot then parts[#parts + 1] = slot end
+    if subType and subType ~= "" and subType ~= slot then parts[#parts + 1] = subType end
+    if chance then parts[#parts + 1] = ("%s %%"):format(chance) end
+    local text = table.concat(parts, "  ·  ")
+    if Seen()[itemID] then text = text .. "  |T" .. ns.MEDIA .. "Icons\\Check:11:11:0:0:64:64:0:64:0:64:142:203:180|t" end
+    return text
 end
 
-local function FillLoot(row, id)
+local function FillLoot(row, entry)
+    local id = entry[1]
     row.itemID = id
     row.icon:SetTexture(C_Item.GetItemIconByID(id))
-    row.kind:SetText(KindText(id))
+    row.kind:SetText(KindText(id, entry[2]))
     row.name:SetText("")
     row.star.icon:SetAlpha(ns.Wishlist.Has(id) and 1 or 0.3)
     local item = Item:CreateFromItemID(id)
@@ -247,10 +276,10 @@ local function Layout(instance)
             Place(filterBar, y + 2, 8)
             filterBar:Show()
             y = y + 24 + GAP + 4
-            for _, id in ipairs(visible) do
+            for _, entry in ipairs(visible) do
                 nLoot = nLoot + 1
                 local loot = LootRow(nLoot)
-                FillLoot(loot, id)
+                FillLoot(loot, entry)
                 Place(loot, y, 8)
                 loot:Show()
                 y = y + LOOT_ROW + GAP
@@ -278,7 +307,7 @@ function P.Refresh()
     if not frame then return end
     local view = ns.DungeonMapView
     local instance = view and view.IsShown() and view.instance
-    local active = instance and ns.DUNGEON_LOOT[instance] ~= nil or false
+    local active = instance and READY[instance] and ns.DUNGEON_LOOT[instance] ~= nil or false
     frame:SetShown(active)
     for _, f in ipairs(hiddenFrames) do f:SetAlpha(active and 0 or 1) end
     if not active then return end
@@ -353,7 +382,7 @@ function P.Attach(parent, topLeft, bottomRight, hide)
 
     note = UI.Text(list.child, 11, "LEFT", UI.MUTED)
     note:SetWordWrap(true)
-    note:SetText(L["Loot from AtlasLoot data, not confirmed in Forever yet."])
+    note:SetText(L["Drop chances from classic data, Forever can differ. Check mark: seen dropping in Forever."])
 
     ns.Wishlist.AddListener(function()
         if frame:IsShown() then P.Refresh() end
