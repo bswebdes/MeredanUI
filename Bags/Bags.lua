@@ -1034,7 +1034,7 @@ ns:On("BAG_UPDATE_DELAYED", Refresh)
 ns:On("BAG_CONTAINER_UPDATE", Refresh)       -- bag swapped
 ns:On("PLAYER_EQUIPMENT_CHANGED", Refresh)
 ns:On("QUEST_ACCEPTED", Refresh)
-ns:On("UNIT_QUEST_LOG_CHANGED", Refresh)
+ns:On("UNIT_QUEST_LOG_CHANGED", function(_, unit) if unit == "player" then Refresh() end end) -- fires for every group member
 ns:On("ITEM_LOCK_CHANGED", function(_, bag, slot)
     local button = bag and slot and buttons[bag] and buttons[bag][slot]
     if button and button:IsShown() then

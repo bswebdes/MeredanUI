@@ -396,23 +396,34 @@ function Char.Refresh()
     C_Timer.After(0, RefreshCurrent)
 end
 
-local registered = {}
+-- Tab events live on an own frame that listens only while the window is open; UNIT_* events
+-- only for player and pet (RegisterUnitEvent), so raid-wide aura/health events never reach us.
+local watched, watcher = {}, CreateFrame("Frame")
+watcher:SetScript("OnEvent", function(_, event)
+    local active = TabByKey(current)
+    if not (window and window:IsShown() and active) then return end
+    for _, e in ipairs(active.events or {}) do
+        if e == event then return Char.Refresh() end
+    end
+end)
 local function WatchEvents(def)
     for _, event in ipairs(def.events or {}) do
-        if not registered[event] then
-            registered[event] = true
-            ns:On(event, function(_, unit)
-                local active = TabByKey(current)
-                if not (window and window:IsShown() and active) then return end
-                -- UNIT_*: player and pet only (group aura changes must not trigger rebuilds)
-                if event:find("^UNIT_") and type(unit) == "string" and unit ~= "player" and unit ~= "pet" then return end
-                for _, e in ipairs(active.events or {}) do
-                    if e == event then return Char.Refresh() end
-                end
-            end)
+        -- events differ between Retail and Forever: an unknown one would throw
+        if not (C_EventUtils and C_EventUtils.IsEventValid and not C_EventUtils.IsEventValid(event)) then
+            watched[event] = true
         end
     end
 end
+local function StartWatching()
+    for event in pairs(watched) do
+        if event:find("^UNIT_") then
+            watcher:RegisterUnitEvent(event, "player", "pet")
+        else
+            watcher:RegisterEvent(event)
+        end
+    end
+end
+local function StopWatching() watcher:UnregisterAllEvents() end
 
 local function TabIcon(button, def)
     if type(def.icon) == "function" then def.icon(button.icon) else button.icon:SetTexture(def.icon) end
@@ -482,11 +493,13 @@ local function CreateWindow()
     end
 
     window:HookScript("OnShow", function()
+        StartWatching()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
         if CharacterMicroButton and CharacterMicroButton.SetPushed then CharacterMicroButton:SetPushed() end
         Select(current or "character")
     end)
     window:HookScript("OnHide", function()
+        StopWatching()
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
         if CharacterMicroButton and CharacterMicroButton.SetNormal then CharacterMicroButton:SetNormal() end
         for _, def in ipairs(Char.tabs) do
