@@ -434,6 +434,7 @@ GENERAL = [
     "German instance names differ between the client tables: Map table says 'Ragefireabgrund' / 'Burg Shadowfang', the group finder table (LFGDungeons) says 'Flammenschlund' / 'Burg Schattenfang'. Wowhead's German zone names follow the Map table. Check which one the German client shows.",
     "New Forever instances have no pins yet except Hall of Thanes (3065) and partly Excavation Site (2998). Boss locations from the guides are in each instance file to help placing them with /mui pins.",
     "Shaper's Terrace (3001), Barrow Deeps and Hyjal Summit: no loot, NPC IDs or quests published by any source checked (Conquest Capped, Warcraft Tavern, Wowhead). Shaper's Terrace has 11 encounters in the game data (bosses are summoned at consoles).",
+    "Five new dungeons (Drowned City 2970, Krol'dok 3039, Alcaz Prison 2994, Blackmaw Hold 2974, Shaper's Terrace 3001) are missing from the readable client tables (Map/LFGDungeons rows encrypted) and from Wowhead's Forever dungeon journal, although guides describe them as open since launch. Their German names could not be found - take them from the German client.",
     "Sources: Conquest Capped Forever guides (read with a web reader; boss/item/quest IDs from their links), Blizzard news, Wowhead Forever tooltips for checking names/IDs. warcraft.wiki.gg blocks automated requests (HTTP 403); Wowhead pages show loot tables only with JavaScript, so loot lists came from the guides.",
 ]
 

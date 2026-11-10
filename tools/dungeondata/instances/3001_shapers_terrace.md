@@ -1,7 +1,7 @@
 # Shaper's Terrace (map 3001)
 
 - Level: 58-60 · Entrance: Un'Goro Crater (northern hills) · Faction: both
-- Status: **live** - new Forever dungeon
+- Status: **live** - new Forever dungeon; guides report it open since launch (Nov 4), but Wowhead's dungeon journal and the readable client tables (Map, LFGDungeons) do not list it yet
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-shapers-terrace-guide/, https://www.warcrafttavern.com/forever/guides/shapers-terrace/
 - Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
 - Keys / attunement: None announced. Un'Goro Power Crystals (11184/11185/11186/11188) are used at consoles inside.

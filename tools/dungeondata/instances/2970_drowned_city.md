@@ -1,7 +1,7 @@
 # The Drowned City (map 2970)
 
 - Level: 35-40 · Entrance: Stranglethorn Vale coast (underwater, west of Grom'gol) · Faction: both
-- Status: **live** - new Forever dungeon
+- Status: **live** - new Forever dungeon; guides report it open since launch (Nov 4), but Wowhead's dungeon journal and the readable client tables (Map, LFGDungeons) do not list it yet
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-the-drowned-city-guide/
 - Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
 

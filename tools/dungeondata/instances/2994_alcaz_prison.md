@@ -1,7 +1,7 @@
 # Alcaz Prison (map 2994)
 
 - Level: 48-53 · Entrance: Dustwallow Marsh (Alcaz Island) · Faction: both
-- Status: **live** - new Forever dungeon
+- Status: **live** - new Forever dungeon; guides report it open since launch (Nov 4), but Wowhead's dungeon journal and the readable client tables (Map, LFGDungeons) do not list it yet
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-alcaz-prison-guide/, https://www.warcrafttavern.com/forever/guides/alcaz-island-prison/
 - Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
 - Keys / attunement: No entry key. Overseer's Keyring item=263992 (Overseer Wrex) opens lower-floor door.

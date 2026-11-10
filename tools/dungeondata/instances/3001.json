@@ -7,7 +7,7 @@
  "zone": "Un'Goro Crater (northern hills)",
  "faction": "both",
  "status": "live",
- "status_note": "new Forever dungeon",
+ "status_note": "new Forever dungeon; guides report it open since launch (Nov 4), but Wowhead's dungeon journal and the readable client tables (Map, LFGDungeons) do not list it yet",
  "sources": [
   "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
   "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
