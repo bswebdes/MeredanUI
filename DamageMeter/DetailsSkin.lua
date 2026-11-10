@@ -13,7 +13,11 @@ local WHITE = "Interface\\Buttons\\WHITE8X8"
 local function Styled() return ns.db and ns.db.detailsStyle ~= false end
 
 local WIDTH = 335          -- as mUI's damage meter (DamageMeter/DamageMeter.lua)
-local ROWS_HEIGHT = 5 * 21 + 4 -- five 20 px rows with 1 px gaps
+local ROW, ROW_GAP = 20, 3
+local ROWS_HEIGHT = 5 * ROW + 4 * ROW_GAP + 4 -- five rows
+local SKIN_VERSION = 2     -- raise when the skin table changes: windows get it again
+-- as light as mUI's own meter: see-through panel, bars on a faint dark background
+local PANEL_ALPHA, TITLE_ALPHA, BAR_BG = 0.35, 0.55, { 0, 0, 0, 0.4 }
 local TITLE = 20           -- Details' title bar sits above the window frame
 
 local function Place(instance)
@@ -63,9 +67,9 @@ local function SkinTable()
         instance_cprops = {
             menu_icons_alpha = 0.92,
             show_statusbar = false,
-            color = { panel[1], panel[2], panel[3], 1 },
+            color = { panel[1], panel[2], panel[3], TITLE_ALPHA },
             menu_anchor = { 17, 2, side = 2 },
-            bg_r = panel[1], bg_g = panel[2], bg_b = panel[3], bg_alpha = panel[4],
+            bg_r = panel[1], bg_g = panel[2], bg_b = panel[3], bg_alpha = PANEL_ALPHA,
             color_buttons = { 1, 1, 1, 1 },
             bars_sort_direction = 1,
             instance_button_anchor = { -27, 1 },
@@ -90,11 +94,11 @@ local function SkinTable()
                 textR_custom_text = "{data1} ({data2}, {data3}%)",
                 percent_type = 1,
                 fixed_text_color = { text[1], text[2], text[3], 1 },
-                space = { right = -3, right_noborder = -3, left = 1, left_noborder = 1, between = 1 },
+                space = { right = -3, right_noborder = -3, left = 1, left_noborder = 1, between = ROW_GAP },
                 texture = ns.DEFAULT_TEXTURE,
                 texture_file = WHITE,
                 texture_background_class_color = false,
-                fixed_texture_background_color = { 0.1, 0.1, 0.11, 0.6 },
+                fixed_texture_background_color = BAR_BG,
                 font_face = "mUI",
                 font_face_file = ns.DEFAULT_FONT,
                 alpha = 1,
@@ -103,7 +107,7 @@ local function SkinTable()
                 textL_custom_text = "{data1}. {data3}{data2}",
                 no_icon = false,
                 font_size = 12,
-                height = 20,
+                height = ROW,
                 texture_class_colors = true,
                 textL_show_number = true,
                 fixed_texture_color = { 0.86, 0.86, 0.86, 1 },
@@ -158,7 +162,8 @@ function ns.ApplyDetailsStyle()
     for id = 1, (Details.GetNumInstances and Details:GetNumInstances() or 10) do
         local instance = Details:GetInstance(id)
         if instance and instance.baseframe then
-            if Styled() and instance.skin ~= SKIN then
+            local outdated = (ns.char.detailsSkin or 0) < SKIN_VERSION
+            if Styled() and (instance.skin ~= SKIN or outdated) then
                 instance:ChangeSkin(SKIN)
             elseif not Styled() and instance.skin == SKIN then
                 instance:ChangeSkin("Minimalistic")
@@ -168,6 +173,12 @@ function ns.ApplyDetailsStyle()
                 if id == 1 then Place(instance) end
             end
         end
+    end
+    if Styled() then
+        ns.char.detailsSkin = SKIN_VERSION
+        -- Details' menus (window title clicks) and tooltips in the mUI font
+        if Details.font_faces then Details.font_faces.menus = "mUI" end
+        if Details.tooltip then Details.tooltip.fontface = "mUI" end
     end
 end
 
