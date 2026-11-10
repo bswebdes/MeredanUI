@@ -8,6 +8,8 @@ local _, ns = ...
 
 local SKIN = "MeredanUI"
 local FRAMES = { "inventory", "bank", "vault", "guild" }
+local SPACING = 5          -- gap between item buttons (Bagnon's default is 2)
+local CROP = { 0.08, 0.92, 0.08, 0.92 }
 
 local titleFont, titleFontH
 
@@ -31,6 +33,129 @@ local function Paint(bg)
     end
 end
 
+-- Items and buttons ------------------------------------------------------------------------------
+-- Visual regions only (textures, colours); no secure attribute or bag/slot ID is touched.
+
+local function Styled() return ns.db and ns.db.bagnonStyle ~= false end
+
+local function FlatHighlight(button)
+    local hl = button.GetHighlightTexture and button:GetHighlightTexture()
+    if hl then
+        hl:SetColorTexture(1, 1, 1, 0.12)
+        hl:SetAllPoints()
+    end
+    local pushed = button.GetPushedTexture and button:GetPushedTexture()
+    if pushed then
+        pushed:SetColorTexture(1, 1, 1, 0.08)
+        pushed:SetAllPoints()
+    end
+end
+
+-- Square icon, dark slot, 1 px border (quality colour, see ColorItem)
+local function StyleItem(b)
+    if b.muiStyled or not Styled() then return end
+    b.muiStyled = true
+    local normal = b:GetNormalTexture()
+    if normal then normal:SetAlpha(0) end
+    if b.IconBorder then b.IconBorder:SetAlpha(0) end
+    if b.IconGlow then b.IconGlow:SetAlpha(0) end
+    local icon = b.icon or b.Icon
+    if icon then
+        icon:ClearAllPoints()
+        icon:SetPoint("TOPLEFT", 1, -1)
+        icon:SetPoint("BOTTOMRIGHT", -1, 1)
+    end
+    b.muiBg = b:CreateTexture(nil, "BACKGROUND", nil, -7)
+    b.muiBg:SetAllPoints()
+    b.muiBg:SetColorTexture(unpack(ns.UI.FIELD))
+    b.muiEdges = ns.AddBorder(b, true)
+    FlatHighlight(b)
+end
+
+local function ColorItem(b)
+    if not b.muiEdges then return end
+    local r, g, bl = 0, 0, 0
+    if b.IconBorder and b.IconBorder:IsShown() then r, g, bl = b.IconBorder:GetVertexColor() end
+    for _, edge in ipairs(b.muiEdges) do edge:SetVertexColor(r, g, bl, 1) end
+end
+
+local function UpdateItem(b)
+    StyleItem(b)
+    if not b.muiStyled then return end
+    local icon = b.icon or b.Icon
+    if icon then
+        if b.hasItem then
+            icon:SetTexCoord(unpack(CROP))
+        else
+            icon:SetTexture(nil) -- empty slot: just the dark field
+        end
+    end
+    ColorItem(b)
+end
+
+-- Bagnon's small icon buttons (bag toggle, sort, search, options ...) and bag slots
+local function StyleButton(b)
+    if b.muiStyled then return end
+    b.muiStyled = true
+    local normal = b:GetNormalTexture()
+    if normal then normal:SetAlpha(0) end
+    if b.Bg then b.Bg:SetColorTexture(unpack(ns.UI.FIELD)) end
+    local icon = b.Icon or b.icon
+    if icon then
+        icon:SetTexCoord(unpack(CROP))
+        icon:ClearAllPoints()
+        icon:SetPoint("TOPLEFT", 1, -1)
+        icon:SetPoint("BOTTOMRIGHT", -1, 1)
+    end
+    ns.AddBorder(b, true)
+    FlatHighlight(b)
+    local checked = b.GetCheckedTexture and b:GetCheckedTexture()
+    if checked then
+        local a = ns.UI.ACCENT
+        checked:SetColorTexture(a[1], a[2], a[3], 0.25)
+        checked:SetAllPoints()
+    end
+end
+
+-- Close button: mUI's flat X instead of Blizzard's red one
+local function StyleClose(close)
+    if not close or close.muiStyled then return end
+    close.muiStyled = true
+    for _, get in ipairs({ "GetNormalTexture", "GetPushedTexture", "GetHighlightTexture", "GetDisabledTexture" }) do
+        local tex = close[get] and close[get](close)
+        if tex then tex:SetAlpha(0) end
+    end
+    close:SetSize(20, 20)
+    local icon = ns.UI.Icon(close, "Close", 12, ns.UI.TEXT)
+    icon:SetPoint("CENTER")
+    close:HookScript("OnEnter", function() icon:SetVertexColor(unpack(ns.UI.ACCENT)) end)
+    close:HookScript("OnLeave", function() icon:SetVertexColor(unpack(ns.UI.TEXT)) end)
+end
+
+-- Walk a Bagnon frame once it shows: header buttons and the close button
+local function StyleFrame(frame)
+    if not Styled() then return end
+    StyleClose(frame.CloseButton)
+    local function Walk(parent, depth)
+        for _, child in ipairs({ parent:GetChildren() }) do
+            if child.IconBorder then
+                UpdateItem(child)
+            elseif child.Border and child.Icon and child:IsObjectType("Button") then
+                StyleButton(child)
+            end
+            if depth < 4 then Walk(child, depth + 1) end
+        end
+    end
+    Walk(frame, 1)
+end
+
+local function HookClasses(Bagnon)
+    for _, class in ipairs({ Bagnon.Item, Bagnon.ContainerItem }) do
+        if class and rawget(class, "Update") then hooksecurefunc(class, "Update", UpdateItem) end
+        if class and rawget(class, "UpdateBorder") then hooksecurefunc(class, "UpdateBorder", ColorItem) end
+    end
+end
+
 local function Register(Bagnon)
     Fonts()
     Bagnon.Skins:Register({
@@ -39,7 +164,15 @@ local function Register(Bagnon)
         font = titleFont, fontH = titleFontH,
         x = 1, y = 1, x1 = -1, y1 = -1, margin = 2,
         closeX = Bagnon.IsMainline and -4 or nil, closeY = Bagnon.IsMainline and -4 or nil,
-        load = Paint,
+        load = function(bg)
+            Paint(bg)
+            local frame = bg:GetParent()
+            if frame and not frame.muiHooked then
+                frame.muiHooked = true
+                frame:HookScript("OnShow", function(self) C_Timer.After(0, function() StyleFrame(self) end) end)
+            end
+            if frame then C_Timer.After(0, function() StyleFrame(frame) end) end
+        end,
         centerColor = Paint,
         borderColor = Paint,
     })
@@ -60,9 +193,10 @@ local function Apply(Bagnon, on)
             local frame = profile[id]
             if type(frame) == "table" then
                 if on then
-                    frame.skin = SKIN
+                    frame.skin, frame.spacing = SKIN, SPACING
                 elseif frame.skin == SKIN then
                     frame.skin = Bagnon.Skins.Default
+                    if frame.spacing == SPACING then frame.spacing = 2 end
                 end
             end
         end
@@ -93,6 +227,7 @@ local function Setup()
     local Bagnon = _G.Bagnon
     if not (Bagnon and Bagnon.Skins and Bagnon.Skins.Register) then return end
     Register(Bagnon)
+    HookClasses(Bagnon)
     -- Bagnon reads its settings on load; ours apply once both are ready
     C_Timer.After(0, ns.ApplyBagnonStyle)
 end
