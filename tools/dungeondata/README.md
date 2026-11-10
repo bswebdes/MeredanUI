@@ -6,9 +6,10 @@ Only Wailing Caverns (43) is released in the panel (`READY` in Map/DungeonPanel.
 - `INSTANCES.md` - every instance in Forever with map ID, names, levels, status and sources
 - `instances/<mapID>_<name>.md` - bosses, pins, loot, quests, differences and open questions per instance; `instances/<mapID>.json` - same data machine-readable
 - `proposed/DungeonLoot.proposed.lua`, `proposed/DungeonQuests.proposed.lua` - blocks in the exact format of the real files, to copy per dungeon
+- `raw/` - the facts taken from the Forever guides per instance (input of build.py)
 - `scripts/` - how it was built: `fetch_tooltips.py` (Wowhead Forever tooltips, cached in `cache/`, not committed), `build.py` (merges guide extracts + repo data + tooltips)
 
-Legend: ok / partial / missing = research data completeness. Bosses ok = every guide boss has a checked NPC ID (name matches Wowhead Forever) and a DungeonEncounter ID. Pins = encounters with a pin in DungeonPinData.lua. Loot ok = every boss has at least one item confirmed for Forever (named by a Forever guide or a new Forever item). Quests = quest IDs found on Wowhead Forever (number in brackets = already in DungeonQuests.lua). Forever-confirmed = share of loot rows confirmed by Forever sources (yes >= 80 %).
+Legend: ok / partial / missing = research data completeness. Bosses ok = every guide boss has a checked NPC ID (name matches Wowhead Forever) and a DungeonEncounter ID. Pins = encounters with a pin in DungeonPinData.lua (plausibility: each instance file shows the pin next to the guide's location text; pins of two bosses on almost the same spot are listed as open questions - a real check needs the map in game). Loot ok = every boss has at least one item confirmed for Forever (named by a Forever guide or a new Forever item). Quests = quest IDs found on Wowhead Forever (number in brackets = already in DungeonQuests.lua). Forever-confirmed = share of loot rows confirmed by Forever sources (yes >= 80 %).
 
 | Map | Instance | Level | Status | Bosses | Pins | Loot (confirmed/rows) | Quests (in addon) | Forever-confirmed | Most important open points |
 |---|---|---|---|---|---|---|---|---|---|
