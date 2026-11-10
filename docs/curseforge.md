@@ -1,19 +1,5 @@
 # CurseForge – Projekttexte
 
-Zum Einfügen beim Anlegen des Projekts auf CurseForge.
-
-## Felder
-
-| Feld | Wert |
-|---|---|
-| Name | MeredanUI |
-| Summary (kurz, max. ~100 Zeichen) | Clean, flat all-in-one UI for WoW Forever. Beta. |
-| Category (Haupt) | Unit Frames |
-| Weitere Kategorien | Action Bars, Bags & Inventory, Chat & Communication, Minimap |
-| License | All Rights Reserved |
-| Source | https://github.com/bswebdes/MeredanUI |
-| Issues | https://github.com/bswebdes/MeredanUI/issues |
-
 ## Description
 
 > ⚠️ **Beta** – MeredanUI is in active development. Expect bugs and changes between versions.
