@@ -745,6 +745,7 @@ end
 OnMapChanged = function()
     if not (window and window:IsShown()) then return end
     Crumbs()
+    if ns.DungeonPanel then ns.DungeonPanel.Refresh() end
     local dungeon = ns.DungeonMapView and ns.DungeonMapView.CurrentName()
     if dungeon then
         footer:SetText(dungeon)
@@ -1101,6 +1102,7 @@ local function CreateWindow()
     logList:SetPoint("TOPLEFT", logSearch, "BOTTOMLEFT", 0, -10)
     logList:SetPoint("BOTTOMRIGHT", -PAD - 8, 40)
     logList.child:SetWidth(LOG_W - 8)
+    if ns.DungeonPanel then ns.DungeonPanel.Attach(window, logSearch, logList) end
 
     footer = UI.Text(window, 12, "LEFT", UI.MUTED)
     footer:SetPoint("BOTTOMLEFT", PAD, 14)

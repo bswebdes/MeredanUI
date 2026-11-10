@@ -171,6 +171,10 @@ local function MakePin(i)
     button:SetScript("OnMouseUp", function(self, mouse)
         self:SetScript("OnUpdate", nil)
         local e = self.entry
+        if not editing and e and mouse == "LeftButton" and ns.DungeonPanel then
+            ns.DungeonPanel.Select(e.kind == "rare" and ("rare:" .. e.id) or e.id)
+            return
+        end
         if not (editing and e) then return end
         if mouse == "RightButton" then
             RemovePin(view.instance, e.kind, e.id)

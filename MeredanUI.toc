@@ -101,10 +101,13 @@ Map/DungeonMapDataForever.lua
 Map/DungeonMap.lua
 Map/DungeonPinData.lua
 Map/DungeonPins.lua
+Map/DungeonLoot.lua
+Map/DungeonPanel.lua
 Map/WorldMap.lua
 Map/FlightMap.lua
 Social/Friends.lua
 Character/Character.lua
+Character/Wishlist.lua
 Character/Stats.lua
 Character/Doll.lua
 Character/SetDialog.lua
