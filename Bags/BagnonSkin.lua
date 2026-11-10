@@ -290,6 +290,41 @@ local function Profiles(Bagnon)
     return list
 end
 
+-- mUI profile for Bagnon: set once (Bagnon.sets.muiProfile), afterwards the player's changes stay.
+-- One clean grid like mUI's bags: no gaps between bags, newest items first, no sidebar or broker.
+local PROFILE_VERSION = 1
+local PROFILE = {
+    inventory = { bagBreak = 0, reverseSlots = true, sidebar = false, broker = false },
+    bank = { bagBreak = 0, reverseSlots = true, sidebar = false, broker = false },
+    vault = { broker = false },
+    guild = { broker = false },
+}
+local function ApplyProfileOnce(Bagnon, profile)
+    for id, values in pairs(PROFILE) do
+        local frame = profile[id]
+        if type(frame) == "table" then
+            for key, value in pairs(values) do frame[key] = value end
+        end
+    end
+end
+
+-- Fixed spots like mUI's windows: inventory bottom right above the micro menu (where mUI's bags
+-- are), bank, vault and guild bank where mUI's bank opens (left, 90 px above the chat)
+local function Place(profile)
+    local margin = ns.Snap(ns.SCREEN_MARGIN)
+    local inv = profile.inventory
+    if type(inv) == "table" then inv.point, inv.x, inv.y = "BOTTOMRIGHT", -margin, margin + 72 end
+    local chat = ChatFrame1
+    local left, top = chat and chat:GetLeft(), chat and chat:GetTop()
+    if not (left and top) then return end
+    for _, id in ipairs({ "bank", "vault", "guild" }) do
+        local frame = profile[id]
+        if type(frame) == "table" then
+            frame.point, frame.x, frame.y = "BOTTOMLEFT", ns.Snap(left), ns.Snap(top + 90)
+        end
+    end
+end
+
 local function Apply(Bagnon, on)
     for _, profile in ipairs(Profiles(Bagnon)) do
         for _, id in ipairs(FRAMES) do
@@ -303,13 +338,18 @@ local function Apply(Bagnon, on)
                 end
             end
         end
-        local inv = profile.inventory
-        if on and type(inv) == "table" then
-            local margin = ns.Snap(ns.SCREEN_MARGIN)
-            inv.point, inv.x, inv.y = "BOTTOMRIGHT", -margin, margin + 72
+        if on then
+            if (Bagnon.sets.muiProfile or 0) < PROFILE_VERSION then ApplyProfileOnce(Bagnon, profile) end
+            Place(profile)
         end
     end
-    if on then Bagnon.sets.locked = true end
+    if on then
+        Bagnon.sets.locked = true
+        if (Bagnon.sets.muiProfile or 0) < PROFILE_VERSION then
+            Bagnon.sets.slotBackground = 1
+            Bagnon.sets.muiProfile = PROFILE_VERSION
+        end
+    end
     if Bagnon.Frames and Bagnon.Frames.Update then Bagnon.Frames:Update() end
 end
 
@@ -332,7 +372,7 @@ local function Setup()
     Register(Bagnon)
     HookClasses(Bagnon)
     -- Bagnon reads its settings on load; ours apply once both are ready
-    C_Timer.After(0, ns.ApplyBagnonStyle)
+    C_Timer.After(1, ns.ApplyBagnonStyle) -- after mUI has placed the chat (bank spot)
 end
 
 ns:On("PLAYER_LOGIN", function()
