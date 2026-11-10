@@ -1600,4 +1600,6 @@ if GetLocale() == "deDE" then
     L["Owned"] = "Erhalten"
     L["Click a dungeon to show it on the map."] = "Klick auf einen Dungeon zeigt ihn in der Karte."
     L["%d items · all dungeons"] = "%d Gegenstände · alle Dungeons"
+    L["Rare Elite"] = "Rare Elite"
+    L["Rare and elite behind NPC names"] = "Rare und Elite hinter NPC-Namen"
 end

@@ -335,6 +335,23 @@ local function RequestInspect(unit, guid)
     NotifyInspect(unit)
 end
 
+-- NPCs: "Rare" / "Elite" / "Rare Elite" / "Boss" behind the name (Blizzard's level line is easy to miss)
+local CLASSIFICATION = {
+    rare = { "Rare", "ffc0c4cc" },
+    rareelite = { "Rare Elite", "ffc0c4cc" },
+    elite = { "Elite", "ffd9b56b" },
+    worldboss = { "Boss", "ffe0604a" },
+}
+local function AddClassification(unit)
+    local tag = CLASSIFICATION[ns.Plain(UnitClassification(unit)) or ""]
+    local line = GameTooltipTextLeft1
+    local text = tag and line and line:GetText()
+    if not Readable(text) or not text then return end
+    local label = L[tag[1]]
+    if text:find(label, 1, true) then return end -- tooltip refresh: already tagged
+    line:SetText(text .. "  |c" .. tag[2] .. label .. "|r")
+end
+
 local function AddUnitLines(tooltip, unit)
     local isPlayer = ns.Plain(UnitIsPlayer(unit))
     local color = UnitColor(unit)
@@ -344,7 +361,10 @@ local function AddUnitLines(tooltip, unit)
         if color then bar:SetStatusBarColor(unpack(color)) end
     end
     SetBorderColor(tooltip, color)
-    if not isPlayer then return end
+    if not isPlayer then
+        if Enabled("tooltipClassification") then AddClassification(unit) end
+        return
+    end
 
     -- Name in class color
     local class = ClassColor(unit)

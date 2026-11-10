@@ -185,6 +185,7 @@ local DEFAULTS = {
     tooltipHideInCombat = false, -- hide in combat (Shift still shows it)
     tooltipItemLevel = true, tooltipMythic = true, tooltipTarget = true,
     tooltipClassIcon = true,     -- class icon in front of the level line
+    tooltipClassification = true, -- "Rare" / "Elite" behind NPC names
     classAccent = false,         -- accent in muted class colour instead of Surf Green (reload)
     chatBubbles = true,          -- mUI-styled chat bubbles (Chat/ChatBubbles.lua)
     emoteBar = "hidden",         -- emote bar (Chat/EmoteBar.lua): "always", "mouseover", "hidden"
