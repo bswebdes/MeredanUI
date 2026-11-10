@@ -13,8 +13,7 @@
 ## X-License: All Rights Reserved
 ## X-Website: https://github.com/bswebdes/MeredanUI
 ## X-Curse-Project-ID: 1790218
-# Für Wago-Upload über die GitHub Action eintragen:
-# ## X-Wago-ID: xxxxxxxx
+## X-Wago-ID: b6XyDPKp
 
 libs/LibStub/LibStub.lua
 libs/CallbackHandler-1.0/CallbackHandler-1.0.xml

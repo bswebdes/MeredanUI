@@ -5,6 +5,8 @@ One addon, one look, one settings window (`/mui`). English and German.
 
 > MeredanUI is in **beta**. Expect bugs and changes between versions.
 
+**Download:** [CurseForge](https://www.curseforge.com/wow/addons/meredanui) · [Wago](https://addons.wago.io/addons/b6XyDPKp)
+
 ## What's inside
 - **Unit frames, nameplates, action bars, auras, chat, tooltips, minimap, bags** – all in one flat look
 - **Own windows** for character, talents, spellbook, map, quests, merchants, mail, auction house, guild and more
