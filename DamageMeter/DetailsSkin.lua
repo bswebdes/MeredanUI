@@ -15,7 +15,7 @@ local function Styled() return ns.db and ns.db.detailsStyle ~= false end
 local WIDTH = 335          -- as mUI's damage meter (DamageMeter/DamageMeter.lua)
 local ROW, ROW_GAP = 20, 3
 local ROWS_HEIGHT = 5 * ROW + 4 * ROW_GAP + 4 -- five rows
-local SKIN_VERSION = 4     -- raise when the skin table changes: windows get it again
+local SKIN_VERSION = 5     -- raise when the skin table changes: windows get it again
 -- like mUI's own meter: no window or title background at all, bars on a faint dark background
 local PANEL_ALPHA, TITLE_ALPHA, BAR_BG = 0, 0, { 0, 0, 0, 0.4 }
 local TITLE = 20           -- Details' title bar sits above the window frame
@@ -124,6 +124,8 @@ local function SkinTable()
                 textL_show_number = true,
                 fixed_texture_color = { 0.86, 0.86, 0.86, 1 },
             },
+            -- "Always Show Me": own row stays visible like mUI's pinned row
+            following = { enabled = true, bar_color = { 1, 1, 1 }, text_color = { 1, 1, 1 } },
             bars_grow_direction = 1,
             menu_alpha = { enabled = false, onleave = 1, ignorebars = false, iconstoo = true, onenter = 1 },
             total_bar = { enabled = false, only_in_group = true, icon = "Interface\\ICONS\\INV_Sigil_Thorim", color = { 1, 1, 1 } },
@@ -192,6 +194,15 @@ function ns.ApplyDetailsStyle()
                 end
             end
         end
+    end
+    if Styled() and (ns.char.detailsProfile or 0) < 1 then
+        -- mUI profile, once per character (Details' own options; changeable afterwards):
+        -- erase old data automatically instead of asking, no tutorial tips, no minimap button
+        -- (Details sits in the minimap's addon menu). Numbers are short already (Details default).
+        ns.char.detailsProfile = 1
+        Details.segments_auto_erase = 3
+        if Details.streamer_config then Details.streamer_config.no_helptips = true end
+        if Details.minimap then Details.minimap.hide = true end
     end
     if Styled() then
         ns.char.detailsSkin = SKIN_VERSION
