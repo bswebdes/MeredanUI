@@ -157,6 +157,7 @@ Toasts/Extras.lua
 Toasts/ProfessionReminder.lua
 Toasts/BuffReminder.lua
 BossMods/BossMods.lua
+BossMods/DBMSkin.lua
 DamageMeter/DamageMeter.lua
 DamageMeter/DetailsSkin.lua
 CombatText/CombatText.lua

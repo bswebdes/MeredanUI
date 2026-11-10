@@ -730,6 +730,12 @@ local PAGES = {
                     Help(L["Uses Blizzard's own boss data (encounter timeline and warnings), the same data boss mods get in Midnight. Bars left of the player frame, big abilities at the top centre. Pull timer: /pull 10. Which warnings you see is set in Blizzard's options (Gameplay > Combat > Boss warnings)."], true))
                 page:AddCheckbox(L["Warning sound before an ability"], On("bossModsSound"), Setter("bossModsSound"))
             end
+            if ns.OtherAddonFor("bossMods") == "DBM-Core" then
+                if ns.IS_FOREVER then page:AddHeader(L["Boss timers"]) end
+                page:AddCheckbox(L["DBM in the mUI look"], On("dbmStyle"), Setter("dbmStyle", function()
+                    if ns.db.dbmStyle ~= false then ns.ApplyDBMProfile(true) end
+                end), Help(L["Own DBM profile \"MeredanUI\": flat bars left of the player frame, big bars top centre, mUI font. Your old DBM profile stays."]))
+            end
             page:AddHeader(L["Damage meter"])
             page:AddCheckbox(ModuleLabel(L["mUI damage meter"], "damageMeter"), On("damageMeter"), Setter("damageMeter", function()
                 if ns.SyncDamageMeterCVar then ns.SyncDamageMeterCVar() end
