@@ -10,6 +10,9 @@ local SKIN = "MeredanUI"
 local FRAMES = { "inventory", "bank", "vault", "guild" }
 local SPACING = 5          -- gap between item buttons (Bagnon's default is 2)
 local CROP = { 0.08, 0.92, 0.08, 0.92 }
+local BAG_CROP = { 0.12, 0.88, 0.12, 0.88 } -- bag icons have a wide bevel baked in
+local HEADER_PAD = 10      -- header buttons: distance to the frame edge
+local HEADER_STEP = 26     -- header buttons: 22 px + 4 px gap
 
 local titleFont, titleFontH
 
@@ -109,6 +112,7 @@ local function StyleButton(b)
     local mui = HeaderIcon(b)
     if mui then
         -- flat mUI symbol on the dark field, accent on hover
+        b:SetSize(22, 22)
         b.Icon:SetAlpha(0)
         local glyph = ns.UI.Icon(b, mui, 14, ns.UI.TEXT)
         glyph:SetPoint("CENTER")
@@ -120,7 +124,7 @@ local function StyleButton(b)
     if b.Bg then b.Bg:SetColorTexture(unpack(ns.UI.FIELD)) end
     local icon = b.Icon or b.icon
     if icon then
-        icon:SetTexCoord(unpack(CROP))
+        icon:SetTexCoord(unpack(b.FilterIcon and BAG_CROP or CROP))
         icon:ClearAllPoints()
         icon:SetPoint("TOPLEFT", 1, -1)
         icon:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -194,7 +198,47 @@ end
 local function HookClasses(Bagnon)
     local Bag, Search = Bagnon.Bag, Bagnon.SearchBar
     if Bag and rawget(Bag, "Update") then
-        hooksecurefunc(Bag, "Update", function(self) if Styled() then StyleButton(self) end end)
+        hooksecurefunc(Bag, "Update", function(self)
+            if not Styled() then return end
+            StyleButton(self)
+            if self.Icon then self.Icon:SetTexCoord(unpack(BAG_CROP)) end
+        end)
+    end
+    -- Header layout (Bagnon/src/frame.lua): no character portrait, roomier spacing, search field
+    -- as tall as the buttons. Wrapped once; each wrapper falls back to Bagnon when switched off.
+    local F = Bagnon.Frame
+    if F and F.PlaceMenuButtons and F.HasOfflineSelector then
+        local hasOffline, placeMenu = F.HasOfflineSelector, F.PlaceMenuButtons
+        local placeOptions, placeSearch = F.PlaceOptionsToggle, F.PlaceSearchBar
+        F.HasOfflineSelector = function(self)
+            if Styled() then return false end
+            return hasOffline(self)
+        end
+        F.PlaceMenuButtons = function(self)
+            local w, h = placeMenu(self)
+            if not Styled() then return w, h end
+            for i, button in ipairs(self.MenuButtons) do
+                button:ClearAllPoints()
+                button:SetPoint("TOPLEFT", self, "TOPLEFT", HEADER_PAD + (i - 1) * HEADER_STEP, -HEADER_PAD)
+            end
+            return HEADER_STEP * #self.MenuButtons + 4, 22
+        end
+        if placeOptions then
+            F.PlaceOptionsToggle = function(self)
+                local w, h = placeOptions(self)
+                if Styled() and self.OptionsToggle and self.OptionsToggle:IsShown() then
+                    self.OptionsToggle:ClearAllPoints()
+                    self.OptionsToggle:SetPoint("TOPRIGHT", self, "TOPRIGHT", -(HEADER_PAD + 24 + 6), -HEADER_PAD)
+                end
+                return w, h
+            end
+        end
+        if placeSearch then
+            F.PlaceSearchBar = function(self)
+                placeSearch(self)
+                if Styled() then self.SearchBar:SetHeight(22) end
+            end
+        end
     end
     if Search and rawget(Search, "OnShow") then hooksecurefunc(Search, "OnShow", StyleSearch) end
     for _, class in ipairs({ Bagnon.Item, Bagnon.ContainerItem }) do
@@ -211,7 +255,7 @@ local function Register(Bagnon)
         font = titleFont, fontH = titleFontH,
         x = 1, y = 1, x1 = -1, y1 = -1, margin = 2,
         inset = 6, -- more room between header, items and footer
-        closeX = Bagnon.IsMainline and -4 or nil, closeY = Bagnon.IsMainline and -4 or nil,
+        closeX = -(HEADER_PAD - 2), closeY = -(HEADER_PAD - 2), -- Bagnon adds -2 itself
         load = function(bg)
             Paint(bg)
             local frame = bg:GetParent()
