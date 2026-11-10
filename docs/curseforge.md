@@ -1,7 +1,3 @@
-# Projekttexte (CurseForge & Wago)
-
-## Description
-
 > ⚠️ **Beta** – MeredanUI is in active development. Expect bugs and changes between versions.
 > Found a bug or have an idea? Please report it on [GitHub Issues](https://github.com/bswebdes/MeredanUI/issues) – that's the fastest way to get it fixed.
 
@@ -34,6 +30,9 @@ New features are welcome – as long as they're genuinely useful and don't bloat
 - **Minimap**, info bars, XP and reputation bars, flight timer
 - **Nameplates**, combat text, damage meter, loot window and loot rolls
 - **WoW Forever extras:** class reagents and ammo counter (arrows/bullets by weapon), swing timer, pet helper, spell ranks
+- **Dungeon maps** for WoW Forever with boss positions, **Questie support** in the map and quest tracker
+- **Comfort helpers** (each with its own switch): auto quests, summons, buff reminders, item counts across your characters
+- **Plays nice with other addons:** Bagnon, Details, Plater, DBM and BigWigs take over their part in a matching mUI look
 - **Setup wizard** with two styles (Classic / Comfort), profiles and layouts
 
 ### Commands
