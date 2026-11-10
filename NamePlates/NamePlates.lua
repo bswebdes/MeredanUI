@@ -288,7 +288,7 @@ local function UpdateAlpha(frame)
     end
     local target = Readable(isTarget) and isTarget or false
     frame.targetBorder:SetShown(target)
-    frame.targetGlow:SetShown(target)
+    frame.targetGlow:SetShown(target and not frame.isFriendly) -- friendly plates are name only: no glow on text
     -- Scale around the center (oUF frame fills the plate, content is anchored centrally)
     local scale = target and TARGET_SCALE or 1
     if frame.muiScale ~= scale then
