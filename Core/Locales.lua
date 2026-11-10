@@ -1242,6 +1242,8 @@ if GetLocale() == "deDE" then
     L["Progress bars"] = "Fortschrittsleisten"
     L["RP mode: hide everything except chat and emotes, also nameplates and names. Mask button at the end of the emote bar, /rp or your own key (Key Bindings > AddOns > MeredanUI). Combat ends it."] = "RP-Modus: alles außer Chat und Emotes ausblenden, auch Namensplaketten und Namen. Masken-Knopf am Ende der Emote-Leiste, /rp oder eigene Taste (Tastaturbelegung > AddOns > MeredanUI). Kampf beendet ihn."
     L["Short channel names ([G], [P], [1] …)"] = "Kurze Kanalnamen ([G], [P], [1] …)"
+    L["Class icons before names"] = "Klassensymbole vor Namen"
+    L["Guild, group, raid and whispers. Not in Trade or General."] = "Gilde, Gruppe, Schlachtzug und Flüstern. Nicht in Handel oder Allgemein."
     L["Simple"] = "Schlicht"
     L["Simple: just the bar. Full: with a global cooldown line and tick marks on channelled spells."] = "Schlicht: nur die Leiste. Voll: mit Linie für die globale Abklingzeit und Tick-Strichen bei kanalisierten Zaubern."
     L["Size of boss frames"] = "Größe der Bossframes"

@@ -169,6 +169,7 @@ local DEFAULTS = {
     frameSize = "medium", -- player + target (pet, target of target, focus scale along): "small", "medium", "large"
     bossSize = "medium",  -- boss frames: "small", "medium", "large"
     chatShortChannels = true, -- shorten channel names in chat ([G], [P], [1] ...)
+    chatClassIcons = true,    -- class icon before names in guild, group, raid and whispers
     chatTimestamps = true,    -- plain timestamps (12:04) before chat lines
     chatFontSize = "medium",  -- chat font size: "small", "medium", "large" (Chat/ChatStyle.lua)
     chatEmoji = true,         -- smileys and emojis as images in chat

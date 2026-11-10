@@ -531,6 +531,8 @@ local PAGES = {
                 function(text) ns.root.nickname = text ~= "" and text or nil end, 24)
             page:AddDropdown(L["Font size"], StageItems, Getter("chatFontSize"), Setter("chatFontSize", ns.ApplyChatFont))
             page:AddCheckbox(L["Short channel names ([G], [P], [1] …)"], Getter("chatShortChannels"), Setter("chatShortChannels"))
+            page:AddCheckbox(L["Class icons before names"], On("chatClassIcons"), Setter("chatClassIcons"),
+                Help(L["Guild, group, raid and whispers. Not in Trade or General."]))
             page:AddCheckbox(L["Timestamps (12:04)"], Getter("chatTimestamps"), Setter("chatTimestamps", ns.ApplyChatTimestamps))
             page:AddCheckbox(L["Emojis as pictures"], On("chatEmoji"), Setter("chatEmoji"),
                 Help(L[":D, :-D, <3, ^^ and real emojis become small pictures. Only players with mUI see them."], true))

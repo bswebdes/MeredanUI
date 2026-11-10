@@ -260,6 +260,7 @@ local function WrapAddMessage(frame)
     frame.AddMessage = function(self, text, r, g, b, ...)
         if type(text) == "string" and not issecretvalue(text) then
             if ns.db.chatShortChannels ~= false then text = ShortenChannels(text) end
+            if ns.ChatClassIcons then text = ns.ChatClassIcons(text) end
             text = LinkURLs(text)
             if not issecretvalue(r) then RecordLine(self, text, r, g, b) end
         end

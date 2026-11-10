@@ -132,6 +132,7 @@ Quests/MythicPlus.lua
 NamePlates/NamePlates.lua
 Chat/Chat.lua
 Chat/ChatStyle.lua
+Chat/ClassIcons.lua
 Chat/EmoteBar.lua
 Chat/ChatBubbles.lua
 Chat/LFGHighlight.lua
