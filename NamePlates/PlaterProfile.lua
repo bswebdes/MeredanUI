@@ -5,7 +5,7 @@
 -- Switch: ns.db.platerStyle (Nameplates page, only while Plater is active).
 local _, ns = ...
 
-local PROFILE_VERSION = 4
+local PROFILE_VERSION = 5
 local BAR_BG = { 0, 0, 0, 0.5 }
 
 -- Every font setting Plater knows (keys ending in "_font", found in its defaults) -> "mUI"
@@ -58,6 +58,12 @@ function ns.ApplyPlaterProfile(force)
             cfg.level_text_enabled = false
         end
     end
+
+    -- Target like mUI's: slim white arrows left and right (Plater's "Arrow Thin" preset), the glow
+    -- behind the bar in mUI's accent instead of blue
+    profile.target_indicator = "Arrow Thin"
+    local accent = ns.UI.ACCENT
+    profile.target_highlight_color = { accent[1], accent[2], accent[3], 1 }
 
     -- Friendly plates like mUI's: only the name, players in class colour, NPCs in mUI's accent,
     -- 14 px like mUI's "medium" name size ("big_" = Plater's name-only mode)
