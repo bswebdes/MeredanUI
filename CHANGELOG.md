@@ -1,5 +1,11 @@
 # MeredanUI Changelog
 
+## v0.3.0-beta.5
+- Dungeon maps: almost every dungeon and raid now has a new mUI map made from the game's own data, including all floors. Blackrock Spire, City of Dalaran and Alcaz Prison keep their previous maps for now
+- Dungeon maps: floors are picked from a dropdown next to the dungeon name instead of a row of buttons
+- Boss positions on the new maps still need to be checked and are not exact everywhere yet. If a boss is in the wrong spot, please let us know (feedback welcome!)
+- World map: raids that are not in WoW Forever (Molten Core, Blackwing Lair, Zul'Gurub, Ahn'Qiraj, Naxxramas) are no longer shown; Onyxia's Lair is greyed out until it opens on December 9
+
 ## v0.3.0-beta.4
 - Hall of Thanes: boss pins on the dungeon map
 - Dungeon maps: a few boss and rare positions corrected (Wailing Caverns, Maraudon, Saltspine)
