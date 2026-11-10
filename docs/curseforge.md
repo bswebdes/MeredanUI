@@ -1,4 +1,4 @@
-# CurseForge – Projekttexte
+# Projekttexte (CurseForge & Wago)
 
 ## Description
 
