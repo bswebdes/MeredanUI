@@ -1,0 +1,10 @@
+class,blizzard_class_color,muted_accent,muted_accent_rgb01,dark_tint,contrast_on_#0f0f10
+warrior,#c69b6d,#dbb48b,"{ 0.859, 0.706, 0.545 }",#4d3f31,10.0
+paladin,#f48cba,#e1a9c0,"{ 0.882, 0.663, 0.753 }",#4f3b43,9.7
+hunter,#aad372,#afc594,"{ 0.686, 0.773, 0.580 }",#3d4534,10.3
+rogue,#fff468,#c2bf8a,"{ 0.761, 0.749, 0.541 }",#444330,10.1
+priest,#ffffff,#ccc8c0,"{ 0.800, 0.784, 0.753 }",#474643,11.5
+shaman,#0070dd,#9ebee9,"{ 0.620, 0.745, 0.914 }",#374252,10.0
+mage,#3fc7eb,#87c7db,"{ 0.529, 0.780, 0.859 }",#2f464d,10.2
+warlock,#8788ee,#b3b7e9,"{ 0.702, 0.718, 0.914 }",#3f4052,9.9
+druid,#ff7c0a,#e2af93,"{ 0.886, 0.686, 0.576 }",#4f3d33,9.8
