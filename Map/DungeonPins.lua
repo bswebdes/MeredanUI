@@ -88,7 +88,7 @@ local function Diamond(parent, size, layer)
 end
 
 -- Round creature portrait in a ring (boss gold, rare silver) with a small diamond badge
--- (boss number / rare star); without a display ID: a plain diamond with the number.
+-- (boss number / rare star); without a display ID (Forever's new bosses): dark disc with "?".
 local function StylePin(button, kind, number, display)
     if not button.ring then
         button.ring = button:CreateTexture(nil, "BACKGROUND")
@@ -97,41 +97,36 @@ local function StylePin(button, kind, number, display)
         button.portrait = button:CreateTexture(nil, "BORDER")
         button.portrait:SetPoint("TOPLEFT", 2, -2)
         button.portrait:SetPoint("BOTTOMRIGHT", -2, 2)
+        button.unknown = button:CreateFontString(nil, "ARTWORK")
+        ns.SetFont(button.unknown, 18, "OUTLINE", "bold")
+        button.unknown:SetPoint("CENTER", 0, 0)
+        button.unknown:SetText("?")
         button.hover = button:CreateTexture(nil, "HIGHLIGHT")
         button.hover:SetAllPoints(button.portrait)
         button.hover:SetTexture(CIRCLE)
         button.hover:SetVertexColor(1, 1, 1, 0.25)
         button.badge = Diamond(button, 18)
         button.badge:SetFrameLevel(button:GetFrameLevel() + 2)
-        button.big = Diamond(button, PIN)
-        button.big:SetPoint("CENTER")
+        button.badge:SetPoint("CENTER", button, "BOTTOMRIGHT", -5, 5)
     end
     local color = kind == "rare" and SILVER or GOLD
     local mark = kind == "rare" and ("|T" .. ns.MEDIA .. "Icons\\Star:10:10:0:0|t") or (number or "")
-    local round = display and display > 0
-    button.ring:SetShown(round)
-    button.portrait:SetShown(round)
-    button.badge:SetShown(round)
-    button.big:SetShown(not round)
-    if round then
-        button:SetSize(PIN + 10, PIN + 10)
-        button.ring:SetVertexColor(unpack(color))
+    local known = display and display > 0
+    button:SetSize(PIN + 10, PIN + 10)
+    button.ring:SetVertexColor(unpack(color))
+    if known then
         SetPortraitTextureFromCreatureDisplayID(button.portrait, display)
-        button.badge:ClearAllPoints()
-        button.badge:SetPoint("CENTER", button, "BOTTOMRIGHT", -5, 5)
-        button.badge.edge:SetVertexColor(unpack(color))
-        button.badge.text:SetText(mark)
-        button.badge.text:SetTextColor(unpack(color))
-        button.hover:SetTexture(CIRCLE)
-        button.hover:SetAllPoints(button.portrait)
+        button.portrait:SetVertexColor(1, 1, 1)
     else
-        button:SetSize(PIN, PIN)
-        button.big.edge:SetVertexColor(unpack(color))
-        button.big.text:SetText(mark)
-        button.big.text:SetTextColor(unpack(color))
-        button.hover:SetTexture(DIAMOND)
-        button.hover:SetAllPoints(button.big)
+        button.portrait:SetTexture(CIRCLE)
+        button.portrait:SetTexCoord(0, 1, 0, 1)
+        button.portrait:SetVertexColor(0, 0, 0)
     end
+    button.unknown:SetShown(not known)
+    button.unknown:SetTextColor(unpack(color))
+    button.badge.edge:SetVertexColor(unpack(color))
+    button.badge.text:SetText(mark)
+    button.badge.text:SetTextColor(unpack(color))
 end
 
 local function Tooltip(button)
