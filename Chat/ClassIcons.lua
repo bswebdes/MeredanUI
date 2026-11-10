@@ -15,15 +15,18 @@ local MAX_LINES = 100
 local classByLine, order = {}, {}
 local markup = {}
 
+-- Size follows the chat font (a bit larger than the letters, never below 14), cached per size
 local function Markup(class)
-    if markup[class] == nil then
+    local _, font = ChatFrame1 and ChatFrame1:GetFont()
+    local size = math.max(14, math.floor((font or 14) * 1.15 + 0.5))
+    local key = class .. size
+    if markup[key] == nil then
         local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
         if not C_Texture.GetAtlasInfo(atlas) then atlas = "groupfinder-icon-class-" .. class:lower() end
-        local size = ChatFrame1 and select(2, ChatFrame1:GetFont())
-        size = math.floor((size or 14) * 0.95)
-        markup[class] = C_Texture.GetAtlasInfo(atlas) and CreateAtlasMarkup(atlas, size, size, 0, 1) or false
+        -- y -1: centred on the letters (0 sat a little high)
+        markup[key] = C_Texture.GetAtlasInfo(atlas) and CreateAtlasMarkup(atlas, size, size, 0, -1) or false
     end
-    return markup[class] or nil
+    return markup[key] or nil
 end
 
 local function Remember(_, _, message, author, ...)
