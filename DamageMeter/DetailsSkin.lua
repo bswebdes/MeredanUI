@@ -15,7 +15,7 @@ local function Styled() return ns.db and ns.db.detailsStyle ~= false end
 local WIDTH = 335          -- as mUI's damage meter (DamageMeter/DamageMeter.lua)
 local ROW, ROW_GAP = 20, 3
 local ROWS_HEIGHT = 5 * ROW + 4 * ROW_GAP + 4 -- five rows
-local SKIN_VERSION = 3     -- raise when the skin table changes: windows get it again
+local SKIN_VERSION = 4     -- raise when the skin table changes: windows get it again
 -- like mUI's own meter: no window or title background at all, bars on a faint dark background
 local PANEL_ALPHA, TITLE_ALPHA, BAR_BG = 0, 0, { 0, 0, 0, 0.4 }
 local TITLE = 20           -- Details' title bar sits above the window frame
@@ -149,7 +149,7 @@ local function SkinTable()
             menu_icons_size = 0.85,
             wallpaper = { enabled = false, anchor = "all", alpha = 1, texture = WHITE, overlay = { 1, 1, 1, 1 },
                 texcoord = { 0, 1, 0, 1 }, width = 266, height = 226 },
-            stretch_button_side = 1,
+            stretch_button_side = 2, -- stretch handle at the bottom: grows downwards (no room above)
             attribute_text = {
                 enabled = true, shadow = true, side = 1, enable_custom_text = false, custom_text = "{name}",
                 text_face = "mUI Bold", anchor = { -18, 5 }, text_color = { text[1], text[2], text[3], 1 }, text_size = 13,
