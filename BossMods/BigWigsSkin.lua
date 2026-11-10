@@ -7,12 +7,14 @@
 local _, ns = ...
 local BigWigs, BigWigsAPI -- globals of BigWigs, read when needed
 
-local STYLE, PROFILE_VERSION = "MeredanUI", 4
+local STYLE, PROFILE_VERSION = "MeredanUI", 5
 local BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 22, 260, 26
 local ICON_GAP, ABOVE_GAP = 4, 16
 -- Spots Benny dragged in BigWigs (2026-11-10, 1920x1080): messages from 122 px below the top
--- (where Blizzard's error text starts), big bars from 269 px below the top
+-- (where Blizzard's error text starts), big bars from 269 px below the top, boss auras on you to
+-- the right of the big bars (same height, growing right), countdown numbers 175 px below the top
 local MESSAGES_TOP, BIG_TOP = 122, 269
+local AURAS_X, AURAS_TOP, COUNTDOWN_TOP = 168, 268, 175
 
 local function Styled() return ns.db and ns.db.bigwigsStyle ~= false end
 
@@ -152,6 +154,15 @@ function ns.ApplyBigWigsProfile(force)
     profile.icon, profile.iconPosition, profile.spacing = true, "LEFT", 4
     Positions(profile)
     local mp = Profile("Messages")
+    local ap = Profile("Auras")
+    if ap then
+        ap.player = ap.player or {}
+        local player = ap.player
+        player.anchorPoint, player.anchorRelPoint = "TOP", "TOP"
+        player.anchorXOffset, player.anchorYOffset, player.growthDirection = AURAS_X, -AURAS_TOP, "RIGHT"
+    end
+    local cp = Profile("Countdown")
+    if cp then cp.position = { "TOP", "TOP", -12, -COUNTDOWN_TOP } end
     if mp then
         mp.fontName, mp.emphFontName = "mUI", "mUI"
         mp.normalPosition = { "TOP", "TOP", 0, -MESSAGES_TOP }
