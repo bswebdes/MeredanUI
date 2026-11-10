@@ -7,7 +7,7 @@ Zum Einfügen beim Anlegen des Projekts auf CurseForge.
 | Feld | Wert |
 |---|---|
 | Name | MeredanUI |
-| Summary (kurz, max. ~100 Zeichen) | Clean, flat all-in-one UI for WoW Forever and Midnight. Beta. |
+| Summary (kurz, max. ~100 Zeichen) | Clean, flat all-in-one UI for WoW Forever. Beta. |
 | Category (Haupt) | Unit Frames |
 | Weitere Kategorien | Action Bars, Bags & Inventory, Chat & Communication, Minimap |
 | License | All Rights Reserved |
@@ -19,7 +19,7 @@ Zum Einfügen beim Anlegen des Projekts auf CurseForge.
 > ⚠️ **Beta** – MeredanUI is in active development. Expect bugs and changes between versions.
 > Found a bug or have an idea? Please report it on [GitHub Issues](https://github.com/bswebdes/MeredanUI/issues) – that's the fastest way to get it fixed.
 
-**MeredanUI** is a clean, flat all-in-one interface for **WoW Forever** and **Retail (Midnight)**.
+**MeredanUI** is a clean, flat all-in-one interface for **WoW Forever**.
 One addon, one look, one settings window (`/mui`).
 
 ### Why mUI?
@@ -90,7 +90,7 @@ windows and all features are MeredanUI's own code. The source code is public on
 **Data**
 - Classic flight times: [InFlight Taxi Timer](https://github.com/LudiusMaximus/InFlight) by LudiusMaximus – used as a data table only, MeredanUI's flight timer and map are its own
 - Dungeon entrance positions: [HandyNotes_DungeonLocations (Classic)](https://github.com/callie-g/HandyNotes_DungeonLocations-classic) – coordinates only
-- WoW Forever stat weights: [WoWSims](https://github.com/wowsims) (MIT) presets and Forever Codex simulations; Retail stat weights from [Bloodmallet](https://bloodmallet.com) (SimulationCraft)
+- WoW Forever stat weights: [WoWSims](https://github.com/wowsims) (MIT) presets and Forever Codex simulations
 - Game data (flight routes, maps, instances) from Blizzard via [wago.tools](https://wago.tools)
 
 The full list with license texts is in `CREDITS.txt` in the addon folder.
@@ -100,5 +100,5 @@ The full list with license texts is in `CREDITS.txt` in the addon folder.
 > ⚠️ **Beta** – MeredanUI wird gerade aktiv entwickelt. Fehler und Änderungen zwischen Versionen sind normal.
 > Fehler oder Ideen bitte über [GitHub Issues](https://github.com/bswebdes/MeredanUI/issues) melden.
 
-**MeredanUI** ist ein klares, flaches Komplett-Interface für **WoW Forever** und **Retail (Midnight)**:
+**MeredanUI** ist ein klares, flaches Komplett-Interface für **WoW Forever**:
 ein Addon, ein Look, ein Einstellungsfenster (`/mui`). Komplett auf Deutsch verfügbar.

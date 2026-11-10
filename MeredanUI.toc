@@ -1,11 +1,11 @@
-## Interface: 120105, 16001
+## Interface: 16001
 ## Title: MeredanUI
 ## Notes: Clean, flat UI: unit frames, action bars, minimap and more.
 ## Notes-deDE: Klares, flaches Interface: Unitframes, Aktionsleisten, Minimap und mehr.
 ## Author: Koratal
 ## Version: @project-version@
 ## Category: User Interface
-## AllowLoadGameType: standard, camelot
+## AllowLoadGameType: camelot
 ## SavedVariables: MeredanUIDB
 ## OptionalDependencies: WagoAnalytics
 ## AddonCompartmentFunc: MeredanUI_OnAddonCompartmentClick

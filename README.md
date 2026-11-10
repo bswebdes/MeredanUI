@@ -1,6 +1,6 @@
 # MeredanUI
 
-A clean, flat all-in-one interface for **WoW Forever** and **Retail (Midnight)**.
+A clean, flat all-in-one interface for **WoW Forever**.
 One addon, one look, one settings window (`/mui`). English and German.
 
 > MeredanUI is in **beta**. Expect bugs and changes between versions.
@@ -20,7 +20,6 @@ One addon, one look, one settings window (`/mui`). English and German.
 ## Found a bug?
 Please [open an issue](https://github.com/bswebdes/MeredanUI/issues/new/choose) and include:
 - your MeredanUI version (shown in `/mui`)
-- WoW Forever or Retail
 - what happened and how to trigger it
 - the Lua error text, if there is one (e.g. from BugSack)
 

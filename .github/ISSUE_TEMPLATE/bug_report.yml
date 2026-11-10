@@ -16,7 +16,6 @@ body:
       label: Game
       options:
         - WoW Forever
-        - Retail (Midnight)
     validations:
       required: true
   - type: textarea
