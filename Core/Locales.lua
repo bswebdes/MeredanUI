@@ -1650,6 +1650,8 @@ if GetLocale() == "deDE" then
     L["Sparkle"] = "Glitzern"
     L["Herbs, ore, skinnable corpses and quest objects near you glitter in their own colour. Also in the settings under Quests > Helpers."] = "Kräuter, Erz, kürschnerbare Tiere und Quest-Objekte in deiner Nähe glitzern in ihrer eigenen Farbe. Auch in den Einstellungen unter Quests > Helfer."
     L["Turn on"] = "Einschalten"
+    L["Slightly better"] = "Minimal besser"
+    L["Slightly worse"] = "Minimal schlechter"
     L["Blizzard"] = "Blizzard"
     L["Gryphons at the action bars"] = "Greifen an der Aktionsleiste"
     L["Borders"] = "Rahmen"

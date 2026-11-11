@@ -414,8 +414,15 @@ function ns.AddUpgradeLine(tooltip, data)
         end
     end
     local percent = ns.UpgradePercent(link)
-    if not percent or math.abs(percent) < 0.05 then return end
+    if not percent or percent == 0 then return end
     tooltip:AddLine(" ")
+    if math.abs(percent) < 0.05 then
+        -- e.g. only stamina or armor more: barely counts for damage, but still better/worse
+        local color = percent > 0 and GREEN or RED
+        local icon = ns.UI.IconMarkup(percent > 0 and "Upgrade" or "Downgrade", 11, color, 2)
+        tooltip:AddLine(icon .. " " .. (percent > 0 and L["Slightly better"] or L["Slightly worse"]), unpack(color))
+        return
+    end
     Line(percent)
 end
 
