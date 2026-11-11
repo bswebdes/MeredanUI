@@ -12,7 +12,7 @@
 local _, ns = ...
 local L = ns.L
 
--- Newest last. id stays fixed once released. draft = picture missing: only via /mui news, no popup.
+-- Newest last, only the newest MAX_PAGES are shown. id stays fixed once released. draft = picture missing: only via /mui news, no popup.
 -- setting = ns.db key: the page gets a "Turn on" checkbox (same value as in the settings), apply runs after.
 ns.WHATS_NEW = {
     { id = "dungeon-loot", image = "DungeonLoot", title = "Dungeon loot",
@@ -30,6 +30,15 @@ ns.WHATS_NEW = {
 }
 
 local W, H, PIC_W, PIC_H = 600, 500, 512, 256
+local MAX_PAGES = 5 -- only the newest released pages; older ones drop out (and their pictures can go)
+
+-- released (non-draft) pages, newest MAX_PAGES, oldest first
+local function Released()
+    local list = {}
+    for _, e in ipairs(ns.WHATS_NEW) do if not e.draft then list[#list + 1] = e end end
+    while #list > MAX_PAGES do table.remove(list, 1) end
+    return list
+end
 local window, pages, index
 
 local function Seen()
@@ -154,10 +163,7 @@ function ns.WhatsNewUnopened() return Newest() ~= nil and MeredanUIDB.newsOpened
 -- entries = list to page through (default: all released); fromButton = opened from the settings
 function ns.ShowWhatsNew(entries, fromButton)
     if fromButton then MeredanUIDB.newsOpened = Newest() end
-    if not entries then
-        entries = {}
-        for _, e in ipairs(ns.WHATS_NEW) do if not e.draft then entries[#entries + 1] = e end end
-    end
+    entries = entries or Released()
     pages = entries
     if #pages == 0 then return end
     if not window then CreateWindow() end
@@ -184,7 +190,7 @@ ns:On("PLAYER_LOGIN", function()
         local setup = _G["MeredanUISetup"]
         if (setup and setup:IsShown()) or InCombatLockdown() then return end
         local unseen = {}
-        for _, e in ipairs(ns.WHATS_NEW) do if not seen[e.id] and not e.draft then unseen[#unseen + 1] = e end end
+        for _, e in ipairs(Released()) do if not seen[e.id] then unseen[#unseen + 1] = e end end
         if #unseen > 0 then ns.ShowWhatsNew(unseen) end
     end)
 end)
