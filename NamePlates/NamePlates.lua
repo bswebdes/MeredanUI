@@ -282,6 +282,9 @@ local function UpdateAlpha(frame)
     if hasTarget and not (Readable(isTarget) and isTarget) and not casting and not frame.hovered then
         alpha = DIM_ALPHA
     end
+    -- game objects get a plate with soft targeting (Loot/Sparkle.lua): nothing of ours to show
+    local isObject = UnitIsGameObject(unit)
+    if Readable(isObject) and isObject then alpha = 0 end
     if frame.muiAlpha ~= alpha then
         frame.muiAlpha = alpha
         frame:SetAlpha(alpha)

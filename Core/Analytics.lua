@@ -9,7 +9,7 @@ local MODULES = { "groupFrames", "groupManager", "nameplates", "bossMods", "toas
     "bags", "lootWindow", "lootRolls" }
 local HELPERS = { "questAutoAccept", "questAutoTurnIn", "questAutoGossip", "questBestReward", "autoSummon",
     "autoResurrect", "declineDuels", "skipCinematics", "buffReminder", "altItemCount", "chatClassIcons",
-    "tooltipClassIcon", "tooltipClassification", "classAccent" }
+    "tooltipClassIcon", "tooltipClassification", "classAccent", "sparkle" }
 
 local function Report()
     local lib = LibStub and LibStub("WagoAnalytics", true)
