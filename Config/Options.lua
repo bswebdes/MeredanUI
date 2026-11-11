@@ -1011,6 +1011,8 @@ if ns.IS_FOREVER then
             page:AddCheckbox(L["Sparkle on herbs, ore and quest objects"], Getter("sparkle"),
                 Setter("sparkle", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end),
                 Help(L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."]))
+            page:AddCheckbox(L["Also other objects (benches, chests, mailboxes)"], Getter("sparkleOther"),
+                Setter("sparkleOther", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end))
             if ns.Questie and ns.Questie.IsLoaded() then
                 page:AddHeader("Questie")
                 page:AddCheckbox(L["Next objective with distance"], On("trackerQuestieDistance"), TrackerSetter("trackerQuestieDistance"))

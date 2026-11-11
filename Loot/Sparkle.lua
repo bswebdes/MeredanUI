@@ -230,14 +230,16 @@ local function Update()
     if not plate or not kind then return Hide() end
     -- units: only skinnable corpses (living NPCs and loot-only corpses stay plain)
     if not isObject and kind ~= "skin" then return Hide() end
+    local progress = Progress()
+    kind = QuestKind(kind, progress)
+    if kind == "other" and not ns.db.sparkleOther then return Hide() end
     effect = effect or CreateEffect(UIParent)
     if effect:GetParent() ~= plate then
         effect:SetParent(plate)
         effect:ClearAllPoints()
         effect:SetPoint("CENTER", plate, "CENTER", 0, 0)
     end
-    local progress = Progress()
-    effect:Set(QuestKind(kind, progress), inRange, progress)
+    effect:Set(kind, inRange, progress)
     if not effect:IsShown() then effect:Play() end
     -- range and quest text change while walking; light 4x/s poll only while something sparkles
     ticker = ticker or C_Timer.NewTicker(0.25, function()
@@ -245,7 +247,9 @@ local function Update()
         local k, r = Classify()
         if k then
             local progress = Progress()
-            effect:Set(QuestKind(k, progress), r, progress)
+            k = QuestKind(k, progress)
+            if k == "other" and not ns.db.sparkleOther then return Hide() end
+            effect:Set(k, r, progress)
         end
     end)
 end
