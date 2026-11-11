@@ -12,14 +12,31 @@ end
 
 local function Create(parent, side)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetFrameLevel(math.max(parent:GetFrameLevel() - 1, 0)) -- behind the buttons: icons and key texts stay readable
-    f.tex = f:CreateTexture(nil, "BACKGROUND")
+    f:SetFrameLevel(parent:GetFrameLevel() + 20) -- over the buttons, like Blizzard's end caps
+    f.tex = f:CreateTexture(nil, "OVERLAY")
     f.tex:SetAllPoints()
     f.tex:SetAtlas(Atlas(side))
     return f
 end
 
+-- Key binding, count and macro texts above the gryphons: own layer per button (out of combat only;
+-- anchors stay on the button)
+local function LiftTexts(bar, level)
+    for _, button in ipairs(bar and bar.buttons or {}) do
+        if not button.muiTextLayer then
+            local layer = CreateFrame("Frame", nil, button)
+            layer:SetAllPoints()
+            for _, key in ipairs({ "HotKey", "Count", "Name" }) do
+                if button[key] then button[key]:SetParent(layer) end
+            end
+            button.muiTextLayer = layer
+        end
+        button.muiTextLayer:SetFrameLevel(level)
+    end
+end
+
 function ns.UpdateGryphons()
+    if InCombatLockdown() then return ns.AfterCombat(ns.UpdateGryphons) end
     local bars = ns.actionBars
     local bottom = bars and bars[2] -- Shift bar, the lowest row
     if not bottom then return end
@@ -36,7 +53,7 @@ function ns.UpdateGryphons()
     local size = bottom:GetHeight() > 0 and bottom:GetHeight() or 36 -- one button row
     local h = ns.Snap(size * 2.6)
     local w = ns.Snap(h * ASPECT)
-    local overlap = ns.Snap(w * 0.22) -- the inner part tucks behind the end buttons
+    local overlap = ns.Snap(w * 0.2) -- the gryphon sits over the bar end
     left:SetSize(w, h)
     right:SetSize(w, h)
     left:ClearAllPoints()
@@ -45,6 +62,7 @@ function ns.UpdateGryphons()
     right:SetPoint("BOTTOMLEFT", rightEdge, "BOTTOMRIGHT", -overlap, -ns.Snap(size * 0.15))
     left:Show()
     right:Show()
+    for _, i in ipairs({ 2, 3, 7, 8 }) do LiftTexts(bars[i], left:GetFrameLevel() + 1) end
 end
 
 ns:On("PLAYER_LOGIN", function()
