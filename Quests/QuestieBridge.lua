@@ -78,7 +78,7 @@ end
 local PIN_TEMPLATE = "HereBeDragonsPinsTemplateQuestie"
 local mapCanvas
 
--- Questie's own icon click only acts on Blizzard's WorldMapFrame (and Shift/Ctrl). On mUI's map a plain
+-- Questie's own icon click only acts on Blizzard's WorldMapFrame (and Shift/Ctrl). On mUI's map and the minimap a plain
 -- left click makes the quest the active one in mUI's tracker (direction arrow), or - for a quest not yet
 -- accepted - puts Blizzard's map pin on the quest giver. Added after Questie's handler, never instead.
 local hookedIcons = setmetatable({}, { __mode = "k" })
@@ -94,6 +94,26 @@ local function OnIconClick(icon, button)
         local title = C_QuestLog.GetTitleForQuestID(questID) or data.Name
         if Bridge.SetWaypoint({ name = title, uiMapID = icon.UiMapID, x = icon.x, y = icon.y }) then
             PlaySound(SOUNDKIT.UI_MAP_WAYPOINT_CONTROL_CLICK or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+        end
+    end
+end
+
+-- Minimap: Questie's minimap icons are the same clickable frames (its own click only handles chat links
+-- and Shift there). Hook each one when Questie hands it to HereBeDragons, plus those already placed.
+local function HookIcon(icon)
+    if icon and not hookedIcons[icon] and icon.HookScript then
+        hookedIcons[icon] = true
+        icon:HookScript("OnClick", OnIconClick)
+    end
+end
+
+local function HookMinimapIcons()
+    local pins = LibStub and LibStub("HereBeDragonsQuestie-Pins-2.0", true)
+    if not (pins and pins.minimapPins) then return end
+    for icon in pairs(pins.minimapPins) do HookIcon(icon) end
+    for _, name in ipairs({ "AddMinimapIconMap", "AddMinimapIconWorld" }) do
+        if type(pins[name]) == "function" then
+            hooksecurefunc(pins, name, function(_, _, icon) HookIcon(icon) end)
         end
     end
 end
@@ -119,10 +139,7 @@ local function MoveProvider()
             local acquired = frame.OnAcquired
             frame.OnAcquired = function(pin, icon, ...)
                 acquired(pin, icon, ...)
-                if icon and not hookedIcons[icon] and icon.HookScript then
-                    hookedIcons[icon] = true
-                    icon:HookScript("OnClick", OnIconClick)
-                end
+                HookIcon(icon)
             end
             return frame
         end
@@ -418,6 +435,7 @@ local function OnQuestieReady()
     ready = true
     CheckTrackerConflict()
     MoveProvider()
+    HookMinimapIcons()
     for _, fn in ipairs(readyCallbacks) do
         local ok, err = pcall(fn)
         if not ok and DevLog then DevLog("MeredanUI", "Questie bridge: " .. tostring(err)) end
