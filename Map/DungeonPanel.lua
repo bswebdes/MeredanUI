@@ -313,6 +313,14 @@ local function ForPlayer(q)
     return true
 end
 
+-- Race bit masks: Alliance = human, dwarf, night elf, gnome; Horde = orc, undead, tauren, troll
+local ALLIANCE_RACES, HORDE_RACES = 77, 178
+local function QuestFaction(q)
+    local r = q.races or 0
+    if r == 0 or (bit.band(r, ALLIANCE_RACES) ~= 0 and bit.band(r, HORDE_RACES) ~= 0) then return { "alliancesymbol", "hordesymbol" } end
+    return bit.band(r, HORDE_RACES) ~= 0 and { "hordesymbol" } or { "alliancesymbol" }
+end
+
 local function QuestState(id)
     if C_QuestLog.GetLogIndexForQuestID(id) then return C_QuestLog.IsComplete(id) and "ready" or "open" end
     if C_QuestLog.IsQuestFlaggedCompleted(id) then return "done" end
@@ -355,9 +363,11 @@ local function QuestSub(q, state)
     if q.item then
         return L["Starts from an item: %s"]:format(C_Item.GetItemNameByID(q.item) or ("#" .. q.item))
     end
-    local uiMap = GiverPlace(q)
+    -- new Forever quests: only the giver's zone is known (no position)
+    local uiMap = GiverPlace(q) or q.zone
     local info = uiMap and C_Map.GetMapInfo(uiMap)
-    return L["Quest giver: %s"]:format(q.giver or "?") .. (info and ("  ·  " .. info.name) or "")
+    if not q.giver then return info and info.name or "" end
+    return L["Quest giver: %s"]:format(q.giver) .. (info and ("  ·  " .. info.name) or "")
 end
 
 local function QuestRow(i)
@@ -383,8 +393,15 @@ local function QuestRow(i)
     row.name = UI.Text(row, 13, "LEFT")
     ns.SetFont(row.name, 13, "", "bold")
     row.name:SetPoint("TOPLEFT", 36, -7)
-    row.name:SetPoint("RIGHT", -8, 0)
     row.name:SetWordWrap(false)
+    row.factions = {}
+    for k = 1, 2 do
+        local tex = row:CreateTexture(nil, "ARTWORK")
+        tex:SetSize(16, 16)
+        row.factions[k] = tex
+    end
+    row.factions[1]:SetPoint("TOPRIGHT", -6, -5)
+    row.factions[2]:SetPoint("RIGHT", row.factions[1], "LEFT", -1, 0)
     row.sub = UI.Text(row, 11, "LEFT", UI.MUTED)
     row.sub:SetPoint("BOTTOMLEFT", 36, 7)
     row.sub:SetPoint("RIGHT", -8, 0)
@@ -450,8 +467,14 @@ local function QuestLayout(instance)
         row.badge:SetShown(state == "open" or state == "ready")
         row.badge:SetText(state == "ready" and "?" or "!")
         row.badge:SetTextColor(unpack(YELLOW))
-        local color = GetQuestDifficultyColor and GetQuestDifficultyColor(q.level)
-        local level = color and ("|cff%02x%02x%02x[%d]|r "):format(color.r * 255, color.g * 255, color.b * 255, q.level) or ("[%d] "):format(q.level)
+        local atlases = QuestFaction(q)
+        for k, tex in ipairs(row.factions) do
+            tex:SetShown(atlases[k] ~= nil)
+            if atlases[k] then tex:SetAtlas(atlases[#atlases - k + 1]) end
+        end
+        row.name:SetPoint("RIGHT", row.factions[#atlases], "LEFT", -4, 0)
+        local color = q.level > 0 and GetQuestDifficultyColor and GetQuestDifficultyColor(q.level)
+        local level = q.level <= 0 and "" or color and ("|cff%02x%02x%02x[%d]|r "):format(color.r * 255, color.g * 255, color.b * 255, q.level) or ("[%d] "):format(q.level)
         row.name:SetText(level .. (QuestTitle(q) or ""))
         row.name:SetTextColor(unpack(ns.UI.TEXT))
         row.sub:SetText(QuestSub(q, state))
