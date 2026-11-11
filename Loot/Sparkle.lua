@@ -15,6 +15,7 @@ local BOBBER_ID = 35591 -- fishing bobber: never sparkle
 local CVARS = {
     softTargetInteract = tostring(Enum.SoftTargetEnableFlags and Enum.SoftTargetEnableFlags.Any or 3),
     SoftTargetIconGameObject = "1",
+    SoftTargetNameplateInteract = "1", -- corpses get no plate otherwise -> nothing to attach to
 }
 
 local COLORS = {
@@ -190,6 +191,7 @@ local function Update()
     if isObject and ObjectID() == BOBBER_ID then return Hide() end
     local plate = FindPlate()
     local kind, inRange = Classify()
+    if DevLog and kind and not plate then DevLog("MeredanUI", "Sparkle: no plate (" .. kind .. ")") end
     -- corpse without a readable cursor: dead + nothing left to loot = skinnable
     if not kind and not isObject and UnitExists(UNIT) then
         local dead = UnitIsDead(UNIT)
@@ -224,10 +226,10 @@ local function ApplyCVars()
     if InCombatLockdown() then return ns.AfterCombat(ApplyCVars) end
     local saved = ns.db.sparkleCVars
     if Enabled() then
-        if not saved then
-            saved = {}
-            for cvar in pairs(CVARS) do saved[cvar] = C_CVar.GetCVar(cvar) end
-            ns.db.sparkleCVars = saved
+        saved = saved or {}
+        ns.db.sparkleCVars = saved
+        for cvar in pairs(CVARS) do
+            if saved[cvar] == nil then saved[cvar] = C_CVar.GetCVar(cvar) end
         end
         for cvar, value in pairs(CVARS) do
             if C_CVar.GetCVar(cvar) and C_CVar.GetCVar(cvar) ~= value then C_CVar.SetCVar(cvar, value) end

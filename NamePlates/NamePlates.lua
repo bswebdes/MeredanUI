@@ -285,6 +285,9 @@ local function UpdateAlpha(frame)
     -- game objects get a plate with soft targeting (Loot/Sparkle.lua): nothing of ours to show
     local isObject = UnitIsGameObject(unit)
     if Readable(isObject) and isObject then alpha = 0 end
+    -- corpses only get a plate as soft-interact target (sparkle): no health bar on them
+    local dead = UnitIsDead(unit)
+    if Readable(dead) and dead then alpha = 0 end
     if frame.muiAlpha ~= alpha then
         frame.muiAlpha = alpha
         frame:SetAlpha(alpha)
