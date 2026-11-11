@@ -135,6 +135,8 @@ Quests/DungeonQuests.lua
 Quests/QuestieBridge.lua
 Quests/Tracker.lua
 Quests/QuestTracker.lua
+Quests/ClassQuests.lua
+Quests/ClassQuestReminder.lua
 Quests/MythicPlus.lua
 NamePlates/NamePlates.lua
 NamePlates/PlaterProfile.lua

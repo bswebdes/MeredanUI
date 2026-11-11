@@ -1004,6 +1004,10 @@ if ns.IS_FOREVER then
                 Help(L["Gold coin on the reward that sells for the most."]))
             page:AddCheckbox(L["Skip single conversation options"], Getter("questAutoGossip"), Setter("questAutoGossip"),
                 Help(L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."]))
+            if ns.IS_FOREVER then
+                page:AddCheckbox(L["Remind me of class quests"], Getter("classQuestReminder"), Setter("classQuestReminder"),
+                    Help(L["When a class quest for a new ability becomes available, e.g. Bear Form or the Voidwalker. Click the message to put a pin on the map."]))
+            end
             page:AddCheckbox(L["Sparkle on herbs, ore and quest objects"], Getter("sparkle"),
                 Setter("sparkle", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end),
                 Help(L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."]))

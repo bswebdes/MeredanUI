@@ -574,6 +574,9 @@ local function DemoActions()
         -- buff reminder (Toasts/BuffReminder.lua, Forever)
         { demo = true, title = L["Buff missing"], text = "Arkane Intelligenz, " .. L["%s (old rank)"]:format("Frostrüstung"),
             icon = 135932, color = { 1, 0.82, 0 } },
+        -- class quest reminder (Quests/ClassQuestReminder.lua, Forever)
+        { demo = true, title = L["Class quest: %s"]:format(L["Bear Form"]), text = "Denatharion, Darnassus",
+            icon = "Interface\\Icons\\ClassIcon_Druid", color = { 1, 0.49, 0.04 } },
         { demo = true, title = L["New mount"], text = "Sturmkrallengreif", icon = 132265, color = accent },
         { demo = true, title = L["Quest completed"], text = "Ein Sturm zieht auf", icon = 236669, color = { 1, 0.82, 0 }, countText = "12.500 EP" },
     }
