@@ -19,22 +19,6 @@ local function Create(parent, side)
     return f
 end
 
--- Key binding, count and macro texts above the gryphons: own layer per button (out of combat only;
--- anchors stay on the button)
-local function LiftTexts(bar, level)
-    for _, button in ipairs(bar and bar.buttons or {}) do
-        if not button.muiTextLayer then
-            local layer = CreateFrame("Frame", nil, button)
-            layer:SetAllPoints()
-            for _, key in ipairs({ "HotKey", "Count", "Name" }) do
-                if button[key] then button[key]:SetParent(layer) end
-            end
-            button.muiTextLayer = layer
-        end
-        button.muiTextLayer:SetFrameLevel(level)
-    end
-end
-
 function ns.UpdateGryphons()
     if InCombatLockdown() then return ns.AfterCombat(ns.UpdateGryphons) end
     local bars = ns.actionBars
@@ -62,7 +46,6 @@ function ns.UpdateGryphons()
     right:SetPoint("BOTTOMLEFT", rightEdge, "BOTTOMRIGHT", -overlap, -ns.Snap(size * 0.15))
     left:Show()
     right:Show()
-    for _, i in ipairs({ 2, 3, 7, 8 }) do LiftTexts(bars[i], left:GetFrameLevel() + 1) end
 end
 
 ns:On("PLAYER_LOGIN", function()
