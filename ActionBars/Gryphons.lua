@@ -12,7 +12,8 @@ end
 
 local function Create(parent, side)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetFrameLevel(parent:GetFrameLevel() + 20) -- over the buttons, like Blizzard's end caps
+    -- over every bar (the bars are LOW strata, each with its own levels), like Blizzard's end caps
+    f:SetFrameStrata("MEDIUM")
     f.tex = f:CreateTexture(nil, "OVERLAY")
     f.tex:SetAllPoints()
     f.tex:SetAtlas(Atlas(side))

@@ -210,6 +210,7 @@ local DEFAULTS = {
     fastLoot = true,             -- loot instantly with auto-loot (Loot/FastLoot.lua)
     fishingBag = true,           -- Forever: fishing bag + logbook, opens with a fishing pole (Loot/Fishing.lua)
     fishingDoubleClick = false,  -- Forever: double right-click casts Fishing (Comfort)
+    borderStyle = "black",       -- frame borders: "black" or "gold" (gold brown; theme Blizzard is always gold)
     actionBarArt = false,        -- gryphons/wyverns at the bottom action bars (ActionBars/Gryphons.lua)
     sparkle = false,             -- Comfort: glitter on the nearby herb/ore/quest object (Loot/Sparkle.lua)
     sparkleOther = true,         -- sparkle also on other objects (benches, chests, mailboxes) in white

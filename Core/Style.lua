@@ -65,7 +65,7 @@ ns.THEMES = {
         healthColor = { 0, 0.8, 0 },
         emptyColor = { 0.1, 0.08, 0.06 },
         blizzardPower = true,
-        borderColor = { 0.5, 0.4, 0.24, 1 },
+        borderColor = { 0.5, 0.4, 0.24, 1 }, -- = ns.GOLD_BORDER
     },
     green = {
         name = L["mUI (sage)"], -- single-color sage
@@ -106,6 +106,7 @@ end
 -- Border: a black 1px line. Debuffs tint it by dispel type (then 2px).
 ns.BORDER_PIXELS = 1
 local BORDER_COLOR = { 0, 0, 0, 1 }
+ns.GOLD_BORDER = { 0.5, 0.4, 0.24, 1 }
 ns.BORDER_COLOR = BORDER_COLOR
 
 -- Everything using theme, font or texture, so changes apply immediately.
@@ -129,8 +130,9 @@ function ns.ApplySettings()
     STYLE.powerClassColor = theme.powerClassColor
     STYLE.blizzardPower = theme.blizzardPower
     ns.HEALTH_COLOR = theme.healthColor
-    -- Border colour: in place, borders take it when they are created (theme switch: reload)
-    local b = theme.borderColor or { 0, 0, 0, 1 }
+    -- Border colour: in place, borders take it when they are created (theme or border switch: reload).
+    -- Theme "Blizzard" always gold brown, else the "Borders" setting.
+    local b = theme.borderColor or (db.borderStyle == "gold" and ns.GOLD_BORDER) or { 0, 0, 0, 1 }
     for i = 1, 4 do ns.BORDER_COLOR[i] = b[i] end
 
     -- Font and texture are fixed

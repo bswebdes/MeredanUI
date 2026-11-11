@@ -209,6 +209,13 @@ local PAGES = {
             end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
                 Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours with bronze borders. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
+            page:AddDropdown(L["Borders"], function()
+                return {
+                    { value = "black", label = L["Black"] },
+                    { value = "gold", label = L["Gold brown"] },
+                }
+            end, function() return ns.db.borderStyle or "black" end, function(value) ns.db.borderStyle = value end,
+                Help(L["Colour of the thin frame borders. The Blizzard theme always uses gold brown."], true))
             page:AddCheckbox(L["Gryphons at the action bars"], Getter("actionBarArt"),
                 Setter("actionBarArt", function() if ns.UpdateGryphons then ns.UpdateGryphons() end end),
                 Help(L["Blizzard's gryphons (Horde: wyverns) at both ends of the bottom action bars."]))
