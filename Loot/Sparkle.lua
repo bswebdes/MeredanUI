@@ -119,10 +119,13 @@ local function KindFromName(name)
     return kind, not name:find("unable")
 end
 
-local lastDebug
+local lastDebug, lastTrace
 -- kind + in range from the interact cursor the game would show for the unit
 local function Classify()
-    if not SetUnitCursorTexture(probe, UNIT, nil, nil, true) then return nil end
+    if not SetUnitCursorTexture(probe, UNIT, nil, nil, true) then
+        if DevLog and lastDebug ~= "nocursor" then lastDebug = "nocursor"; DevLog("MeredanUI", "Sparkle: no cursor texture") end
+        return nil
+    end
     local atlas, tex = probe:GetAtlas(), probe:GetTexture()
     if not Readable(atlas) then atlas = nil end
     if not Readable(tex) then tex = nil end
@@ -182,7 +185,20 @@ local function Update()
     if isObject and ObjectID() == BOBBER_ID then return Hide() end
     local plate = C_NamePlate.GetNamePlateForUnit(UNIT)
     local kind, inRange = Classify()
-    if DevLog and kind and not plate then DevLog("MeredanUI", "Sparkle: no plate for " .. UNIT) end
+    -- corpse without a readable cursor: dead + nothing left to loot = skinnable
+    if not kind and not isObject and UnitExists(UNIT) then
+        local dead = UnitIsDead(UNIT)
+        local guid = UnitGUID(UNIT)
+        if Readable(dead) and dead and Readable(guid) and guid then
+            local hasLoot = CanLootUnit(guid)
+            if not (Readable(hasLoot) and hasLoot) then kind, inRange = "skin", true end
+        end
+    end
+    if DevLog and UnitExists(UNIT) then
+        local line = ("Sparkle trace obj=%s plate=%s kind=%s range=%s"):format(tostring(isObject),
+            plate and (plate:IsVisible() and "visible" or "hidden") or "nil", tostring(kind), tostring(inRange))
+        if line ~= lastTrace then lastTrace = line; DevLog("MeredanUI", line) end
+    end
     if not plate or not kind then return Hide() end
     -- units: only skinnable corpses (living NPCs and loot-only corpses stay plain)
     if not isObject and kind ~= "skin" then return Hide() end
