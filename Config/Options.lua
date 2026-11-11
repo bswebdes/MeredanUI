@@ -208,7 +208,7 @@ local PAGES = {
                 ns.RefreshStyle()
             end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
-                Help(L["Class colour: health in class colour. Blizzard: Blizzard's class colours and bright green. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
+                Help(L["Class colour: health in class colour. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
             page:AddDropdown(L["Accent colour"], function()
                 return {
                     { value = "mui", label = L["mUI green"] },

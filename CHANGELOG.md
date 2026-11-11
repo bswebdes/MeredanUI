@@ -2,7 +2,6 @@
 
 ## Unreleased
 - XP bar tooltip: how far along the way to level 60 you are
-- New theme "Blizzard": Blizzard's class colours and bright green for NPCs and pets
 - Accent colour can now also be Blizzard's own class colour (Look page)
 - "Back to Blizzard" (Profiles page): resets chat and the game settings mUI changed to Blizzard's defaults and turns mUI off – handy before uninstalling
 - Item comparison: one-handed weapons show main hand and off hand separately when you dual wield, and the off hand is no longer compared with a main hand score
