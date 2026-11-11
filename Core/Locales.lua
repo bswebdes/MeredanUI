@@ -1647,6 +1647,7 @@ if GetLocale() == "deDE" then
     L["Sparkle"] = "Glitzern"
     L["Herbs, ore, skinnable corpses and quest objects near you glitter in their own colour. Also in the settings under Quests > Helpers."] = "Kräuter, Erz, kürschnerbare Tiere und Quest-Objekte in deiner Nähe glitzern in ihrer eigenen Farbe. Auch in den Einstellungen unter Quests > Helfer."
     L["Turn on"] = "Einschalten"
+    L["Learnable at a weapon master: %s"] = "Lernbar beim Waffenmeister: %s"
     L["Also other objects (benches, chests, mailboxes)"] = "Auch sonstige Objekte (Bänke, Truhen, Briefkästen)"
     L["Class quests"] = "Klassen-Quests"
     L["A message tells you when a class quest for a new ability is ready and where it starts. Click it for a map pin. Also in the settings under Quests > Helpers."] = "Eine Meldung sagt dir, wenn eine Klassen-Quest für eine neue Fähigkeit bereitsteht und wo sie beginnt. Klick drauf setzt eine Kartenmarkierung. Auch in den Einstellungen unter Quests > Helfer."

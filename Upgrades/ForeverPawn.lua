@@ -84,22 +84,31 @@ local function ParseEquipLine(text, stats)
     if Has(text, "verteidigung", "defense") then return Put("def", number) end
 end
 
--- Tooltip lines: read equip effects, detect red text (not wearable)
+-- Tooltip lines: read equip effects, detect red text (not wearable). Second result: the only red is the
+-- weapon type line ("One-Hand ... Sword") = weapon skill not learned yet
+local function IsRed(color) return color and color.r and color.r > 0.99 and color.g < 0.2 and color.b < 0.2 end
 local function ReadTooltip(link, stats)
     local data = C_TooltipInfo and C_TooltipInfo.GetHyperlink(link)
     if not data or not data.lines then return true end
     local equip = (ITEM_SPELL_TRIGGER_ONEQUIP or "Equip:"):lower()
-    local usable = true
+    local equipLoc = select(4, C_Item.GetItemInfoInstant(link))
+    local slotText = equipLoc and _G[equipLoc]
+    local skillRed, otherRed = false, false
     for _, line in ipairs(data.lines) do
         local text = line.leftText
         if Readable(text) and text and text ~= "" then
-            local color = line.leftColor
-            if color and color.r and color.r > 0.99 and color.g < 0.2 and color.b < 0.2 then usable = false end
+            local right = Readable(line.rightText) and line.rightText or nil
+            local typeLine = right and right ~= "" and text == slotText
+            if typeLine and (IsRed(line.leftColor) or IsRed(line.rightColor)) then
+                skillRed = true
+            elseif IsRed(line.leftColor) or (right and IsRed(line.rightColor)) then
+                otherRed = true
+            end
             local lower = text:lower()
             if lower:sub(1, #equip) == equip then ParseEquipLine(lower:sub(#equip + 1), stats) end
         end
     end
-    return usable
+    return not (skillRed or otherRed), skillRed and not otherRed
 end
 
 -- Item stats (nil = data not loaded yet); second return value: wearable?
@@ -107,7 +116,7 @@ local itemCache, itemCount = {}, 0
 local ITEM_MAX = 1000 -- auction house browsing adds hundreds of links: start over at the cap
 local function ItemStats(link)
     local cached = itemCache[link]
-    if cached then return cached.stats, cached.usable end
+    if cached then return cached.stats, cached.usable, cached.skillOnly end
     -- Only score once the item is loaded (otherwise tooltip lines are missing and we'd cache garbage)
     local itemID = C_Item.GetItemInfoInstant(link)
     if itemID and not C_Item.IsItemDataCachedByID(itemID) then
@@ -127,14 +136,14 @@ local function ItemStats(link)
             elseif key == "ITEM_MOD_DAMAGE_PER_SECOND_SHORT" then stats.dps = value end
         end
     end
-    local usable = ReadTooltip(link, stats)
+    local usable, skillOnly = ReadTooltip(link, stats)
     itemCount = itemCount + 1
     if itemCount > ITEM_MAX then
         wipe(itemCache)
         itemCount = 1
     end
-    itemCache[link] = { stats = stats, usable = usable }
-    return stats, usable
+    itemCache[link] = { stats = stats, usable = usable, skillOnly = skillOnly }
+    return stats, usable, skillOnly
 end
 
 -- Wearable? (no red tooltip lines; nil = not loaded yet) - used for "fills empty slot"
@@ -245,16 +254,22 @@ local function GearScore()
     return total
 end
 
+-- Wearable now, or only the weapon skill is missing and the class can learn it ("learn" mode)
+local function Allowed(link, learn)
+    local _, usable, skillOnly = ItemStats(link)
+    if learn then return usable == false and skillOnly and ns.ClassCanLearn and ns.ClassCanLearn(link) end
+    return usable ~= false
+end
+
 -- One-hander while dual wielding: percent for main hand and off hand (nil = not that case)
-function ns.ForeverUpgradeHands(link)
+local function Hands(link, learn)
     if not Weights() then return end
     local equipLoc = EquipLoc(link)
     if equipLoc ~= "INVTYPE_WEAPON" then return end
     local main, off = Equipped(16), Equipped(17)
     if not off or link == main or link == off or EquipLoc(main) == "INVTYPE_2HWEAPON"
         or not (CanDualWield and CanDualWield()) or OFF_HAND[EquipLoc(off)] then return end
-    local _, usable = ItemStats(link)
-    if usable == false then return end
+    if not Allowed(link, learn) then return end
     local asMain, asOff = Score(link, "main"), Score(link, "off")
     local mainScore, offScore = Score(main, "main"), Score(off, "off")
     if not (asMain and asOff and mainScore and offScore) or asMain <= 0 then return end
@@ -262,25 +277,39 @@ function ns.ForeverUpgradeHands(link)
     return (asMain - mainScore) / total * 100, (asOff - offScore) / total * 100
 end
 
-function ns.ForeverUpgradePercent(link)
+local function Percent(link, learn)
     if not Weights() then return end
     local equipLoc = EquipLoc(link)
     if not equipLoc or equipLoc == "" then return end
     if not (SLOTS[equipLoc] or OFF_HAND[equipLoc] or equipLoc == "INVTYPE_2HWEAPON"
         or equipLoc == "INVTYPE_WEAPON" or equipLoc == "INVTYPE_WEAPONMAINHAND") then return end
-    local _, usable = ItemStats(link)
-    if usable == false then return end
+    if not Allowed(link, learn) then return end
     local kind = RANGED[equipLoc] and "ranged" or OFF_HAND[equipLoc] and "off" or "main"
     local score = Score(link, kind)
     if not score or score <= 0 then return end
     local total = math.max(GearScore(), score)
     -- One-hander while dual wielding: score it for the hand it would go into (off hand DPS counts
     -- less), best of both hands
-    local mainPct, offPct = ns.ForeverUpgradeHands(link)
+    local mainPct, offPct = Hands(link, learn)
     if mainPct then return math.max(mainPct, offPct) end
     local replaced = Replaced(equipLoc, link)
     if not replaced then return end
     return (score - replaced) / total * 100
+end
+
+function ns.ForeverUpgradeHands(link) return Hands(link) end
+function ns.ForeverUpgradePercent(link) return Percent(link) end
+
+-- Weapon the class could use after learning its skill: skill name, then percent (or main, off).
+-- Only for the tooltip - never a bag arrow.
+function ns.ForeverLearnable(link)
+    if not Allowed(link, true) then return end
+    local skill = select(7, C_Item.GetItemInfo(link))
+    if not skill then return end
+    local mainPct, offPct = Hands(link, true)
+    if mainPct then return skill, mainPct, offPct end
+    local percent = Percent(link, true)
+    if percent then return skill, percent end
 end
 
 -- Gear, level or talents changed -> recompute

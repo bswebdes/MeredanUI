@@ -25,6 +25,7 @@ local GRID_MIN, GRID_MAX = 0.1, 0.7 -- Bloodmallet simulates 10-70 % per stat
 local EPS = 0.01
 local GREEN = { 0.25, 0.9, 0.35 }
 local RED = { 1, 0.3, 0.3 }
+local GREY = { 0.62, 0.62, 0.62 } -- only after learning the weapon skill
 ns.UPGRADE_COLOR = GREEN
 
 local SLOTS = {
@@ -286,8 +287,8 @@ local function RangedSlot()
     return rangedSlot
 end
 
--- Base proficiencies per class (classic rules; the tooltip alone doesn't catch e.g. a shield for a
--- rogue). Armor (class 4): 1 cloth, 2 leather, 3 mail, 4 plate, 6 shield, 7 libram, 8 idol, 9 totem;
+-- Weapon/armor types a class can learn (WoW Forever: rogues 1H axes, druids polearms; the tooltip alone
+-- doesn't catch e.g. a shield for a rogue). Armor (class 4): 1 cloth, 2 leather, 3 mail, 4 plate, 6 shield, 7 libram, 8 idol, 9 totem;
 -- 0 (trinkets, rings, held in off hand) is allowed for all. Weapons (class 2): 0 1H axe, 1 2H axe,
 -- 2 bow, 3 gun, 4 1H mace, 5 2H mace, 6 polearm, 7 1H sword, 8 2H sword, 10 staff, 13 fist weapon,
 -- 15 dagger, 16 thrown, 18 crossbow, 19 wand. Level requirements (mail at 40 ...) are checked
@@ -298,14 +299,23 @@ local PROFICIENCY = {
     WARRIOR = { [ARMOR] = Set(0, 1, 2, 3, 4, 6), [WEAPON] = Set(0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 16, 18) },
     PALADIN = { [ARMOR] = Set(0, 1, 2, 3, 4, 6, 7), [WEAPON] = Set(0, 1, 4, 5, 6, 7, 8) },
     HUNTER  = { [ARMOR] = Set(0, 1, 2, 3), [WEAPON] = Set(0, 1, 2, 3, 6, 7, 8, 10, 13, 15, 16, 18) },
-    ROGUE   = { [ARMOR] = Set(0, 1, 2), [WEAPON] = Set(2, 3, 4, 7, 13, 15, 16, 18) },
+    ROGUE   = { [ARMOR] = Set(0, 1, 2), [WEAPON] = Set(0, 2, 3, 4, 7, 13, 15, 16, 18) },
     PRIEST  = { [ARMOR] = Set(0, 1), [WEAPON] = Set(4, 10, 15, 19) },
     SHAMAN  = { [ARMOR] = Set(0, 1, 2, 3, 6, 9), [WEAPON] = Set(0, 1, 4, 5, 10, 13, 15) },
     MAGE    = { [ARMOR] = Set(0, 1), [WEAPON] = Set(7, 10, 15, 19) },
     WARLOCK = { [ARMOR] = Set(0, 1), [WEAPON] = Set(7, 10, 15, 19) },
-    DRUID   = { [ARMOR] = Set(0, 1, 2, 8), [WEAPON] = Set(4, 5, 10, 13, 15) },
+    DRUID   = { [ARMOR] = Set(0, 1, 2, 8), [WEAPON] = Set(4, 5, 6, 10, 13, 15) },
 }
 local playerClass
+
+-- Can the player's class learn this item's weapon type? (true for non-weapons)
+function ns.ClassCanLearn(link)
+    playerClass = playerClass or select(2, UnitClass("player"))
+    local allowed = PROFICIENCY[playerClass]
+    local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(link)
+    if not (allowed and allowed[classID]) then return true end
+    return allowed[classID][subclassID] or false
+end
 
 local function CanWear(link, itemID)
     playerClass = playerClass or select(2, UnitClass("player"))
@@ -368,8 +378,8 @@ function ns.AddUpgradeLine(tooltip, data)
         tooltip:AddLine(L["Fills empty slot: %s"]:format(emptySlot), 0.56, 0.8, 0.71)
         return
     end
-    local function Line(percent, label)
-        local color = percent > 0 and GREEN or RED
+    local function Line(percent, label, grey)
+        local color = grey or (percent > 0 and GREEN or RED)
         -- Flat triangle prefix: green pointing up, red pointing down
         local icon = ns.UI.IconMarkup(percent > 0 and "Upgrade" or "Downgrade", 11, color, 2)
         if label then
@@ -385,6 +395,21 @@ function ns.AddUpgradeLine(tooltip, data)
             tooltip:AddLine(" ")
             Line(mainPct, INVTYPE_WEAPONMAINHAND or "Main Hand")
             Line(offPct, INVTYPE_WEAPONOFFHAND or "Off Hand")
+            return
+        end
+    end
+    -- Weapon the class can learn at a weapon master (Forever): grey comparison, no bag arrow
+    if ns.IS_FOREVER and ns.UpgradeMode() ~= "off" and ns.ForeverLearnable then
+        local skill, first, second = ns.ForeverLearnable(link)
+        if skill then
+            tooltip:AddLine(" ")
+            tooltip:AddLine(L["Learnable at a weapon master: %s"]:format(skill), 0.56, 0.8, 0.71)
+            if second then
+                Line(first, INVTYPE_WEAPONMAINHAND or "Main Hand", GREY)
+                Line(second, INVTYPE_WEAPONOFFHAND or "Off Hand", GREY)
+            else
+                Line(first, nil, GREY)
+            end
             return
         end
     end
