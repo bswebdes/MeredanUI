@@ -33,7 +33,7 @@ New features are welcome – as long as they're genuinely useful and don't bloat
 - **Nameplates**, combat text, damage meter, loot window and loot rolls
 - **WoW Forever extras:** class reagents and ammo counter (arrows/bullets by weapon), swing timer, pet helper, spell ranks
 - **Dungeon maps** for WoW Forever: bosses where they stand, their loot with drop chances, all dungeon quests and a **wishlist** with try-on
-- **Comfort helpers** (each with its own switch): auto quests, summons, buff reminders, item counts across your characters
+- **Comfort helpers** (each with its own switch): sparkle on herbs, ore and quest objects, class quest reminders, auto quests, summons, buff reminders, item counts across your characters
 - **Plays nice with other addons:** Bagnon, Details, Plater, DBM and BigWigs take over their part in a matching mUI look
 - **Setup wizard** with two styles (Classic / Comfort), profiles and layouts
 
