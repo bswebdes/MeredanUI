@@ -929,60 +929,20 @@ oUF:Factory(function(self)
             if ok then ns.db.nameplatesStackSet = true end
         end)
     end
-    -- Same size for all plates (once): otherwise Blizzard enlarges the target (120 %) and shrinks
-    -- distant ones, but stacks by the normal size, so the target overlapped the others.
-    -- mUI highlights the target by dimming the others instead.
-    if not ns.db.nameplatesScaleSet then
-        ns.AfterCombat(function()
-            for _, cvar in ipairs({ "nameplateSelectedScale", "nameplateMinScale", "nameplateMaxScale" }) do
-                if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, "1") end
-            end
-            ns.db.nameplatesScaleSet = true
-        end)
-    end
-    -- Friendly players' pets get our plate instead of Blizzard's world name (that text can't be
-    -- shortened) - set once; later changes by the user are kept
-    if not ns.db.nameplatesPetsSet then
-        ns.AfterCombat(function()
-            if C_CVar.GetCVar("nameplateShowFriendlyPlayerPets") then C_CVar.SetCVar("nameplateShowFriendlyPlayerPets", "1") end
-            if C_CVar.GetCVar("UnitNameFriendlyPetName") then C_CVar.SetCVar("UnitNameFriendlyPetName", "0") end
-            ns.db.nameplatesPetsSet = true
-        end)
-    end
-    -- Friendly NPCs (vendors, trainers ...) get our name plate instead of Blizzard's world name
-    -- (set once; later changes by the user are kept)
-    if not ns.db.nameplatesNpcSet then
-        ns.AfterCombat(function()
-            if C_CVar.GetCVar("nameplateShowFriendlyNpcs") then C_CVar.SetCVar("nameplateShowFriendlyNpcs", "1") end
-            for _, cvar in ipairs({ "UnitNameNPC", "UnitNameFriendlySpecialNPCName", "UnitNameInteractiveNPC" }) do
-                if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, "0") end
-            end
-            ns.db.nameplatesNpcSet = true
-        end)
-    end
-    -- Turn Blizzard's world names off entirely, only mUI names - set once; the player's own name
-    -- stays as configured (there is no plate for it)
-    if not ns.db.nameplatesWorldNamesSet then
-        ns.AfterCombat(function()
-            if C_CVar.GetCVar("nameplateShowFriendlyPlayers") then C_CVar.SetCVar("nameplateShowFriendlyPlayers", "1") end
-            for _, cvar in ipairs({ "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerName", "UnitNameHostleNPC",
-                "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName",
-                "UnitNameFriendlyTotemName", "UnitNameEnemyPetName", "UnitNameEnemyGuardianName",
-                "UnitNameEnemyMinionName", "UnitNameEnemyTotemName" }) do
-                if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, "0") end
-            end
-            ns.db.nameplatesWorldNamesSet = true
-        end)
-    end
-    -- Always show plates, not only in combat (set once; later changes by the user are kept)
-    if not ns.db.nameplatesShowAllSet then
-        ns.db.nameplatesShowAllSet = true
-        C_CVar.SetCVar("nameplateShowAll", "1")
-    end
+    -- mUI's plate CVars, temporary (ns.LookCVar), every login: same size for all plates (otherwise
+    -- Blizzard enlarges the target and stacks by the normal size, so it overlapped the others; mUI
+    -- dims the others instead), always show plates, and mUI names instead of Blizzard's world names
+    ns.AfterCombat(function()
+        for _, cvar in ipairs({ "nameplateSelectedScale", "nameplateMinScale", "nameplateMaxScale" }) do
+            ns.LookCVar(cvar, "1")
+        end
+        ns.LookCVar("nameplateShowAll", "1")
+        ns.SetMuiNames(ns.db.npMuiNames ~= false)
+    end)
 end)
 
 -- "mUI names instead of Blizzard names": on = Blizzard world names off, friendly NPCs and pets on
--- mUI plates; off = everything back to Blizzard defaults. Pure CVars, works without reload.
+-- mUI plates; off = the player's own settings again. Temporary CVars, works without reload.
 local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerName", "UnitNameHostleNPC",
     "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName", "UnitNameFriendlyTotemName",
     "UnitNameEnemyPetName", "UnitNameEnemyGuardianName", "UnitNameEnemyMinionName", "UnitNameEnemyTotemName",
@@ -991,16 +951,9 @@ local MUI_PLATE_CVARS = { "nameplateShowFriendlyNpcs", "nameplateShowFriendlyPla
 function ns.SetMuiNames(useMui)
     ns.db.npMuiNames = useMui and true or false
     ns.AfterCombat(function()
-        local function Default(cvar)
-            local value = C_CVar.GetCVarDefault and C_CVar.GetCVarDefault(cvar)
-            return value or "1"
-        end
-        for _, cvar in ipairs(WORLD_NAME_CVARS) do
-            if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, useMui and "0" or Default(cvar)) end
-        end
-        for _, cvar in ipairs(MUI_PLATE_CVARS) do
-            if C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, useMui and "1" or Default(cvar)) end
-        end
+        -- temporary values; off = drop them, the player's own settings apply again
+        for _, cvar in ipairs(WORLD_NAME_CVARS) do ns.LookCVar(cvar, useMui and "0" or nil) end
+        for _, cvar in ipairs(MUI_PLATE_CVARS) do ns.LookCVar(cvar, useMui and "1" or nil) end
     end)
 end
 

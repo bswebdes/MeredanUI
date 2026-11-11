@@ -17,7 +17,7 @@ local MAX_ZOOM = 2.6 -- engine maximum; higher values are clamped
 local function RaiseZoom()
     if InCombatLockdown() then return ns.AfterCombat(RaiseZoom) end
     local current = tonumber(GetCVar("cameraDistanceMaxZoomFactor")) or 0
-    if current < MAX_ZOOM then SetCVar("cameraDistanceMaxZoomFactor", MAX_ZOOM) end
+    if current < MAX_ZOOM then ns.LookCVar("cameraDistanceMaxZoomFactor", tostring(MAX_ZOOM)) end
 end
 ns:On("PLAYER_LOGIN", RaiseZoom)
 

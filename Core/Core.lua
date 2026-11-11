@@ -585,3 +585,17 @@ function ns.FollowFrame(layer, target)
     end)
     ns.MirrorRect(layer, target)
 end
+
+-- Game settings mUI needs for its look: set as temporary CVars (not saved by the game), reapplied at
+-- every login. Without mUI the player's own values are back on the next start. value nil = drop
+-- mUI's temporary value. Falls back to a normal CVar where the temporary call isn't available.
+function ns.LookCVar(name, value)
+    if C_CVar.GetCVar(name) == nil then return end
+    if C_CVar.SetTempCVar then
+        local ok, err = pcall(C_CVar.SetTempCVar, name, value)
+        if ok then return end
+        if DevLog then DevLog("MeredanUI", "LookCVar fallback " .. name .. ": " .. tostring(err)) end
+    end
+    if value == nil then value = C_CVar.GetCVarDefault and C_CVar.GetCVarDefault(name) end
+    if value ~= nil then C_CVar.SetCVar(name, value) end
+end

@@ -26,13 +26,12 @@ local NAME_CVARS = {
 }
 
 local function HideNames()
-    if ns.char.rpCVars then return end
-    local saved = {}
+    local saved = {} -- temporary values (ns.LookCVar): set again after every login while RP mode is on
     for _, name in ipairs(NAME_CVARS) do
         local value = C_CVar.GetCVar(name)
         if value ~= nil then
             saved[name] = value
-            C_CVar.SetCVar(name, "0")
+            ns.LookCVar(name, "0")
         end
     end
     ns.char.rpCVars = saved -- persisted in case of a reload during RP mode
@@ -41,8 +40,9 @@ end
 local function RestoreNames()
     local saved = ns.char and ns.char.rpCVars
     if not saved then return end
-    for name, value in pairs(saved) do C_CVar.SetCVar(name, value) end
+    for name in pairs(saved) do ns.LookCVar(name, nil) end
     ns.char.rpCVars = nil
+    if ns.SetMuiNames then ns.SetMuiNames(ns.db.npMuiNames ~= false) end -- shared name CVars
 end
 
 -- Frames that stay visible in RP mode

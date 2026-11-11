@@ -601,7 +601,7 @@ end
 -- default in Forever), off = both off. The settings call this when toggling.
 function ns.SyncDamageMeterCVar()
     if ns.HasCVar and not ns.HasCVar("damageMeterEnabled") then return end
-    SetCVar("damageMeterEnabled", Enabled() and "1" or "0")
+    ns.LookCVar("damageMeterEnabled", Enabled() and "1" or "0")
 end
 
 ns:On("PLAYER_LOGIN", function()

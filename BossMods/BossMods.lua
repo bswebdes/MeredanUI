@@ -433,8 +433,8 @@ ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     -- without these game settings Blizzard delivers no data
     if not InCombatLockdown() then
-        if not C_CVar.GetCVarBool("encounterTimelineEnabled") then C_CVar.SetCVar("encounterTimelineEnabled", "1") end
-        if not C_CVar.GetCVarBool("encounterWarningsEnabled") then C_CVar.SetCVar("encounterWarningsEnabled", "1") end
+        ns.LookCVar("encounterTimelineEnabled", "1")
+        ns.LookCVar("encounterWarningsEnabled", "1")
     end
     TakeOver()
     ns.OnLayout(PlaceHolders)

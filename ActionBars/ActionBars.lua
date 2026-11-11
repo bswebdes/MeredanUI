@@ -884,7 +884,7 @@ end
 ns:On("PLAYER_LOGIN", function()
     if ns.db.mouseoverHeal then ns.ApplyMouseoverCast() end -- off: don't override Blizzard's own choice
     -- Cooldown numbers are part of the mUI look: keep Blizzard's toggle on.
-    if not C_CVar.GetCVarBool("countdownForCooldowns") then C_CVar.SetCVar("countdownForCooldowns", "1") end
+    ns.LookCVar("countdownForCooldowns", "1")
     -- Right at login (oUF has built its frames by then): after a /reload in combat the lockdown only
     -- applies after loading - a later timer would leave the bars missing until combat ends.
     ns.AfterCombat(Setup)

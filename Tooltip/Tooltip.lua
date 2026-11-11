@@ -671,8 +671,6 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     StyleItemRef()
-    -- Compare with equipped gear only with Shift (Blizzard default)
-    C_CVar.SetCVar("alwaysCompareItems", "0")
     StyleFonts()
     StyleHealthBar()
     StyleAuraTooltip()

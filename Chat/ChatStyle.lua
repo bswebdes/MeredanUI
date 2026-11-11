@@ -271,7 +271,7 @@ end
 
 -- Timestamps: Blizzard's own (plain "12:04"), toggled in the MUI settings
 function ns.ApplyChatTimestamps()
-    SetCVar("showTimestamps", ns.db.chatTimestamps and "%H:%M " or "none")
+    ns.LookCVar("showTimestamps", ns.db.chatTimestamps and "%H:%M " or "none")
 end
 
 -- Look -----------------------------------------------------------------------------------------
@@ -668,7 +668,7 @@ local function Setup()
     end)
     ns.ApplyChatTimestamps()
     -- Edit box only while typing (Blizzard's "IM" style instead of "Classic")
-    SetCVar("chatStyle", "im")
+    ns.LookCVar("chatStyle", "im")
 end
 
 -- Combat log filter buttons ("My actions" ...) in MUI font: muted, white on hover.

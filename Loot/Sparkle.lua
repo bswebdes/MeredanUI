@@ -315,11 +315,11 @@ local function ApplyCVars()
             if saved[cvar] == nil then saved[cvar] = C_CVar.GetCVar(cvar) end
         end
         for cvar, value in pairs(CVARS) do
-            if C_CVar.GetCVar(cvar) and C_CVar.GetCVar(cvar) ~= value then C_CVar.SetCVar(cvar, value) end
+            ns.LookCVar(cvar, value)
         end
     elseif saved then
         for cvar, value in pairs(saved) do
-            if value and C_CVar.GetCVar(cvar) then C_CVar.SetCVar(cvar, value) end
+            if C_CVar.SetTempCVar then ns.LookCVar(cvar, nil) elseif value then C_CVar.SetCVar(cvar, value) end
         end
         ns.db.sparkleCVars = nil
     end

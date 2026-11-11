@@ -25,6 +25,7 @@ local function ResetToBlizzard()
         return
     end
     for _, cvar in ipairs(CVARS) do
+        if C_CVar.SetTempCVar then pcall(C_CVar.SetTempCVar, cvar, nil) end -- mUI's temporary value
         local default = C_CVar.GetCVarDefault and C_CVar.GetCVarDefault(cvar)
         if default and C_CVar.GetCVar(cvar) ~= nil then pcall(C_CVar.SetCVar, cvar, default) end
     end
