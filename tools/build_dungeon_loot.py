@@ -8,7 +8,7 @@ without one share the rest of their group, references multiply in. Shared refere
 by many creatures), items under 1 % and plain white drops (outside a loot group) are left out.
 Output: Map/DungeonLoot.lua (ns.DUNGEON_LOOT).
 usage: python3 -I tools/build_dungeon_loot.py <world.sql.gz>"""
-import gzip, re, sys, pathlib
+import gzip, json, re, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sql = gzip.open(sys.argv[1], 'rt', encoding='utf-8', errors='replace').read()
@@ -107,23 +107,34 @@ pins_text = (ROOT / "Map" / "DungeonPinData.lua").read_text(encoding="utf-8")
 for m in re.finditer(r"\[(\d+)\] = \{\n(.*?)\n    \},", pins_text, re.S):
     rares[int(m.group(1))] = [int(x) for x in re.findall(r'kind = "rare", id = (\d+)', m.group(2))]
 
-# Forever reworked boss loot (new 250000+ items); confirmed per encounter from Forever guides and Wowhead
-# Forever drop chances (tools/dungeondata). Replaces the classic entry of that encounter.
-FOREVER = {
-    43: {585: [(5404, 37.7), (10412, 14.5), (273088, 6.9), (6446, 5.5), (273098, 1.4)],
-         586: [(6465, 49), (10410, 21.1), (6460, 20.9)],
-         587: [(6447, 56.1), (13245, 23.7), (273084, 3.4)],
-         588: [(6473, 49.1), (6472, 29.7), (273089, 6)],
-         589: [(6449, 42.7), (6448, 41.8), (273137, 7.6)],
-         590: [(6459, 28.4), (10411, 19.1), (5970, 18.4), (6469, 15.6), (273087, 1.4)],
-         591: [(6631, 36.8), (6630, 36.7), (6629, 23.1)],
-         592: [(6463, 30.1), (6461, 29.1), (6627, 24.6)],
-         'rare:5912': [(6632, 45.4), (5243, 41.2)]},
-    389: {2732: [(272998, 13.8), (272996, 13.5), (272999, 12.5)],
-          2733: [(14149, 31.9), (14148, 30.4), (14145, 18.4)],
-          2734: [(14150, 36.1), (14147, 33.3), (14151, 18.7)],
-          2735: [(273003, 12.6), (273005, 12.3), (273007, 11.3)]},
-}
+# Forever loot from the guide research (tools/dungeondata/instances/<mapID>.json, live instances): per boss
+# the items confirmed for Forever or with a Wowhead Forever drop chance, plus the other classic rows
+# between 5 and 100 % (no quest items, none missing on Wowhead Forever). Chance: Wowhead Forever, else guide, else classic. Replaces the classic entry of that
+# encounter when anything is left.
+def forever_loot():
+    result = {}
+    for path in sorted((ROOT / "tools" / "dungeondata" / "instances").glob("*.json")):
+        if not path.stem.isdigit(): continue
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if data.get("status") != "live": continue
+        entries = {}
+        sources = [(b.get("encounter_id"), b) for b in data.get("bosses", [])]
+        sources += [(r.get("encounter_id") or ("rare:%d" % r["npc_id"] if r.get("npc_id") else None), r) for r in data.get("rares", [])]
+        for key, src in sources:
+            if not key: continue
+            items = []
+            for it in src.get("loot", []):
+                if it.get("quest_item") or it.get("not_on_wowhead_forever"): continue
+                wh = it.get("chance_wowhead_forever")
+                repo = it.get("chance_repo") or 0
+                # unconfirmed classic rows stay unless small fry (< 5 %) or 100 % event/quest stuff
+                if not (it.get("forever_confirmed") or wh or 5 <= repo < 100): continue
+                chance = wh or it.get("chance_guide") or it.get("chance_repo")
+                if chance and it["item_id"] not in [i for i, _ in items]: items.append((it["item_id"], chance))
+            if items: entries[key] = sorted(items, key=lambda i: -i[1])
+        if entries: result[int(path.stem)] = entries
+    return result
+FOREVER = forever_loot()
 
 out, report = {}, []
 for inst in sorted(set(bosses) | set(rares)):
