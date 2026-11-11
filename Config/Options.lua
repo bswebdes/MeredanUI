@@ -1006,7 +1006,7 @@ if ns.IS_FOREVER then
                 Help(L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."]))
             page:AddCheckbox(L["Sparkle on herbs, ore and quest objects"], Getter("sparkle"),
                 Setter("sparkle", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end),
-                Help(L["The nearest object you can use glitters: green herbs, orange ore, yellow quest objects. Dimmed while out of reach. Off in combat."]))
+                Help(L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."]))
             if ns.Questie and ns.Questie.IsLoaded() then
                 page:AddHeader("Questie")
                 page:AddCheckbox(L["Next objective with distance"], On("trackerQuestieDistance"), TrackerSetter("trackerQuestieDistance"))

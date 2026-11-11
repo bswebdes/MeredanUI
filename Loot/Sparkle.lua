@@ -1,5 +1,5 @@
 -- Sparkle (Comfort): glitter on the nearby object the game would interact with (herb, ore, quest
--- object, chest). The client gives that "soft interact" object a nameplate when
+-- object, chest) or skinnable corpse. The client gives that "soft interact" object a nameplate when
 -- SoftTargetIconGameObject is on; the effect is parented to that plate so it follows the object.
 -- Only one object at a time - that is the client's selection, not ours.
 -- Kind comes from the game's own interact cursor (works in every language, no name lists),
@@ -19,6 +19,7 @@ local CVARS = {
 
 local COLORS = {
     herb = { 0.35, 1, 0.35 },
+    skin = { 1, 0.3, 0.25 },
     ore = { 1, 0.55, 0.2 },
     quest = { 1, 0.82, 0 },
     other = { 1, 1, 1 },
@@ -107,7 +108,7 @@ local function Classify()
     local name = probe:GetAtlas() or probe:GetTexture()
     if not Readable(name) or not name then return "other", true end
     name = tostring(name):lower()
-    local kind = (name:find("herb") and "herb") or (name:find("mine") and "ore")
+    local kind = (name:find("herb") and "herb") or (name:find("mine") and "ore") or (name:find("skin") and "skin")
         or (name:find("quest") and "quest") or "other"
     return kind, not name:find("unable")
 end
@@ -147,10 +148,13 @@ end
 local function Update()
     if not Enabled() or UnitAffectingCombat("player") then return Hide() end
     local isObject = UnitIsGameObject(UNIT)
-    if not (Readable(isObject) and isObject) or ObjectID() == BOBBER_ID then return Hide() end
+    isObject = Readable(isObject) and isObject
+    if isObject and ObjectID() == BOBBER_ID then return Hide() end
     local plate = C_NamePlate.GetNamePlateForUnit(UNIT)
     local kind, inRange = Classify()
     if not plate or not kind then return Hide() end
+    -- units: only skinnable corpses (living NPCs and loot-only corpses stay plain)
+    if not isObject and kind ~= "skin" then return Hide() end
     effect = effect or CreateEffect(UIParent)
     if effect:GetParent() ~= plate then
         effect:SetParent(plate)
@@ -212,11 +216,11 @@ ns.SparkleDemo = {
     Start = function()
         if not demo then
             demo = CreateFrame("Frame", nil, UIParent)
-            demo:SetSize(5 * 70, 70)
+            demo:SetSize(6 * 70, 70)
             demo:SetPoint("CENTER", 0, 160)
             demo.items = {}
             local samples = {
-                { "herb", true }, { "ore", true }, { "quest", true, "3/8" }, { "other", true }, { "herb", false },
+                { "herb", true }, { "ore", true }, { "quest", true, "3/8" }, { "skin", true }, { "other", true }, { "herb", false },
             }
             for i, s in ipairs(samples) do
                 local e = CreateEffect(demo)

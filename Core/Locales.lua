@@ -1571,7 +1571,7 @@ if GetLocale() == "deDE" then
     L["Decline duels"] = "Duelle ablehnen"
     L["Friends and guild members can still ask."] = "Freunde und Gildenmitglieder dürfen trotzdem fragen."
     L["Sparkle on herbs, ore and quest objects"] = "Glitzern an Kräutern, Erz und Quest-Objekten"
-    L["The nearest object you can use glitters: green herbs, orange ore, yellow quest objects. Dimmed while out of reach. Off in combat."] = "Das nächste benutzbare Objekt glitzert: Kräuter grün, Erz orange, Quest-Objekte gelb. Gedimmt, solange es außer Reichweite ist. Im Kampf aus."
+    L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."] = "Das nächste benutzbare Objekt glitzert: Kräuter grün, Erz orange, Kürschnern rot, Quest-Objekte gelb. Gedimmt, solange es außer Reichweite ist. Im Kampf aus."
     L["Skip cinematics you have seen"] = "Bekannte Filme überspringen"
     L["%s (old rank)"] = "%s (alter Rang)"
     L["Buff missing"] = "Buff fehlt"
