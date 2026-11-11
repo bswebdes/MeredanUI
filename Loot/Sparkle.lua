@@ -102,15 +102,45 @@ end
 local probe = UIParent:CreateTexture(nil, "BACKGROUND")
 probe:Hide()
 
+-- cursor textures come back as file IDs, not paths: map them (classic files + 2x atlas sheets)
+local FILE_KINDS = {
+    [131018] = "herb", [7958141] = "herb",                                   -- gatherherbs, uicursorgather2x
+    [131025] = "ore", [7958147] = "ore",                                     -- mine, uicursormine2x
+    [131035] = "skin", [131036] = "skin", [131037] = "skin", [235498] = "skin", [7958194] = "skin",
+    [131030] = "quest", [1006596] = "quest", [131032] = "quest", [6009167] = "quest",
+    [131052] = "ore", [131062] = "skin", [131064] = "skin", [131057] = "quest", -- unable* variants
+}
+local FILE_UNABLE = { [131052] = true, [131062] = true, [131064] = true, [131057] = true }
+
+local function KindFromName(name)
+    name = name:lower()
+    local kind = (name:find("herb") and "herb") or (name:find("gather") and "herb") or (name:find("mine") and "ore")
+        or (name:find("skin") and "skin") or (name:find("quest") and "quest") or "other"
+    return kind, not name:find("unable")
+end
+
+local lastDebug
 -- kind + in range from the interact cursor the game would show for the unit
 local function Classify()
-    if not SetUnitCursorTexture(probe, UNIT) then return nil end
-    local name = probe:GetAtlas() or probe:GetTexture()
-    if not Readable(name) or not name then return "other", true end
-    name = tostring(name):lower()
-    local kind = (name:find("herb") and "herb") or (name:find("mine") and "ore") or (name:find("skin") and "skin")
-        or (name:find("quest") and "quest") or "other"
-    return kind, not name:find("unable")
+    if not SetUnitCursorTexture(probe, UNIT, nil, nil, true) then return nil end
+    local atlas, tex = probe:GetAtlas(), probe:GetTexture()
+    if not Readable(atlas) then atlas = nil end
+    if not Readable(tex) then tex = nil end
+    local kind, inRange
+    if type(atlas) == "string" and atlas ~= "" then
+        kind, inRange = KindFromName(atlas)
+    elseif type(tex) == "number" then
+        kind, inRange = FILE_KINDS[tex] or "other", not FILE_UNABLE[tex]
+    elseif type(tex) == "string" then
+        kind, inRange = KindFromName(tex)
+    else
+        kind, inRange = "other", true
+    end
+    if DevLog then
+        local line = ("Sparkle atlas=%s tex=%s -> %s %s"):format(tostring(atlas), tostring(tex), kind, tostring(inRange))
+        if line ~= lastDebug then lastDebug = line; DevLog("MeredanUI", line) end
+    end
+    return kind, inRange
 end
 
 local function ObjectID()
@@ -152,6 +182,7 @@ local function Update()
     if isObject and ObjectID() == BOBBER_ID then return Hide() end
     local plate = C_NamePlate.GetNamePlateForUnit(UNIT)
     local kind, inRange = Classify()
+    if DevLog and kind and not plate then DevLog("MeredanUI", "Sparkle: no plate for " .. UNIT) end
     if not plate or not kind then return Hide() end
     -- units: only skinnable corpses (living NPCs and loot-only corpses stay plain)
     if not isObject and kind ~= "skin" then return Hide() end
