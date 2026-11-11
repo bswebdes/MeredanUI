@@ -256,9 +256,18 @@ function ns.ForeverUpgradePercent(link)
     local kind = RANGED[equipLoc] and "ranged" or OFF_HAND[equipLoc] and "off" or "main"
     local score = Score(link, kind)
     if not score or score <= 0 then return end
+    local total = math.max(GearScore(), score)
+    -- One-hander while dual wielding: score it for the hand it would go into (off hand DPS counts
+    -- less), best of both hands
+    local main, off = Equipped(16), Equipped(17)
+    if equipLoc == "INVTYPE_WEAPON" and off and link ~= main and link ~= off and EquipLoc(main) ~= "INVTYPE_2HWEAPON"
+        and CanDualWield and CanDualWield() and not OFF_HAND[EquipLoc(off)] then
+        local mainScore, offScore, asOff = Score(main, "main"), Score(off, "off"), Score(link, "off")
+        if not (mainScore and offScore and asOff) then return end
+        return math.max(score - mainScore, asOff - offScore) / total * 100
+    end
     local replaced = Replaced(equipLoc, link)
     if not replaced then return end
-    local total = math.max(GearScore(), score)
     return (score - replaced) / total * 100
 end
 
