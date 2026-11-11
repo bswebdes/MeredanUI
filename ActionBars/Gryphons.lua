@@ -12,8 +12,8 @@ end
 
 local function Create(parent, side)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetFrameLevel(parent:GetFrameLevel() + 20) -- above the buttons, like Blizzard's end caps
-    f.tex = f:CreateTexture(nil, "OVERLAY")
+    f:SetFrameLevel(math.max(parent:GetFrameLevel() - 1, 0)) -- behind the buttons: icons and key texts stay readable
+    f.tex = f:CreateTexture(nil, "BACKGROUND")
     f.tex:SetAllPoints()
     f.tex:SetAtlas(Atlas(side))
     return f
@@ -36,7 +36,7 @@ function ns.UpdateGryphons()
     local size = bottom:GetHeight() > 0 and bottom:GetHeight() or 36 -- one button row
     local h = ns.Snap(size * 2.6)
     local w = ns.Snap(h * ASPECT)
-    local overlap = ns.Snap(w * 0.28) -- the gryphon's foot sits over the bar end
+    local overlap = ns.Snap(w * 0.08) -- only the tail tucks behind the bar end
     left:SetSize(w, h)
     right:SetSize(w, h)
     left:ClearAllPoints()
