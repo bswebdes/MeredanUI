@@ -24,7 +24,7 @@ ns.WHATS_NEW = {
     { id = "sparkle", image = "Sparkle", title = "Sparkle", setting = "sparkle",
       text = "Herbs, ore, skinnable corpses and quest objects near you glitter in their own colour. Also in the settings under Quests > Helpers.",
       apply = function() if ns.UpdateSparkle then ns.UpdateSparkle() end end },
-    { id = "class-quests", image = "ClassQuests", title = "Class quests", draft = true,
+    { id = "class-quests", image = "ClassQuests", title = "Class quests",
       setting = "classQuestReminder", foreverOnly = true,
       text = "A message tells you when a class quest for a new ability is ready and where it starts. Click it for a map pin. Also in the settings under Quests > Helpers." },
 }
