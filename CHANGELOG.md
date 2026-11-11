@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## Unreleased
+- Removed the "Back to Blizzard" button again: mUI's game settings are temporary now, so there is nothing left to reset
+
 ## v0.4.2
 - Game settings mUI needs for its look (nameplates, chat style, camera zoom, sparkle ...) are now only set while mUI runs and no longer saved by the game – if you remove mUI, your own settings are back on the next start
 - mUI no longer changes the "always compare items" setting
