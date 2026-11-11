@@ -1,5 +1,16 @@
 # MeredanUI Changelog
 
+## Unreleased
+- XP bar tooltip: how far along the way to level 60 you are
+- New theme "Blizzard": Blizzard's class colours and bright green for NPCs and pets
+- Accent colour can now also be Blizzard's own class colour (Look page)
+- "Back to Blizzard" (Profiles page): resets chat and the game settings mUI changed to Blizzard's defaults and turns mUI off – handy before uninstalling
+- Item comparison: one-handed weapons show main hand and off hand separately when you dual wield, and the off hand is no longer compared with a main hand score
+- Item comparison: weapons your class can learn at a weapon master get a grey comparison
+- Rogues can use one-handed axes and druids polearms (WoW Forever)
+- Questie: click an icon on the minimap to make the quest active
+- "What's new" shows the five newest pages
+
 ## v0.4.0
 - MeredanUI leaves beta: from now on regular releases, so the CurseForge app and other addon managers pick up updates with default settings. mUI is still in early access – feedback and bug reports are very welcome
 - New Comfort helper: sparkle on the nearest herb, ore vein, quest object, chest or skinnable corpse – green for herbs, orange for ore, red for skinning (each only with the matching profession), yellow for quest objects, white for other objects like benches and mailboxes (own switch). Dimmed while out of reach, quest progress under the sparkle when you point at the object, off in combat (Quests page)

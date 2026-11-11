@@ -159,6 +159,24 @@ local function ShowPetTooltip(self)
     GameTooltip:Show()
 end
 
+-- Classic XP curve (Forever uses the same, 4,084,700 XP from 1 to 60): XP needed to leave level n
+local XP_TABLE = { 400, 900, 1400, 2100, 2800, 3600, 4500, 5400, 6500, 7600, 8800, 10100, 11400, 12900, 14400,
+    16000, 17700, 19400, 21300, 23200, 25200, 27300, 29400, 31700, 34000, 36400, 38900, 41400, 44300, 47400,
+    50800, 54500, 58600, 62800, 67100, 71600, 76100, 80800, 85700, 90700, 95800, 101000, 106300, 111800,
+    117500, 123200, 129100, 135100, 141200, 147500, 153900, 160400, 167100, 173900, 180800, 187900, 195000,
+    202300, 209800 }
+-- Share of the way to the max level (only when the max level matches the table)
+local function JourneyPercent(level, xp)
+    local maxLevel = GetMaxLevelForPlayerExpansion and GetMaxLevelForPlayerExpansion() or 60
+    if maxLevel ~= #XP_TABLE + 1 or level >= maxLevel then return end
+    local done, total = xp, 0
+    for i, need in ipairs(XP_TABLE) do
+        total = total + need
+        if i < level then done = done + need end
+    end
+    return done / total * 100
+end
+
 local function ShowTooltip(self)
     GameTooltip:SetOwner(self, "ANCHOR_BOTTOM", 0, -4)
     local xp, max = UnitXP("player"), UnitXPMax("player")
@@ -176,6 +194,8 @@ local function ShowTooltip(self)
     GameTooltip:AddLine(L["Level %d"]:format(UnitLevel("player")), 1, 1, 1)
     Line(Key(COLORS.xp, L["Experience"]), ("%s / %s (%s)"):format(BreakUpLargeNumbers(xp), BreakUpLargeNumbers(max), Pct(xp)))
     Line(L["Remaining"], BreakUpLargeNumbers(remaining))
+    local journey = JourneyPercent(UnitLevel("player"), xp)
+    if journey then Line(L["Way to level %d"]:format(#XP_TABLE + 1), ("%.1f %%"):format(journey)) end
     if rested > 0 then Line(Key(COLORS.rested, L["Rested"]), ("%s (%s)"):format(BreakUpLargeNumbers(rested), Pct(rested))) end
     GameTooltip:AddLine(" ")
     Line(L["XP per hour"], perHour > 0 and BreakUpLargeNumbers(math.floor(perHour)) or "–")

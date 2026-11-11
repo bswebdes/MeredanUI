@@ -32,6 +32,7 @@ Core/Style.lua
 Core/Menus.lua
 Core/Quiet.lua
 Core/Comfort.lua
+Core/BlizzardReset.lua
 Core/Fonts.lua
 UnitFrames/UnitFrames.lua
 UnitFrames/GroupFrames.lua

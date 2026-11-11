@@ -208,9 +208,19 @@ local PAGES = {
                 ns.RefreshStyle()
             end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
-                Help(L["Class colour: health in class colour. Dark: dark health bars, class-coloured power. Classic green: green health bars."]))
-            page:AddCheckbox(L["Accent in your class colour"], On("classAccent"), Setter("classAccent"),
-                Help(L["Lines, headings and selections in a muted class colour instead of mUI green."], true))
+                Help(L["Class colour: health in class colour. Blizzard: Blizzard's class colours and bright green. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
+            page:AddDropdown(L["Accent colour"], function()
+                return {
+                    { value = "mui", label = L["mUI green"] },
+                    { value = "class", label = L["Class colour (muted)"] },
+                    { value = "blizzard", label = L["Class colour (Blizzard)"] },
+                }
+            end, function()
+                local v = ns.db.classAccent
+                return v == "blizzard" and "blizzard" or v and "class" or "mui"
+            end, function(value)
+                ns.db.classAccent = value == "blizzard" and "blizzard" or value == "class"
+            end, Help(L["Lines, headings and selections."], true))
             page:AddCheckbox(L["Use the mUI font in Blizzard windows too"], On("fontEverywhere"),
                 Setter("fontEverywhere", ns.ApplyGlobalFonts),
                 Help(L["Windows, menus and tooltips. Turning it off needs a reload."], true))
@@ -961,6 +971,10 @@ local PAGES = {
                         function(name) ns.char.specProfiles[spec.index] = name ~= "" and name or nil end)
                 end
             end
+
+            -- Before uninstalling: game settings and chat back to Blizzard's defaults (Core/BlizzardReset.lua)
+            page:AddHeader(L["Back to Blizzard"])
+            page:AddButton(L["Reset game settings and turn mUI off"], function() ns.ConfirmBackToBlizzard() end)
         end,
     },
 }

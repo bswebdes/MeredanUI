@@ -19,10 +19,15 @@ local CLASS_ACCENTS = {
 }
 -- Called once the profile is loaded, before windows are built; changes in place so every
 -- reference to UI.ACCENT sees it. Switching back needs a reload.
+-- classAccent: false = mUI green, true = muted class colour, "blizzard" = Blizzard's class colour
 function UI.ApplyClassAccent()
     if not (ns.db and ns.db.classAccent) then return end
     local _, class = UnitClass("player")
     local hex = class and CLASS_ACCENTS[class]
+    if ns.db.classAccent == "blizzard" then
+        local c = class and RAID_CLASS_COLORS[class]
+        hex = c and ("%02x%02x%02x"):format(c.r * 255, c.g * 255, c.b * 255)
+    end
     if not hex then return end
     for i = 1, 3 do UI.ACCENT[i] = tonumber(hex:sub(i * 2 - 1, i * 2), 16) / 255 end
     UI.ACCENT_HEX = "|cff" .. hex

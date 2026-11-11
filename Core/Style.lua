@@ -59,13 +59,20 @@ ns.THEMES = {
         healthEmpty = { 0.3, 0.3, 0.3 },
         powerClassColor = true,
     },
+    blizzard = {
+        name = L["Blizzard"], -- Blizzard's own colours: class colours, bright green for NPCs and pets
+        panelColor = { 0.06, 0.06, 0.06, 0.9 },
+        healthColor = { 0, 1, 0 },
+        classHealth = true,
+        emptyColor = { 0.1, 0.1, 0.1 },
+    },
     green = {
         name = L["mUI (sage)"], -- single-color sage
         panelColor = { 0.06, 0.06, 0.06, 0.9 },
         healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
     },
 }
-ns.THEME_ORDER = { "class", "dark", "green" }
+ns.THEME_ORDER = { "class", "blizzard", "dark", "green" }
 
 -- Bar texture: only our own flat one (WHITE8X8), registered with LibSharedMedia. No third-party
 -- textures (unclear licenses, CurseForge moderation).
