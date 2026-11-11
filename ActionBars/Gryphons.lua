@@ -36,7 +36,7 @@ function ns.UpdateGryphons()
     local size = bottom:GetHeight() > 0 and bottom:GetHeight() or 36 -- one button row
     local h = ns.Snap(size * 2.6)
     local w = ns.Snap(h * ASPECT)
-    local overlap = ns.Snap(w * 0.08) -- only the tail tucks behind the bar end
+    local overlap = ns.Snap(w * 0.22) -- the inner part tucks behind the end buttons
     left:SetSize(w, h)
     right:SetSize(w, h)
     left:ClearAllPoints()
