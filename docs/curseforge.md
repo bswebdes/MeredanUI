@@ -63,10 +63,6 @@ building blocks only (frame engine, button handling, media, data tables) – the
 windows and all features are MeredanUI's own code. The source code is public on
 [GitHub](https://github.com/bswebdes/MeredanUI) (all rights reserved).
 
-**AI as a tool:** mUI is built by a solo developer with AI assistance. I looked at how existing addons
-solve things, took inspiration from good ideas and adapted them to fit mUI – no code from other addons
-was copied.
-
 To all addon authors: I really appreciate your work – mUI wouldn't exist without the inspiration I found
 in yours. If you ever feel something in mUI crosses a line, please reach out. I'll gladly fix it.
 
@@ -103,10 +99,6 @@ The full list with license texts is in `CREDITS.txt` in the addon folder.
 
 **MeredanUI** ist ein klares, flaches Komplett-Interface für **WoW Forever**:
 ein Addon, ein Look, ein Einstellungsfenster (`/mui`). Komplett auf Deutsch verfügbar.
-
-**KI als Werkzeug:** mUI wird von einer einzelnen Person mit KI-Unterstützung entwickelt. Ich habe mir
-angeschaut, wie bestehende Addons Dinge lösen, mich von guten Ideen inspirieren lassen und sie für mUI
-passend umgesetzt. Code aus anderen Addons wurde nicht kopiert.
 
 An alle Addon-Entwickler: Ich schätze eure Arbeit sehr. Ohne die Inspiration aus euren Addons gäbe es
 mUI nicht. Wenn ihr das Gefühl habt, dass in mUI etwas nicht in Ordnung ist, meldet euch bitte. Ich
