@@ -2,6 +2,20 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.4.1", items = {
+        "XP bar tooltip: how far along the way to level 60 you are",
+        "Accent colour can now also be Blizzard's own class colour (Look page)",
+        "Look page: optional gryphons (Horde: wyverns) at the bottom action bars, gold brown frame borders, and a \"Blizzard\" theme with Blizzard's frame colours",
+        "Quest rewards: the coin on the most valuable choice is bigger and sits on the item icon",
+        "\"Back to Blizzard\" (Profiles page): resets chat and the game settings mUI changed to Blizzard's defaults and turns mUI off – handy before uninstalling",
+        "Item comparison: one-handed weapons show main hand and off hand separately when you dual wield, and the off hand is no longer compared with a main hand score",
+        "Item comparison: weapons your class can learn at a weapon master get a grey comparison",
+        "Rogues can use one-handed axes and druids polearms (WoW Forever)",
+        "Questie: click an icon on the minimap to make the quest active",
+        "\"What's new\" shows the five newest pages",
+        "Fixed: the right border of fields in the settings window was cut off",
+        "Fixed: gryphon artwork in the wrong place after a reload in combat",
+    } },
     { version = "v0.4.0", items = {
         "MeredanUI leaves beta: from now on regular releases, so the CurseForge app and other addon managers pick up updates with default settings. mUI is still in early access – feedback and bug reports are very welcome",
         "New Comfort helper: sparkle on the nearest herb, ore vein, quest object, chest or skinnable corpse – green for herbs, orange for ore, red for skinning (each only with the matching profession), yellow for quest objects, white for other objects like benches and mailboxes (own switch). Dimmed while out of reach, quest progress under the sparkle when you point at the object, off in combat (Quests page)",
@@ -55,24 +69,5 @@ ns.CHANGELOG = {
     { version = "v0.3.0-beta.4", items = {
         "Hall of Thanes: boss pins on the dungeon map",
         "Dungeon maps: a few boss and rare positions corrected (Wailing Caverns, Maraudon, Saltspine)",
-    } },
-    { version = "v0.3.0-beta.3", items = {
-        "Dungeon maps on the world map (WoW Forever): click a dungeon portal to open its map, with boss and rare portraits where they stand. Ragefire Chasm, Wailing Caverns and the Hall of Thanes use new mUI maps made from the game's own data on a themed background; the other classic dungeons use Blizzard's maps for now",
-        "World map: entrances of Forever's new dungeons are shown (approximate at first, exact once you have been inside)",
-        "New fishing bag (WoW Forever): opens when you equip a fishing pole. Catches of the current fishing trip, catches per hour, lure bar (click to apply), fishing logbook per zone with escape rate, \"Rare catch!\" toasts. Right-click a catch to use it. Optional: double right-click into the world to cast (Comfort)",
-        "Bags: fishing bag button in the header while a pole is equipped; keyring tab (WoW Forever, only with keys); quiver and ammo pouch always come last. The \"Separate bags\" layout was removed, it now uses \"Sections\"",
-        "New skins: guild and communities window (incl. guild ranks), group finder, macros, calendar, hunter stable, battleground scoreboard, socketing, tabard, guild charter, clock, death recap, addon list, ready check, dressing room, quantity dialog",
-        "Guild: overview tab with classes, level ranges, founding date and main/alt counts; members inactive for 14+ days are marked faintly red",
-        "New collections window (WoW Forever)",
-        "Queue status as a sticky entry on top of the toasts, with waiting time and all listed activities",
-        "Action bars: three optional extra bars, new visibility \"In combat\", per-bar key binding and macro text, key binding text size",
-        "Buffs & debuffs: new time display as a bar below the icon; permanent auras show no bar; sorted by remaining time",
-        "Nameplates: friendly NPCs and companions on name-only mUI plates, new settings for which names to show, name size, NPC titles and companion owners",
-        "Menus and tooltips: Surf Green highlights and section titles instead of Blizzard yellow",
-        "Settings: larger window with new Modules, Skins and Changelog pages; background opacity setting; theme \"Classic green\" is now \"mUI (sage)\"",
-        "Auction house and mailbox stay off when another auction or mail addon is loaded",
-        "/mui help is shorter: settings, key bindings and preview",
-        "Group frames: members joining during combat show up right away",
-        "Performance improvements and many small fixes",
     } },
 }
