@@ -16,6 +16,7 @@ local CVARS = {
     softTargetInteract = tostring(Enum.SoftTargetEnableFlags and Enum.SoftTargetEnableFlags.Any or 3),
     SoftTargetIconGameObject = "1",
     SoftTargetNameplateInteract = "1", -- corpses get no plate otherwise -> nothing to attach to
+    SoftTargetInteractRange = "15", -- default 10 yd: you are already there when it shows
 }
 
 local COLORS = {
@@ -163,12 +164,10 @@ local function ObjectID()
     return tonumber((select(6, strsplit("-", guid))))
 end
 
--- "3/8" style quest line, only when the world tooltip shows this very object (mouse-over)
+-- "3/8" style quest line of the object's tooltip: the soft-interact unit tooltip if the client gives
+-- one, else the world tooltip while the mouse points at this very object
 local QUEST_LINE = Enum.TooltipDataLineType and Enum.TooltipDataLineType.QuestObjective or 8
-local function Progress()
-    local name = UnitName(UNIT)
-    if not Readable(name) or not name or not C_TooltipInfo.GetWorldCursor then return nil end
-    local data = C_TooltipInfo.GetWorldCursor()
+local function QuestLine(data, name)
     local lines = data and data.lines
     if not lines or not lines[1] or not Readable(lines[1].leftText) or lines[1].leftText ~= name then return nil end
     for i = #lines, 2, -1 do
@@ -178,6 +177,20 @@ local function Progress()
         end
     end
 end
+
+local questObjects = {} -- object IDs seen with a quest line this session (yellow before mouse-over)
+local function Progress()
+    local name = UnitName(UNIT)
+    if not Readable(name) or not name then return nil end
+    local ok, data = pcall(C_TooltipInfo.GetUnit, UNIT)
+    local progress = ok and QuestLine(data, name)
+    if not progress and C_TooltipInfo.GetWorldCursor then progress = QuestLine(C_TooltipInfo.GetWorldCursor(), name) end
+    local id = ObjectID()
+    if progress and id then questObjects[id] = true end
+    return progress
+end
+ns:On("QUEST_REMOVED", function() wipe(questObjects) end)
+ns:On("QUEST_TURNED_IN", function() wipe(questObjects) end)
 
 -- the plate is registered under its "nameplateN" token, not "softinteract": search by unit
 local function FindPlate()
@@ -196,6 +209,8 @@ end
 local function QuestKind(kind, progress)
     if kind ~= "other" then return kind end
     if progress then return "quest" end
+    local id = ObjectID()
+    if id and questObjects[id] then return "quest" end
     local related = C_QuestLog.UnitIsRelatedToActiveQuest and C_QuestLog.UnitIsRelatedToActiveQuest(UNIT)
     if Readable(related) and related then return "quest" end
     return kind
