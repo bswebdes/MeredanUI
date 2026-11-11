@@ -31,7 +31,7 @@ local function Enabled() return ns.db and ns.db.sparkle == true end
 
 local function CreateEffect(parent)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetSize(48, 48)
+    f:SetSize(72, 72)
     f:SetIgnoreParentAlpha(true) -- mUI hides object plates via alpha
     f:Hide()
 
@@ -39,25 +39,25 @@ local function CreateEffect(parent)
     f.glow:SetTexture(131010) -- interface/cooldown/star4
     f.glow:SetBlendMode("ADD")
     f.glow:SetPoint("CENTER")
-    f.glow:SetSize(64, 64)
+    f.glow:SetSize(120, 120)
 
     f.star = f:CreateTexture(nil, "ARTWORK")
     f.star:SetAtlas("shop-toast-sparkle")
     f.star:SetBlendMode("ADD")
     f.star:SetPoint("CENTER")
-    f.star:SetSize(32, 32)
+    f.star:SetSize(60, 60)
 
     f.small = f:CreateTexture(nil, "ARTWORK")
     f.small:SetAtlas("shop-toast-sparkle")
     f.small:SetBlendMode("ADD")
-    f.small:SetPoint("CENTER", 14, 10)
-    f.small:SetSize(14, 14)
+    f.small:SetPoint("CENTER", 26, 18)
+    f.small:SetSize(26, 26)
 
     -- glow breathes, big star turns slowly, small star twinkles
     local pulse = f.glow:CreateAnimationGroup()
     pulse:SetLooping("BOUNCE")
     local a = pulse:CreateAnimation("Alpha")
-    a:SetFromAlpha(0.35); a:SetToAlpha(0.9); a:SetDuration(0.9); a:SetSmoothing("IN_OUT")
+    a:SetFromAlpha(0.55); a:SetToAlpha(1); a:SetDuration(0.9); a:SetSmoothing("IN_OUT")
     f.pulse = pulse
 
     local spin = f.star:CreateAnimationGroup()
@@ -79,7 +79,7 @@ local function CreateEffect(parent)
     function f:Set(kind, inRange, progress)
         local c = COLORS[kind] or COLORS.other
         for _, tex in ipairs({ self.glow, self.star, self.small }) do tex:SetVertexColor(c[1], c[2], c[3]) end
-        self:SetAlpha(inRange and 1 or 0.4)
+        self:SetAlpha(inRange and 1 or 0.5)
         self.text:SetText(progress or "")
         self.text:SetTextColor(c[1], c[2], c[3])
     end
@@ -119,13 +119,9 @@ local function KindFromName(name)
     return kind, not name:find("unable")
 end
 
-local lastDebug, lastTrace
 -- kind + in range from the interact cursor the game would show for the unit
 local function Classify()
-    if not SetUnitCursorTexture(probe, UNIT, nil, nil, true) then
-        if DevLog and lastDebug ~= "nocursor" then lastDebug = "nocursor"; DevLog("MeredanUI", "Sparkle: no cursor texture") end
-        return nil
-    end
+    if not SetUnitCursorTexture(probe, UNIT, nil, nil, true) then return nil end
     local atlas, tex = probe:GetAtlas(), probe:GetTexture()
     if not Readable(atlas) then atlas = nil end
     if not Readable(tex) then tex = nil end
@@ -138,10 +134,6 @@ local function Classify()
         kind, inRange = KindFromName(tex)
     else
         kind, inRange = "other", true
-    end
-    if DevLog then
-        local line = ("Sparkle atlas=%s tex=%s -> %s %s"):format(tostring(atlas), tostring(tex), kind, tostring(inRange))
-        if line ~= lastDebug then lastDebug = line; DevLog("MeredanUI", line) end
     end
     return kind, inRange
 end
@@ -206,11 +198,6 @@ local function Update()
             local hasLoot = CanLootUnit(guid)
             if not (Readable(hasLoot) and hasLoot) then kind, inRange = "skin", true end
         end
-    end
-    if DevLog and UnitExists(UNIT) then
-        local line = ("Sparkle trace obj=%s plate=%s kind=%s range=%s"):format(tostring(isObject),
-            plate and (plate:IsVisible() and "visible" or "hidden") or "nil", tostring(kind), tostring(inRange))
-        if line ~= lastTrace then lastTrace = line; DevLog("MeredanUI", line) end
     end
     if not plate or not kind then return Hide() end
     -- units: only skinnable corpses (living NPCs and loot-only corpses stay plain)
