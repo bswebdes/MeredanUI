@@ -661,7 +661,7 @@ if GetLocale() == "deDE" then
     -- Group finder in chat
     L["Highlight group searches"] = "Gruppensuche hervorheben"
     L["Someone looking for a group for a dungeon or raid that fits your level: the message gets a small marker with the dungeon's name."] = "Sucht jemand eine Gruppe für einen Dungeon oder Schlachtzug, der zu deiner Stufe passt, bekommt die Nachricht vorne einen kleinen Hinweis mit dem Namen des Dungeons."
-    L["Ragefire Chasm"] = "Flammenschlund"
+    L["Ragefire Chasm"] = "Ragefireabgrund"
     L["Wailing Caverns"] = "Höhlen des Wehklagens"
     L["The Deadmines"] = "Todesminen"
     L["Shadowfang Keep"] = "Burg Schattenfang"

@@ -52,6 +52,8 @@ def in_forever(fdid):
 ann_map = {r["ID"]: r for r in table("UiMap", "wow_anniversary")}
 ann_assign = table("UiMapAssignment", "wow_anniversary")
 mop_map = {r["ID"]: r for r in table("UiMap", "wow_classic")}
+# German names the Forever client shows where the classic tables say something else
+DE_FOREVER = {213: "Ragefireabgrund"}
 mop_map_de = {r["ID"]: r for r in table("UiMap", "wow_classic", "deDE")}
 mop_assign = table("UiMapAssignment", "wow_classic")
 art_of = {r["UiMapID"]: r["UiMapArtID"] for r in table("UiMapXMapArt", "wow_classic") if r["PhaseID"] == "0"}
@@ -100,6 +102,7 @@ for instance in INSTANCES:
         en = group["Name_lang"] if group and group["Name_lang"] else mop_map.get(ui, ann_map.get(ui, {})).get("Name_lang", "")
         de_group = groups_de.get(group["ID"]) if group else None
         de = de_group["Name_lang"] if de_group and de_group["Name_lang"] else mop_map_de.get(ui, {}).get("Name_lang", en)
+        de = DE_FOREVER.get(ui, de)
         reg = region(rows)
         floors.append("{ ui = %s, en = %s, de = %s, tiles = { %s }, region = { %s } }" % (
             ui, lua(en), lua(de), ", ".join(str(t[2]) for t in tiles), ", ".join(str(v) for v in reg)))

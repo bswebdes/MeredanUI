@@ -92,7 +92,7 @@ local function Visible(items)
 end
 
 -- Instances whose boss pins Benny checked in the game; released one by one (Map/DungeonLoot.lua has more)
-local READY = { [43] = true }
+local READY = { [43] = true, [389] = true }
 
 -- Items seen dropping in Forever (account-wide): looting in an instance marks its listed items
 local function Seen()

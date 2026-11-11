@@ -10,7 +10,7 @@ local SLACK = 2 -- allowed levels below/above the range
 
 -- { name, min level, max level, lowercase keywords }; display name comes from the locales
 local DUNGEONS = {
-    { "Ragefire Chasm", 13, 18, { "rfc", "ragefire", "flammenschlund" } },
+    { "Ragefire Chasm", 13, 18, { "rfc", "ragefire", "ragefireabgrund", "flammenschlund" } },
     { "Wailing Caverns", 17, 24, { "wc", "wailing", "hdw", "höhlen des wehklagens", "wehklagen" } },
     { "The Deadmines", 17, 26, { "dm", "vc", "deadmines", "todesminen", "tm" } },
     { "Shadowfang Keep", 22, 30, { "sfk", "shadowfang", "bsf", "burg schattenfang", "schattenfang" } },
