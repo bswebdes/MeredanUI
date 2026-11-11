@@ -20,7 +20,7 @@ ns.WHATS_NEW = {
       text = "Star the loot you want. The wishlist shows where it drops, lets you try it on and ticks it off once you have it." },
     { id = "dungeon-quests", image = "DungeonQuests", title = "Dungeon quests",
       text = "All quests of a dungeon at a glance: done, still open, or where the quest giver stands." },
-    { id = "sparkle", image = "Sparkle", title = "Sparkle", draft = true,
+    { id = "sparkle", image = "Sparkle", title = "Sparkle",
       text = "Herbs, ore, skinnable corpses and quest objects near you glitter in their own colour. Turn it on under Quests." },
     { id = "class-quests", image = "ClassQuests", title = "Class quests", draft = true,
       text = "A message tells you when a class quest for a new ability is ready and where it starts. Click it for a map pin." },
