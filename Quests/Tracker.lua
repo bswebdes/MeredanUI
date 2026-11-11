@@ -1316,10 +1316,15 @@ local function Setup()
     end)
 
     CreateItemLayer()
-    itemLayer:SetSize(ACTIVE_SIZE, 10)
     -- not parented to the tracker: it would become protected too and couldn't change its height in
     -- combat. The placeholder sits at the same corner and only moves out of combat.
-    itemLayer:SetFrameStrata("MEDIUM")
+    -- Secure frame: size/strata only out of combat (/reload in combat)
+    local function SizeItemLayer()
+        if InCombatLockdown() then return ns.AfterCombat(SizeItemLayer) end
+        itemLayer:SetSize(ACTIVE_SIZE, 10)
+        itemLayer:SetFrameStrata("MEDIUM")
+    end
+    SizeItemLayer()
     -- Anchored to the screen, not the (unprotected) tracker: otherwise the state driver lost access after
     -- the tracker was moved ("Invalid 'self' frame handle"). Position is synced out of combat.
     local function SyncItemLayer()
