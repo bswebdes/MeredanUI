@@ -2,6 +2,14 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.4.0", items = {
+        "MeredanUI leaves beta: from now on regular releases, so the CurseForge app and other addon managers pick up updates with default settings. mUI is still in early access – feedback and bug reports are very welcome",
+        "New Comfort helper: sparkle on the nearest herb, ore vein, quest object, chest or skinnable corpse – green for herbs, orange for ore, red for skinning, yellow for quest objects. Dimmed while out of reach, quest progress under the sparkle when you point at the object, off in combat (Quests page)",
+        "New Comfort helper: class quest reminder. A toast tells you when a class quest for a new ability becomes available (Defensive Stance, Bear Form, Voidwalker, totems, Paladin mounts and more, including the new Forever quests) and where it starts for your race. Click the toast for a map pin with an arrow (Quests page)",
+        "Dungeon maps: Ragefire Chasm is now in the dungeon panel",
+        "Dungeon maps: Wailing Caverns and Ragefire Chasm show WoW Forever's own loot and drop chances, including the new Forever items",
+        "Dungeon maps: the \"Quests\" tab now also lists the new Forever dungeon quests and shows a faction icon for Horde or Alliance quests",
+    } },
     { version = "v0.4.0-beta.1", items = {
         "Dungeon maps: a new panel next to the map shows the bosses with their portraits. Click a boss (in the list or on the map) to see its loot with drop chances, filtered for your class (\"For me\" / \"All\"). Items you have seen dropping in Forever get a check mark. Starting with Wailing Caverns, more dungeons follow one by one",
         "Dungeon maps: a \"Quests\" tab lists all quests of the dungeon for your race and class: done, in your quest log, or where the quest giver stands (click for a map pin, coordinates in the tooltip)",
@@ -63,10 +71,5 @@ ns.CHANGELOG = {
         "/mui help is shorter: settings, key bindings and preview",
         "Group frames: members joining during combat show up right away",
         "Performance improvements and many small fixes",
-    } },
-    { version = "v0.3.0-beta.2", items = {
-        "Status bars now use MeredanUI's own flat texture; third-party bar textures were removed",
-        "Mythic+: LibKeystone is no longer bundled; party keystones show when another addon (e.g. BigWigs) provides it",
-        "Font license files are included next to the fonts",
     } },
 }
