@@ -38,6 +38,10 @@ Flight time estimates (Minimap/FlightTimeData.lua)
 - Dungeon approach points (Map/DungeonApproaches.lua) based on HandyNotes_DungeonLocations (Classic) –
   https://github.com/callie-g/HandyNotes_DungeonLocations-classic
 
+Class quests (Quests/ClassQuests.lua)
+- Quest chains, levels and quest givers looked up in QuestieDB (Forever data) –
+  https://github.com/Questie/QuestieDB – facts only, table and reminder are MeredanUI's own.
+
 Stat weights (Upgrades/)
 - WoW Forever: WoWSims presets (MIT) – https://github.com/wowsims – and Forever Codex simulations.
 - Retail: Bloodmallet (SimulationCraft) – https://bloodmallet.com; healer ratios from Pawn /

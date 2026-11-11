@@ -1,7 +1,7 @@
 > 🌐 **Website:** [meredanui.com](https://meredanui.com) – screenshots, install guide and FAQ
 >
-> ⚠️ **Beta** – MeredanUI is in active development. Expect bugs and changes between versions.
-> Found a bug or have an idea? Please report it on [GitHub Issues](https://github.com/bswebdes/MeredanUI/issues) – that's the fastest way to get it fixed.
+> 🛠 **Early Access** – mUI is actively developed by a single person. Things may break, and some features are still rough around the edges.
+> Your feedback is incredibly valuable: every bug report and idea directly shapes the addon. Found something? Open an issue on [GitHub](https://github.com/bswebdes/MeredanUI/issues) – a screenshot helps a lot.
 
 **MeredanUI** is a clean, flat all-in-one interface for **WoW Forever**.
 One addon, one look, one settings window (`/mui`).
@@ -84,14 +84,15 @@ windows and all features are MeredanUI's own code. The source code is public on
 - Classic flight times: [InFlight Taxi Timer](https://github.com/LudiusMaximus/InFlight) by LudiusMaximus – used as a data table only, MeredanUI's flight timer and map are its own
 - Dungeon entrance positions: [HandyNotes_DungeonLocations (Classic)](https://github.com/callie-g/HandyNotes_DungeonLocations-classic) – coordinates only
 - WoW Forever stat weights: [WoWSims](https://github.com/wowsims) (MIT) presets and Forever Codex simulations
+- Class quest starts: [QuestieDB](https://github.com/Questie/QuestieDB) (Forever data) – quest and NPC facts only, the reminder is MeredanUI's own
 - Game data (flight routes, maps, instances) from Blizzard via [wago.tools](https://wago.tools)
 
 The full list with license texts is in `CREDITS.txt` in the addon folder.
 
 ---
 
-> ⚠️ **Beta** – MeredanUI wird gerade aktiv entwickelt. Fehler und Änderungen zwischen Versionen sind normal.
-> Fehler oder Ideen bitte über [GitHub Issues](https://github.com/bswebdes/MeredanUI/issues) melden.
+> 🛠 **Early Access** – mUI wird von einer einzelnen Person aktiv entwickelt. Es kann noch Fehler geben, manches ist noch nicht ganz rund.
+> Dein Feedback ist Gold wert: Jede Fehlermeldung und jede Idee formt das Addon direkt mit. Etwas gefunden? Melde es auf [GitHub](https://github.com/bswebdes/MeredanUI/issues) – ein Screenshot hilft sehr.
 
 **MeredanUI** ist ein klares, flaches Komplett-Interface für **WoW Forever**:
 ein Addon, ein Look, ein Einstellungsfenster (`/mui`). Komplett auf Deutsch verfügbar.
