@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## Unreleased
+- Game settings mUI needs for its look (nameplates, chat style, camera zoom, sparkle ...) are now only set while mUI runs and no longer saved by the game – if you remove mUI, your own settings are back on the next start
+- mUI no longer changes the "always compare items" setting
+
 ## v0.4.1
 - XP bar tooltip: how far along the way to level 60 you are
 - Accent colour can now also be Blizzard's own class colour (Look page)
