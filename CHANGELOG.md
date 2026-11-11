@@ -3,6 +3,8 @@
 ## Unreleased
 - XP bar tooltip: how far along the way to level 60 you are
 - Accent colour can now also be Blizzard's own class colour (Look page)
+- Look page: optional gryphons (Horde: wyverns) at the bottom action bars, gold brown frame borders, and a "Blizzard" theme with Blizzard's frame colours
+- Quest rewards: the coin on the most valuable choice is bigger and sits on the item icon
 - "Back to Blizzard" (Profiles page): resets chat and the game settings mUI changed to Blizzard's defaults and turns mUI off – handy before uninstalling
 - Item comparison: one-handed weapons show main hand and off hand separately when you dual wield, and the off hand is no longer compared with a main hand score
 - Item comparison: weapons your class can learn at a weapon master get a grey comparison
