@@ -59,7 +59,7 @@ local STYLE_VALUES = {
         hideErrors = true,
         bagsStyle = "categories", bagsAutoJunk = true, fastLoot = true,
         damageMeter = true,
-        questAutoAccept = true, questAutoTurnIn = true, questAutoGossip = true, questBestReward = true,
+        questAutoAccept = false, questAutoTurnIn = false, questAutoGossip = true, questBestReward = true, -- auto quests: opt-in only
         autoSummon = true, autoResurrect = true, declineDuels = true, skipCinematics = true, buffReminder = true, altItemCount = true, sparkle = true, classQuestReminder = true,
     },
 }
