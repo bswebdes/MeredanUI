@@ -13,6 +13,7 @@ local _, ns = ...
 local L = ns.L
 
 -- Newest last. id stays fixed once released. draft = picture missing: only via /mui news, no popup.
+-- setting = ns.db key: the page gets a "Turn on" checkbox (same value as in the settings), apply runs after.
 ns.WHATS_NEW = {
     { id = "dungeon-loot", image = "DungeonLoot", title = "Dungeon loot",
       text = "Click a boss on the dungeon map to see its loot with drop chances, filtered for your class." },
@@ -20,13 +21,15 @@ ns.WHATS_NEW = {
       text = "Star the loot you want. The wishlist shows where it drops, lets you try it on and ticks it off once you have it." },
     { id = "dungeon-quests", image = "DungeonQuests", title = "Dungeon quests",
       text = "All quests of a dungeon at a glance: done, still open, or where the quest giver stands." },
-    { id = "sparkle", image = "Sparkle", title = "Sparkle",
-      text = "Herbs, ore, skinnable corpses and quest objects near you glitter in their own colour. Turn it on under Quests." },
+    { id = "sparkle", image = "Sparkle", title = "Sparkle", setting = "sparkle",
+      text = "Herbs, ore, skinnable corpses and quest objects near you glitter in their own colour. Also in the settings under Quests > Helpers.",
+      apply = function() if ns.UpdateSparkle then ns.UpdateSparkle() end end },
     { id = "class-quests", image = "ClassQuests", title = "Class quests", draft = true,
-      text = "A message tells you when a class quest for a new ability is ready and where it starts. Click it for a map pin." },
+      setting = "classQuestReminder", foreverOnly = true,
+      text = "A message tells you when a class quest for a new ability is ready and where it starts. Click it for a map pin. Also in the settings under Quests > Helpers." },
 }
 
-local W, H, PIC_W, PIC_H = 600, 470, 512, 256
+local W, H, PIC_W, PIC_H = 600, 500, 512, 256
 local window, pages, index
 
 local function Seen()
@@ -44,6 +47,9 @@ local function Render()
         dot:SetShown(i <= #pages and #pages > 1)
         dot:SetColorTexture(unpack(i == index and UI.ACCENT or { 1, 1, 1, 0.15 }))
     end
+    local setting = entry.setting and not (entry.foreverOnly and not ns.IS_FOREVER) and entry.setting
+    window.toggle:SetShown(setting and true or false)
+    if setting then window.toggle:SetChecked(ns.db and ns.db[setting] == true) end
     window.back:SetShown(index > 1)
     window.next.Text:SetText(index < #pages and L["Next"] or L["Done"])
 end
@@ -107,6 +113,15 @@ local function CreateWindow()
     window.text:SetPoint("TOPLEFT", window.title, "BOTTOMLEFT", 0, -8)
     window.text:SetWidth(PIC_W)
     window.text:SetWordWrap(true)
+
+    -- "Turn on" for features that are off after an update; same value as the settings checkbox
+    window.toggle = UI.LabelCheck(window, L["Turn on"], function(_, on)
+        local entry = pages[index]
+        if not (entry and entry.setting and ns.db) then return end
+        ns.db[entry.setting] = on
+        if entry.apply then entry.apply() end
+    end)
+    window.toggle:SetPoint("TOPLEFT", window.text, "BOTTOMLEFT", 0, -12)
 
     local footLine = window:CreateTexture(nil, "ARTWORK")
     footLine:SetColorTexture(1, 1, 1, 0.08)
