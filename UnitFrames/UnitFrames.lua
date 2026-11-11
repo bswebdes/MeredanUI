@@ -619,9 +619,7 @@ oUF:Factory(function(self)
     ns.ApplySettings()
     -- Health color from the theme; friendly units get the same green.
     oUF.colors.health:SetRGB(unpack(ns.HEALTH_COLOR))
-    for token, color in pairs(ns.POWER_COLORS) do
-        if oUF.colors.power[token] then oUF.colors.power[token]:SetRGB(unpack(color)) end
-    end
+    ns.ApplyPowerColors()
     for reaction = 5, 8 do
         oUF.colors.reaction[reaction] = oUF.colors.health
     end
@@ -747,9 +745,21 @@ function ns.RightOfTargetEdge()
     return target:GetRight() + CastIconSpace(target) + ns.Snap(SIDE_GAP)
 end
 
+-- mUI's own power colours, or Blizzard's (theme "Blizzard"; oUF's defaults are Blizzard's)
+function ns.ApplyPowerColors()
+    for token, color in pairs(ns.POWER_COLORS) do
+        local c = oUF.colors.power[token]
+        if c then
+            c.muiBlizzard = c.muiBlizzard or { c:GetRGB() }
+            c:SetRGB(unpack(ns.STYLE.blizzardPower and c.muiBlizzard or color))
+        end
+    end
+end
+
 -- After a theme, font or texture change: let oUF recompute colors.
 function ns.OnStyleRefreshed()
     oUF.colors.health:SetRGB(unpack(ns.HEALTH_COLOR))
+    ns.ApplyPowerColors()
     for _, list in ipairs({ ns.frames, ns.smallFrames, ns.sideFrames }) do
         for _, frame in pairs(list) do
             frame.Health.colorClass = ns.STYLE.classHealth

@@ -48,6 +48,7 @@ Core/Test.lua
 # Module (Reihenfolge wie bisher: spätere nutzen Teile der früheren)
 Minimap/Minimap.lua
 ActionBars/ActionBars.lua
+ActionBars/Gryphons.lua
 InfoBars/XPBar.lua
 InfoBars/TrackingBars.lua
 InfoBars/InfoBar.lua

@@ -210,6 +210,7 @@ local DEFAULTS = {
     fastLoot = true,             -- loot instantly with auto-loot (Loot/FastLoot.lua)
     fishingBag = true,           -- Forever: fishing bag + logbook, opens with a fishing pole (Loot/Fishing.lua)
     fishingDoubleClick = false,  -- Forever: double right-click casts Fishing (Comfort)
+    actionBarArt = false,        -- gryphons/wyverns at the bottom action bars (ActionBars/Gryphons.lua)
     sparkle = false,             -- Comfort: glitter on the nearby herb/ore/quest object (Loot/Sparkle.lua)
     sparkleOther = true,         -- sparkle also on other objects (benches, chests, mailboxes) in white
     classQuestReminder = false,  -- Comfort, Forever: toast when a class quest unlocks (Quests/ClassQuestReminder.lua)
@@ -483,6 +484,7 @@ function ns.UseProfile(name)
     ns.db = profiles[name]
     ns.profileName = name
     if ns.UI and ns.UI.ApplyClassAccent then ns.UI.ApplyClassAccent() end
+    if ns.ApplySettings then ns.ApplySettings() end -- theme border colour before any frame is built
 end
 
 ns:On("PLAYER_LOGIN", function()

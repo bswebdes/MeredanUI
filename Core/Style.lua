@@ -59,13 +59,21 @@ ns.THEMES = {
         healthEmpty = { 0.3, 0.3, 0.3 },
         powerClassColor = true,
     },
+    blizzard = {
+        name = L["Blizzard"], -- Blizzard's default frame colours: green health, Blizzard power colours, bronze borders
+        panelColor = { 0.06, 0.05, 0.04, 0.9 },
+        healthColor = { 0, 0.8, 0 },
+        emptyColor = { 0.1, 0.08, 0.06 },
+        blizzardPower = true,
+        borderColor = { 0.5, 0.4, 0.24, 1 },
+    },
     green = {
         name = L["mUI (sage)"], -- single-color sage
         panelColor = { 0.06, 0.06, 0.06, 0.9 },
         healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
     },
 }
-ns.THEME_ORDER = { "class", "dark", "green" }
+ns.THEME_ORDER = { "class", "blizzard", "dark", "green" }
 
 -- Bar texture: only our own flat one (WHITE8X8), registered with LibSharedMedia. No third-party
 -- textures (unclear licenses, CurseForge moderation).
@@ -98,6 +106,7 @@ end
 -- Border: a black 1px line. Debuffs tint it by dispel type (then 2px).
 ns.BORDER_PIXELS = 1
 local BORDER_COLOR = { 0, 0, 0, 1 }
+ns.BORDER_COLOR = BORDER_COLOR
 
 -- Everything using theme, font or texture, so changes apply immediately.
 local registry = { texts = {}, bars = {}, panels = {} }
@@ -118,7 +127,11 @@ function ns.ApplySettings()
     STYLE.darkHealth = theme.darkHealth
     STYLE.healthEmpty = theme.healthEmpty
     STYLE.powerClassColor = theme.powerClassColor
+    STYLE.blizzardPower = theme.blizzardPower
     ns.HEALTH_COLOR = theme.healthColor
+    -- Border colour: in place, borders take it when they are created (theme switch: reload)
+    local b = theme.borderColor or { 0, 0, 0, 1 }
+    for i = 1, 4 do ns.BORDER_COLOR[i] = b[i] end
 
     -- Font and texture are fixed
     STYLE.font = ns.DEFAULT_FONT
