@@ -216,6 +216,39 @@ local function QuestKind(kind, progress)
     return kind
 end
 
+-- Gathering only for those who can: herbs need Herbalism, ore Mining, corpses Skinning.
+-- Spell ranks (Apprentice..Artisan) plus the skill line as second source.
+local PROFESSION = {
+    herb = { skill = 182, spells = { 2366, 2368, 3570, 11993 } },
+    ore = { skill = 186, spells = { 2575, 2576, 3564, 10248 } },
+    skin = { skill = 393, spells = { 8613, 8617, 8618, 10768 } },
+}
+local known
+local function HasProfession(kind)
+    local p = PROFESSION[kind]
+    if not p then return true end
+    if not known then
+        known = {}
+        for k, data in pairs(PROFESSION) do
+            for _, id in ipairs(data.spells) do
+                if C_SpellBook.IsSpellKnown(id) then known[k] = true end
+            end
+        end
+        if C_SkillInfo and C_SkillInfo.GetNumSkillLines then
+            for i = 1, C_SkillInfo.GetNumSkillLines() do
+                local info = C_SkillInfo.GetSkillLineInfo(i)
+                for k, data in pairs(PROFESSION) do
+                    if info and info.skillID == data.skill then known[k] = true end
+                end
+            end
+        end
+    end
+    return known[kind] or false
+end
+for _, event in ipairs({ "SKILL_LINES_CHANGED", "LEARNED_SPELL_IN_SKILL_LINE", "SPELLS_CHANGED" }) do
+    ns:On(event, function() known = nil end)
+end
+
 -- Update -----------------------------------------------------------------------------------------
 
 local effect
@@ -248,6 +281,7 @@ local function Update()
     local progress = Progress()
     kind = QuestKind(kind, progress)
     if kind == "other" and not ns.db.sparkleOther then return Hide() end
+    if not HasProfession(kind) then return Hide() end
     effect = effect or CreateEffect(UIParent)
     if effect:GetParent() ~= plate then
         effect:SetParent(plate)
@@ -263,7 +297,7 @@ local function Update()
         if k then
             local progress = Progress()
             k = QuestKind(k, progress)
-            if k == "other" and not ns.db.sparkleOther then return Hide() end
+            if (k == "other" and not ns.db.sparkleOther) or not HasProfession(k) then return Hide() end
             effect:Set(k, r, progress)
         end
     end)
