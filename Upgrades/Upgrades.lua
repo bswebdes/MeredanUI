@@ -368,13 +368,30 @@ function ns.AddUpgradeLine(tooltip, data)
         tooltip:AddLine(L["Fills empty slot: %s"]:format(emptySlot), 0.56, 0.8, 0.71)
         return
     end
+    local function Line(percent, label)
+        local color = percent > 0 and GREEN or RED
+        -- Flat triangle prefix: green pointing up, red pointing down
+        local icon = ns.UI.IconMarkup(percent > 0 and "Upgrade" or "Downgrade", 11, color, 2)
+        if label then
+            tooltip:AddDoubleLine(icon .. " " .. label, FormatPercent(percent), color[1], color[2], color[3], color[1], color[2], color[3])
+        else
+            tooltip:AddLine(icon .. " " .. FormatPercent(percent), unpack(color))
+        end
+    end
+    -- One-hander while dual wielding (Forever): both hands
+    if ns.IS_FOREVER and ns.UpgradeMode() ~= "off" and ns.ForeverUpgradeHands then
+        local mainPct, offPct = ns.ForeverUpgradeHands(link)
+        if mainPct then
+            tooltip:AddLine(" ")
+            Line(mainPct, INVTYPE_WEAPONMAINHAND or "Main Hand")
+            Line(offPct, INVTYPE_WEAPONOFFHAND or "Off Hand")
+            return
+        end
+    end
     local percent = ns.UpgradePercent(link)
     if not percent or math.abs(percent) < 0.05 then return end
-    local color = percent > 0 and GREEN or RED
     tooltip:AddLine(" ")
-    -- Flat triangle prefix: green pointing up, red pointing down
-    local icon = ns.UI.IconMarkup(percent > 0 and "Upgrade" or "Downgrade", 11, color, 2)
-    tooltip:AddLine(icon .. " " .. FormatPercent(percent), unpack(color))
+    Line(percent)
 end
 
 -- Stats change with gear and spec; wait briefly until the new values settle

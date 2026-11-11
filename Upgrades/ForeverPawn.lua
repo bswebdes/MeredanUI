@@ -245,6 +245,23 @@ local function GearScore()
     return total
 end
 
+-- One-hander while dual wielding: percent for main hand and off hand (nil = not that case)
+function ns.ForeverUpgradeHands(link)
+    if not Weights() then return end
+    local equipLoc = EquipLoc(link)
+    if equipLoc ~= "INVTYPE_WEAPON" then return end
+    local main, off = Equipped(16), Equipped(17)
+    if not off or link == main or link == off or EquipLoc(main) == "INVTYPE_2HWEAPON"
+        or not (CanDualWield and CanDualWield()) or OFF_HAND[EquipLoc(off)] then return end
+    local _, usable = ItemStats(link)
+    if usable == false then return end
+    local asMain, asOff = Score(link, "main"), Score(link, "off")
+    local mainScore, offScore = Score(main, "main"), Score(off, "off")
+    if not (asMain and asOff and mainScore and offScore) or asMain <= 0 then return end
+    local total = math.max(GearScore(), asMain)
+    return (asMain - mainScore) / total * 100, (asOff - offScore) / total * 100
+end
+
 function ns.ForeverUpgradePercent(link)
     if not Weights() then return end
     local equipLoc = EquipLoc(link)
@@ -259,13 +276,8 @@ function ns.ForeverUpgradePercent(link)
     local total = math.max(GearScore(), score)
     -- One-hander while dual wielding: score it for the hand it would go into (off hand DPS counts
     -- less), best of both hands
-    local main, off = Equipped(16), Equipped(17)
-    if equipLoc == "INVTYPE_WEAPON" and off and link ~= main and link ~= off and EquipLoc(main) ~= "INVTYPE_2HWEAPON"
-        and CanDualWield and CanDualWield() and not OFF_HAND[EquipLoc(off)] then
-        local mainScore, offScore, asOff = Score(main, "main"), Score(off, "off"), Score(link, "off")
-        if not (mainScore and offScore and asOff) then return end
-        return math.max(score - mainScore, asOff - offScore) / total * 100
-    end
+    local mainPct, offPct = ns.ForeverUpgradeHands(link)
+    if mainPct then return math.max(mainPct, offPct) end
     local replaced = Replaced(equipLoc, link)
     if not replaced then return end
     return (score - replaced) / total * 100
