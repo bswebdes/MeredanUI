@@ -33,9 +33,11 @@ function ns.UpdateGryphons()
     left = left or Create(bottom, "left")
     right = right or Create(bottom, "right")
     -- outside the 6 x 2 extra blocks when they are shown
-    local leftEdge = (bars[7] and bars[7]:IsShown()) and bars[7] or bottom
-    local rightEdge = (bars[8] and bars[8]:IsShown()) and bars[8] or bottom
-    local size = bottom:GetHeight() > 0 and bottom:GetHeight() or 36 -- one button row
+    -- (from the settings, not IsShown: after a reload in combat the bars aren't set up yet)
+    local function On(key) return ns.ActionBarMode and ns.ActionBarMode(key) ~= "hidden" end
+    local leftEdge = (bars[7] and On("bar7")) and bars[7] or bottom
+    local rightEdge = (bars[8] and On("bar8")) and bars[8] or bottom
+    local size = ns.Snap(36) -- one button row of the bottom bars (ActionBars.lua SIZE)
     local h = ns.Snap(size * 2.6)
     local w = ns.Snap(h * ASPECT)
     local overlap = ns.Snap(w * 0.2) -- the gryphon sits over the bar end
