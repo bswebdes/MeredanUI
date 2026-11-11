@@ -30,68 +30,86 @@ local function Enabled() return ns.db and ns.db.sparkle == true end
 
 -- Effect -----------------------------------------------------------------------------------------
 
+local GLOW = 1063457 -- soft round glow (genericglow64)
+local DOT = 1063561  -- small soft dot (t_vfx_glow01_64)
+local RING = 131009  -- thin ring (cooldown/ping4)
+local DOTS = { { -22, 14, 9, 0 }, { 20, 22, 7, 0.5 }, { 16, -12, 8, 1 } } -- x, y, size, delay
+
 local function CreateEffect(parent)
     local f = CreateFrame("Frame", nil, parent)
-    f:SetSize(72, 72)
+    f:SetSize(64, 64)
     f:SetIgnoreParentAlpha(true) -- mUI hides object plates via alpha
     f:Hide()
+    f.textures, f.anims = {}, {}
 
-    f.glow = f:CreateTexture(nil, "BACKGROUND")
-    f.glow:SetTexture(131010) -- interface/cooldown/star4
-    f.glow:SetBlendMode("ADD")
-    f.glow:SetPoint("CENTER")
-    f.glow:SetSize(120, 120)
+    local function Tex(file, size, x, y, layer)
+        local t = f:CreateTexture(nil, layer or "ARTWORK")
+        t:SetTexture(file)
+        t:SetBlendMode("ADD")
+        t:SetPoint("CENTER", x or 0, y or 0)
+        t:SetSize(size, size)
+        f.textures[#f.textures + 1] = t
+        return t
+    end
 
-    f.star = f:CreateTexture(nil, "ARTWORK")
-    f.star:SetAtlas("shop-toast-sparkle")
-    f.star:SetBlendMode("ADD")
-    f.star:SetPoint("CENTER")
-    f.star:SetSize(60, 60)
+    -- soft glow, breathing
+    local glow = Tex(GLOW, 96, 0, 0, "BACKGROUND")
+    local g = glow:CreateAnimationGroup()
+    g:SetLooping("BOUNCE")
+    local a = g:CreateAnimation("Alpha")
+    a:SetFromAlpha(0.45); a:SetToAlpha(0.85); a:SetDuration(1.2); a:SetSmoothing("IN_OUT")
+    f.anims[#f.anims + 1] = g
 
-    f.small = f:CreateTexture(nil, "ARTWORK")
-    f.small:SetAtlas("shop-toast-sparkle")
-    f.small:SetBlendMode("ADD")
-    f.small:SetPoint("CENTER", 26, 18)
-    f.small:SetSize(26, 26)
+    -- bright core
+    local core = Tex(DOT, 26)
+    core:SetAlpha(0.9)
 
-    -- glow breathes, big star turns slowly, small star twinkles
-    local pulse = f.glow:CreateAnimationGroup()
-    pulse:SetLooping("BOUNCE")
-    local a = pulse:CreateAnimation("Alpha")
-    a:SetFromAlpha(0.55); a:SetToAlpha(1); a:SetDuration(0.9); a:SetSmoothing("IN_OUT")
-    f.pulse = pulse
+    -- ring that widens and fades, like a ripple
+    local ring = Tex(RING, 70)
+    local r = ring:CreateAnimationGroup()
+    r:SetLooping("REPEAT")
+    local s = r:CreateAnimation("Scale")
+    s:SetScaleFrom(0.35, 0.35); s:SetScaleTo(1.15, 1.15); s:SetDuration(1.6); s:SetSmoothing("OUT")
+    local fade = r:CreateAnimation("Alpha")
+    fade:SetFromAlpha(0.8); fade:SetToAlpha(0); fade:SetDuration(1.6); fade:SetSmoothing("IN")
+    f.anims[#f.anims + 1] = r
 
-    local spin = f.star:CreateAnimationGroup()
-    spin:SetLooping("REPEAT")
-    local r = spin:CreateAnimation("Rotation")
-    r:SetDegrees(-360); r:SetDuration(6)
-    f.spin = spin
-
-    local twinkle = f.small:CreateAnimationGroup()
-    twinkle:SetLooping("BOUNCE")
-    local t = twinkle:CreateAnimation("Alpha")
-    t:SetFromAlpha(0); t:SetToAlpha(1); t:SetDuration(0.6); t:SetStartDelay(0.3)
-    f.twinkle = twinkle
+    -- small dots twinkling one after another
+    for _, d in ipairs(DOTS) do
+        local dot = Tex(DOT, d[3] * 2, d[1], d[2], "OVERLAY")
+        dot:SetAlpha(0)
+        local t = dot:CreateAnimationGroup()
+        t:SetLooping("REPEAT")
+        local up = t:CreateAnimation("Alpha")
+        up:SetFromAlpha(0); up:SetToAlpha(1); up:SetDuration(0.35); up:SetStartDelay(d[4]); up:SetOrder(1)
+        local down = t:CreateAnimation("Alpha")
+        down:SetFromAlpha(1); down:SetToAlpha(0); down:SetDuration(0.6); down:SetOrder(2)
+        local rise = t:CreateAnimation("Translation")
+        rise:SetOffset(0, 8); rise:SetDuration(0.95); rise:SetStartDelay(d[4]); rise:SetOrder(1)
+        local pause = t:CreateAnimation("Alpha")
+        pause:SetFromAlpha(0); pause:SetToAlpha(0); pause:SetDuration(0.6 - d[4] * 0.4); pause:SetOrder(3)
+        f.anims[#f.anims + 1] = t
+    end
 
     f.text = f:CreateFontString(nil, "OVERLAY")
     ns.SetFont(f.text, 12, "OUTLINE")
-    f.text:SetPoint("TOP", f, "BOTTOM", 0, 4)
+    f.text:SetPoint("TOP", f, "BOTTOM", 0, 2)
 
     function f:Set(kind, inRange, progress)
         local c = COLORS[kind] or COLORS.other
-        for _, tex in ipairs({ self.glow, self.star, self.small }) do tex:SetVertexColor(c[1], c[2], c[3]) end
-        self:SetAlpha(inRange and 1 or 0.5)
+        for _, tex in ipairs(self.textures) do tex:SetVertexColor(c[1], c[2], c[3]) end
+        self:SetAlpha(inRange and 1 or 0.45)
         self.text:SetText(progress or "")
         self.text:SetTextColor(c[1], c[2], c[3])
     end
 
     function f:Play()
         self:Show()
-        self.pulse:Play(); self.spin:Play(); self.twinkle:Play()
+        for _, anim in ipairs(self.anims) do anim:Play() end
     end
 
     function f:Stop()
-        self.pulse:Stop(); self.spin:Stop(); self.twinkle:Stop()
+        for _, anim in ipairs(self.anims) do anim:Stop() end
         self:Hide()
     end
 
