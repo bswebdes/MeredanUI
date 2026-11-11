@@ -981,10 +981,6 @@ local PAGES = {
                         function(name) ns.char.specProfiles[spec.index] = name ~= "" and name or nil end)
                 end
             end
-
-            -- Before uninstalling: game settings and chat back to Blizzard's defaults (Core/BlizzardReset.lua)
-            page:AddHeader(L["Back to Blizzard"])
-            page:AddButton(L["Reset game settings and turn mUI off"], function() ns.ConfirmBackToBlizzard() end)
         end,
     },
 }
