@@ -79,6 +79,14 @@ def lookup(fname):
     return {m.group(1): m.group(2).replace('\\"', '"') for m in
             re.finditer(r'^\[(\d+)\] = \{"((?:\\.|[^"\\])*)"', rd(fname), re.M)}
 npc_de, quest_de = lookup('l10n_Forever_lookupNpcs_deDE.lua'), lookup('l10n_Forever_lookupQuests_deDE.lua')
+# German names from Wowhead Forever tooltips win (new Forever quests/NPCs are missing above). Fetch with
+# tools/dungeondata/scripts/fetch_tooltips.py forever <quest|npc> tools/classquests_ids_<kind>.txt 1 3
+CACHE = ROOT / 'tools' / 'dungeondata' / 'cache'
+for kind, target in (('quest', quest_de), ('npc', npc_de)):
+    f = CACHE / ('forever_%s_3.json' % kind)
+    if f.exists():
+        for i, rec in json.loads(f.read_text()).items():
+            if rec.get('name') and not rec.get('error'): target[i] = rec['name']
 
 # --- milestones ---
 # race ID (UnitRace 3rd return) -> requiredRaces bit, home maps (capital first)
@@ -210,4 +218,12 @@ for cls in sorted(out):
     lines.append('    },')
 lines.append('}')
 (ROOT / 'Quests' / 'ClassQuests.lua').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+used = {'quest': set(), 'npc': set()}
+for v in out.values():
+    for m in v:
+        for st in m['starts'].values():
+            used['quest'].add(st['quest'])
+            if st['g']: used['npc'].add(st['g'][0])
+for kind, idset in used.items():
+    (ROOT / 'tools' / ('classquests_ids_%s.txt' % kind)).write_text('\n'.join(map(str, sorted(idset))) + '\n')
 print(sum(len(v) for v in out.values()), 'milestones,', sum(len(m['starts']) for v in out.values() for m in v), 'race starts')
