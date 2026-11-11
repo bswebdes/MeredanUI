@@ -192,6 +192,15 @@ local function FindPlate()
     end
 end
 
+-- quest objects often use the plain "interact" cursor: ask the quest log, or use the tooltip progress
+local function QuestKind(kind, progress)
+    if kind ~= "other" then return kind end
+    if progress then return "quest" end
+    local related = C_QuestLog.UnitIsRelatedToActiveQuest and C_QuestLog.UnitIsRelatedToActiveQuest(UNIT)
+    if Readable(related) and related then return "quest" end
+    return kind
+end
+
 -- Update -----------------------------------------------------------------------------------------
 
 local effect
@@ -209,7 +218,6 @@ local function Update()
     if isObject and ObjectID() == BOBBER_ID then return Hide() end
     local plate = FindPlate()
     local kind, inRange = Classify()
-    if DevLog and kind and not plate then DevLog("MeredanUI", "Sparkle: no plate (" .. kind .. ")") end
     -- corpse without a readable cursor: dead + nothing left to loot = skinnable
     if not kind and not isObject and UnitExists(UNIT) then
         local dead = UnitIsDead(UNIT)
@@ -228,13 +236,17 @@ local function Update()
         effect:ClearAllPoints()
         effect:SetPoint("CENTER", plate, "CENTER", 0, 0)
     end
-    effect:Set(kind, inRange, Progress())
+    local progress = Progress()
+    effect:Set(QuestKind(kind, progress), inRange, progress)
     if not effect:IsShown() then effect:Play() end
     -- range and quest text change while walking; light 4x/s poll only while something sparkles
     ticker = ticker or C_Timer.NewTicker(0.25, function()
         if not effect:IsShown() then return end
         local k, r = Classify()
-        if k then effect:Set(k, r, Progress()) end
+        if k then
+            local progress = Progress()
+            effect:Set(QuestKind(k, progress), r, progress)
+        end
     end)
 end
 
