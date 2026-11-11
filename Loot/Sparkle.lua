@@ -168,6 +168,19 @@ local function Progress()
     end
 end
 
+-- the plate is registered under its "nameplateN" token, not "softinteract": search by unit
+local function FindPlate()
+    local plate = C_NamePlate.GetNamePlateForUnit(UNIT)
+    if plate then return plate end
+    for _, p in ipairs(C_NamePlate.GetNamePlates()) do
+        local token = p.GetUnit and p:GetUnit() or p.namePlateUnitToken
+        if token then
+            local same = UnitIsUnit(token, UNIT)
+            if Readable(same) and same then return p end
+        end
+    end
+end
+
 -- Update -----------------------------------------------------------------------------------------
 
 local effect
@@ -183,7 +196,7 @@ local function Update()
     local isObject = UnitIsGameObject(UNIT)
     isObject = Readable(isObject) and isObject
     if isObject and ObjectID() == BOBBER_ID then return Hide() end
-    local plate = C_NamePlate.GetNamePlateForUnit(UNIT)
+    local plate = FindPlate()
     local kind, inRange = Classify()
     -- corpse without a readable cursor: dead + nothing left to loot = skinnable
     if not kind and not isObject and UnitExists(UNIT) then
