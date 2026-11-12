@@ -1016,6 +1016,7 @@ if GetLocale() == "deDE" then
     L["Create auction"] = "Auktion erstellen"
     L["Buyout (optional)"] = "Sofortkauf (optional)"
     L["Undercut by %d %%"] = "Um %d %% unterbieten"
+    L["Match the cheapest"] = "Gleicher Preis wie der Günstigste"
     L["Click again: just below the cheapest."] = "Nochmal klicken: knapp unter dem Günstigsten."
     L["Your price is the cheapest"] = "Dein Preis ist der günstigste"
     L["Last price you used"] = "Dein zuletzt verwendeter Preis"

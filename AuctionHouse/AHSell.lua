@@ -151,8 +151,9 @@ local function SetBuyoutMode(on)
 end
 
 -- Suggestion: below the cheapest foreign listing - by the smallest step (1 copper where the AH
--- supports copper, as in Forever) or by the chosen percentage (setting ahUndercut: 1, 5, 10)
-local UNDERCUTS = { 1, 5, 10 }
+-- supports copper, as in Forever) or by the chosen percentage (setting ahUndercut: 0, 1, 5, 10;
+-- 0 = match the cheapest)
+local UNDERCUTS = { 0, 1, 5, 10 }
 local function ItemStep() return AH.Step() end
 local function RoundPrice(copper)
     return math.max(AH.Sanitize(copper or 0), (copper or 0) > 0 and ItemStep() or 0)
@@ -160,6 +161,7 @@ end
 
 local function Undercut(price)
     local step, pct = ItemStep(), ns.db.ahUndercut
+    if pct == 0 then return price end
     local target = pct and math.floor(price * (1 - pct / 100) / step) * step or price - step
     return math.max(math.min(target, price - step), step)
 end
@@ -304,6 +306,7 @@ function AH.SetSellItem(loc)
     local copper = ItemStep() == 1
     sell.price:SetCopperShown(copper)
     sell.bid:SetCopperShown(copper)
+    sell.LayoutUndercut()
     sell.buyoutRow:SetShown(not sell.commodity)
     sell.bid:SetValue(0)
     SetBuyoutMode(sell.commodity or ns.db.ahBuyoutMode ~= false)
@@ -550,7 +553,7 @@ function AH.CreateSellView(view)
     sell.perUnit:SetPoint("LEFT", sell.price, "RIGHT", 8, 0)
     sell.perUnit:SetText(L["/ unit"])
     sell.hint = UI.Text(content, 11, "LEFT", UI.ACCENT)
-    -- Undercut: 1 / 5 / 10 % below the cheapest; click the active one again for the smallest step
+    -- Undercut: 0 / 1 / 5 / 10 % below the cheapest; click the active one again for the smallest step
     sell.undercut = {}
     local function SyncUndercut()
         for _, b in ipairs(sell.undercut) do
@@ -568,19 +571,29 @@ function AH.CreateSellView(view)
         end, 40)
         button:SetHeight(22)
         button.pct = pct
-        if i > 1 then button:SetPoint("LEFT", sell.undercut[i - 1], "RIGHT", 4, 0) end
         button.active = ns.AddBorder(button, true)
         for _, edge in ipairs(button.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
         button:HookScript("OnEnter", function(self)
             GameTooltip:SetOwner(self, "ANCHOR_TOP")
-            GameTooltip:SetText(L["Undercut by %d %%"]:format(self.pct), 1, 1, 1)
+            GameTooltip:SetText(self.pct == 0 and L["Match the cheapest"] or L["Undercut by %d %%"]:format(self.pct), 1, 1, 1)
             GameTooltip:AddLine(L["Click again: just below the cheapest."], 0.8, 0.8, 0.8, true)
             GameTooltip:Show()
         end)
         button:HookScript("OnLeave", function() GameTooltip:Hide() end)
         sell.undercut[i] = button
     end
-    sell.undercut[1]:SetPoint("TOPLEFT", FIELD_X, y - 36)
+    -- Buttons share the money field's width (gold/silver/copper boxes, 4 px gaps)
+    function sell.LayoutUndercut()
+        local gap = 4
+        local width = (sell.price:GetWidth() - gap * (#UNDERCUTS - 1)) / #UNDERCUTS
+        for i, button in ipairs(sell.undercut) do
+            button:SetWidth(width)
+            button:ClearAllPoints()
+            if i == 1 then button:SetPoint("TOPLEFT", sell.price, "BOTTOMLEFT", 0, -6)
+            else button:SetPoint("LEFT", sell.undercut[i - 1], "RIGHT", gap, 0) end
+        end
+    end
+    sell.LayoutUndercut()
     sell.hint:SetPoint("LEFT", sell.undercut[#UNDERCUTS], "RIGHT", 10, 0)
     SyncUndercut()
 
