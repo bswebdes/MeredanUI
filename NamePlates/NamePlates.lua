@@ -274,14 +274,16 @@ end
 -- Visibility: target/casters full, others dimmed while you have a target
 -- Questie hangs its quest icon at the left of Blizzard's plate frame (wider than our bar), far off
 -- the bar. Questie anchors it only when creating it ("LEFT" point), so re-anchoring that point is
--- safe. Fixed spot (no jump when targeting): just left of where the target's left arrow appears.
+-- safe. Fixed spot close to the (unscaled) bar, drawn above the plate so the larger target plate
+-- doesn't cover it.
 local function PlaceQuestieIcon(frame)
     local plate = frame:GetParent()
     if not plate then return end
-    local arrowEdge = (WIDTH / 2 + HEALTH + 8 + 1) * TARGET_SCALE -- bar centre to the target arrow's left edge
     for _, child in ipairs({ plate:GetChildren() }) do
         if child ~= frame and child.Icon and child.lastIcon ~= nil and not child:GetName() then
-            child:SetPoint("LEFT", plate, "CENTER", -(arrowEdge + 3 + child:GetWidth()), 0)
+            child:SetPoint("LEFT", plate, "CENTER", -(WIDTH / 2 + 3 + child:GetWidth()), 0)
+            child:SetFrameStrata(frame:GetFrameStrata())
+            child:SetFrameLevel(frame:GetFrameLevel() + 20)
         end
     end
 end
