@@ -2,6 +2,10 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.4.5", items = {
+        "Player buffs start at the right edge of the player frame again and grow to the left. The shortest-running buff sits on the right; when the row is full, the longest-running ones drop out",
+        "Questie: its quest icon on nameplates sits right next to the mUI bar and stays visible on your target",
+    } },
     { version = "v0.4.4", items = {
         "Auction house: new \"Scan auction house\" button in the Buy tab with a progress bar – saves the cheapest price of every item (Blizzard allows a scan every 15 minutes). Searches and the Sell tab update prices too",
         "Item tooltips show the auction house price (×stack with the total). Red when a vendor pays more. Can be turned off on the Tooltip page (Comfort)",
@@ -55,26 +59,5 @@ ns.CHANGELOG = {
         "Tooltip: \"Rare\", \"Elite\", \"Rare Elite\" or \"Boss\" behind NPC names (can be turned off)",
         "Emote bar: up to 12 emotes",
         "Fixed: a Lua error after reloading the UI in combat (quest item bar)",
-    } },
-    { version = "v0.3.0-beta.6", items = {
-        "MeredanUI is now made for WoW Forever only",
-        "New Comfort helpers, each with its own switch (all on with the Comfort style, off with Classic):",
-        "Quests: accept and hand in quests automatically, skip single conversation options; hold Shift to pause. Grey quests, reward choices and quests that cost gold or materials are left alone",
-        "Quest window: a gold coin marks the reward with the highest vendor value",
-        "Accept summons (out of combat) and resurrections, decline duels from strangers, skip cinematics you have seen before",
-        "Buff reminder: a toast for missing class buffs, outdated buff ranks and expired weapon oils or stones; the ready check counts classic elixirs",
-        "Item tooltips show how many you have on your other characters (bags, bank, mail, worn)",
-        "Camera zooms further out for everyone",
-        "Class touches: class icon in player tooltips and in front of names in guild, group, raid and whisper chat, class icon in the character window, class line in the tooltip in class colour, optional accent in your class colour (Appearance)",
-        "Player buffs above the player frame: one row, shortest left to longest right",
-        "Questie support: Questie icons on the mUI world map, mUI's quest tracker shows the turn-in NPC, the nearest objective with distance and a direction arrow coloured by distance, Questie-style right-click menu and Ctrl-click waypoint, new \"Quests\" settings page, Questie's settings window in the mUI look",
-        "Other addons: Plater, Bagnon, Details, DBM, BigWigs, Bartender4 and others are detected. Pick in the setup or once in a dialog whether the addon or mUI does the job; mUI's settings for that part are greyed out while the addon is in charge",
-        "Bagnon, Details, Plater, DBM and BigWigs get a matching mUI look and fixed spots that fit the mUI layout (each can be turned off)",
-        "Dungeon maps: Blackrock Spire with all six floors, cleaner Zul'Farrak and Alcaz Prison maps; bosses without a portrait show a ring with a question mark",
-        "Chat tabs \"General\" and \"Combat Log\" follow your game language",
-        "Fixed: the bank closed right after opening it through a banker's conversation option",
-        "Fixed: a disabled nameplate, bag or damage meter addon could switch off mUI's own module",
-        "Lua errors from MeredanUI are reported anonymously through the Wago app (only if you use it), so bugs get fixed without a report",
-        "Performance: nameplates, threat bar, quest tracker and idle work do much less",
     } },
 }
