@@ -2,6 +2,11 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.4.3", items = {
+        "Chat: new size setting (Small / Medium / Large) on the Chat page – Medium is the size you had so far, Large gives you a lot more room",
+        "Fixed: rogue Poisons were missing in the professions window",
+        "Removed the \"Back to Blizzard\" button again: mUI's game settings are temporary now, so there is nothing left to reset",
+    } },
     { version = "v0.4.2", items = {
         "Game settings mUI needs for its look (nameplates, chat style, camera zoom, sparkle ...) are now only set while mUI runs and no longer saved by the game – if you remove mUI, your own settings are back on the next start",
         "mUI no longer changes the \"always compare items\" setting",
@@ -68,9 +73,5 @@ ns.CHANGELOG = {
         "Dungeon maps: floors are picked from a dropdown next to the dungeon name instead of a row of buttons",
         "Boss positions on the new maps still need to be checked and are not exact everywhere yet. If a boss is in the wrong spot, please let us know (feedback welcome!)",
         "World map: raids that are not in WoW Forever (Molten Core, Blackwing Lair, Zul'Gurub, Ahn'Qiraj, Naxxramas) are no longer shown; Onyxia's Lair is greyed out until it opens on December 9",
-    } },
-    { version = "v0.3.0-beta.4", items = {
-        "Hall of Thanes: boss pins on the dungeon map",
-        "Dungeon maps: a few boss and rare positions corrected (Wailing Caverns, Maraudon, Saltspine)",
     } },
 }
