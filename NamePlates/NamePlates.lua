@@ -272,18 +272,16 @@ local function UpdateKickTick(castbar)
 end
 
 -- Visibility: target/casters full, others dimmed while you have a target
--- Questie hangs its quest icon at the left of Blizzard's plate frame (wider than our bar, and the
--- target plate is scaled), so it ends up far off or under the bar. Questie anchors it only when
--- creating it ("LEFT" point), so re-anchoring the same point to our bar is safe: left of the bar,
--- left of the target arrows on the target.
-local QUESTIE_GAP, QUESTIE_GAP_TARGET = 3, HEALTH + 8 + 6
+-- Questie hangs its quest icon at the left of Blizzard's plate frame (wider than our bar), far off
+-- the bar. Questie anchors it only when creating it ("LEFT" point), so re-anchoring that point is
+-- safe. Fixed spot (no jump when targeting): just left of where the target's left arrow appears.
 local function PlaceQuestieIcon(frame)
     local plate = frame:GetParent()
-    if not (plate and frame.Health) then return end
-    local gap = (frame.muiScale or 1) > 1 and QUESTIE_GAP_TARGET * (frame.muiScale or 1) or QUESTIE_GAP
+    if not plate then return end
+    local arrowEdge = (WIDTH / 2 + HEALTH + 8 + 1) * TARGET_SCALE -- bar centre to the target arrow's left edge
     for _, child in ipairs({ plate:GetChildren() }) do
         if child ~= frame and child.Icon and child.lastIcon ~= nil and not child:GetName() then
-            child:SetPoint("LEFT", frame.Health, "LEFT", -(gap + child:GetWidth()), 0)
+            child:SetPoint("LEFT", plate, "CENTER", -(arrowEdge + 3 + child:GetWidth()), 0)
         end
     end
 end
@@ -316,7 +314,6 @@ local function UpdateAlpha(frame)
     if frame.muiScale ~= scale then
         frame.muiScale = scale
         frame:SetScale(scale)
-        PlaceQuestieIcon(frame)
     end
     frame.hoverGlow:SetShown(frame.hovered or false)
 end
