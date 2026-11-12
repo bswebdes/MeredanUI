@@ -1528,6 +1528,7 @@ if GetLocale() == "deDE" then
     L["Sort"] = "Sortierung"
     L["Standard"] = "Standard"
     L["By level"] = "Nach Stufe"
+    L["Current zone first"] = "Aktuelle Zone zuerst"
     L["By progress"] = "Nach Fortschritt"
     L["By distance"] = "Nach Entfernung"
     L["The focus quest always stays on top."] = "Die Fokus-Quest bleibt immer oben."

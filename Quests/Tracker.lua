@@ -1074,10 +1074,10 @@ local function Layout()
         local questID = C_QuestLog.GetQuestIDForQuestWatchIndex(i)
         if questID and not inDungeonSection[questID] then watched[#watched + 1] = questID end
     end
-    -- Order (Settings > Quests): focus quest always first. "Standard": quests in the current zone,
-    -- then the rest, each in the usual order (no jumping while moving); level / progress / distance
-    -- (Questie) sort the rest.
-    local mode = ns.db.trackerSort or "standard"
+    -- Order (Settings > Quests): focus quest always first. Level (default) / progress / distance
+    -- (Questie) sort the rest; "standard" = quests in the current zone, then the rest, each in the
+    -- usual order (no jumping while moving).
+    local mode = ns.db.trackerSort or "level"
     if mode == "distance" and not (ns.Questie and ns.Questie.IsReady()) then mode = "standard" end
     local rank, order, key = {}, {}, {}
     for i, questID in ipairs(watched) do

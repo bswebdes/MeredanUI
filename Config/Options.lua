@@ -995,8 +995,8 @@ if ns.IS_FOREVER then
     local function TrackerSetter(key) return Setter(key, function() if ns.RefreshTracker then ns.RefreshTracker() end end) end
     local function SortItems()
         local items = {
-            { value = "standard", label = L["Standard"] },
             { value = "level", label = L["By level"] },
+            { value = "standard", label = L["Current zone first"] },
             { value = "progress", label = L["By progress"] },
         }
         if ns.Questie and ns.Questie.IsLoaded() then items[#items + 1] = { value = "distance", label = L["By distance"] } end
@@ -1010,7 +1010,7 @@ if ns.IS_FOREVER then
             page:AddTitle(L["Quests"], L["The quest tracker on the right."])
             page:AddCheckbox(L["Track new quests automatically"], function() return GetCVarBool("autoQuestWatch") end,
                 function(value) SetCVar("autoQuestWatch", value and "1" or "0") end)
-            page:AddDropdown(L["Sort"], SortItems, function() return ns.db.trackerSort or "standard" end, TrackerSetter("trackerSort"),
+            page:AddDropdown(L["Sort"], SortItems, function() return ns.db.trackerSort or "level" end, TrackerSetter("trackerSort"),
                 Help(L["The focus quest always stays on top."]))
             page:AddCheckbox(L["Group by zone"], function() return ns.db.trackerGroupZone == true end, TrackerSetter("trackerGroupZone"))
             page:AddCheckbox(L["Show quest level"], On("trackerShowLevel"), TrackerSetter("trackerShowLevel"))
