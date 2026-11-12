@@ -193,7 +193,7 @@ ns:On("PLAYER_LOGIN", function()
         local vendor = select(11, C_Item.GetItemInfo(itemID))
         local vendorBetter = vendor and vendor > 0 and price * 0.95 <= vendor
         local money = GetMoneyString(price * count, true)
-        if vendorBetter then money = "|cff99978f" .. L["Vendor pays more"] .. "  " .. money .. "|r" end
+        if vendorBetter then money = "|cff99978f" .. L["Vendor pays more"] .. "|r" end -- vendor price is shown above
         tooltip:AddLine(" ") -- own block, like the character counts below
         tooltip:AddDoubleLine(label, money, 0.56, 0.8, 0.71, 1, 1, 1)
     end)
