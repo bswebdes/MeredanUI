@@ -166,7 +166,7 @@ end
 
 local function UndercutHint()
     local pct = ns.db.ahUndercut
-    return pct and L["%d %% undercut"]:format(pct) or L["%s undercut"]:format(GetMoneyString(ItemStep(), true))
+    return pct and ("-%d %%"):format(pct) or ("-%s"):format(GetMoneyString(ItemStep(), true))
 end
 
 local function Suggest(lowest, ownLowest)
