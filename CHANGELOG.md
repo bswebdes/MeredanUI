@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.4.5
+- Player buffs start at the right edge of the player frame again and grow to the left. The shortest-running buff sits on the right; when the row is full, the longest-running ones drop out
+- Questie: its quest icon on nameplates sits right next to the mUI bar and stays visible on your target
+
 ## v0.4.4
 - Auction house: new "Scan auction house" button in the Buy tab with a progress bar – saves the cheapest price of every item (Blizzard allows a scan every 15 minutes). Searches and the Sell tab update prices too
 - Item tooltips show the auction house price (×stack with the total). Red when a vendor pays more. Can be turned off on the Tooltip page (Comfort)
