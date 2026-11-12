@@ -1,5 +1,14 @@
 # MeredanUI Changelog
 
+## v0.4.4
+- Auction house: new "Scan auction house" button in the Buy tab with a progress bar – saves the cheapest price of every item (Blizzard allows a scan every 15 minutes). Searches and the Sell tab update prices too
+- Item tooltips show the auction house price (×stack with the total). Red when a vendor pays more. Can be turned off on the Tooltip page (Comfort)
+- Selling: copper prices for single items, and undercut buttons 0 % / 1 % / 5 % / 10 % – by default 1 copper below the cheapest instead of 1 silver
+- Auction history, last used prices and scanned prices are now kept per server and faction, and characters with the same first name are told apart
+- Quest tracker: sorted by level by default (the focus quest stays on top). The old order is still there as "Current zone first"
+- Quest tracker: with "Collapse finished quests" the focus quest stays open, so you keep its arrow and distance
+- Questie: its quest icon on nameplates sits right next to the mUI bar and no longer jumps when you target the unit
+
 ## v0.4.3
 - Chat: new size setting (Small / Medium / Large) on the Chat page – Medium is the size you had so far, Large gives you a lot more room
 - Fixed: rogue Poisons were missing in the professions window
