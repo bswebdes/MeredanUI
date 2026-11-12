@@ -13,7 +13,9 @@
 local _, ns = ...
 local L = ns.L
 
-local WIDTH, HEIGHT = 440, 160 -- narrower on small screens (never into the extra bar)
+-- Main chat size per step (setting chatSize). Width is still capped by the free space on small
+-- screens (never into the extra bar); height grows upwards, windows anchored to the chat follow.
+local CHAT_SIZES = { small = { 380, 120 }, medium = { 440, 160 }, large = { 520, 260 } }
 local TAB_HEIGHT = 22
 local TAB_GAP = 10 -- space between tabs and first chat line (Blizzard: 3)
 local EDIT_HEIGHT = 22
@@ -465,7 +467,8 @@ local function PlaceMainChat()
         chatWaitsForFrames = true -- unit frames not placed yet: retry shortly
         C_Timer.After(1, PlaceMainChat)
     end
-    ChatFrame1:SetSize(ns.Snap(math.min(WIDTH, space)), ns.Snap(HEIGHT))
+    local size = CHAT_SIZES[ns.db.chatSize] or CHAT_SIZES.medium
+    ChatFrame1:SetSize(ns.Snap(math.min(size[1], space)), ns.Snap(size[2]))
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(ChatFrame1) end
 end
 
@@ -826,6 +829,7 @@ function ns.SetupChat()
         ColorTab(frame)
     end
     ns.db.chatFontSize = "medium" -- default
+    ns.db.chatSize = "medium"
     ns.ApplyChatFont()
     PlaceMainChat()
     ns.Print(L["Chat set up with mUI colors."])

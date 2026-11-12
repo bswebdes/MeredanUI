@@ -143,9 +143,11 @@ local function Has(name) return C_TradeSkillUI[name] ~= nil end
 -- Character professions -------------------------------------------------------------------------
 
 -- Primary and secondary professions in display order; spellID is the spell that opens the recipe
--- window, if any (fishing has none)
+-- window, if any (fishing has none). Forever returns two more indices after cooking (e.g. the
+-- rogue's Poisons, as in Blizzard's Camelot ProfessionsFrame); they only get an entry when learned.
+local EXTRA_SLOTS = { 6, 7 }
 local function Professions()
-    local prof1, prof2, faid, fish, cook = GetProfessions()
+    local prof1, prof2, faid, fish, cook, extra1, extra2 = GetProfessions()
     local list = {}
     local function Add(index, primary, slot)
         local entry = { primary = primary, slot = slot }
@@ -175,6 +177,8 @@ local function Professions()
     Add(cook, false, 3)
     Add(fish, false, 4)
     Add(faid, false, 5)
+    if extra1 then Add(extra1, false, 6) end
+    if extra2 then Add(extra2, false, 7) end
     return list
 end
 
@@ -732,8 +736,27 @@ local function SyncSpellLayer()
     layer:SetShown(wanted)
 end
 
+-- Secondary row: three cards, plus one per extra profession (Poisons) - the row splits evenly
+local function LayoutSecondaryRow(list)
+    local slots = { 3, 4, 5 }
+    for _, entry in ipairs(list) do
+        if entry.slot > 5 then slots[#slots + 1] = entry.slot end
+    end
+    for _, slot in ipairs(EXTRA_SLOTS) do overview.cards[slot]:Hide() end
+    local n = #slots
+    local colW = (WIDTH - 2 * PAD - 10 * (n - 1)) / n
+    for i, slot in ipairs(slots) do
+        local card = overview.cards[slot]
+        card:ClearAllPoints()
+        card:SetSize(colW, 166)
+        card:SetPoint("TOPLEFT", (i - 1) * (colW + 10), -20 - 2 * 152 - 26)
+        card:Show()
+    end
+end
+
 local function LayoutOverview()
     local list = Professions()
+    LayoutSecondaryRow(list)
     local primaries, secondaries = 0, 0
     for _, entry in ipairs(list) do
         FillCard(overview.cards[entry.slot], entry)
@@ -1173,12 +1196,7 @@ local function CreateWindow()
     local secondaryLabel = UI.Text(overview.frame, 12, "LEFT", UI.ACCENT)
     secondaryLabel:SetPoint("TOPLEFT", 0, -20 - 2 * 152 - 6)
     secondaryLabel:SetText(L["Secondary professions"])
-    local colW = (WIDTH - 2 * PAD - 20) / 3
-    for i = 1, 3 do
-        local card = Card(2 + i)
-        card:SetSize(colW, 166)
-        card:SetPoint("TOPLEFT", (i - 1) * (colW + 10), -20 - 2 * 152 - 26)
-    end
+    for slot = 3, 7 do Card(slot) end -- placed by LayoutSecondaryRow
     local overviewHint = UI.Text(overview.frame, 11, "LEFT", UI.MUTED)
     overviewHint:SetPoint("BOTTOMLEFT", 0, 4)
     overviewHint:SetText(L["Click a profession icon to open its recipes · buttons cast the spell (Fishing …)"])
