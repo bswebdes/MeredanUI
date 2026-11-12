@@ -1,6 +1,8 @@
 # MeredanUI Changelog
 
-## Unreleased
+## v0.4.3
+- Chat: new size setting (Small / Medium / Large) on the Chat page – Medium is the size you had so far, Large gives you a lot more room
+- Fixed: rogue Poisons were missing in the professions window
 - Removed the "Back to Blizzard" button again: mUI's game settings are temporary now, so there is nothing left to reset
 
 ## v0.4.2
