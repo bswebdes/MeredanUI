@@ -434,6 +434,10 @@ local PAGES = {
                 Help(L["Spells, items, NPCs. Handy for WeakAuras and macros."]))
             page:AddCheckbox(L["Item count on your characters"], On("altItemCount"), Setter("altItemCount"),
                 Help(L["Bags, bank and mail of all your characters. Bank and mail as of your last visit."]))
+            if ns.IS_FOREVER then
+                page:AddCheckbox(L["Auction house price"], On("ahTooltipPrice"), Setter("ahTooltipPrice"),
+                    Help(L["Cheapest price from your last scan or search, for your server and faction."]))
+            end
             page:AddCheckbox(L["Rare and elite behind NPC names"], On("tooltipClassification"), Live("tooltipClassification"))
             page:AddHeader(L["Players"])
             page:AddCheckbox(L["Class icon"], On("tooltipClassIcon"), Live("tooltipClassIcon"))

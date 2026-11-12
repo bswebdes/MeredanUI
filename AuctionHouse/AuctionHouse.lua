@@ -99,6 +99,20 @@ function AH.MoneyInput(parent, onChange)
     return frame
 end
 
+-- Which auction house the data belongs to. Forever has no classic realms: one AH per ruleset
+-- (the technical realm name, e.g. "CAMWOW EU5 Realm 10 RP") and faction.
+function AH.Scope()
+    return (GetNormalizedRealmName() or GetRealmName() or "") .. "|" .. (UnitFactionGroup("player") or "")
+end
+
+-- Per-scope table under ns.root[key] (last prices, scanned prices)
+function AH.ScopeTable(key)
+    ns.root[key] = ns.root[key] or {}
+    local scope = AH.Scope()
+    ns.root[key][scope] = ns.root[key][scope] or {}
+    return ns.root[key][scope]
+end
+
 -- Copper allowed? Otherwise round to silver (like Blizzard's SanitizeAuctionHousePrice)
 function AH.Sanitize(copper)
     if C_AuctionHouse.SupportsCopperValues and C_AuctionHouse.SupportsCopperValues() then return copper end
@@ -449,6 +463,7 @@ function AH.RefreshResults()
     local UI = ns.UI
     local results = buy.results
     buy.list:Fill(results, function(row, result)
+        if AH.RecordPrice and result.itemKey and result.minPrice then AH.RecordPrice(result.itemKey.itemID, result.minPrice) end
         local info = AH.KeyInfo(result.itemKey)
         if info then
             row.icon:SetTexture(info.iconFileID)
@@ -1095,6 +1110,7 @@ local function CreateWindow()
     AH.footerRight = CreateFrame("Frame", nil, window) -- space for view buttons (left of the gold)
     AH.footerRight:SetSize(1, 28)
     AH.footerRight:SetPoint("RIGHT", goldText, "LEFT", -12, 0)
+    if AH.CreateScanButton then AH.CreateScanButton(views.buy) end
 
     window:HookScript("OnShow", function()
         PlaySound(SOUNDKIT.AUCTION_WINDOW_OPEN or SOUNDKIT.IG_CHARACTER_INFO_OPEN)

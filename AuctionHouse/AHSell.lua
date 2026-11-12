@@ -176,7 +176,7 @@ local function Suggest(lowest, ownLowest)
     local price
     if lowest then price = Undercut(lowest)
     elseif ownLowest then price = ownLowest
-    else price = ns.root.ahLastPrice and ns.root.ahLastPrice[sell.entry.itemID] end
+    else price = AH.ScopeTable("ahLast")[sell.entry.itemID] end
     if price then
         sell.price:SetValue(RoundPrice(price))
         sell.hint:SetText(lowest and UndercutHint()
@@ -243,6 +243,8 @@ local function RefreshOffers()
     end)
     sell.offersEmpty:SetShown(#rows == 0)
     sell.lowest, sell.ownLowest = lowest, ownLowest
+    local cheapest = lowest and ownLowest and math.min(lowest, ownLowest) or lowest or ownLowest
+    if AH.RecordPrice and cheapest then AH.RecordPrice(entry.itemID, cheapest) end
     Suggest(lowest, ownLowest)
 end
 
@@ -386,8 +388,8 @@ local function Post()
         end
         pending.deposit = C_AuctionHouse.CalculateItemDeposit(sell.location, sell.duration, qty) or 0
     end
-    ns.root.ahLastPrice = ns.root.ahLastPrice or {}
-    ns.root.ahLastPrice[entry.itemID] = price > 0 and price or nil
+    ns.root.ahLastPrice = nil -- old account-wide table (mixed realms and factions)
+    AH.ScopeTable("ahLast")[entry.itemID] = price > 0 and price or nil
     DoPost(false)
 end
 

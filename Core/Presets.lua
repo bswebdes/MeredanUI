@@ -44,7 +44,7 @@ local STYLE_VALUES = {
         bagsStyle = "single", bagsAutoJunk = false, fastLoot = false,
         damageMeter = false,
         questAutoAccept = false, questAutoTurnIn = false, questAutoGossip = false, questBestReward = false,
-        autoSummon = false, autoResurrect = false, declineDuels = false, skipCinematics = false, buffReminder = false, altItemCount = false, sparkle = false, classQuestReminder = false,
+        autoSummon = false, autoResurrect = false, declineDuels = false, skipCinematics = false, buffReminder = false, altItemCount = false, ahTooltipPrice = false, sparkle = false, classQuestReminder = false,
     },
     comfort = {
         theme = "class", afkScreen = true, auraTime = "bar",
@@ -60,7 +60,7 @@ local STYLE_VALUES = {
         bagsStyle = "categories", bagsAutoJunk = true, fastLoot = true,
         damageMeter = true,
         questAutoAccept = false, questAutoTurnIn = false, questAutoGossip = true, questBestReward = true, -- auto quests: opt-in only
-        autoSummon = true, autoResurrect = true, declineDuels = true, skipCinematics = true, buffReminder = true, altItemCount = true, sparkle = true, classQuestReminder = true,
+        autoSummon = true, autoResurrect = true, declineDuels = true, skipCinematics = true, buffReminder = true, altItemCount = true, ahTooltipPrice = true, sparkle = true, classQuestReminder = true,
     },
 }
 

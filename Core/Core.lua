@@ -232,6 +232,7 @@ local DEFAULTS = {
     declineDuels = false,        -- Comfort: decline duels (not from friends/guild)
     skipCinematics = false,      -- Comfort: skip movies/cinematics seen before
     buffReminder = true,         -- Comfort, Forever: missing/outdated class buffs, expired weapon enchant (Toasts/BuffReminder.lua)
+    ahTooltipPrice = true,       -- Comfort: cheapest auction price in item tooltips (AuctionHouse/AHScan.lua)
     altItemCount = true,         -- Comfort: item counts of all characters in item tooltips (Tooltip/AltItems.lua)
     questBestReward = true,      -- Comfort: coin on the choice reward with the highest vendor value (NPC/Quest.lua)
     autoRole = true,             -- confirm role check with the spec role

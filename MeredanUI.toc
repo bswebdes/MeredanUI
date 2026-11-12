@@ -123,6 +123,7 @@ AuctionHouse/AuctionHouse.lua
 AuctionHouse/AHSell.lua
 AuctionHouse/AHOwned.lua
 AuctionHouse/AHLedger.lua
+AuctionHouse/AHScan.lua
 Upgrades/UpgradeData.lua
 Upgrades/Upgrades.lua
 Upgrades/ForeverWeights.lua

@@ -27,8 +27,14 @@ local function Data()
     return d
 end
 
-local function Char()
-    return UnitName("player") .. "-" .. (GetNormalizedRealmName() or "")
+-- Entries carry the character's GUID (unique and permanent - Forever characters may share a first
+-- name) and the AH scope (realm + faction, see AH.Scope). Old entries only have "First-Realm".
+local function Me() return UnitGUID("player") end
+local function OldRealm(e) return e.char and e.char:match("%-(.+)$") end
+local function Who(e) return e.who or (e.char and e.char:match("^[^-]+")) or "?" end
+local function InScope(e)
+    if e.scope then return e.scope == AH.Scope() end
+    return OldRealm(e) == GetNormalizedRealmName() -- old entry: realm only, faction unknown
 end
 
 local function Add(kind, name, qty, price, fee, net, key)
@@ -38,7 +44,7 @@ local function Add(kind, name, qty, price, fee, net, key)
         d.seen[key] = time()
     end
     table.insert(d.entries, 1, { t = time(), kind = kind, name = name or "?", qty = qty or 1,
-        price = price or 0, fee = fee or 0, net = net or 0, char = Char() })
+        price = price or 0, fee = fee or 0, net = net or 0, guid = Me(), who = ns.charName, scope = AH.Scope() })
     if AH.window and AH.window:IsShown() and AH.current == "ledger" then AH.RefreshLedger() end
 end
 
@@ -224,7 +230,8 @@ end
 
 local function Visible(e, from, query)
     if e.t < from then return false end
-    if not led.allChars and e.char ~= Char() then return false end
+    if not InScope(e) then return false end
+    if not led.allChars and e.guid ~= Me() then return false end
     if query ~= "" and not strlower(e.name or ""):find(query, 1, true) then return false end
     return true
 end
@@ -258,7 +265,7 @@ function AH.RefreshLedger()
         row.cells[1]:SetTextColor(unpack(UI.MUTED))
         row.cells[2]:SetText(L[kind.label])
         row.cells[2]:SetTextColor(unpack(kind.color))
-        row.cells[3]:SetText(e.name .. ((led.allChars and e.char ~= Char()) and ("  |cff77756e" .. (e.char:match("^[^-]+") or "") .. "|r") or ""))
+        row.cells[3]:SetText(e.name .. ((led.allChars and e.guid ~= Me()) and ("  |cff77756e" .. Who(e) .. "|r") or ""))
         row.cells[4]:SetText(e.qty)
         row.cells[5]:SetText(e.price > 0 and AH.Money(e.price) or "|cff99978f–|r")
         if e.kind == "posted" then
@@ -282,7 +289,7 @@ function AH.RefreshLedger()
         for _, edge in ipairs(chip.active) do edge:SetShown(on) end
         chip.Text:SetTextColor(unpack(on and UI.ACCENT or UI.TEXT))
     end
-    led.charButton.Text:SetText((led.allChars and L["All characters"] or UnitName("player")) .. "  " .. AH.IconMarkup("ChevronDown", 12))
+    led.charButton.Text:SetText((led.allChars and L["All characters"] or ns.charName or UnitName("player")) .. "  " .. AH.IconMarkup("ChevronDown", 12))
 end
 
 function AH.ShowLedger()
@@ -312,7 +319,7 @@ function AH.CreateLedgerView(view)
         last = chip
     end
     led.charButton = UI.Button(view, "", function(self)
-        UI.OpenList(self, { { value = true, label = L["All characters"] }, { value = false, label = UnitName("player") } },
+        UI.OpenList(self, { { value = true, label = L["All characters"] }, { value = false, label = ns.charName or UnitName("player") } },
             led.allChars, function(value) led.allChars = value AH.RefreshLedger() end)
     end, 170)
     led.charButton:SetHeight(26)
