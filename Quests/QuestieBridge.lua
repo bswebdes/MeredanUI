@@ -430,22 +430,16 @@ end
 
 -- Setup -------------------------------------------------------------------------------------------
 
--- Questie's nameplate icon hangs at the left of Blizzard's (wider) plate frame, away from mUI's
--- bar. Move it next to the bar via Questie's own settings - only while they are still Questie's
--- defaults (or ours), so a position the player picked in Questie stays.
-local QUESTIE_PLATE_DEFAULT = { -17, -7 }
-function Bridge.PlaceNameplateIcons(x, y)
+-- An earlier mUI version moved Questie's nameplate icon via Questie's settings; restore them.
+-- (The icon is now placed per plate in NamePlates.lua.)
+function Bridge.RestoreNameplateSettings()
     Bridge.OnReady(function()
         local profile = Profile()
-        if not profile then return end
-        local cx, cy = profile.nameplateX, profile.nameplateY
-        local isDefault = cx == QUESTIE_PLATE_DEFAULT[1] and cy == QUESTIE_PLATE_DEFAULT[2]
-        local isOurs = profile.muiNameplateX ~= nil and cx == profile.muiNameplateX and cy == profile.muiNameplateY
-        if not (isDefault or isOurs) then return end
-        profile.nameplateX, profile.nameplateY = x, y
-        profile.muiNameplateX, profile.muiNameplateY = x, y
-        local plates = Module("QuestieNameplate")
-        if plates and type(plates.RedrawIcons) == "function" then pcall(plates.RedrawIcons, plates) end
+        if not (profile and profile.muiNameplateX) then return end
+        if profile.nameplateX == profile.muiNameplateX and profile.nameplateY == profile.muiNameplateY then
+            profile.nameplateX, profile.nameplateY = -17, -7
+        end
+        profile.muiNameplateX, profile.muiNameplateY = nil, nil
     end)
 end
 

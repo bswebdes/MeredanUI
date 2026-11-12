@@ -272,6 +272,22 @@ local function UpdateKickTick(castbar)
 end
 
 -- Visibility: target/casters full, others dimmed while you have a target
+-- Questie hangs its quest icon at the left of Blizzard's plate frame (wider than our bar, and the
+-- target plate is scaled), so it ends up far off or under the bar. Questie anchors it only when
+-- creating it ("LEFT" point), so re-anchoring the same point to our bar is safe: left of the bar,
+-- left of the target arrows on the target.
+local QUESTIE_GAP, QUESTIE_GAP_TARGET = 3, HEALTH + 8 + 6
+local function PlaceQuestieIcon(frame)
+    local plate = frame:GetParent()
+    if not (plate and frame.Health) then return end
+    local gap = (frame.muiScale or 1) > 1 and QUESTIE_GAP_TARGET * (frame.muiScale or 1) or QUESTIE_GAP
+    for _, child in ipairs({ plate:GetChildren() }) do
+        if child ~= frame and child.Icon and child.lastIcon ~= nil and not child:GetName() then
+            child:SetPoint("LEFT", frame.Health, "LEFT", -(gap + child:GetWidth()), 0)
+        end
+    end
+end
+
 local function UpdateAlpha(frame)
     local unit = UnitOf(frame)
     if not unit then return end
@@ -300,6 +316,7 @@ local function UpdateAlpha(frame)
     if frame.muiScale ~= scale then
         frame.muiScale = scale
         frame:SetScale(scale)
+        PlaceQuestieIcon(frame)
     end
     frame.hoverGlow:SetShown(frame.hovered or false)
 end
@@ -894,8 +911,7 @@ oUF:Factory(function(self)
     self:SetActiveStyle("MeredanPlate")
     local driver = self:SpawnNamePlates("MeredanUIPlate")
     driver:SetSize(PLATE_W, PLATE_H) -- plate size (the hit area is limited to it)
-    -- Questie's quest icon (16 px) right next to the health bar, vertically centred
-    if ns.Questie then ns.Questie.PlaceNameplateIcons((PLATE_W - WIDTH) / 2 - 16 - 3, 0) end
+    if ns.Questie then ns.Questie.RestoreNameplateSettings() end
     -- Blizzard resets the plate size to its own on every options/window change (also on login),
     -- after which plates stack too tightly. Re-apply our size right away.
     if NamePlateDriverFrame and NamePlateDriverFrame.UpdateNamePlateSize then
@@ -912,6 +928,7 @@ oUF:Factory(function(self)
         UpdateForces(frame)
         UpdateNamePrefix(frame)
         UpdateAlpha(frame)
+        C_Timer.After(0, function() PlaceQuestieIcon(frame) end) -- Questie adds its icon on the same event
     end)
     driver:SetTargetCallback(function() end)
     -- oUF enlarges the hit area with huge negative insets, which makes plates unclickable.
