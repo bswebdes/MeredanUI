@@ -50,7 +50,25 @@ local function UpdateButton()
     else button.Text:SetText(L["Scan auction house"]) end
 end
 
+-- Progress bar in the footer, from the left edge to the scan button (replaces the footer text)
+local function ShowProgress(fraction)
+    local bar = scan.bar
+    if not bar then return end
+    if not fraction then
+        bar:Hide()
+        return
+    end
+    local window, button = AH.window, scan.button
+    if window and button and window:GetLeft() and button:GetLeft() then
+        bar:SetWidth(math.max(button:GetLeft() - window:GetLeft() - ns.NPC_PAD - 12, 50))
+    end
+    bar:SetValue(fraction)
+    bar.text:SetText(L["Scanning … %d%%"]:format(math.floor(fraction * 100)))
+    bar:Show()
+end
+
 local function Finish(count)
+    ShowProgress(nil)
     scan.running = false
     ns.root.ahScanLast = time()
     ns.root.ahScanCount = ns.root.ahScanCount or {}
@@ -73,7 +91,7 @@ local function Process()
             end
         end
         index = last + 1
-        if scan.button then AH.SetFooter(L["Scanning … %d%%"]:format(total > 0 and math.floor(index / total * 100) or 100)) end
+        ShowProgress(total > 0 and math.min(index / total, 1) or 1)
         if index >= total then
             ticker:Cancel()
             local prices, days, today, n = Prices(), Days(), Today(), 0
@@ -90,7 +108,7 @@ function AH.StartScan()
     scan.running = true
     scan.waiting = true
     UpdateButton()
-    AH.SetFooter(L["Scanning …"])
+    ShowProgress(0)
     C_AuctionHouse.ReplicateItems()
 end
 
@@ -107,7 +125,7 @@ ns:On("REPLICATE_ITEM_LIST_UPDATE", function()
 end)
 
 ns:On("AUCTION_HOUSE_CLOSED", function()
-    if scan.waiting then scan.waiting, scan.running = false, false end
+    if scan.waiting then scan.waiting, scan.running = false, false ShowProgress(nil) end
 end)
 
 -- Button in the buy tab's footer (only visible with that tab)
@@ -129,6 +147,20 @@ function AH.CreateScanButton(view)
     end)
     button:HookScript("OnLeave", function() GameTooltip:Hide() end)
     scan.button = button
+    local bar = CreateFrame("StatusBar", nil, view)
+    bar:SetHeight(18)
+    bar:SetPoint("RIGHT", button, "LEFT", -12, 0)
+    bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
+    bar:SetStatusBarColor(unpack(UI.ACCENT))
+    bar:SetMinMaxValues(0, 1)
+    UI.Box(bar, UI.FIELD)
+    bar.text = UI.Text(bar, 11, "CENTER")
+    bar.text:SetPoint("CENTER")
+    -- footer text makes room while the bar is visible (also when switching tabs mid-scan)
+    bar:SetScript("OnShow", function() if AH.footerText then AH.footerText:Hide() end end)
+    bar:SetScript("OnHide", function() if AH.footerText then AH.footerText:Show() end end)
+    bar:Hide()
+    scan.bar = bar
     view:HookScript("OnShow", UpdateButton)
     C_Timer.NewTicker(20, function() if button:IsVisible() then UpdateButton() end end)
     UpdateButton()

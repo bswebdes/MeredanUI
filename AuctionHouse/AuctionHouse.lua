@@ -1105,6 +1105,7 @@ local function CreateWindow()
     footerText = UI.Text(window, 12, "LEFT", UI.MUTED)
     footerText:SetPoint("BOTTOMLEFT", PAD, 20)
     footerText:SetPoint("RIGHT", window, "RIGHT", -240, 0)
+    AH.footerText = footerText
     goldText = UI.Text(window, 13, "RIGHT")
     goldText:SetPoint("BOTTOMRIGHT", -PAD, 20)
     AH.footerRight = CreateFrame("Frame", nil, window) -- space for view buttons (left of the gold)
