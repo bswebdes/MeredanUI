@@ -189,6 +189,7 @@ ns:On("PLAYER_LOGIN", function()
         if not ns.Readable(count) then count = 1 end
         local label = L["Auction house"] .. (count > 1 and (" ×" .. count) or "")
         if age and age >= 1 then label = label .. "  |cff77756e" .. L["%d d ago"]:format(age) .. "|r" end
+        tooltip:AddLine(" ") -- own block, like the character counts below
         tooltip:AddDoubleLine(label, GetMoneyString(price * count, true), 0.56, 0.8, 0.71, 1, 1, 1)
     end)
 end)
