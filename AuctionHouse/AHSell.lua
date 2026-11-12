@@ -150,24 +150,34 @@ local function SetBuyoutMode(on)
     AH.UpdateSellSummary()
 end
 
--- Suggestion: 1 copper (or 1 silver) below the cheapest foreign listing.
--- Non-stackables only in whole silver (server rejects copper), commodities may use copper
-local function ItemStep() return sell.commodity and AH.Step() or 100 end
+-- Suggestion: below the cheapest foreign listing - by the smallest step (1 copper where the AH
+-- supports copper, as in Forever) or by the chosen percentage (setting ahUndercut: 1, 5, 10)
+local UNDERCUTS = { 1, 5, 10 }
+local function ItemStep() return AH.Step() end
 local function RoundPrice(copper)
-    if sell.commodity then return AH.Sanitize(copper) end
-    -- like Auctionator (NormalizePrice): round up to silver, at least 1 silver
-    return math.max(math.ceil((copper or 0) / 100) * 100, (copper or 0) > 0 and 100 or 0)
+    return math.max(AH.Sanitize(copper or 0), (copper or 0) > 0 and ItemStep() or 0)
+end
+
+local function Undercut(price)
+    local step, pct = ItemStep(), ns.db.ahUndercut
+    local target = pct and math.floor(price * (1 - pct / 100) / step) * step or price - step
+    return math.max(math.min(target, price - step), step)
+end
+
+local function UndercutHint()
+    local pct = ns.db.ahUndercut
+    return pct and L["%d %% below the cheapest"]:format(pct) or L["%s below the cheapest"]:format(GetMoneyString(ItemStep(), true))
 end
 
 local function Suggest(lowest, ownLowest)
     if sell.touched then return end
     local price
-    if lowest then price = math.max(lowest - ItemStep(), ItemStep())
+    if lowest then price = Undercut(lowest)
     elseif ownLowest then price = ownLowest
     else price = ns.root.ahLastPrice and ns.root.ahLastPrice[sell.entry.itemID] end
     if price then
         sell.price:SetValue(RoundPrice(price))
-        sell.hint:SetText(lowest and L["%s below the cheapest"]:format(GetMoneyString(ItemStep(), true))
+        sell.hint:SetText(lowest and UndercutHint()
             or (ownLowest and L["Your price is the cheapest"]) or L["Last price you used"])
     else
         sell.price:SetValue(0)
@@ -220,16 +230,17 @@ local function RefreshOffers()
         row.cells[3]:SetText(chip)
         row:SetSelected(false)
         row:SetScript("OnClick", function()
-            -- take a listing's price (1 below it)
+            -- take a listing's price (undercut unless it is our own)
             if data.price then
                 sell.touched = true
-                sell.price:SetValue(RoundPrice(math.max(data.price - (data.own and 0 or ItemStep()), ItemStep())))
+                sell.price:SetValue(RoundPrice(data.own and data.price or Undercut(data.price)))
                 sell.hint:SetText("")
                 AH.UpdateSellSummary()
             end
         end)
     end)
     sell.offersEmpty:SetShown(#rows == 0)
+    sell.lowest, sell.ownLowest = lowest, ownLowest
     Suggest(lowest, ownLowest)
 end
 
@@ -290,8 +301,9 @@ function AH.SetSellItem(loc)
         .. (vendor and vendor > 0 and ("  ·  " .. L["Vendor pays %s"]:format(GetMoneyString(vendor, true))) or ""))
     sell.quantity:SetText(tostring(sell.commodity and sell.max or 1))
     sell.perUnit:SetShown(sell.commodity)
-    sell.price:SetCopperShown(sell.commodity)
-    sell.bid:SetCopperShown(false)
+    local copper = ItemStep() == 1
+    sell.price:SetCopperShown(copper)
+    sell.bid:SetCopperShown(copper)
     sell.buyoutRow:SetShown(not sell.commodity)
     sell.bid:SetValue(0)
     SetBuyoutMode(sell.commodity or ns.db.ahBuyoutMode ~= false)
@@ -538,9 +550,41 @@ function AH.CreateSellView(view)
     sell.perUnit:SetPoint("LEFT", sell.price, "RIGHT", 8, 0)
     sell.perUnit:SetText(L["/ unit"])
     sell.hint = UI.Text(content, 11, "LEFT", UI.ACCENT)
-    sell.hint:SetPoint("TOPLEFT", FIELD_X, y - 34)
+    -- Undercut: 1 / 5 / 10 % below the cheapest; click the active one again for the smallest step
+    sell.undercut = {}
+    local function SyncUndercut()
+        for _, b in ipairs(sell.undercut) do
+            for _, edge in ipairs(b.active) do edge:SetShown(ns.db.ahUndercut == b.pct) end
+        end
+    end
+    for i, pct in ipairs(UNDERCUTS) do
+        local button = UI.Button(content, pct .. " %", function(self)
+            ns.db.ahUndercut = ns.db.ahUndercut ~= self.pct and self.pct or nil
+            SyncUndercut()
+            if sell.entry then
+                sell.touched = false
+                Suggest(sell.lowest, sell.ownLowest)
+            end
+        end, 40)
+        button:SetHeight(22)
+        button.pct = pct
+        if i > 1 then button:SetPoint("LEFT", sell.undercut[i - 1], "RIGHT", 4, 0) end
+        button.active = ns.AddBorder(button, true)
+        for _, edge in ipairs(button.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+        button:HookScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_TOP")
+            GameTooltip:SetText(L["Undercut by %d %%"]:format(self.pct), 1, 1, 1)
+            GameTooltip:AddLine(L["Click again: just below the cheapest."], 0.8, 0.8, 0.8, true)
+            GameTooltip:Show()
+        end)
+        button:HookScript("OnLeave", function() GameTooltip:Hide() end)
+        sell.undercut[i] = button
+    end
+    sell.undercut[1]:SetPoint("TOPLEFT", FIELD_X, y - 36)
+    sell.hint:SetPoint("LEFT", sell.undercut[#UNDERCUTS], "RIGHT", 10, 0)
+    SyncUndercut()
 
-    y = y - 56
+    y = y - 64
     sell.bidLabel = Label(BID or L["Bid"], y - 8)
     sell.bid = AH.MoneyInput(content, function() AH.UpdateSellSummary() end)
     sell.bid:SetPoint("TOPLEFT", FIELD_X, y)
