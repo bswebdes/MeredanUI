@@ -894,6 +894,8 @@ oUF:Factory(function(self)
     self:SetActiveStyle("MeredanPlate")
     local driver = self:SpawnNamePlates("MeredanUIPlate")
     driver:SetSize(PLATE_W, PLATE_H) -- plate size (the hit area is limited to it)
+    -- Questie's quest icon (16 px) right next to the health bar, vertically centred
+    if ns.Questie then ns.Questie.PlaceNameplateIcons((PLATE_W - WIDTH) / 2 - 16 - 3, 0) end
     -- Blizzard resets the plate size to its own on every options/window change (also on login),
     -- after which plates stack too tightly. Re-apply our size right away.
     if NamePlateDriverFrame and NamePlateDriverFrame.UpdateNamePlateSize then
