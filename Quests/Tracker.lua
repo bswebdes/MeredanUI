@@ -915,8 +915,10 @@ local function Layout()
         row.title:SetWidth(WIDTH - 26 - right)
         local lines, percent, timer = QuestGoals(questID, logIndex, complete, failed)
         -- collapsed (per quest from the menu, or finished quests with the option): title only,
-        -- finished ones keep their turn-in line
-        local folded = QuestCollapsed(questID) or (complete and OptOn("trackerCollapseDone"))
+        -- finished ones keep their turn-in line. The focus quest never folds automatically (you
+        -- want its arrow and distance).
+        local folded = QuestCollapsed(questID)
+            or (complete and OptOn("trackerCollapseDone") and questID ~= superTracked)
         if folded then
             local keep = {}
             if complete and not QuestCollapsed(questID) then
