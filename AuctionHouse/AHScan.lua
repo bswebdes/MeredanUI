@@ -189,11 +189,11 @@ ns:On("PLAYER_LOGIN", function()
         if not ns.Readable(count) then count = 1 end
         local label = L["Auction house"] .. (count > 1 and (" ×" .. count) or "")
         if age and age >= 1 then label = label .. "  |cff77756e" .. L["%d d ago"]:format(age) .. "|r" end
-        -- Vendor pays more than a sale would bring (after the 5 % AH cut): grey price + hint
+        -- Vendor pays more than a sale would bring (after the 5 % AH cut): price in red
         local vendor = select(11, C_Item.GetItemInfo(itemID))
         local vendorBetter = vendor and vendor > 0 and price * 0.95 <= vendor
         local money = GetMoneyString(price * count, true)
-        if vendorBetter then money = "|cff99978f" .. L["Vendor it"] .. "|r" end -- vendor price is shown above
+        if vendorBetter then money = "|cffe65050" .. money .. "|r" end -- red: the vendor pays more
         tooltip:AddLine(" ") -- own block, like the character counts below
         tooltip:AddDoubleLine(label, money, 0.56, 0.8, 0.71, 1, 1, 1)
     end)
