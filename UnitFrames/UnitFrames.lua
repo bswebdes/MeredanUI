@@ -325,16 +325,15 @@ local function Style(self, unit)
 
     local debuffs = CreateAuraRow(self, S, false, S.aura, S.width, S.debuffInset, S.aurasBelow)
     debuffs:SetClipsChildren(true) -- exactly one row; the container has no row limit
-    -- Player buffs: one row, filled from the left, shortest left to longest right; with more buffs
-    -- than slots the longest-running ones drop out (sorted short to long, cut at the row length)
-    local buffSide = unit == "player" and setmetatable({ near = "RIGHT", far = "LEFT", dir = -1 }, { __index = S }) or S
-    local buffs = CreateAuraRow(self, buffSide, true, S.buff, S.width, S.buffInset, S.aurasAbove)
+    -- Player buffs: one row starting at the right edge and growing left; longest-running on the
+    -- right, shorter ones to the left (sorted long to short)
+    local buffs = CreateAuraRow(self, S, true, S.buff, S.width, S.buffInset, S.aurasAbove)
     if unit == "player" then
         debuffs:AddGroup("HARMFUL", { maxFrameCount = S.debuffCount, dispelBand = "harmful" })
         buffs:AddGroup("HELPFUL|!RAID_IN_COMBAT", {
             maxFrameCount = S.auraCount,
             sortMethod = AuraContainerSortMethod.ExpirationOnly,
-            sortDirection = AuraContainerSortDirection.Normal,
+            sortDirection = AuraContainerSortDirection.Reverse,
             candidateFilters = { maxDuration = 120 }, -- also excludes permanent buffs (mount, tabard)
         })
     else
