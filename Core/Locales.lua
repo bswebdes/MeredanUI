@@ -1622,6 +1622,7 @@ if GetLocale() == "deDE" then
     L["Saves the cheapest price of every item for tooltips. Blizzard allows it every 15 minutes."] = "Merkt sich den günstigsten Preis jedes Gegenstands für die Tooltips. Blizzard erlaubt das alle 15 Minuten."
     L["Last scan: %s (%d items)"] = "Letzter Scan: %s (%d Gegenstände)"
     L["%d d ago"] = "vor %d Tg."
+    L["Vendor pays more"] = "Händler zahlt mehr"
     L["Class icon"] = "Klassensymbol"
     L["Accent colour"] = "Akzentfarbe"
     L["mUI green"] = "mUI-Grün"
