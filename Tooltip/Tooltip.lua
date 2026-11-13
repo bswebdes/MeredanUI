@@ -1,4 +1,4 @@
--- Tooltip in MUI style: flat, dark, 1px border, MUI font. Default bottom right above the
+-- Tooltip in MUI style: dark box in a small window frame (B8), class colour as an inner line, MUI font. Default bottom right above the
 -- micro menu and bag bar; above the bag window when open (like ElvUI). Optionally at the
 -- cursor, hideable in combat (Shift still shows it) - Settings > Tooltip.
 --
@@ -214,7 +214,10 @@ local function Skin(tooltip)
     local bg = holder:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.panelColor))
-    tooltip.muiBorder = ns.AddBorder(holder)
+    -- small window frame (B8) around the box; the class/reaction colour shows as a thin line
+    -- just inside it
+    ns.AddDeepShell(holder, ns.Snap(1), { rim = 3, shadow = 10 })
+    tooltip.muiBorder = ns.AddBorder(holder, true)
     tooltip.muiHolder = holder
 end
 
@@ -251,21 +254,26 @@ local function StyleFonts()
     GameTooltipTextSmall:SetFont(ns.FontFor("text"), ns.FontPx(11), "")
 end
 
--- Health bar: flat, thin, directly below the tooltip
+-- Health bar: thin, shaded, in a thin deep shell directly below the tooltip
 local function StyleHealthBar()
     local bar = HealthBar()
     if not bar then return end
-    bar:SetStatusBarTexture(ns.STYLE.barTexture)
+    bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     bar:ClearAllPoints()
     local pad = Px(PAD)
-    -- Same width as the tooltip box, with a gap above
-    bar:SetPoint("TOPLEFT", GameTooltip, "BOTTOMLEFT", -pad, -pad - ns.Snap(BAR_GAP))
-    bar:SetPoint("TOPRIGHT", GameTooltip, "BOTTOMRIGHT", pad, -pad - ns.Snap(BAR_GAP))
-    bar:SetHeight(ns.Snap(BAR_HEIGHT))
+    -- Same width as the tooltip box (shells line up), with a gap for both shells
+    local px = ns.PixelSize()
+    local tooltipReach = 4 * px + ns.Snap(1) + ns.Snap(3)
+    local out = tooltipReach - ns.ThinShellReach()
+    local gap = ns.Snap(BAR_GAP) + tooltipReach + ns.ThinShellReach()
+    bar:SetPoint("TOPLEFT", GameTooltip, "BOTTOMLEFT", -pad - out, -pad - gap)
+    bar:SetPoint("TOPRIGHT", GameTooltip, "BOTTOMRIGHT", pad + out, -pad - gap)
+    bar:SetHeight(ns.Snap(BAR_HEIGHT + 2))
     local bg = bar:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.emptyColor or { 0.1, 0.1, 0.1 }))
-    bar.muiBorder = ns.AddBorder(bar)
+    ns.AddThinShell(bar)
+    bar.muiBorder = ns.AddBorder(bar, true)
     -- Blizzard colors green->red by health percent; reapply our color
     bar:HookScript("OnValueChanged", function(self)
         if self.muiColor then self:SetStatusBarColor(unpack(self.muiColor)) end
