@@ -40,7 +40,7 @@ end
 -- Item name, item level and permanent enchant next to a slot, like the reference doll layouts.
 -- side: "left" column = text right of the slot, "right" column = left of it, "bottom" = right of it.
 
-local LABEL_GAP = 16    -- left/right columns: room for the sets view's swap arrow
+local LABEL_GAP = 26    -- left/right columns: past the model box edge (slot + 14) plus 12px padding
 local LABEL_LINE = 13   -- line height
 local ENCHANT_COLOR = { 0.1, 1, 0.1 }
 local ENCHANT_LINE = Enum.TooltipDataLineType and Enum.TooltipDataLineType.ItemEnchantmentPermanent
