@@ -106,7 +106,7 @@ local function CreateWindow()
     local frame = CreateFrame("Frame", nil, window)
     frame:SetSize(PIC_W, PIC_H)
     frame:SetPoint("TOP", 0, -62)
-    ns.AddBorder(frame)
+    UI.Inset(frame)
     window.picture = frame:CreateTexture(nil, "ARTWORK")
     window.picture:SetAllPoints()
 

@@ -12,7 +12,6 @@ local W = {}
 ns.Wishlist = W
 
 local GOLD = { 0.85, 0.71, 0.42 }
-local ROW_BG = { 0.08, 0.094, 0.094, 1 }
 local ROW, HEAD, GAP = 40, 24, 4
 local listeners = {}
 
@@ -98,10 +97,7 @@ local function NewRow(view)
     local UI = ns.UI
     local row = CreateFrame("Button", nil, view.scroll.child)
     row:SetHeight(ROW)
-    local bg = row:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(ROW_BG))
-    ns.AddBorder(row)
+    UI.Card(row)
     local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.04)
@@ -122,19 +118,17 @@ local function NewRow(view)
     local function Small(icon, color, tip, onClick)
         local b = CreateFrame("Button", nil, row)
         b:SetSize(24, 24)
-        local bg = b:CreateTexture(nil, "BACKGROUND")
-        bg:SetAllPoints()
-        bg:SetColorTexture(0.098, 0.098, 0.11, 1)
-        ns.AddBorder(b)
+        UI.Bevel(b)
         b.icon = UI.Icon(b, icon, 14, color)
         b.icon:SetPoint("CENTER")
         b:SetScript("OnClick", onClick)
         b:SetScript("OnEnter", function(self)
+            self.muiBevel("hover")
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
             GameTooltip:SetText(tip, 1, 1, 1)
             GameTooltip:Show()
         end)
-        b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        b:SetScript("OnLeave", function(self) self.muiBevel("normal") GameTooltip:Hide() end)
         return b
     end
     row.star = Small("Star", GOLD, L["Remove from wishlist"], function() W.Toggle(row.itemID) end)
@@ -251,10 +245,8 @@ local function FilterButtons(view, parent, width)
     for i, f in ipairs(FILTERS) do
         local b = CreateFrame("Button", nil, parent)
         b:SetSize(w, 26)
-        local bg = b:CreateTexture(nil, "BACKGROUND")
-        bg:SetAllPoints()
-        bg:SetColorTexture(0.098, 0.098, 0.11, 1)
-        b.edges = ns.AddBorder(b)
+        ns.UI.Bevel(b)
+        b.edges = ns.AddBorder(b, true)
         b.text = ns.UI.Text(b, 12, "CENTER")
         b.text:SetPoint("CENTER")
         b.text:SetText(L[f[2]])
@@ -268,7 +260,7 @@ local function FilterButtons(view, parent, width)
     view.StyleFilters = function()
         for _, b in ipairs(view.filterButtons) do
             local on = b.value == view.filter
-            for _, e in ipairs(b.edges) do e:SetVertexColor(unpack(on and ns.UI.ACCENT or { 0, 0, 0, 1 })) end
+            for _, e in ipairs(b.edges) do e:SetVertexColor(unpack(on and ns.UI.ACCENT or { 0, 0, 0, 0 })) end
             b.text:SetTextColor(unpack(on and ns.UI.ACCENT or ns.UI.MUTED))
         end
     end
@@ -383,12 +375,12 @@ Char.AddTab({
         bar:SetPoint("BOTTOMLEFT", 12, 18)
         bar:SetPoint("BOTTOMRIGHT", -12, 18)
         bar:SetHeight(10)
-        bar:SetStatusBarTexture("Interface\\Buttons\\WHITE8X8")
+        bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
         bar:SetStatusBarColor(unpack(UI.ACCENT))
         local bbg = bar:CreateTexture(nil, "BACKGROUND")
         bbg:SetAllPoints()
-        bbg:SetColorTexture(0.12, 0.12, 0.13, 1)
-        ns.AddBorder(bar)
+        bbg:SetColorTexture(0.05, 0.04, 0.03, 1)
+        ns.AddThinShell(bar)
         view.bar = bar
 
         view.scroll = UI.ScrollArea(view)

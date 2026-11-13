@@ -212,8 +212,10 @@ function ns.CreateParchmentPanel(parent)
     art:SetAllPoints()
     if not art:SetAtlas("QuestBG-Parchment") then art:SetColorTexture(0.6, 0.47, 0.32, 1) end
     art:SetVertexColor(0.3, 0.26, 0.22) -- dark, warm
-    ns.AddBorder(panel)
-    for _, edge in ipairs(ns.AddBorder(panel, true)) do edge:SetVertexColor(1, 0.86, 0.63, 0.07) end
+    -- set into the window: black outline, a muted material edge inside it
+    for _, edge in ipairs(ns.AddBorder(panel)) do edge:SetVertexColor(0, 0, 0, 1) end
+    local m = ns.Material()
+    for _, edge in ipairs(ns.AddBorder(panel, true)) do edge:SetVertexColor(m.item[1], m.item[2], m.item[3], 0.6) end
     return panel
 end
 
@@ -243,11 +245,11 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     holder:SetSize(PORTRAIT, PORTRAIT)
     holder:SetPoint("TOPLEFT", PAD, -PAD)
     ns.AddSlotBackground(holder)
-    ns.AddBorder(holder)
+    ns.AddItemFrame(holder, nil, 2)
     local model = CreateFrame("PlayerModel", nil, holder)
-    model:SetAllPoints()
+    ns.InsetItemIcon(holder, model, nil, 2)
     local fallback = holder:CreateTexture(nil, "ARTWORK")
-    fallback:SetAllPoints()
+    ns.InsetItemIcon(holder, fallback, nil, 2)
     fallback:SetTexCoord(0.15, 0.85, 0.15, 0.85)
     fallback:Hide()
 

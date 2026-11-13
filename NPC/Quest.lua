@@ -47,9 +47,9 @@ local function Card(i)
     holder:SetSize(38, 38)
     holder:SetPoint("LEFT", 7, 0)
     ns.AddSlotBackground(holder)
-    card.border = ns.AddBorder(holder)
+    card.border = ns.AddItemFrame(holder, nil, 2)
     card.icon = holder:CreateTexture(nil, "ARTWORK")
-    card.icon:SetAllPoints()
+    ns.InsetItemIcon(holder, card.icon, nil, 2)
     card.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     card.count = ns.CreateText(holder, 11, "RIGHT", "OUTLINE")
     card.count:SetPoint("BOTTOMRIGHT", -2, 2)
@@ -213,7 +213,7 @@ local function Layout()
             local r, g, b = QualityColor(item.quality)
             card.name:SetText(item.name)
             card.name:SetTextColor(r, g, b)
-            local edge = (item.quality and item.quality >= Enum.ItemQuality.Uncommon) and { r, g, b } or { 0, 0, 0 }
+            local edge = (item.quality and item.quality >= Enum.ItemQuality.Uncommon) and { r, g, b } or ns.Material().item
             for _, e in ipairs(card.border) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
             card.sub:SetText(item.sub)
             local picked = group.pick and choice == item.index and item.kind == "choice"
@@ -267,7 +267,6 @@ local function Layout()
         primary:SetEnabled(GetNumQuestChoices() <= 1 or choice ~= nil)
     end
     primary.Text:SetTextColor(unpack(primary:IsEnabled() and UI.ACCENT or UI.MUTED))
-    for _, edge in ipairs(primary.edges) do edge:SetShown(primary:IsEnabled()) end
     footerNote:SetText(mode == "complete" and GetNumQuestChoices() > 1 and not choice and L["Choose a reward first."] or "")
 end
 
@@ -324,8 +323,6 @@ local function CreateWindow()
     primary = UI.Button(window, "", Primary, 130)
     primary:SetHeight(30)
     primary:SetPoint("BOTTOMRIGHT", -PAD, 12)
-    primary.edges = ns.AddBorder(primary, true)
-    for _, edge in ipairs(primary.edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
     secondary = UI.Button(window, "", Secondary, 110)
     secondary:SetHeight(30)
     secondary:SetPoint("RIGHT", primary, "LEFT", -8, 0)

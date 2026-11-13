@@ -12,7 +12,6 @@ local WIDTH, HEIGHT = 900, 500
 local LEFT_W = 330                     -- column with question and choices
 local SHOT_W = WIDTH - LEFT_W - 3 * 22 -- mini screen
 local SHOT_H = math.floor(SHOT_W * 9 / 16)
-local PANEL2 = { 0.08, 0.09, 0.10, 1 }
 
 local window, st
 local stepIndex = 1
@@ -424,10 +423,12 @@ local Render
 
 local function OptionButton(parent)
     local button = CreateFrame("Button", nil, parent)
-    button.bg = button:CreateTexture(nil, "BACKGROUND")
-    button.bg:SetAllPoints()
-    button.bg:SetColorTexture(unpack(PANEL2))
-    button.edges = ns.AddBorder(button)
+    UI.Card(button)
+    button.hover = button:CreateTexture(nil, "BACKGROUND", nil, 2)
+    button.hover:SetAllPoints()
+    button.hover:SetColorTexture(1, 1, 1, 0.04)
+    button.hover:Hide()
+    button.edges = ns.AddBorder(button, true)
     button.bar = button:CreateTexture(nil, "ARTWORK")
     button.bar:SetPoint("TOPLEFT")
     button.bar:SetPoint("BOTTOMLEFT")
@@ -438,13 +439,13 @@ local function OptionButton(parent)
     button.desc = UI.Text(button, 11, "LEFT", UI.MUTED)
     button.desc:SetPoint("TOPLEFT", button.title, "BOTTOMLEFT", 0, -3)
     button.desc:SetPoint("RIGHT", -10, 0)
-    button:SetScript("OnEnter", function(self) if not self.selected then self.bg:SetColorTexture(unpack(UI.HOVER)) end end)
-    button:SetScript("OnLeave", function(self) self.bg:SetColorTexture(unpack(PANEL2)) end)
+    button:SetScript("OnEnter", function(self) self.hover:SetShown(not self.selected) end)
+    button:SetScript("OnLeave", function(self) self.hover:Hide() end)
     function button:SetSelected(selected)
         self.selected = selected
         self.bar:SetShown(selected)
         for _, edge in ipairs(self.edges) do
-            if selected then edge:SetVertexColor(unpack(UI.ACCENT)) else edge:SetVertexColor(1, 1, 1, 0.12) end
+            if selected then edge:SetVertexColor(unpack(UI.ACCENT)) else edge:SetVertexColor(0, 0, 0, 0) end
         end
     end
     return button

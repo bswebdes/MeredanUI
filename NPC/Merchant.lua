@@ -144,7 +144,7 @@ local function Card(i)
     card:SetHeight(CARD_H)
     card:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     card:RegisterForDrag("LeftButton")
-    UI.Box(card, { 0.098, 0.098, 0.106, 1 })
+    UI.Card(card)
     card.hover = card:CreateTexture(nil, "BACKGROUND", nil, 1)
     card.hover:SetAllPoints()
     card.hover:SetColorTexture(1, 1, 1, 0.04)
@@ -154,9 +154,9 @@ local function Card(i)
     holder:SetSize(ICON, ICON)
     holder:SetPoint("LEFT", 9, 0)
     ns.AddSlotBackground(holder)
-    card.border = ns.AddBorder(holder)
+    card.border = ns.AddItemFrame(holder, nil, 2)
     card.icon = holder:CreateTexture(nil, "ARTWORK")
-    card.icon:SetAllPoints()
+    ns.InsetItemIcon(holder, card.icon, nil, 2)
     card.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     card.count = 1
     card.countText = ns.CreateText(holder, 11, "RIGHT", "OUTLINE")
@@ -201,7 +201,7 @@ local function Fill(card, entry)
     local r, g, b = QualityColor(entry.quality)
     card.name:SetText(entry.name or "")
     card.name:SetTextColor(r, g, b)
-    local edge = (entry.quality and entry.quality >= Enum.ItemQuality.Uncommon) and { r, g, b } or { 0, 0, 0 }
+    local edge = (entry.quality and entry.quality >= Enum.ItemQuality.Uncommon) and { r, g, b } or ns.Material().item
     for _, e in ipairs(card.border) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
     card.sub:SetText(entry.sub or "")
     card.priceText:SetText(entry.priceText or "")
@@ -274,11 +274,8 @@ local function UpdateFooter()
 end
 
 local function UpdateTabs()
-    local UI = ns.UI
     for key, tab in pairs(tabs) do
-        local active = key == view
-        tab.text:SetTextColor(unpack(active and UI.TITLE or UI.MUTED))
-        tab.line:SetShown(active)
+        tab:SetActive(key == view)
     end
 end
 
@@ -323,7 +320,7 @@ local function FooterButton(icon, label, onClick)
     local UI = ns.UI
     local button = CreateFrame("Button", nil, window)
     button:SetHeight(30)
-    local bg = UI.Box(button)
+    UI.Bevel(button)
     button.icon = button:CreateTexture(nil, "ARTWORK")
     button.icon:SetSize(18, 18)
     button.icon:SetPoint("LEFT", 6, 0)
@@ -334,8 +331,8 @@ local function FooterButton(icon, label, onClick)
     button.label:SetText(label)
     button.extra = UI.Text(button, 12, "LEFT", UI.MUTED)
     button.extra:SetPoint("LEFT", button.label, "RIGHT", 8, 0)
-    button:SetScript("OnEnter", function() bg:SetColorTexture(unpack(UI.HOVER)) end)
-    button:SetScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
+    button:SetScript("OnEnter", function(self) self.muiBevel("hover") end)
+    button:SetScript("OnLeave", function(self) self.muiBevel("normal") end)
     button:SetScript("OnClick", onClick)
     function button:Fit()
         self:SetWidth(6 + 18 + 8 + self.label:GetUnboundedStringWidth() + 8 + self.extra:GetUnboundedStringWidth() + 12)
@@ -358,16 +355,7 @@ local function CreateWindow()
     local previous
     for _, entry in ipairs({ { "shop", MERCHANT or L["Merchant"] }, { "buyback", BUYBACK or L["Buyback"] } }) do
         local key, label = entry[1], entry[2]
-        local tab = CreateFrame("Button", nil, window)
-        tab.text = UI.Title(tab, 15, "LEFT")
-        tab.text:SetPoint("LEFT", 14, 0)
-        tab.text:SetText(label)
-        tab:SetSize(tab.text:GetUnboundedStringWidth() + 16, 22)
-        tab.line = UI.Diamond(tab, 6) -- rune look: accent diamond marks the active tab
-        tab.line:SetPoint("LEFT", 2, 0)
-        tab:SetScript("OnEnter", function(self) if view ~= key then self.text:SetTextColor(unpack(UI.TEXT)) end end)
-        tab:SetScript("OnLeave", UpdateTabs)
-        tab:SetScript("OnClick", function()
+        local tab = UI.Tab(window, label, function()
             if view == key then return end
             view = key
             PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
@@ -375,9 +363,10 @@ local function CreateWindow()
             Layout()
         end)
         if previous then
-            tab:SetPoint("LEFT", previous, "RIGHT", 18, 0)
+            tab:SetPoint("BOTTOMLEFT", previous, "BOTTOMRIGHT", 4, 0)
         else
-            tab:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 16)
+            tab:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 14)
+            UI.TabBaseline(window, tab, PAD)
         end
         previous = tab
         tabs[key] = tab

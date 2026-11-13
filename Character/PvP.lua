@@ -72,7 +72,7 @@ local function Create(view)
     -- Reward card below the text
     local reward = CreateFrame("Frame", nil, view.detail)
     reward:SetHeight(44)
-    UI.Box(reward, { 0.1, 0.1, 0.11, 1 })
+    UI.Card(reward)
     reward.icon = reward:CreateTexture(nil, "ARTWORK")
     reward.icon:SetSize(32, 32)
     reward.icon:SetPoint("LEFT", 6, 0)

@@ -130,7 +130,7 @@ local function InboxRow(i)
     local row = CreateFrame("Button", nil, inbox.list.child)
     row:SetHeight(ROW_H)
     row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-    row.bg = UI.Box(row, { 0.098, 0.098, 0.106, 1 })
+    row.bg = UI.Card(row)
     row.strip = row:CreateTexture(nil, "OVERLAY")
     row.strip:SetPoint("TOPLEFT")
     row.strip:SetPoint("BOTTOMLEFT")
@@ -150,9 +150,9 @@ local function InboxRow(i)
     local holder = CreateFrame("Frame", nil, row)
     holder:SetSize(38, 38)
     holder:SetPoint("LEFT", row.check, "RIGHT", 10, 0)
-    ns.AddBorder(holder)
+    ns.AddItemFrame(holder, nil, 2)
     row.icon = holder:CreateTexture(nil, "ARTWORK")
-    row.icon:SetAllPoints()
+    ns.InsetItemIcon(holder, row.icon, nil, 2)
     row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     row.money = UI.Text(row, 12, "RIGHT")
     row.money:SetPoint("TOPRIGHT", -12, -12)
@@ -220,6 +220,7 @@ local function LayoutInbox()
     inbox.list:SetContentHeight(y)
     inbox.empty:SetShown(num == 0)
     tabs.inbox.count:SetText(total and total > 0 and total or "")
+    tabs.inbox:Fit()
     local picked = 0
     for i in pairs(selected) do if i <= num then picked = picked + 1 end end
     inbox.summary:SetShown(picked == 0)
@@ -243,9 +244,9 @@ local function Attachment(i)
     local slot = CreateFrame("Button", nil, read.panel)
     slot:SetSize(40, 40)
     ns.AddSlotBackground(slot)
-    slot.border = ns.AddBorder(slot)
+    slot.border = ns.AddItemFrame(slot, nil, 2)
     slot.icon = slot:CreateTexture(nil, "ARTWORK")
-    slot.icon:SetAllPoints()
+    ns.InsetItemIcon(slot, slot.icon, nil, 2)
     slot.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     slot.count = ns.CreateText(slot, 11, "RIGHT", "OUTLINE")
     slot.count:SetPoint("BOTTOMRIGHT", -2, 2)
@@ -328,7 +329,7 @@ local function LayoutRead()
             slot.index = a
             slot.icon:SetTexture(texture)
             slot.count:SetText(count and count > 1 and count or "")
-            local edge = (quality and quality >= Enum.ItemQuality.Uncommon) and { C_Item.GetItemQualityColor(quality) } or { 0, 0, 0 }
+            local edge = (quality and quality >= Enum.ItemQuality.Uncommon) and { C_Item.GetItemQualityColor(quality) } or ns.Material().item
             for _, e in ipairs(slot.border) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
             slot:ClearAllPoints()
             local col, row = (n - 1) % 9, math.floor((n - 1) / 9)
@@ -360,9 +361,9 @@ local function SendSlot(i)
     slot:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     slot:RegisterForDrag("LeftButton")
     ns.AddSlotBackground(slot)
-    slot.border = ns.AddBorder(slot)
+    slot.border = ns.AddItemFrame(slot, nil, 2)
     slot.icon = slot:CreateTexture(nil, "ARTWORK")
-    slot.icon:SetAllPoints()
+    ns.InsetItemIcon(slot, slot.icon, nil, 2)
     slot.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     slot.count = ns.CreateText(slot, 11, "RIGHT", "OUTLINE")
     slot.count:SetPoint("BOTTOMRIGHT", -2, 2)
@@ -387,7 +388,7 @@ local function LayoutSend()
         local name, _, texture, count, quality = GetSendMailItem(i)
         slot.icon:SetTexture(name and texture or nil)
         slot.count:SetText(name and count and count > 1 and count or "")
-        local edge = (name and quality and quality >= Enum.ItemQuality.Uncommon) and { C_Item.GetItemQualityColor(quality) } or { 0, 0, 0 }
+        local edge = (name and quality and quality >= Enum.ItemQuality.Uncommon) and { C_Item.GetItemQualityColor(quality) } or ns.Material().item
         for _, e in ipairs(slot.border) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
     end
     send.price:SetText(L["Postage"] .. " |cffe8e6de" .. GetMoneyString(GetSendMailPrice() or 0, true) .. "|r")
@@ -542,11 +543,8 @@ end
 
 local function Layout()
     if not (window and window:IsShown()) then return end
-    local UI = ns.UI
     for key, tab in pairs(tabs) do
-        local active = (key == "send") == (view == "send")
-        tab.text:SetTextColor(unpack(active and UI.TITLE or UI.MUTED))
-        tab.line:SetShown(active)
+        tab:SetActive((key == "send") == (view == "send"))
     end
     inbox.frame:SetShown(view == "inbox")
     read.frame:SetShown(view == "read")
@@ -565,17 +563,13 @@ end
 
 local function Tab(key, label, previous)
     local UI = ns.UI
-    local tab = CreateFrame("Button", nil, window)
-    tab.text = UI.Title(tab, 15, "LEFT")
-    tab.text:SetPoint("LEFT", 14, 0)
-    tab.text:SetText(label)
-    tab.count = UI.Text(tab, 12, "LEFT", UI.MUTED)
-    tab.count:SetPoint("LEFT", tab.text, "RIGHT", 6, 0)
-    tab:SetSize(tab.text:GetUnboundedStringWidth() + 40, 22)
-    tab.line = UI.Diamond(tab, 6) -- rune look: accent diamond marks the active tab
-    tab.line:SetPoint("LEFT", 2, 0)
-    tab:SetScript("OnClick", function() SetView(key) end)
-    if previous then tab:SetPoint("LEFT", previous, "RIGHT", 14, 0) else tab:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 16) end
+    local tab = UI.Tab(window, label, function() SetView(key) end, { count = true })
+    if previous then
+        tab:SetPoint("BOTTOMLEFT", previous, "BOTTOMRIGHT", 4, 0)
+    else
+        tab:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 14)
+        UI.TabBaseline(window, tab, PAD)
+    end
     tabs[key] = tab
     return tab
 end
@@ -591,7 +585,6 @@ local function AccentButton(parent, label, onClick, width)
     local button = ns.UI.Button(parent, label, onClick, width)
     button:SetHeight(30)
     button.Text:SetTextColor(unpack(ns.UI.ACCENT))
-    for _, edge in ipairs(ns.AddBorder(button, true)) do edge:SetVertexColor(unpack(ns.UI.ACCENT)) end
     return button
 end
 
@@ -739,7 +732,8 @@ local function CreateWindow()
     send.book:SetPoint("TOPLEFT", send.to, "BOTTOMLEFT", 0, -2)
     send.book:SetPoint("TOPRIGHT", send.to, "BOTTOMRIGHT", 0, -2)
     send.book:SetFrameLevel(send.frame:GetFrameLevel() + 30)
-    UI.Box(send.book, { 0.078, 0.078, 0.086, 1 })
+    UI.Box(send.book, ns.STYLE.panelColor, true)
+    ns.RuneFrame(send.book, { small = true })
     send.book.lines, send.book.buttons = {}, {}
     send.book:Hide()
 

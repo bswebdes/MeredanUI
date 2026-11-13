@@ -1147,7 +1147,7 @@ local function CreateWindow()
     nav:SetPoint("TOPLEFT", 10, -48)
     nav:SetPoint("BOTTOMLEFT", 10, 10)
     nav:SetWidth(NAV_WIDTH)
-    UI.Box(nav, { 0.08, 0.08, 0.09, 1 })
+    UI.Inset(nav)
 
     -- Reload bar bottom right: appears once a badged option was changed
     local reloadBar = CreateFrame("Frame", nil, window)

@@ -132,6 +132,118 @@ function UI.Bevel(button)
     return fill
 end
 
+-- Tab (B10): a small box with a material edge on top and the sides, open at the bottom. The
+-- active tab is lighter, carries a gem and bright text; inactive ones stay muted.
+-- opts.count adds a muted counter after the label (tab.count). tab:SetActive(on), tab:Fit().
+local TAB_FILL = {
+    on = { { 0.227, 0.18, 0.125 }, { 0.11, 0.086, 0.063 } },
+    off = { { 0.133, 0.102, 0.071 }, { 0.082, 0.067, 0.047 } },
+}
+function UI.Tab(parent, label, onClick, opts)
+    local px = ns.PixelSize()
+    local m = ns.Material()
+    local tab = CreateFrame("Button", nil, parent)
+    tab:SetHeight(28)
+    local fill = tab:CreateTexture(nil, "BACKGROUND")
+    fill:SetTexture(WHITE)
+    fill:SetPoint("TOPLEFT", px, -px)
+    fill:SetPoint("BOTTOMRIGHT", -px, 0)
+    local top = Line(tab, "BORDER")
+    top:SetPoint("TOPLEFT")
+    top:SetPoint("TOPRIGHT")
+    top:SetHeight(px)
+    top:SetVertexColor(unpack(m.item))
+    for _, side in ipairs({ "LEFT", "RIGHT" }) do
+        local e = Line(tab, "BORDER")
+        e:SetPoint("TOP" .. side)
+        e:SetPoint("BOTTOM" .. side)
+        e:SetWidth(px)
+        e:SetGradient("VERTICAL", CreateColor(unpack(m.dark)), CreateColor(unpack(m.item)))
+    end
+    tab.line = UI.Diamond(tab, 5)
+    tab.line:SetPoint("LEFT", 12, 0)
+    tab.text = UI.Text(tab, 13, "LEFT")
+    tab.text:SetText(label or "")
+    if opts and opts.count then
+        tab.count = UI.Text(tab, 12, "LEFT", UI.MUTED)
+        tab.count:SetPoint("LEFT", tab.text, "RIGHT", 6, 0)
+    end
+    function tab:Fit()
+        local width = self.text:GetUnboundedStringWidth() + 28
+        if self.active then width = width + 16 end
+        if self.count then width = width + 6 + self.count:GetUnboundedStringWidth() end
+        self:SetWidth(math.floor(width + 0.5))
+    end
+    function tab:SetActive(on)
+        self.active = on and true or false
+        local c = TAB_FILL[self.active and "on" or "off"]
+        fill:SetGradient("VERTICAL", CreateColor(c[2][1], c[2][2], c[2][3], 1), CreateColor(c[1][1], c[1][2], c[1][3], 1))
+        self.line:SetShown(self.active)
+        self.text:ClearAllPoints()
+        self.text:SetPoint("LEFT", self.active and 28 or 14, 0)
+        self.text:SetTextColor(unpack(self.active and { 0.953, 0.902, 0.769 } or { 0.522, 0.478, 0.4 }))
+        self:Fit()
+    end
+    tab:SetScript("OnEnter", function(self) if not self.active then self.text:SetTextColor(unpack(UI.TEXT)) end end)
+    tab:SetScript("OnLeave", function(self) self:SetActive(self.active) end)
+    tab:SetScript("OnClick", onClick)
+    tab:SetActive(false)
+    return tab
+end
+
+-- Line under a tab row (B10), from the first tab to the parent's right edge minus inset
+function UI.TabBaseline(parent, firstTab, inset)
+    local line = parent:CreateTexture(nil, "ARTWORK")
+    line:SetColorTexture(ns.Material().dark[1], ns.Material().dark[2], ns.Material().dark[3], 1)
+    line:SetHeight(ns.PixelSize())
+    line:SetPoint("BOTTOMLEFT", firstTab, "BOTTOMLEFT", 0, 0)
+    line:SetPoint("RIGHT", parent, "RIGHT", -(inset or 0), 0)
+    return line
+end
+
+-- Inset: a content area set into the window (model stage, detail pane) - fill, a black outline
+-- around it and a muted material line just inside. Returns the fill.
+function UI.Inset(frame, color)
+    local fill = frame:CreateTexture(nil, "BACKGROUND")
+    fill:SetAllPoints()
+    fill:SetColorTexture(unpack(color or { 0.06, 0.05, 0.04, 1 }))
+    for _, e in ipairs(ns.AddBorder(frame)) do e:SetVertexColor(0, 0, 0, 1) end
+    local m = ns.Material()
+    for _, e in ipairs(ns.AddBorder(frame, true)) do e:SetVertexColor(m.item[1], m.item[2], m.item[3], 0.6) end
+    return fill
+end
+
+-- Card: a list entry (merchant item, mail, trade slot) as a low plate - black outline, a muted
+-- material edge lit from above and a warm dark fill. Quieter than a button (B9).
+function UI.Card(frame)
+    local px = ns.PixelSize()
+    local m = ns.Material()
+    local fill = frame:CreateTexture(nil, "BACKGROUND")
+    fill:SetTexture(WHITE)
+    fill:SetPoint("TOPLEFT", px, -px)
+    fill:SetPoint("BOTTOMRIGHT", -px, px)
+    fill:SetGradient("VERTICAL", CreateColor(0.075, 0.062, 0.047, 1), CreateColor(0.122, 0.1, 0.075, 1))
+    for _, e in ipairs(ns.AddBorder(frame, true, 1)) do e:SetVertexColor(0, 0, 0, 1) end
+    local top = Line(frame, "BORDER", 1)
+    top:SetPoint("TOPLEFT", px, -px)
+    top:SetPoint("TOPRIGHT", -px, -px)
+    top:SetHeight(px)
+    top:SetVertexColor(m.lit[1], m.lit[2], m.lit[3], 0.45)
+    local bottom = Line(frame, "BORDER", 1)
+    bottom:SetPoint("BOTTOMLEFT", px, px)
+    bottom:SetPoint("BOTTOMRIGHT", -px, px)
+    bottom:SetHeight(px)
+    bottom:SetVertexColor(m.dark[1], m.dark[2], m.dark[3], 0.8)
+    for _, side in ipairs({ "LEFT", "RIGHT" }) do
+        local e = Line(frame, "BORDER", 1)
+        e:SetPoint("TOP" .. side, frame, "TOP" .. side, side == "LEFT" and px or -px, -px)
+        e:SetPoint("BOTTOM" .. side, frame, "BOTTOM" .. side, side == "LEFT" and px or -px, px)
+        e:SetWidth(px)
+        e:SetGradient("VERTICAL", CreateColor(m.dark[1], m.dark[2], m.dark[3], 0.8), CreateColor(m.lit[1], m.lit[2], m.lit[3], 0.45))
+    end
+    return fill
+end
+
 -- Checkbox: dark fill with a light border so it is visible on dark backgrounds
 UI.CHECK_EDGE = { 0.5, 0.4, 0.24, 1 } -- bronze
 function UI.CheckBg(frame)
