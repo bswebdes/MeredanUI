@@ -274,6 +274,7 @@ local function Style(self, unit)
     -- gem texture is grey and takes the accent colour
     local bezel = top:CreateTexture(nil, "OVERLAY", nil, 1)
     bezel:SetTexture(ns.MEDIA .. "GemBezel")
+    ns.StyleOrnament(bezel)
     bezel:SetSize(gemSize, gemSize)
     bezel:SetPoint("CENTER", body, far, (S.plateOut - px / 2) * dir, 0) -- middle of the bronze edge
     local gem = top:CreateTexture(nil, "OVERLAY", nil, 2)

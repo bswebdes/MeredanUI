@@ -38,6 +38,7 @@ local function Create(parent)
     -- over every bar (the bars are LOW strata, each with its own levels), like Blizzard's end caps
     f:SetFrameStrata("MEDIUM")
     f.tex = f:CreateTexture(nil, "OVERLAY")
+    ns.StyleOrnament(f.tex) -- iron frames: animals and gryphons desaturated
     f.tex:SetAllPoints()
     return f
 end

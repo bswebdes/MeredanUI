@@ -369,6 +369,7 @@ ns.FRAME_MATERIALS = {
         item = { 0.627, 0.447, 0.267, 1 },                             -- item frame edge (#A07244)
         accentLine = { 0.72, 0.59, 0.36 },                             -- thin lines and dividers
         rim = { 0.03, 0.024, 0.016, 0.55 },                            -- translucent outer rim
+        ornament = { desaturate = 0, tint = { 1, 1, 1 } },             -- painted bronze art as is
     },
     iron = {
         lit = { 0.72, 0.73, 0.75, 1 }, dark = { 0.18, 0.19, 0.21, 1 },
@@ -376,11 +377,22 @@ ns.FRAME_MATERIALS = {
         item = { 0.47, 0.48, 0.50, 1 },
         accentLine = { 0.55, 0.56, 0.58 },
         rim = { 0.012, 0.013, 0.015, 0.55 },
+        -- painted bronze art (class animals, gem bezels) mostly desaturated and cooled to match
+        ornament = { desaturate = 0.8, tint = { 0.86, 0.88, 0.92 } },
     },
 }
 function ns.Material()
     return ns.FRAME_MATERIALS[ns.db and ns.db.frameMaterial or "bronze"] or ns.FRAME_MATERIALS.bronze
 end
+-- Painted bronze ornaments (class animals, gem bezels) follow the material without new art:
+-- iron takes most of the colour out and cools them a little.
+function ns.StyleOrnament(tex)
+    local o = ns.Material().ornament
+    if not (o and tex) then return end
+    tex:SetDesaturation(o.desaturate)
+    tex:SetVertexColor(o.tint[1], o.tint[2], o.tint[3])
+end
+
 -- kept in place (tables other files hold on to), refreshed from the material in ApplySettings
 ns.BRONZE = { 0.72, 0.59, 0.36 }
 ns.RUNE_BG = { 0.086, 0.075, 0.059 } -- window background (themes keep it, "Dark" goes near-black)

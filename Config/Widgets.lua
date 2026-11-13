@@ -48,6 +48,8 @@ UI.MarkReload = function(_) end
 -- Background with 1 px border and fixed color (independent of the theme).
 -- noBorder: windows in the rune look draw ns.RuneFrame instead of the outline
 function UI.Box(frame, color, noBorder)
+    -- a plain field (no colour, with border) is a sunk groove (building block B11)
+    if not color and not noBorder then return UI.Groove(frame) end
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(color or UI.FIELD))
@@ -55,15 +57,97 @@ function UI.Box(frame, color, noBorder)
     return bg
 end
 
+local function Line(frame, layer, sub)
+    local t = frame:CreateTexture(nil, layer, nil, sub)
+    t:SetTexture(WHITE)
+    t:SetSnapToPixelGrid(false)
+    t:SetTexelSnappingBias(0)
+    return t
+end
+
+-- Groove (B11): dark field sunk into the surface - black top/left edge, lit bottom edge in the
+-- frame material, a soft shadow under the top edge. Returns the fill (callers recolour it on hover).
+function UI.Groove(frame)
+    local px = ns.PixelSize()
+    local bg = frame:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(unpack(UI.FIELD))
+    local shade = Line(frame, "BACKGROUND", 1)
+    shade:SetPoint("TOPLEFT")
+    shade:SetPoint("TOPRIGHT")
+    shade:SetHeight(ns.Snap(4))
+    shade:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0), CreateColor(0, 0, 0, 0.7))
+    local m = ns.Material()
+    local top, left, bottom, right = Line(frame, "BORDER"), Line(frame, "BORDER"), Line(frame, "BORDER"), Line(frame, "BORDER")
+    top:SetPoint("TOPLEFT") top:SetPoint("TOPRIGHT") top:SetHeight(px)
+    left:SetPoint("TOPLEFT") left:SetPoint("BOTTOMLEFT") left:SetWidth(px)
+    bottom:SetPoint("BOTTOMLEFT") bottom:SetPoint("BOTTOMRIGHT") bottom:SetHeight(px)
+    right:SetPoint("TOPRIGHT") right:SetPoint("BOTTOMRIGHT") right:SetWidth(px)
+    top:SetVertexColor(0, 0, 0, 1)
+    left:SetVertexColor(0, 0, 0, 1)
+    bottom:SetVertexColor(m.item[1], m.item[2], m.item[3], 0.85)
+    right:SetGradient("VERTICAL", CreateColor(m.item[1], m.item[2], m.item[3], 0.85), CreateColor(0, 0, 0, 1))
+    frame.muiGrooveEdges = { top, bottom, left, right }
+    return bg
+end
+
+-- Bevel (B9): raised button - black outline, edge lit from above in the frame material, a warm
+-- fill shading top to bottom. button.muiBevel(state) with "normal", "hover" or "down".
+local BEVEL_FILL = {
+    normal = { { 0.235, 0.188, 0.133 }, { 0.149, 0.114, 0.078 } },
+    hover = { { 0.329, 0.263, 0.184 }, { 0.2, 0.153, 0.106 } },
+    down = { { 0.094, 0.071, 0.047 }, { 0.165, 0.125, 0.086 } },
+}
+function UI.Bevel(button)
+    local px = ns.PixelSize()
+    local m = ns.Material()
+    local fill = button:CreateTexture(nil, "BACKGROUND")
+    fill:SetTexture(WHITE)
+    fill:SetPoint("TOPLEFT", 2 * px, -2 * px)
+    fill:SetPoint("BOTTOMRIGHT", -2 * px, 2 * px)
+    -- outline (black) and lit edge inside it
+    for _, e in ipairs(ns.AddBorder(button, true, 1)) do e:SetVertexColor(0, 0, 0, 1) end
+    local top, bottom, left, right = Line(button, "BORDER", 1), Line(button, "BORDER", 1), Line(button, "BORDER", 1), Line(button, "BORDER", 1)
+    top:SetPoint("TOPLEFT", px, -px) top:SetPoint("TOPRIGHT", -px, -px) top:SetHeight(px)
+    bottom:SetPoint("BOTTOMLEFT", px, px) bottom:SetPoint("BOTTOMRIGHT", -px, px) bottom:SetHeight(px)
+    left:SetPoint("TOPLEFT", px, -px) left:SetPoint("BOTTOMLEFT", px, px) left:SetWidth(px)
+    right:SetPoint("TOPRIGHT", -px, -px) right:SetPoint("BOTTOMRIGHT", -px, px) right:SetWidth(px)
+    top:SetVertexColor(unpack(m.lit))
+    bottom:SetVertexColor(unpack(m.dark))
+    for _, e in ipairs({ left, right }) do e:SetGradient("VERTICAL", CreateColor(unpack(m.dark)), CreateColor(unpack(m.lit))) end
+    local shine = Line(button, "BACKGROUND", 1)
+    shine:SetPoint("TOPLEFT", 2 * px, -2 * px)
+    shine:SetPoint("TOPRIGHT", -2 * px, -2 * px)
+    shine:SetHeight(px)
+    shine:SetVertexColor(1, 0.9, 0.7, 0.18)
+    local function State(state)
+        local c = BEVEL_FILL[state] or BEVEL_FILL.normal
+        fill:SetGradient("VERTICAL", CreateColor(c[2][1], c[2][2], c[2][3], 1), CreateColor(c[1][1], c[1][2], c[1][3], 1))
+        shine:SetShown(state ~= "down")
+    end
+    State("normal")
+    button.muiBevel = State
+    button:HookScript("OnMouseDown", function() State("down") end)
+    button:HookScript("OnMouseUp", function(self) State(self:IsMouseOver() and "hover" or "normal") end)
+    return fill
+end
+
 -- Checkbox: dark fill with a light border so it is visible on dark backgrounds
 UI.CHECK_EDGE = { 0.5, 0.4, 0.24, 1 } -- bronze
 function UI.CheckBg(frame)
+    -- B12: a sunk groove inside a frame-material edge (like a tiny item frame)
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
-    bg:SetColorTexture(0.08, 0.065, 0.045, 1)
+    bg:SetColorTexture(0.05, 0.04, 0.03, 1)
+    local shade = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
+    shade:SetTexture(WHITE)
+    shade:SetPoint("TOPLEFT")
+    shade:SetPoint("TOPRIGHT")
+    shade:SetHeight(ns.Snap(4))
+    shade:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0), CreateColor(0, 0, 0, 0.8))
     -- Border drawn inside: otherwise a checkbox at the far left of a clipped list lost its left edge
     for _, edge in ipairs(ns.AddBorder(frame, true)) do
-        edge:SetVertexColor(unpack(UI.CHECK_EDGE))
+        edge:SetVertexColor(unpack(ns.Material().item))
         -- In scrolling lists the box often sits on a half pixel; pixel snapping would round the 1 px edge
         -- away (top or bottom missing). Without snapping it stays visible.
         edge:SetSnapToPixelGrid(false)
@@ -122,12 +206,25 @@ function UI.Divider(parent)
 end
 
 -- Small accent diamond, the rune look's mark (a rotated square)
+-- Accent mark: a small cut gem in its bezel (B4). Returns the gem texture (tintable); the bezel
+-- follows its position and visibility. size = the old diamond size, the gem is drawn larger.
 function UI.Diamond(parent, size, color, layer)
-    local tex = parent:CreateTexture(nil, layer or "OVERLAY")
-    tex:SetTexture(WHITE)
+    local px = ns.PixelSize()
+    local pixels = math.floor((size or 6) * 1.9 / px + 0.5)
+    if pixels % 2 == 0 then pixels = pixels + 1 end -- odd: sits centred on a 1 px line
+    local bezel = parent:CreateTexture(nil, layer or "OVERLAY", nil, 1)
+    bezel:SetTexture(ns.MEDIA .. "GemBezel")
+    ns.StyleOrnament(bezel)
+    local tex = parent:CreateTexture(nil, layer or "OVERLAY", nil, 2)
+    tex:SetTexture(ns.MEDIA .. "Gem")
     tex:SetVertexColor(unpack(color or UI.ACCENT))
-    tex:SetSize(size or 6, size or 6)
-    tex:SetRotation(math.pi / 4)
+    tex:SetSize(pixels * px, pixels * px)
+    bezel:SetAllPoints(tex)
+    hooksecurefunc(tex, "Show", function() bezel:Show() end)
+    hooksecurefunc(tex, "Hide", function() bezel:Hide() end)
+    hooksecurefunc(tex, "SetShown", function(_, shown) bezel:SetShown(shown) end)
+    hooksecurefunc(tex, "SetAlpha", function(_, a) bezel:SetAlpha(a) end)
+    tex.muiBezel = bezel
     return tex
 end
 
@@ -144,18 +241,12 @@ end
 function UI.IconButton(parent, name, onClick, size)
     local button = CreateFrame("Button", nil, parent)
     button:SetSize(size or 24, size or 24)
-    local bg = UI.Box(button)
-    local icon = UI.Icon(button, name, (size or 24) - 8)
+    -- no box: the (painted) icon stands on its own and brightens on hover
+    local icon = UI.Icon(button, name, (size or 24) - 4)
     icon:SetPoint("CENTER")
     button.icon = icon
-    button:SetScript("OnEnter", function()
-        bg:SetColorTexture(unpack(UI.HOVER))
-        icon:SetVertexColor(unpack(UI.ACCENT))
-    end)
-    button:SetScript("OnLeave", function()
-        bg:SetColorTexture(unpack(UI.FIELD))
-        icon:SetVertexColor(unpack(UI.TEXT))
-    end)
+    button:SetScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
+    button:SetScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
     button:SetScript("OnClick", onClick)
     return button
 end
@@ -205,14 +296,14 @@ end
 -- Plain text button; brightens on hover.
 function UI.Button(parent, label, onClick, width)
     local button = CreateFrame("Button", nil, parent)
-    button:SetSize(width or 160, 24)
-    local bg = UI.Box(button)
+    button:SetSize(width or 160, 26)
+    UI.Bevel(button)
     local text = UI.Text(button, 12, "CENTER")
     text:SetPoint("CENTER")
     text:SetText(label)
     button.Text = text
-    button:SetScript("OnEnter", function() bg:SetColorTexture(unpack(UI.HOVER)) end)
-    button:SetScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
+    button:SetScript("OnEnter", function(self) self.muiBevel("hover") text:SetTextColor(1, 0.95, 0.84) end)
+    button:SetScript("OnLeave", function(self) self.muiBevel("normal") text:SetTextColor(unpack(UI.TEXT)) end)
     button:SetScript("OnClick", onClick)
     return button
 end
@@ -262,22 +353,24 @@ function UI.Scrollbar(parent, opts)
     track:SetPoint("TOP", up, "BOTTOM", 0, -2)
     track:SetPoint("BOTTOM", down, "TOP", 0, 2)
     track:SetWidth(14)
-    local line = track:CreateTexture(nil, "BACKGROUND")
-    line:SetPoint("TOP")
-    line:SetPoint("BOTTOM")
-    line:SetWidth(3)
-    line:SetColorTexture(1, 1, 1, 0.06)
+    -- B13: narrow groove with a frame-material grip
+    local groove = CreateFrame("Frame", nil, track)
+    groove:SetPoint("TOP")
+    groove:SetPoint("BOTTOM")
+    groove:SetWidth(ns.Snap(6))
+    UI.Groove(groove)
     local thumb = CreateFrame("Button", nil, track)
     thumb:SetWidth(14)
     local grip = thumb:CreateTexture(nil, "ARTWORK")
+    grip:SetTexture(WHITE)
     grip:SetPoint("TOP")
     grip:SetPoint("BOTTOM")
-    grip:SetWidth(3)
-    grip:SetColorTexture(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.8)
+    grip:SetWidth(ns.Snap(6))
+    local gm = ns.Material()
+    grip:SetGradient("HORIZONTAL", CreateColor(unpack(gm.dark)), CreateColor(unpack(gm.lit)))
     local hovered, dragging = false, nil
     local function Highlight()
         local on = hovered or dragging ~= nil
-        grip:SetWidth(on and 5 or 3)
         grip:SetAlpha(on and 1 or 0.8)
     end
     for _, region in ipairs({ thumb, track }) do
@@ -685,23 +778,34 @@ function UI.Page(parent)
         slider:SetHitRectInsets(0, 0, -4, -4)
 
         -- Bar as textures below the thumb (a separate frame would sit on top)
-        local track = slider:CreateTexture(nil, "BACKGROUND")
-        track:SetPoint("LEFT")
-        track:SetPoint("RIGHT")
-        track:SetHeight(4)
-        track:SetColorTexture(unpack(UI.HOVER))
+        -- B12: groove track, filled part in the frame material, a gem as the thumb
+        local trackFrame = CreateFrame("Frame", nil, slider)
+        trackFrame:SetPoint("LEFT")
+        trackFrame:SetPoint("RIGHT")
+        trackFrame:SetHeight(ns.Snap(6))
+        trackFrame:SetFrameLevel(math.max(slider:GetFrameLevel() - 1, 0))
+        UI.Groove(trackFrame)
+        local track = trackFrame
 
-        slider:SetThumbTexture(WHITE)
+        slider:SetThumbTexture(ns.MEDIA .. "GemBezel")
         local thumb = slider:GetThumbTexture()
-        thumb:SetDrawLayer("OVERLAY")
-        thumb:SetSize(10, 16)
-        thumb:SetVertexColor(unpack(UI.ACCENT))
+        thumb:SetDrawLayer("OVERLAY", 1)
+        local tpx = ns.PixelSize()
+        local tsize = (math.floor(17 / tpx) % 2 == 0 and math.floor(17 / tpx) + 1 or math.floor(17 / tpx)) * tpx
+        thumb:SetSize(tsize, tsize)
+        ns.StyleOrnament(thumb)
+        local gem = slider:CreateTexture(nil, "OVERLAY", nil, 2)
+        gem:SetTexture(ns.MEDIA .. "Gem")
+        gem:SetVertexColor(unpack(UI.ACCENT))
+        gem:SetAllPoints(thumb)
 
         local fill = slider:CreateTexture(nil, "ARTWORK") -- filled part up to the thumb
-        fill:SetPoint("LEFT", track, "LEFT")
+        fill:SetTexture(WHITE)
+        fill:SetPoint("LEFT", track, "LEFT", tpx, 0)
         fill:SetPoint("RIGHT", thumb, "CENTER")
-        fill:SetHeight(4)
-        fill:SetColorTexture(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.45)
+        fill:SetHeight(ns.Snap(4))
+        local fm = ns.Material()
+        fill:SetGradient("VERTICAL", CreateColor(unpack(fm.dark)), CreateColor(unpack(fm.lit)))
 
         local updating = false
         local function Round(v)
