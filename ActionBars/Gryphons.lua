@@ -61,14 +61,14 @@ function ns.UpdateGryphons()
     local bars = ns.actionBars
     local bottom = bars and bars[2] -- Shift bar, the lowest row
     if not bottom then return end
-    local on = ns.db and ns.db.actionBarArt == true
-    if not on then
+    local mode = ns.db and ns.db.actionBarArt or "none"
+    if mode ~= "class" and mode ~= "blizzard" then
         if left then left:Hide(); right:Hide() end
         return
     end
     left = left or Create(bottom)
     right = right or Create(bottom)
-    local art = Art()
+    local art = mode == "class" and Art() or nil -- nil = Blizzard's gryphons / wyverns
     Texture(left, "left", art)
     Texture(right, "right", art)
     -- outside the 6 x 2 extra blocks when they are shown
@@ -144,7 +144,7 @@ local function CreatePanel()
 end
 
 ns.AddCommand("endcap", L["End caps: size and position"], function()
-    if not ns.db.actionBarArt then ns.Print(L["Turn on the action bar art first (Look page)."]) end
+    if ns.db.actionBarArt ~= "class" then ns.Print(L["Turn on the action bar art first (Look page)."]) end
     -- a new frame starts shown, so toggling it right away would close it again
     if not panel then CreatePanel() return end
     panel:SetShown(not panel:IsShown())

@@ -204,9 +204,14 @@ local PAGES = {
                 Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
             page:AddDropdown(L["Frame material"], function() return { { value = "bronze", label = L["Bronze"] }, { value = "iron", label = L["Iron"] } } end,
                 Getter("frameMaterial"), Setter("frameMaterial"), RELOAD)
-            page:AddCheckbox(L["Gryphons at the action bars"], Getter("actionBarArt"),
-                Setter("actionBarArt", function() if ns.UpdateGryphons then ns.UpdateGryphons() end end),
-                Help(L["Blizzard's gryphons (Horde: wyverns) at both ends of the bottom action bars."]))
+            page:AddDropdown(L["Action bar end caps"], function()
+                return {
+                    { value = "none", label = L["None"] },
+                    { value = "blizzard", label = L["Blizzard original"] },
+                    { value = "class", label = L["Class animals (mUI)"] },
+                }
+            end, Getter("actionBarArt"), Setter("actionBarArt", function() if ns.UpdateGryphons then ns.UpdateGryphons() end end),
+                Help(L["Ornaments at both ends of the bottom action bars: Blizzard's gryphons (Horde: wyverns) or a painted animal for your class."]))
             page:AddDropdown(L["Accent colour"], function()
                 return {
                     { value = "mui", label = L["mUI green"] },

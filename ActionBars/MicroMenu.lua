@@ -81,7 +81,7 @@ local function SkinMicroButton(button, iconName)
     bg:SetColorTexture(r, g, b, 1)
     ns.AddBorder(overlay)
     local color = ClassColor()
-    local icon = ns.UI.Icon(overlay, iconName, math.floor(size * 0.6), color)
+    local icon = ns.UI.Icon(overlay, iconName, math.floor(size * 0.6), color, true) -- flat: easier to tell apart than painted
     icon:SetPoint("CENTER")
     button:HookScript("OnEnter", function() icon:SetVertexColor(unpack(ns.UI.ACCENT)) end)
     button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(color)) end)

@@ -212,7 +212,7 @@ local DEFAULTS = {
     fastLoot = true,             -- loot instantly with auto-loot (Loot/FastLoot.lua)
     fishingBag = true,           -- Forever: fishing bag + logbook, opens with a fishing pole (Loot/Fishing.lua)
     fishingDoubleClick = false,  -- Forever: double right-click casts Fishing (Comfort)
-    actionBarArt = true,         -- class animals / gryphons at the bottom action bars (ActionBars/Gryphons.lua)
+    actionBarArt = "class",      -- end caps at the bottom action bars: none/blizzard/class (ActionBars/Gryphons.lua)
     sparkle = false,             -- Comfort: glitter on the nearby herb/ore/quest object (Loot/Sparkle.lua)
     sparkleOther = true,         -- sparkle also on other objects (benches, chests, mailboxes) in white
     classQuestReminder = false,  -- Comfort, Forever: toast when a class quest unlocks (Quests/ClassQuestReminder.lua)
@@ -375,7 +375,9 @@ local function MigrateSettings(db)
     if version < 2 then MigrateSettingsV2(db) end
     -- v3 (rune look): the class animals at the action bars are on for everyone, once
     if version < 3 then db.actionBarArt = true end
-    db.settingsVersion = 3
+    -- v4: end caps became a choice (none / Blizzard / class animals)
+    if version < 4 then db.actionBarArt = db.actionBarArt == false and "none" or "class" end
+    db.settingsVersion = 4
 end
 
 -- Short realm name: Forever's "CAMWOW EU5 Realm 10 RP" -> short "RP", long "EU5-10 RP".
