@@ -258,6 +258,11 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     window.npcTitle:SetPoint("TOPLEFT", window.npcName, "BOTTOMLEFT", 0, -5)
     window.npcTitle:SetPoint("RIGHT", window.npcName, "RIGHT")
 
+    -- rune look: divider under the header
+    local divider = UI.Divider(window)
+    divider:SetPoint("TOPLEFT", PAD, -(ns.NPC_HEADER_BOTTOM + 3))
+    divider:SetPoint("TOPRIGHT", -PAD, -(ns.NPC_HEADER_BOTTOM + 3))
+
     local close = UI.IconButton(header, "Close", function() window:Hide() end, 26)
     close:SetPoint("TOPRIGHT", -PAD, -PAD)
     window.close = close

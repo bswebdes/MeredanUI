@@ -93,6 +93,34 @@ function UI.Title(parent, size, justify)
     return text
 end
 
+-- Divider (rune look): bronze lines fading in towards an accent diamond in the middle.
+-- Returns a frame (height 10) for the caller to anchor left and right.
+function UI.Divider(parent)
+    local holder = CreateFrame("Frame", nil, parent)
+    holder:SetHeight(10)
+    local r, g, b = unpack(ns.BRONZE)
+    local px = ns.PixelSize()
+    local function Half(fromLeft)
+        local tex = holder:CreateTexture(nil, "ARTWORK")
+        tex:SetColorTexture(1, 1, 1, 1)
+        tex:SetHeight(px)
+        local faded, full = CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.8)
+        if fromLeft then
+            tex:SetPoint("LEFT")
+            tex:SetPoint("RIGHT", holder, "CENTER", -10, 0)
+            tex:SetGradient("HORIZONTAL", faded, full)
+        else
+            tex:SetPoint("LEFT", holder, "CENTER", 10, 0)
+            tex:SetPoint("RIGHT")
+            tex:SetGradient("HORIZONTAL", full, faded)
+        end
+    end
+    Half(true)
+    Half(false)
+    UI.Diamond(holder, 7):SetPoint("CENTER")
+    return holder
+end
+
 -- Small accent diamond, the rune look's mark (a rotated square)
 function UI.Diamond(parent, size, color, layer)
     local tex = parent:CreateTexture(nil, layer or "OVERLAY")

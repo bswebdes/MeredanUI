@@ -320,7 +320,7 @@ function ns.RuneFrame(frame, opts)
     local small = opts and opts.small
     local anchor = opts and opts.target or frame -- visible area, e.g. a skinned frame's inner border
     local px = ns.PixelSize()
-    local inset, corner, spread = small and 3 or 5, small and 10 or 14, small and 10 or 16
+    local inset, spread = small and 3 or 5, small and 10 or 16
 
     local shadow = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
     shadow:SetTexture(ns.SHADOW_TEXTURE)
@@ -354,19 +354,22 @@ function ns.RuneFrame(frame, opts)
     lines[4]:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -inset, inset)
     lines[4]:SetWidth(px)
 
-    -- accent corner brackets: two bars per corner, flush with the outer edge
+    -- corner ornament "rune notch": accent bracket plus bronze notches and dot (two white
+    -- textures, tinted), mirrored per corner via tex coords
     local ar, ag, ab = unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 })
-    local thick = 2 * px
+    local size = small and 16 or 24
     local corners = {}
-    for _, c in ipairs({ { "TOPLEFT", 1, -1 }, { "TOPRIGHT", -1, -1 }, { "BOTTOMLEFT", 1, 1 }, { "BOTTOMRIGHT", -1, 1 } }) do
-        local point = c[1]
-        local h = Line("OVERLAY", ar, ag, ab, 1)
-        h:SetPoint(point, anchor, point)
-        h:SetSize(corner, thick)
-        local v = Line("OVERLAY", ar, ag, ab, 1)
-        v:SetPoint(point, anchor, point)
-        v:SetSize(thick, corner)
-        corners[#corners + 1], corners[#corners + 2] = h, v
+    local FLIP = { TOPLEFT = { 0, 1, 0, 1 }, TOPRIGHT = { 1, 0, 0, 1 }, BOTTOMLEFT = { 0, 1, 1, 0 }, BOTTOMRIGHT = { 1, 0, 1, 0 } }
+    for point, coords in pairs(FLIP) do
+        for _, part in ipairs({ { ns.MEDIA .. "RuneCorner", ar, ag, ab }, { ns.MEDIA .. "RuneCornerDeco", br, bg, bb } }) do
+            local tex = frame:CreateTexture(nil, "OVERLAY")
+            tex:SetTexture(part[1])
+            tex:SetVertexColor(part[2], part[3], part[4], 1)
+            tex:SetTexCoord(unpack(coords))
+            tex:SetSize(size, size)
+            tex:SetPoint(point, anchor, point)
+            corners[#corners + 1] = tex
+        end
     end
     local parts = { shadow = shadow, lines = lines, corners = corners }
     function parts:SetShown(shown)
