@@ -165,6 +165,7 @@ local DEFAULTS = {
     fontSize = "medium", -- font size of all mUI texts: "small", "medium", "large" (Core/Style.lua)
     layout = "melee", -- Core/Layouts.lua; melee DPS is the base
     theme = "class", -- "class", "dark" or "green"
+    frameMaterial = "bronze", -- setting "Rahmen": "bronze" or "iron" (Core/Style.lua FRAME_MATERIALS)
     minimapExtras = "always", -- texts (zone, clock, coordinates) and icons: "always" or "mouseover"
     frameSize = "medium", -- player + target (pet, target of target, focus scale along): "small", "medium", "large"
     bossSize = "medium",  -- boss frames: "small", "medium", "large"

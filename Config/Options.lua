@@ -202,6 +202,8 @@ local PAGES = {
             end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
                 Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
+            page:AddDropdown(L["Frame material"], { { value = "bronze", label = L["Bronze"] }, { value = "iron", label = L["Iron"] } },
+                Getter("frameMaterial"), Setter("frameMaterial"), RELOAD)
             page:AddCheckbox(L["Gryphons at the action bars"], Getter("actionBarArt"),
                 Setter("actionBarArt", function() if ns.UpdateGryphons then ns.UpdateGryphons() end end),
                 Help(L["Blizzard's gryphons (Horde: wyverns) at both ends of the bottom action bars."]))

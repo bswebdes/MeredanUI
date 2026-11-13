@@ -133,6 +133,10 @@ function ns.ApplySettings()
     -- Border colour: in place, borders take it when they are created (theme switch: reload)
     local b = theme.borderColor or ns.GOLD_BORDER
     for i = 1, 4 do ns.BORDER_COLOR[i] = b[i] end
+    -- frame material: item edge and accent line follow the setting "Rahmen"
+    local m = ns.Material()
+    for i = 1, 4 do ns.ITEM_EDGE[i] = m.item[i] end
+    for i = 1, 3 do ns.BRONZE[i] = m.accentLine[i] end
 
     -- Font and texture are fixed
     STYLE.font = ns.DEFAULT_FONT
@@ -356,73 +360,111 @@ function ns.CreateBackground(region)
     return bg
 end
 
--- Rune look (v0.5) for windows: soft shadow instead of a black outline, a thin bronze line inset
--- from the edge and accent corner brackets. Call after the background (UI.Box with noBorder).
--- opts.small: menus, tooltips, dialogs (tighter inset and corners). opts.target: visible area.
+-- Frame material (setting "Rahmen"): every frame building block takes its colours from here.
+-- Bronze is the default, iron the dark variant. Read when frames are built (switch: reload).
+ns.FRAME_MATERIALS = {
+    bronze = {
+        lit = { 0.86, 0.70, 0.44, 1 }, dark = { 0.36, 0.25, 0.13, 1 },   -- edge lit from above
+        band = { 0.075, 0.062, 0.045, 0.92 },                          -- warm dark band
+        item = { 0.627, 0.447, 0.267, 1 },                             -- item frame edge (#A07244)
+        accentLine = { 0.72, 0.59, 0.36 },                             -- thin lines and dividers
+        rim = { 0.03, 0.024, 0.016, 0.55 },                            -- translucent outer rim
+    },
+    iron = {
+        lit = { 0.72, 0.73, 0.75, 1 }, dark = { 0.18, 0.19, 0.21, 1 },
+        band = { 0.04, 0.042, 0.046, 0.92 },
+        item = { 0.47, 0.48, 0.50, 1 },
+        accentLine = { 0.55, 0.56, 0.58 },
+        rim = { 0.012, 0.013, 0.015, 0.55 },
+    },
+}
+function ns.Material()
+    return ns.FRAME_MATERIALS[ns.db and ns.db.frameMaterial or "bronze"] or ns.FRAME_MATERIALS.bronze
+end
+-- kept in place (tables other files hold on to), refreshed from the material in ApplySettings
 ns.BRONZE = { 0.72, 0.59, 0.36 }
 ns.RUNE_BG = { 0.086, 0.075, 0.059 } -- window background (themes keep it, "Dark" goes near-black)
 ns.SHADOW_TEXTURE = ns.MEDIA .. "Shadow"
-function ns.RuneFrame(frame, opts)
-    local small = opts and opts.small
-    local anchor = opts and opts.target or frame -- visible area, e.g. a skinned frame's inner border
-    local px = ns.PixelSize()
-    local inset, spread = small and 3 or 5, small and 10 or 16
 
-    local shadow = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
+-- Deep shell: stacked 1 px lines around region, from the inside out: black line, dark band (pad
+-- wide), edge lit from above, black outline, optional translucent rim (opts.rim, UI units), soft
+-- shadow. All drawn outside region, so it never covers content. opts.parent: frame that owns the
+-- textures (default region). Returns how far it reaches beyond region, and the shell frame.
+function ns.AddDeepShell(region, pad, opts)
+    local px = ns.PixelSize()
+    local m = ns.Material()
+    local owner = opts and opts.parent or region
+    local shell = CreateFrame("Frame", nil, owner)
+    shell:SetFrameLevel(owner:GetFrameLevel())
+    local function Tex(layer, sub)
+        local t = shell:CreateTexture(nil, layer, nil, sub)
+        t:SetTexture(WHITE)
+        t:SetSnapToPixelGrid(false)
+        t:SetTexelSnappingBias(0)
+        return t
+    end
+    -- four strips between distance a (inner) and b (outer) beyond region
+    local function Ring(a, b, layer, sub, top, bottom)
+        local t1, t2, t3, t4 = Tex(layer, sub), Tex(layer, sub), Tex(layer, sub), Tex(layer, sub)
+        t1:SetPoint("TOPLEFT", region, "TOPLEFT", -b, b)
+        t1:SetPoint("BOTTOMRIGHT", region, "TOPRIGHT", b, a)
+        t2:SetPoint("TOPLEFT", region, "BOTTOMLEFT", -b, -a)
+        t2:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", b, -b)
+        t3:SetPoint("TOPLEFT", region, "TOPLEFT", -b, a)
+        t3:SetPoint("BOTTOMRIGHT", region, "BOTTOMLEFT", -a, -a)
+        t4:SetPoint("TOPLEFT", region, "TOPRIGHT", a, a)
+        t4:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", b, -a)
+        bottom = bottom or top
+        t1:SetVertexColor(unpack(top))
+        t2:SetVertexColor(unpack(bottom))
+        for _, t in ipairs({ t3, t4 }) do
+            t:SetGradient("VERTICAL", CreateColor(unpack(bottom)), CreateColor(unpack(top)))
+        end
+        return { t1, t2, t3, t4 }
+    end
+    local black = { 0, 0, 0, 1 }
+    local inner = px
+    local band = inner + pad
+    local edge = band + px
+    local outline = edge + px
+    Ring(0, inner, "BORDER", 1, black)
+    if pad > 0 then
+        Ring(inner, band, "BACKGROUND", 1, m.band)
+        -- a hint of light catching the inner rim of the band
+        local lit = Tex("BORDER", 0)
+        lit:SetVertexColor(1, 0.9, 0.7, 0.10)
+        lit:SetPoint("TOPLEFT", region, "TOPLEFT", -band, band)
+        lit:SetPoint("BOTTOMRIGHT", region, "TOPRIGHT", band, band - px)
+    end
+    Ring(band, edge, "BORDER", 2, m.lit, m.dark)
+    Ring(edge, outline, "BORDER", 3, { 0, 0, 0, 0.9 })
+    local reach = outline
+    if opts and opts.rim then
+        local rim = ns.Snap(opts.rim)
+        Ring(outline, outline + rim, "BACKGROUND", 0, m.rim)
+        Ring(outline + rim, outline + rim + px, "BACKGROUND", 0, { 0, 0, 0, 0.6 })
+        reach = outline + rim + px
+    end
+    local spread = opts and opts.shadow or 12
+    local shadow = shell:CreateTexture(nil, "BACKGROUND", nil, -8)
     shadow:SetTexture(ns.SHADOW_TEXTURE)
     shadow:SetTextureSliceMargins(24, 24, 24, 24)
     if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
-    shadow:SetPoint("TOPLEFT", anchor, "TOPLEFT", -spread, spread)
-    shadow:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", spread, -spread)
+    shadow:SetPoint("TOPLEFT", region, "TOPLEFT", -reach - spread, reach + spread)
+    shadow:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", reach + spread, -reach - spread)
+    return outline, shell
+end
 
-    local function Line(layer, r, g, b, a)
-        local tex = frame:CreateTexture(nil, layer)
-        tex:SetTexture(WHITE)
-        tex:SetVertexColor(r, g, b, a)
-        tex:SetSnapToPixelGrid(false)
-        tex:SetTexelSnappingBias(0)
-        return tex
-    end
-    -- inner bronze line
-    local br, bg, bb = unpack(ns.BRONZE)
-    local lines = {}
-    for i = 1, 4 do lines[i] = Line("BORDER", br, bg, bb, 0.4) end
-    lines[1]:SetPoint("TOPLEFT", anchor, "TOPLEFT", inset, -inset)
-    lines[1]:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", -inset, -inset)
-    lines[1]:SetHeight(px)
-    lines[2]:SetPoint("BOTTOMLEFT", anchor, "BOTTOMLEFT", inset, inset)
-    lines[2]:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -inset, inset)
-    lines[2]:SetHeight(px)
-    lines[3]:SetPoint("TOPLEFT", anchor, "TOPLEFT", inset, -inset)
-    lines[3]:SetPoint("BOTTOMLEFT", anchor, "BOTTOMLEFT", inset, inset)
-    lines[3]:SetWidth(px)
-    lines[4]:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", -inset, -inset)
-    lines[4]:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -inset, inset)
-    lines[4]:SetWidth(px)
-
-    -- corner ornament "rune notch": accent bracket plus bronze notches and dot (two white
-    -- textures, tinted), mirrored per corner via tex coords
-    local ar, ag, ab = unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 })
-    local size = small and 16 or 24
-    local corners = {}
-    local FLIP = { TOPLEFT = { 0, 1, 0, 1 }, TOPRIGHT = { 1, 0, 0, 1 }, BOTTOMLEFT = { 0, 1, 1, 0 }, BOTTOMRIGHT = { 1, 0, 1, 0 } }
-    for point, coords in pairs(FLIP) do
-        for _, part in ipairs({ { ns.MEDIA .. "RuneCorner", ar, ag, ab }, { ns.MEDIA .. "RuneCornerDeco", br, bg, bb } }) do
-            local tex = frame:CreateTexture(nil, "OVERLAY")
-            tex:SetTexture(part[1])
-            tex:SetVertexColor(part[2], part[3], part[4], 1)
-            tex:SetTexCoord(unpack(coords))
-            tex:SetSize(size, size)
-            tex:SetPoint(point, anchor, point)
-            corners[#corners + 1] = tex
-        end
-    end
-    local parts = { shadow = shadow, lines = lines, corners = corners }
-    function parts:SetShown(shown)
-        shadow:SetShown(shown)
-        for _, tex in ipairs(lines) do tex:SetShown(shown) end
-        for _, tex in ipairs(corners) do tex:SetShown(shown) end
-    end
+-- Window frame (building block B8): the deep shell around the window with a translucent dark rim
+-- outside it, no corner ornaments. Call after the background (UI.Box with noBorder).
+-- opts.small: menus, tooltips, dialogs (narrower band and rim). opts.target: visible area.
+function ns.RuneFrame(frame, opts)
+    local small = opts and opts.small
+    local anchor = opts and opts.target or frame -- visible area, e.g. a skinned frame's inner border
+    local _, shell = ns.AddDeepShell(anchor, ns.Snap(small and 1 or 2),
+        { rim = small and 3 or 4, parent = frame, shadow = small and 10 or 16 })
+    local parts = { shell = shell }
+    function parts:SetShown(shown) shell:SetShown(shown) end
     return parts
 end
 
