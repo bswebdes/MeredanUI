@@ -34,8 +34,8 @@ function UI.ApplyClassAccent()
 end
 UI.TEXT = { 0.91, 0.9, 0.87 }
 UI.MUTED = { 0.6, 0.59, 0.56 }
-UI.FIELD = { 0.1, 0.1, 0.11, 1 }
-UI.HOVER = { 0.16, 0.16, 0.18, 1 }
+UI.FIELD = { 0.15, 0.12, 0.08, 1 } -- buttons, inputs: warm brown-gold (rune look)
+UI.HOVER = { 0.24, 0.19, 0.12, 1 }
 
 UI.TAG = { 0.85, 0.64, 0.25 }  -- "Reload" badge (gold)
 
@@ -56,11 +56,11 @@ function UI.Box(frame, color, noBorder)
 end
 
 -- Checkbox: dark fill with a light border so it is visible on dark backgrounds
-UI.CHECK_EDGE = { 0.36, 0.36, 0.38, 1 }
+UI.CHECK_EDGE = { 0.5, 0.4, 0.24, 1 } -- bronze
 function UI.CheckBg(frame)
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
-    bg:SetColorTexture(0.04, 0.04, 0.05, 1)
+    bg:SetColorTexture(0.08, 0.065, 0.045, 1)
     -- Border drawn inside: otherwise a checkbox at the far left of a clipped list lost its left edge
     for _, edge in ipairs(ns.AddBorder(frame, true)) do
         edge:SetVertexColor(unpack(UI.CHECK_EDGE))

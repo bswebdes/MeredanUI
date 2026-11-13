@@ -508,7 +508,7 @@ local SLOT_ALPHA = 0.4 -- just a hint, the black should dominate
 function ns.AddSlotBackground(frame)
     local base = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
     base:SetAllPoints()
-    base:SetColorTexture(0.04, 0.04, 0.05, 1)
+    base:SetColorTexture(0.15, 0.12, 0.08, 1) -- rune look: warm brown-gold instead of black
     local slot = frame:CreateTexture(nil, "BACKGROUND", nil, -7)
     slot:SetAllPoints()
     slot:SetAtlas(SLOT_ATLAS)
