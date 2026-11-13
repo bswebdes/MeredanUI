@@ -1,5 +1,13 @@
 # MeredanUI Changelog
 
+## v0.4.6
+- Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same
+- Bags: every free slot is shown at the bottom across the full width, so you can drop items straight onto a free slot
+- Bags: sections flow left to right and wrap, so the window is narrower and has no gaps
+- Bags: quest items get a gold border, hearthstones a sage one, and Uncommon and better items a thicker quality border (bank and guild bank too). Borders stay visible on items with a cooldown
+- Bags: the "One big bag" layout was removed, there is only the section layout now
+- Fixed: class icons in chat grow with the chat font size again
+
 ## v0.4.5
 - Player buffs start at the right edge of the player frame again and grow to the left. The shortest-running buff sits on the right; when the row is full, the longest-running ones drop out
 - Questie: its quest icon on nameplates sits right next to the mUI bar and stays visible on your target
