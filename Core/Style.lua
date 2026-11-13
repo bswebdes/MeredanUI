@@ -372,10 +372,10 @@ ns.FRAME_MATERIALS = {
         ornament = { desaturate = 0, tint = { 1, 1, 1 } },             -- painted bronze art as is
     },
     iron = {
-        lit = { 0.72, 0.73, 0.75, 1 }, dark = { 0.18, 0.19, 0.21, 1 },
+        lit = { 0.52, 0.53, 0.55, 1 }, dark = { 0.11, 0.115, 0.125, 1 },  -- darker iron (Benny)
         band = { 0.04, 0.042, 0.046, 0.92 },
-        item = { 0.47, 0.48, 0.50, 1 },
-        accentLine = { 0.55, 0.56, 0.58 },
+        item = { 0.34, 0.35, 0.37, 1 },
+        accentLine = { 0.42, 0.43, 0.45 },
         rim = { 0.012, 0.013, 0.015, 0.55 },
         -- painted bronze art (class animals, gem bezels) mostly desaturated and cooled to match
         ornament = { desaturate = 0.8, tint = { 0.86, 0.88, 0.92 } },
@@ -470,6 +470,44 @@ end
 -- Window frame (building block B8): the deep shell around the window with a translucent dark rim
 -- outside it, no corner ornaments. Call after the background (UI.Box with noBorder).
 -- opts.small: menus, tooltips, dialogs (narrower band and rim). opts.target: visible area.
+-- Surface (building block B15) for bars and panes without a full frame (info bar, chat, tracker):
+-- a dark warm plate behind region (padX/padY around it), a black line on top and under it an edge
+-- lit in the frame material that fades out to both ends. Returns the plate frame.
+function ns.AddSurface(region, padX, padY)
+    local px = ns.PixelSize()
+    local m = ns.Material()
+    padX, padY = ns.Snap(padX or 0), ns.Snap(padY or 0)
+    local plate = CreateFrame("Frame", nil, region)
+    plate:SetFrameLevel(math.max(region:GetFrameLevel() - 1, 0))
+    plate:SetPoint("TOPLEFT", region, "TOPLEFT", -padX, padY)
+    plate:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", padX, -padY)
+    local bg = plate:CreateTexture(nil, "BACKGROUND")
+    bg:SetTexture(WHITE)
+    bg:SetAllPoints()
+    bg:SetGradient("VERTICAL", CreateColor(0.047, 0.039, 0.027, 0.9), CreateColor(0.094, 0.075, 0.051, 0.9))
+    local black = plate:CreateTexture(nil, "BORDER")
+    black:SetColorTexture(0, 0, 0, 0.9)
+    black:SetPoint("BOTTOMLEFT", plate, "TOPLEFT")
+    black:SetPoint("BOTTOMRIGHT", plate, "TOPRIGHT")
+    black:SetHeight(px)
+    -- lit edge: brightest in the middle, fading out to both ends
+    local r, g, b = m.lit[1], m.lit[2], m.lit[3]
+    local function Seg(layer)
+        local t = plate:CreateTexture(nil, layer)
+        t:SetTexture(WHITE)
+        t:SetHeight(px)
+        return t
+    end
+    local left, right = Seg("BORDER"), Seg("BORDER")
+    left:SetPoint("TOPLEFT")
+    left:SetPoint("TOPRIGHT", plate, "TOP", 0, 0)
+    right:SetPoint("TOPRIGHT")
+    right:SetPoint("TOPLEFT", plate, "TOP", 0, 0)
+    left:SetGradient("HORIZONTAL", CreateColor(r, g, b, 0), CreateColor(r, g, b, 1))
+    right:SetGradient("HORIZONTAL", CreateColor(r, g, b, 1), CreateColor(r, g, b, 0))
+    return plate
+end
+
 -- How far the window frame reaches beyond the window (band, lines, rim): things docked outside a
 -- window (side tabs, detail panes) keep clear of it
 function ns.WindowFrameReach()

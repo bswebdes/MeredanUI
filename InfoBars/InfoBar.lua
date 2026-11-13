@@ -1,5 +1,5 @@
 -- Info bar at the bottom center of the screen (intentionally ignores the 25 px screen margin).
--- Outlined text only, no background. Fields are chosen in the settings; all fields share one
+-- Outlined text on a B15 surface (dark plate, lit top edge). Fields are chosen in the settings; all fields share one
 -- width and the bar grows with them (4 fields = width of the Shift bar).
 --     [coins] 12.345    [bag] 42    [shield] 87 %    [gauge] 144
 -- No labels: each field shows a small icon (spec field: the real spec icon).
@@ -380,6 +380,8 @@ ns:On("PLAYER_LOGIN", function()
     bar = CreateFrame("Frame", "MeredanUIInfoBar", UIParent)
     bar:SetSize(ns.ExtraBarWidth(), ns.Snap(HEIGHT))
     bar:SetFrameStrata("LOW")
+    -- B15 surface: dark plate with a lit top edge, running down to the screen edge below
+    ns.AddSurface(bar, 14, 5)
     for _, field in ipairs(FIELDS) do cells[#cells + 1] = CreateCell(field) end
 
     -- Bottom center, intentionally without the 25 px margin
