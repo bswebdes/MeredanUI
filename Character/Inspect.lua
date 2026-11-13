@@ -3,8 +3,8 @@
 --
 --   [Portrait] Lumina Moonspark                    [x]   [Tabs]
 --              Level 17 - Warrior - Item level 13
---   [Slots]  [ model with race background ]  [Slots]
---            [Main][Off][Ranged]
+--   [Slots] Name   [ model with race background ]   Name [Slots]
+--        [Main] Name   [Off] Name   [Ranged] Name
 --
 -- Flow as in Blizzard_InspectUI.lua: NotifyInspect -> INSPECT_READY -> show; a target change closes
 -- it (for "target"), closing frees the data (ClearInspectPlayer).
@@ -13,7 +13,8 @@ local L = ns.L
 local Char = ns.Char
 
 local SLOT, SLOT_GAP = 40, 6
-local DOLL_W = 400
+local DOLL_W = 580 -- same as the character window's doll
+local LABEL_W, BOTTOM_LABEL_W = 130, 100
 local PAD = ns.NPC_PAD
 local TOP = ns.NPC_HEADER_BOTTOM + 16
 local TAB_SIZE, TAB_STEP = 40, 46
@@ -45,8 +46,6 @@ local function CreateSlot(parent, slotName)
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.border = ns.AddBorder(button)
-    button.level = ns.CreateText(button, 12, "CENTER", "OUTLINE")
-    button.level:SetPoint("BOTTOM", 0, 3)
     local hover = button:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.12)
@@ -80,17 +79,10 @@ local function UpdateSlot(button)
     local r, g, b = 0, 0, 0
     if quality and quality > 1 then r, g, b = C_Item.GetItemQualityColor(quality) end
     for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
-    -- Item level as in the character window (same option)
+    -- name, item level (same option as the character window) and enchant next to the slot
     local level = link and ns.db.characterItemLevels ~= false and not NO_LEVEL[button.slot] and C_Item.GetDetailedItemLevelInfo(link)
-    if level and not issecretvalue(level) and level > 1 then
-        local qr, qg, qb = 1, 1, 1
-        if quality then qr, qg, qb = C_Item.GetItemQualityColor(quality) end
-        button.level:SetTextColor(qr, qg, qb)
-        button.level:SetText(level)
-        button.level:Show()
-    else
-        button.level:Hide()
-    end
+    if issecretvalue(level) or not level or level <= 1 then level = nil end
+    Char.UpdateSlotLabel(button, unit, link, quality, level)
 end
 
 local function CreateGear(view)
@@ -118,11 +110,26 @@ local function CreateGear(view)
         self:SetCamDistanceScale(self.zoom)
     end)
     view.model = model
-    for i, name in ipairs(LEFT_SLOTS) do CreateSlot(view, name):SetPoint("TOPLEFT", 0, -(i - 1) * (SLOT + SLOT_GAP)) end
-    for i, name in ipairs(RIGHT_SLOTS) do CreateSlot(view, name):SetPoint("TOPRIGHT", 0, -(i - 1) * (SLOT + SLOT_GAP)) end
-    local total = #BOTTOM_SLOTS * SLOT + (#BOTTOM_SLOTS - 1) * SLOT_GAP
+    -- item texts on their own layer above the model
+    local labels = CreateFrame("Frame", nil, view)
+    labels:SetAllPoints()
+    labels:SetFrameLevel(model:GetFrameLevel() + 5)
+    for i, name in ipairs(LEFT_SLOTS) do
+        local b = CreateSlot(view, name)
+        b:SetPoint("TOPLEFT", 0, -(i - 1) * (SLOT + SLOT_GAP))
+        Char.AddSlotLabel(b, "left", LABEL_W, labels)
+    end
+    for i, name in ipairs(RIGHT_SLOTS) do
+        local b = CreateSlot(view, name)
+        b:SetPoint("TOPRIGHT", 0, -(i - 1) * (SLOT + SLOT_GAP))
+        Char.AddSlotLabel(b, "right", LABEL_W, labels)
+    end
+    local step = SLOT + 8 + BOTTOM_LABEL_W + 14
+    local x = (DOLL_W - (#BOTTOM_SLOTS * step - 14)) / 2
     for i, name in ipairs(BOTTOM_SLOTS) do
-        CreateSlot(view, name):SetPoint("BOTTOMLEFT", (DOLL_W - total) / 2 + (i - 1) * (SLOT + SLOT_GAP), 0)
+        local b = CreateSlot(view, name)
+        b:SetPoint("BOTTOMLEFT", x + (i - 1) * step, 0)
+        Char.AddSlotLabel(b, "bottom", BOTTOM_LABEL_W, labels)
     end
 end
 

@@ -10,7 +10,7 @@
 local _, ns = ...
 local L = ns.L
 
-local WIDTH = 820
+local WIDTH = 1000
 local PAD = ns.NPC_PAD
 local TOP = ns.NPC_HEADER_BOTTOM + 16
 local TAB_SIZE, TAB_STEP = 40, 46
@@ -34,6 +34,92 @@ function Char.G(name, fallback)
     local value = _G[name]
     if type(value) == "string" and value ~= "" then return value end
     return L[fallback or name]
+end
+
+-- Gear slot labels (character + inspect window) ------------------------------------------------
+-- Item name, item level and permanent enchant next to a slot, like the reference doll layouts.
+-- side: "left" column = text right of the slot, "right" column = left of it, "bottom" = right of it.
+
+local LABEL_GAP = 16    -- left/right columns: room for the sets view's swap arrow
+local LABEL_LINE = 13   -- line height
+local ENCHANT_COLOR = { 0.1, 1, 0.1 }
+local ENCHANT_LINE = Enum.TooltipDataLineType and Enum.TooltipDataLineType.ItemEnchantmentPermanent
+local enchantPrefix -- pattern for "Enchanted: %s" (Retail wording); Forever shows the bare effect
+
+local function EnchantText(unit, slot)
+    if not (ENCHANT_LINE and C_TooltipInfo and C_TooltipInfo.GetInventoryItem) then return end
+    local data = C_TooltipInfo.GetInventoryItem(unit, slot)
+    if not data or issecretvalue(data) then return end
+    for _, line in ipairs(data.lines or {}) do
+        local kind, text = line.type, line.leftText
+        if not issecretvalue(kind) and kind == ENCHANT_LINE and not issecretvalue(text) and text and text ~= "" then
+            if enchantPrefix == nil then
+                local fmt = type(ENCHANTED_TOOLTIP_LINE) == "string" and ENCHANTED_TOOLTIP_LINE or ""
+                enchantPrefix = fmt:find("%s", 1, true)
+                    and "^" .. fmt:gsub("[%(%)%.%+%-%*%?%[%]%^%$]", "%%%0"):gsub("%%s", "(.+)", 1) .. "$" or false
+            end
+            return enchantPrefix and text:match(enchantPrefix) or text
+        end
+    end
+end
+
+-- layer: frame above the model, so the text is not hidden behind it
+function Char.AddSlotLabel(button, side, width, layer)
+    local label = CreateFrame("Frame", nil, layer)
+    label:SetAllPoints(button)
+    local justify = side == "right" and "RIGHT" or "LEFT"
+    local function Line(size)
+        local text = ns.CreateText(label, size, justify)
+        text:SetWidth(width)
+        return text
+    end
+    label.lines = { Line(12), Line(11), Line(11) }
+    if side == "right" then
+        label.point, label.relative, label.x = "RIGHT", "LEFT", -LABEL_GAP
+    else
+        label.point, label.relative, label.x = "LEFT", "RIGHT", side == "bottom" and 8 or LABEL_GAP
+    end
+    label:SetShown(button:IsShown())
+    button:HookScript("OnShow", function() label:Show() end)
+    button:HookScript("OnHide", function() label:Hide() end)
+    button.label = label
+end
+
+-- link nil = empty slot (slot name + "Empty"); level nil = no item level line (option off, shirt ...)
+function Char.UpdateSlotLabel(button, unit, link, quality, level)
+    local label = button.label
+    if not label then return end
+    local muted = ns.UI.MUTED
+    local slotText = _G[button.slotName] or button.slotName
+    local rows = {}
+    if link then
+        local r, g, b = 1, 1, 1
+        if quality then r, g, b = C_Item.GetItemQualityColor(quality) end
+        rows[1] = { link:match("%[(.-)%]") or "", r, g, b }
+        if level then
+            rows[#rows + 1] = { L["Item level"] .. " " .. level, unpack(muted) }
+        else
+            rows[#rows + 1] = { slotText, unpack(muted) }
+        end
+        local enchant = EnchantText(unit, button.slot)
+        if enchant then rows[#rows + 1] = { enchant, unpack(ENCHANT_COLOR) } end
+    else
+        rows[1] = { slotText, unpack(muted) }
+        rows[2] = { Char.G("EMPTY", "Empty"), unpack(muted) }
+    end
+    for i, text in ipairs(label.lines) do
+        local row = rows[i]
+        if row then
+            text:ClearAllPoints()
+            text:SetPoint(label.point, label, label.relative, label.x, ((#rows - 1) / 2 - (i - 1)) * LABEL_LINE)
+            text:SetText(row[1])
+            text:SetTextColor(row[2], row[3], row[4])
+            text:SetAlpha(link and 1 or 0.6)
+            text:Show()
+        else
+            text:Hide()
+        end
+    end
 end
 
 -- Register a tab: { key, order, icon (texture or function(texture)), tip, Create(view),

@@ -1,10 +1,10 @@
--- Character tab: gear slots around the model on the left, four sub-views on the right
--- (icons on top): stats, equipment sets, titles, pet.
+-- Character tab: gear slots around the model on the left (item name, item level and enchant next
+-- to each slot), four sub-views on the right (icons on top): stats, equipment sets, titles, pet.
 --
---   [Head]   +---------+   [Hands]    [S][E][T][P]  Stats
---   [Neck]   |  Model  |   [Waist]    General ...
---   ...      +---------+   ...        resistances as color chips
---         [Main][Off][Ranged][Ammo]
+--   [Head] Name       +-------+       Name [Hands]    [S][E][T][P]  Stats
+--          Level      | Model |      Level            General ...
+--   ...               +-------+         ...           resistances as color chips
+--     [Main] Name   [Off] Name   [Ranged] Name   [Ammo]
 --
 -- Slots: left click/drag = pick up/equip (PickupInventoryItem), shift/ctrl click = link/dress up.
 -- No right click "use": UseInventoryItem is protected for addons.
@@ -15,7 +15,9 @@ local Char = ns.Char
 local UI
 
 local SLOT, SLOT_GAP = 40, 6
-local LEFT_W = 400
+local LEFT_W = 580
+local LABEL_W = 130      -- item text next to the side slots (over the model's edge)
+local BOTTOM_LABEL_W = 100
 local RIGHT_X = LEFT_W + 14
 local SUB = 30
 
@@ -58,8 +60,6 @@ local function CreateSlot(parent, slotName, side)
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.border = ns.AddBorder(button)
-    button.level = ns.CreateText(button, 12, "CENTER", "OUTLINE")
-    button.level:SetPoint("BOTTOM", 0, 3)
     button.count = ns.CreateText(button, 12, "RIGHT", "OUTLINE")
     button.count:SetPoint("BOTTOMRIGHT", -2, 2)
     local hover = button:CreateTexture(nil, "HIGHLIGHT")
@@ -137,20 +137,15 @@ local function UpdateSlot(button)
     local r, g, b = 0, 0, 0
     if texture and quality and quality > 1 then r, g, b = C_Item.GetItemQualityColor(quality) end
     for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
-    -- Item level as in Upgrades/ItemLevels.lua: small number at the bottom in quality color
+    -- name, item level (same option as Upgrades/ItemLevels.lua) and enchant next to the slot
     local level
     if texture and ns.db.characterItemLevels ~= false and not NO_LEVEL[slot] and button.slotName ~= "AMMOSLOT" then
         level = C_Item.GetCurrentItemLevel(ItemLocation:CreateFromEquipmentSlot(slot))
+        if issecretvalue(level) or not level or level <= 1 then level = nil end
     end
-    if level and not issecretvalue(level) and level > 1 then
-        local qr, qg, qb = 1, 1, 1
-        if quality then qr, qg, qb = C_Item.GetItemQualityColor(quality) end
-        button.level:SetTextColor(qr, qg, qb)
-        button.level:SetText(level)
-        button.level:Show()
-    else
-        button.level:Hide()
-    end
+    local link = texture and GetInventoryItemLink("player", slot)
+    if issecretvalue(link) then link = nil end
+    Char.UpdateSlotLabel(button, "player", link, quality, level)
     local count = button.slotName == "AMMOSLOT" and texture and GetInventoryItemCount("player", slot) or 0
     button.count:SetText(count > 0 and (count > 999 and "*" or count) or "")
 end
@@ -745,21 +740,32 @@ local function Create(frame)
     view.model:SetPoint("TOPLEFT", 1, -1)
     view.model:SetPoint("BOTTOMRIGHT", -1, 1)
 
+    -- item texts on their own layer above the model
+    local labels = CreateFrame("Frame", nil, left)
+    labels:SetAllPoints()
+    labels:SetFrameLevel(view.model:GetFrameLevel() + 5)
     for i, name in ipairs(LEFT_SLOTS) do
         local b = CreateSlot(left, name, "left")
         b:SetPoint("TOPLEFT", 0, -(i - 1) * (SLOT + SLOT_GAP))
+        Char.AddSlotLabel(b, "left", LABEL_W, labels)
     end
     for i, name in ipairs(RIGHT_SLOTS) do
         local b = CreateSlot(left, name, "right")
         b:SetPoint("TOPRIGHT", 0, -(i - 1) * (SLOT + SLOT_GAP))
+        Char.AddSlotLabel(b, "right", LABEL_W, labels)
     end
-    local bottom = {}
+    -- bottom row: weapons with text to the right, ammo as a bare slot at the end
+    local bottom, widths, total = {}, {}, 0
     for i, name in ipairs(BOTTOM_SLOTS) do
         bottom[i] = CreateSlot(left, name, "bottom")
+        widths[i] = name == "AMMOSLOT" and SLOT or SLOT + 8 + BOTTOM_LABEL_W
+        if name ~= "AMMOSLOT" then Char.AddSlotLabel(bottom[i], "bottom", BOTTOM_LABEL_W, labels) end
+        total = total + widths[i] + (i > 1 and 14 or 0)
     end
-    local total = #BOTTOM_SLOTS * SLOT + (#BOTTOM_SLOTS - 1) * SLOT_GAP
+    local x = (LEFT_W - total) / 2
     for i, b in ipairs(bottom) do
-        b:SetPoint("BOTTOMLEFT", (LEFT_W - total) / 2 + (i - 1) * (SLOT + SLOT_GAP), 0)
+        b:SetPoint("BOTTOMLEFT", x, 0)
+        x = x + widths[i] + 14
     end
     view.ranged, view.ammo = bottom[3], bottom[4]
 
