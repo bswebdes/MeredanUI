@@ -248,8 +248,9 @@ local function Style(self, unit)
     TagText(self, name, nameTag)
     self.NameText = name
 
+    local gemSize = ns.Snap(18) -- accent gem on the inner end (below)
     local healthText = ns.CreateText(texts, S.healthValueSize, far, "OUTLINE")
-    healthText:SetPoint(far, self, far, -8 * dir, 0)
+    healthText:SetPoint(far, self, far, -(gemSize / 2 + 4) * dir, 0)
     TagText(self, healthText, "[mui:health]")
     self.HealthText = healthText
 
@@ -260,17 +261,17 @@ local function Style(self, unit)
     powerText:Hide()
     self.PowerText = powerText
 
-    -- accent diamond on the inner end of the plate, with a dark outline
-    local diamondOutline = top:CreateTexture(nil, "OVERLAY", nil, 1)
-    diamondOutline:SetColorTexture(0.086, 0.075, 0.059, 1)
-    diamondOutline:SetSize(ns.Snap(13), ns.Snap(13))
-    diamondOutline:SetRotation(math.rad(45))
-    diamondOutline:SetPoint("CENTER", self, far, (S.plateOut + 2 * px) * dir, 0)
-    local diamond = top:CreateTexture(nil, "OVERLAY", nil, 2)
-    diamond:SetColorTexture(unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 }))
-    diamond:SetSize(ns.Snap(9), ns.Snap(9))
-    diamond:SetRotation(math.rad(45))
-    diamond:SetPoint("CENTER", diamondOutline)
+    -- cut gem in a bronze bezel, sitting on the bronze edge at the inner end like a clasp; the
+    -- gem texture is grey and takes the accent colour
+    local bezel = top:CreateTexture(nil, "OVERLAY", nil, 1)
+    bezel:SetTexture(ns.MEDIA .. "GemBezel")
+    bezel:SetSize(gemSize, gemSize)
+    bezel:SetPoint("CENTER", self, far, (S.plateOut - px) * dir, 0)
+    local gem = top:CreateTexture(nil, "OVERLAY", nil, 2)
+    gem:SetTexture(ns.MEDIA .. "Gem")
+    gem:SetAllPoints(bezel)
+    gem:SetVertexColor(unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 }))
+    self.AccentGem = gem
 
     -- Status icons: one row centered in the health bar (visible ones close ranks); resting icon
     -- and raid marker on the top corner, half over the edge like the name.
