@@ -810,10 +810,22 @@ end
 
 ns.AddCommand("setup", nil, function() ns.OpenSetup() end)
 
--- Once on first login by itself (after the loading screen)
+-- Once on first login by itself (after the loading screen). A new character starts with the intro
+-- cinematic: wait until it is over, otherwise Esc (skipping it) closes the wizard right away.
+local function Busy()
+    return InCombatLockdown() or not UIParent:IsShown()
+        or (CinematicFrame and CinematicFrame:IsShown()) or (MovieFrame and MovieFrame:IsShown())
+end
+
+local function OpenWhenFree(delay)
+    C_Timer.After(delay, function()
+        if ns.char.setupDone or (window and window:IsShown()) then return end
+        if Busy() then return OpenWhenFree(2) end
+        ns.OpenSetup()
+    end)
+end
+
 ns:On("PLAYER_LOGIN", function()
     if ns.char.setupDone then return end
-    C_Timer.After(3, function()
-        if not ns.char.setupDone and not InCombatLockdown() then ns.OpenSetup() end
-    end)
+    OpenWhenFree(3)
 end)
