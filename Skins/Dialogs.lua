@@ -126,18 +126,12 @@ end
 local function SkinPopup(popup)
     if not popup or skinned[popup] then return end
     skinned[popup] = true
-    local UI = ns.UI
     if popup.BG then popup.BG:SetAlpha(0) end -- Blizzard's border and background (atlas)
     local bg = popup:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
     local c = ns.STYLE.panelColor
     bg:SetColorTexture(c[1], c[2], c[3], 0.96)
-    ns.AddBorder(popup)
-    local accent = popup:CreateTexture(nil, "ARTWORK")
-    accent:SetColorTexture(unpack(UI.ACCENT))
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    ns.RuneFrame(popup, { small = true })
     local container = popup.ButtonContainer
     for _, button in ipairs(container and container.Buttons or {}) do SkinButton(button) end
     SkinButton(popup.ExtraButton)
@@ -177,12 +171,7 @@ local function SkinStackSplit(frame)
     bg:SetAllPoints()
     local c = ns.STYLE.panelColor
     bg:SetColorTexture(c[1], c[2], c[3], 0.96)
-    ns.AddBorder(frame)
-    local accent = frame:CreateTexture(nil, "ARTWORK")
-    accent:SetColorTexture(unpack(UI.ACCENT))
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    ns.RuneFrame(frame, { small = true })
     local left, right = frame.LeftButton, frame.RightButton
     if left and right then
         local field = CreateFrame("Frame", nil, frame)

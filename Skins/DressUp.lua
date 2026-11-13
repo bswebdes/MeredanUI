@@ -89,11 +89,7 @@ local function Panel(target)
     local c = ns.STYLE.panelColor
     local bg = Tex(target, "BACKGROUND", -8, { c[1], c[2], c[3], 0.97 })
     bg:SetAllPoints()
-    Edges(target, target)
-    local accent = Tex(target, "OVERLAY", 7, ns.UI.ACCENT)
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    ns.RuneFrame(target)
 end
 
 local function Fonts()

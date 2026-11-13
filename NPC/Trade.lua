@@ -245,12 +245,8 @@ local function CreateWindow()
     ns.layoutFrames.trade = window
     window:SetFrameLevel(math.max(TradeFrame:GetFrameLevel() - 1, 0)) -- background below Blizzard's input
     window:EnableMouse(true) -- catch clicks outside TradeFrame (else they hit the world)
-    UI.Box(window, ns.STYLE.panelColor)
-    local accent = window:CreateTexture(nil, "OVERLAY")
-    accent:SetColorTexture(unpack(UI.ACCENT))
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    UI.Box(window, ns.STYLE.panelColor, true)
+    ns.RuneFrame(window)
 
     local left, right = PAD, PAD + COL + COL_GAP
     Header(left, "playerName", "playerPortrait", "playerReady")

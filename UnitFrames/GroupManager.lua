@@ -8,7 +8,7 @@ local L = ns.L
 local WIDTH, PAD, TAB_W, TAB_H = 230, 12, 18, 40
 local INNER = WIDTH - 2 * PAD
 local CELL, GAP = 36, 5
-local PANEL_BG = { 0.06, 0.07, 0.07, 0.96 }
+local PANEL_BG = { 0.086, 0.075, 0.059, 0.96 }
 local ICON_PATH = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_"
 
 -- Blizzard order: skull, cross, square, moon / triangle, diamond, circle, star
@@ -331,12 +331,8 @@ local function Build()
     panel:SetPoint("TOPLEFT")
     panel:SetSize(WIDTH, 300)
     panel:EnableMouse(true)
-    ns.UI.Box(panel, PANEL_BG)
-    local accent = panel:CreateTexture(nil, "ARTWORK")
-    accent:SetColorTexture(unpack(ns.UI.ACCENT))
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2)
+    ns.UI.Box(panel, PANEL_BG, true)
+    ns.RuneFrame(panel)
 
     -- Header
     sections.mode = Dropdown(panel, 150, 26, function(self)

@@ -46,11 +46,12 @@ local L = ns.L
 UI.MarkReload = function(_) end
 
 -- Background with 1 px border and fixed color (independent of the theme).
-function UI.Box(frame, color)
+-- noBorder: windows in the rune look draw ns.RuneFrame instead of the outline
+function UI.Box(frame, color, noBorder)
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(color or UI.FIELD))
-    ns.AddBorder(frame)
+    if not noBorder then ns.AddBorder(frame) end
     return bg
 end
 
@@ -797,12 +798,8 @@ local function CreateList()
     list:EnableMouseWheel(true)
     UI.Box(list, { 0.06, 0.06, 0.07, 0.98 })
     -- Context menu: accent line on top like mUI windows
-    list.accent = list:CreateTexture(nil, "OVERLAY")
-    list.accent:SetPoint("TOPLEFT")
-    list.accent:SetPoint("TOPRIGHT")
-    list.accent:SetHeight(2 * ns.PixelSize())
-    list.accent:SetColorTexture(unpack(UI.ACCENT))
-    list.accent:Hide()
+    list.accent = ns.RuneFrame(list, { small = true })
+    list.accent:SetShown(false)
     list.rows = {}
     list.pad = 0
     for i = 1, MAX_ROWS do

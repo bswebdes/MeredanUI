@@ -227,12 +227,8 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     window:EnableMouse(true)
     window:SetClampedToScreen(true)
     window:Hide()
-    UI.Box(window, ns.STYLE.panelColor)
-    local accent = window:CreateTexture(nil, "OVERLAY")
-    accent:SetColorTexture(unpack(UI.ACCENT))
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    UI.Box(window, ns.STYLE.panelColor, true)
+    ns.RuneFrame(window)
     tinsert(UISpecialFrames, name) -- Esc closes
 
     -- Header: drag region holding portrait, name, title and close

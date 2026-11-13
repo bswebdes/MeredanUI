@@ -661,7 +661,8 @@ local function CreateWindow()
     window:EnableMouse(true)
     window:SetClampedToScreen(true)
     window:Hide()
-    UI.Box(window, ns.STYLE.panelColor)
+    UI.Box(window, ns.STYLE.panelColor, true)
+    ns.RuneFrame(window)
     tinsert(UISpecialFrames, "MeredanUIBags") -- Esc closes
 
     local margin = ns.Snap(ns.SCREEN_MARGIN)

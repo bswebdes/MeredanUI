@@ -48,12 +48,8 @@ local function SkinFrame(menu)
     local UI = ns.UI
     if menu.Border then menu.Border:SetAlpha(0) end
     if menu.Header then menu.Header:SetAlpha(0) end
-    UI.Box(menu, ns.STYLE.panelColor)
-    local accent = menu:CreateTexture(nil, "OVERLAY")
-    accent:SetColorTexture(unpack(UI.ACCENT))
-    accent:SetPoint("TOPLEFT")
-    accent:SetPoint("TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    UI.Box(menu, ns.STYLE.panelColor, true)
+    ns.RuneFrame(menu)
     local title = UI.Text(menu, 15, "CENTER")
     ns.SetFont(title, 15, "", "bold")
     title:SetPoint("TOP", 0, -16)

@@ -45,7 +45,7 @@ local STYLE = ns.STYLE
 ns.THEMES = {
     class = {
         name = L["Class colour"],
-        panelColor = { 0.06, 0.06, 0.06, 0.9 },
+        panelColor = { 0.086, 0.075, 0.059, 0.93 }, -- rune look: warm dark brown
         healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
         classHealth = true,
         emptyColor = { 0.1, 0.1, 0.1 },
@@ -61,7 +61,7 @@ ns.THEMES = {
     },
     blizzard = {
         name = L["Blizzard"], -- Blizzard's default frame colours: green health, Blizzard power colours, bronze borders
-        panelColor = { 0.06, 0.05, 0.04, 0.9 },
+        panelColor = { 0.086, 0.075, 0.059, 0.93 }, -- rune look: warm dark brown
         healthColor = { 0, 0.8, 0 },
         emptyColor = { 0.1, 0.08, 0.06 },
         blizzardPower = true,
@@ -69,7 +69,7 @@ ns.THEMES = {
     },
     green = {
         name = L["mUI (sage)"], -- single-color sage
-        panelColor = { 0.06, 0.06, 0.06, 0.9 },
+        panelColor = { 0.086, 0.075, 0.059, 0.93 }, -- rune look: warm dark brown
         healthColor = { 111 / 255, 181 / 255, 154 / 255 }, -- Surf palette
     },
 }
@@ -103,9 +103,9 @@ if LSM then
     LSM:Register(LSM.MediaType.FONT, "mUI Bold", ns.BOLD_FONT)
 end
 
--- Border: a black 1px line. Debuffs tint it by dispel type (then 2px).
+-- Border: a thin bronze line (rune look). Debuffs tint it by dispel type (then 2px).
 ns.BORDER_PIXELS = 1
-local BORDER_COLOR = { 0, 0, 0, 1 }
+local BORDER_COLOR = { 0.5, 0.4, 0.24, 1 }
 ns.GOLD_BORDER = { 0.5, 0.4, 0.24, 1 }
 ns.BORDER_COLOR = BORDER_COLOR
 
@@ -130,9 +130,8 @@ function ns.ApplySettings()
     STYLE.powerClassColor = theme.powerClassColor
     STYLE.blizzardPower = theme.blizzardPower
     ns.HEALTH_COLOR = theme.healthColor
-    -- Border colour: in place, borders take it when they are created (theme or border switch: reload).
-    -- Theme "Blizzard" always gold brown, else the "Borders" setting.
-    local b = theme.borderColor or (db.borderStyle == "gold" and ns.GOLD_BORDER) or { 0, 0, 0, 1 }
+    -- Border colour: in place, borders take it when they are created (theme switch: reload)
+    local b = theme.borderColor or ns.GOLD_BORDER
     for i = 1, 4 do ns.BORDER_COLOR[i] = b[i] end
 
     -- Font and texture are fixed
@@ -309,6 +308,72 @@ function ns.CreateBackground(region)
     registry.panels[#registry.panels + 1] = bg
     ns.AddBorder(region)
     return bg
+end
+
+-- Rune look (v0.5) for windows: soft shadow instead of a black outline, a thin bronze line inset
+-- from the edge and accent corner brackets. Call after the background (UI.Box with noBorder).
+-- opts.small: menus, tooltips, dialogs (tighter inset and corners).
+ns.BRONZE = { 0.72, 0.59, 0.36 }
+ns.RUNE_BG = { 0.086, 0.075, 0.059 } -- window background (themes keep it, "Dark" goes near-black)
+ns.SHADOW_TEXTURE = ns.MEDIA .. "Shadow"
+function ns.RuneFrame(frame, opts)
+    local small = opts and opts.small
+    local px = ns.PixelSize()
+    local inset, corner, spread = small and 3 or 5, small and 10 or 14, small and 10 or 16
+
+    local shadow = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
+    shadow:SetTexture(ns.SHADOW_TEXTURE)
+    shadow:SetTextureSliceMargins(24, 24, 24, 24)
+    if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
+    shadow:SetPoint("TOPLEFT", -spread, spread)
+    shadow:SetPoint("BOTTOMRIGHT", spread, -spread)
+
+    local function Line(layer, r, g, b, a)
+        local tex = frame:CreateTexture(nil, layer)
+        tex:SetTexture(WHITE)
+        tex:SetVertexColor(r, g, b, a)
+        tex:SetSnapToPixelGrid(false)
+        tex:SetTexelSnappingBias(0)
+        return tex
+    end
+    -- inner bronze line
+    local br, bg, bb = unpack(ns.BRONZE)
+    local lines = {}
+    for i = 1, 4 do lines[i] = Line("BORDER", br, bg, bb, 0.4) end
+    lines[1]:SetPoint("TOPLEFT", inset, -inset)
+    lines[1]:SetPoint("TOPRIGHT", -inset, -inset)
+    lines[1]:SetHeight(px)
+    lines[2]:SetPoint("BOTTOMLEFT", inset, inset)
+    lines[2]:SetPoint("BOTTOMRIGHT", -inset, inset)
+    lines[2]:SetHeight(px)
+    lines[3]:SetPoint("TOPLEFT", inset, -inset)
+    lines[3]:SetPoint("BOTTOMLEFT", inset, inset)
+    lines[3]:SetWidth(px)
+    lines[4]:SetPoint("TOPRIGHT", -inset, -inset)
+    lines[4]:SetPoint("BOTTOMRIGHT", -inset, inset)
+    lines[4]:SetWidth(px)
+
+    -- accent corner brackets: two bars per corner, flush with the outer edge
+    local ar, ag, ab = unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 })
+    local thick = 2 * px
+    local corners = {}
+    for _, c in ipairs({ { "TOPLEFT", 1, -1 }, { "TOPRIGHT", -1, -1 }, { "BOTTOMLEFT", 1, 1 }, { "BOTTOMRIGHT", -1, 1 } }) do
+        local point = c[1]
+        local h = Line("OVERLAY", ar, ag, ab, 1)
+        h:SetPoint(point)
+        h:SetSize(corner, thick)
+        local v = Line("OVERLAY", ar, ag, ab, 1)
+        v:SetPoint(point)
+        v:SetSize(thick, corner)
+        corners[#corners + 1], corners[#corners + 2] = h, v
+    end
+    local parts = { shadow = shadow, lines = lines, corners = corners }
+    function parts:SetShown(shown)
+        shadow:SetShown(shown)
+        for _, tex in ipairs(lines) do tex:SetShown(shown) end
+        for _, tex in ipairs(corners) do tex:SetShown(shown) end
+    end
+    return parts
 end
 
 -- Bars glide to new values (Blizzard's built-in interpolation - works with secret values);

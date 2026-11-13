@@ -201,14 +201,7 @@ local PAGES = {
                 ns.RefreshStyle()
             end, RELOAD)
             page:AddDropdown(L["Theme"], ThemeItems, Getter("theme"), Setter("theme", ns.RefreshStyle),
-                Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours with bronze borders. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
-            page:AddDropdown(L["Borders"], function()
-                return {
-                    { value = "black", label = L["Black"] },
-                    { value = "gold", label = L["Gold brown"] },
-                }
-            end, function() return ns.db.borderStyle or "black" end, function(value) ns.db.borderStyle = value end,
-                Help(L["Colour of the thin frame borders. The Blizzard theme always uses gold brown."], true))
+                Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
             page:AddCheckbox(L["Gryphons at the action bars"], Getter("actionBarArt"),
                 Setter("actionBarArt", function() if ns.UpdateGryphons then ns.UpdateGryphons() end end),
                 Help(L["Blizzard's gryphons (Horde: wyverns) at both ends of the bottom action bars."]))
@@ -1070,7 +1063,8 @@ local function CreateWindow()
     window:RegisterForDrag("LeftButton")
     window:SetScript("OnDragStart", window.StartMoving)
     window:SetScript("OnDragStop", window.StopMovingOrSizing)
-    UI.Box(window, { 0.05, 0.05, 0.06, 0.97 })
+    UI.Box(window, { 0.086, 0.075, 0.059, 0.98 }, true)
+    ns.RuneFrame(window)
     tinsert(UISpecialFrames, "MeredanUIOptions") -- Esc closes
 
     -- Title: "Meredan" light, "UI" in Surf Green
