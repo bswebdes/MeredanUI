@@ -258,14 +258,19 @@ local function StyleButton(button)
 end
 
 local QUEST_COLOR = { 1, 0.82, 0 }
+local HEARTH_COLOR = { 0.61, 0.69, 0.53 } -- sage
 
--- Border: gold for quest items, quality color from Uncommon up (both 3px), else thin black.
+-- Border: gold for quest items, sage for hearthstones, quality color from Uncommon up (all 3px),
+-- else thin black.
 -- Item level on gear and upgrade arrow. Used by the bag, bank and guild bank windows.
 function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     local quality = info and info.quality
     local r, g, b, strong = 0, 0, 0, false
+    if not categoryOf then BuildLookup() end
     if info and button.muiQuest then
         r, g, b, strong = QUEST_COLOR[1], QUEST_COLOR[2], QUEST_COLOR[3], true
+    elseif info and categoryOf[info.itemID] == "Hearthstones" then
+        r, g, b, strong = HEARTH_COLOR[1], HEARTH_COLOR[2], HEARTH_COLOR[3], true
     elseif quality and quality >= Enum.ItemQuality.Uncommon then
         r, g, b = QualityColor(quality)
         strong = true
