@@ -15,7 +15,7 @@ local CLASS_ART = {
     HUNTER = { file = "EndCaps\\Hunter", right = 477 / 512, top = 0, aspect = 477 / 512, scale = 1.15, x = 10, y = 2 },
     ROGUE = { file = "EndCaps\\Rogue", right = 1, top = 215 / 512, aspect = 512 / 297, scale = 1.1, x = 21, y = -1 },
     PRIEST = { file = "EndCaps\\Priest", right = 1, top = 12 / 512, aspect = 512 / 500, scale = 1, x = 1 },
-    SHAMAN = { file = "EndCaps\\Shaman", right = 462 / 512, top = 0, aspect = 462 / 512, scale = 1.1 },
+    SHAMAN = { file = "EndCaps\\Shaman", right = 462 / 512, top = 0, aspect = 462 / 512, scale = 1.2, x = 14 },
     MAGE = { file = "EndCaps\\Mage", right = 388 / 512, top = 0, aspect = 388 / 512, scale = 1.15 },
     WARLOCK = { file = "EndCaps\\Warlock", right = 436 / 512, top = 0, aspect = 436 / 512, scale = 1.1, x = 12 },
     DRUID = { file = "EndCaps\\Druid", right = 328 / 512, top = 0, aspect = 328 / 512, scale = 1.1, x = 4 },
