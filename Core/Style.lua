@@ -944,7 +944,7 @@ end
 -- the same name and never tinted (tinting multiplies and would discolour them).
 -- Flat icons whose colour carries meaning (state, distance) or that are tiny primitives stay flat
 ns.FLAT_ICONS = { Check = true, ChevronDown = true, Minus = true, Plus = true, Square = true, Diamond = true,
-    Navigation = true, Entrance = true, Summon = true }
+    Navigation = true, Entrance = true }
 ns.PAINTED_ICONS = setmetatable({}, { __index = function(_, name)
     -- emote bar keeps its flat icons (painted emotes looked too silly)
     return type(name) == "string" and not ns.FLAT_ICONS[name] and not name:find("^Emote") or nil
@@ -955,14 +955,42 @@ end
 
 -- Set an icon texture by name. Painted icons keep their own colours: tinting calls (hover, state
 -- colours) only pass the alpha through while a painted icon is shown.
+-- Hover/active states tint icons in the accent colour; a painted icon brightens instead (an
+-- additive copy on top), any other colour clears that again.
+local function IsAccent(r, g, b)
+    local c = ns.UI and ns.UI.ACCENT
+    return c and type(r) == "number" and math.abs(r - c[1]) < 0.01 and math.abs(g - c[2]) < 0.01
+        and math.abs(b - c[3]) < 0.01
+end
+
 function ns.SetIcon(tex, name)
     if not tex.muiTintGuard then
         tex.muiTintGuard = true
         local setColor = tex.SetVertexColor
         tex.SetVertexColor = function(self, r, g, b, a)
-            if self.muiPainted then return setColor(self, 1, 1, 1, a) end
+            if self.muiPainted then
+                local glow = self.muiGlow
+                if IsAccent(r, g, b) then
+                    if not glow then
+                        local layer, sub = self:GetDrawLayer()
+                        glow = self:GetParent():CreateTexture(nil, layer, nil, math.min((sub or 0) + 1, 7))
+                        glow:SetAllPoints(self)
+                        glow:SetBlendMode("ADD")
+                        glow:SetAlpha(0.35)
+                        self.muiGlow = glow
+                    end
+                    glow:SetTexture(self:GetTexture())
+                    glow:SetShown(self:IsShown())
+                elseif glow then
+                    glow:Hide()
+                end
+                return setColor(self, 1, 1, 1, a)
+            end
+            if self.muiGlow then self.muiGlow:Hide() end
             return setColor(self, r, g, b, a)
         end
+        -- the glow follows the icon's visibility
+        hooksecurefunc(tex, "Hide", function(self) if self.muiGlow then self.muiGlow:Hide() end end)
     end
     tex.muiPainted = ns.PAINTED_ICONS[name] or nil
     tex:SetTexture(ns.IconPath(name))
@@ -1037,12 +1065,12 @@ function ns.UpdateDeathIcons(health, unit)
 end
 
 -- SummonIndicator.PostUpdate: oUF sets Blizzard's texture on every update; switch back to
--- our icon, colored by status (pending / accepted / declined).
+-- our icon for the status (pending / accepted / declined).
 function ns.UpdateSummonIcon(icon, status)
     if not status or status == Enum.SummonStatus.None then return end
-    icon:SetTexture(ns.MEDIA .. "Icons\\Summon")
-    local color = ns.STYLE.summonColors[status] or ns.STYLE.summonColors[1]
-    icon:SetVertexColor(unpack(color))
+    -- painted icon per status (pending / accepted / declined)
+    local names = { "SummonPending", "SummonAccepted", "SummonDeclined" }
+    ns.SetStatusIcon(icon, names[status] or names[1])
 end
 
 -- Castbar, visible only while casting; overlays the health bar (which provides the border).
