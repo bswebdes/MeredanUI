@@ -13,7 +13,7 @@ local COLORS = {
 
 local function ApplyBar(frame)
     local bar = frame.StatusBar
-    bar:SetStatusBarTexture(ns.STYLE.barTexture)
+    bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     local color = COLORS[frame.timer] or COLORS.BREATH
     bar:SetStatusBarColor(color[1], color[2], color[3])
 end
@@ -29,7 +29,7 @@ local function Style(frame)
     local bg = bar:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
     bg:SetColorTexture(0.04, 0.04, 0.05, 0.9)
-    ns.AddBorder(bar)
+    ns.AddThinShell(bar)
     -- Text centered inside the bar instead of the box below
     local text = frame.Text
     if text then

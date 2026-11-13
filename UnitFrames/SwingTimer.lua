@@ -55,12 +55,12 @@ end
 -- Height the threat bar below has to leave free
 function ns.SwingTimerReserve()
     if not holder or not Enabled() or (ns.LayoutFlag and ns.LayoutFlag("healerGroups")) then return 0 end
-    return ns.Snap(HEIGHT) + ns.Snap(GAP)
+    return ns.Snap(HEIGHT) + ns.Snap(GAP) + 2 * ns.ThinShellReach()
 end
 
 -- Directly below the main bar, same width (unless moved by the user)
 local function Place()
-    local top, width = ns.BelowMainBar(ns.Snap(GAP))
+    local top, width = ns.BelowMainBar(ns.Snap(GAP) + ns.ThinShellReach())
     if not (holder and top) then return end
     holder:SetWidth(width)
     -- No swing timer for healers
@@ -74,13 +74,13 @@ local function Create()
     holder:SetFrameStrata("LOW")
     bar = CreateFrame("StatusBar", nil, holder)
     bar:SetAllPoints()
-    bar:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
+    bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     bar:SetMinMaxValues(0, 1)
     bar:SetStatusBarColor(unpack(ClassColor()))
     local bg = bar:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(0, 0, 0, 0.5)
-    ns.AddBorder(bar)
+    ns.AddThinShell(bar)
     -- Off hand: thin white strip at the bottom of the bar
     offhand = CreateFrame("StatusBar", nil, bar)
     offhand:SetPoint("BOTTOMLEFT")

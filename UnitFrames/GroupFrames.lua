@@ -29,6 +29,8 @@ local HEALER_HOTS = {
 local LEADER_SIZE = 13      -- crown top left, same size as role icons (white: gold is hard to see this small)
 local POWER_HEIGHT = 4      -- healer mana bar (bottom of the frame)
 local BOSS_BAR_RESERVE = 260 -- kept free right of the raid for the boss timers left of the player frame
+-- The thin shell reaches outside each frame, so the gap has to clear two shells
+local function FrameGap() return ns.Snap(GAP) + 2 * ns.ThinShellReach() end
 local RAID_CHAT_GAP = 90   -- raid <-> top of the chat (room for edit box and tabs)
 local testing = false       -- running demo ("group"/"raid"/"raid40", below): mana even without healers
 local hidden = CreateFrame("Frame")
@@ -245,7 +247,10 @@ local function Style(self, unit)
         GameTooltip:SetUnit(target)
     end)
     self:SetScript("OnLeave", function() GameTooltip:Hide() end)
-    ns.CreateBackground(self)
+    local bg = self:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints()
+    bg:SetColorTexture(unpack(ns.STYLE.panelColor))
+    ns.AddThinShell(self)
 
     -- Size of the own header (group or raid), see Spawn
     local header = self:GetParent()
@@ -258,6 +263,7 @@ local function Style(self, unit)
     health.colorClass = ns.STYLE.classHealth
     health.colorHealth = true
     self.Health = health
+    ns.ShadeBar(health, false)
 
     -- Shield (light blue, from the bar end over health); heal prediction only in the healer layout
     local healPrediction = ns.LayoutFlag("healPrediction")
@@ -270,6 +276,7 @@ local function Style(self, unit)
     power.colorPower = true
     power.PostUpdate = PowerVisibility
     self.Power = power
+    ns.ShadeBar(power, false)
 
     local overlay = CreateFrame("Frame", nil, self)
     overlay:SetAllPoints()
@@ -506,7 +513,7 @@ local function FitWidth(width, columns)
     if not edge then return width end
     -- Reserve boss timer space only if they exist (Forever: no boss data from Blizzard)
     local reserve = (ns.IS_FOREVER or not ns.ModuleOn("bossMods")) and 0 or ns.Snap(BOSS_BAR_RESERVE)
-    local available = edge - reserve - ns.Snap(ns.SCREEN_MARGIN) - (columns - 1) * ns.Snap(GAP)
+    local available = edge - reserve - ns.Snap(ns.SCREEN_MARGIN) - (columns - 1) * FrameGap()
     return math.max(math.min(width, ns.Snap(math.floor(available / columns))), ns.Snap(40))
 end
 
@@ -518,7 +525,7 @@ local function SpawnGroup(factory, kind, name, visibility, columns, growLeft, ro
     local w, h = Size(kind)
     if rows then w, h = rows.w, rows.h end
     if columns > 1 and not growLeft and not rows then w = FitWidth(w, columns) end
-    local gap = ns.Snap(GAP)
+    local gap = FrameGap()
     local layout = rows
         and { "point", "LEFT", "xOffset", gap, "columnAnchorPoint", "TOP", "columnSpacing", gap }
         or { "point", "TOP", "yOffset", -gap, "columnAnchorPoint", growLeft and "RIGHT" or "LEFT", "columnSpacing", gap }
@@ -568,7 +575,7 @@ oUF:Factory(function(self)
         -- (4 x 61 high): up to 20: rows of 5 (~107 x 61); 21-25: 5 rows of 5, flatter (~107 x 48);
         -- 26-40: 4 rows of 10 (~51 x 61)
         local H = ns.HEALER
-        local width, gap = ns.Snap(H.groupWidth), ns.Snap(GAP)
+        local width, gap = ns.Snap(H.groupWidth), FrameGap()
         local boxHeight = H.rows * ns.Snap(H.frameH) + (H.rows - 1) * gap
         rows = { per = 5, w = ns.Snap((width - 4 * gap) / 5), h = ns.Snap(H.frameH) }
         raidRows = { per = 5, w = rows.w, h = ns.Snap((boxHeight - 4 * gap) / 5) }
