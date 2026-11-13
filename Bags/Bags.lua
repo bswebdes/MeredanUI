@@ -8,7 +8,7 @@
 --   | Flasks           Herbs            Consumable    |
 --   | [#][#]           [#][#][#]        [#][#]        |
 --   | Junk             Free                           |
---   | [#]              [42]                           |
+--   | [#]              [ ][ ][ ][ ][ ]...              |
 --   | 12,345 g                                        |
 --   +-------------------------------------------------+
 --
@@ -253,9 +253,6 @@ local function StyleButton(button)
     fill:SetScript("OnHide", function() pulse:Stop() end)
     fill:Hide()
     button.muiFill = fill
-    button.muiFree = ns.CreateText(button, 13, "CENTER", "OUTLINE")
-    button.muiFree:SetPoint("CENTER")
-    button.muiFree:SetTextColor(0.7, 0.7, 0.7)
 end
 
 -- Quality-colored border (Uncommon and up, else black), item level on gear and upgrade arrow.
@@ -343,7 +340,6 @@ local function UpdateButton(button, info, showLevel)
 
     if showLevel == nil then showLevel = isEquipKey[button.muiCategory] end
     ns.DecorateItemButton(button, info, showLevel, bag, slot)
-    button.muiFree:SetText("")
     button.muiItemID = info and info.itemID
     button.muiName = info and info.hyperlink and (C_Item.GetItemNameByID(info.itemID) or ""):lower() or ""
 end
@@ -431,7 +427,7 @@ end
 local function Collect()
     ScanNewItems()
     local items, empties, free = {}, {}, 0
-    local special = { count = 0, key = nil, button = nil }
+    local special = { count = 0, key = nil }
     for _, bag in ipairs(BAGS) do
         local numSlots = ViewOf(bag) == view and C_Container.GetContainerNumSlots(bag) or 0
         local _, family = C_Container.GetContainerNumFreeSlots(bag)
@@ -454,7 +450,6 @@ local function Collect()
                 special.count = special.count + 1
                 local key = AMMO_FAMILIES[family] and QUIVER or SPECIAL
                 special.key = (special.key == nil or special.key == key) and key or SPECIAL
-                special.button = special.button or button
                 button.muiCategory = special.key
                 empties[bag][#empties[bag] + 1] = entry
             else
@@ -471,13 +466,16 @@ local function Collect()
     return items, empties, free, special
 end
 
--- first empty NORMAL slot (special bags have their own tile)
-local function FirstEmpty(empties)
+-- empty slots split into normal ones ("Free") and those of special bags (quiver ...)
+local function SplitEmpties(empties)
+    local free, special = {}, {}
     for _, bag in ipairs(BAGS) do
         for _, entry in ipairs(empties[bag] or {}) do
-            if entry.button.muiCategory == FREE then return entry.button end
+            local list = entry.button.muiCategory == FREE and free or special
+            list[#list + 1] = entry
         end
     end
+    return free, special
 end
 
 -- place list as a grid with cols columns at (x, y) in relative (default: content); returns height
@@ -495,16 +493,21 @@ end
 
 local function MaxContentHeight() return UIParent:GetHeight() - 2 * ns.SCREEN_MARGIN - 120 end
 
-local function LayoutCategories(items, freeButton, free, special)
-    local sections = {}
+-- Empty slots are shown individually (like one big bag), so items can be dropped straight
+-- onto a free slot; they keep bag order instead of being sorted.
+local function LayoutCategories(items, empties, special)
+    local sections, unsorted = {}, {}
     for _, entry in ipairs(items) do
         sections[entry.key] = sections[entry.key] or {}
         table.insert(sections[entry.key], entry)
     end
+    local freeList, specialList = SplitEmpties(empties)
+    if #freeList > 0 then sections[FREE], unsorted[FREE] = freeList, true end
+    if #specialList > 0 and special.key then
+        sections[special.key], unsorted[special.key] = specialList, true
+    end
     local keys = {}
     for key in pairs(sections) do keys[#keys + 1] = key end
-    if freeButton then keys[#keys + 1] = FREE end
-    if special and special.button then keys[#keys + 1] = special.key end
     table.sort(keys, SectionOrder)
 
     -- layout like BetterBags: columns of COLUMN_SLOTS slots; sections flow top to bottom, small
@@ -514,7 +517,7 @@ local function LayoutCategories(items, freeButton, free, special)
     local rows, row = {}, nil
     for _, key in ipairs(keys) do
         if key ~= NEW then -- "New" gets its own row at the very top (see below)
-            local count = (key == FREE or (special and key == special.key and not sections[key])) and 1 or #sections[key]
+            local count = #sections[key]
             local secCols = math.min(count, COLUMN_SLOTS)
             local w = math.max(secCols * (SIZE + GAP) - GAP, TextWidth(L[key]) + 4)
             local h = HEADER + math.ceil(count / COLUMN_SLOTS) * (SIZE + GAP) - GAP
@@ -569,15 +572,8 @@ local function LayoutCategories(items, freeButton, free, special)
         header.text:SetText(L[section.key])
         header:SetWidth(math.max(header.text:GetUnboundedStringWidth(), 1))
         header:Show()
-        local list
-        if section.key == FREE then
-            list = { { button = freeButton } }
-        elseif special and section.key == special.key and not sections[section.key] then
-            list = { { button = special.button } }
-        else
-            list = sections[section.key]
-            table.sort(list, ItemSort)
-        end
+        local list = sections[section.key]
+        if not unsorted[section.key] then table.sort(list, ItemSort) end
         for i, entry in ipairs(list) do
             local col, row = (i - 1) % section.cols, math.floor((i - 1) / section.cols)
             local button = entry.button ---@type table
@@ -585,8 +581,6 @@ local function LayoutCategories(items, freeButton, free, special)
             button:SetPoint("TOPLEFT", content, "TOPLEFT",
                 section.x + col * (SIZE + GAP), -(section.y + HEADER + row * (SIZE + GAP)))
             UpdateButton(button, entry.info)
-            if section.key == FREE then button.muiFree:SetText(free) end
-            if special and button == special.button then button.muiFree:SetText(special.count) end
             button:Show()
         end
     end
@@ -600,15 +594,14 @@ local function SingleSort(a, b)
     return ItemSort(a, b)
 end
 
--- single bag: every slot individually, including empty ones (no "17 free" tile); empty slots of
--- special bags (quiver ...) come last
+-- single bag: every slot individually, including empty ones; empty slots of special bags
+-- (quiver ...) come last
 local function LayoutSingle(items, empties)
     table.sort(items, SingleSort)
     for pass = 1, 2 do
         for _, bag in ipairs(BAGS) do
             if IsSpecialBag(bag) == (pass == 2) then
                 for _, entry in ipairs(empties[bag] or {}) do
-                    if entry.button.muiFree then entry.button.muiFree:SetText("") end
                     items[#items + 1] = entry
                 end
             end
@@ -636,7 +629,7 @@ function Layout()
     if style == "single" then
         width, height = LayoutSingle(items, empties)
     else
-        width, height = LayoutCategories(items, FirstEmpty(empties), free, special)
+        width, height = LayoutCategories(items, empties, special)
     end
 
     content:SetSize(width, height)
