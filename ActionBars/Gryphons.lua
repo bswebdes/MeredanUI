@@ -6,7 +6,7 @@ local _, ns = ...
 local L = ns.L
 
 local GRYPHON_ASPECT = 178 / 167 -- atlas size
--- Class animals: drawn facing right (the right cap, looking outward), mirrored for the left one. Tight crops at the
+-- Class animals: drawn facing right (the left cap, looking at the bar), mirrored for the right one. Tight crops at the
 -- bottom-left of a 512x512 texture; right/top = tex coords of the art, aspect = art width / height.
 -- scale/x/y: tuned in game with /mui endcap.
 local CLASS_ART = {
@@ -46,8 +46,8 @@ local function Texture(frame, side, art)
     if art then
         frame.tex:SetTexture(ns.MEDIA .. art.file)
         local r = art.right or 1
-        -- like Blizzard's gryphons the animals look away from the bar, so the left one is mirrored
-        if side == "left" then frame.tex:SetTexCoord(r, 0, art.top, 1) else frame.tex:SetTexCoord(0, r, art.top, 1) end
+        -- the animals look toward the bar, so the right one is mirrored
+        if side == "left" then frame.tex:SetTexCoord(0, r, art.top, 1) else frame.tex:SetTexCoord(r, 0, art.top, 1) end
     else
         local horde = UnitFactionGroup("player") == "Horde"
         frame.tex:SetTexCoord(0, 1, 0, 1)
