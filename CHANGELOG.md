@@ -4,6 +4,7 @@
 - Repairs are now paid from your own gold by default. The guild bank is only used if you turn on the new "Repair from the guild bank" setting (Bags page)
 - Fixed: on new characters the setup now opens after the intro cinematic instead of being closed by it
 - Fixed: with Questie 12.8 the direction arrow in the quest tracker and Questie's icons on the mUI map work again
+- Item tooltips no longer list every character for the Hearthstone
 
 ## v0.4.6
 - Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same
