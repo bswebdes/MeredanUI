@@ -411,6 +411,20 @@ local function AddUnitLines(tooltip, unit)
     -- Layout: "Level 17 Night Elf Hunter" on one line (class in its colour), faction below, then
     -- a divider and the stats as label/value rows. Forever gives the class its own line: shift
     -- the lines below it up one and use the freed last line for the divider.
+    -- Long race names ("High Order Skyborne"): keep only the word that names the race
+    local race = UnitRace(unit)
+    if levelLine and Readable(race) and race then
+        local short
+        for word in race:gmatch("%S+") do
+            local lower = word:lower()
+            if lower:find("skyborn") or lower:find("himmel") then short = word end
+        end
+        local text = levelLine:GetText()
+        if short and short ~= race and Readable(text) then
+            local from, to = text:find(race, 1, true)
+            if from then levelLine:SetText(text:sub(1, from - 1) .. short .. text:sub(to + 1)) end
+        end
+    end
     local n = tooltip:NumLines()
     local dividerLine
     if classIndex and levelLine then
