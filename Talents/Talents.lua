@@ -97,10 +97,9 @@ local function ReadTree()
     if not treeID then return end
     local groups = C_Traits.GetGroupDisplayInfoByTreeID(treeID) or {}
     table.sort(groups, function(a, b) return (a.orderIndex or 0) < (b.orderIndex or 0) end)
-    local groupIndex, groupIDs = {}, {}
+    local groupIDs = {}
     for i, group in ipairs(groups) do
         if i <= 3 then
-            groupIndex[group.groupID] = i
             groupIDs[#groupIDs + 1] = group.groupID
         end
     end

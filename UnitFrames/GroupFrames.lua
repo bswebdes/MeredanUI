@@ -62,8 +62,8 @@ local function UpdateRole(self)
 end
 
 -- Offline and AFK icons (secret values -> show nothing); from Health.PostUpdate and flag events
-local function UpdateFlags(self, _, unit)
-    unit = self.unit
+local function UpdateFlags(self)
+    local unit = self.unit
     if not unit or not self.OfflineIcon then return end
     local connected, afk = UnitIsConnected(unit), UnitIsAFK(unit)
     local offline = ns.Readable(connected) and connected == false

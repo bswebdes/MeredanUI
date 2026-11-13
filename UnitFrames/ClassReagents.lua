@@ -129,8 +129,7 @@ local function Entries()
     local class = demoClass or select(2, UnitClass("player"))
     for index, reagent in ipairs(CLASS_REAGENTS[class] or {}) do
         local entry = { key = reagent.ammo and "ammo" or reagent.item, warn = reagent.warn or 5, icon = reagent.icon }
-        if not ns.ReagentShown(reagent, index) then
-            -- deselected
+        if not ns.ReagentShown(reagent, index) then -- luacheck: ignore 542 (deselected)
         elseif demoClass then
             entry.count = DEMO_COUNTS[class][index] or 10
             entry.icon = entry.icon or AmmoIcon(ns.WantedAmmoClass())

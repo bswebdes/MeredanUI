@@ -887,7 +887,7 @@ local function RefreshTree(page)
     local scale = math.min(1.7, (bw - left - 90) / math.max(maxX - minX, 1), (bh - 130) / math.max(maxY - minY, 1))
     local ox = left + (bw - left - (maxX - minX) * scale) / 2
     local oy = (bh - (maxY - minY) * scale) / 2 + 14
-    local pos, byID = {}, {}
+    local pos = {}
     for i, info in ipairs(infos) do
         local b = NodeButton(page, i)
         local x = ox + (info.posX / 10 - minX) * scale
@@ -895,7 +895,6 @@ local function RefreshTree(page)
         b:ClearAllPoints()
         b:SetPoint("CENTER", page.board, "TOPLEFT", x, -y)
         pos[info.ID] = { x, y }
-        byID[info.ID] = b
         b.info = info
         local name, icon, entry = NodeName(configID, info)
         b.name, b.entry = name, info.activeEntry or entry

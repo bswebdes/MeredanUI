@@ -504,7 +504,7 @@ LayoutLines = function(frame)
     for _, line in ipairs(lines) do
         local info = line.messageInfo
         local kind = info and LineKind(info)
-        local gap = 0
+        local gap
         if previous then
             gap = spacing
             if channelGap > 0 and kind and previousKind and kind ~= previousKind then gap = gap + channelGap end

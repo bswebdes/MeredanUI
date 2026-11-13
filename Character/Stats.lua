@@ -85,7 +85,7 @@ local function DamageText(low, high)
 end
 
 local function Weapons(rows, unit)
-    local minMain, maxMain, minOff, maxOff, pos, neg, percent = UnitDamage(unit)
+    local minMain, maxMain, minOff, maxOff, pos, neg = UnitDamage(unit)
     if not Secret(minMain, maxMain) and minMain then
         local speed, offSpeed = UnitAttackSpeed(unit)
         local label = unit == "pet" and DAMAGE or Char.G("INVTYPE_WEAPONMAINHAND", "Main hand")

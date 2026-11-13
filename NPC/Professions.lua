@@ -898,7 +898,7 @@ local function LayoutRecipes()
     for i = h + 1, #headers do headers[i]:Hide() end
     recipe.list:SetContentHeight(y)
     if not selected and first then -- select first recipe
-        selected, selectedID = first, first.id
+        selectedID = first.id
         for i = 1, r do rows[i].selected = rows[i].entry.id == selectedID end
         LayoutRecipes()
         return

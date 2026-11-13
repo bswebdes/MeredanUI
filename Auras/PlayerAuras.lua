@@ -266,7 +266,7 @@ end
 -- measured: aura containers are forbidden.
 function ns.AuraStackBottom()
     if not (buffs or debuffs) then return end
-    local anchor, point, x, y = StackAnchor()
+    local anchor, _, _, y = StackAnchor()
     local top = anchor:GetTop() -- minimap top or screen top (both TOP* points)
     if not top then return end
     local frames = { buffs, debuffs }

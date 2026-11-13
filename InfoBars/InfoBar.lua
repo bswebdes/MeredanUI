@@ -252,7 +252,7 @@ local WEAPON_SLOTS = { 16, 17, 18 } -- main hand, off hand, ranged
 -- Equipped weapon skills and the primary one: ranged for hunters, main hand for everyone else
 -- (otherwise rogues would see their thrown weapon); falls back to the other slot.
 local function EquippedSkillIDs()
-    local ids, main = {}, nil
+    local ids = {}
     local primary = select(2, UnitClass("player")) == "HUNTER" and 18 or 16
     local fallback = primary == 18 and 16 or 18
     local bySlot = {}
@@ -267,8 +267,7 @@ local function EquippedSkillIDs()
             end
         end
     end
-    main = bySlot[primary] or bySlot[fallback]
-    return ids, main
+    return ids, bySlot[primary] or bySlot[fallback]
 end
 
 -- All weapon skills the character has (equipped first)

@@ -5,7 +5,6 @@
 -- Kind comes from the game's own interact cursor (works in every language, no name lists),
 -- "unable" cursors mean out of range -> dimmed. Quest progress from the world tooltip (mouse-over).
 local _, ns = ...
-local L = ns.L
 local Readable = ns.Readable
 
 local UNIT = "softinteract"

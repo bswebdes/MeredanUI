@@ -50,7 +50,7 @@ end
 
 local function Header(i)
     local packageIcon, stationeryIcon, sender, subject, money, cod, days, hasItem, wasRead, wasReturned,
-        textCreated, canReply, isGM = GetInboxHeaderInfo(i)
+        _, canReply, isGM = GetInboxHeaderInfo(i)
     return { package = packageIcon, stationery = stationeryIcon, sender = sender, subject = subject, money = money or 0,
         cod = cod or 0, days = days, hasItem = hasItem, read = wasRead, returned = wasReturned, canReply = canReply,
         gm = isGM }

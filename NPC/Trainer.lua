@@ -301,7 +301,6 @@ end
 
 local function Layout()
     if not (window and window:IsShown()) then return end
-    local unit = IsPetTrainer() and "pet" or "player"
 
     local step, groups, order, learnable, total = Entries(searchBox:GetText():lower())
 

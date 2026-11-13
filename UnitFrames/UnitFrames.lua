@@ -696,7 +696,7 @@ oUF:Factory(function(self)
     -- On 16:9 this overlaps the tracker - in the melee DPS layout the tracker moves below the visible
     -- boss frames and shows instance quests only (Quests/Tracker.lua).
     local function PlaceBossAnchor()
-        local cx, cy = UIParent:GetCenter()
+        local cx = UIParent:GetCenter()
         local quest = _G["MeredanUIQuestAnchor"]
         local left = ns.sideFrames.focus:GetLeft() or (cx + ns.Snap(INNER_X + SIZE.width + 70))
         left = ns.Snap(left)

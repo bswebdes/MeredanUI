@@ -411,7 +411,7 @@ local function AddUnitLines(tooltip, unit)
             end
         end
     end
-    local statsStart
+    local statsStart = nil
 
     -- Item level
     local guid = UnitGUID(unit)

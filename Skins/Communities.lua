@@ -14,7 +14,7 @@ local WHITE = "Interface\\Buttons\\WHITE8X8"
 local BLACK = { 0, 0, 0, 1 }
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
-local HEAD_PAD, HEAD_ICON, HEAD_HEIGHT = 18, 46, 80 -- header like mUI windows; content starts at HEAD_HEIGHT
+local HEAD_PAD, HEAD_ICON = 18, 46 -- header like mUI windows
 -- Target layout and dimensions match mUI's former guild window
 local WIN_W, WIN_H = 940, 640
 local PAD, LIST_W, MEMBER_W = 18, 190, 180
@@ -23,7 +23,7 @@ local CONTENT_TOP = PAD + HEAD_ICON + 14   -- content below the header (78)
 local CONTENT_BOTTOM = 54                  -- footer below
 local BOX = { 0.098, 0.098, 0.106, 1 }     -- boxes (message of the day, info, news)
 local PlaceAll                             -- overall layout (defined below)
-local LIST_SLOT, LIST_TOP_PAD = 68, 40     -- Blizzard's row height/top padding of the community list (may be adjusted)
+local LIST_TOP_PAD = 40 -- Blizzard's top padding of the community list (may be adjusted)
 local CARD_INSET = 4                       -- card = row minus 2 x CARD_INSET (60 px, 8 px gap)
 local memberDeco = {}                      -- member list box (chat view only)
 local overview = { open = false, updates = {} } -- "Overview" tab (own content, display only)
@@ -572,7 +572,6 @@ end
 -- Member list row: Blizzard's stripes and blue hover removed, flat row, Surf Green hover
 local function SkinMemberRow(row)
     if not Once(row) then return end
-    local UI = ns.UI
     Fade(row:GetNormalTexture())
     Fade(row:GetHighlightTexture())
     -- no row background, just a light hover
@@ -597,7 +596,6 @@ end
 -- the column bar (otherwise WoW later blocks editing notes/ranks).
 local function SkinColumnHeaders(display)
     if type(display) ~= "table" or not display.GetChildren then return end
-    local UI = ns.UI
     for _, column in ipairs({ display:GetChildren() }) do
         -- Guild/character community (level + class in front): set column widths, widen name column like the rows
         if column:IsObjectType("Button") and column:IsShown() and COLUMN_WIDTHS[column:GetID()]
@@ -1385,7 +1383,7 @@ local function SkinLikeOwnWindow(f)
         end
     end
     local function HeaderLayout()
-        local close, maxMin = f.CloseButton, f.MaximizeMinimizeFrame
+        local close = f.CloseButton
         if close then
             close:ClearAllPoints()
             close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(HEAD_PAD - 4), -(HEAD_PAD - 4))
@@ -1759,7 +1757,7 @@ local function BuildOverview(f)
     function Refresh()
         local clubId = GuildSelected(f)
         if not clubId or not panel:IsShown() then return end
-        local classes, levels, total, online, levelSum = {}, {}, 0, 0, 0
+        local classes, total, online, levelSum = {}, 0, 0, 0
         -- show the checkbox only if the guild has alt ranks; otherwise it has no effect
         local anyAlt, mainCount, altCount = false, 0, 0
         local filterAlts = ns.db.guildOverviewMains == true

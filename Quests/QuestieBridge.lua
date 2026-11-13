@@ -7,7 +7,6 @@
 --   2. Map: Questie's HereBeDragons world map provider is moved onto mUI's map canvas (Map/WorldMap.lua).
 --   3. Tracker data: turn-in NPC, nearest objective + distance, quest items from Questie's database.
 local _, ns = ...
-local L = ns.L
 
 local Bridge = {}
 ns.Questie = Bridge
