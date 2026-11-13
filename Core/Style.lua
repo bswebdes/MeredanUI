@@ -879,16 +879,9 @@ function ns.CreateClassPower(parent, height, width)
     if not width then ns.CreateBackground(strip) end
 
     local element = { strip = strip, width = width, boxes = width ~= nil, gapPixels = width and 4 or 1 }
-    -- player class bar (fixed width): one deep shell around the whole strip, the points inside as
-    -- shaded boxes split by 1 px black seams (like the health/power split in the unit frames)
+    -- player class bar (fixed width): each point is a box in the same item frame as the action
+    -- buttons below it (frame-material edge, dark band), the fill shaded like the health bars
     local deep = width ~= nil
-    if deep then
-        element.gapPixels = 1
-        local seam = strip:CreateTexture(nil, "BACKGROUND")
-        seam:SetAllPoints()
-        seam:SetColorTexture(0, 0, 0, 1)
-        ns.AddDeepShell(strip, ns.Snap(2))
-    end
     -- Set width immediately: without it the strip has no position, and everything anchored
     -- to it (stagger, center power) would be invisible.
     if width then strip:SetWidth(width) end
@@ -897,16 +890,9 @@ function ns.CreateClassPower(parent, height, width)
         bar.PostUpdateColor = nil -- color comes from ClassPower_PostUpdate
         bar.followsTheme = true
         if deep then
-            -- shaded fill (vertical light/shadow) with a thin bevel; colour per point stays flat
             bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
             bar.muiShaded = true
-            local px = ns.PixelSize()
-            local top = bar:CreateTexture(nil, "OVERLAY", nil, 6)
-            top:SetColorTexture(1, 1, 1, 0.10)
-            top:SetPoint("TOPLEFT") top:SetPoint("TOPRIGHT") top:SetHeight(px)
-            local bottom = bar:CreateTexture(nil, "OVERLAY", nil, 6)
-            bottom:SetColorTexture(0, 0, 0, 0.35)
-            bottom:SetPoint("BOTTOMLEFT") bottom:SetPoint("BOTTOMRIGHT") bottom:SetHeight(px)
+            ns.AddItemFrame(bar, 1, 2)
         end
         element[i] = bar
     end
