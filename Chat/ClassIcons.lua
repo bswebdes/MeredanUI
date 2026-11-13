@@ -17,7 +17,7 @@ local markup = {}
 
 -- Size follows the chat font (a bit larger than the letters, never below 14), cached per size
 local function Markup(class)
-    local _, font = ChatFrame1 and ChatFrame1:GetFont()
+    local font = ChatFrame1 and select(2, ChatFrame1:GetFont())
     local size = math.max(14, math.floor((font or 14) * 1.15 + 0.5))
     local key = class .. size
     if markup[key] == nil then
