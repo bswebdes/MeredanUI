@@ -501,9 +501,9 @@ end
 -- Empty slot background (action bars, bags): Blizzard's slot art, cropped at the edges
 -- (rounded corners/frame) to fit our square border. The art is semi-transparent,
 -- so an opaque dark base goes underneath.
-local SLOT_ATLAS = "ui-hud-actionbar-iconframe-slot"
-local SLOT_CROP = 0.15 -- fraction cropped on each side
-local SLOT_ALPHA = 0.75 -- rune look: Blizzard's slot art carries the warmth, like the original
+local SLOT_ATLAS = "bags-item-slot64" -- Blizzard's warm brown bag slot (rune look), also for action bars
+local SLOT_CROP = 0 -- fraction cropped on each side
+local SLOT_ALPHA = 1
 
 function ns.AddSlotBackground(frame)
     local base = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
