@@ -18,7 +18,7 @@ local CLASS_ART = {
     SHAMAN = { file = "EndCaps\\Shaman", right = 462 / 512, top = 0, aspect = 462 / 512, scale = 1.1 },
     MAGE = { file = "EndCaps\\Mage", right = 388 / 512, top = 0, aspect = 388 / 512, scale = 1.15 },
     WARLOCK = { file = "EndCaps\\Warlock", right = 436 / 512, top = 0, aspect = 436 / 512, scale = 1.1 },
-    DRUID = { file = "EndCaps\\Druid", right = 328 / 512, top = 0, aspect = 328 / 512, scale = 1.15 },
+    DRUID = { file = "EndCaps\\Druid", right = 328 / 512, top = 0, aspect = 328 / 512, scale = 1.1, x = 4 },
 }
 local left, right
 
