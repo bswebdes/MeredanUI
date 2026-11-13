@@ -9,7 +9,7 @@ local _, ns = ...
 local L = ns.L
 local Readable = ns.Readable
 
-local WIDTH, HEIGHT, GAP = 240, 40, 4
+local WIDTH, HEIGHT, GAP = 240, 40, 14 -- gap clears the small window frame of two toasts
 local MAX_SHOWN = 5
 local HOLD = 5             -- seconds visible (paused while hovered)
 local FADE_IN, FADE_OUT = 0.2, 0.5
@@ -24,7 +24,6 @@ local function Enabled() return ns.db.toasts ~= false end
 
 -- Background: gradient in the toast color (quality or text color), strong left, fading right.
 -- Blizzard's toast art does not work cropped to a thin strip (only border/icon fragments show).
-local GRADIENT_ALPHA = 0.35
 
 -- Events mUI takes over (unregistered from Blizzard's AlertFrame)
 local TAKEN_OVER = {
@@ -72,10 +71,7 @@ local function CreateToast()
     local bg = toast:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.panelColor))
-    toast.gradient = toast:CreateTexture(nil, "BACKGROUND", nil, 1)
-    toast.gradient:SetAllPoints()
-    toast.gradient:SetColorTexture(1, 1, 1, 1)
-    toast.edges = ns.AddBorder(toast)
+    ns.RuneFrame(toast, { small = true }) -- B8 small
     toast.flash = toast:CreateTexture(nil, "BORDER")
     toast.flash:SetAllPoints()
     toast.flash:SetColorTexture(1, 1, 1, 1)
@@ -86,17 +82,16 @@ local function CreateToast()
     toast.icon = CreateFrame("Frame", nil, toast)
     toast.icon:SetSize(size, size)
     toast.icon:SetPoint("LEFT", ns.Snap(4), 0)
+    ns.AddSlotBackground(toast.icon)
+    toast.edges = ns.AddItemFrame(toast.icon, nil, 2) -- quality colour on the item frame
     toast.icon.tex = toast.icon:CreateTexture(nil, "ARTWORK")
-    toast.icon.tex:SetAllPoints()
+    ns.InsetItemIcon(toast.icon, toast.icon.tex, nil, 2)
     toast.icon.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    ns.AddBorder(toast.icon, true)
 
     toast.count = toast:CreateFontString(nil, "OVERLAY")
     toast.count:SetFont(ns.STYLE.font, ns.FontPx(13), "OUTLINE")
     toast.count:SetPoint("RIGHT", -ns.Snap(8), 0)
-    toast.title = toast:CreateFontString(nil, "OVERLAY")
-    toast.title:SetFont(ns.STYLE.font, ns.FontPx(10), "OUTLINE")
-    toast.title:SetTextColor(unpack(ns.UI.MUTED))
+    toast.title = ns.UI.Heading(toast, 10, "LEFT") -- Cinzel
     toast.title:SetPoint("TOPLEFT", toast.icon, "TOPRIGHT", ns.Snap(8), -1)
     toast.title:SetPoint("RIGHT", toast.count, "LEFT", -ns.Snap(6), 0)
     toast.title:SetJustifyH("LEFT")
@@ -174,12 +169,10 @@ local function Render(toast)
         r, g, b = unpack(data.color)
     end
     toast.text:SetTextColor(r, g, b)
-    toast.gradient:SetShown(true)
-    toast.gradient:SetGradient("HORIZONTAL", CreateColor(r, g, b, GRADIENT_ALPHA), CreateColor(r, g, b, 0))
-    -- Quality-colored border only for Uncommon+ items, otherwise black
+    -- Quality-coloured item frame only for Uncommon+ items, otherwise the material edge
     local colored = data.quality and data.quality >= Enum.ItemQuality.Uncommon
     for _, edge in ipairs(toast.edges) do
-        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(unpack(ns.BORDER_COLOR)) end
+        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(unpack(ns.Material().item)) end
     end
     local count = data.countText or (data.count and data.count > 1 and ("×" .. data.count)) or ""
     toast.count:SetText(count)
