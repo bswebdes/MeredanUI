@@ -1064,7 +1064,7 @@ local function CreateWindow()
     for i, def in ipairs(TABS) do
         local button = CreateFrame("Button", nil, window)
         button:SetSize(TAB_SIZE, TAB_SIZE)
-        button:SetPoint("TOPLEFT", window, "TOPRIGHT", 4, -(60 + (i - 1) * TAB_STEP))
+        button:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -(60 + (i - 1) * TAB_STEP))
         UI.Box(button, ns.STYLE.panelColor)
         button.icon = button:CreateTexture(nil, "ARTWORK")
         button.icon:SetPoint("TOPLEFT", 3, -3)

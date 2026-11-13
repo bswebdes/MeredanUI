@@ -171,7 +171,7 @@ local function UpdateFachTabs()
         if tab.usable ~= nil then
             shown = shown + 1
             tab:ClearAllPoints()
-            tab:SetPoint("TOPLEFT", window, "TOPRIGHT", 4, -PAD - 58 - (shown - 1) * (SIZE + GAP))
+            tab:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -PAD - 58 - (shown - 1) * (SIZE + GAP))
             local active = i == current and tab.usable -- unusable tabs (buy tab in log) never marked
             tab.marker:SetShown(active)
             local shade = active and 1 or 0.6

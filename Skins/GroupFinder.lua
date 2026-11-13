@@ -433,7 +433,7 @@ local function LayoutTabs()
         if type(tab) == "table" then
             tab:SetSize(TAB_SIZE, TAB_SIZE)
             tab:ClearAllPoints()
-            tab:SetPoint("TOPLEFT", frame, "TOPRIGHT", 6, -60 - (i - 1) * TAB_STEP)
+            tab:SetPoint("TOPLEFT", frame, "TOPRIGHT", ns.SideTabX(), -60 - (i - 1) * TAB_STEP)
         end
     end
 end

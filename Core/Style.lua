@@ -470,6 +470,15 @@ end
 -- Window frame (building block B8): the deep shell around the window with a translucent dark rim
 -- outside it, no corner ornaments. Call after the background (UI.Box with noBorder).
 -- opts.small: menus, tooltips, dialogs (narrower band and rim). opts.target: visible area.
+-- How far the window frame reaches beyond the window (band, lines, rim): things docked outside a
+-- window (side tabs, detail panes) keep clear of it
+function ns.WindowFrameReach()
+    local px = ns.PixelSize()
+    return 4 * px + ns.Snap(2) + ns.Snap(4)
+end
+-- x offset for side tabs right of a window
+function ns.SideTabX() return ns.WindowFrameReach() + ns.Snap(4) end
+
 function ns.RuneFrame(frame, opts)
     local small = opts and opts.small
     local anchor = opts and opts.target or frame -- visible area, e.g. a skinned frame's inner border

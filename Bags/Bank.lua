@@ -169,7 +169,7 @@ local function UpdatePageTabs(numPages)
             if not tab then
                 tab = CreateFrame("Button", nil, window)
                 tab:SetSize(SIZE, SIZE)
-                tab:SetPoint("TOPLEFT", window, "TOPRIGHT", 4, -PAD - 58 - (i - 1) * (SIZE + GAP))
+                tab:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -PAD - 58 - (i - 1) * (SIZE + GAP))
                 tab.icon = tab:CreateTexture(nil, "ARTWORK")
                 tab.icon:SetAllPoints()
                 tab.icon:SetTexture(TAB_ICONS[i] or TAB_ICONS[1])

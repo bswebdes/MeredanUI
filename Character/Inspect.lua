@@ -290,7 +290,7 @@ local function Select(key)
         button:SetShown(shown)
         if shown then
             button:ClearAllPoints()
-            button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -y)
+            button:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -y)
             y = y + TAB_STEP
         end
         local active = def.key == current

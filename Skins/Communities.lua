@@ -842,7 +842,7 @@ local function LayoutTabs(f)
             end
             if tab:IsShown() then
                 tab:ClearAllPoints()
-                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP) -- like professions, spellbook, legacy
+                tab:SetPoint("TOPLEFT", f, "TOPRIGHT", ns.SideTabX(), -60 - slot * TAB_STEP) -- like professions, spellbook, legacy
                 slot = slot + 1
             end
         end
@@ -1857,7 +1857,7 @@ local function BuildOverview(f)
         tab:SetShown(show)
         if show then
             tab:ClearAllPoints()
-            tab:SetPoint("TOPLEFT", f, "TOPRIGHT", 6, -60 - slot * TAB_STEP)
+            tab:SetPoint("TOPLEFT", f, "TOPRIGHT", ns.SideTabX(), -60 - slot * TAB_STEP)
         else
             overview.Close()
         end

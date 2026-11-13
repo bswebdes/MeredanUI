@@ -775,7 +775,7 @@ local function Tab(i)
     local UI = ns.UI
     local tab = CreateFrame("Button", nil, window)
     tab:SetSize(40, 40)
-    tab:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (i - 1) * 46)
+    tab:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -60 - (i - 1) * 46)
     UI.Box(tab, ns.STYLE.panelColor)
     tab.icon = tab:CreateTexture(nil, "ARTWORK")
     tab.icon:SetPoint("TOPLEFT", 2, -2)

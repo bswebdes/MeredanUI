@@ -485,7 +485,7 @@ local function Layout()
         if available then
             slot = slot + 1
             button:ClearAllPoints()
-            button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (slot - 1) * TAB_STEP)
+            button:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -60 - (slot - 1) * TAB_STEP)
             local active = i == current
             button.icon:SetAtlas(active and def.atlas or (def.atlas .. "-inactive"))
             button.icon:SetDesaturated(not active) -- inactive tabs desaturated (as everywhere)

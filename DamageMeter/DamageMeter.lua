@@ -263,7 +263,7 @@ ShowDetail = function(row)
     detail.list:ScrollToTop()
     detail.row, detail.away = row, 0
     detail:ClearAllPoints()
-    detail:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.Snap(8), 0)
+    detail:SetPoint("TOPLEFT", window, "TOPRIGHT", 2 * ns.WindowFrameReach() + ns.Snap(4), 0) -- both window frames
     detail:SetPoint("TOP", row, "TOP", 0, 0)
     detail:Show()
 end

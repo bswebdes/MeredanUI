@@ -393,7 +393,7 @@ local function LayoutTabs()
         if available then
             slot = slot + 1
             button:ClearAllPoints()
-            button:SetPoint("TOPLEFT", window, "TOPRIGHT", 6, -60 - (slot - 1) * TAB_STEP)
+            button:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -60 - (slot - 1) * TAB_STEP)
         end
         local on = i == current
         for _, e in ipairs(button.active) do e:SetShown(on) end
