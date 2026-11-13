@@ -11,6 +11,8 @@ local L = ns.L
 local DELAY = 1
 local PLACES = { "bags", "bank", "mail", "equip" }
 local PLACE_LABEL = { bank = L["Bank"], mail = L["Mail"], equip = L["Worn"] }
+-- Items every character carries: a list of all alts says nothing
+local SKIP = { [6948] = true } -- Hearthstone
 
 local function Enabled() return ns.db and ns.db.altItemCount ~= false end
 
@@ -154,7 +156,7 @@ ns:On("PLAYER_LOGIN", function()
         -- main tooltips only: comparison tooltips are built in a secure context
         if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then return end
         local itemID = data.id
-        if not ns.Readable(itemID) or type(itemID) ~= "number" then return end
+        if not ns.Readable(itemID) or type(itemID) ~= "number" or SKIP[itemID] then return end
         AddLines(tooltip, itemID)
     end)
 end)
