@@ -368,7 +368,7 @@ local function AddUnitLines(tooltip, unit)
         bar.muiColor = color
         if color then bar:SetStatusBarColor(unpack(color)) end
     end
-    SetBorderColor(tooltip, color)
+    SetBorderColor(tooltip, nil) -- no class/reaction coloured frame any more (Benny)
     if not isPlayer then
         if Enabled("tooltipClassification") then AddClassification(unit) end
         return
