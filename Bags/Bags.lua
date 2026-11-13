@@ -258,7 +258,7 @@ local function StyleButton(button)
 end
 
 local QUEST_COLOR = { 1, 0.82, 0 }
-local HEARTH_COLOR = { 0.61, 0.69, 0.53 } -- sage
+local HEARTH_COLOR = { 0.48, 0.60, 0.42 } -- darker sage: stands out against the light hearthstone icon
 
 -- Border: gold for quest items, sage for hearthstones, quality color from Uncommon up (all 3px),
 -- else thin black.
