@@ -148,7 +148,7 @@ function ns.RefreshStyle()
     for text, font in pairs(registry.texts) do text:SetFont(ns.FontFor(font[3]), ns.FontPx(font[1]), font[2]) end
     for _, bg in ipairs(registry.panels) do bg:SetColorTexture(unpack(STYLE.panelColor)) end
     for _, bar in ipairs(registry.bars) do
-        bar:SetStatusBarTexture(STYLE.barTexture)
+        if not bar.muiShaded then bar:SetStatusBarTexture(STYLE.barTexture) end
         bar.bg:SetTexture(STYLE.barTexture)
         if bar.baseColor then bar:SetStatusBarColor(unpack(bar.baseColor)) end
         if bar.panelBackground then

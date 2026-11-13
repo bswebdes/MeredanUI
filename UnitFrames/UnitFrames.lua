@@ -187,28 +187,16 @@ local function Style(self, unit)
     self:SetSize(S.width, S.health)
     SetupUnitButton(self)
 
-    -- Plate: dark band around the bar, bronze hairline, soft shadow (below the health bar)
-    local plate = CreateFrame("Frame", nil, self)
-    plate:SetFrameLevel(self:GetFrameLevel())
-    plate:SetPoint("TOPLEFT", -S.platePad, S.platePad)
-    plate:SetPoint("BOTTOMRIGHT", S.platePad, -S.platePad)
-    local plateBg = plate:CreateTexture(nil, "BACKGROUND")
-    plateBg:SetAllPoints()
-    plateBg:SetColorTexture(0.04, 0.035, 0.027, 0.75)
-    for _, edge in ipairs(ns.AddBorder(plate)) do edge:SetVertexColor(0.72, 0.59, 0.36, 0.55) end
-    local shadow = plate:CreateTexture(nil, "BACKGROUND", nil, -8)
-    shadow:SetTexture(ns.SHADOW_TEXTURE)
-    shadow:SetTextureSliceMargins(24, 24, 24, 24)
-    if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
-    shadow:SetPoint("TOPLEFT", -12, 12)
-    shadow:SetPoint("BOTTOMRIGHT", 12, -12)
-    S.plateOut = S.platePad + border * px -- plate edge beyond the health bar
+    -- Shell around the bar, from the inside out: black line, warm dark band, bronze edge lit from
+    -- above, black outline, soft shadow. Depth comes from the stacked lines, not from one border.
+    S.plateOut = ns.AddDeepShell(self, S.platePad)
 
     -- Health
     local health = ns.CreateBar(self, S.health)
     health:SetAllPoints()
     health:SetReverseFill(mirrored)
     SetupHealthColors(health)
+    ns.ShadeBar(health, mirrored)
     ns.AddHealPrediction(health, mirrored) -- heals + shield (Core/Style.lua)
     self.Health = health
 
@@ -342,6 +330,7 @@ local function Style(self, unit)
     power.frequentUpdates = true
     power.colorPower = true
     power.PostUpdateColor = ns.ColorPowerBar
+    ns.ShadeBar(power, mirrored) -- wraps PostUpdateColor, so after it is set
     power.PostUpdate = ns.HideEmptyPowerText
     if unit == "player" then
         -- If the main resource is shown in the center (Balance, Shadow, Elemental), the bar shows mana
@@ -645,6 +634,105 @@ oUF.Tags.Methods["mui:power"] = function(u)
     return AbbreviateNumbers(power)
 end
 oUF.Tags.Events["mui:power"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
+
+-- Deep shell (player/target): stacked 1 px lines around region with a band of pad between the
+-- inner black line and the bronze edge. Returns how far the shell reaches beyond region.
+local SHELL_BAND = { 0.075, 0.062, 0.045, 0.92 }
+local BRONZE_LIT, BRONZE_DARK = { 0.86, 0.70, 0.44, 1 }, { 0.36, 0.25, 0.13, 1 }
+function ns.AddDeepShell(region, pad)
+    local px = ns.PixelSize()
+    local shell = CreateFrame("Frame", nil, region)
+    shell:SetFrameLevel(region:GetFrameLevel())
+    local function Box(out, layer, sub)
+        local t = shell:CreateTexture(nil, layer, nil, sub)
+        t:SetPoint("TOPLEFT", region, "TOPLEFT", -out, out)
+        t:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", out, -out)
+        return t
+    end
+    -- ring of 1 px at distance out; top/bottom colours (sides get a vertical gradient)
+    local function Ring(out, top, bottom, sub)
+        local edges = {}
+        for i = 1, 4 do
+            local t = shell:CreateTexture(nil, "BORDER", nil, sub)
+            t:SetTexture("Interface\\Buttons\\WHITE8X8")
+            t:SetSnapToPixelGrid(false)
+            t:SetTexelSnappingBias(0)
+            edges[i] = t
+        end
+        local o, i1 = out, out - px
+        edges[1]:SetPoint("TOPLEFT", region, "TOPLEFT", -o, o)
+        edges[1]:SetPoint("BOTTOMRIGHT", region, "TOPRIGHT", o, i1)
+        edges[1]:SetVertexColor(unpack(top))
+        edges[2]:SetPoint("TOPLEFT", region, "BOTTOMLEFT", -o, -i1)
+        edges[2]:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", o, -o)
+        edges[2]:SetVertexColor(unpack(bottom))
+        edges[3]:SetPoint("TOPLEFT", region, "TOPLEFT", -o, i1)
+        edges[3]:SetPoint("BOTTOMRIGHT", region, "BOTTOMLEFT", -i1, -i1)
+        edges[4]:SetPoint("TOPLEFT", region, "TOPRIGHT", i1, i1)
+        edges[4]:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", o, -i1)
+        for k = 3, 4 do
+            edges[k]:SetGradient("VERTICAL", CreateColor(unpack(bottom)), CreateColor(unpack(top)))
+        end
+        return edges
+    end
+    local inner = px                -- black line touching the bar
+    local band = inner + pad         -- warm dark band
+    local edge = band + px           -- bronze edge
+    local outline = edge + px        -- black outline
+    local bandTex = Box(band, "BACKGROUND", 1)
+    bandTex:SetColorTexture(unpack(SHELL_BAND))
+    -- lit top of the band: a hint of light catching the inner rim
+    local lit = shell:CreateTexture(nil, "BORDER", nil, 0)
+    lit:SetColorTexture(1, 0.9, 0.7, 0.10)
+    lit:SetPoint("TOPLEFT", region, "TOPLEFT", -band, band)
+    lit:SetPoint("BOTTOMRIGHT", region, "TOPRIGHT", band, band - px)
+    Ring(inner, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, 1)
+    Ring(edge, BRONZE_LIT, BRONZE_DARK, 2)
+    Ring(outline, { 0, 0, 0, 0.9 }, { 0, 0, 0, 0.9 }, 3)
+    local shadow = shell:CreateTexture(nil, "BACKGROUND", nil, -8)
+    shadow:SetTexture(ns.SHADOW_TEXTURE)
+    shadow:SetTextureSliceMargins(24, 24, 24, 24)
+    if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
+    shadow:SetPoint("TOPLEFT", region, "TOPLEFT", -outline - 12, outline + 12)
+    shadow:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", outline + 12, -outline - 12)
+    return outline
+end
+
+-- Shaded bar: own texture with soft vertical shading, colour as a gentle horizontal gradient
+-- (darker at the start, full colour at the filled end). Re-applied after every colour update.
+local BAR_SHADE = ns.MEDIA .. "BarShade"
+local GRADIENT_DEPTH = 0.72
+local function ApplyGradient(bar)
+    local tex = bar:GetStatusBarTexture()
+    if not tex then return end
+    local r, g, b = bar:GetStatusBarColor()
+    if not (ns.Readable(r) and ns.Readable(g) and ns.Readable(b)) then return end
+    local deep = CreateColor(r * GRADIENT_DEPTH, g * GRADIENT_DEPTH, b * GRADIENT_DEPTH, 1)
+    local full = CreateColor(r, g, b, 1)
+    if bar.muiMirrored then tex:SetGradient("HORIZONTAL", full, deep) else tex:SetGradient("HORIZONTAL", deep, full) end
+end
+
+function ns.ShadeBar(bar, mirrored)
+    bar.muiMirrored = mirrored
+    bar:SetStatusBarTexture(BAR_SHADE)
+    bar.muiShaded = true -- style refreshes keep this texture
+    local post = bar.PostUpdateColor
+    bar.PostUpdateColor = function(element, ...)
+        if post then post(element, ...) end
+        ApplyGradient(element)
+    end
+    -- thin bevel over the fill: light top line, dark bottom line
+    local top = bar:CreateTexture(nil, "OVERLAY", nil, 6)
+    top:SetColorTexture(1, 1, 1, 0.10)
+    top:SetPoint("TOPLEFT")
+    top:SetPoint("TOPRIGHT")
+    top:SetHeight(ns.PixelSize())
+    local bottom = bar:CreateTexture(nil, "OVERLAY", nil, 6)
+    bottom:SetColorTexture(0, 0, 0, 0.35)
+    bottom:SetPoint("BOTTOMLEFT")
+    bottom:SetPoint("BOTTOMRIGHT")
+    bottom:SetHeight(ns.PixelSize())
+end
 
 oUF:RegisterStyle("Meredan", function(self, unit)
     ns.SnapBarsOnUnitChange(self)
