@@ -21,8 +21,10 @@ local SIZE = {
     classPowerGap = 12, -- class bar <-> top of the frames (action bar below)
     powerGap = 2,      -- health bar <-> resource
     gap = 4,           -- between the bars below the health bar
-    nameSize = 24,
-    valueSize = 12,    -- health/power text in the bar
+    nameSize = 18,     -- Cinzel caps above the frame
+    valueSize = 12,    -- power text (hidden on player/target), small frames
+    healthValueSize = 15,
+    platePad = 2,      -- dark band between the health bar and the bronze hairline
     auraSize = 30,     -- target icon size: wider frames show more auras, not bigger ones
     auraOffset = 6,    -- frame <-> aura row
 }
@@ -184,7 +186,23 @@ local function Style(self, unit)
     -- The frame is the health bar; everything else hangs above and below it.
     self:SetSize(S.width, S.health)
     SetupUnitButton(self)
-    ns.CreateBackground(self)
+
+    -- Plate: dark band around the bar, bronze hairline, soft shadow (below the health bar)
+    local plate = CreateFrame("Frame", nil, self)
+    plate:SetFrameLevel(self:GetFrameLevel())
+    plate:SetPoint("TOPLEFT", -S.platePad, S.platePad)
+    plate:SetPoint("BOTTOMRIGHT", S.platePad, -S.platePad)
+    local plateBg = plate:CreateTexture(nil, "BACKGROUND")
+    plateBg:SetAllPoints()
+    plateBg:SetColorTexture(0.04, 0.035, 0.027, 0.75)
+    for _, edge in ipairs(ns.AddBorder(plate)) do edge:SetVertexColor(0.72, 0.59, 0.36, 0.55) end
+    local shadow = plate:CreateTexture(nil, "BACKGROUND", nil, -8)
+    shadow:SetTexture(ns.SHADOW_TEXTURE)
+    shadow:SetTextureSliceMargins(24, 24, 24, 24)
+    if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
+    shadow:SetPoint("TOPLEFT", -12, 12)
+    shadow:SetPoint("BOTTOMRIGHT", 12, -12)
+    S.plateOut = S.platePad + border * px -- plate edge beyond the health bar
 
     -- Health
     local health = ns.CreateBar(self, S.health)
@@ -229,25 +247,42 @@ local function Style(self, unit)
     top:SetAllPoints()
     top:SetFrameLevel(castbar:GetFrameLevel() + 5)
 
-    local name = ns.CreateText(top, S.nameSize, far, "OUTLINE", "bold") -- large name: mUI Bold
-    name:SetPoint(far, self, "TOP" .. far, -6 * dir, 2 * px) -- centered on the top edge, 2 px higher
+    -- Name in Cinzel capitals above the plate, on the outer side (player left, target right)
+    local name = ns.CreateText(top, S.nameSize, near, nil, "display")
+    name:SetShadowOffset(0, -2)
+    name:SetShadowColor(0, 0, 0, 0.85)
+    name:SetPoint("BOTTOM" .. near, self, "TOP" .. near, -S.plateOut * dir, S.plateOut + 4 * px)
     name:SetWidth(S.width * 0.8)
     -- Player: level in Surf Green before the name (below max level); target (mirrored): level in
-    -- difficulty color after the name - both towards screen center
-    local nameTag = unit == "player" and "[mui:level][mui:name]"
-        or unit == "target" and "[mui:name][mui:tlevel]" or "[mui:name]"
+    -- difficulty color after the name
+    local nameTag = unit == "player" and "[mui:level][mui:uname]"
+        or unit == "target" and "[mui:uname][mui:tlevel]" or "[mui:uname]"
     TagText(self, name, nameTag)
     self.NameText = name
 
-    local healthText = ns.CreateText(texts, S.valueSize, far, "OUTLINE")
-    healthText:SetPoint("BOTTOM" .. far, self, "BOTTOM" .. far, -5 * dir, 4)
+    local healthText = ns.CreateText(texts, S.healthValueSize, far, "OUTLINE")
+    healthText:SetPoint(far, self, far, -8 * dir, 0)
     TagText(self, healthText, "[mui:health]")
     self.HealthText = healthText
 
+    -- power value: kept for test mode, not shown in this look
     local powerText = ns.CreateText(texts, S.valueSize, near, "OUTLINE")
     powerText:SetPoint("BOTTOM" .. near, self, "BOTTOM" .. near, 5 * dir, 4)
     TagText(self, powerText, "[mui:power]")
+    powerText:Hide()
     self.PowerText = powerText
+
+    -- accent diamond on the inner end of the plate, with a dark outline
+    local diamondOutline = top:CreateTexture(nil, "OVERLAY", nil, 1)
+    diamondOutline:SetColorTexture(0.086, 0.075, 0.059, 1)
+    diamondOutline:SetSize(ns.Snap(13), ns.Snap(13))
+    diamondOutline:SetRotation(math.rad(45))
+    diamondOutline:SetPoint("CENTER", self, far, (S.plateOut + 2 * px) * dir, 0)
+    local diamond = top:CreateTexture(nil, "OVERLAY", nil, 2)
+    diamond:SetColorTexture(unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 }))
+    diamond:SetSize(ns.Snap(9), ns.Snap(9))
+    diamond:SetRotation(math.rad(45))
+    diamond:SetPoint("CENTER", diamondOutline)
 
     -- Status icons: one row centered in the health bar (visible ones close ranks); resting icon
     -- and raid marker on the top corner, half over the edge like the name.
@@ -266,7 +301,7 @@ local function Style(self, unit)
         self.SummonIndicator = summon
 
         local resting = ns.CreateStatusIcon(top, "Resting", 18, STYLE.restingColor)
-        resting:SetPoint("CENTER", self, "TOP" .. near, 0, 2 * px)
+        resting:SetPoint("CENTER", self, "TOP" .. far, -14 * dir, 2 * px)
         self.RestingIndicator = resting
     else
         self.QuestIndicator = Status("Quest", STYLE.questColor)
@@ -275,7 +310,7 @@ local function Style(self, unit)
 
     local raidIcon = top:CreateTexture(nil, "OVERLAY", nil, 7)
     raidIcon:SetSize(22, 22)
-    raidIcon:SetPoint("CENTER", self, "TOP" .. near, 0, 0)
+    raidIcon:SetPoint("CENTER", self, "TOP", 0, S.plateOut)
     self.RaidTargetIndicator = raidIcon
 
     -- Class bar (combo points etc. or runes): centered between player and target, placed in the
@@ -297,14 +332,13 @@ local function Style(self, unit)
         end
     end
 
-    -- Resource bar right below the health bar
-    local y = -(S.health + S.powerGap + 2 * border * px)
+    -- Resource bar below the plate, unframed, a bit shorter than the plate (outer side aligned)
+    local y = -(S.health + S.plateOut + S.powerGap + 2 * px)
 
     local power = ns.CreateBar(self, S.power)
-    power:SetPoint("TOPLEFT", self, "TOPLEFT", 0, y)
-    power:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, y)
+    power:SetPoint("TOP" .. near, self, "TOP" .. near, -S.plateOut * dir, y)
+    power:SetWidth(ns.Snap((S.width + 2 * S.plateOut) * 0.94))
     power:SetReverseFill(mirrored)
-    ns.AddBorder(power)
     power.frequentUpdates = true
     power.colorPower = true
     power.PostUpdateColor = ns.ColorPowerBar
@@ -320,7 +354,7 @@ local function Style(self, unit)
     -- Auras: buffs above the name, debuffs below (one row).
     --   Player: all debuffs; short buffs (<= 2 min, no heal HoTs) - potions, Heroism, procs.
     --   Target: own debuffs first, then others (gray); dispellable buffs (e.g. Enrage).
-    S.aurasAbove = S.nameSize / 2 + S.auraOffset
+    S.aurasAbove = S.plateOut + S.nameSize + 6 + S.auraOffset
     S.aurasBelow = -y - S.health + S.auraOffset - S.step
 
     local debuffs = CreateAuraRow(self, S, false, S.aura, S.width, S.debuffInset, S.aurasBelow)
@@ -563,6 +597,15 @@ oUF.Tags.Methods["mui:name"] = [[function(u, r)
     return name
 end]]
 oUF.Tags.Events["mui:name"] = "UNIT_NAME_UPDATE"
+
+-- Name in capitals (Cinzel); secret names pass through unchanged
+oUF.Tags.Methods["mui:uname"] = [[function(u, r)
+    local name = _VARS.muiFormatName(r or u)
+    if name ~= nil and not issecretvalue(name) then name = name:upper() end
+    if _FRAME and _FRAME.ShortenName then return _FRAME:ShortenName(name) end
+    return name
+end]]
+oUF.Tags.Events["mui:uname"] = "UNIT_NAME_UPDATE"
 
 -- Level in Surf Green plus a trailing space, only below max level (empty otherwise)
 oUF.Tags.Methods["mui:level"] = [[function(u)
