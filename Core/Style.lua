@@ -802,6 +802,18 @@ end
 function ns.LayoutClassPower(element, max)
     local px = ns.PixelSize()
     local strip = element.strip
+    if element.gems then
+        -- gems: fixed size, a compact row centred on the strip
+        local size, gap = element.gemSize, ns.Snap(3)
+        local total = max * size + (max - 1) * gap
+        for i = 1, max do
+            local bar = element[i]
+            bar:ClearAllPoints()
+            bar:SetSize(size, size)
+            bar:SetPoint("CENTER", strip, "CENTER", -total / 2 + size / 2 + (i - 1) * (size + gap), 0)
+        end
+        return
+    end
     local gapPx = element.gapPixels
     if element.width then strip:SetWidth(element.width) end
     local totalPx = math.floor(strip:GetWidth() / px + 0.5)
@@ -870,6 +882,15 @@ function ns.CreateClassPower(parent, height, width)
     if not width then ns.CreateBackground(strip) end
 
     local element = { strip = strip, width = width, boxes = width ~= nil, gapPixels = width and 4 or 1 }
+    -- player class bar (fixed width): each point is a cut gem in its bezel (B4); the status bars
+    -- stay for oUF but draw nothing - the gem shows the value and takes the bar's colour
+    local gems = width ~= nil
+    if gems then
+        local px = ns.PixelSize()
+        local pixels = math.floor(ns.Snap(22) / px + 0.5)
+        if pixels % 2 == 0 then pixels = pixels + 1 end
+        element.gems, element.gemSize = true, pixels * px
+    end
     -- Set width immediately: without it the strip has no position, and everything anchored
     -- to it (stagger, center power) would be invisible.
     if width then strip:SetWidth(width) end
@@ -877,7 +898,31 @@ function ns.CreateClassPower(parent, height, width)
         local bar = ns.CreateBar(strip, height)
         bar.PostUpdateColor = nil -- color comes from ClassPower_PostUpdate
         bar.followsTheme = true
-        if width then ns.AddBorder(bar) end
+        if gems then
+            bar:GetStatusBarTexture():SetAlpha(0)
+            bar.bg:SetAlpha(0)
+            local bezel = bar:CreateTexture(nil, "ARTWORK", nil, 1)
+            bezel:SetTexture(ns.MEDIA .. "GemBezel")
+            bezel:SetAllPoints()
+            ns.StyleOrnament(bezel)
+            local gem = bar:CreateTexture(nil, "ARTWORK", nil, 2)
+            gem:SetTexture(ns.MEDIA .. "Gem")
+            gem:SetAllPoints()
+            local EMPTY = { 0.16, 0.13, 0.1 }
+            local function Paint()
+                local v, color = bar.muiValue, bar.muiColor
+                if ns.Readable(v) and v and v > 0 and color then
+                    gem:SetVertexColor(color[1], color[2], color[3])
+                else
+                    gem:SetVertexColor(unpack(EMPTY))
+                end
+            end
+            hooksecurefunc(bar, "SetValue", function(_, v) bar.muiValue = v Paint() end)
+            hooksecurefunc(bar, "SetStatusBarColor", function(_, r, g, b) bar.muiColor = { r, g, b } Paint() end)
+            Paint()
+        elseif width then
+            ns.AddBorder(bar)
+        end
         element[i] = bar
     end
     element.PostUpdateColor = ClassPower_PostUpdateColor
