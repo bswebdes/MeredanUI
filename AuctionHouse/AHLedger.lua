@@ -305,8 +305,7 @@ function AH.CreateLedgerView(view)
         chip:SetWidth(chip.Text:GetUnboundedStringWidth() + 24)
         chip:SetHeight(26)
         chip.key = key
-        chip.active = ns.AddBorder(chip, true)
-        for _, edge in ipairs(chip.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+        chip.active = {} -- bevel button: accent text only
         return chip
     end
     -- period

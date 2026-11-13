@@ -504,9 +504,9 @@ function AH.CreateSellView(view)
     holder:SetSize(44, 44)
     holder:SetPoint("TOPLEFT", 16, -16)
     ns.AddSlotBackground(holder)
-    ns.AddBorder(holder)
+    ns.AddItemFrame(holder, nil, 2)
     sell.icon = holder:CreateTexture(nil, "ARTWORK")
-    sell.icon:SetAllPoints()
+    ns.InsetItemIcon(holder, sell.icon, nil, 2)
     sell.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     holder:EnableMouse(true)
     holder:SetScript("OnEnter", function(self)
@@ -573,8 +573,7 @@ function AH.CreateSellView(view)
         end, 40)
         button:SetHeight(22)
         button.pct = pct
-        button.active = ns.AddBorder(button, true)
-        for _, edge in ipairs(button.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+        button.active = {} -- bevel button: accent text only
         button:HookScript("OnEnter", function(self)
             GameTooltip:SetOwner(self, "ANCHOR_TOP")
             GameTooltip:SetText(self.pct == 0 and L["Match the cheapest"] or L["Undercut by %d %%"]:format(self.pct), 1, 1, 1)
@@ -611,8 +610,7 @@ function AH.CreateSellView(view)
         local button = UI.Button(content, text, function() SelectDuration(i) end, 76)
         button:SetHeight(30)
         button:SetPoint("TOPLEFT", FIELD_X + (i - 1) * 82, y)
-        button.active = ns.AddBorder(button, true)
-        for _, edge in ipairs(button.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+        button.active = {} -- bevel button: accent text only
         sell.durationButtons[i] = button
     end
 
@@ -634,7 +632,7 @@ function AH.CreateSellView(view)
     summary:SetPoint("BOTTOMLEFT", 16, 60)
     summary:SetPoint("BOTTOMRIGHT", -16, 60)
     summary:SetHeight(104)
-    UI.Box(summary, { 0.098, 0.098, 0.106, 1 })
+    UI.Card(summary)
     local function Line(text, i, bold)
         local label = UI.Text(summary, 13, "LEFT", bold and UI.TEXT or UI.MUTED)
         label:SetPoint("TOPLEFT", 12, -10 - (i - 1) * 22)
@@ -653,7 +651,6 @@ function AH.CreateSellView(view)
     sell.post:SetHeight(32)
     sell.post:SetPoint("BOTTOM", 0, 16)
     sell.post:SetMotionScriptsWhileDisabled(true)
-    for _, e in ipairs(ns.AddBorder(sell.post, true)) do e:SetVertexColor(unpack(UI.ACCENT)) end
 
     SelectDuration(ns.db.ahDuration or 2)
 end

@@ -169,7 +169,7 @@ function AH.Header(parent, columns)
     local UI = ns.UI
     local header = CreateFrame("Frame", nil, parent)
     header:SetHeight(26)
-    UI.Box(header, { 0.098, 0.098, 0.106, 1 })
+    UI.Card(header)
     PlaceColumns(header, columns, function(i, side, x, width, right)
         local column = columns[i]
         local text = UI.Text(header, 12, column.align or "LEFT", UI.MUTED)
@@ -275,7 +275,7 @@ end
 
 function AH.Panel(parent)
     local panel = CreateFrame("Frame", nil, parent)
-    ns.UI.Box(panel, { 0.078, 0.078, 0.086, 1 })
+    ns.UI.Inset(panel)
     return panel
 end
 
@@ -797,9 +797,9 @@ local function ItemHeader(parent, target)
     local holder = CreateFrame("Frame", nil, card)
     holder:SetSize(44, 44)
     holder:SetPoint("LEFT", 12, 0)
-    ns.AddBorder(holder)
+    ns.AddItemFrame(holder, nil, 2)
     target.icon = holder:CreateTexture(nil, "ARTWORK")
-    target.icon:SetAllPoints()
+    ns.InsetItemIcon(holder, target.icon, nil, 2)
     target.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     holder:EnableMouse(true)
     holder:SetScript("OnEnter", function(self)
@@ -927,9 +927,6 @@ local function CreateBuyView(view)
     item.buyButton:SetHeight(30)
     item.buyButton:SetPoint("BOTTOMRIGHT", -16, 0)
     item.buyButton:SetMotionScriptsWhileDisabled(true)
-    for _, b in ipairs({ item.buyButton }) do
-        for _, e in ipairs(ns.AddBorder(b, true)) do e:SetVertexColor(unpack(UI.ACCENT)) end
-    end
 
     -- commodities
     local comFrame = CreateFrame("Frame", nil, view)
@@ -990,7 +987,6 @@ local function CreateBuyView(view)
     commodity.buyButton:SetHeight(32)
     commodity.buyButton:SetPoint("BOTTOM", 0, 16)
     commodity.buyButton:SetMotionScriptsWhileDisabled(true)
-    for _, e in ipairs(ns.AddBorder(commodity.buyButton, true)) do e:SetVertexColor(unpack(UI.ACCENT)) end
 end
 
 function AH.ShowBuyMode()
@@ -1065,10 +1061,10 @@ local function CreateWindow()
         local button = CreateFrame("Button", nil, window)
         button:SetSize(TAB_SIZE, TAB_SIZE)
         button:SetPoint("TOPLEFT", window, "TOPRIGHT", ns.SideTabX(), -(60 + (i - 1) * TAB_STEP))
-        UI.Box(button, ns.STYLE.panelColor)
+        ns.AddSlotBackground(button)
+        ns.AddItemFrame(button, nil, 2)
         button.icon = button:CreateTexture(nil, "ARTWORK")
-        button.icon:SetPoint("TOPLEFT", 3, -3)
-        button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
+        ns.InsetItemIcon(button, button.icon, nil, 2)
         button.icon:SetTexture(def.icon)
         button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
         button.active = ns.AddBorder(button, true, 2)

@@ -174,8 +174,7 @@ function AH.CreateOwnedView(view)
         t:SetHeight(28)
         t:SetPoint("TOPLEFT", x, 0)
         t.mode = mode
-        t.active = ns.AddBorder(t, true)
-        for _, edge in ipairs(t.active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
+        t.active = {} -- bevel button: accent text only
         return t
     end
     owned.tabAuctions = Toggle("auctions", 0)
@@ -259,7 +258,6 @@ function AH.CreateOwnedView(view)
     owned.buyButton:SetHeight(30)
     owned.buyButton:SetPoint("RIGHT")
     owned.buyButton:SetMotionScriptsWhileDisabled(true)
-    for _, e in ipairs(ns.AddBorder(owned.buyButton, true)) do e:SetVertexColor(unpack(UI.ACCENT)) end
 end
 
 local function Visible()
