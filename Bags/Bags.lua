@@ -516,7 +516,7 @@ local function LayoutCategories(items, empties, special)
     -- 1) pack all sections into rows one column wide
     local rows, row = {}, nil
     for _, key in ipairs(keys) do
-        if key ~= NEW then -- "New" gets its own row at the very top (see below)
+        if key ~= NEW and key ~= FREE then -- full-width rows: "New" on top, "Free" at the bottom
             local count = #sections[key]
             local secCols = math.min(count, COLUMN_SLOTS)
             local w = math.max(secCols * (SIZE + GAP) - GAP, TextWidth(L[key]) + 4)
@@ -559,6 +559,15 @@ local function LayoutCategories(items, empties, special)
             end
             y = y + r.height + SECTION_GAP
             placedHeight = math.max(placedHeight, y - SECTION_GAP)
+        end
+        -- "Free" across the full width below everything, like one big bag
+        if sections[FREE] then
+            local fullWidth = cols * colWidth + (cols - 1) * COLUMN_GAP
+            local slots = math.floor((fullWidth + GAP) / (SIZE + GAP))
+            local count = #sections[FREE]
+            local freeY = placedHeight > 0 and placedHeight + SECTION_GAP or 0
+            placed[#placed + 1] = { key = FREE, x = 0, y = freeY, cols = math.min(count, slots) }
+            placedHeight = freeY + HEADER + math.ceil(count / slots) * (SIZE + GAP) - GAP
         end
         if placedHeight <= maxHeight then break end
     end
