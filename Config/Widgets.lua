@@ -135,7 +135,7 @@ end
 function UI.Icon(parent, name, size, color)
     local icon = parent:CreateTexture(nil, "OVERLAY")
     icon:SetSize(size, size)
-    icon:SetTexture(ns.MEDIA .. "Icons\\" .. name)
+    ns.SetIcon(icon, name)
     icon:SetVertexColor(unpack(color or UI.TEXT))
     return icon
 end
@@ -175,8 +175,8 @@ end
 -- yOffset: positive = higher. Next to text, icons otherwise sit too low: for 11-13 px icons and
 -- the normal mUI font use 1-2 (13 px clock in the tracker: 1; 0 too low, 2 too high).
 function UI.IconMarkup(name, size, color, yOffset)
-    local c = color or UI.TEXT
-    return ("|T%sIcons\\%s:%d:%d:0:%d:64:64:0:64:0:64:%d:%d:%d|t"):format(ns.MEDIA, name, size or 12, size or 12,
+    local c = ns.PAINTED_ICONS[name] and { 1, 1, 1 } or color or UI.TEXT
+    return ("|T%s:%d:%d:0:%d:64:64:0:64:0:64:%d:%d:%d|t"):format(ns.IconPath(name), size or 12, size or 12,
         yOffset or 0, c[1] * 255, c[2] * 255, c[3] * 255)
 end
 
@@ -965,7 +965,7 @@ local function CreateList()
                 if item.color then rowButton.text:SetTextColor(unpack(item.color)) end
                 rowButton.icon:SetShown(item.icon ~= nil)
                 if item.icon then
-                    rowButton.icon:SetTexture(ns.MEDIA .. "Icons\\" .. item.icon)
+                    ns.SetIcon(rowButton.icon, item.icon)
                     rowButton.icon:SetVertexColor(unpack(item.iconColor or item.color or UI.MUTED))
                 end
                 if list.multi then -- checkbox on the left, text always indented the same
@@ -982,7 +982,7 @@ local function CreateList()
                         if info.atlas then
                             action.icon:SetAtlas(info.atlas)
                         else
-                            action.icon:SetTexture(ns.MEDIA .. "Icons\\" .. info.icon)
+                            ns.SetIcon(action.icon, info.icon)
                             action.icon:SetTexCoord(0, 1, 0, 1) -- reset atlas tex coords from a previous row
                         end
                         action.icon:SetDesaturated(true)

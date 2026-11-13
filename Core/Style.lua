@@ -940,6 +940,29 @@ function ns.CreateRunes(parent, height, width)
     return element
 end
 
+-- Painted icons (Media/IconsPainted/<name>.tga, full colour): used instead of the flat white icon of
+-- the same name and never tinted. Being replaced one by one, the rest stay flat for now.
+ns.PAINTED_ICONS = { Resting = true, Combat = true, Close = true, Edit = true, Bag = true, Gold = true }
+function ns.IconPath(name)
+    return ns.MEDIA .. (ns.PAINTED_ICONS[name] and "IconsPainted\\" or "Icons\\") .. name
+end
+
+-- Set an icon texture by name. Painted icons keep their own colours: tinting calls (hover, state
+-- colours) only pass the alpha through while a painted icon is shown.
+function ns.SetIcon(tex, name)
+    if not tex.muiTintGuard then
+        tex.muiTintGuard = true
+        local setColor = tex.SetVertexColor
+        tex.SetVertexColor = function(self, r, g, b, a)
+            if self.muiPainted then return setColor(self, 1, 1, 1, a) end
+            return setColor(self, r, g, b, a)
+        end
+    end
+    tex.muiPainted = ns.PAINTED_ICONS[name] or nil
+    tex:SetTexture(ns.IconPath(name))
+    if tex.muiPainted then tex:SetVertexColor(1, 1, 1) end
+end
+
 -- Status icon (Media/Icons/<name>.tga, white) tinted in color, with a dark drop shadow
 -- for readability on light bars. The shadow follows the icon's Show/Hide.
 -- Icons: Material Design Icons / Material Symbols, Apache 2.0 (Media/Icons/CREDITS.txt).
@@ -947,11 +970,11 @@ function ns.CreateStatusIcon(parent, name, size, color)
     local px = ns.PixelSize()
     local icon = parent:CreateTexture(nil, "OVERLAY", nil, 7)
     icon:SetSize(size, size)
-    icon:SetTexture(ns.MEDIA .. "Icons\\" .. name)
+    ns.SetIcon(icon, name)
     icon:SetVertexColor(unpack(color))
 
     local shadow = parent:CreateTexture(nil, "OVERLAY", nil, 6)
-    shadow:SetTexture(ns.MEDIA .. "Icons\\" .. name)
+    shadow:SetTexture(ns.IconPath(name))
     shadow:SetVertexColor(0, 0, 0, 0.9)
     shadow:SetPoint("TOPLEFT", icon, "TOPLEFT", -px, px)
     shadow:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2 * px, -2 * px)
@@ -965,8 +988,8 @@ end
 
 -- Change a status icon's texture (shadow follows), e.g. ready check.
 function ns.SetStatusIcon(icon, name)
-    icon:SetTexture(ns.MEDIA .. "Icons\\" .. name)
-    if icon.shadow then icon.shadow:SetTexture(ns.MEDIA .. "Icons\\" .. name) end
+    ns.SetIcon(icon, name)
+    if icon.shadow then icon.shadow:SetTexture(ns.IconPath(name)) end
 end
 
 -- Row of status icons centered on anchor: visible icons close ranks,
