@@ -298,7 +298,7 @@ local function Style(self, unit)
         self.SummonIndicator = summon
 
         local resting = ns.CreateStatusIcon(top, "Resting", 18, STYLE.restingColor)
-        resting:SetPoint("CENTER", self, "TOP" .. far, -14 * dir, ns.Snap(8))
+        resting:SetPoint("CENTER", self, "TOP" .. far, -14 * dir, ns.Snap(5))
         self.RestingIndicator = resting
     else
         self.QuestIndicator = Status("Quest", STYLE.questColor)
