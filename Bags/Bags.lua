@@ -920,8 +920,7 @@ local function SellJunkAndRepair()
     if CanMerchantRepair() then
         local cost, canRepair = GetRepairAllCost()
         if canRepair and cost > 0 then
-            local guildMoney = IsInGuild() and CanGuildBankRepair() and GetGuildBankWithdrawMoney() or 0
-            local useGuild = guildMoney == -1 or guildMoney >= cost
+            local useGuild = ns.UseGuildRepair(cost)
             if useGuild or GetMoney() >= cost then
                 RepairAllItems(useGuild)
                 ns.Print((useGuild and L["Repaired for %s (guild bank)."] or L["Repaired for %s."])
@@ -929,6 +928,13 @@ local function SellJunkAndRepair()
             end
         end
     end
+end
+
+-- Guild bank pays only when the player turned it on (off by default) and the guild allows enough
+function ns.UseGuildRepair(cost)
+    if not ns.db.repairGuild or not IsInGuild() or not CanGuildBankRepair() then return false end
+    local guildMoney = GetGuildBankWithdrawMoney()
+    return guildMoney == -1 or guildMoney >= cost
 end
 
 -- Startup -------------------------------------------------------------------------------------
