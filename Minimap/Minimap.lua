@@ -306,8 +306,8 @@ local function Setup()
     border:SetAllPoints(holder)
     border:SetFrameStrata("LOW")
     border:SetFrameLevel(holder:GetFrameLevel() + 20)
-    -- window frame (B8) around the map: deep shell with the translucent rim
-    ns.AddDeepShell(holder, ns.Snap(2), { rim = 4, parent = border, shadow = 16 })
+    -- deep shell around the map (no translucent rim)
+    ns.AddDeepShell(holder, ns.Snap(2), { parent = border, shadow = 12 })
 
     Minimap:SetParent(holder)
     Minimap:ClearAllPoints()
@@ -382,7 +382,7 @@ local function Setup()
 
     -- Fixed spot top right, 25 px from the edge
     ns.OnLayout(function()
-        local margin = ns.Snap(ns.SCREEN_MARGIN)
+        local margin = ns.Snap(ns.SCREEN_MARGIN) + ns.MinimapFrameReach() -- frame edge on the margin
         ns.PlaceFromCenter(holder, "TOPRIGHT", UIParent:GetWidth() / 2 - margin, UIParent:GetHeight() / 2 - margin)
     end)
     ns.layoutFrames.minimap = holder

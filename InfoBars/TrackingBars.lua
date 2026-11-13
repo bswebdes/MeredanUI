@@ -141,7 +141,7 @@ function ns.UpdateTrackingBars()
     local px = ns.PixelSize()
     -- room for both shells between bars, and for the minimap's frame above the first one
     local height, gap = ns.Snap(HEIGHT), GAP_PIXELS * px + 2 * ns.ThinShellReach()
-    local y = ns.WindowFrameReach() + ns.ThinShellReach() + GAP_PIXELS * px
+    local y = ns.MinimapFrameReach() + ns.ThinShellReach() + GAP_PIXELS * px
     -- Visible bars first, mouseover bars last, so an invisible mouseover bar never leaves a gap
     -- between two visible ones
     local order = {}
@@ -165,7 +165,7 @@ function ns.UpdateTrackingBars()
             ns.ColorBarBackground(bar)
             bar:ClearAllPoints()
             -- outer edges line up with the minimap's window frame
-            local out = ns.WindowFrameReach() - ns.ThinShellReach()
+            local out = ns.MinimapFrameReach() - ns.ThinShellReach()
             bar:SetPoint("TOPLEFT", holder, "BOTTOMLEFT", -out, -y)
             bar:SetPoint("TOPRIGHT", holder, "BOTTOMRIGHT", out, -y)
             y = y + height + gap

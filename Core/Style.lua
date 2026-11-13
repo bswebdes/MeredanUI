@@ -518,6 +518,10 @@ end
 function ns.AddThinShell(region) return ns.AddDeepShell(region, ns.Snap(1), { shadow = 6 }) end
 function ns.ThinShellReach() return 3 * ns.PixelSize() + ns.Snap(1) end
 
+-- Minimap frame: the deep shell without the translucent rim (Benny); its outer edge keeps the
+-- 25 px screen margin, so the map itself sits that much further in
+function ns.MinimapFrameReach() return 4 * ns.PixelSize() + ns.Snap(2) end
+
 -- x offset for side tabs right of a window
 function ns.SideTabX() return ns.WindowFrameReach() + ns.Snap(4) end
 

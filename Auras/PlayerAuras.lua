@@ -222,7 +222,7 @@ local buffs, debuffs, privates
 local function StackAnchor()
     local minimap = _G["MeredanUIMinimap"]
     -- clear of the minimap's window frame, top aligned with its outer edge
-    if minimap then return minimap, "TOPLEFT", -(ns.Snap(GAP) + ns.WindowFrameReach()), ns.WindowFrameReach() end
+    if minimap then return minimap, "TOPLEFT", -(ns.Snap(GAP) + ns.MinimapFrameReach()), ns.MinimapFrameReach() end
     return UIParent, "TOPRIGHT", -ns.Snap(ns.SCREEN_MARGIN), -ns.Snap(ns.SCREEN_MARGIN)
 end
 
