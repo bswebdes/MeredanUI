@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## v0.4.7
+- Repairs are now paid from your own gold by default. The guild bank is only used if you turn on the new "Repair from the guild bank" setting (Bags page)
+
 ## v0.4.6
 - Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same
 - Bags: every free slot is shown at the bottom across the full width, so you can drop items straight onto a free slot

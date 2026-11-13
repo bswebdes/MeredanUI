@@ -2,6 +2,9 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.4.7", items = {
+        "Repairs are now paid from your own gold by default. The guild bank is only used if you turn on the new \"Repair from the guild bank\" setting (Bags page)",
+    } },
     { version = "v0.4.6", items = {
         "Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same",
         "Bags: every free slot is shown at the bottom across the full width, so you can drop items straight onto a free slot",
@@ -44,16 +47,5 @@ ns.CHANGELOG = {
         "\"What's new\" shows the five newest pages",
         "Fixed: the right border of fields in the settings window was cut off",
         "Fixed: gryphon artwork in the wrong place after a reload in combat",
-    } },
-    { version = "v0.4.0", items = {
-        "MeredanUI leaves beta: from now on regular releases, so the CurseForge app and other addon managers pick up updates with default settings. mUI is still in early access – feedback and bug reports are very welcome",
-        "New Comfort helper: sparkle on the nearest herb, ore vein, quest object, chest or skinnable corpse – green for herbs, orange for ore, red for skinning (each only with the matching profession), yellow for quest objects, white for other objects like benches and mailboxes (own switch). Dimmed while out of reach, quest progress under the sparkle when you point at the object, off in combat (Quests page)",
-        "New Comfort helper: class quest reminder. A toast tells you when a class quest for a new ability becomes available (Defensive Stance, Bear Form, Voidwalker, totems, Paladin mounts and more, including the new Forever quests) and where it starts for your race. Click the toast for a map pin with an arrow (Quests page)",
-        "The Comfort style no longer turns on auto accept and auto turn-in of quests – both are opt-in on the Quests page now. Your current settings stay as they are",
-        "\"What's new\" pages of new helpers have a \"Turn on\" checkbox",
-        "Fixed a Lua error when reloading the UI in combat (quest item bar)",
-        "Dungeon maps: Ragefire Chasm is now in the dungeon panel",
-        "Dungeon maps: Wailing Caverns and Ragefire Chasm show WoW Forever's own loot and drop chances, including the new Forever items",
-        "Dungeon maps: the \"Quests\" tab now also lists the new Forever dungeon quests and shows a faction icon for Horde or Alliance quests",
     } },
 }
