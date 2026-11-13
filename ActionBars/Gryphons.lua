@@ -6,19 +6,19 @@ local _, ns = ...
 local L = ns.L
 
 local GRYPHON_ASPECT = 178 / 167 -- atlas size
--- Class animals: drawn facing right (the left cap), mirrored for the right one. Tight crops at the
+-- Class animals: drawn facing right (the right cap, looking outward), mirrored for the left one. Tight crops at the
 -- bottom-left of a 512x512 texture; right/top = tex coords of the art, aspect = art width / height.
 -- scale/x/y: tuned in game with /mui endcap.
 local CLASS_ART = {
-    WARRIOR = { file = "EndCaps\\Warrior", right = 418 / 512, top = 0, aspect = 418 / 512, scale = 1.15 },
+    WARRIOR = { file = "EndCaps\\Warrior", right = 419 / 512, top = 0, aspect = 419 / 512, scale = 1.15 },
     PALADIN = { file = "EndCaps\\Paladin", right = 1, top = 18 / 512, aspect = 512 / 494, scale = 0.95 },
-    HUNTER = { file = "EndCaps\\Hunter", right = 476 / 512, top = 0, aspect = 476 / 512, scale = 1.1 },
-    ROGUE = { file = "EndCaps\\Rogue", right = 404 / 512, top = 0, aspect = 404 / 512, scale = 1.1 },
+    HUNTER = { file = "EndCaps\\Hunter", right = 477 / 512, top = 0, aspect = 477 / 512, scale = 1.1 },
+    ROGUE = { file = "EndCaps\\Rogue", right = 405 / 512, top = 0, aspect = 405 / 512, scale = 1.1 },
     PRIEST = { file = "EndCaps\\Priest", right = 1, top = 12 / 512, aspect = 512 / 500, scale = 1.05 },
-    SHAMAN = { file = "EndCaps\\Shaman", right = 460 / 512, top = 0, aspect = 460 / 512, scale = 1.1 },
-    MAGE = { file = "EndCaps\\Mage", right = 386 / 512, top = 0, aspect = 386 / 512, scale = 1.15 },
-    WARLOCK = { file = "EndCaps\\Warlock", right = 434 / 512, top = 0, aspect = 434 / 512, scale = 1.1 },
-    DRUID = { file = "EndCaps\\Druid", right = 326 / 512, top = 0, aspect = 326 / 512, scale = 1.15 },
+    SHAMAN = { file = "EndCaps\\Shaman", right = 462 / 512, top = 0, aspect = 462 / 512, scale = 1.1 },
+    MAGE = { file = "EndCaps\\Mage", right = 388 / 512, top = 0, aspect = 388 / 512, scale = 1.15 },
+    WARLOCK = { file = "EndCaps\\Warlock", right = 436 / 512, top = 0, aspect = 436 / 512, scale = 1.1 },
+    DRUID = { file = "EndCaps\\Druid", right = 328 / 512, top = 0, aspect = 328 / 512, scale = 1.15 },
 }
 local left, right
 
@@ -46,7 +46,8 @@ local function Texture(frame, side, art)
     if art then
         frame.tex:SetTexture(ns.MEDIA .. art.file)
         local r = art.right or 1
-        if side == "left" then frame.tex:SetTexCoord(0, r, art.top, 1) else frame.tex:SetTexCoord(r, 0, art.top, 1) end
+        -- like Blizzard's gryphons the animals look away from the bar, so the left one is mirrored
+        if side == "left" then frame.tex:SetTexCoord(r, 0, art.top, 1) else frame.tex:SetTexCoord(0, r, art.top, 1) end
     else
         local horde = UnitFactionGroup("player") == "Horde"
         frame.tex:SetTexCoord(0, 1, 0, 1)
