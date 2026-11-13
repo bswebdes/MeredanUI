@@ -303,7 +303,7 @@ end
 -- Item/action button frame (rune look, not flat): a thin light bronze edge with a wider dark
 -- backdrop band inside it; the icon sits within (ns.InsetItemIcon). Returns the edge textures, so
 -- callers can tint them by quality like an ns.AddBorder result (ns.ITEM_EDGE = default colour).
-ns.ITEM_EDGE = { 0.79, 0.66, 0.41, 1 }
+ns.ITEM_EDGE = { 0.627, 0.447, 0.267, 1 } -- #A07244: the lit edges of Blizzard's Forever gryphons
 local ITEM_EDGE, ITEM_PAD = 1, 3 -- UI units: edge line, backdrop band
 local function EdgePixels() return math.max(1, math.floor(ns.Snap(ITEM_EDGE) / ns.PixelSize() + 0.5)) end
 local function ItemInset() return EdgePixels() * ns.PixelSize() + ns.Snap(ITEM_PAD) end
