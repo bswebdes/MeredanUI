@@ -840,7 +840,7 @@ local function Setup()
         framesByKey.petbar = petHolder
     end
 
-    -- stance bar top left of the Alt bar, grows right (default: mouseover)
+    -- stance bar above the Alt bar, one button in from the left, grows right (default: mouseover)
     if StanceBar then
         local stanceHolder = CreateFrame("Frame", "MeredanUIStanceBar", UIParent, "SecureHandlerStateTemplate")
         AdoptBlizzardBar(StanceBar, stanceHolder, "StanceButton", 10, 10, SMALL_SIZE, "stancebar")
@@ -848,7 +848,8 @@ local function Setup()
             -- healer: left of the bottom rows, level with the main bar (cast bar sits above)
             stanceHolder:SetPoint("BOTTOMRIGHT", main, "BOTTOMLEFT", -ns.Snap(12), 0)
         else
-            stanceHolder:SetPoint("BOTTOMLEFT", alt, "TOPLEFT", 0, gap)
+            -- one button in from the bar's left end: clear of the end cap's paws
+            stanceHolder:SetPoint("BOTTOMLEFT", alt, "TOPLEFT", ns.Snap(SIZE) + gap, gap)
         end
         ns.layoutFrames.stancebar = stanceHolder
         framesByKey.stancebar = stanceHolder
