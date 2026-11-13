@@ -22,9 +22,7 @@ local SIZE = 36                  -- item buttons
 local GAP, PAD = 6, 14
 local HEADER = 16                -- section header height
 local SECTION_GAP = 10           -- gap between sections
-local COLUMN_SLOTS = 7            -- slots per column (like BetterBags)
-local COLUMN_GAP = 20             -- gap between columns
-local MIN_COLUMNS, MAX_COLUMNS = 2, 4
+local FLOW_MIN_SLOTS, FLOW_MAX_SLOTS = 10, 20 -- category view width in slots (widens while too tall)
 local BAGS = { 0, 1, 2, 3, 4, 5 } -- backpack, bags 1-4, reagent bag
 local REAGENT_BAG = 5
 -- Forever has the classic keyring (own tab, only while it holds keys)
@@ -510,65 +508,33 @@ local function LayoutCategories(items, empties, special)
     for key in pairs(sections) do keys[#keys + 1] = key end
     table.sort(keys, SectionOrder)
 
-    -- layout like BetterBags: columns of COLUMN_SLOTS slots; sections flow top to bottom, small
-    -- sections sit side by side. Two columns, more if needed.
-    local colWidth = COLUMN_SLOTS * (SIZE + GAP) - GAP
-    -- 1) pack all sections into rows one column wide
-    local rows, row = {}, nil
-    for _, key in ipairs(keys) do
-        if key ~= NEW and key ~= FREE then -- full-width rows: "New" on top, "Free" at the bottom
-            local count = #sections[key]
-            local secCols = math.min(count, COLUMN_SLOTS)
-            local w = math.max(secCols * (SIZE + GAP) - GAP, TextWidth(L[key]) + 4)
-            local h = HEADER + math.ceil(count / COLUMN_SLOTS) * (SIZE + GAP) - GAP
-            if not row or row.width + w > colWidth then
-                row = { width = 0, height = 0, items = {} }
-                rows[#rows + 1] = row
-            end
-            row.items[#row.items + 1] = { key = key, x = row.width, cols = secCols }
-            row.width = row.width + w + SECTION_GAP
-            row.height = math.max(row.height, h)
-        end
-    end
-    local total = 0
-    for _, r in ipairs(rows) do total = total + r.height + SECTION_GAP end
-    -- 2) distribute rows evenly over columns; add columns when too tall
+    -- Flow layout: sections run left to right and wrap when the row is full; "New" (top) and
+    -- "Free" (bottom) take whole rows. Starts FLOW_MIN_SLOTS wide, widens while too tall.
     local maxHeight = MaxContentHeight()
-    local columns, placed, placedHeight = MIN_COLUMNS, {}, 0
-    for cols = MIN_COLUMNS, MAX_COLUMNS do
-        columns = cols
+    local width, placed, placedHeight
+    for slots = FLOW_MIN_SLOTS, FLOW_MAX_SLOTS do
+        width = slots * (SIZE + GAP) - GAP
         placed, placedHeight = {}, 0
-        -- "New" across the full width at the top
-        local top = 0
-        if sections[NEW] then
-            local fullWidth = cols * colWidth + (cols - 1) * COLUMN_GAP
-            local slots = math.floor((fullWidth + GAP) / (SIZE + GAP))
-            local count = #sections[NEW]
-            placed[1] = { key = NEW, x = 0, y = 0, cols = math.min(count, slots) }
-            top = HEADER + math.ceil(count / slots) * (SIZE + GAP) - GAP + SECTION_GAP
-            placedHeight = top - SECTION_GAP
+        local x, y, rowHeight = 0, 0, 0
+        local function NewRow()
+            if x > 0 then y, x, rowHeight = y + rowHeight + SECTION_GAP, 0, 0 end
         end
-        local target, col, y = total / cols, 0, top
-        for _, r in ipairs(rows) do
-            if y > top and y - top + r.height / 2 > target and col < cols - 1 then
-                col, y = col + 1, top
-            end
-            local x0 = col * (colWidth + COLUMN_GAP)
-            for _, item in ipairs(r.items) do
-                placed[#placed + 1] = { key = item.key, x = x0 + item.x, y = y, cols = item.cols }
-            end
-            y = y + r.height + SECTION_GAP
-            placedHeight = math.max(placedHeight, y - SECTION_GAP)
+        local function Place(key, fullRow)
+            local count = #sections[key]
+            local cols = math.min(count, slots)
+            local w = math.max(cols * (SIZE + GAP) - GAP, TextWidth(L[key]) + 4)
+            local h = HEADER + math.ceil(count / cols) * (SIZE + GAP) - GAP
+            if fullRow or x + w > width then NewRow() end
+            placed[#placed + 1] = { key = key, x = x, y = y, cols = cols }
+            x, rowHeight = x + w + SECTION_GAP, math.max(rowHeight, h)
+            placedHeight = math.max(placedHeight, y + h)
+            if fullRow then NewRow() end
         end
-        -- "Free" across the full width below everything, like one big bag
-        if sections[FREE] then
-            local fullWidth = cols * colWidth + (cols - 1) * COLUMN_GAP
-            local slots = math.floor((fullWidth + GAP) / (SIZE + GAP))
-            local count = #sections[FREE]
-            local freeY = placedHeight > 0 and placedHeight + SECTION_GAP or 0
-            placed[#placed + 1] = { key = FREE, x = 0, y = freeY, cols = math.min(count, slots) }
-            placedHeight = freeY + HEADER + math.ceil(count / slots) * (SIZE + GAP) - GAP
+        if sections[NEW] then Place(NEW, true) end
+        for _, key in ipairs(keys) do
+            if key ~= NEW and key ~= FREE then Place(key) end
         end
+        if sections[FREE] then Place(FREE, true) end
         if placedHeight <= maxHeight then break end
     end
 
@@ -594,7 +560,7 @@ local function LayoutCategories(items, empties, special)
         end
     end
 
-    return columns * colWidth + (columns - 1) * COLUMN_GAP, placedHeight
+    return width, placedHeight
 end
 
 local function SingleSort(a, b)
