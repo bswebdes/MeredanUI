@@ -8,12 +8,12 @@ local L = ns.L
 local GRYPHON_ASPECT = 178 / 167 -- atlas size
 -- Class animals: drawn facing right (the left cap, looking at the bar), mirrored for the right one. Tight crops at the
 -- bottom-left of a 512x512 texture; right/top = tex coords of the art, aspect = art width / height.
--- scale/x/y: tuned in game with /mui endcap.
+-- scale/x/y: tuned in game with /mui endcap; flip: looks away from the bar instead.
 local CLASS_ART = {
     WARRIOR = { file = "EndCaps\\Warrior", right = 419 / 512, top = 0, aspect = 419 / 512, scale = 1.15, x = 10 },
     PALADIN = { file = "EndCaps\\Paladin", right = 1, top = 18 / 512, aspect = 512 / 494, scale = 1.05, x = 10 },
     HUNTER = { file = "EndCaps\\Hunter", right = 477 / 512, top = 0, aspect = 477 / 512, scale = 1.15, x = 10, y = 2 },
-    ROGUE = { file = "EndCaps\\Rogue", right = 1, top = 215 / 512, aspect = 512 / 297, scale = 1.1, x = 21, y = -1 },
+    ROGUE = { file = "EndCaps\Rogue", right = 405 / 512, top = 0, aspect = 405 / 512, scale = 1.1, x = 10, flip = true },
     PRIEST = { file = "EndCaps\\Priest", right = 1, top = 12 / 512, aspect = 512 / 500, scale = 1, x = 1 },
     SHAMAN = { file = "EndCaps\\Shaman", right = 462 / 512, top = 0, aspect = 462 / 512, scale = 1.2, x = 14 },
     MAGE = { file = "EndCaps\\Mage", right = 388 / 512, top = 0, aspect = 388 / 512, scale = 1.15 },
@@ -46,8 +46,8 @@ local function Texture(frame, side, art)
     if art then
         frame.tex:SetTexture(ns.MEDIA .. art.file)
         local r = art.right or 1
-        -- the animals look toward the bar, so the right one is mirrored
-        if side == "left" then frame.tex:SetTexCoord(0, r, art.top, 1) else frame.tex:SetTexCoord(r, 0, art.top, 1) end
+        -- the animals look toward the bar, so the right one is mirrored; flip = this one looks outward
+        if (side == "left") ~= (art.flip == true) then frame.tex:SetTexCoord(0, r, art.top, 1) else frame.tex:SetTexCoord(r, 0, art.top, 1) end
     else
         local horde = UnitFactionGroup("player") == "Horde"
         frame.tex:SetTexCoord(0, 1, 0, 1)
