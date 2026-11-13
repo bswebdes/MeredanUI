@@ -211,7 +211,7 @@ local DEFAULTS = {
     fastLoot = true,             -- loot instantly with auto-loot (Loot/FastLoot.lua)
     fishingBag = true,           -- Forever: fishing bag + logbook, opens with a fishing pole (Loot/Fishing.lua)
     fishingDoubleClick = false,  -- Forever: double right-click casts Fishing (Comfort)
-    actionBarArt = false,        -- gryphons/wyverns at the bottom action bars (ActionBars/Gryphons.lua)
+    actionBarArt = true,         -- class animals / gryphons at the bottom action bars (ActionBars/Gryphons.lua)
     sparkle = false,             -- Comfort: glitter on the nearby herb/ore/quest object (Loot/Sparkle.lua)
     sparkleOther = true,         -- sparkle also on other objects (benches, chests, mailboxes) in white
     classQuestReminder = false,  -- Comfort, Forever: toast when a class quest unlocks (Quests/ClassQuestReminder.lua)
@@ -354,9 +354,7 @@ local function Stage(value, smallBelow, largeFrom)
     return "medium"
 end
 
-local function MigrateSettings(db)
-    if (db.settingsVersion or 1) >= 2 then return end
-    db.settingsVersion = 2
+local function MigrateSettingsV2(db)
     db.frameSize = db.frameSize or Stage(db.frameWidth, 250, 300)
     db.auraSize = db.auraSize or Stage(db.buffSize, 32, 40)
     if type(db.chatFontSize) == "number" then db.chatFontSize = Stage(db.chatFontSize, 12, 16) end
@@ -369,6 +367,14 @@ local function MigrateSettings(db)
     if db.xpBar then db.xpBar.mode = Simple(db.xpBar.mode) end
     if db.infoBar then db.infoBar.mode = Simple(db.infoBar.mode) end
     for _, key in ipairs(REMOVED_KEYS) do db[key] = nil end
+end
+
+local function MigrateSettings(db)
+    local version = db.settingsVersion or 1
+    if version < 2 then MigrateSettingsV2(db) end
+    -- v3 (rune look): the class animals at the action bars are on for everyone, once
+    if version < 3 then db.actionBarArt = true end
+    db.settingsVersion = 3
 end
 
 -- Short realm name: Forever's "CAMWOW EU5 Realm 10 RP" -> short "RP", long "EU5-10 RP".
