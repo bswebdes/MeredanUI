@@ -187,7 +187,7 @@ local function StyleButton(button)
     button:SetSize(SIZE, SIZE)
     button.emptyBackgroundAtlas = nil -- empty slots: our slot background instead of Blizzard's art
     ns.AddSlotBackground(button)
-    button.muiBorder = ns.AddBorder(button)
+    button.muiBorder = ns.AddItemFrame(button)
     -- inner 2px edge in the same color: with the outer edge a 3px frame for quality/quest items.
     -- On its own frame above the cooldown swipe, which would otherwise darken it.
     local edgeFrame = CreateFrame("Frame", nil, button)

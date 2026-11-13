@@ -300,6 +300,41 @@ function ns.AddBorder(region, inside, thickness)
     return { top, bottom, left, right }
 end
 
+-- Item/action button frame (rune look, not flat): a bevelled bronze setting just inside the edge -
+-- light on the top and left, dark on the bottom and right - plus the usual thin outer line. Returns
+-- the outer line's edges, so callers can still tint it by quality like an ns.AddBorder result.
+local BEVEL_LIGHT = { 0.88, 0.76, 0.52 }
+local BEVEL_MID = { 0.65, 0.51, 0.29 }
+local BEVEL_DARK = { 0.24, 0.18, 0.1 }
+function ns.AddItemFrame(frame)
+    local t = ns.Snap(2)
+    local function Edge(minC, maxC, orientation)
+        local tex = frame:CreateTexture(nil, "OVERLAY", nil, -8)
+        tex:SetColorTexture(1, 1, 1, 1)
+        tex:SetGradient(orientation, CreateColor(minC[1], minC[2], minC[3], 1), CreateColor(maxC[1], maxC[2], maxC[3], 1))
+        return tex
+    end
+    -- top and left lit, bottom and right in shadow (vertical gradients run bottom -> top)
+    local top = Edge(BEVEL_MID, BEVEL_LIGHT, "VERTICAL")
+    top:SetPoint("TOPLEFT")
+    top:SetPoint("TOPRIGHT")
+    top:SetHeight(t)
+    local left = Edge(BEVEL_LIGHT, BEVEL_MID, "HORIZONTAL")
+    left:SetPoint("TOPLEFT", 0, -t)
+    left:SetPoint("BOTTOMLEFT", 0, t)
+    left:SetWidth(t)
+    local bottom = Edge(BEVEL_DARK, BEVEL_MID, "VERTICAL")
+    bottom:SetPoint("BOTTOMLEFT")
+    bottom:SetPoint("BOTTOMRIGHT")
+    bottom:SetHeight(t)
+    local right = Edge(BEVEL_MID, BEVEL_DARK, "HORIZONTAL")
+    right:SetPoint("TOPRIGHT", 0, -t)
+    right:SetPoint("BOTTOMRIGHT", 0, t)
+    right:SetWidth(t)
+    frame.muiBevel = { top, left, bottom, right }
+    return ns.AddBorder(frame)
+end
+
 -- Dark panel with 1px border behind a region.
 function ns.CreateBackground(region)
     local bg = region:CreateTexture(nil, "BACKGROUND")

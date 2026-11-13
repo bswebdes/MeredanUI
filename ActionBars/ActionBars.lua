@@ -194,7 +194,7 @@ local function StyleButton(button)
     -- our square frame; plain dark without the atlas. The slot art is semi-transparent, so an
     -- opaque dark fill sits beneath it.
     ns.AddSlotBackground(button)
-    ns.AddBorder(button)
+    ns.AddItemFrame(button)
 
     local function Flat(texture, r, g, b, a)
         if not texture then return end
