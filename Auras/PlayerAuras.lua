@@ -312,7 +312,9 @@ local function DemoIcon(parent, spellID, size, harmful, index)
     icon:SetAllPoints()
     icon:SetTexture(C_Spell.GetSpellTexture(spellID) or 134400)
     icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    local border = ns.AddBorder(button, true, harmful and 2 or ns.BORDER_PIXELS)
+    -- same item frame as real auras (ns.StyleAuraButton)
+    local border = ns.AddItemFrame(button, harmful and 2 or 1, 2)
+    ns.InsetItemIcon(button, icon, harmful and 2 or 1, 2)
     local color = harmful and ns.oUF.colors.dispel[DEMO_DISPEL[(index - 1) % #DEMO_DISPEL + 1]]
     if color then
         for _, edge in ipairs(border) do edge:SetVertexColor(color:GetRGB()) end

@@ -305,12 +305,15 @@ end
 -- callers can tint them by quality like an ns.AddBorder result (ns.ITEM_EDGE = default colour).
 ns.ITEM_EDGE = { 0.627, 0.447, 0.267, 1 } -- #A07244: the lit edges of Blizzard's Forever gryphons
 local ITEM_EDGE, ITEM_PAD = 1, 3 -- UI units: edge line, backdrop band
-local function EdgePixels() return math.max(1, math.floor(ns.Snap(ITEM_EDGE) / ns.PixelSize() + 0.5)) end
-local function ItemInset() return EdgePixels() * ns.PixelSize() + ns.Snap(ITEM_PAD) end
+-- edge/pad (UI units) are optional: smaller buttons (auras) use a narrower band, dispellable
+-- auras a wider edge that carries the dispel colour
+local function EdgePixels(edge) return math.max(1, math.floor(ns.Snap(edge or ITEM_EDGE) / ns.PixelSize() + 0.5)) end
+local function ItemInset(edge, pad) return EdgePixels(edge) * ns.PixelSize() + ns.Snap(pad or ITEM_PAD) end
+ns.ItemInset = ItemInset
 
-function ns.AddItemFrame(frame)
+function ns.AddItemFrame(frame, edge, padUnits)
     local px = ns.PixelSize()
-    local e, pad = EdgePixels() * px, ns.Snap(ITEM_PAD)
+    local e, pad = EdgePixels(edge) * px, ns.Snap(padUnits or ITEM_PAD)
     local band = {}
     for i = 1, 4 do
         local tex = frame:CreateTexture(nil, "OVERLAY", nil, -8)
@@ -330,14 +333,14 @@ function ns.AddItemFrame(frame)
     band[4]:SetPoint("BOTTOMRIGHT", -e, e + pad)
     band[4]:SetWidth(pad)
     frame.muiBackdropBand = band
-    local edges = ns.AddBorder(frame, true, EdgePixels())
-    for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(ns.ITEM_EDGE)) end
+    local edges = ns.AddBorder(frame, true, EdgePixels(edge))
+    for _, tex in ipairs(edges) do tex:SetVertexColor(unpack(ns.ITEM_EDGE)) end
     return edges
 end
 
 -- Icon inside the item frame (call after the icon got its full-size anchors)
-function ns.InsetItemIcon(frame, icon)
-    local inset = ItemInset()
+function ns.InsetItemIcon(frame, icon, edge, pad)
+    local inset = ItemInset(edge, pad)
     icon:ClearAllPoints()
     icon:SetPoint("TOPLEFT", frame, "TOPLEFT", inset, -inset)
     icon:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -inset, inset)
@@ -635,13 +638,17 @@ end
 -- so Blizzard does the coloring, not us.
 -- ("preview" in test mode: thickness only, test mode sets the color.)
 -- options.desaturate: gray icon (e.g. other players' debuffs on the target).
+local AURA_PAD = 2 -- UI units: aura icons are small, a narrower band than action buttons
 function ns.StyleAuraButton(element, button, options)
     button.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.Icon:SetDesaturated(options and options.desaturate or false)
 
+    -- item frame like action buttons and bags: bronze edge and dark band; on dispellable auras the
+    -- (wider) edge takes the dispel colour
     local dispelBand = options and options.dispelBand
-    local borderPixels = dispelBand and 2 or ns.BORDER_PIXELS
-    local border = ns.AddBorder(button, true, borderPixels)
+    local edge, pad = dispelBand and 2 or 1, AURA_PAD
+    local border = ns.AddItemFrame(button, edge, pad)
+    ns.InsetItemIcon(button, button.Icon, edge, pad)
     button.FrameBorder = border
 
     if dispelBand and button.AddDispelTypeTexture then
@@ -661,7 +668,7 @@ function ns.StyleAuraButton(element, button, options)
     -- It stays inside the border.
     local cooldown = button.Cooldown
     if cooldown then
-        local inset = borderPixels * ns.PixelSize()
+        local inset = ItemInset(edge, pad)
         cooldown:ClearAllPoints()
         cooldown:SetPoint("TOPLEFT", inset, -inset)
         cooldown:SetPoint("BOTTOMRIGHT", -inset, inset)
@@ -1105,6 +1112,9 @@ function ns.CreateCastbar(parent, height, mirrored, showInterruptible, iconGap)
     local r, g, b = unpack(STYLE.panelColor)
     castbar.bg:SetVertexColor(r, g, b, 1)
 
+    -- shaded fill like health and power (the colour stays flat, set per cast type)
+    castbar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
+    castbar.muiShaded = true
     local fill = castbar:GetStatusBarTexture()
     if showInterruptible then
         local shield = castbar:CreateTexture(nil, "ARTWORK", nil, 1)
@@ -1132,11 +1142,11 @@ function ns.CreateCastbar(parent, height, mirrored, showInterruptible, iconGap)
     text:SetPoint("BOTTOM" .. far, time, "BOTTOM" .. near, -4 * dir, 0)
     castbar.Text = text
 
-    -- Icon outside next to the bar, as tall as the bar, own 1px border
+    -- Icon outside next to the bar, as tall as the bar, in the same deep shell as the frames
     local iconFrame = CreateFrame("Frame", nil, castbar)
     iconFrame:SetSize(height, height)
     iconFrame:SetPoint(far, castbar, near, -(iconGap or 0) * dir, 0)
-    ns.AddBorder(iconFrame)
+    if ns.AddDeepShell then ns.AddDeepShell(iconFrame, ns.Snap(2)) else ns.AddBorder(iconFrame) end
     local icon = iconFrame:CreateTexture(nil, "ARTWORK")
     icon:SetAllPoints()
     icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)

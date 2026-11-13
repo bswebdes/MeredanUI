@@ -211,7 +211,8 @@ local function Style(self, unit)
     AddHighlight(self, texts)
 
     -- Cast bar as overlay on the health bar (visible only while casting), spell icon outside
-    local castbar = ns.CreateCastbar(self, S.health, mirrored, unit == "target", S.step)
+    -- icon outside with a gap for both shells (frame and icon)
+    local castbar = ns.CreateCastbar(self, S.health, mirrored, unit == "target", S.step + 2 * S.plateOut)
     castbar:SetAllPoints(self)
     castbar:SetFrameLevel(texts:GetFrameLevel() + 1)
     self.Castbar = castbar
@@ -504,7 +505,7 @@ local function SideStyle(self, unit)
 
     -- Cast bar over the health bar; texts centered like name and percent, icon outside right
     -- (the column is on the right, so "outside" is right here - unlike the player frame)
-    local castbar = ns.CreateCastbar(self, S.health, false, true, S.step)
+    local castbar = ns.CreateCastbar(self, S.health, false, true, S.step + 2 * S.plateOut)
     castbar:SetAllPoints(health)
     castbar:SetFrameLevel(texts:GetFrameLevel() + 1)
     castbar.Time:ClearAllPoints()
@@ -514,7 +515,7 @@ local function SideStyle(self, unit)
     castbar.Text:SetPoint("RIGHT", castbar.Time, "LEFT", -4, 0)
     local iconFrame = castbar.Icon:GetParent()
     iconFrame:ClearAllPoints()
-    iconFrame:SetPoint("LEFT", castbar, "RIGHT", S.step, 0)
+    iconFrame:SetPoint("LEFT", castbar, "RIGHT", S.step + 2 * S.plateOut, 0)
     self.Castbar = castbar
 
     -- Raid marker centered on the top edge, visible while casting too
@@ -886,7 +887,7 @@ end)
 local SIDE_GAP = 30
 local function CastIconSpace(frame)
     local sizes = frame and frame.Sizes
-    return sizes and (sizes.health or 0) + (sizes.step or 0) or 0
+    return sizes and (sizes.health or 0) + (sizes.step or 0) + 3 * (sizes.plateOut or 0) or 0
 end
 
 -- Right edge of the column left of the player frame (nil until it is placed)
@@ -945,14 +946,14 @@ function ns.PlacePlayerCastbar()
         local gap = ns.Snap(BIG_CASTBAR_GAP)
         local stance = ns.layoutFrames.stancebar
         local above = healer and gap or ((stance and stance:GetHeight() or 0) + 2 * gap)
-        local iconSpace = height + ns.Snap(4)
+        local iconSpace = height + ns.Snap(12) -- room for the icon's shell
         castbar:SetHeight(height)
         castbar:SetPoint("BOTTOMLEFT", alt, "TOPLEFT", iconSpace, above)
         castbar:SetPoint("BOTTOMRIGHT", alt, "TOPRIGHT", 0, above)
         if iconFrame then
             iconFrame:SetSize(height, height)
             iconFrame:ClearAllPoints()
-            iconFrame:SetPoint("RIGHT", castbar, "LEFT", -ns.Snap(4), 0)
+            iconFrame:SetPoint("RIGHT", castbar, "LEFT", -ns.Snap(12), 0)
         end
         -- Own 1 px border (inside the player frame it shares the frame's border)
         castbar.muiBorder = castbar.muiBorder or ns.AddBorder(castbar)
