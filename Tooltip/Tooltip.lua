@@ -141,14 +141,8 @@ local function ApplyPadding(tooltip)
     tooltip:SetPadding(w + INNER, h + INNER, INNER, INNER)
 end
 
--- Line groups with spacing (player tooltip: name+guild | level, class, faction | iLvl, M+ |
--- target). Blizzard has no per-line spacing and re-anchors lines on show, so we insert real
--- spacer lines in a tiny font: append a line, shift texts from the group line down by one,
--- and the freed line becomes the gap. Blizzard computes the height itself. The spacer font
--- is reset on clear (line objects are reused and would keep the tiny font).
-local GROUP_GAP = 5
-local spacerFont
-
+-- Unit tooltip divider: a spacer line in its own font with a texture across it (lines are
+-- reused by Blizzard, so the font is reset when the tooltip is refilled).
 -- Reset all lines from 2 on to the normal font (line objects are reused; Blizzard doesn't
 -- reset their font when refilling)
 local dividerFont -- a spacer line tall enough for the divider (unit tooltip)
@@ -159,7 +153,7 @@ local function NormalizeFonts(tooltip)
     while _G[name .. "TextLeft" .. i] do
         local line = _G[name .. "TextLeft" .. i]
         local font = line:GetFontObject()
-        if font == spacerFont or (dividerFont and font == dividerFont) then line:SetFontObject(GameTooltipText) end
+        if dividerFont and font == dividerFont then line:SetFontObject(GameTooltipText) end
         i = i + 1
     end
     if tooltip.muiDivider then tooltip.muiDivider:Hide() end
@@ -192,7 +186,7 @@ end
 
 -- New content: spacer lines back to normal font
 local function ResetGroups(tooltip)
-    if spacerFont and tooltip:GetName() then NormalizeFonts(tooltip) end
+    if tooltip:GetName() then NormalizeFonts(tooltip) end
 end
 
 local function Skin(tooltip)
