@@ -112,9 +112,7 @@ local function Panel(frame, target)
     local bg = Tex(frame, "BACKGROUND", -8, { c[1], c[2], c[3], 0.96 })
     bg:SetAllPoints(target)
     local rune = ns.RuneFrame(frame, { target = target })
-    own[rune.shadow] = true
-    for _, tex in ipairs(rune.lines) do own[tex] = true end
-    for _, tex in ipairs(rune.corners) do own[tex] = true end
+    for _, region in ipairs({ rune.shell:GetRegions() }) do own[region] = true end
     return bg
 end
 
