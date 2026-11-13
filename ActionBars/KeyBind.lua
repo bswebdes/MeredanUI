@@ -124,24 +124,6 @@ local function HookButtons()
     Hook(_G.ExtraActionButton1, "EXTRAACTIONBUTTON1")
 end
 
--- Small checkbox in MUI look
-local function Checkbox(parent, label, onClick)
-    local UI = ns.UI
-    local button = CreateFrame("Button", nil, parent)
-    button:SetSize(ns.Snap(16), ns.Snap(16))
-    local bg = UI.Box(button)
-    local check = UI.Icon(button, "Check", 14, UI.ACCENT)
-    check:SetPoint("CENTER")
-    local text = UI.Text(parent, 12, "LEFT")
-    text:SetPoint("LEFT", button, "RIGHT", 8, 0)
-    text:SetText(label)
-    function button:SetChecked(value) self.checked = value; check:SetShown(value) end
-    button:SetScript("OnEnter", function() bg:SetColorTexture(unpack(UI.HOVER)) end)
-    button:SetScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
-    button:SetScript("OnClick", function(self) self:SetChecked(not self.checked); if onClick then onClick(self.checked) end end)
-    return button
-end
-
 local Stop
 
 local function CreatePanel()
@@ -156,7 +138,8 @@ local function CreatePanel()
     panel:RegisterForDrag("LeftButton")
     panel:SetScript("OnDragStart", panel.StartMoving)
     panel:SetScript("OnDragStop", panel.StopMovingOrSizing)
-    UI.Box(panel, { 0.05, 0.05, 0.06, 0.97 })
+    UI.Box(panel, ns.STYLE.panelColor, true)
+    ns.RuneFrame(panel, { small = true })
 
     local title = UI.Title(panel, 14, "LEFT")
     title:SetPoint("TOPLEFT", 12, -10)
@@ -169,7 +152,7 @@ local function CreatePanel()
     hint:SetPoint("RIGHT", -12, 0)
     hint:SetText(L["Hover a button and press a key."] .. "\n" .. L["Esc clears the binding."])
 
-    panel.perCharacter = Checkbox(panel, L["Only for this character"])
+    panel.perCharacter = UI.LabelCheck(panel, L["Only for this character"])
     panel.perCharacter:SetPoint("TOPLEFT", 12, -78)
 
     local save = UI.Button(panel, L["Save"], function() Stop(true) end, 122)
