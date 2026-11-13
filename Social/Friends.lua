@@ -71,7 +71,7 @@ local function Header(i)
     local header = CreateFrame("Button", nil, list.child)
     header:SetHeight(26)
     UI.Box(header, { 0.1, 0.1, 0.11, 1 })
-    header.text = UI.Text(header, 13, "LEFT", UI.ACCENT)
+    header.text = UI.Heading(header, 13, "LEFT")
     header.text:SetPoint("LEFT", 8, 0)
     header.count = UI.Text(header, 12, "LEFT", UI.MUTED)
     header.count:SetPoint("LEFT", header.text, "RIGHT", 8, 0)
@@ -628,7 +628,7 @@ local function CreateFilterMenu()
     local y, widest = 6, 0
     for _, entry in ipairs(entries) do
         if entry.title then
-            local title = UI.Text(filterMenu, 12, "LEFT", UI.ACCENT)
+            local title = UI.Heading(filterMenu, 12, "LEFT")
             title:SetPoint("TOPLEFT", 12, -(y + 6))
             title:SetText(entry.title)
             widest = math.max(widest, title:GetUnboundedStringWidth())

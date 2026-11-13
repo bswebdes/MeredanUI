@@ -48,7 +48,7 @@ local function Tooltip(frame, text)
 end
 
 local function SectionLabel(text)
-    local label = ns.UI.Text(panel, 11, "LEFT", ns.UI.ACCENT)
+    local label = ns.UI.Heading(panel, 11, "LEFT")
     label:SetText(text:upper())
     return label
 end
@@ -190,7 +190,7 @@ end
 local function ShowTabVisual(which)
     for key, t in pairs(sections.tabs) do
         local on = key == which
-        t.Text:SetTextColor(unpack(on and ns.UI.ACCENT or ns.UI.MUTED))
+        t.Text:SetTextColor(unpack(on and ns.UI.TITLE or ns.UI.MUTED))
         t.line:SetShown(on)
     end
     if ticker then ticker:Cancel(); ticker = nil end
@@ -298,15 +298,12 @@ local function MarkerTab(parent, label, key, x)
     local t = CreateFrame("Button", nil, parent, "SecureHandlerClickTemplate")
     t:SetSize(56, 24)
     t:SetPoint("TOPLEFT", x, 0)
-    t.Text = ns.UI.Text(t, 13, "LEFT")
-    t.Text:SetPoint("LEFT")
+    t.Text = ns.UI.Title(t, 13, "LEFT")
+    t.Text:SetPoint("LEFT", 12, 0)
     t.Text:SetText(label)
-    t:SetWidth(t.Text:GetUnboundedStringWidth() + 4)
-    t.line = t:CreateTexture(nil, "OVERLAY")
-    t.line:SetColorTexture(unpack(ns.UI.ACCENT))
-    t.line:SetHeight(2)
-    t.line:SetPoint("BOTTOMLEFT", 0, -1)
-    t.line:SetPoint("BOTTOMRIGHT", 0, -1)
+    t:SetWidth(t.Text:GetUnboundedStringWidth() + 16)
+    t.line = ns.UI.Diamond(t, 5) -- rune look: accent diamond marks the active tab
+    t.line:SetPoint("LEFT", 2, 0)
     t:SetAttribute("which", key)
     t:SetAttribute("_onclick", [=[
         local unit, world = self:GetFrameRef("unit"), self:GetFrameRef("world")

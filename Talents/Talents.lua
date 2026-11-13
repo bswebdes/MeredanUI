@@ -425,10 +425,10 @@ local function Layout()
     for i, tab in ipairs(tabs) do
         local enabled = i == 1 or dual
         tab:SetEnabled(enabled)
-        tab.text:SetTextColor(unpack(i == viewTab and UI.ACCENT or (enabled and UI.MUTED or { 0.45, 0.45, 0.43 })))
+        tab.text:SetTextColor(unpack(i == viewTab and UI.TITLE or (enabled and UI.MUTED or { 0.45, 0.45, 0.43 })))
         tab.line:SetShown(i == viewTab)
         tab.note:SetText(i == active and L["active"] or (enabled and "" or L["locked"]))
-        tab:SetWidth(tab.text:GetUnboundedStringWidth() + tab.note:GetUnboundedStringWidth() + 12)
+        tab:SetWidth(tab.text:GetUnboundedStringWidth() + tab.note:GetUnboundedStringWidth() + 26)
     end
     if not data then
         unspentText:SetText("0")
@@ -774,16 +774,13 @@ local function CreateWindow()
     for i, label in ipairs(labels) do
         local tab = CreateFrame("Button", nil, window)
         tab:SetHeight(20)
-        tab.text = UI.Text(tab, 14, "LEFT")
-        tab.text:SetPoint("LEFT")
+        tab.text = UI.Title(tab, 15, "LEFT")
+        tab.text:SetPoint("LEFT", 14, 0)
         tab.text:SetText(label)
         tab.note = UI.Text(tab, 11, "LEFT", UI.MUTED)
         tab.note:SetPoint("LEFT", tab.text, "RIGHT", 6, 0)
-        tab.line = tab:CreateTexture(nil, "OVERLAY")
-        tab.line:SetColorTexture(unpack(UI.ACCENT))
-        tab.line:SetPoint("BOTTOMLEFT", 0, -3)
-        tab.line:SetPoint("BOTTOMRIGHT", tab.text, "BOTTOMRIGHT", 0, -6)
-        tab.line:SetHeight(2)
+        tab.line = UI.Diamond(tab, 6) -- rune look: accent diamond marks the active tab
+        tab.line:SetPoint("LEFT", 2, 0)
         tab:SetScript("OnClick", function()
             viewTab = i
             PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)

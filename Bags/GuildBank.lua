@@ -204,7 +204,7 @@ local function Update()
 
     for key, tab in pairs(modeTabs) do
         local active = key == mode
-        tab.text:SetTextColor(unpack(active and ns.UI.ACCENT or ns.UI.MUTED))
+        tab.text:SetTextColor(unpack(active and ns.UI.TITLE or ns.UI.MUTED))
         tab.line:SetShown(active)
     end
     UpdateFachTabs()
@@ -416,15 +416,12 @@ local function CreateWindow()
         { "info", GUILD_BANK_TAB_INFO } }) do
         local key, label = entry[1], entry[2]
         local tab = CreateFrame("Button", nil, window)
-        tab.text = UI.Text(tab, 14, "LEFT")
-        tab.text:SetPoint("LEFT")
+        tab.text = UI.Title(tab, 15, "LEFT")
+        tab.text:SetPoint("LEFT", 14, 0)
         tab.text:SetText(label or key)
-        tab:SetSize(tab.text:GetUnboundedStringWidth() + 2, 20)
-        tab.line = tab:CreateTexture(nil, "OVERLAY")
-        tab.line:SetColorTexture(unpack(UI.ACCENT))
-        tab.line:SetPoint("BOTTOMLEFT", 0, -2)
-        tab.line:SetPoint("BOTTOMRIGHT", 0, -2)
-        tab.line:SetHeight(2)
+        tab:SetSize(tab.text:GetUnboundedStringWidth() + 16, 22)
+        tab.line = UI.Diamond(tab, 6) -- rune look: accent diamond marks the active tab
+        tab.line:SetPoint("LEFT", 2, 0)
         tab:SetScript("OnClick", function() if mode ~= key then SetMode(key) end end)
         if previous then
             tab:SetPoint("LEFT", previous, "RIGHT", 14, 0)

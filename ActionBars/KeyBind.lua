@@ -158,7 +158,7 @@ local function CreatePanel()
     panel:SetScript("OnDragStop", panel.StopMovingOrSizing)
     UI.Box(panel, { 0.05, 0.05, 0.06, 0.97 })
 
-    local title = UI.Text(panel, 14, "LEFT", UI.ACCENT)
+    local title = UI.Title(panel, 14, "LEFT")
     title:SetPoint("TOPLEFT", 12, -10)
     title:SetText(L["Key bindings"])
     local close = UI.IconButton(panel, "Close", function() Stop(false) end, 20)

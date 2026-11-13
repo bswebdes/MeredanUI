@@ -198,7 +198,7 @@ local function Layout()
     for gi, group in ipairs(groups) do
         local header = rewardHeader[gi]
         if not header then
-            header = UI.Text(list.child, 12, "LEFT", UI.ACCENT)
+            header = UI.Heading(list.child, 12, "LEFT")
             rewardHeader[gi] = header
         end
         header:SetText(group.title)
@@ -301,7 +301,7 @@ local function CreateWindow()
     window.npcTitle:SetPoint("RIGHT", window.header, "RIGHT", -PAD - 36, 0)
     window.npcName:SetPoint("TOPLEFT", window.npcTitle, "BOTTOMLEFT", 0, -5)
     window.npcName:SetPoint("RIGHT", window.npcTitle, "RIGHT")
-    ns.SetFont(window.npcName, 17)
+    ns.SetFont(window.npcName, 17, "", "display")
     window.npcName:SetTextColor(1, 0.82, 0)
 
     -- One parchment for all content; the list scrolls on it
@@ -314,7 +314,7 @@ local function CreateWindow()
     body = UI.Text(list.child, 14, "LEFT", ns.PARCHMENT_TEXT)
     body:SetWordWrap(true)
     body:SetSpacing(4)
-    objHeader = UI.Text(list.child, 12, "LEFT", UI.ACCENT)
+    objHeader = UI.Heading(list.child, 12, "LEFT")
     objText = UI.Text(list.child, 13, "LEFT", ns.PARCHMENT_TEXT)
     objText:SetWordWrap(true)
     objText:SetSpacing(3)

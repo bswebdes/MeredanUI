@@ -67,7 +67,7 @@ local function CreateWindow()
     window.npcName:ClearAllPoints()
     window.npcName:SetPoint("LEFT", window.header, "TOPLEFT", PAD + 46 + 14, -PAD - 23)
     window.npcName:SetPoint("RIGHT", window.header, "RIGHT", -PAD - 36, 0)
-    ns.SetFont(window.npcName, 17)
+    ns.SetFont(window.npcName, 17, "", "display")
     window.npcName:SetTextColor(1, 0.82, 0)
 
     local paper = ns.CreateParchmentPanel(window)

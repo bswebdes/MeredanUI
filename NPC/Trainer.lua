@@ -213,7 +213,7 @@ local function Header(i)
     local UI = ns.UI
     local header = CreateFrame("Button", nil, list.child)
     header:SetHeight(HEADER_H)
-    header.text = UI.Text(header, 12, "LEFT", UI.ACCENT)
+    header.text = UI.Heading(header, 12, "LEFT")
     header.text:SetPoint("LEFT", 8, 0)
     header.sign = UI.Icon(header, "Minus", 12, UI.MUTED)
     header.sign:SetPoint("RIGHT", -8, 0)

@@ -545,7 +545,7 @@ local function Layout()
     local UI = ns.UI
     for key, tab in pairs(tabs) do
         local active = (key == "send") == (view == "send")
-        tab.text:SetTextColor(unpack(active and UI.ACCENT or UI.MUTED))
+        tab.text:SetTextColor(unpack(active and UI.TITLE or UI.MUTED))
         tab.line:SetShown(active)
     end
     inbox.frame:SetShown(view == "inbox")
@@ -566,17 +566,14 @@ end
 local function Tab(key, label, previous)
     local UI = ns.UI
     local tab = CreateFrame("Button", nil, window)
-    tab.text = UI.Text(tab, 14, "LEFT")
-    tab.text:SetPoint("LEFT")
+    tab.text = UI.Title(tab, 15, "LEFT")
+    tab.text:SetPoint("LEFT", 14, 0)
     tab.text:SetText(label)
     tab.count = UI.Text(tab, 12, "LEFT", UI.MUTED)
     tab.count:SetPoint("LEFT", tab.text, "RIGHT", 6, 0)
-    tab:SetSize(tab.text:GetUnboundedStringWidth() + 26, 20)
-    tab.line = tab:CreateTexture(nil, "OVERLAY")
-    tab.line:SetColorTexture(unpack(UI.ACCENT))
-    tab.line:SetPoint("BOTTOMLEFT", 0, -2)
-    tab.line:SetPoint("BOTTOMRIGHT", tab.text, "BOTTOMRIGHT", 0, -5)
-    tab.line:SetHeight(2)
+    tab:SetSize(tab.text:GetUnboundedStringWidth() + 40, 22)
+    tab.line = UI.Diamond(tab, 6) -- rune look: accent diamond marks the active tab
+    tab.line:SetPoint("LEFT", 2, 0)
     tab:SetScript("OnClick", function() SetView(key) end)
     if previous then tab:SetPoint("LEFT", previous, "RIGHT", 14, 0) else tab:SetPoint("TOPLEFT", PAD, -ns.NPC_HEADER_BOTTOM - 16) end
     tabs[key] = tab
@@ -673,7 +670,7 @@ local function CreateWindow()
     read.body:SetPoint("TOPLEFT")
     read.body:SetWordWrap(true)
     read.body:SetSpacing(4)
-    read.attachLabel = UI.Text(read.panel, 12, "LEFT", UI.ACCENT)
+    read.attachLabel = UI.Heading(read.panel, 12, "LEFT")
     read.attachLabel:SetPoint("BOTTOMLEFT", 20, 66)
     read.money = UI.Button(read.panel, "", function() if openMail then TakeInboxMoney(openMail) end end, 140)
     read.money:SetHeight(40)
@@ -762,7 +759,7 @@ local function CreateWindow()
     paper:EnableMouse(true)
     paper:SetScript("OnMouseDown", function() send.body:SetFocus() end)
 
-    local attachLabel = UI.Text(send.frame, 12, "LEFT", UI.ACCENT)
+    local attachLabel = UI.Heading(send.frame, 12, "LEFT")
     attachLabel:SetPoint("TOPLEFT", paper, "BOTTOMLEFT", 0, -12)
     attachLabel:SetText(L["Attachments"])
     local prev = attachLabel

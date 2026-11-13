@@ -933,12 +933,12 @@ local function IconLink(button, iconName, tooltip)
 end
 
 -- Preferred play settings (language, location): dropdowns and "Apply" as everywhere
--- Section heading: Surf Green, 12, bold
+-- Section heading: rune look (Cinzel, bronze-gold)
 local function SectionTitle(fs)
     if not fs then return end
     own[fs] = true
-    fs:SetFont(ns.FontFor("bold"), ns.FontPx(12), "")
-    fs:SetTextColor(unpack(ns.UI.ACCENT))
+    fs:SetFont(ns.FontFor("display"), ns.FontPx(13), "")
+    fs:SetTextColor(unpack(ns.UI.HEADING))
 end
 
 -- find an unnamed font string of a frame by its text

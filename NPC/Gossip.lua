@@ -114,7 +114,7 @@ end
 
 local function Header(i)
     if headers[i] then return headers[i] end
-    local header = ns.UI.Text(list.child, 12, "LEFT", ns.UI.ACCENT)
+    local header = ns.UI.Heading(list.child, 12, "LEFT")
     headers[i] = header
     return header
 end

@@ -365,14 +365,11 @@ local function CreateWindow()
     window:SetSize(2 * PAD + GRID_WIDTH, PAD + 58 + 6 * SIZE + 5 * GAP + 14 + 1 + 12 + SLOT_SIZE + 10 + BUY_HEIGHT + 12 + 14 + PAD)
 
     -- header as in the bag window: title as active tab, free/sort/close on the right
-    local title = UI.Text(window, 14, "LEFT", UI.ACCENT)
-    title:SetPoint("TOPLEFT", PAD, -PAD - 3)
+    local mark = UI.Diamond(window, 6)
+    mark:SetPoint("TOPLEFT", PAD + 2, -PAD - 9)
+    local title = UI.Title(window, 16, "LEFT")
+    title:SetPoint("TOPLEFT", PAD + 14, -PAD - 2)
     title:SetText(_G.BANK or "Bank")
-    local line = window:CreateTexture(nil, "OVERLAY")
-    line:SetColorTexture(unpack(UI.ACCENT))
-    line:SetHeight(2)
-    line:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -3)
-    line:SetPoint("TOPRIGHT", title, "BOTTOMRIGHT", 0, -3)
 
     local close = UI.IconButton(window, "Close", function() window:Hide() end, 22)
     close:SetPoint("TOPRIGHT", -PAD + 2, -PAD + 2)

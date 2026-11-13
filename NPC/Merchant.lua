@@ -277,7 +277,7 @@ local function UpdateTabs()
     local UI = ns.UI
     for key, tab in pairs(tabs) do
         local active = key == view
-        tab.text:SetTextColor(unpack(active and UI.ACCENT or UI.MUTED))
+        tab.text:SetTextColor(unpack(active and UI.TITLE or UI.MUTED))
         tab.line:SetShown(active)
     end
 end
@@ -359,15 +359,12 @@ local function CreateWindow()
     for _, entry in ipairs({ { "shop", MERCHANT or L["Merchant"] }, { "buyback", BUYBACK or L["Buyback"] } }) do
         local key, label = entry[1], entry[2]
         local tab = CreateFrame("Button", nil, window)
-        tab.text = UI.Text(tab, 14, "LEFT")
-        tab.text:SetPoint("LEFT")
+        tab.text = UI.Title(tab, 15, "LEFT")
+        tab.text:SetPoint("LEFT", 14, 0)
         tab.text:SetText(label)
-        tab:SetSize(tab.text:GetUnboundedStringWidth() + 2, 20)
-        tab.line = tab:CreateTexture(nil, "OVERLAY")
-        tab.line:SetColorTexture(unpack(UI.ACCENT))
-        tab.line:SetPoint("BOTTOMLEFT", 0, -2)
-        tab.line:SetPoint("BOTTOMRIGHT", 0, -2)
-        tab.line:SetHeight(2)
+        tab:SetSize(tab.text:GetUnboundedStringWidth() + 16, 22)
+        tab.line = UI.Diamond(tab, 6) -- rune look: accent diamond marks the active tab
+        tab.line:SetPoint("LEFT", 2, 0)
         tab:SetScript("OnEnter", function(self) if view ~= key then self.text:SetTextColor(unpack(UI.TEXT)) end end)
         tab:SetScript("OnLeave", UpdateTabs)
         tab:SetScript("OnClick", function()

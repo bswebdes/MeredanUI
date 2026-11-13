@@ -252,7 +252,7 @@ local function Header(i)
     local header = CreateFrame("Button", nil, logList.child)
     header:SetHeight(28)
     UI.Box(header, { 0.098, 0.098, 0.106, 1 })
-    header.text = UI.Text(header, 13, "LEFT", UI.ACCENT)
+    header.text = UI.Heading(header, 13, "LEFT")
     header.text:SetPoint("LEFT", 8, 0)
     header.sign = UI.Text(header, 14, "RIGHT", UI.MUTED)
     header.sign:SetPoint("RIGHT", -8, 0)
@@ -368,7 +368,7 @@ local function FillRewards(row, anchor, questID, width)
     for gi, group in ipairs(groups) do
         local header = rewardHeaders[gi]
         if not header then
-            header = UI.Text(rewardBox, 12, "LEFT", UI.ACCENT)
+            header = UI.Heading(rewardBox, 12, "LEFT")
             rewardHeaders[gi] = header
         end
         header:SetText(group.title)

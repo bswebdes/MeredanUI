@@ -97,7 +97,7 @@ local function BuildHeader(parent)
     local UI = ns.UI
     local header = CreateFrame("Button", nil, parent)
     header:SetHeight(HEADER_H)
-    header.text = UI.Text(header, 14, "LEFT", UI.ACCENT)
+    header.text = UI.Heading(header, 14, "LEFT")
     header.text:SetPoint("LEFT")
     header.count = UI.Text(header, 12, "LEFT", UI.MUTED)
     header.count:SetPoint("LEFT", header.text, "RIGHT", 8, 0)

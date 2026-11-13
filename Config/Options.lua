@@ -1067,8 +1067,8 @@ local function CreateWindow()
     ns.RuneFrame(window)
     tinsert(UISpecialFrames, "MeredanUIOptions") -- Esc closes
 
-    -- Title: "Meredan" light, "UI" in Surf Green
-    local title = UI.Text(window, 18, "LEFT")
+    -- Title: "Meredan" light, "UI" in Surf Green (Cinzel, rune look)
+    local title = UI.Title(window, 20, "LEFT")
     title:SetPoint("TOPLEFT", 16, -14)
     title:SetText("Meredan|cff8ecbb4UI|r")
     local version = UI.Text(window, 11, "LEFT", UI.MUTED)

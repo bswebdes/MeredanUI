@@ -251,8 +251,7 @@ function ns.CreateNpcWindow(name, width, height, key, onClose)
     fallback:SetTexCoord(0.15, 0.85, 0.15, 0.85)
     fallback:Hide()
 
-    window.npcName = UI.Text(header, 16, "LEFT")
-    ns.SetFont(window.npcName, 16, "", "bold") -- window title (NPC, guild, ...): mUI Bold
+    window.npcName = UI.Title(header, 17, "LEFT") -- window title (NPC, guild, character ...): Cinzel
     window.npcName:SetPoint("TOPLEFT", holder, "TOPRIGHT", 14, -6)
     window.npcName:SetPoint("RIGHT", header, "RIGHT", -PAD - 36, 0)
     window.npcTitle = UI.Text(header, 12, "LEFT", UI.MUTED)
