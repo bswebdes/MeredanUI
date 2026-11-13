@@ -253,13 +253,8 @@ local function Style(self, unit)
     TagText(self, name, nameTag)
     self.NameText = name
 
-    -- accent gem on the inner end (below): an odd number of pixels, so it can sit exactly centred
-    -- on the 1 px bronze edge at any UI scale
-    local gemPixels = math.floor(18 / px + 0.5)
-    if gemPixels % 2 == 0 then gemPixels = gemPixels + 1 end
-    local gemSize = gemPixels * px
     local healthText = ns.CreateText(texts, S.healthValueSize, far, "OUTLINE")
-    healthText:SetPoint(far, self, far, -(gemSize / 2 + 4) * dir, 0)
+    healthText:SetPoint(far, self, far, -6 * dir, 0)
     TagText(self, healthText, "[mui:health]")
     self.HealthText = healthText
 
@@ -269,19 +264,6 @@ local function Style(self, unit)
     TagText(self, powerText, "[mui:power]")
     powerText:Hide()
     self.PowerText = powerText
-
-    -- cut gem in a bronze bezel, sitting on the bronze edge at the inner end like a clasp; the
-    -- gem texture is grey and takes the accent colour
-    local bezel = top:CreateTexture(nil, "OVERLAY", nil, 1)
-    bezel:SetTexture(ns.MEDIA .. "GemBezel")
-    ns.StyleOrnament(bezel)
-    bezel:SetSize(gemSize, gemSize)
-    bezel:SetPoint("CENTER", body, far, (S.plateOut - px / 2) * dir, 0) -- middle of the bronze edge
-    local gem = top:CreateTexture(nil, "OVERLAY", nil, 2)
-    gem:SetTexture(ns.MEDIA .. "Gem")
-    gem:SetAllPoints(bezel)
-    gem:SetVertexColor(unpack(ns.UI and ns.UI.ACCENT or { 0.557, 0.796, 0.706 }))
-    self.AccentGem = gem
 
     -- Status icons: one row centered in the health bar (visible ones close ranks); resting icon
     -- and raid marker on the top corner, half over the edge like the name.
