@@ -501,21 +501,26 @@ end
 -- Empty slot background (action bars, bags): Blizzard's slot art, cropped at the edges
 -- (rounded corners/frame) to fit our square border. The art is semi-transparent,
 -- so an opaque dark base goes underneath.
-local SLOT_ATLAS = "bags-item-slot64" -- Blizzard's warm brown bag slot (rune look), also for action bars
-local SLOT_CROP = 0 -- fraction cropped on each side
-local SLOT_ALPHA = 1
+-- Empty slot like Blizzard's action button: its brown background plus the slot art on top, both
+-- opaque, cropped at the edges (rounded corners) to fit our square frame
+local SLOT_BG_ATLAS = "UI-HUD-ActionBar-IconFrame-Background"
+local SLOT_ATLAS = "ui-hud-actionbar-iconframe-slot"
+local SLOT_CROP = 0.15 -- fraction cropped on each side
+
+local function CropAtlas(texture, atlas)
+    texture:SetAtlas(atlas)
+    local ulx, uly, _, lly, urx = texture:GetTexCoord()
+    local w, h = urx - ulx, lly - uly
+    texture:SetTexCoord(ulx + w * SLOT_CROP, urx - w * SLOT_CROP, uly + h * SLOT_CROP, lly - h * SLOT_CROP)
+end
 
 function ns.AddSlotBackground(frame)
     local base = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
     base:SetAllPoints()
-    base:SetColorTexture(0.06, 0.05, 0.035, 1) -- dark warm brown under Blizzard's slot art
+    CropAtlas(base, SLOT_BG_ATLAS)
     local slot = frame:CreateTexture(nil, "BACKGROUND", nil, -7)
     slot:SetAllPoints()
-    slot:SetAtlas(SLOT_ATLAS)
-    local ulx, uly, _, lly, urx = slot:GetTexCoord()
-    local w, h = urx - ulx, lly - uly
-    slot:SetTexCoord(ulx + w * SLOT_CROP, urx - w * SLOT_CROP, uly + h * SLOT_CROP, lly - h * SLOT_CROP)
-    slot:SetAlpha(SLOT_ALPHA)
+    CropAtlas(slot, SLOT_ATLAS)
     return base, slot
 end
 
