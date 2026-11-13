@@ -74,7 +74,24 @@ end
 -- moved over: removed from WorldMapFrame, a pin pool created on our canvas, provider added there.
 -- Questie's icons, tooltips, clicks and scaling then work on our map. Its NPC path lines (drawn on
 -- WorldMapFrame directly) are not moved.
-local PIN_TEMPLATE = "HereBeDragonsPinsTemplateQuestie"
+local OLD_PIN_TEMPLATE = "HereBeDragonsPinsTemplateQuestie"
+
+-- Questie's HereBeDragons copy: a Questie module since Questie 12.8 ("HBD"/"HBDPins"), a LibStub
+-- library before. Module() returns an empty table for unknown names, so check for real functions.
+local function HBD()
+    local m = Module("HBD")
+    if m and type(m.GetPlayerWorldPosition) == "function" then return m end
+    return LibStub and LibStub("HereBeDragonsQuestie-2.0", true)
+end
+local function HBDPins()
+    local m = Module("HBDPins")
+    if m and (m.worldmapProvider or m.minimapPins) then return m end
+    return LibStub and LibStub("HereBeDragonsQuestie-Pins-2.0", true)
+end
+local function PinTemplate()
+    local pins = HBDPins()
+    return pins and pins.worldmapPinTemplate or OLD_PIN_TEMPLATE
+end
 local mapCanvas
 
 -- Questie's own icon click only acts on Blizzard's WorldMapFrame (and Shift/Ctrl). On mUI's map and the minimap a plain
@@ -107,7 +124,7 @@ local function HookIcon(icon)
 end
 
 local function HookMinimapIcons()
-    local pins = LibStub and LibStub("HereBeDragonsQuestie-Pins-2.0", true)
+    local pins = HBDPins()
     if not (pins and pins.minimapPins) then return end
     for icon in pairs(pins.minimapPins) do HookIcon(icon) end
     for _, name in ipairs({ "AddMinimapIconMap", "AddMinimapIconWorld" }) do
@@ -119,7 +136,7 @@ end
 
 local function MoveProvider()
     if not (ready and mapCanvas) then return end
-    local pins = LibStub and LibStub("HereBeDragonsQuestie-Pins-2.0", true)
+    local pins = HBDPins()
     local provider, pinMixin = pins and pins.worldmapProvider, pins and pins.worldmapProviderPin
     if not (provider and pinMixin and type(provider.GetMap) == "function") then return end
     if provider:GetMap() == mapCanvas then return end
@@ -129,7 +146,7 @@ local function MoveProvider()
         mapCanvas:SetMapID(G("MapUtil").GetDisplayableMapForPlayer())
         if not mapCanvas:GetMapID() then return end
     end
-    if not mapCanvas.pinPools[PIN_TEMPLATE] then
+    if not mapCanvas.pinPools[PinTemplate()] then
         local function create()
             local frame = CreateFrame("Frame", nil, mapCanvas:GetCanvas())
             frame:SetSize(1, 1)
@@ -149,9 +166,9 @@ local function MoveProvider()
             pin.pinTemplate = nil
             pin.owningMap = nil
         end
-        local pool = G("CreateUnsecuredRegionPoolInstance")(PIN_TEMPLATE, create, reset)
+        local pool = G("CreateUnsecuredRegionPoolInstance")(PinTemplate(), create, reset)
         pool.parent = mapCanvas:GetCanvas()
-        mapCanvas.pinPools[PIN_TEMPLATE] = pool
+        mapCanvas.pinPools[PinTemplate()] = pool
     end
     local ok, err = pcall(function()
         local old = provider:GetMap()
@@ -415,7 +432,7 @@ end
 -- Direction to a target from the player, relative to the facing (radians, 0 = straight ahead,
 -- counter-clockwise) or nil (no position in instances, facing restricted, other continent)
 function Bridge.Direction(target)
-    local hbd = LibStub and LibStub("HereBeDragonsQuestie-2.0", true)
+    local hbd = HBD()
     if not (hbd and target and target.uiMapID and target.yards) then return nil end
     local px, py, instance = hbd:GetPlayerWorldPosition()
     if issecretvalue(px) or issecretvalue(py) or not (px and py) then return nil end
