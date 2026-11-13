@@ -164,8 +164,10 @@ function ns.UpdateTrackingBars()
             bar:SetStatusBarColor(unpack(data.color))
             ns.ColorBarBackground(bar)
             bar:ClearAllPoints()
-            bar:SetPoint("TOPLEFT", holder, "BOTTOMLEFT", 0, -y)
-            bar:SetPoint("TOPRIGHT", holder, "BOTTOMRIGHT", 0, -y)
+            -- outer edges line up with the minimap's window frame
+            local out = ns.WindowFrameReach() - ns.ThinShellReach()
+            bar:SetPoint("TOPLEFT", holder, "BOTTOMLEFT", -out, -y)
+            bar:SetPoint("TOPRIGHT", holder, "BOTTOMRIGHT", out, -y)
             y = y + height + gap
         end
     end

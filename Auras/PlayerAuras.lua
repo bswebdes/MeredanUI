@@ -221,7 +221,8 @@ local buffs, debuffs, privates
 -- row is anchored to the same anchor with a computed offset.
 local function StackAnchor()
     local minimap = _G["MeredanUIMinimap"]
-    if minimap then return minimap, "TOPLEFT", -ns.Snap(GAP), 0 end
+    -- clear of the minimap's window frame, top aligned with its outer edge
+    if minimap then return minimap, "TOPLEFT", -(ns.Snap(GAP) + ns.WindowFrameReach()), ns.WindowFrameReach() end
     return UIParent, "TOPRIGHT", -ns.Snap(ns.SCREEN_MARGIN), -ns.Snap(ns.SCREEN_MARGIN)
 end
 
