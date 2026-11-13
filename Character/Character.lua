@@ -71,10 +71,8 @@ function Char.AddSlotLabel(button, side, width, layer)
     local function Line(size)
         local text = ns.CreateText(label, size, justify)
         text:SetWidth(width)
-        text.baseSize = size
         return text
     end
-    label.width = width
     label.lines = { Line(12), Line(11), Line(11) }
     if side == "right" then
         label.point, label.relative, label.x = "RIGHT", "LEFT", -LABEL_GAP
@@ -114,14 +112,7 @@ function Char.UpdateSlotLabel(button, unit, link, quality, level)
         if row then
             text:ClearAllPoints()
             text:SetPoint(label.point, label, label.relative, label.x, ((#rows - 1) / 2 - (i - 1)) * LABEL_LINE)
-            -- too long: shrink the font up to 2px before Blizzard cuts it off with "..."
-            local size = text.baseSize
-            ns.SetFont(text, size)
             text:SetText(row[1])
-            while size > text.baseSize - 2 and text:GetUnboundedStringWidth() > label.width do
-                size = size - 1
-                ns.SetFont(text, size)
-            end
             text:SetTextColor(row[2], row[3], row[4])
             text:SetAlpha(link and 1 or 0.6)
             text:Show()
