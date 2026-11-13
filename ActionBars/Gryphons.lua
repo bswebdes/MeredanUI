@@ -112,9 +112,9 @@ local function CreatePanel()
             ns.UpdateGryphons()
         end
     end
-    page:AddSlider(L["Size"], 0.3, 2.5, 0.05, function() return ns.db.endcapScale or 1 end, Setter("endcapScale"), "%.2f", 1)
-    page:AddSlider(L["Horizontal"], -80, 80, 1, function() return ns.db.endcapX or 0 end, Setter("endcapX"), "%d", 0)
-    page:AddSlider(L["Vertical"], -80, 80, 1, function() return ns.db.endcapY or 0 end, Setter("endcapY"), "%d", 0)
+    page:AddSlider(L["Size"], 0.3, 2.5, 0.05, function() return ns.db.endcapScale or 1 end, Setter("endcapScale"), function(v) return ("%.2f"):format(v) end, 1)
+    page:AddSlider(L["Horizontal"], -80, 80, 1, function() return ns.db.endcapX or 0 end, Setter("endcapX"), function(v) return ("%d"):format(v) end, 0)
+    page:AddSlider(L["Vertical"], -80, 80, 1, function() return ns.db.endcapY or 0 end, Setter("endcapY"), function(v) return ("%d"):format(v) end, 0)
     tinsert(UISpecialFrames, "MeredanUIEndcapTuner")
 end
 
