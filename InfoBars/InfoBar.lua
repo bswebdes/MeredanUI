@@ -87,6 +87,28 @@ local function SaveMoney()
     ns.root.gold[ns.charKey] = { money = GetMoney(), class = class }
 end
 
+-- Gold tooltip: this session, every character, total. Shared with the bag and bank windows.
+function ns.GoldTooltip()
+    GameTooltip:AddLine(L["Gold"], 1, 1, 1)
+    local diff = GetMoney() - sessionMoney
+    Line(L["This session"], (diff < 0 and "|cffff6060-" or "|cff60ff60+") .. Gold(math.abs(diff)) .. "|r")
+    GameTooltip:AddLine(" ")
+    local list, total = {}, 0
+    for name, info in pairs(ns.root.gold or {}) do
+        list[#list + 1] = { name = name, info = info }
+        total = total + info.money
+    end
+    table.sort(list, function(a, b) return a.info.money > b.info.money end)
+    for _, entry in ipairs(list) do
+        local color = entry.info.class and RAID_CLASS_COLORS[entry.info.class]
+        local label = ns.CharDisplayName(entry.name) -- "Koratal (RP)" instead of the full realm name
+        local name = color and color:WrapTextInColorCode(label) or label
+        Line(name, Gold(entry.info.money))
+    end
+    GameTooltip:AddLine(" ")
+    Line(L["Total"], Gold(total))
+end
+
 -- Fields: text() returns the content, tooltip/click optional -------------------------------
 
 local FIELDS = {
@@ -94,26 +116,7 @@ local FIELDS = {
         key = "gold", label = L["Gold"], icon = "Gold",
         text = function() return GoldShort(GetMoney()) end,
         click = function() ToggleAllBags() end,
-        tooltip = function()
-            GameTooltip:AddLine(L["Gold"], 1, 1, 1)
-            local diff = GetMoney() - sessionMoney
-            Line(L["This session"], (diff < 0 and "|cffff6060-" or "|cff60ff60+") .. Gold(math.abs(diff)) .. "|r")
-            GameTooltip:AddLine(" ")
-            local list, total = {}, 0
-            for name, info in pairs(ns.root.gold or {}) do
-                list[#list + 1] = { name = name, info = info }
-                total = total + info.money
-            end
-            table.sort(list, function(a, b) return a.info.money > b.info.money end)
-            for _, entry in ipairs(list) do
-                local color = entry.info.class and RAID_CLASS_COLORS[entry.info.class]
-                local label = ns.CharDisplayName(entry.name) -- "Koratal (RP)" instead of the full realm name
-                local name = color and color:WrapTextInColorCode(label) or label
-                Line(name, Gold(entry.info.money))
-            end
-            GameTooltip:AddLine(" ")
-            Line(L["Total"], Gold(total))
-        end,
+        tooltip = function() ns.GoldTooltip() end,
     },
     {
         key = "bags", label = L["Bags"], icon = "Bag",
@@ -375,6 +378,33 @@ local function CreateCell(field)
     return cell
 end
 
+-- Gold exactly as in the info bar (icon, short value, tooltip on hover) for other windows
+local goldDisplays = {}
+function ns.GoldDisplay(parent)
+    local cell = CreateFrame("Button", nil, parent)
+    cell.text = ns.CreateText(cell, 12, "LEFT", "OUTLINE")
+    cell.icon = ns.UI.Icon(cell, "Gold", 12, ClassColor())
+    cell.icon:SetPoint("LEFT")
+    cell.text:SetPoint("LEFT", cell.icon, "RIGHT", 4, 0)
+    function cell:Update()
+        self.text:SetText(GoldShort(GetMoney()))
+        self:SetSize(16 + self.text:GetUnboundedStringWidth(), 16)
+    end
+    cell:SetScript("OnEnter", function(self)
+        self:SetAlpha(0.75)
+        GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
+        ns.GoldTooltip()
+        GameTooltip:Show()
+    end)
+    cell:SetScript("OnLeave", function(self)
+        self:SetAlpha(1)
+        GameTooltip:Hide()
+    end)
+    cell:Update()
+    goldDisplays[#goldDisplays + 1] = cell
+    return cell
+end
+
 ns:On("PLAYER_LOGIN", function()
     SaveMoney()
     bar = CreateFrame("Frame", "MeredanUIInfoBar", UIParent)
@@ -394,7 +424,11 @@ ns:On("PLAYER_LOGIN", function()
     if IsInGuild() then C_GuildInfo.GuildRoster() end
 end)
 
-ns:On("PLAYER_MONEY", function() SaveMoney(); Refresh() end)
+ns:On("PLAYER_MONEY", function()
+    SaveMoney()
+    Refresh()
+    for _, cell in ipairs(goldDisplays) do cell:Update() end
+end)
 for _, event in ipairs({ "BAG_UPDATE_DELAYED", "UPDATE_INVENTORY_DURABILITY", "PLAYER_SPECIALIZATION_CHANGED",
     "PLAYER_LOOT_SPEC_UPDATED", "GUILD_ROSTER_UPDATE", "FRIENDLIST_UPDATE", "BN_FRIEND_INFO_CHANGED" }) do
     ns:On(event, Refresh)
