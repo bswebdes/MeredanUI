@@ -2,6 +2,14 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.4.6", items = {
+        "Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same",
+        "Bags: every free slot is shown at the bottom across the full width, so you can drop items straight onto a free slot",
+        "Bags: sections flow left to right and wrap, so the window is narrower and has no gaps",
+        "Bags: quest items get a gold border, hearthstones a sage one, and Uncommon and better items a thicker quality border (bank and guild bank too). Borders stay visible on items with a cooldown",
+        "Bags: the \"One big bag\" layout was removed, there is only the section layout now",
+        "Fixed: class icons in chat grow with the chat font size again",
+    } },
     { version = "v0.4.5", items = {
         "Player buffs start at the right edge of the player frame again and grow to the left. The shortest-running buff sits on the right; when the row is full, the longest-running ones drop out",
         "Questie: its quest icon on nameplates sits right next to the mUI bar and stays visible on your target",
@@ -47,17 +55,5 @@ ns.CHANGELOG = {
         "Dungeon maps: Ragefire Chasm is now in the dungeon panel",
         "Dungeon maps: Wailing Caverns and Ragefire Chasm show WoW Forever's own loot and drop chances, including the new Forever items",
         "Dungeon maps: the \"Quests\" tab now also lists the new Forever dungeon quests and shows a faction icon for Horde or Alliance quests",
-    } },
-    { version = "v0.4.0-beta.1", items = {
-        "Dungeon maps: a new panel next to the map shows the bosses with their portraits. Click a boss (in the list or on the map) to see its loot with drop chances, filtered for your class (\"For me\" / \"All\"). Items you have seen dropping in Forever get a check mark. Starting with Wailing Caverns, more dungeons follow one by one",
-        "Dungeon maps: a \"Quests\" tab lists all quests of the dungeon for your race and class: done, in your quest log, or where the quest giver stands (click for a map pin, coordinates in the tooltip)",
-        "Wishlist: star the loot you want. It opens in a window next to the map and in the character window, with the boss, drop chance, a try-on preview and your progress; item tooltips show \"On your wishlist\"",
-        "New \"What's new\" window after updates with big new features, once per account. Open it again in the settings or with /mui news",
-        "Questie: click an icon on the mUI map to make that quest the active one in the tracker (or set a map pin on the giver of a quest you don't have yet); \"Hold Shift\" for details now works on the mUI map",
-        "Quest tracker: the objective with distance and arrow is shown for the active quest only",
-        "Nameplates: a soft glow behind your hostile target",
-        "Tooltip: \"Rare\", \"Elite\", \"Rare Elite\" or \"Boss\" behind NPC names (can be turned off)",
-        "Emote bar: up to 12 emotes",
-        "Fixed: a Lua error after reloading the UI in combat (quest item bar)",
     } },
 }
