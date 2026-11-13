@@ -134,7 +134,7 @@ local function Create(petFrame)
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.panelColor))
     ns.AddItemFrame(button, nil, 1)
-    button.icon = ns.UI.Icon(button, "Pet", math.floor(size * 0.8))
+    button.icon = ns.UI.Icon(button, "Pet", math.floor(size * 0.8), nil, true) -- flat: the colour shows the mood
     button.icon:SetPoint("CENTER")
     local hl = button:CreateTexture(nil, "HIGHLIGHT")
     hl:SetPoint("TOPLEFT", ns.ItemInset(nil, 1), -ns.ItemInset(nil, 1))
