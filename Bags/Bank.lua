@@ -281,7 +281,7 @@ local function Layout()
     window:SetSize(width, height)
 
     freeText:SetText(L["%d free"]:format(free))
-    goldText:SetText(GetMoneyString(GetMoney(), true))
+    goldText:Update()
     UpdatePageTabs(numPages)
     ApplySearch()
 end
@@ -455,7 +455,7 @@ local function CreateWindow()
     buyButton:HookScript("OnEnter", function() buyBg:SetColorTexture(unpack(UI.HOVER)) end)
     buyButton:HookScript("OnLeave", function() buyBg:SetColorTexture(unpack(UI.FIELD)) end)
 
-    goldText = UI.Text(window, 12, "LEFT")
+    goldText = ns.GoldDisplay(window) -- same as the info bar, tooltip with all characters
     goldText:SetPoint("BOTTOMLEFT", PAD, PAD)
 
     window:SetScript("OnShow", function()

@@ -592,7 +592,7 @@ function Layout()
     end
     freeText:SetText(freeLine)
     freeText.muiFree, freeText.muiSpecial, freeText.muiSpecialKey = free, special.count, special.key
-    goldText:SetText(GetMoneyString(GetMoney(), true))
+    goldText:Update()
     window.UpdateTabs()
     window.PlaceBagSlots()
     for bag, slotButton in pairs(bagSlots) do
@@ -792,7 +792,7 @@ local function CreateWindow()
     content:SetPoint("TOPLEFT", PAD, -PAD - 58)
     content:SetSize(1, 1)
 
-    goldText = UI.Text(window, 12, "LEFT")
+    goldText = ns.GoldDisplay(window) -- same as the info bar, tooltip with all characters
     goldText:SetPoint("BOTTOMLEFT", PAD, PAD + 4)
 
     -- bag bar bottom right: view bags, swap (drag onto), highlight contents
@@ -998,5 +998,4 @@ ns:On("BAG_UPDATE_COOLDOWN", function()
         end
     end
 end)
-ns:On("PLAYER_MONEY", function() if goldText then goldText:SetText(GetMoneyString(GetMoney(), true)) end end)
 ns:On("MERCHANT_SHOW", function() if window then SellJunkAndRepair() end end)
