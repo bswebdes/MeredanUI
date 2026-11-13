@@ -306,7 +306,8 @@ local function Setup()
     border:SetAllPoints(holder)
     border:SetFrameStrata("LOW")
     border:SetFrameLevel(holder:GetFrameLevel() + 20)
-    ns.AddBorder(border)
+    -- window frame (B8) around the map: deep shell with the translucent rim
+    ns.AddDeepShell(holder, ns.Snap(2), { rim = 4, parent = border, shadow = 16 })
 
     Minimap:SetParent(holder)
     Minimap:ClearAllPoints()

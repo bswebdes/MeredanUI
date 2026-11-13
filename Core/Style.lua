@@ -514,6 +514,10 @@ function ns.WindowFrameReach()
     local px = ns.PixelSize()
     return 4 * px + ns.Snap(2) + ns.Snap(4)
 end
+-- Thin deep shell for slim bars (XP, reputation, threat ...): 1 unit band, no rim
+function ns.AddThinShell(region) return ns.AddDeepShell(region, ns.Snap(1), { shadow = 6 }) end
+function ns.ThinShellReach() return 3 * ns.PixelSize() + ns.Snap(1) end
+
 -- x offset for side tabs right of a window
 function ns.SideTabX() return ns.WindowFrameReach() + ns.Snap(4) end
 

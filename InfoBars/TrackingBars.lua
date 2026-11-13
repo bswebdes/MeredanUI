@@ -124,7 +124,9 @@ local function CreateBar(key)
     local bar = ns.CreateBar(holder, ns.Snap(HEIGHT))
     bar.followsTheme = true
     bar.PostUpdateColor = nil
-    ns.AddBorder(bar)
+    bar:SetStatusBarTexture(ns.MEDIA .. "BarShade") -- shaded, in a thin deep shell
+    bar.muiShaded = true
+    ns.AddThinShell(bar)
     bar:SetMinMaxValues(0, 1)
     bar:EnableMouse(true)
     bar:SetScript("OnEnter", ShowTooltip)
@@ -137,8 +139,9 @@ end
 function ns.UpdateTrackingBars()
     if not holder then return end
     local px = ns.PixelSize()
-    local height, gap = ns.Snap(HEIGHT), GAP_PIXELS * px
-    local y = gap
+    -- room for both shells between bars, and for the minimap's frame above the first one
+    local height, gap = ns.Snap(HEIGHT), GAP_PIXELS * px + 2 * ns.ThinShellReach()
+    local y = ns.WindowFrameReach() + ns.ThinShellReach() + GAP_PIXELS * px
     -- Visible bars first, mouseover bars last, so an invisible mouseover bar never leaves a gap
     -- between two visible ones
     local order = {}
