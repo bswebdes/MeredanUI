@@ -245,6 +245,7 @@ if GetLocale() == "deDE" then
     L["Look"] = "Aussehen"
     L["Theme"] = "Theme"
     L["Frame material"] = "Rahmen"
+    L["Skyborne"] = "Himmelsgeborene"
     L["Bronze"] = "Bronze"
     L["Iron"] = "Eisen"
     L["Minimap"] = "Minimap"
