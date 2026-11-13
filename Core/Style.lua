@@ -963,7 +963,8 @@ local function IsAccent(r, g, b)
         and math.abs(b - c[3]) < 0.01
 end
 
-function ns.SetIcon(tex, name)
+-- flat = true keeps the flat icon (e.g. the emote bar stays flat as a whole)
+function ns.SetIcon(tex, name, flat)
     if not tex.muiTintGuard then
         tex.muiTintGuard = true
         local setColor = tex.SetVertexColor
@@ -992,8 +993,8 @@ function ns.SetIcon(tex, name)
         -- the glow follows the icon's visibility
         hooksecurefunc(tex, "Hide", function(self) if self.muiGlow then self.muiGlow:Hide() end end)
     end
-    tex.muiPainted = ns.PAINTED_ICONS[name] or nil
-    tex:SetTexture(ns.IconPath(name))
+    tex.muiPainted = not flat and ns.PAINTED_ICONS[name] or nil
+    tex:SetTexture(tex.muiPainted and ns.IconPath(name) or ns.MEDIA .. "Icons\\" .. name)
     if tex.muiPainted then tex:SetVertexColor(1, 1, 1) end
 end
 

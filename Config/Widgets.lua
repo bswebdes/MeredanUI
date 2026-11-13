@@ -132,10 +132,10 @@ function UI.Diamond(parent, size, color, layer)
 end
 
 -- Icon from Media/Icons (authored white), tinted.
-function UI.Icon(parent, name, size, color)
+function UI.Icon(parent, name, size, color, flat)
     local icon = parent:CreateTexture(nil, "OVERLAY")
     icon:SetSize(size, size)
-    ns.SetIcon(icon, name)
+    ns.SetIcon(icon, name, flat)
     icon:SetVertexColor(unpack(color or UI.TEXT))
     return icon
 end

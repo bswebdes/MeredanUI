@@ -113,7 +113,7 @@ local function RPButton()
     local button = CreateFrame("Button", nil, bar)
     button:SetSize(ns.Snap(SIZE), ns.Snap(SIZE))
     local bg = ns.UI.Box(button, ns.STYLE.panelColor)
-    button.icon = ns.UI.Icon(button, "RPMode", SIZE - 8)
+    button.icon = ns.UI.Icon(button, "RPMode", SIZE - 8, nil, true) -- the emote bar stays flat
     button.icon:SetPoint("CENTER")
     -- Icon is accent-colored when off (too dark otherwise); on = accent-tinted background
     local function Color()

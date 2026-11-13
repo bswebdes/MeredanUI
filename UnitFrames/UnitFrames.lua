@@ -394,7 +394,7 @@ local function SmallStyle(self, unit)
 
     self:SetSize(FrameWidth(), S.health + (hasPower and (px + S.power) or 0))
     SetupUnitButton(self)
-    ns.CreateBackground(self)
+    S.plateOut = ns.AddDeepShell(self, ns.Snap(SIZE.platePad))
     AddHighlight(self, self)
 
     local health = ns.CreateBar(self, S.health)
@@ -402,6 +402,7 @@ local function SmallStyle(self, unit)
     health:SetPoint("TOPRIGHT")
     health:SetReverseFill(mirrored)
     SetupHealthColors(health)
+    ns.ShadeBar(health, mirrored)
     ns.AddHealPrediction(health, mirrored) -- heals + shield (Core/Style.lua)
     self.Health = health
 
@@ -422,7 +423,13 @@ local function SmallStyle(self, unit)
         power:SetPoint("BOTTOMRIGHT")
         power.colorPower = true
         power.PostUpdateColor = ns.ColorPowerBar
+        ns.ShadeBar(power, mirrored)
         self.Power = power
+        local seam = self:CreateTexture(nil, "BORDER")
+        seam:SetColorTexture(0, 0, 0, 1)
+        seam:SetPoint("TOPLEFT", health, "BOTTOMLEFT")
+        seam:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT")
+        seam:SetHeight(px)
     end
 
     -- Debuffs on target of target (one row, starting inside) - e.g. so tanks see stacks for taunt swaps
@@ -432,7 +439,7 @@ local function SmallStyle(self, unit)
         S.auraCount = AuraCount(width)
         S.aura, S.debuffInset = FitIcons(S.auraCount, width)
         S.debuffWidth = width
-        S.aurasBelow = ns.Snap(SIZE.auraOffset)
+        S.aurasBelow = ns.Snap(SIZE.auraOffset) + S.plateOut
         local auras = CreateAuraRow(self, S, false, S.aura, width, S.debuffInset, S.aurasBelow)
         auras:SetClipsChildren(true)
         auras:AddGroup("HARMFUL", { maxFrameCount = S.auraCount, dispelBand = "harmful" })
@@ -464,18 +471,18 @@ local function SideStyle(self, unit)
     S.auraCount = AuraCount(S.width, S.auraSize)
     S.aura, S.debuffInset = FitIcons(S.auraCount, S.width)
     S.debuffWidth = S.width
-    S.aurasBelow = S.auraOffset
-    -- Height of one block in the column: frame + debuff row (for boss spacing)
-    S.block = S.health + px + S.power + S.auraOffset + S.aura
-
     self:SetSize(S.width, S.health + px + S.power)
     SetupUnitButton(self)
-    ns.CreateBackground(self)
+    S.plateOut = ns.AddDeepShell(self, ns.Snap(SIZE.platePad))
+    S.aurasBelow = S.auraOffset + S.plateOut
+    -- Height of one block in the column: frame + debuff row (for boss spacing), shell above and below
+    S.block = S.health + px + S.power + S.aurasBelow + S.aura + S.plateOut
 
     local health = ns.CreateBar(self, S.health)
     health:SetPoint("TOPLEFT")
     health:SetPoint("TOPRIGHT")
     SetupHealthColors(health)
+    ns.ShadeBar(health, false)
     ns.AddHealPrediction(health, false)
     self.Health = health
 
@@ -524,7 +531,13 @@ local function SideStyle(self, unit)
     power:SetPoint("BOTTOMRIGHT")
     power.colorPower = true
     power.PostUpdateColor = ns.ColorPowerBar
+    ns.ShadeBar(power, false)
     self.Power = power
+    local seam = self:CreateTexture(nil, "BORDER")
+    seam:SetColorTexture(0, 0, 0, 1)
+    seam:SetPoint("TOPLEFT", health, "BOTTOMLEFT")
+    seam:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT")
+    seam:SetHeight(px)
 
     -- One row below the frame: debuffs on the left (inside), own first, then others (gray); on the
     -- far right important enemy buffs like on nameplates (purgeable with dispel band, plus Blizzard's
