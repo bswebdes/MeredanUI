@@ -7,9 +7,9 @@ local L = ns.L
 
 local GRYPHON_ASPECT = 178 / 167 -- atlas size
 -- Own art: drawn facing right (the left cap), mirrored for the right one. 512x512 files with the
--- creature at the bottom; top = empty rows above it.
+-- creature at the bottom; top = empty rows above it. scale/x/y: tuned in game with /mui endcap.
 local CLASS_ART = {
-    ROGUE = { file = "EndCaps\\Rogue", top = 77 / 512, aspect = 512 / 435 },
+    ROGUE = { file = "EndCaps\\Rogue", top = 77 / 512, aspect = 512 / 435, scale = 1.3, x = 34, y = 2 },
 }
 local left, right
 
@@ -59,9 +59,10 @@ function ns.UpdateGryphons()
     local leftEdge = (bars[7] and On("bar7")) and bars[7] or bottom
     local rightEdge = (bars[8] and On("bar8")) and bars[8] or bottom
     local size = ns.Snap(36) -- one button row of the bottom bars (ActionBars.lua SIZE)
-    -- developer tuning (/mui endcap); defaults until the art is final
-    local scale = ns.db.endcapScale or 1
-    local dx, dy = ns.db.endcapX or 0, ns.db.endcapY or 0
+    -- per-art defaults; developer tuning (/mui endcap) overrides them while new art is fitted
+    local scale = ns.db.endcapScale or (art and art.scale) or 1
+    local dx = ns.db.endcapX or (art and art.x) or 0
+    local dy = ns.db.endcapY or (art and art.y) or 0
     local h = ns.Snap(size * 2.6 * scale)
     local w = ns.Snap(h * (art and art.aspect or GRYPHON_ASPECT))
     local overlap = ns.Snap(art and size * 0.15 or w * 0.2) -- the cap sits over the bar end
