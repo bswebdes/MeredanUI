@@ -120,7 +120,8 @@ end
 
 ns.AddCommand("endcap", L["End caps: size and position"], function()
     if not ns.db.actionBarArt then ns.Print(L["Turn on the action bar art first (Look page)."]) end
-    if not panel then CreatePanel() end
+    -- a new frame starts shown, so toggling it right away would close it again
+    if not panel then CreatePanel() return end
     panel:SetShown(not panel:IsShown())
 end, true)
 
