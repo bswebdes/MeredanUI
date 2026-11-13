@@ -30,9 +30,20 @@ local function Skin(frame)
     if frame.Tail then frame.Tail:SetAlpha(0) end
     local bg = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
-    local r, g, b = unpack(ns.STYLE.panelColor)
+    -- small surface (B15): warm dark fill, black outline, lit material edge on top
+    local r, g, b = 0.075, 0.062, 0.045
     bg:SetColorTexture(r, g, b, 1) -- same opacity as the tail (no seam)
-    ns.AddBorder(frame)
+    for _, edge in ipairs(ns.AddBorder(frame)) do edge:SetVertexColor(0, 0, 0, 1) end
+    local m = ns.Material()
+    for i, from in ipairs({ "TOPLEFT", "TOPRIGHT" }) do
+        local lit = frame:CreateTexture(nil, "BORDER")
+        lit:SetColorTexture(1, 1, 1, 1)
+        lit:SetHeight(ns.PixelSize())
+        lit:SetPoint(from)
+        lit:SetPoint(i == 1 and "TOPRIGHT" or "TOPLEFT", frame, "TOP")
+        local faded, full = CreateColor(m.lit[1], m.lit[2], m.lit[3], 0), CreateColor(m.lit[1], m.lit[2], m.lit[3], 0.9)
+        if i == 1 then lit:SetGradient("HORIZONTAL", faded, full) else lit:SetGradient("HORIZONTAL", full, faded) end
+    end
     -- Tail: black triangle (border) behind a slightly smaller box-colored one; both cover the
     -- bottom border so box and tail blend into each other
     local px = ns.PixelSize()
