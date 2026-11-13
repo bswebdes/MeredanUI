@@ -307,7 +307,7 @@ local function Setup()
     border:SetFrameStrata("LOW")
     border:SetFrameLevel(holder:GetFrameLevel() + 20)
     -- deep shell around the map (no translucent rim)
-    ns.AddDeepShell(holder, ns.Snap(2), { parent = border, shadow = 12 })
+    ns.AddDeepShell(holder, ns.Snap(2), { parent = border, shadow = 12, shadowParent = holder })
 
     Minimap:SetParent(holder)
     Minimap:ClearAllPoints()

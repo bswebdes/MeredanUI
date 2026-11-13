@@ -458,7 +458,9 @@ function ns.AddDeepShell(region, pad, opts)
         reach = outline + rim + px
     end
     local spread = opts and opts.shadow or 12
-    local shadow = shell:CreateTexture(nil, "BACKGROUND", nil, -8)
+    -- the shadow texture is filled in the middle: shells drawn above their content (minimap) put
+    -- it on a frame below the content instead (opts.shadowParent)
+    local shadow = (opts and opts.shadowParent or shell):CreateTexture(nil, "BACKGROUND", nil, -8)
     shadow:SetTexture(ns.SHADOW_TEXTURE)
     shadow:SetTextureSliceMargins(24, 24, 24, 24)
     if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
