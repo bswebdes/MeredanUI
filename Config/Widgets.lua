@@ -34,8 +34,8 @@ function UI.ApplyClassAccent()
 end
 UI.TEXT = { 0.91, 0.9, 0.87 }
 UI.MUTED = { 0.6, 0.59, 0.56 }
-UI.FIELD = { 0.15, 0.12, 0.08, 1 } -- buttons, inputs: warm brown-gold (rune look)
-UI.HOVER = { 0.24, 0.19, 0.12, 1 }
+UI.FIELD = { 0.09, 0.075, 0.05, 1 } -- buttons, inputs: dark warm brown (rune look)
+UI.HOVER = { 0.16, 0.13, 0.085, 1 }
 
 UI.TAG = { 0.85, 0.64, 0.25 }  -- "Reload" badge (gold)
 

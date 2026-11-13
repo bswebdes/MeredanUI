@@ -503,12 +503,12 @@ end
 -- so an opaque dark base goes underneath.
 local SLOT_ATLAS = "ui-hud-actionbar-iconframe-slot"
 local SLOT_CROP = 0.15 -- fraction cropped on each side
-local SLOT_ALPHA = 0.4 -- just a hint, the black should dominate
+local SLOT_ALPHA = 0.75 -- rune look: Blizzard's slot art carries the warmth, like the original
 
 function ns.AddSlotBackground(frame)
     local base = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
     base:SetAllPoints()
-    base:SetColorTexture(0.15, 0.12, 0.08, 1) -- rune look: warm brown-gold instead of black
+    base:SetColorTexture(0.06, 0.05, 0.035, 1) -- dark warm brown under Blizzard's slot art
     local slot = frame:CreateTexture(nil, "BACKGROUND", nil, -7)
     slot:SetAllPoints()
     slot:SetAtlas(SLOT_ATLAS)
