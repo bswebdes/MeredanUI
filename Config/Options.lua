@@ -1109,7 +1109,7 @@ local function CreateWindow()
             for _, child in ipairs(hiddenChildren) do child:Show() end
             wipe(hiddenChildren)
         end
-        collapse.icon:SetTexture(ns.MEDIA .. "Icons\\" .. (state and "Plus" or "Minus"))
+        ns.SetIcon(collapse.icon, (state and "Plus" or "Minus"))
     end
     collapse = UI.IconButton(window, "Minus", function() SetCollapsed(not collapsed) end, 24)
     -- only shown during preview: left of "Preview" so that one stays next to the X

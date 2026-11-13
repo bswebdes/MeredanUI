@@ -560,16 +560,16 @@ local function DemoActions()
             } },
         DemoMoney(98765),
         -- Battle.net (Toasts/BNetToasts.lua): friend online / broadcast / offline
-        { demo = true, title = "Jaina#2104", color = { 0.51, 0.773, 1 }, icon = ns.MEDIA .. "Icons\\Friends",
+        { demo = true, title = "Jaina#2104", color = { 0.51, 0.773, 1 }, icon = ns.IconPath("Friends"),
             text = "Jaina, Stufe 60 Magierin – |cff33ff33" .. (BN_TOAST_ONLINE or "online") .. "|r" },
-        { demo = true, title = "Thrall#1337", color = { 0.51, 0.773, 1 }, icon = ns.MEDIA .. "Icons\\Friends",
+        { demo = true, title = "Thrall#1337", color = { 0.51, 0.773, 1 }, icon = ns.IconPath("Friends"),
             text = "Heute Abend Onyxia?" },
         -- durability (Toasts/Extras.lua) and profession reminder (Toasts/ProfessionReminder.lua)
         { demo = true, title = L["Repair soon"], text = L["Lowest item at %d %%"]:format(18),
             icon = "Interface\\Icons\\Trade_BlackSmithing", color = { 1, 0.6, 0.1 } },
-        { demo = true, title = "Schmiedekunst 75/75", icon = ns.MEDIA .. "Icons\\Crafting", color = accent,
+        { demo = true, title = "Schmiedekunst 75/75", icon = ns.IconPath("Crafting"), color = accent,
             text = L["%s can be learned at the trainer"]:format(L["Journeyman"]) },
-        { demo = true, title = "Uther#4711", color = { 0.6, 0.59, 0.56 }, icon = ns.MEDIA .. "Icons\\Friends",
+        { demo = true, title = "Uther#4711", color = { 0.6, 0.59, 0.56 }, icon = ns.IconPath("Friends"),
             text = BN_TOAST_OFFLINE or "offline" },
         -- buff reminder (Toasts/BuffReminder.lua, Forever)
         { demo = true, title = L["Buff missing"], text = "Arkane Intelligenz, " .. L["%s (old rank)"]:format("Frostrüstung"),
@@ -643,6 +643,6 @@ if HelpTip and HelpTip.Show then
             if HelpTip.Acknowledge then pcall(HelpTip.Acknowledge, HelpTip, parent, text) end
             if HelpTip.Hide then pcall(HelpTip.Hide, HelpTip, parent, text) end
         end)
-        Add({ title = L["Tip"], text = (text:gsub("\n+", " ")), icon = ns.MEDIA .. "Icons\\Assistant", color = { 0.56, 0.8, 0.71 } })
+        Add({ title = L["Tip"], text = (text:gsub("\n+", " ")), icon = ns.IconPath("Assistant"), color = { 0.56, 0.8, 0.71 } })
     end)
 end

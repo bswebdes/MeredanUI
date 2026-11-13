@@ -188,7 +188,7 @@ local function SkinStackSplit(frame)
             for _, get in ipairs({ "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture" }) do
                 local t = button[get](button)
                 if t then
-                    t:SetTexture(ns.MEDIA .. "Icons\\ChevronDown")
+                    ns.SetIcon(t, "ChevronDown")
                     t:SetRotation(rotation)
                     t:SetVertexColor(unpack(get == "GetDisabledTexture" and UI.MUTED or UI.TEXT))
                     if get == "GetDisabledTexture" then t:SetAlpha(0.4) end
@@ -204,7 +204,7 @@ local function SkinStackSplit(frame)
         cancel:SetSize(24, 24)
         cancel:SetText("") -- hiding the label isn't enough: the highlight font shows it again on hover
         local x = cancel:CreateTexture(nil, "ARTWORK")
-        x:SetTexture(ns.MEDIA .. "Icons\\Close")
+        ns.SetIcon(x, "Close")
         x:SetSize(14, 14)
         x:SetPoint("CENTER")
         local red = { 0.85, 0.35, 0.35 }

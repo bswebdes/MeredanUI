@@ -970,7 +970,7 @@ local function CreateList()
                 end
                 if list.multi then -- checkbox on the left, text always indented the same
                     rowButton.icon:SetShown(item.checked and true or false)
-                    rowButton.icon:SetTexture(ns.MEDIA .. "Icons\\Check")
+                    ns.SetIcon(rowButton.icon, "Check")
                     rowButton.icon:SetVertexColor(unpack(UI.ACCENT))
                     rowButton.text:SetTextColor(unpack(item.checked and UI.TEXT or UI.MUTED))
                 end

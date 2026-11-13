@@ -941,8 +941,13 @@ function ns.CreateRunes(parent, height, width)
 end
 
 -- Painted icons (Media/IconsPainted/<name>.tga, full colour): used instead of the flat white icon of
--- the same name and never tinted. Being replaced one by one, the rest stay flat for now.
-ns.PAINTED_ICONS = { Resting = true, Combat = true, Close = true, Edit = true, Bag = true, Gold = true }
+-- the same name and never tinted (tinting multiplies and would discolour them).
+-- Flat icons whose colour carries meaning (state, distance) or that are tiny primitives stay flat
+ns.FLAT_ICONS = { Check = true, ChevronDown = true, Minus = true, Plus = true, Square = true, Diamond = true,
+    Navigation = true, Entrance = true, Summon = true }
+ns.PAINTED_ICONS = setmetatable({}, { __index = function(_, name)
+    return type(name) == "string" and not ns.FLAT_ICONS[name] or nil
+end })
 function ns.IconPath(name)
     return ns.MEDIA .. (ns.PAINTED_ICONS[name] and "IconsPainted\\" or "Icons\\") .. name
 end

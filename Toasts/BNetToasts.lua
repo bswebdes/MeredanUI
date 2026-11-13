@@ -9,7 +9,7 @@ local BNET_BLUE = { 0.51, 0.773, 1 }
 -- Own toast types: Forever lacks Blizzard's BN_TOAST_TYPE_* constants (all nil)
 local T = { ONLINE = 1, OFFLINE = 2, BROADCAST = 3, PENDING_INVITES = 4, NEW_INVITE = 5, CLUB_INVITATION = 6 }
 local GREY = { 0.6, 0.59, 0.56 }
-local ICON = ns.MEDIA .. "Icons\\Friends"
+local ICON = ns.IconPath("Friends")
 
 local hidden = CreateFrame("Frame")
 hidden:Hide()

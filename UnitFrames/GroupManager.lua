@@ -121,7 +121,7 @@ local function MarkerButton(parent, kind, marker, special)
     tex:SetPoint("CENTER")
     if special then
         local name = special == "remove" and "Close" or "Reset"
-        tex:SetTexture(ns.MEDIA .. "Icons\\" .. name)
+        ns.SetIcon(tex, name)
         tex:SetSize(16, 16)
         tex:SetVertexColor(unpack(ns.UI.MUTED))
     else

@@ -41,7 +41,7 @@ local function Check()
                     ns.AddToast({
                         title = ("%s %d/%d"):format(info.name, info.rank, info.maxRank),
                         text = L["%s can be learned at the trainer"]:format(L[nextRank[3]]),
-                        icon = ns.MEDIA .. "Icons\\Crafting", color = ns.UI.ACCENT,
+                        icon = ns.IconPath("Crafting"), color = ns.UI.ACCENT,
                     })
                 end
             end

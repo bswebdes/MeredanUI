@@ -823,7 +823,7 @@ local function Create(frame)
         button.icon:SetPoint("TOPLEFT", 3, -3)
         button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
         if def.pet then
-            button.icon:SetTexture(ns.MEDIA .. "Icons\\Pet")
+            ns.SetIcon(button.icon, "Pet")
             button.icon:SetVertexColor(unpack(UI.TEXT))
         else
             button.icon:SetTexture(def.icon)

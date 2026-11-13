@@ -157,7 +157,7 @@ ns:On("PLAYER_REGEN_DISABLED", function()
     UpdateButton()
     if ns.UpdateEmoteBar then ns.UpdateEmoteBar() end
     if ns.AddToast then
-        ns.AddToast({ title = L["RP mode"], text = L["Ended – you are in combat."], icon = ns.MEDIA .. "Icons\\RPMode",
+        ns.AddToast({ title = L["RP mode"], text = L["Ended – you are in combat."], icon = ns.IconPath("RPMode"),
             color = { 1, 0.25, 0.25 } })
     end
 end)

@@ -512,7 +512,7 @@ function UpdateActivityRow(row, partial, collapsed)
     if parts.sign and row.ExpandOrCollapseButton then
         FadeButtonTextures(row.ExpandOrCollapseButton)
         if collapsed ~= nil then
-            parts.sign:SetTexture(ns.MEDIA .. "Icons\\" .. (collapsed and "Plus" or "Minus"))
+            ns.SetIcon(parts.sign, (collapsed and "Plus" or "Minus"))
         end
     end
 end
@@ -550,7 +550,7 @@ local function UpdateCategoryButtons(view)
         local parts = partOf[button]
         if parts then
             Fade(button.Icon)
-            parts.icon:SetTexture(ns.MEDIA .. "Icons\\" .. (CATEGORY_ICONS[button.categoryID] or "Quest"))
+            ns.SetIcon(parts.icon, (CATEGORY_ICONS[button.categoryID] or "Quest"))
         end
     end
 end
@@ -624,7 +624,7 @@ local function SkinBrowseRow(row)
         for key, name in pairs({ ExpandIcon = "Plus", CollapseIcon = "Minus" }) do
             local tex = row[key]
             if IsTexture(tex) then
-                tex:SetTexture(ns.MEDIA .. "Icons\\" .. name)
+                ns.SetIcon(tex, name)
                 tex:SetSize(10, 10)
                 tex:SetVertexColor(unpack(UI.MUTED))
             end

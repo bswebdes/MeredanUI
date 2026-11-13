@@ -181,7 +181,7 @@ end
 local function Toast(entry, text, color)
     if not ns.AddToast then return end
     ns.AddToast({ title = entry.name ~= "" and entry.name or L["Reagents"], text = text, color = color,
-        icon = ns.MEDIA .. "Icons\\Reagent" .. entry.icon })
+        icon = ns.IconPath("Reagent" .. entry.icon) })
 end
 
 local function Warn(entry)
@@ -251,7 +251,7 @@ local function Update()
     for i, entry in ipairs(list) do
         local cell = Cell(i)
         cell.entry = entry
-        cell.icon:SetTexture(ns.MEDIA .. "Icons\\Reagent" .. entry.icon)
+        ns.SetIcon(cell.icon, "Reagent" .. entry.icon)
         cell.icon:SetVertexColor(unpack(color))
         cell.text:SetText(BreakUpLargeNumbers(entry.count))
         cell.text:SetTextColor(CountColor(entry.count, entry.warn))

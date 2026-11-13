@@ -118,7 +118,7 @@ local function OnHappiness()
             or L["Your pet is getting hungry."]
         if not food then text = text .. " " .. L["No suitable food in your bags."] end
         ns.AddToast({ title = UnitName("pet") or L["Pet"], text = text, color = MOOD[happiness].color,
-            icon = ns.MEDIA .. "Icons\\Pet" })
+            icon = ns.IconPath("Pet") })
     end
     lastMood = happiness or nil
 end

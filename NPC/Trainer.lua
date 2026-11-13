@@ -337,7 +337,7 @@ local function Layout()
         header.key = key
         header.text:SetText(text)
         header.sign:SetShown(key ~= nil)
-        header.sign:SetTexture(ns.MEDIA .. "Icons\\" .. (key and collapsed[key] and "Plus" or "Minus"))
+        ns.SetIcon(header.sign, (key and collapsed[key] and "Plus" or "Minus"))
         header:ClearAllPoints()
         header:SetPoint("TOPLEFT", 0, -y)
         header:SetPoint("RIGHT", list.child, "RIGHT")

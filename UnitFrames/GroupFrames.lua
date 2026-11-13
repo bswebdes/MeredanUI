@@ -54,7 +54,7 @@ local function UpdateRole(self)
     local icon = ns.Readable(role) and ROLE_ICONS[role]
     if self.Power then PowerVisibility(self.Power) end
     if icon then
-        element:SetTexture(ns.MEDIA .. "Icons\\" .. icon)
+        ns.SetIcon(element, icon)
         element:Show()
     else
         element:Hide()
@@ -115,7 +115,7 @@ end
 
 -- oUF sets Blizzard's texture for leader and ready check every time: switch back to ours
 local function UpdateLeaderIcon(icon, isLeader)
-    if isLeader then icon:SetTexture(ns.MEDIA .. "Icons\\Leader") end
+    if isLeader then ns.SetIcon(icon, "Leader") end
 end
 
 local READY_ICONS = { ready = "Check", notready = "Close", waiting = "ReadyPending" }
@@ -773,7 +773,7 @@ local function ApplyDemo(button, data, phase)
     -- Role, leader, target, aggro
     local role = button.GroupRoleIndicator
     if ROLE_ICONS[data.role or ""] then
-        role:SetTexture(ns.MEDIA .. "Icons\\" .. ROLE_ICONS[data.role])
+        ns.SetIcon(role, ROLE_ICONS[data.role])
         role:Show()
     else
         role:Hide()

@@ -40,7 +40,7 @@ local function FlatSelection(frame, isCheckbox)
         mark:ClearAllPoints()
         mark:SetPoint("CENTER", box, "CENTER")
         if isCheckbox then
-            mark:SetTexture(ns.MEDIA .. "Icons\\Check")
+            ns.SetIcon(mark, "Check")
             mark:SetSize(BOX, BOX)
         else
             mark:SetTexture(WHITE)
@@ -100,7 +100,7 @@ ns:On("PLAYER_LOGIN", function()
             hooksecurefunc(MenuVariants, "CreateSubmenuArrow", function(frame)
                 local arrow = frame and frame.arrow
                 if not arrow then return end
-                arrow:SetTexture(ns.MEDIA .. "Icons\\ChevronDown")
+                ns.SetIcon(arrow, "ChevronDown")
                 arrow:SetRotation(math.pi / 2)
                 arrow:SetSize(12, 12)
                 arrow:SetVertexColor(unpack(ns.UI.MUTED))

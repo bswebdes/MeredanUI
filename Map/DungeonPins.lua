@@ -66,7 +66,7 @@ local function RemovePin(instance, kind, id)
 end
 
 local GOLD, SILVER, DARK = { 0.85, 0.71, 0.42 }, { 0.8, 0.82, 0.86 }, { 0.07, 0.085, 0.085 }
-local DIAMOND = ns.MEDIA .. "Icons\\Diamond"
+local DIAMOND = ns.IconPath("Diamond")
 local CIRCLE = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
 
 -- Diamond with border (same look as the Legacy window's level ticks)

@@ -55,7 +55,7 @@ local function SkinMinimizeButton(button)
     if not button or button.muiIcon then return end
     HideButtonArt(button)
     local icon = button:CreateTexture(nil, "OVERLAY")
-    icon:SetTexture(ns.MEDIA .. "Icons\\Minus")
+    ns.SetIcon(icon, "Minus")
     icon:SetSize(ICON_SIZE, ICON_SIZE)
     icon:SetPoint("CENTER")
     icon:SetVertexColor(unpack(ns.UI.ACCENT))
@@ -153,7 +153,7 @@ local OBJECTIVE_ICONS = {
 local function FlatObjectiveIcon(icon, atlas)
     local flat = OBJECTIVE_ICONS[atlas and atlas:lower() or ""]
     if not flat then return icon:SetVertexColor(1, 1, 1) end
-    icon:SetTexture(ns.MEDIA .. "Icons\\" .. flat[1])
+    ns.SetIcon(icon, flat[1])
     local color = type(flat[2]) == "table" and flat[2] or ns.UI[flat[2]]
     icon:SetVertexColor(unpack(color))
 end

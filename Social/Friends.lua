@@ -177,7 +177,7 @@ local function SetActionIcon(button, atlas, size, color)
 end
 
 local function SetActionMedia(button, name, size, color)
-    button.icon:SetTexture(ns.MEDIA .. "Icons\\" .. name)
+    ns.SetIcon(button.icon, name)
     button.icon:SetTexCoord(0, 1, 0, 1) -- reset tex coords left over from an atlas
     button.icon:SetSize(size, size)
     button.icon:SetVertexColor(unpack(color))
@@ -513,7 +513,7 @@ local function Layout()
         header.key = key
         header.text:SetText(title)
         header.count:SetText(count or "")
-        header.sign:SetTexture(ns.MEDIA .. "Icons\\" .. (collapsed[key] and "Plus" or "Minus"))
+        ns.SetIcon(header.sign, (collapsed[key] and "Plus" or "Minus"))
         header:ClearAllPoints()
         header:SetPoint("TOPLEFT", 0, -(y + (y > 0 and 6 or 0)))
         header:SetWidth(width)

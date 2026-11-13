@@ -472,7 +472,7 @@ local function SkinListEntry(entry)
                     or (COMMUNITIES_INVITATION_FRAME_TYPE_CHARACTER or "Community")
             end
         elseif data.setJoinCommunity or data.setAddCommunity then
-            icon:SetTexture(ns.MEDIA .. "Icons\\Plus")
+            ns.SetIcon(icon, "Plus")
             icon:SetSize(16, 16)
             icon:SetVertexColor(unpack(UI.ACCENT))
         else

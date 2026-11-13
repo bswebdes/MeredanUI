@@ -139,7 +139,7 @@ local function UpdateSticky(offset)
     sticky.key = current.key
     sticky.text:SetText(current.text:GetText())
     sticky.count:SetText(current.count:GetText() or "")
-    sticky.sign:SetTexture(ns.MEDIA .. "Icons\\" .. (Collapsed(current.key) and "Plus" or "Minus"))
+    ns.SetIcon(sticky.sign, (Collapsed(current.key) and "Plus" or "Minus"))
     sticky:Show()
 end
 
@@ -846,7 +846,7 @@ local function Layout()
         header.key = key
         header.text:SetText(text)
         header.count:SetText(count or "")
-        header.sign:SetTexture(ns.MEDIA .. "Icons\\" .. (Collapsed(key) and "Plus" or "Minus"))
+        ns.SetIcon(header.sign, (Collapsed(key) and "Plus" or "Minus"))
         y = y + (gap and SECTION_GAP or 0)
         header:ClearAllPoints()
         header:SetPoint("TOPLEFT", 0, -y)
