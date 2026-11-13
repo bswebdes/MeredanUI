@@ -99,7 +99,7 @@ function Char.UpdateSlotLabel(button, unit, link, quality, level)
         if quality then r, g, b = C_Item.GetItemQualityColor(quality) end
         rows[1] = { link:match("%[(.-)%]") or "", r, g, b }
         if level then
-            rows[#rows + 1] = { L["Level %d"]:format(level), unpack(muted) } -- short: fits the bottom row
+            rows[#rows + 1] = { L["iLvl %d"]:format(level), unpack(muted) } -- short and not confused with the character level
         else
             rows[#rows + 1] = { slotText, unpack(muted) }
         end
