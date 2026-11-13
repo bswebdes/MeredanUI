@@ -14,8 +14,8 @@ local _, ns = ...
 local oUF = ns.oUF
 
 local SIZE = {
-    width = 270,       -- "medium" size; ns.db.frameSize scales it (ns.FRAME_SCALES)
-    health = 32,       -- "medium" size
+    width = 235,       -- "medium" size; ns.db.frameSize scales it (ns.FRAME_SCALES)
+    health = 28,       -- "medium" size
     power = 6,
     classPower = 10,   -- class bar centered between the frames: pip height (width = main bar)
     classPowerGap = 12, -- class bar <-> top of the frames (action bar below)
