@@ -189,7 +189,7 @@ local function AcquireBar(eventID)
     -- deadly: red icon border
     local deadly = not issecretvalue(info.icons) and FlagsUtil.IsSet(info.icons or 0, Enum.EncounterEventIconmask.DeadlyEffect)
     for _, edge in ipairs(bar.icon.edges) do
-        if deadly then edge:SetVertexColor(0.9, 0.1, 0.1, 1) else edge:SetVertexColor(0, 0, 0, 1) end
+        if deadly then edge:SetVertexColor(0.9, 0.1, 0.1, 1) else edge:SetVertexColor(unpack(ns.BORDER_COLOR)) end
     end
     local timer = C_EncounterTimeline.GetEventTimer(eventID)
     if timer then

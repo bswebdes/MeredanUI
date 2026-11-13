@@ -78,6 +78,31 @@ function UI.Text(parent, size, justify, color)
     return text
 end
 
+-- Rune look: section headings in Cinzel and bronze-gold, window titles in Cinzel (UI.Title)
+UI.HEADING = { 0.79, 0.67, 0.45 }
+UI.TITLE = { 0.94, 0.91, 0.84 }
+function UI.Heading(parent, size, justify)
+    local text = ns.CreateText(parent, size or 12, justify, nil, "display")
+    text:SetTextColor(unpack(UI.HEADING))
+    return text
+end
+
+function UI.Title(parent, size, justify)
+    local text = ns.CreateText(parent, size or 16, justify, nil, "display")
+    text:SetTextColor(unpack(UI.TITLE))
+    return text
+end
+
+-- Small accent diamond, the rune look's mark (a rotated square)
+function UI.Diamond(parent, size, color, layer)
+    local tex = parent:CreateTexture(nil, layer or "OVERLAY")
+    tex:SetTexture(WHITE)
+    tex:SetVertexColor(unpack(color or UI.ACCENT))
+    tex:SetSize(size or 6, size or 6)
+    tex:SetRotation(math.pi / 4)
+    return tex
+end
+
 -- Icon from Media/Icons (authored white), tinted.
 function UI.Icon(parent, name, size, color)
     local icon = parent:CreateTexture(nil, "OVERLAY")
@@ -448,15 +473,19 @@ function UI.Page(parent)
         end
     end
 
+    -- rune look: diamond, Cinzel heading, bronze line running to the right
     function page:AddHeader(text)
         local row = self:Row(22)
-        local label = UI.Text(row, 11, "LEFT", UI.ACCENT)
-        label:SetPoint("BOTTOMLEFT")
+        local diamond = UI.Diamond(row, 5)
+        diamond:SetPoint("BOTTOMLEFT", 1, 4)
+        local label = UI.Heading(row, 12, "LEFT")
+        label:SetPoint("BOTTOMLEFT", 14, 0)
         label:SetText(text:upper())
         local line = row:CreateTexture(nil, "ARTWORK")
-        line:SetColorTexture(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.35)
-        line:SetPoint("BOTTOMLEFT", 0, -4)
-        line:SetPoint("BOTTOMRIGHT", 0, -4)
+        local br, bg, bb = unpack(ns.BRONZE)
+        line:SetColorTexture(br, bg, bb, 0.3)
+        line:SetPoint("LEFT", label, "RIGHT", 8, 0)
+        line:SetPoint("RIGHT", row, "RIGHT")
         line:SetHeight(ns.PixelSize())
         return row
     end

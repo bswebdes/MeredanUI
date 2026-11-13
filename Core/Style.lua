@@ -65,7 +65,7 @@ ns.THEMES = {
         healthColor = { 0, 0.8, 0 },
         emptyColor = { 0.1, 0.08, 0.06 },
         blizzardPower = true,
-        borderColor = { 0.5, 0.4, 0.24, 1 }, -- = ns.GOLD_BORDER
+        borderColor = { 0.38, 0.3, 0.18, 1 }, -- = ns.GOLD_BORDER
     },
     green = {
         name = L["mUI (sage)"], -- single-color sage
@@ -105,8 +105,8 @@ end
 
 -- Border: a thin bronze line (rune look). Debuffs tint it by dispel type (then 2px).
 ns.BORDER_PIXELS = 1
-local BORDER_COLOR = { 0.5, 0.4, 0.24, 1 }
-ns.GOLD_BORDER = { 0.5, 0.4, 0.24, 1 }
+local BORDER_COLOR = { 0.38, 0.3, 0.18, 1 }
+ns.GOLD_BORDER = { 0.38, 0.3, 0.18, 1 } -- dark bronze
 ns.BORDER_COLOR = BORDER_COLOR
 
 -- Everything using theme, font or texture, so changes apply immediately.
@@ -526,6 +526,7 @@ end
 
 -- Font face per role: "bold" (names, headings), "text" (body text), otherwise mUI.
 function ns.FontFor(role)
+    if role == "display" then return ns.DISPLAY_FONT end -- Cinzel: titles and section headings (rune look)
     if role == "bold" then return STYLE.boldFont or ns.BOLD_FONT end
     if role == "text" then return STYLE.textFont or ns.TEXT_FONT end
     return STYLE.font

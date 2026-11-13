@@ -179,7 +179,7 @@ local function Render(toast)
     -- Quality-colored border only for Uncommon+ items, otherwise black
     local colored = data.quality and data.quality >= Enum.ItemQuality.Uncommon
     for _, edge in ipairs(toast.edges) do
-        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(0, 0, 0, 1) end
+        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(unpack(ns.BORDER_COLOR)) end
     end
     local count = data.countText or (data.count and data.count > 1 and ("×" .. data.count)) or ""
     toast.count:SetText(count)

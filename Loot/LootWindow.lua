@@ -115,7 +115,7 @@ local function FillRow(row, slot)
     row.name:SetTextColor(r, g, b)
     local colored = not isMoney and quality and quality >= Enum.ItemQuality.Uncommon
     for _, edge in ipairs(row.border) do
-        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(0, 0, 0, 1) end
+        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(unpack(ns.BORDER_COLOR)) end
     end
     row.count:SetText(quantity and quantity > 1 and quantity or "")
     row.quest:SetShown(isQuestItem or questID ~= nil)

@@ -274,7 +274,7 @@ local function ItemButton(parent, size)
         if not itemID then
             self.icon:SetTexture(nil)
             self.count:SetText("")
-            for _, e in ipairs(self.edges) do e:SetVertexColor(0, 0, 0, 1) end
+            for _, e in ipairs(self.edges) do e:SetVertexColor(unpack(ns.BORDER_COLOR)) end
             return
         end
         self.icon:SetTexture(C_Item.GetItemIconByID(itemID))
@@ -283,7 +283,7 @@ local function ItemButton(parent, size)
         local r, g, bl = QualityColor(quality)
         local colored = quality and quality ~= Enum.ItemQuality.Common
         for _, e in ipairs(self.edges) do
-            if colored then e:SetVertexColor(r, g, bl, 1) else e:SetVertexColor(0, 0, 0, 1) end
+            if colored then e:SetVertexColor(r, g, bl, 1) else e:SetVertexColor(unpack(ns.BORDER_COLOR)) end
         end
     end
     return b

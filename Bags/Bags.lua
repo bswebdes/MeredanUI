@@ -269,7 +269,8 @@ local HEARTH_COLOR = { 0.48, 0.60, 0.42 } -- darker sage: stands out against the
 -- Item level on gear and upgrade arrow. Used by the bag, bank and guild bank windows.
 function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     local quality = info and info.quality
-    local r, g, b, strong = 0, 0, 0, false
+    local r, g, b = unpack(ns.BORDER_COLOR)
+    local strong = false
     if not categoryOf then BuildLookup() end
     if info and button.muiQuest then
         r, g, b, strong = QUEST_COLOR[1], QUEST_COLOR[2], QUEST_COLOR[3], true

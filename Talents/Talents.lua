@@ -629,7 +629,7 @@ local function Layout()
     unspentText:SetText(data.unspent)
     unspentText:SetTextColor(unpack(data.unspent > 0 and { 0.12, 1, 0 } or UI.MUTED))
     for _, e in ipairs(unspentBox.edges) do
-        if data.unspent > 0 then e:SetVertexColor(0.12, 1, 0, 0.45) else e:SetVertexColor(0, 0, 0, 1) end
+        if data.unspent > 0 then e:SetVertexColor(0.12, 1, 0, 0.45) else e:SetVertexColor(unpack(ns.BORDER_COLOR)) end
     end
     local hasStaged = C_Traits.ConfigHasStagedChanges(data.configID)
     resetButton:SetShown(viewTab == active and hasStaged)

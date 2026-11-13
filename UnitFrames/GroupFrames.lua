@@ -694,7 +694,7 @@ local function SetAura(aura, data, colors)
     aura.Icon:SetTexture(icon)
     local color = dispel and colors and colors.dispel and colors.dispel[dispel]
     for _, edge in ipairs(aura.FrameBorder) do
-        if color then edge:SetVertexColor(color:GetRGB()) else edge:SetVertexColor(0, 0, 0, 1) end
+        if color then edge:SetVertexColor(color:GetRGB()) else edge:SetVertexColor(unpack(ns.BORDER_COLOR)) end
     end
     aura:Show()
 end
