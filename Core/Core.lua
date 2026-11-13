@@ -255,7 +255,6 @@ local DEFAULTS = {
     damageMeter = true,          -- custom mUI damage meter instead of Blizzard's window (off: after reload)
     damageMeterSecond = false,   -- second damage meter window below (own type selectable)
     damageMeterFade = true,      -- fade damage meter out of combat (mouseover shows it)
-    bagsStyle = "categories",    -- bags: "categories" (sections), "single" (one grid)
     bagsShowSlots = false,       -- bag slots at the bottom of the bag window (button at the top of the window)
     mapReveal = true,            -- world map: reveal the whole map (Comfort)
     mapZoneLevels = true,        -- world map: level range at the zone name (Comfort)

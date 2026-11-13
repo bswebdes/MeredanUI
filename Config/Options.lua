@@ -69,13 +69,6 @@ local function TooltipAnchorItems()
     return { { value = "corner", label = L["Bottom right"] }, { value = "cursor", label = L["At the mouse"] } }
 end
 
-local function BagStyleItems()
-    return {
-        { value = "categories", label = L["Sections"] },
-        { value = "single", label = L["One big bag"] },
-    }
-end
-
 local function ForcesItems()
     return {
         { value = "detail", label = L["Percent with 2 decimals and count"] },
@@ -695,9 +688,6 @@ local PAGES = {
                     Help(L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."]))
             end
             local bagsFirst = #page.items + 1
-            page:AddDropdown(L["Layout"], BagStyleItems, function() return ns.db.bagsStyle == "single" and "single" or "categories" end,
-                Setter("bagsStyle", function() if ns.RefreshBags then ns.RefreshBags() end end),
-                Help(L["Sections or one big bag. Alt+right-click an item to put it into your own section."]))
             page:AddCheckbox(L["Sell junk and repair at merchants"], On("bagsAutoJunk"), Setter("bagsAutoJunk"),
                 Help(L["Repairs use the guild bank when allowed."]))
             page:AddCheckbox(L["Protect profession tools"], On("protectTools"), Setter("protectTools"),

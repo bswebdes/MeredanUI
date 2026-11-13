@@ -41,7 +41,7 @@ local STYLE_VALUES = {
         chatEmoji = false, chatReputation = false, chatBubbles = false, lfgHighlight = false,
         trainerReminder = false, professionReminder = false, toastsGroupLoot = false, combatAlert = false,
         hideErrors = false,
-        bagsStyle = "single", bagsAutoJunk = false, fastLoot = false,
+        bagsAutoJunk = false, fastLoot = false,
         damageMeter = false,
         questAutoAccept = false, questAutoTurnIn = false, questAutoGossip = false, questBestReward = false,
         autoSummon = false, autoResurrect = false, declineDuels = false, skipCinematics = false, buffReminder = false, altItemCount = false, ahTooltipPrice = false, sparkle = false, classQuestReminder = false,
@@ -57,7 +57,7 @@ local STYLE_VALUES = {
         chatEmoji = true, chatReputation = true, chatBubbles = true, lfgHighlight = true,
         trainerReminder = true, professionReminder = true, toastsGroupLoot = true, combatAlert = true,
         hideErrors = true,
-        bagsStyle = "categories", bagsAutoJunk = true, fastLoot = true,
+        bagsAutoJunk = true, fastLoot = true,
         damageMeter = true,
         questAutoAccept = false, questAutoTurnIn = false, questAutoGossip = true, questBestReward = true, -- auto quests: opt-in only
         autoSummon = true, autoResurrect = true, declineDuels = true, skipCinematics = true, buffReminder = true, altItemCount = true, ahTooltipPrice = true, sparkle = true, classQuestReminder = true,

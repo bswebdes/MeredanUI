@@ -1,5 +1,5 @@
--- Bags: one window replacing Blizzard's individual bags. Three styles (Settings > Bags):
--- category sections (default), one big sorted bag, or one box per bag - see "Styles" below.
+-- Bags: one window replacing Blizzard's individual bags. Category sections flow left to right,
+-- "New" on top and every free slot at the bottom (like one big bag).
 --
 --   +- Bags --------------------------- [] 42  [x] -+
 --   | [Search ..................................]   |
@@ -7,8 +7,10 @@
 --   | [#][#]           [#][#][#][#]                  |
 --   | Flasks           Herbs            Consumable    |
 --   | [#][#]           [#][#][#]        [#][#]        |
---   | Junk             Free                           |
---   | [#]              [ ][ ][ ][ ][ ]...              |
+--   | Junk                                            |
+--   | [#]                                             |
+--   | Free                                            |
+--   | [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]                  |
 --   | 12,345 g                                        |
 --   +-------------------------------------------------+
 --
@@ -186,6 +188,8 @@ local function StyleButton(button)
     button.emptyBackgroundAtlas = nil -- empty slots: our slot background instead of Blizzard's art
     ns.AddSlotBackground(button)
     button.muiBorder = ns.AddBorder(button)
+    -- inner 2px edge in the same color: with the outer edge a 3px frame for quality/quest items
+    button.muiBorderInner = ns.AddBorder(button, true, 2)
     local normal = button:GetNormalTexture()
     if normal then normal:SetAlpha(0) end
     if button.IconBorder then button.IconBorder:SetAlpha(0) end -- our border shows quality
@@ -253,13 +257,24 @@ local function StyleButton(button)
     button.muiFill = fill
 end
 
--- Quality-colored border (Uncommon and up, else black), item level on gear and upgrade arrow.
--- Used by the bag, bank and guild bank windows.
+local QUEST_COLOR = { 1, 0.82, 0 }
+
+-- Border: gold for quest items, quality color from Uncommon up (both 3px), else thin black.
+-- Item level on gear and upgrade arrow. Used by the bag, bank and guild bank windows.
 function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     local quality = info and info.quality
-    local r, g, b = 0, 0, 0
-    if quality and quality >= Enum.ItemQuality.Uncommon then r, g, b = QualityColor(quality) end
+    local r, g, b, strong = 0, 0, 0, false
+    if info and button.muiQuest then
+        r, g, b, strong = QUEST_COLOR[1], QUEST_COLOR[2], QUEST_COLOR[3], true
+    elseif quality and quality >= Enum.ItemQuality.Uncommon then
+        r, g, b = QualityColor(quality)
+        strong = true
+    end
     for _, edge in ipairs(button.muiBorder) do edge:SetVertexColor(r, g, b, 1) end
+    for _, edge in ipairs(button.muiBorderInner) do
+        edge:SetVertexColor(r, g, b, 1)
+        edge:SetShown(strong)
+    end
 
     button.muiLevel:SetText("")
     if info and showLevel then
@@ -329,6 +344,10 @@ local function UpdateButton(button, info, showLevel)
     SetItemButtonDesaturated(button, info and info.isLocked)
     local quest = C_Container.GetContainerItemQuestInfo(bag, slot)
     button:UpdateQuestItem(quest.isQuestItem, quest.questID, quest.isActive)
+    -- quest items get our gold border instead of Blizzard's glow; quest starters keep the "!" badge
+    local starter = quest.questID and not quest.isActive
+    button.muiQuest = (quest.questID or quest.isQuestItem) and true or false
+    if button.muiQuest and not starter then button.IconQuestTexture:Hide() end
     button:UpdateNewItem(info and info.quality)
     button:UpdateJunkItem(info and info.quality, info and info.hasNoValue)
     button:UpdateItemContextMatching()
@@ -411,16 +430,6 @@ local function ItemSort(a, b)
     return a.slot < b.slot
 end
 
--- Styles (Settings > Bags):
---   "categories" - sections like BetterBags (default)
---   "single"     - one sorted grid without headers (New first, then item class)
--- Columns: at least 10 (like Blizzard)
-local SINGLE_MIN_COLS, SINGLE_MAX_COLS = 10, 16
-
-local function BagStyle()
-    return ns.db.bagsStyle == "single" and "single" or "categories" -- old "separate" -> sections
-end
-
 -- read all slots of visible bags: items (with category) and empty slots per bag
 local function Collect()
     ScanNewItems()
@@ -474,19 +483,6 @@ local function SplitEmpties(empties)
         end
     end
     return free, special
-end
-
--- place list as a grid with cols columns at (x, y) in relative (default: content); returns height
-local function PlaceGrid(list, cols, x, y, relative)
-    for i, entry in ipairs(list) do
-        local col, row = (i - 1) % cols, math.floor((i - 1) / cols)
-        local button = entry.button ---@type table
-        button:ClearAllPoints()
-        button:SetPoint("TOPLEFT", relative or content, "TOPLEFT", x + col * (SIZE + GAP), -(y + row * (SIZE + GAP)))
-        UpdateButton(button, entry.info)
-        button:Show()
-    end
-    return math.max(math.ceil(#list / cols) * (SIZE + GAP) - GAP, 1)
 end
 
 local function MaxContentHeight() return UIParent:GetHeight() - 2 * ns.SCREEN_MARGIN - 120 end
@@ -563,49 +559,18 @@ local function LayoutCategories(items, empties, special)
     return width, placedHeight
 end
 
-local function SingleSort(a, b)
-    if a.isNew ~= b.isNew then return a.isNew end
-    if a.classID ~= b.classID then return a.classID < b.classID end
-    return ItemSort(a, b)
-end
-
--- single bag: every slot individually, including empty ones; empty slots of special bags
--- (quiver ...) come last
-local function LayoutSingle(items, empties)
-    table.sort(items, SingleSort)
-    for pass = 1, 2 do
-        for _, bag in ipairs(BAGS) do
-            if IsSpecialBag(bag) == (pass == 2) then
-                for _, entry in ipairs(empties[bag] or {}) do
-                    items[#items + 1] = entry
-                end
-            end
-        end
-    end
-    local cols = SINGLE_MIN_COLS
-    while cols < SINGLE_MAX_COLS and math.ceil(#items / cols) * (SIZE + GAP) > MaxContentHeight() do cols = cols + 1 end
-    local height = PlaceGrid(items, cols, 0, 0)
-    return cols * (SIZE + GAP) - GAP, height
-end
-
 function Layout()
     if not window then return end
     if not categoryOf then BuildLookup() end
     dirty = false
 
-    local style = BagStyle()
     if (view == "reagents" and C_Container.GetContainerNumSlots(REAGENT_BAG) == 0)
         or (view == "keys" and not HasKeys()) then
         view = "bags"
     end
     for _, header in ipairs(headers) do header:Hide() end
     local items, empties, free, special = Collect()
-    local width, height
-    if style == "single" then
-        width, height = LayoutSingle(items, empties)
-    else
-        width, height = LayoutCategories(items, empties, special)
-    end
+    local width, height = LayoutCategories(items, empties, special)
 
     content:SetSize(width, height)
     window:SetSize(width + 2 * PAD, height + 2 * PAD + 58 + 30)
