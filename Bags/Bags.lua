@@ -197,8 +197,7 @@ local function StyleButton(button)
     local normal = button:GetNormalTexture()
     if normal then normal:SetAlpha(0) end
     if button.IconBorder then button.IconBorder:SetAlpha(0) end -- our border shows quality
-    button.icon:ClearAllPoints()
-    button.icon:SetAllPoints()
+    ns.InsetItemIcon(button, button.icon)
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     -- Forever resets tex coords to (0, 1, 0, 1) on every icon change (SetItemButtonTexture):
     -- crop again, otherwise the icons' beveled edge comes back
@@ -269,7 +268,7 @@ local HEARTH_COLOR = { 0.48, 0.60, 0.42 } -- darker sage: stands out against the
 -- Item level on gear and upgrade arrow. Used by the bag, bank and guild bank windows.
 function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     local quality = info and info.quality
-    local r, g, b = unpack(ns.BORDER_COLOR)
+    local r, g, b = unpack(ns.ITEM_EDGE)
     local strong = false
     if not categoryOf then BuildLookup() end
     if info and button.muiQuest then

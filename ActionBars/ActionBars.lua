@@ -195,6 +195,7 @@ local function StyleButton(button)
     -- opaque dark fill sits beneath it.
     ns.AddSlotBackground(button)
     ns.AddItemFrame(button)
+    ns.InsetItemIcon(button, button.icon)
 
     local function Flat(texture, r, g, b, a)
         if not texture then return end

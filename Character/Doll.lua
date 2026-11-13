@@ -59,6 +59,7 @@ local function CreateSlot(parent, slotName, side)
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.border = ns.AddItemFrame(button)
+    ns.InsetItemIcon(button, button.icon)
     button.count = ns.CreateText(button, 12, "RIGHT", "OUTLINE")
     button.count:SetPoint("BOTTOMRIGHT", -2, 2)
     local hover = button:CreateTexture(nil, "HIGHLIGHT")
@@ -133,7 +134,7 @@ local function UpdateSlot(button)
         button.icon:SetVertexColor(1, 1, 1)
         button.icon:SetAlpha(0.35)
     end
-    local r, g, b = unpack(ns.BORDER_COLOR)
+    local r, g, b = unpack(ns.ITEM_EDGE)
     if texture and quality and quality > 1 then r, g, b = C_Item.GetItemQualityColor(quality) end
     for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
     -- name, item level (same option as Upgrades/ItemLevels.lua) and enchant next to the slot
@@ -226,6 +227,7 @@ local function FlyoutButton(i)
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.border = ns.AddItemFrame(button)
+    ns.InsetItemIcon(button, button.icon)
     -- Upgrade arrow as in the bags (Upgrades.lua), percentage below
     button.upgrade = CreateFrame("Frame", nil, button)
     button.upgrade:SetSize(16, 16)
@@ -309,7 +311,7 @@ Flyout = function(owner)
             local text = (entry.upgrade < 1 and "%.1f" or "%.0f"):format(entry.upgrade):gsub("%.", L["DECIMAL_SEPARATOR"])
             button.percent:SetText("+" .. text)
         end
-        local r, g, b = unpack(ns.BORDER_COLOR)
+        local r, g, b = unpack(ns.ITEM_EDGE)
         if entry.quality and entry.quality > 1 then r, g, b = C_Item.GetItemQualityColor(entry.quality) end
         for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
         button:ClearAllPoints()

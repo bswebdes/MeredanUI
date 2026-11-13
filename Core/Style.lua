@@ -300,39 +300,47 @@ function ns.AddBorder(region, inside, thickness)
     return { top, bottom, left, right }
 end
 
--- Item/action button frame (rune look, not flat): a bevelled bronze setting just inside the edge -
--- light on the top and left, dark on the bottom and right - plus the usual thin outer line. Returns
--- the outer line's edges, so callers can still tint it by quality like an ns.AddBorder result.
-local BEVEL_LIGHT = { 0.88, 0.76, 0.52 }
-local BEVEL_MID = { 0.65, 0.51, 0.29 }
-local BEVEL_DARK = { 0.24, 0.18, 0.1 }
+-- Item/action button frame (rune look, not flat): a thin light bronze edge with a wider dark
+-- backdrop band inside it; the icon sits within (ns.InsetItemIcon). Returns the edge textures, so
+-- callers can tint them by quality like an ns.AddBorder result (ns.ITEM_EDGE = default colour).
+ns.ITEM_EDGE = { 0.79, 0.66, 0.41, 1 }
+local ITEM_EDGE, ITEM_PAD = 1, 3 -- UI units: edge line, backdrop band
+local function EdgePixels() return math.max(1, math.floor(ns.Snap(ITEM_EDGE) / ns.PixelSize() + 0.5)) end
+local function ItemInset() return EdgePixels() * ns.PixelSize() + ns.Snap(ITEM_PAD) end
+
 function ns.AddItemFrame(frame)
-    local t = ns.Snap(2)
-    local function Edge(minC, maxC, orientation)
+    local px = ns.PixelSize()
+    local e, pad = EdgePixels() * px, ns.Snap(ITEM_PAD)
+    local band = {}
+    for i = 1, 4 do
         local tex = frame:CreateTexture(nil, "OVERLAY", nil, -8)
-        tex:SetColorTexture(1, 1, 1, 1)
-        tex:SetGradient(orientation, CreateColor(minC[1], minC[2], minC[3], 1), CreateColor(maxC[1], maxC[2], maxC[3], 1))
-        return tex
+        tex:SetColorTexture(0.07, 0.055, 0.043, 1)
+        band[i] = tex
     end
-    -- top and left lit, bottom and right in shadow (vertical gradients run bottom -> top)
-    local top = Edge(BEVEL_MID, BEVEL_LIGHT, "VERTICAL")
-    top:SetPoint("TOPLEFT")
-    top:SetPoint("TOPRIGHT")
-    top:SetHeight(t)
-    local left = Edge(BEVEL_LIGHT, BEVEL_MID, "HORIZONTAL")
-    left:SetPoint("TOPLEFT", 0, -t)
-    left:SetPoint("BOTTOMLEFT", 0, t)
-    left:SetWidth(t)
-    local bottom = Edge(BEVEL_DARK, BEVEL_MID, "VERTICAL")
-    bottom:SetPoint("BOTTOMLEFT")
-    bottom:SetPoint("BOTTOMRIGHT")
-    bottom:SetHeight(t)
-    local right = Edge(BEVEL_MID, BEVEL_DARK, "HORIZONTAL")
-    right:SetPoint("TOPRIGHT", 0, -t)
-    right:SetPoint("BOTTOMRIGHT", 0, t)
-    right:SetWidth(t)
-    frame.muiBevel = { top, left, bottom, right }
-    return ns.AddBorder(frame)
+    band[1]:SetPoint("TOPLEFT", e, -e)
+    band[1]:SetPoint("TOPRIGHT", -e, -e)
+    band[1]:SetHeight(pad)
+    band[2]:SetPoint("BOTTOMLEFT", e, e)
+    band[2]:SetPoint("BOTTOMRIGHT", -e, e)
+    band[2]:SetHeight(pad)
+    band[3]:SetPoint("TOPLEFT", e, -e - pad)
+    band[3]:SetPoint("BOTTOMLEFT", e, e + pad)
+    band[3]:SetWidth(pad)
+    band[4]:SetPoint("TOPRIGHT", -e, -e - pad)
+    band[4]:SetPoint("BOTTOMRIGHT", -e, e + pad)
+    band[4]:SetWidth(pad)
+    frame.muiBackdropBand = band
+    local edges = ns.AddBorder(frame, true, EdgePixels())
+    for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(ns.ITEM_EDGE)) end
+    return edges
+end
+
+-- Icon inside the item frame (call after the icon got its full-size anchors)
+function ns.InsetItemIcon(frame, icon)
+    local inset = ItemInset()
+    icon:ClearAllPoints()
+    icon:SetPoint("TOPLEFT", frame, "TOPLEFT", inset, -inset)
+    icon:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -inset, inset)
 end
 
 -- Dark panel with 1px border behind a region.

@@ -47,6 +47,7 @@ local function CreateSlot(parent, slotName)
     button.icon:SetAllPoints()
     button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.border = ns.AddItemFrame(button)
+    ns.InsetItemIcon(button, button.icon)
     local hover = button:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.12)
@@ -77,7 +78,7 @@ local function UpdateSlot(button)
     button.icon:SetTexture(texture or button.emptyTexture)
     button.icon:SetDesaturated(not texture)
     button.icon:SetAlpha(texture and 1 or 0.35)
-    local r, g, b = unpack(ns.BORDER_COLOR)
+    local r, g, b = unpack(ns.ITEM_EDGE)
     if quality and quality > 1 then r, g, b = C_Item.GetItemQualityColor(quality) end
     for _, edge in ipairs(button.border) do edge:SetVertexColor(r, g, b, 1) end
     -- name, item level (same option as the character window) and enchant next to the slot
