@@ -149,46 +149,45 @@ end
 local GROUP_GAP = 5
 local spacerFont
 
-local function InsertSpacer(tooltip, index)
-    local name = tooltip:GetName()
-    tooltip:AddLine(" ")
-    for i = tooltip:NumLines(), index + 1, -1 do
-        local from, to = _G[name .. "TextLeft" .. (i - 1)], _G[name .. "TextLeft" .. i]
-        to:SetText(from:GetText())
-        to:SetTextColor(from:GetTextColor())
-        -- carry the font: spacer lines tiny, everything else normal
-        to:SetFontObject(from:GetFontObject() == spacerFont and spacerFont or GameTooltipText)
-    end
-    local spacer = _G[name .. "TextLeft" .. index]
-    spacer:SetText(" ")
-    spacer:SetFontObject(spacerFont)
-end
-
 -- Reset all lines from 2 on to the normal font (line objects are reused; Blizzard doesn't
 -- reset their font when refilling)
+local dividerFont -- a spacer line tall enough for the divider (unit tooltip)
+
 local function NormalizeFonts(tooltip)
     local name = tooltip:GetName()
     local i = 2
     while _G[name .. "TextLeft" .. i] do
         local line = _G[name .. "TextLeft" .. i]
-        if line:GetFontObject() == spacerFont then line:SetFontObject(GameTooltipText) end
+        local font = line:GetFontObject()
+        if font == spacerFont or (dividerFont and font == dividerFont) then line:SetFontObject(GameTooltipText) end
         i = i + 1
     end
+    if tooltip.muiDivider then tooltip.muiDivider:Hide() end
 end
 
--- starts: line numbers that get a gap before them - insert bottom-up so indices stay valid
-local function GroupLines(tooltip, starts)
-    if not spacerFont then
-        spacerFont = CreateFont("MeredanUITooltipSpacer")
-        spacerFont:SetFont(ns.STYLE.font, GROUP_GAP, "")
+-- Divider line (unit tooltip): a thin line in the frame material across the box, centred on a
+-- dedicated spacer line
+local function PlaceDivider(tooltip, line)
+    if not dividerFont then
+        dividerFont = CreateFont("MeredanUITooltipDivider")
+        dividerFont:SetFont(ns.STYLE.font, 11, "")
     end
-    NormalizeFonts(tooltip)
-    local list = {}
-    for index in pairs(starts) do list[#list + 1] = index end
-    table.sort(list, function(a, b) return a > b end)
-    for _, index in ipairs(list) do
-        if index > 1 and index <= tooltip:NumLines() then InsertSpacer(tooltip, index) end
+    line:SetText(" ")
+    line:SetFontObject(dividerFont)
+    local divider = tooltip.muiDivider
+    if not divider then
+        divider = tooltip:CreateTexture(nil, "ARTWORK")
+        divider:SetTexture("Interface\\Buttons\\WHITE8X8")
+        divider:SetHeight(ns.PixelSize())
+        tooltip.muiDivider = divider
     end
+    local r, g, b = unpack(ns.BRONZE)
+    divider:SetVertexColor(r, g, b, 0.45)
+    divider:ClearAllPoints()
+    divider:SetPoint("LEFT", tooltip, "LEFT", ns.Snap(12), 0)
+    divider:SetPoint("RIGHT", tooltip, "RIGHT", -ns.Snap(12), 0)
+    divider:SetPoint("TOP", line, "CENTER", 0, 0)
+    divider:Show()
 end
 
 -- New content: spacer lines back to normal font
@@ -323,11 +322,6 @@ local inspectCache = {}
 local inspectCount = 0
 local pendingGUID
 
--- Blizzard already shows the spec ("Assassination Rogue") - only add the item level
-local function InspectLine(info)
-    if info.ilvl then return ("%s %d"):format(L["iLvl"], info.ilvl) end
-end
-
 local function OwnInspectInfo()
     local info = {}
     local _, equipped = GetAverageItemLevel()
@@ -389,7 +383,6 @@ local function AddUnitLines(tooltip, unit)
     end
 
     -- Faction line: Horde red, Alliance blue. Strip "(Player)" from the level line - the class says it.
-    local starts = {} -- first line of each group (GroupLines)
     local faction, factionName = UnitFactionGroup(unit)
     local factionColor = Readable(faction) and FACTION_COLORS[faction]
     local playerTag = type(PLAYER) == "string" and ("%s*%(" .. PLAYER:gsub("%p", "%%%0") .. "%)")
@@ -398,12 +391,14 @@ local function AddUnitLines(tooltip, unit)
     -- Forever puts the class on its own line: tint it in the class colour
     local className = UnitClass(unit)
     local classColor = ClassColor(unit)
+    local levelLine, classIndex
     for i = 2, tooltip:NumLines() do
         local line = _G["GameTooltipTextLeft" .. i]
         local text = line and line:GetText()
         if Readable(text) then
             local isLevel = levelTag and text:find(levelTag)
-            if isLevel then starts[i] = true end
+            if isLevel then levelLine = line end
+            if classColor and Readable(className) and text == className then classIndex = i end
             if factionColor and Readable(factionName) and text == factionName then
                 line:SetTextColor(unpack(factionColor))
             elseif classColor and Readable(className) and text == className then
@@ -419,7 +414,22 @@ local function AddUnitLines(tooltip, unit)
             end
         end
     end
-    local statsStart = nil
+    -- Layout: "Level 17 Night Elf Hunter" on one line (class in its colour), faction below, then
+    -- a divider and the stats as label/value rows. Forever gives the class its own line: shift
+    -- the lines below it up one and use the freed last line for the divider.
+    local n = tooltip:NumLines()
+    local dividerLine
+    if classIndex and levelLine then
+        local text = levelLine:GetText()
+        levelLine:SetText(("%s |cff%02x%02x%02x%s|r"):format(text, classColor.r * 255, classColor.g * 255,
+            classColor.b * 255, className))
+        for i = classIndex, n - 1 do
+            local from, to = _G["GameTooltipTextLeft" .. (i + 1)], _G["GameTooltipTextLeft" .. i]
+            to:SetText(from:GetText())
+            to:SetTextColor(from:GetTextColor())
+        end
+        dividerLine = _G["GameTooltipTextLeft" .. n]
+    end
 
     -- Item level
     local guid = UnitGUID(unit)
@@ -435,10 +445,10 @@ local function AddUnitLines(tooltip, unit)
                 RequestInspect(unit, guid)
             end
         end
-        local text = info and InspectLine(info)
-        if text then
-            tooltip:AddLine(text, 1, 1, 1)
-            statsStart = statsStart or tooltip:NumLines()
+        if info and info.ilvl then
+            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
+            local r, g, b = unpack(MUTED)
+            tooltip:AddDoubleLine(L["iLvl"], tostring(info.ilvl), r, g, b, 1, 1, 1)
         end
     end
 
@@ -448,11 +458,11 @@ local function AddUnitLines(tooltip, unit)
         local score = summary and summary.currentSeasonScore
         if Readable(score) and score > 0 then
             local scoreColor = C_ChallengeMode.GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
-            tooltip:AddLine(("%s %s"):format(L["M+"], scoreColor:WrapTextInColorCode(tostring(score))), 1, 1, 1)
-            statsStart = statsStart or tooltip:NumLines()
+            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
+            local r, g, b = unpack(MUTED)
+            tooltip:AddDoubleLine(L["M+"], scoreColor:WrapTextInColorCode(tostring(score)), r, g, b, 1, 1, 1)
         end
     end
-    if statsStart then starts[statsStart] = true end
 
     -- Unit's target
     local target = unit .. "target"
@@ -461,12 +471,17 @@ local function AddUnitLines(tooltip, unit)
     if Enabled("tooltipTarget") and ns.Plain(UnitExists(target)) then
         local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or ColoredName(target)
         if name then
+            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
             local r, g, b = unpack(MUTED)
-            tooltip:AddLine(("%s  %s"):format(L["Target"], name), r, g, b)
-            starts[tooltip:NumLines()] = true
+            tooltip:AddDoubleLine(L["Target"], name, r, g, b, 1, 1, 1)
         end
     end
-    GroupLines(tooltip, starts)
+    NormalizeFonts(tooltip)
+    if dividerLine and dividerLine ~= _G["GameTooltipTextLeft" .. tooltip:NumLines()] then
+        PlaceDivider(tooltip, dividerLine)
+    elseif dividerLine then
+        dividerLine:SetText("") -- nothing below the divider: no gap either
+    end
 end
 
 -- Mythic+: enemy forces the mob is worth (Blizzard provides the value per unit)
