@@ -25,7 +25,7 @@ local shownInstance
 local hiddenFrames = {}
 
 local GOLD = { 0.85, 0.71, 0.42 }
-local BLACK = { 0, 0, 0, 1 }
+local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
 local SELECTED_BG = { 0.10, 0.145, 0.137, 1 }
 local ROW_BG = { 0.08, 0.094, 0.094, 1 }
 

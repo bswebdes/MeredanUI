@@ -402,9 +402,8 @@ local function GetHeader(index)
     if not header then
         header = CreateFrame("Button", nil, content)
         header:SetHeight(HEADER - 2)
-        header.text = ns.CreateText(header, 12, "LEFT", "OUTLINE")
+        header.text = ns.UI.Heading(header, 12, "LEFT")
         header.text:SetPoint("LEFT")
-        header.text:SetTextColor(unpack(ns.UI.ACCENT))
         header:SetScript("OnClick", DropOnHeader)
         header:SetScript("OnReceiveDrag", DropOnHeader)
         header:SetScript("OnEnter", function(self)
@@ -416,7 +415,7 @@ local function GetHeader(index)
             end
         end)
         header:SetScript("OnLeave", function(self)
-            self.text:SetTextColor(unpack(ns.UI.ACCENT))
+            self.text:SetTextColor(unpack(ns.UI.HEADING))
             GameTooltip:Hide()
         end)
         headers[index] = header
@@ -426,7 +425,7 @@ end
 
 local measure -- measures headers so sections are at least as wide as their name
 local function TextWidth(text)
-    measure = measure or ns.CreateText(UIParent, 12, "LEFT", "OUTLINE")
+    measure = measure or ns.CreateText(UIParent, 12, "LEFT", nil, "display") -- same font as the headings
     measure:Hide()
     measure:SetText(text)
     return math.ceil(measure:GetUnboundedStringWidth())
@@ -674,15 +673,13 @@ local function CreateWindow()
     local tabs = {}
     local function Tab(key, label)
         local tab = CreateFrame("Button", nil, window)
-        tab.text = UI.Text(tab, 14, "LEFT")
-        tab.text:SetPoint("LEFT")
+        -- rune look: Cinzel title, the active tab marked by an accent diamond
+        tab.text = UI.Title(tab, 16, "LEFT")
+        tab.text:SetPoint("LEFT", 14, 0)
         tab.text:SetText(label)
-        tab:SetSize(tab.text:GetUnboundedStringWidth() + 2, 20)
-        tab.line = tab:CreateTexture(nil, "OVERLAY")
-        tab.line:SetColorTexture(unpack(UI.ACCENT))
-        tab.line:SetPoint("BOTTOMLEFT", 0, -2)
-        tab.line:SetPoint("BOTTOMRIGHT", 0, -2)
-        tab.line:SetHeight(2)
+        tab:SetSize(tab.text:GetUnboundedStringWidth() + 16, 22)
+        tab.line = UI.Diamond(tab, 6)
+        tab.line:SetPoint("LEFT", 2, 0)
         tab:SetScript("OnClick", function() window.ShowView(key) end)
         tabs[key] = tab
         return tab
@@ -703,7 +700,7 @@ local function CreateWindow()
         tabs.keys:SetPoint("LEFT", tabs.reagents:IsShown() and tabs.reagents or tabs.bags, "RIGHT", 14, 0)
         for key, tab in pairs(tabs) do
             local active = key == view
-            tab.text:SetTextColor(unpack(active and UI.ACCENT or UI.MUTED))
+            tab.text:SetTextColor(unpack(active and UI.TITLE or UI.MUTED))
             tab.line:SetShown(active)
         end
     end

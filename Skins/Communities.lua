@@ -11,7 +11,7 @@
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BLACK = { 0, 0, 0, 1 }
+local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 
 local HEAD_PAD, HEAD_ICON = 18, 46 -- header like mUI windows
@@ -104,18 +104,17 @@ local function Border(frame, inside, thickness)
     return edges
 end
 
--- Background + border + 2 px Surf Green top line (windows and popups). target = visible area
+-- Background + rune frame (windows and popups). target = visible area
 -- (e.g. Blizzard's offset border frame), default: the frame itself.
 local function Panel(frame, target)
     target = target or frame
     local c = ns.STYLE.panelColor
     local bg = Tex(frame, "BACKGROUND", -8, { c[1], c[2], c[3], 0.96 })
     bg:SetAllPoints(target)
-    Edges(frame, target)
-    local accent = Tex(frame, "OVERLAY", 7, ns.UI.ACCENT)
-    accent:SetPoint("TOPLEFT", target, "TOPLEFT")
-    accent:SetPoint("TOPRIGHT", target, "TOPRIGHT")
-    accent:SetHeight(2 * ns.PixelSize())
+    local rune = ns.RuneFrame(frame, { target = target })
+    own[rune.shadow] = true
+    for _, tex in ipairs(rune.lines) do own[tex] = true end
+    for _, tex in ipairs(rune.corners) do own[tex] = true end
     return bg
 end
 

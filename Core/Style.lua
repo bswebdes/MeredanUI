@@ -312,12 +312,13 @@ end
 
 -- Rune look (v0.5) for windows: soft shadow instead of a black outline, a thin bronze line inset
 -- from the edge and accent corner brackets. Call after the background (UI.Box with noBorder).
--- opts.small: menus, tooltips, dialogs (tighter inset and corners).
+-- opts.small: menus, tooltips, dialogs (tighter inset and corners). opts.target: visible area.
 ns.BRONZE = { 0.72, 0.59, 0.36 }
 ns.RUNE_BG = { 0.086, 0.075, 0.059 } -- window background (themes keep it, "Dark" goes near-black)
 ns.SHADOW_TEXTURE = ns.MEDIA .. "Shadow"
 function ns.RuneFrame(frame, opts)
     local small = opts and opts.small
+    local anchor = opts and opts.target or frame -- visible area, e.g. a skinned frame's inner border
     local px = ns.PixelSize()
     local inset, corner, spread = small and 3 or 5, small and 10 or 14, small and 10 or 16
 
@@ -325,8 +326,8 @@ function ns.RuneFrame(frame, opts)
     shadow:SetTexture(ns.SHADOW_TEXTURE)
     shadow:SetTextureSliceMargins(24, 24, 24, 24)
     if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
-    shadow:SetPoint("TOPLEFT", -spread, spread)
-    shadow:SetPoint("BOTTOMRIGHT", spread, -spread)
+    shadow:SetPoint("TOPLEFT", anchor, "TOPLEFT", -spread, spread)
+    shadow:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", spread, -spread)
 
     local function Line(layer, r, g, b, a)
         local tex = frame:CreateTexture(nil, layer)
@@ -340,17 +341,17 @@ function ns.RuneFrame(frame, opts)
     local br, bg, bb = unpack(ns.BRONZE)
     local lines = {}
     for i = 1, 4 do lines[i] = Line("BORDER", br, bg, bb, 0.4) end
-    lines[1]:SetPoint("TOPLEFT", inset, -inset)
-    lines[1]:SetPoint("TOPRIGHT", -inset, -inset)
+    lines[1]:SetPoint("TOPLEFT", anchor, "TOPLEFT", inset, -inset)
+    lines[1]:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", -inset, -inset)
     lines[1]:SetHeight(px)
-    lines[2]:SetPoint("BOTTOMLEFT", inset, inset)
-    lines[2]:SetPoint("BOTTOMRIGHT", -inset, inset)
+    lines[2]:SetPoint("BOTTOMLEFT", anchor, "BOTTOMLEFT", inset, inset)
+    lines[2]:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -inset, inset)
     lines[2]:SetHeight(px)
-    lines[3]:SetPoint("TOPLEFT", inset, -inset)
-    lines[3]:SetPoint("BOTTOMLEFT", inset, inset)
+    lines[3]:SetPoint("TOPLEFT", anchor, "TOPLEFT", inset, -inset)
+    lines[3]:SetPoint("BOTTOMLEFT", anchor, "BOTTOMLEFT", inset, inset)
     lines[3]:SetWidth(px)
-    lines[4]:SetPoint("TOPRIGHT", -inset, -inset)
-    lines[4]:SetPoint("BOTTOMRIGHT", -inset, inset)
+    lines[4]:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", -inset, -inset)
+    lines[4]:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -inset, inset)
     lines[4]:SetWidth(px)
 
     -- accent corner brackets: two bars per corner, flush with the outer edge
@@ -360,10 +361,10 @@ function ns.RuneFrame(frame, opts)
     for _, c in ipairs({ { "TOPLEFT", 1, -1 }, { "TOPRIGHT", -1, -1 }, { "BOTTOMLEFT", 1, 1 }, { "BOTTOMRIGHT", -1, 1 } }) do
         local point = c[1]
         local h = Line("OVERLAY", ar, ag, ab, 1)
-        h:SetPoint(point)
+        h:SetPoint(point, anchor, point)
         h:SetSize(corner, thick)
         local v = Line("OVERLAY", ar, ag, ab, 1)
-        v:SetPoint(point)
+        v:SetPoint(point, anchor, point)
         v:SetSize(thick, corner)
         corners[#corners + 1], corners[#corners + 2] = h, v
     end

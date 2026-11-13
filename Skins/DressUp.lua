@@ -17,7 +17,7 @@
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BLACK = { 0, 0, 0, 1 }
+local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
 local PAD, ICON = 18, 46
 local WIDTH = 460
 local TOOLBAR_TOP = PAD + ICON + 14   -- 78: toolbar below the header

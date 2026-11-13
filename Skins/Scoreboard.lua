@@ -20,7 +20,7 @@ local _, ns = ...
 local G = _G --[[@as table<string, any>]] -- Blizzard globals missing from the annotations
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BLACK = { 0, 0, 0, 1 }
+local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
 local BOX = { 0, 0, 0, 0.25 }
 local PAD, ICON = 18, 46
 local TOOLBAR_TOP = PAD + ICON + 14   -- 78

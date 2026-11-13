@@ -10,7 +10,7 @@
 local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BLACK = { 0, 0, 0, 1 }
+local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
 local INPUT = { 0.04, 0.04, 0.05, 1 }
 local BOX = { 0, 0, 0, 0.25 }
 local PAD, ICON = 18, 46
