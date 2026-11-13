@@ -815,17 +815,35 @@ end
 ns.AddCommand("setup", nil, function() ns.OpenSetup() end)
 
 -- Once on first login by itself (after the loading screen). A new character starts with the intro
--- cinematic: wait until it is over, otherwise Esc (skipping it) closes the wizard right away.
+-- cinematic, which can begin a few seconds after login: wait until it is over. Starting it is a
+-- full-screen panel, so Blizzard runs CloseAllWindows and closes the wizard too; then open it again.
 local function Busy()
     return InCombatLockdown() or not UIParent:IsShown()
         or (CinematicFrame and CinematicFrame:IsShown()) or (MovieFrame and MovieFrame:IsShown())
 end
 
-local function OpenWhenFree(delay)
+local OpenWhenFree
+local hooked
+
+local function ReopenIfClosedByGame()
+    if hooked then return end
+    hooked = true
+    window:HookScript("OnHide", function(self)
+        -- also fires when UIParent hides; the wizard is then still "shown" and comes back by itself
+        if self:IsShown() or ns.char.setupDone then return end
+        C_Timer.After(0.5, function()
+            -- closed by the game (cinematic, loss of control), not by the player
+            if Busy() then OpenWhenFree(2) end
+        end)
+    end)
+end
+
+function OpenWhenFree(delay)
     C_Timer.After(delay, function()
         if ns.char.setupDone or (window and window:IsShown()) then return end
         if Busy() then return OpenWhenFree(2) end
         ns.OpenSetup()
+        if window then ReopenIfClosedByGame() end
     end)
 end
 
