@@ -6,16 +6,31 @@ local _, ns = ...
 local L = ns.L
 
 local GRYPHON_ASPECT = 178 / 167 -- atlas size
--- Own art: drawn facing right (the left cap), mirrored for the right one. 512x512 files with the
--- creature at the bottom; top = empty rows above it. scale/x/y: tuned in game with /mui endcap.
+-- Class animals: drawn facing right (the left cap), mirrored for the right one. Tight crops at the
+-- bottom-left of a 512x512 texture; right/top = tex coords of the art, aspect = art width / height.
+-- scale/x/y: tuned in game with /mui endcap.
 local CLASS_ART = {
-    ROGUE = { file = "EndCaps\\Rogue", top = 77 / 512, aspect = 512 / 435, scale = 1.3, x = 34, y = 2 },
+    WARRIOR = { file = "EndCaps\\Warrior", right = 418 / 512, top = 0, aspect = 418 / 512, scale = 1.15 },
+    PALADIN = { file = "EndCaps\\Paladin", right = 1, top = 18 / 512, aspect = 512 / 494, scale = 0.95 },
+    HUNTER = { file = "EndCaps\\Hunter", right = 476 / 512, top = 0, aspect = 476 / 512, scale = 1.1 },
+    ROGUE = { file = "EndCaps\\Rogue", right = 404 / 512, top = 0, aspect = 404 / 512, scale = 1.1 },
+    PRIEST = { file = "EndCaps\\Priest", right = 1, top = 12 / 512, aspect = 512 / 500, scale = 1.05 },
+    SHAMAN = { file = "EndCaps\\Shaman", right = 460 / 512, top = 0, aspect = 460 / 512, scale = 1.1 },
+    MAGE = { file = "EndCaps\\Mage", right = 386 / 512, top = 0, aspect = 386 / 512, scale = 1.15 },
+    WARLOCK = { file = "EndCaps\\Warlock", right = 434 / 512, top = 0, aspect = 434 / 512, scale = 1.1 },
+    DRUID = { file = "EndCaps\\Druid", right = 326 / 512, top = 0, aspect = 326 / 512, scale = 1.15 },
 }
 local left, right
 
-local function Art()
-    local class = select(2, UnitClass("player"))
-    return CLASS_ART[class]
+local function Class() return select(2, UnitClass("player")) end
+local function Art() return CLASS_ART[Class()] end
+
+-- developer tuning per class, so fitting one animal doesn't move the others
+local function Tune()
+    ns.db.endcapTune = ns.db.endcapTune or {}
+    local t = ns.db.endcapTune[Class()] or {}
+    ns.db.endcapTune[Class()] = t
+    return t
 end
 
 local function Create(parent)
@@ -30,7 +45,8 @@ end
 local function Texture(frame, side, art)
     if art then
         frame.tex:SetTexture(ns.MEDIA .. art.file)
-        if side == "left" then frame.tex:SetTexCoord(0, 1, art.top, 1) else frame.tex:SetTexCoord(1, 0, art.top, 1) end
+        local r = art.right or 1
+        if side == "left" then frame.tex:SetTexCoord(0, r, art.top, 1) else frame.tex:SetTexCoord(r, 0, art.top, 1) end
     else
         local horde = UnitFactionGroup("player") == "Horde"
         frame.tex:SetTexCoord(0, 1, 0, 1)
@@ -60,9 +76,10 @@ function ns.UpdateGryphons()
     local rightEdge = (bars[8] and On("bar8")) and bars[8] or bottom
     local size = ns.Snap(36) -- one button row of the bottom bars (ActionBars.lua SIZE)
     -- per-art defaults; developer tuning (/mui endcap) overrides them while new art is fitted
-    local scale = ns.db.endcapScale or (art and art.scale) or 1
-    local dx = ns.db.endcapX or (art and art.x) or 0
-    local dy = ns.db.endcapY or (art and art.y) or 0
+    local tune = Tune()
+    local scale = tune.scale or (art and art.scale) or 1
+    local dx = tune.x or (art and art.x) or 0
+    local dy = tune.y or (art and art.y) or 0
     local h = ns.Snap(size * 2.6 * scale)
     local w = ns.Snap(h * (art and art.aspect or GRYPHON_ASPECT))
     local overlap = ns.Snap(art and size * 0.15 or w * 0.2) -- the cap sits over the bar end
@@ -80,8 +97,13 @@ end
 
 local panel
 
+local function Current(key)
+    local art = Art()
+    return Tune()[key] or (art and art[key]) or (key == "scale" and 1 or 0)
+end
+
 local function Values()
-    return ("scale %.2f  x %d  y %d"):format(ns.db.endcapScale or 1, ns.db.endcapX or 0, ns.db.endcapY or 0)
+    return ("%s  scale %.2f  x %d  y %d"):format(Class(), Current("scale"), Current("x"), Current("y"))
 end
 
 local function CreatePanel()
@@ -109,13 +131,13 @@ local function CreatePanel()
     local page = UI.Page(holder)
     local function Setter(key)
         return function(value)
-            ns.db[key] = value
+            Tune()[key] = value
             ns.UpdateGryphons()
         end
     end
-    page:AddSlider(L["Size"], 0.3, 2.5, 0.05, function() return ns.db.endcapScale or 1 end, Setter("endcapScale"), function(v) return ("%.2f"):format(v) end, 1)
-    page:AddSlider(L["Horizontal"], -80, 80, 1, function() return ns.db.endcapX or 0 end, Setter("endcapX"), function(v) return ("%d"):format(v) end, 0)
-    page:AddSlider(L["Vertical"], -80, 80, 1, function() return ns.db.endcapY or 0 end, Setter("endcapY"), function(v) return ("%d"):format(v) end, 0)
+    page:AddSlider(L["Size"], 0.3, 2.5, 0.05, function() return Current("scale") end, Setter("scale"), function(v) return ("%.2f"):format(v) end, 1)
+    page:AddSlider(L["Horizontal"], -80, 80, 1, function() return Current("x") end, Setter("x"), function(v) return ("%d"):format(v) end, 0)
+    page:AddSlider(L["Vertical"], -80, 80, 1, function() return Current("y") end, Setter("y"), function(v) return ("%d"):format(v) end, 0)
     tinsert(UISpecialFrames, "MeredanUIEndcapTuner")
 end
 
