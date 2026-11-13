@@ -408,9 +408,8 @@ local function CreateWindow()
     line:SetPoint("BOTTOMLEFT", PAD, 52)
     line:SetPoint("BOTTOMRIGHT", -PAD, 52)
     repairButton = FooterButton(REPAIR_ICON, L["Repair all"], function()
-        -- Guild bank first if allowed (same as the bags' auto repair)
-        local cost = GetRepairAllCost()
-        local useGuild = IsInGuild() and CanGuildBankRepair() and GetGuildBankWithdrawMoney() >= cost
+        -- guild bank only with the setting on (same rule as the bags' auto repair)
+        local useGuild = ns.UseGuildRepair and ns.UseGuildRepair(GetRepairAllCost()) or false
         RepairAllItems(useGuild)
         PlaySound(SOUNDKIT.ITEM_REPAIR)
     end)

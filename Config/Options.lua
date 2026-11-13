@@ -681,8 +681,10 @@ local PAGES = {
                     Help(L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."]))
             end
             local bagsFirst = #page.items + 1
-            page:AddCheckbox(L["Sell junk and repair at merchants"], On("bagsAutoJunk"), Setter("bagsAutoJunk"),
-                Help(L["Repairs use the guild bank when allowed."]))
+            page:AddCheckbox(L["Sell junk and repair at merchants"], On("bagsAutoJunk"), Setter("bagsAutoJunk"))
+            -- off unless the player turns it on: repairs are paid from their own gold by default
+            page:AddCheckbox(L["Repair from the guild bank"], function() return ns.db.repairGuild == true end, Setter("repairGuild"),
+                Help(L["Only when your guild allows it. Off: repairs are paid from your own gold."]))
             page:AddCheckbox(L["Protect profession tools"], On("protectTools"), Setter("protectTools"),
                 Help(L["Skinning knife, mining pick, blacksmith hammer, fishing poles and other tools can't be deleted by accident. Off: deleting asks with a big red warning instead."]))
             LockForOther(page, "bags", bagsFirst, #page.items)
