@@ -13,7 +13,7 @@ local CLASS_ART = {
     WARRIOR = { file = "EndCaps\\Warrior", right = 419 / 512, top = 0, aspect = 419 / 512, scale = 1.15, x = 10 },
     PALADIN = { file = "EndCaps\\Paladin", right = 1, top = 18 / 512, aspect = 512 / 494, scale = 1.05, x = 10 },
     HUNTER = { file = "EndCaps\\Hunter", right = 477 / 512, top = 0, aspect = 477 / 512, scale = 1.15, x = 10, y = 2 },
-    ROGUE = { file = "EndCaps\\Rogue", right = 405 / 512, top = 0, aspect = 405 / 512, scale = 1.1, x = 10, flip = true },
+    ROGUE = { file = "EndCaps\\Rogue", right = 405 / 512, top = 0, aspect = 405 / 512, scale = 1.1, x = 6, y = -1, flip = true },
     PRIEST = { file = "EndCaps\\Priest", right = 1, top = 12 / 512, aspect = 512 / 500, scale = 1, x = 1 },
     SHAMAN = { file = "EndCaps\\Shaman", right = 462 / 512, top = 0, aspect = 462 / 512, scale = 1.2, x = 14 },
     MAGE = { file = "EndCaps\\Mage", right = 388 / 512, top = 0, aspect = 388 / 512, scale = 1.15 },
