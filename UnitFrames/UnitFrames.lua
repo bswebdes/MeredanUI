@@ -189,7 +189,11 @@ local function Style(self, unit)
 
     -- Shell around the bar, from the inside out: black line, warm dark band, bronze edge lit from
     -- above, black outline, soft shadow. Depth comes from the stacked lines, not from one border.
-    S.plateOut = ns.AddDeepShell(self, S.platePad)
+    -- one shell around health and resource bar (resource sits right below, 1 px black seam)
+    local body = CreateFrame("Frame", nil, self)
+    body:SetPoint("TOPLEFT")
+    body:SetPoint("BOTTOMRIGHT", 0, -(px + S.power))
+    S.plateOut = ns.AddDeepShell(body, S.platePad)
 
     -- Health
     local health = ns.CreateBar(self, S.health)
@@ -270,7 +274,7 @@ local function Style(self, unit)
     local bezel = top:CreateTexture(nil, "OVERLAY", nil, 1)
     bezel:SetTexture(ns.MEDIA .. "GemBezel")
     bezel:SetSize(gemSize, gemSize)
-    bezel:SetPoint("CENTER", self, far, (S.plateOut - px / 2) * dir, 0) -- middle of the bronze edge
+    bezel:SetPoint("CENTER", body, far, (S.plateOut - px / 2) * dir, 0) -- middle of the bronze edge
     local gem = top:CreateTexture(nil, "OVERLAY", nil, 2)
     gem:SetTexture(ns.MEDIA .. "Gem")
     gem:SetAllPoints(bezel)
@@ -325,12 +329,18 @@ local function Style(self, unit)
         end
     end
 
-    -- Resource bar below the plate, unframed, a bit shorter than the plate (outer side aligned)
-    local y = -(S.health + S.plateOut + S.powerGap + 2 * px)
+    -- Resource bar inside the shell, below the health bar with a 1 px black seam
+    local y = -(S.health + px)
+
+    local seam = self:CreateTexture(nil, "BORDER")
+    seam:SetColorTexture(0, 0, 0, 1)
+    seam:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
+    seam:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT")
+    seam:SetHeight(px)
 
     local power = ns.CreateBar(self, S.power)
-    power:SetPoint("TOP" .. near, self, "TOP" .. near, -S.plateOut * dir, y)
-    power:SetWidth(ns.Snap((S.width + 2 * S.plateOut) * 0.94))
+    power:SetPoint("TOPLEFT", self, "TOPLEFT", 0, y)
+    power:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, y)
     power:SetReverseFill(mirrored)
     power.frequentUpdates = true
     power.colorPower = true
@@ -343,7 +353,7 @@ local function Style(self, unit)
         power.GetDisplayPower = PlayerDisplayPower
     end
     self.Power = power
-    y = y - S.power - S.step
+    y = y - S.power - S.plateOut - S.step
 
     -- Auras: buffs above the name, debuffs below (one row).
     --   Player: all debuffs; short buffs (<= 2 min, no heal HoTs) - potions, Heroism, procs.
