@@ -16,8 +16,7 @@ local UI
 
 local SLOT, SLOT_GAP = 40, 6
 local LEFT_W = 580
-local LABEL_W = 130      -- item text next to the side slots (over the model's edge)
-local BOTTOM_LABEL_W = 100
+local LABEL_W = 170      -- item text next to the side slots (over the model's edge)
 local RIGHT_X = LEFT_W + 14
 local SUB = 30
 
@@ -754,7 +753,10 @@ local function Create(frame)
         b:SetPoint("TOPRIGHT", 0, -(i - 1) * (SLOT + SLOT_GAP))
         Char.AddSlotLabel(b, "right", LABEL_W, labels)
     end
-    -- bottom row: weapons with text to the right, ammo as a bare slot at the end
+    -- bottom row: weapons with text to the right, ammo as a bare slot at the end; the weapon
+    -- texts share the full width
+    local weapons = #BOTTOM_SLOTS - 1
+    local BOTTOM_LABEL_W = math.floor((LEFT_W - SLOT - #BOTTOM_SLOTS * 14) / weapons) - SLOT - 8
     local bottom, widths, total = {}, {}, 0
     for i, name in ipairs(BOTTOM_SLOTS) do
         bottom[i] = CreateSlot(left, name, "bottom")

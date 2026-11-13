@@ -14,7 +14,8 @@ local Char = ns.Char
 
 local SLOT, SLOT_GAP = 40, 6
 local DOLL_W = 580 -- same as the character window's doll
-local LABEL_W, BOTTOM_LABEL_W = 130, 100
+local LABEL_W = 170
+local BOTTOM_LABEL_W = math.floor((DOLL_W - 2 * 14) / 3) - SLOT - 8 -- three weapons share the width
 local PAD = ns.NPC_PAD
 local TOP = ns.NPC_HEADER_BOTTOM + 16
 local TAB_SIZE, TAB_STEP = 40, 46
