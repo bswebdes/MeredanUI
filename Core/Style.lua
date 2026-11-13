@@ -647,8 +647,17 @@ function ns.StyleAuraButton(element, button, options)
     -- (wider) edge takes the dispel colour
     local dispelBand = options and options.dispelBand
     local edge, pad = dispelBand and 2 or 1, AURA_PAD
-    local border = ns.AddItemFrame(button, edge, pad)
-    ns.InsetItemIcon(button, button.Icon, edge, pad)
+    local size = (element and element.size) or button:GetWidth() or 0
+    if size > 0 and size <= 20 then pad = 1 end -- tiny group frame auras keep a usable icon
+    local border
+    if options and options.plainBorder then
+        -- frame-sized dispel highlight (group frames): just the coloured edge, no band
+        pad = 0
+        border = ns.AddBorder(button, true, 2)
+    else
+        border = ns.AddItemFrame(button, edge, pad)
+        ns.InsetItemIcon(button, button.Icon, edge, pad)
+    end
     button.FrameBorder = border
 
     if dispelBand and button.AddDispelTypeTexture then

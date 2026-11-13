@@ -468,7 +468,7 @@ local function Style(self, unit)
         dispel.disableMouse = true
         dispel.disableCooldown = true
         dispel.PostCreateButton = function(element, button, options)
-            ns.StyleAuraButton(element, button, options)
+            ns.StyleAuraButton(element, button, setmetatable({ plainBorder = true }, { __index = options }))
             button.Icon:SetAlpha(0)
         end
         dispel:AddGroup("HARMFUL|RAID", { maxFrameCount = 1, dispelBand = "harmful" })
