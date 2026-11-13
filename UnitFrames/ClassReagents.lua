@@ -294,7 +294,10 @@ local function Place()
         -- there in this layout)
         holder:SetPoint("RIGHT", player, "LEFT", -ns.Snap(GAP), 0)
     else
-        holder:SetPoint("LEFT", player, "RIGHT", ns.Snap(GAP), 0)
+        -- beyond the accent gem and the cast bar icon that both sit on this side
+        local S = player.Sizes or {}
+        local castIcon = (S.health or 0) + (S.step or 0) + 3 * (S.plateOut or 0)
+        holder:SetPoint("LEFT", player, "RIGHT", castIcon + ns.Snap(GAP), 0)
     end
 end
 
