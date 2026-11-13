@@ -51,7 +51,7 @@ local SIDE = {
 local SIDE_BUFFS = 3 -- important enemy buffs on the right of the aura row (the rest are debuffs)
 
 -- Default position: inner edge INNER_X from screen center, top edge TOP_Y below it.
-local INNER_X, TOP_Y = 260, 200
+local INNER_X, TOP_Y = 220, 200
 
 -- Size steps: player + target together, pet, target of target and focus follow; boss frames have
 -- their own step. Anchors stay (inner edge, top edge), frames grow outwards and down.
