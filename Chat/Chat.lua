@@ -53,62 +53,110 @@ local function OnHistory(editBox, key)
     end)
 end
 
--- Sent lines survive /reload and logout (up arrow recalls them, like Prat). Saved the way Blizzard's
--- AddHistory builds them ("/g text", "/w Name text", "/1 text"), before the nickname is added.
--- Slash commands (/cast, /reload ...) are never saved: lines put back by addon code count as
--- tainted, and a secure command from them could be blocked.
-local SENT_LINES = 32
-local historyPos = {} -- edit box -> index in ns.char.chatSent while walking with up/down
+-- Sent lines survive /reload and logout; up/down walk them (like Prat). Blizzard's own history only
+-- answers Alt+arrows, and without Alt mode (Chat/ChatExtras.lua) it stays silent, so mUI keeps its own
+-- list: { type, to, msg } for chat lines (exact chat type and target, channels by name since numbers
+-- can change), { cmd } for slash commands. Saved before the nickname is added. Secure commands
+-- (/cast, /use, /target ...) are never saved: text put back by addon code counts as tainted and
+-- Blizzard could block them. Battle.net whisper targets are only valid in the session they came from.
+local SENT_LINES = 40
+local walk = {} -- edit box -> { pos, type, tell, channel } while walking with up/down
+
+local function SameEntry(a, b)
+    return a and b and a.cmd == b.cmd and a.type == b.type and a.to == b.to and a.msg == b.msg
+end
 
 local function RecordSent(editBox, key)
     if key ~= "ENTER" and key ~= "NUMPADENTER" then return end
     local text = editBox:GetText() or ""
-    if strtrim(text) == "" or text:sub(1, 1) == "/" then return end
-    local chatType = ChatType(editBox)
-    if not chatType then return end
-    local line = _G["SLASH_" .. chatType .. "1"] or ""
-    if chatType == "WHISPER" then
-        line = line .. " " .. (editBox:GetAttribute("tellTarget") or "")
-    elseif chatType == "CHANNEL" then
-        line = "/" .. (editBox.GetChannelTarget and editBox:GetChannelTarget() or "")
-    elseif line == "" then
-        return
+    if strtrim(text) == "" then return end
+    local entry
+    if text:sub(1, 1) == "/" then
+        local command = text:match("^(/%S+)")
+        if not command or (IsSecureCmd and IsSecureCmd(command)) then return end
+        entry = { cmd = text }
+    else
+        local chatType = ChatType(editBox)
+        if not chatType then return end
+        entry = { type = chatType, msg = text }
+        if chatType == "WHISPER" or chatType == "BN_WHISPER" then
+            entry.to = editBox:GetAttribute("tellTarget")
+        elseif chatType == "CHANNEL" then
+            local target = editBox:GetAttribute("channelTarget")
+            local _, name = GetChannelName(target or 0)
+            entry.to = name or target
+        end
     end
-    line = line .. " " .. text
     local sent = ns.char.chatSent or {}
     ns.char.chatSent = sent
-    if sent[#sent] ~= line then sent[#sent + 1] = line end
-    historyPos[editBox] = nil
+    -- older versions saved plain strings: keep them as commands (Blizzard parses "/g text" itself)
+    for i, old in ipairs(sent) do
+        if type(old) == "string" then sent[i] = { cmd = old } end
+    end
+    if not SameEntry(sent[#sent], entry) then sent[#sent + 1] = entry end
     while #sent > SENT_LINES do table.remove(sent, 1) end
+    walk[editBox] = nil
 end
 
-local function RestoreSent(editBox)
-    for _, line in ipairs(ns.char.chatSent or {}) do editBox:AddHistoryLine(line) end
+local function SetChat(editBox, chatType, tell, channel)
+    if tell then editBox:SetAttribute("tellTarget", tell) end
+    if channel then editBox:SetAttribute("channelTarget", channel) end
+    editBox:SetAttribute("chatType", chatType)
+    if editBox.UpdateHeader then editBox:UpdateHeader() end
 end
 
--- Up/down walk the saved lines. Blizzard's own history only answers Alt+arrows, so without Alt mode
--- (Chat/ChatExtras.lua) we step through ns.char.chatSent ourselves. The "/g " etc. header in the
--- line is parsed by Blizzard on text change and switches the chat type like its own recall does.
--- AutoComplete's name list keeps the arrows while it is open.
+-- Puts an entry into the edit box; false when its target is gone (left channel, old BNet session)
+local function Apply(editBox, entry)
+    if type(entry) == "string" then entry = { cmd = entry } end
+    if entry.cmd then
+        editBox:SetText(entry.cmd)
+        return true
+    end
+    if entry.type == "CHANNEL" then
+        local id = GetChannelName(entry.to or 0)
+        if not id or id == 0 then return false end
+        SetChat(editBox, "CHANNEL", nil, id)
+    elseif entry.type == "WHISPER" or entry.type == "BN_WHISPER" then
+        if not entry.to then return false end
+        if entry.type == "BN_WHISPER" and not BNet_GetBNetIDAccount(entry.to) then return false end
+        SetChat(editBox, entry.type, entry.to)
+    else
+        SetChat(editBox, entry.type)
+    end
+    editBox:SetText(entry.msg or "")
+    return true
+end
+
 local function OnArrow(editBox, key)
     if key ~= "UP" and key ~= "DOWN" then return end
     if ns.db.chatArrowKeys == false or Locked() then return end
     if AutoCompleteBox and AutoCompleteBox:IsShown() and AutoCompleteBox.parent == editBox then return end
     local sent = ns.char.chatSent or {}
     if #sent == 0 then return end
-    local pos = historyPos[editBox] or (#sent + 1)
-    pos = key == "UP" and math.max(1, pos - 1) or math.min(#sent + 1, pos + 1)
-    historyPos[editBox] = pos
-    local line = sent[pos]
-    if not line then
-        editBox:SetText("")
-        return
+    local state = walk[editBox]
+    if not state then
+        -- remember where the player was, restored when walking back past the newest line
+        state = { pos = #sent + 1, type = ChatType(editBox), tell = editBox:GetAttribute("tellTarget"),
+            channel = editBox:GetAttribute("channelTarget") }
+        walk[editBox] = state
     end
-    editBox:SetText(line)
+    local step = key == "UP" and -1 or 1
+    local pos = state.pos
+    repeat
+        pos = pos + step
+        if pos > #sent then
+            state.pos = #sent + 1
+            if state.type then SetChat(editBox, state.type, state.tell, state.channel) end
+            editBox:SetText("")
+            return
+        end
+        if pos < 1 then return end -- oldest line reached: stay
+    until Apply(editBox, sent[pos])
+    state.pos = pos
     editBox:SetCursorPosition(#editBox:GetText())
 end
 
-local function ResetHistoryPos(editBox) historyPos[editBox] = nil end
+local function ResetHistoryPos(editBox) walk[editBox] = nil end
 
 -- Save chat type (and target) on send, restore it on login.
 local REMEMBER = {
@@ -210,7 +258,6 @@ ns:On("PLAYER_LOGIN", function()
         local editBox = _G["ChatFrame" .. i .. "EditBox"]
         if editBox then
             editBox:HookScript("OnKeyDown", RecordSent) -- before OnKeyDown adds the nickname
-            RestoreSent(editBox)
             editBox:HookScript("OnArrowPressed", OnArrow)
             editBox:HookScript("OnHide", ResetHistoryPos)
             editBox:HookScript("OnKeyDown", OnKeyDown)
