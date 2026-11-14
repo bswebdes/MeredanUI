@@ -396,17 +396,16 @@ local function SetNameFont(tooltip)
     if line then line:SetFontObject(nameFont) tooltip.muiNameFont = true end
 end
 
--- Icon in an item frame left of the first two lines (player: class, item: the item). Line 1 is moved
--- right (line 2 hangs from it), line 3 back left; the minimum width makes room for the offset.
+-- Icon in an item frame left of the first two lines (player: class, item: the item). The game lays
+-- out the tooltip lines itself (moving them does not stick), so lines 1 and 2 start with a
+-- transparent inline spacer and the icon frame hangs from line 1.
 local ICON = 32
 local INDENT = ICON + 10
+local SPACER = ("|T1319037:1:%d|t"):format(INDENT) -- interface\common\spacer, transparent
 local function ShowIcon(tooltip, texture, atlas, edge)
-    local l1, l2, l3 = Left(tooltip, 1), Left(tooltip, 2), Left(tooltip, 3)
-    if not (l1 and l2 and l3) then return end
-    if not tooltip.muiIndent then
-        local p1, p3 = { l1:GetPoint(1) }, { l3:GetPoint(1) }
-        if not (p1[1] and p3[1]) then return end
-        tooltip.muiIndent = { p1, p3 }
+    local l1, l2 = Left(tooltip, 1), Left(tooltip, 2)
+    if not (l1 and l2) then return end
+    if not tooltip.muiIcon then
         local f = CreateFrame("Frame", nil, tooltip)
         f:SetSize(ICON, ICON)
         ns.AddSlotBackground(f)
@@ -415,13 +414,13 @@ local function ShowIcon(tooltip, texture, atlas, edge)
         ns.InsetItemIcon(f, f.tex, nil, 2)
         tooltip.muiIcon = f
     end
-    local p1, p3, f = tooltip.muiIndent[1], tooltip.muiIndent[2], tooltip.muiIcon
-    l1:ClearAllPoints()
-    l1:SetPoint(p1[1], p1[2], p1[3], p1[4] + INDENT, p1[5])
-    l3:ClearAllPoints()
-    l3:SetPoint(p3[1], p3[2], p3[3], p3[4] - INDENT, p3[5] - 6) -- clear of the icon's lower edge
+    for _, line in ipairs({ l1, l2 }) do
+        local text = line:GetText()
+        if Readable(text) and text and not text:find(SPACER, 1, true) then line:SetText(SPACER .. text) end
+    end
+    local f = tooltip.muiIcon
     f:ClearAllPoints()
-    f:SetPoint("TOPLEFT", p1[2], p1[3], p1[4], p1[5] + 1)
+    f:SetPoint("TOPLEFT", l1, "TOPLEFT", 0, 1)
     if atlas then
         f.tex:SetAtlas(atlas)
         f.tex:SetTexCoord(0, 1, 0, 1)
@@ -432,32 +431,15 @@ local function ShowIcon(tooltip, texture, atlas, edge)
     local c = edge or ns.Material().item
     for _, e in ipairs(f.edges) do e:SetVertexColor(c[1], c[2], c[3], 1) end
     f:Show()
-    local width = math.max(l1:GetUnboundedStringWidth(), l2:GetUnboundedStringWidth())
-    tooltip:SetMinimumWidth(math.ceil(width + INDENT + 2 * math.abs(p1[4])))
-    tooltip.muiMinWidth = true
 end
 
 local function ClearIcon(tooltip)
-    local name = tooltip:GetName()
-    if not name then return end
+    if not tooltip:GetName() then return end
     if tooltip.muiNameFont then
         Left(tooltip, 1):SetFontObject(GameTooltipHeaderText)
         tooltip.muiNameFont = nil
     end
-    if not tooltip.muiIndent then return end
-    local p1, p3 = tooltip.muiIndent[1], tooltip.muiIndent[2]
-    local l1, l3 = Left(tooltip, 1), Left(tooltip, 3)
-    if tooltip.muiIcon:IsShown() then
-        l1:ClearAllPoints()
-        l1:SetPoint(p1[1], p1[2], p1[3], p1[4], p1[5])
-        l3:ClearAllPoints()
-        l3:SetPoint(p3[1], p3[2], p3[3], p3[4], p3[5])
-        tooltip.muiIcon:Hide()
-    end
-    if tooltip.muiMinWidth then
-        tooltip:SetMinimumWidth(0)
-        tooltip.muiMinWidth = nil
-    end
+    if tooltip.muiIcon then tooltip.muiIcon:Hide() end
 end
 ns.ClearTooltipIcon = ClearIcon
 
@@ -480,15 +462,15 @@ local function PlaceHealthBar(tooltip, layout, unit)
         spacerFont:SetFont(ns.STYLE.font, 16, "")
     end
     local i = NextLine(tooltip, layout)
-    local line = Left(tooltip, i)
+    local line, right = Left(tooltip, i), Right(tooltip, i)
     line:SetText(" ")
     line:SetFontObject(spacerFont)
-    local first = { Left(tooltip, 1):GetPoint(1) }
-    local x = tooltip.muiIndent and tooltip.muiIndent[1][4] or (first[4] or 10)
+    right:SetText(" ")
+    right:Show()
+    -- left text starts at the left padding, the right text ends at the right padding
     bar:ClearAllPoints()
-    bar:SetPoint("LEFT", tooltip, "LEFT", x, 0)
-    bar:SetPoint("RIGHT", tooltip, "RIGHT", -x, 0)
-    bar:SetPoint("TOP", line, "TOP", 0, -3)
+    bar:SetPoint("TOPLEFT", line, "TOPLEFT", 0, -3)
+    bar:SetPoint("RIGHT", right, "RIGHT", 0, 0)
     bar:SetHeight(ns.Snap(BAR_HEIGHT))
     -- percent inside the bar (secret-safe: formatted by the game, never compared)
     if UnitHealthPercent and CurveConstants then
@@ -559,6 +541,7 @@ local function AddUnitLines(tooltip, unit)
             end
         end
         FinishUnitLines(tooltip, unit, layout)
+        tooltip:Show()
         return
     end
 
@@ -658,6 +641,7 @@ local function AddUnitLines(tooltip, unit)
         if atlas then ShowIcon(tooltip, nil, atlas) end
     end
     FinishUnitLines(tooltip, unit, layout)
+    tooltip:Show() -- relayout: widths changed
 end
 
 -- Mythic+: enemy forces the mob is worth (Blizzard provides the value per unit)
