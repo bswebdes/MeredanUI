@@ -121,6 +121,7 @@ if GetLocale() == "deDE" then
     L["iLvl"] = "iLvl"
     L["M+"] = "M+"
     L["Target"] = "Ziel"
+    L["No guild"] = "Keine Gilde"
     L["You"] = "Du"
     L["Item ID"] = "Item-ID"
     L["Spell ID"] = "Zauber-ID"

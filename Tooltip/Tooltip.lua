@@ -489,10 +489,13 @@ local function ClearIcon(tooltip)
 end
 ns.ClearTooltipIcon = ClearIcon
 
--- Class icon (Forever's round group finder set)
+-- Class icon
 local function ClassAtlas(unit)
     local _, class = UnitClass(unit)
     if not Readable(class) or not class then return end
+    -- square character creation icon fills the item frame; the round group finder one as fallback
+    local square = "classicon-" .. class:lower()
+    if C_Texture.GetAtlasInfo(square) then return square end
     local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
     if not (C_Texture.GetAtlasInfo(atlas)) then atlas = "groupfinder-icon-class-" .. class:lower() end
     if C_Texture.GetAtlasInfo(atlas) then return atlas end
@@ -697,11 +700,13 @@ local function AddUnitLines(tooltip, unit)
     if Enabled("tooltipClassIcon") then
         local atlas = ClassAtlas(unit)
         if atlas then
-            -- fixed rows for every player: without a guild (level line on line 2) line 2 stays empty, so the level line
+            -- fixed rows for every player: without a guild (level line on line 2) line 2 says so, dimmed, so the level line
             -- never moves up next to the icon
             local second = Left(tooltip, 2):GetText()
             if Readable(second) and second and levelTag and second:find(levelTag) then
-                InsertLineAt(tooltip, layout, 2)
+                local line = InsertLineAt(tooltip, layout, 2)
+                line:SetText(L["No guild"])
+                line:SetTextColor(unpack(MUTED))
             end
             ShowIcon(tooltip, nil, atlas, nil, layout)
             InsertGap(tooltip, layout) -- the level line keeps clear of the icon (draft)
