@@ -398,14 +398,39 @@ local function SetNameFont(tooltip)
     if line then line:SetFontObject(nameFont) tooltip.muiNameFont = true end
 end
 
+-- Opens an empty line at index (the lines from there move down one); reuses a free line at the end
+local function InsertLineAt(tooltip, layout, index, font)
+    if layout.free == 0 then
+        tooltip:AddLine(" ")
+        layout.free = 1
+    end
+    local slot = tooltip:NumLines() - layout.free + 1
+    for i = slot, index + 1, -1 do CopyLine(tooltip, i - 1, i) end
+    layout.free = layout.free - 1
+    local line, right = Left(tooltip, index), Right(tooltip, index)
+    line:SetText(" ")
+    if font then line:SetFontObject(font) end
+    if right then right:SetText(nil) right:Hide() end
+    return line
+end
+
 -- Icon in an item frame left of the first two lines (player: class, item: the item). The game lays
 -- out the tooltip lines itself (moving them does not stick), so lines 1 and 2 start with a
--- transparent inline spacer and the icon frame hangs from line 1.
+-- transparent inline spacer and the icon frame hangs from line 1. Only a short one-row line 2 can
+-- sit next to the icon: a long one wraps (or starts with a line break, e.g. recipes) and its next
+-- rows would run under the icon, so an empty line 2 is opened instead.
 local ICON = 32
 local INDENT = ICON + 10
-local function ShowIcon(tooltip, texture, atlas, edge)
-    local l1, l2 = Left(tooltip, 1), Left(tooltip, 2)
-    if not (l1 and l2) then return end
+local SUBTITLE_MAX = 180 -- widest line 2 that still fits next to the icon without wrapping
+local function FitsBesideIcon(line)
+    local text = line:GetText()
+    if not (Readable(text) and text) or text == "" or text:find("\n", 1, true) then return false end
+    return line:GetUnboundedStringWidth() <= SUBTITLE_MAX
+end
+
+local function ShowIcon(tooltip, texture, atlas, edge, layout)
+    local l1 = Left(tooltip, 1)
+    if not (l1 and Left(tooltip, 2)) then return end
     if not tooltip.muiIcon then
         local f = CreateFrame("Frame", nil, tooltip)
         f:SetSize(ICON, ICON)
@@ -414,6 +439,12 @@ local function ShowIcon(tooltip, texture, atlas, edge)
         f.tex = f:CreateTexture(nil, "ARTWORK")
         ns.InsetItemIcon(f, f.tex, nil, 2)
         tooltip.muiIcon = f
+    end
+    local l2 = Left(tooltip, 2)
+    local text2 = l2:GetText()
+    local already = Readable(text2) and text2 and text2:find("|T1319037:", 1, true)
+    if not already and not FitsBesideIcon(l2) then
+        l2 = InsertLineAt(tooltip, layout or { free = 0 }, 2)
     end
     -- an inline texture's width grows with the line's font size: line 1 (larger name font) gets a
     -- narrower spacer so both lines start at the same x
@@ -449,17 +480,7 @@ local function InsertGap(tooltip, layout)
         gapFont = CreateFont("MeredanUITooltipGap")
         gapFont:SetFont(ns.STYLE.font, 6, "")
     end
-    if layout.free == 0 then
-        tooltip:AddLine(" ")
-        layout.free = 1
-    end
-    local slot = tooltip:NumLines() - layout.free + 1
-    for i = slot, 4, -1 do CopyLine(tooltip, i - 1, i) end
-    layout.free = layout.free - 1
-    local line, right = Left(tooltip, 3), Right(tooltip, 3)
-    line:SetText(" ")
-    line:SetFontObject(gapFont)
-    if right then right:SetText(nil) right:Hide() end
+    InsertLineAt(tooltip, layout, 3, gapFont)
 end
 
 local function ClearIcon(tooltip)
@@ -670,7 +691,7 @@ local function AddUnitLines(tooltip, unit)
     if Enabled("tooltipClassIcon") then
         local atlas = ClassAtlas(unit)
         if atlas then
-            ShowIcon(tooltip, nil, atlas)
+            ShowIcon(tooltip, nil, atlas, nil, layout)
             InsertGap(tooltip, layout) -- the level line keeps clear of the icon (draft)
         end
     end
@@ -733,8 +754,9 @@ local function OnItemTooltip(tooltip, data)
         local r, g, b = C_Item.GetItemQualityColor(quality)
         if r then edge = { r, g, b } end
     end
-    ShowIcon(tooltip, icon, nil, edge)
-    InsertGap(tooltip, { free = 0 })
+    local layout = { free = 0 }
+    ShowIcon(tooltip, icon, nil, edge, layout)
+    InsertGap(tooltip, layout)
     tooltip:Show() -- relayout
 end
 
