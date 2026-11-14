@@ -424,7 +424,11 @@ local SUBTITLE_MAX = 180 -- widest line 2 that still fits next to the icon witho
 local function FitsBesideIcon(line)
     local text = line:GetText()
     if not (Readable(text) and text) or text == "" or text:find("\n", 1, true) then return false end
-    return line:GetUnboundedStringWidth() <= SUBTITLE_MAX
+    -- the width can be secret (unit tooltips while names are secret): then assume a short line,
+    -- line 2 of a unit is the guild or "No guild"
+    local width = line:GetUnboundedStringWidth()
+    if not Readable(width) then return true end
+    return width <= SUBTITLE_MAX
 end
 
 local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
@@ -452,7 +456,7 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
             -- second row as tall as line 2 plus the gap row under it (an inline texture taller than
             -- the font makes the row taller), so the text below starts as far down as with a subtitle
             local _, size2 = l2:GetFont()
-            local rowHeight = math.floor((size2 or 12) * 2 + 0.5)
+            local rowHeight = math.floor(((Readable(size2) and size2) or 12) * 2 + 0.5)
             if Readable(text1) and text1 and not text1:find("\n", 1, true) then
                 l1:SetText(("%s\n|T1319037:%d:1|t"):format(text1, rowHeight))
             end
@@ -464,7 +468,7 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
     -- narrower spacer so both lines start at the same x
     local _, h1 = l1:GetFont()
     local _, h2 = l2:GetFont()
-    local w1 = (h1 and h2 and h1 > 0) and math.floor(INDENT * h2 / h1 + 0.5) or INDENT
+    local w1 = (Readable(h1) and Readable(h2) and h1 > 0) and math.floor(INDENT * h2 / h1 + 0.5) or INDENT
     for i, line in ipairs(beside and { l1, l2 } or { l1 }) do
         local text = line:GetText()
         if Readable(text) and text and not text:find("^|T1319037:") then
