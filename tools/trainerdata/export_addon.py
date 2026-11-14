@@ -2,7 +2,7 @@
 """Write the addon's compact trainer data (Data/TrainerData.lua) from TrainerSpells.lua and ClassQuests.lua.
 One function per class, so the game only builds the player's own class table.
 usage: python3 -I tools/trainerdata/export_addon.py"""
-import pathlib, sys
+import pathlib, re, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
@@ -48,6 +48,68 @@ def ids(v):
     return [int(x) for x in lst(v)]
 
 
+def clean(text):
+    """Players see this in Forever anyway: drop the "in Forever" notes the research added for Classic."""
+    for pat in ('Forever-Guides: ', 'Forever guides: ', 'Forever: '):
+        if text.startswith(pat):
+            text = text[len(pat):]
+    text = re.sub(r'\bIn Forever ([a-zäöü])', lambda m: m.group(1).upper(), text)
+    text = text.replace('In Forever ', '').replace(' in Forever', '').replace('in Forever ', '')
+    text = text.strip()
+    text = text[:1].upper() + text[1:]
+    return REWORD.get(text, text)
+
+
+# Reasons that still compare with Classic ("now", "buffed", "cheaper" ...): plain wording for Forever players
+REWORD = {
+    "AoE builds only; slow nerfed": "AoE builds only; weak slow",
+    "Baseline at 20; main single-target shot": "Main single-target shot",
+    "Baseline instant damage; costs health if target lives": "Instant damage; costs health if target lives",
+    "Baseline; Spirit buff for mana regen": "Spirit buff for mana regen",
+    "Better mana regen (buffed); swap for long fights": "Better mana regen; swap for long fights",
+    "Big Cat opener from behind; buffed": "Big Cat opener from behind",
+    "Big tank cooldown, now 15 min": "Big tank cooldown, 15 min",
+    "Buffed; worth it on long or boss fights": "Worth it on long or boss fights",
+    "Cheaper; good self-heal between pulls": "Good self-heal between pulls",
+    "Escape tool, now usable in forms and indoors": "Escape tool, usable in forms and indoors",
+    "Free passive procs, now baseline": "Free passive procs",
+    "Full heal, now 20 min cooldown": "Full heal, 20 min cooldown",
+    "Improved version is baseline: more damage for you and pet": "More damage for you and your pet",
+    "Now a weapon imbue (Fire dmg, crit); good for Destro": "Weapon imbue (Fire damage, crit); good for Destruction",
+    "Now a weapon imbue (Shadow dmg, haste); for Shadow Bolt users": "Weapon imbue (Shadow damage, haste); for Shadow Bolt",
+    "Now baseline and cheap; DoT that heals you": "Cheap DoT that heals you",
+    "Now baseline and cheap; vs fearing mobs": "Cheap; against mobs that fear",
+    "Now stacks with Banes; Classic guides skip it": "Stacks with Banes; optional",
+    "Racial; damage buffed a lot, cheap ranks": "Racial; strong damage, cheap ranks",
+    "Threat drop doubled; helps in groups": "Big threat drop; helps in groups",
+    "Bedrohungssenkung verdoppelt; gut in Gruppen": "Starke Bedrohungssenkung; gut in Gruppen",
+    "Bessere Manaregeneration (gestärkt); für lange Kämpfe": "Bessere Manaregeneration; für lange Kämpfe",
+    "Billiger; gute Selbstheilung zwischen Kämpfen": "Gute Selbstheilung zwischen Kämpfen",
+    "Effiziente Blutung; skaliert jetzt mit AP": "Effiziente Blutung; skaliert mit Angriffskraft",
+    "Fallen gehen jetzt im Kampf; gut für Überleben/AoE": "Fallen gehen im Kampf; gut für Überleben/AoE",
+    "Fluchthilfe, jetzt in Gestalten und drinnen nutzbar": "Fluchthilfe, in Gestalten und drinnen nutzbar",
+    "Für alle; Sofortschaden, kostet Leben wenn Ziel überlebt": "Sofortschaden; kostet Leben, wenn das Ziel überlebt",
+    "Für alle; Willenskraft für Manaregeneration": "Willenskraft für Manaregeneration",
+    "Gratis passive Procs, jetzt Grundfähigkeit": "Gratis passive Procs",
+    "Großer Tank-Cooldown, jetzt 15 Min.": "Großer Tank-Cooldown, 15 Min.",
+    "Harte Kontrolle für Adds; jetzt im Kampf nutzbar": "Harte Kontrolle für Adds; im Kampf nutzbar",
+    "Jetzt Waffenverzauberung (Feuer, Krit); gut für Zerstörung": "Waffenverzauberung (Feuer, Krit); gut für Zerstörung",
+    "Jetzt Waffenverzauberung (Schatten, Tempo); für Schattenblitz": "Waffenverzauberung (Schatten, Tempo); für Schattenblitz",
+    "Jetzt für alle und billig; DoT, der dich heilt": "Billiger DoT, der dich heilt",
+    "Jetzt für alle und billig; gegen Furcht-Gegner": "Billig; gegen Gegner, die fürchten",
+    "Läuft jetzt neben Banen; Classic-Guides lassen ihn aus": "Läuft neben Banen; optional",
+    "Nur für Flächen-Skillung; Verlangsamung schwächer": "Nur für Flächen-Skillung; schwache Verlangsamung",
+    "Starker Katzen-Eröffner von hinten; gestärkt": "Starker Katzen-Eröffner von hinten",
+    "Stärker; lohnt bei langen/Boss-Kämpfen": "Lohnt bei langen/Boss-Kämpfen",
+    "Volksfähigkeit; viel stärker, billige Ränge": "Volksfähigkeit; starker Schaden, billige Ränge",
+    "Volle Heilung, jetzt 20 Min. Abklingzeit": "Volle Heilung, 20 Min. Abklingzeit",
+    "Dämonologie mit Talent; Classic-Guides lassen ihn aus": "Nur für Dämonologie mit Talent; beim Leveln unnötig",
+    "Verbrennt dich mit; Classic-Guides lassen ihn aus": "Verbrennt dich mit; beim Leveln unnötig",
+    "Burns you too; Classic guides skip it for leveling": "Burns you too; not needed for leveling",
+    "Demonology with Decimation; Classic guides skip it": "Demonology with Decimation only; not needed for leveling",
+}
+
+
 def spell(s):
     req = s.get('requires') or {}
     out = {'id': int(s['id']), 'lv': int(s['level'])}
@@ -66,11 +128,11 @@ def spell(s):
         out['fa'] = req['faction']
     if s.get('advice'):
         out['a'] = ADVICE[s['advice']]
-        out['en'] = s.get('reason_en', '')
-        out['de'] = s.get('reason_de', '')
+        out['en'] = clean(s.get('reason_en', ''))
+        out['de'] = clean(s.get('reason_de', ''))
     roles = s.get('roles')
     if isinstance(roles, dict) and roles:
-        out['ro'] = {k: {'a': ADVICE[v['advice']], 'en': v.get('reason_en', ''), 'de': v.get('reason_de', '')}
+        out['ro'] = {k: {'a': ADVICE[v['advice']], 'en': clean(v.get('reason_en', '')), 'de': clean(v.get('reason_de', ''))}
                      for k, v in roles.items() if isinstance(v, dict) and v.get('advice')}
     return out
 
