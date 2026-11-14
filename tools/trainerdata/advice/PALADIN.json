@@ -1,0 +1,481 @@
+{
+ "class": "PALADIN",
+ "sources": [
+  {
+   "title": "Blizzard - Paladin: Champions of the Light (WoW Forever class deep dive)",
+   "url": "https://worldofwarcraft.blizzard.com/en-us/news/24302099",
+   "kind": "official",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Warcraft Tavern - Seal Twisting & Shockadins: Paladin Deep Dive for WoW Forever",
+   "url": "https://www.warcrafttavern.com/forever/news/seal-twisting-shockadins-paladin-deep-dive-for-wow-forever/",
+   "kind": "other",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Warcraft Tavern - WoW Forever Paladin Leveling Guide",
+   "url": "https://www.warcrafttavern.com/forever/guides/paladin-leveling/",
+   "kind": "forever_guide",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Method.gg - WoW Forever Paladin Leveling Guide and Talents",
+   "url": "https://www.method.gg/wow-forever/wow-forever-paladin-leveling-guide-and-talents",
+   "kind": "forever_guide",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Warcraft Tavern - WoW Classic Paladin Leveling Guide",
+   "url": "https://www.warcrafttavern.com/wow-classic/guides/paladin-leveling-guide/",
+   "kind": "classic_guide",
+   "checked": "2026-11-14"
+  }
+ ],
+ "spells": {
+  "Devotion Aura": {
+   "advice": "recommended",
+   "reason_en": "Armor aura; your only aura until 16",
+   "reason_de": "Rüstungsaura; einzige Aura bis Stufe 16",
+   "ranks": {
+    "2": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you use it over Retribution Aura",
+     "reason_de": "Nur wenn du sie statt Vergeltung nutzt"
+    },
+    "3": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you use it over Retribution Aura",
+     "reason_de": "Nur wenn du sie statt Vergeltung nutzt"
+    },
+    "4": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you use it over Retribution Aura",
+     "reason_de": "Nur wenn du sie statt Vergeltung nutzt"
+    },
+    "5": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you use it over Retribution Aura",
+     "reason_de": "Nur wenn du sie statt Vergeltung nutzt"
+    },
+    "6": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you use it over Retribution Aura",
+     "reason_de": "Nur wenn du sie statt Vergeltung nutzt"
+    },
+    "7": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you use it over Retribution Aura",
+     "reason_de": "Nur wenn du sie statt Vergeltung nutzt"
+    }
+   },
+   "roles": {
+    "tank": {
+     "advice": "recommended",
+     "reason_en": "Tank aura, keep ranks current",
+     "reason_de": "Tank-Aura, Ränge aktuell halten"
+    }
+   }
+  },
+  "Blessing of Might": {
+   "advice": "recommended",
+   "reason_en": "Hour-long AP buff for melee leveling",
+   "reason_de": "Einstündiger AP-Buff fürs Nahkampf-Leveln",
+   "roles": {
+    "heal": {
+     "advice": "skip",
+     "reason_en": "Healers use Blessing of Wisdom",
+     "reason_de": "Heiler nutzen Segen der Weisheit"
+    }
+   }
+  },
+  "Judgement": {
+   "advice": "recommended",
+   "reason_en": "Core attack; no longer eats your seal",
+   "reason_de": "Kernangriff; verbraucht das Siegel nicht mehr"
+  },
+  "Divine Protection": {
+   "advice": "recommended",
+   "reason_en": "Emergency immunity",
+   "reason_de": "Notfall-Immunität",
+   "ranks": {
+    "2": {
+     "advice": "optional",
+     "reason_en": "Only a longer duration",
+     "reason_de": "Nur längere Dauer"
+    }
+   }
+  },
+  "Holy Light": {
+   "advice": "recommended",
+   "reason_en": "Main heal between and during fights",
+   "reason_de": "Wichtigste Heilung in und nach Kämpfen"
+  },
+  "Holy Strike": {
+   "advice": "recommended",
+   "reason_en": "Core instant attack, buy every rank",
+   "reason_de": "Kern-Sofortangriff, jeden Rang kaufen"
+  },
+  "Seal of the Crusader": {
+   "advice": "optional",
+   "reason_en": "Mostly for weapon skill training",
+   "reason_de": "Vor allem zum Waffenskillen",
+   "ranks": {
+    "2": {
+     "advice": "skip",
+     "reason_en": "Rarely used while leveling",
+     "reason_de": "Beim Leveln kaum genutzt"
+    },
+    "3": {
+     "advice": "skip",
+     "reason_en": "Rarely used while leveling",
+     "reason_de": "Beim Leveln kaum genutzt"
+    },
+    "4": {
+     "advice": "skip",
+     "reason_en": "Rarely used while leveling",
+     "reason_de": "Beim Leveln kaum genutzt"
+    },
+    "5": {
+     "advice": "skip",
+     "reason_en": "Rarely used while leveling",
+     "reason_de": "Beim Leveln kaum genutzt"
+    },
+    "6": {
+     "advice": "skip",
+     "reason_en": "Rarely used while leveling",
+     "reason_de": "Beim Leveln kaum genutzt"
+    }
+   }
+  },
+  "Hammer of Justice": {
+   "advice": "recommended",
+   "reason_en": "Stun and interrupt",
+   "reason_de": "Betäubung und Unterbrechung"
+  },
+  "Parry": {
+   "advice": "recommended",
+   "reason_en": "Passive defense, cheap",
+   "reason_de": "Passive Verteidigung, günstig"
+  },
+  "Purify": {
+   "advice": "recommended",
+   "reason_en": "Removes poison and disease",
+   "reason_de": "Entfernt Gift und Krankheit"
+  },
+  "Blessing of Protection": {
+   "advice": "recommended",
+   "reason_en": "Physical immunity for emergencies",
+   "reason_de": "Körperliche Immunität für Notfälle",
+   "ranks": {
+    "2": {
+     "advice": "optional",
+     "reason_en": "Only a longer duration",
+     "reason_de": "Nur längere Dauer"
+    },
+    "3": {
+     "advice": "optional",
+     "reason_en": "Only a longer duration",
+     "reason_de": "Nur längere Dauer"
+    }
+   }
+  },
+  "Lay on Hands": {
+   "advice": "recommended",
+   "reason_en": "Full heal, now 20 min cooldown",
+   "reason_de": "Volle Heilung, jetzt 20 Min. Abklingzeit"
+  },
+  "Righteous Fury": {
+   "advice": "skip",
+   "reason_en": "More threat; not needed solo",
+   "reason_de": "Mehr Bedrohung; solo unnötig",
+   "role": "tank",
+   "roles": {
+    "tank": {
+     "advice": "recommended",
+     "reason_en": "Needed for tank threat",
+     "reason_de": "Für Tank-Bedrohung nötig"
+    }
+   }
+  },
+  "Seal of Fury": {
+   "advice": "optional",
+   "reason_en": "Tank seal; its Judgement taunts",
+   "reason_de": "Tank-Siegel; sein Richturteil spottet",
+   "role": "tank",
+   "roles": {
+    "tank": {
+     "advice": "recommended",
+     "reason_en": "Core Protection seal and taunt",
+     "reason_de": "Kern-Siegel und Spott für Schutz"
+    }
+   }
+  },
+  "Seal of Righteousness": {
+   "advice": "recommended",
+   "reason_en": "Main damage seal, scales with spell power",
+   "reason_de": "Haupt-Schadenssiegel, skaliert mit Zaubermacht"
+  },
+  "Blessing of Wisdom": {
+   "advice": "optional",
+   "reason_en": "Mana regen; less drinking",
+   "reason_de": "Manaregeneration; weniger trinken",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Healer blessing, keep ranks current",
+     "reason_de": "Heiler-Segen, Ränge aktuell halten"
+    }
+   }
+  },
+  "Retribution Aura": {
+   "advice": "recommended",
+   "reason_en": "Main leveling aura, scales with spell power",
+   "reason_de": "Haupt-Aura beim Leveln, mit Zaubermacht"
+  },
+  "Blessing of Freedom": {
+   "advice": "optional",
+   "reason_en": "Removes slows/roots; situational",
+   "reason_de": "Entfernt Verlangsamung; nur manchmal"
+  },
+  "Blessing of Kings": {
+   "advice": "recommended",
+   "reason_en": "10% to all stats for an hour",
+   "reason_de": "10 % auf alle Werte für eine Stunde"
+  },
+  "Consecration": {
+   "advice": "optional",
+   "reason_en": "AoE, but drains mana fast solo",
+   "reason_de": "AoE, kostet solo aber viel Mana",
+   "role": "tank",
+   "ranks": {
+    "2": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you AoE often",
+     "reason_de": "Nur bei häufigem AoE"
+    },
+    "3": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you AoE often",
+     "reason_de": "Nur bei häufigem AoE"
+    },
+    "4": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you AoE often",
+     "reason_de": "Nur bei häufigem AoE"
+    },
+    "5": {
+     "advice": "optional",
+     "reason_en": "Upgrade if you AoE often",
+     "reason_de": "Nur bei häufigem AoE"
+    }
+   },
+   "roles": {
+    "tank": {
+     "advice": "recommended",
+     "reason_en": "Core Protection AoE threat",
+     "reason_de": "Kern-AoE-Bedrohung für Schutz"
+    }
+   }
+  },
+  "Exorcism": {
+   "advice": "optional",
+   "reason_en": "Ranged nuke; situational",
+   "reason_de": "Fernkampfzauber; nur manchmal"
+  },
+  "Flash of Light": {
+   "advice": "optional",
+   "reason_en": "Fast small heal",
+   "reason_de": "Schnelle kleine Heilung",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Efficient fast heal for healers",
+     "reason_de": "Effiziente schnelle Heilung für Heiler"
+    }
+   }
+  },
+  "Concentration Aura": {
+   "advice": "skip",
+   "reason_en": "Cast pushback aura, for group casters",
+   "reason_de": "Gegen Zauberverzögerung, für Gruppen-Heiler",
+   "role": "heal"
+  },
+  "Seal of Justice": {
+   "advice": "skip",
+   "reason_en": "Rarely used in PvE",
+   "reason_de": "Im PvE kaum genutzt"
+  },
+  "Redemption": {
+   "advice": "optional",
+   "reason_en": "Resurrect; higher ranks only restore more",
+   "reason_de": "Wiederbelebung; höhere Ränge geben nur mehr"
+  },
+  "Turn Undead": {
+   "advice": "skip",
+   "reason_en": "Niche crowd control vs undead",
+   "reason_de": "Nischen-Kontrolle gegen Untote"
+  },
+  "Shadow Resistance Aura": {
+   "advice": "skip",
+   "reason_en": "Raid resistance, not needed while leveling",
+   "reason_de": "Raid-Resistenz, beim Leveln unnötig"
+  },
+  "Divine Intervention": {
+   "advice": "skip",
+   "reason_en": "Raid wipe tool; needs reagent",
+   "reason_de": "Raid-Werkzeug; braucht Reagenz"
+  },
+  "Seal of Command": {
+   "advice": "optional",
+   "reason_en": "Talent (Ret); cheap, buy if talented",
+   "reason_de": "Talent (Vergeltung); günstig, kaufen wenn geskillt",
+   "role": "dps",
+   "roles": {
+    "dps": {
+     "advice": "recommended",
+     "reason_en": "Ret: main seal with slow 2H",
+     "reason_de": "Vergeltung: Hauptsiegel mit langsamer 2H"
+    }
+   }
+  },
+  "Seal of Light": {
+   "advice": "optional",
+   "reason_en": "Heals you on hits; helps vs several mobs",
+   "reason_de": "Heilt dich bei Treffern; gut gegen mehrere"
+  },
+  "Frost Resistance Aura": {
+   "advice": "skip",
+   "reason_en": "Raid resistance, not needed while leveling",
+   "reason_de": "Raid-Resistenz, beim Leveln unnötig"
+  },
+  "Divine Shield": {
+   "advice": "recommended",
+   "reason_en": "Full immunity; saves you from deaths",
+   "reason_de": "Volle Immunität; rettet dich vor dem Tod"
+  },
+  "Fire Resistance Aura": {
+   "advice": "skip",
+   "reason_en": "Raid resistance, not needed while leveling",
+   "reason_de": "Raid-Resistenz, beim Leveln unnötig"
+  },
+  "Seal of Wisdom": {
+   "advice": "optional",
+   "reason_en": "Mana back on hits; sustain option",
+   "reason_de": "Mana zurück bei Treffern; für Ausdauer"
+  },
+  "Holy Shock": {
+   "advice": "optional",
+   "reason_en": "Talent (Holy); cheap, buy if talented",
+   "reason_de": "Talent (Heilig); günstig, kaufen wenn geskillt",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Holy: core instant heal/damage",
+     "reason_de": "Heilig: Kern-Sofortheilung/-schaden"
+    }
+   }
+  },
+  "Plate Mail": {
+   "advice": "recommended",
+   "reason_en": "Wear plate armor from 40",
+   "reason_de": "Ab 40 Plattenrüstung tragen"
+  },
+  "Cleanse": {
+   "advice": "optional",
+   "reason_en": "Purify plus magic; good for groups",
+   "reason_de": "Läutern plus Magie; gut für Gruppen",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Core dispel for healers",
+     "reason_de": "Wichtige Reinigung für Heiler"
+    }
+   }
+  },
+  "Hammer of Wrath": {
+   "advice": "recommended",
+   "reason_en": "Ranged execute below 20% health",
+   "reason_de": "Fernkampf-Finisher unter 20 % Leben"
+  },
+  "Blessing of Sacrifice": {
+   "advice": "skip",
+   "reason_en": "Group utility, not needed solo",
+   "reason_de": "Gruppenwerkzeug, solo unnötig"
+  },
+  "Holy Wrath": {
+   "advice": "optional",
+   "reason_en": "AoE vs undead/demons; situational",
+   "reason_de": "AoE gegen Untote/Dämonen; nur manchmal"
+  },
+  "Holy Shield": {
+   "advice": "optional",
+   "reason_en": "Talent (Prot); cheap, buy if talented",
+   "reason_de": "Talent (Schutz); günstig, kaufen wenn geskillt",
+   "role": "tank",
+   "roles": {
+    "tank": {
+     "advice": "recommended",
+     "reason_en": "Prot: core block and threat",
+     "reason_de": "Schutz: Kern für Blocken und Bedrohung"
+    }
+   }
+  },
+  "Light's Vigil": {
+   "advice": "optional",
+   "reason_en": "Talent (Holy); cheap, buy if talented",
+   "reason_de": "Talent (Heilig); günstig, kaufen wenn geskillt",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Holy: party heal and free Holy Shock",
+     "reason_de": "Heilig: Gruppenheilung und freier Schock"
+    }
+   }
+  },
+  "Greater Blessing of Might": {
+   "advice": "skip",
+   "reason_en": "Greater Blessings need reagents; for groups/raids",
+   "reason_de": "Große Segen brauchen Reagenzien; für Gruppen/Raids"
+  },
+  "Greater Blessing of Wisdom": {
+   "advice": "skip",
+   "reason_en": "Greater Blessings need reagents; for groups/raids",
+   "reason_de": "Große Segen brauchen Reagenzien; für Gruppen/Raids"
+  },
+  "Greater Blessing of Kings": {
+   "advice": "skip",
+   "reason_en": "Greater Blessings need reagents; for groups/raids",
+   "reason_de": "Große Segen brauchen Reagenzien; für Gruppen/Raids"
+  }
+ },
+ "learning_order": "**Solo default: Retribution (Seal of Righteousness / Seal of Command, Judgement, Holy Strike). Protection is a durable alternative.**\n\n- **1-10:** Devotion Aura, Blessing of Might, Judgement, Holy Strike (6), Divine Protection, Holy Light, Hammer of Justice, Purify, Parry. Core loop: seal, Judgement, Holy Strike on cooldown.\n- **10:** Seal of Righteousness rank 2, Blessing of Protection, Lay on Hands. Seal of Fury and Righteous Fury only for tanking.\n- **12-18:** Redemption rank 1 comes from the class quest. Holy Strike, Holy Light, SoR ranks yes. Retribution Aura at 16 is your main aura. Seal of the Crusader ranks can be skipped.\n- **20:** Blessing of Kings and Consecration (baseline now). Exorcism and Flash of Light are optional (Flash is core for healers).\n- **22-28:** Skip Concentration Aura, Seal of Justice, Turn Undead, Shadow Resistance Aura. Hammer of Justice 2 and Holy Light 4 yes.\n- **30:** Lay on Hands 2, Holy Light 5. Seal of Command rank 2 if talented (cheap). Seal of Light optional. Skip Divine Intervention.\n- **34:** Divine Shield. Keep Seal of Righteousness/Holy Strike/Retribution Aura current.\n- **38-44:** Seal of Wisdom optional. Plate Mail at 40. Cleanse at 42 (optional solo, core for healers). Hammer of Wrath at 44 is a good execute.\n- **46-60:** Keep Holy Strike, SoR, Holy Light, Blessing of Might and Retribution Aura current. Skip resistance auras, Blessing of Sacrifice and Greater Blessings while leveling.\n- Talent ranks (Seal of Command, Holy Shock, Holy Shield, Light's Vigil) are very cheap; buy them if talented.\n\n**Money tips**\n- Safe skips: all Resistance Auras, Turn Undead, Divine Intervention, Seal of Justice, Concentration Aura, Greater Blessings.\n- Higher Redemption, Divine Protection and Blessing of Protection ranks mainly add duration or resurrect health.\n- Devotion Aura ranks only matter if you use it instead of Retribution Aura (e.g. tanking).\n- The level 40 mount is free (Method.gg); dual spec costs 50g at 40.\n- Consecration drains mana quickly while soloing (Method.gg); upgrade only if you AoE or tank.",
+ "disagreements": [
+  "Blessing choice: Warcraft Tavern Classic prefers Blessing of Wisdom over Might (less drinking); Forever guides (Warcraft Tavern, Method.gg) say choose by spec, with Might/Kings for melee.",
+  "Aura: Warcraft Tavern Classic buys every Devotion Aura rank; Warcraft Tavern Forever names Retribution Aura the main leveling aura.",
+  "Consecration: Warcraft Tavern Forever uses it on cooldown for Protection/Shockadin; Method.gg says use it conservatively in open world because of mana.",
+  "Instrument of the Law: Warcraft Tavern's summary says it makes Holy Wrath instant; Blizzard's post (as fetched) says it reduces Hammer of Wrath cast time."
+ ],
+ "forever_differences": [
+  "Holy Strike is a baseline instant attack learned at 6 (Blizzard deep dive).",
+  "Judgement no longer consumes the seal (Blizzard deep dive) and is off the GCD (Method.gg).",
+  "Seal of Fury is a new tank seal at 10; its Judgement taunts from 10 yards (Blizzard deep dive).",
+  "Consecration (20) and Blessing of Kings (20) are baseline; Improved Blessing of Wisdom baseline (Blizzard deep dive).",
+  "Lay on Hands cooldown 20 min, was 60 (Blizzard deep dive).",
+  "Holy Shock moved to 21-point talent with 10 s cooldown; new Light's Vigil 31-point talent (Blizzard deep dive).",
+  "Sanctity Aura and Blessing of Sanctuary removed; resistance auras affect the whole raid within 30 yd (Blizzard deep dive).",
+  "Salvation is no longer a Blessing (Mass Salvation); not on the trainer list (Blizzard deep dive).",
+  "Spell power scales Retribution Aura and seal Holy damage (Warcraft Tavern Forever).",
+  "Holy Light rank 1 and Seal of Righteousness rank 1 are not on the trainer list (starting spells); Redemption rank 1 from class quest (Warcraft Tavern Forever)."
+ ],
+ "open_questions": [
+  "Whether Exorcism and Holy Wrath are still restricted to undead/demons in Forever is not stated in the sources read; advice kept 'optional'.",
+  "Seal of Command, Seal of Light, Seal of Wisdom, Seal of Justice, Turn Undead and Greater Blessings are not covered by the Blizzard post; Classic behavior assumed.",
+  "No Forever guide read gives rank-by-rank skip advice; rank skips follow Classic guidance."
+ ]
+}

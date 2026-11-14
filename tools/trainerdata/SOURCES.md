@@ -71,6 +71,42 @@ Leveling advice sources (read 2026-11-14):
 - Defensive Stance, Berserker Stance, Taunt and Sunder Armor rank 1 are not on the trainer list; quest-granted per Method.gg.
 - No Forever guide read gives rank-by-rank skip advice; rank skips follow Classic guidance.
 
+## Paladin
+
+Leveling advice sources (read 2026-11-14):
+
+- [Blizzard - Paladin: Champions of the Light (WoW Forever class deep dive)](https://worldofwarcraft.blizzard.com/en-us/news/24302099) (official)
+- [Warcraft Tavern - Seal Twisting & Shockadins: Paladin Deep Dive for WoW Forever](https://www.warcrafttavern.com/forever/news/seal-twisting-shockadins-paladin-deep-dive-for-wow-forever/) (other)
+- [Warcraft Tavern - WoW Forever Paladin Leveling Guide](https://www.warcrafttavern.com/forever/guides/paladin-leveling/) (forever_guide)
+- [Method.gg - WoW Forever Paladin Leveling Guide and Talents](https://www.method.gg/wow-forever/wow-forever-paladin-leveling-guide-and-talents) (forever_guide)
+- [Warcraft Tavern - WoW Classic Paladin Leveling Guide](https://www.warcrafttavern.com/wow-classic/guides/paladin-leveling-guide/) (classic_guide)
+
+**Forever differences that matter for training**
+
+- Holy Strike is a baseline instant attack learned at 6 (Blizzard deep dive).
+- Judgement no longer consumes the seal (Blizzard deep dive) and is off the GCD (Method.gg).
+- Seal of Fury is a new tank seal at 10; its Judgement taunts from 10 yards (Blizzard deep dive).
+- Consecration (20) and Blessing of Kings (20) are baseline; Improved Blessing of Wisdom baseline (Blizzard deep dive).
+- Lay on Hands cooldown 20 min, was 60 (Blizzard deep dive).
+- Holy Shock moved to 21-point talent with 10 s cooldown; new Light's Vigil 31-point talent (Blizzard deep dive).
+- Sanctity Aura and Blessing of Sanctuary removed; resistance auras affect the whole raid within 30 yd (Blizzard deep dive).
+- Salvation is no longer a Blessing (Mass Salvation); not on the trainer list (Blizzard deep dive).
+- Spell power scales Retribution Aura and seal Holy damage (Warcraft Tavern Forever).
+- Holy Light rank 1 and Seal of Righteousness rank 1 are not on the trainer list (starting spells); Redemption rank 1 from class quest (Warcraft Tavern Forever).
+
+**Guide disagreements**
+
+- Blessing choice: Warcraft Tavern Classic prefers Blessing of Wisdom over Might (less drinking); Forever guides (Warcraft Tavern, Method.gg) say choose by spec, with Might/Kings for melee.
+- Aura: Warcraft Tavern Classic buys every Devotion Aura rank; Warcraft Tavern Forever names Retribution Aura the main leveling aura.
+- Consecration: Warcraft Tavern Forever uses it on cooldown for Protection/Shockadin; Method.gg says use it conservatively in open world because of mana.
+- Instrument of the Law: Warcraft Tavern's summary says it makes Holy Wrath instant; Blizzard's post (as fetched) says it reduces Hammer of Wrath cast time.
+
+**Open questions**
+
+- Whether Exorcism and Holy Wrath are still restricted to undead/demons in Forever is not stated in the sources read; advice kept 'optional'.
+- Seal of Command, Seal of Light, Seal of Wisdom, Seal of Justice, Turn Undead and Greater Blessings are not covered by the Blizzard post; Classic behavior assumed.
+- No Forever guide read gives rank-by-rank skip advice; rank skips follow Classic guidance.
+
 ## Hunter
 
 Leveling advice sources (read 2026-11-14):

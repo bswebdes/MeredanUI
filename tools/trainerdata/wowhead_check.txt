@@ -35,3 +35,15 @@ WARRIOR 11578 Charge L46 -> wowhead "Charge" L46 OK
 WARRIOR 20252 Intercept L30 -> wowhead "Intercept" L30 OK
 WARRIOR 20660 Execute L40 -> wowhead "Execute" L40 OK
 WARRIOR 20662 Execute L56 -> wowhead "Execute" L56 OK
+PALADIN 639 Holy Light L6 -> wowhead "Holy Light" L6 OK
+PALADIN 853 Hammer of Justice L8 -> wowhead "Hammer of Justice" L8 OK
+PALADIN 1152 Purify L8 -> wowhead "Purify" L8 OK
+PALADIN 3472 Holy Light L38 -> wowhead "Holy Light" L38 OK
+PALADIN 5588 Hammer of Justice L24 -> wowhead "Hammer of Justice" L24 OK
+PALADIN 5599 Blessing of Protection L24 -> wowhead "Blessing of Protection" L24 OK
+PALADIN 5614 Exorcism L28 -> wowhead "Exorcism" L28 OK
+PALADIN 10313 Exorcism L52 -> wowhead "Exorcism" L52 OK
+PALADIN 19942 Flash of Light L50 -> wowhead "Flash of Light" L50 OK
+PALADIN 20291 Seal of Righteousness L42 -> wowhead "Seal of Righteousness" L42 OK
+PALADIN 20306 Seal of the Crusader L32 -> wowhead "Seal of the Crusader" L32 OK
+PALADIN 24275 Hammer of Wrath L44 -> wowhead "Hammer of Wrath" L44 OK

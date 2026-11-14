@@ -27,6 +27,30 @@ _All class trainer ranks 1-60: 203g 62s. Marked recommended: 77g 24s. Marked ski
 - Save for riding at 40; Skinning or Mining are easy early income (Method.gg).
 - Tank in dungeons? Then Thunder Clap, Demoralizing Shout, Revenge, Shield Block, Shield Wall become core buys.
 
+## Paladin
+
+_All class trainer ranks 1-60: 252g 32s. Marked recommended: 77g 47s. Marked skip: 66g 53s._
+
+**Solo default: Retribution (Seal of Righteousness / Seal of Command, Judgement, Holy Strike). Protection is a durable alternative.**
+
+- **1-10:** Devotion Aura, Blessing of Might, Judgement, Holy Strike (6), Divine Protection, Holy Light, Hammer of Justice, Purify, Parry. Core loop: seal, Judgement, Holy Strike on cooldown.
+- **10:** Seal of Righteousness rank 2, Blessing of Protection, Lay on Hands. Seal of Fury and Righteous Fury only for tanking.
+- **12-18:** Redemption rank 1 comes from the class quest. Holy Strike, Holy Light, SoR ranks yes. Retribution Aura at 16 is your main aura. Seal of the Crusader ranks can be skipped.
+- **20:** Blessing of Kings and Consecration (baseline now). Exorcism and Flash of Light are optional (Flash is core for healers).
+- **22-28:** Skip Concentration Aura, Seal of Justice, Turn Undead, Shadow Resistance Aura. Hammer of Justice 2 and Holy Light 4 yes.
+- **30:** Lay on Hands 2, Holy Light 5. Seal of Command rank 2 if talented (cheap). Seal of Light optional. Skip Divine Intervention.
+- **34:** Divine Shield. Keep Seal of Righteousness/Holy Strike/Retribution Aura current.
+- **38-44:** Seal of Wisdom optional. Plate Mail at 40. Cleanse at 42 (optional solo, core for healers). Hammer of Wrath at 44 is a good execute.
+- **46-60:** Keep Holy Strike, SoR, Holy Light, Blessing of Might and Retribution Aura current. Skip resistance auras, Blessing of Sacrifice and Greater Blessings while leveling.
+- Talent ranks (Seal of Command, Holy Shock, Holy Shield, Light's Vigil) are very cheap; buy them if talented.
+
+**Money tips**
+- Safe skips: all Resistance Auras, Turn Undead, Divine Intervention, Seal of Justice, Concentration Aura, Greater Blessings.
+- Higher Redemption, Divine Protection and Blessing of Protection ranks mainly add duration or resurrect health.
+- Devotion Aura ranks only matter if you use it instead of Retribution Aura (e.g. tanking).
+- The level 40 mount is free (Method.gg); dual spec costs 50g at 40.
+- Consecration drains mana quickly while soloing (Method.gg); upgrade only if you AoE or tank.
+
 ## Hunter
 
 _All class trainer ranks 1-60: 206g 42s. Marked recommended: 87g 91s. Marked skip: 43g 21s._
