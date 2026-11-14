@@ -179,8 +179,8 @@ local function Row(i)
     row:SetScript("OnEnter", function(self)
         if not self.selected then self.bg:SetColorTexture(0.133, 0.133, 0.149, 1) end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        self.muiAdviceID = self.entry.spellID -- advice lines: TrainerInfo's tooltip postcall
         GameTooltip:SetTrainerService(self.entry.index)
-        if self.entry.spellID and ns.TrainerInfo then ns.TrainerInfo.AddAdviceLines(GameTooltip, self.entry.spellID) end
         GameTooltip:Show()
     end)
     row:SetScript("OnLeave", function(self)

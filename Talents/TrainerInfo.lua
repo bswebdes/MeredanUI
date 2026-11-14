@@ -155,14 +155,22 @@ function T.OpenQuests(level)
     return list
 end
 
--- advice lines below a tooltip (spell, trainer service), under the gem divider
-function T.AddAdviceLines(tooltip, spellID)
+-- Advice lines below the tooltip of a spellbook card / trainer row (the owner carries muiAdviceID),
+-- under the gem divider. As a tooltip postcall: the game rebuilds spell tooltips once their data has
+-- loaded, lines added after SetSpellByID would be lost.
+local function AddAdviceLines(tooltip)
+    if tooltip ~= GameTooltip then return end
+    local owner = tooltip:GetOwner()
+    local spellID = owner and owner.muiAdviceID
+    if not spellID then return end
     local code, reason = T.Advice(spellID)
     if not code then return end
     local label, color = T.AdviceLabel(code)
-    tooltip.muiAdding = true -- our own lines: no "other addon" divider (Tooltip.lua)
     if ns.TooltipSection then ns.TooltipSection(tooltip) end
     tooltip:AddLine(label, color[1], color[2], color[3])
     if reason and reason ~= "" then tooltip:AddLine(reason, 0.64, 0.6, 0.53, true) end
-    tooltip.muiAdding = nil
 end
+
+ns:On("PLAYER_LOGIN", function()
+    if ns.IS_FOREVER and ns.AddTooltipPostCall then ns.AddTooltipPostCall(TooltipDataProcessor.AllTypes, AddAdviceLines) end
+end)

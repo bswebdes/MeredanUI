@@ -21,7 +21,7 @@ local COLS, CARD_H, GAP = 3, 48, 6
 local PLAYER = Enum.SpellBookSpellBank.Player
 local PET = Enum.SpellBookSpellBank.Pet
 
-local window, panel, title, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote, emptyText
+local window, panel, title, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote, emptyText, footerHint
 local tabs, cards = {}, {}
 local currentTab = 2 -- first class tree
 local page = 1
@@ -189,9 +189,10 @@ local function Card(i)
         if not self.entry then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         if self.entry.trainer then
+            self.muiAdviceID = self.entry.spellID -- advice lines: TrainerInfo's tooltip postcall
             GameTooltip:SetSpellByID(self.entry.spellID)
-            if ns.TrainerInfo then ns.TrainerInfo.AddAdviceLines(GameTooltip, self.entry.spellID) end
         else
+            self.muiAdviceID = nil
             GameTooltip:SetSpellBookItem(self.entry.slot, self.entry.bank)
         end
         GameTooltip:Show()
@@ -356,6 +357,7 @@ local function Layout()
     local trainerTab = query == "" and list[currentTab] and list[currentTab].trainer
     local entries = query ~= "" and Spells(list, query) or (trainerTab and TrainerEntries()) or Spells({ list[currentTab] }, "")
     emptyText:SetShown(trainerTab and #entries == 0 and not InCombatLockdown())
+    footerHint:SetShown(not trainerTab) -- drag/cast hints don't apply to trainer spells
     if trainerTab then
         emptyText:SetText(next(TrainerCache()) and L["Everything learned."]
             or L["Visit your class trainer once to see what you can learn here."])
@@ -504,7 +506,7 @@ local function CreateWindow()
 
     footer = UI.Text(window, 12, "LEFT", UI.MUTED)
     footer:SetPoint("BOTTOMLEFT", PAD, 20)
-    local footerHint = UI.Text(window, 12, "RIGHT", UI.MUTED)
+    footerHint = UI.Text(window, 12, "RIGHT", UI.MUTED)
     footerHint:SetPoint("BOTTOMRIGHT", -PAD, 20)
     footerHint:SetText(L["Drag: onto the action bar · Click: cast · Shift-click: into chat"])
 
