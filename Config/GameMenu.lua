@@ -88,11 +88,21 @@ end
 -- instead of letting Blizzard's panel manager shove it beside the window. HideUIPanel goes through
 -- Blizzard's secure FramePositionDelegate, so calling it from addon code is safe. Windows the menu
 -- itself opens (Options, AddOns, Macros ...) hide the menu first, so they never get here.
+-- Smooth: the menu goes in the same frame (no flash of both), the new window fades in briefly.
+local FADE_IN = 0.15
 hooksecurefunc("ShowUIPanel", function(frame)
     if not GameMenuFrame or frame == GameMenuFrame or not GameMenuFrame:IsShown() then return end
-    C_Timer.After(0, function()
-        if GameMenuFrame:IsShown() and frame and frame.IsShown and frame:IsShown() then HideUIPanel(GameMenuFrame) end
-    end)
+    if not (frame and frame.IsShown and frame:IsShown()) then return end
+    HideUIPanel(GameMenuFrame)
+    if not (InCombatLockdown() and frame:IsProtected()) and frame.SetAlpha then
+        -- own short fade (Blizzard's UIFrameFadeIn shares a global list with its own frames)
+        local steps, step = 6, 0
+        frame:SetAlpha(0)
+        C_Timer.NewTicker(FADE_IN / steps, function()
+            step = step + 1
+            frame:SetAlpha(step / steps)
+        end, steps)
+    end
 end)
 
 ns:On("PLAYER_LOGIN", function()
