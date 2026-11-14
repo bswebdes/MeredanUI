@@ -21,32 +21,19 @@ local function Allowed(entry, race, faction)
     return true
 end
 
--- Class quests without a race list in the data: the starting-zone ones belong to the races starting
--- there, and quest givers in the other faction's zones aren't for us
-local START_ZONES = {
-    ["Elwynn Forest"] = { 1 }, ["Dun Morogh"] = { 3, 7 }, ["Teldrassil"] = { 4 }, ["Durotar"] = { 2, 8 },
-    ["Tirisfal Glades"] = { 5 }, ["Mulgore"] = { 6 }, ["Zephras Isle"] = { 95, 96 },
-}
+-- Class quests other than ability chains: quest givers in the other faction's zones aren't for us
+-- (race lists there often just name every race; the starting-zone quests are open to every race of
+-- the faction)
 local FACTION_ZONES = {
     ["Stormwind City"] = "Alliance", ["Ironforge"] = "Alliance", ["Darnassus"] = "Alliance", ["Elwynn Forest"] = "Alliance",
     ["Dun Morogh"] = "Alliance", ["Teldrassil"] = "Alliance", ["Darkshore"] = "Alliance", ["Loch Modan"] = "Alliance",
     ["Redridge Mountains"] = "Alliance", ["Orgrimmar"] = "Horde", ["Thunder Bluff"] = "Horde", ["Undercity"] = "Horde",
     ["Durotar"] = "Horde", ["Mulgore"] = "Horde", ["Tirisfal Glades"] = "Horde", ["The Barrens"] = "Horde",
 }
-local function QuestFits(chain, race, faction)
-    if chain.ra then return true end -- races given: Allowed() checked them
-    local zone = chain.st and chain.st.z
-    if not zone then return true end
-    local home = FACTION_ZONES[zone]
-    if home and home ~= faction then return false end
-    local starters = chain.lv <= 12 and START_ZONES[zone]
-    if starters then
-        for _, id in ipairs(starters) do
-            if id == race then return true end
-        end
-        return false
-    end
-    return true
+local function QuestFits(chain, _, faction)
+    if chain.cat == "ability" then return true end
+    local home = chain.st and FACTION_ZONES[chain.st.z]
+    return not home or home == faction
 end
 
 -- the player's class table, filtered to what this character can learn (built once)
