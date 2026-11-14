@@ -36,7 +36,7 @@ New features are welcome – as long as they're genuinely useful and don't bloat
 - **Action bars**, micro menu and key binding mode
 - **Bags, bank and mail** in one style, auto-restock of ammunition and class reagents at vendors
 - **Auction house** with sell helper and a ledger (income, expenses, fees)
-- **Chat** with emoji, RP mode and a cleaner look
+- **Chat** with link tooltips, your sent lines on the arrow keys, clickable invites, a spam brake, emoji and RP mode
 - **Minimap**, info bars, XP and reputation bars, flight timer
 - **Nameplates**, combat text, damage meter, loot window and loot rolls
 - **WoW Forever extras** like class reagents and ammo counter (arrows/bullets by weapon), swing timer, pet helper, spell ranks
