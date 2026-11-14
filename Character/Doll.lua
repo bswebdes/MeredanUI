@@ -629,6 +629,71 @@ local function FillTitles(frame)
     frame.list:SetData(entries)
 end
 
+-- Class quests (Forever): every class quest chain of the character with its state; ability chains
+-- (totems, forms, pets ...) first. Click on one not done sets the map pin on its quest giver.
+local function CreateClassQuests(parent)
+    local frame = CreateFrame("Frame", nil, parent)
+    frame:SetAllPoints()
+    frame.list = Char.List(frame)
+    frame.list:SetPoint("TOPLEFT")
+    frame.list:SetPoint("BOTTOMRIGHT", -10, 0)
+    return frame
+end
+
+local QUEST_STATE_COLOR = { done = { 0.47, 0.46, 0.43 }, later = { 0.47, 0.46, 0.43 } }
+
+local function ClassQuestTooltip(row, quest)
+    GameTooltip:SetOwner(row, "ANCHOR_LEFT")
+    GameTooltip:SetText(quest.name, 1, 1, 1)
+    GameTooltip:AddLine(L["Level %d"]:format(quest.level), unpack(UI.MUTED))
+    if quest.rewardName then GameTooltip:AddLine(L["Unlocks: %s"]:format(quest.rewardName), unpack(UI.ACCENT)) end
+    if quest.where then GameTooltip:AddLine(quest.where, 0.85, 0.85, 0.85) end
+    if quest.state ~= "done" and quest.start and quest.start.m then
+        GameTooltip:AddLine(L["Click: map pin"], unpack(UI.MUTED))
+    end
+    GameTooltip:Show()
+end
+
+local function FillClassQuests(frame)
+    local info = ns.TrainerInfo
+    local quests = info and info.ClassQuests(UnitLevel("player")) or {}
+    local _, class = UnitClass("player")
+    local classIcon = "Interface\\Icons\\ClassIcon_" .. class:sub(1, 1) .. class:sub(2):lower()
+    local groups = { { ability = true, label = L["Abilities"] }, { ability = false, label = L["More class quests"] } }
+    local entries = {}
+    for _, group in ipairs(groups) do
+        local rows, done = {}, 0
+        for _, quest in ipairs(quests) do
+            if quest.ability == group.ability then
+                if quest.state == "done" then done = done + 1 end
+                local right
+                if quest.state == "done" then
+                    right = UI.IconMarkup("Check", 14, UI.ACCENT)
+                elseif quest.state == "active" then
+                    right = "|cff8ecbb4" .. L["In quest log"] .. "|r"
+                elseif quest.state == "later" then
+                    right = L["Level %d"]:format(quest.level)
+                else
+                    right = quest.start and quest.start.m and C_Map.GetMapInfo(quest.start.m)
+                    right = right and right.name or quest.start and quest.start.z or ""
+                end
+                rows[#rows + 1] = {
+                    icon = quest.icon or classIcon,
+                    text = group.ability and quest.rewardName or quest.name,
+                    color = QUEST_STATE_COLOR[quest.state], right = right,
+                    onEnter = function(row) ClassQuestTooltip(row, quest) end,
+                    onClick = quest.state ~= "done" and function() info.SetPin(quest) end or nil,
+                }
+            end
+        end
+        if #rows > 0 then
+            entries[#entries + 1] = { header = true, text = group.label, right = ("%d/%d"):format(done, #rows) }
+            for _, row in ipairs(rows) do entries[#entries + 1] = row end
+        end
+    end
+    frame.list:SetData(entries)
+end
+
 -- Layout ------------------------------------------------------------------------------------------
 
 local SUBS = {
@@ -637,10 +702,12 @@ local SUBS = {
       icon = "Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs", coords = { 0.0156, 0.5312, 0.4687, 0.6054 } },
     { key = "titles", tip = function() return Char.G("PAPERDOLL_SIDEBAR_TITLES", "Titles") end, icon = 8197118 },
     { key = "pet", tip = function() return PET end, pet = true },
+    { key = "classquests", tip = function() return L["Class quests"] end, classIcon = true },
 }
 
 local function SubAvailable(key)
     if key == "pet" then return HasPetUI() and true or false end
+    if key == "classquests" then return ns.TrainerInfo and ns.TrainerInfo.Has() or false end
     return true
 end
 
@@ -720,6 +787,8 @@ local function Refresh()
         FillSets(view.subs.sets)
     elseif sub == "titles" then
         FillTitles(view.subs.titles)
+    elseif sub == "classquests" then
+        FillClassQuests(view.subs.classquests)
     end
 end
 
@@ -826,6 +895,10 @@ local function Create(frame)
         if def.pet then
             ns.SetIcon(button.icon, "Pet")
             button.icon:SetVertexColor(unpack(UI.TEXT))
+        elseif def.classIcon then
+            local _, class = UnitClass("player")
+            button.icon:SetTexture("Interface\\Icons\\ClassIcon_" .. class:sub(1, 1) .. class:sub(2):lower())
+            button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
         else
             button.icon:SetTexture(def.icon)
             if def.coords then button.icon:SetTexCoord(unpack(def.coords)) else button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92) end
@@ -856,6 +929,7 @@ local function Create(frame)
         stats = CreateStats(content),
         sets = CreateSets(content),
         titles = CreateTitles(content),
+        classquests = CreateClassQuests(content),
     }
     -- Poll for targeting spells while the tab is open (every 0.1 s, a single call)
     local elapsed = 0
@@ -883,6 +957,7 @@ Char.AddTab({
         "COMBAT_RATING_UPDATE", "SPEED_UPDATE", "PLAYER_DAMAGE_DONE_MODS", "SPELL_POWER_CHANGED", "SKILL_LINES_CHANGED",
         "PET_STATS_UPDATE", "UNIT_PET", "UNIT_PET_EXPERIENCE", "UNIT_HAPPINESS", "EQUIPMENT_SETS_CHANGED",
         "EQUIPMENT_SWAP_FINISHED", "KNOWN_TITLES_UPDATE", "UNIT_MODEL_CHANGED", "PLAYER_AVG_ITEM_LEVEL_UPDATE",
+        "QUEST_LOG_UPDATE", "QUEST_TURNED_IN", "PLAYER_LEVEL_UP", -- class quests sub-view
     },
 })
 

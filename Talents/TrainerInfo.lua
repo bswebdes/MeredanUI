@@ -130,26 +130,72 @@ local function Done(chain)
     return false
 end
 
--- Class quest chains open at this level: ability chains (totems, forms, pets ...) from any level up
--- to now, other class quests only when they start exactly at this level. Variants of the same chain
--- (several starts) count once.
-function T.OpenQuests(level)
+local function InLog(chain)
+    for _, id in ipairs(chain.qs) do
+        if C_QuestLog.GetLogIndexForQuestID(id) then return true end
+    end
+    return false
+end
+
+local function Where(st)
+    if not st then return end
+    local npc = GERMAN and st.de or st.en
+    local zone = st.m and C_Map.GetMapInfo(st.m)
+    zone = zone and zone.name or st.z
+    if npc and zone then return npc .. ", " .. zone end
+    return npc or zone
+end
+
+-- Map pin with the on-screen arrow on the quest giver
+function T.SetPin(entry)
+    local st = entry and entry.start
+    if not (st and st.m and C_Map.CanSetUserWaypointOnMap(st.m)) then return end
+    C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(st.m, st.x / 100, st.y / 100))
+    C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+    ns.Print(L["Map pin set: %s"], entry.where or entry.name)
+end
+
+-- One entry per chain: state "done", "active" (in the quest log), "open" (level reached) or "later".
+-- Variants of the same chain (several starts) count once, the one furthest along wins.
+local STATE_ORDER = { done = 4, active = 3, open = 2, later = 1 }
+function T.ClassQuests(level)
     local d = Data()
     if not d then return {} end
-    local list, seen = {}, {}
+    local byKey, order = {}, {}
     for _, chain in ipairs(d.quests) do
-        local relevant = chain.lv <= level and (chain.cat == "ability" or chain.lv == level)
-        local key = chain.sp and chain.sp[1] or chain.n
-        if relevant and not seen[key] and not Done(chain) then
-            seen[key] = true
-            local st = chain.st
-            local npc = st and (GERMAN and st.de or st.en)
-            list[#list + 1] = {
-                id = chain.id, level = chain.lv, ability = chain.cat == "ability",
-                name = GERMAN and chain.nde or chain.n,
-                where = npc and (st.z and (npc .. ", " .. st.z) or npc) or (st and st.z),
-            }
+        local state = Done(chain) and "done" or InLog(chain) and "active" or chain.lv <= level and "open" or "later"
+        local reward = chain.sp and chain.sp[1]
+        local entry = {
+            id = chain.id, level = chain.lv, ability = chain.cat == "ability", state = state,
+            name = GERMAN and chain.nde or chain.n, reward = reward,
+            rewardName = reward and C_Spell.GetSpellName(reward), icon = reward and C_Spell.GetSpellTexture(reward),
+            start = chain.st, where = Where(chain.st),
+        }
+        local key = (reward or chain.n) .. (entry.ability and "" or ("|" .. chain.id))
+        local old = byKey[key]
+        if not old then
+            byKey[key] = entry
+            order[#order + 1] = key
+        elseif STATE_ORDER[state] > STATE_ORDER[old.state] then
+            byKey[key] = entry
         end
+    end
+    local list = {}
+    for _, key in ipairs(order) do list[#list + 1] = byKey[key] end
+    table.sort(list, function(a, b)
+        if a.ability ~= b.ability then return a.ability end
+        if a.level ~= b.level then return a.level < b.level end
+        return (a.rewardName or a.name) < (b.rewardName or b.name)
+    end)
+    return list
+end
+
+-- Class quests to mention on level-up: ability chains open by now (not done, not in the quest log),
+-- other class quests only when they start exactly at this level
+function T.OpenQuests(level)
+    local list = {}
+    for _, entry in ipairs(T.ClassQuests(level)) do
+        if entry.state == "open" and (entry.ability or entry.level == level) then list[#list + 1] = entry end
     end
     table.sort(list, function(a, b) return a.level > b.level end)
     return list

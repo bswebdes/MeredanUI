@@ -147,6 +147,8 @@ def start(st):
         out['de'] = st['npc_de']
     if st.get('zone'):
         out['z'] = st['zone']
+    if st.get('map') and st.get('x') is not None and st.get('y') is not None:
+        out['m'], out['x'], out['y'] = int(st['map']), round(float(st['x']), 2), round(float(st['y']), 2)
     return out or None
 
 

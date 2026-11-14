@@ -58,6 +58,11 @@ local function Row(i)
     row.sub = ns.CreateText(row, 12, "LEFT", "OUTLINE")
     row.sub:SetPoint("TOPLEFT", row.holder, "RIGHT", 12, -2)
     row.sub:SetTextColor(unpack(ns.UI.MUTED))
+    -- clickable rows (class quests: map pin); right-click still closes the display
+    row:SetScript("OnMouseUp", function(self, button)
+        if button == "RightButton" then state, timer = "out", 0
+        elseif self.onClick then self.onClick() end
+    end)
     rows[i] = row
     return row
 end
@@ -127,6 +132,8 @@ local function Show(level, entries, keepFade)
         row.icon:SetTexture(e.icon or 134400)
         row.name:SetText(e.name or "")
         row.sub:SetText(e.sub or "")
+        row.onClick = e.onClick
+        row:EnableMouse(e.onClick ~= nil and not InCombatLockdown())
         local w = ICON + 12 + math.max(row.name:GetUnboundedStringWidth(), row.sub:GetUnboundedStringWidth())
         width = math.max(width, w)
         row:ClearAllPoints()
@@ -184,10 +191,10 @@ end
 local function Unlocks(level)
     local entries, seen = Entries(level), {}
     for _, e in ipairs(entries) do seen[e.name or ""] = true end
-    local function Add(icon, name, sub)
+    local function Add(icon, name, sub, onClick)
         if seen[name] then return end
         seen[name] = true
-        entries[#entries + 1] = { icon = icon, name = name, sub = sub }
+        entries[#entries + 1] = { icon = icon, name = name, sub = sub, onClick = onClick }
     end
     local info = ns.TrainerInfo
     if info and info.Has() then
@@ -203,8 +210,10 @@ local function Unlocks(level)
         end
         local _, class = UnitClass("player")
         for _, quest in ipairs(info.OpenQuests(level)) do
-            Add("Interface\\Icons\\ClassIcon_" .. class:sub(1, 1) .. class:sub(2):lower(), quest.name,
-                quest.where and (L["Class quest"] .. " · " .. quest.where) or L["Class quest"])
+            local name = quest.rewardName and ("%s |cffa89d86(%s)|r"):format(quest.name, quest.rewardName) or quest.name
+            Add(quest.icon or ("Interface\\Icons\\ClassIcon_" .. class:sub(1, 1) .. class:sub(2):lower()), name,
+                quest.where and (L["Class quest"] .. " · " .. quest.where) or L["Class quest"],
+                quest.start and quest.start.m and function() info.SetPin(quest) end or nil)
         end
         table.sort(older, function(a, b) return a.level > b.level end)
         for _, spell in ipairs(older) do Add(spell.icon, SpellName(spell), L["Still to learn at the class trainer"]) end

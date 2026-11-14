@@ -98,6 +98,8 @@ end)
 
 ns:On("PLAYER_LEVEL_UP", function(_, level)
     if not Enabled() then return end
+    -- the level-up display lists open class quests itself (Toasts/LevelUp.lua)
+    if ns.LevelUpDisplayOn and ns.LevelUpDisplayOn() and ns.TrainerInfo and ns.TrainerInfo.Has() then return end
     C_Timer.After(3, function() -- after the level-up banner
         for _, entry in ipairs(Open(level, true)) do Toast(entry[1], entry[2]) end
     end)
