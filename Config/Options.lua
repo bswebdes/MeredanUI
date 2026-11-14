@@ -719,6 +719,11 @@ local PAGES = {
                 Help(L["Slim need/greed rows instead of Blizzard's group loot frames. Test mode shows examples."], true))
             page:AddCheckbox(L["Fast loot"], On("fastLoot"), Setter("fastLoot"),
                 Help(L["With auto loot on, everything is picked up instantly instead of waiting for the loot window."]))
+            page:AddCheckbox(L["Sparkle on herbs, ore and quest objects"], Getter("sparkle"),
+                Setter("sparkle", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end),
+                Help(L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."]))
+            page:AddCheckbox(L["Also other objects (benches, chests, mailboxes)"], Getter("sparkleOther"),
+                Setter("sparkleOther", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end))
             if ns.IS_FOREVER then
                 page:AddHeader(L["Fishing"])
                 page:AddCheckbox(L["Fishing bag"], On("fishingBag"), Setter("fishingBag"),
@@ -1042,11 +1047,6 @@ if ns.IS_FOREVER then
                 page:AddCheckbox(L["Remind me of class quests"], Getter("classQuestReminder"), Setter("classQuestReminder"),
                     Help(L["When a class quest for a new ability becomes available, e.g. Bear Form or the Voidwalker. Click the message to put a pin on the map."]))
             end
-            page:AddCheckbox(L["Sparkle on herbs, ore and quest objects"], Getter("sparkle"),
-                Setter("sparkle", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end),
-                Help(L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."]))
-            page:AddCheckbox(L["Also other objects (benches, chests, mailboxes)"], Getter("sparkleOther"),
-                Setter("sparkleOther", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end))
             if ns.Questie and ns.Questie.IsLoaded() then
                 page:AddHeader("Questie")
                 page:AddCheckbox(L["Next objective with distance"], On("trackerQuestieDistance"), TrackerSetter("trackerQuestieDistance"))
