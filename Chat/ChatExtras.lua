@@ -224,8 +224,8 @@ local function SpamFilter(_, _, message, author, ...)
 end
 
 -- Levels at names ---------------------------------------------------------------------------------
--- Known levels from group, guild, friends, /who and units you look at. Max-level players get no
--- number (at the level cap nearly everyone has it).
+-- Known levels from group, guild, friends, /who and units you look at; your own name too. Max-level
+-- players get no number (at the level cap nearly everyone has it).
 local levels = {}
 
 local function Store(name, level)
@@ -290,7 +290,8 @@ function ns.ChatLevels(text)
     return (text:gsub("(|Hplayer:([^:|]+)[^|]*|h%[)(.-)(%]|h)", function(open, name, shown, close)
         local short = Ambiguate(name, "none")
         local level = levels[short]
-        if not level or level >= MaxLevel() or IsMe(name) then return nil end
+        if IsMe(name) then level = UnitLevel("player") end -- own name: always current, like everyone else's
+        if not level or level >= MaxLevel() then return nil end
         local color = GetQuestDifficultyColor(level)
         local hex = ("|cff%02x%02x%02x"):format(color.r * 255, color.g * 255, color.b * 255)
         return ("%s%s|r:%s%d|r%s"):format(open, shown, hex, level, close)

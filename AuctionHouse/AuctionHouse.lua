@@ -35,7 +35,7 @@ AH.Enabled = Enabled
 
 -- Symbols in text: the mUI font lacks the triangle/check/star glyphs, so small textures instead
 function AH.IconMarkup(name, size, color)
-    local c = ns.PAINTED_ICONS[name] and { 1, 1, 1 } or color or ns.UI.TEXT
+    local c = color or ns.UI.TEXT
     return ("|T%s:%d:%d:0:0:16:16:0:16:0:16:%d:%d:%d|t"):format(ns.IconPath(name), size, size,
         c[1] * 255, c[2] * 255, c[3] * 255)
 end

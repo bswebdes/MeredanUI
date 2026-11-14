@@ -70,6 +70,7 @@ Loot/LootRoll.lua
 Loot/Fishing.lua
 Loot/Sparkle.lua
 Bags/Mail.lua
+Skins/Kit.lua
 Skins/Dialogs.lua
 Skins/Communities.lua
 Skins/ReadyCheck.lua

@@ -1,5 +1,5 @@
 -- Game menu (Esc) in mUI style: dark background with a Surf Green top line, title in mUI font,
--- flat dark buttons instead of Blizzard's red ones, plus a "mUI Settings" button on top.
+-- bevel buttons instead of Blizzard's red ones, plus a "mUI Settings" button on top.
 -- Visual only: Blizzard's buttons keep text, click and order; their red parts are hidden.
 -- Our button is inserted via layoutIndex 0.
 local _, ns = ...
@@ -19,57 +19,27 @@ local function Fonts()
     fontDisabled:SetTextColor(0.45, 0.45, 0.43)
 end
 
--- Reskin a Blizzard button (from the pool) once
+-- Reskin a Blizzard button (from the pool) once: bevel like mUI's own buttons (Skins/Kit.lua; its
+-- hover watcher survives Blizzard clearing OnEnter/OnLeave on every InitButtons)
 local function SkinButton(b)
     if skinned[b] then return end
     skinned[b] = true
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Right", "Center" }) do
-        if b[key] then b[key]:SetAlpha(0) end
-    end
-    local highlight = b:GetHighlightTexture()
-    if highlight then highlight:SetAlpha(0) end
-    local bg = b:CreateTexture(nil, "BACKGROUND", nil, -8)
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(UI.FIELD))
-    b.muiBg = bg
-    ns.AddBorder(b)
+    ns.SkinKit.Button(b)
     b:SetNormalFontObject(fontNormal)
     b:SetHighlightFontObject(fontNormal)
     b:SetDisabledFontObject(fontDisabled)
     b:SetPushedTextOffset(0, -1)
 end
 
--- Hover colour: Blizzard's AddButton clears OnEnter/OnLeave on every InitButtons (each time the menu
--- opens), so hooked scripts vanish after the first open. A watcher of our own checks the mouse
--- instead, only while the menu is shown.
-local function UpdateHover(menu)
-    local UI = ns.UI
-    local function Paint(b)
-        if b and b.muiBg then
-            local hover = b:IsEnabled() and b:IsMouseOver()
-            if b.muiHover ~= hover then
-                b.muiHover = hover
-                b.muiBg:SetColorTexture(unpack(hover and UI.HOVER or UI.FIELD))
-            end
-        end
-    end
-    for _, b in ipairs(menu.buttons or {}) do Paint(b) end
-    Paint(menu.closeButton)
-end
-
 local function SkinFrame(menu)
     if menu.muiSkinned then return end
     menu.muiSkinned = true
     local UI = ns.UI
-    local watcher = CreateFrame("Frame", nil, menu)
-    watcher:SetScript("OnUpdate", function() UpdateHover(menu) end)
     if menu.Border then menu.Border:SetAlpha(0) end
     if menu.Header then menu.Header:SetAlpha(0) end
     UI.Box(menu, ns.STYLE.panelColor, true)
     ns.RuneFrame(menu)
-    local title = UI.Text(menu, 15, "CENTER")
-    ns.SetFont(title, 15, "", "bold")
+    local title = UI.Title(menu, 16, "CENTER") -- window titles are Cinzel in the rune look
     title:SetPoint("TOP", 0, -16)
     title:SetText(MAINMENU_BUTTON or L["Game menu"])
 end
@@ -97,13 +67,11 @@ local function Hook()
         local width = 200
         for _, b in ipairs(menu.buttons or {}) do
             SkinButton(b)
-            b.muiHover = nil
             b:SetHeight(BUTTON_H)
             width = math.max(width, b:GetWidth())
         end
         if menu.closeButton then
             SkinButton(menu.closeButton)
-            menu.closeButton.muiHover = nil
             menu.closeButton:SetHeight(BUTTON_H)
         end
         button:SetSize(width, BUTTON_H)

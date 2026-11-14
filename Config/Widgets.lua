@@ -353,7 +353,7 @@ end
 function UI.IconButton(parent, name, onClick, size)
     local button = CreateFrame("Button", nil, parent)
     button:SetSize(size or 24, size or 24)
-    -- no box: the (painted) icon stands on its own and brightens on hover
+    -- no box: the icon stands on its own and turns accent on hover
     local icon = UI.Icon(button, name, (size or 24) - 4)
     icon:SetPoint("CENTER")
     button.icon = icon
@@ -378,7 +378,7 @@ end
 -- yOffset: positive = higher. Next to text, icons otherwise sit too low: for 11-13 px icons and
 -- the normal mUI font use 1-2 (13 px clock in the tracker: 1; 0 too low, 2 too high).
 function UI.IconMarkup(name, size, color, yOffset)
-    local c = ns.PAINTED_ICONS[name] and { 1, 1, 1 } or color or UI.TEXT
+    local c = color or UI.TEXT
     return ("|T%s:%d:%d:0:%d:64:64:0:64:0:64:%d:%d:%d|t"):format(ns.IconPath(name), size or 12, size or 12,
         yOffset or 0, c[1] * 255, c[2] * 255, c[3] * 255)
 end

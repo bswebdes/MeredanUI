@@ -477,44 +477,6 @@ end
 -- Window frame (building block B8): the deep shell around the window with a translucent dark rim
 -- outside it, no corner ornaments. Call after the background (UI.Box with noBorder).
 -- opts.small: menus, tooltips, dialogs (narrower band and rim). opts.target: visible area.
--- Surface (building block B15) for bars and panes without a full frame (info bar, chat, tracker):
--- a dark warm plate behind region (padX/padY around it), a black line on top and under it an edge
--- lit in the frame material that fades out to both ends. Returns the plate frame.
-function ns.AddSurface(region, padX, padY)
-    local px = ns.PixelSize()
-    local m = ns.Material()
-    padX, padY = ns.Snap(padX or 0), ns.Snap(padY or 0)
-    local plate = CreateFrame("Frame", nil, region)
-    plate:SetFrameLevel(math.max(region:GetFrameLevel() - 1, 0))
-    plate:SetPoint("TOPLEFT", region, "TOPLEFT", -padX, padY)
-    plate:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", padX, -padY)
-    local bg = plate:CreateTexture(nil, "BACKGROUND")
-    bg:SetTexture(WHITE)
-    bg:SetAllPoints()
-    bg:SetGradient("VERTICAL", CreateColor(0.047, 0.039, 0.027, 0.9), CreateColor(0.094, 0.075, 0.051, 0.9))
-    local black = plate:CreateTexture(nil, "BORDER")
-    black:SetColorTexture(0, 0, 0, 0.9)
-    black:SetPoint("BOTTOMLEFT", plate, "TOPLEFT")
-    black:SetPoint("BOTTOMRIGHT", plate, "TOPRIGHT")
-    black:SetHeight(px)
-    -- lit edge: brightest in the middle, fading out to both ends
-    local r, g, b = m.lit[1], m.lit[2], m.lit[3]
-    local function Seg(layer)
-        local t = plate:CreateTexture(nil, layer)
-        t:SetTexture(WHITE)
-        t:SetHeight(px)
-        return t
-    end
-    local left, right = Seg("BORDER"), Seg("BORDER")
-    left:SetPoint("TOPLEFT")
-    left:SetPoint("TOPRIGHT", plate, "TOP", 0, 0)
-    right:SetPoint("TOPRIGHT")
-    right:SetPoint("TOPLEFT", plate, "TOP", 0, 0)
-    left:SetGradient("HORIZONTAL", CreateColor(r, g, b, 0), CreateColor(r, g, b, 1))
-    right:SetGradient("HORIZONTAL", CreateColor(r, g, b, 1), CreateColor(r, g, b, 0))
-    return plate
-end
-
 -- How far the window frame reaches beyond the window (band, lines, rim): things docked outside a
 -- window (side tabs, detail panes) keep clear of it
 function ns.WindowFrameReach()
@@ -1097,61 +1059,14 @@ function ns.CreateRunes(parent, height, width)
     return element
 end
 
--- Painted icons (Media/IconsPainted/<name>.tga, full colour): used instead of the flat white icon of
--- the same name and never tinted (tinting multiplies and would discolour them).
--- Flat icons whose colour carries meaning (state, distance) or that are tiny primitives stay flat
-ns.FLAT_ICONS = { Check = true, ChevronDown = true, Minus = true, Plus = true, Square = true, Diamond = true,
-    Navigation = true, Entrance = true }
--- Painted icons (Media/IconsPainted) are switched off: at UI sizes the flat ones read better and
--- take colour (class, state, hover). Names listed here would use the painted version again.
-ns.PAINTED_ICONS = {}
 function ns.IconPath(name)
-    return ns.MEDIA .. (ns.PAINTED_ICONS[name] and "IconsPainted\\" or "Icons\\") .. name
+    return ns.MEDIA .. "Icons\\" .. name
 end
 
--- Set an icon texture by name. Painted icons keep their own colours: tinting calls (hover, state
--- colours) only pass the alpha through while a painted icon is shown.
--- Hover/active states tint icons in the accent colour; a painted icon brightens instead (an
--- additive copy on top), any other colour clears that again.
-local function IsAccent(r, g, b)
-    local c = ns.UI and ns.UI.ACCENT
-    return c and type(r) == "number" and math.abs(r - c[1]) < 0.01 and math.abs(g - c[2]) < 0.01
-        and math.abs(b - c[3]) < 0.01
-end
-
--- flat = true keeps the flat icon (e.g. the emote bar stays flat as a whole)
-function ns.SetIcon(tex, name, flat)
-    if not tex.muiTintGuard then
-        tex.muiTintGuard = true
-        local setColor = tex.SetVertexColor
-        tex.SetVertexColor = function(self, r, g, b, a)
-            if self.muiPainted then
-                local glow = self.muiGlow
-                if IsAccent(r, g, b) then
-                    if not glow then
-                        local layer, sub = self:GetDrawLayer()
-                        glow = self:GetParent():CreateTexture(nil, layer, nil, math.min((sub or 0) + 1, 7))
-                        glow:SetAllPoints(self)
-                        glow:SetBlendMode("ADD")
-                        glow:SetAlpha(0.35)
-                        self.muiGlow = glow
-                    end
-                    glow:SetTexture(self:GetTexture())
-                    glow:SetShown(self:IsShown())
-                elseif glow then
-                    glow:Hide()
-                end
-                return setColor(self, 1, 1, 1, a)
-            end
-            if self.muiGlow then self.muiGlow:Hide() end
-            return setColor(self, r, g, b, a)
-        end
-        -- the glow follows the icon's visibility
-        hooksecurefunc(tex, "Hide", function(self) if self.muiGlow then self.muiGlow:Hide() end end)
-    end
-    tex.muiPainted = not flat and ns.PAINTED_ICONS[name] or nil
-    tex:SetTexture(tex.muiPainted and ns.IconPath(name) or ns.MEDIA .. "Icons\\" .. name)
-    if tex.muiPainted then tex:SetVertexColor(1, 1, 1) end
+-- Set an icon texture by name (flat white icons from Media/Icons, tinted by the caller).
+-- The third argument (flat) is left over from painted icons and ignored.
+function ns.SetIcon(tex, name)
+    tex:SetTexture(ns.IconPath(name))
 end
 
 -- Status icon (Media/Icons/<name>.tga, white) tinted in color, with a dark drop shadow

@@ -16,13 +16,9 @@
 --
 -- Rules as in Skins/Communities.lua: art only via SetAlpha(0) or recolor, no SetScript, no SetText on
 -- Blizzard's edit boxes, no ScrollBox view changes (stride/padding stay Blizzard's). Blizzard sets
--- OnEnter/OnLeave on Edit/Delete/New on every update, so hover looks use HIGHLIGHT textures only.
+-- OnEnter/OnLeave on Edit/Delete/New on every update; the skin kit's hover watcher handles that.
 local _, ns = ...
 
-local WHITE = "Interface\\Buttons\\WHITE8X8"
-local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
-local INPUT = { 0.04, 0.04, 0.05, 1 }
-local BOX = { 0, 0, 0, 0.25 }
 local PAD, ICON = 18, 46
 local WIDTH = 740
 local TOOLBAR_TOP = PAD + ICON + 14  -- 78
@@ -34,9 +30,7 @@ local TEXT_TOP = CONTENT_TOP + ICON + 32
 
 local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
-local selectedEdges = setmetatable({}, { __mode = "k" })
 local frame, subtitle
-local fonts
 local applied = false
 
 local function Enabled()
@@ -72,37 +66,6 @@ local function Tex(parent, layer, sublevel, color)
     return tex
 end
 
--- 1 px outer border around target (textures on parent)
-local function Edges(parent, target, color, layer)
-    local px = ns.PixelSize()
-    local c = color or BLACK
-    local edges = {}
-    for i = 1, 4 do
-        local edge = parent:CreateTexture(nil, layer or "BORDER")
-        edge:SetTexture(WHITE)
-        edge:SetVertexColor(c[1], c[2], c[3], c[4] or 1)
-        edge:SetSnapToPixelGrid(false)
-        edge:SetTexelSnappingBias(0)
-        own[edge] = true
-        edges[i] = edge
-    end
-    edges[1]:SetPoint("TOPLEFT", target, "TOPLEFT", -px, px)
-    edges[1]:SetPoint("BOTTOMRIGHT", target, "TOPRIGHT", px, 0)
-    edges[2]:SetPoint("TOPLEFT", target, "BOTTOMLEFT", -px, 0)
-    edges[2]:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", px, -px)
-    edges[3]:SetPoint("TOPLEFT", target, "TOPLEFT", -px, 0)
-    edges[3]:SetPoint("BOTTOMRIGHT", target, "BOTTOMLEFT", 0, 0)
-    edges[4]:SetPoint("TOPLEFT", target, "TOPRIGHT", 0, 0)
-    edges[4]:SetPoint("BOTTOMRIGHT", target, "BOTTOMRIGHT", px, 0)
-    return edges
-end
-
-local function Border(target, inside, thickness)
-    local edges = ns.AddBorder(target, inside, thickness)
-    for _, edge in ipairs(edges) do own[edge] = true end
-    return edges
-end
-
 -- Background + border + Surf Green top line
 local function Panel(target)
     local c = ns.STYLE.panelColor
@@ -111,127 +74,10 @@ local function Panel(target)
     ns.RuneFrame(target)
 end
 
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, base, color)
-        local font = CreateFont(name)
-        font:CopyFontObject(base)
-        font:SetTextColor(color[1], color[2], color[3])
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUIMacroButton", GameFontHighlight, UI.TEXT),
-        highlight = Make("MeredanUIMacroButtonHighlight", GameFontHighlight, UI.ACCENT),
-        disabled = Make("MeredanUIMacroButtonDisabled", GameFontDisable, UI.MUTED),
-        tab = Make("MeredanUIMacroTab", GameFontHighlight, UI.MUTED),
-        tabActive = Make("MeredanUIMacroTabActive", GameFontHighlight, UI.ACCENT),
-    }
-    return fonts
-end
+-- Controls: the shared skin kit (Skins/Kit.lua) gives Blizzard's widgets the rune look --------------
+local Kit = ns.SkinKit
 
-local BUTTON_TEXTURES = { "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture",
-    "GetCheckedTexture", "GetDisabledCheckedTexture" }
-local function FadeButtonTextures(button, keep)
-    for _, getter in ipairs(BUTTON_TEXTURES) do
-        local fn = button[getter]
-        local tex = fn and fn(button)
-        if tex and tex ~= keep then Fade(tex) end
-    end
-end
-
--- Controls ---------------------------------------------------------------------------------------
-
--- flat button (UIPanelButtonTemplate); hover via HIGHLIGHT layer (no scripts, see header)
-local function SkinButton(button)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    -- hover below the label (a HIGHLIGHT-layer texture drew over the edit button's text)
-    local hover = Tex(button, "BACKGROUND", -7, UI.HOVER)
-    hover:SetAllPoints()
-    hover:Hide()
-    button:HookScript("OnEnter", function(self) if self:IsEnabled() then hover:Show() end end)
-    button:HookScript("OnLeave", function() hover:Hide() end)
-    Border(button)
-    if button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
-
-local function SkinIconButton(button, iconName, iconSize)
-    if type(button) ~= "table" or not Once(button) then return end
-    local UI = ns.UI
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", 4, -4)
-    bg:SetPoint("BOTTOMRIGHT", -4, 4)
-    Edges(button, bg)
-    local icon = UI.Icon(button, iconName, iconSize or 14)
-    own[icon] = true
-    icon:SetPoint("CENTER", bg)
-    button:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
-end
-
-local function SkinDropdown(dropdown)
-    if type(dropdown) ~= "table" or not dropdown.GetRegions or not Once(dropdown) then return end
-    local UI = ns.UI
-    Fade(dropdown.Background)
-    Fade(dropdown.Arrow)
-    local bg = Tex(dropdown, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    Edges(dropdown, bg)
-    local arrow = UI.Icon(dropdown, "ChevronDown", 10, UI.MUTED)
-    own[arrow] = true
-    arrow:SetPoint("RIGHT", -8, 0)
-    local hover = Tex(dropdown, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints(bg)
-end
-
-local function SkinScrollBar(bar)
-    if type(bar) ~= "table" or not bar.Track or not Once(bar) then return end
-    local UI = ns.UI
-    Fade(bar.Background)
-    local track = bar.Track
-    FadeRegions(track)
-    local line = Tex(track, "BACKGROUND", 0, { 1, 1, 1, 0.06 })
-    line:SetPoint("TOP")
-    line:SetPoint("BOTTOM")
-    line:SetWidth(3)
-    local thumb = track.Thumb or (bar.GetThumb and bar:GetThumb())
-    if type(thumb) == "table" and thumb.GetRegions then
-        FadeRegions(thumb)
-        local grip = Tex(thumb, "OVERLAY", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 1 })
-        grip:SetPoint("TOP")
-        grip:SetPoint("BOTTOM")
-        grip:SetWidth(3)
-        grip:SetAlpha(0.8)
-        thumb:HookScript("OnEnter", function() grip:SetWidth(5) grip:SetAlpha(1) end)
-        thumb:HookScript("OnLeave", function() grip:SetWidth(3) grip:SetAlpha(0.8) end)
-    end
-    for key, rotation in pairs({ Back = math.pi, Forward = 0 }) do
-        local stepper = bar[key]
-        if type(stepper) == "table" and stepper.GetRegions then
-            FadeRegions(stepper)
-            Fade(stepper.Texture)
-            local icon = UI.Icon(stepper, "ChevronDown", 12, UI.MUTED)
-            own[icon] = true
-            icon:SetPoint("CENTER")
-            icon:SetRotation(rotation)
-            stepper:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-            stepper:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.MUTED)) end)
-        end
-    end
-end
+local function SkinButton(button) Kit.Button(button) end
 
 local function HookScrollBox(box, fn)
     if type(box) ~= "table" or not box.ForEachFrame or not Once(box) then return end
@@ -241,53 +87,18 @@ local function HookScrollBox(box, fn)
     Each()
 end
 
--- Name edit box in the icon popup: dark field, Surf Green border on focus
-local function SkinEditBox(box, regions)
-    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") or not Once(box) then return end
-    local UI = ns.UI
-    for _, key in ipairs(regions) do Fade(box[key]) end
-    local bg = Tex(box, "BACKGROUND", -8, INPUT)
-    bg:SetPoint("TOPLEFT", -6, 4)
-    bg:SetPoint("BOTTOMRIGHT", 2, -4)
-    local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
-    local edges = Edges(box, bg, IDLE)
-    box:HookScript("OnEditFocusGained", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    box:HookScript("OnEditFocusLost", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
-    end)
-end
-
--- Macro / icon slot (SelectorButtonTemplate): dark slot, cropped icon, Surf Green border when selected
+-- Macro / icon slot (SelectorButtonTemplate): item frame, accent outline when selected
 local function UpdateSlot(button)
-    local edges = selectedEdges[button]
-    if not edges then return end
     local on = button.SelectedTexture and button.SelectedTexture:IsShown() and true or false
-    for _, edge in ipairs(edges) do edge:SetShown(on) end
+    Kit.SetSlotSelected(button, on)
     Fade(button.SelectedTexture)
 end
 
 local function SkinSlot(button)
     if type(button) ~= "table" or not button.Icon or not Once(button) then return end
-    local UI = ns.UI
     FadeRegions(button, { [button.Icon] = true })
     Fade(button.Highlight)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    Border(button)
-    button.Icon:ClearAllPoints()
-    button.Icon:SetPoint("TOPLEFT", 1, -1)
-    button.Icon:SetPoint("BOTTOMRIGHT", -1, 1)
-    button.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    local hover = Tex(button, "HIGHLIGHT", 0, { 1, 1, 1, 0.12 })
-    hover:SetAllPoints()
-    local edges = Border(button, true, 2)
-    for _, edge in ipairs(edges) do
-        edge:SetVertexColor(unpack(UI.ACCENT))
-        edge:SetDrawLayer("OVERLAY", 7)
-    end
-    selectedEdges[button] = edges
+    Kit.Slot(button, button.Icon)
     if button.UpdateSelectedTexture then hooksecurefunc(button, "UpdateSelectedTexture", UpdateSlot) end
     if button.SelectedTexture then
         hooksecurefunc(button.SelectedTexture, "SetShown", function() UpdateSlot(button) end)
@@ -295,43 +106,15 @@ local function SkinSlot(button)
     UpdateSlot(button)
 end
 
--- Tabs (General / Character): flat buttons in the toolbar; active one Surf Green.
+-- Tabs (General / Character): rune-look tabs, the active one with a gem.
 -- Blizzard disables the selected tab (and both while the icon popup is open).
-local tabParts = setmetatable({}, { __mode = "k" })
-local function SkinTab(tab)
-    if type(tab) ~= "table" or not Once(tab) then return end
-    local UI = ns.UI
-    FadeRegions(tab)
-    local bg = Tex(tab, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    local hover = Tex(tab, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints()
-    Border(tab)
-    local active = Border(tab, true, 2)
-    for _, edge in ipairs(active) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-    tabParts[tab] = active
-end
-
 local function UpdateTabs()
     if not frame then return end
     local selected = PanelTemplates_GetSelectedTab(frame)
-    local f = Fonts()
     for i, tab in ipairs({ _G.MacroFrameTab1, _G.MacroFrameTab2 }) do
-        local edges = tabParts[tab]
-        if edges then
-            local on = selected == i
-            for _, edge in ipairs(edges) do edge:SetShown(on) end
-            FadeRegions(tab)
-            local font = on and f.tabActive or f.tab
-            tab:SetNormalFontObject(font)
-            tab:SetDisabledFontObject(font)
-            tab:SetHighlightFontObject(f.tabActive)
-            if tab.Text then
-                tab.Text:ClearAllPoints()
-                tab.Text:SetPoint("LEFT", 10, 0)
-                tab.Text:SetPoint("RIGHT", -10, 0)
-            end
-            tab:SetSize(160, 28)
+        if tab then
+            tab:SetHeight(28)
+            Kit.SetTabActive(tab, selected == i)
         end
     end
     if subtitle then
@@ -444,7 +227,7 @@ local function Reposition(opening)
     end
 end
 
--- Icon popup (name + icon choice): flat panel like mUI windows
+-- Icon popup (name + icon choice): framed panel like mUI windows
 local function SkinPopup(popup)
     if type(popup) ~= "table" or not Once(popup) then return end
     Fade(popup.BG)
@@ -454,16 +237,25 @@ local function SkinPopup(popup)
         Fade(border.NineSlice)
         SkinButton(border.OkayButton)
         SkinButton(border.CancelButton)
-        SkinDropdown(border.IconTypeDropdown)
-        SkinEditBox(border.IconSelectorEditBox,
-            { "IconSelectorPopupNameLeft", "IconSelectorPopupNameMiddle", "IconSelectorPopupNameRight" })
+        Kit.Dropdown(border.IconTypeDropdown)
+        local edit = border.IconSelectorEditBox
+        if edit then
+            for _, key in ipairs({ "IconSelectorPopupNameLeft", "IconSelectorPopupNameMiddle", "IconSelectorPopupNameRight" }) do
+                Fade(edit[key])
+            end
+            local field = CreateFrame("Frame", nil, edit)
+            field:SetPoint("TOPLEFT", -6, 4)
+            field:SetPoint("BOTTOMRIGHT", 2, -4)
+            field:SetFrameLevel(math.max(edit:GetFrameLevel() - 1, 0))
+            Kit.Field(field, edit)
+        end
         local area = border.SelectedIconArea
         if area and area.SelectedIconButton then SkinSlot(area.SelectedIconButton) end
     end
     Panel(popup)
     local selector = popup.IconSelector
     if selector then
-        SkinScrollBar(selector.ScrollBar)
+        Kit.ScrollBar(selector.ScrollBar)
         HookScrollBox(selector.ScrollBox, SkinSlot)
     end
 end
@@ -484,19 +276,17 @@ local function SkinShell(f)
     if f.Inset then Fade(f.Inset.Bg) Fade(f.Inset.NineSlice) end
     Panel(f)
 
-    -- Header like mUI windows
+    -- Header like mUI windows: framed icon, Cinzel title, divider below
     local holder = CreateFrame("Frame", nil, f)
     holder:SetSize(ICON, ICON)
     holder:SetPoint("TOPLEFT", PAD, -PAD)
     ns.AddSlotBackground(holder)
-    ns.AddBorder(holder)
+    ns.AddItemFrame(holder, nil, 2)
     local portrait = holder:CreateTexture(nil, "ARTWORK")
-    portrait:SetPoint("TOPLEFT", 1, -1)
-    portrait:SetPoint("BOTTOMRIGHT", -1, 1)
+    ns.InsetItemIcon(holder, portrait, nil, 2)
     portrait:SetTexture("Interface\\MacroFrame\\MacroFrame-Icon")
     portrait:SetTexCoord(0.12, 0.88, 0.12, 0.88)
-    local title = UI.Text(holder, 16, "LEFT")
-    ns.SetFont(title, 16, "", "bold")
+    local title = UI.Title(holder, 17, "LEFT")
     title:SetPoint("TOPLEFT", holder, "TOPRIGHT", 14, -6)
     title:SetPoint("RIGHT", f, "RIGHT", -PAD - 36, 0)
     title:SetText(MACROS or CREATE_MACROS or "")
@@ -504,6 +294,9 @@ local function SkinShell(f)
     subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -5)
     subtitle:SetPoint("RIGHT", title, "RIGHT")
     subtitle:SetWordWrap(false)
+    local divider = UI.Divider(f)
+    divider:SetPoint("TOPLEFT", PAD, -(PAD + ICON - 3))
+    divider:SetPoint("TOPRIGHT", -PAD, -(PAD + ICON - 3))
 
     local header = CreateFrame("Frame", nil, f)
     header:SetPoint("TOPLEFT")
@@ -513,22 +306,24 @@ local function SkinShell(f)
 
     local close = f.CloseButton or _G.MacroFrameCloseButton
     if close then
-        SkinIconButton(close, "Close", 18)
-        close:SetSize(34, 34)
+        Kit.IconButton(close, "Close", 22)
+        close:SetSize(26, 26)
         close:ClearAllPoints()
-        close:SetPoint("TOPRIGHT", -(PAD - 4), -(PAD - 4))
+        close:SetPoint("TOPRIGHT", -PAD, -PAD)
     end
 
-    SkinTab(_G.MacroFrameTab1)
-    SkinTab(_G.MacroFrameTab2)
+    Kit.Tab(_G.MacroFrameTab1)
+    Kit.Tab(_G.MacroFrameTab2)
+    if _G.MacroFrameTab1 then UI.TabBaseline(f, _G.MacroFrameTab1, PAD) end
 
-    -- Macro grid in a dark box
+    -- Macro grid set into the window
     local selector = f.MacroSelector
     if selector then
-        local box = Tex(f, "BACKGROUND", -7, BOX)
-        box:SetAllPoints(selector)
-        Edges(f, box)
-        SkinScrollBar(selector.ScrollBar)
+        local inset = CreateFrame("Frame", nil, f)
+        inset:SetAllPoints(selector)
+        inset:SetFrameLevel(math.max(selector:GetFrameLevel() - 1, 0))
+        Kit.Inset(inset)
+        Kit.ScrollBar(selector.ScrollBar)
         HookScrollBox(selector.ScrollBox, SkinSlot)
     end
 
@@ -542,29 +337,20 @@ local function SkinShell(f)
     local count = _G.MacroFrameCharLimitText
     if count then count:SetTextColor(unpack(UI.MUTED)) end
 
-    -- Text area: dark field, light border, larger font
+    -- Text area: sunk field (groove), accent outline while typing, larger font
     local box = _G.MacroFrameTextBackground
+    local text = _G.MacroFrameText
     if box then
         Fade(box.NineSlice)
         FadeRegions(box)
-        local bg = Tex(box, "BACKGROUND", -8, INPUT)
-        bg:SetAllPoints()
-        local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
-        local edges = Edges(box, bg, IDLE)
-        local text = _G.MacroFrameText
-        if text then
-            text:SetFont(ns.STYLE.font, ns.FontPx(13), "")
-            text:SetTextColor(unpack(UI.TEXT))
-            text:HookScript("OnEditFocusGained", function()
-                for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-            end)
-            text:HookScript("OnEditFocusLost", function()
-                for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
-            end)
-        end
+        Kit.Field(box, text)
+    end
+    if text then
+        text:SetFont(ns.STYLE.font, ns.FontPx(13), "")
+        text:SetTextColor(unpack(UI.TEXT))
     end
     local scroll = _G.MacroFrameScrollFrame
-    if scroll then SkinScrollBar(scroll.ScrollBar) end
+    if scroll then Kit.ScrollBar(scroll.ScrollBar) end
 
     for _, button in ipairs({ _G.MacroEditButton, _G.MacroDeleteButton, _G.MacroNewButton,
         _G.MacroSaveButton, _G.MacroCancelButton }) do
