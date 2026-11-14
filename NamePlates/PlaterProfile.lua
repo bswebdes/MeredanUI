@@ -1,11 +1,11 @@
 -- Plater in the mUI look - only through Plater's own profile settings (Plater.db.profile):
--- mUI font for every text, the flat mUI bar texture for health and cast bars on a faint dark
--- background, 1 px black border. Sizes, colours and Plater's logic stay Plater's.
+-- mUI font for every text, the shaded bar of the rune look for health and cast bars on a faint
+-- dark background, 1 px black border (like mUI's plates: a very thin frame). Sizes, colours and Plater's logic stay Plater's.
 -- Set once per character (ns.char.platerProfile); afterwards Plater's options decide.
 -- Switch: ns.db.platerStyle (Nameplates page, only while Plater is active).
 local _, ns = ...
 
-local PROFILE_VERSION = 5
+local PROFILE_VERSION = 6
 local BAR_BG = { 0, 0, 0, 0.5 }
 
 -- Every font setting Plater knows (keys ending in "_font", found in its defaults) -> "mUI"
@@ -29,11 +29,12 @@ function ns.ApplyPlaterProfile(force)
     if type(_G.PLATER_DEFAULT_SETTINGS) == "table" and _G.PLATER_DEFAULT_SETTINGS.profile then
         SetFonts(_G.PLATER_DEFAULT_SETTINGS.profile, profile)
     end
-    profile.health_statusbar_texture = ns.DEFAULT_TEXTURE
+    local shade = ns.SHADE_TEXTURE or ns.DEFAULT_TEXTURE
+    profile.health_statusbar_texture = shade
     profile.health_statusbar_bgtexture = ns.DEFAULT_TEXTURE
     profile.health_statusbar_bgcolor = BAR_BG
     profile.health_selection_overlay = ns.DEFAULT_TEXTURE
-    profile.cast_statusbar_texture = ns.DEFAULT_TEXTURE
+    profile.cast_statusbar_texture = shade
     profile.cast_statusbar_bgtexture = ns.DEFAULT_TEXTURE
     profile.cast_statusbar_bgcolor = BAR_BG
     profile.border_color = { 0, 0, 0, 1 }

@@ -7,9 +7,9 @@
 local _, ns = ...
 local BigWigs, BigWigsAPI -- globals of BigWigs, read when needed
 
-local STYLE, PROFILE_VERSION = "MeredanUI", 5
+local STYLE, PROFILE_VERSION = "MeredanUI", 6
 local BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 22, 260, 26
-local ICON_GAP, ABOVE_GAP = 4, 16
+local ICON_GAP, ABOVE_GAP = 8, 16 -- icon gap clear of the bar shell and the icon frame
 -- Spots Benny dragged in BigWigs (2026-11-10, 1920x1080): messages from 122 px below the top
 -- (where Blizzard's error text starts), big bars from 269 px below the top, boss auras on you to
 -- the right of the big bars (same height, growing right), countdown numbers 175 px below the top
@@ -18,7 +18,8 @@ local AURAS_X, AURAS_TOP, COUNTDOWN_TOP = 168, 268, 175
 
 local function Styled() return ns.db and ns.db.bigwigsStyle ~= false end
 
--- Bar style: flat panel with a 1 px black border, cropped icon with its own border, texts inside
+-- Bar style (rune look): shaded bar in a thin deep shell, icon in an item frame, texts inside.
+-- Bars are pooled and may switch styles: our extra regions are made once and shown/hidden.
 local function Backdrop()
     local px = ns.PixelSize()
     return { bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = px,
@@ -28,6 +29,8 @@ end
 local function RemoveStyle(bar)
     bar.candyBarBackdrop:Hide()
     bar.candyBarIconFrameBackdrop:Hide()
+    if bar.muiShell then bar.muiShell:Hide() end
+    if bar.muiIconHolder then bar.muiIconHolder:Hide() end
     local statusbar = bar.candyBarBar
     for _, text in ipairs({ bar.candyBarLabel, bar.candyBarDuration }) do
         text:ClearAllPoints()
@@ -50,7 +53,7 @@ local function ApplyStyle(bar)
     bd:ClearAllPoints()
     bd:SetBackdrop(backdrop)
     bd:SetBackdropColor(panel[1], panel[2], panel[3], 0.9)
-    bd:SetBackdropBorderColor(0, 0, 0, 1)
+    bd:SetBackdropBorderColor(0, 0, 0, 0) -- the shell frames the bar
 
     local reApplyIcon
     local iconFrame, iconBd = bar.candyBarIconFrame, bar.candyBarIconFrameBackdrop
@@ -63,18 +66,34 @@ local function ApplyStyle(bar)
     iconFrame:ClearAllPoints()
     iconBd:ClearAllPoints()
     statusbar:ClearAllPoints()
-    iconFrame:SetSize(height, height)
+    -- icon in an item frame: the holder takes the icon's spot, the icon sits inside it
+    local holder = bar.muiIconHolder
+    if not holder then
+        holder = CreateFrame("Frame", nil, bar)
+        ns.AddItemFrame(holder, nil, 2)
+        bar.muiIconHolder = holder
+    end
+    holder:ClearAllPoints()
+    holder:SetSize(height, height)
+    holder:SetFrameLevel(bar:GetFrameLevel() + 2)
     if bar:GetIconPosition() == "RIGHT" then
-        iconFrame:SetPoint("RIGHT", bar, "RIGHT", 0, 0)
+        holder:SetPoint("RIGHT", bar, "RIGHT", 0, 0)
         statusbar:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
-        statusbar:SetPoint("BOTTOMRIGHT", bar:IsIconVisible() and iconFrame or bar,
+        statusbar:SetPoint("BOTTOMRIGHT", bar:IsIconVisible() and holder or bar,
             bar:IsIconVisible() and "BOTTOMLEFT" or "BOTTOMRIGHT", bar:IsIconVisible() and -ICON_GAP or 0, 0)
     else
-        iconFrame:SetPoint("LEFT", bar, "LEFT", 0, 0)
+        holder:SetPoint("LEFT", bar, "LEFT", 0, 0)
         statusbar:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, 0)
-        statusbar:SetPoint("TOPLEFT", bar:IsIconVisible() and iconFrame or bar,
+        statusbar:SetPoint("TOPLEFT", bar:IsIconVisible() and holder or bar,
             bar:IsIconVisible() and "TOPRIGHT" or "TOPLEFT", bar:IsIconVisible() and ICON_GAP or 0, 0)
     end
+    ns.InsetItemIcon(holder, iconFrame, nil, 2)
+    holder:SetShown(bar:IsIconVisible())
+    if not bar.muiShell then
+        local _, shell = ns.AddDeepShell(statusbar, ns.Snap(1), { shadow = 6, parent = bar })
+        bar.muiShell = shell
+    end
+    bar.muiShell:Show()
     -- frame one pixel outside the bar so the fill doesn't cover the border; dark mUI field behind
     local px = ns.PixelSize()
     bd:SetPoint("TOPLEFT", statusbar, "TOPLEFT", -px, px)
@@ -85,12 +104,7 @@ local function ApplyStyle(bar)
         bar.candyBarBackground:SetVertexColor(panel[1], panel[2], panel[3], 0.9)
     end
 
-    iconBd:SetBackdrop(backdrop)
-    iconBd:SetBackdropColor(0, 0, 0, 0)
-    iconBd:SetBackdropBorderColor(0, 0, 0, 1)
-    iconBd:SetPoint("TOPLEFT", iconFrame, "TOPLEFT", -px, px)
-    iconBd:SetPoint("BOTTOMRIGHT", iconFrame, "BOTTOMRIGHT", px, -px)
-    iconBd:SetShown(bar:IsIconVisible())
+    iconBd:Hide() -- the item frame replaces BigWigs' icon border
     if reApplyIcon then iconFrame:SetTexture(reApplyIcon) end
     if iconFrame.SetTexCoord then iconFrame:SetTexCoord(0.08, 0.92, 0.08, 0.92) end
 
@@ -147,7 +161,7 @@ function ns.ApplyBigWigsProfile(force)
     if not profile then return end
     ns.char.bigwigsProfile = PROFILE_VERSION
     profile.barStyle = STYLE
-    profile.texture = ns.DEFAULT_TEXTURE
+    profile.texture = ns.SHADE_TEXTURE or ns.DEFAULT_TEXTURE
     profile.fontName, profile.fontSize, profile.fontSizeEmph, profile.outline = "mUI", 12, 13, "OUTLINE"
     profile.normalHeight, profile.expWidth, profile.expHeight = BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT
     profile.growup, profile.emphasizeGrowup = true, false

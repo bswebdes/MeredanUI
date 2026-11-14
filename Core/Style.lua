@@ -87,6 +87,9 @@ for name, file in pairs(STATUSBARS) do
     if LSM then LSM:Register(LSM.MediaType.STATUSBAR, name, path) end
 end
 ns.DEFAULT_TEXTURE_PATH = STATUSBARS[ns.DEFAULT_TEXTURE]
+-- the shaded bar of the rune look, for other addons' texture pickers (Details, BigWigs ...)
+ns.SHADE_TEXTURE = "MeredanUI Shade"
+if LSM then LSM:Register(LSM.MediaType.STATUSBAR, ns.SHADE_TEXTURE, "Interface\\AddOns\\MeredanUI\\Media\\BarShade") end
 
 -- mUI fonts: based on Blue Highway (Raymond Larabie, CC0, renamed). Names/headings "mUI Bold",
 -- body text (chat, tooltips) "mUI Text" with +1% letter spacing, everything else "mUI".

@@ -1,7 +1,8 @@
 -- Bagnon in the mUI look, through Bagnon's own skin API (Bagnon.Skins:Register, see the BagBrother
--- wiki "Skins API"): flat panel with a 1 px black border, mUI fonts, and the inventory where mUI's
--- bags sit (bottom right above the micro menu). Nothing of Bagnon's frames is touched directly;
--- the profile values (skin, colours, position) are Bagnon's own settings.
+-- wiki "Skins API"): mUI's window frame (ns.RuneFrame) around the panel, Cinzel titles, item frames
+-- like mUI's bags, and the inventory where mUI's bags sit (bottom right above the micro menu).
+-- Bagnon's frames get visual regions only; the profile values (skin, colours, position) are
+-- Bagnon's own settings.
 -- Switch: ns.db.bagnonStyle (Bags page, only while Bagnon is active). Like mUI's own windows the
 -- inventory has a fixed spot: set on every login and locked with Bagnon's own lock option.
 local _, ns = ...
@@ -21,8 +22,8 @@ local titleFont, titleFontH
 local function Fonts()
     if titleFont then return end
     titleFont = CreateFont("MeredanUIBagnonTitle")
-    titleFont:SetFont(ns.FontFor("bold"), ns.FontPx(13), "")
-    titleFont:SetTextColor(unpack(ns.UI.TEXT))
+    titleFont:SetFont(ns.FontFor("display"), ns.FontPx(15), "") -- like mUI's window titles
+    titleFont:SetTextColor(unpack(ns.UI.TITLE or ns.UI.TEXT))
     titleFont:SetShadowOffset(1, -1)
     titleFont:SetShadowColor(0, 0, 0, 1)
     titleFontH = CreateFont("MeredanUIBagnonTitleHighlight")
@@ -30,11 +31,12 @@ local function Fonts()
     titleFontH:SetTextColor(unpack(ns.UI.ACCENT))
 end
 
--- Bagnon's colour pickers are ignored on purpose: the mUI panel colour and black border always win
+-- Bagnon's colour pickers are ignored on purpose: the mUI panel colour wins, the window frame
+-- (added once per frame in load) replaces the template's 1 px edges
 local function Paint(bg)
     bg.Center:SetColorTexture(unpack(ns.STYLE.panelColor))
     for _, key in ipairs({ "TopEdge", "BottomEdge", "LeftEdge", "RightEdge" }) do
-        if bg[key] then bg[key]:SetColorTexture(0, 0, 0, 1) end
+        if bg[key] then bg[key]:SetColorTexture(0, 0, 0, 0) end
     end
 end
 
@@ -56,7 +58,8 @@ local function FlatHighlight(button)
     end
 end
 
--- Square icon, dark slot, 1 px border (quality colour, see ColorItem)
+-- Item frame like mUI's bags: fine edge, dark band, icon inside; quality items get a second, inner
+-- edge in their colour (ColorItem). The inner edge sits above the cooldown swipe.
 local function StyleItem(b)
     if b.muiStyled or not Styled() then return end
     b.muiStyled = true
@@ -64,22 +67,36 @@ local function StyleItem(b)
     if normal then normal:SetAlpha(0) end
     if b.IconBorder then b.IconBorder:SetAlpha(0) end
     if b.IconGlow then b.IconGlow:SetAlpha(0) end
-    local icon = b.icon or b.Icon
-    if icon then
-        icon:ClearAllPoints()
-        icon:SetPoint("TOPLEFT", 1, -1)
-        icon:SetPoint("BOTTOMRIGHT", -1, 1)
-    end
     ns.AddSlotBackground(b) -- same empty-slot art as mUI's bags and action bars
-    b.muiEdges = ns.AddBorder(b, true)
+    b.muiEdges = ns.AddItemFrame(b)
+    local icon = b.icon or b.Icon
+    if icon then ns.InsetItemIcon(b, icon) end
     FlatHighlight(b)
 end
 
 local function ColorItem(b)
     if not b.muiEdges then return end
-    local r, g, bl = 0, 0, 0
-    if b.IconBorder and b.IconBorder:IsShown() then r, g, bl = b.IconBorder:GetVertexColor() end
+    local r, g, bl = unpack(ns.ITEM_EDGE)
+    local strong = false
+    if b.IconBorder and b.IconBorder:IsShown() then
+        local qr, qg, qb = b.IconBorder:GetVertexColor()
+        -- grey and white items keep the plain frame
+        if qr and not (math.abs(qr - qg) < 0.05 and math.abs(qg - qb) < 0.05) then
+            r, g, bl, strong = qr, qg, qb, true
+        end
+    end
     for _, edge in ipairs(b.muiEdges) do edge:SetVertexColor(r, g, bl, 1) end
+    -- inner edge only made for buttons that ever show a quality item (the bank has 100+ slots)
+    if strong and not b.muiInner then
+        local inner = CreateFrame("Frame", nil, b)
+        inner:SetAllPoints()
+        inner:SetFrameLevel((b.Cooldown and b.Cooldown:GetFrameLevel() or b:GetFrameLevel()) + 1)
+        b.muiInner = ns.AddBorder(inner, true, 2)
+    end
+    for _, edge in ipairs(b.muiInner or {}) do
+        edge:SetVertexColor(r, g, bl, 1)
+        edge:SetShown(strong)
+    end
 end
 
 local function UpdateItem(b)
@@ -123,15 +140,13 @@ local function StyleButton(b)
     end
     local normal = b:GetNormalTexture()
     if normal then normal:SetAlpha(0) end
-    if b.Bg then b.Bg:SetColorTexture(unpack(ns.UI.FIELD)) end
+    if b.Bg then b.Bg:SetColorTexture(unpack(mui and { 0, 0, 0, 0 } or ns.UI.FIELD)) end
     local icon = b.Icon or b.icon
-    if icon then
+    if not mui and icon then -- header symbols stand on their own (like mUI's icon buttons)
         icon:SetTexCoord(unpack(b.FilterIcon and BAG_CROP or CROP))
-        icon:ClearAllPoints()
-        icon:SetPoint("TOPLEFT", 1, -1)
-        icon:SetPoint("BOTTOMRIGHT", -1, 1)
+        ns.AddItemFrame(b, nil, 2)
+        ns.InsetItemIcon(b, icon, nil, 2)
     end
-    ns.AddBorder(b, true)
     FlatHighlight(b)
     local checked = b.GetCheckedTexture and b:GetCheckedTexture()
     if checked then
@@ -149,19 +164,12 @@ local function StyleClose(close)
         local tex = close[get] and close[get](close)
         if tex then tex:SetAlpha(0) end
     end
-    -- like mUI's own window close button (ns.UI.IconButton): dark box, 1 px border, X
+    -- like mUI's own window close button (ns.UI.IconButton): the X on its own, accent on hover
     close:SetSize(24, 24)
-    local bg = ns.UI.Box(close)
-    local icon = ns.UI.Icon(close, "Close", 16, ns.UI.TEXT)
+    local icon = ns.UI.Icon(close, "Close", 18, ns.UI.TEXT)
     icon:SetPoint("CENTER")
-    close:HookScript("OnEnter", function()
-        bg:SetColorTexture(unpack(ns.UI.HOVER))
-        icon:SetVertexColor(unpack(ns.UI.ACCENT))
-    end)
-    close:HookScript("OnLeave", function()
-        bg:SetColorTexture(unpack(ns.UI.FIELD))
-        icon:SetVertexColor(unpack(ns.UI.TEXT))
-    end)
+    close:HookScript("OnEnter", function() icon:SetVertexColor(unpack(ns.UI.ACCENT)) end)
+    close:HookScript("OnLeave", function() icon:SetVertexColor(unpack(ns.UI.TEXT)) end)
 end
 
 -- Search field: flat mUI input instead of the tooltip backdrop
@@ -270,6 +278,10 @@ local function Register(Bagnon)
         load = function(bg)
             Paint(bg)
             local frame = bg:GetParent()
+            if frame and not frame.muiRune then
+                frame.muiRune = true
+                ns.RuneFrame(frame, { target = bg })
+            end
             if frame and not frame.muiHooked then
                 frame.muiHooked = true
                 frame:HookScript("OnShow", function(self) C_Timer.After(0, function() StyleFrame(self) end) end)
@@ -315,15 +327,16 @@ end
 -- are), bank, vault and guild bank where mUI's bank opens (left, 90 px above the chat)
 local function Place(profile)
     local margin = ns.Snap(ns.SCREEN_MARGIN)
+    local reach = ns.WindowFrameReach() -- the window frame's outer edge sits on the margin
     local inv = profile.inventory
-    if type(inv) == "table" then inv.point, inv.x, inv.y = "BOTTOMRIGHT", -margin, margin + 72 end
+    if type(inv) == "table" then inv.point, inv.x, inv.y = "BOTTOMRIGHT", -margin - reach, margin + 72 + reach end
     local chat = ChatFrame1
     local left, top = chat and chat:GetLeft(), chat and chat:GetTop()
     if not (left and top) then return end
     for _, id in ipairs({ "bank", "vault", "guild" }) do
         local frame = profile[id]
         if type(frame) == "table" then
-            frame.point, frame.x, frame.y = "BOTTOMLEFT", ns.Snap(left), ns.Snap(top + 90)
+            frame.point, frame.x, frame.y = "BOTTOMLEFT", ns.Snap(left) + reach, ns.Snap(top + 90) + reach
         end
     end
 end

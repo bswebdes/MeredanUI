@@ -1,6 +1,6 @@
 -- Details! in the mUI look, through Details' own skin API (Details:InstallSkin, see Details'
--- functions/skins.lua): flat dark panel, 1 px border, mUI fonts and the flat mUI bar texture,
--- class-coloured bars. Built on Details' "ElvUI Style II" values. Applied to every window once per
+-- functions/skins.lua): like mUI's own meter a dark plate in a deep shell behind title and rows,
+-- Cinzel title, shaded class-coloured bars. Built on Details' "ElvUI Style II" values. Applied to every window once per
 -- window (instance.skin) while the switch is on; afterwards Details' own options stay usable.
 -- Window 1 sits where mUI's damage meter sits (top left, same width, 5 rows) and is locked - set on
 -- every login, like mUI's fixed layouts.
@@ -15,27 +15,38 @@ local function Styled() return ns.db and ns.db.detailsStyle ~= false end
 local WIDTH = 335          -- as mUI's damage meter (DamageMeter/DamageMeter.lua)
 local ROW, ROW_GAP = 20, 3
 local ROWS_HEIGHT = 5 * ROW + 4 * ROW_GAP + 4 -- five rows
-local SKIN_VERSION = 5     -- raise when the skin table changes: windows get it again
+local SKIN_VERSION = 6     -- raise when the skin table changes: windows get it again
 -- like mUI's own meter: no window or title background at all, bars on a faint dark background
 local PANEL_ALPHA, TITLE_ALPHA, BAR_BG = 0, 0, { 0, 0, 0, 0.4 }
 local TITLE = 20           -- Details' title bar sits above the window frame
+local INNER = 8            -- plate around title and rows (like mUI's meter)
+local SHADE = "MeredanUI Shade"
 
 local function Place(instance)
     local frame = instance.baseframe
     if not frame or InCombatLockdown() then return end
     local margin = ns.Snap(ns.SCREEN_MARGIN)
+    local out = ns.Snap(INNER) + ns.ShellReach(2) -- the plate's outer edge sits on the margin
     frame:ClearAllPoints()
-    frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -(margin + TITLE))
+    frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin + out, -(margin + TITLE + out))
     instance:SetSize(WIDTH, ROWS_HEIGHT) -- also saves the position in Details
     if instance.LockInstance and not instance.isLocked then instance:LockInstance(true) end
     if ns.PlaceToastHolder then ns.PlaceToastHolder() end
 end
 
--- No frame around the window (mUI's meter has none); toasts follow the window (Toasts/Toasts.lua)
+-- Plate in a deep shell behind title bar and rows, like mUI's own meter (DamageMeter.lua); it is a
+-- child of the window, so Details' fading takes it along. Toasts follow the window (Toasts.lua).
 local function Border(instance)
     local frame = instance and instance.baseframe
     if not frame or frame.muiHooked then return end
     frame.muiHooked = true
+    local plate = CreateFrame("Frame", nil, frame)
+    plate:SetPoint("TOPLEFT", -ns.Snap(INNER), ns.Snap(TITLE + INNER))
+    plate:SetPoint("BOTTOMRIGHT", ns.Snap(INNER), -ns.Snap(INNER))
+    plate:SetFrameLevel(math.max(frame:GetFrameLevel() - 1, 0))
+    ns.UI.Box(plate, ns.STYLE.panelColor, true)
+    ns.AddDeepShell(plate, ns.Snap(2), { shadow = 12 })
+    frame.muiPlate = plate
     local function Toasts() if ns.PlaceToastHolder then ns.PlaceToastHolder() end end
     frame:HookScript("OnShow", Toasts)
     frame:HookScript("OnHide", Toasts)
@@ -52,6 +63,7 @@ end
 local function SkinTable()
     local panel = ns.STYLE.panelColor
     local text = ns.UI.TEXT
+    local title = ns.UI.TITLE or text
     return {
         file = [[Interface\AddOns\Details\images\skins\elvui_opaque.blp]],
         author = "MeredanUI",
@@ -107,8 +119,8 @@ local function SkinTable()
                 percent_type = 1,
                 fixed_text_color = { text[1], text[2], text[3], 1 },
                 space = { right = -3, right_noborder = -3, left = 1, left_noborder = 1, between = ROW_GAP },
-                texture = ns.DEFAULT_TEXTURE,
-                texture_file = WHITE,
+                texture = SHADE,
+                texture_file = ns.MEDIA .. "BarShade",
                 texture_background_class_color = false,
                 fixed_texture_background_color = BAR_BG,
                 font_face = "mUI",
@@ -154,7 +166,7 @@ local function SkinTable()
             stretch_button_side = 2, -- stretch handle at the bottom: grows downwards (no room above)
             attribute_text = {
                 enabled = true, shadow = true, side = 1, enable_custom_text = false, custom_text = "{name}",
-                text_face = "mUI Bold", anchor = { -18, 5 }, text_color = { text[1], text[2], text[3], 1 }, text_size = 13,
+                text_face = "mUI Title", anchor = { -18, 5 }, text_color = { title[1], title[2], title[3], 1 }, text_size = 13,
             },
         },
     }
@@ -164,6 +176,11 @@ local installed = false
 local function Install()
     local Details = _G.Details
     if installed or not (Details and Details.InstallSkin and Details.IsLoaded and Details.IsLoaded()) then return end
+    -- the title font (Cinzel or mUI, setting "Heading font") and the shaded bar for Details' pickers
+    local LSM = LibStub and LibStub("LibSharedMedia-3.0", true)
+    if LSM then
+        LSM:Register(LSM.MediaType.FONT, "mUI Title", ns.FontFor("display"))
+    end
     installed = Details:InstallSkin(SKIN, SkinTable()) and true or false
 end
 
