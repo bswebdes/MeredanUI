@@ -11,6 +11,25 @@
 --                                     [pet / target of target]
 -- o = raid marker. "Inside" = towards screen center (player: right, target: left).
 local _, ns = ...
+
+local PORTRAIT_ALPHA = 0.35 -- 3D portrait in the health bar: faint, the bar colour and numbers stay readable
+
+-- Setting "barPortrait": oUF's Portrait element on or off for player and target
+function ns.ApplyBarPortraits()
+    for _, key in ipairs({ "player", "target" }) do
+        local frame = ns.frames and ns.frames[key]
+        if frame and frame.Portrait then
+            if ns.db.barPortrait then
+                frame:EnableElement("Portrait")
+                frame.Portrait:Show()
+                frame.Portrait:ForceUpdate()
+            else
+                frame:DisableElement("Portrait")
+                frame.Portrait:Hide()
+            end
+        end
+    end
+end
 local oUF = ns.oUF
 
 local SIZE = {
@@ -209,6 +228,17 @@ local function Style(self, unit)
     texts:SetAllPoints()
     texts:SetFrameLevel(health:GetFrameLevel() + 5)
     AddHighlight(self, texts)
+
+    -- Optional 3D portrait inside the health bar (setting "barPortrait", Comfort taste, off by default):
+    -- the unit's model zoomed to head and shoulders, faint, between the bar and the texts. oUF's Portrait
+    -- element keeps it on the right unit; ns.ApplyBarPortraits switches it on and off.
+    if unit == "player" or unit == "target" then
+        local portrait = CreateFrame("PlayerModel", nil, self)
+        portrait:SetAllPoints(health)
+        portrait:SetFrameLevel(health:GetFrameLevel() + 2)
+        portrait:SetAlpha(PORTRAIT_ALPHA)
+        self.Portrait = portrait
+    end
 
     -- Cast bar as overlay on the health bar (visible only while casting), spell icon outside
     -- icon outside with a gap for both shells (frame and icon)
@@ -709,6 +739,7 @@ oUF:Factory(function(self)
         player = self:Spawn("player"),
         target = self:Spawn("target"),
     }
+    ns.ApplyBarPortraits()
     ns.OnLayout(function()
         local x, y = ns.Snap(INNER_X), ns.Snap(TOP_Y)
         if ns.LayoutFlag("healerGroups") then

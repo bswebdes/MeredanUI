@@ -257,6 +257,8 @@ local PAGES = {
             page:AddDropdown(L["Size of player and target"], FrameStageItems, Getter("frameSize"), Setter("frameSize"),
                 Help(L["Pet, target of target and focus grow with them."], true))
             page:AddDropdown(L["Size of boss frames"], StageItems, Getter("bossSize"), Setter("bossSize"), RELOAD)
+            page:AddCheckbox(L["3D portrait in the health bar"], Getter("barPortrait"), Setter("barPortrait", ns.ApplyBarPortraits),
+                Help(L["Player and target: the character model, zoomed to the head, faint inside the bar."]))
             page:AddHeader(L["Cast bar"])
             page:AddDropdown(L["Style"], function()
                 return { { value = "simple", label = L["Simple"] }, { value = "full", label = L["Full"] } }

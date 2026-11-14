@@ -186,6 +186,7 @@ local DEFAULTS = {
     platerStyle = true,
     dbmStyle = true,
     bigwigsStyle = true,      -- BigWigs bar style and profile in the mUI look (BossMods/BigWigsSkin.lua)          -- DBM profile "MeredanUI" in the mUI look (BossMods/DBMSkin.lua)       -- Plater profile values in the mUI look (NamePlates/PlaterProfile.lua)      -- Details! in the mUI look (DamageMeter/DetailsSkin.lua)       -- Bagnon in the mUI look and spot (Bags/BagnonSkin.lua)
+    barPortrait = false,      -- 3D model of player/target faint inside the health bar (UnitFrames/UnitFrames.lua)
     chatClassIcons = true,    -- class icon before names in guild, group, raid and whispers
     chatTimestamps = true,    -- plain timestamps (12:04) before chat lines
     chatFontSize = "medium",  -- chat font size: "small", "medium", "large" (Chat/ChatStyle.lua)

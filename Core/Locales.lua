@@ -1738,4 +1738,6 @@ if GetLocale() == "deDE" then
     L["Click: invite to your group"] = "Klick: in deine Gruppe einladen"
     L["Click: ask to join their group"] = "Klick: um Aufnahme in die Gruppe bitten"
     L["Click: copy link"] = "Klick: Link kopieren"
+    L["3D portrait in the health bar"] = "3D-Porträt im Lebensbalken"
+    L["Player and target: the character model, zoomed to the head, faint inside the bar."] = "Spieler und Ziel: das Charaktermodell, auf den Kopf gezoomt, halb durchsichtig im Balken."
 end
