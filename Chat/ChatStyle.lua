@@ -265,6 +265,7 @@ local function WrapAddMessage(frame)
         if type(text) == "string" and not issecretvalue(text) then
             if ns.db.chatShortChannels ~= false then text = ShortenChannels(text) end
             if ns.ChatClassIcons then text = ns.ChatClassIcons(text) end
+            if ns.ChatLevels then text = ns.ChatLevels(text) end
             text = LinkURLs(text)
             if not issecretvalue(r) then RecordLine(self, text, r, g, b) end
         end
@@ -774,6 +775,7 @@ ns.ChatDemo = {
         FlashTab(frame)
         lastMentionSound = 0
         OnMention(nil, text, "Test")
+        if ns.ChatExtrasDemo then ns.ChatExtrasDemo(ChatFrame1) end
     end,
     Stop = function() end,
     IsActive = function() return false end,

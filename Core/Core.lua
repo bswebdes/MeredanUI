@@ -193,6 +193,12 @@ local DEFAULTS = {
     chatEmoji = true,         -- smileys and emojis as images in chat
     chatReputation = true,    -- reputation in chat with a bar instead of Blizzard's line
     chatMentionSound = true,  -- sound when your name/nickname is mentioned
+    chatArrowKeys = true,     -- arrow keys move the cursor / recall sent lines without Alt (Chat/ChatExtras.lua)
+    chatHoverTips = true,     -- tooltip when hovering item/spell/quest links in chat
+    chatScrollKeys = true,    -- Ctrl+wheel: top/bottom, Shift+wheel: page
+    chatInviteLinks = true,   -- "inv" in messages becomes a click-to-invite link
+    chatSpamFilter = true,    -- same message from the same player in public channels only every 3 minutes
+    chatLevels = true,        -- known levels after player names (not at max level)
     -- Tooltip: position "corner" (bottom right) or "cursor"; player lines individually
     tooltipAnchor = "corner",
     tooltipHideInCombat = false, -- hide in combat (Shift still shows it)

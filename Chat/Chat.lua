@@ -53,6 +53,37 @@ local function OnHistory(editBox, key)
     end)
 end
 
+-- Sent lines survive /reload and logout (up arrow recalls them, like Prat). Saved the way Blizzard's
+-- AddHistory builds them ("/g text", "/w Name text", "/1 text"), before the nickname is added.
+-- Slash commands (/cast, /reload ...) are never saved: lines put back by addon code count as
+-- tainted, and a secure command from them could be blocked.
+local SENT_LINES = 32
+
+local function RecordSent(editBox, key)
+    if key ~= "ENTER" and key ~= "NUMPADENTER" then return end
+    local text = editBox:GetText() or ""
+    if strtrim(text) == "" or text:sub(1, 1) == "/" then return end
+    local chatType = ChatType(editBox)
+    if not chatType then return end
+    local line = _G["SLASH_" .. chatType .. "1"] or ""
+    if chatType == "WHISPER" then
+        line = line .. " " .. (editBox:GetAttribute("tellTarget") or "")
+    elseif chatType == "CHANNEL" then
+        line = "/" .. (editBox.GetChannelTarget and editBox:GetChannelTarget() or "")
+    elseif line == "" then
+        return
+    end
+    line = line .. " " .. text
+    local sent = ns.char.chatSent or {}
+    ns.char.chatSent = sent
+    if sent[#sent] ~= line then sent[#sent + 1] = line end
+    while #sent > SENT_LINES do table.remove(sent, 1) end
+end
+
+local function RestoreSent(editBox)
+    for _, line in ipairs(ns.char.chatSent or {}) do editBox:AddHistoryLine(line) end
+end
+
 -- Save chat type (and target) on send, restore it on login.
 local REMEMBER = {
     SAY = true, YELL = true, GUILD = true, OFFICER = true, PARTY = true, RAID = true,
@@ -152,6 +183,8 @@ ns:On("PLAYER_LOGIN", function()
     for i = 1, count do
         local editBox = _G["ChatFrame" .. i .. "EditBox"]
         if editBox then
+            editBox:HookScript("OnKeyDown", RecordSent) -- before OnKeyDown adds the nickname
+            RestoreSent(editBox)
             editBox:HookScript("OnKeyDown", OnKeyDown)
             editBox:HookScript("OnKeyDown", OnHistory)
             editBox:HookScript("OnKeyDown", RememberChat)

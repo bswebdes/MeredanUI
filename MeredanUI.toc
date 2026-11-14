@@ -153,6 +153,7 @@ Chat/LFGHighlight.lua
 Chat/Reputation.lua
 Chat/Glyphs.lua
 Chat/RPMode.lua
+Chat/ChatExtras.lua
 Collections/Collections.lua
 Collections/Mounts.lua
 Collections/Pets.lua
