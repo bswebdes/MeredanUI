@@ -149,7 +149,8 @@ end
 local function Place()
     local top, width = ns.BelowMainBar(ns.Snap(GAP) + ns.ThinShellReach())
     if not (bar and top) then return end
-    bar:SetSize(width, ns.Snap(HEIGHT))
+    -- outer edge of the frame flush with the buttons, not the bar itself
+    bar:SetSize(width - 2 * ns.ThinShellReach(), ns.Snap(HEIGHT))
     local _, cy = UIParent:GetCenter()
     if ns.LayoutFlag and ns.LayoutFlag("healerGroups") then
         -- Healer: narrow and centered directly above the group

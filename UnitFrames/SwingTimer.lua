@@ -62,7 +62,8 @@ end
 local function Place()
     local top, width = ns.BelowMainBar(ns.Snap(GAP) + ns.ThinShellReach())
     if not (holder and top) then return end
-    holder:SetWidth(width)
+    -- outer edge of the frame flush with the buttons, not the bar itself
+    holder:SetWidth(width - 2 * ns.ThinShellReach())
     -- No swing timer for healers
     holder:SetShown(not (ns.LayoutFlag and ns.LayoutFlag("healerGroups")))
     ns.PlaceFromCenter(holder, "TOP", 0, top)
