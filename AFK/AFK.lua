@@ -43,12 +43,20 @@ local function Bar(edge)
     local fill = bar:CreateTexture(nil, "BACKGROUND")
     fill:SetAllPoints()
     fill:SetColorTexture(0, 0, 0, 1)
-    -- thin Surf Green line on the inner edge
-    local line = bar:CreateTexture(nil, "ARTWORK")
-    line:SetColorTexture(ns.UI.ACCENT[1], ns.UI.ACCENT[2], ns.UI.ACCENT[3], 0.6)
-    line:SetHeight(ns.PixelSize())
-    line:SetPoint(edge == "TOP" and "BOTTOMLEFT" or "TOPLEFT")
-    line:SetPoint(edge == "TOP" and "BOTTOMRIGHT" or "TOPRIGHT")
+    -- lit edge in the frame material on the inner edge, fading out to both ends (like B15)
+    local m = ns.Material()
+    local r, g, b = m.lit[1], m.lit[2], m.lit[3]
+    for i = 1, 2 do
+        local line = bar:CreateTexture(nil, "ARTWORK")
+        line:SetColorTexture(1, 1, 1, 1)
+        line:SetHeight(ns.PixelSize())
+        local v = edge == "TOP" and "BOTTOM" or "TOP" -- inner edge of the bar
+        local outer, inner = v .. (i == 1 and "LEFT" or "RIGHT"), v .. (i == 1 and "RIGHT" or "LEFT")
+        line:SetPoint(outer, bar, outer)
+        line:SetPoint(inner, bar, v) -- each half ends in the middle
+        local faded, full = CreateColor(r, g, b, 0), CreateColor(r, g, b, 0.9)
+        if i == 1 then line:SetGradient("HORIZONTAL", faded, full) else line:SetGradient("HORIZONTAL", full, faded) end
+    end
     return bar
 end
 

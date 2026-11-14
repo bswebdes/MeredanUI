@@ -14,7 +14,7 @@ local function Create()
     frame:SetPoint("CENTER", UIParent, "CENTER", 0, 180)
     frame:SetFrameStrata("HIGH")
     frame:Hide()
-    text = ns.CreateText(frame, 20, "CENTER", "OUTLINE")
+    text = ns.CreateText(frame, 20, "CENTER", "OUTLINE", "display") -- Cinzel (B6)
     text:SetPoint("CENTER")
 
     anim = frame:CreateAnimationGroup()
