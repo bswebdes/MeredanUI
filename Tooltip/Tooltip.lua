@@ -414,9 +414,16 @@ local function ShowIcon(tooltip, texture, atlas, edge)
         ns.InsetItemIcon(f, f.tex, nil, 2)
         tooltip.muiIcon = f
     end
-    for _, line in ipairs({ l1, l2 }) do
+    -- an inline texture's width grows with the line's font size: line 1 (larger name font) gets a
+    -- narrower spacer so both lines start at the same x
+    local _, h1 = l1:GetFont()
+    local _, h2 = l2:GetFont()
+    local w1 = (h1 and h2 and h1 > 0) and math.floor(INDENT * h2 / h1 + 0.5) or INDENT
+    for i, line in ipairs({ l1, l2 }) do
         local text = line:GetText()
-        if Readable(text) and text and not text:find(SPACER, 1, true) then line:SetText(SPACER .. text) end
+        if Readable(text) and text and not text:find("|T1319037:", 1, true) then
+            line:SetText(("|T1319037:1:%d|t"):format(i == 1 and w1 or INDENT) .. text)
+        end
     end
     local f = tooltip.muiIcon
     f:ClearAllPoints()
