@@ -6,6 +6,7 @@ local _, ns = ...
 local L = ns.L
 
 local BUTTON_H = 32
+local BUTTON_GAP = 6
 local button, skinned = nil, setmetatable({}, { __mode = "k" })
 local fontNormal, fontDisabled
 
@@ -65,9 +66,12 @@ local function Hook()
         SkinFrame(menu)
         if not button then Create(menu) end
         local width = 200
-        for _, b in ipairs(menu.buttons or {}) do
+        for i, b in ipairs(menu.buttons or {}) do
             SkinButton(b)
             b:SetHeight(BUTTON_H)
+            -- gap between buttons of a section (bevels touching looked cramped); section starts keep
+            -- Blizzard's own 20 px. AddButton sets topPadding fresh on every InitButtons.
+            if i > 1 and not b.topPadding then b.topPadding = BUTTON_GAP end
             width = math.max(width, b:GetWidth())
         end
         if menu.closeButton then
