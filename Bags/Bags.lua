@@ -104,6 +104,29 @@ local function ItemGUID(bag, slot)
 end
 
 -- scan bags: anything not seen before is new (even without Blizzard's new flag)
+-- New item glow: Blizzard's soft round atlas glow (sized for its 37 px button) doesn't fit our
+-- square item frame. Keep Blizzard's pulse animation, but on a square tint over the icon.
+local function SquareNewItemGlow(button, quality)
+    local glow, flash = button.NewItemTexture, button.flash
+    if not (glow and button.icon) then return end
+    if not button.muiSquareGlow then
+        button.muiSquareGlow = true
+        glow:ClearAllPoints()
+        glow:SetAllPoints(button.icon)
+        if flash then
+            flash:ClearAllPoints()
+            flash:SetAllPoints(button.icon)
+            flash:SetColorTexture(1, 1, 1, 0.45)
+        end
+    end
+    if not glow:IsShown() then return end
+    local r, g, b = 1, 1, 1
+    if quality and quality >= Enum.ItemQuality.Uncommon then
+        r, g, b = C_Item.GetItemQualityColor(quality)
+    end
+    glow:SetColorTexture(r, g, b, 0.3)
+end
+
 local function ScanNewItems()
     local now, seen = time(), {}
     wipe(slotGUID)
@@ -364,6 +387,7 @@ local function UpdateButton(button, info, showLevel)
     button.muiQuest = (quest.questID or quest.isQuestItem) and true or false
     if button.muiQuest and not starter then button.IconQuestTexture:Hide() end
     button:UpdateNewItem(info and info.quality)
+    SquareNewItemGlow(button, info and info.quality)
     button:UpdateJunkItem(info and info.quality, info and info.hasNoValue)
     button:UpdateItemContextMatching()
     button:UpdateCooldown(texture)
