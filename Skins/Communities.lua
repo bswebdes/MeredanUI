@@ -1054,20 +1054,22 @@ local function SkinMemberDetail(detail)
     -- Same margin right as left: the boxes and buttons start where Blizzard anchors them, so their
     -- width is measured from that left offset (a fixed width left a wider gap on the right)
     local function Even()
-        local left = detail:GetLeft()
-        if not left then return end
+        -- measured against the visible panel (Blizzard's Border reaches beyond the frame itself)
+        local panel = type(border) == "table" and border.GetLeft and border or detail
+        local left, width = panel:GetLeft(), panel:GetWidth()
+        if not left or not width then return end
         for _, pair in ipairs({ { "NoteBackground", "PersonalNoteText" }, { "OfficerNoteBackground", "OfficerNoteText" } }) do
             local box = detail[pair[1]]
             local inset = type(box) == "table" and box:GetLeft() and box:GetLeft() - left
             if inset and inset > 0 then
-                box:SetWidth(W - 2 * inset)
+                box:SetWidth(width - 2 * inset)
                 local text = box[pair[2]] or detail[pair[2]]
-                if type(text) == "table" then text:SetWidth(W - 2 * inset - 16) end
+                if type(text) == "table" then text:SetWidth(width - 2 * inset - 16) end
             end
         end
         local inset = remove and remove:GetLeft() and remove:GetLeft() - left
         if inset and inset > 0 and invite then
-            local bw = (W - 2 * inset - 8) / 2
+            local bw = (width - 2 * inset - 8) / 2
             remove:SetWidth(bw)
             invite:SetWidth(bw)
         end
