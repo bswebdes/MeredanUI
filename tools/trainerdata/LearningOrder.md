@@ -108,3 +108,46 @@ _All class trainer ranks 1-60: 210g 27s. Marked recommended: 79g 36s. Marked ski
 - Talent-gated ranks (Lava Burst, Riptide, Mana Tide) are cheap; buy them if you have the talent.
 - Save for Apprentice Riding at 40; Ghost Wolf covers travel until then.
 - Keep Ankhs for Reincarnation; Water Walking/Breathing need reagents.
+
+## Mage
+
+_All class trainer ranks 1-60: 259g 47s. Marked recommended: 100g 02s. Marked skip: 15g 14s._
+
+**Default view: Frost leveling (most common in the guides). Fire and Arcane notes where they differ.**
+
+**Levels 1-10**
+- Buy everything: Arcane Intellect, Frostbolt, Conjure Water/Food, Fire Blast, Fireball R2, Polymorph, Frost Nova.
+- Comprehend Scroll (6) is 1 silver and starts the Comprehension tradeskill.
+- Arcane Missiles only if you plan to level Arcane.
+
+**Levels 10-20**
+- Frostbolt and Fire Blast ranks, Frost Armor R2, Conjure Water R2, Arcane Intellect R2, Remove Lesser Curse.
+- Skip Dampen Magic, Amplify Magic and Slow Fall.
+- Arcane Explosion (14) and Flamestrike (16) only if you plan to AoE-grind.
+
+**Level 20 (big visit)**
+- Blink, Evocation, Frostbolt R4, Conjure Water R3, Frost Armor R3, Polymorph R2, your home-city Teleport.
+- Mana Shield and Fire Ward are situational. Blizzard only for AoE builds (slow nerfed in Forever).
+- Ice Lance / Arcane Blast come from talents (11-point talents).
+
+**Levels 22-30**
+- Counterspell (24), Cone of Cold (26), Frost Nova R2, Conjure Mana Agate (28), Ice Armor (30).
+- Fire: Scorch (22) and every Fireball rank. Frost/Arcane can skip Fireball and Scorch ranks.
+- Frost Blast (24) is new and optional. Talent spell ranks (Pyroblast, Blast Wave, Ice Barrier) are very cheap - always buy them.
+
+**Levels 30-40**
+- Keep Frostbolt, Cone of Cold, Conjure Water and mana gems current.
+- Mage Armor (34) is optional (Spirit regen buffed in Forever). Ward and Dampen Magic ranks can wait.
+
+**Level 40**
+- Frostfire Bolt R1 (new, optional), Frost Nova R3, Polymorph R3, Ice Armor R2.
+- Portals are for groups or selling ports - skip solo. Save gold for riding.
+
+**Levels 40-60**
+- Main spell ranks, Ice Barrier ranks and mana gems.
+- Skip Amplify/Dampen Magic, extra teleports and Polymorph R4 (only longer duration).
+
+**Money tips**
+- Water and mana gems are free. Guides suggest Tailoring/Enchanting for gold.
+- Do not skip ranks of your main damage spell to save a few silver (dtgre).
+- Rank 1 Frostbolt is far more mana-efficient but lower DPS; in Forever, Arcane Concentration and Impact proc less on much lower ranks.

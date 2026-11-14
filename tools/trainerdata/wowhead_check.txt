@@ -59,3 +59,15 @@ ROGUE 8721 Backstab L36 -> wowhead "Backstab" L36 OK
 ROGUE 8725 Ambush L34 -> wowhead "Ambush" L34 OK
 ROGUE 11281 Backstab L60 -> wowhead "Backstab" L60 OK
 ROGUE 11305 Sprint L58 -> wowhead "Sprint" L58 OK
+MAGE 2137 Fire Blast L14 -> wowhead "Fire Blast" L14 OK
+MAGE 5144 Arcane Missiles L16 -> wowhead "Arcane Missiles" L16 OK
+MAGE 6127 Conjure Water L30 -> wowhead "Conjure Water" L30 OK
+MAGE 7300 Frost Armor L10 -> wowhead "Frost Armor" L10 OK
+MAGE 8416 Arcane Missiles L32 -> wowhead "Arcane Missiles" L32 OK
+MAGE 8439 Arcane Explosion L38 -> wowhead "Arcane Explosion" L38 OK
+MAGE 10138 Conjure Water L40 -> wowhead "Conjure Water" L40 OK
+MAGE 10139 Conjure Water L50 -> wowhead "Conjure Water" L50 OK
+MAGE 10220 Ice Armor L60 -> wowhead "Ice Armor" L60 OK
+MAGE 12505 Pyroblast L24 -> wowhead "Pyroblast" L24 OK
+MAGE 13018 Blast Wave L36 -> wowhead "Blast Wave" L36 OK
+MAGE 13033 Ice Barrier L58 -> wowhead "Ice Barrier" L58 OK

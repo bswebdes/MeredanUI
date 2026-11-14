@@ -211,3 +211,46 @@ Leveling advice sources (read 2026-11-14):
 - Blizzard noted a beta bug where Totemic Recall did not refund mana; unclear if fixed at launch.
 - Flametongue Weapon value for Enhancement dual wield in Forever is not covered by the guides read.
 
+## Mage
+
+Leveling advice sources (read 2026-11-14):
+
+- [Warcraft Tavern - WoW Forever Mage Leveling Guide](https://www.warcrafttavern.com/forever/guides/mage-leveling/) (forever_guide)
+- [Method.gg - WoW Forever Mage Leveling Guide and Talents](https://www.method.gg/wow-forever/wow-forever-mage-leveling-guide-and-talents) (forever_guide)
+- [Warcraft Tavern - Scrolls & Totems: Mage & Shaman Deep Dive for WoW Forever (summary of Blizzard deep dive)](https://www.warcrafttavern.com/forever/news/scrolls-totems-mage-shaman-deep-dive-for-wow-forever/) (official)
+- [hostedgg - WoW Forever Mage, Shaman, Rogue, Warlock kits (summary of Blizzard deep dives)](https://hostedgg.com/blog/wow-forever-mage-shaman-rogue-warlock-kits) (other)
+- [Metabot - WoW Forever Mage changes (spell data diff vs Classic)](https://metabot.gg/en/wow-forever/changes/mage) (other)
+- [Metabot - Arcane Wrath ability](https://metabot.gg/en/wow-forever/abilities/mage-arcane-wrath) (other)
+- [Kami-labs - WoW Forever Mage: every reworked spell and talent](https://kami-labs.fr/en/wow-forever/mage-wow-forever-sorts-et-talents-modifies/) (other)
+- [RankedBoost - Mage Downranking in WoW Forever](https://rankedboost.com/world-of-warcraft/forever/downranking/mage/) (other)
+- [dtgre - WoW Forever spell training too expensive? What to buy, skip & save gold](https://www.dtgre.com/2026/11/wow-forever-spell-training-too-expensive-save-gold.html) (other)
+- [Warcraft Tavern - WoW Classic Mage Leveling Guide](https://warcrafttavern.com/guides/mage-leveling-guide) (classic_guide)
+
+**Forever differences that matter for training**
+
+- Detect Magic is no longer trainable (Metabot changes).
+- Arcane Intellect lasts 1 hour instead of 30 min (Metabot changes).
+- New trainer spells: Frost Blast (24, weak frost attack with 40% slow), Frostfire Bolt (40, counts as Fire and Frost, 3s cast), Comprehend Scroll (6, Comprehension minor tradeskill) (Warcraft Tavern deep dive, Metabot).
+- Ice Lance (Frost) and Arcane Blast (Arcane) are 11-point gold-medal talents; Ice Lance has an 8s cooldown and does 300% vs frozen targets; Arcane Blast stacks to 4, raising its mana cost and buffing other spells (Warcraft Tavern deep dive, Method, Metabot).
+- Arcane Wrath is new (talent-gated, 3.5s cast, 6s CD, bonus damage from 5% max mana) (Metabot ability page).
+- Cone of Cold duration 8 -> 6s, slow 50 -> 40%; Improved Blizzard max slow 65 -> 40%; Cold Snap CD 5 -> 10 min (deep dive via Warcraft Tavern/hostedgg, Metabot).
+- Base damage of Fireball, Frostbolt, Scorch, Pyroblast etc. lowered while spell power scaling is higher (Metabot, Kami-labs) - higher ranks matter somewhat less, gear matters more.
+- Arcane Concentration and Impact proc less when casting much lower-rank spells, which weakens downranking (deep dive via Warcraft Tavern).
+- Mage Armor: mana regen from Spirit increased; Arcane Shielding also boosts Mage Armor resistances (deep dive via Warcraft Tavern).
+- Dampen Magic healing reduction halved; Amplify Magic healing +50% (Metabot changes).
+- Talents start at 10; Dual Specialization at 40 (deep dive via Warcraft Tavern).
+
+**Guide disagreements**
+
+- Blizzard: Method lists 'Blizzard slow nerfed in Forever' as a mage weakness; Warcraft Tavern Forever still recommends Blizzard for group AoE. Mobalytics (Kargoz, search summary only) says the mage AoE toolkit is dialed back, while Kami-labs expects Cone of Cold / Flamestrike / Frost to 'melt monster packs' thanks to spell power gear.
+- Arcane timing: Warcraft Tavern Forever presents Arcane as a leveling spec (rush Missile Barrage); Method levels Frost to 42 and only takes Arcane Blast at 57; Mobalytics (search summary only) suggests Frost until 25 then respec Arcane.
+- Ice Lance learn level: Warcraft Tavern and Metabot say rank 1 at level 20 (talent); the trainer list only shows ranks 2+ starting at 28.
+- Arcane Wrath: Metabot says learned at level 25 (trainer); the trainer list shows it as talent-gated with rank 2 at 36. Warcraft Tavern says 'Talent Tree, level 25'.
+- Classic Warcraft Tavern says train every skill 1-20; single-target Frost builds there skip Dampen Magic, Slow Fall, Flamestrike, Amplify Magic, Fireball and Blizzard past rank 1.
+
+**Open questions**
+
+- Frost Blast: cast time / cooldown not confirmed by a second source; no leveling guide covers it yet.
+- Frostfire Bolt vs Frostbolt for Frost leveling after 40 is not compared by any guide read.
+- Teleport: Dalaran (level 50 per Metabot/Kami-labs) is not on the trainer list.
+

@@ -1,0 +1,367 @@
+{
+  "class": "MAGE",
+  "sources": [
+    {
+      "title": "Warcraft Tavern - WoW Forever Mage Leveling Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/mage-leveling/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Method.gg - WoW Forever Mage Leveling Guide and Talents",
+      "url": "https://www.method.gg/wow-forever/wow-forever-mage-leveling-guide-and-talents",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - Scrolls & Totems: Mage & Shaman Deep Dive for WoW Forever (summary of Blizzard deep dive)",
+      "url": "https://www.warcrafttavern.com/forever/news/scrolls-totems-mage-shaman-deep-dive-for-wow-forever/",
+      "kind": "official",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "hostedgg - WoW Forever Mage, Shaman, Rogue, Warlock kits (summary of Blizzard deep dives)",
+      "url": "https://hostedgg.com/blog/wow-forever-mage-shaman-rogue-warlock-kits",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Metabot - WoW Forever Mage changes (spell data diff vs Classic)",
+      "url": "https://metabot.gg/en/wow-forever/changes/mage",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Metabot - Arcane Wrath ability",
+      "url": "https://metabot.gg/en/wow-forever/abilities/mage-arcane-wrath",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Kami-labs - WoW Forever Mage: every reworked spell and talent",
+      "url": "https://kami-labs.fr/en/wow-forever/mage-wow-forever-sorts-et-talents-modifies/",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "RankedBoost - Mage Downranking in WoW Forever",
+      "url": "https://rankedboost.com/world-of-warcraft/forever/downranking/mage/",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "dtgre - WoW Forever spell training too expensive? What to buy, skip & save gold",
+      "url": "https://www.dtgre.com/2026/11/wow-forever-spell-training-too-expensive-save-gold.html",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Classic Mage Leveling Guide",
+      "url": "https://warcrafttavern.com/guides/mage-leveling-guide",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    }
+  ],
+  "spells": {
+    "Arcane Intellect": {
+      "advice": "recommended",
+      "reason_en": "Core buff, keep it up; lasts 1 hour in Forever",
+      "reason_de": "Wichtiger Buff, immer aktiv halten; hält in Forever 1 Stunde"
+    },
+    "Conjure Water": {
+      "advice": "recommended",
+      "reason_en": "Free water, every rank saves gold and downtime",
+      "reason_de": "Gratis Wasser, jeder Rang spart Gold und Pausen"
+    },
+    "Frostbolt": {
+      "advice": "recommended",
+      "reason_en": "Main damage and slow spell for most of leveling",
+      "reason_de": "Hauptschaden und Verlangsamung fast die ganze Levelphase"
+    },
+    "Comprehend Scroll": {
+      "advice": "recommended",
+      "reason_en": "Cheap; starts Comprehension to read mage scrolls you loot",
+      "reason_de": "Billig; startet Verständnis, um gefundene Schriftrollen zu lesen"
+    },
+    "Conjure Food": {
+      "advice": "optional",
+      "reason_en": "Free food; cooked food also gives an XP buff in Forever",
+      "reason_de": "Gratis Essen; gekochtes Essen gibt in Forever auch EP-Buff"
+    },
+    "Fire Blast": {
+      "advice": "recommended",
+      "reason_en": "Instant finisher on cooldown for every spec",
+      "reason_de": "Sofortiger Abschluss-Zauber, für jede Skillung nützlich"
+    },
+    "Fireball": {
+      "advice": "optional",
+      "reason_en": "Fire spec: buy every rank; Frost/Arcane can skip",
+      "reason_de": "Feuer: jeden Rang kaufen; Frost/Arkan kann auslassen",
+      "ranks": {
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Strong early filler before Frost talents",
+          "reason_de": "Guter Füller am Anfang, vor Frost-Talenten"
+        }
+      }
+    },
+    "Arcane Missiles": {
+      "advice": "optional",
+      "reason_en": "Arcane spec: core with Missile Barrage; Frost can skip",
+      "reason_de": "Arkan: Kern mit Geschosssalve; Frost kann auslassen"
+    },
+    "Polymorph": {
+      "advice": "recommended",
+      "reason_en": "Key crowd control for multi-mob pulls",
+      "reason_de": "Wichtige Kontrolle bei mehreren Gegnern",
+      "ranks": {
+        "4": {
+          "advice": "optional",
+          "reason_en": "Only longer duration; rank 3 already works on 60s",
+          "reason_de": "Nur längere Dauer; Rang 3 wirkt schon auf Stufe 60"
+        }
+      }
+    },
+    "Frost Armor": {
+      "advice": "recommended",
+      "reason_en": "Cheap armor buff until Ice Armor at 30",
+      "reason_de": "Billiger Rüstungsbuff bis Eisrüstung ab 30"
+    },
+    "Frost Nova": {
+      "advice": "recommended",
+      "reason_en": "Root to escape or set up Shatter and Ice Lance",
+      "reason_de": "Festfrieren zur Flucht oder für Zertrümmern und Eislanze"
+    },
+    "Dampen Magic": {
+      "advice": "skip",
+      "reason_en": "Niche buff; also halves healing taken in Forever",
+      "reason_de": "Nischenbuff; halbiert in Forever auch erhaltene Heilung"
+    },
+    "Amplify Magic": {
+      "advice": "skip",
+      "reason_en": "Group healing buff, not needed solo",
+      "reason_de": "Heilungsbuff für Gruppen, solo unnötig"
+    },
+    "Slow Fall": {
+      "advice": "optional",
+      "reason_en": "Fun utility, needs reagent; not needed to level",
+      "reason_de": "Nette Hilfe, braucht Reagenz; zum Leveln unnötig"
+    },
+    "Arcane Explosion": {
+      "advice": "optional",
+      "reason_en": "Only for AoE grinding; single-target Frost can skip",
+      "reason_de": "Nur für Flächenschaden-Grinden; Einzelziel-Frost lässt aus"
+    },
+    "Flamestrike": {
+      "advice": "optional",
+      "reason_en": "AoE grinding with Frost Nova; skip for single-target",
+      "reason_de": "Flächen-Grinden mit Frostnova; bei Einzelziel auslassen"
+    },
+    "Remove Lesser Curse": {
+      "advice": "recommended",
+      "reason_en": "One cheap rank, removes curses from you and group",
+      "reason_de": "Ein billiger Rang, entfernt Flüche bei dir und der Gruppe"
+    },
+    "Blink": {
+      "advice": "recommended",
+      "reason_en": "Escape tool, essential for kiting",
+      "reason_de": "Fluchtzauber, sehr wichtig beim Kiten"
+    },
+    "Blizzard": {
+      "advice": "optional",
+      "reason_en": "AoE builds only; slow nerfed in Forever",
+      "reason_de": "Nur für Flächen-Skillung; Verlangsamung in Forever schwächer"
+    },
+    "Evocation": {
+      "advice": "recommended",
+      "reason_en": "Big mana refill, less drinking",
+      "reason_de": "Füllt viel Mana auf, weniger trinken"
+    },
+    "Fire Ward": {
+      "advice": "optional",
+      "reason_en": "Situational vs fire mobs; higher ranks can wait",
+      "reason_de": "Nur gegen Feuer-Gegner; höhere Ränge können warten"
+    },
+    "Frost Ward": {
+      "advice": "optional",
+      "reason_en": "Situational vs frost mobs; higher ranks can wait",
+      "reason_de": "Nur gegen Frost-Gegner; höhere Ränge können warten"
+    },
+    "Mana Shield": {
+      "advice": "optional",
+      "reason_en": "Helps AoE pulls and with Arcane Shielding; else skip",
+      "reason_de": "Hilft beim Flächenziehen und mit Arkanabschirmung"
+    },
+    "Teleport: Stormwind": {
+      "advice": "optional",
+      "reason_en": "Buy your main city teleport; others can wait",
+      "reason_de": "Teleport zur Hauptstadt kaufen; andere können warten"
+    },
+    "Teleport: Ironforge": {
+      "advice": "optional",
+      "reason_en": "Buy your main city teleport; others can wait",
+      "reason_de": "Teleport zur Hauptstadt kaufen; andere können warten"
+    },
+    "Teleport: Undercity": {
+      "advice": "optional",
+      "reason_en": "Buy your main city teleport; others can wait",
+      "reason_de": "Teleport zur Hauptstadt kaufen; andere können warten"
+    },
+    "Teleport: Orgrimmar": {
+      "advice": "optional",
+      "reason_en": "Buy your main city teleport; others can wait",
+      "reason_de": "Teleport zur Hauptstadt kaufen; andere können warten"
+    },
+    "Teleport: Darnassus": {
+      "advice": "optional",
+      "reason_en": "Convenience only; skip unless you go there often",
+      "reason_de": "Nur Komfort; auslassen, wenn du selten dort bist"
+    },
+    "Teleport: Thunder Bluff": {
+      "advice": "optional",
+      "reason_en": "Convenience only; skip unless you go there often",
+      "reason_de": "Nur Komfort; auslassen, wenn du selten dort bist"
+    },
+    "Portal: Stormwind": {
+      "advice": "optional",
+      "reason_en": "For groups or selling ports; not needed solo",
+      "reason_de": "Für Gruppen oder Portal-Verkauf; solo unnötig"
+    },
+    "Portal: Ironforge": {
+      "advice": "optional",
+      "reason_en": "For groups or selling ports; not needed solo",
+      "reason_de": "Für Gruppen oder Portal-Verkauf; solo unnötig"
+    },
+    "Portal: Orgrimmar": {
+      "advice": "optional",
+      "reason_en": "For groups or selling ports; not needed solo",
+      "reason_de": "Für Gruppen oder Portal-Verkauf; solo unnötig"
+    },
+    "Portal: Undercity": {
+      "advice": "optional",
+      "reason_en": "For groups or selling ports; not needed solo",
+      "reason_de": "Für Gruppen oder Portal-Verkauf; solo unnötig"
+    },
+    "Portal: Darnassus": {
+      "advice": "optional",
+      "reason_en": "For groups or selling ports; not needed solo",
+      "reason_de": "Für Gruppen oder Portal-Verkauf; solo unnötig"
+    },
+    "Portal: Thunder Bluff": {
+      "advice": "optional",
+      "reason_en": "For groups or selling ports; not needed solo",
+      "reason_de": "Für Gruppen oder Portal-Verkauf; solo unnötig"
+    },
+    "Scorch": {
+      "advice": "optional",
+      "reason_en": "Fire spec: needed for Improved Scorch; Frost can skip",
+      "reason_de": "Feuer: nötig für Verb. Versengen; Frost kann auslassen"
+    },
+    "Counterspell": {
+      "advice": "recommended",
+      "reason_en": "Interrupt for caster mobs, one rank only",
+      "reason_de": "Unterbricht Zauberwirker, nur ein Rang"
+    },
+    "Frost Blast": {
+      "advice": "optional",
+      "reason_en": "New weak Frost attack with 40% slow; few guides use it",
+      "reason_de": "Neuer schwacher Frostangriff mit 40% Verlangsamung"
+    },
+    "Pyroblast": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, ranks are very cheap; buy if talented",
+      "reason_de": "Talentzauber, Ränge sehr billig; kaufen, wenn geskillt"
+    },
+    "Cone of Cold": {
+      "advice": "recommended",
+      "reason_en": "Instant damage and slow; strong with Frost talents",
+      "reason_de": "Sofortiger Schaden und Verlangsamung; stark mit Frost-Talenten"
+    },
+    "Conjure Mana Agate": {
+      "advice": "recommended",
+      "reason_en": "Free mana gem for long fights",
+      "reason_de": "Gratis Manastein für lange Kämpfe"
+    },
+    "Conjure Mana Jade": {
+      "advice": "recommended",
+      "reason_en": "Bigger mana gem, less drinking",
+      "reason_de": "Größerer Manastein, weniger trinken"
+    },
+    "Conjure Mana Citrine": {
+      "advice": "recommended",
+      "reason_en": "Bigger mana gem, less drinking",
+      "reason_de": "Größerer Manastein, weniger trinken"
+    },
+    "Conjure Mana Ruby": {
+      "advice": "recommended",
+      "reason_en": "Bigger mana gem, less drinking",
+      "reason_de": "Größerer Manastein, weniger trinken"
+    },
+    "Ice Lance": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; main Frost damage on frozen targets",
+      "reason_de": "Talentzauber; Hauptschaden von Frost auf gefrorene Ziele"
+    },
+    "Arcane Blast": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; Arcane core, buffs your next spells",
+      "reason_de": "Talentzauber; Arkan-Kern, stärkt deine nächsten Zauber"
+    },
+    "Ice Armor": {
+      "advice": "recommended",
+      "reason_en": "Replaces Frost Armor; more armor and frost resist",
+      "reason_de": "Ersetzt Frostrüstung; mehr Rüstung und Frostwiderstand"
+    },
+    "Mage Armor": {
+      "advice": "optional",
+      "reason_en": "Better mana regen (buffed in Forever); swap for long fights",
+      "reason_de": "Bessere Manaregeneration (in Forever gestärkt); für lange Kämpfe"
+    },
+    "Arcane Wrath": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; Arcane finisher at 3-4 Arcane Blast stacks",
+      "reason_de": "Talentzauber; Arkan-Finisher bei 3-4 Stapeln Arkaner Schlag"
+    },
+    "Blast Wave": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, ranks are very cheap; buy if talented",
+      "reason_de": "Talentzauber, Ränge sehr billig; kaufen, wenn geskillt"
+    },
+    "Frostfire Bolt": {
+      "advice": "optional",
+      "reason_en": "New at 40; uses best of Fire/Frost power, 3s cast",
+      "reason_de": "Neu ab 40; nutzt beste Feuer/Frost-Macht, 3 Sek. Zauberzeit"
+    },
+    "Ice Barrier": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, cheap ranks; shield before every pull",
+      "reason_de": "Talentzauber, billige Ränge; Schild vor jedem Kampf"
+    }
+  },
+  "learning_order": "**Default view: Frost leveling (most common in the guides). Fire and Arcane notes where they differ.**\n\n**Levels 1-10**\n- Buy everything: Arcane Intellect, Frostbolt, Conjure Water/Food, Fire Blast, Fireball R2, Polymorph, Frost Nova.\n- Comprehend Scroll (6) is 1 silver and starts the Comprehension tradeskill.\n- Arcane Missiles only if you plan to level Arcane.\n\n**Levels 10-20**\n- Frostbolt and Fire Blast ranks, Frost Armor R2, Conjure Water R2, Arcane Intellect R2, Remove Lesser Curse.\n- Skip Dampen Magic, Amplify Magic and Slow Fall.\n- Arcane Explosion (14) and Flamestrike (16) only if you plan to AoE-grind.\n\n**Level 20 (big visit)**\n- Blink, Evocation, Frostbolt R4, Conjure Water R3, Frost Armor R3, Polymorph R2, your home-city Teleport.\n- Mana Shield and Fire Ward are situational. Blizzard only for AoE builds (slow nerfed in Forever).\n- Ice Lance / Arcane Blast come from talents (11-point talents).\n\n**Levels 22-30**\n- Counterspell (24), Cone of Cold (26), Frost Nova R2, Conjure Mana Agate (28), Ice Armor (30).\n- Fire: Scorch (22) and every Fireball rank. Frost/Arcane can skip Fireball and Scorch ranks.\n- Frost Blast (24) is new and optional. Talent spell ranks (Pyroblast, Blast Wave, Ice Barrier) are very cheap - always buy them.\n\n**Levels 30-40**\n- Keep Frostbolt, Cone of Cold, Conjure Water and mana gems current.\n- Mage Armor (34) is optional (Spirit regen buffed in Forever). Ward and Dampen Magic ranks can wait.\n\n**Level 40**\n- Frostfire Bolt R1 (new, optional), Frost Nova R3, Polymorph R3, Ice Armor R2.\n- Portals are for groups or selling ports - skip solo. Save gold for riding.\n\n**Levels 40-60**\n- Main spell ranks, Ice Barrier ranks and mana gems.\n- Skip Amplify/Dampen Magic, extra teleports and Polymorph R4 (only longer duration).\n\n**Money tips**\n- Water and mana gems are free. Guides suggest Tailoring/Enchanting for gold.\n- Do not skip ranks of your main damage spell to save a few silver (dtgre).\n- Rank 1 Frostbolt is far more mana-efficient but lower DPS; in Forever, Arcane Concentration and Impact proc less on much lower ranks.",
+  "disagreements": [
+    "Blizzard: Method lists 'Blizzard slow nerfed in Forever' as a mage weakness; Warcraft Tavern Forever still recommends Blizzard for group AoE. Mobalytics (Kargoz, search summary only) says the mage AoE toolkit is dialed back, while Kami-labs expects Cone of Cold / Flamestrike / Frost to 'melt monster packs' thanks to spell power gear.",
+    "Arcane timing: Warcraft Tavern Forever presents Arcane as a leveling spec (rush Missile Barrage); Method levels Frost to 42 and only takes Arcane Blast at 57; Mobalytics (search summary only) suggests Frost until 25 then respec Arcane.",
+    "Ice Lance learn level: Warcraft Tavern and Metabot say rank 1 at level 20 (talent); the trainer list only shows ranks 2+ starting at 28.",
+    "Arcane Wrath: Metabot says learned at level 25 (trainer); the trainer list shows it as talent-gated with rank 2 at 36. Warcraft Tavern says 'Talent Tree, level 25'.",
+    "Classic Warcraft Tavern says train every skill 1-20; single-target Frost builds there skip Dampen Magic, Slow Fall, Flamestrike, Amplify Magic, Fireball and Blizzard past rank 1."
+  ],
+  "forever_differences": [
+    "Detect Magic is no longer trainable (Metabot changes).",
+    "Arcane Intellect lasts 1 hour instead of 30 min (Metabot changes).",
+    "New trainer spells: Frost Blast (24, weak frost attack with 40% slow), Frostfire Bolt (40, counts as Fire and Frost, 3s cast), Comprehend Scroll (6, Comprehension minor tradeskill) (Warcraft Tavern deep dive, Metabot).",
+    "Ice Lance (Frost) and Arcane Blast (Arcane) are 11-point gold-medal talents; Ice Lance has an 8s cooldown and does 300% vs frozen targets; Arcane Blast stacks to 4, raising its mana cost and buffing other spells (Warcraft Tavern deep dive, Method, Metabot).",
+    "Arcane Wrath is new (talent-gated, 3.5s cast, 6s CD, bonus damage from 5% max mana) (Metabot ability page).",
+    "Cone of Cold duration 8 -> 6s, slow 50 -> 40%; Improved Blizzard max slow 65 -> 40%; Cold Snap CD 5 -> 10 min (deep dive via Warcraft Tavern/hostedgg, Metabot).",
+    "Base damage of Fireball, Frostbolt, Scorch, Pyroblast etc. lowered while spell power scaling is higher (Metabot, Kami-labs) - higher ranks matter somewhat less, gear matters more.",
+    "Arcane Concentration and Impact proc less when casting much lower-rank spells, which weakens downranking (deep dive via Warcraft Tavern).",
+    "Mage Armor: mana regen from Spirit increased; Arcane Shielding also boosts Mage Armor resistances (deep dive via Warcraft Tavern).",
+    "Dampen Magic healing reduction halved; Amplify Magic healing +50% (Metabot changes).",
+    "Talents start at 10; Dual Specialization at 40 (deep dive via Warcraft Tavern)."
+  ],
+  "open_questions": [
+    "Frost Blast: cast time / cooldown not confirmed by a second source; no leveling guide covers it yet.",
+    "Frostfire Bolt vs Frostbolt for Frost leveling after 40 is not compared by any guide read.",
+    "Teleport: Dalaran (level 50 per Metabot/Kami-labs) is not on the trainer list."
+  ]
+}
