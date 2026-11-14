@@ -349,6 +349,28 @@ local function AddClassification(unit)
     line:SetText(text .. "  |c" .. tag[2] .. label .. "|r")
 end
 
+-- Players and NPCs alike: the unit's target as a label/value row under a divider
+local function FinishUnitLines(tooltip, unit, dividerLine)
+    -- Unit's target
+    local target = unit .. "target"
+    -- In instances both answers may be secret -> no line then.
+    -- "Target" muted, the name in its color.
+    if Enabled("tooltipTarget") and ns.Plain(UnitExists(target)) then
+        local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or ColoredName(target)
+        if name then
+            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
+            local r, g, b = unpack(MUTED)
+            tooltip:AddDoubleLine(L["Target"], name, r, g, b, 1, 1, 1)
+        end
+    end
+    NormalizeFonts(tooltip)
+    if dividerLine and dividerLine ~= _G["GameTooltipTextLeft" .. tooltip:NumLines()] then
+        PlaceDivider(tooltip, dividerLine)
+    elseif dividerLine then
+        dividerLine:SetText("") -- nothing below the divider: no gap either
+    end
+end
+
 local function AddUnitLines(tooltip, unit)
     local isPlayer = ns.Plain(UnitIsPlayer(unit))
     local color = UnitColor(unit)
@@ -360,6 +382,7 @@ local function AddUnitLines(tooltip, unit)
     SetBorderColor(tooltip, nil) -- no class/reaction coloured frame any more (Benny)
     if not isPlayer then
         if Enabled("tooltipClassification") then AddClassification(unit) end
+        FinishUnitLines(tooltip, unit, nil) -- same target row and divider as for players
         return
     end
 
@@ -475,24 +498,7 @@ local function AddUnitLines(tooltip, unit)
         end
     end
 
-    -- Unit's target
-    local target = unit .. "target"
-    -- In instances both answers may be secret -> no line then.
-    -- "Target" muted, the name in its color.
-    if Enabled("tooltipTarget") and ns.Plain(UnitExists(target)) then
-        local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or ColoredName(target)
-        if name then
-            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
-            local r, g, b = unpack(MUTED)
-            tooltip:AddDoubleLine(L["Target"], name, r, g, b, 1, 1, 1)
-        end
-    end
-    NormalizeFonts(tooltip)
-    if dividerLine and dividerLine ~= _G["GameTooltipTextLeft" .. tooltip:NumLines()] then
-        PlaceDivider(tooltip, dividerLine)
-    elseif dividerLine then
-        dividerLine:SetText("") -- nothing below the divider: no gap either
-    end
+    FinishUnitLines(tooltip, unit, dividerLine)
 end
 
 -- Mythic+: enemy forces the mob is worth (Blizzard provides the value per unit)
