@@ -38,7 +38,7 @@ end
 
 -- Class trainer tab: what the class trainer teaches, remembered per character from the last visit
 -- (Forever's spellbook lists no future spells). Learned spells drop out via IsSpellKnown.
-local TRAINER_ICON = 136243
+local TRAINER_ICON = 134939 -- inv_scroll_03: a scroll to learn from
 local function TrainerCache()
     ns.char.trainerSpells = ns.char.trainerSpells or {}
     return ns.char.trainerSpells
