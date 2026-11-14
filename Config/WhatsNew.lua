@@ -27,10 +27,27 @@ ns.WHATS_NEW = {
     { id = "class-quests", image = "ClassQuests", title = "Class quests",
       setting = "classQuestReminder", foreverOnly = true,
       text = "A message tells you when a class quest for a new ability is ready and where it starts. Click it for a map pin. Also in the settings under Quests > Helpers." },
+    -- v0.5: the new look
+    { id = "new-look", image = "NewLook", title = "A new look",
+      text = "mUI has its own look now: deep frames, warm colours and gem accents, from the unit frames to every window." },
+    { id = "frame-material", image = "FrameMaterial", title = "Iron or bronze",
+      text = "Cool iron or warm bronze for all frames. Settings > Appearance > Frame material." },
+    { id = "heading-font", image = "TitleFont", title = "Heading font",
+      text = "Window titles in the Cinzel display font or in the mUI font. Settings > Appearance > Heading font." },
+    { id = "class-art", image = "ClassArt", title = "Class animals",
+      text = "Your class gets its own animals at the ends of the action bars. Or Blizzard's gryphons, or none: Settings > Appearance." },
+    { id = "tooltips-v05", image = "Tooltips", title = "New tooltips",
+      text = "Players, enemies and items with an icon, clear rows and a slim health bar. Item level, upgrades and your characters' counts sit below a divider." },
+    { id = "level-up", image = "LevelUp", title = "Level up", foreverOnly = true,
+      text = "A new level shows what waits at your class trainer and which class quest is ready. Click a class quest for a map pin." },
+    { id = "class-trainer", image = "ClassTrainer", title = "Class trainer", setting = "trainerAdvice", foreverOnly = true,
+      text = "The spellbook has a class trainer tab. At the trainer a gem marks the recommended ranks, and you see which ones you can skip while leveling." },
+    { id = "class-quests-tab", image = "ClassQuestsTab", title = "Class quests at a glance", foreverOnly = true,
+      text = "A new tab in the character window lists every class quest: done, in progress or still open. Click one to open the map with a pin." },
 }
 
 local W, H, PIC_W, PIC_H = 600, 500, 512, 256
-local MAX_PAGES = 5 -- only the newest released pages; older ones drop out (and their pictures can go)
+local MAX_PAGES = 8 -- only the newest released pages; older ones drop out (their pictures stay for the website)
 
 -- released (non-draft) pages, newest MAX_PAGES, oldest first
 local function Released()
@@ -54,7 +71,8 @@ local function Render()
     window.text:SetText(L[entry.text])
     for i, dot in ipairs(window.dots) do
         dot:SetShown(i <= #pages and #pages > 1)
-        dot:SetColorTexture(unpack(i == index and UI.ACCENT or { 1, 1, 1, 0.15 }))
+        dot:SetVertexColor(unpack(i == index and UI.ACCENT or UI.MUTED))
+        dot:SetAlpha(i == index and 1 or 0.45)
     end
     local setting = entry.setting and not (entry.foreverOnly and not ns.IS_FOREVER) and entry.setting
     window.toggle:SetShown(setting and true or false)
@@ -89,10 +107,9 @@ local function CreateWindow()
     head:SetPoint("TOPLEFT", 16, -16)
     head:SetText("m|cff8ecbb4UI|r  ·  " .. L["New"])
     window.dots = {}
-    for i = 1, 8 do
-        local dot = window:CreateTexture(nil, "ARTWORK")
-        dot:SetSize(7, 7)
-        dot:SetPoint("LEFT", head, "RIGHT", 14 + (i - 1) * 13, 0)
+    for i = 1, MAX_PAGES do -- page marks: gems like the active tabs
+        local dot = UI.Diamond(window, 4)
+        dot:SetPoint("LEFT", head, "RIGHT", 16 + (i - 1) * 14, 0)
         window.dots[i] = dot
     end
     local close = UI.IconButton(window, "Close", Close, 26)
