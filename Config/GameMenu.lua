@@ -34,18 +34,36 @@ local function SkinButton(b)
     bg:SetColorTexture(unpack(UI.FIELD))
     b.muiBg = bg
     ns.AddBorder(b)
-    b:HookScript("OnEnter", function(self) if self:IsEnabled() then self.muiBg:SetColorTexture(unpack(UI.HOVER)) end end)
-    b:HookScript("OnLeave", function(self) self.muiBg:SetColorTexture(unpack(UI.FIELD)) end)
     b:SetNormalFontObject(fontNormal)
     b:SetHighlightFontObject(fontNormal)
     b:SetDisabledFontObject(fontDisabled)
     b:SetPushedTextOffset(0, -1)
 end
 
+-- Hover colour: Blizzard's AddButton clears OnEnter/OnLeave on every InitButtons (each time the menu
+-- opens), so hooked scripts vanish after the first open. A watcher of our own checks the mouse
+-- instead, only while the menu is shown.
+local function UpdateHover(menu)
+    local UI = ns.UI
+    local function Paint(b)
+        if b and b.muiBg then
+            local hover = b:IsEnabled() and b:IsMouseOver()
+            if b.muiHover ~= hover then
+                b.muiHover = hover
+                b.muiBg:SetColorTexture(unpack(hover and UI.HOVER or UI.FIELD))
+            end
+        end
+    end
+    for _, b in ipairs(menu.buttons or {}) do Paint(b) end
+    Paint(menu.closeButton)
+end
+
 local function SkinFrame(menu)
     if menu.muiSkinned then return end
     menu.muiSkinned = true
     local UI = ns.UI
+    local watcher = CreateFrame("Frame", nil, menu)
+    watcher:SetScript("OnUpdate", function() UpdateHover(menu) end)
     if menu.Border then menu.Border:SetAlpha(0) end
     if menu.Header then menu.Header:SetAlpha(0) end
     UI.Box(menu, ns.STYLE.panelColor, true)
@@ -79,11 +97,13 @@ local function Hook()
         local width = 200
         for _, b in ipairs(menu.buttons or {}) do
             SkinButton(b)
+            b.muiHover = nil
             b:SetHeight(BUTTON_H)
             width = math.max(width, b:GetWidth())
         end
         if menu.closeButton then
             SkinButton(menu.closeButton)
+            menu.closeButton.muiHover = nil
             menu.closeButton:SetHeight(BUTTON_H)
         end
         button:SetSize(width, BUTTON_H)
