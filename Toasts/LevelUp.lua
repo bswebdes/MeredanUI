@@ -221,7 +221,7 @@ ns.LevelUpDemo = {
         Show(18, {
             { icon = 132330, name = Spell(2643) .. " |cffa89d86(" .. (RANK or "Rank") .. " 2)|r", sub = L["New at the class trainer"] },
             { icon = 136076, name = Spell(13165) .. " |cffa89d86(" .. (RANK or "Rank") .. " 2)|r", sub = L["New at the class trainer"] },
-            { icon = 135130, name = Spell(1978) .. " |cffa89d86(" .. (RANK or "Rank") .. " 1)|r", sub = L["Still to learn at the class trainer"] },
+            { icon = C_Spell.GetSpellTexture(1978), name = Spell(1978) .. " |cffa89d86(" .. (RANK or "Rank") .. " 1)|r", sub = L["Still to learn at the class trainer"] },
             { icon = 136243, name = L["Sample dungeon"], sub = L["Dungeon unlocked"] },
         })
     end,
