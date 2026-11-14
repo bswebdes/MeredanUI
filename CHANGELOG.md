@@ -6,6 +6,8 @@
 - Fixed: with Questie 12.8 the direction arrow in the quest tracker and Questie's icons on the mUI map work again
 - Item tooltips no longer list every character for the Hearthstone
 - Bags and bank show your gold like the info bar, and hovering it lists the gold of all your characters
+- Bags: the bag slots are grouped (normal bags, special bags, reagent bag) with a small gap between the groups
+- Bags: empty slots of special bags are headed with the bag's own name (e.g. your ammo pouch) instead of "Quiver"
 
 ## v0.4.6
 - Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same
