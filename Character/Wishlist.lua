@@ -277,7 +277,7 @@ local function CreateWindow()
     local map = _G["MeredanUIWorldMap"]
     win = CreateFrame("Frame", "MeredanUIWishlist", map or UIParent)
     win:SetSize(WIN_W, map and map:GetHeight() or 600)
-    win:SetPoint("TOPLEFT", map or UIParent, map and "TOPRIGHT" or "CENTER", 6, 0)
+    win:SetPoint("TOPLEFT", map or UIParent, map and "TOPRIGHT" or "CENTER", map and (12 + 2 * ns.WindowFrameReach()) or 0, 0) -- 12 between the two window frames
     win:SetFrameStrata("HIGH")
     win:EnableMouse(true)
     win:Hide()

@@ -284,7 +284,7 @@ local function Create()
 
     -- Top center, 25 px from the edge
     ns.OnLayout(function()
-        ns.PlaceFromCenter(bar, "TOP", 0, UIParent:GetHeight() / 2 - ns.Snap(ns.SCREEN_MARGIN))
+        ns.PlaceFromCenter(bar, "TOP", 0, UIParent:GetHeight() / 2 - ns.Snap(ns.SCREEN_MARGIN) - ns.ThinShellReach())
     end)
     ns.layoutFrames.xpbar = bar
     ns.RegisterMouseover(bar)

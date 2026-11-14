@@ -48,11 +48,13 @@ local function PlaceHolder()
     if not (meter and meter:IsVisible()) and ns.DetailsMeterFrame then meter, meterTop = ns.DetailsMeterFrame() end
     meter = meter or DamageMeterSessionWindow1
     -- only next to a visible meter; top edge keeps the screen margin
+    -- the toast's small window frame counts: its outer edge lines up with the meter's / the margin
+    local reach = ns.SmallFrameReach()
     if meter and meter:IsVisible() and meter:GetLeft() and meter:GetTop() then
         local top = math.min(meterTop or meter:GetTop(), UIParent:GetTop() - margin)
-        holder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", meter:GetRight() + ns.Snap(10), top)
+        holder:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", meter:GetRight() + ns.Snap(10) + reach, top - reach)
     else
-        holder:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -margin)
+        holder:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin + reach, -margin - reach)
     end
 end
 

@@ -179,7 +179,7 @@ Place = function()
     end
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     local _, cy = UIParent:GetCenter()
-    ns.PlaceFromCenter(bar, "TOP", 0, cy - margin)
+    ns.PlaceFromCenter(bar, "TOP", 0, cy - margin - ns.ThinShellReach()) -- shell edge on the margin
 end
 
 -- Preview (settings): a sample flight

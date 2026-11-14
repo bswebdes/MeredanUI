@@ -97,10 +97,12 @@ local function Place(window)
     window:ClearAllPoints()
     -- Shared top edge: shorter windows (e.g. guild) hang from the standard-height top line; taller
     -- ones (talents) sit on top of the chat
+    -- the window frame counts: its outer edge lines up with the chat's left edge (the margin)
+    local reach = ns.WindowFrameReach()
     if window:GetHeight() * k < ns.NPC_HEIGHT then
-        window:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap((90 + ns.NPC_HEIGHT) / k))
+        window:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", ns.Snap(reach / k), ns.Snap((90 + ns.NPC_HEIGHT) / k))
     else
-        window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90 / k))
+        window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", ns.Snap(reach / k), ns.Snap(90 / k))
     end
     local wantedRight = ((window:GetLeft() or 0) + window:GetWidth()) * k
     -- While overlapping: move to the right, aligned to the other window's top (bottom-aligning slid it
@@ -116,12 +118,13 @@ local function Place(window)
             end
         end
         if not right then break end
-        top = math.min(top or window:GetTop() * k, UIParent:GetTop() - ns.SCREEN_MARGIN)
+        top = math.min(top or window:GetTop() * k, UIParent:GetTop() - ns.SCREEN_MARGIN - reach)
         window:ClearAllPoints()
-        window:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", ns.Snap((right + 12) / k), ns.Snap(top / k))
-        wantedRight = right + 12 + window:GetWidth() * k
+        -- 12 between the two window frames
+        window:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", ns.Snap((right + 12 + 2 * reach) / k), ns.Snap(top / k))
+        wantedRight = right + 12 + 2 * reach + window:GetWidth() * k
     end
-    return wantedRight + ExtraRight(window) * k
+    return wantedRight + ExtraRight(window) * k + reach
 end
 
 -- Fixed spot above chat (raid frame height); if a window is already there, place to its right.

@@ -263,7 +263,8 @@ ShowDetail = function(row)
     detail.list:ScrollToTop()
     detail.row, detail.away = row, 0
     detail:ClearAllPoints()
-    detail:SetPoint("TOPLEFT", window, "TOPRIGHT", FrameOut() + ns.WindowFrameReach() + ns.Snap(4), 0) -- both window frames
+    -- same column as the toasts: meter frame edge + 10 + the detail's small frame
+    detail:SetPoint("TOPLEFT", window, "TOPRIGHT", FrameOut() + ns.Snap(10) + ns.SmallFrameReach(), 0)
     detail:SetPoint("TOP", row, "TOP", 0, 0)
     detail:Show()
 end

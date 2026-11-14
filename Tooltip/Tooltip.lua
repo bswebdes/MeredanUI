@@ -64,13 +64,14 @@ local function HealthBar() return _G["GameTooltipStatusBar"] end
 local function PlaceCorner(tooltip)
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     -- Leave room for the border around the tooltip plus the health bar below
-    local below = Px(PAD + BAR_GAP + BAR_HEIGHT)
-    local side = Px(PAD)
+    -- the deep shell around the box and the thin one around the health bar count too
+    local below = Px(PAD + BAR_GAP + BAR_HEIGHT) + ns.ThinShellReach()
+    local side = Px(PAD) + ns.ShellReach(1)
     tooltip:ClearAllPoints()
     local bags = _G["MeredanUIBags"]
     if not (bags and bags:IsShown()) then bags = ns.BagnonInventory and ns.BagnonInventory() end
     if bags then
-        tooltip:SetPoint("BOTTOMRIGHT", bags, "TOPRIGHT", -side, ns.Snap(GAP) + below)
+        tooltip:SetPoint("BOTTOMRIGHT", bags, "TOPRIGHT", -side + ns.WindowFrameReach(), ns.Snap(GAP) + below + ns.WindowFrameReach())
     else
         tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, margin + ns.Snap(MICRO_STACK + GAP) + below)
     end

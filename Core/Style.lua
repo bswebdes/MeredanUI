@@ -520,6 +520,9 @@ end
 -- Thin deep shell for slim bars (XP, reputation, threat ...): 1 unit band, no rim
 function ns.AddThinShell(region) return ns.AddDeepShell(region, ns.Snap(1), { shadow = 6 }) end
 function ns.ThinShellReach() return 3 * ns.PixelSize() + ns.Snap(1) end
+-- reach of a deep shell with band pad (outline = 3 lines + band), and of the small window frame
+function ns.ShellReach(pad) return 3 * ns.PixelSize() + ns.Snap(pad) end
+function ns.SmallFrameReach() return 4 * ns.PixelSize() + ns.Snap(1) + ns.Snap(3) end
 
 -- Minimap frame: the deep shell without the translucent rim (Benny); its outer edge keeps the
 -- 25 px screen margin, so the map itself sits that much further in

@@ -624,7 +624,7 @@ oUF:Factory(function(self)
         if healer then return PlaceHealer(raidAnchor) end -- healer: 21-40 in the group's spot
         raidAnchor:ClearAllPoints()
         if ChatFrame1 then
-            raidAnchor:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(RAID_CHAT_GAP))
+            raidAnchor:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", ns.ThinShellReach(), ns.Snap(RAID_CHAT_GAP))
         else
             raidAnchor:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", ns.Snap(ns.SCREEN_MARGIN), ns.Snap(300))
         end

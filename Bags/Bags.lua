@@ -679,7 +679,9 @@ local function CreateWindow()
 
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     -- bottom right above the micro menu (room for micro menu and bag buttons)
-    window:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin + 28 + 8 + 28 + 8)
+    -- the window frame's outer edge sits on the margin / above micro menu and bag bar
+    local reach = ns.WindowFrameReach()
+    window:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - reach, margin + 28 + 8 + 28 + 8 + reach)
 
     -- tabs: Bags | Reagents (only with a reagent bag)
     local tabs = {}
