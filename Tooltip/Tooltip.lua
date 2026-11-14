@@ -401,7 +401,6 @@ end
 -- transparent inline spacer and the icon frame hangs from line 1.
 local ICON = 32
 local INDENT = ICON + 10
-local SPACER = ("|T1319037:1:%d|t"):format(INDENT) -- interface\common\spacer, transparent
 local function ShowIcon(tooltip, texture, atlas, edge)
     local l1, l2 = Left(tooltip, 1), Left(tooltip, 2)
     if not (l1 and l2) then return end
