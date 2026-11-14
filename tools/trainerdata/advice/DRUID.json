@@ -1,0 +1,474 @@
+{
+  "class": "DRUID",
+  "sources": [
+    {
+      "title": "Warcraft Tavern - WoW Forever Druid Leveling Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/druid-leveling/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Method.gg - WoW Forever Druid Leveling Guide & Talents",
+      "url": "https://www.method.gg/wow-forever/wow-forever-druid-leveling-guide-and-talents",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Blizzard - World of Warcraft: Forever Class Deep Dives - Hunter and Druid",
+      "url": "https://worldofwarcraft.blizzard.com/news/24301515",
+      "kind": "official",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Metabot - WoW Forever Druid changes (spell data diff vs Classic)",
+      "url": "https://metabot.gg/en/wow-forever/changes/druid",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Classic Druid Leveling Guide",
+      "url": "https://warcrafttavern.com/guides/druid-leveling-guide",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    }
+  ],
+  "spells": {
+    "Mark of the Wild": {
+      "advice": "recommended",
+      "reason_en": "Core self-buff, lasts 1 hour in Forever",
+      "reason_de": "Wichtiger Eigenbuff, hält in Forever 1 Stunde"
+    },
+    "Moonfire": {
+      "advice": "optional",
+      "reason_en": "Balance core; Feral can skip ranks after 20",
+      "reason_de": "Kern für Gleichgewicht; Wildheit kann Ränge nach 20 auslassen",
+      "ranks": {
+        "1": {
+          "advice": "recommended",
+          "reason_en": "Main pull/damage before Cat Form",
+          "reason_de": "Wichtig zum Pullen und für Schaden vor Katzengestalt"
+        },
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Main pull/damage before Cat Form",
+          "reason_de": "Wichtig zum Pullen und für Schaden vor Katzengestalt"
+        },
+        "3": {
+          "advice": "recommended",
+          "reason_en": "Main pull/damage before Cat Form",
+          "reason_de": "Wichtig zum Pullen und für Schaden vor Katzengestalt"
+        }
+      }
+    },
+    "Rejuvenation": {
+      "advice": "optional",
+      "reason_en": "Self-heal; Feral can upgrade only now and then",
+      "reason_de": "Selbstheilung; Wildheit muss nicht jeden Rang kaufen",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Healer: buy every rank",
+          "reason_de": "Heiler: jeden Rang kaufen"
+        }
+      },
+      "ranks": {
+        "1": {
+          "advice": "recommended",
+          "reason_en": "Cheap early self-heal",
+          "reason_de": "Billige Selbstheilung am Anfang"
+        },
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Cheap early self-heal",
+          "reason_de": "Billige Selbstheilung am Anfang"
+        },
+        "3": {
+          "advice": "recommended",
+          "reason_en": "Cheap early self-heal",
+          "reason_de": "Billige Selbstheilung am Anfang"
+        }
+      }
+    },
+    "Thorns": {
+      "advice": "recommended",
+      "reason_en": "Keep it up; scales with spell power in Forever",
+      "reason_de": "Immer aktiv halten; skaliert in Forever mit Zaubermacht"
+    },
+    "Wrath": {
+      "advice": "optional",
+      "reason_en": "Balance core; Feral can skip ranks after 20",
+      "reason_de": "Kern für Gleichgewicht; Wildheit kann Ränge nach 20 auslassen",
+      "ranks": {
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Main damage spell before forms",
+          "reason_de": "Hauptschaden vor den Gestalten"
+        },
+        "3": {
+          "advice": "recommended",
+          "reason_en": "Main damage spell before forms",
+          "reason_de": "Hauptschaden vor den Gestalten"
+        }
+      }
+    },
+    "Entangling Roots": {
+      "advice": "recommended",
+      "reason_en": "Roots a second mob; works indoors in Forever",
+      "reason_de": "Wurzelt einen zweiten Gegner; geht in Forever auch drinnen"
+    },
+    "Healing Touch": {
+      "advice": "optional",
+      "reason_en": "Feral: rank 4 is enough for self-heals",
+      "reason_de": "Wildheit: Rang 4 reicht für Selbstheilung",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Healer: buy every rank",
+          "reason_de": "Heiler: jeden Rang kaufen"
+        }
+      },
+      "ranks": {
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Main early heal; rank 4 is very mana-efficient",
+          "reason_de": "Wichtige frühe Heilung; Rang 4 sehr manaeffizient"
+        },
+        "3": {
+          "advice": "recommended",
+          "reason_en": "Main early heal; rank 4 is very mana-efficient",
+          "reason_de": "Wichtige frühe Heilung; Rang 4 sehr manaeffizient"
+        },
+        "4": {
+          "advice": "recommended",
+          "reason_en": "Main early heal; rank 4 is very mana-efficient",
+          "reason_de": "Wichtige frühe Heilung; Rang 4 sehr manaeffizient"
+        }
+      }
+    },
+    "Demoralizing Roar": {
+      "advice": "recommended",
+      "reason_en": "Reduces damage from melee mobs; strong in Forever",
+      "reason_de": "Senkt Nahkampfschaden der Gegner; in Forever stark"
+    },
+    "Nature's Grasp": {
+      "advice": "recommended",
+      "reason_en": "Escape tool, now usable in forms and indoors",
+      "reason_de": "Fluchthilfe, jetzt in Gestalten und drinnen nutzbar",
+      "ranks": {
+        "3": {
+          "advice": "optional",
+          "reason_en": "Higher rank is a small upgrade",
+          "reason_de": "Höherer Rang ist nur ein kleines Upgrade"
+        },
+        "4": {
+          "advice": "optional",
+          "reason_en": "Higher rank is a small upgrade",
+          "reason_de": "Höherer Rang ist nur ein kleines Upgrade"
+        },
+        "5": {
+          "advice": "optional",
+          "reason_en": "Higher rank is a small upgrade",
+          "reason_de": "Höherer Rang ist nur ein kleines Upgrade"
+        },
+        "6": {
+          "advice": "optional",
+          "reason_en": "Higher rank is a small upgrade",
+          "reason_de": "Höherer Rang ist nur ein kleines Upgrade"
+        }
+      }
+    },
+    "Enrage": {
+      "advice": "recommended",
+      "reason_en": "Instant rage in Bear Form, one rank only",
+      "reason_de": "Sofort Wut in Bärengestalt, nur ein Rang"
+    },
+    "Regrowth": {
+      "advice": "optional",
+      "reason_en": "Cheaper in Forever; good self-heal between pulls",
+      "reason_de": "In Forever billiger; gute Selbstheilung zwischen Kämpfen",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Healer: buy every rank",
+          "reason_de": "Heiler: jeden Rang kaufen"
+        }
+      },
+      "ranks": {
+        "1": {
+          "advice": "recommended",
+          "reason_en": "Good early self-heal",
+          "reason_de": "Gute frühe Selbstheilung"
+        },
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Good early self-heal",
+          "reason_de": "Gute frühe Selbstheilung"
+        }
+      }
+    },
+    "Revive": {
+      "advice": "optional",
+      "reason_en": "Out-of-combat res for groups; not needed solo",
+      "reason_de": "Wiederbelebung außerhalb des Kampfes; solo unnötig"
+    },
+    "Bash": {
+      "advice": "recommended",
+      "reason_en": "Stun and interrupt in Bear Form",
+      "reason_de": "Betäubung und Unterbrechung in Bärengestalt"
+    },
+    "Swipe": {
+      "advice": "optional",
+      "reason_en": "Bear AoE (3 targets); Cat levelers can skip later",
+      "reason_de": "Bären-AoE (3 Ziele); Katzen-Leveler können später auslassen",
+      "roles": {
+        "tank": {
+          "advice": "recommended",
+          "reason_en": "Tank: core bear ability",
+          "reason_de": "Tank: wichtige Bärenfähigkeit"
+        }
+      },
+      "ranks": {
+        "1": {
+          "advice": "recommended",
+          "reason_en": "Bear AoE for multi-mob pulls at 16-20",
+          "reason_de": "Bären-AoE für mehrere Gegner mit 16-20"
+        }
+      }
+    },
+    "Maul": {
+      "advice": "optional",
+      "reason_en": "Bear filler; Cat levelers can skip after 20",
+      "reason_de": "Bären-Füller; Katzen-Leveler können ab 20 auslassen",
+      "roles": {
+        "tank": {
+          "advice": "recommended",
+          "reason_en": "Tank: core bear ability",
+          "reason_de": "Tank: wichtige Bärenfähigkeit"
+        }
+      },
+      "ranks": {
+        "2": {
+          "advice": "recommended",
+          "reason_en": "Main bear attack at 18-20",
+          "reason_de": "Hauptangriff als Bär mit 18-20"
+        }
+      }
+    },
+    "Faerie Fire": {
+      "advice": "recommended",
+      "reason_en": "Free in forms in Forever; pull and armor debuff",
+      "reason_de": "In Forever in Gestalten gratis; Pull und Rüstungssenkung"
+    },
+    "Hibernate": {
+      "advice": "optional",
+      "reason_en": "Niche crowd control on beasts and dragonkin",
+      "reason_de": "Nischen-Kontrolle gegen Wildtiere und Drachkin"
+    },
+    "Omen of Clarity": {
+      "advice": "recommended",
+      "reason_en": "Free passive procs, now baseline",
+      "reason_de": "Gratis passive Procs, jetzt Grundfähigkeit"
+    },
+    "Rebirth": {
+      "advice": "optional",
+      "reason_en": "Combat res for groups; needs a reagent",
+      "reason_de": "Kampf-Wiederbelebung für Gruppen; braucht Reagenz"
+    },
+    "Shred": {
+      "advice": "recommended",
+      "reason_en": "Big Cat opener from behind; buffed in Forever",
+      "reason_de": "Starker Katzen-Eröffner von hinten; in Forever gestärkt"
+    },
+    "Starfire": {
+      "advice": "optional",
+      "reason_en": "Balance core with Eclipse after 30; Feral skips",
+      "reason_de": "Kern für Gleichgewicht mit Eklipse ab 30; Wildheit lässt aus"
+    },
+    "Soothe Animal": {
+      "advice": "skip",
+      "reason_en": "Rarely useful while leveling",
+      "reason_de": "Beim Leveln selten nützlich"
+    },
+    "Rake": {
+      "advice": "recommended",
+      "reason_en": "Cat bleed; scales with attack power in Forever",
+      "reason_de": "Katzen-Blutung; skaliert in Forever mit Angriffskraft"
+    },
+    "Remove Curse": {
+      "advice": "recommended",
+      "reason_en": "One cheap rank, removes curses",
+      "reason_de": "Ein billiger Rang, entfernt Flüche"
+    },
+    "Abolish Poison": {
+      "advice": "optional",
+      "reason_en": "Group utility; Cure Poison already handles solo",
+      "reason_de": "Gruppenhilfe; solo reicht Vergiftung heilen"
+    },
+    "Dash": {
+      "advice": "recommended",
+      "reason_en": "Escape and speed in Cat Form",
+      "reason_de": "Flucht und Tempo in Katzengestalt",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Faster run, not essential",
+          "reason_de": "Schneller, aber nicht nötig"
+        }
+      }
+    },
+    "Challenging Roar": {
+      "advice": "skip",
+      "reason_en": "AoE taunt, only for tanking in groups",
+      "reason_de": "AoE-Spott, nur für Tanks in Gruppen",
+      "role": "tank",
+      "roles": {
+        "tank": {
+          "advice": "optional",
+          "reason_en": "Emergency AoE taunt in dungeons",
+          "reason_de": "Notfall-AoE-Spott in Dungeons"
+        }
+      }
+    },
+    "Claw": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; main Cat combo point builder",
+      "reason_de": "Talentzauber; wichtigster Combo-Punkt-Aufbau der Katze"
+    },
+    "Cower": {
+      "advice": "skip",
+      "reason_en": "Threat drop for group Cat DPS; useless solo",
+      "reason_de": "Senkt Bedrohung für Katzen in Gruppen; solo nutzlos",
+      "role": "dps"
+    },
+    "Rip": {
+      "advice": "recommended",
+      "reason_en": "Cat finisher bleed on longer fights",
+      "reason_de": "Katzen-Finisher-Blutung für längere Kämpfe"
+    },
+    "Insect Swarm": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; Balance DoT, buy if talented",
+      "reason_de": "Talentzauber; DoT für Gleichgewicht, kaufen wenn geskillt"
+    },
+    "Tranquility": {
+      "advice": "skip",
+      "reason_en": "Group heal on a long cooldown; not needed solo",
+      "reason_de": "Gruppenheilung mit langer Abklingzeit; solo unnötig",
+      "role": "heal",
+      "roles": {
+        "heal": {
+          "advice": "optional",
+          "reason_en": "Emergency group heal in dungeons",
+          "reason_de": "Notfall-Gruppenheilung in Dungeons"
+        }
+      }
+    },
+    "Travel Form": {
+      "advice": "recommended",
+      "reason_en": "40% outdoor speed before a mount",
+      "reason_de": "40% Tempo draußen, noch vor dem Reittier"
+    },
+    "Ferocious Bite": {
+      "advice": "recommended",
+      "reason_en": "Cat finisher for fast kills",
+      "reason_de": "Katzen-Finisher für schnelle Kills"
+    },
+    "Ravage": {
+      "advice": "recommended",
+      "reason_en": "Strong stealth opener for Cat from 30+",
+      "reason_de": "Starker Eröffner aus Verstohlenheit ab 30"
+    },
+    "Track Humanoids": {
+      "advice": "optional",
+      "reason_en": "Cat Form tracking; handy for quest mobs",
+      "reason_de": "Aufspüren in Katzengestalt; nützlich für Questgegner"
+    },
+    "Frenzied Regeneration": {
+      "advice": "recommended",
+      "reason_en": "Bear self-heal; heals a lot with enough rage",
+      "reason_de": "Selbstheilung als Bär; heilt viel mit genug Wut"
+    },
+    "Pounce": {
+      "advice": "optional",
+      "reason_en": "Stealth stun opener; Ravage/Shred do more damage",
+      "reason_de": "Betäubender Eröffner; Verheeren/Schreddern machen mehr Schaden"
+    },
+    "Primal Bite": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; main bear attack, buy if talented",
+      "reason_de": "Talentzauber; wichtiger Bärenangriff, kaufen wenn geskillt"
+    },
+    "Dire Bear Form": {
+      "advice": "recommended",
+      "reason_en": "Stronger bear form for tanking and safety",
+      "reason_de": "Stärkere Bärengestalt für Tanken und Sicherheit"
+    },
+    "Feline Grace": {
+      "advice": "optional",
+      "reason_en": "Minor passive; not mentioned by any guide",
+      "reason_de": "Kleiner Passiv-Effekt; kein Guide erwähnt ihn"
+    },
+    "Hurricane": {
+      "advice": "optional",
+      "reason_en": "Balance AoE; no cooldown in Forever",
+      "reason_de": "AoE für Gleichgewicht; in Forever ohne Abklingzeit"
+    },
+    "Innervate": {
+      "advice": "recommended",
+      "reason_en": "Big mana refill for heals and shifting",
+      "reason_de": "Großer Manaschub für Heilung und Gestaltwechsel"
+    },
+    "Prowl": {
+      "advice": "optional",
+      "reason_en": "Higher rank only moves faster in stealth",
+      "reason_de": "Höherer Rang ist nur schneller in Verstohlenheit"
+    },
+    "Lacerate": {
+      "advice": "optional",
+      "reason_en": "Bear bleed for tanking; Cat levelers can skip",
+      "reason_de": "Bären-Blutung zum Tanken; Katzen-Leveler lassen aus",
+      "roles": {
+        "tank": {
+          "advice": "recommended",
+          "reason_en": "Tank: core bear ability",
+          "reason_de": "Tank: wichtige Bärenfähigkeit"
+        }
+      }
+    },
+    "Barkskin": {
+      "advice": "recommended",
+      "reason_en": "Defensive; usable in forms, free in Forever",
+      "reason_de": "Defensiv; in Gestalten nutzbar, in Forever gratis"
+    },
+    "Wild Growth": {
+      "advice": "recommended",
+      "reason_en": "Talent spell; group HoT, buy if talented",
+      "reason_de": "Talentzauber; Gruppen-HoT, kaufen wenn geskillt",
+      "role": "heal"
+    }
+  },
+  "learning_order": "**Default view: Feral leveling (recommended by Method and most guides). Bear Form (10), Cat Form (20) and Aquatic Form (16) come from class quests, not the trainer.**\n\n**Levels 1-10**\n- Buy everything: Mark of the Wild, Moonfire, Rejuvenation (4), Thorns, Wrath R2 (6), Entangling Roots, Healing Touch R2 (8).\n- At 10: Demoralizing Roar, Nature's Grasp (now baseline, works in forms), Moonfire/Rejuvenation/Mark ranks. Do the Bear Form quest.\n\n**Levels 10-20 (Bear)**\n- Enrage, Regrowth (12), Bash, Healing Touch R3, Thorns R2 (14), Swipe (16), Maul R2, Faerie Fire (18).\n- Healing Touch R4 (20) is the most mana-efficient self-heal (Classic Warcraft Tavern).\n- Revive (12) only for group play. Hibernate is niche.\n\n**Level 20 (Cat)**\n- Omen of Clarity (baseline passive), Shred, Mark of the Wild R3. Do the Cat Form quest.\n- Rebirth and Starfire are optional for Feral (Starfire is Balance core after 30).\n\n**Levels 20-30**\n- Rake (24), Rip ranks, Dash (26), Remove Curse (24), Thorns R3.\n- Skip Soothe Animal, Challenging Roar and Cower solo. Abolish Poison is group utility.\n- From here Feral can skip most Wrath/Moonfire/Starfire ranks and buy heal ranks only now and then.\n\n**Levels 30-40**\n- Travel Form (30), Shred/Rip/Rake/Bite ranks, Ravage (32), Faerie Fire R2, Mark R4.\n- Track Humanoids and Pounce are optional. Frenzied Regeneration (36) is a strong bear self-heal.\n- Talent spells (Claw, Insect Swarm, Primal Bite, Wild Growth): buy their ranks if talented.\n\n**Level 40**\n- Dire Bear Form, Innervate, Mark of the Wild R5. Prowl R2 and Feline Grace are low priority. Save for the mount.\n\n**Levels 40-60**\n- Cat ranks (Shred, Rip, Rake, Ferocious Bite, Ravage, Claw), Barkskin (44), Mark ranks.\n- Lacerate (42) and Maul/Swipe ranks only if you tank or level as bear. Tranquility and Hurricane are for healers/Balance.\n\n**Money tips**\n- Skinning + Leatherworking or Herbalism are the usual druid money professions (all guides read).\n- Biggest savings for Feral: caster damage ranks and high heal ranks after 20 (Classic Warcraft Tavern trains almost only cat ranks after 20).",
+  "disagreements": [
+    "Claw: Blizzard's deep dive and the trainer list treat Claw as talent-gated (Feral talent, rank 2 at 28); Warcraft Tavern Forever lists Claw as a level 20 class-quest reward with Cat Form.",
+    "Lacerate: Blizzard says baseline at level 42 (trainer list agrees: rank 3 at 42); Warcraft Tavern Forever lists it as a Feral bear talent at 25; Metabot shows ranks 1/2 at 25/34.",
+    "Frenzied Regeneration: Blizzard says it heals 100% of max health over its duration with enough rage; Metabot data shows the per-tick healing value down 90% (probably a changed formula).",
+    "Spec choice: Method/Warcraft Tavern favor Feral; Restoration is viable in groups; Balance 'gets the job done' but Feral is smoother (search summaries).",
+    "Classic Warcraft Tavern trains only cat ranks + Mark after 20; Forever guides give no explicit skip list."
+  ],
+  "forever_differences": [
+    "Omen of Clarity, Nature's Grasp, Feral Faerie Fire, Improved Mark/Thorns/Enrage and Feral Aggression are baseline (Blizzard deep dive).",
+    "Faerie Fire (Feral) is removed as a separate spell; normal Faerie Fire is usable in Bear/Cat/Dire Bear Form at no cost with a 6s cooldown (Blizzard deep dive, Metabot).",
+    "New: Revive (out-of-combat res, 12), Lacerate (baseline at 42); Primal Bite (16-point Feral talent, replaces Mangle), Insect Swarm (16-point Balance talent), Wild Growth (31-point Resto talent) (Blizzard deep dive).",
+    "Tiger's Fury removed (replaced by Shifting Power talent); Furor energy mechanic prevents bear-weaving (Blizzard deep dive).",
+    "Feral attacks scale with weapon DPS; Claw and Shred damage significantly increased; Rake and Swipe scale more with AP; Shred learned at 20 instead of 22 (Blizzard deep dive, Metabot, Warcraft Tavern).",
+    "Wrath much cheaper with lower damage; Regrowth cheaper; Hurricane has no cooldown; Entangling Roots castable indoors; Thorns scales with spell power (Blizzard deep dive).",
+    "Barkskin usable in forms and costs no mana; consumables usable in forms (Blizzard deep dive, Metabot).",
+    "Mark of the Wild lasts 1 hour (Metabot).",
+    "Bear, Cat and Aquatic Form still come from class quests; Travel Form (30) and Dire Bear Form (40) from the trainer (Warcraft Tavern, Method).",
+    "Talents start at 10; Dual Specialization at 40 (Blizzard deep dive)."
+  ],
+  "open_questions": [
+    "Feline Grace (passive at 40): no guide read describes its Forever effect.",
+    "Ferocious Bite: Metabot says a new rank 1 at 24, but the trainer list starts at rank 2 (32); Warcraft Tavern lists Ferocious Bite at 24 (likely via the Cat quest)."
+  ]
+}

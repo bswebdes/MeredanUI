@@ -37,6 +37,21 @@ How the sources were checked against each other:
   that unlock); the Forever sources do not say whether the totem items are still needed.
 - Leveling advice for new Forever spells relies on early Forever guides (written during beta/launch week).
 
+## Open questions (all classes)
+
+- Talent spell ranks: the trainer level (WhatsTraining) is 10 levels above the client spell level for Paladin
+  Holy Shield rank 2/3 (50/60 vs 40/50) and Druid Primal Bite rank 2/3 (36/48 vs 50/60, here the other way).
+  Wowhead Forever shows the client values. The trainer values are used; check in game.
+- Druid Cat Form: WhatsTraining names reward quests 98362/98397, the Questie data has 98731/98739 ("Blessings of
+  the Great Cat Spirit"). Both are listed; which IDs are live needs an in-game check.
+- Shaman: Blizzard's deep dive puts Call of the Spirits at 30 and Call of the Ancestors at 40; the client and
+  Wowhead have Call of the Ancestors (66843) at 30 and Call of the Spirits (66844) at 40. Client data used.
+  The level 22 spell is called "Totemic Call" (437009) in the client; Blizzard called it "Totemic Projection".
+- Mage Frost Blast: one site says it was removed in the 2 November notes, but the client still has named ranks
+  (1326053-1326055) and the trainer sells them. Kept.
+- Training costs: single source (see above). Reputation discounts are not applied.
+- See `checks.txt` for all remaining automatic differences.
+
 ## Warrior
 
 Leveling advice sources (read 2026-11-14):
@@ -326,4 +341,40 @@ Leveling advice sources (read 2026-11-14):
 
 - Value of Create Firestone/Spellstone imbues vs Wizard Oil for leveling is not quantified by any guide read.
 - Curse of Weakness / Curse of Recklessness effect values look much lower in Metabot data; their worth next to a Bane is untested in guides.
+
+## Druid
+
+Leveling advice sources (read 2026-11-14):
+
+- [Warcraft Tavern - WoW Forever Druid Leveling Guide](https://www.warcrafttavern.com/forever/guides/druid-leveling/) (forever_guide)
+- [Method.gg - WoW Forever Druid Leveling Guide & Talents](https://www.method.gg/wow-forever/wow-forever-druid-leveling-guide-and-talents) (forever_guide)
+- [Blizzard - World of Warcraft: Forever Class Deep Dives - Hunter and Druid](https://worldofwarcraft.blizzard.com/news/24301515) (official)
+- [Metabot - WoW Forever Druid changes (spell data diff vs Classic)](https://metabot.gg/en/wow-forever/changes/druid) (other)
+- [Warcraft Tavern - WoW Classic Druid Leveling Guide](https://warcrafttavern.com/guides/druid-leveling-guide) (classic_guide)
+
+**Forever differences that matter for training**
+
+- Omen of Clarity, Nature's Grasp, Feral Faerie Fire, Improved Mark/Thorns/Enrage and Feral Aggression are baseline (Blizzard deep dive).
+- Faerie Fire (Feral) is removed as a separate spell; normal Faerie Fire is usable in Bear/Cat/Dire Bear Form at no cost with a 6s cooldown (Blizzard deep dive, Metabot).
+- New: Revive (out-of-combat res, 12), Lacerate (baseline at 42); Primal Bite (16-point Feral talent, replaces Mangle), Insect Swarm (16-point Balance talent), Wild Growth (31-point Resto talent) (Blizzard deep dive).
+- Tiger's Fury removed (replaced by Shifting Power talent); Furor energy mechanic prevents bear-weaving (Blizzard deep dive).
+- Feral attacks scale with weapon DPS; Claw and Shred damage significantly increased; Rake and Swipe scale more with AP; Shred learned at 20 instead of 22 (Blizzard deep dive, Metabot, Warcraft Tavern).
+- Wrath much cheaper with lower damage; Regrowth cheaper; Hurricane has no cooldown; Entangling Roots castable indoors; Thorns scales with spell power (Blizzard deep dive).
+- Barkskin usable in forms and costs no mana; consumables usable in forms (Blizzard deep dive, Metabot).
+- Mark of the Wild lasts 1 hour (Metabot).
+- Bear, Cat and Aquatic Form still come from class quests; Travel Form (30) and Dire Bear Form (40) from the trainer (Warcraft Tavern, Method).
+- Talents start at 10; Dual Specialization at 40 (Blizzard deep dive).
+
+**Guide disagreements**
+
+- Claw: Blizzard's deep dive and the trainer list treat Claw as talent-gated (Feral talent, rank 2 at 28); Warcraft Tavern Forever lists Claw as a level 20 class-quest reward with Cat Form.
+- Lacerate: Blizzard says baseline at level 42 (trainer list agrees: rank 3 at 42); Warcraft Tavern Forever lists it as a Feral bear talent at 25; Metabot shows ranks 1/2 at 25/34.
+- Frenzied Regeneration: Blizzard says it heals 100% of max health over its duration with enough rage; Metabot data shows the per-tick healing value down 90% (probably a changed formula).
+- Spec choice: Method/Warcraft Tavern favor Feral; Restoration is viable in groups; Balance 'gets the job done' but Feral is smoother (search summaries).
+- Classic Warcraft Tavern trains only cat ranks + Mark after 20; Forever guides give no explicit skip list.
+
+**Open questions**
+
+- Feline Grace (passive at 40): no guide read describes its Forever effect.
+- Ferocious Bite: Metabot says a new rank 1 at 24, but the trainer list starts at rank 2 (32); Warcraft Tavern lists Ferocious Bite at 24 (likely via the Cat quest).
 

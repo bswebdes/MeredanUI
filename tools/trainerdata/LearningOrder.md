@@ -207,3 +207,43 @@ _All class trainer ranks 1-60: 134g 48s. Marked recommended: 54g 69s. Marked ski
 - Sell starting gear at 1. Herbalism or Skinning fund training (Warcraft Tavern).
 - Classic Warcraft Tavern sorts ~70g of warlock training into 'safe to skip until 60' - most of it still applies.
 - Budget for demon grimoires from the demon trainer if you play a pet-heavy spec (dtgre).
+
+## Druid
+
+_All class trainer ranks 1-60: 206g 43s. Marked recommended: 87g 46s. Marked skip: 13g 89s._
+
+**Default view: Feral leveling (recommended by Method and most guides). Bear Form (10), Cat Form (20) and Aquatic Form (16) come from class quests, not the trainer.**
+
+**Levels 1-10**
+- Buy everything: Mark of the Wild, Moonfire, Rejuvenation (4), Thorns, Wrath R2 (6), Entangling Roots, Healing Touch R2 (8).
+- At 10: Demoralizing Roar, Nature's Grasp (now baseline, works in forms), Moonfire/Rejuvenation/Mark ranks. Do the Bear Form quest.
+
+**Levels 10-20 (Bear)**
+- Enrage, Regrowth (12), Bash, Healing Touch R3, Thorns R2 (14), Swipe (16), Maul R2, Faerie Fire (18).
+- Healing Touch R4 (20) is the most mana-efficient self-heal (Classic Warcraft Tavern).
+- Revive (12) only for group play. Hibernate is niche.
+
+**Level 20 (Cat)**
+- Omen of Clarity (baseline passive), Shred, Mark of the Wild R3. Do the Cat Form quest.
+- Rebirth and Starfire are optional for Feral (Starfire is Balance core after 30).
+
+**Levels 20-30**
+- Rake (24), Rip ranks, Dash (26), Remove Curse (24), Thorns R3.
+- Skip Soothe Animal, Challenging Roar and Cower solo. Abolish Poison is group utility.
+- From here Feral can skip most Wrath/Moonfire/Starfire ranks and buy heal ranks only now and then.
+
+**Levels 30-40**
+- Travel Form (30), Shred/Rip/Rake/Bite ranks, Ravage (32), Faerie Fire R2, Mark R4.
+- Track Humanoids and Pounce are optional. Frenzied Regeneration (36) is a strong bear self-heal.
+- Talent spells (Claw, Insect Swarm, Primal Bite, Wild Growth): buy their ranks if talented.
+
+**Level 40**
+- Dire Bear Form, Innervate, Mark of the Wild R5. Prowl R2 and Feline Grace are low priority. Save for the mount.
+
+**Levels 40-60**
+- Cat ranks (Shred, Rip, Rake, Ferocious Bite, Ravage, Claw), Barkskin (44), Mark ranks.
+- Lacerate (42) and Maul/Swipe ranks only if you tank or level as bear. Tranquility and Hurricane are for healers/Balance.
+
+**Money tips**
+- Skinning + Leatherworking or Herbalism are the usual druid money professions (all guides read).
+- Biggest savings for Feral: caster damage ranks and high heal ranks after 20 (Classic Warcraft Tavern trains almost only cat ranks after 20).

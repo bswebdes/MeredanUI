@@ -95,3 +95,15 @@ PRIEST 19242 Desperate Prayer L50 -> wowhead "Desperate Prayer" L50 OK
 PRIEST 1277328 Dark Sacrifice L60 -> wowhead "Dark Sacrifice" L60 OK
 PRIEST 1277333 Chastise L40 -> wowhead "Chastise" L40 OK
 PRIEST 1309633 Shadow Word: Death L40 -> wowhead "Shadow Word: Death" L40 OK
+DRUID 774 Rejuvenation L4 -> wowhead "Rejuvenation" L4 OK
+DRUID 783 Travel Form L30 -> wowhead "Travel Form" L30 OK
+DRUID 2782 Remove Curse L24 -> wowhead "Remove Curse" L24 OK
+DRUID 5201 Claw L38 -> wowhead "Claw" L38 OK
+DRUID 8946 Cure Poison L14 -> wowhead "Cure Poison" L14 OK
+DRUID 9490 Demoralizing Roar L32 -> wowhead "Demoralizing Roar" L32 OK
+DRUID 9745 Maul L42 -> wowhead "Maul" L42 OK
+DRUID 9754 Swipe L44 -> wowhead "Swipe" L44 OK
+DRUID 16811 Nature's Grasp L28 -> wowhead "Nature's Grasp" L28 OK
+DRUID 16864 Omen of Clarity L20 -> wowhead "Omen of Clarity" L20 OK
+DRUID 24976 Insect Swarm L50 -> wowhead "Insect Swarm" L50 OK
+DRUID 1237951 Revive L60 -> wowhead "Revive" L60 OK

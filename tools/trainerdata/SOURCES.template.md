@@ -37,4 +37,19 @@ How the sources were checked against each other:
   that unlock); the Forever sources do not say whether the totem items are still needed.
 - Leveling advice for new Forever spells relies on early Forever guides (written during beta/launch week).
 
+## Open questions (all classes)
+
+- Talent spell ranks: the trainer level (WhatsTraining) is 10 levels above the client spell level for Paladin
+  Holy Shield rank 2/3 (50/60 vs 40/50) and Druid Primal Bite rank 2/3 (36/48 vs 50/60, here the other way).
+  Wowhead Forever shows the client values. The trainer values are used; check in game.
+- Druid Cat Form: WhatsTraining names reward quests 98362/98397, the Questie data has 98731/98739 ("Blessings of
+  the Great Cat Spirit"). Both are listed; which IDs are live needs an in-game check.
+- Shaman: Blizzard's deep dive puts Call of the Spirits at 30 and Call of the Ancestors at 40; the client and
+  Wowhead have Call of the Ancestors (66843) at 30 and Call of the Spirits (66844) at 40. Client data used.
+  The level 22 spell is called "Totemic Call" (437009) in the client; Blizzard called it "Totemic Projection".
+- Mage Frost Blast: one site says it was removed in the 2 November notes, but the client still has named ranks
+  (1326053-1326055) and the trainer sells them. Kept.
+- Training costs: single source (see above). Reputation discounts are not applied.
+- See `checks.txt` for all remaining automatic differences.
+
 <!-- CLASSES -->

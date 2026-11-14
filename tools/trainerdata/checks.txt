@@ -15,3 +15,5 @@ HUNTER: 24545 Natural Armor Rank 1: trainer level 10, client SpellLevels 1 (trai
 HUNTER: 24507 Shadow Resistance Rank 4: trainer level 50, client SpellLevels 40 (trainer level used)
 ROGUE: 3127 Parry Passive: trainer level 12, client SpellLevels 1 (trainer level used)
 ROGUE: 1804 Pick Lock : trainer level 16, client SpellLevels 1 (trainer level used)
+DRUID: 1238069 Primal Bite Rank 2: trainer level 36, client SpellLevels 50 (trainer level used)
+DRUID: 1238070 Primal Bite Rank 3: trainer level 48, client SpellLevels 60 (trainer level used)
