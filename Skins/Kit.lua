@@ -275,6 +275,7 @@ function Kit.ScrollBar(bar)
     groove:SetWidth(ns.Snap(6))
     groove:SetFrameLevel(math.max(track:GetFrameLevel() - 1, 0))
     UI.Groove(groove)
+    local parts = { groove } -- hidden while there is nothing to scroll (Blizzard keeps the bar)
     local thumb = track.Thumb or (bar.GetThumb and bar:GetThumb())
     if type(thumb) == "table" and thumb.GetRegions then
         for _, region in ipairs({ thumb:GetRegions() }) do
@@ -288,6 +289,7 @@ function Kit.ScrollBar(bar)
         grip:SetPoint("BOTTOM")
         grip:SetWidth(ns.Snap(6))
         grip:SetGradient("HORIZONTAL", CreateColor(unpack(m.dark)), CreateColor(unpack(m.lit)))
+        parts[#parts + 1] = grip
         Kit.WatchHover(thumb, function(_, hover) grip:SetAlpha(hover and 1 or 0.8) end)
     end
     for key, rotation in pairs({ Back = math.pi, Forward = 0 }) do
@@ -302,8 +304,15 @@ function Kit.ScrollBar(bar)
             icon:SetPoint("CENTER")
             icon:SetRotation(rotation)
             Kit.WatchHover(stepper, function(_, hover) icon:SetVertexColor(unpack(hover and UI.ACCENT or UI.MUTED)) end)
+            parts[#parts + 1] = icon
         end
     end
+    local function Refresh()
+        local on = not bar.HasScrollableExtent or bar:HasScrollableExtent()
+        for _, part in ipairs(parts) do part:SetShown(on and true or false) end
+    end
+    if bar.Update then hooksecurefunc(bar, "Update", Refresh) end
+    Refresh()
 end
 
 -- Dropdown (WowStyle1DropdownTemplate): bevel like a button, chevron on the right
