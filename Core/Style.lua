@@ -536,6 +536,13 @@ function ns.RuneFrame(frame, opts)
     local anchor = opts and opts.target or frame -- visible area, e.g. a skinned frame's inner border
     local _, shell = ns.AddDeepShell(anchor, ns.Snap(small and 1 or 2),
         { rim = small and 3 or 4, parent = frame, shadow = small and 10 or 16 })
+    -- clamped windows keep their whole frame on screen, not just the content (own frames only:
+    -- Blizzard's skinned frames stay untouched)
+    local name = frame:GetName()
+    if anchor == frame and (not name or name:find("^MeredanUI")) and frame:IsClampedToScreen() and not frame:IsProtected() then
+        local reach = small and ns.SmallFrameReach() or ns.WindowFrameReach()
+        frame:SetClampRectInsets(-reach, reach, reach, -reach)
+    end
     local parts = { shell = shell }
     function parts:SetShown(shown) shell:SetShown(shown) end
     return parts

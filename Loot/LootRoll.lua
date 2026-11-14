@@ -100,15 +100,16 @@ local function CreateFrameRow(index)
     local bg = frame:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.panelColor))
-    ns.AddBorder(frame)
+    ns.RuneFrame(frame, { small = true }) -- B8 small, like the toasts
 
     frame.iconFrame = CreateFrame("Button", nil, frame)
     frame.iconFrame:SetSize(ns.Snap(ICON), ns.Snap(ICON))
     frame.iconFrame:SetPoint("LEFT", 5, 0)
+    ns.AddSlotBackground(frame.iconFrame)
+    frame.border = ns.AddItemFrame(frame.iconFrame, nil, 2) -- quality colour on the item frame
     frame.icon = frame.iconFrame:CreateTexture(nil, "ARTWORK")
-    frame.icon:SetAllPoints()
+    ns.InsetItemIcon(frame.iconFrame, frame.icon, nil, 2)
     frame.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    frame.border = ns.AddBorder(frame.iconFrame)
     frame.count = ns.CreateText(frame.iconFrame, 12, "RIGHT", "OUTLINE")
     frame.count:SetPoint("BOTTOMRIGHT", -1, 2)
     frame.iconFrame:SetScript("OnEnter", IconEnter)
@@ -135,7 +136,7 @@ local function CreateFrameRow(index)
     frame.timer:SetPoint("BOTTOMLEFT", 1, 1)
     frame.timer:SetPoint("BOTTOMRIGHT", -1, 1)
     frame.timer:SetHeight(ns.Snap(3))
-    frame.timer:SetStatusBarTexture(ns.STYLE.barTexture or "Interface\\Buttons\\WHITE8X8")
+    frame.timer:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     frame.timer:SetScript("OnUpdate", function(bar, elapsed)
         if frame.demo then
             frame.demoLeft = math.max((frame.demoLeft or 0) - elapsed, 0)
@@ -176,7 +177,8 @@ local function Fill(frame, data)
     frame.name:SetText(data.name or "")
     local r, g, b = QualityColor(data.quality)
     frame.name:SetTextColor(r, g, b)
-    for _, edge in ipairs(frame.border) do edge:SetVertexColor(r, g, b, 1) end
+    local edge = (data.quality and data.quality >= Enum.ItemQuality.Uncommon) and { r, g, b } or ns.Material().item
+    for _, e in ipairs(frame.border) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
     frame.timer:SetStatusBarColor(r, g, b)
     frame.timer:SetMinMaxValues(0, data.duration or 60000)
     frame.count:SetText(data.count and data.count > 1 and data.count or "")
@@ -200,7 +202,7 @@ local function Restack()
         if frame:IsShown() then
             frame:ClearAllPoints()
             frame:SetPoint("TOP", holder, "TOP", 0, -y)
-            y = y + ns.Snap(HEIGHT) + ns.Snap(4)
+            y = y + ns.Snap(HEIGHT) + ns.Snap(4) + 2 * ns.SmallFrameReach() -- clear of both frames
         end
     end
 end

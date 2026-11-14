@@ -76,10 +76,11 @@ local function CreateRow(index)
     row.iconFrame = CreateFrame("Frame", nil, row)
     row.iconFrame:SetSize(ns.Snap(ICON), ns.Snap(ICON))
     row.iconFrame:SetPoint("LEFT", 2, 0)
+    ns.AddSlotBackground(row.iconFrame)
+    row.border = ns.AddItemFrame(row.iconFrame, nil, 2) -- quality colour on the item frame
     row.icon = row.iconFrame:CreateTexture(nil, "ARTWORK")
-    row.icon:SetAllPoints()
+    ns.InsetItemIcon(row.iconFrame, row.icon, nil, 2)
     row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-    row.border = ns.AddBorder(row.iconFrame)
     row.count = ns.CreateText(row.iconFrame, 13, "RIGHT", "OUTLINE")
     row.count:SetPoint("BOTTOMRIGHT", -1, 2)
     row.quest = ns.CreateText(row.iconFrame, 20, "LEFT", "OUTLINE")
@@ -115,7 +116,7 @@ local function FillRow(row, slot)
     row.name:SetTextColor(r, g, b)
     local colored = not isMoney and quality and quality >= Enum.ItemQuality.Uncommon
     for _, edge in ipairs(row.border) do
-        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(unpack(ns.BORDER_COLOR)) end
+        if colored then edge:SetVertexColor(r, g, b, 1) else edge:SetVertexColor(unpack(ns.Material().item)) end
     end
     row.count:SetText(quantity and quantity > 1 and quantity or "")
     row.quest:SetShown(isQuestItem or questID ~= nil)
@@ -138,8 +139,8 @@ local function CreateWindow()
     local bg = window:CreateTexture(nil, "BACKGROUND", nil, -1)
     bg:SetAllPoints()
     bg:SetColorTexture(unpack(ns.STYLE.panelColor))
-    ns.AddBorder(window)
-    window.title = ns.UI.Text(window, 13, "LEFT", ns.UI.MUTED)
+    ns.RuneFrame(window, { small = true })
+    window.title = ns.UI.Title(window, 13, "LEFT") -- Cinzel like other window titles
     window.title:SetPoint("TOPLEFT", ns.Snap(PAD + 2), -ns.Snap(8))
     window.title:SetPoint("RIGHT", -28, 0)
     window.title:SetWordWrap(false)
