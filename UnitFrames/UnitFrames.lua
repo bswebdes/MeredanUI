@@ -29,6 +29,7 @@ function ns.ApplyBarPortraits()
                 frame:DisableElement("Portrait")
                 frame.Portrait:Hide()
             end
+            if frame.Portrait.muiCover then frame.Portrait.muiCover:SetShown(ns.db.barPortrait and true or false) end
         end
     end
 end
@@ -237,8 +238,34 @@ local function Style(self, unit)
     if unit == "player" or unit == "target" then
         local portrait = CreateFrame("PlayerModel", nil, self)
         portrait:SetAllPoints(health)
-        portrait:SetFrameLevel(health:GetFrameLevel() + 2)
+        portrait:SetFrameLevel(health:GetFrameLevel() + 1)
         portrait:SetAlpha(PORTRAIT_ALPHA)
+        -- The model only shows over the filled part: a cover in the empty-bar colour lies over the
+        -- missing health. It hangs on the fill texture's edge, so the client moves it (works with
+        -- secret health values too, no maths in Lua). Incoming heals and shields go above it.
+        local cover = CreateFrame("Frame", nil, self)
+        cover:SetAllPoints(health)
+        cover:SetFrameLevel(health:GetFrameLevel() + 2)
+        local mask = cover:CreateTexture(nil, "ARTWORK")
+        mask:SetTexture(health.bg:GetTexture())
+        local fill = health:GetStatusBarTexture()
+        if mirrored then
+            mask:SetPoint("TOPLEFT", health, "TOPLEFT")
+            mask:SetPoint("BOTTOMRIGHT", fill, "BOTTOMLEFT")
+        else
+            mask:SetPoint("TOPLEFT", fill, "TOPRIGHT")
+            mask:SetPoint("BOTTOMRIGHT", health, "BOTTOMRIGHT")
+        end
+        local post = health.PostUpdateColor
+        health.PostUpdateColor = function(element, ...)
+            if post then post(element, ...) end
+            mask:SetVertexColor(element.bg:GetVertexColor())
+        end
+        mask:SetVertexColor(health.bg:GetVertexColor())
+        for _, child in ipairs({ health:GetChildren() }) do -- heal prediction bars above the cover
+            child:SetFrameLevel(health:GetFrameLevel() + 3)
+        end
+        portrait.muiCover = cover
         -- target mirrors the player: turned to look left (inward) and the head moved to the right
         -- side. oUF resets the model on every unit change, so this runs after each update.
         if mirrored then
