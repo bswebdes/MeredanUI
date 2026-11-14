@@ -761,28 +761,19 @@ end
 -- Items (draft): icon in an item frame with the quality colour on its edge left of the name, the
 -- item level right under the name; mUI's own lines go below a divider (ns.TooltipSection)
 local itemLevelPattern = type(ITEM_LEVEL) == "string" and ("^" .. ITEM_LEVEL:gsub("[%(%)%.%+%-%*%?%[%]%^%$]", "%%%0"):gsub("%%%%d", "%%d+"))
--- Sell price: Blizzard puts its money frame (with "Sell Price:") centred on a blank line of its
--- own. That line gets taller and the money sits at its bottom, so there is a little room above.
-local MONEY_ROOM = 5
+-- Sell price (a plain text line in Forever): an empty row above it when text sits right above;
+-- right below the icon the gap is there already
+local sellPrefix = type(SELL_PRICE) == "string" and SELL_PRICE .. ":"
 local function SpaceMoneyLines(tooltip)
-    local name = tooltip:GetName()
-    for i = 1, tooltip.shownMoneyFrames or 0 do
-        local money = _G[name .. "MoneyFrame" .. i]
-        local line, x
-        if money then _, line, _, x = money:GetPoint(1) end
-        local index
-        for k = 2, tooltip:NumLines() do
-            if Left(tooltip, k) == line then index = k break end
-        end
-        -- right below the icon the gap is there already
-        local above = index and Left(tooltip, index - 1):GetText()
-        local afterIcon = not (Readable(above) and above) or above:find("\n $") or above:find("\n|T1319037:%d+:1|t$")
-        if index and not afterIcon then
-            local _, size = line:GetFont()
-            size = size or 12
-            line:SetText(("|T1319037:%d:1|t"):format(math.floor(size + MONEY_ROOM + 0.5)))
-            money:ClearAllPoints()
-            money:SetPoint("LEFT", line, "BOTTOMLEFT", x or 0, size / 2)
+    if not sellPrefix then return end
+    for k = 3, tooltip:NumLines() do
+        local line = Left(tooltip, k)
+        local text = line and line:GetText()
+        if Readable(text) and text and text:sub(1, #sellPrefix) == sellPrefix then
+            local above = Left(tooltip, k - 1):GetText()
+            local afterIcon = not (Readable(above) and above) or above:find("\n $") or above:find("\n|T1319037:%d+:1|t$")
+            if not afterIcon then line:SetText("\n" .. text) end
+            return
         end
     end
 end
