@@ -161,6 +161,68 @@ function Kit.Field(target, focus)
     return fill
 end
 
+-- Groove drawn on an EditBox itself (so it stays behind the text), around anchor points of the
+-- caller's choice: TOPLEFT at (l, t), BOTTOMRIGHT at (r, b) relative to the box, or around the
+-- regions `from`/`to`. Accent outline while the box has focus.
+function Kit.EditField(box, l, t, r, b, from, to)
+    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") then return end
+    if not Once(box, "edit") then return end
+    local UI = ns.UI
+    local px = ns.PixelSize()
+    local m = ns.Material()
+    for _, key in ipairs({ "Left", "Middle", "Mid", "Right" }) do Fade(box[key]) end
+    Fade(box.NineSlice)
+    local function Anchor(tex)
+        if from and to then
+            tex:SetPoint("TOPLEFT", from, "TOPLEFT")
+            tex:SetPoint("BOTTOMRIGHT", to, "BOTTOMRIGHT")
+        else
+            tex:SetPoint("TOPLEFT", box, "TOPLEFT", l or 0, t or 0)
+            tex:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", r or 0, b or 0)
+        end
+    end
+    local function New(layer, sub)
+        local tex = box:CreateTexture(nil, layer, nil, sub)
+        tex:SetTexture(WHITE)
+        tex:SetSnapToPixelGrid(false)
+        tex:SetTexelSnappingBias(0)
+        tex.muiKit = true
+        return tex
+    end
+    -- an invisible frame-less rect: one texture carries the area, the edges hang on it
+    local area = New("BACKGROUND", -8)
+    Anchor(area)
+    area:SetVertexColor(unpack(UI.FIELD))
+    local shade = New("BACKGROUND", -7)
+    shade:SetPoint("TOPLEFT", area)
+    shade:SetPoint("TOPRIGHT", area)
+    shade:SetHeight(ns.Snap(4))
+    shade:SetGradient("VERTICAL", CreateColor(0, 0, 0, 0), CreateColor(0, 0, 0, 0.7))
+    local top, bottom, left, right = New("BORDER", -8), New("BORDER", -8), New("BORDER", -8), New("BORDER", -8)
+    top:SetPoint("TOPLEFT", area) top:SetPoint("TOPRIGHT", area) top:SetHeight(px)
+    bottom:SetPoint("BOTTOMLEFT", area) bottom:SetPoint("BOTTOMRIGHT", area) bottom:SetHeight(px)
+    left:SetPoint("TOPLEFT", area) left:SetPoint("BOTTOMLEFT", area) left:SetWidth(px)
+    right:SetPoint("TOPRIGHT", area) right:SetPoint("BOTTOMRIGHT", area) right:SetWidth(px)
+    top:SetVertexColor(0, 0, 0, 1)
+    left:SetVertexColor(0, 0, 0, 1)
+    bottom:SetVertexColor(m.item[1], m.item[2], m.item[3], 0.85)
+    right:SetGradient("VERTICAL", CreateColor(m.item[1], m.item[2], m.item[3], 0.85), CreateColor(0, 0, 0, 1))
+    local focus = {}
+    for i, spec in ipairs({ { "TOPLEFT", "TOPRIGHT", true }, { "BOTTOMLEFT", "BOTTOMRIGHT", true },
+        { "TOPLEFT", "BOTTOMLEFT", false }, { "TOPRIGHT", "BOTTOMRIGHT", false } }) do
+        local e = New("BORDER", -7)
+        e:SetPoint(spec[1], area)
+        e:SetPoint(spec[2], area)
+        if spec[3] then e:SetHeight(px) else e:SetWidth(px) end
+        e:SetVertexColor(unpack(UI.ACCENT))
+        e:Hide()
+        focus[i] = e
+    end
+    box:HookScript("OnEditFocusGained", function() for _, e in ipairs(focus) do e:Show() end end)
+    box:HookScript("OnEditFocusLost", function() for _, e in ipairs(focus) do e:Hide() end end)
+    return area
+end
+
 -- Content area set into the window (lists, grids)
 function Kit.Inset(target, color)
     if type(target) ~= "table" or not Once(target, "inset") then return end
@@ -243,6 +305,7 @@ local TAB_FILL = {
 function Kit.SetTabActive(tab, on)
     local fill = tab.muiTabFill
     if not fill then return end
+    tab.muiTabActive = on and true or false
     local c = TAB_FILL[on and "on" or "off"]
     fill:SetGradient("VERTICAL", CreateColor(c[2][1], c[2][2], c[2][3], 1), CreateColor(c[1][1], c[1][2], c[1][3], 1))
     tab.muiTabGem:SetShown(on and true or false)

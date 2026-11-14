@@ -11,7 +11,6 @@ local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
-local INPUT = { 0.04, 0.04, 0.05, 1 }
 local BOX = { 0, 0, 0, 0.25 }
 local PAD, ICON = 18, 46
 local HEADER_BOTTOM = PAD + ICON + 14 -- 78: content starts here
@@ -173,22 +172,11 @@ local function HookScrollBox(box, fn)
 end
 
 -- Edit box: dark field, Surf Green border on focus (never SetText - taints Blizzard's saving)
+-- sunk field (groove) with an accent outline on focus (Skins/Kit.lua)
 local function SkinEditBox(box, left, right)
-    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") or not Once(box) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Mid", "Right" }) do Fade(box[key]) end
+    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") then return end
     FadeRegions(box)
-    local bg = Tex(box, "BACKGROUND", -8, INPUT)
-    bg:SetPoint("TOPLEFT", -(left or 6), 0)
-    bg:SetPoint("BOTTOMRIGHT", right or 2, 0)
-    local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
-    local edges = Edges(box, bg, IDLE)
-    box:HookScript("OnEditFocusGained", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    box:HookScript("OnEditFocusLost", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
-    end)
+    ns.SkinKit.EditField(box, -(left or 6), 0, right or 2, 0)
 end
 
 -- Checkbox: dark box, Surf Green check (state from GetChecked)

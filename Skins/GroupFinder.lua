@@ -228,21 +228,9 @@ local function SkinCheck(check)
 end
 
 -- Search box (SearchBoxTemplate): dark field, Surf Green border on focus
+-- sunk field (groove) with an accent outline on focus (Skins/Kit.lua)
 local function SkinEditBox(box)
-    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") or not Once(box) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Mid", "Right" }) do Fade(box[key]) end
-    local bg = Tex(box, "BACKGROUND", -8, INPUT)
-    bg:SetPoint("TOPLEFT", -6, 4)
-    bg:SetPoint("BOTTOMRIGHT", 2, -4)
-    local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
-    local edges = Edges(box, bg, IDLE)
-    box:HookScript("OnEditFocusGained", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    box:HookScript("OnEditFocusLost", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
-    end)
+    ns.SkinKit.EditField(box, -6, 4, 2, -4)
 end
 
 -- Multi-line edit box (UIPanelInputScrollFrameTemplate): border art removed, dark field

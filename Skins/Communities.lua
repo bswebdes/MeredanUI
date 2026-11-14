@@ -139,32 +139,17 @@ end
 
 -- Edit box: Blizzard's edges removed, dark field, Surf Green border on focus.
 -- inset = { left, top, right, bottom } relative to the box (default: Blizzard's Left/Right art)
-local function SkinEditBox(box, inset, color)
+-- sunk field (groove) with an accent outline on focus (Skins/Kit.lua); inset = { l, t, r, b }
+local function SkinEditBox(box, inset)
     if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") then return end
-    if not Once(box) then return end
-    local UI = ns.UI
     local left, right = box.Left, box.Right
-    for _, key in ipairs({ "Left", "Middle", "Mid", "Right" }) do Fade(box[key]) end
-    Fade(box.NineSlice)
-    local bg = Tex(box, "BACKGROUND", -8, color or INPUT)
     if inset then
-        bg:SetPoint("TOPLEFT", box, "TOPLEFT", inset[1], inset[2])
-        bg:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", inset[3], inset[4])
+        ns.SkinKit.EditField(box, inset[1], inset[2], inset[3], inset[4])
     elseif IsTexture(left) and IsTexture(right) then
-        bg:SetPoint("TOPLEFT", left, "TOPLEFT")
-        bg:SetPoint("BOTTOMRIGHT", right, "BOTTOMRIGHT")
+        ns.SkinKit.EditField(box, nil, nil, nil, nil, left, right)
     else
-        bg:SetAllPoints()
+        ns.SkinKit.EditField(box, 0, 0, 0, 0)
     end
-    -- faint light edge so the field is visible on dark backgrounds; Surf Green on focus
-    local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
-    local edges = Edges(box, bg, IDLE)
-    box:HookScript("OnEditFocusGained", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    box:HookScript("OnEditFocusLost", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
-    end)
 end
 
 -- multi-line edit box (InputScrollFrameTemplate): border art removed, dark field
@@ -642,7 +627,7 @@ local function SkinChat(f)
     end
     SkinButton(_G.JumpToUnreadButton)
     -- Blizzard's art is 32 high with lots of air; the visible field is about 22 high like Blizzard's
-    SkinEditBox(f.ChatEditBox, { -4, -5, 4, 5 }, BOX)
+    SkinEditBox(f.ChatEditBox, { -4, -5, 4, 5 })
 end
 
 local function SkinMemberList(members)
@@ -1840,7 +1825,7 @@ local function SkinRankRows()
             row:SetHeight(28)
             local box = row.nameBox
             if box then
-                SkinEditBox(box, { -6, -4, 2, 4 }, BOX)
+                SkinEditBox(box, { -6, -4, 2, 4 })
                 box:ClearAllPoints()
                 box:SetPoint("LEFT", row, "LEFT", 70, 0)
                 box:SetSize(146, 36)
@@ -1893,7 +1878,7 @@ local function LayoutPerms(page)
         ControlCheck(_G.GuildControlUIRankSettingsFrameCheckbox18)
         for _, id in ipairs(BASE_FLAGS) do ControlCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. id]) end
         for _, id in ipairs(BANK_FLAGS) do ControlCheck(_G["GuildControlUIRankSettingsFrameCheckbox" .. id]) end
-        if page.goldBox then SkinEditBox(page.goldBox, nil, BOX) end
+        if page.goldBox then SkinEditBox(page.goldBox) end
         local goldLabel = _G.parentLabel -- Blizzard really names the font like this
         if goldLabel then
             goldLabel:SetFont(ns.FontFor(), ns.FontPx(12), "")
@@ -1978,7 +1963,7 @@ local function SkinChildren(frame, depth)
         if child:IsObjectType("CheckButton") then
             ControlCheck(child)
         elseif child:IsObjectType("EditBox") then
-            SkinEditBox(child, nil, BOX)
+            SkinEditBox(child)
         elseif child:IsObjectType("Button") and child.Left and child.Middle and child.Right then
             SkinButton(child)
         elseif child.SetupMenu and child.Background then

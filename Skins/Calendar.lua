@@ -164,21 +164,11 @@ local function SkinCheck(check)
 end
 
 -- Single-line edit box (InputBoxTemplate): dark field, Surf Green border on focus
+-- sunk field (groove) with an accent outline on focus (Skins/Kit.lua)
 local function SkinEditBox(box)
-    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") or not Once(box) then return end
-    local UI = ns.UI
+    if type(box) ~= "table" or not box.IsObjectType or not box:IsObjectType("EditBox") then return end
     FadeRegions(box)
-    local bg = Tex(box, "BACKGROUND", -8, INPUT)
-    bg:SetPoint("TOPLEFT", -6, 2)
-    bg:SetPoint("BOTTOMRIGHT", 2, -2)
-    local IDLE = UI.CHECK_EDGE or { 0.36, 0.36, 0.38, 1 }
-    local edges = Edges(box, bg, IDLE)
-    box:HookScript("OnEditFocusGained", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    box:HookScript("OnEditFocusLost", function()
-        for _, edge in ipairs(edges) do edge:SetVertexColor(IDLE[1], IDLE[2], IDLE[3], IDLE[4] or 1) end
-    end)
+    ns.SkinKit.EditField(box, -6, 2, 2, -2)
 end
 
 -- Scrollbar (MinimalScrollBar): chevron arrows, thin track, Surf Green thumb

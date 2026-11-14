@@ -33,22 +33,11 @@ local function SkinCloseButton(button)
     button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
 end
 
+-- sunk field (groove) with an accent outline on focus (Skins/Kit.lua)
 local function SkinEditBox(editBox)
     if not editBox or skinned[editBox] then return end
     skinned[editBox] = true
-    local UI = ns.UI
-    if editBox.NineSlice then editBox.NineSlice:SetAlpha(0) end
-    local bg = editBox:CreateTexture(nil, "BACKGROUND", nil, -8)
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(UI.FIELD))
-    ns.AddBorder(editBox)
-    local focus = ns.AddBorder(editBox, true)
-    for _, edge in ipairs(focus) do
-        edge:SetVertexColor(unpack(UI.ACCENT))
-        edge:Hide()
-    end
-    editBox:HookScript("OnEditFocusGained", function() for _, e in ipairs(focus) do e:Show() end end)
-    editBox:HookScript("OnEditFocusLost", function() for _, e in ipairs(focus) do e:Hide() end end)
+    ns.SkinKit.EditField(editBox, 0, 0, 0, 0)
 end
 
 -- Timer bar (e.g. trades): Blizzard's border removed, flat Surf Green bar

@@ -32,7 +32,6 @@ local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
 local tabParts = setmetatable({}, { __mode = "k" })
 local windows = setmetatable({}, { __mode = "k" }) -- frame -> config + our header parts
-local fonts
 local hooked = false
 
 local function Enabled()
@@ -93,37 +92,12 @@ local function Edges(parent, target, color, layer)
     return edges
 end
 
-local function Border(target, inside, thickness)
-    local edges = ns.AddBorder(target, inside, thickness)
-    for _, edge in ipairs(edges) do own[edge] = true end
-    return edges
-end
-
 -- Background + border + Surf Green top line
 local function Panel(target)
     local c = ns.STYLE.panelColor
     local bg = Tex(target, "BACKGROUND", -8, { c[1], c[2], c[3], 0.97 })
     bg:SetAllPoints()
     ns.RuneFrame(target)
-end
-
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, base, color)
-        local font = CreateFont(name)
-        font:CopyFontObject(base)
-        font:SetTextColor(color[1], color[2], color[3])
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUIScoreButton", GameFontHighlight, UI.TEXT),
-        highlight = Make("MeredanUIScoreButtonHighlight", GameFontHighlight, UI.ACCENT),
-        disabled = Make("MeredanUIScoreButtonDisabled", GameFontDisable, UI.MUTED),
-        tab = Make("MeredanUIScoreTab", GameFontHighlight, UI.MUTED),
-        tabActive = Make("MeredanUIScoreTabActive", GameFontHighlight, UI.ACCENT),
-    }
-    return fonts
 end
 
 -- Controls ---------------------------------------------------------------------------------------
@@ -184,38 +158,20 @@ end
 
 -- Tabs (All / Alliance / Horde): flat buttons in the toolbar; active one Surf Green.
 -- Blizzard disables the selected tab and resizes tabs to their text on show.
+-- rune-look tab (Skins/Kit.lua), the active one with a gem
 local function SkinTab(tab)
     if type(tab) ~= "table" or not Once(tab) then return end
-    local UI = ns.UI
-    FadeRegions(tab)
-    local bg = Tex(tab, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    local hover = Tex(tab, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints()
-    Border(tab)
-    local active = Border(tab, true, 2)
-    for _, edge in ipairs(active) do edge:SetVertexColor(unpack(ns.UI.ACCENT)) end
-    tabParts[tab] = active
+    ns.SkinKit.Tab(tab)
+    tabParts[tab] = true
 end
 
 local function UpdateTabs(window)
-    local f = Fonts()
     local selected = PanelTemplates_GetSelectedTab(window.frame)
     for i, tab in ipairs(window.tabs) do
-        local edges = tabParts[tab]
-        if edges then
-            local on = selected == i
-            for _, edge in ipairs(edges) do edge:SetShown(on) end
+        if tabParts[tab] then
             FadeRegions(tab)
-            local font = on and f.tabActive or f.tab
-            tab:SetNormalFontObject(font)
-            tab:SetDisabledFontObject(font)
-            tab:SetHighlightFontObject(f.tabActive)
-            if tab.Text then
-                tab.Text:ClearAllPoints()
-                tab.Text:SetPoint("CENTER", 0, 0)
-            end
             tab:SetHeight(28)
+            ns.SkinKit.SetTabActive(tab, selected == i)
             if tab:GetWidth() < TAB_MIN_W then tab:SetWidth(TAB_MIN_W) end
         end
     end
@@ -413,6 +369,7 @@ local function Apply()
     hooksecurefunc("PanelTemplates_TabResize", function(tab)
         if tabParts[tab] then
             tab:SetHeight(28)
+            ns.SkinKit.SetTabActive(tab, tab.muiTabActive)
             if tab:GetWidth() < TAB_MIN_W then tab:SetWidth(TAB_MIN_W) end
         end
     end)
