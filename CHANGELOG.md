@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.5.1
+- Fixed: a Lua error in combat when the threat of your target's target changed (nameplate colours)
+- Fixed: Blizzard's trainer window no longer flashes up for a moment before the mUI trainer opens
+
 ## v0.5.0
 - A whole new look for mUI. Warm dark panels, a deep window frame with a lit edge, Cinzel titles, gems for active tabs and bevelled buttons. Choose iron (default) or bronze for the frame material and Cinzel or the mUI font for headings
 - Unit frames, group frames, nameplates, cast bars, auras, the minimap, the XP bar, the class bar and the action buttons all follow the new look, with shaded bars in thin shells and item frames around icons

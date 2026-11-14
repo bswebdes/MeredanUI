@@ -2,6 +2,10 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.1", items = {
+        "Fixed: a Lua error in combat when the threat of your target's target changed (nameplate colours)",
+        "Fixed: Blizzard's trainer window no longer flashes up for a moment before the mUI trainer opens",
+    } },
     { version = "v0.5.0", items = {
         "A whole new look for mUI. Warm dark panels, a deep window frame with a lit edge, Cinzel titles, gems for active tabs and bevelled buttons. Choose iron (default) or bronze for the frame material and Cinzel or the mUI font for headings",
         "Unit frames, group frames, nameplates, cast bars, auras, the minimap, the XP bar, the class bar and the action buttons all follow the new look, with shaded bars in thin shells and item frames around icons",
@@ -51,10 +55,5 @@ ns.CHANGELOG = {
         "Quest tracker: sorted by level by default (the focus quest stays on top). The old order is still there as \"Current zone first\"",
         "Quest tracker: with \"Collapse finished quests\" the focus quest stays open, so you keep its arrow and distance",
         "Questie: its quest icon on nameplates sits right next to the mUI bar and no longer jumps when you target the unit",
-    } },
-    { version = "v0.4.3", items = {
-        "Chat: new size setting (Small / Medium / Large) on the Chat page – Medium is the size you had so far, Large gives you a lot more room",
-        "Fixed: rogue Poisons were missing in the professions window",
-        "Removed the \"Back to Blizzard\" button again: mUI's game settings are temporary now, so there is nothing left to reset",
     } },
 }
