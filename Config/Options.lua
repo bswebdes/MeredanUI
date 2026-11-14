@@ -204,6 +204,9 @@ local PAGES = {
                 Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
             page:AddDropdown(L["Frame material"], function() return { { value = "bronze", label = L["Bronze"] }, { value = "iron", label = L["Iron"] } } end,
                 Getter("frameMaterial"), Setter("frameMaterial"), RELOAD)
+            page:AddDropdown(L["Heading font"], function() return { { value = "cinzel", label = "Cinzel" }, { value = "mui", label = "mUI" } } end,
+                ns.DisplayFontChoice, Setter("displayFont", ns.RefreshStyle),
+                Help(L["Window titles, headings and names above the unit frames."], true))
             page:AddDropdown(L["Action bar end caps"], function()
                 return {
                     { value = "none", label = L["None"] },

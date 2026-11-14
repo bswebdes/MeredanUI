@@ -361,7 +361,7 @@ function ns.CreateBackground(region)
 end
 
 -- Frame material (setting "Rahmen"): every frame building block takes its colours from here.
--- Bronze is the default, iron the dark variant. Read when frames are built (switch: reload).
+-- Iron is the default, bronze the warm variant. Read when frames are built (switch: reload).
 ns.FRAME_MATERIALS = {
     bronze = {
         lit = { 0.86, 0.70, 0.44, 1 }, dark = { 0.36, 0.25, 0.13, 1 },   -- edge lit from above
@@ -382,7 +382,7 @@ ns.FRAME_MATERIALS = {
     },
 }
 function ns.Material()
-    return ns.FRAME_MATERIALS[ns.db and ns.db.frameMaterial or "bronze"] or ns.FRAME_MATERIALS.bronze
+    return ns.FRAME_MATERIALS[ns.db and ns.db.frameMaterial or "iron"] or ns.FRAME_MATERIALS.iron
 end
 -- Painted bronze ornaments (class animals, gem bezels) follow the material without new art:
 -- iron takes most of the colour out and cools them a little.
@@ -696,9 +696,17 @@ function ns.AddSlotBackground(frame)
     return base, slot
 end
 
+-- Titles/headings: Cinzel or mUI Bold (setting; existing installs default to mUI, see Core.lua)
+function ns.DisplayFontChoice()
+    return ns.db and ns.db.displayFont or ns.root and ns.root.displayFontDefault or "cinzel"
+end
+function ns.DisplayFont()
+    return ns.DisplayFontChoice() == "mui" and ns.BOLD_FONT or ns.DISPLAY_FONT
+end
+
 -- Font face per role: "bold" (names, headings), "text" (body text), otherwise mUI.
 function ns.FontFor(role)
-    if role == "display" then return ns.DISPLAY_FONT end -- Cinzel: titles and section headings (rune look)
+    if role == "display" then return ns.DisplayFont() end -- titles and section headings
     if role == "bold" then return STYLE.boldFont or ns.BOLD_FONT end
     if role == "text" then return STYLE.textFont or ns.TEXT_FONT end
     return STYLE.font

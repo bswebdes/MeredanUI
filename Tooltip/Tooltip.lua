@@ -385,12 +385,12 @@ local function AddRow(tooltip, layout, label, value)
     r:Show()
 end
 
--- Name in Cinzel (B6) for units; restored on clear
+-- Name in the heading font (B6) for units; restored on clear
 local nameFont
 local function SetNameFont(tooltip)
     if not nameFont then
         nameFont = CreateFont("MeredanUITooltipName")
-        nameFont:SetFont(ns.DISPLAY_FONT, ns.FontPx(15), "")
+        nameFont:SetFont(ns.FontFor("display"), ns.FontPx(15), "")
         nameFont:SetShadowOffset(1, -1)
         nameFont:SetShadowColor(0, 0, 0, 1)
     end

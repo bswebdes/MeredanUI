@@ -165,7 +165,8 @@ local DEFAULTS = {
     fontSize = "medium", -- font size of all mUI texts: "small", "medium", "large" (Core/Style.lua)
     layout = "melee", -- Core/Layouts.lua; melee DPS is the base
     theme = "class", -- "class", "dark" or "green"
-    frameMaterial = "bronze", -- setting "Rahmen": "bronze" or "iron" (Core/Style.lua FRAME_MATERIALS)
+    frameMaterial = "iron", -- setting "Rahmen": "bronze" or "iron" (Core/Style.lua FRAME_MATERIALS)
+    -- displayFont: "cinzel" or "mui" for titles/headings; nil = account default (ns.DisplayFontChoice)
     minimapExtras = "always", -- texts (zone, clock, coordinates) and icons: "always" or "mouseover"
     frameSize = "medium", -- player + target (pet, target of target, focus scale along): "small", "medium", "large"
     bossSize = "medium",  -- boss frames: "small", "medium", "large"
@@ -399,8 +400,12 @@ ns:On("ADDON_LOADED", function(_, name)
     -- Only react to our own addon but keep the event registered: modules wait for
     -- Blizzard load-on-demand addons (e.g. Blizzard_TimeManager).
     if name ~= ADDON_NAME then return end
+    local freshInstall = MeredanUIDB == nil
     MeredanUIDB = MeredanUIDB or {}
     local root = MeredanUIDB
+    -- Cinzel headings came with v0.5: existing installs keep the mUI font until they switch,
+    -- new installs start with Cinzel. Decided once per account, every profile follows unless set.
+    root.displayFontDefault = root.displayFontDefault or (freshInstall and "cinzel" or "mui")
 
     -- Migrate pre-profile flat settings into the default profile
     if not root.profiles then
