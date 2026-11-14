@@ -47,3 +47,15 @@ PALADIN 19942 Flash of Light L50 -> wowhead "Flash of Light" L50 OK
 PALADIN 20291 Seal of Righteousness L42 -> wowhead "Seal of Righteousness" L42 OK
 PALADIN 20306 Seal of the Crusader L32 -> wowhead "Seal of the Crusader" L32 OK
 PALADIN 24275 Hammer of Wrath L44 -> wowhead "Hammer of Wrath" L44 OK
+ROGUE 1768 Kick L42 -> wowhead "Kick" L42 OK
+ROGUE 1769 Kick L58 -> wowhead "Kick" L58 OK
+ROGUE 1785 Stealth L20 -> wowhead "Stealth" L20 OK
+ROGUE 1787 Stealth L60 -> wowhead "Stealth" L60 OK
+ROGUE 1856 Vanish L22 -> wowhead "Vanish" L22 OK
+ROGUE 2590 Backstab L20 -> wowhead "Backstab" L20 OK
+ROGUE 5171 Slice and Dice L10 -> wowhead "Slice and Dice" L10 OK
+ROGUE 6774 Slice and Dice L42 -> wowhead "Slice and Dice" L42 OK
+ROGUE 8721 Backstab L36 -> wowhead "Backstab" L36 OK
+ROGUE 8725 Ambush L34 -> wowhead "Ambush" L34 OK
+ROGUE 11281 Backstab L60 -> wowhead "Backstab" L60 OK
+ROGUE 11305 Sprint L58 -> wowhead "Sprint" L58 OK

@@ -13,3 +13,5 @@ HUNTER: 3127 Parry Passive: trainer level 8, client SpellLevels 1 (trainer level
 HUNTER: 4187 Great Stamina Rank 1: trainer level 10, client SpellLevels 1 (trainer level used)
 HUNTER: 24545 Natural Armor Rank 1: trainer level 10, client SpellLevels 1 (trainer level used)
 HUNTER: 24507 Shadow Resistance Rank 4: trainer level 50, client SpellLevels 40 (trainer level used)
+ROGUE: 3127 Parry Passive: trainer level 12, client SpellLevels 1 (trainer level used)
+ROGUE: 1804 Pick Lock : trainer level 16, client SpellLevels 1 (trainer level used)

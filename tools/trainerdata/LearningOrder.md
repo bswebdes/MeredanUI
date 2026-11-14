@@ -68,6 +68,23 @@ Save gold for the level 40 mount; Mail at 40 is a must, Aspect of the Pack and V
 Arcane Shot ranks 4+ are low priority (Method: weak after ~25; BM's Summon Hawk shares its cooldown).
 Money: Skinning (+ Leatherworking or Mining) is the usual hunter money pair; buy cheap food in bulk.
 
+## Rogue
+
+_All class trainer ranks 1-60: 159g 72s. Marked recommended: 41g 82s. Marked skip: 29g 97s._
+
+**1-10:** Buy everything (Classic advice: train all up to 20). Stealth, Pick Pocket, Gouge, Evasion, Sinister Strike/Eviscerate ranks. Backstab only if you use a dagger.
+Do not open every mob from Stealth at low level; it slows you down (Warcraft Tavern).
+**10:** Dual Wield first (huge damage boost), Slice and Dice, Sprint. Sap is optional (group CC).
+**12-20:** Kick, Parry, Sinister Strike 3, Eviscerate 3. Garrote/Ambush/Backstab only for dagger or Subtlety builds. Expose Armor is optional (strong on long fights in Forever).
+Skip Feint (group threat), Gouge ranks 2+ and Kick ranks 2+ (only add damage).
+**20-30:** Vanish (22), Cheap Shot (26), Kidney Shot (30), Sinister Strike/Eviscerate ranks. Poisons class quest at 20.
+Rupture: Subtlety bleed builds buy it, others can skip. Skip Distract, Detect Traps, Disarm Trap.
+Pick Lock (16) is optional: lockboxes and some quest chests.
+**30-40:** Keep Sinister Strike, Eviscerate and your spec's builder/opener current. Stealth ranks and Sprint 2 are nice but optional. Save for the 40 mount.
+**40-60:** Mutilate ranks if you took the talent. Slice and Dice 2 (42), Kidney Shot 2 (50). Skip Safe Fall, Feint ranks, Sap ranks unless grouping.
+Spec focus: Combat = Sinister Strike, Slice and Dice, Eviscerate; Assassination = Mutilate, Ambush, Slice and Dice; Subtlety = Ambush/Garrote/Rupture (+ Hemorrhage talent).
+Money: pick pocket humanoids (opener macro), Skinning + Leatherworking; use buff food for the XP bonus.
+
 ## Shaman
 
 _All class trainer ranks 1-60: 210g 27s. Marked recommended: 79g 36s. Marked skip: 50g 72s._

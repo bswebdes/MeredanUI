@@ -1,0 +1,273 @@
+{
+  "class": "ROGUE",
+  "sources": [
+    {
+      "title": "World of Warcraft: Forever Class Deep Dives - Rogue and Warlock",
+      "url": "https://worldofwarcraft.blizzard.com/en-us/news/24310968",
+      "kind": "official",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - Poison & Pets: Rogue & Warlock Deep Dive for WoW Forever",
+      "url": "https://www.warcrafttavern.com/forever/news/poison-pets-rogue-warlock-deep-dive-for-wow-forever/",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Method.gg - WoW Forever Rogue Leveling Guide & Talents",
+      "url": "https://www.method.gg/wow-forever/wow-forever-rogue-leveling-guide-and-talents",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Forever Rogue Leveling Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/rogue-leveling/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Classic Rogue Leveling Guide",
+      "url": "https://www.warcrafttavern.com/wow-classic/guides/rogue-leveling-guide/",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Esports.net - WoW Classic Rogue Leveling Guide",
+      "url": "https://www.esports.net/news/wow/classic-rogue-leveling-guide/",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    }
+  ],
+  "spells": {
+    "Stealth": {
+      "advice": "recommended",
+      "reason_en": "Core rogue tool for openers and skipping mobs",
+      "reason_de": "Wichtig für Eröffner und um Gegnern auszuweichen",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Better stealth; nice but not needed for leveling",
+          "reason_de": "Bessere Verstohlenheit; nett, aber nicht nötig"
+        },
+        "3": {
+          "advice": "optional",
+          "reason_en": "Better stealth; nice but not needed for leveling",
+          "reason_de": "Bessere Verstohlenheit; nett, aber nicht nötig"
+        },
+        "4": {
+          "advice": "optional",
+          "reason_en": "Better stealth; nice but not needed for leveling",
+          "reason_de": "Bessere Verstohlenheit; nett, aber nicht nötig"
+        }
+      }
+    },
+    "Backstab": {
+      "advice": "optional",
+      "reason_en": "Dagger builds only; Combat uses Sinister Strike",
+      "reason_de": "Nur mit Dolch; Kampf nutzt Finsterer Stoß"
+    },
+    "Pick Pocket": {
+      "advice": "recommended",
+      "reason_en": "Cheap; free gold from humanoids",
+      "reason_de": "Günstig; gratis Gold von Humanoiden"
+    },
+    "Gouge": {
+      "advice": "recommended",
+      "reason_en": "Short CC/interrupt; rank 1 is enough",
+      "reason_de": "Kurze Kontrolle/Unterbrechung; Rang 1 reicht",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Rank only adds a bit of damage; rank 1 is fine",
+          "reason_de": "Rang bringt nur etwas Schaden; Rang 1 reicht"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Rank only adds a bit of damage; rank 1 is fine",
+          "reason_de": "Rang bringt nur etwas Schaden; Rang 1 reicht"
+        },
+        "4": {
+          "advice": "skip",
+          "reason_en": "Rank only adds a bit of damage; rank 1 is fine",
+          "reason_de": "Rang bringt nur etwas Schaden; Rang 1 reicht"
+        },
+        "5": {
+          "advice": "skip",
+          "reason_en": "Rank only adds a bit of damage; rank 1 is fine",
+          "reason_de": "Rang bringt nur etwas Schaden; Rang 1 reicht"
+        }
+      }
+    },
+    "Sinister Strike": {
+      "advice": "recommended",
+      "reason_en": "Main combo point builder; buy every rank",
+      "reason_de": "Wichtigster Combopunkt-Aufbau; jeden Rang kaufen"
+    },
+    "Evasion": {
+      "advice": "recommended",
+      "reason_en": "Main defensive when you pull too much",
+      "reason_de": "Wichtigste Verteidigung bei zu vielen Gegnern"
+    },
+    "Eviscerate": {
+      "advice": "recommended",
+      "reason_en": "Main damage finisher; buy every rank",
+      "reason_de": "Wichtigster Schadens-Finisher; jeden Rang kaufen"
+    },
+    "Dual Wield": {
+      "advice": "recommended",
+      "reason_en": "Huge damage boost at 10",
+      "reason_de": "Großer Schadensschub ab 10"
+    },
+    "Sap": {
+      "advice": "optional",
+      "reason_en": "CC for groups; no longer breaks Stealth",
+      "reason_de": "Kontrolle für Gruppen; bricht Verstohlenheit nicht mehr"
+    },
+    "Slice and Dice": {
+      "advice": "recommended",
+      "reason_en": "Forever guides: main finisher, keep it up",
+      "reason_de": "Forever-Guides: Haupt-Finisher, aufrecht halten"
+    },
+    "Sprint": {
+      "advice": "recommended",
+      "reason_en": "Escape and travel speed",
+      "reason_de": "Flucht und schneller laufen",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Longer/faster sprint; buy if gold allows",
+          "reason_de": "Längerer Sprint; kaufen, wenn Gold reicht"
+        },
+        "3": {
+          "advice": "optional",
+          "reason_en": "Longer/faster sprint; buy if gold allows",
+          "reason_de": "Längerer Sprint; kaufen, wenn Gold reicht"
+        }
+      }
+    },
+    "Kick": {
+      "advice": "recommended",
+      "reason_en": "Interrupt casters; rank 1 is enough",
+      "reason_de": "Zauber unterbrechen; Rang 1 reicht",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Only adds damage; rank 1 interrupts the same",
+          "reason_de": "Nur mehr Schaden; Rang 1 unterbricht genauso"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Only adds damage; rank 1 interrupts the same",
+          "reason_de": "Nur mehr Schaden; Rang 1 unterbricht genauso"
+        },
+        "4": {
+          "advice": "skip",
+          "reason_en": "Only adds damage; rank 1 interrupts the same",
+          "reason_de": "Nur mehr Schaden; Rang 1 unterbricht genauso"
+        }
+      }
+    },
+    "Parry": {
+      "advice": "recommended",
+      "reason_en": "Cheap passive defense",
+      "reason_de": "Günstige passive Verteidigung"
+    },
+    "Expose Armor": {
+      "advice": "optional",
+      "reason_en": "Buffed in Forever; worth it on long or boss fights",
+      "reason_de": "In Forever stärker; lohnt bei langen/Boss-Kämpfen"
+    },
+    "Garrote": {
+      "advice": "optional",
+      "reason_en": "Stealth opener; best for Subtlety bleed builds",
+      "reason_de": "Eröffner aus Verstohlenheit; gut für Blutungs-Builds"
+    },
+    "Feint": {
+      "advice": "skip",
+      "reason_en": "Threat drop for groups; not needed solo",
+      "reason_de": "Bedrohung senken in Gruppen; solo unnötig"
+    },
+    "Pick Lock": {
+      "advice": "optional",
+      "reason_en": "Opens lockboxes and some quest chests",
+      "reason_de": "Öffnet Schließkassetten und manche Questkisten"
+    },
+    "Ambush": {
+      "advice": "optional",
+      "reason_en": "Dagger opener; core for Subtlety/Assassination",
+      "reason_de": "Dolch-Eröffner; Kern für Täuschung/Meucheln"
+    },
+    "Rupture": {
+      "advice": "optional",
+      "reason_en": "Bleed finisher; core for Subtlety bleed builds",
+      "reason_de": "Blutungs-Finisher; Kern für Blutungs-Builds"
+    },
+    "Distract": {
+      "advice": "skip",
+      "reason_en": "Sneaking utility; rarely needed while leveling",
+      "reason_de": "Schleich-Hilfe; beim Leveln selten nötig"
+    },
+    "Vanish": {
+      "advice": "recommended",
+      "reason_en": "Escape bad pulls and reset fights",
+      "reason_de": "Rettet schlechte Pulls",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Small upgrade; buy if gold allows",
+          "reason_de": "Kleines Upgrade; kaufen, wenn Gold reicht"
+        }
+      }
+    },
+    "Detect Traps": {
+      "advice": "skip",
+      "reason_en": "Dungeon/PvP utility only",
+      "reason_de": "Nur für Dungeons/PvP"
+    },
+    "Cheap Shot": {
+      "advice": "recommended",
+      "reason_en": "Stun opener for dangerous mobs",
+      "reason_de": "Betäubungs-Eröffner gegen gefährliche Gegner"
+    },
+    "Disarm Trap": {
+      "advice": "skip",
+      "reason_en": "Dungeon utility only",
+      "reason_de": "Nur für Dungeons"
+    },
+    "Kidney Shot": {
+      "advice": "recommended",
+      "reason_en": "Finisher stun; great vs dangerous mobs",
+      "reason_de": "Finisher-Betäubung; super gegen harte Gegner"
+    },
+    "Safe Fall": {
+      "advice": "skip",
+      "reason_en": "Less fall damage; no combat value",
+      "reason_de": "Weniger Fallschaden; kein Kampfnutzen"
+    },
+    "Mutilate": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    }
+  },
+  "learning_order": "**1-10:** Buy everything (Classic advice: train all up to 20). Stealth, Pick Pocket, Gouge, Evasion, Sinister Strike/Eviscerate ranks. Backstab only if you use a dagger.\nDo not open every mob from Stealth at low level; it slows you down (Warcraft Tavern).\n**10:** Dual Wield first (huge damage boost), Slice and Dice, Sprint. Sap is optional (group CC).\n**12-20:** Kick, Parry, Sinister Strike 3, Eviscerate 3. Garrote/Ambush/Backstab only for dagger or Subtlety builds. Expose Armor is optional (strong on long fights in Forever).\nSkip Feint (group threat), Gouge ranks 2+ and Kick ranks 2+ (only add damage).\n**20-30:** Vanish (22), Cheap Shot (26), Kidney Shot (30), Sinister Strike/Eviscerate ranks. Poisons class quest at 20.\nRupture: Subtlety bleed builds buy it, others can skip. Skip Distract, Detect Traps, Disarm Trap.\nPick Lock (16) is optional: lockboxes and some quest chests.\n**30-40:** Keep Sinister Strike, Eviscerate and your spec's builder/opener current. Stealth ranks and Sprint 2 are nice but optional. Save for the 40 mount.\n**40-60:** Mutilate ranks if you took the talent. Slice and Dice 2 (42), Kidney Shot 2 (50). Skip Safe Fall, Feint ranks, Sap ranks unless grouping.\nSpec focus: Combat = Sinister Strike, Slice and Dice, Eviscerate; Assassination = Mutilate, Ambush, Slice and Dice; Subtlety = Ambush/Garrote/Rupture (+ Hemorrhage talent).\nMoney: pick pocket humanoids (opener macro), Skinning + Leatherworking; use buff food for the XP bonus.",
+  "disagreements": [
+    "Slice and Dice: Warcraft Tavern Classic says not worth using until 42; Method (Forever) calls it the main finisher and high priority, Warcraft Tavern Forever keeps it up in every spec.",
+    "Backstab: Warcraft Tavern Classic says you can hardly use it solo (mobs face you); Method (Forever) says it beats Sinister Strike with daggers and is easier in groups.",
+    "Garrote: Warcraft Tavern Classic sword build trains every rank; its dagger build skips it. In Forever it is core for Subtlety bleed builds only."
+  ],
+  "forever_differences": [
+    "Sap no longer breaks Stealth (Blizzard deep dive).",
+    "Expose Armor reduction raised to about 5 Sunder Armors and no longer blocks Sunder (deep dive) - more useful on long fights.",
+    "Feint threat reduction doubled; Distract also lowers enemy stealth detection (deep dive).",
+    "Poisons have more charges, can crit and stack with sharpening stones/Windfury (deep dive, Warcraft Tavern Forever).",
+    "Mutilate is a new 21-point Assassination talent with trainer ranks at 40/50/60 (deep dive).",
+    "New baseline Energy builder Shank; rogues can use one-handed axes (Warcraft Tavern Forever, deep dive).",
+    "Weapon specializations removed; Combat's Hack and Slash works with any weapon (deep dive)."
+  ],
+  "open_questions": [
+    "Blind and poisons are not in the Forever trainer list; guides still mention them (likely quest/vendor learned).",
+    "No source covers what Stealth ranks 2-4 or Vanish rank 2 change in Forever.",
+    "Icy Veins and Mobalytics Forever rogue guides returned 403 / were not readable; Wowhead Classic guide is JS-rendered."
+  ]
+}

@@ -143,6 +143,39 @@ Leveling advice sources (read 2026-11-14):
 - Icy Veins and Mobalytics Forever hunter guides returned 403 and could not be read.
 - No source covers whether pet resistance training (Arcane/Fire/Frost/Nature/Shadow Resistance) matters in Forever dungeons.
 
+## Rogue
+
+Leveling advice sources (read 2026-11-14):
+
+- [World of Warcraft: Forever Class Deep Dives - Rogue and Warlock](https://worldofwarcraft.blizzard.com/en-us/news/24310968) (official)
+- [Warcraft Tavern - Poison & Pets: Rogue & Warlock Deep Dive for WoW Forever](https://www.warcrafttavern.com/forever/news/poison-pets-rogue-warlock-deep-dive-for-wow-forever/) (other)
+- [Method.gg - WoW Forever Rogue Leveling Guide & Talents](https://www.method.gg/wow-forever/wow-forever-rogue-leveling-guide-and-talents) (forever_guide)
+- [Warcraft Tavern - WoW Forever Rogue Leveling Guide](https://www.warcrafttavern.com/forever/guides/rogue-leveling/) (forever_guide)
+- [Warcraft Tavern - WoW Classic Rogue Leveling Guide](https://www.warcrafttavern.com/wow-classic/guides/rogue-leveling-guide/) (classic_guide)
+- [Esports.net - WoW Classic Rogue Leveling Guide](https://www.esports.net/news/wow/classic-rogue-leveling-guide/) (classic_guide)
+
+**Forever differences that matter for training**
+
+- Sap no longer breaks Stealth (Blizzard deep dive).
+- Expose Armor reduction raised to about 5 Sunder Armors and no longer blocks Sunder (deep dive) - more useful on long fights.
+- Feint threat reduction doubled; Distract also lowers enemy stealth detection (deep dive).
+- Poisons have more charges, can crit and stack with sharpening stones/Windfury (deep dive, Warcraft Tavern Forever).
+- Mutilate is a new 21-point Assassination talent with trainer ranks at 40/50/60 (deep dive).
+- New baseline Energy builder Shank; rogues can use one-handed axes (Warcraft Tavern Forever, deep dive).
+- Weapon specializations removed; Combat's Hack and Slash works with any weapon (deep dive).
+
+**Guide disagreements**
+
+- Slice and Dice: Warcraft Tavern Classic says not worth using until 42; Method (Forever) calls it the main finisher and high priority, Warcraft Tavern Forever keeps it up in every spec.
+- Backstab: Warcraft Tavern Classic says you can hardly use it solo (mobs face you); Method (Forever) says it beats Sinister Strike with daggers and is easier in groups.
+- Garrote: Warcraft Tavern Classic sword build trains every rank; its dagger build skips it. In Forever it is core for Subtlety bleed builds only.
+
+**Open questions**
+
+- Blind and poisons are not in the Forever trainer list; guides still mention them (likely quest/vendor learned).
+- No source covers what Stealth ranks 2-4 or Vanish rank 2 change in Forever.
+- Icy Veins and Mobalytics Forever rogue guides returned 403 / were not readable; Wowhead Classic guide is JS-rendered.
+
 ## Shaman
 
 Leveling advice sources (read 2026-11-14):
