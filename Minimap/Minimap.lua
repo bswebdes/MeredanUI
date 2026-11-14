@@ -171,7 +171,8 @@ local lastX, lastY
 local function UpdateCoordinates()
     if not coords then return end
     -- faded out (mouseover mode) or minimap hidden: nothing to update
-    if not demoActive and (not coords:IsVisible() and coords:IsShown() or coords:GetEffectiveAlpha() == 0) then return end
+    -- (FontStrings have no GetEffectiveAlpha: ask the minimap frame they sit on)
+    if not demoActive and ((not coords:IsVisible() and coords:IsShown()) or Minimap:GetEffectiveAlpha() == 0) then return end
     if demoActive then
         lastX = nil
         coords:SetText("45.2, 61.8")
