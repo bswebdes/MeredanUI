@@ -249,8 +249,11 @@ local function ScanGroup()
     end
 end
 
+local lastGuildScan = 0
 local function ScanGuild()
-    if not IsInGuild() then return end
+    -- roster updates come often in big guilds: at most one full scan per minute, none when off
+    if ns.db.chatLevels == false or not IsInGuild() or GetTime() - lastGuildScan < 60 then return end
+    lastGuildScan = GetTime()
     for i = 1, GetNumGuildMembers() do
         local name, _, _, level = GetGuildRosterInfo(i)
         Store(name, level)

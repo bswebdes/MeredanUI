@@ -1102,8 +1102,18 @@ end
 -- whichever are currently active.
 function ns.CreateStatusRow(anchor, size, spacing)
     local row = { icons = {} }
+    local shown, lastMask = {}, -1
+    -- Called on every Show/Hide/SetShown of an icon (health updates set them several times per tick):
+    -- re-anchor only when the set of visible icons really changed
     function row.Layout()
-        local shown = {}
+        local mask, bit = 0, 1
+        for _, icon in ipairs(row.icons) do
+            if icon:IsShown() then mask = mask + bit end
+            bit = bit * 2
+        end
+        if mask == lastMask then return end
+        lastMask = mask
+        wipe(shown)
         for _, icon in ipairs(row.icons) do
             if icon:IsShown() then shown[#shown + 1] = icon end
         end
@@ -1115,6 +1125,7 @@ function ns.CreateStatusRow(anchor, size, spacing)
     end
     function row.Add(icon)
         row.icons[#row.icons + 1] = icon
+        lastMask = -1
         icon:SetPoint("CENTER", anchor, "CENTER")
         hooksecurefunc(icon, "Show", row.Layout)
         hooksecurefunc(icon, "Hide", row.Layout)

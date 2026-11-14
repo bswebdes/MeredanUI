@@ -117,7 +117,8 @@ local function Filter(_, _, message, ...)
     if type(message) ~= "string" or issecretvalue(message) then return false end
     local fixed = message
     if fixed:find("[\128-\255]") then fixed = fixed:gsub("[\194-\244][\128-\191]*", Fix) end
-    if EmojiOn() then fixed = Smileys(fixed) end
+    -- every smiley holds one of these characters (or is xD): plain messages skip the gsub work
+    if EmojiOn() and (fixed:find("[:;=%(%)%-<%^/\\]") or fixed:find("[xX][dD]")) then fixed = Smileys(fixed) end
     if fixed == message then return false end
     return false, fixed, ...
 end

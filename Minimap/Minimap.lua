@@ -167,9 +167,13 @@ end
 -- Coordinates bottom left; hidden in instances (no position).
 local coords
 
+local lastX, lastY
 local function UpdateCoordinates()
     if not coords then return end
+    -- faded out (mouseover mode) or minimap hidden: nothing to update
+    if not demoActive and (not coords:IsVisible() and coords:IsShown() or coords:GetEffectiveAlpha() == 0) then return end
     if demoActive then
+        lastX = nil
         coords:SetText("45.2, 61.8")
         coords:Show()
         return
@@ -182,7 +186,11 @@ local function UpdateCoordinates()
         coords:Hide()
         return
     end
-    coords:SetFormattedText("%.1f, %.1f", x * 100, y * 100)
+    x, y = math.floor(x * 1000 + 0.5), math.floor(y * 1000 + 0.5)
+    if x ~= lastX or y ~= lastY or not coords:IsShown() then
+        lastX, lastY = x, y
+        coords:SetFormattedText("%.1f, %.1f", x / 10, y / 10)
+    end
     coords:Show()
 end
 

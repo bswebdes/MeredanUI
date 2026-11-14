@@ -112,12 +112,19 @@ local function Hide(region)
 end
 
 -- Cooldown countdown numbers in our font; size follows button size.
-local function StyleCooldownText(button, size)
-    size = size or button.muiSize or 36
-    for _, cooldown in ipairs({ button.cooldown or button.Cooldown, button.chargeCooldown }) do
-        local text = cooldown and cooldown.GetCountdownFontString and cooldown:GetCountdownFontString()
-        if text then ns.SetFont(text, math.floor(size * 0.4), "OUTLINE") end
+-- Runs on every button update (paging updates ~100 at once): set the font only when the size changed
+local function StyleCooldown(cooldown, px)
+    if not cooldown or cooldown.muiFontPx == px or not cooldown.GetCountdownFontString then return end
+    local text = cooldown:GetCountdownFontString()
+    if text then
+        ns.SetFont(text, px, "OUTLINE")
+        cooldown.muiFontPx = px
     end
+end
+local function StyleCooldownText(button, size)
+    local px = math.floor((size or button.muiSize or 36) * 0.4)
+    StyleCooldown(button.cooldown or button.Cooldown, px)
+    StyleCooldown(button.chargeCooldown, px)
 end
 
 -- Rebuild Blizzard's button highlights as square outlines: Blizzard's texture goes invisible,

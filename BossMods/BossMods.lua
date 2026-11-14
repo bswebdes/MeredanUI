@@ -214,8 +214,10 @@ local function ReleaseBar(bar)
 end
 
 -- Reorder the list: about-to-expire bars big in the center, the rest beside the player frame
-local function SetIDs(list)
-    local set = {}
+-- runs every 0.1 s during encounters: the two sets are reused instead of new tables per pass
+local hugeSetCache, wantedCache = {}, {}
+local function SetIDs(list, set)
+    wipe(set)
     for _, id in ipairs(list) do set[id] = true end
     return set
 end
@@ -226,7 +228,7 @@ local function Layout()
     -- filter out hidden ones (only finished/cancelled)
     local huge = C_EncounterTimeline.GetSortedEventList(MAX_HUGE, HUGE_TIME, true, false) or {}
     local all = C_EncounterTimeline.GetSortedEventList(MAX_HUGE + MAX_BARS, nil, true, false) or {}
-    local hugeSet, wanted = SetIDs(huge), SetIDs(all)
+    local hugeSet, wanted = SetIDs(huge, hugeSetCache), SetIDs(all, wantedCache)
     -- hide bars that disappeared
     for id, bar in pairs(bars) do
         if not wanted[id] then bar.leaving = true end

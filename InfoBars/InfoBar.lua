@@ -304,10 +304,13 @@ end
 
 -- Display ------------------------------------------------------------------------------------
 
-local function Refresh()
-    if not bar then return end
+-- live: only the fields that change by the second (FPS, clock); everything else is event-driven
+local LIVE = { fps = true, time = true }
+local function Refresh(live)
+    if not bar or not bar:IsShown() then return end
+    live = live == true
     for _, cell in ipairs(cells) do
-        if cell:IsShown() then
+        if cell:IsShown() and (not live or LIVE[cell.field.key]) then
             cell.text:SetText(cell.field.text())
             if cell.field.specIcon then
                 local index = C_SpecializationInfo.GetSpecialization()
@@ -420,7 +423,7 @@ ns:On("PLAYER_LOGIN", function()
     ns.RegisterMouseover(bar)
 
     ns.UpdateInfoBar()
-    C_Timer.NewTicker(1, Refresh) -- FPS and clock
+    C_Timer.NewTicker(1, function() Refresh(true) end) -- FPS and clock
     if IsInGuild() then C_GuildInfo.GuildRoster() end
 end)
 
@@ -430,6 +433,7 @@ ns:On("PLAYER_MONEY", function()
     for _, cell in ipairs(goldDisplays) do cell:Update() end
 end)
 for _, event in ipairs({ "BAG_UPDATE_DELAYED", "UPDATE_INVENTORY_DURABILITY", "PLAYER_SPECIALIZATION_CHANGED",
-    "PLAYER_LOOT_SPEC_UPDATED", "GUILD_ROSTER_UPDATE", "FRIENDLIST_UPDATE", "BN_FRIEND_INFO_CHANGED" }) do
-    ns:On(event, Refresh)
+    "PLAYER_LOOT_SPEC_UPDATED", "GUILD_ROSTER_UPDATE", "FRIENDLIST_UPDATE", "BN_FRIEND_INFO_CHANGED",
+    "SKILL_LINES_CHANGED", "PLAYER_EQUIPMENT_CHANGED", "CHAT_MSG_SKILL" }) do
+    ns:On(event, function() Refresh() end)
 end

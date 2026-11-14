@@ -1027,12 +1027,13 @@ ns:On("PLAYER_REGEN_ENABLED", RecolorAll)
 -- Forever, so nothing is dropped).
 local recolorPending = false
 ns:On("UNIT_THREAT_LIST_UPDATE", function(_, unit)
-    if unit then
-        for frame in pairs(plates) do
-            if UnitOf(frame) == unit then
-                if not frame.isFriendly then UpdateHealthColor(frame) end
-                return
-            end
+    if unit and not issecretvalue(unit) then
+        -- tokens like "target" or "boss1" never equal a plate's "nameplateN": ask the client for the plate
+        local plate = C_NamePlate.GetNamePlateForUnit(unit)
+        local frame = plate and plate.unitFrame
+        if frame and plates[frame] then
+            if not frame.isFriendly then UpdateHealthColor(frame) end
+            return
         end
     end
     if recolorPending then return end

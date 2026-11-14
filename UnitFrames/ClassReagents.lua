@@ -266,6 +266,12 @@ local function Update()
         if not demoClass then Warn(entry) end
     end
     for i = #list + 1, #cells do cells[i]:Hide() end
+    local blinking = false
+    for i = 1, #list do
+        if cells[i].blink then blinking = true end
+        if not cells[i].blink then cells[i].text:SetAlpha(1) end
+    end
+    holder:SetScript("OnUpdate", blinking and holder.muiBlink or nil)
     holder:SetSize(width, math.max(y - ns.Snap(ITEM_GAP), 1)) -- keeps the block centered next to the frame
     -- Preview: class name above
     holder.demoLabel:SetShown(demoClass ~= nil)
@@ -308,14 +314,15 @@ local function Create()
     holder.demoLabel:SetPoint("BOTTOMLEFT", holder, "TOPLEFT", 0, 4)
     holder.demoLabel:Hide()
     -- Blink at 0
+    -- the OnUpdate only runs while some cell blinks (see ns.ReagentBlinkCheck)
     local t = 0
-    holder:SetScript("OnUpdate", function(_, elapsed)
+    holder.muiBlink = function(_, elapsed)
         t = t + elapsed
         local alpha = 0.35 + 0.65 * math.abs(math.sin(t * 3))
         for _, cell in ipairs(cells) do
             if cell:IsShown() then cell.text:SetAlpha(cell.blink and alpha or 1) end
         end
-    end)
+    end
     holder:Hide()
 end
 

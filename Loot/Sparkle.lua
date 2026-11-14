@@ -252,6 +252,7 @@ end
 
 local effect
 local ticker
+local tick, lastProgress
 
 local function Hide()
     if effect then effect:Stop() end
@@ -278,6 +279,7 @@ local function Update()
     -- units: only skinnable corpses (living NPCs and loot-only corpses stay plain)
     if not isObject and kind ~= "skin" then return Hide() end
     local progress = Progress()
+    lastProgress, tick = progress, 0
     kind = QuestKind(kind, progress)
     if kind == "other" and not ns.db.sparkleOther then return Hide() end
     if not HasProfession(kind) then return Hide() end
@@ -294,7 +296,10 @@ local function Update()
         if not effect:IsShown() then return end
         local k, r = Classify()
         if k then
-            local progress = Progress()
+            -- tooltip data is the expensive part: refresh the quest progress once a second only
+            tick = (tick or 0) + 1
+            if tick % 4 == 0 then lastProgress = Progress() end
+            local progress = lastProgress
             k = QuestKind(k, progress)
             if (k == "other" and not ns.db.sparkleOther) or not HasProfession(k) then return Hide() end
             effect:Set(k, r, progress)
