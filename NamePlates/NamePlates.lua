@@ -357,7 +357,8 @@ local function Style(self, unit)
     -- filled shadow goes on the plate below the bar
     health:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     health.muiShaded = true
-    ns.AddDeepShell(health, 0, { shadow = 4, shadowParent = self })
+    local _, healthShell = ns.AddDeepShell(health, 0, { shadow = 4, shadowParent = self })
+    self.HealthShadow = healthShell.shadow
     health.UpdateColor = UpdateHealthColor
     health.colorThreat = true -- only so oUF registers the threat events; we do the coloring
     self.Health = health
@@ -860,6 +861,7 @@ local function ApplyFriendly(frame, unit)
     local friendly = not UnitCanAttack("player", unit)
     frame.isFriendly = friendly
     frame.Health:SetAlpha(friendly and 0 or 1)
+    frame.HealthShadow:SetAlpha(friendly and 0 or 1) -- lies on the plate, not on the bar
     frame.Castbar:SetAlpha(friendly and 0 or 1)
     for _, row in ipairs(frame.AuraRows) do row:SetShown(not friendly) end
     frame.NameText:ClearAllPoints()

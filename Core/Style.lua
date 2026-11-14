@@ -466,6 +466,7 @@ function ns.AddDeepShell(region, pad, opts)
     if Enum.UITextureSliceMode then shadow:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched) end
     shadow:SetPoint("TOPLEFT", region, "TOPLEFT", -reach - spread, reach + spread)
     shadow:SetPoint("BOTTOMRIGHT", region, "BOTTOMRIGHT", reach + spread, -reach - spread)
+    shell.shadow = shadow -- on opts.shadowParent it doesn't follow the shell's visibility
     return outline, shell
 end
 
