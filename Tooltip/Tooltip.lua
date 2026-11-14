@@ -441,7 +441,7 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
     end
     local l2 = Left(tooltip, 2)
     local text2 = l2:GetText()
-    local already = Readable(text2) and text2 and text2:find("|T1319037:", 1, true)
+    local already = Readable(text2) and text2 and text2:find("^|T1319037:")
     local beside = true
     if not already and not FitsBesideIcon(l2) then
         if inline then
@@ -465,7 +465,7 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
     local w1 = (h1 and h2 and h1 > 0) and math.floor(INDENT * h2 / h1 + 0.5) or INDENT
     for i, line in ipairs(beside and { l1, l2 } or { l1 }) do
         local text = line:GetText()
-        if Readable(text) and text and not text:find("|T1319037:", 1, true) then
+        if Readable(text) and text and not text:find("^|T1319037:") then
             line:SetText(("|T1319037:1:%d|t"):format(i == 1 and w1 or INDENT) .. text)
         end
     end
