@@ -21,6 +21,34 @@ local function Allowed(entry, race, faction)
     return true
 end
 
+-- Class quests without a race list in the data: the starting-zone ones belong to the races starting
+-- there, and quest givers in the other faction's zones aren't for us
+local START_ZONES = {
+    ["Elwynn Forest"] = { 1 }, ["Dun Morogh"] = { 3, 7 }, ["Teldrassil"] = { 4 }, ["Durotar"] = { 2, 8 },
+    ["Tirisfal Glades"] = { 5 }, ["Mulgore"] = { 6 }, ["Zephras Isle"] = { 95, 96 },
+}
+local FACTION_ZONES = {
+    ["Stormwind City"] = "Alliance", ["Ironforge"] = "Alliance", ["Darnassus"] = "Alliance", ["Elwynn Forest"] = "Alliance",
+    ["Dun Morogh"] = "Alliance", ["Teldrassil"] = "Alliance", ["Darkshore"] = "Alliance", ["Loch Modan"] = "Alliance",
+    ["Redridge Mountains"] = "Alliance", ["Orgrimmar"] = "Horde", ["Thunder Bluff"] = "Horde", ["Undercity"] = "Horde",
+    ["Durotar"] = "Horde", ["Mulgore"] = "Horde", ["Tirisfal Glades"] = "Horde", ["The Barrens"] = "Horde",
+}
+local function QuestFits(chain, race, faction)
+    if chain.ra then return true end -- races given: Allowed() checked them
+    local zone = chain.st and chain.st.z
+    if not zone then return true end
+    local home = FACTION_ZONES[zone]
+    if home and home ~= faction then return false end
+    local starters = chain.lv <= 12 and START_ZONES[zone]
+    if starters then
+        for _, id in ipairs(starters) do
+            if id == race then return true end
+        end
+        return false
+    end
+    return true
+end
+
 -- the player's class table, filtered to what this character can learn (built once)
 local function Data()
     if data ~= nil then return data or nil end
@@ -50,7 +78,7 @@ local function Data()
                     break
                 end
             end
-            quests[#quests + 1] = chain
+            if QuestFits(chain, race, faction) then quests[#quests + 1] = chain end
         end
     end
     data.quests = quests
@@ -146,13 +174,14 @@ local function Where(st)
     return npc or zone
 end
 
--- Map pin with the on-screen arrow on the quest giver
+-- Map pin with the on-screen arrow on the quest giver, and the map opened there
 function T.SetPin(entry)
     local st = entry and entry.start
     if not (st and st.m and C_Map.CanSetUserWaypointOnMap(st.m)) then return end
     C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(st.m, st.x / 100, st.y / 100))
     C_SuperTrack.SetSuperTrackedUserWaypoint(true)
     ns.Print(L["Map pin set: %s"], entry.where or entry.name)
+    if ns.OpenWorldMap and not InCombatLockdown() then ns.OpenWorldMap(st.m) end
 end
 
 -- One entry per chain: state "done", "active" (in the quest log), "open" (level reached) or "later".

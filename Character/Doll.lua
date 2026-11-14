@@ -650,7 +650,7 @@ local function ClassQuestTooltip(row, quest)
     if quest.rewardName then GameTooltip:AddLine(L["Unlocks: %s"]:format(quest.rewardName), unpack(UI.ACCENT)) end
     if quest.where then GameTooltip:AddLine(quest.where, 0.85, 0.85, 0.85) end
     if quest.state ~= "done" and quest.start and quest.start.m then
-        GameTooltip:AddLine(L["Click: map pin"], unpack(UI.MUTED))
+        GameTooltip:AddLine(L["Click: open map with a pin"], unpack(UI.MUTED))
     end
     GameTooltip:Show()
 end
