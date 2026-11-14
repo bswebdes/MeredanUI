@@ -27,6 +27,7 @@ local function Backdrop()
 end
 
 local function RemoveStyle(bar)
+    bar.muiFit = nil
     bar.candyBarBackdrop:Hide()
     bar.candyBarIconFrameBackdrop:Hide()
     if bar.muiShell then bar.muiShell:Hide() end
@@ -74,20 +75,32 @@ local function ApplyStyle(bar)
         bar.muiIconHolder = holder
     end
     holder:ClearAllPoints()
-    local iconSize = height + 2 * ns.ThinShellReach() -- as tall as the bar including its shell
-    holder:SetSize(iconSize, iconSize)
-    holder:SetFrameLevel(bar:GetFrameLevel() + 2)
-    if bar:GetIconPosition() == "RIGHT" then
-        holder:SetPoint("RIGHT", bar, "RIGHT", 0, 0)
-        statusbar:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, 0)
-        statusbar:SetPoint("BOTTOMRIGHT", bar:IsIconVisible() and holder or bar,
-            bar:IsIconVisible() and "BOTTOMLEFT" or "BOTTOMRIGHT", bar:IsIconVisible() and -ICON_GAP or 0, 0)
-    else
-        holder:SetPoint("LEFT", bar, "LEFT", 0, 0)
-        statusbar:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, 0)
-        statusbar:SetPoint("TOPLEFT", bar:IsIconVisible() and holder or bar,
-            bar:IsIconVisible() and "TOPRIGHT" or "TOPLEFT", bar:IsIconVisible() and ICON_GAP or 0, 0)
+    -- top and bottom on the bar (plus its shell), square: always the bar's real height, also when
+    -- BigWigs resizes it (emphasized bars); the statusbar keeps the full bar height
+    local reach = ns.ThinShellReach()
+    local right = bar:GetIconPosition() == "RIGHT"
+    local function Fit(h)
+        local iconSize = h + 2 * reach
+        holder:SetWidth(iconSize)
+        local offset = bar:IsIconVisible() and (iconSize + ICON_GAP) or 0
+        statusbar:ClearAllPoints()
+        statusbar:SetPoint("TOPLEFT", bar, "TOPLEFT", right and 0 or offset, 0)
+        statusbar:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", right and -offset or 0, 0)
     end
+    bar.muiFit = Fit
+    if not holder.muiSized then
+        holder.muiSized = true
+        bar:HookScript("OnSizeChanged", function(self, _, h) if self.muiFit then self.muiFit(h) end end)
+    end
+    holder:SetFrameLevel(bar:GetFrameLevel() + 2)
+    if right then
+        holder:SetPoint("TOPRIGHT", bar, "TOPRIGHT", 0, reach)
+        holder:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, -reach)
+    else
+        holder:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, reach)
+        holder:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, -reach)
+    end
+    Fit(height)
     ns.InsetItemIcon(holder, iconFrame, nil, 2)
     holder:SetShown(bar:IsIconVisible())
     if not bar.muiShell then
