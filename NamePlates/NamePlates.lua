@@ -353,7 +353,11 @@ local function Style(self, unit)
     local health = ns.CreateBar(self, ns.Snap(HEALTH))
     health:SetSize(ns.Snap(WIDTH), ns.Snap(HEALTH))
     health:SetPoint("CENTER")
-    ns.AddBorder(health)
+    -- light look: shaded bar (B3) and a very thin shell (black, material edge, black); the shell's
+    -- filled shadow goes on the plate below the bar
+    health:SetStatusBarTexture(ns.MEDIA .. "BarShade")
+    health.muiShaded = true
+    ns.AddDeepShell(health, 0, { shadow = 4, shadowParent = self })
     health.UpdateColor = UpdateHealthColor
     health.colorThreat = true -- only so oUF registers the threat events; we do the coloring
     self.Health = health
@@ -410,16 +414,18 @@ local function Style(self, unit)
     -- Castbar directly below the health bar, same width; icon left inside the border, text in the bar
     local cast = ns.Snap(CAST)
     local castFrame = CreateFrame("Frame", nil, self)
-    castFrame:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -GAP - 2 * px)
-    castFrame:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -GAP - 2 * px)
+    castFrame:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 0, -GAP - 6 * px) -- clear of both thin shells
+    castFrame:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 0, -GAP - 6 * px)
     castFrame:SetHeight(cast)
     local castbar = ns.CreateBar(self, cast)
     castbar:SetPoint("TOPLEFT", castFrame, "TOPLEFT", cast + px, 0)
     castbar:SetPoint("BOTTOMRIGHT", castFrame, "BOTTOMRIGHT")
     castbar.PostUpdateColor = nil
+    castbar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
+    castbar.muiShaded = true
     castFrame:SetParent(castbar) -- border and icon only visible while casting
     castFrame:SetFrameLevel(castbar:GetFrameLevel() + 2)
-    ns.AddBorder(castFrame)
+    ns.AddDeepShell(castFrame, 0, { shadow = 4, shadowParent = castbar })
     local icon = castFrame:CreateTexture(nil, "ARTWORK")
     icon:SetPoint("TOPLEFT")
     icon:SetSize(cast, cast)
