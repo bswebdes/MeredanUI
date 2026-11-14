@@ -143,11 +143,32 @@ local function Relayout()
     placing = nil
 end
 
+-- Short fade-in for windows (own ticker: Blizzard's UIFrameFadeIn shares a global list with its
+-- own frames). Skipped for protected frames in combat.
+local FADE_IN, FADE_STEPS = 0.15, 6
+function ns.FadeIn(frame)
+    if not (frame and frame.SetAlpha) or (InCombatLockdown() and frame:IsProtected()) then return end
+    local step = 0
+    frame:SetAlpha(0)
+    C_Timer.NewTicker(FADE_IN / FADE_STEPS, function()
+        step = step + 1
+        frame:SetAlpha(step / FADE_STEPS)
+    end, FADE_STEPS)
+end
+
 function ns.ResetWindowPosition(window, key, opening)
     if not managed[window] then
         managed[window] = key or true
         order[#order + 1] = window
-        window:HookScript("OnHide", function() C_Timer.After(0, Relayout) end)
+        window:HookScript("OnHide", function(self)
+            self.muiFadedIn = nil
+            C_Timer.After(0, Relayout)
+        end)
+    end
+    -- every window placed here fades in once per opening (later relayouts while open don't)
+    if not window.muiFadedIn and window:IsShown() then
+        window.muiFadedIn = true
+        ns.FadeIn(window)
     end
     window.dragged = nil
     for _ = 1, #order do
