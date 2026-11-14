@@ -147,7 +147,7 @@ end
 -- reset their font when refilling)
 local dividerFont -- a spacer line tall enough for the divider (unit tooltip)
 
-local function NormalizeFonts(tooltip)
+local function NormalizeFonts(tooltip, keepGap)
     local name = tooltip:GetName()
     local i = 2
     while _G[name .. "TextLeft" .. i] do
@@ -155,7 +155,9 @@ local function NormalizeFonts(tooltip)
         local font = line:GetFontObject()
         local fontName = font and font.GetName and font:GetName()
         -- our divider / bar spacer fonts back to normal (line objects are reused)
-        if fontName and fontName:find("^MeredanUITooltip") then line:SetFontObject(GameTooltipText) end
+        if fontName and fontName:find("^MeredanUITooltip") and not (keepGap and fontName == "MeredanUITooltipGap") then
+            line:SetFontObject(GameTooltipText)
+        end
         i = i + 1
     end
     if tooltip.muiDivider then tooltip.muiDivider:Hide() end
@@ -439,6 +441,27 @@ local function ShowIcon(tooltip, texture, atlas, edge)
     f:Show()
 end
 
+-- Small gap line after line 2 (below the icon): moves the lines below down one
+local gapFont
+local function InsertGap(tooltip, layout)
+    if tooltip:NumLines() < 3 then return end
+    if not gapFont then
+        gapFont = CreateFont("MeredanUITooltipGap")
+        gapFont:SetFont(ns.STYLE.font, 6, "")
+    end
+    if layout.free == 0 then
+        tooltip:AddLine(" ")
+        layout.free = 1
+    end
+    local slot = tooltip:NumLines() - layout.free + 1
+    for i = slot, 4, -1 do CopyLine(tooltip, i - 1, i) end
+    layout.free = layout.free - 1
+    local line, right = Left(tooltip, 3), Right(tooltip, 3)
+    line:SetText(" ")
+    line:SetFontObject(gapFont)
+    if right then right:SetText(nil) right:Hide() end
+end
+
 local function ClearIcon(tooltip)
     if not tooltip:GetName() then return end
     if tooltip.muiNameFont then
@@ -491,10 +514,12 @@ end
 local function FinishUnitLines(tooltip, unit, layout)
     local target = unit .. "target"
     if Enabled("tooltipTarget") and ns.Plain(UnitExists(target)) then
-        local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or ColoredName(target)
+        local raw = UnitName(target)
+        local unknown = not Readable(raw) or raw == UNKNOWNOBJECT -- not loaded yet: no row
+        local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or (not unknown and ColoredName(target))
         if name then layout.rows[#layout.rows + 1] = { L["Target"], name } end
     end
-    NormalizeFonts(tooltip)
+    NormalizeFonts(tooltip, true) -- the gap under the icon stays
     if #layout.rows > 0 then
         PlaceDivider(tooltip, Left(tooltip, NextLine(tooltip, layout)))
         for _, row in ipairs(layout.rows) do AddRow(tooltip, layout, row[1], row[2]) end
@@ -644,7 +669,10 @@ local function AddUnitLines(tooltip, unit)
     -- class icon left of name and guild (after the lines above are final)
     if Enabled("tooltipClassIcon") then
         local atlas = ClassAtlas(unit)
-        if atlas then ShowIcon(tooltip, nil, atlas) end
+        if atlas then
+            ShowIcon(tooltip, nil, atlas)
+            InsertGap(tooltip, layout) -- the level line keeps clear of the icon (draft)
+        end
     end
     FinishUnitLines(tooltip, unit, layout)
     tooltip:Show() -- relayout: widths changed
@@ -706,7 +734,8 @@ local function OnItemTooltip(tooltip, data)
         if r then edge = { r, g, b } end
     end
     ShowIcon(tooltip, icon, nil, edge)
-    tooltip:Show() -- relayout with the minimum width
+    InsertGap(tooltip, { free = 0 })
+    tooltip:Show() -- relayout
 end
 
 -- mUI's own lines on item tooltips (upgrade, auction house, characters, wishlist): the first block
@@ -929,7 +958,11 @@ ns:On("PLAYER_LOGIN", function()
     SkinCompareHeader(ShoppingTooltip1)
     SkinCompareHeader(ShoppingTooltip2)
     TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnUnitTooltip)
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, OnItemTooltip)
+    -- items first of all (before mUI's own item lines, which are only appended after it): the
+    -- icon gap moves Blizzard's lines
+    TooltipDataProcessor.AddTooltipPostCall(TooltipDataProcessor.AllTypes, function(tooltip, data)
+        if data and data.type == Enum.TooltipDataType.Item then OnItemTooltip(tooltip, data) end
+    end)
     TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.UnitAura, OnAuraTooltip)
     TooltipDataProcessor.AddTooltipPostCall(TooltipDataProcessor.AllTypes, OnAnyTooltip)
 end)
