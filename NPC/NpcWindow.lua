@@ -77,7 +77,8 @@ local function Occupied(window)
         for _, area in ipairs({ "left", "center", "doublewide", "right" }) do
             local panel = GetUIPanel(area)
             -- Skinned Blizzard frames (guild) are UIPanels themselves: don't avoid yourself
-            if panel and panel ~= window and panel:IsVisible() then list[#list + 1] = panel end
+            -- the game menu closes when a window opens (Config/GameMenu.lua): never make room for it
+            if panel and panel ~= window and panel ~= GameMenuFrame and panel:IsVisible() then list[#list + 1] = panel end
         end
     end
     return list
