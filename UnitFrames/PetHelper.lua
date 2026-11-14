@@ -6,7 +6,6 @@ local _, ns = ...
 local L = ns.L
 
 local FEED_PET_SPELL_ID = 6991
-local GAP = 4
 
 local MOOD = {
     [1] = { text = PET_HAPPINESS1, color = { 1, 0.25, 0.25 } },  -- unhappy
@@ -127,8 +126,9 @@ local function Create(petFrame)
     button = CreateFrame("Button", "MeredanUIPetFeed", petFrame, "SecureActionButtonTemplate")
     local size = ns.Snap(petFrame:GetHeight() > 0 and petFrame:GetHeight() or 20)
     button:SetSize(size, size)
-    -- clear of the pet frame's deep shell (4 lines + 2 units band)
-    button:SetPoint("RIGHT", petFrame, "LEFT", -(ns.Snap(GAP) + 2 * (4 * ns.PixelSize() + ns.Snap(2))), 0)
+    -- right of the pet frame like the class reagents beside the player frame, clear of its deep
+    -- shell (4 lines + 2 units band)
+    button:SetPoint("LEFT", petFrame, "RIGHT", ns.Snap(8) + 4 * ns.PixelSize() + ns.Snap(2), 0)
     button:RegisterForClicks("AnyUp", "AnyDown")
     local bg = button:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()

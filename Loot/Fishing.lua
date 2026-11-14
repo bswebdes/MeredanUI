@@ -253,10 +253,9 @@ local function ItemButton(parent, size)
     b:SetSize(size, size)
     b:EnableMouse(true)
     ns.AddSlotBackground(b)
-    b.edges = ns.AddBorder(b)
+    b.edges = ns.AddItemFrame(b, nil, size >= 34 and 3 or 2)
     b.icon = b:CreateTexture(nil, "ARTWORK")
-    b.icon:SetPoint("TOPLEFT", 1, -1)
-    b.icon:SetPoint("BOTTOMRIGHT", -1, 1)
+    ns.InsetItemIcon(b, b.icon, nil, size >= 34 and 3 or 2)
     b.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     b.count = ns.CreateText(b, 12, "RIGHT", "OUTLINE")
     b.count:SetPoint("BOTTOMRIGHT", -2, 2)
@@ -274,7 +273,7 @@ local function ItemButton(parent, size)
         if not itemID then
             self.icon:SetTexture(nil)
             self.count:SetText("")
-            for _, e in ipairs(self.edges) do e:SetVertexColor(unpack(ns.BORDER_COLOR)) end
+            for _, e in ipairs(self.edges) do e:SetVertexColor(unpack(ns.Material().item)) end
             return
         end
         self.icon:SetTexture(C_Item.GetItemIconByID(itemID))
@@ -283,7 +282,7 @@ local function ItemButton(parent, size)
         local r, g, bl = QualityColor(quality)
         local colored = quality and quality ~= Enum.ItemQuality.Common
         for _, e in ipairs(self.edges) do
-            if colored then e:SetVertexColor(r, g, bl, 1) else e:SetVertexColor(unpack(ns.BORDER_COLOR)) end
+            if colored then e:SetVertexColor(r, g, bl, 1) else e:SetVertexColor(unpack(ns.Material().item)) end
         end
     end
     return b
@@ -293,8 +292,7 @@ local function Tile(parent, label)
     local UI = ns.UI
     local t = CreateFrame("Frame", nil, parent)
     t:SetHeight(42)
-    UI.Box(t, { 0.04, 0.05, 0.05, 0.9 })
-    ns.AddBorder(t)
+    UI.Card(t)
     t.label = UI.Text(t, 11, "LEFT", UI.MUTED)
     t.label:SetPoint("TOPLEFT", 9, -6)
     t.label:SetText(label)
@@ -308,7 +306,7 @@ local function Chip(parent, label, onClick)
     local UI = ns.UI
     local c = CreateFrame("Button", nil, parent)
     c:SetHeight(26)
-    UI.Box(c)
+    UI.Bevel(c)
     c.edges = ns.AddBorder(c, true)
     for _, e in ipairs(c.edges) do e:SetVertexColor(unpack(UI.ACCENT)) end
     c.text = UI.Text(c, 13, "CENTER")
@@ -348,12 +346,12 @@ local function CreateBag(page)
     bar:SetPoint("TOPLEFT", PAD, -TOP - 20)
     bar:SetPoint("TOPRIGHT", -PAD, -TOP - 20)
     bar:SetHeight(8)
-    UI.Box(bar, { 0.04, 0.05, 0.05, 1 })
-    ns.AddBorder(bar)
+    UI.Groove(bar)
     page.fill = bar:CreateTexture(nil, "ARTWORK")
-    page.fill:SetPoint("TOPLEFT")
-    page.fill:SetPoint("BOTTOMLEFT")
-    page.fill:SetColorTexture(unpack(UI.ACCENT))
+    page.fill:SetPoint("TOPLEFT", ns.PixelSize(), -ns.PixelSize())
+    page.fill:SetPoint("BOTTOMLEFT", ns.PixelSize(), ns.PixelSize())
+    page.fill:SetTexture(ns.MEDIA .. "BarShade") -- shaded fill (B3)
+    page.fill:SetVertexColor(unpack(UI.ACCENT))
     page.bar = bar
 
     local tileW = (WIDTH - 2 * PAD - 12) / 3
@@ -461,8 +459,7 @@ local function CreateLog(page)
     info:SetPoint("TOPLEFT", PAD, -TOP - 38)
     info:SetPoint("TOPRIGHT", -PAD, -TOP - 38)
     info:SetHeight(32)
-    UI.Box(info, { 0.04, 0.05, 0.05, 0.9 })
-    ns.AddBorder(info)
+    UI.Card(info)
     info.text = UI.Text(info, 12, "LEFT")
     info.text:SetPoint("LEFT", 10, 0)
     info.text:SetPoint("RIGHT", -10, 0)
@@ -489,7 +486,7 @@ local function CreateLog(page)
         track:SetPoint("BOTTOMLEFT", row.item, "BOTTOMRIGHT", 10, 2)
         track:SetPoint("RIGHT", -44, 0)
         track:SetHeight(3)
-        UI.Box(track, { 0.1, 0.1, 0.11, 1 })
+        UI.Groove(track)
         row.bar = track:CreateTexture(nil, "ARTWORK")
         row.bar:SetPoint("TOPLEFT")
         row.bar:SetPoint("BOTTOMLEFT")
@@ -583,10 +580,12 @@ end
 local function CreateWindow()
     window = ns.CreateNpcWindow("MeredanUIFishing", WIDTH, HEIGHT, "fishing")
     window:SetNpc(nil, L["Fishing bag"], "", 136245)
-    tabs.bag = Chip(window, L["Bag"], function() Select("bag") end)
-    tabs.bag:SetPoint("TOPLEFT", PAD, -(ns.NPC_HEADER_BOTTOM or 64) - 14)
-    tabs.log = Chip(window, L["Logbook"], function() Select("log") end)
-    tabs.log:SetPoint("LEFT", tabs.bag, "RIGHT", 6, 0)
+    -- tabs (B10) like mail and merchant
+    tabs.bag = ns.UI.Tab(window, L["Bag"], function() Select("bag") end)
+    tabs.bag:SetPoint("TOPLEFT", PAD, -(ns.NPC_HEADER_BOTTOM or 64) - 12)
+    ns.UI.TabBaseline(window, tabs.bag, PAD)
+    tabs.log = ns.UI.Tab(window, L["Logbook"], function() Select("log") end)
+    tabs.log:SetPoint("BOTTOMLEFT", tabs.bag, "BOTTOMRIGHT", 4, 0)
     pages.bag = CreateFrame("Frame", nil, window)
     pages.bag:SetAllPoints()
     CreateBag(pages.bag)

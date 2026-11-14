@@ -21,10 +21,12 @@ local ROW = 22
 local GAP = 2          -- between rows
 local PIN_GAP = 4      -- own (pinned) row slightly offset
 local WINDOW_GAP = 8   -- between the two windows
+local INNER = 8        -- content inset inside the window frame
+-- window frame (deep shell, no rim) around the content: inset + band and lines
+local function FrameOut() return ns.Snap(INNER) + ns.MinimapFrameReach() end
 local PARTY_ROWS = 5   -- solo/party
 local RAID_ROWS = 10   -- raid (fewer if space is short)
 local BOTTOM_GAP = 10  -- gap to the group frames below
-local BAR_BG = { 0, 0, 0, 0.4 }
 local COMBAT_COLOR = { 0.878, 0.541, 0.235 } -- #e08a3c: combat in progress
 local GRAY = { r = 0.6, g = 0.6, b = 0.6 }
 local REFRESH = 0.2    -- seconds: Blizzard fires very often in combat
@@ -89,9 +91,7 @@ local function CreateRow(window)
     row.bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     row.bar:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", ns.Snap(1), 0)
     row.bar:SetPoint("BOTTOMRIGHT")
-    local bg = row.bar:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(BAR_BG))
+    ns.UI.Groove(row.bar)
     local edge = CreateFrame("Frame", nil, row.bar)
     edge:SetAllPoints()
     edge:SetFrameLevel(row.bar:GetFrameLevel() + 2)
@@ -113,8 +113,8 @@ local function CreateRow(window)
 end
 
 local function SetSelf(row, isSelf)
-    local color = isSelf and ns.UI.ACCENT or { 0, 0, 0 }
-    for _, edge in ipairs(row.edges) do edge:SetVertexColor(color[1], color[2], color[3], 1) end
+    local color = isSelf and ns.UI.ACCENT or { 0, 0, 0, 0 } -- own row: accent edge, others the groove
+    for _, edge in ipairs(row.edges) do edge:SetVertexColor(color[1], color[2], color[3], color[4] or 1) end
 end
 
 -- source: entry from combatSources (real) or a demo table with the same fields
@@ -263,7 +263,7 @@ ShowDetail = function(row)
     detail.list:ScrollToTop()
     detail.row, detail.away = row, 0
     detail:ClearAllPoints()
-    detail:SetPoint("TOPLEFT", window, "TOPRIGHT", 2 * ns.WindowFrameReach() + ns.Snap(4), 0) -- both window frames
+    detail:SetPoint("TOPLEFT", window, "TOPRIGHT", FrameOut() + ns.WindowFrameReach() + ns.Snap(4), 0) -- both window frames
     detail:SetPoint("TOP", row, "TOP", 0, 0)
     detail:Show()
 end
@@ -439,6 +439,13 @@ local function CreateWindow(index)
     window.kind = (ns.db.damageMeterTypes and ns.db.damageMeterTypes[index]) or DEFAULT_TYPES[index]
     window.sessionType = SessionType.Current
     window.rows = {}
+    -- window frame around the content
+    local plate = CreateFrame("Frame", nil, window)
+    plate:SetPoint("TOPLEFT", -ns.Snap(INNER), ns.Snap(INNER))
+    plate:SetPoint("BOTTOMRIGHT", ns.Snap(INNER), -ns.Snap(INNER))
+    plate:SetFrameLevel(math.max(window:GetFrameLevel() - 1, 0))
+    ns.UI.Box(plate, ns.STYLE.panelColor, true)
+    ns.AddDeepShell(plate, ns.Snap(2), { shadow = 12 })
 
     local header = CreateFrame("Frame", nil, window)
     header:SetPoint("TOPLEFT")
@@ -446,15 +453,13 @@ local function CreateWindow(index)
     header:SetHeight(ns.Snap(HEADER))
     -- Header without background or border, only muted text and icons; hover: Surf Green
     window.header = header
-    local pad = ns.Snap(6)
 
     -- Meter type (left): click opens the type list
     local typeButton = CreateFrame("Button", nil, header)
     typeButton:SetPoint("TOPLEFT")
     typeButton:SetPoint("BOTTOMLEFT")
-    window.title = ns.CreateText(typeButton, 12, "LEFT", nil, "bold")
-    window.title:SetPoint("LEFT", pad, 0)
-    window.title:SetTextColor(unpack(ns.UI.MUTED))
+    window.title = ns.UI.Title(typeButton, 13, "LEFT") -- Cinzel
+    window.title:SetPoint("LEFT", 0, 0)
     local chevron = typeButton:CreateTexture(nil, "OVERLAY")
     ns.SetIcon(chevron, "ChevronDown")
     chevron:SetSize(10, 10)
@@ -466,11 +471,11 @@ local function CreateWindow(index)
         chevron:SetVertexColor(unpack(ns.UI.ACCENT))
     end)
     typeButton:SetScript("OnLeave", function()
-        window.title:SetTextColor(unpack(ns.UI.MUTED))
+        window.title:SetTextColor(unpack(ns.UI.TITLE))
         chevron:SetVertexColor(unpack(ns.UI.MUTED))
     end)
     hooksecurefunc(window.title, "SetText", function()
-        typeButton:SetWidth(pad + window.title:GetStringWidth() + ns.Snap(18))
+        typeButton:SetWidth(window.title:GetStringWidth() + ns.Snap(18))
     end)
     window.typeButton = typeButton
 
@@ -552,15 +557,17 @@ end
 -- above the group frames (healer layout: group sits centered, left side is free)
 local function Place()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
+    local out = FrameOut()
+    local between = ns.Snap(WINDOW_GAP) + 2 * out -- two window frames between the contents
     holder:ClearAllPoints()
-    holder:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -margin)
+    holder:SetPoint("TOPLEFT", UIParent, "TOPLEFT", margin, -margin) -- holder = outer frame edge
     local count = SecondOn() and 2 or 1
     local rowHeight = ns.Snap(ROW) + ns.Snap(GAP)
     local wanted = RaidSized() and RAID_ROWS or PARTY_ROWS
     if not ns.LayoutFlag("healerGroups") then
         local _, cy = UIParent:GetCenter()
         local available = (UIParent:GetTop() - margin) - (cy + ns.Snap(300) + ns.Snap(BOTTOM_GAP))
-        local perWindow = (available - (count - 1) * ns.Snap(WINDOW_GAP)) / count - ns.Snap(HEADER) - ns.Snap(PIN_GAP)
+        local perWindow = (available - (count - 1) * between) / count - 2 * out - ns.Snap(HEADER) - ns.Snap(PIN_GAP)
         wanted = math.max(3, math.min(wanted, math.floor(perWindow / rowHeight)))
     end
     for i, window in ipairs(windows) do
@@ -568,12 +575,13 @@ local function Place()
         window:SetShown(i <= count)
         window:ClearAllPoints()
         if i == 1 then
-            window:SetPoint("TOPLEFT", holder, "TOPLEFT")
+            window:SetPoint("TOPLEFT", holder, "TOPLEFT", out, -out)
         else
-            window:SetPoint("TOPLEFT", windows[i - 1], "BOTTOMLEFT", 0, -ns.Snap(WINDOW_GAP + PIN_GAP))
+            window:SetPoint("TOPLEFT", windows[i - 1], "BOTTOMLEFT", 0, -(between + ns.Snap(PIN_GAP)))
         end
     end
-    holder:SetSize(ns.Snap(WIDTH), count * windows[1]:GetHeight() + (count - 1) * ns.Snap(WINDOW_GAP + PIN_GAP))
+    holder:SetSize(ns.Snap(WIDTH) + 2 * out,
+        count * windows[1]:GetHeight() + (count - 1) * (between + ns.Snap(PIN_GAP)) + 2 * out)
     if holder:IsShown() then MarkDirty() end
 end
 ns.RelayoutDamageMeter = function() if holder then Place() end end
