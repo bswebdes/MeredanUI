@@ -13,6 +13,8 @@
 local _, ns = ...
 
 local PORTRAIT_ALPHA = 0.35 -- 3D portrait in the health bar: faint, the bar colour and numbers stay readable
+local PORTRAIT_TURN = 0.5    -- target portrait turn (radians) so it looks inward like the player's
+local PORTRAIT_SHIFT = 0.2   -- target portrait head moved right by this share of the bar width
 
 -- Setting "barPortrait": oUF's Portrait element on or off for player and target
 function ns.ApplyBarPortraits()
@@ -237,6 +239,15 @@ local function Style(self, unit)
         portrait:SetAllPoints(health)
         portrait:SetFrameLevel(health:GetFrameLevel() + 2)
         portrait:SetAlpha(PORTRAIT_ALPHA)
+        -- target mirrors the player: turned to look left (inward) and the head moved to the right
+        -- side. oUF resets the model on every unit change, so this runs after each update.
+        if mirrored then
+            portrait.PostUpdate = function(element)
+                if not UnitIsVisible(element.__owner.unit or "target") then return end
+                element:SetFacing(-PORTRAIT_TURN)
+                element:SetViewTranslation(element:GetWidth() * PORTRAIT_SHIFT, 0)
+            end
+        end
         self.Portrait = portrait
     end
 
