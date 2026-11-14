@@ -85,6 +85,23 @@ Pick Lock (16) is optional: lockboxes and some quest chests.
 Spec focus: Combat = Sinister Strike, Slice and Dice, Eviscerate; Assassination = Mutilate, Ambush, Slice and Dice; Subtlety = Ambush/Garrote/Rupture (+ Hemorrhage talent).
 Money: pick pocket humanoids (opener macro), Skinning + Leatherworking; use buff food for the XP bonus.
 
+## Priest
+
+_All class trainer ranks 1-60: 261g 99s. Marked recommended: 126g 90s. Marked skip: 54g 42s._
+
+**1-10:** Buy everything: Fortitude, Lesser Heal, Shadow Word: Pain, Power Word: Shield, Smite 2, Renew. Fade can wait (solo).
+Rotation: Smite, Shadow Word: Pain, melee/wand to save mana (Method). DoTs tag mobs instantly in Forever.
+**10-20:** Mind Blast (10), Inner Fire (12), Psychic Scream (14), Heal (16), Dispel Magic (18). Get a wand early (Lesser/Greater Magic Wand).
+Resurrection rank 1 only if you group; Cure Disease optional. Racial spells are very cheap - keep the known ones current.
+**20:** Devouring Plague (now baseline, cheap) is a must. Pick Holy Fire OR Mind Blast as your opener; Smite/Disc builds want Holy Fire.
+Flash Heal is optional solo. Fear Ward is cheap and now for every race. Skip Mind Soothe (optional), Shackle Undead, Fade 2.
+**22-30:** Keep Shadow Word: Pain, Power Word: Shield, Renew, Mind Blast, Heal current. Smite ranks 4+ are optional if you wand. Skip Mind Vision, Mana Burn.
+**30:** Divine Spirit (baseline now). Skip Mind Control and Shadow Protection. Prayer of Healing only for dungeon healers.
+**32-40:** Shadow Word: Death (32, baseline, instant). Abolish Disease optional. Levitate optional. Save for the 40 mount.
+**40-60:** Shadow: SW:Death and Mind Blast on cooldown, Mind Flay filler. Talent ranks (Mind Flay, Penance, Binding Heal, Holy Nova, Prayer of Mending) are cheap - buy when offered.
+Greater Heal/Prayer of Healing/Flash Heal ranks: buy if you heal dungeons, otherwise optional. Resurrection ranks 2+ can be skipped.
+Money: crafting is not worth it except wands (Method); Skinning or Herbalism for extra silver; Enchanting can make your wands.
+
 ## Shaman
 
 _All class trainer ranks 1-60: 210g 27s. Marked recommended: 79g 36s. Marked skip: 50g 72s._

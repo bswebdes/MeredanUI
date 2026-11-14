@@ -176,6 +176,40 @@ Leveling advice sources (read 2026-11-14):
 - No source covers what Stealth ranks 2-4 or Vanish rank 2 change in Forever.
 - Icy Veins and Mobalytics Forever rogue guides returned 403 / were not readable; Wowhead Classic guide is JS-rendered.
 
+## Priest
+
+Leveling advice sources (read 2026-11-14):
+
+- [World of Warcraft: Forever Class Deep Dives - Priest and Warrior](https://worldofwarcraft.blizzard.com/news/24301514) (official)
+- [Method.gg - WoW Forever Priest Leveling Guide and Talents](https://www.method.gg/wow-forever/wow-forever-priest-leveling-guide-and-talents) (forever_guide)
+- [Warcraft Tavern - WoW Forever Priest Leveling Guide](https://www.warcrafttavern.com/forever/guides/priest-leveling/) (forever_guide)
+- [DTGRE - WoW Forever Spell Training Too Expensive? What to Buy, Skip & Save Gold](https://www.dtgre.com/2026/11/wow-forever-spell-training-too-expensive-save-gold.html) (other)
+- [Warcraft Tavern - WoW Classic Priest Leveling Guide](https://warcrafttavern.com/wow-classic/guides/priest-leveling-guide) (classic_guide)
+- [Blizzard forums (Classic) - Priest leveling](https://us.forums.blizzard.com/en/wow/t/priest-leveling/329783) (other)
+
+**Forever differences that matter for training**
+
+- Devouring Plague and Fear Ward are baseline for all races at 20 (Blizzard deep dive).
+- Divine Spirit is baseline at 30; Shadow Word: Death is a new baseline spell at 32 (Blizzard deep dive).
+- Fade threat reduction doubled; Renew stacks from multiple priests; Prayer of Healing heals the target's party (Blizzard deep dive).
+- New talent spells with trainer ranks: Penance (21-pt), Binding Heal (16-pt), Prayer of Mending (31-pt) (Blizzard deep dive).
+- Racial spells reworked: Starshards damage greatly increased; new Gnome Contingency Plan, Dwarf Chastise, Undead Dark Sacrifice, Human Divine Grace (Blizzard deep dive).
+- DoTs tag mobs instantly in Forever (Method).
+
+**Guide disagreements**
+
+- Smite: Method uses it as main early filler; Classic forum guide says it quickly becomes useless; Forever adds Smite talents (Power in Light), so Smite builds keep it.
+- Holy Fire vs Mind Blast: Classic forum poster says take only one of Smite/Holy Fire; Method's Forever rotation uses Mind Blast and never mentions Holy Fire.
+- Prayer of Healing: one forum poster says dungeons need it, another says you can heal to 60 without it.
+- Mind Soothe: Warcraft Tavern Classic calls it highly underrated; a forum poster says skip it.
+- Shadow Word: Death: Method's milestone table lists it at 32 but its training list says 40 (trainer list: 32).
+
+**Open questions**
+
+- What Divine Grace, Dark Sacrifice, Chastise and Contingency Plan do in detail; no leveling guide rates them.
+- Icy Veins and Mobalytics Forever priest guides returned 403 and could not be read.
+- Psychic Scream rank differences in Forever not confirmed by any source.
+
 ## Shaman
 
 Leveling advice sources (read 2026-11-14):

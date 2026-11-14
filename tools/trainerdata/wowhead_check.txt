@@ -83,3 +83,15 @@ WARLOCK 11743 Detect Invisibility L50 -> wowhead "Detect Invisibility" L50 OK
 WARLOCK 18879 Siphon Life L38 -> wowhead "Siphon Life" L38 OK
 WARLOCK 20752 Create Soulstone L30 -> wowhead "Create Soulstone" L30 OK
 WARLOCK 1311677 Curse of the Elements L40 -> wowhead "Curse of the Elements" L40 OK
+PRIEST 1244 Power Word: Fortitude L12 -> wowhead "Power Word: Fortitude" L12 OK
+PRIEST 1245 Power Word: Fortitude L24 -> wowhead "Power Word: Fortitude" L24 OK
+PRIEST 2791 Power Word: Fortitude L36 -> wowhead "Power Word: Fortitude" L36 OK
+PRIEST 8131 Mana Burn L32 -> wowhead "Mana Burn" L32 OK
+PRIEST 9578 Fade L20 -> wowhead "Fade" L20 OK
+PRIEST 10881 Resurrection L46 -> wowhead "Resurrection" L46 OK
+PRIEST 10893 Shadow Word: Pain L50 -> wowhead "Shadow Word: Pain" L50 OK
+PRIEST 10898 Power Word: Shield L42 -> wowhead "Power Word: Shield" L42 OK
+PRIEST 19242 Desperate Prayer L50 -> wowhead "Desperate Prayer" L50 OK
+PRIEST 1277328 Dark Sacrifice L60 -> wowhead "Dark Sacrifice" L60 OK
+PRIEST 1277333 Chastise L40 -> wowhead "Chastise" L40 OK
+PRIEST 1309633 Shadow Word: Death L40 -> wowhead "Shadow Word: Death" L40 OK
