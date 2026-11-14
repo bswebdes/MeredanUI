@@ -842,16 +842,18 @@ local function CreateWindow()
         for bag = 1, 4 do if not IsSpecialBag(bag) then order[#order + 1] = bag end end
         for bag = 1, 4 do if IsSpecialBag(bag) then order[#order + 1] = bag end end
         order[#order + 1] = REAGENT_BAG
-        local previous
+        -- a wider gap between the groups, so special bags and the reagent slot read as separate
+        local function Group(bag) return bag == REAGENT_BAG and 3 or (IsSpecialBag(bag) and 2 or 1) end
+        local previous, previousBag
         for i = #order, 1, -1 do
             local slotButton = bagSlots[order[i]]
             slotButton:ClearAllPoints()
             if previous then
-                slotButton:SetPoint("RIGHT", previous, "LEFT", -4, 0)
+                slotButton:SetPoint("RIGHT", previous, "LEFT", Group(order[i]) ~= Group(previousBag) and -12 or -4, 0)
             else
                 slotButton:SetPoint("BOTTOMRIGHT", -PAD, PAD)
             end
-            previous = slotButton
+            previous, previousBag = slotButton, order[i]
         end
     end
     window.PlaceBagSlots()
