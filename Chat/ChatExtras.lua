@@ -16,8 +16,26 @@ local function Readable(...)
     return true
 end
 
+-- Forever names have a surname ("First Last"); links and chat events may carry it with a space or a
+-- hyphen and with or without realm. Compare without spaces/hyphens, own name as prefix.
+local function Squash(name) return (name:gsub("[%s%-]", ""):lower()) end
+local myNames
 local function IsMe(author)
-    return author and (Ambiguate(author, "none") == UnitName("player"))
+    if not author or author == "" then return false end
+    if not myNames then
+        myNames = {}
+        for _, name in ipairs({ UnitName("player"), UnitNameUnmodified and UnitNameUnmodified("player"),
+            GetUnitName("player", false) }) do
+            if type(name) == "string" and not issecretvalue(name) and name ~= "" then myNames[#myNames + 1] = Squash(name) end
+        end
+        table.sort(myNames, function(a, b) return #a > #b end)
+    end
+    local squashed = Squash(author)
+    local realm = Squash(GetRealmName() or "")
+    for _, mine in ipairs(myNames) do
+        if squashed == mine or squashed == mine .. realm then return true end
+    end
+    return false
 end
 
 -- Arrow keys --------------------------------------------------------------------------------------
@@ -272,7 +290,7 @@ function ns.ChatLevels(text)
     return (text:gsub("(|Hplayer:([^:|]+)[^|]*|h%[)(.-)(%]|h)", function(open, name, shown, close)
         local short = Ambiguate(name, "none")
         local level = levels[short]
-        if not level or level >= MaxLevel() or short == UnitName("player") then return nil end
+        if not level or level >= MaxLevel() or IsMe(name) then return nil end
         local color = GetQuestDifficultyColor(level)
         local hex = ("|cff%02x%02x%02x"):format(color.r * 255, color.g * 255, color.b * 255)
         return ("%s%s|r:%s%d|r%s"):format(open, shown, hex, level, close)

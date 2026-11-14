@@ -58,6 +58,7 @@ end
 -- Slash commands (/cast, /reload ...) are never saved: lines put back by addon code count as
 -- tainted, and a secure command from them could be blocked.
 local SENT_LINES = 32
+local historyPos = {} -- edit box -> index in ns.char.chatSent while walking with up/down
 
 local function RecordSent(editBox, key)
     if key ~= "ENTER" and key ~= "NUMPADENTER" then return end
@@ -77,12 +78,37 @@ local function RecordSent(editBox, key)
     local sent = ns.char.chatSent or {}
     ns.char.chatSent = sent
     if sent[#sent] ~= line then sent[#sent + 1] = line end
+    historyPos[editBox] = nil
     while #sent > SENT_LINES do table.remove(sent, 1) end
 end
 
 local function RestoreSent(editBox)
     for _, line in ipairs(ns.char.chatSent or {}) do editBox:AddHistoryLine(line) end
 end
+
+-- Up/down walk the saved lines. Blizzard's own history only answers Alt+arrows, so without Alt mode
+-- (Chat/ChatExtras.lua) we step through ns.char.chatSent ourselves. The "/g " etc. header in the
+-- line is parsed by Blizzard on text change and switches the chat type like its own recall does.
+-- AutoComplete's name list keeps the arrows while it is open.
+local function OnArrow(editBox, key)
+    if key ~= "UP" and key ~= "DOWN" then return end
+    if ns.db.chatArrowKeys == false or Locked() then return end
+    if AutoCompleteBox and AutoCompleteBox:IsShown() and AutoCompleteBox.parent == editBox then return end
+    local sent = ns.char.chatSent or {}
+    if #sent == 0 then return end
+    local pos = historyPos[editBox] or (#sent + 1)
+    pos = key == "UP" and math.max(1, pos - 1) or math.min(#sent + 1, pos + 1)
+    historyPos[editBox] = pos
+    local line = sent[pos]
+    if not line then
+        editBox:SetText("")
+        return
+    end
+    editBox:SetText(line)
+    editBox:SetCursorPosition(#editBox:GetText())
+end
+
+local function ResetHistoryPos(editBox) historyPos[editBox] = nil end
 
 -- Save chat type (and target) on send, restore it on login.
 local REMEMBER = {
@@ -185,6 +211,8 @@ ns:On("PLAYER_LOGIN", function()
         if editBox then
             editBox:HookScript("OnKeyDown", RecordSent) -- before OnKeyDown adds the nickname
             RestoreSent(editBox)
+            editBox:HookScript("OnArrowPressed", OnArrow)
+            editBox:HookScript("OnHide", ResetHistoryPos)
             editBox:HookScript("OnKeyDown", OnKeyDown)
             editBox:HookScript("OnKeyDown", OnHistory)
             editBox:HookScript("OnKeyDown", RememberChat)
