@@ -675,7 +675,8 @@ C_Timer.NewTicker(0.1, function()
         if frame.muiCombat and inCombat then
             frame.muiTarget = 1
         elseif frame.muiMouseover or frame.muiCombat then
-            local over = frame:IsVisible() and (frame:IsMouseOver(4, -4, -4, 4) or MouseOverFlyout(frame))
+            -- not when a window in front (e.g. the bags) has the mouse
+            local over = ns.IsHovered(frame) or MouseOverFlyout(frame)
             frame.muiTarget = over and 1 or 0
         end
     end

@@ -252,6 +252,7 @@ local function Hovered(frame)
     end
     return false
 end
+ns.IsHovered = Hovered
 C_Timer.NewTicker(0.1, function()
     for frame in pairs(mouseoverFrames) do
         if frame.muiMouseover then
