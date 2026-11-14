@@ -5,7 +5,6 @@ local L = ns.L
 
 local ELEMENTS = { "Health", "Power", "ClassPower", "Stagger", "RaidTargetIndicator", "Castbar", "CombatIndicator",
     "SummonIndicator" }
-local SUMMON_ICONS = { "SummonPending", "SummonAccepted", "SummonDeclined" }
 local CAST_TIME = 2.5 -- seconds per test cast
 local TEST_MAX_HEALTH = { player = 180000, target = 2400000 } -- for the health text
 
@@ -212,7 +211,7 @@ local function Animate()
         frame.PowerText:SetText(AbbreviateNumbers(math.floor(power * 100)))
 
         if frame.SummonIndicator and frame.SummonIndicator:IsShown() then
-            ns.SetStatusIcon(frame.SummonIndicator, SUMMON_ICONS[math.floor(t / 1.5) % 3 + 1])
+            ns.UpdateSummonIcon(frame.SummonIndicator, math.floor(t / 1.5) % 3 + 1)
         end
 
         if unit == "target" then -- cycle raid markers 1-8 every 1.5s
@@ -362,7 +361,7 @@ local function Start(quiet)
         -- status icons that are rare in practice: combat, and summon cycling through its states
         if frame.CombatIndicator then frame.CombatIndicator:Show() end
         if frame.SummonIndicator then
-            ns.SetStatusIcon(frame.SummonIndicator, SUMMON_ICONS[1])
+            ns.UpdateSummonIcon(frame.SummonIndicator, 1)
             frame.SummonIndicator:Show()
         end
 

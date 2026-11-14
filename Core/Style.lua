@@ -1202,9 +1202,9 @@ end
 -- our icon for the status (pending / accepted / declined).
 function ns.UpdateSummonIcon(icon, status)
     if not status or status == Enum.SummonStatus.None then return end
-    -- painted icon per status (pending / accepted / declined)
-    local names = { "SummonPending", "SummonAccepted", "SummonDeclined" }
-    ns.SetStatusIcon(icon, names[status] or names[1])
+    -- flat icon, the colour shows the status (pending / accepted / declined)
+    ns.SetStatusIcon(icon, "Summon")
+    icon:SetVertexColor(unpack(STYLE.summonColors[status] or STYLE.summonColors[1]))
 end
 
 -- Castbar, visible only while casting; overlays the health bar (which provides the border).
