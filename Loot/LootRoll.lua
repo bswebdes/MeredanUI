@@ -55,9 +55,16 @@ local function ButtonLeave(button)
     GameTooltip:Hide()
 end
 
+local Restack
 local function ButtonClick(button)
     local frame = button:GetParent()
-    if frame.demo or not frame.rollID then return end
+    if frame.demo then -- preview: any choice closes the sample roll
+        frame:Hide()
+        frame.demo = nil
+        Restack()
+        return
+    end
+    if not frame.rollID then return end
     RollOnLoot(frame.rollID, button.kind.id)
 end
 
@@ -204,7 +211,7 @@ function ns.LootRollsActive()
     return false
 end
 
-local function Restack()
+function Restack()
     local y = 0
     for _, frame in ipairs(frames) do
         if frame:IsShown() then
