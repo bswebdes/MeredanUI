@@ -447,7 +447,13 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
         if inline then
             beside = false
             local text1 = l1:GetText()
-            if Readable(text1) and text1 and not text1:find("\n", 1, true) then l1:SetText(text1 .. "\n ") end
+            -- second row as tall as line 2 plus the gap row under it (an inline texture taller than
+            -- the font makes the row taller), so the text below starts as far down as with a subtitle
+            local _, size2 = l2:GetFont()
+            local rowHeight = math.floor((size2 or 12) * 2 + 0.5)
+            if Readable(text1) and text1 and not text1:find("\n", 1, true) then
+                l1:SetText(("%s\n|T1319037:%d:1|t"):format(text1, rowHeight))
+            end
         else
             l2 = InsertLineAt(tooltip, layout or { free = 0 }, 2)
         end
