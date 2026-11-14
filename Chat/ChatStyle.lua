@@ -380,13 +380,22 @@ local function StyleEditBox(editBox)
     ClearTextures(editBox)
     -- sunk field (B11) in the frame material
     ns.UI.Groove(editBox)
-    -- only visible while actually typing (independent of Blizzard's chat style)
+    -- only visible while actually typing (independent of Blizzard's chat style). Blizzard's chat
+    -- fading also fades the edit box in (new messages, mouse over the chat) and leaves it there:
+    -- every alpha change without focus goes back to 0.
+    local setting = false
     local function ShowWhileTyping()
+        setting = true
         editBox:SetAlpha(editBox:HasFocus() and 1 or 0)
+        setting = false
     end
     editBox:HookScript("OnEditFocusGained", ShowWhileTyping)
     editBox:HookScript("OnEditFocusLost", ShowWhileTyping)
     editBox:HookScript("OnShow", ShowWhileTyping)
+    hooksecurefunc(editBox, "SetAlpha", function(_, alpha)
+        if setting or editBox:HasFocus() or alpha == 0 then return end
+        ShowWhileTyping()
+    end)
     ShowWhileTyping()
     editBox:ClearAllPoints()
     editBox:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, ns.Snap(4))
