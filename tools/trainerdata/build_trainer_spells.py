@@ -97,6 +97,8 @@ def parse_quest_spells(path):
 
 
 QS = parse_quest_spells(WT / 'QuestSpells.lua')
+# Hunter pet abilities are taught by the pet trainer, not the class trainer
+PET_IDS = {int(x) for x in re.findall(r'\[(\d+)\] = true', (WT / 'HunterPets.lua').read_text(encoding='utf-8'))}
 
 
 def rank_of(sid):
@@ -162,7 +164,7 @@ for cls in CLASSES:
         if d['faction']:
             req['faction'] = d['faction']
         rows.append(dict(id=d['id'], name=NAME[s], rank=rank_of(s), level=d['level'], cost=d['cost'],
-                         learnedFrom='talent' if d['talent'] else 'trainer', req=req))
+                         learnedFrom='talent' if d['talent'] else ('pettrainer' if cls == 'HUNTER' and d['id'] in PET_IDS else 'trainer'), req=req))
     # spells learned from class quests (rank 1 of totems, pets, stances, forms, racials ...)
     have = {r['id'] for r in rows}
     for sid, variants in (QS.get(cls) or {}).items():
@@ -180,6 +182,9 @@ for cls in CLASSES:
     for r in rows:
         s = str(r['id'])
         a = advice_for(adv, r['name'], r['rank'])
+        if (not a or not a.get('advice')) and r['learnedFrom'] == 'quest':
+            a = dict(advice='recommended', reason_en='Learned from a class quest, not the trainer.',
+                     reason_de='Lernst du durch eine Klassenquest, nicht beim Lehrer.')
         if not a or not a.get('advice'):
             missing_advice.setdefault(cls, set()).add(r['name'])
             a = dict(advice='optional', reason_en='No guide data yet.', reason_de='Noch keine Guide-Daten.')
@@ -227,13 +232,14 @@ for cls in CLASSES:
     if not af.exists():
         continue
     adv = json.loads(af.read_text(encoding='utf-8'))
-    total = sum(e['cost'] or 0 for e in blocks[cls] if e['learnedFrom'] != 'quest')
-    rec = sum(e['cost'] or 0 for e in blocks[cls] if e['learnedFrom'] != 'quest' and e['advice'] == 'recommended')
-    skip = sum(e['cost'] or 0 for e in blocks[cls] if e['learnedFrom'] != 'quest' and e['advice'] == 'skip')
+    sold = [e for e in blocks[cls] if e['learnedFrom'] in ('trainer', 'talent')]
+    total = sum(e['cost'] or 0 for e in sold)
+    rec = sum(e['cost'] or 0 for e in sold if e['advice'] == 'recommended')
+    skip = sum(e['cost'] or 0 for e in sold if e['advice'] == 'skip')
     def g(c):
         return '%dg %02ds' % (c // 10000, (c // 100) % 100)
     lo += ['## %s' % NICE[cls], '',
-           '_All trainer ranks 1-60: %s. Marked recommended: %s. Marked skip: %s._' % (g(total), g(rec), g(skip)), '',
+           '_All class trainer ranks 1-60: %s. Marked recommended: %s. Marked skip: %s._' % (g(total), g(rec), g(skip)), '',
            adv['learning_order'].strip(), '']
     src_parts += ['## %s' % NICE[cls], '', 'Leveling advice sources (read %s):' % ', '.join(sorted({x.get('checked', '') for x in adv['sources']})), '']
     src_parts += ['- [%s](%s) (%s)' % (x['title'], x['url'], x['kind']) for x in adv['sources']]

@@ -9,7 +9,7 @@ from lualit import tokenize, P  # noqa: E402
 
 ADVICE = {'recommended', 'optional', 'skip'}
 ROLES = {'tank', 'heal', 'dps'}
-FROM = {'trainer', 'quest', 'talent'}
+FROM = {'trainer', 'quest', 'talent', 'pettrainer'}
 errors = []
 
 

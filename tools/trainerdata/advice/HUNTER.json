@@ -1,0 +1,404 @@
+{
+  "class": "HUNTER",
+  "sources": [
+    {
+      "title": "World of Warcraft: Forever Class Deep Dives - Hunter and Druid",
+      "url": "https://worldofwarcraft.blizzard.com/news/24301515",
+      "kind": "official",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Method.gg - WoW Forever Hunter Leveling Guide and Talents",
+      "url": "https://www.method.gg/wow-forever/wow-forever-hunter-leveling-guide-and-talents",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Forever Hunter Leveling Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/hunter-leveling/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Forever Hunter Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/hunter/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Classic Hunter Leveling Guide",
+      "url": "https://www.warcrafttavern.com/guides/wow-classic-hunter-leveling-guide/",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Blizzard forums (Classic) - Hunter skills and gold",
+      "url": "https://us.forums.blizzard.com/en/wow/t/hunter-skills-and-gold/266973",
+      "kind": "other",
+      "checked": "2026-11-14"
+    }
+  ],
+  "spells": {
+    "Track Beasts": {
+      "advice": "recommended",
+      "reason_en": "Cheap; helps find quest mobs and pet targets",
+      "reason_de": "Günstig; hilft beim Finden von Questgegnern"
+    },
+    "Aspect of the Monkey": {
+      "advice": "recommended",
+      "reason_en": "Your only aspect until Aspect of the Hawk at 10",
+      "reason_de": "Dein einziger Aspekt bis Aspekt des Falken (10)"
+    },
+    "Serpent Sting": {
+      "advice": "recommended",
+      "reason_en": "Core DoT on longer fights; keep ranks current",
+      "reason_de": "Wichtiger DoT bei längeren Kämpfen; Ränge aktuell halten"
+    },
+    "Arcane Shot": {
+      "advice": "recommended",
+      "reason_en": "Instant damage; strong early, weaker later",
+      "reason_de": "Sofortschaden; früh stark, später schwächer",
+      "ranks": {
+        "4": {
+          "advice": "optional",
+          "reason_en": "Guides: little value after ~25 unless long fights",
+          "reason_de": "Guides: nach ~25 wenig Wert, außer lange Kämpfe"
+        },
+        "5": {
+          "advice": "optional",
+          "reason_en": "Low priority; BM Summon Hawk shares its cooldown",
+          "reason_de": "Niedrige Priorität; BM-Falke teilt die Abklingzeit"
+        },
+        "6": {
+          "advice": "optional",
+          "reason_en": "Low priority; buy when gold is spare",
+          "reason_de": "Niedrige Priorität; kaufen, wenn Gold übrig ist"
+        },
+        "7": {
+          "advice": "optional",
+          "reason_en": "Low priority; buy when gold is spare",
+          "reason_de": "Niedrige Priorität; kaufen, wenn Gold übrig ist"
+        },
+        "8": {
+          "advice": "optional",
+          "reason_en": "Low priority; buy when gold is spare",
+          "reason_de": "Niedrige Priorität; kaufen, wenn Gold übrig ist"
+        }
+      }
+    },
+    "Hunter's Mark": {
+      "advice": "recommended",
+      "reason_en": "Improved version is baseline: more damage for you and pet",
+      "reason_de": "Verbesserte Version ist Standard: mehr Schaden für dich und Tier"
+    },
+    "Concussive Shot": {
+      "advice": "recommended",
+      "reason_en": "Slow for kiting; key before and after pet",
+      "reason_de": "Verlangsamung zum Kiten; sehr wichtig"
+    },
+    "Parry": {
+      "advice": "recommended",
+      "reason_en": "Cheap passive defense",
+      "reason_de": "Günstige passive Verteidigung"
+    },
+    "Raptor Strike": {
+      "advice": "optional",
+      "reason_en": "Ranged specs rarely melee; Survival uses all ranks",
+      "reason_de": "Fernkampf-Specs selten nah; Überleben braucht alle Ränge"
+    },
+    "Aspect of the Hawk": {
+      "advice": "recommended",
+      "reason_en": "Main leveling aspect; keep on while fighting",
+      "reason_de": "Wichtigster Aspekt; im Kampf immer an"
+    },
+    "Track Humanoids": {
+      "advice": "recommended",
+      "reason_en": "Cheap; finds humanoid quest mobs",
+      "reason_de": "Günstig; findet humanoide Questgegner"
+    },
+    "Great Stamina": {
+      "advice": "recommended",
+      "reason_en": "Cheap pet training; more pet health for tanking",
+      "reason_de": "Günstiges Tiertraining; mehr Leben für dein Tier"
+    },
+    "Natural Armor": {
+      "advice": "recommended",
+      "reason_en": "Cheap pet training; pet takes less damage",
+      "reason_de": "Günstiges Tiertraining; Tier nimmt weniger Schaden"
+    },
+    "Distracting Shot": {
+      "advice": "skip",
+      "reason_en": "Threat tool for groups; not needed solo",
+      "reason_de": "Bedrohungswerkzeug für Gruppen; solo unnötig"
+    },
+    "Mend Pet": {
+      "advice": "recommended",
+      "reason_en": "Keeps your pet alive; buy every rank",
+      "reason_de": "Hält dein Tier am Leben; jeden Rang kaufen"
+    },
+    "Wing Clip": {
+      "advice": "recommended",
+      "reason_en": "Melee slow to start kiting",
+      "reason_de": "Nahkampf-Verlangsamung zum Kiten",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Higher rank adds little; rank 1 slows the same",
+          "reason_de": "Höherer Rang bringt wenig; Rang 1 verlangsamt gleich"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Higher rank adds little; rank 1 slows the same",
+          "reason_de": "Höherer Rang bringt wenig; Rang 1 verlangsamt gleich"
+        }
+      }
+    },
+    "Eagle Eye": {
+      "advice": "skip",
+      "reason_en": "Scouting only; no combat value",
+      "reason_de": "Nur zum Erkunden; kein Kampfnutzen"
+    },
+    "Eyes of the Beast": {
+      "advice": "skip",
+      "reason_en": "Pet control/scouting; not needed while leveling",
+      "reason_de": "Tiersteuerung/Erkunden; beim Leveln unnötig"
+    },
+    "Scare Beast": {
+      "advice": "optional",
+      "reason_en": "Situational CC; feared mobs can pull more",
+      "reason_de": "Situative Kontrolle; Gegner können mehr ziehen"
+    },
+    "Immolation Trap": {
+      "advice": "optional",
+      "reason_en": "Traps work in combat now; good for Survival/AoE",
+      "reason_de": "Fallen gehen jetzt im Kampf; gut für Überleben/AoE"
+    },
+    "Mongoose Bite": {
+      "advice": "optional",
+      "reason_en": "Survival core; ranged specs can skip it",
+      "reason_de": "Kern für Überleben; Fernkampf kann es auslassen"
+    },
+    "Multi-Shot": {
+      "advice": "recommended",
+      "reason_en": "Main AoE shot; shares cooldown with Aimed Shot",
+      "reason_de": "Wichtigster AoE-Schuss; teilt CD mit Gezielter Schuss"
+    },
+    "Track Undead": {
+      "advice": "skip",
+      "reason_en": "Skip unless Survival (Improved Tracking dmg bonus)",
+      "reason_de": "Überspringen, außer Überleben (Schadensbonus beim Aufspüren)"
+    },
+    "Aimed Shot": {
+      "advice": "recommended",
+      "reason_en": "Baseline at 20 in Forever; main single-target shot",
+      "reason_de": "In Forever ab 20 Standard; Hauptschuss gegen Einzelziele"
+    },
+    "Aspect of the Cheetah": {
+      "advice": "recommended",
+      "reason_en": "Travel speed before your mount",
+      "reason_de": "Laufgeschwindigkeit vor dem Reittier"
+    },
+    "Disengage": {
+      "advice": "optional",
+      "reason_en": "Threat drop for groups; little use solo",
+      "reason_de": "Bedrohung senken in Gruppen; solo wenig Nutzen",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Only buy if you group a lot",
+          "reason_de": "Nur kaufen, wenn du oft in Gruppen bist"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Only buy if you group a lot",
+          "reason_de": "Nur kaufen, wenn du oft in Gruppen bist"
+        }
+      }
+    },
+    "Dual Wield": {
+      "advice": "optional",
+      "reason_en": "Only for melee Survival",
+      "reason_de": "Nur für Nahkampf-Überleben"
+    },
+    "Freezing Trap": {
+      "advice": "recommended",
+      "reason_en": "Hard CC for adds; usable in combat now",
+      "reason_de": "Harte Kontrolle für Adds; jetzt im Kampf nutzbar",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Longer duration; nice but not needed",
+          "reason_de": "Längere Dauer; nett, aber nicht nötig"
+        },
+        "3": {
+          "advice": "optional",
+          "reason_en": "Longer duration; nice but not needed",
+          "reason_de": "Längere Dauer; nett, aber nicht nötig"
+        }
+      }
+    },
+    "Arcane Resistance": {
+      "advice": "skip",
+      "reason_en": "Pet resistance; only for specific dungeons/raids",
+      "reason_de": "Tier-Widerstand; nur für bestimmte Dungeons/Raids"
+    },
+    "Fire Resistance": {
+      "advice": "skip",
+      "reason_en": "Pet resistance; only for specific dungeons/raids",
+      "reason_de": "Tier-Widerstand; nur für bestimmte Dungeons/Raids"
+    },
+    "Frost Resistance": {
+      "advice": "skip",
+      "reason_en": "Pet resistance; only for specific dungeons/raids",
+      "reason_de": "Tier-Widerstand; nur für bestimmte Dungeons/Raids"
+    },
+    "Nature Resistance": {
+      "advice": "skip",
+      "reason_en": "Pet resistance; only for specific dungeons/raids",
+      "reason_de": "Tier-Widerstand; nur für bestimmte Dungeons/Raids"
+    },
+    "Shadow Resistance": {
+      "advice": "skip",
+      "reason_en": "Pet resistance; only for specific dungeons/raids",
+      "reason_de": "Tier-Widerstand; nur für bestimmte Dungeons/Raids"
+    },
+    "Growl": {
+      "advice": "recommended",
+      "reason_en": "Pet must hold aggro; keep Growl current",
+      "reason_de": "Dein Tier muss Aggro halten; Knurren aktuell halten"
+    },
+    "Scorpid Sting": {
+      "advice": "optional",
+      "reason_en": "Forever: -2% enemy hit; minor solo, ok for tough mobs",
+      "reason_de": "Forever: -2% Trefferchance; solo klein, ok bei harten Gegnern"
+    },
+    "Beast Lore": {
+      "advice": "skip",
+      "reason_en": "Info only; no combat value",
+      "reason_de": "Nur Info; kein Kampfnutzen"
+    },
+    "Track Hidden": {
+      "advice": "skip",
+      "reason_en": "Rarely needed while leveling",
+      "reason_de": "Beim Leveln selten nötig"
+    },
+    "Rapid Fire": {
+      "advice": "recommended",
+      "reason_en": "Big burst cooldown",
+      "reason_de": "Starker Burst-Cooldown"
+    },
+    "Track Elementals": {
+      "advice": "skip",
+      "reason_en": "Skip unless Survival (Improved Tracking dmg bonus)",
+      "reason_de": "Überspringen, außer Überleben (Schadensbonus beim Aufspüren)"
+    },
+    "Frost Trap": {
+      "advice": "recommended",
+      "reason_en": "60% AoE slow; great for kiting packs",
+      "reason_de": "60% AoE-Verlangsamung; super zum Kiten"
+    },
+    "Aspect of the Beast": {
+      "advice": "optional",
+      "reason_en": "Forever: melee AP; for melee Survival only",
+      "reason_de": "Forever: Nahkampf-Angriffskraft; nur für Nahkampf-Überleben"
+    },
+    "Counterattack": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Feign Death": {
+      "advice": "recommended",
+      "reason_en": "Drops aggro and saves bad pulls",
+      "reason_de": "Aggro loswerden; rettet schlechte Pulls"
+    },
+    "Flare": {
+      "advice": "skip",
+      "reason_en": "Reveals stealth; mostly PvP",
+      "reason_de": "Enttarnt Verstohlenheit; vor allem PvP"
+    },
+    "Track Demons": {
+      "advice": "skip",
+      "reason_en": "Skip unless Survival (Improved Tracking dmg bonus)",
+      "reason_de": "Überspringen, außer Überleben (Schadensbonus beim Aufspüren)"
+    },
+    "Trueshot Aura": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Explosive Trap": {
+      "advice": "optional",
+      "reason_en": "AoE fire trap; useful for big pulls",
+      "reason_de": "AoE-Feuerfalle; nützlich bei großen Pulls"
+    },
+    "Summon Hawk": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Viper Sting": {
+      "advice": "skip",
+      "reason_en": "Mana drain; mostly PvP or vs. casters",
+      "reason_de": "Manaentzug; meist PvP oder gegen Zauberer"
+    },
+    "Aspect of the Pack": {
+      "advice": "optional",
+      "reason_en": "Group travel speed; dazes in combat",
+      "reason_de": "Gruppen-Tempo; macht im Kampf benommen"
+    },
+    "Mail": {
+      "advice": "recommended",
+      "reason_en": "Wear mail armor from 40",
+      "reason_de": "Ab 40 Schwere Rüstung tragen"
+    },
+    "Track Giants": {
+      "advice": "skip",
+      "reason_en": "Skip unless Survival (Improved Tracking dmg bonus)",
+      "reason_de": "Überspringen, außer Überleben (Schadensbonus beim Aufspüren)"
+    },
+    "Volley": {
+      "advice": "optional",
+      "reason_en": "Channeled AoE; for group or big pulls",
+      "reason_de": "Kanalisierter AoE; für Gruppen oder große Pulls"
+    },
+    "Aspect of the Wild": {
+      "advice": "skip",
+      "reason_en": "Nature resist; for raids, not leveling",
+      "reason_de": "Naturwiderstand; für Raids, nicht zum Leveln"
+    },
+    "Sniper Shot": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Track Dragonkin": {
+      "advice": "skip",
+      "reason_en": "Skip unless Survival (Improved Tracking dmg bonus)",
+      "reason_de": "Überspringen, außer Überleben (Schadensbonus beim Aufspüren)"
+    }
+  },
+  "learning_order": "**1-10:** Buy everything: Serpent Sting, Arcane Shot, Hunter's Mark, Concussive Shot, Aspect of the Monkey, Parry. Track Beasts/Humanoids are cheap.\n**10:** Most important level (pet quest + Aspect of the Hawk). Train Growl, Great Stamina, Natural Armor for the pet right away.\n**12-20:** Mend Pet, Wing Clip rank 1, Multi-Shot (18), new Serpent Sting/Arcane Shot/Hawk ranks. Skip Eagle Eye, Eyes of the Beast, Scare Beast, Track Undead, Distracting Shot.\nRanged specs (BM/MM) can skip Raptor Strike ranks and Mongoose Bite; Survival buys them (plus Immolation Trap, Dual Wield).\n**20:** Aimed Shot (now baseline), Aspect of the Cheetah, Freezing Trap, Mend Pet 2. Skip pet resistances and Disengage unless grouping.\n**22-30:** Hunter's Mark 2, Rapid Fire (26), Frost Trap (28), Feign Death (30), Aimed/Arcane/Hawk/Sting ranks. Skip Scorpid Sting (optional), Beast Lore, Track Hidden/Elementals.\n**30-40:** Growl ranks for the pet, Explosive Trap optional for AoE pulls. Skip Flare, Track Demons/Giants, Viper Sting, Wing Clip 2.\nSave gold for the level 40 mount; Mail at 40 is a must, Aspect of the Pack and Volley are optional.\n**40-60:** Keep Aimed Shot, Serpent Sting, Hawk, Mend Pet, Hunter's Mark and Growl current. Skip Aspect of the Wild, Track Dragonkin, Freezing Trap 2/3 if short on gold.\n**Talent ranks** (Summon Hawk, Trueshot Aura, Sniper Shot, Counterattack) only show up if you took the talent; buy them when they do.\nArcane Shot ranks 4+ are low priority (Method: weak after ~25; BM's Summon Hawk shares its cooldown).\nMoney: Skinning (+ Leatherworking or Mining) is the usual hunter money pair; buy cheap food in bulk.",
+  "disagreements": [
+    "Arcane Shot: Method calls it near redundant after 25 (except long fights); Warcraft Tavern Forever still lists it in every rotation.",
+    "Raptor Strike: Method says it loses almost all value after 10 (kite instead); Warcraft Tavern Forever uses it in melee range and for Survival.",
+    "Multi-Shot (Classic forum): one poster says skip while leveling, others call it a top damage ability; Forever guides treat it as core AoE.",
+    "Scorpid Sting: Warcraft Tavern Classic says skip; a Classic forum poster says train it. Forever changed it to -2% hit chance.",
+    "Tracking: Classic guides skip most tracking; in Forever Survival's Improved Tracking adds damage vs the tracked type, so Survival may want them."
+  ],
+  "forever_differences": [
+    "Aimed Shot is baseline at 20 (no talent) and shares its cooldown with Multi-Shot; Arcane Shot no longer does (Blizzard deep dive).",
+    "Improved Hunter's Mark and Improved Eyes of the Beast are baseline (Blizzard deep dive).",
+    "Traps usable in combat on a 30s cooldown; fire and frost traps have separate cooldowns (Blizzard deep dive).",
+    "Aspect of the Beast now grants melee attack power (melee Survival aspect) (Blizzard deep dive).",
+    "Scorpid Sting now reduces target hit chance by 2% instead of Str/Agi (Blizzard deep dive, Warcraft Tavern).",
+    "New talent abilities with trainer ranks: Summon Hawk (BM, shares cooldown with Arcane Shot), Sniper Shot (MM), Trueshot Aura moved to a 21-point talent with lower ranks, Counterattack 16-point talent (Blizzard deep dive).",
+    "Disengage threat reduction doubled; pets scale from hunter gear and no longer take player stat buffs (Blizzard deep dive).",
+    "Improved Tracking (Survival) increases damage vs the creature type you track (Blizzard deep dive, Warcraft Tavern)."
+  ],
+  "open_questions": [
+    "Multi-Shot appears only once (no ranks) in the Forever trainer list; whether it scales with level was not confirmed by a guide.",
+    "Icy Veins and Mobalytics Forever hunter guides returned 403 and could not be read.",
+    "No source covers whether pet resistance training (Arcane/Fire/Frost/Nature/Shadow Resistance) matters in Forever dungeons."
+  ]
+}

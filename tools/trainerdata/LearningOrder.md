@@ -4,9 +4,26 @@ What to buy at the trainer while leveling 1-60, what to skip, and money tips. Ge
 `advice/<CLASS>.json` by `build_trainer_spells.py`; the per-spell marks are in `TrainerSpells.lua`.
 Default viewpoint: solo leveling. Costs: see `TrainerSpells.lua` (base price, before reputation discount).
 
+## Hunter
+
+_All class trainer ranks 1-60: 206g 42s. Marked recommended: 87g 91s. Marked skip: 43g 21s._
+
+**1-10:** Buy everything: Serpent Sting, Arcane Shot, Hunter's Mark, Concussive Shot, Aspect of the Monkey, Parry. Track Beasts/Humanoids are cheap.
+**10:** Most important level (pet quest + Aspect of the Hawk). Train Growl, Great Stamina, Natural Armor for the pet right away.
+**12-20:** Mend Pet, Wing Clip rank 1, Multi-Shot (18), new Serpent Sting/Arcane Shot/Hawk ranks. Skip Eagle Eye, Eyes of the Beast, Scare Beast, Track Undead, Distracting Shot.
+Ranged specs (BM/MM) can skip Raptor Strike ranks and Mongoose Bite; Survival buys them (plus Immolation Trap, Dual Wield).
+**20:** Aimed Shot (now baseline), Aspect of the Cheetah, Freezing Trap, Mend Pet 2. Skip pet resistances and Disengage unless grouping.
+**22-30:** Hunter's Mark 2, Rapid Fire (26), Frost Trap (28), Feign Death (30), Aimed/Arcane/Hawk/Sting ranks. Skip Scorpid Sting (optional), Beast Lore, Track Hidden/Elementals.
+**30-40:** Growl ranks for the pet, Explosive Trap optional for AoE pulls. Skip Flare, Track Demons/Giants, Viper Sting, Wing Clip 2.
+Save gold for the level 40 mount; Mail at 40 is a must, Aspect of the Pack and Volley are optional.
+**40-60:** Keep Aimed Shot, Serpent Sting, Hawk, Mend Pet, Hunter's Mark and Growl current. Skip Aspect of the Wild, Track Dragonkin, Freezing Trap 2/3 if short on gold.
+**Talent ranks** (Summon Hawk, Trueshot Aura, Sniper Shot, Counterattack) only show up if you took the talent; buy them when they do.
+Arcane Shot ranks 4+ are low priority (Method: weak after ~25; BM's Summon Hawk shares its cooldown).
+Money: Skinning (+ Leatherworking or Mining) is the usual hunter money pair; buy cheap food in bulk.
+
 ## Shaman
 
-_All trainer ranks 1-60: 210g 27s. Marked recommended: 79g 36s. Marked skip: 50g 72s._
+_All class trainer ranks 1-60: 210g 27s. Marked recommended: 79g 36s. Marked skip: 50g 72s._
 
 **Solo default: Enhancement** (both Forever guides call it the fastest leveling spec).
 

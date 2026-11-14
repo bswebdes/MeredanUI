@@ -29,12 +29,49 @@ How the sources were checked against each other:
 
 ## Known limits (all classes)
 
-- Hunter pet skills (Beast Training) and Warlock demon tomes are not class trainer spells and are not included.
+- Hunter pet skills (Great Stamina, Natural Armor, resistances ...) are listed with `learnedFrom = "pettrainer"`
+  (sold by the pet trainer). Warlock demon tomes (vendor books for pet spells) are not included.
 - Class quests from the Questie Forever data include endgame chains (tier 0.5, Zul'Gurub, AQ, Naxxramas class
   quests). Some of that content may not be open yet in Forever; they are marked `category = "endgame"`.
 - The totem items from the Shaman element quests are taken from Classic Era rules (`verified = "classic_era"` on
   that unlock); the Forever sources do not say whether the totem items are still needed.
 - Leveling advice for new Forever spells relies on early Forever guides (written during beta/launch week).
+
+## Hunter
+
+Leveling advice sources (read 2026-11-14):
+
+- [World of Warcraft: Forever Class Deep Dives - Hunter and Druid](https://worldofwarcraft.blizzard.com/news/24301515) (official)
+- [Method.gg - WoW Forever Hunter Leveling Guide and Talents](https://www.method.gg/wow-forever/wow-forever-hunter-leveling-guide-and-talents) (forever_guide)
+- [Warcraft Tavern - WoW Forever Hunter Leveling Guide](https://www.warcrafttavern.com/forever/guides/hunter-leveling/) (forever_guide)
+- [Warcraft Tavern - WoW Forever Hunter Guide](https://www.warcrafttavern.com/forever/guides/hunter/) (forever_guide)
+- [Warcraft Tavern - WoW Classic Hunter Leveling Guide](https://www.warcrafttavern.com/guides/wow-classic-hunter-leveling-guide/) (classic_guide)
+- [Blizzard forums (Classic) - Hunter skills and gold](https://us.forums.blizzard.com/en/wow/t/hunter-skills-and-gold/266973) (other)
+
+**Forever differences that matter for training**
+
+- Aimed Shot is baseline at 20 (no talent) and shares its cooldown with Multi-Shot; Arcane Shot no longer does (Blizzard deep dive).
+- Improved Hunter's Mark and Improved Eyes of the Beast are baseline (Blizzard deep dive).
+- Traps usable in combat on a 30s cooldown; fire and frost traps have separate cooldowns (Blizzard deep dive).
+- Aspect of the Beast now grants melee attack power (melee Survival aspect) (Blizzard deep dive).
+- Scorpid Sting now reduces target hit chance by 2% instead of Str/Agi (Blizzard deep dive, Warcraft Tavern).
+- New talent abilities with trainer ranks: Summon Hawk (BM, shares cooldown with Arcane Shot), Sniper Shot (MM), Trueshot Aura moved to a 21-point talent with lower ranks, Counterattack 16-point talent (Blizzard deep dive).
+- Disengage threat reduction doubled; pets scale from hunter gear and no longer take player stat buffs (Blizzard deep dive).
+- Improved Tracking (Survival) increases damage vs the creature type you track (Blizzard deep dive, Warcraft Tavern).
+
+**Guide disagreements**
+
+- Arcane Shot: Method calls it near redundant after 25 (except long fights); Warcraft Tavern Forever still lists it in every rotation.
+- Raptor Strike: Method says it loses almost all value after 10 (kite instead); Warcraft Tavern Forever uses it in melee range and for Survival.
+- Multi-Shot (Classic forum): one poster says skip while leveling, others call it a top damage ability; Forever guides treat it as core AoE.
+- Scorpid Sting: Warcraft Tavern Classic says skip; a Classic forum poster says train it. Forever changed it to -2% hit chance.
+- Tracking: Classic guides skip most tracking; in Forever Survival's Improved Tracking adds damage vs the tracked type, so Survival may want them.
+
+**Open questions**
+
+- Multi-Shot appears only once (no ranks) in the Forever trainer list; whether it scales with level was not confirmed by a guide.
+- Icy Veins and Mobalytics Forever hunter guides returned 403 and could not be read.
+- No source covers whether pet resistance training (Arcane/Fire/Frost/Nature/Shadow Resistance) matters in Forever dungeons.
 
 ## Shaman
 

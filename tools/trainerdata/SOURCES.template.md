@@ -29,7 +29,8 @@ How the sources were checked against each other:
 
 ## Known limits (all classes)
 
-- Hunter pet skills (Beast Training) and Warlock demon tomes are not class trainer spells and are not included.
+- Hunter pet skills (Great Stamina, Natural Armor, resistances ...) are listed with `learnedFrom = "pettrainer"`
+  (sold by the pet trainer). Warlock demon tomes (vendor books for pet spells) are not included.
 - Class quests from the Questie Forever data include endgame chains (tier 0.5, Zul'Gurub, AQ, Naxxramas class
   quests). Some of that content may not be open yet in Forever; they are marked `category = "endgame"`.
 - The totem items from the Shaman element quests are taken from Classic Era rules (`verified = "classic_era"` on

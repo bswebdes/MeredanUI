@@ -59,7 +59,7 @@ local TRAINER_SPELLS = {
 | `cost` | number | Training cost in copper, base price before reputation discount. 0 for quest spells. |
 | `school` | string | Physical, Holy, Fire, Nature, Frost, Shadow, Arcane. |
 | `tree` | string | Class skill line from the client (talent tree name, e.g. "Elemental Combat"), or the general skill line for armor/weapon skills. |
-| `learnedFrom` | string | `"trainer"`, `"talent"` (higher rank of a talent spell: trainer only shows it if you have the talent), `"quest"` (learned from a class quest, not the trainer). |
+| `learnedFrom` | string | `"trainer"`, `"talent"` (higher rank of a talent spell: trainer only shows it if you have the talent), `"quest"` (learned from a class quest, not the trainer), `"pettrainer"` (Hunter pet skill, sold by the pet trainer). |
 | `requires` | table or nil | `spell` = previous rank ID (or list of IDs) that must be known; `talent` = talent spell ID needed; `races` = list of race IDs that can learn it (Priest racials); `faction` = `"Alliance"`/`"Horde"` (e.g. Mage portals); `quest` = list of quest IDs that reward the spell. |
 | `advice` | string | `"recommended"`, `"optional"` or `"skip"` for solo leveling. |
 | `reason_en`, `reason_de` | string | Short reason (about 70 characters max). |
@@ -69,7 +69,7 @@ local TRAINER_SPELLS = {
 
 Notes for the addon:
 
-- Waiting spells on level-up: entries with `level <= UnitLevel("player")`, `learnedFrom ~= "quest"`, not known
+- Waiting spells on level-up: entries with `level <= UnitLevel("player")`, `learnedFrom` = `"trainer"` or `"talent"`, not known
   (`IsSpellKnown`), all `requires.spell` known, `requires.races`/`faction` matching, and for `learnedFrom ==
   "talent"` the `requires.talent` spell known.
 - Rank 1 of spells every character starts with (e.g. Lightning Bolt, Healing Wave) is not listed (not sold).

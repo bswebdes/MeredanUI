@@ -11,3 +11,15 @@ SHAMAN 10447 Flame Shock L40 -> wowhead "Flame Shock" L40 OK
 SHAMAN 10605 Chain Lightning L56 -> wowhead "Chain Lightning" L56 OK
 SHAMAN 16316 Rockbiter Weapon L54 -> wowhead "Rockbiter Weapon" L54 OK
 SHAMAN 16362 Windfury Weapon L60 -> wowhead "Windfury Weapon" L60 OK
+HUNTER 136 Mend Pet L12 -> wowhead "Mend Pet" L12 OK
+HUNTER 1513 Scare Beast L14 -> wowhead "Scare Beast" L14 OK
+HUNTER 2974 Wing Clip L12 -> wowhead "Wing Clip" L12 OK
+HUNTER 3662 Mend Pet L36 -> wowhead "Mend Pet" L36 OK
+HUNTER 13549 Serpent Sting L10 -> wowhead "Serpent Sting" L10 OK
+HUNTER 14269 Mongoose Bite L30 -> wowhead "Mongoose Bite" L30 OK
+HUNTER 14326 Scare Beast L30 -> wowhead "Scare Beast" L30 OK
+HUNTER 15629 Distracting Shot L30 -> wowhead "Distracting Shot" L30 OK
+HUNTER 24447 Frost Resistance L30 -> wowhead "Frost Resistance" L30 OK
+HUNTER 24549 Natural Armor L12 -> wowhead "Natural Armor" L12 OK
+HUNTER 1299446 Aspect of the Beast L50 -> wowhead "Aspect of the Beast" L50 OK
+HUNTER 1310785 Sniper Shot L48 -> wowhead "Sniper Shot" L48 OK
