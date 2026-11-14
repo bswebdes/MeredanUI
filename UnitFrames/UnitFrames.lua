@@ -14,7 +14,7 @@ local _, ns = ...
 
 local PORTRAIT_ALPHA = 0.35 -- 3D portrait in the health bar: faint, the bar colour and numbers stay readable
 local PORTRAIT_TURN = 0.5    -- target portrait turn (radians) so it looks inward like the player's
-local PORTRAIT_SHIFT = 0.2   -- target portrait head moved right by this share of the bar width
+local PORTRAIT_SHIFT = 0.36  -- target portrait head moved right by this share of the bar width
 
 -- Setting "barPortrait": oUF's Portrait element on or off for player and target
 function ns.ApplyBarPortraits()
