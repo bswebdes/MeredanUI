@@ -243,7 +243,8 @@ local function Style(self, unit)
         -- side. oUF resets the model on every unit change, so this runs after each update.
         if mirrored then
             portrait.PostUpdate = function(element)
-                if not UnitIsVisible(element.__owner.unit or "target") then return end
+                local visible = UnitIsVisible(element.__owner.unit or "target")
+                if issecretvalue(visible) or not visible then return end -- question mark model: leave it
                 element:SetFacing(-PORTRAIT_TURN)
                 element:SetViewTranslation(element:GetWidth() * PORTRAIT_SHIFT, 0)
             end
