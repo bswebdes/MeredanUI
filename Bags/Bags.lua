@@ -57,6 +57,12 @@ local NEW, JUNK, OTHER, FREE = "New", "Junk", "Other", "Free"
 -- they only accept matching items, so they don't belong to "Free"
 local QUIVER, SPECIAL = "Quiver", "Special bags"
 local AMMO_FAMILIES = { [1] = true, [2] = true } -- quiver (arrows), ammo pouch (bullets)
+-- heading for the empty slots of special bags: the bags' own names ("Small Ammo Pouch"), set by Collect
+local specialLabel
+local function SectionLabel(key)
+    if (key == QUIVER or key == SPECIAL) and specialLabel then return specialLabel end
+    return L[key]
+end
 local isEquipKey = {} -- gear sections (head, finger, two-hand ...): show item level, sorted early
 
 local hidden = CreateFrame("Frame")
@@ -444,6 +450,7 @@ local function Collect()
     ScanNewItems()
     local items, empties, free = {}, {}, 0
     local special = { count = 0, key = nil }
+    local names, seen = {}, {}
     for _, bag in ipairs(BAGS) do
         local numSlots = ViewOf(bag) == view and C_Container.GetContainerNumSlots(bag) or 0
         local _, family = C_Container.GetContainerNumFreeSlots(bag)
@@ -464,6 +471,11 @@ local function Collect()
                 items[#items + 1] = entry
             elseif isSpecial then
                 special.count = special.count + 1
+                local bagName = C_Container.GetBagName(bag)
+                if bagName and bagName ~= "" and not seen[bagName] then
+                    seen[bagName] = true
+                    names[#names + 1] = bagName
+                end
                 local key = AMMO_FAMILIES[family] and QUIVER or SPECIAL
                 special.key = (special.key == nil or special.key == key) and key or SPECIAL
                 button.muiCategory = special.key
@@ -479,6 +491,7 @@ local function Collect()
             if slot > numSlots then button:Hide() end
         end
     end
+    specialLabel = #names > 0 and table.concat(names, " / ") or nil
     return items, empties, free, special
 end
 
@@ -527,7 +540,7 @@ local function LayoutCategories(items, empties, special)
         local function Place(key, fullRow)
             local count = #sections[key]
             local cols = math.min(count, slots)
-            local w = math.max(cols * (SIZE + GAP) - GAP, TextWidth(L[key]) + 4)
+            local w = math.max(cols * (SIZE + GAP) - GAP, TextWidth(SectionLabel(key)) + 4)
             local h = HEADER + math.ceil(count / cols) * (SIZE + GAP) - GAP
             if fullRow or x + w > width then NewRow() end
             placed[#placed + 1] = { key = key, x = x, y = y, cols = cols }
@@ -549,7 +562,7 @@ local function LayoutCategories(items, empties, special)
         header:ClearAllPoints()
         header:SetPoint("TOPLEFT", content, "TOPLEFT", section.x, -section.y)
         header.key = section.key
-        header.text:SetText(L[section.key])
+        header.text:SetText(SectionLabel(section.key))
         header:SetWidth(math.max(header.text:GetUnboundedStringWidth(), 1))
         header:Show()
         local list = sections[section.key]
@@ -771,7 +784,7 @@ local function CreateWindow()
         GameTooltip:SetOwner(self, "ANCHOR_TOP")
         GameTooltip:SetText(L["%d free slots"]:format(freeText.muiFree or 0), 1, 1, 1)
         if (freeText.muiSpecial or 0) > 0 then
-            GameTooltip:AddLine(L[freeText.muiSpecialKey] .. ": " .. freeText.muiSpecial, 0.8, 0.8, 0.8)
+            GameTooltip:AddLine(SectionLabel(freeText.muiSpecialKey) .. ": " .. freeText.muiSpecial, 0.8, 0.8, 0.8)
         end
         GameTooltip:Show()
     end)
