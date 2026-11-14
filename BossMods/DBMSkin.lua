@@ -7,9 +7,10 @@
 -- Set once per character (ns.char.dbmProfile); switch ns.db.dbmStyle (Modules page / setup).
 local _, ns = ...
 
-local PROFILE, PROFILE_VERSION = "MeredanUI", 7
+local PROFILE, PROFILE_VERSION = "MeredanUI", 8
 local BAR_WIDTH, BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 220, 22, 260, 26
 local ICON_GAP = 8          -- clear of the bar shell and the icon frame
+local BAR_GAP = 12          -- between bars: two thin shells plus a visible gap
 local ABOVE_GAP = 16      -- between the player's buff row and the bars
 
 local function Available()
@@ -22,14 +23,14 @@ local function BarLook()
     return {
         Texture = ns.MEDIA .. "BarShade", Font = ns.STYLE.font, FontSize = 12, FontFlag = "OUTLINE",
         FontShadow = false, Spark = false, BarStyle = "NoAnim", Scale = 1, Alpha = 1,
-        Height = BAR_HEIGHT, Width = BAR_WIDTH, BarYOffset = 4, TextXOffset = 0, TextYOffset = 0,
+        Height = BAR_HEIGHT, Width = BAR_WIDTH, BarYOffset = BAR_GAP, TextXOffset = 0, TextYOffset = 0,
         IconLeft = true, IconRight = false, IconLocked = true,
         -- the grey "~" part (timer that can fire earlier or later): flat mUI texture, softer
         VarianceTexture = ns.MEDIA .. "BarShade", VarianceAlpha = 0.35,
         BackgroundColorR = r, BackgroundColorG = g, BackgroundColorB = b, BackgroundAlpha = 0.9,
         -- DBM's own border off: the thin deep shell (SkinBars) frames the bar
         BorderEnabled = false, BorderSize = 1, BorderColorR = 0, BorderColorG = 0, BorderColorB = 0, BorderAlpha = 1,
-        HugeScale = 1, HugeAlpha = 1, HugeWidth = HUGE_WIDTH, HugeHeight = HUGE_HEIGHT, HugeBarYOffset = 4,
+        HugeScale = 1, HugeAlpha = 1, HugeWidth = HUGE_WIDTH, HugeHeight = HUGE_HEIGHT, HugeBarYOffset = BAR_GAP,
         HugeBackgroundColorR = r, HugeBackgroundColorG = g, HugeBackgroundColorB = b, HugeBackgroundAlpha = 0.9,
         HugeBorderEnabled = false, HugeBorderSize = 1, HugeBorderColorR = 0, HugeBorderColorG = 0,
         HugeBorderColorB = 0, HugeBorderAlpha = 1,
@@ -88,16 +89,18 @@ local function SkinIcon(icon, side)
     icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     local bar = icon:GetParent()
     local holder = CreateFrame("Frame", nil, bar)
-    -- as tall as the bar, square; follows the bar when DBM enlarges it (huge bars)
+    -- as tall as the bar including its shell, square; follows the bar when DBM enlarges it
+    local reach = ns.ThinShellReach()
     if side == "left" then
-        holder:SetPoint("TOPRIGHT", bar, "TOPLEFT", -ns.Snap(ICON_GAP), 0)
-        holder:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -ns.Snap(ICON_GAP), 0)
+        holder:SetPoint("TOPRIGHT", bar, "TOPLEFT", -ns.Snap(ICON_GAP), reach)
+        holder:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -ns.Snap(ICON_GAP), -reach)
     else
-        holder:SetPoint("TOPLEFT", bar, "TOPRIGHT", ns.Snap(ICON_GAP), 0)
-        holder:SetPoint("BOTTOMLEFT", bar, "BOTTOMRIGHT", ns.Snap(ICON_GAP), 0)
+        holder:SetPoint("TOPLEFT", bar, "TOPRIGHT", ns.Snap(ICON_GAP), reach)
+        holder:SetPoint("BOTTOMLEFT", bar, "BOTTOMRIGHT", ns.Snap(ICON_GAP), -reach)
     end
-    holder:SetWidth(bar:GetHeight())
-    bar:HookScript("OnSizeChanged", function(_, _, h) holder:SetWidth(h) end)
+    holder:SetWidth(bar:GetHeight() + 2 * reach)
+    bar:HookScript("OnSizeChanged", function(_, _, h) holder:SetWidth(h + 2 * reach) end)
+    icon.muiHolder = holder
     holder:SetFrameLevel(bar:GetFrameLevel() + 2) -- frame only: a background here would cover the icon
     icon.muiBorder = ns.AddItemFrame(holder, nil, 2)
     ns.InsetItemIcon(holder, icon, nil, 2)
@@ -108,9 +111,41 @@ local function SkinIcon(icon, side)
     Follow()
 end
 
+-- DBM's small journal icons (role, deadly ...) sit right at the spell icon: DBM anchors them again
+-- on every bar style update, so after it they move in front of the icon frame, with a gap
+local JOURNAL = { "BarIJIcons", "BarSJIcons" }
+local function PlaceJournalIcons(bar)
+    local frame = bar.frame
+    local name = frame and frame:GetName()
+    local icon = name and _G[name .. "BarIcon1"]
+    local holder = icon and icon.muiHolder
+    if not (holder and holder:IsShown()) then return end
+    for _, suffix in ipairs(JOURNAL) do
+        local j = _G[name .. suffix]
+        if j and j:GetNumPoints() > 0 then
+            local point = j:GetPoint(1)
+            j:ClearAllPoints()
+            if point == "BOTTOMRIGHT" then
+                j:SetPoint("BOTTOMRIGHT", holder, "BOTTOMLEFT", -ns.Snap(ICON_GAP), 0)
+            else
+                j:SetPoint("RIGHT", holder, "LEFT", -ns.Snap(ICON_GAP), 0)
+            end
+        end
+    end
+end
+
+local protoHooked = false
 local function SkinBars()
     if not (DBT and DBT.GetBarIterator) or DBM_UsedProfile ~= PROFILE then return end
     for bar in DBT:GetBarIterator() do
+        if not protoHooked then
+            local mt = getmetatable(bar)
+            local proto = mt and type(mt.__index) == "table" and mt.__index
+            if proto and proto.ApplyStyle then
+                protoHooked = true
+                hooksecurefunc(proto, "ApplyStyle", PlaceJournalIcons)
+            end
+        end
         local frame = bar.frame
         local name = frame and frame:GetName()
         if name and not frame.muiSkinned then
@@ -120,6 +155,7 @@ local function SkinBars()
             SkinIcon(_G[name .. "BarIcon1"], "left")
             SkinIcon(_G[name .. "BarIcon2"], "right")
         end
+        PlaceJournalIcons(bar)
     end
 end
 

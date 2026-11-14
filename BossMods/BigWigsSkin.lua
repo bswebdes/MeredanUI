@@ -7,7 +7,7 @@
 local _, ns = ...
 local BigWigs, BigWigsAPI -- globals of BigWigs, read when needed
 
-local STYLE, PROFILE_VERSION = "MeredanUI", 6
+local STYLE, PROFILE_VERSION = "MeredanUI", 7
 local BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT = 22, 260, 26
 local ICON_GAP, ABOVE_GAP = 8, 16 -- icon gap clear of the bar shell and the icon frame
 -- Spots Benny dragged in BigWigs (2026-11-10, 1920x1080): messages from 122 px below the top
@@ -74,7 +74,8 @@ local function ApplyStyle(bar)
         bar.muiIconHolder = holder
     end
     holder:ClearAllPoints()
-    holder:SetSize(height, height)
+    local iconSize = height + 2 * ns.ThinShellReach() -- as tall as the bar including its shell
+    holder:SetSize(iconSize, iconSize)
     holder:SetFrameLevel(bar:GetFrameLevel() + 2)
     if bar:GetIconPosition() == "RIGHT" then
         holder:SetPoint("RIGHT", bar, "RIGHT", 0, 0)
@@ -126,7 +127,7 @@ local function RegisterStyle()
         barHeight = BAR_HEIGHT,
         fontSizeNormal = 12,
         fontSizeEmphasized = 13,
-        -- no GetSpacing: BigWigs then uses the profile's spacing (4 px) between bars
+        -- no GetSpacing: BigWigs then uses the profile's spacing between bars
         ApplyStyle = ApplyStyle,
         BarStopped = RemoveStyle,
         GetStyleName = function() return "MeredanUI" end,
@@ -165,7 +166,7 @@ function ns.ApplyBigWigsProfile(force)
     profile.fontName, profile.fontSize, profile.fontSizeEmph, profile.outline = "mUI", 12, 13, "OUTLINE"
     profile.normalHeight, profile.expWidth, profile.expHeight = BAR_HEIGHT, HUGE_WIDTH, HUGE_HEIGHT
     profile.growup, profile.emphasizeGrowup = true, false
-    profile.icon, profile.iconPosition, profile.spacing = true, "LEFT", 4
+    profile.icon, profile.iconPosition, profile.spacing = true, "LEFT", 12 -- two thin shells plus a gap
     Positions(profile)
     local mp = Profile("Messages")
     local ap = Profile("Auras")
