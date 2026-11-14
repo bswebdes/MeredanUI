@@ -641,6 +641,7 @@ local function CreateClassQuests(parent)
 end
 
 local QUEST_STATE_COLOR = { done = { 0.47, 0.46, 0.43 }, later = { 0.47, 0.46, 0.43 } }
+local questGroupCollapsed = {} -- group label -> true (header click)
 
 local function ClassQuestTooltip(row, quest)
     GameTooltip:SetOwner(row, "ANCHOR_LEFT")
@@ -654,7 +655,8 @@ local function ClassQuestTooltip(row, quest)
     GameTooltip:Show()
 end
 
-local function FillClassQuests(frame)
+local FillClassQuests
+function FillClassQuests(frame)
     local info = ns.TrainerInfo
     local quests = info and info.ClassQuests(UnitLevel("player")) or {}
     local _, class = UnitClass("player")
@@ -687,8 +689,15 @@ local function FillClassQuests(frame)
             end
         end
         if #rows > 0 then
-            entries[#entries + 1] = { header = true, text = group.label, right = ("%d/%d"):format(done, #rows) }
-            for _, row in ipairs(rows) do entries[#entries + 1] = row end
+            local collapsed = questGroupCollapsed[group.label]
+            entries[#entries + 1] = { header = true, text = group.label, right = ("%d/%d"):format(done, #rows),
+                collapsed = collapsed, onClick = function()
+                    questGroupCollapsed[group.label] = not collapsed or nil
+                    FillClassQuests(frame)
+                end }
+            if not collapsed then
+                for _, row in ipairs(rows) do entries[#entries + 1] = row end
+            end
         end
     end
     frame.list:SetData(entries)
