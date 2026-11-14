@@ -1079,10 +1079,9 @@ end
 -- Flat icons whose colour carries meaning (state, distance) or that are tiny primitives stay flat
 ns.FLAT_ICONS = { Check = true, ChevronDown = true, Minus = true, Plus = true, Square = true, Diamond = true,
     Navigation = true, Entrance = true }
-ns.PAINTED_ICONS = setmetatable({}, { __index = function(_, name)
-    -- emote bar keeps its flat icons (painted emotes looked too silly)
-    return type(name) == "string" and not ns.FLAT_ICONS[name] and not name:find("^Emote") or nil
-end })
+-- Painted icons (Media/IconsPainted) are switched off: at UI sizes the flat ones read better and
+-- take colour (class, state, hover). Names listed here would use the painted version again.
+ns.PAINTED_ICONS = {}
 function ns.IconPath(name)
     return ns.MEDIA .. (ns.PAINTED_ICONS[name] and "IconsPainted\\" or "Icons\\") .. name
 end
