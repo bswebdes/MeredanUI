@@ -194,7 +194,7 @@ ns:On("PLAYER_LOGIN", function()
         local vendorBetter = vendor and vendor > 0 and price * 0.95 <= vendor
         local money = GetMoneyString(price * count, true)
         if vendorBetter then money = "|cffe65050" .. money .. "|r" end -- red: the vendor pays more
-        tooltip:AddLine(" ") -- own block, like the character counts below
+        if ns.TooltipSection then ns.TooltipSection(tooltip) else tooltip:AddLine(" ") end
         tooltip:AddDoubleLine(label, money, 0.56, 0.8, 0.71, 1, 1, 1)
     end)
 end)

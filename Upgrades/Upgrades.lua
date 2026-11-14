@@ -374,7 +374,7 @@ function ns.AddUpgradeLine(tooltip, data)
     if not link then return end
     local emptySlot = ns.FillsEmptySlot(link)
     if emptySlot then
-        tooltip:AddLine(" ")
+        ns.TooltipSection(tooltip)
         tooltip:AddLine(L["Fills empty slot: %s"]:format(emptySlot), 0.56, 0.8, 0.71)
         return
     end
@@ -392,7 +392,7 @@ function ns.AddUpgradeLine(tooltip, data)
     if ns.IS_FOREVER and ns.UpgradeMode() ~= "off" and ns.ForeverUpgradeHands then
         local mainPct, offPct = ns.ForeverUpgradeHands(link)
         if mainPct then
-            tooltip:AddLine(" ")
+            ns.TooltipSection(tooltip)
             Line(mainPct, INVTYPE_WEAPONMAINHAND or "Main Hand")
             Line(offPct, INVTYPE_WEAPONOFFHAND or "Off Hand")
             return
@@ -402,7 +402,7 @@ function ns.AddUpgradeLine(tooltip, data)
     if ns.IS_FOREVER and ns.UpgradeMode() ~= "off" and ns.ForeverLearnable then
         local skill, first, second = ns.ForeverLearnable(link)
         if skill then
-            tooltip:AddLine(" ")
+            ns.TooltipSection(tooltip)
             tooltip:AddLine(L["Learnable at a weapon master: %s"]:format(skill), 0.56, 0.8, 0.71)
             if second then
                 Line(first, INVTYPE_WEAPONMAINHAND or "Main Hand", GREY)
@@ -415,7 +415,7 @@ function ns.AddUpgradeLine(tooltip, data)
     end
     local percent = ns.UpgradePercent(link)
     if not percent or percent == 0 then return end
-    tooltip:AddLine(" ")
+    ns.TooltipSection(tooltip)
     if math.abs(percent) < 0.05 then
         -- e.g. only stamina or armor more: barely counts for damage, but still better/worse
         local color = percent > 0 and GREEN or RED

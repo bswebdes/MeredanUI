@@ -426,6 +426,7 @@ if TooltipDataProcessor and Enum.TooltipDataType then
         if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then return end
         local id = data and data.id
         if not id or (issecretvalue and issecretvalue(id)) or not W.Has(id) then return end
+        if ns.TooltipSection then ns.TooltipSection(tooltip) end
         tooltip:AddLine("|T" .. ns.MEDIA .. "Icons\\Star:12:12:0:0|t " .. L["On your wishlist"] .. "  |cff99978f" .. W.SourceText(List()[id]) .. "|r", 0.56, 0.8, 0.71)
     end)
 end

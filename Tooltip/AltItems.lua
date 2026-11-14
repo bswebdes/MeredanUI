@@ -141,7 +141,7 @@ local function AddLines(tooltip, itemID)
     end
     if #rows == 0 then return end
     table.sort(rows, function(a, b) return a.sum > b.sum end)
-    tooltip:AddLine(" ")
+    if ns.TooltipSection then ns.TooltipSection(tooltip) else tooltip:AddLine(" ") end
     for _, row in ipairs(rows) do
         local color = row.class and RAID_CLASS_COLORS[row.class]
         local name = ShortName(row.key)

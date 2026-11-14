@@ -17,8 +17,7 @@
 local _, ns = ...
 local L = ns.L
 
-local BAR_HEIGHT = 4
-local BAR_GAP = 4                 -- gap between tooltip border and health bar
+local BAR_HEIGHT = 12             -- health bar inside the tooltip (draft)
 -- Background and border 4px INSIDE the tooltip edge (negative = inset): Blizzard places the
 -- comparison tooltips roughly edge to edge, sometimes overlapping a few pixels - this keeps
 -- a gap between the boxes. Never move the comparison tooltips themselves: Blizzard calls
@@ -64,9 +63,9 @@ local function HealthBar() return _G["GameTooltipStatusBar"] end
 local function PlaceCorner(tooltip)
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     -- Leave room for the border around the tooltip plus the health bar below
-    -- the deep shell around the box and the thin one around the health bar count too
-    local below = Px(PAD + BAR_GAP + BAR_HEIGHT) + ns.ThinShellReach()
+    -- the deep shell around the box counts too (the health bar sits inside the box)
     local side = Px(PAD) + ns.ShellReach(1)
+    local below = side
     tooltip:ClearAllPoints()
     local bags = _G["MeredanUIBags"]
     if not (bags and bags:IsShown()) then bags = ns.BagnonInventory and ns.BagnonInventory() end
@@ -154,7 +153,9 @@ local function NormalizeFonts(tooltip)
     while _G[name .. "TextLeft" .. i] do
         local line = _G[name .. "TextLeft" .. i]
         local font = line:GetFontObject()
-        if dividerFont and font == dividerFont then line:SetFontObject(GameTooltipText) end
+        local fontName = font and font.GetName and font:GetName()
+        -- our divider / bar spacer fonts back to normal (line objects are reused)
+        if fontName and fontName:find("^MeredanUITooltip") then line:SetFontObject(GameTooltipText) end
         i = i + 1
     end
     if tooltip.muiDivider then tooltip.muiDivider:Hide() end
@@ -165,24 +166,38 @@ end
 local function PlaceDivider(tooltip, line)
     if not dividerFont then
         dividerFont = CreateFont("MeredanUITooltipDivider")
-        dividerFont:SetFont(ns.STYLE.font, 11, "")
+        dividerFont:SetFont(ns.STYLE.font, 14, "")
     end
     line:SetText(" ")
     line:SetFontObject(dividerFont)
-    local divider = tooltip.muiDivider
-    if not divider then
-        divider = tooltip:CreateTexture(nil, "ARTWORK")
-        divider:SetTexture("Interface\\Buttons\\WHITE8X8")
-        divider:SetHeight(ns.PixelSize())
-        tooltip.muiDivider = divider
+    -- B14: material line fading out to both ends, a small gem in the middle
+    local d = tooltip.muiDivider
+    if not d then
+        d = {}
+        local m = ns.Material()
+        for i = 1, 2 do
+            local t = tooltip:CreateTexture(nil, "ARTWORK")
+            t:SetTexture("Interface\\Buttons\\WHITE8X8")
+            t:SetHeight(ns.PixelSize())
+            local faded, full = CreateColor(m.item[1], m.item[2], m.item[3], 0), CreateColor(m.lit[1], m.lit[2], m.lit[3], 1)
+            if i == 1 then t:SetGradient("HORIZONTAL", faded, full) else t:SetGradient("HORIZONTAL", full, faded) end
+            d[i] = t
+        end
+        d.gem = ns.UI.Diamond(tooltip, 5)
+        function d.Hide() d[1]:Hide() d[2]:Hide() d.gem:Hide() end
+        tooltip.muiDivider = d
     end
-    local r, g, b = unpack(ns.BRONZE)
-    divider:SetVertexColor(r, g, b, 0.45)
-    divider:ClearAllPoints()
-    divider:SetPoint("LEFT", tooltip, "LEFT", ns.Snap(12), 0)
-    divider:SetPoint("RIGHT", tooltip, "RIGHT", -ns.Snap(12), 0)
-    divider:SetPoint("TOP", line, "CENTER", 0, 0)
-    divider:Show()
+    d[1]:ClearAllPoints()
+    d[1]:SetPoint("LEFT", tooltip, "LEFT", ns.Snap(12), 0)
+    d[1]:SetPoint("RIGHT", tooltip, "CENTER", -ns.Snap(9), 0)
+    d[1]:SetPoint("TOP", line, "CENTER", 0, 0)
+    d[2]:ClearAllPoints()
+    d[2]:SetPoint("LEFT", tooltip, "CENTER", ns.Snap(9), 0)
+    d[2]:SetPoint("RIGHT", tooltip, "RIGHT", -ns.Snap(12), 0)
+    d[2]:SetPoint("TOP", line, "CENTER", 0, 0)
+    d.gem:ClearAllPoints()
+    d.gem:SetPoint("CENTER", d[1], "RIGHT", ns.Snap(9), 0)
+    d[1]:Show() d[2]:Show() d.gem:Show()
 end
 
 -- New content: spacer lines back to normal font
@@ -220,11 +235,6 @@ local function SetBorderColor(tooltip, color)
     if not tooltip.muiBorder then return end
     local r, g, b = unpack(color or BORDER_DEFAULT)
     for _, edge in ipairs(tooltip.muiBorder) do edge:SetVertexColor(r, g, b, 1) end
-    -- GameTooltip's health bar shares the border color
-    local bar = tooltip == GameTooltip and _G["GameTooltipStatusBar"]
-    if bar and bar.muiBorder then
-        for _, edge in ipairs(bar.muiBorder) do edge:SetVertexColor(r, g, b, 1) end
-    end
 end
 
 -- Buff tooltips of our aura frame are shown by Blizzard's secure aura system with its own
@@ -248,29 +258,22 @@ local function StyleFonts()
     GameTooltipTextSmall:SetFont(ns.FontFor("text"), ns.FontPx(11), "")
 end
 
--- Health bar: thin, shaded, in a thin deep shell directly below the tooltip
+-- Health bar: shaded, in a groove inside the tooltip at the bottom (placed per unit, see
+-- PlaceHealthBar), the health percent inside it
 local function StyleHealthBar()
     local bar = HealthBar()
     if not bar then return end
     bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
-    bar:ClearAllPoints()
-    local pad = Px(PAD)
-    -- Same width as the tooltip box (shells line up), with a gap for both shells
-    local px = ns.PixelSize()
-    local tooltipReach = 3 * px + ns.Snap(1)
-    local out = tooltipReach - ns.ThinShellReach()
-    local gap = ns.Snap(BAR_GAP) + tooltipReach + ns.ThinShellReach()
-    bar:SetPoint("TOPLEFT", GameTooltip, "BOTTOMLEFT", -pad - out, -pad - gap)
-    bar:SetPoint("TOPRIGHT", GameTooltip, "BOTTOMRIGHT", pad + out, -pad - gap)
-    bar:SetHeight(ns.Snap(BAR_HEIGHT + 2))
-    local bg = bar:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(ns.STYLE.emptyColor or { 0.1, 0.1, 0.1 }))
-    ns.AddThinShell(bar)
-    bar.muiBorder = ns.AddBorder(bar, true)
-    -- Blizzard colors green->red by health percent; reapply our color
+    ns.UI.Groove(bar)
+    bar.muiText = ns.CreateText(bar, 11, "RIGHT", "OUTLINE")
+    bar.muiText:SetPoint("RIGHT", -ns.Snap(5), 0)
+    -- Blizzard colors green->red by health percent; reapply our color and the percent
     bar:HookScript("OnValueChanged", function(self)
         if self.muiColor then self:SetStatusBarColor(unpack(self.muiColor)) end
+        local _, unit = GameTooltip:GetUnit()
+        if Readable(unit) and unit and UnitHealthPercent and CurveConstants then
+            self.muiText:SetFormattedText("%d %%", UnitHealthPercent(unit, true, CurveConstants.ScaleTo100))
+        end
     end)
 end
 
@@ -280,16 +283,6 @@ local function ClassColor(unit)
     local _, class = UnitClass(unit)
     if not Readable(class) then return end
     return C_ClassColor.GetClassColor(class)
-end
-
--- Small round class icon (Forever's group finder set) in front of the level line
-local function ClassIconMarkup(unit)
-    local _, class = UnitClass(unit)
-    if not Readable(class) then return end
-    local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
-    if not (C_Texture.GetAtlasInfo(atlas)) then atlas = "groupfinder-icon-class-" .. class:lower() end
-    if not (C_Texture.GetAtlasInfo(atlas)) then return end
-    return CreateAtlasMarkup(atlas, 18, 18, 0, -1)
 end
 
 local function UnitColor(unit)
@@ -332,42 +325,197 @@ local function RequestInspect(unit, guid)
     NotifyInspect(unit)
 end
 
--- NPCs: "Rare" / "Elite" / "Rare Elite" / "Boss" behind the name (Blizzard's level line is easy to miss)
+-- NPCs: "Rare" / "Elite" / "Rare Elite" / "Boss" right of the name (draft: same line, own colour)
 local CLASSIFICATION = {
     rare = { "Rare", "ffc0c4cc" },
     rareelite = { "Rare Elite", "ffc0c4cc" },
     elite = { "Elite", "ffd9b56b" },
     worldboss = { "Boss", "ffe0604a" },
 }
-local function AddClassification(unit)
-    local tag = CLASSIFICATION[ns.Plain(UnitClassification(unit)) or ""]
-    local line = GameTooltipTextLeft1
-    local text = tag and line and line:GetText()
-    if not Readable(text) or not text then return end
-    local label = L[tag[1]]
-    if text:find(label, 1, true) then return end -- tooltip refresh: already tagged
-    line:SetText(text .. "  |c" .. tag[2] .. label .. "|r")
+
+-- Line helpers ------------------------------------------------------------------------------
+-- The layout works on Blizzard's own lines: lines that are taken out (class, faction) move the
+-- rest up and leave free lines at the end, which the rows below reuse before new lines are added.
+
+local function Left(tooltip, i) return _G[tooltip:GetName() .. "TextLeft" .. i] end
+local function Right(tooltip, i) return _G[tooltip:GetName() .. "TextRight" .. i] end
+
+local function CopyLine(tooltip, from, to)
+    local fl, fr, tl, tr = Left(tooltip, from), Right(tooltip, from), Left(tooltip, to), Right(tooltip, to)
+    tl:SetText(fl:GetText())
+    tl:SetTextColor(fl:GetTextColor())
+    if fr and tr then
+        local text = fr:IsShown() and fr:GetText() or nil
+        tr:SetText(text)
+        tr:SetTextColor(fr:GetTextColor())
+        tr:SetShown(text ~= nil and text ~= "")
+    end
 end
 
--- Players and NPCs alike: the unit's target as a label/value row under a divider
-local function FinishUnitLines(tooltip, unit, dividerLine)
-    -- Unit's target
+-- Takes line index out: the lines below move up one, the last line becomes free
+local function RemoveLine(tooltip, layout, index)
+    local last = tooltip:NumLines() - layout.free
+    for i = index, last - 1 do CopyLine(tooltip, i + 1, i) end
+    Left(tooltip, last):SetText("")
+    local r = Right(tooltip, last)
+    if r then r:SetText(nil) r:Hide() end
+    layout.free = layout.free + 1
+end
+
+-- Next line for a row: a free one if there is one, else a new one
+local function NextLine(tooltip, layout)
+    if layout.free > 0 then
+        local index = tooltip:NumLines() - layout.free + 1
+        layout.free = layout.free - 1
+        return index
+    end
+    tooltip:AddLine(" ")
+    return tooltip:NumLines()
+end
+
+local function AddRow(tooltip, layout, label, value)
+    local i = NextLine(tooltip, layout)
+    local l, r = Left(tooltip, i), Right(tooltip, i)
+    l:SetText(label)
+    l:SetTextColor(unpack(MUTED))
+    r:SetText(value)
+    r:SetTextColor(1, 1, 1)
+    r:Show()
+end
+
+-- Name in Cinzel (B6) for units; restored on clear
+local nameFont
+local function SetNameFont(tooltip)
+    if not nameFont then
+        nameFont = CreateFont("MeredanUITooltipName")
+        nameFont:SetFont(ns.DISPLAY_FONT, ns.FontPx(15), "")
+        nameFont:SetShadowOffset(1, -1)
+        nameFont:SetShadowColor(0, 0, 0, 1)
+    end
+    local line = Left(tooltip, 1)
+    if line then line:SetFontObject(nameFont) tooltip.muiNameFont = true end
+end
+
+-- Icon in an item frame left of the first two lines (player: class, item: the item). Line 1 is moved
+-- right (line 2 hangs from it), line 3 back left; the minimum width makes room for the offset.
+local ICON = 32
+local INDENT = ICON + 10
+local function ShowIcon(tooltip, texture, atlas, edge)
+    local l1, l2, l3 = Left(tooltip, 1), Left(tooltip, 2), Left(tooltip, 3)
+    if not (l1 and l2 and l3) then return end
+    if not tooltip.muiIndent then
+        local p1, p3 = { l1:GetPoint(1) }, { l3:GetPoint(1) }
+        if not (p1[1] and p3[1]) then return end
+        tooltip.muiIndent = { p1, p3 }
+        local f = CreateFrame("Frame", nil, tooltip)
+        f:SetSize(ICON, ICON)
+        ns.AddSlotBackground(f)
+        f.edges = ns.AddItemFrame(f, nil, 2)
+        f.tex = f:CreateTexture(nil, "ARTWORK")
+        ns.InsetItemIcon(f, f.tex, nil, 2)
+        tooltip.muiIcon = f
+    end
+    local p1, p3, f = tooltip.muiIndent[1], tooltip.muiIndent[2], tooltip.muiIcon
+    l1:ClearAllPoints()
+    l1:SetPoint(p1[1], p1[2], p1[3], p1[4] + INDENT, p1[5])
+    l3:ClearAllPoints()
+    l3:SetPoint(p3[1], p3[2], p3[3], p3[4] - INDENT, p3[5] - 6) -- clear of the icon's lower edge
+    f:ClearAllPoints()
+    f:SetPoint("TOPLEFT", p1[2], p1[3], p1[4], p1[5] + 1)
+    if atlas then
+        f.tex:SetAtlas(atlas)
+        f.tex:SetTexCoord(0, 1, 0, 1)
+    else
+        f.tex:SetTexture(texture)
+        f.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    end
+    local c = edge or ns.Material().item
+    for _, e in ipairs(f.edges) do e:SetVertexColor(c[1], c[2], c[3], 1) end
+    f:Show()
+    local width = math.max(l1:GetUnboundedStringWidth(), l2:GetUnboundedStringWidth())
+    tooltip:SetMinimumWidth(math.ceil(width + INDENT + 2 * math.abs(p1[4])))
+    tooltip.muiMinWidth = true
+end
+
+local function ClearIcon(tooltip)
+    local name = tooltip:GetName()
+    if not name then return end
+    if tooltip.muiNameFont then
+        Left(tooltip, 1):SetFontObject(GameTooltipHeaderText)
+        tooltip.muiNameFont = nil
+    end
+    if not tooltip.muiIndent then return end
+    local p1, p3 = tooltip.muiIndent[1], tooltip.muiIndent[2]
+    local l1, l3 = Left(tooltip, 1), Left(tooltip, 3)
+    if tooltip.muiIcon:IsShown() then
+        l1:ClearAllPoints()
+        l1:SetPoint(p1[1], p1[2], p1[3], p1[4], p1[5])
+        l3:ClearAllPoints()
+        l3:SetPoint(p3[1], p3[2], p3[3], p3[4], p3[5])
+        tooltip.muiIcon:Hide()
+    end
+    if tooltip.muiMinWidth then
+        tooltip:SetMinimumWidth(0)
+        tooltip.muiMinWidth = nil
+    end
+end
+ns.ClearTooltipIcon = ClearIcon
+
+-- Class icon (Forever's round group finder set)
+local function ClassAtlas(unit)
+    local _, class = UnitClass(unit)
+    if not Readable(class) or not class then return end
+    local atlas = "groupfinder-icon-class-" .. class:lower() .. "-c60-2x"
+    if not (C_Texture.GetAtlasInfo(atlas)) then atlas = "groupfinder-icon-class-" .. class:lower() end
+    if C_Texture.GetAtlasInfo(atlas) then return atlas end
+end
+
+-- Health bar inside the tooltip (draft): a spacer line at the very end carries it
+local spacerFont
+local function PlaceHealthBar(tooltip, layout, unit)
+    local bar = tooltip == GameTooltip and HealthBar()
+    if not bar then return end -- Blizzard shows it for every unit; always reserve its line
+    if not spacerFont then
+        spacerFont = CreateFont("MeredanUITooltipBarSpacer")
+        spacerFont:SetFont(ns.STYLE.font, 16, "")
+    end
+    local i = NextLine(tooltip, layout)
+    local line = Left(tooltip, i)
+    line:SetText(" ")
+    line:SetFontObject(spacerFont)
+    local first = { Left(tooltip, 1):GetPoint(1) }
+    local x = tooltip.muiIndent and tooltip.muiIndent[1][4] or (first[4] or 10)
+    bar:ClearAllPoints()
+    bar:SetPoint("LEFT", tooltip, "LEFT", x, 0)
+    bar:SetPoint("RIGHT", tooltip, "RIGHT", -x, 0)
+    bar:SetPoint("TOP", line, "TOP", 0, -3)
+    bar:SetHeight(ns.Snap(BAR_HEIGHT))
+    -- percent inside the bar (secret-safe: formatted by the game, never compared)
+    if UnitHealthPercent and CurveConstants then
+        bar.muiText:SetFormattedText("%d %%", UnitHealthPercent(unit, true, CurveConstants.ScaleTo100))
+    else
+        bar.muiText:SetText("")
+    end
+end
+
+-- Players and NPCs alike: divider with a gem, the unit's target as a label/value row, then the
+-- health bar inside the box
+local function FinishUnitLines(tooltip, unit, layout)
     local target = unit .. "target"
-    -- In instances both answers may be secret -> no line then.
-    -- "Target" muted, the name in its color.
     if Enabled("tooltipTarget") and ns.Plain(UnitExists(target)) then
         local name = ns.Plain(UnitIsUnit(target, "player")) and ("|cffff4040" .. L["You"] .. "|r") or ColoredName(target)
-        if name then
-            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
-            local r, g, b = unpack(MUTED)
-            tooltip:AddDoubleLine(L["Target"], name, r, g, b, 1, 1, 1)
-        end
+        if name then layout.rows[#layout.rows + 1] = { L["Target"], name } end
     end
     NormalizeFonts(tooltip)
-    if dividerLine and dividerLine ~= _G["GameTooltipTextLeft" .. tooltip:NumLines()] then
-        PlaceDivider(tooltip, dividerLine)
-    elseif dividerLine then
-        dividerLine:SetText("") -- nothing below the divider: no gap either
+    if #layout.rows > 0 then
+        PlaceDivider(tooltip, Left(tooltip, NextLine(tooltip, layout)))
+        for _, row in ipairs(layout.rows) do AddRow(tooltip, layout, row[1], row[2]) end
+    end
+    PlaceHealthBar(tooltip, layout, unit)
+    -- lines left over at the end stay empty (no gap)
+    for _ = 1, layout.free do
+        local i = NextLine(tooltip, layout)
+        Left(tooltip, i):SetText("")
     end
 end
 
@@ -379,90 +527,102 @@ local function AddUnitLines(tooltip, unit)
         bar.muiColor = color
         if color then bar:SetStatusBarColor(unpack(color)) end
     end
-    SetBorderColor(tooltip, nil) -- no class/reaction coloured frame any more (Benny)
+    SetBorderColor(tooltip, nil) -- no class/reaction coloured frame (Benny)
+    local layout = { free = 0, rows = {} }
+    SetNameFont(tooltip)
+    local levelTag = type(LEVEL) == "string" and ("^" .. LEVEL:gsub("%p", "%%%0"))
+
     if not isPlayer then
-        if Enabled("tooltipClassification") then AddClassification(unit) end
-        FinishUnitLines(tooltip, unit, nil) -- same target row and divider as for players
+        -- classification right of the name
+        local tag = Enabled("tooltipClassification") and CLASSIFICATION[ns.Plain(UnitClassification(unit)) or ""]
+        if tag then
+            local r = Right(tooltip, 1)
+            r:SetText("|c" .. tag[2] .. L[tag[1]] .. "|r")
+            r:Show()
+        end
+        -- level number in the difficulty colour, the rest of the level line unchanged
+        local level = UnitLevel(unit)
+        if Readable(level) and level and level > 0 and GetCreatureDifficultyColor then
+            local c = GetCreatureDifficultyColor(level)
+            for i = 2, tooltip:NumLines() do
+                local line = Left(tooltip, i)
+                local text = line and line:GetText()
+                if Readable(text) and levelTag and text:find(levelTag) and c then
+                    local num = tostring(level)
+                    local from, to = text:find(num, 1, true)
+                    if from then
+                        line:SetText(("%s|cff%02x%02x%02x%s|r%s"):format(text:sub(1, from - 1), c.r * 255, c.g * 255,
+                            c.b * 255, num, text:sub(to + 1)))
+                    end
+                    break
+                end
+            end
+        end
+        FinishUnitLines(tooltip, unit, layout)
         return
     end
 
     -- Name in class color
     local class = ClassColor(unit)
-    if class then GameTooltipTextLeft1:SetTextColor(class.r, class.g, class.b) end
+    if class then Left(tooltip, 1):SetTextColor(class.r, class.g, class.b) end
 
-    -- Guild + rank: Blizzard shows only the guild name (line 2) - append the rank
+    -- Guild + rank in the accent colour: Blizzard shows only the guild name (line 2)
     local guild, rank = GetGuildInfo(unit)
-    if Readable(guild) and Readable(rank) then
-        local line = GameTooltipTextLeft2
+    if Readable(guild) and Readable(rank) and guild then
+        local line = Left(tooltip, 2)
         local text = line and line:GetText()
-        if Readable(text) and text:find(guild, 1, true) then
+        if Readable(text) and text and text:find(guild, 1, true) then
             line:SetText(("<%s> %s"):format(guild, rank))
+            line:SetTextColor(unpack(ns.UI.ACCENT))
         end
     end
 
-    -- Faction line: Horde red, Alliance blue. Strip "(Player)" from the level line - the class says it.
+    -- Level line: "(Player)" out, class (Forever: own line) appended in its colour, faction on the
+    -- right of the same line
     local faction, factionName = UnitFactionGroup(unit)
     local factionColor = Readable(faction) and FACTION_COLORS[faction]
     local playerTag = type(PLAYER) == "string" and ("%s*%(" .. PLAYER:gsub("%p", "%%%0") .. "%)")
-    local levelTag = type(LEVEL) == "string" and ("^" .. LEVEL:gsub("%p", "%%%0"))
-    local classIcon = Enabled("tooltipClassIcon") and ClassIconMarkup(unit)
-    -- Forever puts the class on its own line: tint it in the class colour
     local className = UnitClass(unit)
-    local classColor = ClassColor(unit)
-    local levelLine, classIndex
+    local levelIndex, classIndex, factionIndex
     for i = 2, tooltip:NumLines() do
-        local line = _G["GameTooltipTextLeft" .. i]
-        local text = line and line:GetText()
-        if Readable(text) then
-            local isLevel = levelTag and text:find(levelTag)
-            if isLevel then levelLine = line end
-            if classColor and Readable(className) and text == className then classIndex = i end
-            if factionColor and Readable(factionName) and text == factionName then
-                line:SetTextColor(unpack(factionColor))
-            elseif classColor and Readable(className) and text == className then
-                line:SetTextColor(classColor.r, classColor.g, classColor.b)
-            else
-                local newText = text
-                if playerTag and text:find(playerTag) then newText = newText:gsub(playerTag, "") end
-                if isLevel and classIcon then
-                    newText = classIcon .. " " .. newText
-                    classIcon = nil
-                end
-                if newText ~= text then line:SetText(newText) end
+        local text = Left(tooltip, i):GetText()
+        if Readable(text) and text then
+            if not levelIndex and levelTag and text:find(levelTag) then levelIndex = i end
+            if Readable(className) and text == className then classIndex = i end
+            if Readable(factionName) and factionName and text == factionName then factionIndex = i end
+        end
+    end
+    if levelIndex then
+        local line = Left(tooltip, levelIndex)
+        local text = line:GetText()
+        if playerTag then text = text:gsub(playerTag, "") end
+        -- Skyborne: long faction-specific race names - show a short one
+        local race, raceFile = UnitRace(unit)
+        if Readable(race) and race and raceFile == "Skyborne" then
+            local short = L["Skyborne"]
+            for word in race:gmatch("%S+") do
+                local lower = word:lower()
+                if lower:find("skyborn") or lower:find("himmel") then short = word end
             end
-        end
-    end
-    -- Layout: "Level 17 Night Elf Hunter" on one line (class in its colour), faction below, then
-    -- a divider and the stats as label/value rows. Forever gives the class its own line: shift
-    -- the lines below it up one and use the freed last line for the divider.
-    -- Skyborne (race file "Skyborne" for both factions, long and faction-specific display names
-    -- like "High Order Skyborne"): show a short name - the word naming the race if there is one,
-    -- else a fixed short form
-    local race, raceFile = UnitRace(unit)
-    if levelLine and Readable(race) and race and raceFile == "Skyborne" then
-        local short = L["Skyborne"]
-        for word in race:gmatch("%S+") do
-            local lower = word:lower()
-            if lower:find("skyborn") or lower:find("himmel") then short = word end
-        end
-        local text = levelLine:GetText()
-        if short and short ~= race and Readable(text) then
             local from, to = text:find(race, 1, true)
-            if from then levelLine:SetText(text:sub(1, from - 1) .. short .. text:sub(to + 1)) end
+            if from and short ~= race then text = text:sub(1, from - 1) .. short .. text:sub(to + 1) end
         end
-    end
-    local n = tooltip:NumLines()
-    local dividerLine
-    if classIndex and levelLine then
-        local text = levelLine:GetText()
-        levelLine:SetText(("%s |cff%02x%02x%02x%s|r"):format(text, classColor.r * 255, classColor.g * 255,
-            classColor.b * 255, className))
-        for i = classIndex, n - 1 do
-            local from, to = _G["GameTooltipTextLeft" .. (i + 1)], _G["GameTooltipTextLeft" .. i]
-            to:SetText(from:GetText())
-            to:SetTextColor(from:GetTextColor())
+        if classIndex and class and Readable(className) then
+            text = ("%s |cff%02x%02x%02x%s|r"):format(text, class.r * 255, class.g * 255, class.b * 255, className)
         end
-        dividerLine = _G["GameTooltipTextLeft" .. n]
+        line:SetText(text)
+        if factionIndex and factionColor then
+            local r = Right(tooltip, levelIndex)
+            r:SetText(factionName)
+            r:SetTextColor(unpack(factionColor))
+            r:Show()
+        end
+        -- take the class and faction lines out (higher index first, so the other stays valid)
+        local out = {}
+        if classIndex then out[#out + 1] = classIndex end
+        if factionIndex and factionColor then out[#out + 1] = factionIndex end
+        table.sort(out, function(a, b) return a > b end)
+        for _, index in ipairs(out) do RemoveLine(tooltip, layout, index) end
     end
 
     -- Item level
@@ -479,26 +639,25 @@ local function AddUnitLines(tooltip, unit)
                 RequestInspect(unit, guid)
             end
         end
-        if info and info.ilvl then
-            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
-            local r, g, b = unpack(MUTED)
-            tooltip:AddDoubleLine(L["iLvl"], tostring(info.ilvl), r, g, b, 1, 1, 1)
-        end
+        if info and info.ilvl then layout.rows[#layout.rows + 1] = { L["iLvl"], tostring(info.ilvl) } end
     end
 
-    -- Mythic+ score
+    -- Mythic+ score (Retail)
     if not ns.IS_FOREVER and Enabled("tooltipMythic") and C_PlayerInfo.GetPlayerMythicPlusRatingSummary then
         local summary = C_PlayerInfo.GetPlayerMythicPlusRatingSummary(unit)
         local score = summary and summary.currentSeasonScore
         if Readable(score) and score > 0 then
             local scoreColor = C_ChallengeMode.GetDungeonScoreRarityColor(score) or HIGHLIGHT_FONT_COLOR
-            if not dividerLine then tooltip:AddLine(" ") dividerLine = _G["GameTooltipTextLeft" .. tooltip:NumLines()] end
-            local r, g, b = unpack(MUTED)
-            tooltip:AddDoubleLine(L["M+"], scoreColor:WrapTextInColorCode(tostring(score)), r, g, b, 1, 1, 1)
+            layout.rows[#layout.rows + 1] = { L["M+"], scoreColor:WrapTextInColorCode(tostring(score)) }
         end
     end
 
-    FinishUnitLines(tooltip, unit, dividerLine)
+    -- class icon left of name and guild (after the lines above are final)
+    if Enabled("tooltipClassIcon") then
+        local atlas = ClassAtlas(unit)
+        if atlas then ShowIcon(tooltip, nil, atlas) end
+    end
+    FinishUnitLines(tooltip, unit, layout)
 end
 
 -- Mythic+: enemy forces the mob is worth (Blizzard provides the value per unit)
@@ -524,15 +683,49 @@ local function OnUnitTooltip(tooltip)
     AddForcesLine(tooltip, unit)
 end
 
--- Items: border in quality color (Uncommon and up; grey/white stay black)
+-- Items (draft): icon in an item frame with the quality colour on its edge left of the name, the
+-- item level right under the name; mUI's own lines go below a divider (ns.TooltipSection)
+local itemLevelPattern = type(ITEM_LEVEL) == "string" and ("^" .. ITEM_LEVEL:gsub("[%(%)%.%+%-%*%?%[%]%^%$]", "%%%0"):gsub("%%%%d", "%%d+"))
 local function OnItemTooltip(tooltip, data)
-    if not tooltip.muiBorder or not data then return end
+    if not data or (tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip) then return end
     local item = Readable(data.hyperlink) and data.hyperlink or (Readable(data.id) and data.id)
     if not item then return end
+    local icon = C_Item.GetItemIconByID(item)
+    if not icon or tooltip:NumLines() < 3 then return end
+    -- item level line up to line 2 (muted)
+    if itemLevelPattern then
+        for k = 2, math.min(tooltip:NumLines(), 8) do
+            local line = Left(tooltip, k)
+            local text = line and line:GetText()
+            if Readable(text) and text and text:find(itemLevelPattern) then
+                if k > 2 then
+                    for i = k, 3, -1 do CopyLine(tooltip, i - 1, i) end
+                    Left(tooltip, 2):SetText(text)
+                    local r = Right(tooltip, 2)
+                    if r then r:SetText(nil) r:Hide() end
+                end
+                Left(tooltip, 2):SetTextColor(unpack(MUTED))
+                break
+            end
+        end
+    end
     local quality = C_Item.GetItemQualityByID(item)
-    if ns.issecretvalue(quality) or not quality or quality < Enum.ItemQuality.Uncommon then return end
-    local r, g, b = C_Item.GetItemQualityColor(quality)
-    if r then SetBorderColor(tooltip, { r, g, b }) end
+    local edge
+    if not ns.issecretvalue(quality) and quality and quality >= Enum.ItemQuality.Uncommon then
+        local r, g, b = C_Item.GetItemQualityColor(quality)
+        if r then edge = { r, g, b } end
+    end
+    ShowIcon(tooltip, icon, nil, edge)
+    tooltip:Show() -- relayout with the minimum width
+end
+
+-- mUI's own lines on item tooltips (upgrade, auction house, characters, wishlist): the first block
+-- starts with the gem divider, the rest follow right below it
+function ns.TooltipSection(tooltip)
+    if tooltip.muiSection then return end
+    tooltip.muiSection = true
+    tooltip:AddLine(" ")
+    PlaceDivider(tooltip, Left(tooltip, tooltip:NumLines()))
 end
 
 -- IDs: grey "Spell ID   12345" line at the bottom (number in Surf Green). Not on comparison
@@ -661,6 +854,8 @@ GameTooltip:HookScript("OnHide", function() pendingGUID = nil end)
 local function ResetBorder(self)
     SetBorderColor(self)
     ResetGroups(self)
+    ClearIcon(self)
+    self.muiSection = nil
 end
 
 -- Demo (Settings > Tooltip): your own tooltip at the configured position
