@@ -196,6 +196,14 @@ local function Fill(frame, data)
     frame.upgrade:SetShown(upgrade and upgrade >= 0.05 or false)
 end
 
+-- any roll frame shown (the level-up display keeps its list out of their way)
+function ns.LootRollsActive()
+    for _, frame in ipairs(frames) do
+        if frame:IsShown() then return true end
+    end
+    return false
+end
+
 local function Restack()
     local y = 0
     for _, frame in ipairs(frames) do
@@ -205,6 +213,7 @@ local function Restack()
             y = y + ns.Snap(HEIGHT) + ns.Snap(4) + 2 * ns.SmallFrameReach() -- clear of both frames
         end
     end
+    if ns.LevelUpRefresh then ns.LevelUpRefresh() end
 end
 
 local function FreeFrame()

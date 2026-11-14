@@ -114,8 +114,12 @@ local function Create()
 end
 
 -- entries: { { icon, name, sub } ... }; restart = fade in again (else only the content changes)
+-- While loot roll frames are open the list stays hidden: it would cover their buttons (rolling
+-- matters more); it shows up once the rolls are done (ns.LevelUpRefresh)
 local function Show(level, entries, keepFade)
     if not frame then Create() end
+    frame.shownLevel, frame.entries = level, entries
+    if ns.LootRollsActive and ns.LootRollsActive() then entries = {} end
     frame.level:SetText((LEVEL or "Level") .. " " .. level)
     local width, height = 0, 0
     for i = 1, math.min(#entries, MAX_ROWS) do
@@ -149,6 +153,10 @@ local function Show(level, entries, keepFade)
     state, timer = "in", 0
     frame:SetAlpha(0)
     frame:Show()
+end
+
+function ns.LevelUpRefresh()
+    if frame and frame:IsShown() and frame.entries then Show(frame.shownLevel, frame.entries, true) end
 end
 
 -- What the game reports for this level, without the "level reached" entry itself
