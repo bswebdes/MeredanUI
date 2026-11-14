@@ -122,9 +122,10 @@ local function Refresh(announce)
     })
 end
 
--- Trainer: future spells whose level has been reached
-local function TrainerSpells()
-    local level, count = UnitLevel("player"), 0
+-- Trainer: future spells whose level has been reached. Returns the count and the spells that
+-- became available exactly at onlyLevel (for the level-up display).
+local function TrainerSpells(onlyLevel)
+    local level, count, list = UnitLevel("player"), 0, {}
     for index = 1, C_SpellBook.GetNumSpellBookSkillLines() do
         local line = C_SpellBook.GetSpellBookSkillLineInfo(index)
         if line and not line.offSpecID and not line.shouldHide then
@@ -132,16 +133,29 @@ local function TrainerSpells()
                 local info = C_SpellBook.GetSpellBookItemInfo(i, Enum.SpellBookSpellBank.Player)
                 if info and info.itemType == Enum.SpellBookItemType.FutureSpell then
                     local needed = C_SpellBook.GetSpellBookItemLevelLearned(i, Enum.SpellBookSpellBank.Player)
-                    if needed and needed > 0 and needed <= level then count = count + 1 end
+                    if needed and needed > 0 and needed <= level then
+                        count = count + 1
+                        if needed == onlyLevel then
+                            list[#list + 1] = { icon = info.iconID, name = info.name,
+                                rank = info.subName ~= "" and info.subName or nil }
+                        end
+                    end
                 end
             end
         end
     end
-    return count
+    return count, list
+end
+-- for the level-up display (Toasts/LevelUp.lua): spells new at the trainer at this level
+function ns.NewTrainerSpells(level)
+    if not TrainerEnabled() then return {} end
+    local _, list = TrainerSpells(level)
+    return list
 end
 
 ns:On("PLAYER_LEVEL_UP", function()
     if not TrainerEnabled() then return end
+    if ns.LevelUpDisplayOn and ns.LevelUpDisplayOn() then return end -- the level-up display lists them
     -- the spellbook is only up to date a moment after leveling
     C_Timer.After(2, function()
         local count = TrainerSpells()

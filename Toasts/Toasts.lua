@@ -494,11 +494,6 @@ local HANDLERS = {
 }
 HANDLERS.TRANSMOG_COSMETIC_COLLECTION_SOURCE_ADDED = HANDLERS.TRANSMOG_COLLECTION_SOURCE_ADDED
 
-ns:On("PLAYER_LEVEL_UP", function(_, level)
-    if not Enabled() then return end
-    Add({ title = L["Level up"], text = (LEVEL or "Level") .. " " .. level, icon = 236567, color = { 1, 0.82, 0 } })
-end)
-
 -- Flush held-back toasts after the encounter
 ns:On("ENCOUNTER_END", function() C_Timer.After(0.5, Pump) end)
 ns:On("PLAYER_REGEN_ENABLED", Pump)

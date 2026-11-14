@@ -158,6 +158,7 @@ Collections/Toys.lua
 Collections/Heirlooms.lua
 Collections/Wardrobe.lua
 Toasts/Toasts.lua
+Toasts/LevelUp.lua
 Toasts/QueueStatus.lua
 Toasts/BNetToasts.lua
 Toasts/ShardTransfer.lua
