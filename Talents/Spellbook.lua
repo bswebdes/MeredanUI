@@ -76,6 +76,19 @@ local function TrainerEntries()
     return list
 end
 
+-- for the level-up display (Toasts/LevelUp.lua): trainer spells reached by now and not learned
+function ns.TrainerWaiting(level)
+    local list = {}
+    if not (ns.char and ns.char.trainerSpells) then return list end
+    for _, entry in ipairs(TrainerEntries()) do
+        if entry.spell.level <= level then
+            local spell = entry.spell
+            list[#list + 1] = { name = spell.name, rank = spell.rank, icon = spell.icon, level = spell.level }
+        end
+    end
+    return list
+end
+
 -- Tabs: skill lines (General, trees), class trainer and pet ----------------------------------
 
 local function TabList()

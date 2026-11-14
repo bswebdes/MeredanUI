@@ -274,6 +274,7 @@ if GetLocale() == "deDE" then
     L["Level up"] = "Stufenaufstieg"
     L["+%d more"] = "+%d weitere"
     L["New at the class trainer"] = "Neu beim Klassenlehrer"
+    L["Still to learn at the class trainer"] = "Noch beim Klassenlehrer zu lernen"
     L["Dungeon unlocked"] = "Dungeon freigeschaltet"
     L["Sample dungeon"] = "Beispiel-Dungeon"
     L["Preview on/off"] = "Vorschau an/aus"

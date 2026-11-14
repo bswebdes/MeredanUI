@@ -165,21 +165,36 @@ local function Entries(level)
     return list
 end
 
+-- Plus the trainer spells waiting: new at this level first, then older ones not learned yet. From
+-- the spellbook (future spells, if the game lists them) and the trainer list remembered at the last
+-- visit (Talents/Spellbook.lua)
+local function Unlocks(level)
+    local entries, seen = Entries(level), {}
+    for _, e in ipairs(entries) do seen[e.name or ""] = true end
+    local spells = {}
+    for _, spell in ipairs(ns.NewTrainerSpells and ns.NewTrainerSpells(level) or {}) do
+        spell.level = level
+        spells[#spells + 1] = spell
+    end
+    for _, spell in ipairs(ns.TrainerWaiting and ns.TrainerWaiting(level) or {}) do spells[#spells + 1] = spell end
+    table.sort(spells, function(a, b) return (a.level or 0) > (b.level or 0) end)
+    for _, spell in ipairs(spells) do
+        local name = spell.rank and ("%s |cffa89d86(%s)|r"):format(spell.name, spell.rank) or spell.name
+        if not seen[name] then
+            seen[name] = true
+            local sub = spell.level == level and L["New at the class trainer"] or L["Still to learn at the class trainer"]
+            entries[#entries + 1] = { icon = spell.icon, name = name, sub = sub }
+        end
+    end
+    return entries
+end
+
 ns:On("PLAYER_LEVEL_UP", function(_, level)
     if not Enabled() or not level then return end
-    Show(level, Entries(level))
+    Show(level, Unlocks(level))
     -- the spellbook knows the new trainer spells only a moment later: add them then
     C_Timer.After(2, function()
-        if not (frame and frame:IsShown()) or not ns.NewTrainerSpells then return end
-        local entries, seen = Entries(level), {}
-        for _, e in ipairs(entries) do seen[e.name or ""] = true end
-        for _, spell in ipairs(ns.NewTrainerSpells(level)) do
-            if not seen[spell.name or ""] then
-                local name = spell.rank and ("%s |cffa89d86(%s)|r"):format(spell.name, spell.rank) or spell.name
-                table.insert(entries, { icon = spell.icon, name = name, sub = L["New at the class trainer"] })
-            end
-        end
-        Show(level, entries, true)
+        if frame and frame:IsShown() then Show(level, Unlocks(level), true) end
     end)
 end)
 
@@ -206,6 +221,7 @@ ns.LevelUpDemo = {
         Show(18, {
             { icon = 132330, name = Spell(2643) .. " |cffa89d86(" .. (RANK or "Rank") .. " 2)|r", sub = L["New at the class trainer"] },
             { icon = 136076, name = Spell(13165) .. " |cffa89d86(" .. (RANK or "Rank") .. " 2)|r", sub = L["New at the class trainer"] },
+            { icon = 135130, name = Spell(1978) .. " |cffa89d86(" .. (RANK or "Rank") .. " 1)|r", sub = L["Still to learn at the class trainer"] },
             { icon = 136243, name = L["Sample dungeon"], sub = L["Dungeon unlocked"] },
         })
     end,
