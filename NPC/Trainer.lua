@@ -545,7 +545,7 @@ local function CreateWindow()
     detail.body = UI.Text(detail, 12, "LEFT", { 0.79, 0.78, 0.75 })
     detail.body:SetPoint("TOPLEFT", detail.req, "BOTTOMLEFT", 0, -10)
     detail.body:SetPoint("RIGHT", -16, 0)
-    detail.body:SetPoint("BOTTOM", detail, "BOTTOM", 0, 52)
+    detail.body:SetPoint("BOTTOM", detail, "BOTTOM", 0, 76)
     detail.body:SetWordWrap(true)
     detail.body:SetJustifyV("TOP")
     detail.body:SetSpacing(3)
@@ -571,7 +571,7 @@ local function CreateWindow()
     detail.learnAll:SetHeight(30)
     detail.learnAll:SetPoint("RIGHT", detail.learn, "LEFT", -8, 0)
     detail.cost = UI.Text(detail, 13, "LEFT")
-    detail.cost:SetPoint("LEFT", detail, "BOTTOMLEFT", 16, 29)
+    detail.cost:SetPoint("LEFT", detail, "BOTTOMLEFT", 16, 58) -- above the buttons: long prices ran under "All learnable"
 
     -- Footer
     footerText = UI.Text(window, 12, "LEFT", UI.MUTED)
