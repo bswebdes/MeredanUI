@@ -446,6 +446,8 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
     if not already and not FitsBesideIcon(l2) then
         if inline then
             beside = false
+            -- recipes: line 2 starts with a line break; the taller row below the name is the gap now
+            if Readable(text2) and text2 and text2:find("^\n") then l2:SetText((text2:gsub("^\n+", ""))) end
             local text1 = l1:GetText()
             -- second row as tall as line 2 plus the gap row under it (an inline texture taller than
             -- the font makes the row taller), so the text below starts as far down as with a subtitle
@@ -759,7 +761,33 @@ end
 -- Items (draft): icon in an item frame with the quality colour on its edge left of the name, the
 -- item level right under the name; mUI's own lines go below a divider (ns.TooltipSection)
 local itemLevelPattern = type(ITEM_LEVEL) == "string" and ("^" .. ITEM_LEVEL:gsub("[%(%)%.%+%-%*%?%[%]%^%$]", "%%%0"):gsub("%%%%d", "%%d+"))
-local function OnItemTooltip(tooltip, data)
+-- Sell price: Blizzard puts its money frame (with "Sell Price:") centred on a blank line of its
+-- own. That line gets taller and the money sits at its bottom, so there is a little room above.
+local MONEY_ROOM = 5
+local function SpaceMoneyLines(tooltip)
+    local name = tooltip:GetName()
+    for i = 1, tooltip.shownMoneyFrames or 0 do
+        local money = _G[name .. "MoneyFrame" .. i]
+        local line, x
+        if money then _, line, _, x = money:GetPoint(1) end
+        local index
+        for k = 2, tooltip:NumLines() do
+            if Left(tooltip, k) == line then index = k break end
+        end
+        -- right below the icon the gap is there already
+        local above = index and Left(tooltip, index - 1):GetText()
+        local afterIcon = not (Readable(above) and above) or above:find("\n $") or above:find("\n|T1319037:%d+:1|t$")
+        if index and not afterIcon then
+            local _, size = line:GetFont()
+            size = size or 12
+            line:SetText(("|T1319037:%d:1|t"):format(math.floor(size + MONEY_ROOM + 0.5)))
+            money:ClearAllPoints()
+            money:SetPoint("LEFT", line, "BOTTOMLEFT", x or 0, size / 2)
+        end
+    end
+end
+
+local function DecorateItem(tooltip, data)
     if not data or (tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip) then return end
     local item = Readable(data.hyperlink) and data.hyperlink or (Readable(data.id) and data.id)
     if not item then return end
@@ -795,6 +823,13 @@ local function OnItemTooltip(tooltip, data)
         if Readable(text) and text and not text:find("\n", 1, true) then l2:SetText(text .. "\n ") end
     end
     tooltip:Show() -- relayout
+end
+
+local function OnItemTooltip(tooltip, data)
+    if not data or (tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip) then return end
+    DecorateItem(tooltip, data)
+    SpaceMoneyLines(tooltip)
+    tooltip:Show()
 end
 
 -- mUI's own lines on item tooltips (upgrade, auction house, characters, wishlist): the first block
