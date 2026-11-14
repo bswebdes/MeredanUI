@@ -123,9 +123,29 @@ local function ApplyText(popup)
     end
 end
 
+-- StaticPopups are ResizeLayoutFrames: they size themselves around every shown child and region.
+-- Our frame reaches beyond the edge, so each relayout (e.g. the logout countdown, every second)
+-- would grow the popup further. Everything we add opts out of that layout.
+local function Snapshot(frame)
+    local set = {}
+    for _, child in ipairs({ frame:GetChildren() }) do set[child] = true end
+    for _, region in ipairs({ frame:GetRegions() }) do set[region] = true end
+    return set
+end
+
+local function IgnoreNew(frame, before)
+    for _, child in ipairs({ frame:GetChildren() }) do
+        if not before[child] then child.ignoreInLayout = true end
+    end
+    for _, region in ipairs({ frame:GetRegions() }) do
+        if not before[region] then region.ignoreInLayout = true end
+    end
+end
+
 local function SkinPopup(popup)
     if not popup or skinned[popup] then return end
     skinned[popup] = true
+    local before = Snapshot(popup)
     if popup.BG then popup.BG:SetAlpha(0) end -- Blizzard's border and background (atlas)
     local bg = popup:CreateTexture(nil, "BACKGROUND", nil, -8)
     bg:SetAllPoints()
@@ -139,6 +159,7 @@ local function SkinPopup(popup)
     SkinEditBox(popup.EditBox)
     SkinProgressBar(popup)
     if popup.ItemFrame and popup.ItemFrame.NameFrame then popup.ItemFrame.NameFrame:SetAlpha(0) end
+    IgnoreNew(popup, before)
     popup:HookScript("OnShow", ApplyText)
     -- Wider edit boxes: Blizzard's default (130 px) is too narrow for names and notes
     -- (e.g. "Add guild member"). Applied one frame after Blizzard's setup.
