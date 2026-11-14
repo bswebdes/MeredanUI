@@ -833,7 +833,9 @@ local function Setup()
         local petHolder = CreateFrame("Frame", "MeredanUIPetBar", UIParent, "SecureHandlerStateTemplate")
         local petSize = (ns.FrameWidth() - 9 * gap) / 10
         AdoptBlizzardBar(PetActionBar, petHolder, "PetActionButton", 10, 10, petSize, "petbar")
-        petHolder:SetPoint("TOPLEFT", pet, "BOTTOMLEFT", 0, -gap)
+        -- clear of the pet frame's deep shell (4 lines + 2 units band)
+        local shell = 4 * ns.PixelSize() + ns.Snap(2)
+        petHolder:SetPoint("TOPLEFT", pet, "BOTTOMLEFT", 0, -(gap + shell))
         -- buttons are rounded to whole pixels, so the row ends up a few pixels off the pet frame width;
         -- match the frame to the row so both end flush
         ns.AfterCombat(function() pet:SetWidth(petHolder:GetWidth()) end)
