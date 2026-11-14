@@ -1051,7 +1051,29 @@ local function SkinMemberDetail(detail)
         invite:SetPoint("LEFT", remove, "RIGHT", 8, 0)
     end
     -- Blizzard sizes the frame for its own (smaller) fonts: grow it so the buttons sit below the notes
+    -- Same margin right as left: the boxes and buttons start where Blizzard anchors them, so their
+    -- width is measured from that left offset (a fixed width left a wider gap on the right)
+    local function Even()
+        local left = detail:GetLeft()
+        if not left then return end
+        for _, pair in ipairs({ { "NoteBackground", "PersonalNoteText" }, { "OfficerNoteBackground", "OfficerNoteText" } }) do
+            local box = detail[pair[1]]
+            local inset = type(box) == "table" and box:GetLeft() and box:GetLeft() - left
+            if inset and inset > 0 then
+                box:SetWidth(W - 2 * inset)
+                local text = box[pair[2]] or detail[pair[2]]
+                if type(text) == "table" then text:SetWidth(W - 2 * inset - 16) end
+            end
+        end
+        local inset = remove and remove:GetLeft() and remove:GetLeft() - left
+        if inset and inset > 0 and invite then
+            local bw = (W - 2 * inset - 8) / 2
+            remove:SetWidth(bw)
+            invite:SetWidth(bw)
+        end
+    end
     local function Fit()
+        Even()
         local top = detail:GetTop()
         local box = detail.OfficerNoteBackground
         if not (type(box) == "table" and box:IsShown()) then box = detail.NoteBackground end
