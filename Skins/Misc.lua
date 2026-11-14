@@ -43,7 +43,7 @@ end
 local function FadeRegions(target, keep)
     if type(target) ~= "table" or not target.GetRegions then return end
     for _, region in ipairs({ target:GetRegions() }) do
-        if IsTexture(region) and not own[region] and not (keep and keep[region]) then region:SetAlpha(0) end
+        if IsTexture(region) and not own[region] and not region.muiKit and not (keep and keep[region]) then region:SetAlpha(0) end
     end
 end
 
@@ -149,102 +149,20 @@ end
 -- Controls ---------------------------------------------------------------------------------------
 
 -- flat button (UIPanelButtonTemplate); hover via HIGHLIGHT layer (some have their own scripts)
-local function SkinButton(button)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    local hover = Tex(button, "HIGHLIGHT", 0, UI.HOVER)
-    hover:SetAllPoints()
-    Border(button)
-    if button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
 -- Icon button (close, arrows): flat box, our icon, Surf Green on hover
-local function SkinIconButton(button, iconName, iconSize, inset, rotation)
-    if type(button) ~= "table" or not Once(button) then return end
-    local UI = ns.UI
-    inset = inset or 4
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", inset, -inset)
-    bg:SetPoint("BOTTOMRIGHT", -inset, inset)
-    Edges(button, bg)
-    local hover = Tex(button, "HIGHLIGHT", 0, { 1, 1, 1, 0.06 })
-    hover:SetAllPoints(bg)
-    local icon = UI.Icon(button, iconName, iconSize or 14)
-    own[icon] = true
-    icon:SetPoint("CENTER", bg)
-    if rotation then icon:SetRotation(rotation) end
-    button:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
+-- flat icon without a box, accent on hover; inset is left over from the boxed look
+local function SkinIconButton(button, iconName, iconSize, _, rotation)
+    local icon = ns.SkinKit.IconButton(button, iconName, iconSize)
+    if icon and rotation then icon:SetRotation(rotation) end
     return icon
 end
 
 -- Dropdown (WowStyle1DropdownTemplate): flat field, our arrow
-local function SkinDropdown(dropdown)
-    if type(dropdown) ~= "table" or not dropdown.GetRegions or not Once(dropdown) then return end
-    local UI = ns.UI
-    Fade(dropdown.Background)
-    Fade(dropdown.Arrow)
-    local bg = Tex(dropdown, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    Edges(dropdown, bg)
-    local arrow = UI.Icon(dropdown, "ChevronDown", 10, UI.MUTED)
-    own[arrow] = true
-    arrow:SetPoint("RIGHT", -8, 0)
-    local hover = Tex(dropdown, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints(bg)
-    dropdown:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then arrow:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    dropdown:HookScript("OnLeave", function() arrow:SetVertexColor(unpack(UI.MUTED)) end)
-end
+local function SkinDropdown(dropdown) ns.SkinKit.Dropdown(dropdown) end
 
-local function SkinScrollBar(bar)
-    if type(bar) ~= "table" or not bar.Track or not Once(bar) then return end
-    local UI = ns.UI
-    Fade(bar.Background)
-    local track = bar.Track
-    FadeRegions(track)
-    local line = Tex(track, "BACKGROUND", 0, { 1, 1, 1, 0.06 })
-    line:SetPoint("TOP")
-    line:SetPoint("BOTTOM")
-    line:SetWidth(3)
-    local thumb = track.Thumb or (bar.GetThumb and bar:GetThumb())
-    if type(thumb) == "table" and thumb.GetRegions then
-        FadeRegions(thumb)
-        local grip = Tex(thumb, "OVERLAY", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 1 })
-        grip:SetPoint("TOP")
-        grip:SetPoint("BOTTOM")
-        grip:SetWidth(3)
-        grip:SetAlpha(0.8)
-        thumb:HookScript("OnEnter", function() grip:SetWidth(5) grip:SetAlpha(1) end)
-        thumb:HookScript("OnLeave", function() grip:SetWidth(3) grip:SetAlpha(0.8) end)
-    end
-    for key, rotation in pairs({ Back = math.pi, Forward = 0 }) do
-        local stepper = bar[key]
-        if type(stepper) == "table" and stepper.GetRegions then
-            FadeRegions(stepper)
-            Fade(stepper.Texture)
-            local icon = UI.Icon(stepper, "ChevronDown", 12, UI.MUTED)
-            own[icon] = true
-            icon:SetPoint("CENTER")
-            icon:SetRotation(rotation)
-            stepper:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-            stepper:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.MUTED)) end)
-        end
-    end
-end
+local function SkinScrollBar(bar) ns.SkinKit.ScrollBar(bar) end
 
 local function HookScrollBox(box, fn)
     if type(box) ~= "table" or not box.ForEachFrame or not Once(box) then return end

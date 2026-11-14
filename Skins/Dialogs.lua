@@ -7,54 +7,13 @@ local _, ns = ...
 
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local skinned = {} -- frame -> true (don't store as a field on Blizzard's frame)
-local fonts
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.skinDialogs ~= false
 end
 
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, color)
-        local font = CreateFont(name)
-        font:SetFont(ns.STYLE.font, ns.FontPx(13), "")
-        font:SetTextColor(unpack(color))
-        font:SetShadowOffset(1, -1)
-        font:SetShadowColor(0, 0, 0, 1)
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUIDialogButton", UI.TEXT),
-        highlight = Make("MeredanUIDialogButtonHighlight", UI.ACCENT),
-        disabled = Make("MeredanUIDialogButtonDisabled", UI.MUTED),
-    }
-    return fonts
-end
-
 -- flat button: Blizzard's art hidden, background + 1 px border underneath, brightens on hover
-local function SkinButton(button)
-    if not button or skinned[button] then return end
-    skinned[button] = true
-    local UI = ns.UI
-    for _, texture in ipairs({ button:GetNormalTexture(), button:GetPushedTexture(), button:GetDisabledTexture(),
-        button:GetHighlightTexture() }) do
-        if texture then texture:SetAlpha(0) end
-    end
-    for _, key in ipairs({ "Left", "Middle", "Right" }) do -- UIPanelButtonTemplate art
-        if button[key] then button[key]:SetAlpha(0) end
-    end
-    local bg = button:CreateTexture(nil, "BACKGROUND", nil, -8)
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(UI.FIELD))
-    ns.AddBorder(button)
-    button:HookScript("OnEnter", function() bg:SetColorTexture(unpack(UI.HOVER)) end)
-    button:HookScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
-    local f = Fonts()
-    button:SetNormalFontObject(f.normal)
-    button:SetHighlightFontObject(f.highlight)
-    button:SetDisabledFontObject(f.disabled)
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
 local function SkinCloseButton(button)
     if not button or skinned[button] then return end

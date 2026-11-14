@@ -1041,8 +1041,6 @@ if ns.IS_FOREVER then
                 Help(L["Not when you have to pick a reward or the quest costs gold or materials."]))
             page:AddCheckbox(L["Mark the most valuable reward"], On("questBestReward"), Setter("questBestReward"),
                 Help(L["Gold coin on the reward that sells for the most."]))
-            page:AddCheckbox(L["Skip single conversation options"], Getter("questAutoGossip"), Setter("questAutoGossip"),
-                Help(L["NPCs without quests and only one chat option. Never merchants, trainers or flight masters."]))
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Remind me of class quests"], Getter("classQuestReminder"), Setter("classQuestReminder"),
                     Help(L["When a class quest for a new ability becomes available, e.g. Bear Form or the Voidwalker. Click the message to put a pin on the map."]))

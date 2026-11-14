@@ -244,7 +244,6 @@ local DEFAULTS = {
     autoInvite = false,          -- accept invites from friends/guild (off by default)
     questAutoAccept = false,     -- Comfort: accept available quests (NPC/AutoQuest.lua, Shift pauses)
     questAutoTurnIn = false,     -- Comfort: hand in finished quests (no reward choice, no costs)
-    questAutoGossip = false,     -- Comfort: pick the only chat option of an NPC without quests
     autoSummon = false,          -- Comfort: accept summons out of combat after 5 s (Core/Comfort.lua)
     autoResurrect = false,       -- Comfort: accept resurrections unless the caster is in combat
     declineDuels = false,        -- Comfort: decline duels (not from friends/guild)

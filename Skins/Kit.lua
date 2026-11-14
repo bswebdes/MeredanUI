@@ -22,6 +22,19 @@ local function Once(object, key)
     return true
 end
 
+-- Regions the kit adds get region.muiKit = true, so a skin's own "fade all textures" helpers leave
+-- them alone (they skip region.muiKit). Diff of the frame's regions before/after the build.
+local function Track(frame, fn, ...)
+    local before = {}
+    for _, r in ipairs({ frame:GetRegions() }) do before[r] = true end
+    local result = fn(...)
+    for _, r in ipairs({ frame:GetRegions() }) do
+        if not before[r] then r.muiKit = true end
+    end
+    return result
+end
+Kit.Track = Track
+
 local function Fade(region)
     if type(region) == "table" and region.SetAlpha then region:SetAlpha(0) end
 end
@@ -100,7 +113,7 @@ function Kit.Button(button)
     if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
     if not Once(button, "button") then return end
     Kit.FadeButtonArt(button)
-    ns.UI.Bevel(button)
+    Track(button, ns.UI.Bevel, button)
     Kit.WatchHover(button, function(self, hover)
         if self.muiBevel then self.muiBevel(hover and "hover" or "normal") end
     end)
@@ -123,6 +136,7 @@ function Kit.IconButton(button, iconName, size)
         end
     end
     local icon = UI.Icon(button, iconName, size or 22)
+    icon.muiKit = true
     icon:SetPoint("CENTER")
     Kit.WatchHover(button, function(_, hover) icon:SetVertexColor(unpack(hover and UI.ACCENT or UI.TEXT)) end)
     return icon
@@ -133,10 +147,11 @@ end
 function Kit.Field(target, focus)
     if type(target) ~= "table" or not Once(target, "field") then return end
     local UI = ns.UI
-    local fill = UI.Groove(target)
+    local fill = Track(target, UI.Groove, target)
     if not focus then return fill end
     local edges = {}
     for i, e in ipairs(ns.AddBorder(target, true)) do
+        e.muiKit = true
         e:SetVertexColor(unpack(UI.ACCENT))
         e:Hide()
         edges[i] = e
@@ -149,7 +164,7 @@ end
 -- Content area set into the window (lists, grids)
 function Kit.Inset(target, color)
     if type(target) ~= "table" or not Once(target, "inset") then return end
-    return ns.UI.Inset(target, color)
+    return Track(target, ns.UI.Inset, target, color)
 end
 
 -- Item / icon slot (SelectorButtonTemplate and alike): item frame, icon inset, accent when selected.
@@ -157,17 +172,19 @@ end
 function Kit.Slot(button, icon)
     if type(button) ~= "table" or not Once(button, "slot") then return end
     local UI = ns.UI
-    ns.AddSlotBackground(button)
-    ns.AddItemFrame(button, nil, 2)
+    Track(button, ns.AddSlotBackground, button)
+    Track(button, ns.AddItemFrame, button, nil, 2)
     if icon then
         ns.InsetItemIcon(button, icon, nil, 2)
         icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     end
     local hover = button:CreateTexture(nil, "HIGHLIGHT")
+    hover.muiKit = true
     hover:SetColorTexture(1, 1, 1, 0.1)
     if icon then hover:SetAllPoints(icon) else hover:SetAllPoints() end
     local selected = ns.AddBorder(button, true, 2)
     for _, e in ipairs(selected) do
+        e.muiKit = true
         e:SetVertexColor(unpack(UI.ACCENT))
         e:SetDrawLayer("OVERLAY", 7)
         e:Hide()
@@ -190,6 +207,8 @@ function Kit.Tab(tab)
             if region.IsObjectType and region:IsObjectType("Texture") then region:SetAlpha(0) end
         end
     end
+    local before = {}
+    for _, r in ipairs({ tab:GetRegions() }) do before[r] = true end
     local fill = tab:CreateTexture(nil, "BACKGROUND", nil, 2)
     fill:SetTexture(WHITE)
     fill:SetPoint("TOPLEFT", px, -px)
@@ -211,6 +230,9 @@ function Kit.Tab(tab)
     local gem = ns.UI.Diamond(tab, 5)
     gem:SetPoint("LEFT", 12, 0)
     tab.muiTabFill, tab.muiTabGem = fill, gem
+    for _, r in ipairs({ tab:GetRegions() }) do
+        if not before[r] then r.muiKit = true end
+    end
     Kit.SetTabActive(tab, false)
 end
 
@@ -260,6 +282,7 @@ function Kit.ScrollBar(bar)
         end
         local m = ns.Material()
         local grip = thumb:CreateTexture(nil, "OVERLAY")
+        grip.muiKit = true
         grip:SetTexture(WHITE)
         grip:SetPoint("TOP")
         grip:SetPoint("BOTTOM")
@@ -275,6 +298,7 @@ function Kit.ScrollBar(bar)
             end
             Fade(stepper.Texture)
             local icon = UI.Icon(stepper, "ChevronDown", 14, UI.MUTED)
+            icon.muiKit = true
             icon:SetPoint("CENTER")
             icon:SetRotation(rotation)
             Kit.WatchHover(stepper, function(_, hover) icon:SetVertexColor(unpack(hover and UI.ACCENT or UI.MUTED)) end)
@@ -288,8 +312,9 @@ function Kit.Dropdown(dropdown)
     local UI = ns.UI
     Fade(dropdown.Background)
     Fade(dropdown.Arrow)
-    UI.Bevel(dropdown)
+    Track(dropdown, UI.Bevel, dropdown)
     local arrow = UI.Icon(dropdown, "ChevronDown", 10, UI.MUTED)
+    arrow.muiKit = true
     arrow:SetPoint("RIGHT", -8, 0)
     Kit.WatchHover(dropdown, function(self, hover)
         if self.muiBevel then self.muiBevel(hover and "hover" or "normal") end

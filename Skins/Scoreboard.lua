@@ -57,7 +57,7 @@ end
 local function FadeRegions(target, keep)
     if type(target) ~= "table" or not target.GetRegions then return end
     for _, region in ipairs({ target:GetRegions() }) do
-        if IsTexture(region) and not own[region] and not (keep and keep[region]) then region:SetAlpha(0) end
+        if IsTexture(region) and not own[region] and not region.muiKit and not (keep and keep[region]) then region:SetAlpha(0) end
     end
 end
 
@@ -126,89 +126,18 @@ local function Fonts()
     return fonts
 end
 
-local BUTTON_TEXTURES = { "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture" }
-local function FadeButtonTextures(button)
-    for _, getter in ipairs(BUTTON_TEXTURES) do
-        local fn = button[getter]
-        local tex = fn and fn(button)
-        if tex then Fade(tex) end
-    end
-end
-
 -- Controls ---------------------------------------------------------------------------------------
 
 -- flat button (UIPanelButton / ThreeSlice); hover via HIGHLIGHT layer. ThreeSlice re-sets its atlases
 -- on every state change, but SetAtlas keeps our alpha.
-local function SkinButton(button)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right", "Center" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    local hover = Tex(button, "HIGHLIGHT", 0, UI.HOVER)
-    hover:SetAllPoints()
-    Border(button)
-    if button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
+-- flat icon without a box, accent on hover (close, month arrows)
 local function SkinIconButton(button, iconName, iconSize)
-    if type(button) ~= "table" or not Once(button) then return end
-    local UI = ns.UI
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", 4, -4)
-    bg:SetPoint("BOTTOMRIGHT", -4, 4)
-    Edges(button, bg)
-    local icon = UI.Icon(button, iconName, iconSize or 14)
-    own[icon] = true
-    icon:SetPoint("CENTER", bg)
-    button:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
+    return ns.SkinKit.IconButton(button, iconName, iconSize)
 end
 
-local function SkinScrollBar(bar)
-    if type(bar) ~= "table" or not bar.Track or not Once(bar) then return end
-    local UI = ns.UI
-    Fade(bar.Background)
-    local track = bar.Track
-    FadeRegions(track)
-    local line = Tex(track, "BACKGROUND", 0, { 1, 1, 1, 0.06 })
-    line:SetPoint("TOP")
-    line:SetPoint("BOTTOM")
-    line:SetWidth(3)
-    local thumb = track.Thumb or (bar.GetThumb and bar:GetThumb())
-    if type(thumb) == "table" and thumb.GetRegions then
-        FadeRegions(thumb)
-        local grip = Tex(thumb, "OVERLAY", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 1 })
-        grip:SetPoint("TOP")
-        grip:SetPoint("BOTTOM")
-        grip:SetWidth(3)
-        grip:SetAlpha(0.8)
-        thumb:HookScript("OnEnter", function() grip:SetWidth(5) grip:SetAlpha(1) end)
-        thumb:HookScript("OnLeave", function() grip:SetWidth(3) grip:SetAlpha(0.8) end)
-    end
-    for key, rotation in pairs({ Back = math.pi, Forward = 0 }) do
-        local stepper = bar[key]
-        if type(stepper) == "table" and stepper.GetRegions then
-            FadeRegions(stepper)
-            Fade(stepper.Texture)
-            local icon = UI.Icon(stepper, "ChevronDown", 12, UI.MUTED)
-            own[icon] = true
-            icon:SetPoint("CENTER")
-            icon:SetRotation(rotation)
-            stepper:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-            stepper:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.MUTED)) end)
-        end
-    end
-end
+local function SkinScrollBar(bar) ns.SkinKit.ScrollBar(bar) end
 
 local function HookScrollBox(box, fn)
     if type(box) ~= "table" or not box.ForEachFrame or not Once(box) then return end

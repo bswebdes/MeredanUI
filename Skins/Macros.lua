@@ -55,7 +55,7 @@ end
 local function FadeRegions(target, keep)
     if type(target) ~= "table" or not target.GetRegions then return end
     for _, region in ipairs({ target:GetRegions() }) do
-        if IsTexture(region) and not own[region] and not (keep and keep[region]) then region:SetAlpha(0) end
+        if IsTexture(region) and not own[region] and not region.muiKit and not (keep and keep[region]) then region:SetAlpha(0) end
     end
 end
 

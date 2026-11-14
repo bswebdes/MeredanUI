@@ -32,7 +32,6 @@ local SIDE_TABS = { "ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab", 
 local noBump = setmetatable({}, { __mode = "k" }) -- areas with fixed widths (info column)
 local skinned = setmetatable({}, { __mode = "k" }) -- object -> true (already skinned)
 local own = setmetatable({}, { __mode = "k" })     -- our textures (skipped when fading)
-local fonts
 local applied = false
 
 local function Enabled()
@@ -59,7 +58,7 @@ end
 local function FadeRegions(frame, keep)
     if type(frame) ~= "table" or not frame.GetRegions then return end
     for _, region in ipairs({ frame:GetRegions() }) do
-        if IsTexture(region) and not own[region] and not (keep and keep[region]) then region:SetAlpha(0) end
+        if IsTexture(region) and not own[region] and not region.muiKit and not (keep and keep[region]) then region:SetAlpha(0) end
     end
 end
 
@@ -116,25 +115,6 @@ local function Panel(frame, target)
     return bg
 end
 
--- Font objects for buttons: copies of Blizzard's font (same size -> same button width),
--- only the color as in mUI
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, base, color)
-        local font = CreateFont(name)
-        if base then font:CopyFontObject(base) end
-        font:SetTextColor(color[1], color[2], color[3])
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUIGuildSkinButton", GameFontHighlight, UI.TEXT),
-        highlight = Make("MeredanUIGuildSkinButtonHighlight", GameFontHighlight, UI.ACCENT),
-        disabled = Make("MeredanUIGuildSkinButtonDisabled", GameFontDisable, UI.MUTED),
-    }
-    return fonts
-end
-
 local BUTTON_TEXTURES = { "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture",
     "GetCheckedTexture", "GetDisabledCheckedTexture" }
 
@@ -149,51 +129,12 @@ end
 
 -- flat button (UIPanelButtonTemplate etc.): Blizzard's art hidden, background + 1 px border,
 -- brightens on hover
-local function SkinButton(button)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right", "LeftSeparator", "RightSeparator" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    Border(button)
-    button:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then bg:SetColorTexture(unpack(UI.HOVER)) end
-    end)
-    button:HookScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
-    if button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
 -- Icon button (close, maximize ...): flat box with our icon, Surf Green on hover
+-- flat icon without a box, accent on hover (close, month arrows)
 local function SkinIconButton(button, iconName, iconSize)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", 4, -4)
-    bg:SetPoint("BOTTOMRIGHT", -4, 4)
-    Edges(button, bg)
-    local icon = UI.Icon(button, iconName, iconSize or 12)
-    own[icon] = true
-    icon:SetPoint("CENTER")
-    local function Reflect()
-        icon:SetAlpha(button:IsEnabled() and 1 or 0.35)
-    end
-    button:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then icon:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
-    button:HookScript("OnEnable", Reflect)
-    button:HookScript("OnDisable", Reflect)
-    Reflect()
+    return ns.SkinKit.IconButton(button, iconName, iconSize)
 end
 
 -- Edit box: Blizzard's edges removed, dark field, Surf Green border on focus.
@@ -268,90 +209,11 @@ end
 
 -- Dropdown (WowStyle1DropdownTemplate etc.): flat field, 1 px border, our arrow.
 -- Arrow-only dropdowns (no text, e.g. "Add to chat") become a small icon box.
-local function SkinDropdown(dropdown)
-    if type(dropdown) ~= "table" or not dropdown.GetRegions or not Once(dropdown) then return end
-    local UI = ns.UI
-    Fade(dropdown.Background)
-    Fade(dropdown.Arrow)
-    local bg = Tex(dropdown, "BACKGROUND", -8, UI.FIELD)
-    local arrow = UI.Icon(dropdown, "ChevronDown", 10, UI.MUTED)
-    own[arrow] = true
-    if dropdown.Text then
-        bg:SetAllPoints()
-        arrow:SetPoint("RIGHT", -7, 0)
-    else
-        bg:SetPoint("TOPLEFT", 3, -3)
-        bg:SetPoint("BOTTOMRIGHT", -3, 3)
-        arrow:SetPoint("CENTER", bg)
-    end
-    Edges(dropdown, bg)
-    local hover = Tex(dropdown, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints(bg)
-    local function Reflect()
-        arrow:SetAlpha(dropdown:IsEnabled() and 1 or 0.35)
-    end
-    dropdown:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then arrow:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    dropdown:HookScript("OnLeave", function() arrow:SetVertexColor(unpack(UI.MUTED)) end)
-    dropdown:HookScript("OnEnable", Reflect)
-    dropdown:HookScript("OnDisable", Reflect)
-    Reflect()
-end
+local function SkinDropdown(dropdown) ns.SkinKit.Dropdown(dropdown) end
 
 -- Scrollbar (MinimalScrollBar) like UI.Scrollbar: chevron arrows, thin track, Surf Green thumb
 -- (wider on hover). Blizzard's parts stay (invisible) and do the work.
-local function SkinScrollBar(bar)
-    if type(bar) ~= "table" or not bar.Track or not Once(bar) then return end
-    local UI = ns.UI
-    Fade(bar.Background)
-    local track = bar.Track
-    FadeRegions(track)
-    local line = Tex(track, "BACKGROUND", 0, { 1, 1, 1, 0.06 })
-    line:SetPoint("TOP")
-    line:SetPoint("BOTTOM")
-    line:SetWidth(3)
-    local thumb = track.Thumb or (bar.GetThumb and bar:GetThumb())
-    if type(thumb) == "table" and thumb.GetRegions then
-        FadeRegions(thumb)
-        local grip = Tex(thumb, "OVERLAY", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 1 })
-        grip:SetPoint("TOP")
-        grip:SetPoint("BOTTOM")
-        grip:SetWidth(3)
-        grip:SetAlpha(0.8)
-        thumb:HookScript("OnEnter", function() grip:SetWidth(5) grip:SetAlpha(1) end)
-        thumb:HookScript("OnLeave", function() grip:SetWidth(3) grip:SetAlpha(0.8) end)
-    end
-    for key, rotation in pairs({ Back = math.pi, Forward = 0 }) do
-        local stepper = bar[key]
-        if type(stepper) == "table" and stepper.GetRegions then
-            FadeRegions(stepper)
-            Fade(stepper.Texture)
-            local icon = UI.Icon(stepper, "ChevronDown", 12, UI.MUTED)
-            own[icon] = true
-            icon:SetPoint("CENTER")
-            icon:SetRotation(rotation)
-            local function Reflect()
-                icon:SetAlpha(stepper:IsEnabled() and 1 or 0.3)
-            end
-            stepper:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-            stepper:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.MUTED)) end)
-            stepper:HookScript("OnEnable", Reflect)
-            stepper:HookScript("OnDisable", Reflect)
-            Reflect()
-        end
-    end
-    -- nothing to scroll: hide the bar (else an empty bar shows next to the community list)
-    if bar.HasScrollableExtent then
-        local function AutoHide()
-            local ok, scrollable = pcall(bar.HasScrollableExtent, bar)
-            bar:SetAlpha((not ok or scrollable) and 1 or 0)
-        end
-        if bar.Update then hooksecurefunc(bar, "Update", AutoHide) end
-        bar:HookScript("OnShow", AutoHide)
-        AutoHide()
-    end
-end
+local function SkinScrollBar(bar) ns.SkinKit.ScrollBar(bar) end
 
 -- Content box (InsetFrameTemplate): Blizzard's edge and marble removed. withBorder: own 1 px border,
 -- fill: dark background (only when the box lies beneath the content)

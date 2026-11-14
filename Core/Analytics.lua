@@ -7,7 +7,7 @@ local _, ns = ...
 
 local MODULES = { "groupFrames", "groupManager", "nameplates", "bossMods", "toasts", "damageMeter",
     "bags", "lootWindow", "lootRolls" }
-local HELPERS = { "questAutoAccept", "questAutoTurnIn", "questAutoGossip", "questBestReward", "autoSummon",
+local HELPERS = { "questAutoAccept", "questAutoTurnIn", "questBestReward", "autoSummon",
     "autoResurrect", "declineDuels", "skipCinematics", "buffReminder", "altItemCount", "chatClassIcons",
     "tooltipClassIcon", "tooltipClassification", "classAccent", "sparkle", "sparkleOther", "classQuestReminder" }
 

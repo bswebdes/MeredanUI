@@ -2,8 +2,6 @@
 --   - questAutoAccept: pick and accept available quests (grey/trivial ones are skipped)
 --   - questAutoTurnIn: pick and hand in finished quests; never when a reward has to be chosen or the
 --     quest costs gold, currency or crafting reagents
---   - questAutoGossip: an NPC with no quests and exactly one chat option gets it picked (never vendors,
---     trainers, flight masters - their options carry other icons; nothing that asks for confirmation)
 -- Holding Shift while talking to the NPC pauses all of it. Works with and without the mUI windows:
 -- the windows open one frame later and only if Blizzard's frame is still open (NPC/Quest.lua,
 -- NPC/Gossip.lua), so an automated step never flashes a window.
@@ -22,7 +20,6 @@ local NPC_BLOCK_SELECT = {
     [10307] = true,  -- Witch Doctor Mau'ari (E'Ko, Winterspring)
 }
 
-local GOSSIP_ICONS = { [132053] = true, [1019848] = true } -- chat bubble: plain conversation
 
 local function NpcID()
     local guid = UnitGUID("npc") or UnitGUID("questnpc")
@@ -101,29 +98,15 @@ local function PickFromGreeting()
     return false
 end
 
--- Exactly one chat option and nothing else to do: pick it (no confirmation popups)
-local function PickOnlyOption()
-    if not On("questAutoGossip") then return end
-    if #(C_GossipInfo.GetActiveQuests() or {}) > 0 or #(C_GossipInfo.GetAvailableQuests() or {}) > 0 then return end
-    local options = C_GossipInfo.GetOptions() or {}
-    if #options ~= 1 then return end
-    local option = options[1]
-    if option.selectOptionWhenOnlyOption then return end -- Blizzard already picks these itself
-    if not GOSSIP_ICONS[option.icon] or option.spellID or (option.rewards and #option.rewards > 0) then return end
-    if option.failureDescription or (option.status and option.status ~= 0) then return end
-    if not option.gossipOptionID then return end
-    C_GossipInfo.SelectOption(option.gossipOptionID)
-end
-
 local function Anything()
-    return On("questAutoAccept") or On("questAutoTurnIn") or On("questAutoGossip")
+    return On("questAutoAccept") or On("questAutoTurnIn")
 end
 
 local function OnEvent(event, arg1)
     if not Anything() or Paused() then return end
     if event == "GOSSIP_SHOW" then
         if Blocked(false) then return end
-        if not PickFromGossip() then PickOnlyOption() end
+        PickFromGossip()
     elseif event == "QUEST_GREETING" then
         if Blocked(false) then return end
         PickFromGreeting()

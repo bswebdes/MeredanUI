@@ -35,7 +35,6 @@ local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
 local slotParts = setmetatable({}, { __mode = "k" })
 local frame, portrait, subtitle
-local fonts
 local applied = false
 
 local function Enabled()
@@ -60,7 +59,7 @@ end
 local function FadeRegions(target, keep)
     if type(target) ~= "table" or not target.GetRegions then return end
     for _, region in ipairs({ target:GetRegions() }) do
-        if IsTexture(region) and not own[region] and not (keep and keep[region]) then region:SetAlpha(0) end
+        if IsTexture(region) and not own[region] and not region.muiKit and not (keep and keep[region]) then region:SetAlpha(0) end
     end
 end
 
@@ -110,23 +109,6 @@ local function Panel(target)
     ns.RuneFrame(target)
 end
 
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, base, color)
-        local font = CreateFont(name)
-        font:CopyFontObject(base)
-        font:SetTextColor(color[1], color[2], color[3])
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUIStableButton", GameFontHighlight, UI.TEXT),
-        highlight = Make("MeredanUIStableButtonHighlight", GameFontHighlight, UI.ACCENT),
-        disabled = Make("MeredanUIStableButtonDisabled", GameFontDisable, UI.MUTED),
-    }
-    return fonts
-end
-
 local BUTTON_TEXTURES = { "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture",
     "GetCheckedTexture", "GetDisabledCheckedTexture" }
 local function FadeButtonTextures(button, keep)
@@ -140,39 +122,11 @@ end
 -- Controls ---------------------------------------------------------------------------------------
 
 -- flat button (UIPanelButtonTemplate); hover via HIGHLIGHT layer
-local function SkinButton(button)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    local hover = Tex(button, "HIGHLIGHT", 0, UI.HOVER)
-    hover:SetAllPoints()
-    Border(button)
-    if button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
+-- flat icon without a box, accent on hover (close, month arrows)
 local function SkinIconButton(button, iconName, iconSize)
-    if type(button) ~= "table" or not Once(button) then return end
-    local UI = ns.UI
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", 4, -4)
-    bg:SetPoint("BOTTOMRIGHT", -4, 4)
-    Edges(button, bg)
-    local icon = UI.Icon(button, iconName, iconSize or 14)
-    own[icon] = true
-    icon:SetPoint("CENTER", bg)
-    button:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
+    return ns.SkinKit.IconButton(button, iconName, iconSize)
 end
 
 -- Model toolbar (zoom, rotate, reset; appears on hover): flat with our icons, as in Skins/DressUp.lua

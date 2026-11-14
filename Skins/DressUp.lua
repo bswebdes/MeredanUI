@@ -28,7 +28,6 @@ local BLIZZ_SCENE_H, BLIZZ_BG_BOTTOM = 454, 90 -- Blizzard's dimensions for the 
 local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
 local frame, portrait, subtitle
-local fonts
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.dressUpSkin ~= false
@@ -48,7 +47,7 @@ end
 local function FadeRegions(target)
     if type(target) ~= "table" or not target.GetRegions then return end
     for _, region in ipairs({ target:GetRegions() }) do
-        if region.IsObjectType and region:IsObjectType("Texture") and not own[region] then region:SetAlpha(0) end
+        if region.IsObjectType and region:IsObjectType("Texture") and not own[region] and not region.muiKit then region:SetAlpha(0) end
     end
 end
 
@@ -92,24 +91,6 @@ local function Panel(target)
     ns.RuneFrame(target)
 end
 
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, base, color)
-        local font = CreateFont(name)
-        font:CopyFontObject(base)
-        font:SetFont(ns.STYLE.font, ns.FontPx(13), "")
-        font:SetTextColor(color[1], color[2], color[3])
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUIDressUpButton", GameFontHighlight, UI.TEXT),
-        highlight = Make("MeredanUIDressUpButtonHighlight", GameFontHighlight, UI.ACCENT),
-        disabled = Make("MeredanUIDressUpButtonDisabled", GameFontDisable, UI.MUTED),
-    }
-    return fonts
-end
-
 local BUTTON_TEXTURES = { "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture" }
 local function FadeButtonTextures(button)
     for _, getter in ipairs(BUTTON_TEXTURES) do
@@ -119,64 +100,16 @@ local function FadeButtonTextures(button)
 end
 
 -- flat button (UIPanelButtonTemplate)
-local function SkinButton(button)
-    if not Once(button) or not button.IsObjectType then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    for _, edge in ipairs(ns.AddBorder(button)) do own[edge] = true end
-    button:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then bg:SetColorTexture(unpack(UI.HOVER)) end
-    end)
-    button:HookScript("OnLeave", function() bg:SetColorTexture(unpack(UI.FIELD)) end)
-    if button.GetFontString and button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
 -- Icon button (close, outfit list): flat box, our icon, Surf Green on hover
+-- flat icon without a box, accent on hover (close, month arrows)
 local function SkinIconButton(button, iconName, iconSize)
-    if not Once(button) then return end
-    local UI = ns.UI
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", 4, -4)
-    bg:SetPoint("BOTTOMRIGHT", -4, 4)
-    Edges(button, bg)
-    local icon = UI.Icon(button, iconName, iconSize or 14)
-    own[icon] = true
-    icon:SetPoint("CENTER")
-    button:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then icon:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
+    return ns.SkinKit.IconButton(button, iconName, iconSize)
 end
 
 -- Dropdown (WowStyle1DropdownTemplate): flat field, our arrow
-local function SkinDropdown(dropdown)
-    if not Once(dropdown) then return end
-    local UI = ns.UI
-    Fade(dropdown.Background)
-    Fade(dropdown.Arrow)
-    local bg = Tex(dropdown, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    Edges(dropdown, bg)
-    local arrow = UI.Icon(dropdown, "ChevronDown", 10, UI.MUTED)
-    own[arrow] = true
-    arrow:SetPoint("RIGHT", -8, 0)
-    local hover = Tex(dropdown, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints(bg)
-    dropdown:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then arrow:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    dropdown:HookScript("OnLeave", function() arrow:SetVertexColor(unpack(UI.MUTED)) end)
-end
+local function SkinDropdown(dropdown) ns.SkinKit.Dropdown(dropdown) end
 
 -- Toolbar above the model (appears on hover): zoom, rotate, reset. Blizzard's buttons stay
 -- (click, tooltip, hold to rotate), just flat with our icons.

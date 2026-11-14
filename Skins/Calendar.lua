@@ -37,7 +37,6 @@ local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
 local cells = setmetatable({}, { __mode = "k" }) -- day button -> our regions
 local frame, subtitle
-local fonts
 local applied = false
 
 local function Enabled()
@@ -62,7 +61,7 @@ end
 local function FadeRegions(target, keep)
     if type(target) ~= "table" or not target.GetRegions then return end
     for _, region in ipairs({ target:GetRegions() }) do
-        if IsTexture(region) and not own[region] and not (keep and keep[region]) then region:SetAlpha(0) end
+        if IsTexture(region) and not own[region] and not region.muiKit and not (keep and keep[region]) then region:SetAlpha(0) end
     end
 end
 
@@ -112,23 +111,6 @@ local function Panel(target)
     ns.RuneFrame(target)
 end
 
-local function Fonts()
-    if fonts then return fonts end
-    local UI = ns.UI
-    local function Make(name, base, color)
-        local font = CreateFont(name)
-        font:CopyFontObject(base)
-        font:SetTextColor(color[1], color[2], color[3])
-        return font
-    end
-    fonts = {
-        normal = Make("MeredanUICalendarButton", GameFontHighlight, UI.TEXT),
-        highlight = Make("MeredanUICalendarButtonHighlight", GameFontHighlight, UI.ACCENT),
-        disabled = Make("MeredanUICalendarButtonDisabled", GameFontDisable, UI.MUTED),
-    }
-    return fonts
-end
-
 local BUTTON_TEXTURES = { "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture",
     "GetCheckedTexture", "GetDisabledCheckedTexture" }
 local function FadeButtonTextures(button)
@@ -141,92 +123,16 @@ end
 -- Controls ---------------------------------------------------------------------------------------
 
 -- flat button (UIPanelButtonTemplate); hover via HIGHLIGHT layer
-local function SkinButton(button)
-    if type(button) ~= "table" or not button.IsObjectType or not button:IsObjectType("Button") then return end
-    if not Once(button) then return end
-    local UI = ns.UI
-    for _, key in ipairs({ "Left", "Middle", "Right" }) do Fade(button[key]) end
-    FadeButtonTextures(button)
-    local name = button:GetName()
-    if name then Fade(_G[name .. "Border"]) end -- UI-Button-Borders art behind footer buttons
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    -- hover below the label (a HIGHLIGHT-layer texture drew over the text)
-    local hover = Tex(button, "BACKGROUND", -7, UI.HOVER)
-    hover:SetAllPoints()
-    hover:Hide()
-    button:HookScript("OnEnter", function(self) if self:IsEnabled() then hover:Show() end end)
-    button:HookScript("OnLeave", function() hover:Hide() end)
-    Border(button)
-    if button:GetFontString() then
-        local f = Fonts()
-        button:SetNormalFontObject(f.normal)
-        button:SetHighlightFontObject(f.highlight)
-        button:SetDisabledFontObject(f.disabled)
-    end
-end
+local function SkinButton(button) ns.SkinKit.Button(button) end -- rune look (Skins/Kit.lua)
 
 -- Icon button: flat box, our icon, Surf Green on hover; dimmed while disabled
+-- flat icon without a box, accent on hover (close, month arrows)
 local function SkinIconButton(button, iconName, iconSize)
-    if type(button) ~= "table" or not button.IsObjectType or not Once(button) then return end
-    local UI = ns.UI
-    FadeButtonTextures(button)
-    FadeRegions(button)
-    local bg = Tex(button, "BACKGROUND", -8, UI.FIELD)
-    bg:SetPoint("TOPLEFT", 4, -4)
-    bg:SetPoint("BOTTOMRIGHT", -4, 4)
-    Edges(button, bg)
-    local icon = UI.Icon(button, iconName, iconSize or 14)
-    own[icon] = true
-    icon:SetPoint("CENTER", bg)
-    local function Reflect() icon:SetAlpha(button:IsEnabled() and 1 or 0.35) end
-    button:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then icon:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    button:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.TEXT)) end)
-    button:HookScript("OnEnable", Reflect)
-    button:HookScript("OnDisable", Reflect)
-    Reflect()
-    return icon
+    return ns.SkinKit.IconButton(button, iconName, iconSize)
 end
 
 -- Dropdown (WowStyle1DropdownTemplate / FilterDropdown): flat field, our arrow
-local function SkinDropdown(dropdown)
-    if type(dropdown) ~= "table" or not dropdown.GetRegions or not Once(dropdown) then return end
-    local UI = ns.UI
-    Fade(dropdown.Background)
-    Fade(dropdown.Arrow)
-    if dropdown.Text then dropdown.Text:SetTextColor(unpack(UI.TEXT)) end -- Blizzard's yellow label
-    local bg = Tex(dropdown, "BACKGROUND", -8, UI.FIELD)
-    bg:SetAllPoints()
-    Edges(dropdown, bg)
-    local arrow = UI.Icon(dropdown, "ChevronDown", 10, UI.MUTED)
-    own[arrow] = true
-    arrow:SetPoint("RIGHT", -8, 0)
-    local hover = Tex(dropdown, "HIGHLIGHT", 0, { 1, 1, 1, 0.05 })
-    hover:SetAllPoints(bg)
-    local function Reflect() arrow:SetAlpha(dropdown:IsEnabled() and 1 or 0.35) end
-    dropdown:HookScript("OnEnter", function(self)
-        if self:IsEnabled() then arrow:SetVertexColor(unpack(UI.ACCENT)) end
-    end)
-    dropdown:HookScript("OnLeave", function() arrow:SetVertexColor(unpack(UI.MUTED)) end)
-    dropdown:HookScript("OnEnable", Reflect)
-    dropdown:HookScript("OnDisable", Reflect)
-    Reflect()
-    -- Blizzard re-applies its font object (yellow) and size on every press/open: restore ours
-    local function Restore()
-        if dropdown.Text and dropdown:IsEnabled() then dropdown.Text:SetTextColor(unpack(UI.TEXT)) end
-        if dropdown.muiSize then dropdown:SetSize(dropdown.muiSize[1], dropdown.muiSize[2]) end
-    end
-    if dropdown.OnButtonStateChanged then hooksecurefunc(dropdown, "OnButtonStateChanged", Restore) end
-    -- resizeToText: Blizzard sets the width to the label on every text update (menu open/selection)
-    if dropdown.UpdateText then hooksecurefunc(dropdown, "UpdateText", Restore) end
-    dropdown:HookScript("OnEnable", Restore)
-    dropdown:HookScript("OnShow", Restore)
-    dropdown:HookScript("OnMouseDown", Restore)
-    dropdown:HookScript("OnMouseUp", Restore)
-    Restore()
-end
+local function SkinDropdown(dropdown) ns.SkinKit.Dropdown(dropdown) end
 
 -- Checkbox (UICheckButtonTemplate): dark box, Surf Green check
 local function SkinCheck(check)
@@ -276,45 +182,7 @@ local function SkinEditBox(box)
 end
 
 -- Scrollbar (MinimalScrollBar): chevron arrows, thin track, Surf Green thumb
-local function SkinScrollBar(bar)
-    if type(bar) ~= "table" or not bar.Track or not Once(bar) then return end
-    local UI = ns.UI
-    Fade(bar.Background)
-    local track = bar.Track
-    FadeRegions(track)
-    local line = Tex(track, "BACKGROUND", 0, { 1, 1, 1, 0.06 })
-    line:SetPoint("TOP")
-    line:SetPoint("BOTTOM")
-    line:SetWidth(3)
-    local thumb = track.Thumb or (bar.GetThumb and bar:GetThumb())
-    if type(thumb) == "table" and thumb.GetRegions then
-        FadeRegions(thumb)
-        local grip = Tex(thumb, "OVERLAY", 0, { UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 1 })
-        grip:SetPoint("TOP")
-        grip:SetPoint("BOTTOM")
-        grip:SetWidth(3)
-        grip:SetAlpha(0.8)
-        thumb:HookScript("OnEnter", function() grip:SetWidth(5) grip:SetAlpha(1) end)
-        thumb:HookScript("OnLeave", function() grip:SetWidth(3) grip:SetAlpha(0.8) end)
-    end
-    for key, rotation in pairs({ Back = math.pi, Forward = 0 }) do
-        local stepper = bar[key]
-        if type(stepper) == "table" and stepper.GetRegions then
-            FadeRegions(stepper)
-            Fade(stepper.Texture)
-            local icon = UI.Icon(stepper, "ChevronDown", 12, UI.MUTED)
-            own[icon] = true
-            icon:SetPoint("CENTER")
-            icon:SetRotation(rotation)
-            local function Reflect() icon:SetAlpha(stepper:IsEnabled() and 1 or 0.3) end
-            stepper:HookScript("OnEnter", function() icon:SetVertexColor(unpack(UI.ACCENT)) end)
-            stepper:HookScript("OnLeave", function() icon:SetVertexColor(unpack(UI.MUTED)) end)
-            stepper:HookScript("OnEnable", Reflect)
-            stepper:HookScript("OnDisable", Reflect)
-            Reflect()
-        end
-    end
-end
+local function SkinScrollBar(bar) ns.SkinKit.ScrollBar(bar) end
 
 -- ScrollBox rows: after each update skin all visible rows (new and recycled) once
 local function HookScrollBox(box, fn)
