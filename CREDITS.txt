@@ -42,6 +42,14 @@ Class quests (Quests/ClassQuests.lua)
 - Quest chains, levels and quest givers looked up in QuestieDB (Forever data) –
   https://github.com/Questie/QuestieDB – facts only, table and reminder are MeredanUI's own.
 
+Class trainer data and class quest list (Data/TrainerData.lua)
+- Trainer spells, levels and training costs from WhatsTraining (forever branch) – MIT License –
+  https://github.com/fusionpit/WhatsTraining – data only, trainer tab and advice are MeredanUI's own.
+- Spell names and levels checked against the WoW Forever client data via wago.tools.
+- Class quest chains and their links from QuestieDB (Forever data) – facts only.
+- Leveling advice per spell rank summarised from public class guides (Warcraft Tavern, Method.gg)
+  and Blizzard's WoW Forever class articles, in MeredanUI's own words.
+
 Stat weights (Upgrades/)
 - WoW Forever: WoWSims presets (MIT) – https://github.com/wowsims – and Forever Codex simulations.
 - Retail: Bloodmallet (SimulationCraft) – https://bloodmallet.com; healer ratios from Pawn /
