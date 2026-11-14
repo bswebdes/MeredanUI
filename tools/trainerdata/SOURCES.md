@@ -37,6 +37,40 @@ How the sources were checked against each other:
   that unlock); the Forever sources do not say whether the totem items are still needed.
 - Leveling advice for new Forever spells relies on early Forever guides (written during beta/launch week).
 
+## Warrior
+
+Leveling advice sources (read 2026-11-14):
+
+- [World of Warcraft: Forever Class Deep Dives - Priest and Warrior](https://worldofwarcraft.blizzard.com/news/24301514) (official)
+- [Warcraft Tavern - WoW Forever Warrior Leveling Guide](https://www.warcrafttavern.com/forever/guides/warrior-leveling/) (forever_guide)
+- [Method.gg - WoW Forever Warrior Leveling Guide and Talents](https://www.method.gg/wow-forever/wow-forever-warrior-leveling-guide-and-talents) (forever_guide)
+- [Warcraft Tavern - WoW Classic Warrior Leveling Guide](https://www.warcrafttavern.com/wow-classic/guides/warrior-leveling-guide/) (classic_guide)
+
+**Forever differences that matter for training**
+
+- Tactical Mastery (keep 10 rage) is baseline at 14; the talent became Improved Tactical Mastery (Blizzard deep dive).
+- Victory Rush is new baseline at 20: instant, 30 s cooldown, heals 10% max health after a kill (Blizzard deep dive).
+- Rend and Thunder Clap gained significant AP scaling; Thunder Clap usable in Defensive Stance with 6 s cooldown (Blizzard deep dive).
+- Retaliation, Shield Wall and Recklessness no longer share cooldowns; Retaliation/Shield Wall cooldown 15 min (Blizzard deep dive).
+- Battle Shout AP reduced but includes Improved Battle Shout; Improved Demoralizing Shout baseline (Blizzard deep dive).
+- Sunder Armor threat scales with AP (Blizzard deep dive); rank 1 comes from the Defensive Stance quest (Method.gg).
+- Rage from damage dealt is based on weapon speed; crits give 75% more rage (Blizzard deep dive).
+- Bloodthirst no longer heals, grants 10% move speed instead (Blizzard deep dive).
+- Slam rank 1 at 20 uses a new spell ID; Improved Slam (Arms) makes Slam not reset swing timer (Blizzard deep dive).
+
+**Guide disagreements**
+
+- Whirlwind: Warcraft Tavern Forever calls it strong for leveling in any spec vs several mobs; Method.gg calls it underwhelming solo but strong in groups.
+- Warcraft Tavern Classic says train only rank 1 of Thunder Clap, Cleave, Overpower and Shield Bash, but its own level list later buys Overpower ranks 2-3.
+- Warcraft Tavern Classic says skip Mocking Blow but also lists it at level 16.
+- Rend: Classic guides did not prioritise Rend ranks; Forever gives Rend significant AP scaling (Blizzard, Method.gg), so ranks are recommended here.
+
+**Open questions**
+
+- Intercept rank 1 is not on the trainer list (ranks 2-3 are); presumably granted by the Berserker Stance quest at 30.
+- Defensive Stance, Berserker Stance, Taunt and Sunder Armor rank 1 are not on the trainer list; quest-granted per Method.gg.
+- No Forever guide read gives rank-by-rank skip advice; rank skips follow Classic guidance.
+
 ## Hunter
 
 Leveling advice sources (read 2026-11-14):

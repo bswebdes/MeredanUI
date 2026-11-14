@@ -23,3 +23,15 @@ HUNTER 24447 Frost Resistance L30 -> wowhead "Frost Resistance" L30 OK
 HUNTER 24549 Natural Armor L12 -> wowhead "Natural Armor" L12 OK
 HUNTER 1299446 Aspect of the Beast L50 -> wowhead "Aspect of the Beast" L50 OK
 HUNTER 1310785 Sniper Shot L48 -> wowhead "Sniper Shot" L48 OK
+WARRIOR 100 Charge L4 -> wowhead "Charge" L4 OK
+WARRIOR 355 Taunt L10 -> wowhead "Taunt" L10 OK
+WARRIOR 1161 Challenging Shout L26 -> wowhead "Challenging Shout" L26 OK
+WARRIOR 7384 Overpower L12 -> wowhead "Overpower" L12 OK
+WARRIOR 11549 Battle Shout L32 -> wowhead "Battle Shout" L32 OK
+WARRIOR 11550 Battle Shout L42 -> wowhead "Battle Shout" L42 OK
+WARRIOR 11554 Demoralizing Shout L34 -> wowhead "Demoralizing Shout" L34 OK
+WARRIOR 11574 Rend L60 -> wowhead "Rend" L60 OK
+WARRIOR 11578 Charge L46 -> wowhead "Charge" L46 OK
+WARRIOR 20252 Intercept L30 -> wowhead "Intercept" L30 OK
+WARRIOR 20660 Execute L40 -> wowhead "Execute" L40 OK
+WARRIOR 20662 Execute L56 -> wowhead "Execute" L56 OK

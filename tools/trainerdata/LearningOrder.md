@@ -4,6 +4,29 @@ What to buy at the trainer while leveling 1-60, what to skip, and money tips. Ge
 `advice/<CLASS>.json` by `build_trainer_spells.py`; the per-spell marks are in `TrainerSpells.lua`.
 Default viewpoint: solo leveling. Costs: see `TrainerSpells.lua` (base price, before reputation discount).
 
+## Warrior
+
+_All class trainer ranks 1-60: 203g 62s. Marked recommended: 77g 24s. Marked skip: 33g 20s._
+
+**Solo default: Arms (2H) or Fury (DW); Protection is viable but slow per Warcraft Tavern Forever.**
+
+- **1-10:** Battle Shout, Charge, Rend, Parry, Thunder Clap, Hamstring, Heroic Strike. Do the Defensive Stance quest at 10 (grants Sunder Armor, Taunt).
+- **10-14:** Bloodrage, Rend 2, Battle Shout 2, Overpower, Shield Bash. Tactical Mastery at 14 (baseline in Forever).
+- **14-20:** Demoralizing Shout and Revenge are optional (tank/Prot). Skip Mocking Blow. Shield Block only with a shield. Disarm is optional.
+- **20:** Victory Rush and Retaliation are key. Rend 3 yes. Dual Wield only for Fury, Slam only with Improved Slam, Cleave rank 1 for groups.
+- **22-28:** Battle Shout 3, Sunder Armor 2, Execute (24), Heroic Strike 4, Charge 2. Intimidating Shout optional. Skip Challenging Shout solo.
+- **30:** Berserker Stance quest. Rend 4, Overpower 2 (Arms). Berserker Rage optional.
+- **32-40:** Battle Shout, Heroic Strike, Execute ranks. Skip Hamstring 2 and Shield Bash 2. Whirlwind at 36. Pummel at 38 (your shield-free interrupt). Plate Mail at 40.
+- **40-60:** keep Battle Shout, Heroic Strike, Execute, Rend, Sunder and Charge current. Talent ranks (Mortal Strike, Bloodthirst, Shield Slam at 48/54/60) are very cheap; buy them if talented.
+- Thunder Clap, Cleave, Overpower (non-Arms) and Demoralizing Shout ranks: buy only if you use them a lot.
+
+**Money tips**
+- Weapon upgrades matter most: warriors get 95-100% of damage from the weapon (Method.gg).
+- Safe skips: Mocking Blow, Challenging Shout, Hamstring ranks 2-3, Shield Bash ranks 2-3, Pummel rank 2.
+- Recklessness (50) is a nice burst but not needed to level.
+- Save for riding at 40; Skinning or Mining are easy early income (Method.gg).
+- Tank in dungeons? Then Thunder Clap, Demoralizing Shout, Revenge, Shield Block, Shield Wall become core buys.
+
 ## Hunter
 
 _All class trainer ranks 1-60: 206g 42s. Marked recommended: 87g 91s. Marked skip: 43g 21s._
