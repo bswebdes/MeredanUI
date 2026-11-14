@@ -632,10 +632,24 @@ local function Open(retried)
     window:Show()
 end
 
+-- Blizzard's frame can only be parked once it is open (see Park), so for that one frame it would
+-- flash up: make it invisible the moment it shows (hooked, alpha only - the frame keeps working)
+local function HideBlizzardTrainer()
+    local frame = ClassTrainerFrame
+    if not frame or frame.muiInvisible then return end
+    frame.muiInvisible = true
+    frame:SetAlpha(0)
+    frame:HookScript("OnShow", function(self) self:SetAlpha(0) end)
+end
+
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
-    ns:On("TRAINER_SHOW", function() C_Timer.After(0, function() Open(false) end) end)
+    if ClassTrainerFrame then HideBlizzardTrainer() else EventUtil.ContinueOnAddOnLoaded("Blizzard_TrainerUI", HideBlizzardTrainer) end
+    ns:On("TRAINER_SHOW", function()
+        HideBlizzardTrainer()
+        C_Timer.After(0, function() Open(false) end)
+    end)
     ns:On("TRAINER_CLOSED", function()
         window:Hide()
         Unpark()
