@@ -84,6 +84,17 @@ local function Hook()
     end)
 end
 
+-- Opening another window (e.g. the guild via its key) while the game menu is open: close the menu
+-- instead of letting Blizzard's panel manager shove it beside the window. HideUIPanel goes through
+-- Blizzard's secure FramePositionDelegate, so calling it from addon code is safe. Windows the menu
+-- itself opens (Options, AddOns, Macros ...) hide the menu first, so they never get here.
+hooksecurefunc("ShowUIPanel", function(frame)
+    if not GameMenuFrame or frame == GameMenuFrame or not GameMenuFrame:IsShown() then return end
+    C_Timer.After(0, function()
+        if GameMenuFrame:IsShown() and frame and frame.IsShown and frame:IsShown() then HideUIPanel(GameMenuFrame) end
+    end)
+end)
+
 ns:On("PLAYER_LOGIN", function()
     if GameMenuFrame then Hook() else EventUtil.ContinueOnAddOnLoaded("Blizzard_GameMenu", Hook) end
 end)
