@@ -848,7 +848,8 @@ function ns.OnStyleRefreshed()
 end
 
 -- Player cast bar in the ranged layout: detached from the player frame, large above the bottom
--- action bars - as wide as the bars (icon on the left included), above the stance bar.
+-- action bars - icon and bar in deep shells whose outer edges line up with the buttons, above the
+-- stance bar.
 -- Otherwise an overlay in the player frame.
 local BIG_CASTBAR_HEIGHT, BIG_CASTBAR_GAP = 32, 6 -- same height as the player's health bar
 function ns.PlacePlayerCastbar()
@@ -865,22 +866,29 @@ function ns.PlacePlayerCastbar()
         local height = ns.Snap(BIG_CASTBAR_HEIGHT)
         local gap = ns.Snap(BIG_CASTBAR_GAP)
         local stance = ns.layoutFrames.stancebar
-        local above = healer and gap or ((stance and stance:GetHeight() or 0) + 2 * gap)
-        local iconSpace = height + ns.Snap(12) -- room for the icon's shell
+        -- deep shell like the icon's; the outer edges of icon and bar line up with the buttons below
+        local reach = ns.ShellReach(2)
+        local above = (healer and gap or ((stance and stance:GetHeight() or 0) + 2 * gap)) + reach
+        local iconSpace = reach + height + 2 * reach + gap
         castbar:SetHeight(height)
         castbar:SetPoint("BOTTOMLEFT", alt, "TOPLEFT", iconSpace, above)
-        castbar:SetPoint("BOTTOMRIGHT", alt, "TOPRIGHT", 0, above)
+        castbar:SetPoint("BOTTOMRIGHT", alt, "TOPRIGHT", -reach, above)
         if iconFrame then
             iconFrame:SetSize(height, height)
             iconFrame:ClearAllPoints()
-            iconFrame:SetPoint("RIGHT", castbar, "LEFT", -ns.Snap(12), 0)
+            iconFrame:SetPoint("RIGHT", castbar, "LEFT", -(2 * reach + gap), 0)
         end
-        -- Own 1 px border (inside the player frame it shares the frame's border)
-        castbar.muiBorder = castbar.muiBorder or ns.AddBorder(castbar)
-        for _, edge in ipairs(castbar.muiBorder) do edge:Show() end
+        if not castbar.muiShell then
+            local _, shell = ns.AddDeepShell(castbar, ns.Snap(2))
+            shell:SetFrameLevel(math.max(castbar:GetFrameLevel() - 1, 0)) -- its shadow stays under the fill
+            castbar.muiShell = shell
+        end
+        castbar.muiShell:Show()
+        for _, edge in ipairs(castbar.muiBorder or {}) do edge:Hide() end
         castbar.muiDetached = true
     else
         for _, edge in ipairs(castbar.muiBorder or {}) do edge:Hide() end
+        if castbar.muiShell then castbar.muiShell:Hide() end
         castbar:SetAllPoints(home)
         if iconFrame and castbar.muiDetached then
             -- Back to the default spot: outside the player frame, as high as the bar
