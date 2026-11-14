@@ -71,3 +71,15 @@ MAGE 10220 Ice Armor L60 -> wowhead "Ice Armor" L60 OK
 MAGE 12505 Pyroblast L24 -> wowhead "Pyroblast" L24 OK
 MAGE 13018 Blast Wave L36 -> wowhead "Blast Wave" L36 OK
 MAGE 13033 Ice Barrier L58 -> wowhead "Ice Barrier" L58 OK
+WARLOCK 688 Summon Imp L1 -> wowhead "Summon Imp" L1 OK
+WARLOCK 707 Immolate L10 -> wowhead "Immolate" L10 OK
+WARLOCK 980 Bane of Agony L8 -> wowhead "Bane of Agony" L8 OK
+WARLOCK 1455 Life Tap L16 -> wowhead "Life Tap" L16 OK
+WARLOCK 2941 Immolate L30 -> wowhead "Immolate" L30 OK
+WARLOCK 5676 Searing Pain L18 -> wowhead "Searing Pain" L18 OK
+WARLOCK 6226 Drain Mana L34 -> wowhead "Drain Mana" L34 OK
+WARLOCK 11668 Immolate L60 -> wowhead "Immolate" L60 OK
+WARLOCK 11743 Detect Invisibility L50 -> wowhead "Detect Invisibility" L50 OK
+WARLOCK 18879 Siphon Life L38 -> wowhead "Siphon Life" L38 OK
+WARLOCK 20752 Create Soulstone L30 -> wowhead "Create Soulstone" L30 OK
+WARLOCK 1311677 Curse of the Elements L40 -> wowhead "Curse of the Elements" L40 OK

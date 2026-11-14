@@ -151,3 +151,42 @@ _All class trainer ranks 1-60: 259g 47s. Marked recommended: 100g 02s. Marked sk
 - Water and mana gems are free. Guides suggest Tailoring/Enchanting for gold.
 - Do not skip ranks of your main damage spell to save a few silver (dtgre).
 - Rank 1 Frostbolt is far more mana-efficient but lower DPS; in Forever, Arcane Concentration and Impact proc less on much lower ranks.
+
+## Warlock
+
+_All class trainer ranks 1-60: 134g 48s. Marked recommended: 54g 69s. Marked skip: 30g 45s._
+
+**Default view: Affliction leveling (recommended by Method and Kargoz/Mobalytics; all specs viable). Demons come from class quests, not the trainer.**
+
+**Levels 1-10**
+- Sell starting gear and buy Immolate at 1 (10 copper). Then Corruption (4), Life Tap and Shadow Bolt R2 (6), Bane of Agony and Fear (8).
+- Curse of Weakness (4) is optional: it now runs next to a Bane, but Classic guides skip it.
+- At 10: Create Healthstone, Demon Skin R2, Drain Soul R1 (the only Drain Soul rank you need), Immolate R2.
+
+**Levels 10-20**
+- Corruption, Shadow Bolt, Life Tap and Bane of Agony ranks; Drain Life (14); Create Soulstone R1 (18).
+- Skip Curse of Recklessness past rank 1. Health Funnel is optional (better with Improved Health Funnel).
+- Searing Pain (18) only for Demonology with Demonic Brand - otherwise it pulls threat off your pet.
+
+**Level 20**
+- Demon Armor, Shadow Bolt R4, Immolate R3. Ritual of Summoning is group utility (only way to summon in Forever).
+- Rain of Fire only for Destruction. Curse of the Elements R1 is weak - wait.
+
+**Levels 22-30**
+- Healthstone, Drain Life and Corruption ranks. Skip Eye of Kilrogg, Sense Demons, Drain Mana, Detect Invisibility, Curse of Tongues.
+- Banish R1 (28) only if you fight demons/elementals. Firestone (28) is now a weapon imbue - useful for Destruction.
+- Talent spells (Shadowburn, Conflagrate, Siphon Life, Incinerate) cost very little - always buy their ranks.
+
+**Levels 30-40**
+- Drain Life becomes the Affliction filler at 30; drain tanking with Succubus/Voidwalker gets strong from about 30.
+- Skip Hellfire and Subjugate Demon. Spellstone (36) is optional (Shadow damage + haste imbue).
+- At 40: Curse of the Elements R3 (Warcraft Tavern adds it to the rotation), Demon Armor R3, Immolate R5. Howl of Terror R1 optional.
+
+**Levels 40-60**
+- Death Coil (42) is a strong escape. Keep Corruption, Bane of Agony, Drain Life, Life Tap and Shadow Bolt current.
+- Soul Fire (48) mainly for Demonology with Decimation. Skip Bane of Doom (60, bosses only), Drain Soul R2+, Banish R2, Howl R2.
+
+**Money tips**
+- Sell starting gear at 1. Herbalism or Skinning fund training (Warcraft Tavern).
+- Classic Warcraft Tavern sorts ~70g of warlock training into 'safe to skip until 60' - most of it still applies.
+- Budget for demon grimoires from the demon trainer if you play a pet-heavy spec (dtgre).

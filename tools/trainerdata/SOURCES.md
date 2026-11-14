@@ -254,3 +254,42 @@ Leveling advice sources (read 2026-11-14):
 - Frostfire Bolt vs Frostbolt for Frost leveling after 40 is not compared by any guide read.
 - Teleport: Dalaran (level 50 per Metabot/Kami-labs) is not on the trainer list.
 
+## Warlock
+
+Leveling advice sources (read 2026-11-14):
+
+- [Warcraft Tavern - WoW Forever Warlock Leveling Guide](https://www.warcrafttavern.com/forever/guides/warlock-leveling/) (forever_guide)
+- [Method.gg - WoW Forever Warlock Leveling Guide and Talents](https://www.method.gg/wow-forever/wow-forever-warlock-leveling-guide-and-talents) (forever_guide)
+- [Blizzard - World of Warcraft: Forever Class Deep Dives - Rogue and Warlock](https://worldofwarcraft.blizzard.com/news/24310968) (official)
+- [hostedgg - WoW Forever Mage, Shaman, Rogue, Warlock kits](https://hostedgg.com/blog/wow-forever-mage-shaman-rogue-warlock-kits) (other)
+- [Metabot - WoW Forever Warlock changes (spell data diff vs Classic)](https://metabot.gg/en/wow-forever/changes/warlock) (other)
+- [dtgre - WoW Forever spell training too expensive? What to buy, skip & save gold](https://www.dtgre.com/2026/11/wow-forever-spell-training-too-expensive-save-gold.html) (other)
+- [Warcraft Tavern - WoW Classic Warlock Leveling Guide](https://warcrafttavern.com/guides/warlock-leveling-guide) (classic_guide)
+
+**Forever differences that matter for training**
+
+- Curse of Agony and Curse of Doom are now Banes (Bane of Agony, Bane of Doom); one Bane per warlock per target and it does not block a Curse, so utility Curses can run alongside (Blizzard deep dive).
+- Curse of Shadows removed; Curse of the Elements now affects all magic damage and is learned at 20 instead of 8 (Blizzard deep dive, Metabot).
+- Dark Pact removed (talent); Inferno, Ritual of Doom and Portal of Summoning are not on the 1-60 trainer list (Metabot, Warcraft Tavern says Inferno/Ritual of Doom not needed).
+- Firestone and Spellstone are now weapon imbues that stack with Wizard Oil: Firestone = Fire damage + crit, Spellstone = Shadow damage + spell haste (Blizzard deep dive).
+- Drain Soul has a progressive per-tick chance to give a Soul Shard (Blizzard deep dive); rank 1 finishing still reliable (Warcraft Tavern).
+- Life Tap scales with Spirit (Blizzard deep dive).
+- Demons scale from the warlock's stats; demons are still earned by class quests (Blizzard deep dive, Warcraft Tavern).
+- Shadowburn (talent) now lasts 8s and has 30 yd range; Conflagrate and Incinerate are talent spells with trainer ranks (Metabot, Blizzard deep dive).
+- Base damage of Shadow Bolt, Immolate, Corruption, Searing Pain, Soul Fire etc. is ~40-50% lower while spell power scaling is higher (Metabot).
+- Meeting Stones no longer summon, so Ritual of Summoning is the only summon (Warcraft Tavern Forever).
+- Talents start at 10; Dual Specialization at 40 (Blizzard deep dive).
+
+**Guide disagreements**
+
+- Soul Fire: Method treats it as a Demonology talent finisher; the trainer list and Metabot show it as a baseline trainer spell at 48 (Decimation talent reduces its cooldown per Blizzard).
+- Conflagrate/Shadowburn levels: Warcraft Tavern says Shadowburn at 20 and Conflagrate at 25; Method's build takes Shadowburn at 24 and Conflagrate at 29 (both are talents, so it depends on the build).
+- Curse of the Elements: Classic Warcraft Tavern lists it as skip until 60; Forever Warcraft Tavern adds it to the Affliction rotation at 40 (Banes no longer share the curse slot).
+- Drain tanking: Method says it becomes available at 20 but recommends starting at 30.
+- Spec choice: Method and Kargoz (Mobalytics, search summary only) favor Affliction; Kargoz also calls Demonology possibly one of the strongest; Icy Veins (search summary only) calls Destruction weak early.
+
+**Open questions**
+
+- Value of Create Firestone/Spellstone imbues vs Wizard Oil for leveling is not quantified by any guide read.
+- Curse of Weakness / Curse of Recklessness effect values look much lower in Metabot data; their worth next to a Bane is untested in guides.
+

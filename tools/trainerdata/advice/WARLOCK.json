@@ -1,0 +1,346 @@
+{
+  "class": "WARLOCK",
+  "sources": [
+    {
+      "title": "Warcraft Tavern - WoW Forever Warlock Leveling Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/warlock-leveling/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Method.gg - WoW Forever Warlock Leveling Guide and Talents",
+      "url": "https://www.method.gg/wow-forever/wow-forever-warlock-leveling-guide-and-talents",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Blizzard - World of Warcraft: Forever Class Deep Dives - Rogue and Warlock",
+      "url": "https://worldofwarcraft.blizzard.com/news/24310968",
+      "kind": "official",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "hostedgg - WoW Forever Mage, Shaman, Rogue, Warlock kits",
+      "url": "https://hostedgg.com/blog/wow-forever-mage-shaman-rogue-warlock-kits",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Metabot - WoW Forever Warlock changes (spell data diff vs Classic)",
+      "url": "https://metabot.gg/en/wow-forever/changes/warlock",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "dtgre - WoW Forever spell training too expensive? What to buy, skip & save gold",
+      "url": "https://www.dtgre.com/2026/11/wow-forever-spell-training-too-expensive-save-gold.html",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Classic Warlock Leveling Guide",
+      "url": "https://warcrafttavern.com/guides/warlock-leveling-guide",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    }
+  ],
+  "spells": {
+    "Immolate": {
+      "advice": "recommended",
+      "reason_en": "Cheap opener early; Destruction core with Conflagrate",
+      "reason_de": "Billiger Eröffner; Kern für Zerstörung mit Feuersbrand"
+    },
+    "Corruption": {
+      "advice": "recommended",
+      "reason_en": "Core DoT for every spec, especially Affliction",
+      "reason_de": "Wichtiger DoT für jede Skillung, vor allem Gebrechen"
+    },
+    "Curse of Weakness": {
+      "advice": "optional",
+      "reason_en": "Now stacks with Banes; Classic guides skip it",
+      "reason_de": "Läuft jetzt neben Banen; Classic-Guides lassen ihn aus"
+    },
+    "Life Tap": {
+      "advice": "recommended",
+      "reason_en": "Main mana source; scales with Spirit in Forever",
+      "reason_de": "Wichtigste Manaquelle; skaliert in Forever mit Willenskraft"
+    },
+    "Shadow Bolt": {
+      "advice": "recommended",
+      "reason_en": "Main nuke; rank 2 at 6 is a big upgrade",
+      "reason_de": "Hauptschaden; Rang 2 mit 6 ist ein großes Upgrade"
+    },
+    "Bane of Agony": {
+      "advice": "recommended",
+      "reason_en": "Core DoT and instant tag to pull",
+      "reason_de": "Wichtiger DoT, markiert Gegner sofort beim Pull"
+    },
+    "Fear": {
+      "advice": "recommended",
+      "reason_en": "Main crowd control, keeps a second mob away",
+      "reason_de": "Wichtigste Kontrolle, hält einen zweiten Gegner fern"
+    },
+    "Create Healthstone": {
+      "advice": "recommended",
+      "reason_en": "Free emergency heal every fight",
+      "reason_de": "Gratis Notfallheilung in jedem Kampf"
+    },
+    "Demon Skin": {
+      "advice": "recommended",
+      "reason_en": "Armor and regen until Demon Armor at 20",
+      "reason_de": "Rüstung und Regeneration bis Dämonenrüstung mit 20"
+    },
+    "Drain Soul": {
+      "advice": "recommended",
+      "reason_en": "Needed for Soul Shards; rank 1 is enough",
+      "reason_de": "Nötig für Seelensplitter; Rang 1 reicht",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Shard gain needs no high rank; keep rank 1",
+          "reason_de": "Splitter brauchen keinen hohen Rang; Rang 1 reicht"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Shard gain needs no high rank; keep rank 1",
+          "reason_de": "Splitter brauchen keinen hohen Rang; Rang 1 reicht"
+        },
+        "4": {
+          "advice": "skip",
+          "reason_en": "Shard gain needs no high rank; keep rank 1",
+          "reason_de": "Splitter brauchen keinen hohen Rang; Rang 1 reicht"
+        }
+      }
+    },
+    "Health Funnel": {
+      "advice": "optional",
+      "reason_en": "Heals your demon; best with Improved Health Funnel",
+      "reason_de": "Heilt deinen Dämon; am besten mit passendem Talent"
+    },
+    "Curse of Recklessness": {
+      "advice": "optional",
+      "reason_en": "Rank 1 breaks Fear on a mob; armor effect is weak",
+      "reason_de": "Rang 1 bricht Furcht beim Gegner; Rüstungseffekt schwach",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Rank 1 does the same job",
+          "reason_de": "Rang 1 erfüllt den gleichen Zweck"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Rank 1 does the same job",
+          "reason_de": "Rang 1 erfüllt den gleichen Zweck"
+        },
+        "4": {
+          "advice": "skip",
+          "reason_en": "Rank 1 does the same job",
+          "reason_de": "Rang 1 erfüllt den gleichen Zweck"
+        }
+      }
+    },
+    "Drain Life": {
+      "advice": "recommended",
+      "reason_en": "Self-heal and filler for Affliction and drain tanking",
+      "reason_de": "Selbstheilung und Füller für Gebrechen und Drain-Tanken"
+    },
+    "Unending Breath": {
+      "advice": "optional",
+      "reason_en": "Underwater utility, cheap; not needed for most quests",
+      "reason_de": "Hilfe unter Wasser, billig; meist nicht nötig"
+    },
+    "Create Soulstone": {
+      "advice": "recommended",
+      "reason_en": "Self-resurrect after a bad pull saves a corpse run",
+      "reason_de": "Selbst-Wiederbelebung erspart den Geisterlauf",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Rank 1 already lets you revive; upgrade if gold spare",
+          "reason_de": "Rang 1 belebt schon wieder; nur bei Goldüberschuss"
+        },
+        "3": {
+          "advice": "optional",
+          "reason_en": "Rank 1 already lets you revive; upgrade if gold spare",
+          "reason_de": "Rang 1 belebt schon wieder; nur bei Goldüberschuss"
+        },
+        "4": {
+          "advice": "optional",
+          "reason_en": "Rank 1 already lets you revive; upgrade if gold spare",
+          "reason_de": "Rang 1 belebt schon wieder; nur bei Goldüberschuss"
+        },
+        "5": {
+          "advice": "optional",
+          "reason_en": "Rank 1 already lets you revive; upgrade if gold spare",
+          "reason_de": "Rang 1 belebt schon wieder; nur bei Goldüberschuss"
+        }
+      }
+    },
+    "Searing Pain": {
+      "advice": "optional",
+      "reason_en": "Demonology core with Demonic Brand; else high threat",
+      "reason_de": "Kern für Dämonologie mit passendem Talent; sonst viel Bedrohung"
+    },
+    "Curse of the Elements": {
+      "advice": "optional",
+      "reason_en": "Free damage next to Banes; weak at low ranks",
+      "reason_de": "Freier Bonusschaden neben Banen; schwach auf niedrigen Rängen",
+      "ranks": {
+        "3": {
+          "advice": "recommended",
+          "reason_en": "Warcraft Tavern adds it at 40 to the rotation",
+          "reason_de": "Warcraft Tavern nimmt ihn ab 40 in die Rotation"
+        }
+      }
+    },
+    "Demon Armor": {
+      "advice": "recommended",
+      "reason_en": "Replaces Demon Skin; armor and health regen",
+      "reason_de": "Ersetzt Dämonenhaut; Rüstung und Lebensregeneration"
+    },
+    "Rain of Fire": {
+      "advice": "optional",
+      "reason_en": "Destruction AoE; others can skip",
+      "reason_de": "AoE für Zerstörung; andere können auslassen"
+    },
+    "Ritual of Summoning": {
+      "advice": "optional",
+      "reason_en": "Group utility; only way to summon in Forever",
+      "reason_de": "Gruppenhilfe; einzige Beschwörung von Spielern in Forever"
+    },
+    "Eye of Kilrogg": {
+      "advice": "skip",
+      "reason_en": "Scouting toy, not needed to level",
+      "reason_de": "Späh-Spielerei, zum Leveln unnötig"
+    },
+    "Drain Mana": {
+      "advice": "skip",
+      "reason_en": "Rarely useful while leveling",
+      "reason_de": "Beim Leveln selten nützlich"
+    },
+    "Sense Demons": {
+      "advice": "skip",
+      "reason_en": "Tracking only, not needed to level",
+      "reason_de": "Nur Aufspüren, zum Leveln unnötig"
+    },
+    "Detect Invisibility": {
+      "advice": "skip",
+      "reason_en": "Rarely needed while leveling",
+      "reason_de": "Beim Leveln selten nötig"
+    },
+    "Shadowburn": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, cheap ranks; finisher that refunds shards",
+      "reason_de": "Talentzauber, billige Ränge; Finisher gibt Splitter zurück"
+    },
+    "Curse of Tongues": {
+      "advice": "skip",
+      "reason_en": "Mostly PvP/raid; not needed to level",
+      "reason_de": "Meist PvP/Raid; zum Leveln unnötig"
+    },
+    "Banish": {
+      "advice": "optional",
+      "reason_en": "Rank 1 for demon/elemental pulls; situational",
+      "reason_de": "Rang 1 für Dämonen/Elementare; situativ",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Only longer duration; rank 1 is enough",
+          "reason_de": "Nur längere Dauer; Rang 1 reicht"
+        }
+      }
+    },
+    "Create Firestone": {
+      "advice": "optional",
+      "reason_en": "Now a weapon imbue (Fire dmg, crit); good for Destro",
+      "reason_de": "Jetzt Waffenverzauberung (Feuer, Krit); gut für Zerstörung"
+    },
+    "Create Spellstone": {
+      "advice": "optional",
+      "reason_en": "Now a weapon imbue (Shadow dmg, haste); for Shadow Bolt users",
+      "reason_de": "Jetzt Waffenverzauberung (Schatten, Tempo); für Schattenblitz"
+    },
+    "Hellfire": {
+      "advice": "skip",
+      "reason_en": "Burns you too; Classic guides skip it for leveling",
+      "reason_de": "Verbrennt dich mit; Classic-Guides lassen ihn aus"
+    },
+    "Subjugate Demon": {
+      "advice": "skip",
+      "reason_en": "Not needed while leveling",
+      "reason_de": "Beim Leveln unnötig"
+    },
+    "Conflagrate": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, cheap ranks; Destruction burst",
+      "reason_de": "Talentzauber, billige Ränge; Burst für Zerstörung"
+    },
+    "Shadow Ward": {
+      "advice": "optional",
+      "reason_en": "Situational vs shadow casters",
+      "reason_de": "Nur gegen Schattenzauberer nützlich"
+    },
+    "Siphon Life": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, cheap; healing DoT for Affliction",
+      "reason_de": "Talentzauber, billig; heilender DoT für Gebrechen"
+    },
+    "Howl of Terror": {
+      "advice": "optional",
+      "reason_en": "AoE fear for emergencies; rank 1 is enough",
+      "reason_de": "Flächen-Furcht für Notfälle; Rang 1 reicht",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Small upgrade; rank 1 does the job",
+          "reason_de": "Kleines Upgrade; Rang 1 reicht"
+        }
+      }
+    },
+    "Death Coil": {
+      "advice": "recommended",
+      "reason_en": "Instant horror plus self-heal, great escape",
+      "reason_de": "Sofortiger Horror plus Heilung, starke Rettung"
+    },
+    "Soul Fire": {
+      "advice": "optional",
+      "reason_en": "Demonology with Decimation; Classic guides skip it",
+      "reason_de": "Dämonologie mit Talent; Classic-Guides lassen ihn aus"
+    },
+    "Incinerate": {
+      "advice": "recommended",
+      "reason_en": "Talent spell, cheap; replaces Shadow Bolt for Destro",
+      "reason_de": "Talentzauber, billig; ersetzt Schattenblitz bei Zerstörung"
+    },
+    "Bane of Doom": {
+      "advice": "skip",
+      "reason_en": "Only worth it on bosses; Bane of Agony for leveling",
+      "reason_de": "Nur bei Bossen sinnvoll; zum Leveln reicht Pein"
+    }
+  },
+  "learning_order": "**Default view: Affliction leveling (recommended by Method and Kargoz/Mobalytics; all specs viable). Demons come from class quests, not the trainer.**\n\n**Levels 1-10**\n- Sell starting gear and buy Immolate at 1 (10 copper). Then Corruption (4), Life Tap and Shadow Bolt R2 (6), Bane of Agony and Fear (8).\n- Curse of Weakness (4) is optional: it now runs next to a Bane, but Classic guides skip it.\n- At 10: Create Healthstone, Demon Skin R2, Drain Soul R1 (the only Drain Soul rank you need), Immolate R2.\n\n**Levels 10-20**\n- Corruption, Shadow Bolt, Life Tap and Bane of Agony ranks; Drain Life (14); Create Soulstone R1 (18).\n- Skip Curse of Recklessness past rank 1. Health Funnel is optional (better with Improved Health Funnel).\n- Searing Pain (18) only for Demonology with Demonic Brand - otherwise it pulls threat off your pet.\n\n**Level 20**\n- Demon Armor, Shadow Bolt R4, Immolate R3. Ritual of Summoning is group utility (only way to summon in Forever).\n- Rain of Fire only for Destruction. Curse of the Elements R1 is weak - wait.\n\n**Levels 22-30**\n- Healthstone, Drain Life and Corruption ranks. Skip Eye of Kilrogg, Sense Demons, Drain Mana, Detect Invisibility, Curse of Tongues.\n- Banish R1 (28) only if you fight demons/elementals. Firestone (28) is now a weapon imbue - useful for Destruction.\n- Talent spells (Shadowburn, Conflagrate, Siphon Life, Incinerate) cost very little - always buy their ranks.\n\n**Levels 30-40**\n- Drain Life becomes the Affliction filler at 30; drain tanking with Succubus/Voidwalker gets strong from about 30.\n- Skip Hellfire and Subjugate Demon. Spellstone (36) is optional (Shadow damage + haste imbue).\n- At 40: Curse of the Elements R3 (Warcraft Tavern adds it to the rotation), Demon Armor R3, Immolate R5. Howl of Terror R1 optional.\n\n**Levels 40-60**\n- Death Coil (42) is a strong escape. Keep Corruption, Bane of Agony, Drain Life, Life Tap and Shadow Bolt current.\n- Soul Fire (48) mainly for Demonology with Decimation. Skip Bane of Doom (60, bosses only), Drain Soul R2+, Banish R2, Howl R2.\n\n**Money tips**\n- Sell starting gear at 1. Herbalism or Skinning fund training (Warcraft Tavern).\n- Classic Warcraft Tavern sorts ~70g of warlock training into 'safe to skip until 60' - most of it still applies.\n- Budget for demon grimoires from the demon trainer if you play a pet-heavy spec (dtgre).",
+  "disagreements": [
+    "Soul Fire: Method treats it as a Demonology talent finisher; the trainer list and Metabot show it as a baseline trainer spell at 48 (Decimation talent reduces its cooldown per Blizzard).",
+    "Conflagrate/Shadowburn levels: Warcraft Tavern says Shadowburn at 20 and Conflagrate at 25; Method's build takes Shadowburn at 24 and Conflagrate at 29 (both are talents, so it depends on the build).",
+    "Curse of the Elements: Classic Warcraft Tavern lists it as skip until 60; Forever Warcraft Tavern adds it to the Affliction rotation at 40 (Banes no longer share the curse slot).",
+    "Drain tanking: Method says it becomes available at 20 but recommends starting at 30.",
+    "Spec choice: Method and Kargoz (Mobalytics, search summary only) favor Affliction; Kargoz also calls Demonology possibly one of the strongest; Icy Veins (search summary only) calls Destruction weak early."
+  ],
+  "forever_differences": [
+    "Curse of Agony and Curse of Doom are now Banes (Bane of Agony, Bane of Doom); one Bane per warlock per target and it does not block a Curse, so utility Curses can run alongside (Blizzard deep dive).",
+    "Curse of Shadows removed; Curse of the Elements now affects all magic damage and is learned at 20 instead of 8 (Blizzard deep dive, Metabot).",
+    "Dark Pact removed (talent); Inferno, Ritual of Doom and Portal of Summoning are not on the 1-60 trainer list (Metabot, Warcraft Tavern says Inferno/Ritual of Doom not needed).",
+    "Firestone and Spellstone are now weapon imbues that stack with Wizard Oil: Firestone = Fire damage + crit, Spellstone = Shadow damage + spell haste (Blizzard deep dive).",
+    "Drain Soul has a progressive per-tick chance to give a Soul Shard (Blizzard deep dive); rank 1 finishing still reliable (Warcraft Tavern).",
+    "Life Tap scales with Spirit (Blizzard deep dive).",
+    "Demons scale from the warlock's stats; demons are still earned by class quests (Blizzard deep dive, Warcraft Tavern).",
+    "Shadowburn (talent) now lasts 8s and has 30 yd range; Conflagrate and Incinerate are talent spells with trainer ranks (Metabot, Blizzard deep dive).",
+    "Base damage of Shadow Bolt, Immolate, Corruption, Searing Pain, Soul Fire etc. is ~40-50% lower while spell power scaling is higher (Metabot).",
+    "Meeting Stones no longer summon, so Ritual of Summoning is the only summon (Warcraft Tavern Forever).",
+    "Talents start at 10; Dual Specialization at 40 (Blizzard deep dive)."
+  ],
+  "open_questions": [
+    "Value of Create Firestone/Spellstone imbues vs Wizard Oil for leveling is not quantified by any guide read.",
+    "Curse of Weakness / Curse of Recklessness effect values look much lower in Metabot data; their worth next to a Bane is untested in guides."
+  ]
+}
