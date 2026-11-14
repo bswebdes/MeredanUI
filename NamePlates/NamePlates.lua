@@ -1029,7 +1029,9 @@ local recolorPending = false
 ns:On("UNIT_THREAT_LIST_UPDATE", function(_, unit)
     if unit and not issecretvalue(unit) then
         -- tokens like "target" or "boss1" never equal a plate's "nameplateN": ask the client for the plate
-        local plate = C_NamePlate.GetNamePlateForUnit(unit)
+        -- some tokens are refused by the call (target-of-target and alike): then the batched pass below
+        local ok, plate = pcall(C_NamePlate.GetNamePlateForUnit, unit)
+        if not ok then plate = nil end
         local frame = plate and plate.unitFrame
         if frame and plates[frame] then
             if not frame.isFriendly then UpdateHealthColor(frame) end
