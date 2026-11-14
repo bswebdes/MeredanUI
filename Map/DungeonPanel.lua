@@ -26,8 +26,8 @@ local hiddenFrames = {}
 
 local GOLD = { 0.85, 0.71, 0.42 }
 local BLACK = ns.BORDER_COLOR -- edge colour; bronze in the rune look (name kept)
-local SELECTED_BG = { 0.10, 0.145, 0.137, 1 }
-local ROW_BG = { 0.08, 0.094, 0.094, 1 }
+local SELECTED_BG = { 1, 0.9, 0.7, 0.06 } -- open boss: warm light tint over the card
+local ROW_BG = { 0, 0, 0, 0 } -- rows are cards; closed = no tint
 
 -- "For me": best armour type and usable weapons per class (classic proficiencies, trainable ones count).
 -- Weapon subclasses (Enum.ItemWeaponSubclass): 0 axe1H, 1 axe2H, 2 bow, 3 gun, 4 mace1H, 5 mace2H,
@@ -117,10 +117,8 @@ end)
 local function SmallButton(parent, label, w, h)
     local b = CreateFrame("Button", nil, parent)
     b:SetSize(w, h)
-    local bg = b:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints()
-    bg:SetColorTexture(0.098, 0.098, 0.11, 1)
-    b.edges = ns.AddBorder(b)
+    ns.UI.Bevel(b)
+    b.edges = ns.AddBorder(b, true) -- active tab: accent edge
     b.text = ns.UI.Text(b, 12, "CENTER")
     b.text:SetPoint("CENTER")
     b.text:SetText(label)
@@ -128,7 +126,7 @@ local function SmallButton(parent, label, w, h)
 end
 
 local function TabStyle(button, active)
-    for _, e in ipairs(button.edges) do e:SetVertexColor(unpack(active and ns.UI.ACCENT or BLACK)) end
+    for _, e in ipairs(button.edges) do e:SetVertexColor(unpack(active and ns.UI.ACCENT or { 0, 0, 0, 0 })) end
     button.text:SetTextColor(unpack(active and ns.UI.ACCENT or ns.UI.MUTED))
 end
 
@@ -137,9 +135,9 @@ local function BossRow(i)
     local UI = ns.UI
     local row = CreateFrame("Button", nil, list.child)
     row:SetHeight(BOSS_ROW)
-    row.bg = row:CreateTexture(nil, "BACKGROUND")
+    UI.Card(row)
+    row.bg = row:CreateTexture(nil, "BACKGROUND", nil, 2) -- state tint over the card
     row.bg:SetAllPoints()
-    ns.AddBorder(row)
     row.bar = row:CreateTexture(nil, "ARTWORK")
     row.bar:SetPoint("TOPLEFT")
     row.bar:SetPoint("BOTTOMLEFT")
@@ -169,10 +167,7 @@ local function LootRow(i)
     local UI = ns.UI
     local row = CreateFrame("Button", nil, list.child)
     row:SetHeight(LOOT_ROW)
-    local bg = row:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints()
-    bg:SetColorTexture(unpack(ROW_BG))
-    ns.AddBorder(row)
+    ns.UI.Card(row)
     local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.04)
@@ -375,10 +370,7 @@ local function QuestRow(i)
     local UI = ns.UI
     local row = CreateFrame("Button", nil, list.child)
     row:SetHeight(QUEST_ROW)
-    row.bg = row:CreateTexture(nil, "BACKGROUND")
-    row.bg:SetAllPoints()
-    row.bg:SetColorTexture(unpack(ROW_BG))
-    ns.AddBorder(row)
+    row.bg = ns.UI.Card(row)
     local hover = row:CreateTexture(nil, "HIGHLIGHT")
     hover:SetAllPoints()
     hover:SetColorTexture(1, 1, 1, 0.04)
