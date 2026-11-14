@@ -21,7 +21,7 @@ local COLS, CARD_H, GAP = 3, 48, 6
 local PLAYER = Enum.SpellBookSpellBank.Player
 local PET = Enum.SpellBookSpellBank.Pet
 
-local window, panel, title, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote
+local window, panel, title, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote, emptyText
 local tabs, cards = {}, {}
 local currentTab = 2 -- first class tree
 local page = 1
@@ -36,7 +36,47 @@ local function Settings()
     return ns.db.spellbookView
 end
 
--- Tabs: skill lines (General, trees) and pet --------------------------------------------
+-- Class trainer tab: what the class trainer teaches, remembered per character from the last visit
+-- (Forever's spellbook lists no future spells). Learned spells drop out via IsSpellKnown.
+local TRAINER_ICON = 136243
+local function TrainerCache()
+    ns.char.trainerSpells = ns.char.trainerSpells or {}
+    return ns.char.trainerSpells
+end
+
+local function SnapshotTrainer()
+    if not ns.char or (IsTradeskillTrainer and IsTradeskillTrainer()) then return end
+    if C_Trainer and C_Trainer.GetTrainerType and C_Trainer.GetTrainerType() == Enum.TrainerType.Pet then return end
+    local cache = TrainerCache()
+    for index = 1, GetNumTrainerServices() do
+        local name, kind, texture, reqLevel, subText = GetTrainerServiceInfo(index)
+        local data = C_TooltipInfo.GetTrainerService(index)
+        local spellID = data and ns.Readable(data.id) and data.id
+        if name and kind ~= "header" and type(spellID) == "number" then
+            cache[spellID] = { name = name, rank = subText ~= "" and subText or nil, icon = texture,
+                level = reqLevel or 1, cost = (GetTrainerServiceCost(index)) or 0 }
+        end
+    end
+    if window and window:IsShown() then window.Refresh() end
+end
+
+-- not learned yet: learnable now first, then by level
+local function TrainerEntries()
+    local level, list = UnitLevel("player"), {}
+    for spellID, spell in pairs(TrainerCache()) do
+        if not C_SpellBook.IsSpellKnown(spellID) then
+            list[#list + 1] = { trainer = true, future = true, spellID = spellID, spell = spell, ready = spell.level <= level }
+        end
+    end
+    table.sort(list, function(a, b)
+        if a.ready ~= b.ready then return a.ready end
+        if a.spell.level ~= b.spell.level then return a.spell.level < b.spell.level end
+        return a.spell.name < b.spell.name
+    end)
+    return list
+end
+
+-- Tabs: skill lines (General, trees), class trainer and pet ----------------------------------
 
 local function TabList()
     local list = {}
@@ -47,6 +87,7 @@ local function TabList()
                 count = info.numSpellBookItems or 0, bank = PLAYER, index = i }
         end
     end
+    list[#list + 1] = { name = L["Class trainer"], icon = TRAINER_ICON, trainer = true, index = "trainer", offset = 0, count = 0 }
     -- Second value is a token ("PET", "DEMON"), not a name: use the pet's name, else Blizzard's type text
     local numPet, petToken = C_SpellBook.HasPetSpells()
     if numPet and numPet > 0 then
@@ -66,7 +107,7 @@ local function Spells(tabEntries, query)
     local view = Settings()
     local list = {}
     for _, tab in ipairs(tabEntries) do
-        for slot = tab.offset + 1, tab.offset + tab.count do
+        for slot = tab.offset + 1, tab.trainer and tab.offset or (tab.offset + tab.count) do
             local info = C_SpellBook.GetSpellBookItemInfo(slot, tab.bank)
             if info and info.itemType ~= Enum.SpellBookItemType.Flyout and info.name then
                 local lowRank = C_SpellBook.IsSpellBookItemLowRank and C_SpellBook.IsSpellBookItemLowRank(slot, tab.bank)
@@ -124,7 +165,11 @@ local function Card(i)
         self.bg:SetColorTexture(unpack(ns.PARCHMENT_CARD_HOVER))
         if not self.entry then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetSpellBookItem(self.entry.slot, self.entry.bank)
+        if self.entry.trainer then
+            GameTooltip:SetSpellByID(self.entry.spellID)
+        else
+            GameTooltip:SetSpellBookItem(self.entry.slot, self.entry.bank)
+        end
         GameTooltip:Show()
     end)
     card:HookScript("OnLeave", function(self)
@@ -134,7 +179,8 @@ local function Card(i)
     -- Shift-click: link into chat (secure action does nothing on shift)
     card:HookScript("OnClick", function(self, _, down)
         if down or not (self.entry and IsModifiedClick("CHATLINK")) then return end
-        local link = C_SpellBook.GetSpellBookItemLink(self.entry.slot, self.entry.bank)
+        local link = self.entry.trainer and C_Spell.GetSpellLink(self.entry.spellID)
+            or C_SpellBook.GetSpellBookItemLink(self.entry.slot, self.entry.bank)
         if link and ChatFrameUtil and ChatFrameUtil.InsertLink then ChatFrameUtil.InsertLink(link) end
     end)
     card:SetScript("OnDragStart", function(self)
@@ -146,7 +192,31 @@ local function Card(i)
     return card
 end
 
+local function FillTrainerCard(card, entry)
+    local spell = entry.spell
+    card.entry = entry
+    card.icon:SetTexture(spell.icon)
+    card.icon:SetDesaturated(not entry.ready)
+    card.icon:RemoveMaskTexture(card.mask)
+    card.name:SetText(spell.name)
+    local parts = {}
+    if spell.rank then parts[#parts + 1] = spell.rank end
+    parts[#parts + 1] = entry.ready and ("|cff33ff33" .. L["Learnable now"] .. "|r")
+        or ("|cffff5050" .. L["Level %d"]:format(spell.level) .. "|r")
+    if spell.cost > 0 then parts[#parts + 1] = GetMoneyString(spell.cost, true) end
+    card.sub:SetText(table.concat(parts, "  ·  "))
+    card.sub:SetTextColor(0.7, 0.65, 0.56)
+    for _, e in ipairs(card.edges) do e:SetVertexColor(0, 0, 0, 1) end
+    card:SetAlpha(entry.ready and 1 or 0.55)
+    card:SetAttribute("type1", nil)
+    card:SetAttribute("spell1", nil)
+    card:SetAttribute("shift-type1", "none")
+    card:SetAttribute("type2", nil)
+    card:SetAttribute("spell2", nil)
+end
+
 local function FillCard(card, entry)
+    if entry.trainer then return FillTrainerCard(card, entry) end
     local UI = ns.UI
     local info = entry.info
     card.entry = entry
@@ -250,7 +320,13 @@ local function Layout()
     end
     for i = #list + 1, #tabs do tabs[i]:Hide() end
 
-    local entries = query ~= "" and Spells(list, query) or Spells({ list[currentTab] }, "")
+    local trainerTab = query == "" and list[currentTab] and list[currentTab].trainer
+    local entries = query ~= "" and Spells(list, query) or (trainerTab and TrainerEntries()) or Spells({ list[currentTab] }, "")
+    emptyText:SetShown(trainerTab and #entries == 0 and not InCombatLockdown())
+    if trainerTab then
+        emptyText:SetText(next(TrainerCache()) and L["Everything learned."]
+            or L["Visit your class trainer once to see what you can learn here."])
+    end
     title:SetText(query ~= "" and L["Search"] or (list[currentTab] and list[currentTab].name or ""))
     local perPage = PerPage()
     local pages = math.max(1, math.ceil(#entries / perPage))
@@ -377,6 +453,10 @@ local function CreateWindow()
     combatNote:SetPoint("CENTER")
     combatNote:SetText(L["Spells are locked in combat."])
     combatNote:Hide()
+    emptyText = UI.Text(panel, 13, "CENTER", ns.PARCHMENT_TEXT)
+    emptyText:SetPoint("CENTER")
+    emptyText:SetWidth(420)
+    emptyText:Hide()
     panel:EnableMouseWheel(true)
     panel:SetScript("OnMouseWheel", function(_, delta)
         page = math.max(1, page - delta)
@@ -438,6 +518,8 @@ ns:On("PLAYER_LOGIN", function()
         ns:On(event, function() if window:IsShown() then Refresh() end end)
     end
     ns:On("PLAYER_REGEN_DISABLED", function() if window:IsShown() then Refresh() end end)
+    ns:On("TRAINER_SHOW", function() C_Timer.After(0, SnapshotTrainer) end)
+    ns:On("TRAINER_UPDATE", function() C_Timer.After(0, SnapshotTrainer) end)
     ns:On("PLAYER_REGEN_ENABLED", function()
         C_Timer.After(0, SyncLayer)
         if window:IsShown() then Refresh() end
