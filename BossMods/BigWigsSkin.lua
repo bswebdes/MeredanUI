@@ -77,7 +77,9 @@ local function ApplyStyle(bar)
     holder:ClearAllPoints()
     -- top and bottom on the bar (plus its shell), square: always the bar's real height, also when
     -- BigWigs resizes it (emphasized bars); the statusbar keeps the full bar height
-    local reach = ns.ThinShellReach()
+    -- the icon frame's light edge lines up with the shell's lit edge (the shell's outer black line
+    -- lies one pixel further out), so icon and bar look exactly as tall
+    local reach = ns.ThinShellReach() - ns.PixelSize()
     local right = bar:GetIconPosition() == "RIGHT"
     local function Fit(h)
         local iconSize = h + 2 * reach

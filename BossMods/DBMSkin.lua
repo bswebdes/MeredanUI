@@ -89,8 +89,9 @@ local function SkinIcon(icon, side)
     icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     local bar = icon:GetParent()
     local holder = CreateFrame("Frame", nil, bar)
-    -- as tall as the bar including its shell, square; follows the bar when DBM enlarges it
-    local reach = ns.ThinShellReach()
+    -- as tall as the bar including its shell (light edge on the shell's lit edge, the black outline
+    -- one pixel further out), square; follows the bar when DBM enlarges it
+    local reach = ns.ThinShellReach() - ns.PixelSize()
     if side == "left" then
         holder:SetPoint("TOPRIGHT", bar, "TOPLEFT", -ns.Snap(ICON_GAP), reach)
         holder:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -ns.Snap(ICON_GAP), -reach)
