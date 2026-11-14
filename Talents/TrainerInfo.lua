@@ -171,39 +171,138 @@ function T.SetPin(entry)
     if ns.OpenWorldMap and not InCombatLockdown() then ns.OpenWorldMap(st.m) end
 end
 
+-- the starting zone of each race: which of several alternative starts to show first
+local HOME_ZONES = {
+    [1] = "Elwynn Forest", [3] = "Dun Morogh", [7] = "Dun Morogh", [4] = "Teldrassil", [2] = "Durotar",
+    [8] = "Durotar", [5] = "Tirisfal Glades", [6] = "Mulgore", [95] = "Zephras Isle", [96] = "Zephras Isle",
+}
+
+local function AllDone(list)
+    for _, id in ipairs(list) do
+        if not C_QuestLog.IsQuestFlaggedCompleted(id) then return false end
+    end
+    return true
+end
+
+local function AnyDone(list)
+    for _, id in ipairs(list) do
+        if C_QuestLog.IsQuestFlaggedCompleted(id) then return true end
+    end
+    return false
+end
+
 -- One entry per chain: state "done", "active" (in the quest log), "open" (level reached) or "later".
--- Variants of the same chain (several starts) count once, the one furthest along wins.
+-- Alternative starts (Questie's exclusiveTo: only one of them can be done) form one entry: the one
+-- done or started, else the one from the race's starting zone; the others go to entry.alternatives.
+-- Chains behind a pre-quest that can't be done anymore (its alternative was taken) drop out.
 local STATE_ORDER = { done = 4, active = 3, open = 2, later = 1 }
 function T.ClassQuests(level)
     local d = Data()
     if not d then return {} end
-    local byKey, order = {}, {}
+    local _, _, race = UnitRace("player")
+    local home = HOME_ZONES[race]
+    local entries, byFirst = {}, {}
     for _, chain in ipairs(d.quests) do
         local state = Done(chain) and "done" or InLog(chain) and "active" or chain.lv <= level and "open" or "later"
         local reward = chain.sp and chain.sp[1]
         local entry = {
-            id = chain.id, level = chain.lv, ability = chain.cat == "ability", state = state,
+            id = chain.id, level = chain.lv, ability = chain.cat == "ability", state = state, chain = chain,
             name = GERMAN and chain.nde or chain.n, reward = reward,
             rewardName = reward and C_Spell.GetSpellName(reward), icon = reward and C_Spell.GetSpellTexture(reward),
             start = chain.st, where = Where(chain.st),
         }
-        local key = (reward or chain.n) .. (entry.ability and "" or ("|" .. chain.id))
-        local old = byKey[key]
-        if not old then
-            byKey[key] = entry
-            order[#order + 1] = key
-        elseif STATE_ORDER[state] > STATE_ORDER[old.state] then
-            byKey[key] = entry
+        entries[#entries + 1] = entry
+        byFirst[chain.id] = entry
+    end
+    -- groups of alternative starts
+    local group = {}
+    for _, entry in ipairs(entries) do
+        if not group[entry] then
+            local members, queue = {}, { entry }
+            group[entry] = members
+            while #queue > 0 do
+                local e = table.remove(queue)
+                members[#members + 1] = e
+                for _, id in ipairs(e.chain.ex or {}) do
+                    local other = byFirst[id]
+                    if other and not group[other] then
+                        group[other] = members
+                        queue[#queue + 1] = other
+                    end
+                end
+            end
         end
     end
-    local list = {}
-    for _, key in ipairs(order) do list[#list + 1] = byKey[key] end
-    table.sort(list, function(a, b)
+    -- quests that can't be done anymore: the other alternatives of a taken one
+    local closed = {}
+    for _, entry in ipairs(entries) do
+        local members = group[entry]
+        if #members > 1 and not members.picked then
+            local pick
+            for _, e in ipairs(members) do
+                if not pick or STATE_ORDER[e.state] > STATE_ORDER[pick.state]
+                    or (e.state == pick.state and home and e.chain.st and e.chain.st.z == home and not (pick.chain.st and pick.chain.st.z == home)) then
+                    pick = e
+                end
+            end
+            members.picked = pick
+            pick.alternatives = {}
+            for _, e in ipairs(members) do
+                if e ~= pick then
+                    pick.alternatives[#pick.alternatives + 1] = e
+                    e.hidden = true
+                    if pick.state == "done" or pick.state == "active" then
+                        for _, id in ipairs(e.chain.qs) do closed[id] = true end
+                    end
+                end
+            end
+        end
+    end
+    local function AllClosed(list)
+        for _, id in ipairs(list) do
+            if not closed[id] then return false end
+        end
+        return true
+    end
+    -- pre-quests: one of `pre`, all of `preg`
+    for _, entry in ipairs(entries) do
+        local chain = entry.chain
+        if not entry.hidden and entry.state ~= "done" and entry.state ~= "active" then
+            if chain.pre and not AnyDone(chain.pre) then
+                if AllClosed(chain.pre) then entry.hidden = true else entry.state = "later" end
+            end
+            if chain.preg and not AllDone(chain.preg) then
+                local blocked = false
+                for _, id in ipairs(chain.preg) do if closed[id] then blocked = true end end
+                if blocked then entry.hidden = true else entry.state = "later" end
+            end
+        end
+    end
+    -- variants without exclusiveTo (several starts of one ability, same quest for both factions) count once
+    local list, seen = {}, {}
+    for _, entry in ipairs(entries) do
+        if not entry.hidden then
+            local key = entry.ability and (entry.reward or entry.name) or (entry.name .. "|" .. entry.level)
+            if key and seen[key] then
+                if STATE_ORDER[entry.state] > STATE_ORDER[seen[key].state] then
+                    seen[key].hidden = true
+                    seen[key] = entry
+                    list[#list + 1] = entry
+                end
+            else
+                if key then seen[key] = entry end
+                list[#list + 1] = entry
+            end
+        end
+    end
+    local out = {}
+    for _, entry in ipairs(list) do if not entry.hidden then out[#out + 1] = entry end end
+    table.sort(out, function(a, b)
         if a.ability ~= b.ability then return a.ability end
         if a.level ~= b.level then return a.level < b.level end
         return (a.rewardName or a.name) < (b.rewardName or b.name)
     end)
-    return list
+    return out
 end
 
 -- Class quests to mention on level-up: ability chains open by now (not done, not in the quest log),

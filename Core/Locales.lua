@@ -745,6 +745,7 @@ if GetLocale() == "deDE" then
     L["In quest log"] = "Im Questlog"
     L["Unlocks: %s"] = "Schaltet frei: %s"
     L["Click: open map with a pin"] = "Klick: Karte mit Markierung öffnen"
+    L["Or instead (only one of them):"] = "Oder stattdessen (nur eine davon):"
     L["Sample class quest"] = "Beispiel-Klassenquest"
     L["Class trainer advice"] = "Lehrer-Empfehlungen"
     L["Marks recommended spell ranks and ranks you can skip while leveling: at the trainer, in the spellbook and on level-up."] = "Markiert empfohlene Zauberränge und Ränge, die man beim Leveln auslassen kann: beim Lehrer, im Zauberbuch und beim Stufenaufstieg."

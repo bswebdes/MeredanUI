@@ -2,7 +2,7 @@
 """Write the addon's compact trainer data (Data/TrainerData.lua) from TrainerSpells.lua and ClassQuests.lua.
 One function per class, so the game only builds the player's own class table.
 usage: python3 -I tools/trainerdata/export_addon.py"""
-import pathlib, re, sys
+import json, pathlib, re, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
@@ -152,8 +152,16 @@ def start(st):
     return out or None
 
 
+LINKS = {int(k): v for k, v in json.loads((HERE / 'quest_links.json').read_text(encoding='utf-8')).items()}
+
+
 def quest(q):
     out = {'id': int(q['first']), 'lv': int(q['level']), 'n': q['name'], 'cat': q['category']}
+    # Questie's links: alternative starts (only one can be done) and the first quest's pre-quests
+    link = LINKS.get(out['id'], {})
+    for key in ('ex', 'pre', 'preg'):
+        if link.get(key):
+            out[key] = link[key]
     if q.get('name_de') and q['name_de'] != q['name']:
         out['nde'] = q['name_de']
     if q.get('faction') and q['faction'] != 'both':

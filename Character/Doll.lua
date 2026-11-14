@@ -649,6 +649,14 @@ local function ClassQuestTooltip(row, quest)
     GameTooltip:AddLine(L["Level %d"]:format(quest.level), unpack(UI.MUTED))
     if quest.rewardName then GameTooltip:AddLine(L["Unlocks: %s"]:format(quest.rewardName), unpack(UI.ACCENT)) end
     if quest.where then GameTooltip:AddLine(quest.where, 0.85, 0.85, 0.85) end
+    -- alternative starts: only one of them can be done
+    if quest.alternatives and #quest.alternatives > 0 and quest.state ~= "done" then
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(L["Or instead (only one of them):"], unpack(UI.MUTED))
+        for _, alt in ipairs(quest.alternatives) do
+            GameTooltip:AddDoubleLine(alt.name, alt.where or "", 0.85, 0.85, 0.85, unpack(UI.MUTED))
+        end
+    end
     if quest.state ~= "done" and quest.start and quest.start.m then
         GameTooltip:AddLine(L["Click: open map with a pin"], unpack(UI.MUTED))
     end
