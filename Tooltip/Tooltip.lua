@@ -342,6 +342,9 @@ local function CopyLine(tooltip, from, to)
     local fl, fr, tl, tr = Left(tooltip, from), Right(tooltip, from), Left(tooltip, to), Right(tooltip, to)
     tl:SetText(fl:GetText())
     tl:SetTextColor(fl:GetTextColor())
+    -- word wrap belongs to the line object, not the text: a long "Use:" text moved into a line that
+    -- was added without wrap would stretch the tooltip across the screen
+    tl:SetWordWrap(fl:CanWordWrap())
     if fr and tr then
         local text = fr:IsShown() and fr:GetText() or nil
         tr:SetText(text)
