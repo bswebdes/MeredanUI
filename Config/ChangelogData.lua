@@ -2,6 +2,9 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.2", items = {
+        "New option \"3D portrait in the health bar\" (Unit frames page, off by default). Your character and your target appear faintly inside their health bars, zoomed to the head and facing inward. The model only shows over the health you have, so the missing part stays easy to read",
+    } },
     { version = "v0.5.1", items = {
         "Fixed: a Lua error in combat when the threat of your target's target changed (nameplate colours)",
         "Fixed: Blizzard's trainer window no longer flashes up for a moment before the mUI trainer opens",
@@ -46,14 +49,5 @@ ns.CHANGELOG = {
     { version = "v0.4.5", items = {
         "Player buffs start at the right edge of the player frame again and grow to the left. The shortest-running buff sits on the right; when the row is full, the longest-running ones drop out",
         "Questie: its quest icon on nameplates sits right next to the mUI bar and stays visible on your target",
-    } },
-    { version = "v0.4.4", items = {
-        "Auction house: new \"Scan auction house\" button in the Buy tab with a progress bar – saves the cheapest price of every item (Blizzard allows a scan every 15 minutes). Searches and the Sell tab update prices too",
-        "Item tooltips show the auction house price (×stack with the total). Red when a vendor pays more. Can be turned off on the Tooltip page (Comfort)",
-        "Selling: copper prices for single items, and undercut buttons 0 % / 1 % / 5 % / 10 % – by default 1 copper below the cheapest instead of 1 silver",
-        "Auction history, last used prices and scanned prices are now kept per server and faction, and characters with the same first name are told apart",
-        "Quest tracker: sorted by level by default (the focus quest stays on top). The old order is still there as \"Current zone first\"",
-        "Quest tracker: with \"Collapse finished quests\" the focus quest stays open, so you keep its arrow and distance",
-        "Questie: its quest icon on nameplates sits right next to the mUI bar and no longer jumps when you target the unit",
     } },
 }

@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## v0.5.2
+- New option "3D portrait in the health bar" (Unit frames page, off by default). Your character and your target appear faintly inside their health bars, zoomed to the head and facing inward. The model only shows over the health you have, so the missing part stays easy to read
+
 ## v0.5.1
 - Fixed: a Lua error in combat when the threat of your target's target changed (nameplate colours)
 - Fixed: Blizzard's trainer window no longer flashes up for a moment before the mUI trainer opens
