@@ -17,7 +17,7 @@
 local _, ns = ...
 local L = ns.L
 
-local BAR_HEIGHT = 12             -- health bar inside the tooltip (draft)
+local BAR_HEIGHT = 8              -- health bar inside the tooltip (draft)
 -- Background and border 4px INSIDE the tooltip edge (negative = inset): Blizzard places the
 -- comparison tooltips roughly edge to edge, sometimes overlapping a few pixels - this keeps
 -- a gap between the boxes. Never move the comparison tooltips themselves: Blizzard calls
@@ -161,11 +161,13 @@ local function NormalizeFonts(tooltip, keepGap)
         i = i + 1
     end
     if tooltip.muiDivider then tooltip.muiDivider:Hide() end
+    if tooltip.muiDivider2 then tooltip.muiDivider2:Hide() end
 end
 
 -- Divider line (unit tooltip): a thin line in the frame material across the box, centred on a
 -- dedicated spacer line
-local function PlaceDivider(tooltip, line)
+local function PlaceDivider(tooltip, line, key)
+    key = key or "muiDivider"
     if not dividerFont then
         dividerFont = CreateFont("MeredanUITooltipDivider")
         dividerFont:SetFont(ns.STYLE.font, 14, "")
@@ -173,7 +175,7 @@ local function PlaceDivider(tooltip, line)
     line:SetText(" ")
     line:SetFontObject(dividerFont)
     -- B14: material line fading out to both ends, a small gem in the middle
-    local d = tooltip.muiDivider
+    local d = tooltip[key]
     if not d then
         d = {}
         local m = ns.Material()
@@ -187,7 +189,7 @@ local function PlaceDivider(tooltip, line)
         end
         d.gem = ns.UI.Diamond(tooltip, 5)
         function d.Hide() d[1]:Hide() d[2]:Hide() d.gem:Hide() end
-        tooltip.muiDivider = d
+        tooltip[key] = d
     end
     d[1]:ClearAllPoints()
     d[1]:SetPoint("LEFT", tooltip, "LEFT", ns.Snap(12), 0)
@@ -267,15 +269,9 @@ local function StyleHealthBar()
     if not bar then return end
     bar:SetStatusBarTexture(ns.MEDIA .. "BarShade")
     ns.UI.Groove(bar)
-    bar.muiText = ns.CreateText(bar, 11, "RIGHT", "OUTLINE")
-    bar.muiText:SetPoint("RIGHT", -ns.Snap(5), 0)
-    -- Blizzard colors green->red by health percent; reapply our color and the percent
+    -- Blizzard colors green->red by health percent; reapply our color
     bar:HookScript("OnValueChanged", function(self)
         if self.muiColor then self:SetStatusBarColor(unpack(self.muiColor)) end
-        local _, unit = GameTooltip:GetUnit()
-        if Readable(unit) and unit and UnitHealthPercent and CurveConstants then
-            self.muiText:SetFormattedText("%d %%", UnitHealthPercent(unit, true, CurveConstants.ScaleTo100))
-        end
     end)
 end
 
@@ -504,12 +500,12 @@ end
 
 -- Health bar inside the tooltip (draft): a spacer line at the very end carries it
 local spacerFont
-local function PlaceHealthBar(tooltip, layout, unit)
+local function PlaceHealthBar(tooltip, layout)
     local bar = tooltip == GameTooltip and HealthBar()
     if not bar then return end -- Blizzard shows it for every unit; always reserve its line
     if not spacerFont then
         spacerFont = CreateFont("MeredanUITooltipBarSpacer")
-        spacerFont:SetFont(ns.STYLE.font, 16, "")
+        spacerFont:SetFont(ns.STYLE.font, 12, "")
     end
     local i = NextLine(tooltip, layout)
     local line, right = Left(tooltip, i), Right(tooltip, i)
@@ -519,15 +515,10 @@ local function PlaceHealthBar(tooltip, layout, unit)
     right:Show()
     -- left text starts at the left padding, the right text ends at the right padding
     bar:ClearAllPoints()
-    bar:SetPoint("TOPLEFT", line, "TOPLEFT", 0, -3)
+    bar:SetPoint("TOPLEFT", line, "TOPLEFT", 0, -2)
     bar:SetPoint("RIGHT", right, "RIGHT", 0, 0)
     bar:SetHeight(ns.Snap(BAR_HEIGHT))
-    -- percent inside the bar (secret-safe: formatted by the game, never compared)
-    if UnitHealthPercent and CurveConstants then
-        bar.muiText:SetFormattedText("%d %%", UnitHealthPercent(unit, true, CurveConstants.ScaleTo100))
-    else
-        bar.muiText:SetText("")
-    end
+    tooltip.muiBarLine = i
 end
 
 -- Players and NPCs alike: divider with a gem, the unit's target as a label/value row, then the
@@ -545,7 +536,7 @@ local function FinishUnitLines(tooltip, unit, layout)
         PlaceDivider(tooltip, Left(tooltip, NextLine(tooltip, layout)))
         for _, row in ipairs(layout.rows) do AddRow(tooltip, layout, row[1], row[2]) end
     end
-    PlaceHealthBar(tooltip, layout, unit)
+    PlaceHealthBar(tooltip, layout)
     -- lines left over at the end stay empty (no gap)
     for _ = 1, layout.free do
         local i = NextLine(tooltip, layout)
@@ -587,6 +578,21 @@ local function AddUnitLines(tooltip, unit)
                     if from then
                         line:SetText(("%s|cff%02x%02x%02x%s|r%s"):format(text:sub(1, from - 1), c.r * 255, c.g * 255,
                             c.b * 255, num, text:sub(to + 1)))
+                    end
+                    break
+                end
+            end
+        end
+        -- creature type (own line in Forever) onto the level line: "Level 12 Beast"
+        local creature = UnitCreatureType(unit)
+        if Readable(creature) and creature and levelTag then
+            for i = 2, tooltip:NumLines() - 1 do
+                local text = Left(tooltip, i):GetText()
+                if Readable(text) and text and text:find(levelTag) then
+                    local nextText = Left(tooltip, i + 1):GetText()
+                    if Readable(nextText) and nextText == creature then
+                        Left(tooltip, i):SetText(text .. " " .. creature)
+                        RemoveLine(tooltip, layout, i + 1)
                     end
                     break
                 end
@@ -903,6 +909,24 @@ local function ResetBorder(self)
     ResetGroups(self)
     ClearIcon(self)
     self.muiSection = nil
+    self.muiBarLine, self.muiAfterBar = nil, nil
+end
+
+-- Lines other addons add below the health bar (e.g. Questie's quest progress) get the gem divider
+-- above them instead of sticking to the bar
+local function AfterBarLine(self)
+    if not self.muiBarLine or self.muiAfterBar then return end
+    local n = self:NumLines()
+    if n <= self.muiBarLine then return end
+    self.muiAfterBar = true
+    local slot = self.muiBarLine + 1
+    if slot == n then -- no empty line left between bar and the new line: move it down one
+        self:AddLine(" ")
+        CopyLine(self, n, n + 1)
+        local r = Right(self, n)
+        if r then r:SetText(nil) r:Hide() end
+    end
+    PlaceDivider(self, Left(self, slot), "muiDivider2")
 end
 
 -- Demo (Settings > Tooltip): your own tooltip at the configured position
@@ -970,6 +994,8 @@ ns:On("PLAYER_LOGIN", function()
         Skin(tooltip)
         tooltip:HookScript("OnTooltipCleared", ResetBorder)
     end
+    hooksecurefunc(GameTooltip, "AddLine", AfterBarLine)
+    hooksecurefunc(GameTooltip, "AddDoubleLine", AfterBarLine)
     -- SetText without a color = Blizzard's yellow default (calendar hints, many UI buttons): our text
     -- color instead. Explicit colors (item quality, titles) stay untouched.
     hooksecurefunc(GameTooltip, "SetText", function(self, _, r)
