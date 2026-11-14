@@ -691,6 +691,12 @@ local function AddUnitLines(tooltip, unit)
     if Enabled("tooltipClassIcon") then
         local atlas = ClassAtlas(unit)
         if atlas then
+            -- fixed rows for every player: without a guild (level line on line 2) line 2 stays empty, so the level line
+            -- never moves up next to the icon
+            local second = Left(tooltip, 2):GetText()
+            if Readable(second) and second and levelTag and second:find(levelTag) then
+                InsertLineAt(tooltip, layout, 2)
+            end
             ShowIcon(tooltip, nil, atlas, nil, layout)
             InsertGap(tooltip, layout) -- the level line keeps clear of the icon (draft)
         end
