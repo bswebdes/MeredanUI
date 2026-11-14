@@ -145,9 +145,16 @@ function ns.ApplyDBMProfile(force)
     SkinBars()
 end
 
+-- DBM's bar object exists as soon as DBM-StatusBarTimers is loaded, its options only later: hook the
+-- bars right away, apply the profile once the options are there (a few tries)
 ns:On("PLAYER_LOGIN", function()
-    if not C_AddOns.IsAddOnLoaded("DBM-Core") or not Available() then return end
-    if DBT.CreateBar then hooksecurefunc(DBT, "CreateBar", SkinBars) end
+    if not C_AddOns.IsAddOnLoaded("DBM-Core") then return end
+    if DBT and DBT.CreateBar then hooksecurefunc(DBT, "CreateBar", SkinBars) end
     -- after mUI has built its unit frames (positions come from them)
-    C_Timer.After(2, function() ns.ApplyDBMProfile() end)
+    local tries = 0
+    local function Try()
+        tries = tries + 1
+        if Available() then ns.ApplyDBMProfile() elseif tries < 15 then C_Timer.After(1, Try) end
+    end
+    C_Timer.After(2, Try)
 end)
