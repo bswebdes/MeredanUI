@@ -1,0 +1,457 @@
+{
+ "class": "SHAMAN",
+ "sources": [
+  {
+   "title": "World of Warcraft: Forever Class Deep Dives - Mage and Shaman",
+   "url": "https://worldofwarcraft.blizzard.com/news/24302097",
+   "kind": "official",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Warcraft Tavern - WoW Forever Shaman Leveling Guide",
+   "url": "https://www.warcrafttavern.com/forever/guides/shaman-leveling/",
+   "kind": "forever_guide",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Method.gg - WoW Forever Shaman Leveling Guide and Talents",
+   "url": "https://www.method.gg/wow-forever/wow-forever-shaman-leveling-guide-and-talents",
+   "kind": "forever_guide",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Warcraft Tavern - WoW Forever Enhancement Shaman Guide",
+   "url": "https://www.warcrafttavern.com/forever/guides/enhancement-shaman/",
+   "kind": "forever_guide",
+   "checked": "2026-11-14"
+  },
+  {
+   "title": "Warcraft Tavern - WoW Classic Shaman Leveling Guide",
+   "url": "https://www.warcrafttavern.com/wow-classic/guides/shaman-leveling-guide/",
+   "kind": "classic_guide",
+   "checked": "2026-11-14"
+  }
+ ],
+ "spells": {
+  "Rockbiter Weapon": {
+   "advice": "recommended",
+   "reason_en": "Main weapon imbue until Windfury Weapon at 30",
+   "reason_de": "Haupt-Waffenbuff bis Windzorn-Waffe ab 30",
+   "ranks": {
+    "5": {
+     "advice": "optional",
+     "reason_en": "Windfury Weapon is better; keep only for tanking",
+     "reason_de": "Windzorn-Waffe ist besser; nur fürs Tanken"
+    },
+    "6": {
+     "advice": "optional",
+     "reason_en": "Windfury Weapon is better; keep only for tanking",
+     "reason_de": "Windzorn-Waffe ist besser; nur fürs Tanken"
+    },
+    "7": {
+     "advice": "optional",
+     "reason_en": "Windfury Weapon is better; keep only for tanking",
+     "reason_de": "Windzorn-Waffe ist besser; nur fürs Tanken"
+    }
+   },
+   "roles": {
+    "tank": {
+     "advice": "recommended",
+     "reason_en": "Rockbiter adds threat for tanking",
+     "reason_de": "Felsbeißer erhöht die Bedrohung beim Tanken"
+    }
+   }
+  },
+  "Earth Shock": {
+   "advice": "recommended",
+   "reason_en": "Instant damage filler and interrupt",
+   "reason_de": "Sofortiger Schaden und Unterbrechung"
+  },
+  "Earthbind Totem": {
+   "advice": "recommended",
+   "reason_en": "Slow for kiting and stopping runners",
+   "reason_de": "Verlangsamt Gegner, gut zum Kiten"
+  },
+  "Healing Wave": {
+   "advice": "recommended",
+   "reason_en": "Main self-heal while soloing",
+   "reason_de": "Wichtigste Selbstheilung beim Solospiel"
+  },
+  "Lightning Bolt": {
+   "advice": "recommended",
+   "reason_en": "Pull spell; spend Maelstrom charges on it",
+   "reason_de": "Zum Pullen; Mahlstromladungen damit nutzen",
+   "roles": {
+    "dps": {
+     "advice": "recommended",
+     "reason_en": "Elemental: main filler spell",
+     "reason_de": "Elementar: wichtigster Füllzauber"
+    }
+   }
+  },
+  "Lightning Shield": {
+   "advice": "recommended",
+   "reason_en": "Cheap passive damage, keep it up",
+   "reason_de": "Günstiger Zusatzschaden, immer aktiv halten"
+  },
+  "Stoneclaw Totem": {
+   "advice": "skip",
+   "reason_en": "Rarely used while leveling",
+   "reason_de": "Beim Leveln kaum genutzt"
+  },
+  "Flame Shock": {
+   "advice": "recommended",
+   "reason_en": "Keep DoT up; boosts Lava Burst and Fire Nova",
+   "reason_de": "DoT aktiv halten; stärkt Lavaeruption"
+  },
+  "Flametongue Weapon": {
+   "advice": "optional",
+   "reason_en": "Off-hand or caster imbue; WF/Rockbiter first",
+   "reason_de": "Für Schildhand/Caster; sonst Windzorn/Felsbeißer"
+  },
+  "Strength of Earth Totem": {
+   "advice": "recommended",
+   "reason_en": "Strength buff for melee leveling",
+   "reason_de": "Stärkebuff fürs Nahkampf-Leveln"
+  },
+  "Ancestral Spirit": {
+   "advice": "recommended",
+   "reason_en": "Resurrect group members",
+   "reason_de": "Belebt Gruppenmitglieder wieder",
+   "ranks": {
+    "2": {
+     "advice": "optional",
+     "reason_en": "Higher rank only restores more health/mana",
+     "reason_de": "Höherer Rang heilt nur mehr beim Beleben"
+    },
+    "3": {
+     "advice": "optional",
+     "reason_en": "Higher rank only restores more health/mana",
+     "reason_de": "Höherer Rang heilt nur mehr beim Beleben"
+    },
+    "4": {
+     "advice": "optional",
+     "reason_en": "Higher rank only restores more health/mana",
+     "reason_de": "Höherer Rang heilt nur mehr beim Beleben"
+    },
+    "5": {
+     "advice": "optional",
+     "reason_en": "Higher rank only restores more health/mana",
+     "reason_de": "Höherer Rang heilt nur mehr beim Beleben"
+    }
+   }
+  },
+  "Fire Nova": {
+   "advice": "recommended",
+   "reason_en": "Main AoE burst from your fire totem",
+   "reason_de": "Wichtigster Flächenschaden vom Feuertotem"
+  },
+  "Purge": {
+   "advice": "optional",
+   "reason_en": "Removes enemy buffs; situational",
+   "reason_de": "Entfernt Gegnerbuffs; nur manchmal nötig"
+  },
+  "Stoneskin Totem": {
+   "advice": "skip",
+   "reason_en": "Small mitigation, mostly for tanking",
+   "reason_de": "Wenig Schutz, vor allem fürs Tanken",
+   "role": "tank",
+   "roles": {
+    "tank": {
+     "advice": "optional",
+     "reason_en": "Some damage reduction when tanking",
+     "reason_de": "Etwas weniger Schaden beim Tanken"
+    }
+   }
+  },
+  "Cure Poison": {
+   "advice": "recommended",
+   "reason_en": "Cheap, poisons are common while leveling",
+   "reason_de": "Günstig, Gifte sind beim Leveln häufig"
+  },
+  "Tremor Totem": {
+   "advice": "optional",
+   "reason_en": "Counters fear; useful vs some mobs/dungeons",
+   "reason_de": "Gegen Furcht; nützlich in manchen Instanzen"
+  },
+  "Call of the Elements": {
+   "advice": "recommended",
+   "reason_en": "Drops your 4 saved totems with one cast",
+   "reason_de": "Setzt deine 4 Totems mit einem Zauber"
+  },
+  "Frost Shock": {
+   "advice": "optional",
+   "reason_en": "Slow for runners/kiting; costs more mana",
+   "reason_de": "Verlangsamt Flüchtende; kostet mehr Mana"
+  },
+  "Frostbrand Weapon": {
+   "advice": "skip",
+   "reason_en": "Slow imbue, weak damage for leveling",
+   "reason_de": "Verlangsamt nur, wenig Schaden beim Leveln"
+  },
+  "Ghost Wolf": {
+   "advice": "recommended",
+   "reason_en": "40% run speed until your mount",
+   "reason_de": "40 % mehr Tempo bis zum Reittier"
+  },
+  "Lesser Healing Wave": {
+   "advice": "optional",
+   "reason_en": "Fast emergency heal",
+   "reason_de": "Schnelle Notfallheilung",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Core fast heal for healers",
+     "reason_de": "Wichtige schnelle Heilung für Heiler"
+    }
+   }
+  },
+  "Searing Totem": {
+   "advice": "recommended",
+   "reason_en": "Single-target damage in every fight",
+   "reason_de": "Einzelzielschaden in jedem Kampf"
+  },
+  "Totemic Recall": {
+   "advice": "recommended",
+   "reason_en": "Removes totems and refunds some mana",
+   "reason_de": "Entfernt Totems und gibt etwas Mana zurück"
+  },
+  "Cure Disease": {
+   "advice": "optional",
+   "reason_en": "Removes diseases; useful in some zones",
+   "reason_de": "Entfernt Krankheiten; manchmal nützlich"
+  },
+  "Poison Cleansing Totem": {
+   "advice": "optional",
+   "reason_en": "Group poison cleanse; Cure Poison works solo",
+   "reason_de": "Gruppen-Giftreinigung; solo reicht Gift heilen"
+  },
+  "Totemic Call": {
+   "advice": "optional",
+   "reason_en": "Moves totems, but very mana-expensive",
+   "reason_de": "Versetzt Totems, kostet aber viel Mana"
+  },
+  "Water Breathing": {
+   "advice": "optional",
+   "reason_en": "Utility; needs reagent",
+   "reason_de": "Nützlich; braucht Reagenz"
+  },
+  "Frost Resistance Totem": {
+   "advice": "skip",
+   "reason_en": "Raid resistance, not needed while leveling",
+   "reason_de": "Raid-Resistenz, beim Leveln unnötig"
+  },
+  "Far Sight": {
+   "advice": "skip",
+   "reason_en": "Scouting only, not needed while leveling",
+   "reason_de": "Nur zum Spähen, beim Leveln unnötig"
+  },
+  "Magma Totem": {
+   "advice": "recommended",
+   "reason_en": "AoE damage; base for Fire Nova pulls",
+   "reason_de": "Flächenschaden; Basis für Feuernova"
+  },
+  "Mana Spring Totem": {
+   "advice": "recommended",
+   "reason_en": "Mana regen; mana is your main limit",
+   "reason_de": "Manaregeneration; Mana ist dein Engpass"
+  },
+  "Fire Resistance Totem": {
+   "advice": "skip",
+   "reason_en": "Raid resistance, not needed while leveling",
+   "reason_de": "Raid-Resistenz, beim Leveln unnötig"
+  },
+  "Flametongue Totem": {
+   "advice": "skip",
+   "reason_en": "Party buff; no use solo with an imbue",
+   "reason_de": "Gruppenbuff; solo mit Waffenbuff nutzlos",
+   "role": "dps",
+   "roles": {
+    "dps": {
+     "advice": "optional",
+     "reason_en": "Group buff for casters (not with Windfury Totem)",
+     "reason_de": "Gruppenbuff für Caster (nicht mit Windzorn)"
+    }
+   }
+  },
+  "Water Walking": {
+   "advice": "optional",
+   "reason_en": "Utility; needs reagent",
+   "reason_de": "Nützlich; braucht Reagenz"
+  },
+  "Astral Recall": {
+   "advice": "recommended",
+   "reason_en": "Second hearthstone, 15 min cooldown",
+   "reason_de": "Zweiter Ruhestein, 15 Min. Abklingzeit"
+  },
+  "Call of the Ancestors": {
+   "advice": "optional",
+   "reason_en": "Second totem set; convenience",
+   "reason_de": "Zweites Totemset; nur Komfort"
+  },
+  "Grounding Totem": {
+   "advice": "optional",
+   "reason_en": "Absorbs a spell; mostly PvP",
+   "reason_de": "Fängt einen Zauber ab; meist PvP"
+  },
+  "Healing Stream Totem": {
+   "advice": "optional",
+   "reason_en": "Small group healing over time",
+   "reason_de": "Etwas Gruppenheilung über Zeit",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Steady group healing for healers",
+     "reason_de": "Konstante Gruppenheilung für Heiler"
+    }
+   }
+  },
+  "Nature Resistance Totem": {
+   "advice": "skip",
+   "reason_en": "Raid resistance, not needed while leveling",
+   "reason_de": "Raid-Resistenz, beim Leveln unnötig"
+  },
+  "Reincarnation": {
+   "advice": "recommended",
+   "reason_en": "Self-resurrect, saves corpse runs (Ankh)",
+   "reason_de": "Selbst beleben, spart Wege (Ankh nötig)"
+  },
+  "Windfury Weapon": {
+   "advice": "recommended",
+   "reason_en": "Best melee imbue for Enhancement",
+   "reason_de": "Bester Nahkampf-Waffenbuff für Verstärker",
+   "roles": {
+    "heal": {
+     "advice": "optional",
+     "reason_en": "Only if you melee while leveling",
+     "reason_de": "Nur wenn du im Nahkampf levelst"
+    }
+   }
+  },
+  "Chain Lightning": {
+   "advice": "optional",
+   "reason_en": "Strong AoE for Elemental; costly for melee",
+   "reason_de": "Starker AoE für Elementar; teuer für Melee",
+   "roles": {
+    "dps": {
+     "advice": "optional",
+     "reason_en": "Elemental: buy for AoE pulls",
+     "reason_de": "Elementar: für Gruppen von Gegnern kaufen"
+    }
+   }
+  },
+  "Windfury Totem": {
+   "advice": "optional",
+   "reason_en": "Party buff; you don't get it with WF Weapon",
+   "reason_de": "Gruppenbuff; mit Windzorn-Waffe nicht für dich",
+   "role": "dps"
+  },
+  "Sentry Totem": {
+   "advice": "skip",
+   "reason_en": "Scouting only",
+   "reason_de": "Nur zum Spähen"
+  },
+  "Windwall Totem": {
+   "advice": "skip",
+   "reason_en": "Ranged damage reduction, rarely needed",
+   "reason_de": "Weniger Fernkampfschaden, selten nötig"
+  },
+  "Disease Cleansing Totem": {
+   "advice": "optional",
+   "reason_en": "Group disease cleanse; situational",
+   "reason_de": "Gruppen-Krankheitsreinigung; nur manchmal"
+  },
+  "Mana Tide Totem": {
+   "advice": "optional",
+   "reason_en": "Talent (Resto 16-point); buy if talented",
+   "reason_de": "Talent (Wiederherstellung); kaufen, wenn geskillt",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Big mana return for healers",
+     "reason_de": "Viel Mana zurück für Heiler"
+    }
+   }
+  },
+  "Call of the Spirits": {
+   "advice": "optional",
+   "reason_en": "Third totem set; convenience",
+   "reason_de": "Drittes Totemset; nur Komfort"
+  },
+  "Chain Heal": {
+   "advice": "optional",
+   "reason_en": "Group heal; little use solo",
+   "reason_de": "Gruppenheilung; solo kaum nützlich",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Core group heal for healers",
+     "reason_de": "Wichtigste Gruppenheilung für Heiler"
+    }
+   }
+  },
+  "Lava Burst": {
+   "advice": "optional",
+   "reason_en": "Talent (Elemental capstone); buy if talented",
+   "reason_de": "Talent (Elementar); kaufen, wenn geskillt",
+   "role": "dps",
+   "roles": {
+    "dps": {
+     "advice": "recommended",
+     "reason_en": "Elemental: core nuke with Flame Shock",
+     "reason_de": "Elementar: Kernzauber mit Flammenschock"
+    }
+   }
+  },
+  "Mail": {
+   "advice": "recommended",
+   "reason_en": "Wear mail armor from 40",
+   "reason_de": "Ab 40 Panzerrüstung tragen"
+  },
+  "Grace of Air Totem": {
+   "advice": "optional",
+   "reason_en": "Agility buff; conflicts with Windfury Totem",
+   "reason_de": "Beweglichkeitsbuff; nicht mit Windzorn-Totem"
+  },
+  "Riptide": {
+   "advice": "optional",
+   "reason_en": "Talent (Resto capstone); buy if talented",
+   "reason_de": "Talent (Wiederherstellung); kaufen, wenn geskillt",
+   "role": "heal",
+   "roles": {
+    "heal": {
+     "advice": "recommended",
+     "reason_en": "Strong instant heal for healers",
+     "reason_de": "Starke Sofortheilung für Heiler"
+    }
+   }
+  }
+ },
+ "learning_order": "**Solo default: Enhancement** (both Forever guides call it the fastest leveling spec).\n\n- **1-10:** Rockbiter Weapon, Earth Shock, Lightning Shield, Earthbind Totem, Healing Wave. Pull with Lightning Bolt, Earth Shock, melee. Skip Stoneclaw Totem.\n- **10-20:** Flame Shock, Strength of Earth Totem, Searing Totem (quest), Fire Nova (12), Cure Poison. Purge and Tremor Totem are optional. Flametongue Weapon only if you use a shield/caster setup.\n- **20:** Ghost Wolf, Call of the Elements and Totemic Recall are the key buys. Frost Shock and Lesser Healing Wave are optional; Frostbrand Weapon can be skipped.\n- **22-28:** Totemic Call (projection) is optional (very mana-expensive). Skip Frost/Fire Resistance Totems and Far Sight. Buy Magma Totem and Mana Spring Totem at 26.\n- **30:** Windfury Weapon (switch to a slow two-hander), Reincarnation, Astral Recall. Skip Nature Resistance Totem; Grounding Totem is PvP.\n- **32-40:** Lightning Shield, Healing Wave, Earth/Flame Shock and totem ranks. Windfury Totem is a party buff only (you don't benefit while using Windfury Weapon). Skip Sentry and Windwall Totem. Mail at 40.\n- **40-60:** keep shocks, Lightning Shield, Searing/Magma, Strength of Earth, Windfury Weapon and Healing Wave current. After 30, Rockbiter ranks are for tanking only.\n- **Elemental:** add Chain Lightning, Lava Burst (talent ranks 40/50/60) and keep Lightning Bolt current.\n- **Resto/healer:** Lesser Healing Wave, Chain Heal, Healing Stream, Mana Tide and Riptide ranks (talent ranks are cheap).\n\n**Money tips**\n- Safe skips: all Resistance Totems, Far Sight, Sentry Totem, Windwall Totem, Stoneclaw Totem, Frostbrand Weapon.\n- Higher Ancestral Spirit ranks only matter in groups.\n- Call of the Ancestors / Call of the Spirits are convenience only; buy when gold is spare.\n- Talent-gated ranks (Lava Burst, Riptide, Mana Tide) are cheap; buy them if you have the talent.\n- Save for Apprentice Riding at 40; Ghost Wolf covers travel until then.\n- Keep Ankhs for Reincarnation; Water Walking/Breathing need reagents.",
+ "disagreements": [
+  "Classic guide (Warcraft Tavern Classic) suggests dropping Lightning Bolt from 10-29 for mana and saving Earth Shock for interrupts; Forever guides (Warcraft Tavern Forever) pull with Lightning Bolt and use Earth Shock as filler.",
+  "Method.gg: use Rockbiter Weapon through level 30, then Windfury on a two-hander; Warcraft Tavern Forever lists Windfury Weapon or Rockbiter as the maintained imbue (Rockbiter mainly for tanking threat).",
+  "Warcraft Tavern Classic says learn everything 1-20; no Forever guide gives a rank-skipping list, so rank advice here follows general practice.",
+  "Elemental viability: Warcraft Tavern Forever says Elemental balance is in flux and mana-heavy; both Forever guides recommend Enhancement for solo leveling."
+ ],
+ "forever_differences": [
+  "Weapon imbues last 60 min (was 5) and stack with stones/oils (Blizzard deep dive).",
+  "Fire Nova Totem removed; new Fire Nova spell erupts from your current fire totem and can be reused (Blizzard deep dive); threat goes to you (Method.gg).",
+  "Windfury Totem and Flametongue Totem are party buffs, no longer weapon enchants; you don't benefit while using the matching weapon imbue (Blizzard deep dive).",
+  "Persistent buff totems last 5 min, totem GCD 1.0 s, resistance totems apply raid-wide (Blizzard deep dive).",
+  "New Call of the Elements (20), Totemic Recall (20), Totemic Projection (22) and extra totem sets; Blizzard listed Call of the Spirits at 30 and Call of the Ancestors at 40, the trainer list has Ancestors at 30 and Spirits at 40.",
+  "Lightning Bolt rank 4+ casts in 2.5 s and Chain Lightning in 2.0 s (Blizzard deep dive).",
+  "Lava Burst, Riptide, Stormstrike, Mana Tide are talent spells; Stormstrike moved to 16-point tier (Blizzard deep dive).",
+  "Astral Recall is a second hearthstone with 15 min cooldown (Warcraft Tavern Forever).",
+  "Lightning Bolt/Healing Wave rank 1, Searing/Stoneskin/Healing Stream Totem rank 1 are not on the trainer list (granted baseline or via class quests per Warcraft Tavern Forever)."
+ ],
+ "open_questions": [
+  "Trainer list names spell 437009 'Totemic Call' at 22; Blizzard calls the level-22 spell 'Totemic Projection' (moves totems, 25% base mana). Assumed same spell.",
+  "Blizzard noted a beta bug where Totemic Recall did not refund mana; unclear if fixed at launch.",
+  "Flametongue Weapon value for Enhancement dual wield in Forever is not covered by the guides read."
+ ]
+}
