@@ -218,6 +218,7 @@ local DEFAULTS = {
     toastsGroupLoot = true,      -- toasts: roll results and group loot
     spellRanks = true,           -- Forever: arrow + toast for outdated spell ranks on the bars
     trainerReminder = true,      -- Forever: toast on level-up when spells await at the trainer
+    trainerAdvice = true,        -- Forever: leveling advice per spell rank (trainer, spellbook, level-up)
     lootRolls = true,            -- custom loot roll frames (Loot/LootRoll.lua)
     lootWindow = true,           -- custom loot window (Loot/LootWindow.lua)
     fastLoot = true,             -- loot instantly with auto-loot (Loot/FastLoot.lua)

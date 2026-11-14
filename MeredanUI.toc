@@ -83,6 +83,8 @@ Skins/Misc.lua
 NPC/NpcWindow.lua
 Config/AddonList.lua
 NPC/Merchant.lua
+Data/TrainerData.lua
+Talents/TrainerInfo.lua
 NPC/Trainer.lua
 NPC/Gossip.lua
 NPC/Quest.lua

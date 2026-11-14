@@ -173,12 +173,43 @@ local function Entries(level)
     return list
 end
 
--- Plus the trainer spells waiting: new at this level first, then older ones not learned yet. From
--- the spellbook (future spells, if the game lists them) and the trainer list remembered at the last
--- visit (Talents/Spellbook.lua)
+-- Plus what waits at the class trainer and the class quests: new spells first, then class quests,
+-- then older spells not learned yet. From the class data (Talents/TrainerInfo.lua; ranks marked
+-- "skip" and spells from class quests left out), else from the spellbook's future spells and the
+-- trainer list remembered at the last visit (Talents/Spellbook.lua)
+local function SpellName(spell)
+    return spell.rank and ("%s |cffa89d86(%s)|r"):format(spell.name, spell.rank) or spell.name
+end
+
 local function Unlocks(level)
     local entries, seen = Entries(level), {}
     for _, e in ipairs(entries) do seen[e.name or ""] = true end
+    local function Add(icon, name, sub)
+        if seen[name] then return end
+        seen[name] = true
+        entries[#entries + 1] = { icon = icon, name = name, sub = sub }
+    end
+    local info = ns.TrainerInfo
+    if info and info.Has() then
+        local older = {}
+        for _, spell in ipairs(info.Waiting(level)) do
+            if not spell.quest and spell.advice ~= "s" then
+                if spell.level == level then
+                    Add(spell.icon, SpellName(spell), L["New at the class trainer"])
+                else
+                    older[#older + 1] = spell
+                end
+            end
+        end
+        local _, class = UnitClass("player")
+        for _, quest in ipairs(info.OpenQuests(level)) do
+            Add("Interface\\Icons\\ClassIcon_" .. class:sub(1, 1) .. class:sub(2):lower(), quest.name,
+                quest.where and (L["Class quest"] .. " · " .. quest.where) or L["Class quest"])
+        end
+        table.sort(older, function(a, b) return a.level > b.level end)
+        for _, spell in ipairs(older) do Add(spell.icon, SpellName(spell), L["Still to learn at the class trainer"]) end
+        return entries
+    end
     local spells = {}
     for _, spell in ipairs(ns.NewTrainerSpells and ns.NewTrainerSpells(level) or {}) do
         spell.level = level
@@ -187,12 +218,8 @@ local function Unlocks(level)
     for _, spell in ipairs(ns.TrainerWaiting and ns.TrainerWaiting(level) or {}) do spells[#spells + 1] = spell end
     table.sort(spells, function(a, b) return (a.level or 0) > (b.level or 0) end)
     for _, spell in ipairs(spells) do
-        local name = spell.rank and ("%s |cffa89d86(%s)|r"):format(spell.name, spell.rank) or spell.name
-        if not seen[name] then
-            seen[name] = true
-            local sub = spell.level == level and L["New at the class trainer"] or L["Still to learn at the class trainer"]
-            entries[#entries + 1] = { icon = spell.icon, name = name, sub = sub }
-        end
+        Add(spell.icon, SpellName(spell),
+            spell.level == level and L["New at the class trainer"] or L["Still to learn at the class trainer"])
     end
     return entries
 end
@@ -230,6 +257,8 @@ ns.LevelUpDemo = {
             { icon = 132330, name = Spell(2643) .. " |cffa89d86(" .. (RANK or "Rank") .. " 2)|r", sub = L["New at the class trainer"] },
             { icon = 136076, name = Spell(13165) .. " |cffa89d86(" .. (RANK or "Rank") .. " 2)|r", sub = L["New at the class trainer"] },
             { icon = C_Spell.GetSpellTexture(1978), name = Spell(1978) .. " |cffa89d86(" .. (RANK or "Rank") .. " 1)|r", sub = L["Still to learn at the class trainer"] },
+            { icon = "Interface\\Icons\\ClassIcon_" .. select(2, UnitClass("player")):sub(1, 1) .. select(2, UnitClass("player")):sub(2):lower(),
+                name = L["Sample class quest"], sub = L["Class quest"] },
             { icon = 136243, name = L["Sample dungeon"], sub = L["Dungeon unlocked"] },
         })
     end,

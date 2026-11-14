@@ -103,6 +103,12 @@ local function Entries(query)
                 key = name .. "\1" .. (subText or "") .. "\1" .. (reqLevel or 0), -- ranks share the same name
                 req = req, cost = cost or 0, isProfession = isProfession, reqLevel = reqLevel,
             }
+            -- leveling advice (Talents/TrainerInfo.lua) needs the spell ID behind the service
+            if ns.TrainerInfo and not isProfession and not IsPetTrainer() and ns.TrainerInfo.AdviceOn() then
+                local data = C_TooltipInfo.GetTrainerService(index)
+                local id = data and ns.Readable(data.id) and data.id
+                if type(id) == "number" then entry.spellID, entry.advice = id, ns.TrainerInfo.Advice(id) end
+            end
             -- Grey line: "Cooking (50)" with green/red rank, else level, else "known"
             if serviceType == "used" then
                 entry.line = ITEM_SPELL_KNOWN or "Known"
@@ -160,6 +166,10 @@ local function Row(i)
     row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     row.cost = UI.Text(row, 12, "RIGHT")
     row.cost:SetPoint("RIGHT", -10, 0)
+    -- recommended for leveling: small gem left of the cost
+    row.gem = UI.Diamond(row, 7)
+    row.gem:SetPoint("RIGHT", row.cost, "LEFT", -8, 0)
+    row.gem:Hide()
     row.name = UI.Text(row, 13, "LEFT")
     row.name:SetPoint("TOPLEFT", holder, "TOPRIGHT", 10, -2)
     row.name:SetPoint("RIGHT", row.cost, "LEFT", -8, 0)
@@ -170,6 +180,7 @@ local function Row(i)
         if not self.selected then self.bg:SetColorTexture(0.133, 0.133, 0.149, 1) end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetTrainerService(self.entry.index)
+        if self.entry.spellID and ns.TrainerInfo then ns.TrainerInfo.AddAdviceLines(GameTooltip, self.entry.spellID) end
         GameTooltip:Show()
     end)
     row:SetScript("OnLeave", function(self)
@@ -200,7 +211,12 @@ local function FillRow(row, entry)
     row.icon:SetAlpha(available and 1 or 0.5)
     row.name:SetText(entry.name)
     row.name:SetTextColor(unpack(available and ns.UI.TEXT or { 0.48, 0.47, 0.45 }))
-    row.line:SetText(entry.line)
+    local line = entry.line or ""
+    if entry.advice == "s" and entry.kind ~= "used" then
+        line = line .. (line ~= "" and "  ·  " or "") .. "|cffa39a86" .. L["You can skip it"] .. "|r"
+    end
+    row.line:SetText(line)
+    row.gem:SetShown(entry.advice == "r" and entry.kind ~= "used")
     row.cost:SetText(entry.kind ~= "used" and CostText(entry.cost) or "")
     if not IsPetTrainer() and entry.cost > GetMoney() then row.cost:SetTextColor(1, 0.3, 0.3) else row.cost:SetTextColor(unpack(ns.UI.TEXT)) end
     row.selected = entry.key == selectedName
@@ -251,6 +267,20 @@ local function UpdateDetail(entry)
     detail.sub:SetText(entry.subText and entry.subText ~= "" and entry.subText or "")
     detail.req:SetText(entry.req ~= "" and ((REQUIRES_LABEL or "Requires:") .. " " .. entry.req) or "")
     detail.body:SetText(TooltipBody(entry.index))
+    -- advice block right below the description
+    local code, reason
+    if entry.spellID and entry.kind ~= "used" and ns.TrainerInfo then code, reason = ns.TrainerInfo.Advice(entry.spellID) end
+    detail.advice:SetShown(code ~= nil)
+    if code then
+        local label, color = ns.TrainerInfo.AdviceLabel(code)
+        detail.advice.title:SetText(label)
+        detail.advice.title:SetTextColor(color[1], color[2], color[3])
+        detail.advice.gem:SetShown(code == "r")
+        detail.advice.text:SetText(reason or "")
+        detail.advice:ClearAllPoints()
+        detail.advice:SetPoint("TOPLEFT", detail.body, "TOPLEFT", 0, -(detail.body:GetStringHeight() + 16))
+        detail.advice:SetPoint("RIGHT", detail.body, "RIGHT")
+    end
     detail.cost:SetText(entry.kind ~= "used" and entry.cost > 0 and ((COSTS_LABEL or "Cost:") .. " " .. CostText(entry.cost)) or "")
     local canLearn = entry.kind == "available" and (IsPetTrainer() or entry.cost <= GetMoney())
     detail.learn:SetEnabled(canLearn)
@@ -519,6 +549,17 @@ local function CreateWindow()
     detail.body:SetWordWrap(true)
     detail.body:SetJustifyV("TOP")
     detail.body:SetSpacing(3)
+    detail.advice = CreateFrame("Frame", nil, detail)
+    detail.advice:SetHeight(40)
+    detail.advice.gem = UI.Diamond(detail.advice, 8)
+    detail.advice.gem:SetPoint("TOPLEFT", 0, -3)
+    detail.advice.title = UI.Heading(detail.advice, 12, "LEFT")
+    detail.advice.title:SetPoint("TOPLEFT", 16, 0)
+    detail.advice.text = UI.Text(detail.advice, 12, "LEFT", UI.MUTED)
+    detail.advice.text:SetPoint("TOPLEFT", detail.advice.title, "BOTTOMLEFT", 0, -4)
+    detail.advice.text:SetPoint("RIGHT")
+    detail.advice.text:SetWordWrap(true)
+    detail.advice:Hide()
     detail.learn = UI.Button(detail, TRAIN or "Train", function() Learn(window.selected) end, 110)
     detail.learn:SetHeight(30)
     detail.learn:SetPoint("BOTTOMRIGHT", -14, 14)

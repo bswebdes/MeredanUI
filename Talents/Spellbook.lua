@@ -60,12 +60,21 @@ local function SnapshotTrainer()
     if window and window:IsShown() then window.Refresh() end
 end
 
--- not learned yet: learnable now first, then by level
+-- not learned yet: learnable now first, then by level. From the class data (Talents/TrainerInfo.lua,
+-- with advice; upcoming ones for the next few levels), else from the last trainer visit
+local AHEAD = 6
 local function TrainerEntries()
     local level, list = UnitLevel("player"), {}
-    for spellID, spell in pairs(TrainerCache()) do
-        if not C_SpellBook.IsSpellKnown(spellID) then
-            list[#list + 1] = { trainer = true, future = true, spellID = spellID, spell = spell, ready = spell.level <= level }
+    if ns.TrainerInfo and ns.TrainerInfo.Has() then
+        for _, w in ipairs(ns.TrainerInfo.Waiting(level, AHEAD)) do
+            list[#list + 1] = { trainer = true, future = true, spellID = w.id, ready = w.ready, advice = w.advice,
+                spell = { name = w.name, rank = w.rank, icon = w.icon, level = w.level, cost = w.cost, quest = w.quest } }
+        end
+    else
+        for spellID, spell in pairs(TrainerCache()) do
+            if not C_SpellBook.IsSpellKnown(spellID) then
+                list[#list + 1] = { trainer = true, future = true, spellID = spellID, spell = spell, ready = spell.level <= level }
+            end
         end
     end
     table.sort(list, function(a, b)
@@ -79,6 +88,7 @@ end
 -- for the level-up display (Toasts/LevelUp.lua): trainer spells reached by now and not learned
 function ns.TrainerWaiting(level)
     local list = {}
+    if ns.TrainerInfo and ns.TrainerInfo.Has() then return list end -- the level-up display asks TrainerInfo
     if not (ns.char and ns.char.trainerSpells) then return list end
     for _, entry in ipairs(TrainerEntries()) do
         if entry.spell.level <= level then
@@ -180,6 +190,7 @@ local function Card(i)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         if self.entry.trainer then
             GameTooltip:SetSpellByID(self.entry.spellID)
+            if ns.TrainerInfo then ns.TrainerInfo.AddAdviceLines(GameTooltip, self.entry.spellID) end
         else
             GameTooltip:SetSpellBookItem(self.entry.slot, self.entry.bank)
         end
@@ -214,13 +225,22 @@ local function FillTrainerCard(card, entry)
     card.name:SetText(spell.name)
     local parts = {}
     if spell.rank then parts[#parts + 1] = spell.rank end
-    parts[#parts + 1] = entry.ready and ("|cff33ff33" .. L["Learnable now"] .. "|r")
-        or ("|cffff5050" .. L["Level %d"]:format(spell.level) .. "|r")
-    if spell.cost > 0 then parts[#parts + 1] = GetMoneyString(spell.cost, true) end
+    if not entry.ready then
+        parts[#parts + 1] = "|cffff5050" .. L["Level %d"]:format(spell.level) .. "|r"
+    elseif spell.quest then
+        parts[#parts + 1] = "|cffffd100" .. L["Class quest"] .. "|r"
+    elseif entry.advice == "s" then
+        parts[#parts + 1] = L["You can skip it"]
+    else
+        parts[#parts + 1] = "|cff33ff33" .. L["Learnable now"] .. "|r"
+    end
+    if spell.cost > 0 and not spell.quest then parts[#parts + 1] = GetMoneyString(spell.cost, true) end
     card.sub:SetText(table.concat(parts, "  ·  "))
     card.sub:SetTextColor(0.7, 0.65, 0.56)
-    for _, e in ipairs(card.edges) do e:SetVertexColor(0, 0, 0, 1) end
-    card:SetAlpha(entry.ready and 1 or 0.55)
+    -- recommended: gem edge on the icon (accent), skip: dimmed like the upcoming ones
+    local edge = entry.advice == "r" and ns.UI.ACCENT or { 0, 0, 0 }
+    for _, e in ipairs(card.edges) do e:SetVertexColor(edge[1], edge[2], edge[3], 1) end
+    card:SetAlpha((entry.ready and entry.advice ~= "s") and 1 or 0.55)
     card:SetAttribute("type1", nil)
     card:SetAttribute("spell1", nil)
     card:SetAttribute("shift-type1", "none")
