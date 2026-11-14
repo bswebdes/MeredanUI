@@ -422,7 +422,7 @@ Char.AddTab({
 -- Tooltip line on wished items -------------------------------------------------------------------
 
 if TooltipDataProcessor and Enum.TooltipDataType then
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
+    ns.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
         if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then return end
         local id = data and data.id
         if not id or (issecretvalue and issecretvalue(id)) or not W.Has(id) then return end

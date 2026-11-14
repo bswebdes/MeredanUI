@@ -134,6 +134,16 @@ ns.MAIL_ADDONS = { "Postal", "TradeSkillMaster", "MailLogger" }
 
 -- Run outside combat (immediately or on PLAYER_REGEN_ENABLED).
 local afterCombat = {}
+-- Tooltip postcall that marks its lines as mUI's own: lines other addons add afterwards (e.g.
+-- Questie) get a divider above them (Tooltip.lua)
+function ns.AddTooltipPostCall(kind, fn)
+    TooltipDataProcessor.AddTooltipPostCall(kind, function(tooltip, ...)
+        tooltip.muiAdding = true
+        fn(tooltip, ...)
+        tooltip.muiAdding = nil
+    end)
+end
+
 function ns.AfterCombat(fn)
     if not InCombatLockdown() then return fn() end
     table.insert(afterCombat, fn)

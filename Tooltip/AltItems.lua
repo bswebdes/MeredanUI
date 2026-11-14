@@ -151,7 +151,7 @@ local function AddLines(tooltip, itemID)
 end
 
 ns:On("PLAYER_LOGIN", function()
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
+    ns.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
         if not Enabled() or not data then return end
         -- main tooltips only: comparison tooltips are built in a secure context
         if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then return end

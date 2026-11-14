@@ -178,7 +178,7 @@ end
 
 ns:On("PLAYER_LOGIN", function()
     if not ns.IS_FOREVER then return end
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
+    ns.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
         if not (ns.db and ns.db.ahTooltipPrice ~= false) or not data then return end
         if tooltip ~= GameTooltip and tooltip ~= ItemRefTooltip then return end -- comparison tooltips are secure
         local itemID = data.id

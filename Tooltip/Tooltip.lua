@@ -342,9 +342,6 @@ local function CopyLine(tooltip, from, to)
     local fl, fr, tl, tr = Left(tooltip, from), Right(tooltip, from), Left(tooltip, to), Right(tooltip, to)
     tl:SetText(fl:GetText())
     tl:SetTextColor(fl:GetTextColor())
-    -- word wrap belongs to the line object, not the text: a long "Use:" text moved into a line that
-    -- was added without wrap would stretch the tooltip across the screen
-    tl:SetWordWrap(fl:CanWordWrap())
     if fr and tr then
         local text = fr:IsShown() and fr:GetText() or nil
         tr:SetText(text)
@@ -418,6 +415,9 @@ end
 -- transparent inline spacer and the icon frame hangs from line 1. Only a short one-row line 2 can
 -- sit next to the icon: a long one wraps (or starts with a line break, e.g. recipes) and its next
 -- rows would run under the icon, so an empty line 2 is opened instead.
+-- inline (items): lines are never moved. The game keeps the word wrap per line slot, so a long
+-- "Use:" text moved into another slot stops wrapping and stretches the tooltip across the screen.
+-- The empty row is a second row of line 1 instead; returns whether line 2 sits next to the icon.
 local ICON = 32
 local INDENT = ICON + 10
 local SUBTITLE_MAX = 180 -- widest line 2 that still fits next to the icon without wrapping
@@ -427,7 +427,7 @@ local function FitsBesideIcon(line)
     return line:GetUnboundedStringWidth() <= SUBTITLE_MAX
 end
 
-local function ShowIcon(tooltip, texture, atlas, edge, layout)
+local function ShowIcon(tooltip, texture, atlas, edge, layout, inline)
     local l1 = Left(tooltip, 1)
     if not (l1 and Left(tooltip, 2)) then return end
     if not tooltip.muiIcon then
@@ -442,15 +442,22 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout)
     local l2 = Left(tooltip, 2)
     local text2 = l2:GetText()
     local already = Readable(text2) and text2 and text2:find("|T1319037:", 1, true)
+    local beside = true
     if not already and not FitsBesideIcon(l2) then
-        l2 = InsertLineAt(tooltip, layout or { free = 0 }, 2)
+        if inline then
+            beside = false
+            local text1 = l1:GetText()
+            if Readable(text1) and text1 and not text1:find("\n", 1, true) then l1:SetText(text1 .. "\n ") end
+        else
+            l2 = InsertLineAt(tooltip, layout or { free = 0 }, 2)
+        end
     end
     -- an inline texture's width grows with the line's font size: line 1 (larger name font) gets a
     -- narrower spacer so both lines start at the same x
     local _, h1 = l1:GetFont()
     local _, h2 = l2:GetFont()
     local w1 = (h1 and h2 and h1 > 0) and math.floor(INDENT * h2 / h1 + 0.5) or INDENT
-    for i, line in ipairs({ l1, l2 }) do
+    for i, line in ipairs(beside and { l1, l2 } or { l1 }) do
         local text = line:GetText()
         if Readable(text) and text and not text:find("|T1319037:", 1, true) then
             line:SetText(("|T1319037:1:%d|t"):format(i == 1 and w1 or INDENT) .. text)
@@ -469,6 +476,7 @@ local function ShowIcon(tooltip, texture, atlas, edge, layout)
     local c = edge or ns.Material().item
     for _, e in ipairs(f.edges) do e:SetVertexColor(c[1], c[2], c[3], 1) end
     f:Show()
+    return beside
 end
 
 -- Small gap line after line 2 (below the icon): moves the lines below down one
@@ -524,7 +532,7 @@ local function PlaceHealthBar(tooltip, layout)
     bar:SetPoint("TOPLEFT", line, "TOPLEFT", 0, -2)
     bar:SetPoint("RIGHT", right, "RIGHT", 0, 0)
     bar:SetHeight(ns.Snap(BAR_HEIGHT))
-    tooltip.muiBarLine = i
+    tooltip.muiOwnEnd = i
 end
 
 -- Players and NPCs alike: divider with a gem, the unit's target as a label/value row, then the
@@ -774,9 +782,12 @@ local function OnItemTooltip(tooltip, data)
         local r, g, b = C_Item.GetItemQualityColor(quality)
         if r then edge = { r, g, b } end
     end
-    local layout = { free = 0 }
-    ShowIcon(tooltip, icon, nil, edge, layout)
-    InsertGap(tooltip, layout)
+    -- gap below the icon as an empty second row of line 2 (no lines moved, see ShowIcon)
+    if ShowIcon(tooltip, icon, nil, edge, nil, true) then
+        local l2 = Left(tooltip, 2)
+        local text = l2:GetText()
+        if Readable(text) and text and not text:find("\n", 1, true) then l2:SetText(text .. "\n ") end
+    end
     tooltip:Show() -- relayout
 end
 
@@ -917,19 +928,20 @@ local function ResetBorder(self)
     ResetGroups(self)
     ClearIcon(self)
     self.muiSection = nil
-    self.muiBarLine, self.muiAfterBar = nil, nil
+    self.muiOwnEnd, self.muiForeign, self.muiAdding = nil, nil, nil
 end
 
--- Lines other addons add below the health bar (e.g. Questie's quest progress) get the gem divider
--- above them instead of sticking to the bar
-local function AfterBarLine(self)
-    if not self.muiBarLine or self.muiAfterBar then return end
+-- Lines other addons add below mUI's own (health bar on units, mUI's item block, e.g. Questie's
+-- quest progress) get the gem divider above them instead of sticking to ours
+local function AfterOwnLines(self)
+    if self.muiForeign or not (self.muiOwnEnd or self.muiSection) then return end
     local n = self:NumLines()
-    if n <= self.muiBarLine then return end
-    self.muiAfterBar = true
-    local slot = self.muiBarLine + 1
-    if slot == n then -- no empty line left between bar and the new line: move it down one
-        self:AddLine(" ")
+    if self.muiOwnEnd and n <= self.muiOwnEnd then return end
+    if self.muiAdding then return end -- mUI's own postcall (ns.AddTooltipPostCall)
+    self.muiForeign = true
+    local slot = self.muiOwnEnd and self.muiOwnEnd + 1 or n
+    if slot == n then -- no empty line left between ours and the new line: move it down one
+        self:AddLine(" ", 1, 1, 1, true) -- wrapping slot: a long foreign line keeps wrapping
         CopyLine(self, n, n + 1)
         local r = Right(self, n)
         if r then r:SetText(nil) r:Hide() end
@@ -1002,8 +1014,10 @@ ns:On("PLAYER_LOGIN", function()
         Skin(tooltip)
         tooltip:HookScript("OnTooltipCleared", ResetBorder)
     end
-    hooksecurefunc(GameTooltip, "AddLine", AfterBarLine)
-    hooksecurefunc(GameTooltip, "AddDoubleLine", AfterBarLine)
+    for _, tooltip in ipairs({ GameTooltip, ItemRefTooltip }) do
+        hooksecurefunc(tooltip, "AddLine", AfterOwnLines)
+        hooksecurefunc(tooltip, "AddDoubleLine", AfterOwnLines)
+    end
     -- SetText without a color = Blizzard's yellow default (calendar hints, many UI buttons): our text
     -- color instead. Explicit colors (item quality, titles) stay untouched.
     hooksecurefunc(GameTooltip, "SetText", function(self, _, r)
@@ -1019,14 +1033,14 @@ ns:On("PLAYER_LOGIN", function()
     if ItemRefTooltip.ItemRefSetHyperlink then hooksecurefunc(ItemRefTooltip, "ItemRefSetHyperlink", ApplyPadding) end
     SkinCompareHeader(ShoppingTooltip1)
     SkinCompareHeader(ShoppingTooltip2)
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnUnitTooltip)
+    ns.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnUnitTooltip)
     -- items first of all (before mUI's own item lines, which are only appended after it): the
     -- icon gap moves Blizzard's lines
-    TooltipDataProcessor.AddTooltipPostCall(TooltipDataProcessor.AllTypes, function(tooltip, data)
+    ns.AddTooltipPostCall(TooltipDataProcessor.AllTypes, function(tooltip, data)
         if data and data.type == Enum.TooltipDataType.Item then OnItemTooltip(tooltip, data) end
     end)
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.UnitAura, OnAuraTooltip)
-    TooltipDataProcessor.AddTooltipPostCall(TooltipDataProcessor.AllTypes, OnAnyTooltip)
+    ns.AddTooltipPostCall(Enum.TooltipDataType.UnitAura, OnAuraTooltip)
+    ns.AddTooltipPostCall(TooltipDataProcessor.AllTypes, OnAnyTooltip)
 end)
 
 -- Also catch tooltips from load-on-demand Blizzard addons (collections, garrison ...)
