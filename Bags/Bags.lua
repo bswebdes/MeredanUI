@@ -838,12 +838,23 @@ local function CreateWindow()
     end
     -- order left to right: normal bags, special bags (quiver, ammo pouch ...), reagent bag
     function window.PlaceBagSlots()
+        -- grouped by what is in the slot (not by slot number): a normal bag in the reagent slot
+        -- counts as a normal bag, an empty reagent slot stays at the end
+        local function IsReagentBag(bag)
+            local id = GetInventoryItemID("player", C_Container.ContainerIDToInventoryID(bag))
+            if not id then return bag == REAGENT_BAG end
+            local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(id)
+            return classID == Enum.ItemClass.Container and subclassID == Enum.ItemContainerSubclass.Reagent
+        end
+        local function Group(bag)
+            if IsReagentBag(bag) then return 3 end
+            return IsSpecialBag(bag) and 2 or 1
+        end
         local order = {}
-        for bag = 1, 4 do if not IsSpecialBag(bag) then order[#order + 1] = bag end end
-        for bag = 1, 4 do if IsSpecialBag(bag) then order[#order + 1] = bag end end
-        order[#order + 1] = REAGENT_BAG
+        for group = 1, 3 do
+            for bag = 1, REAGENT_BAG do if Group(bag) == group then order[#order + 1] = bag end end
+        end
         -- a wider gap between the groups, so special bags and the reagent slot read as separate
-        local function Group(bag) return bag == REAGENT_BAG and 3 or (IsSpecialBag(bag) and 2 or 1) end
         local previous, previousBag
         for i = #order, 1, -1 do
             local slotButton = bagSlots[order[i]]
