@@ -1,0 +1,409 @@
+{
+  "class": "PRIEST",
+  "sources": [
+    {
+      "title": "World of Warcraft: Forever Class Deep Dives - Priest and Warrior",
+      "url": "https://worldofwarcraft.blizzard.com/news/24301514",
+      "kind": "official",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Method.gg - WoW Forever Priest Leveling Guide and Talents",
+      "url": "https://www.method.gg/wow-forever/wow-forever-priest-leveling-guide-and-talents",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Forever Priest Leveling Guide",
+      "url": "https://www.warcrafttavern.com/forever/guides/priest-leveling/",
+      "kind": "forever_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "DTGRE - WoW Forever Spell Training Too Expensive? What to Buy, Skip & Save Gold",
+      "url": "https://www.dtgre.com/2026/11/wow-forever-spell-training-too-expensive-save-gold.html",
+      "kind": "other",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Warcraft Tavern - WoW Classic Priest Leveling Guide",
+      "url": "https://warcrafttavern.com/wow-classic/guides/priest-leveling-guide",
+      "kind": "classic_guide",
+      "checked": "2026-11-14"
+    },
+    {
+      "title": "Blizzard forums (Classic) - Priest leveling",
+      "url": "https://us.forums.blizzard.com/en/wow/t/priest-leveling/329783",
+      "kind": "other",
+      "checked": "2026-11-14"
+    }
+  ],
+  "spells": {
+    "Power Word: Fortitude": {
+      "advice": "recommended",
+      "reason_en": "Stamina buff; very important when solo",
+      "reason_de": "Ausdauer-Buff; solo sehr wichtig"
+    },
+    "Lesser Heal": {
+      "advice": "recommended",
+      "reason_en": "Your only heal until Heal at 16",
+      "reason_de": "Dein einziger Heilzauber bis Heilen (16)"
+    },
+    "Shadow Word: Pain": {
+      "advice": "recommended",
+      "reason_en": "Core DoT; top training priority",
+      "reason_de": "Wichtigster DoT; höchste Priorität"
+    },
+    "Power Word: Shield": {
+      "advice": "recommended",
+      "reason_en": "Pre-shield stops pushback; top priority",
+      "reason_de": "Schild vorab gegen Zauberverzögerung; Top-Priorität"
+    },
+    "Smite": {
+      "advice": "recommended",
+      "reason_en": "Main early damage before Mind Blast and wand",
+      "reason_de": "Hauptschaden früh, vor Gedankenschlag und Zauberstab",
+      "ranks": {
+        "4": {
+          "advice": "optional",
+          "reason_en": "Skip if you use wand + Mind Blast; Smite builds keep it",
+          "reason_de": "Auslassen bei Zauberstab + Gedankenschlag; Smite-Builds kaufen"
+        },
+        "5": {
+          "advice": "optional",
+          "reason_en": "Skip if you use wand + Mind Blast; Smite builds keep it",
+          "reason_de": "Auslassen bei Zauberstab + Gedankenschlag; Smite-Builds kaufen"
+        },
+        "6": {
+          "advice": "optional",
+          "reason_en": "Skip if you use wand + Mind Blast; Smite builds keep it",
+          "reason_de": "Auslassen bei Zauberstab + Gedankenschlag; Smite-Builds kaufen"
+        },
+        "7": {
+          "advice": "optional",
+          "reason_en": "Skip if you use wand + Mind Blast; Smite builds keep it",
+          "reason_de": "Auslassen bei Zauberstab + Gedankenschlag; Smite-Builds kaufen"
+        },
+        "8": {
+          "advice": "optional",
+          "reason_en": "Skip if you use wand + Mind Blast; Smite builds keep it",
+          "reason_de": "Auslassen bei Zauberstab + Gedankenschlag; Smite-Builds kaufen"
+        }
+      }
+    },
+    "Fade": {
+      "advice": "skip",
+      "reason_en": "Threat drop; little use when solo",
+      "reason_de": "Bedrohung senken; solo kaum Nutzen",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Threat drop doubled in Forever; helps in groups",
+          "reason_de": "Bedrohungssenkung in Forever verdoppelt; gut in Gruppen"
+        }
+      }
+    },
+    "Renew": {
+      "advice": "recommended",
+      "reason_en": "Cheap healing over time; top priority",
+      "reason_de": "Günstige Heilung über Zeit; Top-Priorität"
+    },
+    "Mind Blast": {
+      "advice": "recommended",
+      "reason_en": "Main opener/burst from 10 on",
+      "reason_de": "Haupt-Eröffner und Burst ab 10"
+    },
+    "Resurrection": {
+      "advice": "optional",
+      "reason_en": "For groups; rank 1 is enough while leveling",
+      "reason_de": "Für Gruppen; Rang 1 reicht beim Leveln",
+      "ranks": {
+        "2": {
+          "advice": "skip",
+          "reason_en": "Higher rank only restores more health/mana",
+          "reason_de": "Höherer Rang gibt nur mehr Leben/Mana"
+        },
+        "3": {
+          "advice": "skip",
+          "reason_en": "Higher rank only restores more health/mana",
+          "reason_de": "Höherer Rang gibt nur mehr Leben/Mana"
+        },
+        "4": {
+          "advice": "skip",
+          "reason_en": "Higher rank only restores more health/mana",
+          "reason_de": "Höherer Rang gibt nur mehr Leben/Mana"
+        },
+        "5": {
+          "advice": "skip",
+          "reason_en": "Higher rank only restores more health/mana",
+          "reason_de": "Höherer Rang gibt nur mehr Leben/Mana"
+        }
+      },
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Healers should be able to res the group",
+          "reason_de": "Heiler sollten die Gruppe wiederbeleben können"
+        }
+      }
+    },
+    "Inner Fire": {
+      "advice": "recommended",
+      "reason_en": "Armor buff; very important when solo",
+      "reason_de": "Rüstungs-Buff; solo sehr wichtig"
+    },
+    "Cure Disease": {
+      "advice": "optional",
+      "reason_en": "Situational; useful vs disease mobs",
+      "reason_de": "Situativ; nützlich gegen Krankheiten",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Healers need to remove diseases",
+          "reason_de": "Heiler müssen Krankheiten entfernen"
+        }
+      }
+    },
+    "Psychic Scream": {
+      "advice": "recommended",
+      "reason_en": "Emergency fear; do not skip",
+      "reason_de": "Notfall-Furcht; nicht auslassen",
+      "ranks": {
+        "2": {
+          "advice": "optional",
+          "reason_en": "Fears more targets; nice but not needed",
+          "reason_de": "Mehr Ziele; nett, aber nicht nötig"
+        },
+        "3": {
+          "advice": "optional",
+          "reason_en": "Fears more targets; nice but not needed",
+          "reason_de": "Mehr Ziele; nett, aber nicht nötig"
+        },
+        "4": {
+          "advice": "optional",
+          "reason_en": "Fears more targets; nice but not needed",
+          "reason_de": "Mehr Ziele; nett, aber nicht nötig"
+        }
+      }
+    },
+    "Heal": {
+      "advice": "recommended",
+      "reason_en": "Efficient self-heal from 16",
+      "reason_de": "Effiziente Selbstheilung ab 16"
+    },
+    "Dispel Magic": {
+      "advice": "recommended",
+      "reason_en": "Removes bad magic debuffs from you",
+      "reason_de": "Entfernt schädliche Magie von dir"
+    },
+    "Divine Grace": {
+      "advice": "optional",
+      "reason_en": "New racial spell; very cheap, no guide rates it yet",
+      "reason_de": "Neue Volksfähigkeit; sehr billig, noch ohne Guide-Wertung"
+    },
+    "Desperate Prayer": {
+      "advice": "recommended",
+      "reason_en": "Racial spell; ranks are very cheap, keep them current",
+      "reason_de": "Volksfähigkeit; Ränge sind sehr billig, aktuell halten"
+    },
+    "Starshards": {
+      "advice": "recommended",
+      "reason_en": "Racial; damage buffed a lot in Forever, cheap ranks",
+      "reason_de": "Volksfähigkeit; in Forever viel stärker, billige Ränge"
+    },
+    "Devouring Plague": {
+      "advice": "recommended",
+      "reason_en": "Now baseline and cheap; DoT that heals you",
+      "reason_de": "Jetzt für alle und billig; DoT, der dich heilt"
+    },
+    "Fear Ward": {
+      "advice": "optional",
+      "reason_en": "Now baseline and cheap; vs fearing mobs",
+      "reason_de": "Jetzt für alle und billig; gegen Furcht-Gegner"
+    },
+    "Flash Heal": {
+      "advice": "optional",
+      "reason_en": "Fast but costly heal; buy if gold allows",
+      "reason_de": "Schnell, aber teuer; kaufen, wenn Gold reicht",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Core emergency heal for healers",
+          "reason_de": "Wichtige Notfallheilung für Heiler"
+        }
+      }
+    },
+    "Holy Fire": {
+      "advice": "optional",
+      "reason_en": "Pick Holy Fire or Mind Blast as opener; Smite builds want it",
+      "reason_de": "Heiliges Feuer oder Gedankenschlag als Eröffner wählen"
+    },
+    "Mind Soothe": {
+      "advice": "optional",
+      "reason_en": "Sneak past humanoid mobs; some skip it",
+      "reason_de": "An Humanoiden vorbeischleichen; manche lassen es aus"
+    },
+    "Shackle Undead": {
+      "advice": "skip",
+      "reason_en": "Group CC for undead; not needed solo",
+      "reason_de": "Gruppen-Kontrolle für Untote; solo unnötig"
+    },
+    "Touch of Weakness": {
+      "advice": "recommended",
+      "reason_en": "Racial spell; ranks are very cheap, keep them current",
+      "reason_de": "Volksfähigkeit; Ränge sind sehr billig, aktuell halten"
+    },
+    "Hex of Weakness": {
+      "advice": "recommended",
+      "reason_en": "Racial spell; ranks are very cheap, keep them current",
+      "reason_de": "Volksfähigkeit; Ränge sind sehr billig, aktuell halten"
+    },
+    "Mind Vision": {
+      "advice": "skip",
+      "reason_en": "Scouting only; no combat value",
+      "reason_de": "Nur zum Erkunden; kein Kampfnutzen"
+    },
+    "Mana Burn": {
+      "advice": "skip",
+      "reason_en": "Mostly PvP; not needed while leveling",
+      "reason_de": "Meist PvP; beim Leveln unnötig"
+    },
+    "Holy Nova": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Mind Flay": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Shadowguard": {
+      "advice": "recommended",
+      "reason_en": "Racial spell; ranks are very cheap, keep them current",
+      "reason_de": "Volksfähigkeit; Ränge sind sehr billig, aktuell halten"
+    },
+    "Divine Spirit": {
+      "advice": "recommended",
+      "reason_en": "Baseline in Forever; Spirit buff for mana regen",
+      "reason_de": "In Forever für alle; Willenskraft für Manaregeneration"
+    },
+    "Feedback": {
+      "advice": "optional",
+      "reason_en": "Racial; mostly vs casters/PvP, but cheap",
+      "reason_de": "Volksfähigkeit; meist gegen Zauberer/PvP, aber billig"
+    },
+    "Mind Control": {
+      "advice": "skip",
+      "reason_en": "Fun utility; not a leveling tool",
+      "reason_de": "Spaßzauber; kein Leveling-Werkzeug"
+    },
+    "Prayer of Healing": {
+      "advice": "optional",
+      "reason_en": "Group heal; not needed solo",
+      "reason_de": "Gruppenheilung; solo unnötig",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Needed to heal dungeons well",
+          "reason_de": "Nötig, um Dungeons gut zu heilen"
+        }
+      }
+    },
+    "Shadow Protection": {
+      "advice": "skip",
+      "reason_en": "Shadow resist; not needed while leveling",
+      "reason_de": "Schattenwiderstand; beim Leveln unnötig"
+    },
+    "Dark Sacrifice": {
+      "advice": "optional",
+      "reason_en": "New racial spell; very cheap, no guide rates it yet",
+      "reason_de": "Neue Volksfähigkeit; sehr billig, noch ohne Guide-Wertung"
+    },
+    "Chastise": {
+      "advice": "optional",
+      "reason_en": "New racial spell; very cheap, no guide rates it yet",
+      "reason_de": "Neue Volksfähigkeit; sehr billig, noch ohne Guide-Wertung"
+    },
+    "Contingency Plan": {
+      "advice": "optional",
+      "reason_en": "New racial spell; very cheap, no guide rates it yet",
+      "reason_de": "Neue Volksfähigkeit; sehr billig, noch ohne Guide-Wertung"
+    },
+    "Abolish Disease": {
+      "advice": "optional",
+      "reason_en": "Situational; useful vs disease mobs",
+      "reason_de": "Situativ; nützlich gegen Krankheiten",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Healers need to remove diseases",
+          "reason_de": "Heiler müssen Krankheiten entfernen"
+        }
+      }
+    },
+    "Binding Heal": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Shadow Word: Death": {
+      "advice": "recommended",
+      "reason_en": "Baseline instant damage; costs health if target lives",
+      "reason_de": "Für alle; Sofortschaden, kostet Leben wenn Ziel überlebt"
+    },
+    "Levitate": {
+      "advice": "optional",
+      "reason_en": "Travel shortcut; needs Light Feathers",
+      "reason_de": "Abkürzung beim Reisen; braucht Leichte Federn"
+    },
+    "Greater Heal": {
+      "advice": "optional",
+      "reason_en": "Big slow heal; Heal is often enough solo",
+      "reason_de": "Große langsame Heilung; solo reicht oft Heilen",
+      "roles": {
+        "heal": {
+          "advice": "recommended",
+          "reason_en": "Main big heal for dungeon healing",
+          "reason_de": "Wichtigste große Heilung in Dungeons"
+        }
+      }
+    },
+    "Penance": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Prayer of Mending": {
+      "advice": "recommended",
+      "reason_en": "Talent rank: buy it if you took the talent",
+      "reason_de": "Talentrang: kaufen, wenn du das Talent hast"
+    },
+    "Prayer of Spirit": {
+      "advice": "optional",
+      "reason_en": "Group Spirit buff; needs reagents",
+      "reason_de": "Gruppen-Willenskraft-Buff; braucht Reagenzien"
+    }
+  },
+  "learning_order": "**1-10:** Buy everything: Fortitude, Lesser Heal, Shadow Word: Pain, Power Word: Shield, Smite 2, Renew. Fade can wait (solo).\nRotation: Smite, Shadow Word: Pain, melee/wand to save mana (Method). DoTs tag mobs instantly in Forever.\n**10-20:** Mind Blast (10), Inner Fire (12), Psychic Scream (14), Heal (16), Dispel Magic (18). Get a wand early (Lesser/Greater Magic Wand).\nResurrection rank 1 only if you group; Cure Disease optional. Racial spells are very cheap - keep the known ones current.\n**20:** Devouring Plague (now baseline, cheap) is a must. Pick Holy Fire OR Mind Blast as your opener; Smite/Disc builds want Holy Fire.\nFlash Heal is optional solo. Fear Ward is cheap and now for every race. Skip Mind Soothe (optional), Shackle Undead, Fade 2.\n**22-30:** Keep Shadow Word: Pain, Power Word: Shield, Renew, Mind Blast, Heal current. Smite ranks 4+ are optional if you wand. Skip Mind Vision, Mana Burn.\n**30:** Divine Spirit (baseline now). Skip Mind Control and Shadow Protection. Prayer of Healing only for dungeon healers.\n**32-40:** Shadow Word: Death (32, baseline, instant). Abolish Disease optional. Levitate optional. Save for the 40 mount.\n**40-60:** Shadow: SW:Death and Mind Blast on cooldown, Mind Flay filler. Talent ranks (Mind Flay, Penance, Binding Heal, Holy Nova, Prayer of Mending) are cheap - buy when offered.\nGreater Heal/Prayer of Healing/Flash Heal ranks: buy if you heal dungeons, otherwise optional. Resurrection ranks 2+ can be skipped.\nMoney: crafting is not worth it except wands (Method); Skinning or Herbalism for extra silver; Enchanting can make your wands.",
+  "disagreements": [
+    "Smite: Method uses it as main early filler; Classic forum guide says it quickly becomes useless; Forever adds Smite talents (Power in Light), so Smite builds keep it.",
+    "Holy Fire vs Mind Blast: Classic forum poster says take only one of Smite/Holy Fire; Method's Forever rotation uses Mind Blast and never mentions Holy Fire.",
+    "Prayer of Healing: one forum poster says dungeons need it, another says you can heal to 60 without it.",
+    "Mind Soothe: Warcraft Tavern Classic calls it highly underrated; a forum poster says skip it.",
+    "Shadow Word: Death: Method's milestone table lists it at 32 but its training list says 40 (trainer list: 32)."
+  ],
+  "forever_differences": [
+    "Devouring Plague and Fear Ward are baseline for all races at 20 (Blizzard deep dive).",
+    "Divine Spirit is baseline at 30; Shadow Word: Death is a new baseline spell at 32 (Blizzard deep dive).",
+    "Fade threat reduction doubled; Renew stacks from multiple priests; Prayer of Healing heals the target's party (Blizzard deep dive).",
+    "New talent spells with trainer ranks: Penance (21-pt), Binding Heal (16-pt), Prayer of Mending (31-pt) (Blizzard deep dive).",
+    "Racial spells reworked: Starshards damage greatly increased; new Gnome Contingency Plan, Dwarf Chastise, Undead Dark Sacrifice, Human Divine Grace (Blizzard deep dive).",
+    "DoTs tag mobs instantly in Forever (Method)."
+  ],
+  "open_questions": [
+    "What Divine Grace, Dark Sacrifice, Chastise and Contingency Plan do in detail; no leveling guide rates them.",
+    "Icy Veins and Mobalytics Forever priest guides returned 403 and could not be read.",
+    "Psychic Scream rank differences in Forever not confirmed by any source."
+  ]
+}
