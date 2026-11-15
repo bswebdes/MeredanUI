@@ -30,11 +30,19 @@ local REAGENT_BAG = 5
 -- Forever has the classic keyring (own tab, only while it holds keys)
 local KEYRING = ns.IS_FOREVER and Enum.BagIndex and Enum.BagIndex.Keyring or nil
 if KEYRING then BAGS[#BAGS + 1] = KEYRING end
-local view = "bags" -- tab: "bags" (backpack + bags), "reagents" (reagent bag), "keys" (keyring)
+local view = "bags" -- tab: "bags" (all bags incl. the reagent bag - categories sort it), "keys" (keyring)
 
 local function ViewOf(bag)
-    if bag == REAGENT_BAG then return "reagents" elseif bag == KEYRING then return "keys" end
+    if bag == KEYRING then return "keys" end
     return "bags"
+end
+
+-- what sits in a bag slot decides, not the slot: Forever also takes a normal bag in the reagent slot
+local function IsReagentBag(bag)
+    local id = GetInventoryItemID("player", C_Container.ContainerIDToInventoryID(bag))
+    if not id then return bag == REAGENT_BAG end
+    local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(id)
+    return classID == Enum.ItemClass.Container and subclassID == Enum.ItemContainerSubclass.Reagent
 end
 
 local function HasKeys()
@@ -45,7 +53,9 @@ local function HasKeys()
     return false
 end
 
--- special bags (quiver, ammo pouch, soul/herb bags ...): only accept matching items
+-- special bags (quiver, ammo pouch, soul/herb bags ...): only accept matching items. The reagent bag
+-- is not one of them here: its free slots count as normal free slots, so it just reads as part of
+-- the bags.
 local function IsSpecialBag(bag)
     if bag == 0 or bag == REAGENT_BAG or bag == KEYRING then return false end
     local _, family = C_Container.GetContainerNumFreeSlots(bag)
@@ -370,6 +380,7 @@ end
 -- showLevel: show item level (default: only in gear sections)
 local function UpdateButton(button, info, showLevel)
     local bag, slot = button:GetBagID(), button:GetID()
+    if button.muiFreeText then button.muiFreeText:Hide() end -- free-slot count of special bags
     local texture = info and info.iconFileID
     ClearItemButtonOverlay(button)
     button:SetHasItem(texture)
@@ -412,6 +423,19 @@ local function ApplySearch()
                 button:SetMatchesSearch(match)
             end
         end
+    end
+end
+
+-- The reagent bag's free slots sit under "Free" like any other, but only take crafting reagents:
+-- while the cursor holds anything else they fade, so it's clear where the item can't go
+local function UpdateReagentSlots()
+    local list = buttons[REAGENT_BAG]
+    if not list then return end
+    local kind, itemID = GetCursorInfo()
+    local block = kind == "item" and itemID and IsReagentBag(REAGENT_BAG)
+        and select(17, C_Item.GetItemInfo(itemID)) ~= true
+    for _, button in pairs(list) do
+        button:SetAlpha((block and button.muiCategory == FREE) and 0.25 or 1)
     end
 end
 
@@ -542,8 +566,14 @@ local function LayoutCategories(items, empties, special)
     end
     local freeList, specialList = SplitEmpties(empties)
     if #freeList > 0 then sections[FREE], unsorted[FREE] = freeList, true end
+    -- Special bags (quiver, ammo pouch ...) get no row of empty slots: one empty slot stands in for
+    -- all of them, showing how many are free (items dropped on it go into that bag). Quiver and ammo
+    -- pouch slots sit at the end of the ammo section.
+    local tiles = {}
     if #specialList > 0 and special.key then
-        sections[special.key], unsorted[special.key] = specialList, true
+        local key = special.key == QUIVER and _G.INVTYPE_AMMO or special.key
+        sections[key] = sections[key] or {}
+        tiles[key] = { button = specialList[1].button, count = #specialList }
     end
     local keys = {}
     for key in pairs(sections) do keys[#keys + 1] = key end
@@ -561,7 +591,7 @@ local function LayoutCategories(items, empties, special)
             if x > 0 then y, x, rowHeight = y + rowHeight + SECTION_GAP, 0, 0 end
         end
         local function Place(key, fullRow)
-            local count = #sections[key]
+            local count = #sections[key] + (tiles[key] and 1 or 0)
             local cols = math.min(count, slots)
             local w = math.max(cols * (SIZE + GAP) - GAP, TextWidth(SectionLabel(key)) + 4)
             local h = HEADER + math.ceil(count / cols) * (SIZE + GAP) - GAP
@@ -599,6 +629,24 @@ local function LayoutCategories(items, empties, special)
             UpdateButton(button, entry.info)
             button:Show()
         end
+        local tile = tiles[section.key]
+        if tile then
+            local i = #list + 1
+            local col, row = (i - 1) % section.cols, math.floor((i - 1) / section.cols)
+            local button = tile.button
+            button:ClearAllPoints()
+            button:SetPoint("TOPLEFT", content, "TOPLEFT",
+                section.x + col * (SIZE + GAP), -(section.y + HEADER + row * (SIZE + GAP)))
+            UpdateButton(button, nil)
+            if not button.muiFreeText then
+                button.muiFreeText = ns.CreateText(button, 15, "CENTER", "OUTLINE")
+                button.muiFreeText:SetPoint("CENTER")
+                button.muiFreeText:SetTextColor(unpack(ns.UI.MUTED))
+            end
+            button.muiFreeText:SetText(tile.count)
+            button.muiFreeText:Show()
+            button:Show()
+        end
     end
 
     return width, placedHeight
@@ -609,8 +657,7 @@ function Layout()
     if not categoryOf then BuildLookup() end
     dirty = false
 
-    if (view == "reagents" and C_Container.GetContainerNumSlots(REAGENT_BAG) == 0)
-        or (view == "keys" and not HasKeys()) then
+    if view == "keys" and not HasKeys() then
         view = "bags"
     end
     for _, header in ipairs(headers) do header:Hide() end
@@ -635,6 +682,7 @@ function Layout()
         slotButton.icon:SetTexture(GetInventoryItemTexture("player", C_Container.ContainerIDToInventoryID(bag)))
     end
     ApplySearch()
+    UpdateReagentSlots()
 end
 
 -- Custom categories (Alt+right-click) ---------------------------------------------------------
@@ -707,7 +755,7 @@ local function CreateWindow()
     local reach = ns.WindowFrameReach()
     window:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - reach, margin + 28 + 8 + 28 + 8 + reach)
 
-    -- tabs: Bags | Reagents (only with a reagent bag)
+    -- tabs: Bags | Keys (only while the keyring holds keys)
     local tabs = {}
     local function Tab(key, label)
         local tab = CreateFrame("Button", nil, window)
@@ -723,8 +771,7 @@ local function CreateWindow()
         return tab
     end
     Tab("bags", L["Bags"]):SetPoint("TOPLEFT", PAD, -PAD)
-    Tab("reagents", L["Reagents"]):SetPoint("LEFT", tabs.bags, "RIGHT", 14, 0)
-    Tab("keys", L["Keys"])
+    Tab("keys", L["Keys"]):SetPoint("LEFT", tabs.bags, "RIGHT", 14, 0)
     function window.ShowView(key)
         if view ~= key then
             view = key
@@ -732,10 +779,7 @@ local function CreateWindow()
         end
     end
     function window.UpdateTabs()
-        tabs.reagents:SetShown(C_Container.GetContainerNumSlots(REAGENT_BAG) > 0)
         tabs.keys:SetShown(HasKeys())
-        tabs.keys:ClearAllPoints()
-        tabs.keys:SetPoint("LEFT", tabs.reagents:IsShown() and tabs.reagents or tabs.bags, "RIGHT", 14, 0)
         for key, tab in pairs(tabs) do
             local active = key == view
             tab.text:SetTextColor(unpack(active and UI.TITLE or UI.MUTED))
@@ -846,14 +890,7 @@ local function CreateWindow()
         local function Put()
             if CursorHasItem() then PutItemInBag(inventorySlot) else PickupBagFromSlot(inventorySlot) end
         end
-        -- click on the reagent bag: show its tab (dragging still picks it up)
-        slotButton:SetScript("OnClick", function()
-            if bag == REAGENT_BAG and not CursorHasItem() and C_Container.GetContainerNumSlots(bag) > 0 then
-                window.ShowView("reagents")
-            else
-                Put()
-            end
-        end)
+        slotButton:SetScript("OnClick", Put)
         slotButton:SetScript("OnDragStart", function() PickupBagFromSlot(inventorySlot) end)
         slotButton:SetScript("OnReceiveDrag", Put)
         slotButton:SetScript("OnEnter", function(self)
@@ -879,12 +916,6 @@ local function CreateWindow()
     function window.PlaceBagSlots()
         -- grouped by what is in the slot (not by slot number): a normal bag in the reagent slot
         -- counts as a normal bag, an empty reagent slot stays at the end
-        local function IsReagentBag(bag)
-            local id = GetInventoryItemID("player", C_Container.ContainerIDToInventoryID(bag))
-            if not id then return bag == REAGENT_BAG end
-            local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(id)
-            return classID == Enum.ItemClass.Container and subclassID == Enum.ItemContainerSubclass.Reagent
-        end
         local function Group(bag)
             if IsReagentBag(bag) then return 3 end
             return IsSpecialBag(bag) and 2 or 1
@@ -1002,12 +1033,6 @@ ns:On("PLAYER_LOGIN", function()
         "OpenBackpack", "CloseBackpack", "OpenBag", "CloseBag" }) do
         if _G[name] then hooksecurefunc(name, Sync) end
     end
-    -- reagent bag clicked in the bag bar: open mUI bags on the reagents tab
-    hooksecurefunc("ToggleBag", function(id)
-        if id ~= REAGENT_BAG or C_Container.GetContainerNumSlots(id) == 0 then return end
-        if not window:IsShown() then window:Show() end
-        window.ShowView("reagents")
-    end)
 end)
 
 -- Events arrive in bursts (equipping fires lock, bag, equipment events repeatedly ...): rebuild
@@ -1040,6 +1065,7 @@ ns:On("ITEM_LOCK_CHANGED", function(_, bag, slot)
         SetItemButtonDesaturated(button, info and info.isLocked)
     end
 end)
+ns:On("CURSOR_CHANGED", function() if window and window:IsShown() then UpdateReagentSlots() end end)
 ns:On("BAG_UPDATE_COOLDOWN", function()
     if not (window and window:IsShown()) then return end
     for _, list in pairs(buttons) do
