@@ -1,5 +1,11 @@
 # MeredanUI Changelog
 
+## v0.5.4
+- Fixed: Beast Training could not teach your pet anything (Lua error on Train and All learnable). It now opens in the mUI trainer window with your pet, its training points and a working Train button
+- The pet tab of the spellbook shows how many abilities you learned at a pet trainer but haven't taught your pet yet. Hover it for the list
+- Bags: the Reagents tab is gone, everything in the reagent bag sorts into the normal categories. Its free slots count as free and fade while you hold something that isn't a reagent
+- Bags: quiver and ammo pouch no longer get their own row of empty slots, one slot at the end of Ammo shows how many are free
+
 ## v0.5.3
 - The damage meter background is now see-through, so it covers less of the game. Bars, names and numbers stay fully visible
 - The XP bar and the pet XP bar are slimmer and slightly see-through
