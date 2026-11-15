@@ -2,6 +2,10 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.3", items = {
+        "The damage meter background is now see-through, so it covers less of the game. Bars, names and numbers stay fully visible",
+        "The XP bar and the pet XP bar are slimmer and slightly see-through",
+    } },
     { version = "v0.5.2", items = {
         "New option \"3D portrait in the health bar\" (Unit frames page, off by default). Your character and your target appear faintly inside their health bars, zoomed to the head and facing inward. The model only shows over the health you have, so the missing part stays easy to read",
     } },
@@ -45,9 +49,5 @@ ns.CHANGELOG = {
         "Bags: quest items get a gold border, hearthstones a sage one, and Uncommon and better items a thicker quality border (bank and guild bank too). Borders stay visible on items with a cooldown",
         "Bags: the \"One big bag\" layout was removed, there is only the section layout now",
         "Fixed: class icons in chat grow with the chat font size again",
-    } },
-    { version = "v0.4.5", items = {
-        "Player buffs start at the right edge of the player frame again and grow to the left. The shortest-running buff sits on the right; when the row is full, the longest-running ones drop out",
-        "Questie: its quest icon on nameplates sits right next to the mUI bar and stays visible on your target",
     } },
 }
