@@ -528,16 +528,21 @@ local function DemoItem(text, icon, quality, key)
         merge = MergeCount }
 end
 
+-- Demo names from the client so the preview follows the game language
+local function SpellName(id, fallback)
+    return C_Spell.GetSpellName(id) or fallback
+end
+
 local function DemoActions()
     local accent = ns.UI.ACCENT
     return {
-        DemoItem("Klinge des Sturms", 135349, Enum.ItemQuality.Epic, "demo:blade"),
-        DemoItem("Sturmgeschmiedeter Schulterschutz", 135056, Enum.ItemQuality.Rare, "demo:shoulder"),
+        DemoItem(L["Blade of the Storm"], 135349, Enum.ItemQuality.Epic, "demo:blade"),
+        DemoItem(L["Stormforged Shoulderguards"], 135056, Enum.ItemQuality.Rare, "demo:shoulder"),
         DemoMoney(1234567),
-        { demo = true, title = L["Achievement"], text = "Der Sturm bricht los", icon = 236669, color = { 1, 0.82, 0 }, countText = "10" },
+        { demo = true, title = L["Achievement"], text = L["The Storm Breaks Loose"], icon = 236669, color = { 1, 0.82, 0 }, countText = "10" },
         DemoMoney(254321),
-        DemoItem("Sturmgeschmiedeter Schulterschutz", 135056, Enum.ItemQuality.Rare, "demo:shoulder"),
-        DemoItem("Sturmbrecher", 135350, Enum.ItemQuality.Legendary, "demo:legendary"),
+        DemoItem(L["Stormforged Shoulderguards"], 135056, Enum.ItemQuality.Rare, "demo:shoulder"),
+        DemoItem(L["Stormbreaker"], 135350, Enum.ItemQuality.Legendary, "demo:legendary"),
         -- group roll result (hover: all rolls)
         { key = "demo:roll", demo = true, title = L["Won · %s"]:format((NEED or "Need") .. " 87"),
             text = (C_Item.GetItemNameByID(19019) or "Donnerzorn") .. "  " .. ns.UI.ArrowMarkup(11) .. "  " .. RAID_CLASS_COLORS.SHAMAN:WrapTextInColorCode("Thrall"),
@@ -551,24 +556,24 @@ local function DemoActions()
         DemoMoney(98765),
         -- Battle.net (Toasts/BNetToasts.lua): friend online / broadcast / offline
         { demo = true, title = "Jaina#2104", color = { 0.51, 0.773, 1 }, icon = ns.IconPath("Friends"),
-            text = "Jaina, Stufe 60 Magierin – |cff33ff33" .. (BN_TOAST_ONLINE or "online") .. "|r" },
+            text = "Jaina, " .. L["Level %d %s"]:format(60, LOCALIZED_CLASS_NAMES_FEMALE and LOCALIZED_CLASS_NAMES_FEMALE.MAGE or "Mage") .. " – |cff33ff33" .. (BN_TOAST_ONLINE or "online") .. "|r" },
         { demo = true, title = "Thrall#1337", color = { 0.51, 0.773, 1 }, icon = ns.IconPath("Friends"),
-            text = "Heute Abend Onyxia?" },
+            text = L["Onyxia tonight?"] },
         -- durability (Toasts/Extras.lua) and profession reminder (Toasts/ProfessionReminder.lua)
         { demo = true, title = L["Repair soon"], text = L["Lowest item at %d %%"]:format(18),
             icon = "Interface\\Icons\\Trade_BlackSmithing", color = { 1, 0.6, 0.1 } },
-        { demo = true, title = "Schmiedekunst 75/75", icon = ns.IconPath("Crafting"), color = accent,
+        { demo = true, title = SpellName(2018, "Blacksmithing") .. " 75/75", icon = ns.IconPath("Crafting"), color = accent,
             text = L["%s can be learned at the trainer"]:format(L["Journeyman"]) },
         { demo = true, title = "Uther#4711", color = { 0.6, 0.59, 0.56 }, icon = ns.IconPath("Friends"),
             text = BN_TOAST_OFFLINE or "offline" },
         -- buff reminder (Toasts/BuffReminder.lua, Forever)
-        { demo = true, title = L["Buff missing"], text = "Arkane Intelligenz, " .. L["%s (old rank)"]:format("Frostrüstung"),
+        { demo = true, title = L["Buff missing"], text = SpellName(1459, "Arcane Intellect") .. ", " .. L["%s (old rank)"]:format(SpellName(168, "Frost Armor")),
             icon = 135932, color = { 1, 0.82, 0 } },
         -- class quest reminder (Quests/ClassQuestReminder.lua, Forever)
         { demo = true, title = L["Class quest: %s"]:format(L["Bear Form"]), text = "Denatharion, Darnassus",
             icon = "Interface\\Icons\\ClassIcon_Druid", color = { 1, 0.49, 0.04 } },
-        { demo = true, title = L["New mount"], text = "Sturmkrallengreif", icon = 132265, color = accent },
-        { demo = true, title = L["Quest completed"], text = "Ein Sturm zieht auf", icon = 236669, color = { 1, 0.82, 0 }, countText = "12.500 EP" },
+        { demo = true, title = L["New mount"], text = SpellName(8394, "Striped Frostsaber"), icon = C_Spell.GetSpellTexture(8394) or 132265, color = accent },
+        { demo = true, title = L["Quest completed"], text = L["A Storm Is Brewing"], icon = 236669, color = { 1, 0.82, 0 }, countText = L["%s XP"]:format(BreakUpLargeNumbers(12500)) },
     }
 end
 

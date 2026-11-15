@@ -12,6 +12,30 @@ SOURCES = [ROOT / "tools" / "talent-builds.json", ROOT / "tools" / "talent-build
 TARGET = ROOT / "Talents" / "Builds.lua"
 
 
+# German build names -> English (talent tree names as in the English client)
+TREES_EN = {
+    "Wilder Kampf": "Feral Combat", "Tierherrschaft": "Beast Mastery", "Treffsicherheit": "Marksmanship",
+    "Wiederherstellung": "Restoration", "Dämonologie": "Demonology", "Gleichgewicht": "Balance",
+    "Verstärkung": "Enhancement", "Vergeltung": "Retribution", "Zerstörung": "Destruction",
+    "Gebrechen": "Affliction", "Disziplin": "Discipline", "Elementar": "Elemental",
+    "Überleben": "Survival", "Meucheln": "Assassination", "Täuschung": "Subtlety",
+    "Schatten": "Shadow", "Heilig": "Holy", "Schutz": "Protection", "Waffen": "Arms",
+    "Furor": "Fury", "Kampf": "Combat", "Feuer": "Fire", "Arkan": "Arcane", "Frost": "Frost",
+}
+WORDS_EN = [("Nahkampf ab 40", "melee from 40"), ("Leveln", "Leveling"), ("Stufe", "Level"), ("mit ", "with ")]
+
+
+def name_en(name):
+    out = name
+    for de, en in sorted(TREES_EN.items(), key=lambda kv: -len(kv[0])):
+        out = out.replace(de, en)
+    for de, en in WORDS_EN:
+        out = out.replace(de, en)
+    if any(ch in out for ch in "äöüÄÖÜß") or any(w in out for w in ("Leveln", " mit ", "Stufe")):
+        raise SystemExit(f"Kein englischer Name für Build: {name} -> {out}")
+    return out
+
+
 def lua_str(text):
     return '"' + str(text).replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ") + '"'
 
@@ -41,7 +65,7 @@ def main():
         for build in classes[key]:
             order = ", ".join(str(int(entry[0])) for entry in build["order"])
             out.append("        {")
-            out.append(f"            name = {lua_str(build['name'])}, kind = \"leveling\",")
+            out.append(f"            name = {lua_str(build['name'])}, en = {lua_str(name_en(build['name']))}, kind = \"leveling\",")
             out.append(f"            source = {lua_str(build.get('source', ''))}, date = {lua_str(build.get('date', ''))},")
             out.append(f"            custom = {'true' if build.get('custom') else 'false'}, firstLevel = {int(build.get('firstLevel', 10))},")
             if build.get("recommended"):

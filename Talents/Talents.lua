@@ -270,6 +270,18 @@ local function OwnBuilds()
     return ns.root.talentBuilds[class]
 end
 
+-- Shown name: generated builds carry German "name" (stable key in saved settings) and English "en"
+local IS_DE = GetLocale() == "deDE"
+local function BuildLabel(build)
+    if build.own or IS_DE then return build.name end
+    return build.en or build.name
+end
+
+local function BuildTree(build)
+    local label = BuildLabel(build)
+    return label:match("^(.-)%s*%(") or label
+end
+
 local function BuildKey(build)
     return (build.own and "own:" or "") .. build.name
 end
@@ -587,7 +599,7 @@ local function Layout()
             step.node.adviceNext = true
         end
     end
-    adviceButton.Text:SetText(build and (build.own and (L["Own"] .. " · " .. build.name) or (L["Leveling"] .. " · " .. (build.name:match("^(.-)%s*%(") or build.name)
+    adviceButton.Text:SetText(build and (build.own and (L["Own"] .. " · " .. build.name) or (L["Leveling"] .. " · " .. BuildTree(build)
         .. (build.recommended and ("  " .. ns.UI.IconMarkup("Star", 11, ns.UI.ACCENT, 2)) or ""))) or L["Off"])
     adviceButton.Text:SetTextColor(unpack((build and not steps) and { 1, 0.4, 0.4 } or UI.TEXT))
     adviceButton.invalid = build ~= nil and steps == nil
@@ -824,7 +836,7 @@ local function CreateWindow()
         local trees = {}
         items[#items + 1] = { value = "__h1", inert = true, label = ACCENT_HEX .. L["Leveling"]:upper() .. "|r" }
         for _, build in ipairs(ClassBuilds()) do
-            local tree = build.name:match("^(.-)%s*%(") or build.name
+            local tree = BuildTree(build)
             if not tContains(trees, tree) then trees[#trees + 1] = tree end
             -- accent star = recommended starting build (Builds.lua: recommended)
             local star = build.recommended and ("  " .. UI.IconMarkup("Star", 11, UI.ACCENT, 2)) or ""
@@ -873,7 +885,7 @@ local function CreateWindow()
         GameTooltip:SetOwner(self, "ANCHOR_TOP")
         GameTooltip:AddLine(L["Advisor"], 1, 1, 1)
         if build then
-            GameTooltip:AddLine(build.name, unpack(ADVICE))
+            GameTooltip:AddLine(BuildLabel(build), unpack(ADVICE))
             if build.recommended then
                 GameTooltip:AddLine(UI.IconMarkup("Star", 11, UI.ACCENT, 2) .. " " .. L["Recommended for leveling"], unpack(UI.ACCENT))
             end
