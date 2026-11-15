@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.5.3
+- The damage meter background is now see-through, so it covers less of the game. Bars, names and numbers stay fully visible
+- The XP bar and the pet XP bar are slimmer and slightly see-through
+
 ## v0.5.2
 - New option "3D portrait in the health bar" (Unit frames page, off by default). Your character and your target appear faintly inside their health bars, zoomed to the head and facing inward. The model only shows over the health you have, so the missing part stays easy to read
 
