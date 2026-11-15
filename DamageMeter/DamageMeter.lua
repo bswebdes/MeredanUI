@@ -447,6 +447,7 @@ local function CreateWindow(index)
     plate:SetFrameLevel(math.max(window:GetFrameLevel() - 1, 0))
     ns.UI.Box(plate, ns.STYLE.panelColor, true)
     ns.AddDeepShell(plate, ns.Snap(2), { shadow = 12 })
+    plate:SetAlpha(0.4) -- see-through window, rows and text stay fully visible
 
     local header = CreateFrame("Frame", nil, window)
     header:SetPoint("TOPLEFT")

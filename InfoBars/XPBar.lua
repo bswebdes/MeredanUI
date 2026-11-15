@@ -1,5 +1,5 @@
 -- XP bar at the top center (inspired by Easy Experience Bar / Luxthos WeakAura).
---   600 x 18, no text, subtle ticks every 10 %. Segments: current XP | completed quests |
+--   600 x 12, no text, subtle ticks every 10 %. Segments: current XP | completed quests |
 --   open quests; rested bonus as a thin blue strip along the bottom.
 -- Tooltip: XP numbers, rested, XP/hour, time and kills to level, quest XP, time this level and
 -- session. Hidden at max level (reputation etc. live below the minimap, TrackingBars.lua).
@@ -7,8 +7,9 @@
 local _, ns = ...
 local L = ns.L
 
-local WIDTH, HEIGHT = 600, 18
-local PET_HEIGHT, PET_GAP = 6, 4 -- pet XP bar below (hunters)
+local WIDTH, HEIGHT = 600, 12
+local ALPHA = 0.8 -- slightly see-through, also the pet bar (child)
+local PET_HEIGHT, PET_GAP = 4, 4 -- pet XP bar below (hunters)
 local SECTIONS = 10 -- subtle tick lines like Blizzard's bar (every 10 %)
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 
@@ -230,6 +231,8 @@ local function Create()
     bar:SetSize(ns.Snap(WIDTH), ns.Snap(HEIGHT))
     bar:SetFrameStrata("LOW")
     bar:EnableMouse(true)
+    bar.muiAlpha = ALPHA
+    bar:SetAlpha(ALPHA)
     local back = bar:CreateTexture(nil, "BACKGROUND")
     back:SetAllPoints()
     back:SetColorTexture(0.05, 0.04, 0.03, 0.9)

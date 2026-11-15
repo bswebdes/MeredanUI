@@ -258,12 +258,10 @@ end
 ns.IsHovered = Hovered
 C_Timer.NewTicker(0.1, function()
     for frame in pairs(mouseoverFrames) do
-        if frame.muiMouseover then
-            local alpha = Hovered(frame) and 1 or 0
-            if frame:GetAlpha() ~= alpha then frame:SetAlpha(alpha) end
-        elseif frame:GetAlpha() < 1 then
-            frame:SetAlpha(1)
-        end
+        local full = frame.muiAlpha or 1 -- frames may rest below full opacity (XP bar)
+        local alpha = full
+        if frame.muiMouseover and not Hovered(frame) then alpha = 0 end
+        if frame:GetAlpha() ~= alpha then frame:SetAlpha(alpha) end
     end
 end)
 
