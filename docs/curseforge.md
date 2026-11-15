@@ -96,7 +96,7 @@ in yours. If you ever feel something in mUI crosses a line, please reach out. I'
 - [Twemoji](https://github.com/twitter/twemoji) by Twitter, Inc. and contributors – CC-BY 4.0 (converted to game textures)
 
 **Dungeon maps**
-- Maps of WoW Forever's new dungeons: [Atlas de Azeroth: Forever](https://santiago-reyes-portfolio.vercel.app/post/proyecto-atlas-de-azeroth-forever) by Santiago Reyes ([sreyesmaps.com](https://sreyesmaps.com)) – used with his permission, watermark untouched
+- City of Dalaran dungeon map: [Atlas de Azeroth: Forever](https://santiago-reyes-portfolio.vercel.app/post/proyecto-atlas-de-azeroth-forever) by Santiago Reyes ([sreyesmaps.com](https://sreyesmaps.com)) – used with his permission, watermark untouched. All other dungeon maps are built from the game's own data
 
 **Data**
 - Classic flight times: [InFlight Taxi Timer](https://github.com/LudiusMaximus/InFlight) by LudiusMaximus – used as a data table only, MeredanUI's flight timer and map are its own
