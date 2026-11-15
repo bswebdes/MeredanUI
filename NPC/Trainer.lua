@@ -345,11 +345,15 @@ local function Layout()
         skillBar.text:SetText(rank .. " / " .. maxRank)
         skillRank:SetText(RANK_NAMES[maxRank] and L[RANK_NAMES[maxRank]] or "")
         skillBar:Show()
+        skillRank:ClearAllPoints()
+        skillRank:SetPoint("LEFT", skillBar, "RIGHT", 10, 0)
     elseif IsPetTrainer() and C_PetInfo and C_PetInfo.GetPetTrainingPoints then
         local points, used = C_PetInfo.GetPetTrainingPoints()
         skillLabel:SetText(L["Training points"])
         skillRank:SetText(L["%d free"]:format((points or 0) - (used or 0)))
         skillBar:Hide()
+        skillRank:ClearAllPoints()
+        skillRank:SetPoint("LEFT", skillLabel, "RIGHT", 10, 0) -- no rank bar between them
     else
         skillLabel:SetText("")
         skillRank:SetText("")
@@ -398,7 +402,7 @@ local function Layout()
     for i = r + 1, #rows do rows[i]:Hide() end
     for i = h + 1, #headers do headers[i]:Hide() end
     list:SetContentHeight(y)
-    emptyText:SetShown(r == 0)
+    emptyText:SetShown(r == 0 and not IsPetTrainer())
 
     -- Keep selection (name + rank); else first learnable, else first
     local selected
@@ -417,7 +421,7 @@ local function Layout()
     end
     UpdateBanner(skillLine)
     UpdateDetail(selected)
-    detail.learnAll:SetShown(learnable > 1)
+    detail.learnAll:SetShown(learnable > 1 and not IsPetTrainer()) -- pet mode: only Blizzard's button may buy
     detail.learnAll.Text:SetText(L["All learnable (%d)"]:format(learnable))
     footerText:SetText(L["%d of %d learnable"]:format(learnable, total))
     gold:SetText(IsPetTrainer() and "" or GetMoneyString(GetMoney(), true))
@@ -621,12 +625,198 @@ local function Unpark()
     frame:SetParent(UIParent)
 end
 
+-- Beast Training (pet mode) ----------------------------------------------------------------------
+-- In pet mode Forever forbids BuyTrainerService for addons (ADDON_ACTION_FORBIDDEN, even from a
+-- click). Our window still shows, but two parts of Blizzard's frame live inside it: its list (each
+-- row click sets Blizzard's selection securely) and its Train button (buys that selection). Both are
+-- restyled only; the rest of Blizzard's frame is see-through and ignores the mouse. The list keeps
+-- Blizzard's size (302 x 330): resizing its ScrollBox from our code could taint the selection.
+local BLIZZ_LIST_W, BLIZZ_LIST_H = 302, 330
+local PET_LIST_W = BLIZZ_LIST_W + 22 -- list plus scrollbar column
+local petModel, embedded
+local petRows = setmetatable({}, { __mode = "k" })
+
+local function PaintPetRow(button)
+    local parts = petRows[button]
+    if not parts then return end
+    local on = button.selectedTex and button.selectedTex:IsShown() and true or false
+    parts.strip:SetShown(on)
+    if on then parts.fill:SetColorTexture(0.133, 0.133, 0.149, 1) else
+        parts.fill:SetGradient("VERTICAL", CreateColor(0.075, 0.062, 0.047, 1), CreateColor(0.122, 0.1, 0.075, 1))
+    end
+end
+
+-- Blizzard's skill row in the look of our own rows (card, item frame, accent strip when selected)
+local function SkinPetRow(button)
+    if type(button) ~= "table" or not button.icon or petRows[button] then return end
+    if button.IsForbidden and button:IsForbidden() then return end
+    local UI = ns.UI
+    for _, getter in ipairs({ "GetNormalTexture", "GetHighlightTexture", "GetPushedTexture" }) do
+        local tex = button[getter] and button[getter](button)
+        if tex then tex:SetAlpha(0) end
+    end
+    if button.selectedTex then button.selectedTex:SetAlpha(0) end
+    if button.disabledBG then button.disabledBG:SetAlpha(0) end
+    local fill = UI.Card(button)
+    local hover = button:CreateTexture(nil, "HIGHLIGHT")
+    hover:SetAllPoints(fill)
+    hover:SetColorTexture(1, 1, 1, 0.05)
+    local strip = button:CreateTexture(nil, "OVERLAY", nil, 7)
+    strip:SetColorTexture(unpack(UI.ACCENT))
+    strip:SetPoint("TOPLEFT")
+    strip:SetPoint("BOTTOMLEFT")
+    strip:SetWidth(2)
+    -- item frame as a ring outside the icon, so nothing covers it
+    local ring = ns.Snap(2) + ns.PixelSize()
+    local holder = CreateFrame("Frame", nil, button)
+    holder:SetPoint("TOPLEFT", button.icon, "TOPLEFT", -ring, ring)
+    holder:SetPoint("BOTTOMRIGHT", button.icon, "BOTTOMRIGHT", ring, -ring)
+    ns.AddItemFrame(holder, nil, 2)
+    button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    if button.name then ns.SetFont(button.name, 13) button.name:SetTextColor(unpack(UI.TEXT)) end
+    if button.nameSubText then ns.SetFont(button.nameSubText, 11) button.nameSubText:SetTextColor(unpack(UI.MUTED)) end
+    if button.subText then ns.SetFont(button.subText, 11) button.subText:SetTextColor(unpack(UI.MUTED)) end
+    if button.alternateCost then ns.SetFont(button.alternateCost, 12) end
+    -- Blizzard measured the name with its own font already; measure again with ours
+    if button.UpdateNameWidth then button:UpdateNameWidth() end
+    petRows[button] = { fill = fill, strip = strip }
+    if button.selectedTex then
+        hooksecurefunc(button.selectedTex, "Show", function() PaintPetRow(button) end)
+        hooksecurefunc(button.selectedTex, "Hide", function() PaintPetRow(button) end)
+    end
+    PaintPetRow(button)
+end
+
+local function FadeArt(target)
+    if type(target) ~= "table" then return end
+    if target.SetAlpha then target:SetAlpha(0) end
+    if target.EnableMouse then target:EnableMouse(false) end
+end
+
+-- once: restyle Blizzard's list and Train button, follow its selection
+local function PrepareEmbed(f)
+    if embedded then return end
+    embedded = true
+    local UI = ns.UI
+    for _, region in ipairs({ f:GetRegions() }) do
+        if region.IsObjectType and region:IsObjectType("Texture") then region:SetAlpha(0) end
+    end
+    for _, key in ipairs({ "NineSlice", "PortraitContainer", "TitleContainer", "TopTileStreaks", "Bg" }) do
+        if f[key] and f[key].SetAlpha then f[key]:SetAlpha(0) end
+    end
+    for _, inset in ipairs({ f.Inset, f.bottomInset }) do
+        if inset then
+            for _, region in ipairs({ inset:GetRegions() }) do region:SetAlpha(0) end
+            if inset.NineSlice then inset.NineSlice:SetAlpha(0) end
+            if inset.Bg then inset.Bg:SetAlpha(0) end
+        end
+    end
+    -- parts we replace with our own (close, filter, points, money, rank bar)
+    for _, part in ipairs({ f.CloseButton, f.FilterDropdown, f.FilterInputHint, f.trainingPoints, f.money,
+        _G.ClassTrainerStatusBar, f.skillStepButton }) do
+        FadeArt(part)
+    end
+    local box = f.ScrollBox
+    if box and box.ForEachFrame then
+        local function Each() if not box.GetView or box:GetView() then box:ForEachFrame(SkinPetRow) end end
+        if box.Update then hooksecurefunc(box, "Update", Each) end
+        Each()
+    end
+    if ns.SkinKit then
+        ns.SkinKit.ScrollBar(f.ScrollBar)
+        ns.SkinKit.Button(f.TrainButton)
+    end
+    -- our detail follows Blizzard's selection (row clicks, nearest learnable on open)
+    hooksecurefunc("ClassTrainer_SetSelection", function(displayIndex)
+        if not (window and window:IsShown() and IsPetTrainer()) then return end
+        local map = ClassTrainerFrame.displayIndexToSkillIndex
+        local index = map and displayIndex and map[displayIndex]
+        if not index then return end
+        local name, _, _, reqLevel, subText = GetTrainerServiceInfo(index)
+        if name then selectedName = name .. "\1" .. (subText or "") .. "\1" .. (reqLevel or 0) end
+        window.Layout()
+    end)
+    if UI then
+        -- the list sits on our window: frame behind it like our own list
+        local inset = CreateFrame("Frame", nil, window)
+        inset:SetPoint("TOPLEFT", searchBox, "TOPLEFT", 0, 0)
+        inset:SetSize(PET_LIST_W, BLIZZ_LIST_H + 12)
+        UI.Inset(inset)
+        window.petListInset = inset
+    end
+end
+
+-- each opening: Blizzard's frame over our window, list and Train button in their places
+local function Embed()
+    local f = ClassTrainerFrame
+    if not f then return end
+    PrepareEmbed(f)
+    if SetUIPanelAttribute and not InCombatLockdown() then SetUIPanelAttribute(f, "area", nil) end
+    f:SetAlpha(1)
+    f:EnableMouse(false)
+    f:SetFrameStrata("DIALOG")
+    f:ClearAllPoints()
+    f:SetPoint("TOPLEFT", window, "TOPLEFT")
+    f:SetSize(window:GetWidth(), window:GetHeight())
+    if f.ScrollBox then f.ScrollBox:SetFrameStrata("DIALOG") end
+    if f.ScrollBar then f.ScrollBar:SetFrameStrata("DIALOG") end
+    -- Blizzard anchors the ScrollBox to the Inset's TOPLEFT (+5, -5) on every update and only ever
+    -- sets the Inset's BOTTOMRIGHT, so the Inset's top left places the list
+    if f.Inset then f.Inset:SetPoint("TOPLEFT", searchBox, "TOPLEFT", 1, 1) end
+    local train = f.TrainButton
+    if train then
+        train:ClearAllPoints()
+        train:SetPoint("BOTTOMRIGHT", detail, "BOTTOMRIGHT", -14, 14)
+        train:SetSize(110, 30)
+    end
+end
+
+-- Our window's parts per mode: pet mode swaps our list and buttons for Blizzard's
+local function ApplyMode()
+    local pet = IsPetTrainer()
+    searchBox:SetWidth(pet and PET_LIST_W or LIST_W) -- the detail pane hangs on its right edge
+    searchBox:SetShown(not pet)
+    list:SetShown(not pet)
+    detail.learn:SetShown(not pet)
+    if window.petListInset then window.petListInset:SetShown(pet) end
+    if not petModel then
+        local UI = ns.UI
+        petModel = CreateFrame("PlayerModel", nil, window)
+        petModel:SetPoint("TOPLEFT", searchBox, "TOPLEFT", 0, -(BLIZZ_LIST_H + 24))
+        petModel:SetPoint("BOTTOMLEFT", window, "BOTTOMLEFT", PAD, 50)
+        petModel:SetWidth(PET_LIST_W)
+        local back = CreateFrame("Frame", nil, window)
+        back:SetAllPoints(petModel)
+        back:SetFrameLevel(math.max(petModel:GetFrameLevel() - 1, 0))
+        UI.Inset(back)
+        petModel.back = back
+    end
+    petModel:SetShown(pet)
+    petModel.back:SetShown(pet)
+    if pet and UnitExists("pet") then
+        petModel:SetUnit("pet")
+        petModel:SetPortraitZoom(0)
+        petModel:SetCamDistanceScale(1.1)
+    end
+end
+
 local function Open(retried)
     if not (ClassTrainerFrame and ClassTrainerFrame:IsShown()) then
         if not retried then C_Timer.After(0, function() Open(true) end) end
         return
     end
+    if IsPetTrainer() then
+        -- Beast Training: the pet is the one who learns
+        window.tooltipTitle = C_Spell.GetSpellName(5149) or L["Pet trainer"]
+        window:SetNpc("pet", ns.Plain(UnitName("pet")), window.tooltipTitle)
+        ApplyMode()
+        ns.embeddedPanels[ClassTrainerFrame] = true -- before Show: placing must not dodge it
+        window:Show()
+        Embed()
+        return
+    end
     Park()
+    ApplyMode()
     window.tooltipTitle = ns.NpcTitle("npc")
     window:SetNpc("npc", nil, window.tooltipTitle)
     window:Show()
@@ -634,6 +824,7 @@ end
 
 -- Blizzard's frame can only be parked once it is open (see Park), so for that one frame it would
 -- flash up: make it invisible the moment it shows (hooked, alpha only - the frame keeps working)
+-- (pet mode: Embed() makes it visible again once it sits inside our window)
 local function HideBlizzardTrainer()
     local frame = ClassTrainerFrame
     if not frame or frame.muiInvisible then return end
@@ -648,6 +839,14 @@ ns:On("PLAYER_LOGIN", function()
     if ClassTrainerFrame then HideBlizzardTrainer() else EventUtil.ContinueOnAddOnLoaded("Blizzard_TrainerUI", HideBlizzardTrainer) end
     ns:On("TRAINER_SHOW", function()
         HideBlizzardTrainer()
+        if IsPetTrainer() then
+            -- Park() removed Blizzard's OnHide (CloseTrainer) after a class trainer visit: without it,
+            -- closing Beast Training would leave the interaction open
+            local frame = ClassTrainerFrame
+            if frame and not frame:GetScript("OnHide") then
+                frame:HookScript("OnHide", function() if IsPetTrainer() then CloseTrainer() end end)
+            end
+        end
         C_Timer.After(0, function() Open(false) end)
     end)
     ns:On("TRAINER_CLOSED", function()

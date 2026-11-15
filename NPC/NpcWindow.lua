@@ -65,6 +65,7 @@ end
 
 -- Open windows that occupy space: our other windows (not gossip - quest/merchant replace it) and
 -- Blizzard's UI panels (character, spellbook, ...)
+ns.embeddedPanels = setmetatable({}, { __mode = "k" })
 local placing -- during Relayout: set of windows opened earlier; only those count
 local function Occupied(window)
     local list = {}
@@ -78,7 +79,10 @@ local function Occupied(window)
             local panel = GetUIPanel(area)
             -- Skinned Blizzard frames (guild) are UIPanels themselves: don't avoid yourself
             -- the game menu closes when a window opens (Config/GameMenu.lua): never make room for it
-            if panel and panel ~= window and panel ~= GameMenuFrame and panel:IsVisible() then list[#list + 1] = panel end
+            -- Blizzard panels living inside one of our windows (Beast Training) take no space of their own
+            if panel and panel ~= window and panel ~= GameMenuFrame and not ns.embeddedPanels[panel] and panel:IsVisible() then
+                list[#list + 1] = panel
+            end
         end
     end
     return list

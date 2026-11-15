@@ -21,7 +21,7 @@ local COLS, CARD_H, GAP = 3, 48, 6
 local PLAYER = Enum.SpellBookSpellBank.Player
 local PET = Enum.SpellBookSpellBank.Pet
 
-local window, panel, title, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote, emptyText, footerHint
+local window, panel, title, petHint, footer, pageText, prevButton, nextButton, searchBox, options, optionsButton, layer, combatNote, emptyText, footerHint
 local tabs, cards = {}, {}
 local currentTab = 2 -- first class tree
 local page = 1
@@ -58,6 +58,73 @@ local function SnapshotTrainer()
         end
     end
     if window and window:IsShown() then window.Refresh() end
+end
+
+-- Pet abilities still to teach. In Forever the hunter learns them (pet trainer) and teaches the pet
+-- with Beast Training, which opens the trainer window in pet mode. Two sources, per character:
+-- the last Beast Training list per pet (petTeach.lists) and spells learned at a pet trainer since
+-- (petTeach.learned). Anything the pet book already holds at that rank or higher drops out.
+local BEAST_TRAINING = 5149
+local function RankOf(text) return tonumber((text or ""):match("%d+")) or 0 end
+local function PetTeachData()
+    ns.char.petTeach = ns.char.petTeach or { lists = {}, learned = {} }
+    return ns.char.petTeach
+end
+local function PetName() return ns.Plain(UnitName("pet")) end
+
+local function SnapshotBeastTraining()
+    local pet = PetName()
+    if not pet or UnitExists("npc") then return end -- an NPC pet trainer teaches the hunter, not the pet
+    local list = {}
+    for index = 1, GetNumTrainerServices() do
+        local name, kind, _, _, subText = GetTrainerServiceInfo(index)
+        if name and kind == "available" then list[#list + 1] = { name = name, rank = RankOf(subText) } end
+    end
+    PetTeachData().lists[pet] = { time = time(), spells = list }
+end
+
+-- CHAT_MSG_SYSTEM while a trainer NPC is open: spells that don't end up in the player's own book are
+-- pet abilities (checked a moment later, so class spells have arrived in the book)
+local function NoteLearned(msg)
+    if select(2, UnitClass("player")) ~= "HUNTER" or not UnitExists("npc") then return end
+    for id in msg:gmatch("|Hspell:(%d+)") do
+        id = tonumber(id)
+        C_Timer.After(1, function()
+            if C_SpellBook.IsSpellInSpellBook(id) then return end
+            local name = C_Spell.GetSpellName(id)
+            if name then
+                table.insert(PetTeachData().learned, { name = name, rank = RankOf(C_Spell.GetSpellSubtext(id)), time = time() })
+            end
+        end)
+    end
+end
+
+-- "Growl (Rank 3)" strings for the current pet, sorted
+local function PetToTeach()
+    local pet = PetName()
+    if not pet then return {} end
+    local known = {}
+    local num = C_SpellBook.HasPetSpells() or 0
+    for slot = 1, num do
+        local info = C_SpellBook.GetSpellBookItemInfo(slot, PET)
+        if info and info.name then known[info.name] = math.max(known[info.name] or 0, RankOf(info.subName)) end
+    end
+    local data, best = PetTeachData(), {}
+    local snapshot = data.lists[pet]
+    local function Add(spell)
+        if known[spell.name] and known[spell.name] >= spell.rank then return end
+        if not best[spell.name] or spell.rank > best[spell.name] then best[spell.name] = spell.rank end
+    end
+    if snapshot then for _, spell in ipairs(snapshot.spells) do Add(spell) end end
+    for _, spell in ipairs(data.learned) do
+        if not snapshot or spell.time > snapshot.time then Add(spell) end
+    end
+    local list = {}
+    for name, rank in pairs(best) do
+        list[#list + 1] = rank > 0 and ("%s (%s)"):format(name, L["Rank %d"]:format(rank)) or name
+    end
+    table.sort(list)
+    return list
 end
 
 -- not learned yet: learnable now first, then by level. From the class data (Talents/TrainerInfo.lua,
@@ -363,6 +430,11 @@ local function Layout()
             or L["Visit your class trainer once to see what you can learn here."])
     end
     title:SetText(query ~= "" and L["Search"] or (list[currentTab] and list[currentTab].name or ""))
+    local toTeach = (query == "" and list[currentTab] and list[currentTab].pet) and PetToTeach() or {}
+    petHint.spells = toTeach
+    petHint:SetShown(#toTeach > 0)
+    petHint.text:SetText(L["%d to teach with %s"]:format(#toTeach, C_Spell.GetSpellName(BEAST_TRAINING) or "Beast Training"))
+    petHint:SetWidth(petHint.text:GetStringWidth())
     local perPage = PerPage()
     local pages = math.max(1, math.ceil(#entries / perPage))
     page = math.min(page, pages)
@@ -478,6 +550,23 @@ local function CreateWindow()
     panel:SetPoint("BOTTOMRIGHT", -PAD, 46)
     title = UI.Text(panel, 20, "LEFT", { 1, 0.82, 0 })
     title:SetPoint("TOPLEFT", 20, -18)
+    -- pet tab: abilities the hunter knows but the pet doesn't yet (tooltip lists them)
+    petHint = CreateFrame("Frame", nil, panel)
+    petHint:SetHeight(20)
+    petHint:SetPoint("LEFT", title, "RIGHT", 14, -1)
+    petHint.text = UI.Text(petHint, 13, "LEFT", UI.ACCENT)
+    petHint.text:SetPoint("LEFT")
+    petHint:EnableMouse(true)
+    petHint:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
+        GameTooltip:SetText(C_Spell.GetSpellName(BEAST_TRAINING) or "Beast Training", 1, 1, 1)
+        for _, line in ipairs(self.spells or {}) do GameTooltip:AddLine(line, 0.8, 0.8, 0.8) end
+        GameTooltip:AddLine(L["Cast %s (General tab) to teach your pet."]:format(C_Spell.GetSpellName(BEAST_TRAINING)
+            or "Beast Training"), 0.6, 0.59, 0.56, true)
+        GameTooltip:Show()
+    end)
+    petHint:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    petHint:Hide()
     pageText = UI.Text(panel, 12, "RIGHT", ns.PARCHMENT_TEXT)
     nextButton = UI.ArrowButton(panel, "right", function() page = page + 1; Refresh() end, 26)
     nextButton:SetPoint("BOTTOMRIGHT", -14, 12)
@@ -553,8 +642,21 @@ ns:On("PLAYER_LOGIN", function()
         ns:On(event, function() if window:IsShown() then Refresh() end end)
     end
     ns:On("PLAYER_REGEN_DISABLED", function() if window:IsShown() then Refresh() end end)
-    ns:On("TRAINER_SHOW", function() C_Timer.After(0, SnapshotTrainer) end)
-    ns:On("TRAINER_UPDATE", function() C_Timer.After(0, SnapshotTrainer) end)
+    local function OnTrainer()
+        C_Timer.After(0, function()
+            if C_Trainer.GetTrainerType() == Enum.TrainerType.Pet then
+                SnapshotBeastTraining()
+                if window:IsShown() then Refresh() end
+            else
+                SnapshotTrainer()
+            end
+        end)
+    end
+    local trainerOpen = false
+    ns:On("TRAINER_SHOW", function() trainerOpen = true; OnTrainer() end)
+    ns:On("TRAINER_CLOSED", function() trainerOpen = false end)
+    ns:On("TRAINER_UPDATE", OnTrainer)
+    ns:On("CHAT_MSG_SYSTEM", function(_, msg) if trainerOpen then NoteLearned(msg) end end)
     ns:On("PLAYER_REGEN_ENABLED", function()
         C_Timer.After(0, SyncLayer)
         if window:IsShown() then Refresh() end
