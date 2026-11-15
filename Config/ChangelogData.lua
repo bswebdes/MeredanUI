@@ -2,6 +2,12 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.4", items = {
+        "Fixed: Beast Training could not teach your pet anything (Lua error on Train and All learnable). It now opens in the mUI trainer window with your pet, its training points and a working Train button",
+        "The pet tab of the spellbook shows how many abilities you learned at a pet trainer but haven't taught your pet yet. Hover it for the list",
+        "Bags: the Reagents tab is gone, everything in the reagent bag sorts into the normal categories. Its free slots count as free and fade while you hold something that isn't a reagent",
+        "Bags: quiver and ammo pouch no longer get their own row of empty slots, one slot at the end of Ammo shows how many are free",
+    } },
     { version = "v0.5.3", items = {
         "The damage meter background is now see-through, so it covers less of the game. Bars, names and numbers stay fully visible",
         "The XP bar and the pet XP bar are slimmer and slightly see-through",
@@ -41,13 +47,5 @@ ns.CHANGELOG = {
         "Bags and bank show your gold like the info bar, and hovering it lists the gold of all your characters",
         "Bags: the bag slots are grouped (normal bags, special bags, reagent bag) with a small gap between the groups",
         "Bags: empty slots of special bags are headed with the bag's own name (e.g. your ammo pouch) instead of \"Quiver\"",
-    } },
-    { version = "v0.4.6", items = {
-        "Character window: item name, item level and enchant next to every gear slot, and the window is wider. The inspect window shows the same",
-        "Bags: every free slot is shown at the bottom across the full width, so you can drop items straight onto a free slot",
-        "Bags: sections flow left to right and wrap, so the window is narrower and has no gaps",
-        "Bags: quest items get a gold border, hearthstones a sage one, and Uncommon and better items a thicker quality border (bank and guild bank too). Borders stay visible on items with a cooldown",
-        "Bags: the \"One big bag\" layout was removed, there is only the section layout now",
-        "Fixed: class icons in chat grow with the chat font size again",
     } },
 }
