@@ -1,3 +1,9 @@
+<!-- Project settings (CurseForge + Wago), not part of the description:
+Name: MeredanUI - WoW Forever UI
+Summary: All-in-one UI for WoW Forever. Unit frames, bars, bags, chat, dungeon maps with boss loot and class trainer help, in iron or bronze.
+Main category: HUDs
+-->
+
 > 🌐 **Website:** [meredanui.com](https://meredanui.com) – screenshots, install guide and FAQ
 >
 > 🛠 **Early Access** – mUI is actively developed by a single person. Things may break, and some features are still rough around the edges.

@@ -1,7 +1,7 @@
 ## Interface: 16001
 ## Title: MeredanUI
-## Notes: Clean, flat UI: unit frames, action bars, minimap and more.
-## Notes-deDE: Klares, flaches Interface: Unitframes, Aktionsleisten, Minimap und mehr.
+## Notes: All-in-one UI for WoW Forever. Unit frames, action bars, bags, dungeon maps and more.
+## Notes-deDE: Komplett-Interface für WoW Forever. Unitframes, Aktionsleisten, Taschen, Dungeon-Karten und mehr.
 ## Author: Koratal
 ## Version: @project-version@
 ## Category: User Interface
