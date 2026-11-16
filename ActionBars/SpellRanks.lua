@@ -107,6 +107,8 @@ local function Refresh(announce)
     local count = Scan()
     UpdateMarks()
     if not announce or count == 0 or not ns.AddToast then return end
+    -- new ranks are swapped in automatically (AutoSpells.lua): what is left is kept on purpose
+    if ns.db.autoSpellRanks ~= false then return end
     -- only remind when something is NEWLY outdated (not the same thing on every reload)
     local fresh = false
     for slot, best in pairs(lowSlots) do

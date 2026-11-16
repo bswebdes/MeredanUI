@@ -293,6 +293,8 @@ local DEFAULTS = {
     -- Progress bars: one visibility for XP, reputation, honor, house favor
     xpBar = { mode = "always", quests = "all" }, -- quests: "all", "complete", "none"
     ammoCounter = true,          -- ammo counter below the player frame (Forever only, with ammo only)
+    autoSpellRanks = true,       -- Comfort, Forever: a new rank replaces the previous top rank on the bars (ActionBars/AutoSpells.lua)
+    autoPlaceSpells = true,      -- Comfort, Forever: new spells go to the first free bar slot (ActionBars/AutoSpells.lua)
     attackWithAbilities = true,  -- Comfort: harmful spells on mUI buttons also start auto attack (ActionBars/AutoAttack.lua)
     aspectIndicator = true,      -- Comfort, Forever hunters: Cheetah/Pack button pulses on the action bars (UnitFrames/AspectIndicator.lua)
     hardcoreMode = false,        -- fun: death screen with logout countdown (AFK/Hardcore.lua)

@@ -517,6 +517,10 @@ local PAGES = {
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Mark old spell ranks"], On("spellRanks"), Setter("spellRanks", ns.RefreshSpellRanks),
                     Help(L["Small golden arrow on buttons whose spell has a higher rank you already know, and one notification when you learn one – click it to update your bars."]))
+                page:AddCheckbox(L["Use new ranks automatically"], On("autoSpellRanks"), Setter("autoSpellRanks"),
+                    Help(L["A newly learned rank replaces the previous highest rank on your bars. Older ranks you keep on purpose stay."]))
+                page:AddCheckbox(L["Put new spells on free slots"], On("autoPlaceSpells"), Setter("autoPlaceSpells"),
+                    Help(L["A newly learned spell goes to the first free slot, main bar first."]))
                 if select(2, UnitClass("player")) == "HUNTER" then
                     page:AddCheckbox(L["Speed aspect pulses"], On("aspectIndicator"), Setter("aspectIndicator", ns.UpdateAspectIndicator),
                         Help(L["The button of Aspect of the Cheetah or the Pack pulses while it is up, so you don't forget it. Faster when a fight starts."]))

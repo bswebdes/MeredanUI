@@ -49,6 +49,7 @@ Core/Test.lua
 Minimap/Minimap.lua
 ActionBars/ActionBars.lua
 ActionBars/AutoAttack.lua
+ActionBars/AutoSpells.lua
 ActionBars/Gryphons.lua
 InfoBars/XPBar.lua
 InfoBars/TopWidgets.lua
