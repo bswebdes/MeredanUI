@@ -1,4 +1,6 @@
 # Baut die mUI-Schriften aus Blue Highway (CC0): CFF -> TrueType, umbenennen, „Text“ mit +1 % Abstand.
+# Kyrillisch fehlt in Blue Highway: kommt aus Overpass (SIL OFL 1.1, ~/wow-addons/_fonts/overpass),
+# auf Versalhöhe skaliert und schmaler gezogen.
 # Aufruf: PYTHONPATH=<fontTools> python3 tools/build_fonts.py  (Quelle: ~/wow-addons/_fonts/bluehighway, CC0)
 import sys
 from fontTools.ttLib import TTFont, newTable
@@ -57,7 +59,7 @@ def otf_to_ttf(font, max_err=1.0, embolden=0):
 
 def rename(font, family, sub, full, ps):
     name = font["name"]
-    note = "mUI font for MeredanUI. Based on Blue Highway by Raymond Larabie (typodermicfonts.com), released under CC0 1.0."
+    note = "mUI font for MeredanUI. Based on Blue Highway by Raymond Larabie (typodermicfonts.com, CC0 1.0); Cyrillic from Overpass (SIL OFL 1.1)."
     for rec in list(name.names):
         if rec.nameID in (16, 17, 21, 22):
             name.removeNames(nameID=rec.nameID)
@@ -77,6 +79,44 @@ def track(font, percent):
 EMBOLDEN = 50  # Einheiten (von 1000): Regular ist in WoW zu dünn (Benny 2026-11-07) – alle Grundschnitte kräftig
 ADVANCE_SHARE = 0.4  # Anteil der Verbreiterung, der zum Vorschub kommt
 BOLD_EXTRA = 30  # Bold noch etwas kräftiger, damit Namen über dem kräftigen Grundtext liegen
+OVERPASS = "/home/benja/wow-addons/_fonts/overpass/"
+# Unicode-Bereiche aus Overpass: Kyrillisch (+ Ergänzung) und № (Nummernzeichen)
+BORROW = [(0x0400, 0x052F), (0x2116, 0x2116)]
+# Overpass (2000 upm) -> mUI (1000 upm): Höhe zwischen Versal- und x-Höhen-Abgleich, Breite schmaler
+BORROW_SY = 0.525
+BORROW_SX = 0.44
+
+def borrow_glyphs(font, src_path):
+    from fontTools.pens.recordingPen import DecomposingRecordingPen
+    src = TTFont(src_path)
+    gs = src.getGlyphSet()
+    src_cmap = src.getBestCmap()
+    have = font.getBestCmap()
+    glyf, hmtx = font["glyf"], font["hmtx"]
+    added = {}
+    for lo, hi in BORROW:
+        for code in range(lo, hi + 1):
+            name = src_cmap.get(code)
+            if not name or code in have:
+                continue
+            rec = DecomposingRecordingPen(gs)
+            gs[name].draw(rec)
+            pen = TTGlyphPen(None)
+            rec.replay(TransformPen(pen, (BORROW_SX, 0, 0, BORROW_SY, 0, 0)))
+            new = "cyr.uni%04X" % code
+            glyf[new] = pen.glyph()
+            adv, lsb = src["hmtx"][name]
+            hmtx.metrics[new] = (round(adv * BORROW_SX), round(lsb * BORROW_SX))
+            added[code] = new
+    font.setGlyphOrder(glyf.glyphOrder)  # glyf[...] = ... already appended the new names
+    for table in font["cmap"].tables:
+        if table.isUnicode():
+            table.cmap.update(added)
+    for name in added.values():
+        glyf[name].recalcBounds(glyf)
+        hmtx.metrics[name] = (hmtx.metrics[name][0], glyf[name].xMin if hasattr(glyf[name], "xMin") else 0)
+    return len(added)
+
 jobs = [
     ("Blue Highway Rg.otf", "mUI.ttf", ("mUI", "SemiBold", "mUI", "mUI-SemiBold"), 0),
     # Fließtext: Halbfett (Benny 2026-11-07, Regular war zu dünn) + 1 % Abstand
@@ -89,6 +129,9 @@ for src, out, names, percent in jobs:
     otf_to_ttf(f, embolden=EMBOLDEN if semibold else (BOLD_EXTRA if names[1] == "Bold" else 0))
     if semibold:
         f["OS/2"].usWeightClass = 600
+    # eine Stufe kräftiger als der Name sagt: Blue Highway ist zusätzlich verbreitert (EMBOLDEN)
+    borrowed = borrow_glyphs(f, OVERPASS + ("Overpass-ExtraBold.ttf" if names[1] == "Bold" else "Overpass-Bold.ttf"))
+    print(out, "borrowed", borrowed, "glyphs from Overpass")
     rename(f, *names)
     extra = track(f, percent) if percent else 0
     if names[1] == "Bold":

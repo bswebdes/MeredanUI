@@ -90,7 +90,7 @@ in yours. If you ever feel something in mUI crosses a line, please reach out. I'
 - [LibStub](https://www.wowace.com/projects/libstub) – Public Domain
 
 **Fonts, icons, emoji**
-- Fonts "mUI" based on [Blue Highway](https://typodermicfonts.com) by Raymond Larabie – CC0 1.0 (public domain), renamed and letter spacing adjusted
+- Fonts "mUI" based on [Blue Highway](https://typodermicfonts.com) by Raymond Larabie – CC0 1.0 (public domain), renamed and letter spacing adjusted; Cyrillic letters from [Overpass](https://github.com/RedHatOfficial/Overpass) – SIL OFL 1.1
 - [Cinzel](https://github.com/NDISCOVER/Cinzel) by Natanael Gama – SIL Open Font License 1.1
 - [Material Design Icons](https://pictogrammers.com/library/mdi/) (Pictogrammers) and [Material Symbols](https://fonts.google.com/icons) (Google) – Apache License 2.0
 - [Twemoji](https://github.com/twitter/twemoji) by Twitter, Inc. and contributors – CC-BY 4.0 (converted to game textures)

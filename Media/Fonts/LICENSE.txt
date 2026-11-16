@@ -11,3 +11,10 @@ Original license, as embedded in the font files:
   To the extent possible under law, Raymond Larabie has waived all copyright and related or
   neighboring rights to this font. This work is published from Japan.
   https://creativecommons.org/publicdomain/zero/1.0/
+
+Cyrillic letters
+----------------
+
+The Cyrillic glyphs are taken from "Overpass" (https://github.com/RedHatOfficial/Overpass),
+scaled to match. Overpass is licensed under the SIL Open Font License 1.1 (see Overpass-OFL.txt);
+the mUI font files are therefore distributed under the SIL Open Font License 1.1 as well.

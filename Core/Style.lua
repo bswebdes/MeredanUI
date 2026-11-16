@@ -91,7 +91,7 @@ ns.DEFAULT_TEXTURE_PATH = STATUSBARS[ns.DEFAULT_TEXTURE]
 ns.SHADE_TEXTURE = "MeredanUI Shade"
 if LSM then LSM:Register(LSM.MediaType.STATUSBAR, ns.SHADE_TEXTURE, "Interface\\AddOns\\MeredanUI\\Media\\BarShade") end
 
--- mUI fonts: based on Blue Highway (Raymond Larabie, CC0, renamed). Names/headings "mUI Bold",
+-- mUI fonts: based on Blue Highway (Raymond Larabie, CC0, renamed), Cyrillic from Overpass (OFL). Names/headings "mUI Bold",
 -- body text (chat, tooltips) "mUI Text" with +1% letter spacing, everything else "mUI".
 -- Also registered with LibSharedMedia for other addons.
 ns.DEFAULT_FONT_NAME = "mUI"
