@@ -81,6 +81,7 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 2771, floor = 4, x = 0.6692, y = 0.9169, display = 6774 },
         { kind = "boss", id = 2772, floor = 4, x = 0.3133, y = 0.2997, display = 6980 },
         { kind = "rare", id = 6228, floor = 4, x = 0.2951, y = 0.5405, display = 6669, name = "Dark Iron Ambassador" },
+        { kind = "boss", id = 2768, floor = 1, x = 0.7797, y = 0.5759, display = 6533 },
     },
     [109] = {
         { kind = "boss", id = 3582, floor = 1, x = 0.5001, y = 0.4561, display = 7873 },
@@ -144,6 +145,7 @@ ns.DUNGEON_PINS = {
         { kind = "rare", id = 9718, floor = 5, x = 0.3481, y = 0.5999, display = 11809, name = "Ghok Bashguud" },
         { kind = "rare", id = 10376, floor = 2, x = 0.5408, y = 0.7488, display = 9755, name = "Crystal Fang" },
         { kind = "rare", id = 10509, floor = 6, x = 0.3027, y = 0.2703, display = 9686, name = "Jed Runewatcher" },
+        { kind = "boss", id = 3063, floor = 1, x = 0.5123, y = 0.2425, display = 9778 },
     },
     [230] = {
         { kind = "boss", id = 227, floor = 1, x = 0.4752, y = 0.9340, display = 8761 },
@@ -166,6 +168,9 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 2790, floor = 2, x = 0.9316, y = 0.1193, display = 8807 },
         { kind = "rare", id = 8923, floor = 1, x = 0.5047, y = 0.0200, display = 8270, name = "Panzor the Invincible" },
         { kind = "rare", id = 9042, floor = 1, x = 0.6131, y = 0.3891, display = 9019, name = "Verek" },
+        { kind = "boss", id = 230, floor = 1, x = 0.5385, y = 0.6159, display = 9329 },
+        { kind = "boss", id = 238, floor = 1, x = 0.4777, y = 0.3524, display = 8658 },
+        { kind = "boss", id = 2791, floor = 1, x = 0.6117, y = 0.3889, display = 8655 },
     },
     [249] = {
         { kind = "boss", id = 1084, floor = 1, x = 0.6801, y = 0.3202, display = 8570 },
@@ -183,6 +188,7 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 2812, floor = 4, x = 0.6753, y = 0.5209, display = 10433 },
         { kind = "boss", id = 2807, floor = 4, x = 0.8435, y = 0.3078, display = 11072 },
         { kind = "boss", id = 2806, floor = 4, x = 0.6704, y = 0.0614, display = 11835 },
+        { kind = "boss", id = 2801, floor = 3, x = 0.7361, y = 0.4643, display = 11070 },
     },
     [309] = {
         { kind = "boss", id = 785, floor = 1, x = 0.3656, y = 0.7855, display = 15219 },
@@ -212,6 +218,8 @@ ns.DUNGEON_PINS = {
         { kind = "boss", id = 2796, floor = 1, x = 0.1300, y = 0.5064, display = 10637 },
         { kind = "boss", id = 2799, floor = 1, x = 0.8146, y = 0.4376, display = 2606 },
         { kind = "boss", id = 2800, floor = 2, x = 0.6493, y = 0.4885, display = 7856 },
+        { kind = "boss", id = 474, floor = 1, x = 0.3906, y = 0.4139, display = 571 },
+        { kind = "boss", id = 483, floor = 2, x = 0.4142, y = 0.2040, display = 12818 },
     },
     [349] = {
         { kind = "boss", id = 422, floor = 1, x = 0.3475, y = 0.1071, display = 11172 },
