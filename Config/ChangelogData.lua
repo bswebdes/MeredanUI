@@ -2,6 +2,12 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.6", items = {
+        "The dungeon panel on the map now covers every dungeon open in Forever: bosses with their loot and drop chances, plus a quest tab. Loot and quests are updated from the latest guides, including Shaper's Terrace",
+        "Boss pins on dungeon maps with several floors now sit on the floor where the boss really stands (Scholomance, Blackrock Spire, Dire Maul, Gnomeregan and more)",
+        "Shadowfang Keep has a clearer map: four floors that fill the frame instead of seven mostly empty ones",
+        "City of Dalaran has a new map in the same style as the other dungeons, with boss pins at their real spots",
+    } },
     { version = "v0.5.5", items = {
         "Hunters: while Aspect of the Cheetah or Aspect of the Pack is up, its action bar button pulses with a turquoise edge, faster when a fight starts. Both aspects daze you when hit, so they are easy to forget. On by default in the Comfort style, can be turned off on the Action bars page",
         "New just-for-fun Hardcore mode (Appearance page, off by default). When you die the interface fades out, YOU DIED appears with who killed you and with what, plus a mocking line from a well-known NPC. Try again logs you out to character select after 20 seconds, Keep playing cancels it. A Test button shows the screen without dying. Not available on official Hardcore realms",
@@ -23,25 +29,5 @@ ns.CHANGELOG = {
     { version = "v0.5.1", items = {
         "Fixed: a Lua error in combat when the threat of your target's target changed (nameplate colours)",
         "Fixed: Blizzard's trainer window no longer flashes up for a moment before the mUI trainer opens",
-    } },
-    { version = "v0.5.0", items = {
-        "A whole new look for mUI. Warm dark panels, a deep window frame with a lit edge, Cinzel titles, gems for active tabs and bevelled buttons. Choose iron (default) or bronze for the frame material and Cinzel or the mUI font for headings",
-        "Unit frames, group frames, nameplates, cast bars, auras, the minimap, the XP bar, the class bar and the action buttons all follow the new look, with shaded bars in thin shells and item frames around icons",
-        "Every mUI window (merchant, quests, trainer, professions, auction house, talents, collections, maps, damage meter, bags, bank, mail, fishing bag) and the skinned Blizzard windows (guild, calendar, macros, group finder, game menu and more) use the same frames, buttons, tabs, fields and scrollbars",
-        "Action bar end caps can show Blizzard's gryphons, an animal for your class, or nothing",
-        "New tooltips with an item or class icon in a frame, Cinzel names, faction and classification on one line and a slim health bar. Lines other addons add get a divider, and long item texts wrap again",
-        "New level-up display that lists the trainer spells waiting for you and the class quests you can start",
-        "Class trainer help for every class. A new spellbook tab lists the spells still to learn, the trainer marks recommended spells and ones you can skip, and spell tooltips explain why",
-        "Class quests in the character window, grouped by chain with their state. Click a quest to put a pin on the map. Quests only one of which can be done show as a single row",
-        "Chat got new extras. The arrow keys move the cursor without Alt, and up and down bring back what you sent (also slash commands and Battle.net whispers) even after a reload. Hovering an item, spell or quest link shows its tooltip, and Ctrl or Shift with the mouse wheel jumps to the top or bottom or scrolls a page",
-        "Chat Comfort extras. \"inv\" in a message becomes a link that invites the player (or asks to join when they are looking for more), the same message from the same player in public channels shows only once every 3 minutes, and known player levels appear at their names. Each can be turned off on the Chat page",
-        "Bagnon, Details, DBM, BigWigs and Plater follow the new look as well",
-        "Windows fade in when they open, and opening a window while the game menu is up now closes the menu instead of pushing it aside",
-        "Bags show a square glow on new items, and the sparkle setting moved to the Bags page",
-        "Better performance in groups and raids (status icons, info bar, action bars, nameplate threat colours)",
-        "The \"Skip single conversation options\" helper was removed",
-        "Fixed: the logout popup no longer grows every second",
-        "Fixed: action bars on mouseover stay hidden while a window in front of them has the mouse",
-        "Fixed: the chat input box stays hidden while you are not typing",
     } },
 }
