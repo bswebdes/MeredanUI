@@ -110,10 +110,12 @@ function Hide(cancel)
 end
 
 local function Create()
-    -- parented to WorldFrame since UIParent gets faded out; scaled like the UI
-    screen = CreateFrame("Frame", "MeredanUIHardcore", WorldFrame)
-    screen:SetScale(UIParent:GetScale())
+    -- in UIParent's tree (so it reliably sits above every interface button and catches clicks),
+    -- but ignoring its alpha since UIParent gets faded out
+    screen = CreateFrame("Frame", "MeredanUIHardcore", UIParent)
+    screen:SetIgnoreParentAlpha(true)
     screen:SetAllPoints(UIParent)
+    screen:SetToplevel(true)
     screen:SetFrameStrata("FULLSCREEN_DIALOG")
     screen:EnableMouse(true) -- the world stays out of reach while the choice is open
     screen:EnableKeyboard(true)
@@ -185,18 +187,12 @@ local function Create()
     speaker:SetShadowOffset(1, -1)
     speaker:SetPoint("TOP", quote, "BOTTOM", 0, -10)
 
-    -- quiet way out, bottom right
-    keep = CreateFrame("Button", nil, screen)
-    keep:SetSize(140, 24)
-    keep:SetPoint("BOTTOMRIGHT", -40, 32)
-    keep.text = keep:CreateFontString(nil, "OVERLAY")
-    ns.SetFont(keep.text, 12, "")
-    keep.text:SetPoint("RIGHT")
-    keep.text:SetText(L["Keep playing"])
-    keep.text:SetTextColor(0.5, 0.48, 0.45, 0.8)
-    keep:SetScript("OnEnter", function(self) self.text:SetTextColor(0.85, 0.82, 0.76, 1) end)
-    keep:SetScript("OnLeave", function(self) self.text:SetTextColor(0.5, 0.48, 0.45, 0.8) end)
-    keep:SetScript("OnClick", function() Hide(true) end)
+    -- quiet way out, bottom right: a real button, faint until hovered
+    keep = ns.UI.Button(screen, L["Keep playing"], function() Hide(true) end, 150)
+    keep:SetPoint("BOTTOMRIGHT", -40, 40)
+    keep:SetAlpha(0.45)
+    keep:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
+    keep:HookScript("OnLeave", function(self) self:SetAlpha(0.45) end)
 
     testLabel = screen:CreateFontString(nil, "OVERLAY")
     ns.SetFont(testLabel, 12, "")
@@ -271,7 +267,6 @@ local function Show(isTest)
     Tick()
     if ticker then ticker:Cancel() end
     ticker = C_Timer.NewTicker(0.25, Tick)
-    screen:SetScale(UIParent:GetScale())
     if not screen:IsShown() then screen:SetAlpha(0) end
     screen:Show()
     Fade(1)
