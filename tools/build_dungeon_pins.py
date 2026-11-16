@@ -7,7 +7,7 @@ region (Map/DungeonMapData.lua), x/y relative to the map art. Group encounters w
 of that name (e.g. "The Seven") are left out and placed by hand (/mui pins, dev).
 Output: Map/DungeonPinData.lua (ns.DUNGEON_PINS), keeps hand-placed pins for instances not generated here.
 usage: python3 -I tools/build_dungeon_pins.py <spawns.sql.gz> [sd2_positions.tsv]"""
-import gzip, re, sys, pathlib
+import json, gzip, re, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DB = sys.argv[1]
@@ -83,13 +83,28 @@ for m in re.finditer(r"\[(\d+)\] = \{(.*?)\n    \},", text, re.S):
     for f in re.finditer(r"region = \{ ([-\d., ]+) \}", m.group(2)):
         floors.append([float(v) for v in f.group(1).split(', ')])
     maps[int(m.group(1))] = floors
+# mUI's own maps (tools/dungeonmaps/build_lua.py) replace Blizzard's floor regions where they exist
+for m in re.finditer(r"ns\.DUNGEON_MAPS\[(\d+)\] = \{(.*?)\n\}", (ROOT / "Map" / "DungeonMapDataForever.lua").read_text(encoding="utf-8"), re.S):
+    if int(m.group(1)) in maps:
+        maps[int(m.group(1))] = [[float(v) for v in f.split(', ')] for f in re.findall(r"region = \{ ([-\d., ]+) \}", m.group(2))]
+# WMO group boxes with their floors (tools/dungeonmaps/buildmap.py): a spawn stands in the smallest box around it
+GROUPS = {}
+for f in (ROOT / "tools" / "dungeonmaps" / "groups").glob("*.json"):
+    GROUPS[int(f.stem)] = json.loads(f.read_text())
 bosses = {}
 for m in re.finditer(r"\[(\d+)\] = \{ (.*?) \},\n", (ROOT / "Quests" / "DungeonBosses.lua").read_text(encoding="utf-8")):
     bosses[int(m.group(1))] = re.findall(r'\{ (\d+), "((?:[^"\\]|\\.)*)", "(?:[^"\\]|\\.)*" \}', m.group(2))
 
-def place(floors, x, y, z, slack=100):
-    """Best floor for a world position: inside the region (small slack, clamped), nearest Z first."""
+def place(floors, x, y, z, slack=100, inst=None):
+    """Best floor for a world position: the floor of the WMO group it stands in (when known), else
+    inside the region (small slack, clamped), nearest Z first."""
     best = None
+    inside = [g for g in GROUPS.get(inst, []) if g['box'][0] - 1 <= x <= g['box'][3] + 1 and g['box'][1] - 1 <= y <= g['box'][4] + 1
+              and g['box'][2] - 3 <= z <= g['box'][5] + 1]
+    if inside:
+        g = min(inside, key=lambda g: (g['box'][3] - g['box'][0]) * (g['box'][4] - g['box'][1]) * (g['box'][5] - g['box'][2]))
+        i = g['floors'][0] - 1; x1, y1, z1, x2, y2, z2 = floors[i]
+        return ((0, 0), i, min(max((y2 - y) / (y2 - y1), 0.02), 0.98), min(max((x2 - x) / (x2 - x1), 0.02), 0.98))
     for i, (x1, y1, z1, x2, y2, z2) in enumerate(floors):
         off = max(x1 - x, x - x2, y1 - y, y - y2, 0)
         if off > slack: continue
@@ -130,7 +145,7 @@ for inst, floors in sorted(maps.items()):
             hit = byname.get(want.lower())
             if not hit:
                 for entry, pos in summons.items():
-                    if templates[entry][0].lower() == want.lower() and place(floors, *pos):
+                    if templates[entry][0].lower() == want.lower() and place(floors, *pos, inst=inst):
                         hit = [(entry,) + pos]; break
             if hit: break
         if not hit:
@@ -142,7 +157,7 @@ for inst, floors in sorted(maps.items()):
         if not hit:
             report.append(f"{inst}: no spawn for boss '{name}'"); continue
         entry, x, y, z = hit[0]
-        p = place(floors, x, y, z)
+        p = place(floors, x, y, z, inst=inst)
         if not p:
             report.append(f"{inst}: '{name}' outside all floors"); continue
         disp = byDisplay.get(name.lower()) or (templates[entry][1] if entry > 0 else 0)
@@ -152,7 +167,7 @@ for inst, floors in sorted(maps.items()):
         t = templates.get(entry)
         if entry < 0 or not t or t[2] not in (2, 4) or entry in seen or t[0].lower() in bossNames: continue
         seen.add(entry)
-        p = place(floors, x, y, z)
+        p = place(floors, x, y, z, inst=inst)
         if p: pins.append(('rare', entry, p[1] + 1, p[2], p[3], t[1], t[0]))
     if pins: out[inst] = pins
 

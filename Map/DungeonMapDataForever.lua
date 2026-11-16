@@ -44,13 +44,10 @@ ns.DUNGEON_MAPS[36] = {
     { en = "Ironclad Cove", de = "Eiserne Bucht", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\36_2", texCoord = { 0, 0.75, 0, 1 }, region = { -267.51, -1016.62, -10000.00, 65.33, -517.36, 1000000.00 } },
 }
 ns.DUNGEON_MAPS[33] = {
-    { en = "The Courtyard", de = "Der Hof", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_1", texCoord = { 0, 0.75, 0, 1 }, region = { -319.88, 2003.77, -10000.00, -84.93, 2356.20, 1000000.00 } },
-    { en = "Dining Hall", de = "Speisesaal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_2", texCoord = { 0, 0.75, 0, 1 }, region = { -303.21, 2147.56, -10000.00, -161.60, 2359.98, 1000000.00 } },
-    { en = "The Vacant Den", de = "Die Verwaiste Höhle", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_3", texCoord = { 0, 0.75, 0, 1 }, region = { -193.22, 2103.77, -10000.00, -91.60, 2256.20, 1000000.00 } },
-    { en = "Lower Observatory", de = "Tieferes Observatorium", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_4", texCoord = { 0, 0.75, 0, 1 }, region = { -193.21, 2103.77, 127.00, -91.59, 2256.20, 1000000.00 } },
-    { en = "Upper Observatory", de = "Oberes Observatorium", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_5", texCoord = { 0, 0.75, 0, 1 }, region = { -193.21, 2103.77, -10000.00, -91.59, 2256.20, 1000000.00 } },
-    { en = "Lord Godfrey's Chamber", de = "Lord Godfreys Kammer", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_6", texCoord = { 0, 0.75, 0, 1 }, region = { -182.55, 2080.77, -10000.00, -50.26, 2279.20, 1000000.00 } },
-    { en = "The Wall Walk", de = "Der Wehrgang", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_7", texCoord = { 0, 0.75, 0, 1 }, region = { -278.22, 2023.77, -10000.00, -96.60, 2296.20, 1000000.00 } },
+    { en = "The Courtyard", de = "Der Hof", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_1", texCoord = { 0, 0.75, 0, 1 }, region = { -316.35, 2080.97, -100000.00, -138.29, 2348.07, 100000.00 } },
+    { en = "Dining Hall", de = "Speisesaal", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_2", texCoord = { 0, 0.75, 0, 1 }, region = { -298.61, 2165.11, -100000.00, -162.16, 2369.78, 100000.00 } },
+    { en = "Observatory", de = "Observatorium", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_3", texCoord = { 0, 0.75, 0, 1 }, region = { -189.87, 2117.57, -100000.00, -106.83, 2242.12, 100000.00 } },
+    { en = "Lord Godfrey's Chamber", de = "Lord Godfreys Kammer", file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\33_4", texCoord = { 0, 0.75, 0, 1 }, region = { -181.15, 2066.45, -100000.00, -58.72, 2250.10, 100000.00 } },
 }
 ns.DUNGEON_MAPS[34] = {
     { en = nil, de = nil, file = "Interface\\AddOns\\MeredanUI\\Media\\DungeonMaps\\34_1", texCoord = { 0, 0.75, 0, 1 }, region = { -31.47, -188.33, -10000.00, 220.63, 189.82, 1000000.00 } },

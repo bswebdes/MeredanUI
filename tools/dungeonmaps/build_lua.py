@@ -38,13 +38,10 @@ DIRECT = [
     # classic instances, half size (compose.py --half), Blizzard's floor regions
     (36, 1, 'The Deadmines', 'Die Todesminen', (-337.51, -796.62, -10000.0, 35.33, -237.36, 1000000.0)),   # plain
     (36, 2, 'Ironclad Cove', 'Eiserne Bucht', (-267.51, -1016.62, -10000.0, 65.33, -517.36, 1000000.0)),
-    (33, 1, 'The Courtyard', 'Der Hof', (-319.88, 2003.77, -10000.0, -84.93, 2356.2, 1000000.0)),   # plain
-    (33, 2, 'Dining Hall', 'Speisesaal', (-303.21, 2147.56, -10000.0, -161.6, 2359.98, 1000000.0)),
-    (33, 3, 'The Vacant Den', 'Die Verwaiste Höhle', (-193.22, 2103.77, -10000.0, -91.6, 2256.2, 1000000.0)),
-    (33, 4, 'Lower Observatory', 'Tieferes Observatorium', (-193.21, 2103.77, 127.0, -91.59, 2256.2, 1000000.0)),
-    (33, 5, 'Upper Observatory', 'Oberes Observatorium', (-193.21, 2103.77, -10000.0, -91.59, 2256.2, 1000000.0)),
-    (33, 6, "Lord Godfrey's Chamber", 'Lord Godfreys Kammer', (-182.55, 2080.77, -10000.0, -50.26, 2279.2, 1000000.0)),
-    (33, 7, 'The Wall Walk', 'Der Wehrgang', (-278.22, 2023.77, -10000.0, -96.6, 2296.2, 1000000.0)),
+    (33, 1, 'The Courtyard', 'Der Hof', (-316.35, 2080.97, -100000.0, -138.29, 2348.07, 100000.0)),   # MAINWMO=1 FIT=1 (floors fitted around their own groups); Blizzard floors 3, 5, 7 dropped (no bosses, duplicate or near empty), 4 -> 3, 6 -> 4
+    (33, 2, 'Dining Hall', 'Speisesaal', (-298.61, 2165.11, -100000.0, -162.16, 2369.78, 100000.0)),
+    (33, 3, 'Observatory', 'Observatorium', (-189.87, 2117.57, -100000.0, -106.83, 2242.12, 100000.0)),
+    (33, 4, "Lord Godfrey's Chamber", 'Lord Godfreys Kammer', (-181.15, 2066.45, -100000.0, -58.72, 2250.1, 100000.0)),
     (34, 1, None, None, (-31.47, -188.33, -10000.0, 220.63, 189.82, 1000000.0)),   # plain
     (48, 1, "The Pool of Ask'Ar", "Der Teich von Ask'Ar", (-677.15, -381.3, -10000.0, -87.67, 502.92, 1000000.0)),   # plain
     (48, 2, 'Moonshrine Sanctum', 'Mondschreinsanktum', (-927.15, -581.3, -10000.0, -337.67, 302.92, 1000000.0)),

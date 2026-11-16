@@ -6,15 +6,15 @@ local _, ns = ...
 
 ns.DUNGEON_PINS = {
     [33] = {
-        { kind = "boss", id = 2748, floor = 1, x = 0.6614, y = 0.7115, display = 524 },
-        { kind = "boss", id = 2749, floor = 1, x = 0.2788, y = 0.5008, display = 524 },
-        { kind = "boss", id = 2750, floor = 1, x = 0.1670, y = 0.8104, display = 3222 },
-        { kind = "boss", id = 2751, floor = 1, x = 0.2746, y = 0.5859, display = 3223 },
-        { kind = "boss", id = 2752, floor = 1, x = 0.5962, y = 0.6460, display = 522 },
-        { kind = "boss", id = 2753, floor = 1, x = 0.5321, y = 0.2157, display = 2352 },
-        { kind = "boss", id = 2754, floor = 1, x = 0.5509, y = 0.1524, display = 11179 },
-        { kind = "boss", id = 2755, floor = 6, x = 0.6390, y = 0.2003, display = 2353 },
-        { kind = "rare", id = 3872, floor = 1, x = 0.6573, y = 0.4558, display = 3224, name = "Deathsworn Captain" },
+        { kind = "boss", id = 2748, floor = 1, x = 0.8422, y = 0.6391, display = 524 },
+        { kind = "boss", id = 2749, floor = 2, x = 0.5463, y = 0.2963, display = 524 },
+        { kind = "boss", id = 2750, floor = 2, x = 0.3539, y = 0.8295, display = 3222 },
+        { kind = "boss", id = 2751, floor = 1, x = 0.3318, y = 0.4734, display = 3223 },
+        { kind = "boss", id = 2752, floor = 1, x = 0.7562, y = 0.5527, display = 522 },
+        { kind = "boss", id = 2753, floor = 3, x = 0.5898, y = 0.3466, display = 2352 },
+        { kind = "boss", id = 2754, floor = 4, x = 0.4796, y = 0.5065, display = 11179 },
+        { kind = "boss", id = 2755, floor = 4, x = 0.5319, y = 0.1473, display = 2353 },
+        { kind = "rare", id = 3872, floor = 1, x = 0.8369, y = 0.3017, display = 3224, name = "Deathsworn Captain" },
     },
     [34] = {
         { kind = "boss", id = 2756, floor = 1, x = 0.4987, y = 0.2422, display = 517 },

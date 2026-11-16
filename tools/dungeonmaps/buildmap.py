@@ -50,6 +50,7 @@ def blp_np(fdid):
     b = get(fdid)
     if b[:4] != b'BLP2':   # failed/partial download: retry once, else leave the tile empty
         os.remove(f'cache/{fdid}.bin'); b = get(fdid)
+        if b[:4] != b'BLP2': b = get(fdid, CLASSIC_BUILD)   # some Forever terrain tiles are only served for the classic build
         if b[:4] != b'BLP2':
             print('  tile missing', fdid, b[:60], flush=True); return np.zeros((256, 256, 4), np.uint8)
     w, h, px = decode_blp(b)
@@ -130,7 +131,16 @@ def build(inst):
             zc = p['pos'][1] + (bb[2] + bb[5]) / 2
             cx, cy = (bb[0] + bb[3]) / 2, (bb[1] + bb[4]) / 2
             groups.append(dict(ext=bool(mogi[gi][0] & 0x8), bb=bb, gi=gi, gid=gid, z=zc, img=sub, col0=x1, row0=ty0, lc=(cx, cy), zr=(p['pos'][1] + bb[2], p['pos'][1] + bb[5])))
-        wmos.append(dict(p=p, minx=minx, miny=miny, resy=resy, groups=groups))
+        # every group (also those without minimap tiles) for the pin floors: world box + Blizzard group ID
+        allbox = []
+        for gi in range(n):
+            gid = 0
+            if gi < len(gf):
+                g = get(gf[gi]); k = g.find(b'PGOM')
+                if k >= 0: gid = struct.unpack('<I', g[k + 8 + 56:k + 8 + 60])[0]
+            if cg and gi < len(cg): gid = cg[gi]
+            allbox.append(dict(gi=gi, gid=gid, tiled=gi in tiles, bb=gb[gi], zr=(p['pos'][1] + gb[gi][2], p['pos'][1] + gb[gi][5])))
+        wmos.append(dict(p=p, minx=minx, miny=miny, resy=resy, groups=groups, allbox=allbox))
     skip = {int(v) for v in os.environ.get('SKIP', '').split(',') if v}   # group indices to leave out
     if skip:
         for w in wmos: w['groups'] = [g for g in w['groups'] if g['gi'] not in skip]
@@ -193,8 +203,25 @@ def build(inst):
                 if cand:
                     best = min(cand, key=lambda f: (f['region'][3] - f['region'][0]) * (f['region'][4] - f['region'][1]))
                     g['floors'] = {best['ui']}
+    # group boxes with their own floors (pins: a spawn's floor = the group it stands in, tools/build_dungeon_pins.py)
+    uiidx = {f['ui']: i for i, f in enumerate(floors, 1)}
+    gdump = []
+    for w in wmos:
+        tiledfl = {g['gi']: g['floors'] for g in w['groups']}
+        for b in w['allbox']:
+            bb = b['bb']; cs = [to_world(w['p'], x, y) for x in (bb[0], bb[3]) for y in (bb[1], bb[4])]
+            fl = tiledfl.get(b['gi']) or {f['ui'] for f in floors if b['gid'] and any(int(r['WMOGroupID']) == b['gid'] for r in uim.get(f['ui'], []))}
+            if fl: gdump.append(dict(floors=sorted(uiidx[u] for u in fl), tiled=b['tiled'], box=[round(v, 1) for v in (min(c[0] for c in cs), min(c[1] for c in cs), b['zr'][0], max(c[0] for c in cs), max(c[1] for c in cs), b['zr'][1])]))
+    json.dump(gdump, open(f'maps/{inst}_groups.json', 'w'))
+    # FIT=1: every floor gets a region fitted around its own groups and shows only those (stacked keeps like
+    # Shadowfang, where Blizzard's regions leave most of the frame empty); pins follow via the world positions
+    if os.environ.get('FIT'):
+        for f in floors:
+            own = [g for g in allg if f['ui'] in g['floors']]
+            if own: f['region'] = fit(own)
+            print(f'{inst} floor {f["en"]} fitted region:', ', '.join(f'{v:.2f}' for v in f['region']), flush=True)
     # fill-in: each floor also shows groups of other floors inside its region that don't stack over/under its own
-    for f in floors:
+    for f in floors if not os.environ.get('FIT') else []:
         # stacked floors (same region as another floor) show only their own parts
         if any(o is not f and [round(v) for v in o['region'][:2] + o['region'][3:5]] == [round(v) for v in f['region'][:2] + f['region'][3:5]] for o in floors):
             continue
