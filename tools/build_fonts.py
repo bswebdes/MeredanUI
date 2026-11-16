@@ -130,7 +130,7 @@ for src, out, names, percent in jobs:
     if semibold:
         f["OS/2"].usWeightClass = 600
     # eine Stufe kräftiger als der Name sagt: Blue Highway ist zusätzlich verbreitert (EMBOLDEN)
-    borrowed = borrow_glyphs(f, OVERPASS + ("Overpass-ExtraBold.ttf" if names[1] == "Bold" else "Overpass-Bold.ttf"))
+    borrowed = borrow_glyphs(f, OVERPASS + ("Overpass-Black.ttf" if names[1] == "Bold" else "Overpass-ExtraBold.ttf"))
     print(out, "borrowed", borrowed, "glyphs from Overpass")
     rename(f, *names)
     extra = track(f, percent) if percent else 0
