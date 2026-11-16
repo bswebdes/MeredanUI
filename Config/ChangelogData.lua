@@ -2,6 +2,11 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.5", items = {
+        "Hunters: while Aspect of the Cheetah or Aspect of the Pack is up, its action bar button pulses with a turquoise edge, faster when a fight starts. Both aspects daze you when hit, so they are easy to forget. On by default in the Comfort style, can be turned off on the Action bars page",
+        "New just-for-fun Hardcore mode (Appearance page, off by default). When you die the interface fades out, YOU DIED appears with who killed you and with what, plus a mocking line from a well-known NPC. Try again logs you out to character select after 20 seconds, Keep playing cancels it. A Test button shows the screen without dying. Not available on official Hardcore realms",
+        "Talent advisor build names now follow your client language",
+    } },
     { version = "v0.5.4", items = {
         "Fixed: Beast Training could not teach your pet anything (Lua error on Train and All learnable). It now opens in the mUI trainer window with your pet, its training points and a working Train button",
         "The pet tab of the spellbook shows how many abilities you learned at a pet trainer but haven't taught your pet yet. Hover it for the list",
@@ -38,14 +43,5 @@ ns.CHANGELOG = {
         "Fixed: the logout popup no longer grows every second",
         "Fixed: action bars on mouseover stay hidden while a window in front of them has the mouse",
         "Fixed: the chat input box stays hidden while you are not typing",
-    } },
-    { version = "v0.4.7", items = {
-        "Repairs are now paid from your own gold by default. The guild bank is only used if you turn on the new \"Repair from the guild bank\" setting (Bags page)",
-        "Fixed: on new characters the setup now opens after the intro cinematic instead of being closed by it",
-        "Fixed: with Questie 12.8 the direction arrow in the quest tracker and Questie's icons on the mUI map work again",
-        "Item tooltips no longer list every character for the Hearthstone",
-        "Bags and bank show your gold like the info bar, and hovering it lists the gold of all your characters",
-        "Bags: the bag slots are grouped (normal bags, special bags, reagent bag) with a small gap between the groups",
-        "Bags: empty slots of special bags are headed with the bag's own name (e.g. your ammo pouch) instead of \"Quiver\"",
     } },
 }
