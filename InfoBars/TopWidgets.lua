@@ -1,11 +1,8 @@
 -- Blizzard's top center widgets (battleground flag/score, world PvP objectives ...):
 --   Blizzard anchors them 15 px below the screen edge, right on top of the XP bar. Move them below
---   the lowest visible top bar and restyle the icon-and-text ones as mUI plates:
---
---     [emblem]  0/3  [flag]      <- dark plate, faction edge on the left, flag = carried flag
---
--- Only alpha/color/font on Blizzard regions; our art sits in our own textures (Blizzard's Setup
--- resets the texture kit on every update, our hook runs after it).
+--   the lowest visible top bar. The faction score rows become one versus board (below).
+-- Only alpha on Blizzard regions; our art lives in our own frame (Blizzard's Setup resets the
+-- texture kit on every update, our hook runs after it).
 local _, ns = ...
 
 local GAP = 6
@@ -34,85 +31,169 @@ local function ParseKit(atlas)
     return team, flag == "and" and team or flag
 end
 
-local parts = setmetatable({}, { __mode = "k" })
-local PLATE_W, PLATE_H, EMBLEM_SIZE, FLAG_SIZE = 104, 22, 22, 14
+-- One versus board instead of Blizzard's two stacked rows:
+--
+--   [A-emblem] 2  <> <> <>    <>    <> <> <>  1 [H-emblem]
+--      ^flag (pulses while the team holds a flag)
+--
+-- Scores like "2/3" become gems (filled = captured); any other text (other battlegrounds) is shown
+-- as text. Alliance always left, Horde right. Blizzard's widgets stay (layout, tooltips) but invisible.
+local BOARD_W, BOARD_H, EMBLEM_SIZE, GEM = 300, 40, 40, 6
+local MAX_GEMS = 5
+local board
+local data = {}        -- team -> { score, max, text, flag }
+local hidden = setmetatable({}, { __mode = "k" })
 
--- Our own row on top of Blizzard's widget (its icon art is 42 px tall with empty space and overlaps
--- the next widget, so we do not reuse its layout): fixed width, so all rows line up.
-local function Build(widget)
-    local p = {}
-    local px = ns.PixelSize()
-    local plate = CreateFrame("Frame", nil, widget)
-    plate:SetSize(ns.Snap(PLATE_W), ns.Snap(PLATE_H))
-    plate:SetPoint("CENTER", widget, "CENTER", 0, 0)
-    p.plate = plate
-    local bg = plate:CreateTexture(nil, "BACKGROUND")
+local function Side(team, mirror)
+    local side = {}
+    local c = FACTION_RGB[team]
+    local sign = mirror and -1 or 1
+    local edge = mirror and "RIGHT" or "LEFT"
+    local inward = mirror and "LEFT" or "RIGHT"
+    local glow = board:CreateTexture(nil, "BORDER")
+    glow:SetTexture(WHITE)
+    glow:SetPoint("TOP" .. edge)
+    glow:SetPoint("BOTTOM" .. edge)
+    glow:SetWidth(ns.Snap(BOARD_W * 0.45))
+    local strong, none = CreateColor(c[1], c[2], c[3], 0.45), CreateColor(c[1], c[2], c[3], 0)
+    if mirror then glow:SetGradient("HORIZONTAL", none, strong) else glow:SetGradient("HORIZONTAL", strong, none) end
+    local line = board:CreateTexture(nil, "ARTWORK")
+    line:SetTexture(WHITE)
+    line:SetPoint("TOP" .. edge)
+    line:SetPoint("BOTTOM" .. edge)
+    line:SetWidth(2 * ns.PixelSize())
+    line:SetVertexColor(c[1], c[2], c[3], 1)
+
+    side.emblem = board:CreateTexture(nil, "OVERLAY")
+    side.emblem:SetAtlas(EMBLEM[team])
+    side.emblem:SetSize(ns.Snap(EMBLEM_SIZE + 8), ns.Snap(EMBLEM_SIZE + 8))
+    side.emblem:SetPoint("CENTER", board, edge, sign * ns.Snap(EMBLEM_SIZE / 2 - 2), 0)
+    side.score = ns.CreateText(board, 22, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
+    side.score:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_SIZE + 6), 0)
+    side.score:SetTextColor(1, 1, 1)
+    side.text = ns.CreateText(board, 13, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
+    side.text:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_SIZE + 6), 0)
+    side.text:SetPoint(inward, board, "CENTER", -sign * ns.Snap(14), 0)
+    side.text:SetTextColor(1, 1, 1)
+    side.gems = {}
+    for i = 1, MAX_GEMS do
+        local gem = ns.UI.Diamond(board, GEM, c)
+        gem:SetPoint("CENTER", side.score, inward, sign * ns.Snap(14 + (i - 1) * 17), 0)
+        side.gems[i] = gem
+    end
+
+    -- carried flag on the emblem's inner top corner, pulsing
+    local flag = board:CreateTexture(nil, "OVERLAY", nil, 3)
+    flag:SetTexture(ns.MEDIA .. "Icons\\Flag")
+    flag:SetSize(ns.Snap(16), ns.Snap(16))
+    flag:SetPoint("CENTER", side.emblem, "TOP" .. inward, -sign * ns.Snap(8), -ns.Snap(8))
+    local pulse = flag:CreateAnimationGroup()
+    pulse:SetLooping("BOUNCE")
+    local fade = pulse:CreateAnimation("Alpha")
+    fade:SetFromAlpha(1)
+    fade:SetToAlpha(0.35)
+    fade:SetDuration(0.6)
+    flag:Hide()
+    side.flag, side.pulse = flag, pulse
+    return side
+end
+
+local function CreateBoard()
+    board = CreateFrame("Frame", "MeredanUIScoreBoard", UIParent)
+    board:SetSize(ns.Snap(BOARD_W), ns.Snap(BOARD_H))
+    board:SetFrameStrata("LOW")
+    local bg = board:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
-    bg:SetTexture(WHITE)
-    bg:SetGradient("HORIZONTAL", CreateColor(0.05, 0.04, 0.03, 0.9), CreateColor(0.05, 0.04, 0.03, 0.6))
-    p.tint = plate:CreateTexture(nil, "BORDER")
-    p.tint:SetTexture(WHITE)
-    p.tint:SetPoint("TOPLEFT")
-    p.tint:SetPoint("BOTTOMLEFT")
-    p.tint:SetWidth(ns.Snap(56))
-    p.edge = plate:CreateTexture(nil, "ARTWORK")
-    p.edge:SetTexture(WHITE)
-    p.edge:SetPoint("TOPLEFT")
-    p.edge:SetPoint("BOTTOMLEFT")
-    p.edge:SetWidth(2 * px)
-    ns.AddBorder(plate)
+    bg:SetColorTexture(0.05, 0.04, 0.03, 0.88)
+    local shine = board:CreateTexture(nil, "BACKGROUND", nil, 1)
+    shine:SetTexture(WHITE)
+    shine:SetPoint("TOPLEFT")
+    shine:SetPoint("TOPRIGHT")
+    shine:SetHeight(ns.Snap(BOARD_H / 2))
+    shine:SetGradient("VERTICAL", CreateColor(1, 1, 1, 0), CreateColor(1, 1, 1, 0.06))
+    ns.RuneFrame(board, { small = true })
+    local center = ns.UI.Diamond(board, 5)
+    center:SetPoint("CENTER")
+    board.sides = { alliance = Side("alliance", false), horde = Side("horde", true) }
+    board:Hide()
+end
 
-    p.emblem = plate:CreateTexture(nil, "OVERLAY")
-    p.emblem:SetSize(ns.Snap(EMBLEM_SIZE + 6), ns.Snap(EMBLEM_SIZE + 6)) -- the emblem art has a soft edge
-    p.emblem:SetPoint("CENTER", plate, "LEFT", ns.Snap(4 + EMBLEM_SIZE / 2), 0)
-    p.text = ns.CreateText(plate, 15, "LEFT", "OUTLINE", "bold")
-    p.text:SetPoint("LEFT", plate, "LEFT", ns.Snap(4 + EMBLEM_SIZE + 8), 0)
-    p.flag = plate:CreateTexture(nil, "OVERLAY")
-    p.flag:SetTexture(ns.MEDIA .. "Icons\\Flag")
-    p.flag:SetSize(ns.Snap(FLAG_SIZE), ns.Snap(FLAG_SIZE))
-    p.flag:SetPoint("RIGHT", plate, "RIGHT", -ns.Snap(6), 0)
-    p.flag:Hide()
-    parts[widget] = p
-    return p
+local function Render()
+    if not board then CreateBoard() end
+    local any = false
+    for team, side in pairs(board.sides) do
+        local d = data[team]
+        local score, max = d and d.score, d and d.max
+        local gems = score and max and max <= MAX_GEMS
+        side.score:SetShown(gems and true or false)
+        side.text:SetShown(not gems and d ~= nil)
+        if gems then
+            side.score:SetText(score)
+        else
+            side.text:SetText(d and d.text or "")
+        end
+        for i, gem in ipairs(side.gems) do
+            gem:SetShown(gems and i <= max or false)
+            if gems and i <= max then
+                local on = i <= score
+                gem:SetDesaturated(not on)
+                gem:SetAlpha(on and 1 or 0.35)
+            end
+        end
+        local fc = d and d.flag and FACTION_RGB[d.flag]
+        if fc then
+            side.flag:SetVertexColor(fc[1], fc[2], fc[3], 1)
+            side.flag:Show()
+            if not side.pulse:IsPlaying() then side.pulse:Play() end
+        else
+            side.pulse:Stop()
+            side.flag:Hide()
+        end
+        side.emblem:SetDesaturated(d == nil)
+        any = any or d ~= nil
+    end
+    board:ClearAllPoints()
+    board:SetPoint("TOP", UIWidgetTopCenterContainerFrame, "TOP", 0, 0)
+    board:SetShown(any)
+end
+
+local function Conceal(widget, conceal)
+    local a = conceal and 0 or 1
+    widget.Icon:SetAlpha(a)
+    widget.Text:SetAlpha(a)
+    local dynamic = widget.DynamicIconButton
+    if dynamic and dynamic.Icon then dynamic.Icon:SetAlpha(a) end
+    if widget.Flash then widget.Flash:SetAlpha(a) end
 end
 
 local function Style(widget, container)
     if container ~= UIWidgetTopCenterContainerFrame or not (widget.Icon and widget.Text) then return end
     local team, carried = ParseKit(widget.Icon:GetAtlas())
-    local emblem = team and EMBLEM[team]
-    local p = parts[widget]
-    local dynamic = widget.DynamicIconButton
-    if not emblem then -- other icon-and-text widgets stay Blizzard's
-        if p then
-            p.plate:Hide()
-            widget.Icon:SetAlpha(1)
-            widget.Text:SetAlpha(1)
-            if dynamic and dynamic.Icon then dynamic.Icon:SetAlpha(1) end
-        end
+    if not (team and EMBLEM[team]) then -- other icon-and-text widgets stay Blizzard's
+        if hidden[widget] then Conceal(widget, false) end
         return
     end
-    p = p or Build(widget)
-    widget.Icon:SetAlpha(0)
-    widget.Text:SetAlpha(0)
-    p.emblem:SetAtlas(emblem)
-    local c = FACTION_RGB[team]
-    p.edge:SetVertexColor(c[1], c[2], c[3], 1)
-    p.tint:SetGradient("HORIZONTAL", CreateColor(c[1], c[2], c[3], 0.4), CreateColor(c[1], c[2], c[3], 0))
-    p.text:SetText(widget.Text:GetText() or "")
-
-    -- carried flag: Blizzard shows its dynamic icon only while the team holds a flag
+    if not hidden[widget] then
+        hidden[widget] = team
+        widget:HookScript("OnHide", function(self)
+            local t = hidden[self]
+            if t and data[t] and data[t].widget == self then data[t] = nil; Render() end
+        end)
+    end
+    hidden[widget] = team
+    Conceal(widget, true)
+    local text = widget.Text:GetText() or ""
+    local score, max = text:match("^%s*(%d+)%s*/%s*(%d+)%s*$")
+    local dynamic = widget.DynamicIconButton
     local holding = dynamic and dynamic:IsShown() and dynamic.Icon and dynamic.Icon:IsShown()
         and dynamic.Icon:GetAtlas()
-    if dynamic and dynamic.Icon then dynamic.Icon:SetAlpha(0) end
+    local flag
     if holding then
-        local _, flag = ParseKit(holding)
-        local fc = FACTION_RGB[flag or carried] or c
-        p.flag:SetVertexColor(fc[1], fc[2], fc[3], 1)
-        p.flag:Show()
-    else
-        p.flag:Hide()
+        local _, f = ParseKit(holding)
+        flag = f or carried
     end
-    p.plate:Show()
+    data[team] = { widget = widget, text = text, score = tonumber(score), max = tonumber(max), flag = flag }
+    Render()
 end
 
 ns:On("PLAYER_LOGIN", function()

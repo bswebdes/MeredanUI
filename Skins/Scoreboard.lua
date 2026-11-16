@@ -162,7 +162,9 @@ local function SkinRow(row)
         strip:SetVertexColor(c[1], c[2], c[3], 1)
         glow:SetGradient("HORIZONTAL", CreateColor(c[1], c[2], c[3], 0.26), CreateColor(c[1], c[2], c[3], 0))
         base:SetColorTexture(1, 1, 1, (dataIndex or 0) % 2 == 0 and 0.045 or 0.012)
-        local own = type(rowData) == "table" and rowData.guid and G.IsPlayerGuid and G.IsPlayerGuid(rowData.guid)
+        local guid = type(rowData) == "table" and rowData.guid
+        -- the GUID is secret in some matches: then no own-row band
+        local own = guid and not issecretvalue(guid) and G.IsPlayerGuid and G.IsPlayerGuid(guid)
         mine:SetShown(own and true or false)
     end
     if row.Populate then hooksecurefunc(row, "Populate", Paint) end
