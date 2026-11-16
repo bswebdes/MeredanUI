@@ -87,11 +87,8 @@ local function PlaceTexts(button, time, count)
     count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -ns.Snap(1), ns.Snap(2))
 end
 
-ns.playerBuffButtons = {} -- buff buttons of the container (UnitFrames/AspectIndicator.lua highlights one)
-
 local function InitButton(button, size, harmful)
     button:SetSize(size, size)
-    if not harmful then ns.playerBuffButtons[#ns.playerBuffButtons + 1] = button end
     button:SetTooltipAnchorPoint("ANCHOR_BOTTOMLEFT", 0, 0)
     if not harmful then
         -- Right-click cancels the buff (Blizzard does this securely)
@@ -310,9 +307,6 @@ local demoActive = false
 local demoFrames = {}
 
 local function DemoIcon(parent, spellID, size, harmful, index)
-    -- hunters: the first demo buff is Cheetah, pulsing like the real one
-    local aspect = not harmful and index == 1 and ns.AspectDemoSpell and ns.AspectDemoSpell()
-    if aspect then spellID = aspect end
     local button = CreateFrame("Frame", nil, parent)
     button:SetSize(size, size)
     local icon = button:CreateTexture(nil, "ARTWORK")
@@ -351,7 +345,6 @@ local function DemoIcon(parent, spellID, size, harmful, index)
     local count = ns.CreateText(button, ns.STYLE.fontSize - 2, "RIGHT", "OUTLINE")
     count:SetText(index % 4 == 0 and "3" or "")
     PlaceTexts(button, time, count)
-    if aspect and ns.AddAspectPulse then ns.AddAspectPulse(button, true) end
     return button
 end
 

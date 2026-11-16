@@ -1753,7 +1753,7 @@ if GetLocale() == "deDE" then
     L["3D portrait in the health bar"] = "3D-Porträt im Lebensbalken"
     L["Player and target: the character model, zoomed to the head, faint inside the bar."] = "Spieler und Ziel: das Charaktermodell, auf den Kopf gezoomt, halb durchsichtig im Balken."
     L["Speed aspect pulses"] = "Tempo-Aspekt pulsiert"
-    L["Aspect of the Cheetah or the Pack pulses in your buff bar while it is up, so you don't forget it. Faster when a fight starts."] = "Aspekt des Geparden oder des Rudels pulsiert in deiner Buffleiste, solange er aktiv ist, damit du ihn nicht vergisst. Schneller, wenn ein Kampf beginnt."
+    L["The button of Aspect of the Cheetah or the Pack pulses while it is up, so you don't forget it. Faster when a fight starts."] = "Der Knopf von Aspekt des Geparden oder des Rudels pulsiert, solange er aktiv ist, damit du ihn nicht vergisst. Schneller, wenn ein Kampf beginnt."
     L["Hardcore mode"] = "Hardcore-Modus"
     L["Hardcore mode (just for fun)"] = "Hardcore-Modus (nur zum Spaß)"
     L["When you die: dark screen, \"Try again\" logs you out after 20 seconds. \"Keep playing\" bottom right lets you carry on."] = "Wenn du stirbst: dunkler Bildschirm, „Erneut versuchen“ loggt dich nach 20 Sekunden aus. „Weiterspielen“ unten rechts lässt dich weitermachen."

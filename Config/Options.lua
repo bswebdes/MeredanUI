@@ -425,12 +425,6 @@ local PAGES = {
             page:AddTitle(L["Buffs & debuffs"], L["Your buffs and debuffs left of the minimap. The preview shows changes right away."])
             page:AddDropdown(L["Size"], StageItems, Getter("auraSize"), Live("auraSize"), RELOAD)
             page:AddDropdown(L["Time remaining"], AuraTimeItems, Getter("auraTime"), Live("auraTime"), RELOAD)
-            if ns.IS_FOREVER and select(2, UnitClass("player")) == "HUNTER" then
-                page:AddCheckbox(L["Speed aspect pulses"], On("aspectIndicator"), Setter("aspectIndicator", function()
-                    ns.UpdateAspectIndicator()
-                    if ns.RefreshAurasDemo then ns.RefreshAurasDemo() end
-                end), Help(L["Aspect of the Cheetah or the Pack pulses in your buff bar while it is up, so you don't forget it. Faster when a fight starts."]))
-            end
         end,
     },
     {
@@ -521,6 +515,10 @@ local PAGES = {
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Mark old spell ranks"], On("spellRanks"), Setter("spellRanks", ns.RefreshSpellRanks),
                     Help(L["Small golden arrow on buttons whose spell has a higher rank you already know, and one notification when you learn one – click it to update your bars."]))
+                if select(2, UnitClass("player")) == "HUNTER" then
+                    page:AddCheckbox(L["Speed aspect pulses"], On("aspectIndicator"), Setter("aspectIndicator", ns.UpdateAspectIndicator),
+                        Help(L["The button of Aspect of the Cheetah or the Pack pulses while it is up, so you don't forget it. Faster when a fight starts."]))
+                end
             end
             page:AddHeader(L["Micro menu"])
             page:AddDropdown(L["Visibility"], VisibilityItems,
