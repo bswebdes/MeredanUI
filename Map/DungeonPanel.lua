@@ -91,8 +91,9 @@ local function Visible(items)
     return out
 end
 
--- Instances whose boss pins Benny checked in the game; released one by one (Map/DungeonLoot.lua has more)
-local READY = { [43] = true, [389] = true, [3065] = true, [36] = true, [33] = true }
+-- Panel for every dungeon that is open in Forever (raids follow when they open)
+local READY = {}
+for _, id in ipairs({ 389, 3065, 2999, 43, 36, 33, 48, 34, 2998, 2959, 90, 47, 189, 2970, 129, 3039, 70, 209, 349, 2994, 109, 230, 429, 229, 2974, 3001, 329, 289 }) do READY[id] = true end
 
 -- Items seen dropping in Forever (account-wide): looting in an instance marks its listed items
 local function Seen()

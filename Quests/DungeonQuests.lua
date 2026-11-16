@@ -628,6 +628,9 @@ ns.DUNGEON_QUESTS = {
         { id = 97130, level = 40, min = 34, races = 77, classes = 0, title = "Ancient Gurubashi Secrets", giver = "Archmage Timear", zone = 1416 },
     },
     [2974] = {
+        { id = 92065, level = 0, min = 0, races = 0, classes = 0, title = "Blackmaw Reclamation", giver = "Gatekeeper Rageroar" },
+        { id = 92066, level = 0, min = 0, races = 0, classes = 0, title = "The Twin Bears", giver = "Lorekeeper Nok" },
+        { id = 97327, level = 0, min = 0, races = 0, classes = 0, title = "Blackmaw Pouches", giver = "Ekkal", zone = 1447 },
         { id = 92343, level = 55, min = 45, races = 178, classes = 0, title = "Get to the Roots of It", giver = "Nara Wildmane", zone = 1456 },
         { id = 92344, level = 55, min = 45, races = 77, classes = 0, title = "Get to the Roots of It", giver = "Mathrengyl Bearwalker", zone = 1457 },
         { id = 92346, level = 55, min = 45, races = 178, classes = 0, title = "Beneath Nordrassil", giver = "Jediga", zone = 1447 },
@@ -673,6 +676,13 @@ ns.DUNGEON_QUESTS = {
         { id = 95195, level = 22, min = 15, races = 77, classes = 0, title = "Bloodied Insignia", item = 268540 },
         { id = 95204, level = 22, min = 15, races = 178, classes = 0, title = "Crest of Lordaeron", item = 275521 },
         { id = 95216, level = 22, min = 15, races = 178, classes = 0, title = "The New Plague", giver = "Theodore Griffs", zone = 1458 },
+    },
+    [3001] = {
+        { id = 95924, level = 60, min = 0, races = 0, classes = 0, title = "Panic at the Digsite", giver = "Curator Thorius", zone = 1455 },
+        { id = 95925, level = 60, min = 0, races = 0, classes = 0, title = "Mapping the Way Forward", giver = "Curator Thorius", zone = 1455 },
+        { id = 95926, level = 60, min = 0, races = 0, classes = 0, title = "The Dark Crystal", giver = "Master Apothecary Faranell", zone = 1458 },
+        { id = 95928, level = 60, min = 0, races = 0, classes = 0, title = "Crystalline Elements", giver = "Mayena Earthseeker", zone = 1412 },
+        { id = 97049, level = 60, min = 0, races = 0, classes = 0, title = "Essence of Seeping Slimes", giver = "Chemist Fuely", zone = 1458 },
     },
     [3039] = {
         { id = 94768, level = 0, min = 0, races = 178, classes = 0, title = "Bring Me His Head", giver = "Da'grosh", zone = 2548 },
