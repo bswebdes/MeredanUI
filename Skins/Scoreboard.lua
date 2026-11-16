@@ -27,6 +27,10 @@ local TOOLBAR_TOP = PAD + ICON + 14   -- 78
 local CONTENT_TOP = TOOLBAR_TOP + 28 + 12 -- 118
 local FOOTER = 54
 local TAB_MIN_W = 120
+local TAB_TEXT_PAD = 30 -- per side: room for the gem on the left, symmetric on the right
+-- Blizzard's table columns are fixed and sized for its content box (1016 px wide); keep that width
+-- inside our padding, otherwise the last column (honor) is cut off.
+local WIDTH = 1016 + 2 * PAD
 
 local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
@@ -159,10 +163,22 @@ end
 -- Tabs (All / Alliance / Horde): flat buttons in the toolbar; active one Surf Green.
 -- Blizzard disables the selected tab and resizes tabs to their text on show.
 -- rune-look tab (Skins/Kit.lua), the active one with a gem
+-- Blizzard sets the team counts via SetText without resizing, so the text kept the width of the
+-- previous label and got truncated ("Alliance (..."): measure the text ourselves.
+local function FitTab(tab)
+    local text = tab.Text
+    if not text then return end
+    text:SetWidth(0)
+    local width = math.max(TAB_MIN_W, math.ceil(text:GetStringWidth()) + 2 * TAB_TEXT_PAD)
+    text:SetWidth(width - 2 * TAB_TEXT_PAD)
+    tab:SetWidth(width)
+end
+
 local function SkinTab(tab)
     if type(tab) ~= "table" or not Once(tab) then return end
     ns.SkinKit.Tab(tab)
     tabParts[tab] = true
+    hooksecurefunc(tab, "SetText", FitTab)
 end
 
 local function UpdateTabs(window)
@@ -172,7 +188,7 @@ local function UpdateTabs(window)
             FadeRegions(tab)
             tab:SetHeight(28)
             ns.SkinKit.SetTabActive(tab, selected == i)
-            if tab:GetWidth() < TAB_MIN_W then tab:SetWidth(TAB_MIN_W) end
+            FitTab(tab)
         end
     end
 end
@@ -339,7 +355,7 @@ local function Apply()
         local content = board.Content
         local group = content.TabContainer and content.TabContainer.TabGroup
         Setup(board, {
-            width = 1024, contentH = 392, footer = PAD,
+            width = WIDTH, contentH = 392, footer = PAD,
             content = content, categories = content.ScrollCategories,
             scrollBox = content.ScrollBox, scrollBar = content.ScrollBar,
             tabs = group and { group.Tab1, group.Tab2, group.Tab3 } or {},
@@ -351,7 +367,7 @@ local function Apply()
         local content = results.content
         local group = content.tabContainer and content.tabContainer.tabGroup
         Setup(results, {
-            width = 1024, contentH = 442, footer = FOOTER, results = true,
+            width = WIDTH, contentH = 442, footer = FOOTER, results = true,
             content = content, categories = content.scrollCategories,
             scrollBox = content.scrollBox, scrollBar = content.scrollBar,
             tabs = group and { group.tab1, group.tab2, group.tab3 } or {},
@@ -370,7 +386,7 @@ local function Apply()
         if tabParts[tab] then
             tab:SetHeight(28)
             ns.SkinKit.SetTabActive(tab, tab.muiTabActive)
-            if tab:GetWidth() < TAB_MIN_W then tab:SetWidth(TAB_MIN_W) end
+            FitTab(tab)
         end
     end)
     if G.ConstructPVPMatchTable then
