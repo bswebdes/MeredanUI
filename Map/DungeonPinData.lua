@@ -318,11 +318,21 @@ ns.DUNGEON_PINS = {
     },
     [2998] = {
         { kind = "boss", id = 3480, floor = 1, x = 0.8016, y = 0.0572 },
+        { kind = "boss", id = 3644, floor = 1, x = 0.8225, y = 0.4351 },
     },
     [3065] = {
         { kind = "boss", id = 3493, floor = 1, x = 0.4920, y = 0.7290 },
         { kind = "boss", id = 3494, floor = 1, x = 0.4939, y = 0.6392 },
         { kind = "boss", id = 3495, floor = 1, x = 0.6291, y = 0.6030 },
         { kind = "boss", id = 3496, floor = 1, x = 0.4930, y = 0.3728 },
+    },
+    [2959] = {
+        { kind = "boss", id = 3311, floor = 1, x = 0.4986, y = 0.4754 },
+        { kind = "boss", id = 3310, floor = 1, x = 0.6218, y = 0.4777 },
+        { kind = "boss", id = 3298, floor = 1, x = 0.5753, y = 0.6358 },
+        { kind = "boss", id = 3302, floor = 1, x = 0.5498, y = 0.3172 },
+        { kind = "boss", id = 3300, floor = 1, x = 0.4823, y = 0.6126 },
+        { kind = "boss", id = 3299, floor = 1, x = 0.5079, y = 0.4568 },
+        { kind = "boss", id = 3303, floor = 1, x = 0.4730, y = 0.1940 },
     },
 }

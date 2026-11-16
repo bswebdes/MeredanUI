@@ -25,10 +25,8 @@ Icons
   CC-BY 4.0 – https://github.com/twitter/twemoji – https://creativecommons.org/licenses/by/4.0/
   (rasterized to 64x64 TGA)
 
-City of Dalaran dungeon map (Media/DungeonMaps/2959_*)
-- Atlas de Azeroth: Forever by Santiago Reyes – https://sreyesmaps.com – used with the artist's
-  permission (2026-11-09); watermarks and credits must stay unaltered, not for sale.
-  All other dungeon maps are built by MeredanUI from the game's own data.
+Dungeon maps (Media/DungeonMaps)
+- Built by MeredanUI from the game's own data.
 
 Flight time estimates (Minimap/FlightTimeData.lua)
 - Classic flight times from InFlight Taxi Timer – MIT License –
