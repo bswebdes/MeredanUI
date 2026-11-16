@@ -4,7 +4,6 @@
 - Hunters: while Aspect of the Cheetah or Aspect of the Pack is up, its action bar button pulses with a turquoise edge, faster when a fight starts. Both aspects daze you when hit, so they are easy to forget. On by default in the Comfort style, can be turned off on the Action bars page
 - New just-for-fun Hardcore mode (Appearance page, off by default). When you die the interface fades out, YOU DIED appears with who killed you and with what, plus a mocking line from a well-known NPC. Try again logs you out to character select after 20 seconds, Keep playing cancels it. A Test button shows the screen without dying. Not available on official Hardcore realms
 - Talent advisor build names now follow your client language
-- Fixed: the City of Dalaran map credit is now listed correctly
 
 ## v0.5.4
 - Fixed: Beast Training could not teach your pet anything (Lua error on Train and All learnable). It now opens in the mUI trainer window with your pet, its training points and a working Train button
