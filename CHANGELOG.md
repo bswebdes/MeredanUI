@@ -1,5 +1,15 @@
 # MeredanUI Changelog
 
+## v0.5.7
+- Battlegrounds got the full mUI treatment. The flag score at the top is now one versus board with both faction crests, and every capture lights up a gem. A small flag pulses on the crest while a team holds the enemy flag
+- Flag carriers get their own mUI frames in the boss frame column, with the carried flag next to them. A click targets the carrier, and the quest log moves aside just like it does for boss frames
+- The battleground scoreboard has a new look with faction crests, crests on the team tabs, a faction glow on every row and a gold band on your own row. The Honor column is no longer cut off and the team tabs show their full names
+- Russian names and chat now show properly. The mUI fonts include Cyrillic letters, and the chat no longer drops Cyrillic text
+- Nameplates get a thin gold frame on mouseover instead of a white wash over the health bar
+- The tooltip Blizzard drew over soft-targeted nameplates is turned off, so you get the normal mUI tooltip on mouseover
+- Recent allies are marked with a small icon behind the name in the tooltip instead of an extra line
+- Fixed: several Lua errors in battlegrounds (buff reminder, ready check, AFK screen, scoreboard)
+
 ## v0.5.6
 - The dungeon panel on the map now covers every dungeon open in Forever: bosses with their loot and drop chances, plus a quest tab. Loot and quests are updated from the latest guides, including Shaper's Terrace
 - Boss pins on dungeon maps with several floors now sit on the floor where the boss really stands (Scholomance, Blackrock Spire, Dire Maul, Gnomeregan and more)

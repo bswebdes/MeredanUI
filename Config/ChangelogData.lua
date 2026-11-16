@@ -2,6 +2,16 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.7", items = {
+        "Battlegrounds got the full mUI treatment. The flag score at the top is now one versus board with both faction crests, and every capture lights up a gem. A small flag pulses on the crest while a team holds the enemy flag",
+        "Flag carriers get their own mUI frames in the boss frame column, with the carried flag next to them. A click targets the carrier, and the quest log moves aside just like it does for boss frames",
+        "The battleground scoreboard has a new look with faction crests, crests on the team tabs, a faction glow on every row and a gold band on your own row. The Honor column is no longer cut off and the team tabs show their full names",
+        "Russian names and chat now show properly. The mUI fonts include Cyrillic letters, and the chat no longer drops Cyrillic text",
+        "Nameplates get a thin gold frame on mouseover instead of a white wash over the health bar",
+        "The tooltip Blizzard drew over soft-targeted nameplates is turned off, so you get the normal mUI tooltip on mouseover",
+        "Recent allies are marked with a small icon behind the name in the tooltip instead of an extra line",
+        "Fixed: several Lua errors in battlegrounds (buff reminder, ready check, AFK screen, scoreboard)",
+    } },
     { version = "v0.5.6", items = {
         "The dungeon panel on the map now covers every dungeon open in Forever: bosses with their loot and drop chances, plus a quest tab. Loot and quests are updated from the latest guides, including Shaper's Terrace",
         "Boss pins on dungeon maps with several floors now sit on the floor where the boss really stands (Scholomance, Blackrock Spire, Dire Maul, Gnomeregan and more)",
@@ -25,9 +35,5 @@ ns.CHANGELOG = {
     } },
     { version = "v0.5.2", items = {
         "New option \"3D portrait in the health bar\" (Unit frames page, off by default). Your character and your target appear faintly inside their health bars, zoomed to the head and facing inward. The model only shows over the health you have, so the missing part stays easy to read",
-    } },
-    { version = "v0.5.1", items = {
-        "Fixed: a Lua error in combat when the threat of your target's target changed (nameplate colours)",
-        "Fixed: Blizzard's trainer window no longer flashes up for a moment before the mUI trainer opens",
     } },
 }
