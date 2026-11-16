@@ -570,6 +570,39 @@ local function FinishUnitLines(tooltip, unit, layout)
     end
 end
 
+-- "Recent allies" (people you played with lately): Blizzard adds a whole line with a person icon.
+-- mUI: a small icon behind the name instead, the line goes.
+local RECENT_ALLY_LABELS = {}
+for _, key in ipairs({ "CONTACTS_RECENT_ALLIES_TAB_NAME", "RECENT_ALLIES_TAB_NAME", "CONTACTS_RECENT_ALLIES_TITLE" }) do
+    local label = _G[key]
+    if type(label) == "string" and label ~= "" then RECENT_ALLY_LABELS[label:lower()] = true end
+end
+local function Bare(text)
+    return (text:gsub("|A.-|a", ""):gsub("|T.-|t", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+        :gsub("^%s+", ""):gsub("%s+$", ""))
+end
+local function MarkRecentAlly(tooltip, unit, layout)
+    if not (C_RecentAllies and C_RecentAllies.IsRecentAllyByGUID) then return end
+    local guid = UnitGUID(unit)
+    if not Readable(guid) or not guid then return end
+    local ok, ally = pcall(C_RecentAllies.IsRecentAllyByGUID, guid)
+    -- the settings demo (own tooltip) shows the icon too
+    local demo = ns.tooltipDemoActive and ns.Plain(UnitIsUnit(unit, "player"))
+    if not (demo or (ok and Readable(ally) and ally)) then return end
+    for i = 2, tooltip:NumLines() - layout.free do
+        local text = Left(tooltip, i):GetText()
+        if Readable(text) and text and RECENT_ALLY_LABELS[Bare(text):lower()] then
+            RemoveLine(tooltip, layout, i)
+            break
+        end
+    end
+    local name = Left(tooltip, 1)
+    local text = name:GetText()
+    if Readable(text) and text and not text:find("Icons\\Friends", 1, true) then -- once per build
+        name:SetText(text .. " " .. ns.UI.IconMarkup("Friends", 13, ns.UI.ACCENT, -1))
+    end
+end
+
 local function AddUnitLines(tooltip, unit)
     local isPlayer = ns.Plain(UnitIsPlayer(unit))
     local color = UnitColor(unit)
@@ -632,6 +665,7 @@ local function AddUnitLines(tooltip, unit)
     -- Name in class color
     local class = ClassColor(unit)
     if class then Left(tooltip, 1):SetTextColor(class.r, class.g, class.b) end
+    MarkRecentAlly(tooltip, unit, layout)
 
     -- Guild + rank in the accent colour: Blizzard shows only the guild name (line 2)
     local guild, rank = GetGuildInfo(unit)
@@ -990,11 +1024,13 @@ local demoActive = false
 ns.TooltipDemo = {
     Start = function()
         demoActive = true
+        ns.tooltipDemoActive = true
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         GameTooltip:SetUnit("player")
     end,
     Stop = function()
         demoActive = false
+        ns.tooltipDemoActive = false
         GameTooltip:Hide()
     end,
     IsActive = function() return demoActive and GameTooltip:IsShown() end,
@@ -1031,7 +1067,17 @@ local function StyleItemRef()
     end)
 end
 
+-- Soft targeting draws its own tooltip over the soft-targeted plate - engine-made, so it can't be
+-- styled (Blizzard look, not anchored like ours). Off while mUI runs (temporary CVars); the normal
+-- mUI tooltip still shows on mouseover. Interact tooltips (objects) stay as they are.
+local function SoftTargetTooltipsOff()
+    if InCombatLockdown() then return ns.AfterCombat(SoftTargetTooltipsOff) end
+    ns.LookCVar("SoftTargetTooltipEnemy", "0")
+    ns.LookCVar("SoftTargetTooltipFriend", "0")
+end
+
 ns:On("PLAYER_LOGIN", function()
+    SoftTargetTooltipsOff()
     StyleItemRef()
     StyleFonts()
     StyleHealthBar()

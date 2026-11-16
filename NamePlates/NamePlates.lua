@@ -11,7 +11,7 @@
 --
 -- Target: 15 % larger, white arrows left and right, soft accent glow behind the bar. Other plates
 -- are dimmed (unless casting).
--- Mouseover brightens the bar.
+-- Mouseover: thin gold frame around the bar.
 --
 -- Health colors (highest priority first):
 --   Threat (in combat): red = wrong aggro (DPS has it / tank lost it), orange = transitioning,
@@ -317,7 +317,7 @@ local function UpdateAlpha(frame)
         frame.muiScale = scale
         frame:SetScale(scale)
     end
-    frame.hoverGlow:SetShown(frame.hovered or false)
+    frame.hoverGlow:SetShown((frame.hovered and not target) or false) -- the target has its own highlight
 end
 
 local plates = {}
@@ -384,11 +384,14 @@ local function Style(self, unit)
     glow:Hide()
     self.targetGlow = glow
 
-    -- Mouseover: bar brightens slightly
-    local hoverGlow = health:CreateTexture(nil, "OVERLAY", nil, 1)
-    hoverGlow:SetAllPoints(health:GetStatusBarTexture())
-    hoverGlow:SetColorTexture(1, 1, 1, 0.18)
-    hoverGlow:SetBlendMode("ADD")
+    -- Mouseover: a thin gold frame around the bar (a quieter cousin of the target highlight); the
+    -- bar keeps its colour - a white overlay washed bright greens out to near white
+    local hoverGlow = CreateFrame("Frame", nil, health)
+    hoverGlow:SetAllPoints()
+    hoverGlow:SetFrameLevel(health:GetFrameLevel() + 6)
+    for _, edge in ipairs(ns.AddBorder(hoverGlow, false, 2)) do
+        edge:SetVertexColor(ns.UI.ACCENT[1], ns.UI.ACCENT[2], ns.UI.ACCENT[3], 0.95)
+    end
     hoverGlow:Hide()
     self.hoverGlow = hoverGlow
 
