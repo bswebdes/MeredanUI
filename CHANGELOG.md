@@ -1,5 +1,11 @@
 # MeredanUI Changelog
 
+## v0.5.6
+- The dungeon panel on the map now covers every dungeon open in Forever: bosses with their loot and drop chances, plus a quest tab. Loot and quests are updated from the latest guides, including Shaper's Terrace
+- Boss pins on dungeon maps with several floors now sit on the floor where the boss really stands (Scholomance, Blackrock Spire, Dire Maul, Gnomeregan and more)
+- Shadowfang Keep has a clearer map: four floors that fill the frame instead of seven mostly empty ones
+- City of Dalaran has a new map in the same style as the other dungeons, with boss pins at their real spots
+
 ## v0.5.5
 - Hunters: while Aspect of the Cheetah or Aspect of the Pack is up, its action bar button pulses with a turquoise edge, faster when a fight starts. Both aspects daze you when hit, so they are easy to forget. On by default in the Comfort style, can be turned off on the Action bars page
 - New just-for-fun Hardcore mode (Appearance page, off by default). When you die the interface fades out, YOU DIED appears with who killed you and with what, plus a mocking line from a well-known NPC. Try again logs you out to character select after 20 seconds, Keep playing cancels it. A Test button shows the screen without dying. Not available on official Hardcore realms
