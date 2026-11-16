@@ -510,6 +510,8 @@ local function SideWidth(scale)
     return ns.Snap(math.max(width, 120))
 end
 
+local FLAG_COLORS = { Alliance = { 0.30, 0.55, 1 }, Horde = { 0.90, 0.22, 0.20 } }
+
 local function SideStyle(self, unit)
     local px = ns.PixelSize()
     local border = ns.BORDER_PIXELS
@@ -613,13 +615,15 @@ local function SideStyle(self, unit)
         local flag = self:CreateTexture(nil, "OVERLAY")
         local size = S.health + px + S.power
         flag:SetSize(size, size)
+        flag:SetTexture(ns.MEDIA .. "Icons\\Flag")
         flag:SetPoint("RIGHT", self, "LEFT", -(S.step + 2 * S.plateOut), 0)
         flag:Hide()
         health.PostUpdate = function(_, frameUnit)
             local faction = UnitFactionGroup(frameUnit)
             if faction == "Horde" or faction == "Alliance" then
-                -- a Horde player carries the Alliance flag and vice versa
-                flag:SetAtlas(faction == "Horde" and "nameplates-icon-flag-alliance" or "nameplates-icon-flag-horde")
+                -- a Horde player carries the Alliance flag and vice versa (flag in its faction color)
+                local color = faction == "Horde" and FLAG_COLORS.Alliance or FLAG_COLORS.Horde
+                flag:SetVertexColor(color[1], color[2], color[3])
                 flag:Show()
             else
                 flag:Hide()

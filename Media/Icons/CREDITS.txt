@@ -18,6 +18,7 @@ https://pictogrammers.com/library/mdi/ – https://github.com/Templarian/Materia
   Phase.tga       mdi:eye-off
   RoleTank.tga    mdi:shield
   RoleHeal.tga    mdi:plus-thick
+  Flag.tga        mdi:flag
   Navigation.tga  mdi:navigation
   Search.tga      mdi:magnify
   Fishing.tga     mdi:fish
