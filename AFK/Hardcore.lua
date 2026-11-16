@@ -3,14 +3,18 @@
 -- bottom right cancels it and Blizzard's release popup takes over as usual.
 -- Logout timing: outside rested areas the game itself counts 20 seconds after Logout(), so it is
 -- called right away; in cities and inns it would be instant, so we count down first.
+-- The interface fades out while the death screen fades in, and comes back when it closes.
 -- Off on Blizzard's real hardcore realms. Settings > Appearance has a test button (never logs out).
 local _, ns = ...
 local L = ns.L
 
 local COUNTDOWN = 20
+local FADE_IN, FADE_OUT = 1.5, 0.4
 local RED = { 0.86, 0.16, 0.12 }
 
-local screen, title, sub, countdown, retry, keep, testLabel, fadeIn
+local screen, title, sub, countdown, retry, keep, testLabel
+local progress, target = 0, 0 -- 0 = interface visible, 1 = death screen
+local minimapHidden
 local active, test, ownTimer, deadline, ticker
 
 local function Enabled() return ns.db.hardcoreMode == true end
@@ -55,16 +59,58 @@ local function Tick()
     end
 end
 
+-- UIParent and the death screen cross-fade; respects the RP mode's own UI alpha
+local function BaseAlpha() return ns.RPModeAlpha and ns.RPModeAlpha() or 1 end
+
+-- The minimap's player arrow and blips ignore alpha, so its (unprotected) holder is hidden
+local function SetMinimapHidden(hide)
+    local holder = MeredanUIMinimap or MinimapCluster
+    if not holder or InCombatLockdown() and holder:IsProtected() then return end
+    if hide and holder:IsShown() then
+        holder:Hide()
+        minimapHidden = true
+    elseif not hide and minimapHidden then
+        holder:Show()
+        minimapHidden = false
+    end
+end
+
+local function OnUpdate(self, elapsed)
+    if target > progress then
+        progress = math.min(target, progress + elapsed / FADE_IN)
+    else
+        progress = math.max(target, progress - elapsed / FADE_OUT)
+    end
+    local eased = 1 - (1 - progress) ^ 3
+    self:SetAlpha(eased)
+    UIParent:SetAlpha(BaseAlpha() * (1 - eased))
+    if progress == target then
+        self:SetScript("OnUpdate", nil)
+        if progress == 0 then
+            self:Hide()
+            UIParent:SetAlpha(BaseAlpha())
+        end
+    end
+end
+
+local function Fade(to)
+    target = to
+    if to == 0 then SetMinimapHidden(false) else SetMinimapHidden(true) end
+    screen:SetScript("OnUpdate", OnUpdate)
+end
+
 function Hide(cancel)
     if not screen then return end
     if cancel and not test and not ownTimer then CancelLogout() end
     active, test, ownTimer = false, false, false
     if ticker then ticker:Cancel(); ticker = nil end
-    screen:Hide()
+    Fade(0)
 end
 
 local function Create()
-    screen = CreateFrame("Frame", "MeredanUIHardcore", UIParent)
+    -- parented to WorldFrame since UIParent gets faded out; scaled like the UI
+    screen = CreateFrame("Frame", "MeredanUIHardcore", WorldFrame)
+    screen:SetScale(UIParent:GetScale())
     screen:SetAllPoints(UIParent)
     screen:SetFrameStrata("FULLSCREEN_DIALOG")
     screen:EnableMouse(true) -- the world stays out of reach while the choice is open
@@ -131,13 +177,6 @@ local function Create()
     testLabel:SetTextColor(unpack(ns.UI.ACCENT))
     testLabel:SetPoint("TOP", 0, -40)
     testLabel:SetText(L["Test – you won't be logged out"])
-
-    fadeIn = screen:CreateAnimationGroup()
-    local alpha = fadeIn:CreateAnimation("Alpha")
-    alpha:SetFromAlpha(0)
-    alpha:SetToAlpha(1)
-    alpha:SetDuration(1.5)
-    alpha:SetSmoothing("OUT")
 end
 
 local function Show(isTest)
@@ -154,8 +193,10 @@ local function Show(isTest)
     Tick()
     if ticker then ticker:Cancel() end
     ticker = C_Timer.NewTicker(0.25, Tick)
+    screen:SetScale(UIParent:GetScale())
+    if not screen:IsShown() then screen:SetAlpha(0) end
     screen:Show()
-    fadeIn:Play()
+    Fade(1)
 end
 
 function ns.HardcoreTest()
