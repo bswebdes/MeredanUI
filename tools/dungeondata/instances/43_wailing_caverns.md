@@ -3,7 +3,7 @@
 - Level: 17-24 · Entrance: The Barrens · Faction: both
 - Status: **live** - classic dungeon; released in MeredanUI panel
 - Sources: https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://www.warcrafttavern.com/forever/guides/dungeons/, https://conquestcapped.com/guides/wow-forever/wow-forever-wailing-caverns-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
@@ -17,7 +17,7 @@
 | 5 |  | Lord Serpentis | Lord Serpentis | 590 | 3673 | 1 0.59,0.52 | west along south side, then north |
 | 6 |  | Verdan the Everliving | Verdan der Ewiglebende | 591 | 5775 | 1 0.54,0.48 | right behind Lord Serpentis |
 | 7 |  | Lady Anacondra | Lady Anacondra | 585 | 3671 | 1 0.35,0.45 | roams the river cave |
-| 8 |  | Mutanus the Devourer | Mutanus der Verschlinger | 592 | 3654, 3679 ⚠, 3678 ⚠ | 1 0.36,0.20 | end of Disciple of Naralex escort, north |
+| 8 |  | Mutanus the Devourer | Mutanus der Verschlinger | 592 | 3654, 3679, 3678 | 1 0.36,0.20 | end of Disciple of Naralex escort, north |
 
 ### Rares
 
@@ -149,8 +149,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 
 ## Open questions (check in game)
 
-- [ ] NPC 3679 is 'Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'.
-- [ ] NPC 3678 is 'Disciple of Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'.
+- none found
 
 ## Research notes
 
@@ -161,3 +160,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Many item slots not stated by page (null)
 - Boss level not stated
 - Quest XP: Alliance 17,550, Horde 25,150
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Mutanus (3654) spawns at the end of the Disciple of Naralex (3678) escort after the four Fang lords; Naralex (3679) is the NPC being saved - both belong to the Mutanus event, not wrong IDs - https://www.method.gg/wow-forever/dungeons/wailing-caverns

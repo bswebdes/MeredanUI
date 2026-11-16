@@ -7,7 +7,7 @@
  "zone": "Un'Goro Crater (northern hills)",
  "faction": "both",
  "status": "live",
- "status_note": "new Forever dungeon; guides report it open since launch (Nov 4), but Wowhead's dungeon journal and the readable client tables (Map, LFGDungeons) do not list it yet",
+ "status_note": "new Forever dungeon, open since launch (Nov 4); not in Wowhead's dungeon journal yet; NPCs exist on Wowhead Forever without zone",
  "sources": [
   "http://worldofwarcraft.blizzard.com/en-us/news/24301455",
   "https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/"
@@ -26,112 +26,773 @@
  ],
  "bosses": [
   {
-   "order": null,
-   "wing": null,
-   "name": "Bolt",
-   "name_de": "Bolt",
-   "encounter_id": 3505,
-   "npcs": [],
-   "location": null,
-   "optional": false,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Cinder",
-   "name_de": "Zunder",
-   "encounter_id": 3503,
-   "npcs": [],
-   "location": null,
-   "optional": false,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Snowtalon",
-   "name_de": "Schneekralle",
-   "encounter_id": 3597,
-   "npcs": [],
-   "location": null,
-   "optional": false,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Nanaya",
-   "name_de": "Nanaya",
-   "encounter_id": 3502,
-   "npcs": [],
-   "location": null,
-   "optional": false,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": null,
+   "order": 1,
    "wing": null,
    "name": "Titanosaur",
    "name_de": "Titanosaurus",
    "encounter_id": 3498,
-   "npcs": [],
-   "location": null,
+   "npcs": [
+    {
+     "id": 253201,
+     "wowhead_name": "Titanosaur",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "usually the first big pull (lvl 61 elite)",
    "optional": null,
    "pin": null,
-   "loot": []
+   "loot": [
+    {
+     "item_id": 280009,
+     "name": "Titanosaur Scale Pendant",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 60.0,
+     "wowhead_dropped_by": "Titanosaur",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280011,
+     "name": "Deeproar Cord",
+     "slot": "Waist Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 40.0,
+     "wowhead_dropped_by": "Titanosaur",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280010,
+     "name": "Gargantuan Wristguards",
+     "slot": "Wrist Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 70.0,
+     "wowhead_dropped_by": "Titanosaur",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
   },
   {
-   "order": null,
-   "wing": null,
-   "name": "Ravasaur Hunters",
-   "name_de": "Ravasaurusjäger",
-   "encounter_id": 3499,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Thunderhoof",
-   "name_de": "Thunderhoof",
-   "encounter_id": 3500,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": null,
+   "order": 2,
    "wing": null,
    "name": "Venomridge",
    "name_de": "Giftkamm",
    "encounter_id": 3501,
-   "npcs": [],
-   "location": null,
+   "npcs": [
+    {
+     "id": 261813,
+     "wowhead_name": "Venomridge",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "plains near the start (lvl 61 elite)",
    "optional": null,
    "pin": null,
-   "loot": []
+   "loot": [
+    {
+     "item_id": 280015,
+     "name": "Venomvessel Ring",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.33,
+     "wowhead_dropped_by": "Venomridge",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280017,
+     "name": "Octoclaw Chain Boots",
+     "slot": "Feet Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 43.33,
+     "wowhead_dropped_by": "Venomridge",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280016,
+     "name": "Spiderchitin Wrap",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 33.33,
+     "wowhead_dropped_by": "Venomridge",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
   },
   {
-   "order": null,
+   "order": 3,
+   "wing": null,
+   "name": "Thunderhoof",
+   "name_de": "Thunderhoof",
+   "encounter_id": 3500,
+   "npcs": [
+    {
+     "id": 261812,
+     "wowhead_name": "Thunderhoof",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "lvl 61 elite; location not published",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280018,
+     "name": "Hammer of Thundering Hooves",
+     "slot": "Two-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 44.0,
+     "wowhead_dropped_by": "Thunderhoof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280020,
+     "name": "Deep Jungle Rifle",
+     "slot": "Ranged Gun",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.0,
+     "wowhead_dropped_by": "Thunderhoof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280019,
+     "name": "Dinofrill Casque",
+     "slot": "Head Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.0,
+     "wowhead_dropped_by": "Thunderhoof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 4,
    "wing": null,
    "name": "Direhorn Matriarch",
    "name_de": "Terrorhornmatriarchin",
    "encounter_id": 3507,
-   "npcs": [],
-   "location": null,
+   "npcs": [
+    {
+     "id": 262127,
+     "wowhead_name": "Direhorn Matriarch",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "lvl 61 elite; location not published",
    "optional": null,
    "pin": null,
-   "loot": []
+   "loot": [
+    {
+     "item_id": 280045,
+     "name": "Regal Direhorn Drape",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 20.69,
+     "wowhead_dropped_by": "Direhorn Matriarch",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280022,
+     "name": "Scaleguard Scimitar",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.93,
+     "wowhead_dropped_by": "Direhorn Matriarch",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280021,
+     "name": "Tooth of the Matriarch",
+     "slot": "One-Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 41.38,
+     "wowhead_dropped_by": "Direhorn Matriarch",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 5,
+   "wing": null,
+   "name": "Ravasaur Hunters (Izha'Rel + Tor'Rel)",
+   "name_de": "Ravasaurusjäger",
+   "encounter_id": 3499,
+   "npcs": [
+    {
+     "id": 253218,
+     "wowhead_name": "Izha'Rel",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    },
+    {
+     "id": 261811,
+     "wowhead_name": "Tor'Rel",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "pair of non-elite raptors (lvl 61); location not published",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280014,
+     "name": "Raptorscale Bulwark",
+     "slot": "Off Hand Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 35.71,
+     "wowhead_dropped_by": "Tor'Rel",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280013,
+     "name": "Frostfang Mail Vest",
+     "slot": "Chest Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.57,
+     "wowhead_dropped_by": "Tor'Rel",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
+    },
+    {
+     "item_id": 280012,
+     "name": "Talon of Tor'Rel",
+     "slot": "One-Hand Sword",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 32.14,
+     "wowhead_dropped_by": "Tor'Rel",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 6,
+   "wing": null,
+   "name": "Cinder",
+   "name_de": "Zunder",
+   "encounter_id": 3503,
+   "npcs": [
+    {
+     "id": 261974,
+     "wowhead_name": "Cinder",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "summoned at the Red console (15x Red Power Crystal 11186)",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280029,
+     "name": "Cinderedge Crescent",
+     "slot": "One-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 51.85,
+     "wowhead_dropped_by": "Cinder",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
+    },
+    {
+     "item_id": 280028,
+     "name": "Heartflame Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 7,
+   "wing": null,
+   "name": "Bolt",
+   "name_de": "Bolt",
+   "encounter_id": 3505,
+   "npcs": [
+    {
+     "id": 262081,
+     "wowhead_name": "Bolt",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "summoned at the Yellow console (15x Yellow Power Crystal 11188); lvl 62",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280031,
+     "name": "Sparklance Wand",
+     "slot": "Ranged Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280032,
+     "name": "Bolt's Charged Eyeball",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 8,
+   "wing": null,
+   "name": "Vitrix",
+   "name_de": "Vitrix",
+   "encounter_id": 3600,
+   "npcs": [
+    {
+     "id": 272561,
+     "wowhead_name": "Vitrix",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "probably the Green console (15x Green Power Crystal 11185; unconfirmed); lvl 62",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280031,
+     "name": "Sparklance Wand",
+     "slot": "Ranged Wand",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280027,
+     "name": "Crownroar Chestplate",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Probable"
+    },
+    {
+     "item_id": 280028,
+     "name": "Heartflame Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 9,
+   "wing": null,
+   "name": "Snowtalon",
+   "name_de": "Schneekralle",
+   "encounter_id": 3597,
+   "npcs": [
+    {
+     "id": 262297,
+     "wowhead_name": "Snowtalon",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Blue console (15x Blue Power Crystal 11184), cave behind the left waterfall",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280026,
+     "name": "Albinofur Grips",
+     "slot": "Hands Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": false,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Reported, not confirmed"
+    },
+    {
+     "item_id": 280027,
+     "name": "Crownroar Chestplate",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "order": 10,
+   "wing": null,
+   "name": "Nanaya",
+   "name_de": "Nanaya",
+   "encounter_id": 3502,
+   "npcs": [
+    {
+     "id": 261809,
+     "wowhead_name": "Nanaya",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "Pillar of Assimilation, summoned after the four console bosses; final boss, lvl 62",
+   "optional": false,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 280023,
+     "name": "Nanaya's Control Spire",
+     "slot": "Two-Hand Staff",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 43.33,
+     "wowhead_dropped_by": "Nanaya",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280025,
+     "name": "Leggings of Curation",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 23.33,
+     "wowhead_dropped_by": "Nanaya",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280024,
+     "name": "Legplates of Reinforced Crystal",
+     "slot": "Legs Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 26.67,
+     "wowhead_dropped_by": "Nanaya",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 273128,
+     "name": "Maker's Spark",
+     "slot": "Reagent",
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 96.67,
+     "wowhead_dropped_by": "Nanaya",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
+    }
+   ]
   },
   {
    "order": null,
@@ -144,66 +805,190 @@
    "optional": null,
    "pin": null,
    "loot": []
-  },
-  {
-   "order": null,
-   "wing": null,
-   "name": "Vitrix",
-   "name_de": "Vitrix",
-   "encounter_id": 3600,
-   "npcs": [],
-   "location": null,
-   "optional": null,
-   "pin": null,
-   "loot": []
   }
  ],
  "rares": [],
- "quests": [],
+ "quests": [
+  {
+   "quest_id": 95928,
+   "title": "Crystalline Elements",
+   "level": 60,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Mayena Earthseeker",
+   "giver_npc_id": 263445,
+   "giver_item_id": null,
+   "giver_zone": "Mulgore",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Crystalline Elements",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 97049,
+   "title": "Essence of Seeping Slimes",
+   "level": 60,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Chemist Fuely",
+   "giver_npc_id": 10136,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Essence of Seeping Slimes",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 95926,
+   "title": "The Dark Crystal",
+   "level": 60,
+   "min_level": null,
+   "faction": "Horde",
+   "giver": "Master Apothecary Faranell",
+   "giver_npc_id": 2055,
+   "giver_item_id": null,
+   "giver_zone": "Undercity",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "The Dark Crystal",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 95924,
+   "title": "Panic at the Digsite",
+   "level": 60,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Curator Thorius",
+   "giver_npc_id": 8256,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "kill Venomridge, 6 Ravasaur Matriarchs, 9 Ironhide Ravasaurs",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Panic at the Digsite",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 95925,
+   "title": "Mapping the Way Forward",
+   "level": 60,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": "Curator Thorius",
+   "giver_npc_id": 8256,
+   "giver_item_id": null,
+   "giver_zone": "Ironforge",
+   "prereq": "Explorers' League Cartographer's Kit 271770 at 5 landmarks",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Mapping the Way Forward",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 95790,
+   "title": "Digestible Research",
+   "level": 60,
+   "min_level": null,
+   "faction": "Alliance",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "start unknown; turn in Curator Thorius (8256), Ironforge",
+   "prereq": "15 Partially Digested Journal Pages",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Digestible Research",
+   "wowhead_level": 60,
+   "races": null
+  }
+ ],
  "repo_quests_not_in_guide": [],
  "loot_differences": [],
  "open_questions": [
-  "No pin for 'Bolt' (encounter 3505) in DungeonPinData.lua.",
+  "No pin for 'Titanosaur' (encounter 3498) in DungeonPinData.lua.",
+  "No pin for 'Venomridge' (encounter 3501) in DungeonPinData.lua.",
+  "No pin for 'Thunderhoof' (encounter 3500) in DungeonPinData.lua.",
+  "No pin for 'Direhorn Matriarch' (encounter 3507) in DungeonPinData.lua.",
+  "No pin for 'Ravasaur Hunters (Izha'Rel + Tor'Rel)' (encounter 3499) in DungeonPinData.lua.",
   "No pin for 'Cinder' (encounter 3503) in DungeonPinData.lua.",
+  "No pin for 'Bolt' (encounter 3505) in DungeonPinData.lua.",
+  "No pin for 'Vitrix' (encounter 3600) in DungeonPinData.lua.",
   "No pin for 'Snowtalon' (encounter 3597) in DungeonPinData.lua.",
   "No pin for 'Nanaya' (encounter 3502) in DungeonPinData.lua.",
-  "Encounter 3498 'Titanosaur' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3499 'Ravasaur Hunters' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3500 'Thunderhoof' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3501 'Venomridge' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3507 'Direhorn Matriarch' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3504 'King Op' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3600 'Vitrix' is in DungeonBosses.lua but not in the guide's boss list - check in game."
+  "Encounter 3504 'King Op' is in DungeonBosses.lua but in no guide and no NPC found - check in game (maybe a rare or unused).",
+  "Encounter 3499 'Ravasaur Hunters' assumed to be the Izha'Rel + Tor'Rel pair (conquestcapped lists the pair, not the encounter name).",
+  "Green console boss = Vitrix? (conquestcapped: unconfirmed). Kill order is the usual order, not fixed."
  ],
  "guide_notes": [
-  "No npc IDs, boss levels, order or locations published (conquestcapped: boss data encrypted in beta); boss names from kill-statistic achievements",
-  "No loot table published on conquestcapped or warcrafttavern; no dungeon quests known (TBA)",
   "Warcrafttavern says there are likely more bosses than these four",
   "Pylon quests (related_zone_quests) are NOT tied to the dungeon by Blizzard per guide",
   "Unconfirmed raid portal behind a closed titan gate north of the dungeon",
-  "Wowhead search for Nanaya npc gave nothing; warcraft.wiki.gg covers only the old Classic Shaper's Terrace area"
+  "Quests open at 55 (level 60 quests); quest reward item IDs 279901-279932 (conquestcapped)",
+  "Console bosses spawn immediately when a console is fed - do not feed during a trash pull",
+  "Exit: jump off the terrace ledge (teleports out)",
+  "WH-F % for Shaper's Terrace items are from very few kills (e.g. Titanosaur 10 kills), treat as rough"
  ],
  "zone_id": null,
  "zone_name_en": null,
  "zone_name_de": null,
  "assessment": {
-  "bosses": "missing",
+  "bosses": "ok",
   "pins": "missing",
-  "loot": "missing",
-  "quests": "missing",
+  "loot": "ok",
+  "quests": "ok",
   "quests_in_addon": 0,
-  "loot_rows": 0,
-  "loot_confirmed": 0,
-  "loot_with_chance": 0,
-  "forever_confirmed": "no",
-  "boss_count": 0,
-  "boss_ok": 0,
+  "loot_rows": 28,
+  "loot_confirmed": 26,
+  "loot_with_chance": 20,
+  "forever_confirmed": "yes",
+  "boss_count": 10,
+  "boss_ok": 10,
   "pin_ok": 0,
   "enc_count": 11,
-  "q_tot": 0
+  "q_tot": 6
  },
  "top_points": [
-  "No pin for 'Bolt' (encounter 3505) in DungeonPinData.lua. (+3 more)",
-  "Encounter 3498 'Titanosaur' is in DungeonBosses.lua but not in the guide's boss list - check in game. (+6 more)"
+  "6 of 6 quests missing in DungeonQuests.lua",
+  "No pin for 'Titanosaur' (encounter 3498) in DungeonPinData.lua. (+9 more)",
+  "8 loot rows without drop chance"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Full boss list with NPC IDs, levels, console mechanics and usual order: Titanosaur 253201, Venomridge 261813, Thunderhoof 261812, Direhorn Matriarch 262127, Izha'Rel 253218 + Tor'Rel 261811, Cinder 261974, Bolt 262081, Vitrix 272561, Snowtalon 262297, Nanaya 261809 (all names checked on Wowhead Forever tooltips)",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-shapers-terrace-guide/",
+    "https://www.wowhead.com/forever/npc=261809"
+   ]
+  },
+  {
+   "fact": "Loot: 26 blue boss items (280009-280045) + Maker's Spark 273128 (Nanaya, WH-F 96.67 %); trash Shaper's Robe 287037; drop chances from Wowhead Forever tooltips (small samples)",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-shapers-terrace-guide/",
+    "https://www.wowhead.com/forever/item=280009"
+   ]
+  },
+  {
+   "fact": "Six dungeon quests (3 Horde, 3 Alliance), all level 60, open from 55: 95928, 97049, 95926, 95924, 95925, 95790 (titles checked on Wowhead Forever)",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-shapers-terrace-guide/",
+    "https://www.wowhead.com/forever/quest=95924"
+   ]
+  },
+  {
+   "fact": "Not covered by warcraft.wiki.gg (no Forever page for Shaper's Terrace / Blackmaw Hold as of 2026-11-16)",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/Adventure_Guide_Forever_dungeons"
+   ]
+  }
  ]
 }

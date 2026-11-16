@@ -117,7 +117,7 @@
      "name_ok": true
     }
    ],
-   "location": "Brinescale naga leader with priestesses",
+   "location": "Brinescale leader with priestesses (270910), staircase with pillars; click the Glowing Pearl after the kill (weakens the barrier to Deathless Marrow)",
    "optional": null,
    "pin": null,
    "loot": [
@@ -158,11 +158,133 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 274613,
+     "name": "Priestess Cloak",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 32.66,
+     "wowhead_dropped_by": "Var'Taka",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
     }
    ]
   },
   {
    "order": 3,
+   "wing": null,
+   "name": "Primeval Elemental",
+   "name_de": "Urtümlicher Elementar",
+   "encounter_id": 3511,
+   "npcs": [
+    {
+     "id": 273738,
+     "wowhead_name": "Primeval Elemental",
+     "zone": null,
+     "name_de": "[Primeval Elemental]",
+     "name_ok": true
+    },
+    {
+     "id": 270887,
+     "wowhead_name": "Primeval Elemental",
+     "zone": null,
+     "name_de": null,
+     "name_ok": true
+    }
+   ],
+   "location": "under the Deep Archives: kill all Undying Offerings (263899) in the water to summon it; same encounter as Deathless Marrow per game data",
+   "optional": null,
+   "pin": null,
+   "loot": [
+    {
+     "item_id": 274612,
+     "name": "Waterlogged Burial Shroud",
+     "slot": "Back",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 24.29,
+     "wowhead_dropped_by": "Primeval Elemental",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 274611,
+     "name": "Robe of the Drowned",
+     "slot": "Chest (cloth)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 32.86,
+     "wowhead_dropped_by": "Primeval Elemental",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 274615,
+     "name": "Heart of the Primeval",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 42.86,
+     "wowhead_dropped_by": "Primeval Elemental",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 276894,
+     "name": "Ancient Gurubashi Idol",
+     "slot": "Quest Item",
+     "quality": 1,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
+    }
+   ]
+  },
+  {
+   "order": 4,
    "wing": null,
    "name": "Captain Dreadrise",
    "name_de": "Captain Dreadrise",
@@ -176,7 +298,7 @@
      "name_ok": true
     }
    ],
-   "location": "Saltseer pirate captain",
+   "location": "Saltseer pirate captain, patrols near the crashed ship; Glowing Pearl after the kill",
    "optional": null,
    "pin": null,
    "loot": [
@@ -240,7 +362,7 @@
    ]
   },
   {
-   "order": 4,
+   "order": 5,
    "wing": null,
    "name": "Deathless Marrow",
    "name_de": "Unsterbliche Wächter",
@@ -254,7 +376,7 @@
      "name_ok": true
     }
    ],
-   "location": "flooded tomb, shared encounter with Primeval Elemental",
+   "location": "flooded tomb behind the barrier opened by the two Glowing Pearls",
    "optional": null,
    "pin": null,
    "loot": [
@@ -295,84 +417,6 @@
       "guide",
       "wowhead-forever"
      ]
-    }
-   ]
-  },
-  {
-   "order": 5,
-   "wing": null,
-   "name": "Primeval Elemental",
-   "name_de": "Urtümlicher Elementar",
-   "encounter_id": 3511,
-   "npcs": [
-    {
-     "id": 273738,
-     "wowhead_name": "Primeval Elemental",
-     "zone": null,
-     "name_de": "[Primeval Elemental]",
-     "name_ok": true
-    }
-   ],
-   "location": "flooded tomb, same encounter as Deathless Marrow",
-   "optional": null,
-   "pin": null,
-   "loot": [
-    {
-     "item_id": 274612,
-     "name": "Waterlogged Burial Shroud",
-     "slot": "Back",
-     "quality": 3,
-     "quest_item": false,
-     "chance_guide": null,
-     "chance_wowhead_forever": 24.29,
-     "wowhead_dropped_by": "Primeval Elemental",
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide",
-      "wowhead-forever"
-     ]
-    },
-    {
-     "item_id": 274611,
-     "name": "Robe of the Drowned",
-     "slot": "Chest (cloth)",
-     "quality": 3,
-     "quest_item": false,
-     "chance_guide": null,
-     "chance_wowhead_forever": 32.86,
-     "wowhead_dropped_by": "Primeval Elemental",
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide",
-      "wowhead-forever"
-     ]
-    },
-    {
-     "item_id": 274613,
-     "name": "Priestess Cloak",
-     "slot": "Back",
-     "quality": 3,
-     "quest_item": false,
-     "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": "Var'Taka",
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide",
-      "wowhead-forever"
-     ]
     },
     {
      "item_id": 274614,
@@ -381,7 +425,7 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
+     "chance_wowhead_forever": 33.75,
      "wowhead_dropped_by": "Deathless Marrow",
      "chance_repo": null,
      "in_guide": true,
@@ -392,68 +436,11 @@
       "guide",
       "wowhead-forever"
      ]
-    },
-    {
-     "item_id": 274615,
-     "name": "Heart of the Primeval",
-     "slot": "Trinket",
-     "quality": 3,
-     "quest_item": false,
-     "chance_guide": null,
-     "chance_wowhead_forever": 42.86,
-     "wowhead_dropped_by": "Primeval Elemental",
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide",
-      "wowhead-forever"
-     ]
-    },
-    {
-     "item_id": 276894,
-     "name": "Ancient Gurubashi Idol",
-     "slot": "Quest Item",
-     "quality": 1,
-     "quest_item": true,
-     "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide"
-     ]
     }
    ]
   },
   {
    "order": 6,
-   "wing": null,
-   "name": "Gill",
-   "name_de": "Gill",
-   "encounter_id": null,
-   "npcs": [
-    {
-     "id": 270888,
-     "wowhead_name": "Gill",
-     "zone": null,
-     "name_de": "Gill",
-     "name_ok": true
-    }
-   ],
-   "location": null,
-   "optional": null,
-   "pin": null,
-   "loot": []
-  },
-  {
-   "order": 7,
    "wing": null,
    "name": "Min'loth the Serpent",
    "name_de": "Min'loth die Schlange",
@@ -467,7 +454,7 @@
      "name_ok": true
     }
    ],
-   "location": "final room overlooking sunken pirate ship",
+   "location": "final room overlooking the sunken pirate ship; treasure chest in the wreckage afterwards",
    "optional": null,
    "pin": null,
    "loot": [
@@ -531,7 +518,100 @@
    ]
   }
  ],
- "rares": [],
+ "rares": [
+  {
+   "npc_id": 270888,
+   "name": "Gill",
+   "pin": null,
+   "location": "right side of the central area when approaching the Deep Archives",
+   "loot": [
+    {
+     "item_id": 286646,
+     "name": "Gill's Gills",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 45.16,
+     "wowhead_dropped_by": "Gill",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 286649,
+     "name": "Tidebound Dagger",
+     "slot": "Main Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 54.84,
+     "wowhead_dropped_by": "Gill",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  },
+  {
+   "npc_id": null,
+   "name": "Umbra",
+   "pin": null,
+   "location": "Deep Archives, with 5-6 Saltscale Muckdwellers (258849)",
+   "loot": [
+    {
+     "item_id": 286658,
+     "name": "Umbral Scaled Belt",
+     "slot": "Waist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 48.08,
+     "wowhead_dropped_by": "Umbra",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 286662,
+     "name": "Deep-Dweller's Grips",
+     "slot": "Hands Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 51.92,
+     "wowhead_dropped_by": "Umbra",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    }
+   ]
+  }
+ ],
  "quests": [
   {
    "quest_id": 629,
@@ -813,13 +893,10 @@
   "No pin for 'Captain Dreadrise' (encounter 3476) in DungeonPinData.lua.",
   "No pin for 'Deathless Marrow' (encounter 3478) in DungeonPinData.lua.",
   "No pin for 'Primeval Elemental' (encounter 3511) in DungeonPinData.lua.",
-  "Boss 'Gill' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
   "No pin for 'Min'loth the Serpent' (encounter 3479) in DungeonPinData.lua."
  ],
  "guide_notes": [
-  "No drop chances on guide; 7 of 18 items 'seen', 11 'probable' via journal addon data",
   "Primeval Elemental (273738) shares encounter with Deathless Marrow; listed separately here because loot is attributed separately",
-  "Gill (270888): level, abilities, loot unknown",
   "Several quest givers marked likely/unconfirmed by guide",
   "Zin'aka shark (263742) is not a boss",
   "Brinescale Trident drops from Brinescale Skirmisher (262397); Voodoo-Infused Artifact from Saltseer pirates"
@@ -828,16 +905,16 @@
  "zone_name_en": null,
  "zone_name_de": null,
  "assessment": {
-  "bosses": "partial",
+  "bosses": "ok",
   "pins": "missing",
-  "loot": "partial",
+  "loot": "ok",
   "quests": "ok",
   "quests_in_addon": 0,
-  "loot_rows": 18,
-  "loot_confirmed": 18,
-  "loot_with_chance": 16,
+  "loot_rows": 22,
+  "loot_confirmed": 22,
+  "loot_with_chance": 22,
   "forever_confirmed": "yes",
-  "boss_count": 7,
+  "boss_count": 6,
   "boss_ok": 6,
   "pin_ok": 0,
   "enc_count": 6,
@@ -845,7 +922,37 @@
  },
  "top_points": [
   "15 of 15 quests missing in DungeonQuests.lua",
-  "Boss 'Gill' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
   "No pin for 'Zul'Alai' (encounter 3474) in DungeonPinData.lua. (+5 more)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Gill (270888) and Umbra are rares, not bosses (warcraft.wiki.gg 'rare'; method.gg 'Rare Spawn'). Gill: Gill's Gills 286646 (WH-F 45.16 %), Tidebound Dagger 286649 (54.84 %). Umbra: Umbral Scaled Belt 286658 (48.08 %), Deep-Dweller's Grips 286662 (51.92 %); Umbra NPC ID not found",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/the-drowned-city",
+    "https://warcraft.wiki.gg/wiki/The_Drowned_City",
+    "https://www.wowhead.com/forever/item=286646"
+   ]
+  },
+  {
+   "fact": "Order per method.gg (15 Nov) and the wiki: Zul'Alai > Var'Taka > Primeval Elemental > Captain Dreadrise > Deathless Marrow > Min'loth; Glowing Pearls after Var'Taka and Dreadrise open Deathless Marrow's room; Primeval Elemental summoned by killing Undying Offerings under the Deep Archives",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/the-drowned-city"
+   ]
+  },
+  {
+   "fact": "Loot fixes: Priestess Cloak 274613 drops from Var'Taka (WH-F 32.66 %), Knucklebone Ring 274614 from Deathless Marrow (33.75 %) - both were filed under Primeval Elemental; all 18 boss items now have WH-F drop chances",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/the-drowned-city",
+    "https://www.wowhead.com/forever/item=274613",
+    "https://www.wowhead.com/forever/item=274614"
+   ]
+  },
+  {
+   "fact": "Wowhead Forever has a second NPC 'Primeval Elemental' 270887 (besides 273738); zone ID 16550 (wiki); level 35-42, final boss lvl 40",
+   "sources": [
+    "https://www.wowhead.com/forever/npc=270887",
+    "https://warcraft.wiki.gg/wiki/The_Drowned_City"
+   ]
+  }
  ]
 }

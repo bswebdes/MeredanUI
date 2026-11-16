@@ -38,7 +38,7 @@
      "name_ok": true
     }
    ],
-   "location": "sewers ritual circle, necromancer adds",
+   "location": "sewers ritual circle, necromancer adds; WH-F coords (Alterac Mountains map, zone 36) ~16.3,68.2",
    "optional": false,
    "pin": null,
    "loot": [
@@ -116,7 +116,7 @@
      "name_ok": true
     }
    ],
-   "location": "sewers NE market-stall room past Atrexis; needs Tome of Dalaran",
+   "location": "sewers NE market-stall room past Atrexis; needs Tome of Dalaran; WH-F coords (Alterac Mountains map, zone 36) ~21.6,68.3",
    "optional": true,
    "pin": null,
    "loot": [
@@ -194,7 +194,7 @@
      "name_ok": true
     }
    ],
-   "location": "city streets",
+   "location": "city streets; WH-F coords (Alterac Mountains map, zone 36) ~19.6,75.1",
    "optional": false,
    "pin": null,
    "loot": [
@@ -272,7 +272,7 @@
      "name_ok": true
     }
    ],
-   "location": "city streets",
+   "location": "city streets; WH-F coords (Alterac Mountains map, zone 36) ~21.3,63.1",
    "optional": false,
    "pin": null,
    "loot": [
@@ -350,7 +350,7 @@
      "name_ok": true
     }
    ],
-   "location": "city streets, Angry Tome adds",
+   "location": "city streets, Angry Tome adds; WH-F coords (Alterac Mountains map, zone 36) ~18.5,61.4",
    "optional": false,
    "pin": null,
    "loot": [
@@ -447,7 +447,7 @@
      "name_ok": true
     }
    ],
-   "location": "city streets; whole room aggroes on pull",
+   "location": "city streets; whole room aggroes on pull; WH-F coords (Alterac Mountains map, zone 36) ~15.6,74.1",
    "optional": false,
    "pin": null,
    "loot": [
@@ -525,7 +525,7 @@
      "name_ok": true
     }
    ],
-   "location": "city center behind magic barrier, treants in front",
+   "location": "city center behind magic barrier, treants in front; WH-F coords (Alterac Mountains map, zone 36) ~16.7,67.4",
    "optional": false,
    "pin": null,
    "loot": [
@@ -603,7 +603,7 @@
      "name_ok": true
     }
    ],
-   "location": "Violet Chamber, final boss",
+   "location": "Violet Chamber, final boss; WH-F coords (Alterac Mountains map, zone 36) ~15.2,56.1",
    "optional": false,
    "pin": null,
    "loot": [
@@ -985,13 +985,13 @@
   "No pin for 'Atrexis the Grave Knight' (encounter 3311) in DungeonPinData.lua.",
   "No pin for 'Lyn the Ignored' (encounter 3310) in DungeonPinData.lua.",
   "No pin for 'Arcane Anomaly' (encounter 3298) in DungeonPinData.lua.",
-  "Boss 'Arcanic Enigma' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
   "No pin for 'Unstable Sentinel' (encounter 3302) in DungeonPinData.lua.",
   "No pin for 'Mana Devourer' (encounter 3300) in DungeonPinData.lua.",
   "No pin for 'Fel Ancient' (encounter 3299) in DungeonPinData.lua.",
   "No pin for 'Shade of the Archmage' (encounter 3303) in DungeonPinData.lua.",
   "Encounter 3301 'Mana Elemental' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
-  "Encounter 3312 'Mana Wraith' is in DungeonBosses.lua but not in the guide's boss list - check in game."
+  "Encounter 3312 'Mana Wraith' is in DungeonBosses.lua but not in the guide's boss list - check in game.",
+  "Boss 'Arcanic Enigma' (246016) has no DungeonEncounter in DungeonBosses.lua; warcraft.wiki.gg lists it as a real boss with loot - maybe encounter 3301 'Mana Elemental' or 3312 'Mana Wraith' under another name. Check in game."
  ],
  "guide_notes": [
   "Boss order follows guide listing; Shade is always last",
@@ -1021,7 +1021,22 @@
  },
  "top_points": [
   "13 of 13 quests missing in DungeonQuests.lua",
-  "Boss 'Arcanic Enigma' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Boss 'Arcanic Enigma' (246016) has no DungeonEncounter in DungeonBosses.lua; warcraft.wiki.gg lists it as a real boss with loot - maybe encounter 3301 'Mana Elemental' or 3312 'Mana Wraith' under another name. Check in game.",
   "No pin for 'Atrexis the Grave Knight' (encounter 3311) in DungeonPinData.lua. (+6 more)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Wowhead Forever tooltips now carry spawn coords for all 8 bosses on the Alterac Mountains map (zone 36), usable to place pins relative to each other: Atrexis 16.3,68.2 · Arcane Anomaly 19.6,75.1 · Arcanic Enigma 21.3,63.1 · Unstable Sentinel 18.5,61.4 · Mana Devourer 15.6,74.1 · Fel Ancient 16.7,67.4 · Lyn 21.6,68.3 · Shade 15.2,56.1",
+   "sources": [
+    "https://www.wowhead.com/forever/npc=246020",
+    "https://www.wowhead.com/forever/npc=247126"
+   ]
+  },
+  {
+   "fact": "warcraft.wiki.gg order: Atrexis, Arcane Anomaly, Arcanic Enigma, Unstable Sentinel, Mana Devourer, Fel Ancient, Lyn the Ignored, Shade of the Archmage; level 28-34, final boss lvl 31, Wowhead zone 16560; Mana Elemental / Mana Wraith not mentioned",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/City_of_Dalaran"
+   ]
+  }
  ]
 }

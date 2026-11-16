@@ -1138,7 +1138,7 @@
   "Cookie: 11982 Viridian Band - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)"
  ],
  "open_questions": [
-  "Boss 'Sneed's Shredder' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Sneed's Shredder is the first phase of encounter 2742 (Sneed), not a separate encounter (method.gg) - give it Sneed's pin.",
   "Encounter 3676 'Miner Johnson' is listed as a rare in the guide (DungeonBosses.lua has it as boss)."
  ],
  "guide_notes": [
@@ -1172,7 +1172,14 @@
  },
  "top_points": [
   "7 of 7 quests missing in DungeonQuests.lua",
-  "Boss 'Sneed's Shredder' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
   "4 loot rows without drop chance"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Sneed's Shredder + Sneed are one encounter (2742): Shredder first, Sneed ejected; loot listed together (method.gg). No separate DungeonEncounter expected for the Shredder",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/the-deadmines"
+   ]
+  }
  ]
 }

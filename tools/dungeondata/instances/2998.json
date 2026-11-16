@@ -216,7 +216,7 @@
      "name_ok": true
     }
    ],
-   "location": "Dragonmaw camp",
+   "location": "Dragonmaw camp; Wowhead Forever coords on the Wetlands map (zone 11): ~48.8,60.4 (48.2-49.6 / 56.0-62.8)",
    "optional": true,
    "pin": null,
    "loot": [
@@ -766,5 +766,19 @@
  "top_points": [
   "19 of 19 quests missing in DungeonQuests.lua",
   "No pin for 'Shadetooth' (encounter 3481) in DungeonPinData.lua. (+2 more)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Highland Horror (260808) has Wowhead Forever coords on the outdoor Wetlands map (zone 11), centre ~48.8,60.4 - i.e. the Dragonmaw camp area; the other bosses (zone 16732) have no coords",
+   "sources": [
+    "https://www.wowhead.com/forever/npc=260808"
+   ]
+  },
+  {
+   "fact": "warcraft.wiki.gg lists 3 bosses (Saltspine, Shadetooth, Relic Guardian end boss), level 26-32, Wowhead zone 16732; Highland Horror not mentioned. No new loot or quests",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/Excavation_Site:_Wetlands"
+   ]
+  }
  ]
 }

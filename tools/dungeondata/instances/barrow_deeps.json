@@ -98,7 +98,7 @@
   {
    "order": 7,
    "wing": null,
-   "name": "Dell'lynar Songwood",
+   "name": "Del'lynar Songwood",
    "name_de": null,
    "encounter_id": null,
    "npcs": [],
@@ -129,8 +129,8 @@
   "Loot not published anywhere checked",
   "Boss roster is preliminary datamined list (no official list); Blizzard says 8 bosses",
   "No npc IDs, zone ID or instance map ID in any source",
-  "Spelling: conquestcapped 'Dell'lynar Songwood', warcrafttavern 'Del'lynar Songwood'",
-  "Blackmaw Hold guide also says deep tunnels lead toward this raid"
+  "Blackmaw Hold guide also says deep tunnels lead toward this raid",
+  "Spelling 'Del'lynar Songwood' per warcraft.wiki.gg + warcrafttavern (conquestcapped: Dell'lynar)"
  ],
  "zone_id": null,
  "zone_name_en": null,
@@ -151,5 +151,32 @@
   "enc_count": 0,
   "q_tot": 0
  },
- "top_points": []
+ "top_points": [],
+ "updates_2026_11_16": [
+  {
+   "fact": "Raids open worldwide at the same moment on Wed 2026-12-09 (time not announced); no raids on the PTR; item data stays hidden until someone loots it, so loot will only appear after Dec 9",
+   "sources": [
+    "https://endgametools.com/en/wow-forever/news/wow-forever-developers-raids-black-market"
+   ]
+  },
+  {
+   "fact": "Devs: Barrow Deeps should feel 'more like Karazhan' than UBRS (pickup-group clearable); about ten rare 'chase items' per raid; Tier 1 set pieces split across Barrow Deeps, Hyjal Summit and Onyxia's Lair",
+   "sources": [
+    "https://endgametools.com/en/wow-forever/news/wow-forever-developers-raids-black-market",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-roadmap/"
+   ]
+  },
+  {
+   "fact": "warcraft.wiki.gg: same 8 bosses, Sonya Darkhallow = end boss; infobox says 10 players but body text says 20 (Blizzard: 10); no zone/map ID yet",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/Barrow_Deeps_(instance)"
+   ]
+  },
+  {
+   "fact": "No new dungeons announced since launch; roadmap: spring 2027 two raids (10 + 20) and two dungeons, summer 2027 a revamped 'iconic raid', one new raid and two dungeons - none named",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-roadmap/"
+   ]
+  }
+ ]
 }

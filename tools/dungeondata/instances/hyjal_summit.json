@@ -172,7 +172,7 @@
   {
    "order": 13,
    "wing": null,
-   "name": "Nythus the Dreadbound",
+   "name": "Nythus the Dreambound",
    "name_de": null,
    "encounter_id": null,
    "npcs": [],
@@ -213,5 +213,20 @@
   "enc_count": 0,
   "q_tot": 0
  },
- "top_points": []
+ "top_points": [],
+ "updates_2026_11_16": [
+  {
+   "fact": "warcraft.wiki.gg spells the end boss 'Nythus the Dreambound' (renamed here from 'Dreadbound') and 'Sylvesteris Dusksong'; Wowhead Forever zone ID 16004",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/Hyjal_Summit_(instance)"
+   ]
+  },
+  {
+   "fact": "Opens worldwide at the same moment on 2026-12-09 (time not announced); single difficulty; Tier 1 split across the three raids; difficulty target 'a typical Naxxramas boss, harder than Molten Core'; ~10 chase items per raid; loot data hidden until found",
+   "sources": [
+    "https://endgametools.com/en/wow-forever/news/wow-forever-developers-raids-black-market",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-roadmap/"
+   ]
+  }
+ ]
 }

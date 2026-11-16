@@ -717,14 +717,16 @@
      "wowhead_name": "Naralex",
      "zone": 718,
      "name_de": "Naralex",
-     "name_ok": false
+     "name_ok": true,
+     "role": "escort/event NPC of the Mutanus encounter"
     },
     {
      "id": 3678,
      "wowhead_name": "Disciple of Naralex",
      "zone": 718,
      "name_de": "Jünger von Naralex",
-     "name_ok": false
+     "name_ok": true,
+     "role": "escort/event NPC of the Mutanus encounter"
     }
    ],
    "location": "end of Disciple of Naralex escort, north",
@@ -1142,10 +1144,7 @@
   "Lady Anacondra: 273088 Snake Eye Kaleidoscope - in Forever guide, missing in DungeonLoot.lua",
   "Lady Anacondra: 273098 Blueprint: Field Guide - in Forever guide, missing in DungeonLoot.lua"
  ],
- "open_questions": [
-  "NPC 3679 is 'Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'.",
-  "NPC 3678 is 'Disciple of Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'."
- ],
+ "open_questions": [],
  "guide_notes": [
   "Mutanus entry npc_ids include Naralex 3679 and Disciple of Naralex 3678 (escort)",
   "Gloves of the Fang item=10413 2.4% from trash (Embrace of the Viper set)",
@@ -1159,7 +1158,7 @@
  "zone_name_en": "Wailing Caverns",
  "zone_name_de": "Die Höhlen des Wehklagens",
  "assessment": {
-  "bosses": "partial",
+  "bosses": "ok",
   "pins": "ok",
   "loot": "ok",
   "quests": "ok",
@@ -1169,13 +1168,20 @@
   "loot_with_chance": 30,
   "forever_confirmed": "yes",
   "boss_count": 8,
-  "boss_ok": 7,
+  "boss_ok": 8,
   "pin_ok": 8,
   "enc_count": 8,
   "q_tot": 14
  },
  "top_points": [
-  "5 of 14 quests missing in DungeonQuests.lua",
-  "NPC 3679 is 'Naralex' on Wowhead Forever, guide says 'Mutanus the Devourer'. (+1 more)"
+  "5 of 14 quests missing in DungeonQuests.lua"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Mutanus (3654) spawns at the end of the Disciple of Naralex (3678) escort after the four Fang lords; Naralex (3679) is the NPC being saved - both belong to the Mutanus event, not wrong IDs",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/wailing-caverns"
+   ]
+  }
  ]
 }

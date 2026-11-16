@@ -3,7 +3,7 @@
 - Level: 22-30 · Entrance: Silverpine Forest · Faction: both (quests Horde)
 - Status: **live** - classic dungeon
 - Sources: https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://www.warcrafttavern.com/forever/guides/dungeons/, https://conquestcapped.com/guides/wow-forever/wow-forever-shadowfang-keep-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
@@ -163,7 +163,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 
 ## Open questions (check in game)
 
-- [ ] Boss 'Fel Steed / Shadow Charger' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
+- [ ] Fel Steed / Shadow Charger: trash-boss without encounter (method.gg 'Important Trash') - pin optional.
 - [ ] Boss 'Arugal's Voidwalkers' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 
 ## Research notes
@@ -175,3 +175,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Rare trash (<0.1%): 1482, 2205, 1935, 2807, 1318, 1484, 3194, 1483, 2292, 1489, 1974
 - Quest XP Horde 19,800 (beta values, approximate)
 - Class quests (1654, 1740, 95140) are chains tied to the keep, not core SFK quests
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- method.gg lists the Fel Steed only as 'Important Trash', not as a boss; Shadow Charger not mentioned - no DungeonEncounter expected - https://www.method.gg/wow-forever/dungeons/shadowfang-keep

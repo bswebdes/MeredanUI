@@ -3,7 +3,7 @@
 - Level: 17-26 · Entrance: Westfall · Faction: both (quests Alliance)
 - Status: **live** - classic dungeon
 - Sources: https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://www.warcrafttavern.com/forever/guides/dungeons/, https://conquestcapped.com/guides/wow-forever/wow-forever-deadmines-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
@@ -156,7 +156,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 
 ## Open questions (check in game)
 
-- [ ] Boss 'Sneed's Shredder' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
+- [ ] Sneed's Shredder is the first phase of encounter 2742 (Sneed), not a separate encounter (method.gg) - give it Sneed's pin.
 - [ ] Encounter 3676 'Miner Johnson' is listed as a rare in the guide (DungeonBosses.lua has it as boss).
 
 ## Research notes
@@ -169,3 +169,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Trash rares: 1951, 1929, 1936, 1934 (6%); 10400, 10401, 10402 (3%)
 - Quest XP total 19,125 (Alliance)
 - Page level column 'from' value used as min_level
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Sneed's Shredder + Sneed are one encounter (2742): Shredder first, Sneed ejected; loot listed together (method.gg). No separate DungeonEncounter expected for the Shredder - https://www.method.gg/wow-forever/dungeons/the-deadmines

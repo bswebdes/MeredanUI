@@ -1086,7 +1086,7 @@
   "Wolf Master Nandos: 273647 Worgpelt Leggings - in Forever guide, missing in DungeonLoot.lua"
  ],
  "open_questions": [
-  "Boss 'Fel Steed / Shadow Charger' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Fel Steed / Shadow Charger: trash-boss without encounter (method.gg 'Important Trash') - pin optional.",
   "Boss 'Arugal's Voidwalkers' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?"
  ],
  "guide_notes": [
@@ -1119,6 +1119,14 @@
  },
  "top_points": [
   "3 of 6 quests missing in DungeonQuests.lua",
-  "Boss 'Fel Steed / Shadow Charger' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss? (+1 more)"
+  "Boss 'Arugal's Voidwalkers' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "method.gg lists the Fel Steed only as 'Important Trash', not as a boss; Shadow Charger not mentioned - no DungeonEncounter expected",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/shadowfang-keep"
+   ]
+  }
  ]
 }

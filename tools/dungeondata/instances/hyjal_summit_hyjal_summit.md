@@ -3,7 +3,7 @@
 - Level: 60 · Entrance: Mount Hyjal (summit, near Nordrassil) · Faction: both
 - Status: **announced** - opens 2026-12-09 (20 players, 13 bosses)
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24303009, https://conquestcapped.com/guides/wow-forever/wow-forever-hyjal-summit-guide/, http://worldofwarcraft.blizzard.com/en-us/news/24303009, https://www.warcrafttavern.com/forever/guides/raids/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
@@ -22,7 +22,7 @@
 | 10 |  | Gharalis the Abyssal |  | — | ? | — |  |
 | 11 |  | Anara Chillwind |  | — | ? | — |  |
 | 12 |  | Tracker Stillwind |  | — | ? | — |  |
-| 13 |  | Nythus the Dreadbound |  | — | ? | — |  |
+| 13 |  | Nythus the Dreambound |  | — | ? | — |  |
 
 ## Loot
 
@@ -50,3 +50,8 @@ No quest data collected.
 - No npc IDs, zone ID or instance map ID in any source
 - Spelling: conquestcapped 'Elder Minderel', warcrafttavern 'Elder Minderei'
 - Beta testers could not enter the raid
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- warcraft.wiki.gg spells the end boss 'Nythus the Dreambound' (renamed here from 'Dreadbound') and 'Sylvesteris Dusksong'; Wowhead Forever zone ID 16004 - https://warcraft.wiki.gg/wiki/Hyjal_Summit_(instance)
+- Opens worldwide at the same moment on 2026-12-09 (time not announced); single difficulty; Tier 1 split across the three raids; difficulty target 'a typical Naxxramas boss, harder than Molten Core'; ~10 chase items per raid; loot data hidden until found - https://endgametools.com/en/wow-forever/news/wow-forever-developers-raids-black-market, https://conquestcapped.com/guides/wow-forever/wow-forever-roadmap/

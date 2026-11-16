@@ -3,7 +3,7 @@
 - Level: 24-29 · Entrance: Wetlands (near Thelgen Rock) · Faction: both
 - Status: **live** - new Forever dungeon (Blizzard 24-29; guides/beta 26-31)
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-excavation-site-wetlands-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|---|---|
 | 1 |  | Saltspine | Salzrücken | 3480 | 260322 | 1 0.80,0.06 | marsh near start, among elite crocolisks |
 | 2 |  | Shadetooth | Schemenzahn | 3481 | 260325 | — | tall grass, appears after Thicket Matriarch dies |
-| 3 |  | Highland Horror (optional) | Hochlandschrecken | 3644 | 260808 | — | Dragonmaw camp |
+| 3 |  | Highland Horror (optional) | Hochlandschrecken | 3644 | 260808 | — | Dragonmaw camp; Wowhead Forever coords on the Wetlands map (zone 11): ~48.8,60.4 (48.2-49.6 / 56.0-62.8) |
 | 4 |  | Relic Guardian | Reliktwächter | 3482 | 260326 | — | end of spider trail; activated via Archival Panel |
 
 ## Loot
@@ -94,3 +94,8 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Guide summary placed James Halloran for quest 484 'inside the dungeon'; he is normally in Menethil Harbor - unverified
 - Changing Tastes rewards: choice of 280766 or 280805, plus recipe 250185 and 250077
 - Quest XP from beta
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Highland Horror (260808) has Wowhead Forever coords on the outdoor Wetlands map (zone 11), centre ~48.8,60.4 - i.e. the Dragonmaw camp area; the other bosses (zone 16732) have no coords - https://www.wowhead.com/forever/npc=260808
+- warcraft.wiki.gg lists 3 bosses (Saltspine, Shadetooth, Relic Guardian end boss), level 26-32, Wowhead zone 16732; Highland Horror not mentioned. No new loot or quests - https://warcraft.wiki.gg/wiki/Excavation_Site:_Wetlands

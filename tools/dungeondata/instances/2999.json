@@ -39,7 +39,7 @@
      "name_ok": true
     }
    ],
-   "location": "guards one of the city streets",
+   "location": "guards one of the city streets; packs of 3 Skeletal Soldiers/Mages around him; usually the 2nd boss",
    "optional": false,
    "pin": null,
    "loot": [
@@ -155,7 +155,7 @@
      "name_ok": true
     }
    ],
-   "location": "King's Alley, giant spider with patrols",
+   "location": "patrols up and down King's Alley with her pack (can be pulled alone at range)",
    "optional": false,
    "pin": null,
    "loot": [
@@ -252,7 +252,7 @@
      "name_ok": true
     }
    ],
-   "location": "event from statue with glowing green eyes",
+   "location": "Market Square (entered from Lordamere Overlook); the quaking statue starts the wave event",
    "optional": true,
    "pin": null,
    "loot": [
@@ -330,7 +330,7 @@
      "name_ok": true
     }
    ],
-   "location": "courtyard with walls and pavilion",
+   "location": "patrols the centre area (courtyard with walls and pavilion)",
    "optional": false,
    "pin": null,
    "loot": [
@@ -408,7 +408,7 @@
      "name_ok": true
     }
    ],
-   "location": "burned house at south end; light chimney fire",
+   "location": "burned house south-west of Lordamere Overlook; click the chimney to spawn him",
    "optional": true,
    "pin": null,
    "loot": [
@@ -917,7 +917,8 @@
   "Trash: Stone Watcher npc=250629 drops Rotmender's Gloves item=286979 ~8%; Rotmender's Sash 286980 and Garb 286978 from trash",
   "Two head items: Abominable Head 280438 (~41%, starts Unending Torment) vs Head of the Baron 268518 (Abominable Creatures); page is ambiguous",
   "Page says bosses drop blue gear but some items labeled green",
-  "Quest XP: Horde 29,800, Alliance 22,500"
+  "Quest XP: Horde 29,800, Alliance 22,500",
+  "Crest of Lordaeron can spawn behind a door near The Baron's area (method.gg)"
  ],
  "zone_id": 16611,
  "zone_name_en": "Ruins of Lordaeron",
@@ -942,5 +943,26 @@
   "13 of 13 quests missing in DungeonQuests.lua",
   "Boss 'The Baron' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
   "No pin for 'Witherfang' (encounter 3353) in DungeonPinData.lua. (+4 more)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Locations sharpened: Witherfang patrols King's Alley; Viktor = chimney in house SW of Lordamere Overlook; The Abandoned = Market Square via Lordamere Overlook; Bjork patrols the centre; Baron guarded by 3-packs of Skeletal Soldiers/Mages",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/ruins-of-lordaeron"
+   ]
+  },
+  {
+   "fact": "warcraft.wiki.gg and method.gg both list The Baron as a regular boss (2nd) and Lordaeron Captain as rare; order Witherfang > Baron > Viktor > Abandoned > Bjork > Rath'mael. Neither mentions 'The Butcher' (encounter 3355). Wowhead Forever zone ID 16611",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/Ruins_of_Lordaeron_(instance)",
+    "https://www.method.gg/wow-forever/dungeons/ruins-of-lordaeron"
+   ]
+  },
+  {
+   "fact": "No source gives map coordinates; Wowhead tooltips of the bosses have zone 16611 but empty coords",
+   "sources": [
+    "https://www.wowhead.com/forever/npc=250483"
+   ]
+  }
  ]
 }

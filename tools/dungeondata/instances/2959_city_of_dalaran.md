@@ -3,21 +3,21 @@
 - Level: 28-33 · Entrance: Alterac Mountains · Faction: both (attunement quest per faction)
 - Status: **live** - new Forever dungeon
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-city-of-dalaran-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: Dalaran Sewer Key item=277507 (reward of Heart of Disruption 92458/96984); one key holder opens for group; attunement quests need level 30. Lyn the Ignored needs Tome of Dalaran item=275989 (from Black Tome item=276561 in Arugal's room, Shadowfang Keep)
 
 ## Bosses (kill order from the guide)
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Atrexis the Grave Knight | Atrexis der Grabritter | 3311 | 247126 | — | sewers ritual circle, necromancer adds |
-| 2 |  | Lyn the Ignored (optional) | Lyn der Ignorierte | 3310 | 247032 | — | sewers NE market-stall room past Atrexis; needs Tome of Dalaran |
-| 3 |  | Arcane Anomaly | Arkananomalie | 3298 | 245999 | — | city streets |
-| 4 |  | Arcanic Enigma | Arkanes Mysterium | — | 246016 | — | city streets |
-| 5 |  | Unstable Sentinel | Instabile Schildwache | 3302 | 246017 | — | city streets, Angry Tome adds |
-| 6 |  | Mana Devourer | Manaschlinger | 3300 | 246008 | — | city streets; whole room aggroes on pull |
-| 7 |  | Fel Ancient | Teufelsurtum | 3299 | 246003 | — | city center behind magic barrier, treants in front |
-| 8 |  | Shade of the Archmage | Schemen des Erzmagiers | 3303 | 246020 | — | Violet Chamber, final boss |
+| 1 |  | Atrexis the Grave Knight | Atrexis der Grabritter | 3311 | 247126 | — | sewers ritual circle, necromancer adds; WH-F coords (Alterac Mountains map, zone 36) ~16.3,68.2 |
+| 2 |  | Lyn the Ignored (optional) | Lyn der Ignorierte | 3310 | 247032 | — | sewers NE market-stall room past Atrexis; needs Tome of Dalaran; WH-F coords (Alterac Mountains map, zone 36) ~21.6,68.3 |
+| 3 |  | Arcane Anomaly | Arkananomalie | 3298 | 245999 | — | city streets; WH-F coords (Alterac Mountains map, zone 36) ~19.6,75.1 |
+| 4 |  | Arcanic Enigma | Arkanes Mysterium | — | 246016 | — | city streets; WH-F coords (Alterac Mountains map, zone 36) ~21.3,63.1 |
+| 5 |  | Unstable Sentinel | Instabile Schildwache | 3302 | 246017 | — | city streets, Angry Tome adds; WH-F coords (Alterac Mountains map, zone 36) ~18.5,61.4 |
+| 6 |  | Mana Devourer | Manaschlinger | 3300 | 246008 | — | city streets; whole room aggroes on pull; WH-F coords (Alterac Mountains map, zone 36) ~15.6,74.1 |
+| 7 |  | Fel Ancient | Teufelsurtum | 3299 | 246003 | — | city center behind magic barrier, treants in front; WH-F coords (Alterac Mountains map, zone 36) ~16.7,67.4 |
+| 8 |  | Shade of the Archmage | Schemen des Erzmagiers | 3303 | 246020 | — | Violet Chamber, final boss; WH-F coords (Alterac Mountains map, zone 36) ~15.2,56.1 |
 | – |  | Mana Elemental | Manaelementar | 3301 | ? | — |  |
 | – |  | Mana Wraith | Managespenst | 3312 | ? | — |  |
 
@@ -121,13 +121,13 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - [ ] No pin for 'Atrexis the Grave Knight' (encounter 3311) in DungeonPinData.lua.
 - [ ] No pin for 'Lyn the Ignored' (encounter 3310) in DungeonPinData.lua.
 - [ ] No pin for 'Arcane Anomaly' (encounter 3298) in DungeonPinData.lua.
-- [ ] Boss 'Arcanic Enigma' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 - [ ] No pin for 'Unstable Sentinel' (encounter 3302) in DungeonPinData.lua.
 - [ ] No pin for 'Mana Devourer' (encounter 3300) in DungeonPinData.lua.
 - [ ] No pin for 'Fel Ancient' (encounter 3299) in DungeonPinData.lua.
 - [ ] No pin for 'Shade of the Archmage' (encounter 3303) in DungeonPinData.lua.
 - [ ] Encounter 3301 'Mana Elemental' is in DungeonBosses.lua but not in the guide's boss list - check in game.
 - [ ] Encounter 3312 'Mana Wraith' is in DungeonBosses.lua but not in the guide's boss list - check in game.
+- [ ] Boss 'Arcanic Enigma' (246016) has no DungeonEncounter in DungeonBosses.lua; warcraft.wiki.gg lists it as a real boss with loot - maybe encounter 3301 'Mana Elemental' or 3312 'Mana Wraith' under another name. Check in game.
 
 ## Research notes
 
@@ -136,3 +136,8 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Guide inconsistent on where Wordeen gives Prison Break In/Key to the City (Tarren Mill vs Lordamere Internment Camp)
 - No levels given for 92432, 93680, 92434; givers for 545/92434 not stated
 - Heart of Disruption not sharable
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Wowhead Forever tooltips now carry spawn coords for all 8 bosses on the Alterac Mountains map (zone 36), usable to place pins relative to each other: Atrexis 16.3,68.2 · Arcane Anomaly 19.6,75.1 · Arcanic Enigma 21.3,63.1 · Unstable Sentinel 18.5,61.4 · Mana Devourer 15.6,74.1 · Fel Ancient 16.7,67.4 · Lyn 21.6,68.3 · Shade 15.2,56.1 - https://www.wowhead.com/forever/npc=246020, https://www.wowhead.com/forever/npc=247126
+- warcraft.wiki.gg order: Atrexis, Arcane Anomaly, Arcanic Enigma, Unstable Sentinel, Mana Devourer, Fel Ancient, Lyn the Ignored, Shade of the Archmage; level 28-34, final boss lvl 31, Wowhead zone 16560; Mana Elemental / Mana Wraith not mentioned - https://warcraft.wiki.gg/wiki/City_of_Dalaran

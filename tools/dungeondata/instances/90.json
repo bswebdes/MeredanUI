@@ -44,7 +44,8 @@
      "wowhead_name": "Chomper",
      "zone": 721,
      "name_de": "Mümmler",
-     "name_ok": false
+     "name_ok": true,
+     "role": "Chomper accompanies Grubbis (same fight)"
     }
    ],
    "location": "cave off Hall of Gears; event started by Emi Shortfuse",
@@ -1205,9 +1206,7 @@
   "Mekgineer Thermaplugg: 4413 Schematic: Discombobulator Ray - in DungeonLoot.lua, not in guide (Wowhead Forever: 0.52%)",
   "Mekgineer Thermaplugg: 9327 Security DELTA Data Access Card - in DungeonLoot.lua, not in guide (Wowhead Forever: no drop data)"
  ],
- "open_questions": [
-  "NPC 6215 is 'Chomper' on Wowhead Forever, guide says 'Grubbis'."
- ],
+ "open_questions": [],
  "guide_notes": [
   "Dark Iron Ambassador also drops a new leatherworking pattern (no ID on guide)",
   "2952 appears only in chain section; giver details copied from 2951",
@@ -1219,7 +1218,7 @@
  "zone_name_en": "Gnomeregan",
  "zone_name_de": "Gnomeregan",
  "assessment": {
-  "bosses": "partial",
+  "bosses": "ok",
   "pins": "ok",
   "loot": "ok",
   "quests": "ok",
@@ -1229,14 +1228,22 @@
   "loot_with_chance": 22,
   "forever_confirmed": "partly",
   "boss_count": 5,
-  "boss_ok": 4,
+  "boss_ok": 5,
   "pin_ok": 5,
   "enc_count": 5,
   "q_tot": 21
  },
  "top_points": [
   "21 of 21 quests missing in DungeonQuests.lua",
-  "NPC 6215 is 'Chomper' on Wowhead Forever, guide says 'Grubbis'.",
-  "7 loot rows without drop chance"
+  "7 loot rows without drop chance",
+  "3 items not on Wowhead Forever (404)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Chomper (6215) fights together with Grubbis after the Emi Shortfuse trogg-wave event - NPC 6215 belongs to the Grubbis encounter; Grubbis loot: Grubbis Paws 9445, Irradiated Shield 274043, Skullduggery Belt 274042",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/gnomeregan"
+   ]
+  }
  ]
 }

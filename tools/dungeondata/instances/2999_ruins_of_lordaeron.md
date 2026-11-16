@@ -3,18 +3,18 @@
 - Level: 15-20 · Entrance: Tirisfal Glades (above Undercity) · Faction: Horde-leaning, Alliance can enter
 - Status: **live** - new Forever dungeon
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-ruins-of-lordaeron-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | The Baron | Der Baron | — | 250660 | — | guards one of the city streets |
-| 2 |  | Witherfang | Welkzahn | 3353 | 250483 | — | King's Alley, giant spider with patrols |
-| 3 |  | The Abandoned (optional) | Der Verlassene | 3357 | 250631 | — | event from statue with glowing green eyes |
-| 4 |  | Bjork | Bjork | 3412 | 256097 | — | courtyard with walls and pavilion |
-| 5 |  | Viktor the Vile (optional) | Viktor der Üble | 3411 | 256035 | — | burned house at south end; light chimney fire |
+| 1 |  | The Baron | Der Baron | — | 250660 | — | guards one of the city streets; packs of 3 Skeletal Soldiers/Mages around him; usually the 2nd boss |
+| 2 |  | Witherfang | Welkzahn | 3353 | 250483 | — | patrols up and down King's Alley with her pack (can be pulled alone at range) |
+| 3 |  | The Abandoned (optional) | Der Verlassene | 3357 | 250631 | — | Market Square (entered from Lordamere Overlook); the quaking statue starts the wave event |
+| 4 |  | Bjork | Bjork | 3412 | 256097 | — | patrols the centre area (courtyard with walls and pavilion) |
+| 5 |  | Viktor the Vile (optional) | Viktor der Üble | 3411 | 256035 | — | burned house south-west of Lordamere Overlook; click the chimney to spawn him |
 | 6 |  | Rath'mael | Rath'mael | 3354 | 250657 | — | graveyard, usually last |
 | – |  | The Butcher | Der Schlächter | 3355 | ? | — |  |
 
@@ -132,3 +132,10 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Two head items: Abominable Head 280438 (~41%, starts Unending Torment) vs Head of the Baron 268518 (Abominable Creatures); page is ambiguous
 - Page says bosses drop blue gear but some items labeled green
 - Quest XP: Horde 29,800, Alliance 22,500
+- Crest of Lordaeron can spawn behind a door near The Baron's area (method.gg)
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Locations sharpened: Witherfang patrols King's Alley; Viktor = chimney in house SW of Lordamere Overlook; The Abandoned = Market Square via Lordamere Overlook; Bjork patrols the centre; Baron guarded by 3-packs of Skeletal Soldiers/Mages - https://www.method.gg/wow-forever/dungeons/ruins-of-lordaeron
+- warcraft.wiki.gg and method.gg both list The Baron as a regular boss (2nd) and Lordaeron Captain as rare; order Witherfang > Baron > Viktor > Abandoned > Bjork > Rath'mael. Neither mentions 'The Butcher' (encounter 3355). Wowhead Forever zone ID 16611 - https://warcraft.wiki.gg/wiki/Ruins_of_Lordaeron_(instance), https://www.method.gg/wow-forever/dungeons/ruins-of-lordaeron
+- No source gives map coordinates; Wowhead tooltips of the bosses have zone 16611 but empty coords - https://www.wowhead.com/forever/npc=250483

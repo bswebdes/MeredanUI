@@ -3,7 +3,7 @@
 - Level: 24-32 · Entrance: Ashenvale · Faction: both
 - Status: **live** - classic dungeon
 - Sources: https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://www.warcrafttavern.com/forever/guides/dungeons/, https://conquestcapped.com/guides/wow-forever/wow-forever-blackfathom-deeps-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: None
 
 ## Bosses (kill order from the guide)
@@ -133,10 +133,14 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 ## Open questions (check in game)
 
 - [ ] DungeonEncounter 2914 is spelled 'Geilhast' in the English game data (German: Gelihast); NPC name is Gelihast. Typo in Blizzard's data - panel shows the encounter name.
-- [ ] Boss 'Baron Aquanis' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
+- [ ] Baron Aquanis: quest-summoned (Fathom Stone, Horde quest), no DungeonEncounter (method.gg lists him only under the quest).
 
 ## Research notes
 
 - Guide lists 8 bosses; order follows guide table
 - Paladin/Old Fire-Eye chain details summarized only; quest_id given is final step
 - Brazier event after Kelris opens door to Aku'mai
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- method.gg does not list Baron Aquanis as a boss; he appears only in the Horde quest from Je'neu Sancrea (Zoram'gar Outpost) - quest-summoned, no DungeonEncounter - https://www.method.gg/wow-forever/dungeons/blackfathom-deeps

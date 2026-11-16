@@ -3,14 +3,14 @@
 - Level: 29-38 · Entrance: Dun Morogh · Faction: both
 - Status: **live** - classic dungeon
 - Sources: https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://www.warcrafttavern.com/forever/guides/dungeons/, https://conquestcapped.com/guides/wow-forever/wow-forever-gnomeregan-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: Workshop Key item=6893 (Electrocutioner 6000, ~79%) opens back door to Engineering Labs; Horde Goblin Transponder item=9173 from quest 2843
 
 ## Bosses (kill order from the guide)
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Grubbis (optional) | Grubbis | 2768 | 7361, 6215 ⚠ | 1 0.78,0.58 | cave off Hall of Gears; event started by Emi Shortfuse |
+| 1 |  | Grubbis (optional) | Grubbis | 2768 | 7361, 6215 | 1 0.78,0.58 | cave off Hall of Gears; event started by Emi Shortfuse |
 | 2 |  | Viscous Fallout | Verflüssigte Ablagerung | 2769 | 7079 | 1 0.58,0.57 | passage between Hall of Gears and Grubbis cave |
 | 3 |  | Electrocutioner 6000 | Elektrokutor 6000 | 2770 | 6235 | 2 0.25,0.68 | middle of the Launch Bay |
 | 4 |  | Crowd Pummeler 9-60 | Meuteverprügler 9-60 | 2771 | 6229 | 3 0.44,0.87 | Engineering Labs behind Workshop door |
@@ -145,7 +145,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 
 ## Open questions (check in game)
 
-- [ ] NPC 6215 is 'Chomper' on Wowhead Forever, guide says 'Grubbis'.
+- none found
 
 ## Research notes
 
@@ -154,3 +154,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 - Save Techbot's Brain giver location: guide says Tinker Town, chain page Ironforge (same city)
 - Guide intro says 'two bosses got new rare drops' but boss sections list more new items
 - Data Rescue prereq listed oddly on guide (punch card steps); simplified
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Chomper (6215) fights together with Grubbis after the Emi Shortfuse trogg-wave event - NPC 6215 belongs to the Grubbis encounter; Grubbis loot: Grubbis Paws 9445, Irradiated Shield 274043, Skullduggery Belt 274042 - https://www.method.gg/wow-forever/dungeons/gnomeregan

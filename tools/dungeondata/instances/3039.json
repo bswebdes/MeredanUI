@@ -41,7 +41,7 @@
      "name_ok": true
     }
    ],
-   "location": "after long trash with patrols",
+   "location": "first boss, patrols the mines with Redridge Prisoners (257900)",
    "optional": false,
    "pin": null,
    "loot": [
@@ -101,6 +101,25 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 273101,
+     "name": "Blueprint: Expert Campfire",
+     "slot": null,
+     "quality": 2,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 4.27,
+     "wowhead_dropped_by": "Slavecrusher Grox",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
     }
    ]
   },
@@ -119,7 +138,7 @@
      "name_ok": true
     }
    ],
-   "location": "death opens next gate",
+   "location": "guards the entrance to the ogre city, trains Twilight Grunts; death opens next gate",
    "optional": false,
    "pin": null,
    "loot": [
@@ -178,6 +197,25 @@
      "sources": [
       "guide"
      ]
+    },
+    {
+     "item_id": 274999,
+     "name": "Shadecaster's Leggings",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 35.04,
+     "wowhead_dropped_by": "Twilight Commander Zarmok",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
     }
    ]
   },
@@ -196,7 +234,7 @@
      "name_ok": true
     }
    ],
-   "location": "with two wolves, possibly off main road",
+   "location": "with her worgs Snarlfang (259283) and Terrorhowl (259285); possibly off the main road",
    "optional": null,
    "pin": null,
    "loot": [
@@ -227,6 +265,25 @@
      "quest_item": false,
      "chance_guide": null,
      "chance_wowhead_forever": 33.33,
+     "wowhead_dropped_by": "War Handler Ashka",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 275003,
+     "name": "Worgbinder's Treads",
+     "slot": "Feet Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.18,
      "wowhead_dropped_by": "War Handler Ashka",
      "chance_repo": null,
      "in_guide": true,
@@ -315,6 +372,25 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 275006,
+     "name": "Krol'dok Warplate Helmet",
+     "slot": "Head (plate)",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 29.67,
+     "wowhead_dropped_by": "Nar'gurk",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
     }
    ]
   },
@@ -333,7 +409,7 @@
      "name_ok": true
     }
    ],
-   "location": "after the bridge, before last boss",
+   "location": "far end of the bridge; starts when the 2 Krol'dok Centurions at the bridge start are pulled, Brutes keep spawning",
    "optional": null,
    "pin": null,
    "loot": [
@@ -374,6 +450,25 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 286428,
+     "name": "Band of Bossman",
+     "slot": "Finger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 31.96,
+     "wowhead_dropped_by": "Bossman Toof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
     }
    ]
   },
@@ -392,7 +487,7 @@
      "name_ok": true
     }
    ],
-   "location": "top of the hill, final boss",
+   "location": "top of the hill, final boss, guarded by 2 Krol'dok Centurions",
    "optional": false,
    "pin": null,
    "loot": [
@@ -471,6 +566,44 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 275008,
+     "name": "Mugg's Crosser",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 21.11,
+     "wowhead_dropped_by": "Overlord Mugg",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 275010,
+     "name": "Strongly Scented Hood",
+     "slot": "Head Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 26.35,
+     "wowhead_dropped_by": "Overlord Mugg",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
     }
    ]
   }
@@ -493,25 +626,6 @@
    "pin": null,
    "encounter_id": null,
    "loot": [
-    {
-     "item_id": 275006,
-     "name": "Krol'dok Warplate Helmet",
-     "slot": "Head (plate)",
-     "quality": 3,
-     "quest_item": false,
-     "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": "Nar'gurk",
-     "chance_repo": null,
-     "in_guide": true,
-     "in_repo": false,
-     "forever_confirmed": true,
-     "not_on_wowhead_forever": false,
-     "sources": [
-      "guide",
-      "wowhead-forever"
-     ]
-    },
     {
      "item_id": 287014,
      "name": "Krol'dok Warplate Pauldrons",
@@ -906,17 +1020,14 @@
  "repo_quests_not_in_guide": [],
  "loot_differences": [],
  "open_questions": [
-  "Guide says 'Overlord Mugg', game data 'Overseer Mugg' (3451). Check name in game.",
   "No pin for 'Slavecrusher Grox' (encounter 3450) in DungeonPinData.lua.",
   "No pin for 'Twilight Commander Zarmok' (encounter 3452) in DungeonPinData.lua.",
   "No pin for 'War Handler Ashka' (encounter 3453) in DungeonPinData.lua.",
   "No pin for 'Nar'gurk' (encounter 3449) in DungeonPinData.lua.",
-  "Boss 'Bossman Toof' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
-  "No pin for 'Overlord Mugg' (encounter 3451) in DungeonPinData.lua."
+  "No pin for 'Overlord Mugg' (encounter 3451) in DungeonPinData.lua.",
+  "Bossman Toof (264773) has no DungeonEncounter in game data, but wiki + method.gg + Wowhead loot treat him as a full boss (3 own items) - probably a non-encounter boss; check in game."
  ],
  "guide_notes": [
-  "No drop chances recorded on guide; items marked seen/probable",
-  "War Handler Ashka not found in first runs; optional status unclear",
   "Bossman Toof is not among the five game-data encounters but guide counts him",
   "Tome of Twilight (Horde 94972) giver unknown",
   "Some givers marked likely/unconfirmed"
@@ -930,9 +1041,9 @@
   "loot": "ok",
   "quests": "ok",
   "quests_in_addon": 0,
-  "loot_rows": 18,
-  "loot_confirmed": 18,
-  "loot_with_chance": 14,
+  "loot_rows": 24,
+  "loot_confirmed": 24,
+  "loot_with_chance": 21,
   "forever_confirmed": "yes",
   "boss_count": 6,
   "boss_ok": 5,
@@ -942,7 +1053,37 @@
  },
  "top_points": [
   "15 of 15 quests missing in DungeonQuests.lua",
-  "Boss 'Bossman Toof' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?",
+  "Bossman Toof (264773) has no DungeonEncounter in game data, but wiki + method.gg + Wowhead loot treat him as a full boss (3 own items) - probably a non-encounter boss; check in game.",
   "No pin for 'Slavecrusher Grox' (encounter 3450) in DungeonPinData.lua. (+4 more)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Name: Wowhead Forever NPC 258968 is 'Overlord Mugg' (wiki + method.gg agree); DungeonBosses.lua says 'Overseer Mugg'",
+   "sources": [
+    "https://www.wowhead.com/forever/npc=258968",
+    "https://warcraft.wiki.gg/wiki/Krol'dok_Stronghold"
+   ]
+  },
+  {
+   "fact": "Locations: Grox patrols the mines; Zarmok guards the entrance to the ogre city; Toof at the far end of the bridge (event starts at the 2 Centurions at the bridge start); Mugg guarded by 2 Centurions",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/kroldok-stronghold"
+   ]
+  },
+  {
+   "fact": "Loot completed with WH-F drop chances: Shadecaster's Leggings 274999 (Zarmok), Worgbinder's Treads 275003 (Ashka), Mugg's Crosser 275008 + Strongly Scented Hood 275010 (Mugg), Band of Bossman 286428 (Toof), Blueprint: Expert Campfire 273101 (Grox 4.27 %); Krol'dok Warplate Helmet 275006 is a Nar'gurk drop (29.67 %), not trash",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/kroldok-stronghold",
+    "https://www.wowhead.com/forever/item=275008",
+    "https://www.wowhead.com/forever/item=273101"
+   ]
+  },
+  {
+   "fact": "Pre-quests outside the dungeon: Alliance Saving Sunnyglade 94877, Scraps of Knowledge 94879, Curious Trinkets 94881 (Ashe Amberhall / Demar Brant); Horde The Wayward Warrior 94744 (Krom'rosh)",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/kroldok-stronghold",
+    "https://www.wowhead.com/forever/quest=94877"
+   ]
+  }
  ]
 }

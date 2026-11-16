@@ -1031,7 +1031,7 @@
  ],
  "open_questions": [
   "DungeonEncounter 2914 is spelled 'Geilhast' in the English game data (German: Gelihast); NPC name is Gelihast. Typo in Blizzard's data - panel shows the encounter name.",
-  "Boss 'Baron Aquanis' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?"
+  "Baron Aquanis: quest-summoned (Fathom Stone, Horde quest), no DungeonEncounter (method.gg lists him only under the quest)."
  ],
  "guide_notes": [
   "Guide lists 8 bosses; order follows guide table",
@@ -1058,7 +1058,14 @@
   "q_tot": 17
  },
  "top_points": [
-  "6 of 17 quests missing in DungeonQuests.lua",
-  "Boss 'Baron Aquanis' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?"
+  "6 of 17 quests missing in DungeonQuests.lua"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "method.gg does not list Baron Aquanis as a boss; he appears only in the Horde quest from Je'neu Sancrea (Zoram'gar Outpost) - quest-summoned, no DungeonEncounter",
+   "sources": [
+    "https://www.method.gg/wow-forever/dungeons/blackfathom-deeps"
+   ]
+  }
  ]
 }

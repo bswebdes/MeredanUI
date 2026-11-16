@@ -39,7 +39,7 @@
      "name_ok": true
     }
    ],
-   "location": null,
+   "location": "first encounter (location not published)",
    "optional": false,
    "pin": null,
    "loot": [
@@ -69,16 +69,57 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 29.31,
+     "wowhead_dropped_by": "Withermaw",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 280063,
+     "name": "Bloodfur Bulwark",
+     "slot": "Off Hand Shield",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 31.03,
+     "wowhead_dropped_by": "Withermaw",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280062,
+     "name": "Cloak of the Fleshborer",
+     "slot": null,
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 34.48,
+     "wowhead_dropped_by": "Withermaw",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
     }
    ]
   },
@@ -108,16 +149,57 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 26.92,
+     "wowhead_dropped_by": "Impaan the Imprisoner",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 280057,
+     "name": "Robes of Dark Summons",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 30.77,
+     "wowhead_dropped_by": "Impaan the Imprisoner",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280056,
+     "name": "Flameslash Crescent",
+     "slot": "Two-Hand Axe",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.18,
+     "wowhead_dropped_by": "Impaan the Imprisoner",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
     }
    ]
   },
@@ -177,6 +259,66 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 280070,
+     "name": "Veilpiercer Girdle",
+     "slot": "Waist Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 25.0,
+     "wowhead_dropped_by": "Elder Shaman Bloodmane",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280069,
+     "name": "Shamanic Wristguards",
+     "slot": "Wrist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 22.92,
+     "wowhead_dropped_by": "Elder Shaman Bloodmane",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280068,
+     "name": "Bloody Claws of Attack",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.5,
+     "wowhead_dropped_by": "Elder Shaman Bloodmane",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
     }
    ]
   },
@@ -225,16 +367,57 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 39.68,
+     "wowhead_dropped_by": "Bonesnout the Unbroken",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 280059,
+     "name": "Tuskblade Halberd",
+     "slot": "Two-Hand Polearm",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.57,
+     "wowhead_dropped_by": "Bonesnout the Unbroken",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280061,
+     "name": "Spike Crested Bracers",
+     "slot": "Wrist Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.57,
+     "wowhead_dropped_by": "Bonesnout the Unbroken",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
     }
    ]
   },
@@ -294,6 +477,66 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 280076,
+     "name": "Horns of Varrox",
+     "slot": "Head Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.36,
+     "wowhead_dropped_by": "Varrox Bleakhoof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280075,
+     "name": "Bleak Eye Shoulderplates",
+     "slot": "Shoulder Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 28.36,
+     "wowhead_dropped_by": "Varrox Bleakhoof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280074,
+     "name": "Scalding Flamehoof",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 38.81,
+     "wowhead_dropped_by": "Varrox Bleakhoof",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
     }
    ]
   },
@@ -306,16 +549,77 @@
    "npcs": [
     {
      "id": 247207,
-     "wowhead_name": null,
+     "wowhead_name": "Blackmaw Behemoth",
      "zone": null,
      "name_de": "[Blackmaw Behemoth]",
-     "name_ok": false
+     "name_ok": true
     }
    ],
    "location": null,
    "optional": false,
    "pin": null,
-   "loot": []
+   "loot": [
+    {
+     "item_id": 280065,
+     "name": "Behemoth Bones",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 29.23,
+     "wowhead_dropped_by": "Blackmaw Behemoth",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280066,
+     "name": "Trousers of the Ebon Giant",
+     "slot": "Legs Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 36.92,
+     "wowhead_dropped_by": "Blackmaw Behemoth",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280067,
+     "name": "Blackmaw Chain Belt",
+     "slot": "Waist Mail",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 30.77,
+     "wowhead_dropped_by": "Blackmaw Behemoth",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
   },
   {
    "order": 7,
@@ -332,10 +636,71 @@
      "name_ok": true
     }
    ],
-   "location": null,
+   "location": "last encounter in game data (location not published)",
    "optional": false,
    "pin": null,
-   "loot": []
+   "loot": [
+    {
+     "item_id": 280072,
+     "name": "Cowl of Dark Ambition",
+     "slot": "Head Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 26.42,
+     "wowhead_dropped_by": "Unbound Spirit",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Confirmed"
+    },
+    {
+     "item_id": 280073,
+     "name": "Burnished Pridescales",
+     "slot": "Chest Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 37.74,
+     "wowhead_dropped_by": "Unbound Spirit",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    },
+    {
+     "item_id": 280071,
+     "name": "Flamebreak Talisman",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 33.96,
+     "wowhead_dropped_by": "Unbound Spirit",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
   }
  ],
  "rares": [
@@ -354,16 +719,133 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 68.75,
+     "wowhead_dropped_by": "Moontouched Wanderer",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 280079,
+     "name": "Lunarlight Robe",
+     "slot": "Chest Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 31.25,
+     "wowhead_dropped_by": "Moontouched Wanderer",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "npc_id": null,
+   "name": "Gortek the Apprentice",
+   "pin": null,
+   "location": "not published",
+   "loot": [
+    {
+     "item_id": 280077,
+     "name": "Fist of Revelation",
+     "slot": "One-Hand Fist Weapon",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 83.33,
+     "wowhead_dropped_by": "Gortek the Apprentice",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
+    },
+    {
+     "item_id": 280078,
+     "name": "Apprentice's Protective Treads",
+     "slot": "Feet Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 16.67,
+     "wowhead_dropped_by": "Gortek the Apprentice",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Seen dropping"
+    }
+   ]
+  },
+  {
+   "npc_id": null,
+   "name": "Tunnelweb Matriarch",
+   "pin": null,
+   "location": "not published",
+   "loot": [
+    {
+     "item_id": 280085,
+     "name": "Tunnelweb Pincer",
+     "slot": "One-Hand Dagger",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 40.0,
+     "wowhead_dropped_by": "Tunnelweb Matriarch",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
+    },
+    {
+     "item_id": 280086,
+     "name": "Octofinger Gauntlets",
+     "slot": "Hands Plate",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 60.0,
+     "wowhead_dropped_by": "Tunnelweb Matriarch",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ],
+     "guide_status": "Reported, not confirmed"
     }
    ]
   }
@@ -491,6 +973,91 @@
    "wowhead_title": "Blackmaw Magic",
    "wowhead_level": 59,
    "races": 77
+  },
+  {
+   "quest_id": 92066,
+   "title": "The Twin Bears",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Lorekeeper Nok",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Ursolan",
+   "prereq": "Totem of Ursoc 249694 + Totem of Ursol 249693",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "The Twin Bears",
+   "wowhead_level": 55,
+   "races": null
+  },
+  {
+   "quest_id": 92065,
+   "title": "Blackmaw Reclamation",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Gatekeeper Rageroar",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Ursolan",
+   "prereq": "Head of Varrox Bleakhoof 249692",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Blackmaw Reclamation",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 97327,
+   "title": "Blackmaw Pouches",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": "Ekkal",
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "Azshara (Ruins of Eldarath)",
+   "prereq": "5x Blackmaw Pouch 273050",
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Blackmaw Pouches",
+   "wowhead_level": 60,
+   "races": null
+  },
+  {
+   "quest_id": 92070,
+   "title": "A Lost Memento",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "starts from Feathered Charm Necklace 249698 (drop)",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "A Lost Memento",
+   "wowhead_level": 55,
+   "races": null
+  },
+  {
+   "quest_id": 92067,
+   "title": "Feeding Time!",
+   "level": null,
+   "min_level": null,
+   "faction": "Both",
+   "giver": null,
+   "giver_npc_id": null,
+   "giver_item_id": null,
+   "giver_zone": "giver unknown; repeatable; Fel-Tainted Flesh",
+   "prereq": null,
+   "rewards": [],
+   "in_repo": false,
+   "wowhead_title": "Feeding Time!",
+   "wowhead_level": 55,
+   "races": null
   }
  ],
  "repo_quests_not_in_guide": [],
@@ -501,40 +1068,69 @@
   "No pin for 'Elder Shaman Bloodmane' (encounter 3327) in DungeonPinData.lua.",
   "No pin for 'Bonesnout the Unbroken' (encounter 3322) in DungeonPinData.lua.",
   "No pin for 'Varrox Bleakhoof' (encounter 3334) in DungeonPinData.lua.",
-  "NPC 247207 (Blackmaw Behemoth) not found on Wowhead Forever - check ID.",
   "No pin for 'Blackmaw Behemoth' (encounter 3323) in DungeonPinData.lua.",
   "No pin for 'Unbound Spirit' (encounter 3336) in DungeonPinData.lua."
  ],
  "guide_notes": [
-  "No drop chances published on the guide",
   "Boss locations not given; order is the guide's encounter numbering",
   "Ogtinc as giver of 92069 marked 'most likely' by the guide",
   "Horde Blackmaw Magic linked as 97198 in one place, 97173 in another; 97173 is the Alliance version",
-  "Unassigned quest items: Totem of Ursol 249693, Totem of Ursoc 249694, Feathered Charm Necklace 249698, Blackmaw Pouch 273050",
-  "Get to the Roots of It requires 10x Nordrassil Root Cap (250773)"
+  "Get to the Roots of It requires 10x Nordrassil Root Cap (250773)",
+  "Trash: Den Champion's Binding 287032, Grove Subjugator's Blade 287034, Plans: Breastplate of Salvation 251453 (confirmed); Tormented Cuffs 287028; Satyr's Touch 287036 from Legashi Ritualist (258668); Blackmaw Bindings 287030 from Legashi Subjugator (WH-F 1.33 %)",
+  "Sabella No-Eyes drops Truesight Rifle 280083 / Furbolg Rib Protector 280084 (Wowhead, item IDs between Blackmaw items) - instance not confirmed"
  ],
  "zone_id": null,
  "zone_name_en": null,
  "zone_name_de": null,
  "assessment": {
-  "bosses": "partial",
+  "bosses": "ok",
   "pins": "missing",
-  "loot": "partial",
+  "loot": "ok",
   "quests": "ok",
   "quests_in_addon": 0,
-  "loot_rows": 4,
-  "loot_confirmed": 4,
-  "loot_with_chance": 0,
+  "loot_rows": 27,
+  "loot_confirmed": 27,
+  "loot_with_chance": 27,
   "forever_confirmed": "yes",
   "boss_count": 7,
-  "boss_ok": 6,
+  "boss_ok": 7,
   "pin_ok": 0,
   "enc_count": 7,
-  "q_tot": 7
+  "q_tot": 12
  },
  "top_points": [
-  "7 of 7 quests missing in DungeonQuests.lua",
-  "No pin for 'Withermaw' (encounter 3315) in DungeonPinData.lua. (+6 more)",
-  "NPC 247207 (Blackmaw Behemoth) not found on Wowhead Forever - check ID."
+  "12 of 12 quests missing in DungeonQuests.lua",
+  "No pin for 'Withermaw' (encounter 3315) in DungeonPinData.lua. (+6 more)"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Full boss loot (3 blue items per boss, 280056-280080) with WH-F drop chances; Moontouched Wanderer rare also drops Lunarlight Robe 280079 (31.25 %); Claymore of Two Moons 68.75 %",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-blackmaw-hold-guide/",
+    "https://www.wowhead.com/forever/item=280063"
+   ]
+  },
+  {
+   "fact": "Extra named mobs with loot: Gortek the Apprentice (Fist of Revelation 280077, Apprentice's Protective Treads 280078) and Tunnelweb Matriarch (Tunnelweb Pincer 280085, Octofinger Gauntlets 280086); NPC IDs and locations unknown",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-blackmaw-hold-guide/",
+    "https://www.wowhead.com/forever/item=280077",
+    "https://www.wowhead.com/forever/item=280085"
+   ]
+  },
+  {
+   "fact": "Blackmaw Behemoth 247207 now exists on Wowhead Forever; bosses are in Wowhead zone 16554 (no coords)",
+   "sources": [
+    "https://www.wowhead.com/forever/npc=247207",
+    "https://www.wowhead.com/forever/npc=247195"
+   ]
+  },
+  {
+   "fact": "Five more quests: The Twin Bears 92066, Blackmaw Reclamation 92065, Blackmaw Pouches 97327, A Lost Memento 92070, Feeding Time! 92067 (titles checked on Wowhead Forever)",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-blackmaw-hold-guide/",
+    "https://www.wowhead.com/forever/quest=92066"
+   ]
+  }
  ]
 }

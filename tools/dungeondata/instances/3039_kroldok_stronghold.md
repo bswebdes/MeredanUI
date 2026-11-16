@@ -3,19 +3,19 @@
 - Level: 40-45 · Entrance: Riverglades · Faction: both
 - Status: **live** - new Forever dungeon; guides report it open since launch (Nov 4), but Wowhead's dungeon journal and the readable client tables (Map, LFGDungeons) do not list it yet
 - Sources: http://worldofwarcraft.blizzard.com/en-us/news/24301455, https://conquestcapped.com/guides/wow-forever/wow-forever-dungeons-overview/, https://conquestcapped.com/guides/wow-forever/wow-forever-kroldok-stronghold-guide/
-- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10
+- Item/NPC/quest checks: Wowhead Forever tooltips (`https://www.wowhead.com/forever/item=ID`), fetched 2026-11-10, rechecked 2026-11-16
 - Keys / attunement: No attunement. Krol'dok Ogre Key item=271721 from Overlord Mugg (shortcut door, unverified). Krol'dok Compound Key item=267089 from Key Ingredients quests (94974 H / 94981 A) after Krol'dok Moulding item=267137; opens a door possibly after Tunk (unconfirmed).
 
 ## Bosses (kill order from the guide)
 
 | # | Wing | Boss (en) | Boss (de) | Encounter | NPC ID(s) | Pin (floor x,y) | Location (guide) |
 |---|---|---|---|---|---|---|---|
-| 1 |  | Slavecrusher Grox | Sklavenbrecher Grox | 3450 | 258966 | — | after long trash with patrols |
-| 2 |  | Twilight Commander Zarmok | Twilight-Kommandant Zarmok | 3452 | 258972 | — | death opens next gate |
-| 3 |  | War Handler Ashka | Tierführerin Ashka | 3453 | 259281 | — | with two wolves, possibly off main road |
+| 1 |  | Slavecrusher Grox | Sklavenbrecher Grox | 3450 | 258966 | — | first boss, patrols the mines with Redridge Prisoners (257900) |
+| 2 |  | Twilight Commander Zarmok | Twilight-Kommandant Zarmok | 3452 | 258972 | — | guards the entrance to the ogre city, trains Twilight Grunts; death opens next gate |
+| 3 |  | War Handler Ashka | Tierführerin Ashka | 3453 | 259281 | — | with her worgs Snarlfang (259283) and Terrorhowl (259285); possibly off the main road |
 | 4 |  | Nar'gurk | Nar'gurk | 3449 | 258964 | — | 'The Corruptor', mid-dungeon |
-| 5 |  | Bossman Toof | [Bossman Toof] | — | 264773 | — | after the bridge, before last boss |
-| 6 |  | Overlord Mugg | Aufseher Mugg | 3451 | 258968 | — | top of the hill, final boss |
+| 5 |  | Bossman Toof | [Bossman Toof] | — | 264773 | — | far end of the bridge; starts when the 2 Krol'dok Centurions at the bridge start are pulled, Brutes keep spawning |
+| 6 |  | Overlord Mugg | Aufseher Mugg | 3451 | 258968 | — | top of the hill, final boss, guarded by 2 Krol'dok Centurions |
 
 ### Rares
 
@@ -35,6 +35,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 | 274996 | Resistance Breaker Spaulder | Shoulder (mail) |  | 37.5 |  | ✔ | guide+wowhead-forever |
 | 274997 | Chain of Binding | Waist (mail) |  | 31.25 |  | ✔ | guide+wowhead-forever |
 | 274995 | Slavecrusher Scepter | One-hand mace |  | 31.25 |  | ✔ | guide+wowhead-forever |
+| 273101 | Blueprint: Expert Campfire |  |  | 4.27 |  | ✔ | guide+wowhead-forever |
 
 ### Twilight Commander Zarmok
 
@@ -43,6 +44,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 | 275000 | Zarmok's Plated Signet | Finger |  | 25 |  | ✔ | guide+wowhead-forever |
 | 274998 | Shadowlight Athame | Main-hand dagger |  | 37.5 |  | ✔ | guide+wowhead-forever |
 | 267087 | Head of Zarmok (quest) | Quest Item |  |  |  | ✔ | guide |
+| 274999 | Shadecaster's Leggings | Legs Cloth |  | 35.04 |  | ✔ | guide+wowhead-forever |
 
 ### War Handler Ashka
 
@@ -50,6 +52,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 |---|---|---|---|---|---|---|---|
 | 275001 | Bloodied Gutslicer | Two-hand sword |  | 33.33 |  | ✔ | guide+wowhead-forever |
 | 275002 | War Handler's Gaze | Head (leather) |  | 33.33 |  | ✔ | guide+wowhead-forever |
+| 275003 | Worgbinder's Treads | Feet Plate |  | 28.18 |  | ✔ | guide+wowhead-forever |
 
 ### Nar'gurk
 
@@ -58,6 +61,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 | 275004 | Chain of the Corruptor | Neck |  | 38.1 |  | ✔ | guide+wowhead-forever |
 | 275005 | Krol'dok Warplate Chest | Chest (plate) |  | 14.29 |  | ✔ | guide+wowhead-forever |
 | 267104 | Tome of Twilight (quest) | Quest Item |  | 42.86 |  | ✔ | guide+wowhead-forever |
+| 275006 | Krol'dok Warplate Helmet | Head (plate) |  | 29.67 |  | ✔ | guide+wowhead-forever |
 
 ### Bossman Toof
 
@@ -65,6 +69,7 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 |---|---|---|---|---|---|---|---|
 | 286430 | Toofbreaker | One-hand mace |  | 20 |  | ✔ | guide+wowhead-forever |
 | 286429 | Big-Belly Belt | Waist (cloth) |  | 53.33 |  | ✔ | guide+wowhead-forever |
+| 286428 | Band of Bossman | Finger |  | 31.96 |  | ✔ | guide+wowhead-forever |
 
 ### Overlord Mugg
 
@@ -74,12 +79,13 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 | 271721 | Krol'dok Ogre Key | Key |  | 9.09 |  | ✔ | guide+wowhead-forever |
 | 275009 | Emblem of Slamming | Trinket |  | 27.27 |  | ✔ | guide+wowhead-forever |
 | 275007 | Mugg's Jabber | Fist weapon |  | 31.82 |  | ✔ | guide+wowhead-forever |
+| 275008 | Mugg's Crosser | One-Hand Fist Weapon |  | 21.11 |  | ✔ | guide+wowhead-forever |
+| 275010 | Strongly Scented Hood | Head Cloth |  | 26.35 |  | ✔ | guide+wowhead-forever |
 
 ### Trash (probable, unconfirmed)
 
 | Item ID | Name | Slot / type | guide % | WH-F % | repo % | ✔ | Source |
 |---|---|---|---|---|---|---|---|
-| 275006 | Krol'dok Warplate Helmet | Head (plate) |  |  |  | ✔ | guide+wowhead-forever |
 | 287014 | Krol'dok Warplate Pauldrons | Shoulder (plate) |  |  |  | ✔ | guide |
 | 287012 | Krol'dok Warplate Gauntlets | Hands (plate) |  |  |  | ✔ | guide |
 | 287013 | Krol'dok Warplate Legplates | Legs (plate) |  |  |  | ✔ | guide |
@@ -118,18 +124,22 @@ Columns: guide % = Forever guide (some guides say their chances are classic valu
 
 ## Open questions (check in game)
 
-- [ ] Guide says 'Overlord Mugg', game data 'Overseer Mugg' (3451). Check name in game.
 - [ ] No pin for 'Slavecrusher Grox' (encounter 3450) in DungeonPinData.lua.
 - [ ] No pin for 'Twilight Commander Zarmok' (encounter 3452) in DungeonPinData.lua.
 - [ ] No pin for 'War Handler Ashka' (encounter 3453) in DungeonPinData.lua.
 - [ ] No pin for 'Nar'gurk' (encounter 3449) in DungeonPinData.lua.
-- [ ] Boss 'Bossman Toof' (guide) has no DungeonEncounter in DungeonBosses.lua - renamed, trash-boss or event boss?
 - [ ] No pin for 'Overlord Mugg' (encounter 3451) in DungeonPinData.lua.
+- [ ] Bossman Toof (264773) has no DungeonEncounter in game data, but wiki + method.gg + Wowhead loot treat him as a full boss (3 own items) - probably a non-encounter boss; check in game.
 
 ## Research notes
 
-- No drop chances recorded on guide; items marked seen/probable
-- War Handler Ashka not found in first runs; optional status unclear
 - Bossman Toof is not among the five game-data encounters but guide counts him
 - Tome of Twilight (Horde 94972) giver unknown
 - Some givers marked likely/unconfirmed
+
+## Update 2026-11-16 (new since 2026-11-11, each with source)
+
+- Name: Wowhead Forever NPC 258968 is 'Overlord Mugg' (wiki + method.gg agree); DungeonBosses.lua says 'Overseer Mugg' - https://www.wowhead.com/forever/npc=258968, https://warcraft.wiki.gg/wiki/Krol'dok_Stronghold
+- Locations: Grox patrols the mines; Zarmok guards the entrance to the ogre city; Toof at the far end of the bridge (event starts at the 2 Centurions at the bridge start); Mugg guarded by 2 Centurions - https://www.method.gg/wow-forever/dungeons/kroldok-stronghold
+- Loot completed with WH-F drop chances: Shadecaster's Leggings 274999 (Zarmok), Worgbinder's Treads 275003 (Ashka), Mugg's Crosser 275008 + Strongly Scented Hood 275010 (Mugg), Band of Bossman 286428 (Toof), Blueprint: Expert Campfire 273101 (Grox 4.27 %); Krol'dok Warplate Helmet 275006 is a Nar'gurk drop (29.67 %), not trash - https://www.method.gg/wow-forever/dungeons/kroldok-stronghold, https://www.wowhead.com/forever/item=275008, https://www.wowhead.com/forever/item=273101
+- Pre-quests outside the dungeon: Alliance Saving Sunnyglade 94877, Scraps of Knowledge 94879, Curious Trinkets 94881 (Ashe Amberhall / Demar Brant); Horde The Wayward Warrior 94744 (Krom'rosh) - https://www.method.gg/wow-forever/dungeons/kroldok-stronghold, https://www.wowhead.com/forever/quest=94877

@@ -60,15 +60,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 33.97,
+     "wowhead_dropped_by": "Overseer Wrex",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -78,15 +79,35 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.78,
+     "wowhead_dropped_by": "Overseer Wrex",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 276732,
+     "name": "Alcaz Willcrusher",
+     "slot": "Two-Hand Mace",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 29.62,
+     "wowhead_dropped_by": "Overseer Wrex",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -117,15 +138,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 30.16,
+     "wowhead_dropped_by": "The Questioner",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -135,15 +157,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 37.94,
+     "wowhead_dropped_by": "The Questioner",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -164,6 +187,24 @@
       "guide",
       "wowhead-forever"
      ]
+    },
+    {
+     "item_id": 274029,
+     "name": "Ornate Shackle Key",
+     "slot": "Quest",
+     "quality": null,
+     "quest_item": true,
+     "chance_guide": null,
+     "chance_wowhead_forever": null,
+     "wowhead_dropped_by": null,
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide"
+     ]
     }
    ]
   },
@@ -182,7 +223,7 @@
      "name_ok": true
     }
    ],
-   "location": "naga room with caster adds",
+   "location": "naga room with caster adds, near the cells soon after the entrance",
    "optional": false,
    "pin": null,
    "loot": [
@@ -193,15 +234,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 28.98,
+     "wowhead_dropped_by": "Tidemistress Ca'zass",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -211,15 +253,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 34.44,
+     "wowhead_dropped_by": "Tidemistress Ca'zass",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -229,15 +272,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.07,
+     "wowhead_dropped_by": "Tidemistress Ca'zass",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -275,7 +319,7 @@
      "name_ok": true
     }
    ],
-   "location": "room with chained prisoners",
+   "location": "room with chained prisoners behind the locked door (Overseer's Keyring 263992 from Wrex)",
    "optional": false,
    "pin": null,
    "loot": [
@@ -286,15 +330,16 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 36.1,
+     "wowhead_dropped_by": "Katerina the Cleaner",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
      ]
     },
     {
@@ -304,15 +349,35 @@
      "quality": 3,
      "quest_item": false,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
-     "wowhead_dropped_by": null,
+     "chance_wowhead_forever": 32.62,
+     "wowhead_dropped_by": "Katerina the Cleaner",
      "chance_repo": null,
      "in_guide": true,
      "in_repo": false,
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 276740,
+     "name": "Sentimental Locket",
+     "slot": "Neck",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 31.28,
+     "wowhead_dropped_by": "Katerina the Cleaner",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -336,10 +401,11 @@
      "wowhead_name": "Zarla Ober",
      "zone": null,
      "name_de": "[Zarla Ober]",
-     "name_ok": false
+     "name_ok": true,
+     "role": "Zarla Ober = Blazeroar's prisoner disguise (same encounter)"
     }
    ],
-   "location": "final room; disguised as prisoner Zarla Ober",
+   "location": "near the end of the prison; disguised as prisoner Zarla Ober (255707); hidden room behind holds the Perfumed Note",
    "optional": false,
    "pin": null,
    "loot": [
@@ -350,7 +416,7 @@
      "quality": 1,
      "quest_item": true,
      "chance_guide": null,
-     "chance_wowhead_forever": null,
+     "chance_wowhead_forever": 11.89,
      "wowhead_dropped_by": "Blazeroar",
      "chance_repo": null,
      "in_guide": true,
@@ -358,7 +424,65 @@
      "forever_confirmed": true,
      "not_on_wowhead_forever": false,
      "sources": [
-      "guide"
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 276744,
+     "name": "Zarla's Snack Pouch",
+     "slot": "Trinket",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 33.48,
+     "wowhead_dropped_by": "Blazeroar",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 276745,
+     "name": "Beastbond Robe",
+     "slot": "Chest Cloth",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 29.3,
+     "wowhead_dropped_by": "Blazeroar",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
+     ]
+    },
+    {
+     "item_id": 276746,
+     "name": "Defias Enforcer's Legguards",
+     "slot": "Legs Leather",
+     "quality": 3,
+     "quest_item": false,
+     "chance_guide": null,
+     "chance_wowhead_forever": 35.68,
+     "wowhead_dropped_by": "Blazeroar",
+     "chance_repo": null,
+     "in_guide": true,
+     "in_repo": false,
+     "forever_confirmed": true,
+     "not_on_wowhead_forever": false,
+     "sources": [
+      "guide",
+      "wowhead-forever"
      ]
     }
    ]
@@ -534,19 +658,16 @@
   "No pin for 'The Questioner' (encounter 3415) in DungeonPinData.lua.",
   "No pin for 'Tidemistress Ca'zass' (encounter 3410) in DungeonPinData.lua.",
   "No pin for 'Katerina the Cleaner' (encounter 3418) in DungeonPinData.lua.",
-  "NPC 255707 is 'Zarla Ober' on Wowhead Forever, guide says 'Blazeroar'.",
   "No pin for 'Blazeroar' (encounter 3409) in DungeonPinData.lua."
  ],
  "guide_notes": [
   "conquestcapped: no drop chances stated; many quest IDs not public yet",
   "Boss levels: Wrex 50, Questioner 51, Ca'zass 50, Katerina 52, Blazeroar 53",
   "Overseer Wrex npc ID not listed on either source",
-  "Cloak of the Tidemistress and Katerina's Shanker are 'probable' attributions",
-  "Blazeroar boss loot not recorded yet",
-  "Unattributed probable loot: Alcaz Willcrusher 276732 (2H Mace), Sentimental Locket 276740 (Neck), Defias Enforcer's Legguards 276746 (Legs leather); trash BoE: Defias Enforcer's Prowlers 287021, Mask 287019, Chest 287020",
   "warcrafttavern says level 48-55, pre-launch page with no IDs/quests",
   "Quest level range from conquestcapped: quests open at 46 or 48",
-  "Commander Folkar hostile to Alliance; Horde equivalent giver note: Mazu'kon (264074) Mulgore"
+  "Commander Folkar hostile to Alliance; Horde equivalent giver note: Mazu'kon (264074) Mulgore",
+  "Trash BoE: Defias Enforcer's Prowlers 287021, Mask 287019, Chest 287020, Compound Gloves 287018 (unconfirmed); Blood Red Bandana 274028 from Defias guards"
  ],
  "zone_id": null,
  "zone_name_en": null,
@@ -554,15 +675,15 @@
  "assessment": {
   "bosses": "partial",
   "pins": "missing",
-  "loot": "partial",
+  "loot": "ok",
   "quests": "partial",
   "quests_in_addon": 0,
-  "loot_rows": 11,
-  "loot_confirmed": 11,
-  "loot_with_chance": 1,
+  "loot_rows": 16,
+  "loot_confirmed": 16,
+  "loot_with_chance": 15,
   "forever_confirmed": "yes",
   "boss_count": 5,
-  "boss_ok": 3,
+  "boss_ok": 4,
   "pin_ok": 0,
   "enc_count": 5,
   "q_tot": 9
@@ -570,6 +691,31 @@
  "top_points": [
   "9 of 9 quests missing in DungeonQuests.lua",
   "No pin for 'Overseer Wrex' (encounter 3403) in DungeonPinData.lua. (+4 more)",
-  "NPC 255707 is 'Zarla Ober' on Wowhead Forever, guide says 'Blazeroar'."
+  "1 loot rows without drop chance"
+ ],
+ "updates_2026_11_16": [
+  {
+   "fact": "Blazeroar loot found: Zarla's Snack Pouch 276744 (WH-F 33.48 %), Beastbond Robe 276745 (29.30 %), Defias Enforcer's Legguards 276746 (35.68 %); Zarla's Journal 276890 11.89 %",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-alcaz-prison-guide/",
+    "https://warcraft.wiki.gg/wiki/Alcaz_Prison",
+    "https://www.wowhead.com/forever/item=276744"
+   ]
+  },
+  {
+   "fact": "Overseer Wrex also drops Alcaz Willcrusher 276732 (29.62 %); Sentimental Locket 276740 is Katerina's (31.28 %); Questioner drops Ornate Shackle Key 274029 (quest key for Zarla Ober); all boss items now have WH-F drop chances",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-alcaz-prison-guide/",
+    "https://www.wowhead.com/forever/item=276732",
+    "https://www.wowhead.com/forever/item=276740"
+   ]
+  },
+  {
+   "fact": "warcraft.wiki.gg (13 Nov): order Questioner > Ca'zass > Wrex > Katerina > Blazeroar, level 48-53, Wowhead zone 16620. Overseer Wrex NPC ID still unpublished (no Wowhead page)",
+   "sources": [
+    "https://warcraft.wiki.gg/wiki/Alcaz_Prison",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-alcaz-prison-guide/"
+   ]
+  }
  ]
 }
