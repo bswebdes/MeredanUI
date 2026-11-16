@@ -40,6 +40,8 @@ end
 -- as text. Alliance always left, Horde right. Blizzard's widgets stay (layout, tooltips) but invisible.
 local BOARD_W, BOARD_H, EMBLEM_SIZE, GEM = 300, 40, 40, 6
 local MAX_GEMS = 5
+local LOGO = { alliance = 516949, horde = 516953 } -- Interface\\Timer\\<faction>-logo (battleground countdown)
+local MARK_SIZE, MARK_X = 120, 96
 local board
 local data = {}        -- team -> { score, max, text, flag }
 local hidden = setmetatable({}, { __mode = "k" })
@@ -64,26 +66,34 @@ local function Side(team, mirror)
     line:SetWidth(2 * ns.PixelSize())
     line:SetVertexColor(c[1], c[2], c[3], 1)
 
-    side.emblem = board:CreateTexture(nil, "OVERLAY")
+    -- flat faction logo as a watermark behind score and gems, cut off by the board edges
+    local mark = board.clip:CreateTexture(nil, "ARTWORK")
+    mark:SetTexture(LOGO[team])
+    mark:SetDesaturated(true)
+    mark:SetVertexColor(c[1] * 0.6 + 0.4, c[2] * 0.6 + 0.4, c[3] * 0.6 + 0.4, 0.22)
+    mark:SetSize(ns.Snap(MARK_SIZE), ns.Snap(MARK_SIZE))
+    mark:SetPoint("CENTER", board, edge, sign * ns.Snap(MARK_X), -ns.Snap(MARK_SIZE * 0.12))
+
+    side.emblem = board.front:CreateTexture(nil, "OVERLAY")
     side.emblem:SetAtlas(EMBLEM[team])
     side.emblem:SetSize(ns.Snap(EMBLEM_SIZE + 8), ns.Snap(EMBLEM_SIZE + 8))
     side.emblem:SetPoint("CENTER", board, edge, sign * ns.Snap(EMBLEM_SIZE / 2 - 2), 0)
-    side.score = ns.CreateText(board, 22, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
+    side.score = ns.CreateText(board.front, 22, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
     side.score:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_SIZE + 6), 0)
     side.score:SetTextColor(1, 1, 1)
-    side.text = ns.CreateText(board, 13, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
+    side.text = ns.CreateText(board.front, 13, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
     side.text:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_SIZE + 6), 0)
     side.text:SetPoint(inward, board, "CENTER", -sign * ns.Snap(14), 0)
     side.text:SetTextColor(1, 1, 1)
     side.gems = {}
     for i = 1, MAX_GEMS do
-        local gem = ns.UI.Diamond(board, GEM, c)
+        local gem = ns.UI.Diamond(board.front, GEM, c)
         gem:SetPoint("CENTER", side.score, inward, sign * ns.Snap(14 + (i - 1) * 17), 0)
         side.gems[i] = gem
     end
 
     -- carried flag on the emblem's inner top corner, pulsing
-    local flag = board:CreateTexture(nil, "OVERLAY", nil, 3)
+    local flag = board.front:CreateTexture(nil, "OVERLAY", nil, 3)
     flag:SetTexture(ns.MEDIA .. "Icons\\Flag")
     flag:SetSize(ns.Snap(16), ns.Snap(16))
     flag:SetPoint("CENTER", side.emblem, "TOP" .. inward, -sign * ns.Snap(8), -ns.Snap(8))
@@ -112,7 +122,18 @@ local function CreateBoard()
     shine:SetHeight(ns.Snap(BOARD_H / 2))
     shine:SetGradient("VERTICAL", CreateColor(1, 1, 1, 0), CreateColor(1, 1, 1, 0.06))
     ns.RuneFrame(board, { small = true })
-    local center = ns.UI.Diamond(board, 5)
+    -- layers: board textures (background, glow) < clip (watermarks, clipped) < front (content)
+    board.clip = CreateFrame("Frame", nil, board)
+    board.clip:SetAllPoints()
+    board.clip:SetClipsChildren(true)
+    board.clip:SetFrameLevel(board:GetFrameLevel() + 1)
+    local inner = CreateFrame("Frame", nil, board.clip) -- clipping applies to children of the clip frame
+    inner:SetAllPoints()
+    board.clip = inner
+    board.front = CreateFrame("Frame", nil, board)
+    board.front:SetAllPoints()
+    board.front:SetFrameLevel(board:GetFrameLevel() + 3)
+    local center = ns.UI.Diamond(board.front, 5)
     center:SetPoint("CENTER")
     board.sides = { alliance = Side("alliance", false), horde = Side("horde", true) }
     board:Hide()
