@@ -512,6 +512,8 @@ local PAGES = {
             end, Getter("actionBarFont"), Setter("actionBarFont", function() if ns.ApplyActionBarTexts then ns.ApplyActionBarTexts() end end))
             page:AddCheckbox(L["Mouseover casting"], Getter("mouseoverHeal"), Setter("mouseoverHeal", ns.ApplyMouseoverCast),
                 Help(L["Spells go to the unit under the mouse (e.g. a group frame) without targeting it. Same switch as Blizzard's mouseover cast."]))
+            page:AddCheckbox(L["Attack with abilities"], On("attackWithAbilities"), Setter("attackWithAbilities", ns.ApplyAttackWithAbilities),
+                Help(L["Attack spells on your bars also start auto attack, like in Retail. Out of mana or energy you keep hitting. Crowd control like Sap or Polymorph stays out."]))
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Mark old spell ranks"], On("spellRanks"), Setter("spellRanks", ns.RefreshSpellRanks),
                     Help(L["Small golden arrow on buttons whose spell has a higher rank you already know, and one notification when you learn one – click it to update your bars."]))

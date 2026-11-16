@@ -1753,6 +1753,8 @@ if GetLocale() == "deDE" then
     L["3D portrait in the health bar"] = "3D-Porträt im Lebensbalken"
     L["Player and target: the character model, zoomed to the head, faint inside the bar."] = "Spieler und Ziel: das Charaktermodell, auf den Kopf gezoomt, halb durchsichtig im Balken."
     L["Speed aspect pulses"] = "Tempo-Aspekt pulsiert"
+    L["Attack with abilities"] = "Angriff mit Fähigkeiten"
+    L["Attack spells on your bars also start auto attack, like in Retail. Out of mana or energy you keep hitting. Crowd control like Sap or Polymorph stays out."] = "Angriffszauber auf deinen Leisten starten auch den Autoangriff, wie in Retail. Ohne Mana oder Energie schlägst du weiter zu. Kontrollzauber wie Kopfnuss oder Verwandlung bleiben außen vor."
     L["The button of Aspect of the Cheetah or the Pack pulses while it is up, so you don't forget it. Faster when a fight starts."] = "Der Knopf von Aspekt des Geparden oder des Rudels pulsiert, solange er aktiv ist, damit du ihn nicht vergisst. Schneller, wenn ein Kampf beginnt."
     L["Hardcore mode"] = "Hardcore-Modus"
     L["Hardcore mode (just for fun)"] = "Hardcore-Modus (nur zum Spaß)"

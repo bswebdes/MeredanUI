@@ -33,7 +33,7 @@ local COMMON = {
 local STYLE_VALUES = {
     classic = {
         theme = "green", afkScreen = false, auraTime = "below",
-        castbar = "simple", executeLine = false, ammoCounter = false, swingTimer = false, petHelper = false, aspectIndicator = false,
+        castbar = "simple", executeLine = false, ammoCounter = false, swingTimer = false, petHelper = false, aspectIndicator = false, attackWithAbilities = false,
         threatBar = "hidden",
         autoRole = false, readyCheckReminder = false,
         tooltipAuraSource = false, tooltipItemLevel = false, characterItemLevels = false, upgrades = "off", emptySlots = false, mapReveal = false, mapZoneLevels = false,
@@ -49,7 +49,7 @@ local STYLE_VALUES = {
     },
     comfort = {
         theme = "class", afkScreen = true, auraTime = "bar",
-        castbar = "full", executeLine = true, ammoCounter = true, swingTimer = true, petHelper = true, aspectIndicator = true,
+        castbar = "full", executeLine = true, ammoCounter = true, swingTimer = true, petHelper = true, aspectIndicator = true, attackWithAbilities = true,
         threatBar = "group",
         autoRole = true, readyCheckReminder = true,
         tooltipAuraSource = true, tooltipItemLevel = true, characterItemLevels = true, upgrades = "damage", emptySlots = true, mapReveal = true, mapZoneLevels = true,
