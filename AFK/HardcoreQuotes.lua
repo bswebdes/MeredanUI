@@ -1,0 +1,36 @@
+-- Hardcore mode death quotes (AFK/Hardcore.lua): one at random under the death screen.
+-- { speaker enUS, speaker deDE, line enUS, line deDE }
+local _, ns = ...
+
+ns.HARDCORE_QUOTES = {
+    { "Illidan Stormrage", "Illidan Sturmgrimm", "You were not prepared. Clearly.", "Du warst nicht vorbereitet. Ganz offensichtlich." },
+    { "Hogger", "Hogger", "Grrr... Hogger did it! Hogger always does it!", "Grrr... Hogger war's! Hogger ist es immer!" },
+    { "Ragnaros", "Ragnaros", "Too soon! You have died TOO SOON!", "Zu früh! Du bist ZU FRÜH gestorben!" },
+    { "Onyxia", "Onyxia", "How fortuitous. Usually I have to take a deep breath first.", "Wie günstig. Normalerweise muss ich dafür erst tief Luft holen." },
+    { "Leeroy Jenkins", "Leeroy Jenkins", "At least you had chicken.", "Wenigstens hattest du Hähnchen." },
+    { "Thrall", "Thrall", "Lok'tar ogar! ...Well, not for you.", "Lok'tar ogar! ...Na ja, für dich nicht." },
+    { "The Lich King", "Der Lichkönig", "Rise! ...No? Then lie there.", "Erhebe dich! ...Nein? Dann bleib liegen." },
+    { "Kel'Thuzad", "Kel'Thuzad", "Your soul is mine. It is a little disappointing.", "Deine Seele gehört mir. Sie ist etwas enttäuschend." },
+    { "Edwin VanCleef", "Edwin van Cleef", "None may challenge the Brotherhood. You didn't even try.", "Niemand fordert die Bruderschaft heraus. Du hast es nicht mal versucht." },
+    { "Nefarian", "Nefarian", "Such a fitting end. I will add it to my experiments.", "Ein passendes Ende. Ich nehme es in meine Experimente auf." },
+    { "Mankrik", "Mankrik", "Have you seen my wife? No? You won't see anything anymore.", "Hast du meine Frau gesehen? Nein? Jetzt siehst du gar nichts mehr." },
+    { "Old Murk-Eye", "Altes Zwielichtauge", "Mrrglllgl! (He's laughing.)", "Mrrglllgl! (Er lacht.)" },
+    { "Cairne Bloodhoof", "Cairne Bluthuf", "The Earth Mother takes back what was never fit for her.", "Die Erdenmutter nimmt zurück, was nie zu ihr gepasst hat." },
+    { "Sylvanas Windrunner", "Sylvanas Windläufer", "Dying is easy. Coming back is for the Forsaken.", "Sterben ist leicht. Wiederkommen ist was für Verlassene." },
+    { "Jaina Proudmoore", "Jaina Prachtmeer", "I could have teleported you out. You didn't ask.", "Ich hätte dich wegteleportieren können. Du hast nicht gefragt." },
+    { "Magni Bronzebeard", "Magni Bronzebart", "Aye, that's what happens when ye fight sober.", "Tja, das kommt davon, wenn man nüchtern kämpft." },
+    { "Chromie", "Chromie", "I checked every timeline. You die in all of them.", "Ich hab alle Zeitlinien geprüft. Du stirbst in jeder." },
+    { "Spirit Healer", "Geistheiler", "Again? I'm starting to know your face.", "Schon wieder? Langsam kenne ich dein Gesicht." },
+    { "Bolvar Fordragon", "Bolvar Fordragon", "Stormwind will remember your sacrifice. Probably not.", "Sturmwind wird sich an dein Opfer erinnern. Eher nicht." },
+    { "Rexxar", "Rexxar", "Misha would have survived that.", "Misha hätte das überlebt." },
+    { "Gelbin Mekkatorque", "Gelbin Mekkadrill", "Fascinating! Let's try that again with more explosives.", "Faszinierend! Nochmal, diesmal mit mehr Sprengstoff." },
+    { "Harrison Jones", "Harrison Jones", "That belongs in a museum. Your gear, I mean.", "Das gehört ins Museum. Deine Ausrüstung, meine ich." },
+    { "Lord Victor Nefarius", "Lord Victor Nefarius", "Ah, another adventurer for my collection of failures.", "Ah, noch ein Abenteurer für meine Sammlung an Fehlschlägen." },
+    { "Vol'jin", "Vol'jin", "Ya be walkin' with the loa now, mon. Slowly.", "Du wandelst jetzt mit den Loa, Mann. Langsam." },
+    { "Van Cleef's Parrot", "Van Cleefs Papagei", "Squawk! Dead adventurer! Squawk!", "Krah! Toter Abenteurer! Krah!" },
+    { "Murloc", "Murloc", "Aaaaaughibbrgubugbugrguburgle!", "Aaaaaughibbrgubugbugrguburgle!" },
+    { "Princess Theradras", "Prinzessin Theradras", "You went down faster than my earth elementals.", "Du bist schneller gefallen als meine Erdelementare." },
+    { "C'Thun", "C'Thun", "You will die... oh. You already did.", "Du wirst sterben... ach. Schon passiert." },
+    { "Mr. Bigglesworth", "Mr. Bigglesworth", "Meow. (Even he saw that coming.)", "Miau. (Sogar er hat das kommen sehen.)" },
+    { "Varian Wrynn", "Varian Wrynn", "For the Alliance! ...Someone carry this one back.", "Für die Allianz! ...Trägt den hier mal jemand zurück?" },
+}

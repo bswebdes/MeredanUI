@@ -178,6 +178,7 @@ DamageMeter/DamageMeter.lua
 DamageMeter/DetailsSkin.lua
 CombatText/CombatText.lua
 AFK/AFK.lua
+AFK/HardcoreQuotes.lua
 AFK/Hardcore.lua
 Core/Profiles.lua
 Core/Layouts.lua

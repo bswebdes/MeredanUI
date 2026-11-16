@@ -1764,4 +1764,6 @@ if GetLocale() == "deDE" then
     L["Logging out in %d s"] = "Ausloggen in %d s"
     L["Keep playing"] = "Weiterspielen"
     L["Test – you won't be logged out"] = "Test – du wirst nicht ausgeloggt"
+    L["Hogger"] = "Hogger"
+    L["Melee"] = "Nahkampf"
 end

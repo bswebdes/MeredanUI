@@ -1,6 +1,8 @@
 -- Hardcore mode (fun, opt-in: hardcoreMode): on death the screen darkens, "YOU DIED" in red Cinzel,
 -- "Try again" logs out to character select after a 20 second countdown. A quiet "Keep playing"
 -- bottom right cancels it and Blizzard's release popup takes over as usual.
+-- Below: who killed you and with what (Blizzard's death recap), and a mocking quote from a
+-- famous NPC (AFK/HardcoreQuotes.lua).
 -- Logout timing: outside rested areas the game itself counts 20 seconds after Logout(), so it is
 -- called right away; in cities and inns it would be instant, so we count down first.
 -- The interface fades out while the death screen fades in, and comes back when it closes.
@@ -12,7 +14,7 @@ local COUNTDOWN = 20
 local FADE_IN, FADE_OUT = 1.5, 0.4
 local RED = { 0.86, 0.16, 0.12 }
 
-local screen, title, sub, countdown, retry, keep, testLabel
+local screen, title, sub, killer, killerIcon, quote, speaker, countdown, retry, keep, testLabel
 local progress, target = 0, 0 -- 0 = interface visible, 1 = death screen
 local minimapHidden
 local active, test, ownTimer, deadline, ticker
@@ -146,18 +148,42 @@ local function Create()
     sub:SetShadowOffset(1, -1)
     sub:SetPoint("TOP", title, "BOTTOM", 0, -10)
 
+    -- killer: spell icon + "Hogger · Melee"
+    killer = screen:CreateFontString(nil, "OVERLAY")
+    ns.SetFont(killer, 14, "")
+    killer:SetTextColor(0.9, 0.86, 0.78)
+    killer:SetShadowOffset(1, -1)
+    killer:SetPoint("TOP", sub, "BOTTOM", 10, -14)
+    killerIcon = screen:CreateTexture(nil, "OVERLAY")
+    killerIcon:SetSize(20, 20)
+    killerIcon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    killerIcon:SetPoint("RIGHT", killer, "LEFT", -6, 0)
+
     retry = ns.UI.Button(screen, L["Try again"], function()
         if test then return Hide() end
         if IsResting() or ownTimer then ownTimer = false; Logout() end -- outside, the game's countdown already runs
     end, 220)
     retry:SetHeight(32)
     retry.Text:SetFont(ns.DISPLAY_FONT, 15, "")
-    retry:SetPoint("TOP", sub, "BOTTOM", 0, -36)
+    retry:SetPoint("TOP", sub, "BOTTOM", 0, -60)
 
     countdown = screen:CreateFontString(nil, "OVERLAY")
     ns.SetFont(countdown, 13, "")
     countdown:SetTextColor(0.6, 0.58, 0.54)
     countdown:SetPoint("TOP", retry, "BOTTOM", 0, -12)
+
+    -- the quote, set apart further down
+    quote = screen:CreateFontString(nil, "OVERLAY")
+    ns.SetFont(quote, 20, "")
+    quote:SetTextColor(0.85, 0.82, 0.76)
+    quote:SetShadowOffset(1, -1)
+    quote:SetWidth(720)
+    quote:SetPoint("TOP", countdown, "BOTTOM", 0, -90)
+    speaker = screen:CreateFontString(nil, "OVERLAY")
+    speaker:SetFont(ns.DISPLAY_FONT, 14, "")
+    speaker:SetTextColor(0.79, 0.67, 0.45) -- bronze gold like section titles
+    speaker:SetShadowOffset(1, -1)
+    speaker:SetPoint("TOP", quote, "BOTTOM", 0, -10)
 
     -- quiet way out, bottom right
     keep = CreateFrame("Button", nil, screen)
@@ -179,12 +205,64 @@ local function Create()
     testLabel:SetText(L["Test – you won't be logged out"])
 end
 
+-- Last event of Blizzard's death recap: who and what. Values can be secret; then nothing shows.
+local function Plain(v) if not issecretvalue(v) then return v end end
+
+local function KillerInfo()
+    if not (C_DeathRecap and C_DeathRecap.HasRecapEvents and C_DeathRecap.HasRecapEvents()) then return end
+    local events = C_DeathRecap.GetRecapEvents()
+    local e = type(events) == "table" and events[1]
+    if not e then return end
+    local kind, spellId = Plain(e.event), Plain(e.spellId)
+    local source = not Plain(e.hideCaster) and Plain(e.sourceName) or nil
+    local what, icon
+    if kind == "SWING_DAMAGE" then
+        what = ACTION_SWING or L["Melee"]
+        icon = C_Spell.GetSpellTexture(Constants.DeathRecapConsts and Constants.DeathRecapConsts.SWING_DAMAGE_SPELL_ID or 6603)
+    elseif kind == "ENVIRONMENTAL_DAMAGE" then
+        local env = Plain(e.environmentalType)
+        what = env and _G["ACTION_ENVIRONMENTAL_DAMAGE_" .. env:upper()]
+        icon = "Interface\\Icons\\ability_creature_cursed_05"
+    else
+        what = Plain(e.spellName)
+        icon = spellId and C_Spell.GetSpellTexture(spellId)
+    end
+    return source, what, icon
+end
+
+local function ShowKiller(source, what, icon)
+    local text = source and what and (source .. "  ·  " .. what) or source or what
+    killer:SetText(text or "")
+    killerIcon:SetTexture(icon)
+    killerIcon:SetShown(text ~= nil and icon ~= nil)
+end
+
+local lastQuote
+local function PickQuote()
+    local list = ns.HARDCORE_QUOTES
+    local i
+    repeat i = math.random(#list) until i ~= lastQuote or #list < 2
+    lastQuote = i
+    local q = list[i]
+    local de = GetLocale() == "deDE"
+    quote:SetText(de and ("„" .. q[4] .. "“") or ("\"" .. q[3] .. "\""))
+    speaker:SetText("— " .. (de and q[2] or q[1]))
+end
+
 local function Show(isTest)
     if not screen then Create() end
     active, test = true, isTest and true or false
     local name, level = UnitName("player"), UnitLevel("player")
     sub:SetFormattedText(L["%s's journey ends at level %d."], name or "", level or 0)
     testLabel:SetShown(test)
+    PickQuote()
+    if test then
+        ShowKiller(L["Hogger"], ACTION_SWING or L["Melee"], C_Spell.GetSpellTexture(6603))
+    else
+        ShowKiller(nil)
+        -- the recap is filled right after death
+        C_Timer.After(0.3, function() if active and not test then ShowKiller(KillerInfo()) end end)
+    end
     deadline = GetTime() + COUNTDOWN
     ownTimer = false
     if not test then
