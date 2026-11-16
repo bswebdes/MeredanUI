@@ -471,9 +471,11 @@ local function SpellButton(parent, i)
     local UI = ns.UI
     -- Separate layer (UIParent child) so the window itself does not become protected
     local button = CreateFrame("Button", nil, overview.spellLayer, "SecureActionButtonTemplate")
-    -- Register both: with "cast on key down" (default) secure buttons only fire on down; "AnyUp"
-    -- alone makes clicks do nothing
-    button:RegisterForClicks("AnyUp", "AnyDown")
+    -- Cast on release only (like Blizzard's spellbook), otherwise every drag onto a bar starts with
+    -- a cast. useOnKeyDown false is needed: with "cast on key down" an "AnyUp"-only button would
+    -- never fire.
+    button:RegisterForClicks("AnyUp")
+    button:SetAttribute("useOnKeyDown", false)
     button:RegisterForDrag("LeftButton")
     button:SetScript("OnDragStart", function(self)
         if self.spellID and not InCombatLockdown() then C_Spell.PickupSpell(self.spellID) end

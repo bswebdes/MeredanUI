@@ -227,7 +227,10 @@ local function Card(i)
     if cards[i] then return cards[i] end
     local UI = ns.UI
     local card = CreateFrame("Button", nil, layer, "SecureActionButtonTemplate")
-    card:RegisterForClicks("AnyUp", "AnyDown")
+    -- Cast on release only, like Blizzard's spellbook: with ActionButtonUseKeyDown the press itself
+    -- would cast, so every drag onto a bar started with a cast. A drag never sends the release click.
+    card:RegisterForClicks("AnyUp")
+    card:SetAttribute("useOnKeyDown", false)
     card:RegisterForDrag("LeftButton")
     card:SetHeight(CARD_H)
     card.bg = card:CreateTexture(nil, "BACKGROUND")

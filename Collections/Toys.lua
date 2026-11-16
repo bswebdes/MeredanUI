@@ -100,7 +100,9 @@ end
 local function CreateCard(index)
     local UI = ns.UI
     local card = CreateFrame("Button", nil, grid, "InsecureActionButtonTemplate")
-    card:RegisterForClicks("AnyUp", "AnyDown")
+    -- use on release only, so dragging a toy onto a bar doesn't use it
+    card:RegisterForClicks("AnyUp")
+    card:SetAttribute("useOnKeyDown", false)
     card:RegisterForDrag("LeftButton")
     UI.Card(card)
     local hover = card:CreateTexture(nil, "HIGHLIGHT")
