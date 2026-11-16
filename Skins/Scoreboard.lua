@@ -124,26 +124,49 @@ local function HookScrollBox(box, fn)
     Each()
 end
 
--- Rows (PVPTableRowTemplate): Blizzard tints its highlight art per faction via SetVertexColor;
--- we hide that art and mirror the tint onto a flat fill.
-local ROW_ALPHA = 0.16
+-- Rows (PVPTableRowTemplate): Blizzard's highlight art is hidden. Ours, painted per Populate:
+-- zebra base, faction strip on the left with a fading faction glow, gold band on your own row.
+-- Cell texts stay Blizzard's (its font covers Cyrillic names).
+local FACTION_RGB = { [0] = { 0.90, 0.22, 0.20 }, [1] = { 0.30, 0.55, 1 } } -- 0 Horde, 1 Alliance
+local NEUTRAL_RGB = { 0.6, 0.6, 0.6 }
+local GLOW_WIDTH = 360
 local function SkinRow(row)
     if type(row) ~= "table" or not row.Backgrounds or not Once(row) then return end
     for _, background in ipairs(row.Backgrounds) do Fade(background) end
-    local fill = Tex(row, "BACKGROUND", -8, { 1, 1, 1, ROW_ALPHA })
-    fill:SetAllPoints()
-    local line = Tex(row, "BACKGROUND", -7, { 0, 0, 0, 0.35 })
+    local px = ns.PixelSize()
+    local base = Tex(row, "BACKGROUND", -8, { 1, 1, 1, 0.03 })
+    base:SetAllPoints()
+    local glow = Tex(row, "BACKGROUND", -7)
+    glow:SetTexture(WHITE)
+    glow:SetPoint("TOPLEFT")
+    glow:SetPoint("BOTTOMLEFT")
+    glow:SetWidth(GLOW_WIDTH)
+    local mine = Tex(row, "BACKGROUND", -6)
+    mine:SetTexture(WHITE)
+    mine:SetAllPoints()
+    local gold = ns.UI.ACCENT
+    mine:SetGradient("HORIZONTAL", CreateColor(gold[1], gold[2], gold[3], 0.30), CreateColor(gold[1], gold[2], gold[3], 0.06))
+    mine:Hide()
+    local strip = Tex(row, "BACKGROUND", -5)
+    strip:SetTexture(WHITE)
+    strip:SetPoint("TOPLEFT")
+    strip:SetPoint("BOTTOMLEFT")
+    strip:SetWidth(3 * px)
+    local line = Tex(row, "BACKGROUND", -4, { 0, 0, 0, 0.45 })
     line:SetPoint("BOTTOMLEFT")
     line:SetPoint("BOTTOMRIGHT")
-    line:SetHeight(ns.PixelSize())
-    local source = row.backgroundCenter or row.Backgrounds[1]
-    if source then
-        local r, g, b = source:GetVertexColor()
-        fill:SetColorTexture(r or 1, g or 1, b or 1, ROW_ALPHA)
-        hooksecurefunc(source, "SetVertexColor", function(_, nr, ng, nb)
-            fill:SetColorTexture(nr or 1, ng or 1, nb or 1, ROW_ALPHA)
-        end)
+    line:SetHeight(px)
+
+    local function Paint(_, rowData, dataIndex)
+        local c = type(rowData) == "table" and FACTION_RGB[rowData.faction] or NEUTRAL_RGB
+        strip:SetVertexColor(c[1], c[2], c[3], 1)
+        glow:SetGradient("HORIZONTAL", CreateColor(c[1], c[2], c[3], 0.26), CreateColor(c[1], c[2], c[3], 0))
+        base:SetColorTexture(1, 1, 1, (dataIndex or 0) % 2 == 0 and 0.045 or 0.012)
+        local own = type(rowData) == "table" and rowData.guid and G.IsPlayerGuid and G.IsPlayerGuid(rowData.guid)
+        mine:SetShown(own and true or false)
     end
+    if row.Populate then hooksecurefunc(row, "Populate", Paint) end
+    Paint(nil, nil, 0)
 end
 
 -- Column headers (sort buttons): built per match by ConstructPVPMatchTable, pooled by the table builder
@@ -155,7 +178,7 @@ local function SkinHeaders(categories)
             local hover = Tex(header, "HIGHLIGHT", 0, { 1, 1, 1, 0.08 })
             hover:SetPoint("TOPLEFT", -4, 2)
             hover:SetPoint("BOTTOMRIGHT", 4, -2)
-            if header.text then header.text:SetTextColor(unpack(UI.TEXT)) end
+            if header.text then header.text:SetTextColor(unpack(UI.ACCENT)) end
         end
     end
 end
@@ -168,16 +191,37 @@ end
 local function FitTab(tab)
     local text = tab.Text
     if not text then return end
+    local emblem = tab.muiEmblem
+    local active = tab.muiTabActive
+    if emblem then
+        emblem:SetDesaturated(not active)
+        emblem:SetAlpha(active and 1 or 0.6)
+        if tab.muiTabGem then tab.muiTabGem:Hide() end -- the emblem replaces the active gem
+    end
     text:SetWidth(0)
-    local width = math.max(TAB_MIN_W, math.ceil(text:GetStringWidth()) + 2 * TAB_TEXT_PAD)
-    text:SetWidth(width - 2 * TAB_TEXT_PAD)
-    tab:SetWidth(width)
+    local textWidth = math.ceil(text:GetUnboundedStringWidth())
+    local left = emblem and 34 or (active and 28 or 14)
+    text:ClearAllPoints()
+    text:SetPoint("LEFT", left, 0)
+    text:SetWidth(textWidth + 2)
+    tab:SetWidth(math.max(TAB_MIN_W, left + textWidth + TAB_TEXT_PAD - 10))
 end
 
 local function SkinTab(tab)
     if type(tab) ~= "table" or not Once(tab) then return end
     ns.SkinKit.Tab(tab)
     tabParts[tab] = true
+    -- Blizzard's factionEnum key on the tab: 1 Alliance, 0 Horde, -1 all
+    local emblem = tab.factionEnum == 1 and "AllianceEmblem" or tab.factionEnum == 0 and "HordeEmblem"
+    if emblem then
+        local icon = tab:CreateTexture(nil, "ARTWORK")
+        icon:SetAtlas(emblem)
+        icon:SetSize(20, 20)
+        icon:SetPoint("LEFT", 9, 0)
+        icon.muiKit = true
+        own[icon] = true
+        tab.muiEmblem = icon
+    end
     hooksecurefunc(tab, "SetText", FitTab)
 end
 
@@ -195,14 +239,13 @@ end
 
 -- Header ---------------------------------------------------------------------------------------------
 
-local function FactionIcon()
-    -- Banner icons: 01 Horde, 02 Alliance
-    return UnitFactionGroup("player") == "Horde" and 132485 or 132486
+local function FactionEmblem()
+    return UnitFactionGroup("player") == "Horde" and "HordeEmblem" or "AllianceEmblem"
 end
 
 local function UpdateHeader(window)
     if not window.subtitle then return end
-    window.icon:SetTexture(FactionIcon())
+    window.icon:SetAtlas(FactionEmblem())
     local text = ""
     if window.results then
         text = GetRealZoneText() or ""
@@ -281,17 +324,21 @@ local function SkinWindow(window)
     local holder = CreateFrame("Frame", nil, f)
     holder:SetSize(ICON, ICON)
     holder:SetPoint("TOPLEFT", PAD, -PAD)
-    ns.AddSlotBackground(holder)
-    ns.AddBorder(holder)
+    -- faction emblem, a bit larger than the slot so it reads as a crest
     local icon = holder:CreateTexture(nil, "ARTWORK")
-    icon:SetPoint("TOPLEFT", 1, -1)
-    icon:SetPoint("BOTTOMRIGHT", -1, 1)
-    icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    icon:SetPoint("TOPLEFT", -5, 5)
+    icon:SetPoint("BOTTOMRIGHT", 5, -5)
+    -- soft glow behind the crest
+    local halo = holder:CreateTexture(nil, "BACKGROUND")
+    halo:SetTexture(ns.MEDIA .. "SoftGlow")
+    halo:SetPoint("TOPLEFT", -26, 26)
+    halo:SetPoint("BOTTOMRIGHT", 26, -26)
+    halo:SetVertexColor(1, 0.82, 0.45, 0.35)
     window.holder, window.icon = holder, icon
     local header = window.header
     if header and header.Text then
-        ns.SetFont(header.Text, 16, "", "bold")
-        header.Text:SetTextColor(unpack(UI.TEXT))
+        ns.SetFont(header.Text, 20, "", "display")
+        header.Text:SetTextColor(unpack(UI.ACCENT))
         header.Text:SetWordWrap(false)
     end
     local subtitle = UI.Text(holder, 12, "LEFT", UI.MUTED)
