@@ -56,7 +56,10 @@ end
 local function MissingConsumables()
     local food, flask, rune = false, false, false
     local wellFed = C_Spell.GetSpellName(19705)
+    if C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret() then return {} end
     for i = 1, 255 do
+        if C_Secrets and C_Secrets.ShouldUnitAuraIndexBeSecret
+            and C_Secrets.ShouldUnitAuraIndexBeSecret("player", i, "HELPFUL") then break end
         local aura = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
         if not aura then break end
         local name, icon = aura.name, aura.icon

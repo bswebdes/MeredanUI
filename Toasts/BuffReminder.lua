@@ -41,9 +41,17 @@ local function Due(key)
 end
 
 -- Own helpful auras by name (only readable ones; out of combat own buffs are readable)
+-- Battlegrounds (and other restricted content) make auras secret even out of combat; querying
+-- them from addon code then throws, so skip the whole check there.
+local function AurasSecret()
+    return C_Secrets and C_Secrets.ShouldAurasBeSecret and C_Secrets.ShouldAurasBeSecret()
+end
+
 local function PlayerBuffs()
     local byName = {}
+    if AurasSecret() then return nil end
     for i = 1, 255 do
+        if C_Secrets.ShouldUnitAuraIndexBeSecret("player", i, "HELPFUL") then break end
         local aura = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
         if not aura then break end
         local name, spellID, source = aura.name, aura.spellId, aura.sourceUnit
@@ -66,6 +74,7 @@ local function CheckClassBuffs()
     local groups = CLASS_BUFFS[class]
     if not groups then return end
     local buffs = PlayerBuffs()
+    if not buffs then return end
     local missing, icon = {}, nil
     for _, group in ipairs(groups) do
         local known, found, foundOld, firstName, firstID = false, false, false, nil, nil

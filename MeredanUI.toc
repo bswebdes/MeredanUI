@@ -50,6 +50,7 @@ Minimap/Minimap.lua
 ActionBars/ActionBars.lua
 ActionBars/Gryphons.lua
 InfoBars/XPBar.lua
+InfoBars/TopWidgets.lua
 InfoBars/TrackingBars.lua
 InfoBars/InfoBar.lua
 ActionBars/MicroMenu.lua

@@ -268,7 +268,7 @@ local function Create()
     bar:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
     -- Pet XP: same width, thin, directly below (parented to the XP bar: same visibility)
-    petBar = CreateFrame("Frame", nil, bar)
+    petBar = CreateFrame("Frame", "MeredanUIPetXPBar", bar)
     petBar:SetSize(bar:GetWidth(), ns.Snap(PET_HEIGHT))
     petBar:SetPoint("TOP", bar, "BOTTOM", 0, -(ns.Snap(PET_GAP) + 2 * ns.ThinShellReach()))
     petBar:EnableMouse(true)
