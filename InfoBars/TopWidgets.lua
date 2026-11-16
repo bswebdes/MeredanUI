@@ -185,10 +185,12 @@ local function Conceal(widget, conceal)
     widget.Text:SetAlpha(a)
     local dynamic = widget.DynamicIconButton
     if dynamic and dynamic.Icon then dynamic.Icon:SetAlpha(a) end
-    if widget.Flash then widget.Flash:SetAlpha(a) end
+    -- UIFrameFlash drives the Flash frame's alpha every frame: hide its texture instead
+    if widget.Flash and widget.Flash.Texture then widget.Flash.Texture:SetAlpha(a) end
 end
 
-local function Style(widget, container)
+-- Setup(widgetInfo, container) hook; info is nil for our own first pass
+local function Style(widget, info, container)
     if container ~= UIWidgetTopCenterContainerFrame or not (widget.Icon and widget.Text) then return end
     local team, carried = ParseKit(widget.Icon:GetAtlas())
     if not (team and EMBLEM[team]) then -- other icon-and-text widgets stay Blizzard's
@@ -207,8 +209,14 @@ local function Style(widget, container)
     local text = widget.Text:GetText() or ""
     local score, max = text:match("^%s*(%d+)%s*/%s*(%d+)%s*$")
     local dynamic = widget.DynamicIconButton
-    local holding = dynamic and dynamic:IsShown() and dynamic.Icon and dynamic.Icon:IsShown()
-        and dynamic.Icon:GetAtlas()
+    local states = Enum.IconAndTextWidgetState
+    local shown
+    if info and states then
+        shown = info.state == states.ShownWithDynamicIconFlashing or info.state == states.ShownWithDynamicIconNotFlashing
+    else
+        shown = dynamic and dynamic:IsShown()
+    end
+    local holding = shown and dynamic and dynamic.Icon and dynamic.Icon:GetAtlas()
     local flag
     if holding then
         local _, f = ParseKit(holding)
@@ -227,7 +235,7 @@ ns:On("PLAYER_LOGIN", function()
     -- (they copied the unhooked Setup at creation, so hook them directly)
     for _, widget in pairs(UIWidgetTopCenterContainerFrame.widgetFrames or {}) do
         if widget.Icon and widget.Text and widget.Setup then hooksecurefunc(widget, "Setup", Style) end
-        Style(widget, UIWidgetTopCenterContainerFrame)
+        Style(widget, nil, UIWidgetTopCenterContainerFrame)
     end
     -- the XP and pet bars come and go (level, pet, visibility mode)
     for _, name in ipairs({ "MeredanUIXPBar", "MeredanUIPetXPBar" }) do
