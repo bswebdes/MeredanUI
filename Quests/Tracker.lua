@@ -793,6 +793,7 @@ end
 -- Returns how far the tracker moves down (0 = not at all).
 local BOSS_GAP = 14
 local BOSS_AURAS = 30 -- debuff row below each boss frame
+local SIDE_COLUMN = { "boss", "arena" }
 local function BossShift()
     if not (ns.LayoutFlag and ns.LayoutFlag("questlogUnderBosses")) or not ns.sideFrames then return 0 end
     local holder = _G["MeredanUIBossAnchor"]
@@ -802,9 +803,11 @@ local function BossShift()
     if holder:GetLeft() >= right or holder:GetRight() + 30 <= left then return 0 end
     local lowest
     for i = 1, 5 do
-        local boss = ns.sideFrames["boss" .. i]
-        if boss and boss:IsShown() and boss:GetBottom() then
-            lowest = math.min(lowest or math.huge, boss:GetBottom() - BOSS_AURAS)
+        for _, prefix in ipairs(SIDE_COLUMN) do -- battleground flag carriers share the boss column
+            local boss = ns.sideFrames[prefix .. i]
+            if boss and boss:IsShown() and boss:GetBottom() then
+                lowest = math.min(lowest or math.huge, boss:GetBottom() - BOSS_AURAS)
+            end
         end
     end
     if not lowest then return 0 end
@@ -1347,10 +1350,12 @@ local function Setup()
     -- boss frames come and go (also in combat): tracker follows
     C_Timer.After(1, function()
         for i = 1, 5 do
-            local boss = ns.sideFrames and ns.sideFrames["boss" .. i]
-            if boss then
-                boss:HookScript("OnShow", Refresh)
-                boss:HookScript("OnHide", Refresh)
+            for _, prefix in ipairs(SIDE_COLUMN) do
+                local boss = ns.sideFrames and ns.sideFrames[prefix .. i]
+                if boss then
+                    boss:HookScript("OnShow", Refresh)
+                    boss:HookScript("OnHide", Refresh)
+                end
             end
         end
     end)
