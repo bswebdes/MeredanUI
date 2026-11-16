@@ -38,10 +38,11 @@ end
 --
 -- Scores like "2/3" become gems (filled = captured); any other text (other battlegrounds) is shown
 -- as text. Alliance always left, Horde right. Blizzard's widgets stay (layout, tooltips) but invisible.
-local BOARD_W, BOARD_H, EMBLEM_SIZE, GEM = 300, 40, 40, 6
+local BOARD_W, BOARD_H, EMBLEM_SIZE, GEM = 320, 46, 44, 6
+local EMBLEM_INSET = 4 -- crest fully inside the board
 local MAX_GEMS = 5
 local LOGO = { alliance = 516949, horde = 516953 } -- Interface\\Timer\\<faction>-logo (battleground countdown)
-local MARK_SIZE, MARK_X = 120, 96
+local MARK_SIZE, MARK_X = 130, 108
 local board
 local data = {}        -- team -> { score, max, text, flag }
 local hidden = setmetatable({}, { __mode = "k" })
@@ -76,13 +77,13 @@ local function Side(team, mirror)
 
     side.emblem = board.front:CreateTexture(nil, "OVERLAY")
     side.emblem:SetAtlas(EMBLEM[team])
-    side.emblem:SetSize(ns.Snap(EMBLEM_SIZE + 8), ns.Snap(EMBLEM_SIZE + 8))
-    side.emblem:SetPoint("CENTER", board, edge, sign * ns.Snap(EMBLEM_SIZE / 2 - 2), 0)
+    side.emblem:SetSize(ns.Snap(EMBLEM_SIZE), ns.Snap(EMBLEM_SIZE))
+    side.emblem:SetPoint("CENTER", board, edge, sign * ns.Snap(EMBLEM_INSET + EMBLEM_SIZE / 2), 0)
     side.score = ns.CreateText(board.front, 22, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
-    side.score:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_SIZE + 6), 0)
+    side.score:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_INSET + EMBLEM_SIZE + 8), 0)
     side.score:SetTextColor(1, 1, 1)
     side.text = ns.CreateText(board.front, 13, mirror and "RIGHT" or "LEFT", "OUTLINE", "bold")
-    side.text:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_SIZE + 6), 0)
+    side.text:SetPoint(edge, board, edge, sign * ns.Snap(EMBLEM_INSET + EMBLEM_SIZE + 8), 0)
     side.text:SetPoint(inward, board, "CENTER", -sign * ns.Snap(14), 0)
     side.text:SetTextColor(1, 1, 1)
     side.gems = {}
