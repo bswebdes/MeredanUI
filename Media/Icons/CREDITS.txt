@@ -21,6 +21,7 @@ https://pictogrammers.com/library/mdi/ – https://github.com/Templarian/Materia
   Navigation.tga  mdi:navigation
   Search.tga      mdi:magnify
   Fishing.tga     mdi:fish
+  Speed.tga       mdi:run-fast
   RoleDamage.tga  mdi:sword
   ChevronDown.tga mdi:chevron-down
   Close.tga       mdi:close-thick

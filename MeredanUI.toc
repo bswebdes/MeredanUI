@@ -41,6 +41,7 @@ UnitFrames/ThreatBar.lua
 UnitFrames/SwingTimer.lua
 UnitFrames/ClassReagents.lua
 UnitFrames/PetHelper.lua
+UnitFrames/AspectIndicator.lua
 UnitFrames/MirrorTimers.lua
 Core/Test.lua
 
@@ -177,6 +178,7 @@ DamageMeter/DamageMeter.lua
 DamageMeter/DetailsSkin.lua
 CombatText/CombatText.lua
 AFK/AFK.lua
+AFK/Hardcore.lua
 Core/Profiles.lua
 Core/Layouts.lua
 Core/Presets.lua

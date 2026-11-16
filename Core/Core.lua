@@ -293,6 +293,8 @@ local DEFAULTS = {
     -- Progress bars: one visibility for XP, reputation, honor, house favor
     xpBar = { mode = "always", quests = "all" }, -- quests: "all", "complete", "none"
     ammoCounter = true,          -- ammo counter below the player frame (Forever only, with ammo only)
+    aspectIndicator = true,      -- Comfort, Forever hunters: running icon on the player frame while Cheetah/Pack is up (UnitFrames/AspectIndicator.lua)
+    hardcoreMode = false,        -- fun: death screen with logout countdown (AFK/Hardcore.lua)
     petHelper = true,            -- pet helper: paw on the pet frame, feeding + happiness toast (Forever only, hunters)
     lfgHighlight = true,         -- highlight group finder messages in chat (Chat/LFGHighlight.lua, Forever only)
     professionReminder = true,   -- profession reminder: next rank learnable (Toasts/ProfessionReminder.lua, Forever only)

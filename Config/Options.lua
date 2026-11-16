@@ -233,6 +233,15 @@ local PAGES = {
             page:AddHeader(L["Away"])
             page:AddCheckbox(L["Cinema screen while AFK"], On("afkScreen"), Setter("afkScreen"),
                 Help(L["Cinema bars slide in, the interface fades out and the camera slowly circles your character. Move or click to come back."]))
+            if not (C_GameRules and C_GameRules.IsHardcoreActive and C_GameRules.IsHardcoreActive()) then
+                page:AddHeader(L["Hardcore mode"])
+                local row = page:AddCheckbox(L["Hardcore mode (just for fun)"], Getter("hardcoreMode"), Setter("hardcoreMode"),
+                    Help(L["When you die: dark screen, \"Try again\" logs you out after 20 seconds. \"Keep playing\" bottom right lets you carry on."]))
+                local testButton = ns.UI.Button(row, L["Test"], function() ns.HardcoreTest() end, 80)
+                testButton:SetHeight(20)
+                testButton:SetPoint("RIGHT")
+                testButton:SetFrameLevel(row:GetFrameLevel() + 5) -- above the checkbox's full-row click area
+            end
         end,
     },
     {
@@ -303,6 +312,8 @@ local PAGES = {
                 page:AddHeader(L["Pet helper"])
                 page:AddCheckbox(L["Show pet helper"], On("petHelper"), Setter("petHelper", ns.UpdatePetHelper),
                     Help(L["Paw left of your pet frame: colour shows its mood, click feeds it with suitable food from your bags. One notification when its mood drops."]))
+                page:AddCheckbox(L["Show speed aspect"], On("aspectIndicator"), Setter("aspectIndicator", ns.UpdateAspectIndicator),
+                    Help(L["Running icon on your player frame while Aspect of the Cheetah or the Pack is up, so you don't forget it. Pulses harder when a fight starts."]))
             end
             page:AddHeader(L["Threat bar"])
             page:AddDropdown(L["Visibility"], function()
