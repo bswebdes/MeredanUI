@@ -1,12 +1,13 @@
 -- Speed aspect indicator (Forever, hunter, Comfort: aspectIndicator): while Aspect of the Cheetah
--- or Aspect of the Pack is up, a running icon sits in the player frame's status row with a soft
--- Surf Green pulse - both daze you when hit, so they are easy to forget. Entering combat with one
+-- or Aspect of the Pack is up, a small medallion (dark disc, bronze ring, white running icon) sits
+-- in the player frame's status row with a soft Surf Green glow pulsing behind it - readable on any
+-- bar colour - both daze you when hit, so they are easy to forget. Entering combat with one
 -- of them up pulses harder for a few seconds. No sound, no text.
 local _, ns = ...
 if not ns.IS_FOREVER then return end
 
 local ASPECTS = { 5118, 13159 } -- Cheetah, Pack (single rank each)
-local SIZE = 18
+local SIZE = 24 -- medallion; neighbours in the status row are 18 + 4 apart, so it just clears them
 local COMBAT_PULSE = 4 -- seconds of the strong pulse after entering combat
 
 local icon, glow, pulse, strong
@@ -26,9 +27,9 @@ end
 local function SetStrong(on)
     strong = on
     if not pulse then return end
-    local duration, size = on and 0.35 or 1.1, on and 1.6 or 1.25
+    local duration, size = on and 0.35 or 1.1, on and 1.45 or 1.15
     pulse.anim:SetDuration(duration)
-    pulse.anim:SetToAlpha(on and 1 or 0.55)
+    pulse.anim:SetToAlpha(on and 1 or 0.7)
     pulse.scale:SetDuration(duration)
     pulse.scale:SetScaleTo(size, size)
     if pulse:IsPlaying() then pulse:Stop(); pulse:Play() end -- new timing only applies on restart
@@ -38,7 +39,6 @@ local function Update()
     if not icon then return end
     local show = demo or (Enabled() and AspectUp())
     icon:SetShown(show)
-    glow:SetShown(show)
     if show then
         if not pulse:IsPlaying() then pulse:Play() end
     else
@@ -49,22 +49,45 @@ end
 
 local function Create(player)
     local row, layer = player.muiStatusRow, player.muiStatusLayer
-    icon = ns.CreateStatusIcon(layer, "Speed", SIZE, ns.UI.ACCENT)
-    row.Add(icon)
+    local px = ns.PixelSize()
+    icon = CreateFrame("Frame", nil, layer)
+    icon:SetSize(SIZE, SIZE)
+    icon:SetFrameLevel(layer:GetFrameLevel() + 2)
 
-    -- additive copy behind the icon that breathes outward
-    glow = layer:CreateTexture(nil, "OVERLAY", nil, 5)
-    glow:SetTexture(ns.IconPath("Speed"))
+    -- soft glow behind the medallion that breathes outward
+    glow = icon:CreateTexture(nil, "BACKGROUND")
+    glow:SetTexture(ns.MEDIA .. "SoftGlow")
     glow:SetBlendMode("ADD")
     glow:SetVertexColor(unpack(ns.UI.ACCENT))
-    glow:SetPoint("CENTER", icon, "CENTER")
-    glow:SetSize(SIZE, SIZE)
-    glow:Hide()
+    glow:SetPoint("CENTER")
+    glow:SetSize(SIZE * 1.7, SIZE * 1.7)
+
+    local shadow = icon:CreateTexture(nil, "BORDER", nil, 0)
+    shadow:SetTexture(ns.MEDIA .. "Disc")
+    shadow:SetVertexColor(0, 0, 0, 0.6)
+    shadow:SetPoint("CENTER", 0, -2 * px)
+    shadow:SetSize(SIZE + 4 * px, SIZE + 4 * px)
+    local ring = icon:CreateTexture(nil, "BORDER", nil, 1)
+    ring:SetTexture(ns.MEDIA .. "Disc")
+    ring:SetVertexColor(ns.ITEM_EDGE[1], ns.ITEM_EDGE[2], ns.ITEM_EDGE[3], 1)
+    ring:SetAllPoints()
+    local disc = icon:CreateTexture(nil, "ARTWORK")
+    disc:SetTexture(ns.MEDIA .. "Disc")
+    disc:SetVertexColor(0.086, 0.075, 0.059, 1)
+    disc:SetPoint("TOPLEFT", ns.Snap(2), -ns.Snap(2))
+    disc:SetPoint("BOTTOMRIGHT", -ns.Snap(2), ns.Snap(2))
+    local runner = icon:CreateTexture(nil, "OVERLAY")
+    ns.SetIcon(runner, "Speed")
+    runner:SetVertexColor(1, 1, 1)
+    runner:SetPoint("CENTER")
+    runner:SetSize(SIZE * 0.62, SIZE * 0.62)
+
+    row.Add(icon)
 
     pulse = glow:CreateAnimationGroup()
     pulse:SetLooping("BOUNCE")
     pulse.anim = pulse:CreateAnimation("Alpha")
-    pulse.anim:SetFromAlpha(0)
+    pulse.anim:SetFromAlpha(0.15)
     pulse.scale = pulse:CreateAnimation("Scale")
     pulse.scale:SetScaleFrom(1, 1)
     pulse.scale:SetOrigin("CENTER", 0, 0)
