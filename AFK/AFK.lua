@@ -196,7 +196,9 @@ end
 
 ns:On("PLAYER_FLAGS_CHANGED", function(_, unit)
     if unit ~= "player" then return end
-    if UnitIsAFK("player") then Start() else ns.StopAFKScreen() end
+    local afk = UnitIsAFK("player")
+    if issecretvalue(afk) then return end -- secret in battlegrounds
+    if afk then Start() else ns.StopAFKScreen() end
 end)
 ns:On("PLAYER_REGEN_DISABLED", function() ns.StopAFKScreen(true) end)
 ns:On("PLAYER_LEAVING_WORLD", function() ns.StopAFKScreen(true) end)

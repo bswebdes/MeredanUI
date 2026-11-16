@@ -194,7 +194,10 @@ end
 local function SmallFrames()
     local list = {}
     for unit, frame in pairs(ns.smallFrames or {}) do list[unit] = frame end
-    for unit, frame in pairs(ns.sideFrames or {}) do list[unit] = frame end
+    for unit, frame in pairs(ns.sideFrames or {}) do
+        -- flag carriers share the boss column: previewing both would stack them on top of each other
+        if not unit:match("^arena%d$") then list[unit] = frame end
+    end
     return list
 end
 

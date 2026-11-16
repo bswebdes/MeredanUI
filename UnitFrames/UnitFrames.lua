@@ -607,6 +607,25 @@ local function SideStyle(self, unit)
     buffs:AddGroup("HELPFUL|IMPORTANT", { maxFrameCount = SIDE_BUFFS - 1 })
     self.AuraRows = { debuffs, buffs }
     self.Sizes = S
+
+    -- Battleground flag carriers (Blizzard reuses the arena units): the carried flag outside left
+    if unit:match("^arena%d$") then
+        local flag = self:CreateTexture(nil, "OVERLAY")
+        local size = S.health + px + S.power
+        flag:SetSize(size, size)
+        flag:SetPoint("RIGHT", self, "LEFT", -(S.step + 2 * S.plateOut), 0)
+        flag:Hide()
+        health.PostUpdate = function(_, frameUnit)
+            local faction = UnitFactionGroup(frameUnit)
+            if faction == "Horde" or faction == "Alliance" then
+                -- a Horde player carries the Alliance flag and vice versa
+                flag:SetAtlas(faction == "Horde" and "nameplates-icon-flag-alliance" or "nameplates-icon-flag-horde")
+                flag:Show()
+            else
+                flag:Hide()
+            end
+        end
+    end
 end
 
 -- Hide empty power on other units (e.g. beasts without energy). Other units' power is secret on
@@ -756,7 +775,7 @@ oUF:RegisterStyle("Meredan", function(self, unit)
     ns.SnapBarsOnUnitChange(self)
     if unit == "pet" or unit == "targettarget" then
         SmallStyle(self, unit)
-    elseif unit == "focus" or unit:match("^boss%d$") then
+    elseif unit == "focus" or unit:match("^boss%d$") or unit:match("^arena%d$") then
         SideStyle(self, unit)
     else
         Style(self, unit)
@@ -869,6 +888,14 @@ oUF:Factory(function(self)
         ns.layoutFrames.boss = bossAnchor
     end
     C_Timer.After(1, ns.PlaceBossFrames) -- in case the quest tracker module never calls
+
+    -- Battleground flag carriers (arena1-2; Blizzard's old arena frames): same column as the boss
+    -- frames - there are no bosses in battlegrounds. oUF hides Blizzard's frames.
+    for i = 1, 5 do
+        local arena = self:Spawn("arena" .. i)
+        arena:SetPoint("TOPLEFT", bossAnchor, "TOPLEFT", 0, -(i - 1) * step)
+        ns.sideFrames["arena" .. i] = arena
+    end
 
 end)
 
