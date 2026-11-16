@@ -312,8 +312,6 @@ local PAGES = {
                 page:AddHeader(L["Pet helper"])
                 page:AddCheckbox(L["Show pet helper"], On("petHelper"), Setter("petHelper", ns.UpdatePetHelper),
                     Help(L["Paw left of your pet frame: colour shows its mood, click feeds it with suitable food from your bags. One notification when its mood drops."]))
-                page:AddCheckbox(L["Show speed aspect"], On("aspectIndicator"), Setter("aspectIndicator", ns.UpdateAspectIndicator),
-                    Help(L["Running icon on your player frame while Aspect of the Cheetah or the Pack is up, so you don't forget it. Pulses harder when a fight starts."]))
             end
             page:AddHeader(L["Threat bar"])
             page:AddDropdown(L["Visibility"], function()
@@ -427,6 +425,12 @@ local PAGES = {
             page:AddTitle(L["Buffs & debuffs"], L["Your buffs and debuffs left of the minimap. The preview shows changes right away."])
             page:AddDropdown(L["Size"], StageItems, Getter("auraSize"), Live("auraSize"), RELOAD)
             page:AddDropdown(L["Time remaining"], AuraTimeItems, Getter("auraTime"), Live("auraTime"), RELOAD)
+            if ns.IS_FOREVER and select(2, UnitClass("player")) == "HUNTER" then
+                page:AddCheckbox(L["Speed aspect pulses"], On("aspectIndicator"), Setter("aspectIndicator", function()
+                    ns.UpdateAspectIndicator()
+                    if ns.RefreshAurasDemo then ns.RefreshAurasDemo() end
+                end), Help(L["Aspect of the Cheetah or the Pack pulses in your buff bar while it is up, so you don't forget it. Faster when a fight starts."]))
+            end
         end,
     },
     {

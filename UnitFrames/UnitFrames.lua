@@ -353,7 +353,6 @@ local function Style(self, unit)
         local resting = ns.CreateStatusIcon(top, "Resting", 18, STYLE.restingColor)
         resting:SetPoint("CENTER", self, "TOP" .. far, -14 * dir, ns.Snap(5))
         self.RestingIndicator = resting
-        self.muiStatusLayer = top -- layer above the bars for extra icons (UnitFrames/AspectIndicator.lua)
     else
         self.QuestIndicator = Status("Quest", STYLE.questColor)
         self.PhaseIndicator = Status("Phase", STYLE.phaseColor)
