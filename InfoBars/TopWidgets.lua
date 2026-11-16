@@ -35,22 +35,26 @@ local function ParseKit(atlas)
 end
 
 local parts = setmetatable({}, { __mode = "k" })
+local PLATE_W, PLATE_H, EMBLEM_SIZE, FLAG_SIZE = 104, 22, 22, 14
 
+-- Our own row on top of Blizzard's widget (its icon art is 42 px tall with empty space and overlaps
+-- the next widget, so we do not reuse its layout): fixed width, so all rows line up.
 local function Build(widget)
     local p = {}
     local px = ns.PixelSize()
     local plate = CreateFrame("Frame", nil, widget)
-    plate:SetFrameLevel(math.max(widget:GetFrameLevel() - 1, 0))
+    plate:SetSize(ns.Snap(PLATE_W), ns.Snap(PLATE_H))
+    plate:SetPoint("CENTER", widget, "CENTER", 0, 0)
     p.plate = plate
     local bg = plate:CreateTexture(nil, "BACKGROUND")
     bg:SetAllPoints()
     bg:SetTexture(WHITE)
-    bg:SetGradient("HORIZONTAL", CreateColor(0.05, 0.04, 0.03, 0.85), CreateColor(0.05, 0.04, 0.03, 0.35))
+    bg:SetGradient("HORIZONTAL", CreateColor(0.05, 0.04, 0.03, 0.9), CreateColor(0.05, 0.04, 0.03, 0.6))
     p.tint = plate:CreateTexture(nil, "BORDER")
     p.tint:SetTexture(WHITE)
     p.tint:SetPoint("TOPLEFT")
     p.tint:SetPoint("BOTTOMLEFT")
-    p.tint:SetWidth(ns.Snap(40))
+    p.tint:SetWidth(ns.Snap(56))
     p.edge = plate:CreateTexture(nil, "ARTWORK")
     p.edge:SetTexture(WHITE)
     p.edge:SetPoint("TOPLEFT")
@@ -58,18 +62,16 @@ local function Build(widget)
     p.edge:SetWidth(2 * px)
     ns.AddBorder(plate)
 
-    p.emblem = widget:CreateTexture(nil, "ARTWORK", nil, 2)
-    p.emblem:SetSize(ns.Snap(26), ns.Snap(26))
-    p.emblem:SetPoint("CENTER", widget.Icon, "CENTER", 0, 0)
-    p.flag = widget:CreateTexture(nil, "ARTWORK", nil, 2)
+    p.emblem = plate:CreateTexture(nil, "OVERLAY")
+    p.emblem:SetSize(ns.Snap(EMBLEM_SIZE + 6), ns.Snap(EMBLEM_SIZE + 6)) -- the emblem art has a soft edge
+    p.emblem:SetPoint("CENTER", plate, "LEFT", ns.Snap(4 + EMBLEM_SIZE / 2), 0)
+    p.text = ns.CreateText(plate, 15, "LEFT", "OUTLINE", "bold")
+    p.text:SetPoint("LEFT", plate, "LEFT", ns.Snap(4 + EMBLEM_SIZE + 8), 0)
+    p.flag = plate:CreateTexture(nil, "OVERLAY")
     p.flag:SetTexture(ns.MEDIA .. "Icons\\Flag")
-    p.flag:SetSize(ns.Snap(16), ns.Snap(16))
-    p.flag:SetPoint("CENTER", widget.DynamicIconButton, "CENTER", 0, 0)
+    p.flag:SetSize(ns.Snap(FLAG_SIZE), ns.Snap(FLAG_SIZE))
+    p.flag:SetPoint("RIGHT", plate, "RIGHT", -ns.Snap(6), 0)
     p.flag:Hide()
-
-    ns.SetFont(widget.Text, 15, "OUTLINE", "bold")
-    widget.Text:SetShadowOffset(1, -1)
-    widget.Text:SetShadowColor(0, 0, 0, 1)
     parts[widget] = p
     return p
 end
@@ -79,39 +81,38 @@ local function Style(widget, container)
     local team, carried = ParseKit(widget.Icon:GetAtlas())
     local emblem = team and EMBLEM[team]
     local p = parts[widget]
-    if not emblem then -- other icon-and-text widgets: keep Blizzard's icon, only the font
-        if p then p.plate:Hide(); p.emblem:Hide(); p.flag:Hide() end
+    local dynamic = widget.DynamicIconButton
+    if not emblem then -- other icon-and-text widgets stay Blizzard's
+        if p then
+            p.plate:Hide()
+            widget.Icon:SetAlpha(1)
+            widget.Text:SetAlpha(1)
+            if dynamic and dynamic.Icon then dynamic.Icon:SetAlpha(1) end
+        end
         return
     end
     p = p or Build(widget)
     widget.Icon:SetAlpha(0)
+    widget.Text:SetAlpha(0)
     p.emblem:SetAtlas(emblem)
-    p.emblem:Show()
     local c = FACTION_RGB[team]
     p.edge:SetVertexColor(c[1], c[2], c[3], 1)
-    p.tint:SetGradient("HORIZONTAL", CreateColor(c[1], c[2], c[3], 0.35), CreateColor(c[1], c[2], c[3], 0))
-    widget.Text:SetTextColor(1, 1, 1)
+    p.tint:SetGradient("HORIZONTAL", CreateColor(c[1], c[2], c[3], 0.4), CreateColor(c[1], c[2], c[3], 0))
+    p.text:SetText(widget.Text:GetText() or "")
 
     -- carried flag: Blizzard shows its dynamic icon only while the team holds a flag
-    local dynamic = widget.DynamicIconButton
     local holding = dynamic and dynamic:IsShown() and dynamic.Icon and dynamic.Icon:IsShown()
         and dynamic.Icon:GetAtlas()
+    if dynamic and dynamic.Icon then dynamic.Icon:SetAlpha(0) end
     if holding then
         local _, flag = ParseKit(holding)
         local fc = FACTION_RGB[flag or carried] or c
-        dynamic.Icon:SetAlpha(0)
         p.flag:SetVertexColor(fc[1], fc[2], fc[3], 1)
         p.flag:Show()
     else
         p.flag:Hide()
     end
-
-    local plate = p.plate
-    plate:ClearAllPoints()
-    plate:SetPoint("LEFT", p.emblem, "LEFT", -ns.Snap(6), 0)
-    plate:SetPoint("RIGHT", holding and p.flag or widget.Text, "RIGHT", ns.Snap(10), 0)
-    plate:SetHeight(ns.Snap(30))
-    plate:Show()
+    p.plate:Show()
 end
 
 ns:On("PLAYER_LOGIN", function()
