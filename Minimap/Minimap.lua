@@ -399,6 +399,20 @@ end
 
 ns:On("PLAYER_LOGIN", Setup)
 
+-- Blizzard's mail icon only listens to UPDATE_PENDING_MAIL, which doesn't always follow emptying the
+-- mailbox: after closing it, an empty inbox (or no unread mail) hides the icon
+ns:On("MAIL_CLOSED", function()
+    C_Timer.After(0.5, function()
+        local indicators = MinimapCluster and MinimapCluster.IndicatorFrame
+        local mail = indicators and indicators.MailFrame
+        if not mail or not mail:IsShown() or demoActive then return end
+        local _, total = GetInboxNumItems()
+        if HasNewMail() and (total or 0) > 0 then return end
+        mail:Hide()
+        if indicators.Layout then indicators:Layout() end
+    end)
+end)
+
 -- Load-on-demand Blizzard parts: our clock replaces Blizzard's; HybridMinimap (e.g. in some
 -- instances) gets the same mask.
 ns:On("ADDON_LOADED", function(_, name)
