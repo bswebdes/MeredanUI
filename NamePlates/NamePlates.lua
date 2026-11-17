@@ -992,7 +992,8 @@ function ns.SetMuiNames(useMui)
         local inInstance = IsInInstance()
         -- temporary values; off = drop them, the player's own settings apply again
         for _, cvar in ipairs(WORLD_NAME_CVARS) do ns.LookCVar(cvar, useMui and "0" or nil) end
-        ns.LookCVar("UnitNameEnemyPlayerName", nil) -- older versions turned it off
+        -- on: older mUI versions saved it as off for good
+        ns.LookCVar("UnitNameEnemyPlayerName", useMui and "1" or nil)
         for _, cvar in ipairs(MUI_PLATE_CVARS) do
             local value = useMui and ((inInstance and INSTANCE_OFF[cvar]) and "0" or "1") or nil
             ns.LookCVar(cvar, value)
