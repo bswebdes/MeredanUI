@@ -1,6 +1,15 @@
 -- Test mode: shows unit frames without a target, with animated bars and class resource and
 -- sample auras in place. Out of combat only; entering combat ends it.
 local _, ns = ...
+
+-- oUF queues tag updates for 0.1 s and calls fs:UpdateTag() without checking: a string untagged in
+-- between (preview start) has no UpdateTag any more. A no-op keeps the queued call harmless; Tag()
+-- puts the real one back.
+local function NoUpdate() end
+local function Untag(frame, fs)
+    frame:Untag(fs)
+    fs.UpdateTag = NoUpdate
+end
 local L = ns.L
 
 local ELEMENTS = { "Health", "Power", "ClassPower", "Stagger", "RaidTargetIndicator", "Castbar", "CombatIndicator",
@@ -132,8 +141,8 @@ local function StartSmall(unit, frame)
         previews[unit] = previews[unit] or CreatePreviewAuras(unit, frame)
         for _, button in ipairs(previews[unit]) do button:Show() end
     end
-    frame:Untag(frame.NameText)
-    frame:Untag(frame.HealthText)
+    Untag(frame, frame.NameText)
+    Untag(frame, frame.HealthText)
     UnregisterUnitWatch(frame)
     frame:Show()
 
@@ -287,8 +296,8 @@ local function Start(quiet)
         for _, element in ipairs(ELEMENTS) do
             if frame[element] then frame:DisableElement(element) end
         end
-        frame:Untag(frame.HealthText)
-        frame:Untag(frame.PowerText)
+        Untag(frame, frame.HealthText)
+        Untag(frame, frame.PowerText)
         for _, auras in ipairs(frame.AuraRows) do auras:Hide() end
 
         for _, bar in ipairs({ frame.Health, frame.Power, frame.Castbar }) do
@@ -312,13 +321,13 @@ local function Start(quiet)
         frame.Castbar.Icon:SetTexture(135807)
 
         if unit == "target" then
-            frame:Untag(frame.NameText)
+            Untag(frame, frame.NameText)
             UnregisterUnitWatch(frame)
             frame:Show()
             -- deliberately long to show name shortening
             frame.NameText:SetText(ns.ShortenName(L["Ancient Shadowblade Guardian of the Deep"], frame.NameText))
             if frame.LevelText then
-                frame:Untag(frame.LevelText)
+                Untag(frame, frame.LevelText)
                 frame.LevelText:SetText(" |cffff804063|r")
                 frame.UpdateEliteDragon(nil, "elite")
             end

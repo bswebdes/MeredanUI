@@ -1,10 +1,10 @@
 -- Hardcore mode (fun, opt-in: hardcoreMode): on death the screen darkens, "YOU DIED" in red Cinzel,
--- "Try again" logs out to character select after a 20 second countdown. A quiet "Keep playing"
+-- "Try again" logs out to character select (20 s countdown outside rested areas). A quiet "Keep playing"
 -- bottom right cancels it and Blizzard's release popup takes over as usual.
 -- Below: who killed you and with what (Blizzard's death recap), and a mocking quote from a
 -- famous NPC (AFK/HardcoreQuotes.lua).
--- Logout timing: outside rested areas the game itself counts 20 seconds after Logout(), so it is
--- called right away; in cities and inns it would be instant, so we count down first.
+-- Logout() only works right from a click (from the death event it is ADDON_ACTION_FORBIDDEN), so it
+-- starts on "Try again": instant in cities and inns, otherwise the game counts 20 seconds.
 -- The interface fades out while the death screen fades in, and comes back when it closes.
 -- Off on Blizzard's real hardcore realms. Settings > Appearance has a test button (never logs out).
 local _, ns = ...
@@ -17,7 +17,7 @@ local RED = { 0.86, 0.16, 0.12 }
 local screen, title, sub, killer, killerIcon, quote, speaker, countdown, retry, keep, testLabel
 local progress, target = 0, 0 -- 0 = interface visible, 1 = death screen
 local minimapHidden
-local active, test, ownTimer, deadline, ticker
+local active, test, loggingOut, deadline, ticker
 
 local function Enabled() return ns.db.hardcoreMode == true end
 
@@ -50,15 +50,11 @@ local Hide
 
 local function Tick()
     if not active then return end
+    if not deadline then return end
     local left = math.max(0, math.ceil(deadline - GetTime()))
     countdown:SetFormattedText(L["Logging out in %d s"], left)
     if left > 0 then return end
-    if test then
-        Hide()
-    elseif ownTimer then
-        ownTimer = false
-        Logout()
-    end
+    if test then Hide() end -- a real logout is done by the game
 end
 
 -- UIParent and the death screen cross-fade; respects the RP mode's own UI alpha
@@ -103,8 +99,8 @@ end
 
 function Hide(cancel)
     if not screen then return end
-    if cancel and not test and not ownTimer then CancelLogout() end
-    active, test, ownTimer = false, false, false
+    if cancel and loggingOut then CancelLogout() end
+    active, test, loggingOut, deadline = false, false, false, nil
     if ticker then ticker:Cancel(); ticker = nil end
     Fade(0)
 end
@@ -163,7 +159,13 @@ local function Create()
 
     retry = ns.UI.Button(screen, L["Try again"], function()
         if test then return Hide() end
-        if IsResting() or ownTimer then ownTimer = false; Logout() end -- outside, the game's countdown already runs
+        if loggingOut then return end
+        loggingOut = true
+        Logout() -- from this click: allowed (instant when resting, else the game's 20 s)
+        if not IsResting() then
+            deadline = GetTime() + COUNTDOWN
+            Tick()
+        end
     end, 220)
     retry:SetHeight(32)
     retry.Text:SetFont(ns.DISPLAY_FONT, 15, "")
@@ -259,11 +261,10 @@ local function Show(isTest)
         -- the recap is filled right after death
         C_Timer.After(0.3, function() if active and not test then ShowKiller(KillerInfo()) end end)
     end
-    deadline = GetTime() + COUNTDOWN
-    ownTimer = false
-    if not test then
-        if IsResting() then ownTimer = true else Logout() end
-    end
+    loggingOut = false
+    countdown:SetText("")
+    -- the test counts down by itself and closes; a real death waits for "Try again"
+    deadline = test and (GetTime() + COUNTDOWN) or nil
     Tick()
     if ticker then ticker:Cancel() end
     ticker = C_Timer.NewTicker(0.25, Tick)
