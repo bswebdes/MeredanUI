@@ -2,6 +2,9 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.11", items = {
+        "Right-click the gold display (info bar or bags) to forget a character you deleted or no longer play. Its gold, its items in tooltips and its mUI settings are removed",
+    } },
     { version = "v0.5.10", items = {
         "PvP flag at a glance: while you are flagged, your faction crest sits as a faint watermark in your health bar. Hidden in battlegrounds and arenas",
         "Elite and rare at a glance: the classic dragons are back. Gold for elite, silver for rare and rare elite, on the target frame, on enemy nameplates and in the tooltip",
@@ -40,10 +43,5 @@ ns.CHANGELOG = {
         "Boss pins on dungeon maps with several floors now sit on the floor where the boss really stands (Scholomance, Blackrock Spire, Dire Maul, Gnomeregan and more)",
         "Shadowfang Keep has a clearer map: four floors that fill the frame instead of seven mostly empty ones",
         "City of Dalaran has a new map in the same style as the other dungeons, with boss pins at their real spots",
-    } },
-    { version = "v0.5.5", items = {
-        "Hunters: while Aspect of the Cheetah or Aspect of the Pack is up, its action bar button pulses with a turquoise edge, faster when a fight starts. Both aspects daze you when hit, so they are easy to forget. On by default in the Comfort style, can be turned off on the Action bars page",
-        "New just-for-fun Hardcore mode (Appearance page, off by default). When you die the interface fades out, YOU DIED appears with who killed you and with what, plus a mocking line from a well-known NPC. Try again logs you out to character select after 20 seconds, Keep playing cancels it. A Test button shows the screen without dying. Not available on official Hardcore realms",
-        "Talent advisor build names now follow your client language",
     } },
 }
