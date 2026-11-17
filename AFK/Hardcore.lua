@@ -14,7 +14,7 @@ local COUNTDOWN = 20
 local FADE_IN, FADE_OUT = 1.5, 0.4
 local RED = { 0.86, 0.16, 0.12 }
 
-local screen, title, sub, killer, killerIcon, quote, speaker, countdown, retry, keep, testLabel
+local screen, deathNum, title, sub, killer, killerIcon, quote, speaker, countdown, retry, keep, testLabel
 local progress, target = 0, 0 -- 0 = interface visible, 1 = death screen
 local minimapHidden
 local active, test, loggingOut, deadline, ticker
@@ -140,6 +140,14 @@ local function Create()
     title:SetPoint("CENTER", 0, 90)
     title:SetText(L["YOU DIED"])
 
+    -- death number above the title ("#23")
+    deathNum = screen:CreateFontString(nil, "OVERLAY")
+    deathNum:SetFont(ns.DISPLAY_FONT, 26, "")
+    deathNum:SetTextColor(0.79, 0.70, 0.48)
+    deathNum:SetShadowOffset(0, -2)
+    deathNum:SetShadowColor(0, 0, 0, 1)
+    deathNum:SetPoint("BOTTOM", title, "TOP", 0, 2)
+
     sub = screen:CreateFontString(nil, "OVERLAY")
     ns.SetFont(sub, 15, "")
     sub:SetTextColor(0.75, 0.72, 0.66)
@@ -247,12 +255,30 @@ local function PickQuote()
     speaker:SetText("— " .. (de and q[2] or q[1]))
 end
 
+-- Deaths of this character: Blizzard's statistic "Total deaths" (id 60, counts from before mUI),
+-- else mUI's own count from PLAYER_DEAD. The statistic can lag the death event by a moment.
+local TOTAL_DEATHS = 60
+local function DeathCount()
+    local stat = GetStatistic and ns.Plain(GetStatistic(TOTAL_DEATHS))
+    local n = tonumber(stat)
+    local own = ns.char and ns.char.deaths or 0
+    if n and n > 0 then return math.max(n, own) end
+    return own > 0 and own or nil
+end
+local function UpdateDeathNum()
+    if not deathNum then return end
+    local n = DeathCount()
+    deathNum:SetText(n and ("#" .. n) or "")
+end
+
 local function Show(isTest)
     if not screen then Create() end
     active, test = true, isTest and true or false
     local name, level = UnitName("player"), UnitLevel("player")
     sub:SetFormattedText(L["%s's journey ends at level %d."], name or "", level or 0)
     testLabel:SetShown(test)
+    UpdateDeathNum()
+    C_Timer.After(1, function() if active then UpdateDeathNum() end end) -- statistic catches up
     PickQuote()
     if test then
         ShowKiller(L["Hogger"], ACTION_SWING or L["Melee"], C_Spell.GetSpellTexture(6603))
@@ -279,6 +305,7 @@ function ns.HardcoreTest()
 end
 
 ns:On("PLAYER_DEAD", function()
+    if ns.char then ns.char.deaths = (ns.char.deaths or 0) + 1 end
     if not Enabled() or RealHardcore() then return end
     local _, instanceType = IsInInstance()
     if instanceType == "pvp" or instanceType == "arena" then return end -- battlegrounds don't count
