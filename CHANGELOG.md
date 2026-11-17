@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## v0.5.11
+- Right-click the gold display (info bar or bags) to forget a character you deleted or no longer play. Its gold, its items in tooltips and its mUI settings are removed
+
 ## v0.5.10
 - PvP flag at a glance: while you are flagged, your faction crest sits as a faint watermark in your health bar. Hidden in battlegrounds and arenas
 - Elite and rare at a glance: the classic dragons are back. Gold for elite, silver for rare and rare elite, on the target frame, on enemy nameplates and in the tooltip
