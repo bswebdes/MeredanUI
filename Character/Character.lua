@@ -670,6 +670,15 @@ ns:On("PLAYER_LOGIN", function()
         if onlyShow then Char.Open(key) else Toggle(key) end
     end
     if CharacterMicroButton then CharacterMicroButton:SetScript("OnClick", function() Toggle("character") end) end
+    -- Items that target gear (armor kits, oils, enchants) open the character window via this global;
+    -- Blizzard's version checks its own (never shown) CharacterFrame and would toggle ours closed
+    if ShowCharacterFrameIfMatchesContext then
+        local original = ShowCharacterFrameIfMatchesContext
+        ShowCharacterFrameIfMatchesContext = function(...)
+            if window:IsShown() then return end
+            return original(...)
+        end
+    end
     -- If Blizzard's frame still opens (e.g. currency button on the backpack), close it and open ours
     if CharacterFrame then
         CharacterFrame:HookScript("OnShow", function(frame)
