@@ -627,6 +627,13 @@ end
 -- mUI's temporary value. Falls back to a normal CVar where the temporary call isn't available.
 function ns.LookCVar(name, value)
     if C_CVar.GetCVar(name) == nil then return end
+    -- dropping needs RemoveTempCVar: SetTempCVar(name, nil) leaves an override active, so the
+    -- player's own setting (options, key bindings) no longer takes effect
+    if value == nil and C_CVar.RemoveTempCVar then
+        local ok, err = pcall(C_CVar.RemoveTempCVar, name)
+        if ok then return end
+        if DevLog then DevLog("MeredanUI", "LookCVar remove " .. name .. ": " .. tostring(err)) end
+    end
     if C_CVar.SetTempCVar then
         local ok, err = pcall(C_CVar.SetTempCVar, name, value)
         if ok then return end
