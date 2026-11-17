@@ -1,5 +1,17 @@
 # MeredanUI Changelog
 
+## v0.5.10
+- PvP flag at a glance: while you are flagged, your faction crest sits as a faint watermark in your health bar. Hidden in battlegrounds and arenas
+- Elite and rare at a glance: the classic dragons are back. Gold for elite, silver for rare and rare elite, on the target frame, on enemy nameplates and in the tooltip
+- Enemy nameplates show the level in front of the percent, in the difficulty colour (grey, green, same level, orange, red, ?? for bosses)
+- The target frame always shows the level. Long names are shortened instead of pushing the level out
+- Players of the other faction who are not flagged for PvP show their name again
+- Hardcore mode: your death number (#15) above YOU DIED, taken from the game's own statistics
+- Fixed: Hardcore mode could not log you out. Logging out now starts when you click Try again
+- Fixed: closing Beast Training left its list and Train button on screen, and casting it again did not close it
+- Fixed: using an armor kit, oil or similar item while the character window was open closed the window
+- Fixed: the mail icon on the minimap stayed after emptying the mailbox
+
 ## v0.5.9
 - Fixed: game settings mUI changes only for a while (for example by RP mode) are now handed back properly. Before, things like enemy nameplates could stay hidden and neither the key binding nor the setting turned them back on
 - Fixed: zooming out of the world map during combat no longer causes a blocked action message
