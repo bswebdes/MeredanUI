@@ -33,6 +33,18 @@ local rows, headers = {}, {}
 local collapsed = {}
 local selectedName
 local learnAll = false
+local petOpen = false -- Beast Training is shown (a spell, not an NPC: nothing closes Blizzard's frame for us)
+local petClosedAt = 0
+
+-- Beast Training has no interaction manager behind it: hiding Blizzard's frame is what ends it
+-- (its OnHide calls CloseTrainer). HideUIPanel goes through Blizzard's secure delegate.
+local function ClosePetTrainer()
+    petOpen = false
+    local frame = ClassTrainerFrame
+    if not (frame and frame:IsShown()) then return end
+    HideUIPanel(frame)
+    if frame:IsShown() then frame:Hide() end
+end
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.trainerWindow ~= false
@@ -597,6 +609,7 @@ local function CreateWindow()
         learnAll = false
         StaticPopup_Hide("MEREDANUI_CONFIRM_PROFESSION")
         PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
+        if petOpen then return ClosePetTrainer() end
         -- Only end our own, still running interaction (otherwise it would hit the next NPC)
         if ns.StillInteracting("Trainer", ClassTrainerFrame) then CloseTrainer() end
     end)
@@ -811,6 +824,7 @@ local function Open(retried)
         window:SetNpc("pet", ns.Plain(UnitName("pet")), window.tooltipTitle)
         ApplyMode()
         ns.embeddedPanels[ClassTrainerFrame] = true -- before Show: placing must not dodge it
+        petOpen = true
         window:Show()
         Embed()
         return
@@ -838,6 +852,16 @@ ns:On("PLAYER_LOGIN", function()
     CreateWindow()
     if ClassTrainerFrame then HideBlizzardTrainer() else EventUtil.ContinueOnAddOnLoaded("Blizzard_TrainerUI", HideBlizzardTrainer) end
     ns:On("TRAINER_SHOW", function()
+        -- casting Beast Training again while it is open closes it, like Blizzard's frame does
+        -- (the client may also close and reopen it in one go: a reopen right after closing counts too)
+        if petOpen and window:IsShown() then
+            window:Hide()
+            return
+        end
+        if IsPetTrainer() and GetTime() - petClosedAt < 0.2 then
+            CloseTrainer()
+            return
+        end
         HideBlizzardTrainer()
         if IsPetTrainer() then
             -- Park() removed Blizzard's OnHide (CloseTrainer) after a class trainer visit: without it,
@@ -850,6 +874,10 @@ ns:On("PLAYER_LOGIN", function()
         C_Timer.After(0, function() Open(false) end)
     end)
     ns:On("TRAINER_CLOSED", function()
+        if petOpen then
+            petClosedAt = GetTime()
+            ClosePetTrainer()
+        end
         window:Hide()
         Unpark()
     end)
