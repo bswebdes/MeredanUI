@@ -892,7 +892,11 @@ local function ApplyFriendly(frame, unit)
         -- e.g. Horde on a PvE realm) red
         local _, class = UnitClass(unit)
         local color = isPlayer and Readable(class) and class and RAID_CLASS_COLORS[class]
-        if color then
+        -- players of the other faction you can't attack (not flagged): plain yellow, so they stand out
+        local faction, own = UnitFactionGroup(unit), UnitFactionGroup("player")
+        if isPlayer and Readable(faction) and Readable(own) and faction and own and faction ~= own then
+            frame.NameText:SetTextColor(C.neutral[1], C.neutral[2], C.neutral[3])
+        elseif color then
             frame.NameText:SetTextColor(color.r, color.g, color.b)
         elseif not isPlayer then
             local reaction = UnitReaction(unit, "player")
@@ -972,7 +976,9 @@ end)
 
 -- "mUI names instead of Blizzard names": on = Blizzard world names off, friendly NPCs and pets on
 -- mUI plates; off = the player's own settings again. Temporary CVars, works without reload.
-local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerName", "UnitNameHostleNPC",
+-- Enemy player names stay Blizzard's: players of the other faction you can't attack may get no
+-- plate, so without the world name they would be invisible (it hides by itself while a plate shows).
+local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameHostleNPC",
     "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName", "UnitNameFriendlyTotemName",
     "UnitNameEnemyPetName", "UnitNameEnemyGuardianName", "UnitNameEnemyMinionName", "UnitNameEnemyTotemName",
     "UnitNameNPC", "UnitNameFriendlySpecialNPCName", "UnitNameInteractiveNPC", "UnitNameFriendlyPetName" }
@@ -986,6 +992,7 @@ function ns.SetMuiNames(useMui)
         local inInstance = IsInInstance()
         -- temporary values; off = drop them, the player's own settings apply again
         for _, cvar in ipairs(WORLD_NAME_CVARS) do ns.LookCVar(cvar, useMui and "0" or nil) end
+        ns.LookCVar("UnitNameEnemyPlayerName", nil) -- older versions turned it off
         for _, cvar in ipairs(MUI_PLATE_CVARS) do
             local value = useMui and ((inInstance and INSTANCE_OFF[cvar]) and "0" or "1") or nil
             ns.LookCVar(cvar, value)
