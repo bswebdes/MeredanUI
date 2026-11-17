@@ -1,5 +1,10 @@
 # MeredanUI Changelog
 
+## v0.5.8
+- Attack with abilities. Harmful spells on mUI action buttons now also start your auto attack (Comfort style, can be turned off)
+- Spells, professions and toys in the spellbook cast when you release the click, so dragging them onto a bar no longer casts them by accident
+- New spell ranks automatically replace the previous rank on your action bars, and newly learned spells go to the first free slot (Comfort style)
+
 ## v0.5.7
 - Battlegrounds got the full mUI treatment. The flag score at the top is now one versus board with both faction crests, and every capture lights up a gem. A small flag pulses on the crest while a team holds the enemy flag
 - Flag carriers get their own mUI frames in the boss frame column, with the carried flag next to them. A click targets the carrier, and the quest log moves aside just like it does for boss frames
