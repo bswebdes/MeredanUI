@@ -414,6 +414,11 @@ local function Style(self, unit)
     percent:SetPoint("RIGHT", -4, 0)
     self:Tag(percent, "[perhp]%")
     self.PercentText = percent
+    -- level in the difficulty colour before the percent (enemies only, set in UpdateNamePrefix)
+    local level = ns.CreateText(health, 10, "RIGHT", "OUTLINE")
+    level:SetPoint("RIGHT", health, "RIGHT", -ns.Snap(34), 0)
+    level:Hide()
+    self.LevelText = level
 
     -- Castbar directly below the health bar, same width; icon left inside the border, text in the bar
     local cast = ns.Snap(CAST)
@@ -633,8 +638,8 @@ local function ClassificationAtlas(unit)
     if ns.db.plateClassification == false then return end
     local classification = UnitClassification(unit)
     if not Readable(classification) then return end
-    if classification == "rare" then return "UI-HUD-UnitFrame-Target-PortraitOn-Boss-Rare-Star" end
-    if classification == "rareelite" then return "nameplates-icon-elite-silver" end
+    -- classic dragons: silver = rare and rare elite, gold = elite (same as target frame and tooltip)
+    if classification == "rare" or classification == "rareelite" then return "nameplates-icon-elite-silver" end
     if (classification == "elite" or classification == "worldboss") and not inInstance then
         return "nameplates-icon-elite-gold"
     end
@@ -650,9 +655,24 @@ end
 
 -- Row inside the bar before the name: [rare/elite][! 3/8] Name. The name shifts right and gets
 -- shorter accordingly. Runs after ApplyFriendly (which resets the name).
+-- Level text like the target frame: grey/green/sage(same)/orange/red, "??" for skull levels
+local function LevelString(unit)
+    local level = UnitLevel(unit)
+    if not Readable(level) or not level then return end
+    if level <= 0 then return "|cffff2020??|r" end
+    local color = GetCreatureDifficultyColor and GetCreatureDifficultyColor(level)
+    if not color then return tostring(level) end
+    if QuestDifficultyColors and color == QuestDifficultyColors.difficult then return "|cff8ecbb4" .. level .. "|r" end
+    return ("|cff%02x%02x%02x%d|r"):format(color.r * 255, color.g * 255, color.b * 255, level)
+end
+
 local function UpdateNamePrefix(frame)
     local unit = UnitOf(frame)
     local enemy = unit and not frame.isFriendly
+    local levelText = enemy and LevelString(unit)
+    frame.LevelText:SetText(levelText or "")
+    frame.LevelText:SetShown(levelText ~= nil)
+    local levelWidth = levelText and (frame.LevelText:GetUnboundedStringWidth() + 4) or 0
     local atlas = enemy and ClassificationAtlas(unit)
     local quest = enemy and IsQuestUnit(unit)
     local icon, marker, name = frame.ClassificationIcon, frame.QuestMarker, frame.NameText
@@ -678,7 +698,7 @@ local function UpdateNamePrefix(frame)
 
     local offset = x > 2 and x or 4
     -- Friendly name plates (NPCs, players, pets): no truncation/"..."
-    local width = frame.isFriendly and 400 or NAME_WIDTH - (offset - 4)
+    local width = frame.isFriendly and 400 or NAME_WIDTH - (offset - 4) - levelWidth
     if frame.nameWidth ~= width then
         frame.nameWidth = width
         name:SetWidth(width)
@@ -1031,6 +1051,12 @@ local function QueueQuestUpdate()
 end
 ns:On("QUEST_LOG_UPDATE", QueueQuestUpdate)
 ns:On("UNIT_CLASSIFICATION_CHANGED", QueueQuestUpdate)
+-- level up of a mob (rare, but e.g. scaling): refresh its level text
+ns:On("UNIT_LEVEL", function(_, unit)
+    if type(unit) ~= "string" or not unit:find("^nameplate") then return end
+    local plate = C_NamePlate.GetNamePlateForUnit(unit)
+    if plate and plate.unitFrame and plates[plate.unitFrame] then UpdateNamePrefix(plate.unitFrame) end
+end)
 ns:On("QUEST_LOG_CRITERIA_UPDATE", QueueQuestUpdate)
 ns:On("UNIT_QUEST_LOG_CHANGED", function(_, unit) if unit == "player" then QueueQuestUpdate() end end)
 ns:On("SCENARIO_CRITERIA_UPDATE", function()

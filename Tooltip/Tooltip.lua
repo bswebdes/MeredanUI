@@ -325,13 +325,10 @@ local function RequestInspect(unit, guid)
     NotifyInspect(unit)
 end
 
--- NPCs: "Rare" / "Elite" / "Rare Elite" / "Boss" right of the name (draft: same line, own colour)
-local CLASSIFICATION = {
-    rare = { "Rare", "ffc0c4cc" },
-    rareelite = { "Rare Elite", "ffc0c4cc" },
-    elite = { "Elite", "ffd9b56b" },
-    worldboss = { "Boss", "ffe0604a" },
-}
+-- NPCs: the classic dragon right of the name (gold = elite, silver = rare and rare elite, like the
+-- target frame and nameplates); world bosses keep the word
+local DRAGON = { elite = "nameplates-icon-elite-gold", rare = "nameplates-icon-elite-silver",
+    rareelite = "nameplates-icon-elite-silver" }
 
 -- Line helpers ------------------------------------------------------------------------------
 -- The layout works on Blizzard's own lines: lines that are taken out (class, faction) move the
@@ -620,10 +617,11 @@ local function AddUnitLines(tooltip, unit)
 
     if not isPlayer then
         -- classification right of the name
-        local tag = Enabled("tooltipClassification") and CLASSIFICATION[ns.Plain(UnitClassification(unit)) or ""]
-        if tag then
+        local classification = Enabled("tooltipClassification") and ns.Plain(UnitClassification(unit)) or nil
+        local dragon = classification and DRAGON[classification]
+        if dragon or classification == "worldboss" then
             local r = Right(tooltip, 1)
-            r:SetText("|c" .. tag[2] .. L[tag[1]] .. "|r")
+            r:SetText(dragon and CreateAtlasMarkup(dragon, 20, 20, 0, 2) or ("|cffe0604a" .. L["Boss"] .. "|r"))
             r:Show()
         end
         -- level number in the difficulty colour, the rest of the level line unchanged

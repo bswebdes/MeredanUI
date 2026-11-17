@@ -365,10 +365,44 @@ local function Style(self, unit)
     name:SetWidth(S.width * 0.8)
     -- Player: level in Surf Green before the name (below max level); target (mirrored): level in
     -- difficulty color after the name
-    local nameTag = unit == "player" and "[mui:level][mui:uname]"
-        or unit == "target" and "[mui:uname][mui:tlevel]" or "[mui:uname]"
+    local nameTag = unit == "player" and "[mui:level][mui:uname]" or "[mui:uname]"
     TagText(self, name, nameTag)
     self.NameText = name
+    -- Target: level and the elite/rare dragon in their own strings, so a long name is shortened
+    -- instead of pushing the level out ("NAME... 24" + dragon)
+    if unit == "target" then
+        local anchorX, anchorY = -S.plateOut * dir, S.plateOut + 4 * px
+        local dragon = top:CreateTexture(nil, "OVERLAY")
+        local dragonSize = ns.Snap(S.nameSize + 2)
+        dragon:SetSize(dragonSize, dragonSize)
+        dragon:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", anchorX, anchorY - ns.Snap(2))
+        dragon:Hide()
+        local level = ns.CreateText(top, S.nameSize, "RIGHT", nil, "display")
+        level:SetShadowOffset(0, -2)
+        level:SetShadowColor(0, 0, 0, 0.85)
+        TagText(self, level, "[mui:tlevel]")
+        name:ClearAllPoints()
+        name:SetPoint("BOTTOMRIGHT", level, "BOTTOMLEFT", 0, 0)
+        name:SetWidth(S.width * 0.8 - ns.Snap(S.nameSize * 2.6)) -- room for " 60" and the dragon
+        local function UpdateDragon(_, preview)
+            local c = preview or ns.Plain(UnitClassification("target"))
+            local atlas = (c == "elite" or c == "worldboss") and "nameplates-icon-elite-gold"
+                or (c == "rare" or c == "rareelite") and "nameplates-icon-elite-silver" or nil
+            level:ClearAllPoints()
+            if atlas then
+                dragon:SetAtlas(atlas)
+                dragon:Show()
+                level:SetPoint("BOTTOMRIGHT", dragon, "BOTTOMLEFT", -ns.Snap(2), ns.Snap(2))
+            else
+                dragon:Hide()
+                level:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", anchorX, anchorY)
+            end
+        end
+        ns:On("PLAYER_TARGET_CHANGED", UpdateDragon)
+        ns:On("UNIT_CLASSIFICATION_CHANGED", function(_, who) if who == "target" then UpdateDragon() end end)
+        UpdateDragon()
+        self.LevelText, self.UpdateEliteDragon = level, UpdateDragon
+    end
 
     local healthText = ns.CreateText(texts, S.healthValueSize, far, "OUTLINE")
     healthText:SetPoint(far, self, far, -6 * dir, 0)

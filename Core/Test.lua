@@ -317,6 +317,11 @@ local function Start(quiet)
             frame:Show()
             -- deliberately long to show name shortening
             frame.NameText:SetText(ns.ShortenName(L["Ancient Shadowblade Guardian of the Deep"], frame.NameText))
+            if frame.LevelText then
+                frame:Untag(frame.LevelText)
+                frame.LevelText:SetText(" |cffff804063|r")
+                frame.UpdateEliteDragon(nil, "elite")
+            end
             frame.RaidTargetIndicator:Show()
             SetBarColor(frame.Health, frame.colors.reaction[2])
             SetBarColor(frame.Power, frame.colors.power.MANA)
@@ -396,6 +401,10 @@ local function Stop(quiet)
 
         if unit == "target" then
             frame:Tag(frame.NameText, frame.NameText.tagString)
+            if frame.LevelText then
+                frame:Tag(frame.LevelText, frame.LevelText.tagString)
+                frame.UpdateEliteDragon()
+            end
             RegisterUnitWatch(frame)
         end
 
