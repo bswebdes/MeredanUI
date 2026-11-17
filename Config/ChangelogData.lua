@@ -2,6 +2,12 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.9", items = {
+        "Fixed: game settings mUI changes only for a while (for example by RP mode) are now handed back properly. Before, things like enemy nameplates could stay hidden and neither the key binding nor the setting turned them back on",
+        "Fixed: zooming out of the world map during combat no longer causes a blocked action message",
+        "In dungeons, raids and battlegrounds, friendly pets and NPCs no longer get Blizzard's full nameplate bars. Blizzard doesn't let addons touch friendly nameplates there, so they stay off; players still show their names",
+        "Fixed: /fstack no longer throws errors on nameplates in dungeons",
+    } },
     { version = "v0.5.8", items = {
         "Attack with abilities. Harmful spells on mUI action buttons now also start your auto attack (Comfort style, can be turned off)",
         "Spells, professions and toys in the spellbook cast when you release the click, so dragging them onto a bar no longer casts them by accident",
@@ -33,9 +39,5 @@ ns.CHANGELOG = {
         "The pet tab of the spellbook shows how many abilities you learned at a pet trainer but haven't taught your pet yet. Hover it for the list",
         "Bags: the Reagents tab is gone, everything in the reagent bag sorts into the normal categories. Its free slots count as free and fade while you hold something that isn't a reagent",
         "Bags: quiver and ammo pouch no longer get their own row of empty slots, one slot at the end of Ammo shows how many are free",
-    } },
-    { version = "v0.5.3", items = {
-        "The damage meter background is now see-through, so it covers less of the game. Bars, names and numbers stay fully visible",
-        "The XP bar and the pet XP bar are slimmer and slightly see-through",
     } },
 }
