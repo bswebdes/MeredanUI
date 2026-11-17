@@ -1,5 +1,11 @@
 # MeredanUI Changelog
 
+## v0.5.9
+- Fixed: game settings mUI changes only for a while (for example by RP mode) are now handed back properly. Before, things like enemy nameplates could stay hidden and neither the key binding nor the setting turned them back on
+- Fixed: zooming out of the world map during combat no longer causes a blocked action message
+- In dungeons, raids and battlegrounds, friendly pets and NPCs no longer get Blizzard's full nameplate bars. Blizzard doesn't let addons touch friendly nameplates there, so they stay off; players still show their names
+- Fixed: /fstack no longer throws errors on nameplates in dungeons
+
 ## v0.5.8
 - Attack with abilities. Harmful spells on mUI action buttons now also start your auto attack (Comfort style, can be turned off)
 - Spells, professions and toys in the spellbook cast when you release the click, so dragging them onto a bar no longer casts them by accident
