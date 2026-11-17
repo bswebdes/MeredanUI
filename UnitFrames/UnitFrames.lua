@@ -178,6 +178,53 @@ local function PlayerDisplayPower(_, unit)
     end
 end
 
+-- PvP flag: the faction crest as a faint watermark in the player's health bar, cut off by the bar
+-- (same art and tint as the battleground score board). Hidden in battlegrounds and arenas.
+local PVP_LOGO = { Alliance = 516949, Horde = 516953 } -- Interface\Timer\<faction>-logo
+local PVP_RGB = { Alliance = { 0.30, 0.55, 1 }, Horde = { 0.90, 0.22, 0.20 } }
+local function AddPvPMark(health, barHeight)
+    -- clipping applies to the children of the clipping frame
+    local clip = CreateFrame("Frame", nil, health)
+    clip:SetAllPoints()
+    clip:SetClipsChildren(true)
+    clip:SetFrameLevel(health:GetFrameLevel() + 2) -- above fill and bar portrait, below the texts
+    local inner = CreateFrame("Frame", nil, clip)
+    inner:SetAllPoints()
+    local mark = inner:CreateTexture(nil, "ARTWORK")
+    local size = ns.Snap(barHeight * 2.15)
+    mark:SetSize(size, size)
+    mark:SetPoint("CENTER", health, "CENTER", 0, -ns.Snap(barHeight * 0.18))
+    mark:SetDesaturated(true)
+    clip:Hide()
+
+    local demo = false
+    local function Update()
+        local flagged = demo or ns.Plain(UnitIsPVP("player"))
+        local _, kind = IsInInstance()
+        local faction = ns.Plain(UnitFactionGroup("player"))
+        local logo = faction and PVP_LOGO[faction]
+        if not (flagged and logo) or (not demo and (kind == "pvp" or kind == "arena")) then
+            clip:Hide()
+            return
+        end
+        local c = PVP_RGB[faction]
+        mark:SetTexture(logo)
+        mark:SetVertexColor(c[1] * 0.6 + 0.4, c[2] * 0.6 + 0.4, c[3] * 0.6 + 0.4, 0.3)
+        clip:Show()
+    end
+    ns:On("PLAYER_FLAGS_CHANGED", function(_, who) if who == "player" then Update() end end)
+    ns:On("UNIT_FACTION", function(_, who) if who == "player" then Update() end end)
+    ns:On("PLAYER_ENTERING_WORLD", Update)
+    ns:On("ZONE_CHANGED_NEW_AREA", Update)
+    -- Preview (Core/Preview.lua): crest shows even without the PvP flag
+    ns.PvPMarkDemo = {
+        Start = function() demo = true; Update() end,
+        Stop = function() demo = false; Update() end,
+        IsActive = function() return demo end,
+    }
+    Update()
+end
+
 local function Style(self, unit)
     local mirrored = unit == "target" -- target mirrors the player layout
     local near, far = mirrored and "RIGHT" or "LEFT", mirrored and "LEFT" or "RIGHT"
@@ -225,6 +272,7 @@ local function Style(self, unit)
     ns.ShadeBar(health, mirrored)
     ns.AddHealPrediction(health, mirrored) -- heals + shield (Core/Style.lua)
     self.Health = health
+    if unit == "player" then AddPvPMark(health, S.health) end
 
     -- Texts above the bar on their own level
     local texts = CreateFrame("Frame", nil, self)
