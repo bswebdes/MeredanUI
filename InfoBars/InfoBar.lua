@@ -107,6 +107,42 @@ function ns.GoldTooltip()
     end
     GameTooltip:AddLine(" ")
     Line(L["Total"], Gold(total))
+    if #list > 1 then GameTooltip:AddLine(L["Right-click: forget a character"], 0.55, 0.55, 0.55) end
+end
+
+-- Forget a character (deleted or no longer played): its gold, items for tooltips and mUI settings.
+-- Logging in with it again brings it back with fresh data. The current character is not offered.
+local function Forget(key)
+    local root = ns.root
+    for _, store in ipairs({ root.gold, root.items, root.chars, root.lfgListedAt }) do
+        if type(store) == "table" then store[key] = nil end
+    end
+end
+StaticPopupDialogs["MEREDANUI_FORGET_CHARACTER"] = {
+    text = L["Forget %s?"],
+    button1 = ACCEPT, button2 = CANCEL,
+    OnAccept = function(_, key) if key then Forget(key) end end,
+    showAlert = 1, timeout = 0, hideOnEscape = 1, whileDead = 1,
+}
+function ns.ForgetCharacterMenu(owner)
+    local keys = {}
+    for key in pairs(ns.root.gold or {}) do
+        if key ~= ns.charKey then keys[#keys + 1] = key end
+    end
+    if #keys == 0 then return end
+    table.sort(keys, function(a, b) return ns.CharDisplayName(a) < ns.CharDisplayName(b) end)
+    GameTooltip:Hide()
+    MenuUtil.CreateContextMenu(owner, function(_, root)
+        root:CreateTitle(L["Forget character"])
+        for _, key in ipairs(keys) do
+            local info = ns.root.gold[key]
+            local color = info and info.class and RAID_CLASS_COLORS[info.class]
+            local label = ns.CharDisplayName(key)
+            root:CreateButton(color and color:WrapTextInColorCode(label) or label, function()
+                StaticPopup_Show("MEREDANUI_FORGET_CHARACTER", label, nil, key)
+            end)
+        end
+    end)
 end
 
 -- Fields: text() returns the content, tooltip/click optional -------------------------------
@@ -116,6 +152,7 @@ local FIELDS = {
         key = "gold", label = L["Gold"], icon = "Gold",
         text = function() return GoldShort(GetMoney()) end,
         click = function() ToggleAllBags() end,
+        rightClick = function(cell) ns.ForgetCharacterMenu(cell) end,
         tooltip = function() ns.GoldTooltip() end,
     },
     {
@@ -377,7 +414,12 @@ local function CreateCell(field)
         cell:SetAlpha(1)
         GameTooltip:Hide()
     end)
-    if field.click then cell:SetScript("OnClick", function() field.click() end) end
+    if field.click then
+        if field.rightClick then cell:RegisterForClicks("LeftButtonUp", "RightButtonUp") end
+        cell:SetScript("OnClick", function(self, button)
+            if button == "RightButton" and field.rightClick then field.rightClick(self) else field.click() end
+        end)
+    end
     return cell
 end
 
@@ -403,6 +445,8 @@ function ns.GoldDisplay(parent)
         self:SetAlpha(1)
         GameTooltip:Hide()
     end)
+    cell:RegisterForClicks("RightButtonUp")
+    cell:SetScript("OnClick", function(self) ns.ForgetCharacterMenu(self) end)
     cell:Update()
     goldDisplays[#goldDisplays + 1] = cell
     return cell
