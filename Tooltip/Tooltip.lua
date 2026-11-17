@@ -211,6 +211,8 @@ end
 
 local function Skin(tooltip)
     if not tooltip or tooltip.IsEmbedded then return end
+    -- /fstack must stay untainted, otherwise it errors on forbidden frames (nameplates in instances)
+    if tooltip == _G.FrameStackTooltip then return end
     if tooltip.NineSlice then tooltip.NineSlice:SetAlpha(0) end
     if tooltip.muiSkinned then return end
     tooltip.muiSkinned = true

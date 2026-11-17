@@ -977,14 +977,24 @@ local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameEnemyPlayerNam
     "UnitNameEnemyPetName", "UnitNameEnemyGuardianName", "UnitNameEnemyMinionName", "UnitNameEnemyTotemName",
     "UnitNameNPC", "UnitNameFriendlySpecialNPCName", "UnitNameInteractiveNPC", "UnitNameFriendlyPetName" }
 local MUI_PLATE_CVARS = { "nameplateShowFriendlyNpcs", "nameplateShowFriendlyPlayerPets", "nameplateShowFriendlyPlayers" }
+-- In instances friendly plates are forbidden (Blizzard draws them, addons can't touch them): pets
+-- and NPCs would get Blizzard's full bars there, so they stay off; players keep name-only plates.
+local INSTANCE_OFF = { nameplateShowFriendlyNpcs = true, nameplateShowFriendlyPlayerPets = true }
 function ns.SetMuiNames(useMui)
     ns.db.npMuiNames = useMui and true or false
     ns.AfterCombat(function()
+        local inInstance = IsInInstance()
         -- temporary values; off = drop them, the player's own settings apply again
         for _, cvar in ipairs(WORLD_NAME_CVARS) do ns.LookCVar(cvar, useMui and "0" or nil) end
-        for _, cvar in ipairs(MUI_PLATE_CVARS) do ns.LookCVar(cvar, useMui and "1" or nil) end
+        for _, cvar in ipairs(MUI_PLATE_CVARS) do
+            local value = useMui and ((inInstance and INSTANCE_OFF[cvar]) and "0" or "1") or nil
+            ns.LookCVar(cvar, value)
+        end
     end)
 end
+ns:On("PLAYER_ENTERING_WORLD", function()
+    if ns.db and ns.db.npMuiNames ~= false and ns.ModuleOn("nameplates") then ns.SetMuiNames(true) end
+end)
 
 -- Settings changed (name size, title, owner): rebuild all visible plates
 function ns.RefreshNamePlates()
