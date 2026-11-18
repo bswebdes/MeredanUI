@@ -32,8 +32,7 @@ local TEXT = {
     tooLong = { "Macro too long in this language", "Makro in dieser Sprache zu lang" },
     slots = { "Character macros: %d/%d", "Charakter-Makros: %d/%d" },
     none = { "No templates for your class yet.", "Für deine Klasse gibt es noch keine Vorlagen." },
-    hint = { "Saved for this character only. Spell names follow your game language.",
-             "Wird nur für diesen Charakter gespeichert. Zaubernamen folgen deiner Spielsprache." },
+    hint = { "Saved for this character only", "Nur für diesen Charakter" },
 }
 local function T(key) return Loc(TEXT[key]) end
 
@@ -372,7 +371,10 @@ local function BuildPanel()
     panel = CreateFrame("Frame", nil, frame)
     panel:SetPoint("TOPLEFT", frame, "TOPLEFT", 8, -(TOP - 6))
     panel:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -8, 8)
-    panel:SetFrameLevel(frame:GetFrameLevel() + 60)
+    -- Blizzard's grid buttons, details and footer sit on high frame levels inside the window;
+    -- one strata above the window keeps the whole panel on top (popups/dialogs stay above it)
+    local above = { BACKGROUND = "LOW", LOW = "MEDIUM", MEDIUM = "HIGH", HIGH = "DIALOG" }
+    panel:SetFrameStrata(above[frame:GetFrameStrata()] or "HIGH")
     panel:EnableMouse(true)
     local c = ns.STYLE.panelColor
     local bg = panel:CreateTexture(nil, "BACKGROUND", nil, -8)
