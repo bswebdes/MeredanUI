@@ -502,7 +502,8 @@ local function Style(self, unit)
     -- right, longer ones to the left - when the row is full the longest drop out, never the short ones
     local buffs = CreateAuraRow(self, S, true, S.buff, S.width, S.buffInset, S.aurasAbove)
     if unit == "player" then
-        debuffs:AddGroup("HARMFUL", { maxFrameCount = S.debuffCount, dispelBand = "harmful" })
+        debuffs:AddGroup("HARMFUL", { maxFrameCount = S.debuffCount, dispelBand = "harmful",
+            candidateFilters = { excludeSpellIDs = ns.HIDDEN_DEBUFFS } })
         buffs:AddGroup("HELPFUL|!RAID_IN_COMBAT", {
             maxFrameCount = S.auraCount,
             sortMethod = AuraContainerSortMethod.ExpirationOnly,

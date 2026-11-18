@@ -10,6 +10,12 @@ local L = ns.L
 ns.IS_FOREVER = WOW_PROJECT_ID == (WOW_PROJECT_CAMELOT or 18)
 ns.IS_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
+-- Noise debuffs hidden on the player's aura rows (spell id -> true). Blizzard's aura containers only
+-- honor this for auras flagged never-secret (AuraContainerUtil.CanApplyIdentityCandidateFilters).
+ns.HIDDEN_DEBUFFS = {
+    [1229451] = true, -- Improved Rested Bonus: no further campfire rested bonus for 1 hour
+}
+
 local version = C_AddOns.GetAddOnMetadata(ADDON_NAME, "Version") or ""
 ns.VERSION = version:find("^@") and "dev" or version
 
