@@ -371,10 +371,10 @@ local function BuildPanel()
     panel = CreateFrame("Frame", nil, frame)
     panel:SetPoint("TOPLEFT", frame, "TOPLEFT", 8, -(TOP - 6))
     panel:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -8, 8)
-    -- Blizzard's grid buttons, details and footer sit on high frame levels inside the window;
-    -- one strata above the window keeps the whole panel on top (popups/dialogs stay above it)
-    local above = { BACKGROUND = "LOW", LOW = "MEDIUM", MEDIUM = "HIGH", HIGH = "DIALOG" }
-    panel:SetFrameStrata(above[frame:GetFrameStrata()] or "HIGH")
+    -- Blizzard puts the grid, selected icon, edit/save/cancel on strata HIGH (Blizzard_MacroUI.xml);
+    -- the panel joins that strata on a higher level, and those parts are hidden while it is shown
+    panel:SetFrameStrata("HIGH")
+    panel:SetFrameLevel(frame:GetFrameLevel() + 100)
     panel:EnableMouse(true)
     local c = ns.STYLE.panelColor
     local bg = panel:CreateTexture(nil, "BACKGROUND", nil, -8)
@@ -450,6 +450,17 @@ local function BuildPanel()
     detail.status:SetPoint("LEFT", frame, "BOTTOMLEFT", PAD + GRID_W + 16, 28)
 end
 
+-- Blizzard's own strata HIGH parts: hidden and click-through while the panel is shown
+local function BlizzardHigh()
+    return { frame.MacroSelector, frame.SelectedMacroButton, _G.MacroEditButton, _G.MacroCancelButton, _G.MacroSaveButton }
+end
+local function SetBlizzardShown(on)
+    for _, widget in pairs(BlizzardHigh()) do
+        widget:SetAlpha(on and 1 or 0)
+        if widget.EnableMouse then widget:EnableMouse(on) end
+    end
+end
+
 function M.IsShown() return shown end
 function M.Subtitle() return T("subtitle") end
 
@@ -464,6 +475,7 @@ function M.Show()
             for inner in t.body:gmatch("{(%d+)r}") do C_Spell.RequestLoadSpellData(tonumber(inner)) end
         end
     end
+    SetBlizzardShown(false)
     panel:Show()
     Refresh()
     -- Blizzard's selected tab is disabled; enable it so a click brings the macros back
@@ -475,6 +487,7 @@ function M.Hide()
     if not shown then return end
     shown = false
     panel:Hide()
+    SetBlizzardShown(true)
     if M.onChange then M.onChange() end
 end
 
