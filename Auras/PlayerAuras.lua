@@ -167,7 +167,6 @@ local function CreateContainer(name, filter, perRow, rows, iconSize, spacing, li
         sortDirection = AuraContainerSortDirection.Reverse,
         layout = layout,
         initializeFrame = Init,
-        candidateFilters = harmful and { excludeSpellIDs = ns.HIDDEN_DEBUFFS } or nil,
     })
     if not harmful then
         -- Weapon enchants (poisons, oils ...) before the buffs
