@@ -30,7 +30,7 @@ local TEXT_TOP = CONTENT_TOP + ICON + 32
 
 local skinned = setmetatable({}, { __mode = "k" })
 local own = setmetatable({}, { __mode = "k" })
-local frame, subtitle
+local frame, subtitle, templatesTab
 local applied = false
 
 local function Enabled()
@@ -108,18 +108,33 @@ end
 
 -- Tabs (General / Character): rune-look tabs, the active one with a gem.
 -- Blizzard disables the selected tab (and both while the icon popup is open).
+-- Our third tab (Skins/MacroTemplates.lua) covers the window while its panel is shown.
 local function UpdateTabs()
     if not frame then return end
+    local templates = ns.MacroTemplates
+    local own = templates and templates.IsShown()
     local selected = PanelTemplates_GetSelectedTab(frame)
     for i, tab in ipairs({ _G.MacroFrameTab1, _G.MacroFrameTab2 }) do
         if tab then
             tab:SetHeight(28)
-            Kit.SetTabActive(tab, selected == i)
+            Kit.SetTabActive(tab, not own and selected == i)
+            if own then tab:Enable() end
         end
     end
+    local third = templatesTab
+    if third then
+        Kit.SetTabActive(third, own)
+        -- Blizzard disables both tabs while the icon popup is open; ours follows
+        local popup = _G.MacroPopupFrame
+        third:SetEnabled(not (popup and popup:IsShown()))
+    end
     if subtitle then
-        subtitle:SetText(selected == 2 and (CHARACTER_SPECIFIC_MACROS or "%s"):format(UnitName("player") or "")
-            or GENERAL_MACROS or "")
+        if own then
+            subtitle:SetText(templates.Subtitle())
+        else
+            subtitle:SetText(selected == 2 and (CHARACTER_SPECIFIC_MACROS or "%s"):format(UnitName("player") or "")
+                or GENERAL_MACROS or "")
+        end
     end
 end
 
@@ -137,6 +152,11 @@ local function Place()
     if tab2 then
         tab2:ClearAllPoints()
         tab2:SetPoint("LEFT", tab1 or f, tab1 and "RIGHT" or "LEFT", 6, 0)
+    end
+    local tab3 = templatesTab
+    if tab3 and tab2 then
+        tab3:ClearAllPoints()
+        tab3:SetPoint("LEFT", tab2, "RIGHT", 6, 0)
     end
 
     local selector = f.MacroSelector
@@ -379,6 +399,13 @@ local function Apply()
     applied = true
     frame = _G.MacroFrame
     Try(SkinShell, frame)
+    if ns.MacroTemplates then
+        Try(function()
+            templatesTab = ns.MacroTemplates.Attach(frame, {
+                PAD = PAD, CONTENT_TOP = CONTENT_TOP, FOOTER = FOOTER, GRID_W = GRID_W, RIGHT_X = RIGHT_X,
+            }, UpdateTabs)
+        end)
+    end
     Unmanage()
     Try(Place)
     Try(UpdateTabs)
@@ -396,8 +423,8 @@ local function Apply()
     local popup = _G.MacroPopupFrame
     if popup then
         -- Blizzard re-sizes its UI panel slot when the popup opens; keep our spot and re-place neighbors
-        popup:HookScript("OnShow", function() C_Timer.After(0, function() Place() Reposition() end) end)
-        popup:HookScript("OnHide", function() C_Timer.After(0, function() Reposition() end) end)
+        popup:HookScript("OnShow", function() C_Timer.After(0, function() Place() Reposition() UpdateTabs() end) end)
+        popup:HookScript("OnHide", function() C_Timer.After(0, function() Reposition() UpdateTabs() end) end)
     end
     frame:HookScript("OnShow", function()
         Place()

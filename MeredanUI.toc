@@ -81,6 +81,8 @@ Skins/ReadyCheck.lua
 Skins/DressUp.lua
 Skins/GroupFinder.lua
 Skins/Macros.lua
+Skins/MacroTemplatesData.lua
+Skins/MacroTemplates.lua
 Skins/Calendar.lua
 Skins/Stable.lua
 Skins/Scoreboard.lua
