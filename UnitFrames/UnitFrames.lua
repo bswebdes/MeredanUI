@@ -365,7 +365,7 @@ local function Style(self, unit)
     name:SetWidth(S.width * 0.8)
     -- Player: level in Surf Green before the name (below max level); target (mirrored): level in
     -- difficulty color after the name
-    local nameTag = unit == "player" and "[mui:level][mui:uname]" or "[mui:uname]"
+    local nameTag = unit == "player" and "[mui:level][mui:uname]" or "[mui:uname][mui:away]"
     TagText(self, name, nameTag)
     self.NameText = name
     -- Target: level and the elite/rare dragon in their own strings, so a long name is shortened
@@ -781,6 +781,20 @@ oUF.Tags.Methods["mui:uname"] = [[function(u, r)
     return name
 end]]
 oUF.Tags.Events["mui:uname"] = "UNIT_NAME_UPDATE"
+
+-- Away flag after a player's name (" <AFK>" / " <DND>" in gold); secret flags show nothing
+function ns.AwayFlag(unit)
+    if not ns.Plain(UnitIsPlayer(unit)) then return end
+    local afk, dnd = UnitIsAFK(unit), UnitIsDND(unit)
+    if ns.Readable(afk) and afk then return CHAT_FLAG_AFK or "<AFK>" end
+    if ns.Readable(dnd) and dnd then return CHAT_FLAG_DND or "<DND>" end
+end
+oUF.Tags.Vars.muiAwayFlag = ns.AwayFlag
+oUF.Tags.Methods["mui:away"] = [[function(u)
+    local flag = _VARS.muiAwayFlag(u)
+    if flag then return " |cffd9a340" .. flag .. "|r" end
+end]]
+oUF.Tags.Events["mui:away"] = "PLAYER_FLAGS_CHANGED UNIT_NAME_UPDATE"
 
 -- Level in Surf Green plus a trailing space, only below max level (empty otherwise)
 oUF.Tags.Methods["mui:level"] = [[function(u)

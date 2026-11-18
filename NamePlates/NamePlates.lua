@@ -996,9 +996,10 @@ end)
 
 -- "mUI names instead of Blizzard names": on = Blizzard world names off, friendly NPCs and pets on
 -- mUI plates; off = the player's own settings again. Temporary CVars, works without reload.
--- Enemy player names stay Blizzard's: players of the other faction you can't attack may get no
--- plate, so without the world name they would be invisible (it hides by itself while a plate shows).
-local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName", "UnitNameHostleNPC",
+-- Enemy player and hostile NPC names stay Blizzard's: plates only show up close (and players of the
+-- other faction you can't attack may get none), so without the world name distant enemies would have
+-- no name at all. The world name hides by itself while a plate shows.
+local WORLD_NAME_CVARS = { "UnitNameFriendlyPlayerName",
     "UnitNamePlayerGuild", "UnitNameFriendlyGuardianName", "UnitNameFriendlyMinionName", "UnitNameFriendlyTotemName",
     "UnitNameEnemyPetName", "UnitNameEnemyGuardianName", "UnitNameEnemyMinionName", "UnitNameEnemyTotemName",
     "UnitNameNPC", "UnitNameFriendlySpecialNPCName", "UnitNameInteractiveNPC", "UnitNameFriendlyPetName" }
@@ -1014,6 +1015,7 @@ function ns.SetMuiNames(useMui)
         for _, cvar in ipairs(WORLD_NAME_CVARS) do ns.LookCVar(cvar, useMui and "0" or nil) end
         -- on: older mUI versions saved it as off for good
         ns.LookCVar("UnitNameEnemyPlayerName", useMui and "1" or nil)
+        ns.LookCVar("UnitNameHostleNPC", useMui and "1" or nil)
         for _, cvar in ipairs(MUI_PLATE_CVARS) do
             local value = useMui and ((inInstance and INSTANCE_OFF[cvar]) and "0" or "1") or nil
             ns.LookCVar(cvar, value)

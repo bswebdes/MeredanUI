@@ -667,6 +667,16 @@ local function AddUnitLines(tooltip, unit)
     if class then Left(tooltip, 1):SetTextColor(class.r, class.g, class.b) end
     MarkRecentAlly(tooltip, unit, layout)
 
+    -- Away flag after the name in gold (Blizzard's tooltip shows none in Forever)
+    local flag = ns.AwayFlag and ns.AwayFlag(unit)
+    if flag then
+        local nameLine = Left(tooltip, 1)
+        local text = nameLine:GetText()
+        if Readable(text) and text and not text:find(flag, 1, true) then -- once per build
+            nameLine:SetText(text .. " |cffd9a340" .. flag .. "|r")
+        end
+    end
+
     -- Guild + rank in the accent colour: Blizzard shows only the guild name (line 2)
     local guild, rank = GetGuildInfo(unit)
     if Readable(guild) and Readable(rank) and guild then
