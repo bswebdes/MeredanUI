@@ -2,6 +2,11 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.12", items = {
+        "New Templates tab in the macro window: ready-made macros for your class, each with a short how-to, in English and German. Only macros for spells you already know can be created, and they are saved as macros for this character",
+        "Players who are away or busy show <AFK> or <DND> after their name in the tooltip and on the target frame",
+        "Distant NPCs (hostile and neutral) show their name again before their nameplate appears",
+    } },
     { version = "v0.5.11", items = {
         "Right-click the gold display (info bar or bags) to forget a character you deleted or no longer play. Its gold, its items in tooltips and its mUI settings are removed",
     } },
@@ -37,11 +42,5 @@ ns.CHANGELOG = {
         "The tooltip Blizzard drew over soft-targeted nameplates is turned off, so you get the normal mUI tooltip on mouseover",
         "Recent allies are marked with a small icon behind the name in the tooltip instead of an extra line",
         "Fixed: several Lua errors in battlegrounds (buff reminder, ready check, AFK screen, scoreboard)",
-    } },
-    { version = "v0.5.6", items = {
-        "The dungeon panel on the map now covers every dungeon open in Forever: bosses with their loot and drop chances, plus a quest tab. Loot and quests are updated from the latest guides, including Shaper's Terrace",
-        "Boss pins on dungeon maps with several floors now sit on the floor where the boss really stands (Scholomance, Blackrock Spire, Dire Maul, Gnomeregan and more)",
-        "Shadowfang Keep has a clearer map: four floors that fill the frame instead of seven mostly empty ones",
-        "City of Dalaran has a new map in the same style as the other dungeons, with boss pins at their real spots",
     } },
 }

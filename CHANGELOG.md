@@ -1,5 +1,10 @@
 # MeredanUI Changelog
 
+## v0.5.12
+- New Templates tab in the macro window: ready-made macros for your class, each with a short how-to, in English and German. Only macros for spells you already know can be created, and they are saved as macros for this character
+- Players who are away or busy show <AFK> or <DND> after their name in the tooltip and on the target frame
+- Distant NPCs (hostile and neutral) show their name again before their nameplate appears
+
 ## v0.5.11
 - Right-click the gold display (info bar or bags) to forget a character you deleted or no longer play. Its gold, its items in tooltips and its mUI settings are removed
 
