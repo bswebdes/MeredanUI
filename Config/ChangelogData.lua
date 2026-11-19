@@ -2,6 +2,9 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.13", items = {
+        "New frame material: Class metal (Appearance page, Frame material). Every character gets its own muted metal in its class colour, from brass for warriors and verdigris for hunters to copper for druids. Window frames, action buttons, item borders, dividers and the action bar end caps all take it on",
+    } },
     { version = "v0.5.12", items = {
         "New Templates tab in the macro window: ready-made macros for your class, each with a short how-to, in English and German. Only macros for spells you already know can be created, and they are saved as macros for this character",
         "Players who are away or busy show <AFK> or <DND> after their name in the tooltip and on the target frame",
@@ -32,15 +35,5 @@ ns.CHANGELOG = {
         "Attack with abilities. Harmful spells on mUI action buttons now also start your auto attack (Comfort style, can be turned off)",
         "Spells, professions and toys in the spellbook cast when you release the click, so dragging them onto a bar no longer casts them by accident",
         "New spell ranks automatically replace the previous rank on your action bars, and newly learned spells go to the first free slot (Comfort style)",
-    } },
-    { version = "v0.5.7", items = {
-        "Battlegrounds got the full mUI treatment. The flag score at the top is now one versus board with both faction crests, and every capture lights up a gem. A small flag pulses on the crest while a team holds the enemy flag",
-        "Flag carriers get their own mUI frames in the boss frame column, with the carried flag next to them. A click targets the carrier, and the quest log moves aside just like it does for boss frames",
-        "The battleground scoreboard has a new look with faction crests, crests on the team tabs, a faction glow on every row and a gold band on your own row. The Honor column is no longer cut off and the team tabs show their full names",
-        "Russian names and chat now show properly. The mUI fonts include Cyrillic letters, and the chat no longer drops Cyrillic text",
-        "Nameplates get a thin gold frame on mouseover instead of a white wash over the health bar",
-        "The tooltip Blizzard drew over soft-targeted nameplates is turned off, so you get the normal mUI tooltip on mouseover",
-        "Recent allies are marked with a small icon behind the name in the tooltip instead of an extra line",
-        "Fixed: several Lua errors in battlegrounds (buff reminder, ready check, AFK screen, scoreboard)",
     } },
 }

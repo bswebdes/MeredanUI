@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## v0.5.13
+- New frame material: Class metal (Appearance page, Frame material). Every character gets its own muted metal in its class colour, from brass for warriors and verdigris for hunters to copper for druids. Window frames, action buttons, item borders, dividers and the action bar end caps all take it on
+
 ## v0.5.12
 - New Templates tab in the macro window: ready-made macros for your class, each with a short how-to, in English and German. Only macros for spells you already know can be created, and they are saved as macros for this character
 - Players who are away or busy show <AFK> or <DND> after their name in the tooltip and on the target frame
