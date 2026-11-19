@@ -249,6 +249,7 @@ if GetLocale() == "deDE" then
     L["Skyborne"] = "Himmelsgeborene"
     L["Bronze"] = "Bronze"
     L["Iron"] = "Eisen"
+    L["Class metal"] = "Klassen-Metall"
     L["Heading font"] = "Schrift für Titel"
     L["Window titles, headings and names above the unit frames."] = "Fenstertitel, Überschriften und Namen über den Einheitenrahmen."
     L["Minimap"] = "Minimap"

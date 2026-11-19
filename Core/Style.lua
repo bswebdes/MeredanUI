@@ -383,8 +383,55 @@ ns.FRAME_MATERIALS = {
         ornament = { desaturate = 0.8, tint = { 0.86, 0.88, 0.92 } },
     },
 }
+-- "Class" material: a muted metal per class, hand-tuned (deriving it from the class colour alone made
+-- rogue olive and druid indistinguishable from bronze). lit/dark: edge, band: dark band, item: item
+-- frame edge, accentLine: dividers. Ornaments are desaturated and tinted towards the metal.
+local CLASS_METALS = {
+    WARRIOR     = { lit = "c9b27a", dark = "4a3c22", band = "110f0a", item = "8f7a4c", accent = "a8925e" }, -- brass
+    PALADIN     = { lit = "e0a08e", dark = "5a3028", band = "130d0c", item = "a8695a", accent = "c48474" }, -- rose gold
+    HUNTER      = { lit = "8fbfa4", dark = "22423a", band = "0b100e", item = "5a8c78", accent = "74a690" }, -- verdigris
+    ROGUE       = { lit = "e0c560", dark = "5a4818", band = "13110a", item = "a8903c", accent = "c4aa50" }, -- old gold
+    PRIEST      = { lit = "c4c8ce", dark = "34373c", band = "0c0d0e", item = "8a8e95", accent = "a4a8ae" }, -- silver
+    SHAMAN      = { lit = "6f9ad8", dark = "1a2d52", band = "0a0d13", item = "3f639e", accent = "5680bc" }, -- cobalt
+    MAGE        = { lit = "86c3d6", dark = "1f4450", band = "0a1012", item = "4f8a9c", accent = "68a6b8" }, -- arcane steel
+    WARLOCK     = { lit = "9a8ad6", dark = "2c2350", band = "0d0b13", item = "63549c", accent = "7e6eba" }, -- violet steel
+    DRUID       = { lit = "e08a5c", dark = "5a2a16", band = "130c0a", item = "a85a34", accent = "c47248" }, -- copper
+    DEATHKNIGHT = { lit = "d07070", dark = "4a1a1e", band = "120a0b", item = "963c42", accent = "b45458" }, -- blood iron
+    MONK        = { lit = "7fd0b0", dark = "1c4a3a", band = "0a110e", item = "4a9478", accent = "62b094" }, -- jade
+    DEMONHUNTER = { lit = "b07ad0", dark = "38204a", band = "0f0b12", item = "7a4c96", accent = "9462b4" }, -- fel violet
+    EVOKER      = { lit = "6fc0b4", dark = "1a4440", band = "0a1110", item = "408a80", accent = "58a69c" }, -- bronze-teal
+}
+
+local function MetalColor(hex, alpha)
+    return { tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255, alpha }
+end
+
+local classMaterial
+local function ClassMaterial()
+    if classMaterial then return classMaterial end
+    local metal = CLASS_METALS[UnitClassBase and UnitClassBase("player") or select(2, UnitClass("player"))]
+    if not metal then return nil end
+    local lit = MetalColor(metal.lit, 1)
+    local band = MetalColor(metal.band, 0.92)
+    -- tint keeps ornaments bright: the lit colour lifted towards white
+    local tint = { lit[1] * 0.6 + 0.4, lit[2] * 0.6 + 0.4, lit[3] * 0.6 + 0.4 }
+    classMaterial = {
+        lit = lit, dark = MetalColor(metal.dark, 1), band = band,
+        item = MetalColor(metal.item, 1),
+        accentLine = MetalColor(metal.accent),
+        rim = { band[1] * 0.3, band[2] * 0.3, band[3] * 0.3, 0.55 },
+        ornament = { desaturate = 0.85, tint = tint },
+    }
+    return classMaterial
+end
+
 function ns.Material()
-    return ns.FRAME_MATERIALS[ns.db and ns.db.frameMaterial or "iron"] or ns.FRAME_MATERIALS.iron
+    local choice = ns.db and ns.db.frameMaterial or "iron"
+    if choice == "class" then
+        local m = ClassMaterial()
+        if m then return m end
+    end
+    return ns.FRAME_MATERIALS[choice] or ns.FRAME_MATERIALS.iron
 end
 -- Painted bronze ornaments (class animals, gem bezels) follow the material without new art:
 -- iron takes most of the colour out and cools them a little.
