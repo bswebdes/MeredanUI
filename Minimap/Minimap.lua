@@ -400,14 +400,25 @@ end
 ns:On("PLAYER_LOGIN", Setup)
 
 -- Blizzard's mail icon only listens to UPDATE_PENDING_MAIL, which doesn't always follow emptying the
--- mailbox: after closing it, an empty inbox (or no unread mail) hides the icon
+-- mailbox, and HasNewMail() stays true while read letters remain. After closing the mailbox we
+-- check the inbox itself: no unread letter left (and none beyond the loaded 50) hides the icon.
+local function HasUnreadInbox()
+    local loaded, total = GetInboxNumItems()
+    loaded, total = loaded or 0, total or 0
+    if total > loaded then return true end
+    for i = 1, loaded do
+        local wasRead = select(9, GetInboxHeaderInfo(i))
+        if not wasRead then return true end
+    end
+    return false
+end
+
 ns:On("MAIL_CLOSED", function()
     C_Timer.After(0.5, function()
         local indicators = MinimapCluster and MinimapCluster.IndicatorFrame
         local mail = indicators and indicators.MailFrame
         if not mail or not mail:IsShown() or demoActive then return end
-        local _, total = GetInboxNumItems()
-        if HasNewMail() and (total or 0) > 0 then return end
+        if HasUnreadInbox() then return end
         mail:Hide()
         if indicators.Layout then indicators:Layout() end
     end)
