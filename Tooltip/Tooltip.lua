@@ -693,13 +693,21 @@ local function AddUnitLines(tooltip, unit)
     local faction, factionName = UnitFactionGroup(unit)
     local factionColor = Readable(faction) and FACTION_COLORS[faction]
     local playerTag = type(PLAYER) == "string" and ("%s*%(" .. PLAYER:gsub("%p", "%%%0") .. "%)")
-    local className = UnitClass(unit)
+    local className, classFile = UnitClass(unit)
+    -- the class line can be the female or male form while UnitClass returns the other one
+    local classNames = {}
+    if Readable(className) and className then classNames[className] = true end
+    if Readable(classFile) and classFile then
+        for _, list in ipairs({ LOCALIZED_CLASS_NAMES_FEMALE, LOCALIZED_CLASS_NAMES_MALE }) do
+            if type(list) == "table" and list[classFile] then classNames[list[classFile]] = true end
+        end
+    end
     local levelIndex, classIndex, factionIndex
     for i = 2, tooltip:NumLines() do
         local text = Left(tooltip, i):GetText()
         if Readable(text) and text then
             if not levelIndex and levelTag and text:find(levelTag) then levelIndex = i end
-            if Readable(className) and text == className then classIndex = i end
+            if classNames[text] then classIndex, className = i, text end
             if Readable(factionName) and factionName and text == factionName then factionIndex = i end
         end
     end
@@ -798,10 +806,22 @@ function ns.AddForcesTooltipLine(tooltip, percentString)
     tooltip:AddDoubleLine(L["Enemy forces"], "+" .. percentString .. "%", 0.8, 0.8, 0.8, r, g, b)
 end
 
-local function OnUnitTooltip(tooltip)
+-- When Blizzard rebuilds the tooltip, GetUnit can return a secret or no token; the lines then stay
+-- Blizzard's (class/faction lines, "(Player)", full race name). Fall back to the data's GUID.
+local function OnUnitTooltip(tooltip, data)
     if tooltip ~= GameTooltip then return end
     local _, unit = tooltip:GetUnit()
-    if not Readable(unit) then return end
+    if not (Readable(unit) and unit) then
+        local guid = data and data.guid
+        unit = Readable(guid) and guid and UnitTokenFromGUID(guid) or nil
+        if DevLog then
+            local owner = tooltip:GetOwner()
+            DevLog("MeredanUI", ("TTUNIT no unit token, guid=%s fallback=%s owner=%s"):format(
+                Readable(guid) and tostring(guid) or "secret", tostring(unit),
+                tostring(owner and owner.GetName and owner:GetName())))
+        end
+        if not unit then return end
+    end
     AddUnitLines(tooltip, unit)
     AddForcesLine(tooltip, unit)
 end
