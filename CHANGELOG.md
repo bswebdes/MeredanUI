@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.5.14
+- Fixed: the setup could show up again on characters that had already finished it
+- The mail icon on the minimap goes away once only read letters are left
+
 ## v0.5.13
 - New frame material: Class metal (Appearance page, Frame material). Every character gets its own muted metal in its class colour, from brass for warriors and verdigris for hunters to copper for druids. Window frames, action buttons, item borders, dividers and the action bar end caps all take it on
 
