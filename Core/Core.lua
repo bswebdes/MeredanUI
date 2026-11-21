@@ -418,6 +418,75 @@ function ns.CharDisplayName(key)
     return name .. " (" .. (ns.ShortRealm(realm)) .. ")"
 end
 
+-- Name parts for the character key; realm "" while the game doesn't know it yet
+local function CharNameParts()
+    local first, last = UnitName("player")
+    if last and (issecretvalue and issecretvalue(last) or last == "") then last = nil end
+    local realm = GetRealmName() or ""
+    if realm == "" then realm = GetNormalizedRealmName and GetNormalizedRealmName() or "" end
+    return first or "", last, realm
+end
+
+local function NamePartsComplete(last, realm)
+    return realm ~= "" and (last ~= nil or not ns.IS_FOREVER)
+end
+
+-- Incomplete name parts: the one known character they fit, nil if none or several
+local function GuessCharKey(chars, first, last, realm)
+    local hit
+    for key in pairs(chars) do
+        local name, known = key:match("^(.-) %- (.*)$")
+        if name and known ~= "" and (realm == "" or known == realm) then
+            local fits
+            if last then fits = name == first .. " " .. last
+            else fits = name == first or name:sub(1, #first + 1) == first .. " " end
+            if fits then
+                if hit then return nil end
+                hit = key
+            end
+        end
+    end
+    return hit
+end
+
+-- Own profile named after the character; on a name clash append the short realm
+-- ("(RP)", then "(EU5-10 RP)", then a number)
+local function NewCharProfileName(root, fullName, realm)
+    local name, n = fullName, 1
+    if realm ~= "" then
+        local short, long = ns.ShortRealm(realm)
+        if root.profiles[name] then name = fullName .. " (" .. short .. ")" end
+        if root.profiles[name] then name = fullName .. " (" .. long .. ")" end
+    end
+    local base = name
+    while root.profiles[name] do n = n + 1; name = base .. " " .. n end
+    return name
+end
+
+local function ProfileInUse(root, name)
+    for _, data in pairs(root.chars) do
+        if data.profile == name then return true end
+        for _, specProfile in pairs(data.specProfiles or {}) do
+            if specProfile == name then return true end
+        end
+    end
+    return root.newCharProfile == name
+end
+
+-- Earlier versions saved "Name - " when the realm was still empty; drop that duplicate (and its
+-- profile if nothing else uses it) once the real entry exists
+local function DropRealmlessEntry(root, fullName, realKey)
+    local stale = fullName .. " - "
+    local entry = stale ~= realKey and root.chars[stale]
+    if not entry then return end
+    root.chars[stale] = nil
+    if root.gold then root.gold[stale] = nil end
+    local profile = entry.profile
+    if profile and profile ~= ns.DEFAULT_PROFILE and root.profiles[profile] and not ProfileInUse(root, profile) then
+        root.profiles[profile] = nil
+    end
+end
+
 ns:On("ADDON_LOADED", function(_, name)
     -- Only react to our own addon but keep the event registered: modules wait for
     -- Blizzard load-on-demand addons (e.g. Blizzard_TimeManager).
@@ -453,35 +522,38 @@ ns:On("ADDON_LOADED", function(_, name)
     -- Character key = first AND last name + realm (two characters with the same first name on one
     -- realm would otherwise share key, profile and setup). Forever returns the last name as the
     -- second value of UnitName; Retail has none, so the key stays first name only.
-    local first, last = UnitName("player")
-    if last and (issecretvalue and issecretvalue(last) or last == "") then last = nil end
+    -- At ADDON_LOADED the realm (and on Forever the last name) is sometimes still empty: a key built
+    -- from that looks like a new character and brings up the setup again. Then use the matching
+    -- known character, or a stand-in that PLAYER_LOGIN corrects (ResolvePendingChar).
+    local first, last, realm = CharNameParts()
+    local complete = NamePartsComplete(last, realm)
     local fullName = last and (first .. " " .. last) or first
-    local realm = GetRealmName()
     ns.charName = fullName
     ns.charKey = fullName .. " - " .. realm
+    if not complete then
+        local guess = GuessCharKey(root.chars, first, last, realm)
+        if guess then
+            ns.charKey, ns.charName = guess, guess:match("^(.-) %- ")
+        else
+            ns.charKeyPending = true
+        end
+    end
     local char = root.chars[ns.charKey]
     if not char then
         char = {}
         root.chars[ns.charKey] = char
         -- Previously stored by first name only? Take over its settings
         local oldKey = first .. " - " .. realm
-        local old = oldKey ~= ns.charKey and root.chars[oldKey] or nil
+        local old = complete and oldKey ~= ns.charKey and root.chars[oldKey] or nil
         local shared = root.newCharProfile
         if shared and root.profiles[shared] then
             -- "Default for new characters" chosen: share that profile, it is already set up
             char.profile, char.setupDone = shared, true
         else
-            -- Own profile named after the character; on a name clash append the short realm
-            -- ("(RP)", then "(EU5-10 RP)", then a number)
-            local short, long = ns.ShortRealm(realm)
-            local name, n = fullName, 1
-            if root.profiles[name] then name = fullName .. " (" .. short .. ")" end
-            if root.profiles[name] then name = fullName .. " (" .. long .. ")" end
-            local base = name
-            while root.profiles[name] do n = n + 1; name = base .. " " .. n end
+            char.profile = NewCharProfileName(root, fullName, realm)
             local source = old and old.profile and root.profiles[old.profile]
-            root.profiles[name] = source and CopyTable(source) or {}
-            char.profile = name
+            root.profiles[char.profile] = source and CopyTable(source) or {}
+            if ns.charKeyPending then ns.pendingProfile = char.profile end
             -- Carry over other character data (talent advisor, chat history ...) but NOT the setup
             -- flag: it came from the account-wide flag and doesn't apply to this character
             for key, value in pairs(old or {}) do
@@ -492,11 +564,14 @@ ns:On("ADDON_LOADED", function(_, name)
         end
         if old and root.gold then root.gold[oldKey] = nil end -- gold list: re-added under the new name
     end
-    -- Delete the old first-name-only entry after migrating, otherwise every further character with
-    -- the same first name inherits its profile and setup flag
-    if last then
-        local oldKey = first .. " - " .. realm
-        if oldKey ~= ns.charKey then root.chars[oldKey] = nil end
+    if complete then
+        -- Delete the old first-name-only entry after migrating, otherwise every further character
+        -- with the same first name inherits its profile and setup flag
+        if last then
+            local oldKey = first .. " - " .. realm
+            if oldKey ~= ns.charKey then root.chars[oldKey] = nil end
+        end
+        DropRealmlessEntry(root, fullName, ns.charKey)
     end
     -- One-time reset: all setup flags came from the account-wide flag or the first-name entry,
     -- so every character is offered the setup again
@@ -524,7 +599,37 @@ function ns.UseProfile(name)
     if ns.ApplySettings then ns.ApplySettings() end -- theme border colour before any frame is built
 end
 
+-- Name parts were incomplete at ADDON_LOADED: now they are known. A known character takes over
+-- (stand-in entry and its fresh profile go), a new one is filed under its real key.
+local function ResolvePendingChar()
+    if not ns.charKeyPending then return end
+    local first, last, realm = CharNameParts()
+    if not NamePartsComplete(last, realm) then return end
+    ns.charKeyPending = nil
+    local root = ns.root
+    local fullName = last and (first .. " " .. last) or first
+    local key = fullName .. " - " .. realm
+    local standIn = ns.char
+    if key ~= ns.charKey then
+        root.chars[ns.charKey] = nil
+        local real = root.chars[key]
+        if real then
+            local temp = ns.pendingProfile
+            if temp and temp ~= real.profile and not ProfileInUse(root, temp) then root.profiles[temp] = nil end
+            real.profile = root.profiles[real.profile] and real.profile or ns.DEFAULT_PROFILE
+            real.specProfiles = real.specProfiles or {}
+            ns.char = real
+            if real.profile ~= ns.profileName then ns.UseProfile(real.profile) end
+        else
+            root.chars[key] = standIn
+        end
+    end
+    ns.charName, ns.charKey, ns.pendingProfile = fullName, key, nil
+    DropRealmlessEntry(root, fullName, key)
+end
+
 ns:On("PLAYER_LOGIN", function()
+    ResolvePendingChar()
     ns.Debug("v%s, %s", ns.VERSION, ns.IS_FOREVER and "Forever" or "Retail")
     -- Greeting: full brand name, muted version, name in class color, hint to /mui
     local _, class = UnitClass("player")
