@@ -2,6 +2,10 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.15", items = {
+        "Fixed: with Attack with abilities on, openers from stealth (Garrote, Cheap Shot, Ambush, Pounce, Ravage) failed with \"You must be stealthed\". Auto attack no longer starts while you are stealthed",
+        "Player tooltips are tidied up again when the game rebuilds them (level line, race and class)",
+    } },
     { version = "v0.5.14", items = {
         "Fixed: the setup could show up again on characters that had already finished it",
         "The mail icon on the minimap goes away once only read letters are left",
@@ -28,11 +32,5 @@ ns.CHANGELOG = {
         "Fixed: closing Beast Training left its list and Train button on screen, and casting it again did not close it",
         "Fixed: using an armor kit, oil or similar item while the character window was open closed the window",
         "Fixed: the mail icon on the minimap stayed after emptying the mailbox",
-    } },
-    { version = "v0.5.9", items = {
-        "Fixed: game settings mUI changes only for a while (for example by RP mode) are now handed back properly. Before, things like enemy nameplates could stay hidden and neither the key binding nor the setting turned them back on",
-        "Fixed: zooming out of the world map during combat no longer causes a blocked action message",
-        "In dungeons, raids and battlegrounds, friendly pets and NPCs no longer get Blizzard's full nameplate bars. Blizzard doesn't let addons touch friendly nameplates there, so they stay off; players still show their names",
-        "Fixed: /fstack no longer throws errors on nameplates in dungeons",
     } },
 }

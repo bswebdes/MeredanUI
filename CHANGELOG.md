@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.5.15
+- Fixed: with Attack with abilities on, openers from stealth (Garrote, Cheap Shot, Ambush, Pounce, Ravage) failed with "You must be stealthed". Auto attack no longer starts while you are stealthed
+- Player tooltips are tidied up again when the game rebuilds them (level line, race and class)
+
 ## v0.5.14
 - Fixed: the setup could show up again on characters that had already finished it
 - The mail icon on the minimap goes away once only read letters are left

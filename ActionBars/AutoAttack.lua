@@ -4,7 +4,7 @@
 --
 -- How: a secure wrapper on each button's OnClick (restricted code, works in combat). For a harmful
 -- spell in the button's action slot it redirects the click to a macro
---     /startattack [@target,harm,nodead]
+--     /startattack [@target,harm,nodead,nostealth]   (auto attack would break stealth before an opener)
 --     /cast <spell name(rank)>
 -- Addons can't read mana at click time, so this happens on every press, not only when out of mana.
 -- Spell names come from a list built out of combat (restricted code can't look names up); a spell
@@ -47,7 +47,7 @@ local PRE = [[
     if not name or not PlayerCanAttack("target") then return end
     local cast = owner:GetAttribute("mouseover") and "/cast [@mouseover,harm,nodead][] " or "/cast "
     self:SetAttribute("*type-muiattack", "macro")
-    self:SetAttribute("*macrotext-muiattack", "/startattack [@target,harm,nodead]\n" .. cast .. name)
+    self:SetAttribute("*macrotext-muiattack", "/startattack [@target,harm,nodead,nostealth]\n" .. cast .. name)
     return "muiattack"
 ]]
 
