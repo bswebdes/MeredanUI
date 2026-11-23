@@ -362,6 +362,11 @@ local function GetButton(bag, slot)
     -- No SetBagID: the value would come from addon code (taint) and Blizzard then blocks using the
     -- item in combat. Without bagID, GetBagID reads the parent's ID (holder:SetID), like Bagnon/Baganator.
     button:SetID(slot)
+    -- Like Bagnon: drop the template's OnShow/OnEvent. They would run Blizzard code (item-context
+    -- callback registration, item-info updates) in our tainted execution whenever we show the button;
+    -- UpdateButton refreshes everything itself.
+    button:SetScript("OnShow", nil)
+    button:SetScript("OnEvent", nil)
     StyleButton(button)
     -- Alt+right-click: custom category (Blizzard doesn't use Alt+right-click)
     button:HookScript("OnClick", function(self, mouse)
