@@ -368,8 +368,10 @@ local function GetButton(bag, slot)
     button:SetScript("OnShow", nil)
     button:SetScript("OnEvent", nil)
     StyleButton(button)
-    -- Alt+right-click: custom category (Blizzard doesn't use Alt+right-click)
-    button:HookScript("OnClick", function(self, mouse)
+    -- Alt+right-click: custom category (Blizzard doesn't use Alt+right-click).
+    -- PostClick, not HookScript("OnClick"): hooking OnClick from addon code taints Blizzard's click
+    -- handler, so using items in combat gets blocked (UseContainerItem forbidden). Bagnon does the same.
+    button:SetScript("PostClick", function(self, mouse)
         if mouse == "RightButton" and IsAltKeyDown() and self.muiItemID then CategoryMenu(self) end
         -- Shift+right-click at a vendor: sell a protected profession tool anyway
         if mouse == "RightButton" and IsShiftKeyDown()
