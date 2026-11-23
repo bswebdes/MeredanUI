@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## v0.5.16
+- Fixed: items in the mUI bags could be blocked when used in combat
+
 ## v0.5.15
 - Fixed: with Attack with abilities on, openers from stealth (Garrote, Cheap Shot, Ambush, Pounce, Ravage) failed with "You must be stealthed". Auto attack no longer starts while you are stealthed
 - Player tooltips are tidied up again when the game rebuilds them (level line, race and class)

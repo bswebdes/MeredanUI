@@ -2,6 +2,9 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.5.16", items = {
+        "Fixed: items in the mUI bags could be blocked when used in combat",
+    } },
     { version = "v0.5.15", items = {
         "Fixed: with Attack with abilities on, openers from stealth (Garrote, Cheap Shot, Ambush, Pounce, Ravage) failed with \"You must be stealthed\". Auto attack no longer starts while you are stealthed",
         "Player tooltips are tidied up again when the game rebuilds them (level line, race and class)",
@@ -20,17 +23,5 @@ ns.CHANGELOG = {
     } },
     { version = "v0.5.11", items = {
         "Right-click the gold display (info bar or bags) to forget a character you deleted or no longer play. Its gold, its items in tooltips and its mUI settings are removed",
-    } },
-    { version = "v0.5.10", items = {
-        "PvP flag at a glance: while you are flagged, your faction crest sits as a faint watermark in your health bar. Hidden in battlegrounds and arenas",
-        "Elite and rare at a glance: the classic dragons are back. Gold for elite, silver for rare and rare elite, on the target frame, on enemy nameplates and in the tooltip",
-        "Enemy nameplates show the level in front of the percent, in the difficulty colour (grey, green, same level, orange, red, ?? for bosses)",
-        "The target frame always shows the level. Long names are shortened instead of pushing the level out",
-        "Players of the other faction who are not flagged for PvP show their name again",
-        "Hardcore mode: your death number (#15) above YOU DIED, taken from the game's own statistics",
-        "Fixed: Hardcore mode could not log you out. Logging out now starts when you click Try again",
-        "Fixed: closing Beast Training left its list and Train button on screen, and casting it again did not close it",
-        "Fixed: using an armor kit, oil or similar item while the character window was open closed the window",
-        "Fixed: the mail icon on the minimap stayed after emptying the mailbox",
     } },
 }
