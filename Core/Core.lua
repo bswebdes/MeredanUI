@@ -276,6 +276,8 @@ local DEFAULTS = {
     bagsShowSlots = false,       -- bag slots at the bottom of the bag window (button at the top of the window)
     mapReveal = true,            -- world map: reveal the whole map (Comfort)
     mapZoneLevels = true,        -- world map: level range at the zone name (Comfort)
+    mapFadeMoving = true,        -- world map: fades to 60 % while the player moves (Comfort)
+    mapCompact = false,          -- world map: small map above the chat, no quest log (button next to close)
     emptySlots = true,           -- bags: mark items for empty gear slots (Comfort)
     upgrades = "damage",         -- upgrade rating: "damage" (% total damage), "item" (% of item), "off"
     -- own buffs/debuffs left of the minimap (apply after reload)

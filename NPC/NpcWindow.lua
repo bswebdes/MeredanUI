@@ -67,12 +67,17 @@ end
 -- Blizzard's UI panels (character, spellbook, ...)
 ns.embeddedPanels = setmetatable({}, { __mode = "k" })
 local placing -- during Relayout: set of windows opened earlier; only those count
+ns.windowObstacles = {}
 local function Occupied(window)
     local list = {}
     for _, other in ipairs(order) do
         if other ~= window and other:IsVisible() and not other.replaceable and (not placing or placing[other]) then
             list[#list + 1] = other
         end
+    end
+    -- fixed areas other windows must avoid (small world map above the chat), whatever opened first
+    for area in pairs(ns.windowObstacles) do
+        if area:IsVisible() then list[#list + 1] = area end
     end
     if GetUIPanel then
         for _, area in ipairs({ "left", "center", "doublewide", "right" }) do
@@ -146,6 +151,7 @@ local function Relayout()
     end
     placing = nil
 end
+ns.RelayoutWindows = Relayout
 
 -- Short fade-in for windows (own ticker: Blizzard's UIFrameFadeIn shares a global list with its
 -- own frames). Skipped for protected frames in combat.

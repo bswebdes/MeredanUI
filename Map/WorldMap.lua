@@ -20,7 +20,11 @@ local L = ns.L
 local WIDTH, HEIGHT, PAD = 1240, 669, 18
 local LOG_W = 340
 local ROW_GAP = 2
+-- small map (setting mapCompact): map art only (3:2), above the chat; fades while moving (mapFadeMoving)
+local COMPACT_W, COMPACT_H = 600, 400
+local FADE_ALPHA, FADE_SPEED = 0.6, 4
 
+local head, holder, logPane, compactBar, compactButton, windowRune, obstacle
 local window, canvas, crumbs, coords, footer, logList, logSearch, logCount, pinButton, options, optionsButton
 local rows, headers, collapsedZones = {}, {}, {}
 local expandedQuest
@@ -88,6 +92,7 @@ local function AddProviders(map)
 end
 
 local OnMapChanged -- defined below (breadcrumbs, footer, quest log)
+local ApplyMode, SetCompact -- defined below (small map)
 
 local function CreateCanvas(parent)
     local map = CreateFrame("Frame", "MeredanUIMapCanvas", parent)
@@ -802,6 +807,7 @@ local CVAR_OPTIONS = {
     { cvar = "showDungeonEntrancesOnMap", label = "Dungeon entrances" },
     { db = "mapReveal", label = "Whole map" },          -- Map/MapExtras.lua: reveal whole map
     { db = "mapZoneLevels", label = "Level and faction" }, -- Map/MapExtras.lua: on zone names
+    { db = "mapFadeMoving", label = "Fade while moving" },
 }
 
 local function CreateOptions()
@@ -904,6 +910,50 @@ local function CreateFilterMenu()
     end)
 end
 
+-- Large window (map + quest log, centred) or small map (map art only, left above the chat)
+function ApplyMode()
+    local compact = ns.db.mapCompact == true
+    head:SetShown(not compact)
+    logPane:SetShown(not compact)
+    windowRune:SetShown(not compact)
+    compactBar:SetShown(compact)
+    obstacle:SetShown(compact)
+    options:Hide()
+    if filterMenu then filterMenu:Hide() end
+    holder:ClearAllPoints()
+    window:ClearAllPoints()
+    -- no outer frame on the small map: clamp to the map itself (RuneFrame widened it by the frame reach)
+    local reach = compact and 0 or ns.WindowFrameReach()
+    window:SetClampRectInsets(-reach, reach, reach, -reach)
+    if compact then
+        window:SetSize(COMPACT_W, COMPACT_H)
+        holder:SetAllPoints(window)
+        -- same bottom line as the windows above the chat; no outer frame, so flush with the chat's edge
+        window:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(90))
+    else
+        window:SetSize(WIDTH, HEIGHT)
+        holder:SetPoint("TOPLEFT", PAD, -PAD - 44)
+        holder:SetPoint("BOTTOMRIGHT", -PAD - LOG_W - 14, 40)
+        window:SetPoint("CENTER", 0, 30)
+    end
+    if not window:IsShown() then return end
+    if not compact then LayoutLog() end
+    -- new size: rebuild zoom levels next frame (after layout) and show the whole map
+    C_Timer.After(0, function()
+        if window:IsShown() and canvas:GetMapID() then
+            canvas.ScrollContainer:CreateZoomLevels()
+            canvas:ResetZoom()
+        end
+    end)
+    if ns.RelayoutWindows then C_Timer.After(0, ns.RelayoutWindows) end
+end
+
+function SetCompact(on)
+    ns.db.mapCompact = on
+    GameTooltip:Hide()
+    ApplyMode()
+end
+
 local function CreateWindow()
     local UI = ns.UI
     window = CreateFrame("Frame", "MeredanUIWorldMap", UIParent)
@@ -915,13 +965,13 @@ local function CreateWindow()
     window:SetPoint("CENTER", 0, 30)
     window:Hide()
     UI.Box(window, ns.STYLE.panelColor, true)
-    ns.RuneFrame(window)
+    windowRune = ns.RuneFrame(window)
     tinsert(UISpecialFrames, "MeredanUIWorldMap")
     window.RefreshLog = RefreshLog
     ns.layoutFrames.worldmap = window
 
     -- header (drag handle)
-    local head = CreateFrame("Frame", nil, window)
+    head = CreateFrame("Frame", nil, window)
     head:SetPoint("TOPLEFT")
     head:SetPoint("TOPRIGHT")
     head:SetHeight(PAD + 30)
@@ -964,16 +1014,22 @@ local function CreateWindow()
         for _, row in ipairs(options) do row.Update() end
     end, 110)
     optionsButton:SetHeight(26)
-    optionsButton:SetPoint("RIGHT", close, "LEFT", -6, 0)
+    compactButton = UI.IconButton(head, "Minus", function() SetCompact(true) end, 26)
+    compactButton:SetPoint("RIGHT", close, "LEFT", -6, 0)
+    compactButton:HookScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:SetText(L["Small map"])
+        GameTooltip:Show()
+    end)
+    compactButton:HookScript("OnLeave", function() GameTooltip:Hide() end)
+    optionsButton:SetPoint("RIGHT", compactButton, "LEFT", -6, 0)
     local chevron = UI.Icon(optionsButton, "ChevronDown", 12, UI.MUTED)
     chevron:SetPoint("RIGHT", -8, 0)
     optionsButton.Text:ClearAllPoints()
     optionsButton.Text:SetPoint("CENTER", -6, 0)
 
     -- map on the left
-    local holder = CreateFrame("Frame", nil, window)
-    holder:SetPoint("TOPLEFT", PAD, -PAD - 44)
-    holder:SetPoint("BOTTOMRIGHT", -PAD - LOG_W - 14, 40)
+    holder = CreateFrame("Frame", nil, window)
     UI.Inset(holder, { 0, 0, 0, 0 })
     holder:SetClipsChildren(true)
     canvas = CreateCanvas(holder)
@@ -1039,8 +1095,37 @@ local function CreateWindow()
     end)
     coords:Show()
 
+    -- small map: enlarge and close on the map itself, top right (no header there)
+    compactBar = CreateFrame("Frame", nil, holder)
+    compactBar:SetSize(64, 30)
+    compactBar:SetPoint("TOPRIGHT", -8, -8)
+    compactBar:SetFrameLevel(9000)
+    UI.Box(compactBar, { 0, 0, 0, 0.6 })
+    local compactClose = UI.IconButton(compactBar, "Close", function() window:Hide() end, 26)
+    compactClose:SetPoint("RIGHT", -2, 0)
+    local enlarge = UI.IconButton(compactBar, "Square", function() SetCompact(false) end, 26)
+    enlarge:SetPoint("RIGHT", compactClose, "LEFT", -4, 0)
+    enlarge:HookScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:SetText(L["Large map"])
+        GameTooltip:Show()
+    end)
+    enlarge:HookScript("OnLeave", function() GameTooltip:Hide() end)
+    -- other windows (quest, merchant ...) open right of the small map instead of under it: a
+    -- window-high area from its bottom edge (Place aligns to the obstacle's top = the shared top line)
+    obstacle = CreateFrame("Frame", nil, window)
+    obstacle:SetPoint("BOTTOMLEFT")
+    obstacle:SetPoint("BOTTOMRIGHT")
+    obstacle:SetHeight(ns.NPC_HEIGHT or 640)
+    obstacle:Hide()
+    if ns.windowObstacles then ns.windowObstacles[obstacle] = true end
+
+    -- quest log widgets live in their own pane: the small map hides it in one go
+    logPane = CreateFrame("Frame", nil, window)
+    logPane:SetAllPoints()
+
     -- quest log on the right
-    logSearch = UI.EditBox(window, 30)
+    logSearch = UI.EditBox(logPane, 30)
     logSearch:SetPoint("TOPLEFT", holder, "TOPRIGHT", 14, 0)
     logSearch:SetWidth(LOG_W - 128)
     local hint = UI.Text(logSearch, 13, "LEFT", UI.MUTED)
@@ -1051,7 +1136,7 @@ local function CreateWindow()
         RefreshLog()
     end)
     -- filter: icon only, text in tooltip/menu
-    filterButton = UI.IconButton(window, "Filter", function()
+    filterButton = UI.IconButton(logPane, "Filter", function()
         if not filterMenu then CreateFilterMenu() end
         for _, row in ipairs(filterMenu) do row.Update() end
         filterMenu:SetShown(not filterMenu:IsShown())
@@ -1072,9 +1157,9 @@ local function CreateWindow()
         UpdateFilterButton()
     end)
     UpdateFilterButton()
-    logCount = UI.Text(window, 12, "RIGHT", UI.MUTED)
+    logCount = UI.Text(logPane, 12, "RIGHT", UI.MUTED)
     -- one checkbox for all (visible) quests, aligned above the rows' track checkboxes
-    trackAll = CreateFrame("Button", nil, window)
+    trackAll = CreateFrame("Button", nil, logPane)
     trackAll:SetSize(14, 14)
     trackAll:SetPoint("RIGHT", window, "RIGHT", -PAD - 8 - 6, 0)
     trackAll:SetPoint("TOP", logSearch, "CENTER", 0, 7)
@@ -1104,18 +1189,30 @@ local function CreateWindow()
     trackAll:SetScript("OnLeave", function() GameTooltip:Hide() end)
     logCount:SetPoint("LEFT", filterButton, "RIGHT", 8, 0)
     logCount:SetPoint("RIGHT", trackAll, "LEFT", -10, 0)
-    logList = UI.ScrollArea(window)
+    logList = UI.ScrollArea(logPane)
     logList:SetPoint("TOPLEFT", logSearch, "BOTTOMLEFT", 0, -10)
     logList:SetPoint("BOTTOMRIGHT", -PAD - 8, 40)
     logList.child:SetWidth(LOG_W - 8)
-    if ns.DungeonPanel then ns.DungeonPanel.Attach(window, logSearch, logList, { logSearch, filterButton, logCount, trackAll, logList }) end
+    if ns.DungeonPanel then ns.DungeonPanel.Attach(logPane, logSearch, logList, { logSearch, filterButton, logCount, trackAll, logList }) end
 
-    footer = UI.Text(window, 12, "LEFT", UI.MUTED)
+    footer = UI.Text(logPane, 12, "LEFT", UI.MUTED)
     footer:SetPoint("BOTTOMLEFT", PAD, 14)
-    local footerHint = UI.Text(window, 12, "RIGHT", UI.MUTED)
+    local footerHint = UI.Text(logPane, 12, "RIGHT", UI.MUTED)
     footerHint:SetPoint("BOTTOMRIGHT", -PAD, 14)
     footerHint:SetText(L["Ctrl+click: map pin · Right-click: up one level · Mouse wheel: zoom"])
     CreateOptions()
+    ApplyMode()
+
+    -- fade while moving; mouse over the map shows it fully
+    window:HookScript("OnUpdate", function(self, elapsed)
+        local target = 1
+        if ns.db.mapFadeMoving ~= false and IsPlayerMoving() and not self:IsMouseOver() then target = FADE_ALPHA end
+        local alpha = self:GetAlpha()
+        if alpha ~= target then
+            local step = elapsed * FADE_SPEED
+            self:SetAlpha(alpha < target and math.min(target, alpha + step) or math.max(target, alpha - step))
+        end
+    end)
 
     window:HookScript("OnShow", function()
         PlaySound(SOUNDKIT.IG_QUEST_LOG_OPEN)
@@ -1133,7 +1230,8 @@ local function CreateWindow()
             end)
         end
         OnMapChanged()
-        LayoutLog()
+        if not ns.db.mapCompact then LayoutLog() end
+        if ns.db.mapCompact and ns.RelayoutWindows then C_Timer.After(0, ns.RelayoutWindows) end
         -- On first open Blizzard computes the zoom before layout (map too big, bottom cut off):
         -- after layout, rebuild zoom levels and show the whole map
         C_Timer.After(0, function()
@@ -1147,6 +1245,8 @@ local function CreateWindow()
         PlaySound(SOUNDKIT.IG_QUEST_LOG_CLOSE)
         options:Hide()
         if pinMode then SetPinMode(false) end
+        window:SetAlpha(1)
+        if ns.db.mapCompact and ns.RelayoutWindows then C_Timer.After(0, ns.RelayoutWindows) end
     end)
 end
 
