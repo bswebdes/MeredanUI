@@ -44,10 +44,17 @@ ns.WHATS_NEW = {
       text = "The spellbook has a class trainer tab. At the trainer a gem marks the recommended ranks, and you see which ones you can skip while leveling." },
     { id = "class-quests-tab", image = "ClassQuestsTab", title = "Class quests at a glance", foreverOnly = true,
       text = "A new tab in the character window lists every class quest: done, in progress or still open. Click one to open the map with a pin." },
+    -- v0.6
+    { id = "macro-templates", image = "MacroTemplates", title = "Macro templates",
+      text = "The macro window has a Templates tab: ready-made macros for your class, each with a short how-to. One click creates it for this character." },
+    { id = "bag-favorites", image = "BagFavorites", title = "Bag favorites",
+      text = "Alt + right-click an item and tick Favorite: it stays at the top of your bags with gold corners. Or drag items onto the Favorites heading." },
+    { id = "small-map", image = "SmallMap", title = "Small map",
+      text = "The square at the top right of the map switches to a small map above the chat. It fades while you move, mouse over shows it fully." },
 }
 
 local W, H, PIC_W, PIC_H = 600, 500, 512, 256
-local MAX_PAGES = 8 -- only the newest released pages; older ones drop out (their pictures stay for the website)
+local MAX_PAGES = 5 -- only the newest released pages; older ones drop out (their pictures stay for the website)
 
 -- released (non-draft) pages, newest MAX_PAGES, oldest first
 local function Released()

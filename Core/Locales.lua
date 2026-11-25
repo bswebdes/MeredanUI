@@ -302,6 +302,13 @@ if GetLocale() == "deDE" then
     L["Name of the new category:"] = "Name der neuen Kategorie:"
     L["New category…"] = "Neue Kategorie …"
     L["Remove from category"] = "Aus Kategorie entfernen"
+    -- What's new v0.6
+    L["Macro templates"] = "Makro-Vorlagen"
+    L["The macro window has a Templates tab: ready-made macros for your class, each with a short how-to. One click creates it for this character."] = "Das Makrofenster hat einen Reiter „Vorlagen“: fertige Makros für deine Klasse, jedes mit kurzer Anleitung. Ein Klick legt es für diesen Charakter an."
+    L["Bag favorites"] = "Taschen-Favoriten"
+    L["Alt + right-click an item and tick Favorite: it stays at the top of your bags with gold corners. Or drag items onto the Favorites heading."] = "Alt + Rechtsklick auf ein Item und „Favorit“ anhaken: Es steht dann ganz oben in der Tasche, mit goldenen Ecken. Oder Items einfach auf die Überschrift „Favoriten“ ziehen."
+    L["Small map"] = "Kleine Karte"
+    L["The square at the top right of the map switches to a small map above the chat. It fades while you move, mouse over shows it fully."] = "Das Quadrat oben rechts auf der Karte schaltet auf eine kleine Karte über dem Chat. Beim Laufen wird sie blass, mit der Maus darüber wieder voll sichtbar."
     -- Health / power text
     L["Health text"] = "Lebenstext"
     L["Value (941)"] = "Wert (941)"
