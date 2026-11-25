@@ -99,6 +99,10 @@ local function Place()
         tab:ClearAllPoints()
         tab:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, ns.Snap(10))
     end
+    -- copy button on the tab line, top right (like the main chat)
+    if not frame.muiCopy and ns.CreateChatCopyButton then
+        frame.muiCopy = ns.CreateChatCopyButton(frame, function() return frame end, ns.Snap(TAB_SPACE) - 2)
+    end
     placing = false
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(frame) end
     Relayout() -- chat size changed: addon bar and bag window follow the new top edge

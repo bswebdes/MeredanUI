@@ -284,7 +284,7 @@ end
 
 local anchor -- invisible frame around chat + tabs (edit box anchor, hover detection)
 local HookCombatLog, ApplyEditBoxFont -- defined below
-local copyButton
+local copyButtons = {} -- main chat + second chat window (Chat/SecondChat.lua)
 
 -- Tab text colored by what the window shows: guild green, trade in its channel color, loot
 -- in loot color, combat log grey. Detected by content, not by name.
@@ -544,8 +544,10 @@ end
 
 local function SetGlassAlpha()
     GeneralDockManager:SetAlpha(tabsAlpha)
-    copyButton:SetAlpha(tabsAlpha)
-    copyButton:EnableMouse(tabsAlpha > 0.5)
+    for _, button in ipairs(copyButtons) do
+        button:SetAlpha(tabsAlpha)
+        button:EnableMouse(tabsAlpha > 0.5)
+    end
     if CombatLogQuickButtonFrame_Custom then CombatLogQuickButtonFrame_Custom:SetAlpha(tabsAlpha) end
 end
 
@@ -616,6 +618,30 @@ local function PlaceTabs(dock, chatFrame)
     dock:SetPoint("BOTTOMRIGHT", chatFrame, "TOPRIGHT", 0, ns.Snap(TAB_GAP))
 end
 
+-- Copy icon in a chat's top right corner; fades with the tabs. getFrame returns the chat to copy.
+function ns.CreateChatCopyButton(parent, getFrame, yOffset)
+    local button = CreateFrame("Button", nil, parent)
+    button:SetSize(18, 18)
+    button:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, yOffset or -2)
+    button:SetFrameStrata("MEDIUM")
+    local icon = ns.UI.Icon(button, "Copy", 14)
+    icon:SetPoint("CENTER")
+    button:SetScript("OnEnter", function(self)
+        icon:SetVertexColor(unpack(ns.UI.ACCENT))
+        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
+        GameTooltip:SetText(L["Copy chat"], 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    button:SetScript("OnLeave", function()
+        icon:SetVertexColor(unpack(ns.UI.TEXT))
+        GameTooltip:Hide()
+    end)
+    button:SetScript("OnClick", function() CopyChat(getFrame()) end)
+    button:SetAlpha(tabsAlpha or 0)
+    copyButtons[#copyButtons + 1] = button
+    return button
+end
+
 local function Setup()
     anchor = CreateFrame("Frame", "MeredanUIChatAnchor", UIParent)
     anchor:SetPoint("TOPLEFT", ChatFrame1, "TOPLEFT", 0, ns.Snap(TAB_HEIGHT + TAB_GAP))
@@ -637,25 +663,7 @@ local function Setup()
     end
 
     -- Copy button top right (on chat mouseover): copies the selected chat frame
-    copyButton = CreateFrame("Button", nil, anchor)
-    copyButton:SetSize(18, 18)
-    copyButton:SetPoint("TOPRIGHT", anchor, "TOPRIGHT", 0, -2)
-    copyButton:SetFrameStrata("MEDIUM")
-    local icon = ns.UI.Icon(copyButton, "Copy", 14)
-    icon:SetPoint("CENTER")
-    copyButton:SetScript("OnEnter", function(self)
-        icon:SetVertexColor(unpack(ns.UI.ACCENT))
-        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
-        GameTooltip:SetText(L["Copy chat"], 1, 1, 1)
-        GameTooltip:Show()
-    end)
-    copyButton:SetScript("OnLeave", function()
-        icon:SetVertexColor(unpack(ns.UI.TEXT))
-        GameTooltip:Hide()
-    end)
-    copyButton:SetScript("OnClick", function()
-        CopyChat(SELECTED_CHAT_FRAME or ChatFrame1)
-    end)
+    ns.CreateChatCopyButton(anchor, function() return SELECTED_CHAT_FRAME or ChatFrame1 end)
     SetGlassAlpha()
     anchor:SetScript("OnUpdate", GlassOnUpdate)
     C_Timer.NewTicker(0.2, HoverTicker)
