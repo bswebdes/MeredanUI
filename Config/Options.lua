@@ -179,6 +179,7 @@ local PAGES = {
         key = "appearance", label = L["Appearance"],
         build = function(page)
             page:AddTitle(L["Appearance"], L["Size, font size and colours of everything mUI draws."])
+            page:AddHeader(L["Size & font"])
             -- UI size (account-wide, Core/Style.lua); 1 px borders need a reload
             page:AddDropdown(L["Size"], StageItems, function() return ns.root.uiSize or "medium" end, function(value)
                 ns.root.uiSize = value ~= "medium" and value or nil
@@ -190,6 +191,13 @@ local PAGES = {
                 ns.db.fontSize = value
                 ns.RefreshStyle()
             end, RELOAD)
+            page:AddDropdown(L["Heading font"], function() return { { value = "cinzel", label = "Cinzel" }, { value = "mui", label = "mUI" } } end,
+                ns.DisplayFontChoice, Setter("displayFont", ns.RefreshStyle),
+                Help(L["Window titles, headings and names above the unit frames."], true))
+            page:AddCheckbox(L["Use the mUI font in Blizzard windows too"], On("fontEverywhere"),
+                Setter("fontEverywhere", ns.ApplyGlobalFonts),
+                Help(L["Windows, menus and tooltips. Turning it off needs a reload."], true))
+            page:AddHeader(L["Colours & material"])
             page:AddDropdown(L["Background opacity"], function()
                 return {
                     { value = "solid", label = L["Solid"] },
@@ -204,9 +212,6 @@ local PAGES = {
                 Help(L["Class colour: health in class colour. Blizzard: Blizzard's frame colours. Dark: dark health bars, class-coloured power. mUI: sage green health bars."]))
             page:AddDropdown(L["Frame material"], function() return { { value = "iron", label = L["Iron"] }, { value = "bronze", label = L["Bronze"] }, { value = "class", label = L["Class metal"] } } end,
                 Getter("frameMaterial"), Setter("frameMaterial"), RELOAD)
-            page:AddDropdown(L["Heading font"], function() return { { value = "cinzel", label = "Cinzel" }, { value = "mui", label = "mUI" } } end,
-                ns.DisplayFontChoice, Setter("displayFont", ns.RefreshStyle),
-                Help(L["Window titles, headings and names above the unit frames."], true))
             page:AddDropdown(L["Action bar end caps"], function()
                 return {
                     { value = "none", label = L["None"] },
@@ -227,14 +232,11 @@ local PAGES = {
             end, function(value)
                 ns.db.classAccent = value == "blizzard" and "blizzard" or value == "class"
             end, Help(L["Lines, headings and selections."], true))
-            page:AddCheckbox(L["Use the mUI font in Blizzard windows too"], On("fontEverywhere"),
-                Setter("fontEverywhere", ns.ApplyGlobalFonts),
-                Help(L["Windows, menus and tooltips. Turning it off needs a reload."], true))
-            page:AddHeader(L["Away"])
+            page:AddHeader(L["Extras"])
             page:AddCheckbox(L["Cinema screen while AFK"], On("afkScreen"), Setter("afkScreen"),
                 Help(L["Cinema bars slide in, the interface fades out and the camera slowly circles your character. Move or click to come back."]))
             if not (C_GameRules and C_GameRules.IsHardcoreActive and C_GameRules.IsHardcoreActive()) then
-                page:AddHeader(L["Hardcore mode"])
+                page:Break() -- own row: the Test button sits at its right end
                 local row = page:AddCheckbox(L["Hardcore mode (just for fun)"], Getter("hardcoreMode"), Setter("hardcoreMode"),
                     Help(L["When you die: dark screen, \"Try again\" logs you out after 20 seconds. \"Keep playing\" bottom right lets you carry on."]))
                 local testButton = ns.UI.Button(row, L["Test"], function() ns.HardcoreTest() end, 80)
@@ -266,16 +268,33 @@ local PAGES = {
             page:AddDropdown(L["Size of player and target"], FrameStageItems, Getter("frameSize"), Setter("frameSize"),
                 Help(L["Pet, target of target and focus grow with them."], true))
             page:AddDropdown(L["Size of boss frames"], StageItems, Getter("bossSize"), Setter("bossSize"), RELOAD)
-            page:AddCheckbox(L["3D portrait in the health bar"], Getter("barPortrait"), Setter("barPortrait", ns.ApplyBarPortraits),
-                Help(L["Player and target: the character model, zoomed to the head, faint inside the bar."]))
-            page:AddHeader(L["Cast bar"])
-            page:AddDropdown(L["Style"], function()
+            page:AddDropdown(L["Cast bar"], function()
                 return { { value = "simple", label = L["Simple"] }, { value = "full", label = L["Full"] } }
             end, Getter("castbar"), Setter("castbar"),
                 Help(L["Simple: just the bar. Full: with a global cooldown line and tick marks on channelled spells."]))
-            page:AddHeader(L["Target"])
+            page:AddCheckbox(L["3D portrait in the health bar"], Getter("barPortrait"), Setter("barPortrait", ns.ApplyBarPortraits),
+                Help(L["Player and target: the character model, zoomed to the head, faint inside the bar."]))
             page:AddCheckbox(L["Execute line"], On("executeLine"), Setter("executeLine", ns.UpdateExecuteLines),
                 Help(L["Line in the health bar of your target and enemy nameplates where your execute ability becomes usable (e.g. 20 % or 35 %). Only if your class has one."]))
+            page:AddHeader(L["Helpers"])
+            if ns.IS_FOREVER then
+                page:AddCheckbox(L["Show swing timer"], On("swingTimer"), Setter("swingTimer", ns.UpdateSwingTimer),
+                    Help(L["Thin bars below the main bar that fill up until your next automatic hit: Auto Shot or wand, main hand and off hand. Only while you attack. Test mode shows all three."]))
+            end
+            if ns.IS_FOREVER and select(2, UnitClass("player")) == "HUNTER" then
+                page:AddCheckbox(L["Show pet helper"], On("petHelper"), Setter("petHelper", ns.UpdatePetHelper),
+                    Help(L["Paw left of your pet frame: colour shows its mood, click feeds it with suitable food from your bags. One notification when its mood drops."]))
+            end
+            page:AddDropdown(L["Threat bar"], function()
+                return {
+                    { value = "group", label = L["In a group or with a pet"] },
+                    { value = "always", label = L["Always (also solo)"] },
+                    { value = "hidden", label = L["Hidden"] },
+                }
+            end,
+                function() return ns.db.threatBar or "group" end,
+                function(value) ns.db.threatBar = value; if ns.UpdateThreatBar then ns.UpdateThreatBar() end end,
+                Help(L["Below the main bar, in combat only. The fuller and redder, the closer the aggro gets to the wrong player. Pulsing red: wrong aggro."]))
             -- Ammo & reagents only exist in Forever (preview everywhere)
             page:AddHeader(L["Class reagents"])
             if ns.IS_FOREVER then
@@ -303,27 +322,6 @@ local PAGES = {
             else
                 page:AddNote(L["Your class doesn't use reagents."])
             end
-            if ns.IS_FOREVER then
-                page:AddHeader(L["Swing timer"])
-                page:AddCheckbox(L["Show swing timer"], On("swingTimer"), Setter("swingTimer", ns.UpdateSwingTimer),
-                    Help(L["Thin bars below the main bar that fill up until your next automatic hit: Auto Shot or wand, main hand and off hand. Only while you attack. Test mode shows all three."]))
-            end
-            if ns.IS_FOREVER and select(2, UnitClass("player")) == "HUNTER" then
-                page:AddHeader(L["Pet helper"])
-                page:AddCheckbox(L["Show pet helper"], On("petHelper"), Setter("petHelper", ns.UpdatePetHelper),
-                    Help(L["Paw left of your pet frame: colour shows its mood, click feeds it with suitable food from your bags. One notification when its mood drops."]))
-            end
-            page:AddHeader(L["Threat bar"])
-            page:AddDropdown(L["Visibility"], function()
-                return {
-                    { value = "group", label = L["In a group or with a pet"] },
-                    { value = "always", label = L["Always (also solo)"] },
-                    { value = "hidden", label = L["Hidden"] },
-                }
-            end,
-                function() return ns.db.threatBar or "group" end,
-                function(value) ns.db.threatBar = value; if ns.UpdateThreatBar then ns.UpdateThreatBar() end end,
-                Help(L["Below the main bar, in combat only. The fuller and redder, the closer the aggro gets to the wrong player. Pulsing red: wrong aggro."]))
         end,
     },
     {
@@ -368,16 +366,18 @@ local PAGES = {
                 and L["Enemy plates with priority colours, interrupt-ready cast bar and your debuffs. Friendly plates show names only."]
                 or L["Enemy plates with priority colours, interrupt-ready cast bar, Mythic+ percentage and your debuffs. Friendly plates show names only."])
             page:AddCheckbox(ModuleLabel(L["mUI nameplates"], "nameplates"), On("nameplates"), Setter("nameplates"), RELOAD)
+            page:Break() -- the module switch stays on its own (never greyed out)
             if ns.OtherAddonFor("nameplates") == "Plater" then
                 page:AddCheckbox(L["Plater in the mUI look"], On("platerStyle"), Setter("platerStyle", function()
                     if ns.db.platerStyle ~= false then ns.ApplyPlaterProfile(true) end
                 end), Help(L["mUI font and flat bars, set once in Plater's profile. Everything else stays Plater's."]))
             end
-            page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
-                Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
-            LockForOther(page, "nameplates", #page.items, #page.items)
             -- Display: Blizzard's own nameplate toggles in one place (take effect immediately)
             page:AddHeader(L["Show"])
+            local rareRow = #page.items + 1
+            page:AddCheckbox(L["Rare and elite symbol"], On("plateClassification"), Setter("plateClassification"),
+                Help(L["Blizzard's star or dragon in front of the name. Elite only outside dungeons and raids – almost everything is elite there."]))
+            LockForOther(page, "nameplates", rareRow, rareRow)
             -- one checkbox can set several Blizzard CVars (e.g. companions, guardians, minions, totems)
             local function CVarCheck(label, ...)
                 local cvars = { ... }
@@ -435,6 +435,7 @@ local PAGES = {
             page:AddDropdown(L["Position"], TooltipAnchorItems, Getter("tooltipAnchor"), Live("tooltipAnchor"))
             page:AddCheckbox(L["Hide in combat"], Getter("tooltipHideInCombat"), Live("tooltipHideInCombat"),
                 Help(L["Hold Shift to show it anyway."]))
+            page:AddHeader(L["Content"])
             page:AddCheckbox(L["Show who cast buffs and debuffs"], On("tooltipAuraSource"), Setter("tooltipAuraSource"),
                 Help(L["Adds “From: name” to aura tooltips, also when you're not in a group. Not for Blizzard's own buff bar at the top right (its tooltip is protected)."]))
             page:AddCheckbox(L["Show IDs"], On("tooltipIDs"), Live("tooltipIDs"),
@@ -453,13 +454,12 @@ local PAGES = {
                 page:AddCheckbox(L["Mythic+ rating"], On("tooltipMythic"), Live("tooltipMythic"))
             end
             page:AddCheckbox(L["Target"], On("tooltipTarget"), Live("tooltipTarget"))
-            page:AddHeader(L["Character window"])
-            page:AddCheckbox(L["Item levels on the equipment slots"], On("characterItemLevels"), Setter("characterItemLevels"),
-                Help(L["Also when inspecting other players. Coloured by quality."]))
-            page:AddHeader(L["Upgrade rating"])
-            page:AddDropdown(L["Show +/− % as"], UpgradeModeItems, ns.UpgradeMode,
+            page:AddHeader(L["Items"])
+            page:AddDropdown(L["Upgrade rating"], UpgradeModeItems, ns.UpgradeMode,
                 Setter("upgrades", function() if ns.RefreshBags then ns.RefreshBags() end end),
                 Help(L["Compares an item with what you wear, like Pawn. Weights come from Bloodmallet."]))
+            page:AddCheckbox(L["Item levels on the equipment slots"], On("characterItemLevels"), Setter("characterItemLevels"),
+                Help(L["Also when inspecting other players. Coloured by quality."]))
             page:AddCheckbox(L["Mark items for empty slots"], On("emptySlots"),
                 Setter("emptySlots", function() if ns.RefreshBags then ns.RefreshBags() end end),
                 Help(L["Green frame in your bags on items you can wear in a slot that is still empty."]))
@@ -592,7 +592,6 @@ local PAGES = {
         key = "chat", label = L["Chat"],
         build = function(page)
             page:AddTitle(L["Chat"], L["Text, sounds and extras of the chat window."])
-            page.twoColumns = true -- checkboxes in pairs, the page is wide enough
             page:AddHeader(L["Chat window"])
             page:AddDropdown(L["Size"], StageItems, Getter("chatSize"), Setter("chatSize", ns.PlaceMainChat))
             page:AddDropdown(L["Font size"], StageItems, Getter("chatFontSize"), Setter("chatFontSize", ns.ApplyChatFont))
@@ -705,16 +704,7 @@ local PAGES = {
             page:AddTitle(L["Alerts"], L["Pop-ups and messages from the game."])
             page:AddCheckbox(L["mUI alerts instead of Blizzard's pop-ups"], On("toasts"), Setter("toasts"),
                 Help(L["Loot (rare and better, quest items always), gold, currencies, achievements, quests and level-ups. Right of the damage meter. Same things are combined; during boss fights they wait until the fight is over."], true))
-            if ns.IS_FOREVER then
-                page:AddCheckbox(L["Class trainer reminder"], On("trainerReminder"), Setter("trainerReminder"),
-                    Help(L["On level-up: one notification when new spells are waiting at your class trainer."]))
-                page:AddCheckbox(L["Class trainer advice"], On("trainerAdvice"), Setter("trainerAdvice"),
-                    Help(L["Marks recommended spell ranks and ranks you can skip while leveling: at the trainer, in the spellbook and on level-up."]))
-                page:AddCheckbox(L["Buff reminder"], On("buffReminder"), Setter("buffReminder"),
-                    Help(L["Your class buffs missing or with an old rank, weapon oil or stone run out. Not in combat or in cities."]))
-                page:AddCheckbox(L["Profession reminder"], On("professionReminder"), Setter("professionReminder"),
-                    Help(L["One notification when you can learn the next rank of a profession at the trainer – before the skill is capped."]))
-            end
+            page:Break() -- module switch on its own
             page:AddCheckbox(L["Show the group's loot"], On("toastsGroupLoot"), Setter("toastsGroupLoot"),
                 Help(L["In a group: who won a roll (hover shows every roll) and what others looted, from the same quality as your own loot."]))
             page:AddCheckbox(L["Repair warning"], On("durabilityWarning"), Setter("durabilityWarning"),
@@ -724,6 +714,17 @@ local PAGES = {
             end
             page:AddCheckbox(L["Combat message"], On("combatAlert"), Setter("combatAlert"),
                 Help(L["Short \"+ Combat\" / \"− Combat\" above the middle of the screen."]))
+            if ns.IS_FOREVER then
+                page:AddHeader(L["Reminders"])
+                page:AddCheckbox(L["Class trainer reminder"], On("trainerReminder"), Setter("trainerReminder"),
+                    Help(L["On level-up: one notification when new spells are waiting at your class trainer."]))
+                page:AddCheckbox(L["Class trainer advice"], On("trainerAdvice"), Setter("trainerAdvice"),
+                    Help(L["Marks recommended spell ranks and ranks you can skip while leveling: at the trainer, in the spellbook and on level-up."]))
+                page:AddCheckbox(L["Buff reminder"], On("buffReminder"), Setter("buffReminder"),
+                    Help(L["Your class buffs missing or with an old rank, weapon oil or stone run out. Not in combat or in cities."]))
+                page:AddCheckbox(L["Profession reminder"], On("professionReminder"), Setter("professionReminder"),
+                    Help(L["One notification when you can learn the next rank of a profession at the trainer – before the skill is capped."]))
+            end
             page:AddHeader(L["Blizzard noise"])
             page:AddCheckbox(L["Hide combat error messages"], On("hideErrors"),
                 Setter("hideErrors", ns.ApplyErrorMessages),
@@ -742,6 +743,7 @@ local PAGES = {
                 page:AddCheckbox(L["Bagnon in the mUI look"], On("bagnonStyle"), Setter("bagnonStyle", ns.ApplyBagnonStyle),
                     Help(L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."]))
             end
+            page:Break() -- module switch on its own, the rest may be greyed out
             local bagsFirst = #page.items + 1
             page:AddCheckbox(L["Sell junk and repair at merchants"], On("bagsAutoJunk"), Setter("bagsAutoJunk"))
             -- off unless the player turns it on: repairs are paid from their own gold by default
@@ -757,6 +759,7 @@ local PAGES = {
                 Help(L["Slim need/greed rows instead of Blizzard's group loot frames. Test mode shows examples."], true))
             page:AddCheckbox(L["Fast loot"], On("fastLoot"), Setter("fastLoot"),
                 Help(L["With auto loot on, everything is picked up instantly instead of waiting for the loot window."]))
+            page:AddHeader(L["Sparkle"])
             page:AddCheckbox(L["Sparkle on herbs, ore and quest objects"], Getter("sparkle"),
                 Setter("sparkle", function() if ns.UpdateSparkle then ns.UpdateSparkle() end end),
                 Help(L["The nearest object you can use glitters: green herbs, orange ore, red for skinning, yellow quest objects. Dimmed while out of reach. Off in combat."]))
@@ -834,10 +837,12 @@ local PAGES = {
                 if ns.ApplyDetailsStyle then ns.ApplyDetailsStyle() end -- Details follows the same switch
             end),
                 Help(L["Mouse over shows it."]))
+            page:Break() -- only this one is greyed out while Details & co. run (fade applies to them too)
+            local secondRow = #page.items + 1
             page:AddCheckbox(L["Second window"], On("damageMeterSecond"), Setter("damageMeterSecond", function()
                 if ns.RelayoutDamageMeter then ns.RelayoutDamageMeter() end
             end))
-            LockForOther(page, "damageMeter", #page.items, #page.items)
+            LockForOther(page, "damageMeter", secondRow, secondRow)
             if not ns.IS_FOREVER then -- Forever has no Mythic+
                 page:AddHeader(L["Mythic+"])
                 page:AddCheckbox(L["Chest timers (+3 / +2)"], On("mplusChests"), Live("mplusChests"),
@@ -1060,10 +1065,11 @@ if ns.IS_FOREVER then
         key = "quests", label = L["Quests"],
         build = function(page)
             page:AddTitle(L["Quests"], L["The quest tracker on the right."])
-            page:AddCheckbox(L["Track new quests automatically"], function() return GetCVarBool("autoQuestWatch") end,
-                function(value) SetCVar("autoQuestWatch", value and "1" or "0") end)
+            page:AddHeader(L["Quest tracker"])
             page:AddDropdown(L["Sort"], SortItems, function() return ns.db.trackerSort or "level" end, TrackerSetter("trackerSort"),
                 Help(L["The focus quest always stays on top."]))
+            page:AddCheckbox(L["Track new quests automatically"], function() return GetCVarBool("autoQuestWatch") end,
+                function(value) SetCVar("autoQuestWatch", value and "1" or "0") end)
             page:AddCheckbox(L["Group by zone"], function() return ns.db.trackerGroupZone == true end, TrackerSetter("trackerGroupZone"))
             page:AddCheckbox(L["Show quest level"], On("trackerShowLevel"), TrackerSetter("trackerShowLevel"))
             page:AddCheckbox(L["Hide finished objectives"], function() return ns.db.trackerHideDoneGoals == true end,

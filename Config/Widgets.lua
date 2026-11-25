@@ -600,6 +600,7 @@ function UI.Page(parent)
     page:SetAllPoints()
     page.y = 0
     page.items = {}
+    page.twoColumns = true -- checkboxes in pairs (see AddCheckbox); page:Break() ends a pair early
 
     -- Reserve space for an element and return its frame.
     function page:Row(height)
@@ -833,6 +834,9 @@ function UI.Page(parent)
             end
         end
     end
+
+    -- The next checkbox starts a new row (e.g. before a range LockRows will grey out)
+    function page:Break() self.openHalf = nil end
 
     -- page.twoColumns = true: consecutive checkboxes share a row (left/right half); headers and any
     -- other element start a new row

@@ -302,6 +302,13 @@ if GetLocale() == "deDE" then
     L["Name of the new category:"] = "Name der neuen Kategorie:"
     L["New category…"] = "Neue Kategorie …"
     L["Remove from category"] = "Aus Kategorie entfernen"
+    -- Settings sections
+    L["Size & font"] = "Größe & Schrift"
+    L["Colours & material"] = "Farben & Material"
+    L["Extras"] = "Extras"
+    L["Content"] = "Inhalt"
+    L["Reminders"] = "Erinnerungen"
+    L["Quest tracker"] = "Questtracker"
     -- Second chat window
     L["Chat window"] = "Fenster"
     L["Chat messages"] = "Nachrichten"
