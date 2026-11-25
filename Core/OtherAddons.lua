@@ -5,6 +5,7 @@
 --   bossmods    -> mUI boss timers     (ns.db.bossMods)
 --   meter       -> mUI damage meter    (ns.db.damageMeter)
 --   actionbars  -> mUI action bars + micro menu (ns.db.actionBarModule)
+--   map         -> mUI world map      (ns.db.mapWindow)
 -- Picking mUI disables the other addon for this character and reloads; picking the addon just
 -- remembers the answer (the mUI module is already off). Asked in the setup (step "Other addons") or
 -- once in a dialog when a new one shows up.
@@ -23,6 +24,9 @@ ns.OTHER_ADDON_AREAS = {
         addons = { "Details", "Skada", "Recount" } },
     { id = "actionbars", key = "actionBarModule", label = L["Action bars"],
         addons = { "Bartender4", "Dominos" } },
+    -- only addons that take over or rework the world map; terrain overlays etc. live alongside ours
+    { id = "map", key = "mapWindow", label = L["Map"],
+        addons = { "OpenMap", "Mapster", "Leatrix_Maps" } },
 }
 
 local AREA_BY_KEY = {}

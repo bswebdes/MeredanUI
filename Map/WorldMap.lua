@@ -34,7 +34,7 @@ local pinMode = false
 local pendingLog
 
 local function Enabled()
-    return ns.IS_FOREVER and ns.db and ns.db.mapWindow ~= false and MapCanvasMixin and WorldMapFrame
+    return ns.IS_FOREVER and ns.ModuleOn("mapWindow") and MapCanvasMixin and WorldMapFrame
 end
 
 -- Map canvas ---------------------------------------------------------------------------------------
