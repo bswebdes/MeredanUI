@@ -609,6 +609,7 @@ function UI.Page(parent)
         row:SetHeight(height)
         self.y = self.y + height + ROW_GAP
         self.items[#self.items + 1] = row
+        self.openHalf = nil -- any new row ends a half-filled checkbox pair
         return row
     end
 
@@ -833,11 +834,25 @@ function UI.Page(parent)
         end
     end
 
+    -- page.twoColumns = true: consecutive checkboxes share a row (left/right half); headers and any
+    -- other element start a new row
     function page:AddCheckbox(label, get, set, opts)
         set = Wrap(set, label, opts)
-        local row = self:Row(20)
+        local row, half = self.openHalf, "right"
+        if not row then
+            row = self:Row(20)
+            half = self.twoColumns and "left" or nil
+        end
         local button = CreateFrame("Button", nil, row)
-        button:SetAllPoints()
+        if half == "left" then
+            button:SetPoint("TOPLEFT")
+            button:SetPoint("BOTTOMRIGHT", row, "BOTTOM", -8, 0)
+        elseif half == "right" then
+            button:SetPoint("TOPLEFT", row, "TOP", 8, 0)
+            button:SetPoint("BOTTOMRIGHT")
+        else
+            button:SetAllPoints()
+        end
         local box = CreateFrame("Frame", nil, button)
         box:SetSize(16, 16)
         box:SetPoint("LEFT")
@@ -847,13 +862,17 @@ function UI.Page(parent)
         local text = UI.Text(button, 12, "LEFT")
         text:SetPoint("LEFT", box, "RIGHT", 8, 0)
         text:SetText(label)
-        text:SetWidth(math.min(text:GetStringWidth() + 2, 440))
-        Decorate(row, text, opts)
-        function row:Refresh() check:SetShown(get() and true or false) end
+        text:SetWidth(math.min(text:GetStringWidth() + 2, half and 300 or 440))
+        Decorate(button, text, opts)
+        local function Refresh() check:SetShown(get() and true or false) end
+        row.refreshers = row.refreshers or {}
+        row.refreshers[#row.refreshers + 1] = Refresh
+        function row:Refresh() for _, refresh in ipairs(self.refreshers) do refresh() end end
         button:SetScript("OnClick", function()
             set(not get())
-            row:Refresh()
+            Refresh()
         end)
+        if half == "left" then self.openHalf = row end
         return row
     end
 

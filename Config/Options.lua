@@ -592,6 +592,7 @@ local PAGES = {
         key = "chat", label = L["Chat"],
         build = function(page)
             page:AddTitle(L["Chat"], L["Text, sounds and extras of the chat window."])
+            page.twoColumns = true -- checkboxes in pairs, the page is wide enough
             page:AddHeader(L["Chat window"])
             page:AddDropdown(L["Size"], StageItems, Getter("chatSize"), Setter("chatSize", ns.PlaceMainChat))
             page:AddDropdown(L["Font size"], StageItems, Getter("chatFontSize"), Setter("chatFontSize", ns.ApplyChatFont))
