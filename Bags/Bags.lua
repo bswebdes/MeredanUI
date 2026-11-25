@@ -256,6 +256,11 @@ local function StyleButton(button)
         highlight:SetColorTexture(1, 1, 1, 0.15)
         highlight:SetAllPoints()
     end
+    -- search dimming: own texture instead of SetMatchesSearch (see UpdateButton)
+    button.muiSearchDim = button:CreateTexture(nil, "OVERLAY", nil, 7)
+    button.muiSearchDim:SetAllPoints()
+    button.muiSearchDim:SetColorTexture(0, 0, 0, 0.8)
+    button.muiSearchDim:Hide()
     if button.Count then
         button.Count:SetFont(ns.STYLE.font, ns.FontPx(12), "OUTLINE")
         button.Count:ClearAllPoints()
@@ -358,7 +363,6 @@ local function GetButton(bag, slot)
         holder = CreateFrame("Frame", "MeredanUIBagHolder" .. bag, content)
         holder:SetID(bag)
         holder:SetAllPoints()
-        holder.IsCombinedBagContainer = function() return false end
         holders[bag] = holder
     end
     button = CreateFrame("ItemButton", "MeredanUIBagItem" .. bag .. "_" .. slot, holder, "ContainerFrameItemButtonTemplate")
@@ -415,33 +419,69 @@ local function SetFavoriteCorners(button, show)
     button.muiFavCorners:Show()
 end
 
+-- Cooldown swipe and gray icon, like ContainerFrameItemButtonMixin:UpdateCooldown
+local function UpdateCooldown(button)
+    if button.hasItem then
+        local start, duration, enable = C_Container.GetContainerItemCooldown(button:GetBagID(), button:GetID())
+        CooldownFrame_Set(button.Cooldown, start, duration, enable)
+        local gray = duration and duration > 0 and enable == 0
+        SetItemButtonTextureVertexColor(button, gray and 0.4 or 1, gray and 0.4 or 1, gray and 0.4 or 1)
+    else
+        button.Cooldown:Hide()
+    end
+end
+ns.UpdateBagButtonCooldown = UpdateCooldown
+
+function ns.SetBagButtonSearch(button, match)
+    button.muiSearchDim:SetShown(not match)
+end
+
 -- showLevel: show item level (default: only in gear sections)
+-- Like Bagnon: never run the template's own methods (SetHasItem, UpdateCooldown, UpdateNewItem,
+-- SetMatchesSearch, CheckUpdateTooltip ...) from our code. They run Blizzard code in our tainted
+-- execution and leave tainted state on the button; using items then got blocked now and then.
+-- Only plain fields, textures and the global SetItemButton* helpers.
 local function UpdateButton(button, info, showLevel)
     local bag, slot = button:GetBagID(), button:GetID()
     if button.muiFreeText then button.muiFreeText:Hide() end -- free-slot count of special bags
     local texture = info and info.iconFileID
+    local quality = info and info.quality
+    button.hasItem = texture and 1 or nil
+    button.readable = info and info.isReadable or nil
     ClearItemButtonOverlay(button)
-    button:SetHasItem(texture)
-    button:SetItemButtonTexture(texture)
+    SetItemButtonTexture(button, texture)
     -- empty: Blizzard sets its slot art here (bags-item-slot64); our slot background is enough
     if not texture then button.icon:Hide() end
-    SetItemButtonQuality(button, info and info.quality, info and info.hyperlink, false, info and info.isBound)
+    SetItemButtonQuality(button, quality, info and info.hyperlink, false, info and info.isBound)
     if button.IconBorder then button.IconBorder:SetAlpha(0) end
     SetItemButtonCount(button, info and info.stackCount)
     SetItemButtonDesaturated(button, info and info.isLocked)
-    local quest = C_Container.GetContainerItemQuestInfo(bag, slot)
-    button:UpdateQuestItem(quest.isQuestItem, quest.questID, quest.isActive)
     -- quest items get our gold border instead of Blizzard's glow; quest starters keep the "!" badge
+    local quest = C_Container.GetContainerItemQuestInfo(bag, slot)
     local starter = quest.questID and not quest.isActive
     button.muiQuest = (quest.questID or quest.isQuestItem) and true or false
-    if button.muiQuest and not starter then button.IconQuestTexture:Hide() end
-    button:UpdateNewItem(info and info.quality)
-    SquareNewItemGlow(button, info and info.quality)
-    button:UpdateJunkItem(info and info.quality, info and info.hasNoValue)
-    button:UpdateItemContextMatching()
-    button:UpdateCooldown(texture)
-    button:SetReadable(info and info.IsReadable)
-    button:CheckUpdateTooltip(GameTooltip:GetOwner())
+    if starter then button.IconQuestTexture:SetTexture(TEXTURE_ITEM_QUEST_BANG) end
+    button.IconQuestTexture:SetShown(starter and true or false)
+    -- new item glow (Blizzard's textures and pulse, recolored by SquareNewItemGlow)
+    local isNew = texture and C_NewItems.IsNewItem(bag, slot) or false
+    button.BattlepayItemTexture:Hide()
+    button.NewItemTexture:SetShown(isNew)
+    if isNew then
+        if not (button.flashAnim:IsPlaying() or button.newitemglowAnim:IsPlaying()) then
+            button.flashAnim:Play()
+            button.newitemglowAnim:Play()
+        end
+    elseif button.flashAnim:IsPlaying() or button.newitemglowAnim:IsPlaying() then
+        button.flashAnim:Stop()
+        button.newitemglowAnim:Stop()
+    end
+    SquareNewItemGlow(button, quality)
+    button.JunkIcon:SetShown(texture and quality == Enum.ItemQuality.Poor and not info.hasNoValue
+        and MerchantFrame:IsShown() or false)
+    UpdateCooldown(button)
+    if GameTooltip:IsOwned(button) then
+        if texture and button:GetRight() then ContainerFrameItemButtonMixin.OnUpdate(button) else GameTooltip:Hide() end
+    end
 
     if showLevel == nil then showLevel = isEquipKey[button.muiCategory] end
     ns.DecorateItemButton(button, info, showLevel, bag, slot)
@@ -459,7 +499,7 @@ local function ApplySearch()
         for _, button in pairs(list) do
             if button:IsShown() then
                 local match = query == "" or (button.muiName or ""):find(query, 1, true) ~= nil
-                button:SetMatchesSearch(match)
+                ns.SetBagButtonSearch(button, match)
             end
         end
     end
@@ -1119,7 +1159,7 @@ ns:On("BAG_UPDATE_COOLDOWN", function()
     if not (window and window:IsShown()) then return end
     for _, list in pairs(buttons) do
         for _, button in pairs(list) do
-            if button:IsShown() and button.muiItemID then button:UpdateCooldown(button:HasItem()) end
+            if button:IsShown() and button.muiItemID then UpdateCooldown(button) end
         end
     end
 end)
