@@ -74,7 +74,16 @@ local function Report()
     active = false
     ns.SetEventSink(nil)
     local seconds = math.max(GetTime() - startTime, 0.001)
-    local P = ns.Print
+    -- also kept in the saved variables (last 3 runs): the DevLog only holds two sessions
+    local lines = {}
+    local function P(text, ...)
+        local line = select("#", ...) > 0 and text:format(...) or text
+        lines[#lines + 1] = line
+        ns.Print(line)
+    end
+    ns.root.perfReports = ns.root.perfReports or {}
+    table.insert(ns.root.perfReports, 1, { time = date("%Y-%m-%d %H:%M"), zone = GetRealZoneText(), lines = lines })
+    while #ns.root.perfReports > 3 do table.remove(ns.root.perfReports) end
     P(L["Measurement: %d s"], seconds)
 
     -- Blizzard's profiler (milliseconds per tick)
