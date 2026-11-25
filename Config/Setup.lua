@@ -68,11 +68,11 @@ local STEPS = {
             return { { value = true, label = L["Yes, the mUI way"] }, { value = false, label = L["No, leave it"] } }
         end },
     { id = "chat2", key = "chat2", title = L["One or two chat windows?"],
-        text = L["With two, Trade and Looking for Group get their own window bottom right."],
+        text = L["With two, Trade chat gets its own window bottom right."],
         items = function()
             return {
                 { value = false, label = L["One window"], desc = L["Everything in one chat"] },
-                { value = true, label = L["Two windows"], desc = L["Trade and Looking for Group on the right"] },
+                { value = true, label = L["Two windows"], desc = L["Trade chat on the right"] },
             }
         end },
     { id = "others", others = true, title = L["Other addons found"],
@@ -353,12 +353,12 @@ local function DrawScreen(target)
         return f
     end)
     Place(chat, margin, H - margin - chatH, chatW, chatH)
-    -- Second chat window bottom right (Chat/SecondChat.lua), Trade/LFG colours
+    -- Second chat window bottom right (Chat/SecondChat.lua), Trade colour
     if st.chat2 then
         local chat2 = El("chat2", function()
             local f = Panel(0.55)
             f.lines = {}
-            local colors = { { 1, 0.62, 0.36 }, { 0.55, 0.75, 1 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 0.55, 0.75, 1 }, { 1, 0.62, 0.36 }, { 0.55, 0.75, 1 } }
+            local colors = { { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 } }
             for i, c in ipairs(colors) do f.lines[i] = Tex(f, "ARTWORK", c[1], c[2], c[3], 0.7) end
             return f
         end)

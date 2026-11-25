@@ -691,7 +691,7 @@ local PAGES = {
                 ns.ApplySecondChat()
                 second.button.Text:SetText(SecondLabel())
             end)
-            page:AddNote(L["Trade and Looking for Group in their own window bottom right."])
+            page:AddNote(L["Trade chat in its own window bottom right."])
         end,
     },
     {

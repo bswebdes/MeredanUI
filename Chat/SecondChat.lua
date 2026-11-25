@@ -1,10 +1,10 @@
--- Second chat window (setting chatSecond, off by default): Trade and Looking for Group get their own
--- window bottom right, mirroring the main chat.
+-- Second chat window (setting chatSecond, off by default): Trade chat gets its own window bottom
+-- right, mirroring the main chat. (Forever has no Looking for Group channel.)
 --
 --                                          [Addon bar]
 --   +-------------+                        +-------------+
 --   | Chat 1      |                        | Chat 2      |
---   +-------------+                        | Trade / LFG |
+--   +-------------+                        | Trade       |
 --                                          +-------------+
 --   [Emote bar]                            [Micro menu]
 --
@@ -14,12 +14,12 @@
 local _, ns = ...
 local L = ns.L
 
-local TRADE, LFG = 2, 26  -- zoneChannelID (see Chat/ChatStyle.lua)
+local TRADE = 2  -- zoneChannelID (see Chat/ChatStyle.lua)
 -- Channel names as AddChannel wants them, for channels not joined right now (outside cities)
 local FALLBACK = {
-    deDE = { [TRADE] = "Handel", [LFG] = "SucheNachGruppe" },
-    enUS = { [TRADE] = "Trade", [LFG] = "LookingForGroup" },
-    enGB = { [TRADE] = "Trade", [LFG] = "LookingForGroup" },
+    deDE = { [TRADE] = "Handel" },
+    enUS = { [TRADE] = "Trade" },
+    enGB = { [TRADE] = "Trade" },
 }
 local TAB_SPACE = 22 + 10 -- tab height + gap above a chat window (Chat/ChatStyle.lua)
 
@@ -27,7 +27,7 @@ local frame   -- the window while the setting is on
 local placing
 
 local function Enabled() return ns.db and ns.db.chatSecond == true end
-local function WindowName() return L["Trade & LFG"] end
+local function WindowName() return L["Trade"] end
 local function MaxWindows()
     return Constants.ChatFrameConstants and Constants.ChatFrameConstants.MaxChatWindows or NUM_CHAT_WINDOWS or 10
 end
@@ -47,12 +47,11 @@ local function ChannelNames()
     for i = 2, #list, 3 do
         local name = tostring(list[i])
         local info = C_ChatInfo.GetChannelInfoFromIdentifier(name)
-        if info and (info.zoneChannelID == TRADE or info.zoneChannelID == LFG) then names[info.zoneChannelID] = name end
+        if info and info.zoneChannelID == TRADE then names[TRADE] = name end
     end
     local fallback = FALLBACK[GetLocale()]
     if fallback then
         names[TRADE] = names[TRADE] or fallback[TRADE]
-        names[LFG] = names[LFG] or fallback[LFG]
     end
     return names
 end
@@ -64,7 +63,7 @@ local function Has(chatFrame, name)
     return false
 end
 
--- Trade + LFG into the second window and out of the main chat (or back). Only changes what differs:
+-- Trade into the second window and out of the main chat (or back). Only changes what differs:
 -- adding a channel fires CHANNEL_UI_UPDATE again, which calls this.
 local function MoveChannels(on)
     for _, name in pairs(ChannelNames()) do
@@ -127,8 +126,9 @@ function ns.ApplySecondChat()
             ns.db.chatSecond = false
             return ns.Print(L["No free chat window left. Close one and try again."])
         end
-        if created then ns.Print(L["Second chat window set up: Trade and Looking for Group are now bottom right."]) end
+        if created then ns.Print(L["Second chat window set up: Trade is now bottom right."]) end
         if frame.isDocked then FCF_UnDockFrame(frame) end
+        if FCF_SetWindowName and frame.name ~= WindowName() then FCF_SetWindowName(frame, WindowName()) end -- older name
         if FCF_SetLocked then FCF_SetLocked(frame, true) end -- fixed layout, no dragging
         MoveChannels(true)
         Place()
@@ -143,7 +143,7 @@ function ns.ApplySecondChat()
         FCF_Close(existing)
         frame = nil
         ns.char.chatSecondID = nil
-        ns.Print(L["Second chat window removed, Trade and Looking for Group are back in the main chat."])
+        ns.Print(L["Second chat window removed, Trade is back in the main chat."])
     else
         frame = nil
     end
