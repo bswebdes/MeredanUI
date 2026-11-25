@@ -484,7 +484,7 @@ local function Style(self, unit)
     local shaded = power.PostUpdateColor
     power.PostUpdateColor = function(element, ...)
         shaded(element, ...)
-        ns.ColorPowerText(element.__owner)
+        ns.ColorPowerText(element.__owner, (...)) -- first argument: unit
     end
     power.PostUpdate = ns.HideEmptyPowerText
     if unit == "player" then
@@ -864,8 +864,10 @@ end
 -- Power text white or in the colour of its bar (setting powerTextColor)
 -- Colour from oUF's power colours by the shown power type (same choice as the text: mana while the
 -- main resource sits in the centre), not from the bar - themes may tint the bar in class colour.
-function ns.ColorPowerText(frame)
-    local text, unit = frame and frame.PowerText, frame and frame.unit
+-- unit comes from the caller: frame.unit isn't set on mUI's frames
+function ns.ColorPowerText(frame, unit)
+    local text = frame and frame.PowerText
+    unit = unit or (frame and (frame.unit or frame:GetAttribute("unit")))
     if not text then return end
     if ns.db.powerTextColor == "power" and unit then
         local powerType, token
@@ -892,7 +894,7 @@ function ns.ApplyUnitTexts()
             if frame.PowerText then
                 frame.PowerText:SetShown((ns.db.powerText or "off") ~= "off")
                 if frame.PowerText.UpdateTag then frame.PowerText:UpdateTag() end
-                ns.ColorPowerText(frame)
+                ns.ColorPowerText(frame, key)
             end
         end
     end
