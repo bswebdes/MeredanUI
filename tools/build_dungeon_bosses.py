@@ -15,10 +15,15 @@ def load(loc):
 en, de = load("enUS"), load("deDE")
 
 # Blizzard renamed some new Forever bosses without updating DungeonEncounter. The NPC names in the
-# game win; source: Wowhead Forever NPC pages (en + de), never our own translation.
+# game win; source: Wowhead Forever NPC data (nether.wowhead.com/forever/[de/]tooltip/npc/ID), never
+# our own translation.
 RENAMED = {
     3495: ("Magmatus", "Magmatus"),     # Hall of Thanes, npc=261316 (table: Infurnus)
     3494: ("Plunder", "Schleppweg"),    # Hall of Thanes, npc=261311 (table de: Plünderung)
+    3478: ("Deathless Marrow", "Unsterbliches Mark"),       # Drowned City, npc=270885
+    3453: ("War Handler Ashka", "Kriegswärterin Ashka"),    # Krol'dok, npc=259281
+    3449: ("Nar'gurk", "Nar'guk"),                          # Krol'dok, npc=258964
+    3451: ("Overlord Mugg", "Oberanführer Mugg"),           # Krol'dok, npc=258968
 }
 for eid, (n_en, n_de) in RENAMED.items():
     en[eid] = dict(en[eid], Name_lang=n_en)
