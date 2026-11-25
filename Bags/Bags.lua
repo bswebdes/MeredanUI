@@ -991,7 +991,7 @@ local function CreateWindow()
             -- highlight this bag's items
             for b, list in pairs(buttons) do
                 for _, button in pairs(list) do
-                    if button:IsShown() then button:SetMatchesSearch(b == bag) end
+                    if button:IsShown() then ns.SetBagButtonSearch(button, b == bag) end
                 end
             end
         end)
