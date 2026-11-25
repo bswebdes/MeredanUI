@@ -70,11 +70,22 @@ local function CreateSlot(parent, slotName)
     return button
 end
 
+local Refresh -- defined below
+local loading = {} -- item links waiting for their data (one reload of the window each)
+
 local function UpdateSlot(button)
     local link = GetInventoryItemLink(unit, button.slot)
     if link and issecretvalue(link) then link = nil end
-    local texture = link and GetInventoryItemTexture(unit, button.slot)
+    local texture = link and (GetInventoryItemTexture(unit, button.slot) or C_Item.GetItemIconByID(link))
     local quality = link and select(3, C_Item.GetItemInfo(link))
+    -- item data not cached yet (name, quality): show what we have, refresh once it arrives
+    if link and not quality and not loading[link] and Item and Item.CreateFromItemLink then
+        loading[link] = true
+        Item:CreateFromItemLink(link):ContinueOnItemLoad(function()
+            loading[link] = nil
+            if window and window:IsShown() and Refresh then Refresh() end
+        end)
+    end
     button.icon:SetTexture(texture or button.emptyTexture)
     button.icon:SetDesaturated(not texture)
     button.icon:SetAlpha(texture and 1 or 0.35)
@@ -323,7 +334,7 @@ local function UpdateTabIcons()
     tabButtons[3].icon:SetTexture("Interface\\Icons\\INV_Shirt_GuildTabard_01")
 end
 
-local function Refresh()
+function Refresh()
     if not (window and unit and UnitExists(unit)) then return end
     window:SetNpc(unit, GetUnitName(unit, true), Subtitle())
     UpdateTabIcons()
@@ -388,7 +399,14 @@ ns:On("PLAYER_LOGIN", function()
     InspectUnit = function(target) Open(target) end
     ns:On("INSPECT_READY", function(_, readyGUID)
         if not unit or readyGUID ~= guid then return end
-        if window:IsShown() then Refresh() end
+        if not window:IsShown() then return end
+        Refresh()
+        -- the server sends the slots bit by bit after INSPECT_READY: look again shortly after
+        for _, delay in ipairs({ 0.5, 1.5 }) do
+            C_Timer.After(delay, function()
+                if window:IsShown() and readyGUID == guid then Refresh() end
+            end)
+        end
     end)
     ns:On("INSPECT_HONOR_UPDATE", function() if window:IsShown() and current == "pvp" then Refresh() end end)
     ns:On("PLAYER_TARGET_CHANGED", function() if unit == "target" and window:IsShown() then window:Hide() end end)
