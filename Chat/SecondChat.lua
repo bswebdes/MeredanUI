@@ -76,6 +76,11 @@ local function MoveChannels(on)
     end
 end
 
+local function Relayout()
+    if ns.UpdateAddonBar then ns.UpdateAddonBar() end
+    if ns.PlaceBagWindow then ns.PlaceBagWindow() end
+end
+
 -- Same bottom line and size as the main chat, at the right screen margin
 local function Place()
     if not frame or InCombatLockdown() then return end
@@ -93,6 +98,7 @@ local function Place()
     end
     placing = false
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(frame) end
+    Relayout() -- chat size changed: addon bar and bag window follow the new top edge
 end
 ns.PlaceSecondChat = Place
 
@@ -109,11 +115,6 @@ local function Create()
     if not window then return nil end
     ns.char.chatSecondID = index
     return window
-end
-
-local function Relayout()
-    if ns.UpdateAddonBar then ns.UpdateAddonBar() end
-    if ns.PlaceBagWindow then ns.PlaceBagWindow() end
 end
 
 function ns.ApplySecondChat()
