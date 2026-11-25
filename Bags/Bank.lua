@@ -131,7 +131,6 @@ local function GetButton(bag, slot)
         holder = CreateFrame("Frame", "MeredanUIBankHolder" .. bag, content)
         holder:SetID(bag)
         holder:SetAllPoints()
-        holder.IsCombinedBagContainer = function() return false end
         holders[bag] = holder
     end
     button = CreateFrame("ItemButton", "MeredanUIBankItem" .. bag .. "_" .. slot, holder, "ContainerFrameItemButtonTemplate")
@@ -159,7 +158,7 @@ local function ApplySearch()
     for _, list in pairs(buttons) do
         for _, button in pairs(list) do
             if button:IsShown() then
-                button:SetMatchesSearch(query == "" or (button.muiName or ""):find(query, 1, true) ~= nil)
+                ns.SetBagButtonSearch(button, query == "" or (button.muiName or ""):find(query, 1, true) ~= nil)
             end
         end
     end
@@ -331,7 +330,7 @@ local function BagSlot(bagNum)
         local container = Enum.BagIndex.CharacterBankTab_1 + bagNum - 1
         for bag, list in pairs(buttons) do
             for _, button in pairs(list) do
-                if button:IsShown() then button:SetMatchesSearch(bag == container) end
+                if button:IsShown() then ns.SetBagButtonSearch(button, bag == container) end
             end
         end
     end)
@@ -516,7 +515,7 @@ ns:On("PLAYER_LOGIN", function()
         if not window:IsShown() then return end
         for _, list in pairs(buttons) do
             for _, button in pairs(list) do
-                if button:IsShown() and button.muiItemID then button:UpdateCooldown(button:HasItem()) end
+                if button:IsShown() and button.muiItemID then ns.UpdateBagButtonCooldown(button) end
             end
         end
     end)
