@@ -862,12 +862,23 @@ oUF.Tags.Methods["mui:power"] = function(u)
 end
 
 -- Power text white or in the colour of its bar (setting powerTextColor)
+-- Colour from oUF's power colours by the shown power type (same choice as the text: mana while the
+-- main resource sits in the centre), not from the bar - themes may tint the bar in class colour.
 function ns.ColorPowerText(frame)
-    local text, bar = frame and frame.PowerText, frame and frame.Power
-    if not (text and bar) then return end
-    if ns.db.powerTextColor == "power" then
-        local r, g, b = bar:GetStatusBarColor()
-        if ns.Readable(r) and ns.Readable(g) and ns.Readable(b) then return text:SetTextColor(r, g, b) end
+    local text, unit = frame and frame.PowerText, frame and frame.unit
+    if not text then return end
+    if ns.db.powerTextColor == "power" and unit then
+        local powerType, token
+        if ns.UsesCenterPower(unit) then
+            powerType, token = Enum.PowerType.Mana, "MANA"
+        else
+            powerType, token = UnitPowerType(unit)
+        end
+        local colors = ns.oUF.colors.power
+        local color = (ns.Readable(token) and colors[token]) or (ns.Readable(powerType) and colors[powerType])
+        if color and color.GetRGB then return text:SetTextColor(color:GetRGB()) end
+        if DevLog then DevLog("MeredanUI", ("PowerTextColor no colour unit=%s type=%s token=%s"):format(unit,
+            tostring(ns.Plain(powerType)), tostring(ns.Plain(token)))) end
     end
     text:SetTextColor(1, 1, 1)
 end
