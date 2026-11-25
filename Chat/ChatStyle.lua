@@ -16,6 +16,7 @@ local L = ns.L
 -- Main chat size per step (setting chatSize). Width is still capped by the free space on small
 -- screens (never into the extra bar); height grows upwards, windows anchored to the chat follow.
 local CHAT_SIZES = { small = { 380, 120 }, medium = { 440, 160 }, large = { 520, 260 } }
+ns.CHAT_SIZE_MEDIUM = CHAT_SIZES.medium -- upper limit of the second chat window (Chat/SecondChat.lua)
 local TAB_HEIGHT = 22
 local TAB_GAP = 10 -- space between tabs and first chat line (Blizzard: 3)
 local EDIT_HEIGHT = 22

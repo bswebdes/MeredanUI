@@ -1,5 +1,5 @@
 -- Second chat window (setting chatSecond, off by default): Trade chat gets its own window bottom
--- right, mirroring the main chat. (Forever has no Looking for Group channel.)
+-- right, mirroring the main chat (same size, at most "medium"). (Forever has no Looking for Group channel.)
 --
 --                                          [Addon bar]
 --   +-------------+                        +-------------+
@@ -88,7 +88,10 @@ local function Place()
     placing = true
     frame:ClearAllPoints()
     frame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin + ns.ChatBottomReserve())
-    frame:SetSize(ChatFrame1:GetWidth(), ChatFrame1:GetHeight())
+    -- follows the main chat, but never beyond "medium": the right side also holds the quest tracker
+    -- and the right action bars
+    local limit = ns.CHAT_SIZE_MEDIUM or { 440, 160 }
+    frame:SetSize(math.min(ChatFrame1:GetWidth(), ns.Snap(limit[1])), math.min(ChatFrame1:GetHeight(), ns.Snap(limit[2])))
     -- Undocking leaves the tab where the dock had put it (left, among the main chat's tabs):
     -- hang it over this window, same gap as the main chat's tabs
     local tab = _G[frame:GetName() .. "Tab"]
