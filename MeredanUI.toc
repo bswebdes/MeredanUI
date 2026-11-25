@@ -153,6 +153,7 @@ NamePlates/NamePlates.lua
 NamePlates/PlaterProfile.lua
 Chat/Chat.lua
 Chat/ChatStyle.lua
+Chat/SecondChat.lua
 Chat/ClassIcons.lua
 Chat/EmoteBar.lua
 Chat/ChatBubbles.lua

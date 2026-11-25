@@ -199,13 +199,16 @@ local function AdoptCompartment()
     end
 end
 
--- Above the micro menu, or above the bag buttons when those are visible
+-- Above the micro menu, or above the bag buttons when those are visible, or above the second chat
 local function Place()
     local margin = ns.Snap(ns.SCREEN_MARGIN)
     local below = _G["MeredanUIBagBar"]
     if not (below and below:IsVisible()) then below = MicroMenuContainer end
     bar:ClearAllPoints()
-    if below then
+    local top = ns.SecondChatTop and ns.SecondChatTop() -- second chat window bottom right: above it
+    if top then
+        bar:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, top + ns.Snap(8))
+    elseif below then
         bar:SetPoint("BOTTOMRIGHT", below, "TOPRIGHT", 0, ns.Snap(8))
     else
         bar:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin)

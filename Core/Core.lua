@@ -190,6 +190,7 @@ local DEFAULTS = {
     chatClassIcons = true,    -- class icon before names in guild, group, raid and whispers
     chatTimestamps = true,    -- plain timestamps (12:04) before chat lines
     chatFontSize = "medium",  -- chat font size: "small", "medium", "large" (Chat/ChatStyle.lua)
+    chatSecond = false,       -- second chat window bottom right with Trade + LFG (Chat/SecondChat.lua)
     chatSize = "medium",      -- main chat window size: "small", "medium", "large" (Chat/ChatStyle.lua)
     chatEmoji = true,         -- smileys and emojis as images in chat
     chatReputation = true,    -- reputation in chat with a bar instead of Blizzard's line

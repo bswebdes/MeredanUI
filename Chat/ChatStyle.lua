@@ -452,13 +452,16 @@ function ns.ApplyChatFont()
     end
 end
 
+-- Both chats share one bottom line: the row of the emote bar (left) and micro menu (right), even
+-- while the emote bar is off (Chat/SecondChat.lua sits on the same line)
+function ns.ChatBottomReserve() return ns.Snap(28) + ns.Snap(28) end -- bar height (EmoteBar SIZE) + gap
+
 local chatWaitsForFrames = false
 local placingChat -- true while we set the point ourselves (ignored by the guard below)
 local function PlaceMainChat()
     if InCombatLockdown() then return end
     local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- Emote bar bottom left (Chat/EmoteBar.lua): chat sits above it
-    local reserve = ns.EmoteBarReserve and ns.EmoteBarReserve() or 0
+    local reserve = ns.ChatBottomReserve()
     placingChat = true
     ChatFrame1:ClearAllPoints()
     ChatFrame1:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", margin, margin + reserve)
@@ -477,6 +480,7 @@ local function PlaceMainChat()
     local size = CHAT_SIZES[ns.db.chatSize] or CHAT_SIZES.medium
     ChatFrame1:SetSize(ns.Snap(math.min(size[1], space)), ns.Snap(size[2]))
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(ChatFrame1) end
+    if ns.PlaceSecondChat then ns.PlaceSecondChat() end -- same size
 end
 
 ns.PlaceMainChat = PlaceMainChat
@@ -581,6 +585,10 @@ local showingAll = false
 
 local function HoverTicker()
     local over = anchor:IsMouseOver()
+    local second = ns.SecondChatFrame and ns.SecondChatFrame()
+    if not over and second and second:IsVisible() and second:IsMouseOver(ns.Snap(TAB_HEIGHT + TAB_GAP), 0, 0, 0) then
+        over = true
+    end
     -- typing = an edit box really has focus (the "active window" stays set without focus)
     local typing = false
     for _, name in ipairs(CHAT_FRAMES or {}) do
@@ -840,6 +848,7 @@ function ns.SetupChat()
     ns.db.chatSize = "medium"
     ns.ApplyChatFont()
     PlaceMainChat()
+    if ns.ApplySecondChat then ns.ApplySecondChat() end -- the reset removed it
     ns.Print(L["Chat set up with mUI colors."])
 end
 
@@ -848,6 +857,7 @@ function ns.ResetChat()
     FCF_ResetChatWindows()
     for _, frame in ipairs(ChatFrames()) do StyleChatFrame(frame) end
     PlaceMainChat()
+    if ns.ApplySecondChat then ns.ApplySecondChat() end
     ns.Print(L["Chat reset to Blizzard's default."])
 end
 

@@ -72,7 +72,9 @@ local function PlaceCorner(tooltip)
     if bags then
         tooltip:SetPoint("BOTTOMRIGHT", bags, "TOPRIGHT", -side + ns.WindowFrameReach(), ns.Snap(GAP) + below + ns.WindowFrameReach())
     else
-        tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, margin + ns.Snap(MICRO_STACK + GAP) + below)
+        local top = ns.SecondChatTop and ns.SecondChatTop() -- second chat + addon bar above it
+        local y = top and (top + ns.Snap(8 + 28 + GAP)) or (margin + ns.Snap(MICRO_STACK + GAP))
+        tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, y + below)
     end
 end
 

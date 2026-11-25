@@ -794,11 +794,17 @@ local function CreateWindow()
     ns.RuneFrame(window)
     tinsert(UISpecialFrames, "MeredanUIBags") -- Esc closes
 
-    local margin = ns.Snap(ns.SCREEN_MARGIN)
-    -- bottom right above the micro menu (room for micro menu and bag buttons)
-    -- the window frame's outer edge sits on the margin / above micro menu and bag bar
-    local reach = ns.WindowFrameReach()
-    window:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - reach, margin + 28 + 8 + 28 + 8 + reach)
+    -- bottom right above the micro menu (room for micro menu and bag buttons) or above the second
+    -- chat window; the window frame's outer edge sits on the margin
+    function ns.PlaceBagWindow()
+        local margin = ns.Snap(ns.SCREEN_MARGIN)
+        local reach = ns.WindowFrameReach()
+        local top = ns.SecondChatTop and ns.SecondChatTop()
+        local y = top and (top + 8 + 28 + 8) or (margin + 28 + 8 + 28 + 8)
+        window:ClearAllPoints()
+        window:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - reach, y + reach)
+    end
+    ns.PlaceBagWindow()
 
     -- tabs: Bags | Keys (only while the keyring holds keys)
     local tabs = {}

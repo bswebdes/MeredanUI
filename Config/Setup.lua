@@ -1,5 +1,5 @@
 -- Setup wizard: intro (logo, version, "Start setup") -> size -> role -> style (Classic/Comfort)
--- -> bars (not for healers) -> damage meter -> chat + nickname -> other addons (only if found,
+-- -> bars (not for healers) -> damage meter -> chat + nickname -> second chat window -> other addons (only if found,
 -- Core/OtherAddons.lua) -> done (reload).
 -- On the right a mini screen built from simple rectangles updates with every choice.
 -- Shown once per character on first login (ns.char.setupDone); again via /mui setup or the
@@ -66,6 +66,14 @@ local STEPS = {
         text = L["One chat window plus Combat Log, channels in mUI colours. You leave Trade and General chat; join again anytime."],
         items = function()
             return { { value = true, label = L["Yes, the mUI way"] }, { value = false, label = L["No, leave it"] } }
+        end },
+    { id = "chat2", key = "chat2", title = L["One or two chat windows?"],
+        text = L["With two, Trade and Looking for Group get their own window bottom right."],
+        items = function()
+            return {
+                { value = false, label = L["One window"], desc = L["Everything in one chat"] },
+                { value = true, label = L["Two windows"], desc = L["Trade and Looking for Group on the right"] },
+            }
         end },
     { id = "others", others = true, title = L["Other addons found"],
         text = L["These do the same job as a part of mUI. Pick one per row."],
@@ -345,6 +353,23 @@ local function DrawScreen(target)
         return f
     end)
     Place(chat, margin, H - margin - chatH, chatW, chatH)
+    -- Second chat window bottom right (Chat/SecondChat.lua), Trade/LFG colours
+    if st.chat2 then
+        local chat2 = El("chat2", function()
+            local f = Panel(0.55)
+            f.lines = {}
+            local colors = { { 1, 0.62, 0.36 }, { 0.55, 0.75, 1 }, { 1, 0.62, 0.36 }, { 1, 0.62, 0.36 }, { 0.55, 0.75, 1 }, { 1, 0.62, 0.36 }, { 0.55, 0.75, 1 } }
+            for i, c in ipairs(colors) do f.lines[i] = Tex(f, "ARTWORK", c[1], c[2], c[3], 0.7) end
+            return f
+        end)
+        Place(chat2, W - margin - chatW, H - margin - chatH, chatW, chatH)
+        for i, line in ipairs(chat2.lines) do
+            line:ClearAllPoints()
+            line:SetPoint("BOTTOMLEFT", U(12), U(12) + (i - 1) * U(20))
+            line:SetSize((chatW - U(24)) * (0.35 + ((i * 37) % 60) / 100), math.max(U(5), 2))
+            line:SetShown(U(12) + (i - 1) * U(20) + U(5) <= chatH - U(8))
+        end
+    end
     for i, line in ipairs(chat.lines) do
         line:ClearAllPoints()
         line:SetPoint("BOTTOMLEFT", U(12), U(12) + (i - 1) * U(20))
@@ -465,6 +490,7 @@ local function Finish(useDefaults)
     if st.nick and st.nick ~= "" then ns.root.nickname = st.nick end
     if ns.SyncDamageMeterCVar then ns.SyncDamageMeterCVar() end
     if ns.ApplyMouseoverCast then ns.ApplyMouseoverCast() end
+    ns.db.chatSecond = st.chat2 and true or false
     if st.chat and ns.SetupChat then ns.SetupChat() end
     for areaID, choice in pairs(st.others or {}) do ns.ChooseOtherAddon(areaID, choice) end
     ReloadUI()
@@ -743,7 +769,7 @@ Render = function()
         { L["Style"], StyleName(st.style) },
         { L["Action bars"], (st.role == "healer" or st.bars == "stacked") and L["Stacked"] or L["Centre 2 × 6"] },
         { L["Damage meter"], st.meter and L["Yes"] or L["No"] },
-        { L["Chat"], st.chat and L["mUI style"] or L["unchanged"] },
+        { L["Chat"], (st.chat and L["mUI style"] or L["unchanged"]) .. (st.chat2 and (" · " .. L["Two windows"]) or "") },
         (st.nick and st.nick ~= "") and { L["Nickname"], st.nick } or nil,
     }
     local kept = {}
@@ -801,6 +827,7 @@ function ns.OpenSetup()
         bars = ns.db.barVariant or ns.StyleDefault(style, "barVariant"),
         meter = ns.db.damageMeter ~= false,
         chat = true,
+        chat2 = ns.db.chatSecond == true,
         nick = ns.root.nickname or "",
         others = {},
     }
