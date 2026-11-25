@@ -40,14 +40,22 @@ local function Enabled() return ns.db.groupFrames ~= false end
 
 -- Role with MUI icons (tank/healer; none for DPS)
 local ROLE_ICONS = { TANK = "RoleTank", HEALER = "RoleHeal" }
-local function IsHealer(self)
-    local role = self.unit and UnitGroupRolesAssigned(self.unit)
-    return ns.Readable(role) and role == "HEALER"
+-- Mana for healers only; oUF would always show the bar, so decide after every update.
+-- Groups formed by hand (common on Forever) have no roles: then every mana user gets the bar,
+-- otherwise a tank would never see the healer's mana.
+local function ShowsMana(self)
+    local unit = self.unit
+    if not unit then return false end
+    local role = UnitGroupRolesAssigned(unit)
+    if not ns.Readable(role) then return false end
+    if role == "HEALER" then return true end
+    if role ~= "NONE" then return false end
+    local powerType = UnitPowerType(unit)
+    return ns.Readable(powerType) and powerType == Enum.PowerType.Mana
 end
 
--- Mana for healers only; oUF would always show the bar, so decide after every update
 local function PowerVisibility(power)
-    power:SetShown(testing or IsHealer(power.__owner))
+    power:SetShown(testing or ShowsMana(power.__owner))
 end
 
 local function UpdateRole(self)
