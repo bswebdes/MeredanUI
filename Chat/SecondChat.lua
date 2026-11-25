@@ -85,6 +85,13 @@ local function Place()
     frame:ClearAllPoints()
     frame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin + ns.ChatBottomReserve())
     frame:SetSize(ChatFrame1:GetWidth(), ChatFrame1:GetHeight())
+    -- Undocking leaves the tab where the dock had put it (left, among the main chat's tabs):
+    -- hang it over this window, same gap as the main chat's tabs
+    local tab = _G[frame:GetName() .. "Tab"]
+    if tab then
+        tab:ClearAllPoints()
+        tab:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, ns.Snap(10))
+    end
     placing = false
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(frame) end
 end
@@ -125,6 +132,11 @@ function ns.ApplySecondChat()
         if FCF_SetLocked then FCF_SetLocked(frame, true) end -- fixed layout, no dragging
         MoveChannels(true)
         Place()
+        if DevLog then
+            DevLog("MeredanUI", ("SecondChat %s docked=%s shown=%s right=%.0f bottom=%.0f size=%.0fx%.0f"):format(
+                frame:GetName(), tostring(frame.isDocked), tostring(frame:IsShown()), frame:GetRight() or -1,
+                frame:GetBottom() or -1, frame:GetWidth(), frame:GetHeight()))
+        end
     elseif existing then
         frame = existing
         MoveChannels(false)
