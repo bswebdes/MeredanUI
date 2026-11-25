@@ -303,6 +303,10 @@ if GetLocale() == "deDE" then
     L["New category…"] = "Neue Kategorie …"
     L["Remove from category"] = "Aus Kategorie entfernen"
     -- Second chat window
+    L["Chat window"] = "Fenster"
+    L["Chat messages"] = "Nachrichten"
+    L["Chat helpers"] = "Hilfen"
+    L["Chat controls"] = "Bedienung"
     L["Second chat window set up: Trade is now bottom right."] = "Zweites Chatfenster eingerichtet: Handel ist jetzt unten rechts."
     L["Second chat window removed, Trade is back in the main chat."] = "Zweites Chatfenster entfernt, Handel ist wieder im Hauptchat."
     L["Trade chat in its own window bottom right."] = "Handelschat in einem eigenen Fenster unten rechts."

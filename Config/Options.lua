@@ -592,38 +592,54 @@ local PAGES = {
         key = "chat", label = L["Chat"],
         build = function(page)
             page:AddTitle(L["Chat"], L["Text, sounds and extras of the chat window."])
-            page:AddTextField(L["Nickname in guild chat"], function() return ns.root.nickname end,
-                function(text) ns.root.nickname = text ~= "" and text or nil end, 24)
+            page:AddHeader(L["Chat window"])
             page:AddDropdown(L["Size"], StageItems, Getter("chatSize"), Setter("chatSize", ns.PlaceMainChat))
             page:AddDropdown(L["Font size"], StageItems, Getter("chatFontSize"), Setter("chatFontSize", ns.ApplyChatFont))
+            -- second chat window: one button that sets it up or removes it again
+            local second
+            local function SecondLabel()
+                return ns.db.chatSecond and L["Remove second chat window"] or L["Set up second chat window"]
+            end
+            second = page:AddButton(SecondLabel(), function()
+                if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
+                ns.db.chatSecond = not ns.db.chatSecond
+                ns.ApplySecondChat()
+                second.button.Text:SetText(SecondLabel())
+            end)
+            page:AddNote(L["Trade chat in its own window bottom right."])
+            page:AddHeader(L["Chat messages"])
             page:AddCheckbox(L["Short channel names ([G], [P], [1] …)"], Getter("chatShortChannels"), Setter("chatShortChannels"))
             page:AddCheckbox(L["Class icons before names"], On("chatClassIcons"), Setter("chatClassIcons"),
                 Help(L["Guild, group, raid and whispers. Not in Trade or General."]))
+            page:AddCheckbox(L["Level at names"], On("chatLevels"), Setter("chatLevels"),
+                Help(L["For players whose level is known (group, guild, friends, target). Not at max level."]))
             page:AddCheckbox(L["Timestamps (12:04)"], Getter("chatTimestamps"), Setter("chatTimestamps", ns.ApplyChatTimestamps))
             page:AddCheckbox(L["Emojis as pictures"], On("chatEmoji"), Setter("chatEmoji"),
                 Help(L[":D, :-D, <3, ^^ and real emojis become small pictures. Only players with mUI see them."], true))
             page:AddCheckbox(L["Reputation with a bar"], On("chatReputation"), Setter("chatReputation"),
                 Help(L["Instead of Blizzard's line: gain, faction, a bar in the standing's color, progress and this session's total."], true))
-            page:AddCheckbox(L["Sound when someone mentions you"], Getter("chatMentionSound"), Setter("chatMentionSound"),
-                Help(L["Your name or nickname."]))
-            page:AddCheckbox(L["Arrow keys in the input line"], On("chatArrowKeys"), Setter("chatArrowKeys", ns.ApplyChatArrowKeys),
-                Help(L["Left/right moves the cursor, up/down brings back what you sent, even after a reload. Without this only with Alt."]))
-            page:AddCheckbox(L["Tooltip on links"], On("chatHoverTips"), Setter("chatHoverTips"),
-                Help(L["Hover an item, spell or quest in chat to see its tooltip."]))
-            page:AddCheckbox(L["Faster scrolling"], On("chatScrollKeys"), Setter("chatScrollKeys"),
-                Help(L["Ctrl + mouse wheel jumps to the top or bottom, Shift + mouse wheel scrolls a page."]))
-            page:AddCheckbox(L["Clickable \"inv\""], On("chatInviteLinks"), Setter("chatInviteLinks"),
-                Help(L["\"inv\" in someone's message becomes a link. Click invites them, or asks to join when they are looking for more players."]))
-            page:AddCheckbox(L["Spam brake"], On("chatSpamFilter"), Setter("chatSpamFilter"),
-                Help(L["In Trade, General and group search the same message from the same player shows only once every 3 minutes."]))
-            page:AddCheckbox(L["Level at names"], On("chatLevels"), Setter("chatLevels"),
-                Help(L["For players whose level is known (group, guild, friends, target). Not at max level."]))
             page:AddCheckbox(L["Speech bubbles in mUI look"], On("chatBubbles"), Setter("chatBubbles"),
                 Help(L["Flat box instead of Blizzard's ornate bubble. In dungeons and raids Blizzard locks the bubbles for addons – only the font changes there."], true))
+            page:AddHeader(L["Chat helpers"])
             if ns.IS_FOREVER then
                 page:AddCheckbox(L["Highlight group searches"], On("lfgHighlight"), Setter("lfgHighlight"),
                     Help(L["Someone looking for a group for a dungeon or raid that fits your level: the message gets a small marker with the dungeon's name."]))
             end
+            page:AddCheckbox(L["Spam brake"], On("chatSpamFilter"), Setter("chatSpamFilter"),
+                Help(L["In Trade, General and group search the same message from the same player shows only once every 3 minutes."]))
+            page:AddCheckbox(L["Sound when someone mentions you"], Getter("chatMentionSound"), Setter("chatMentionSound"),
+                Help(L["Your name or nickname."]))
+            page:AddTextField(L["Nickname in guild chat"], function() return ns.root.nickname end,
+                function(text) ns.root.nickname = text ~= "" and text or nil end, 24)
+            page:AddHeader(L["Chat controls"])
+            page:AddCheckbox(L["Arrow keys in the input line"], On("chatArrowKeys"), Setter("chatArrowKeys", ns.ApplyChatArrowKeys),
+                Help(L["Left/right moves the cursor, up/down brings back what you sent, even after a reload. Without this only with Alt."]))
+            page:AddCheckbox(L["Faster scrolling"], On("chatScrollKeys"), Setter("chatScrollKeys"),
+                Help(L["Ctrl + mouse wheel jumps to the top or bottom, Shift + mouse wheel scrolls a page."]))
+            page:AddCheckbox(L["Tooltip on links"], On("chatHoverTips"), Setter("chatHoverTips"),
+                Help(L["Hover an item, spell or quest in chat to see its tooltip."]))
+            page:AddCheckbox(L["Clickable \"inv\""], On("chatInviteLinks"), Setter("chatInviteLinks"),
+                Help(L["\"inv\" in someone's message becomes a link. Click invites them, or asks to join when they are looking for more players."]))
             page:AddHeader(L["Emote bar"])
             page:AddDropdown(L["Visibility"], VisibilityItems,
                 function() return ns.VisibilityMode(ns.db.emoteBar or "hidden") end,
@@ -680,18 +696,6 @@ local PAGES = {
             page:AddButton(L["Set up chat the mUI way"], function() ns.SetupChat() end)
             page:AddNote(L["One chat window plus Combat Log, channels in mUI colours. You leave Trade and General chat; join again anytime."])
             page:AddButton(L["Reset chat"], function() ns.ResetChat() end)
-            -- second chat window: one button that sets it up or removes it again
-            local second
-            local function SecondLabel()
-                return ns.db.chatSecond and L["Remove second chat window"] or L["Set up second chat window"]
-            end
-            second = page:AddButton(SecondLabel(), function()
-                if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
-                ns.db.chatSecond = not ns.db.chatSecond
-                ns.ApplySecondChat()
-                second.button.Text:SetText(SecondLabel())
-            end)
-            page:AddNote(L["Trade chat in its own window bottom right."])
         end,
     },
     {
