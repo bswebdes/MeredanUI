@@ -72,8 +72,10 @@ local function PlaceCorner(tooltip)
     if bags then
         tooltip:SetPoint("BOTTOMRIGHT", bags, "TOPRIGHT", -side + ns.WindowFrameReach(), ns.Snap(GAP) + below + ns.WindowFrameReach())
     else
-        local top = ns.SecondChatTop and ns.SecondChatTop() -- second chat + addon bar above it
-        local y = top and (top + ns.Snap(8 + 28 + GAP)) or (margin + ns.Snap(MICRO_STACK + GAP))
+        -- second chat window bottom right: the addon bar moved above it, so the tooltip sits right
+        -- above the micro menu (over the chat while it is shown)
+        local secondChat = ns.SecondChatTop and ns.SecondChatTop()
+        local y = secondChat and (margin + ns.Snap(28 + GAP)) or (margin + ns.Snap(MICRO_STACK + GAP))
         tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, y + below)
     end
 end
