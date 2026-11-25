@@ -161,8 +161,8 @@ local function CreateCanvas(parent)
         if self.RefreshReveal then self:RefreshReveal() end
         if OnMapChanged then OnMapChanged() end
     end
-    map:SetScript("OnEvent", function(self, event, ...) MapCanvasMixin.OnEvent(self, event, ...) end)
-    map:SetScript("OnUpdate", function(self, elapsed) MapCanvasMixin.OnUpdate(self, elapsed) end)
+    map:SetScript("OnEvent", ns.PerfProbe("Map: canvas events", function(self, event, ...) MapCanvasMixin.OnEvent(self, event, ...) end))
+    map:SetScript("OnUpdate", ns.PerfProbe("Map: canvas update", function(self, elapsed) MapCanvasMixin.OnUpdate(self, elapsed) end))
     map:SetScript("OnShow", function(self)
         local wanted = self.wantedMap
         self.wantedMap = nil
@@ -755,7 +755,7 @@ end
 
 -- Header, footer, coordinates ---------------------------------------------------------------------
 
-OnMapChanged = function()
+OnMapChanged = ns.PerfProbe("Map: map changed", function()
     if not (window and window:IsShown()) then return end
     Crumbs()
     if ns.DungeonPanel then ns.DungeonPanel.Refresh() end
@@ -774,7 +774,7 @@ OnMapChanged = function()
         text = text .. "  ·  " .. (low == high and L["Level %d"]:format(low) or L["Level %d–%d"]:format(low, high))
     end
     footer:SetText(text)
-end
+end)
 
 local function UpdateCoords()
     local mapID = canvas:GetMapID()
@@ -1087,12 +1087,12 @@ local function CreateWindow()
     coords.text = UI.Text(coords, 12, "LEFT")
     coords.text:SetPoint("LEFT", 10, 0)
     local tick = 0
-    coords:SetScript("OnUpdate", function(_, elapsed)
+    coords:SetScript("OnUpdate", ns.PerfProbe("Map: coords", function(_, elapsed)
         tick = tick + elapsed
         if tick < 0.1 then return end
         tick = 0
         UpdateCoords()
-    end)
+    end))
     coords:Show()
 
     -- small map: enlarge and close on the map itself, top right (no header there)
@@ -1204,7 +1204,7 @@ local function CreateWindow()
     ApplyMode()
 
     -- fade while moving; mouse over the map shows it fully
-    window:HookScript("OnUpdate", function(self, elapsed)
+    window:HookScript("OnUpdate", ns.PerfProbe("Map: fade", function(self, elapsed)
         local target = 1
         if ns.db.mapFadeMoving ~= false and IsPlayerMoving() and not self:IsMouseOver() then target = FADE_ALPHA end
         local alpha = self:GetAlpha()
@@ -1212,7 +1212,7 @@ local function CreateWindow()
             local step = elapsed * FADE_SPEED
             self:SetAlpha(alpha < target and math.min(target, alpha + step) or math.max(target, alpha - step))
         end
-    end)
+    end))
 
     window:HookScript("OnShow", function()
         PlaySound(SOUNDKIT.IG_QUEST_LOG_OPEN)

@@ -220,7 +220,7 @@ local function PatchAreaLabel(canvas, label)
         icon:Hide()
         label.muiFaction[i] = icon
     end
-    label:SetScript("OnUpdate", function(self)
+    label:SetScript("OnUpdate", ns.PerfProbe("Map: area label", function(self)
         AreaLabelFrameMixin.OnUpdate(self)
         for _, icon in ipairs(self.muiFaction) do icon:Hide() end
         if ns.db.mapZoneLevels == false or not canvas:IsCanvasMouseFocus() then return end
@@ -256,7 +256,7 @@ local function PatchAreaLabel(canvas, label)
                 prev = icon
             end
         end
-    end)
+    end))
 end
 
 -- 3. Dungeon entrances --------------------------------------------------------------------------
