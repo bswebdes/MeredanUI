@@ -872,7 +872,7 @@ function UI.Page(parent)
             set(not get())
             Refresh()
         end)
-        if half == "left" then self.openHalf = row end
+        self.openHalf = half == "left" and row or nil -- right half filled: the next one starts a new row
         return row
     end
 
