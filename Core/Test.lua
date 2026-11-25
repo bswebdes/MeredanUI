@@ -219,8 +219,10 @@ local function Animate()
         local power = 0.5 + 0.5 * math.sin(t * 1.3 + phase)
         frame.Health:SetValue(health)
         frame.Power:SetValue(power)
-        frame.HealthText:SetText(AbbreviateNumbers(math.floor(health * TEST_MAX_HEALTH[unit])))
-        frame.PowerText:SetText(AbbreviateNumbers(math.floor(power * 100)))
+        local max = TEST_MAX_HEALTH[unit]
+        frame.HealthText:SetText(ns.FormatHealthText(AbbreviateNumbers(math.floor(health * max)), AbbreviateNumbers(max),
+            math.floor(health * 100)) or "")
+        frame.PowerText:SetText(ns.FormatPowerText(AbbreviateNumbers(math.floor(power * 100)), math.floor(power * 100)))
 
         if frame.SummonIndicator and frame.SummonIndicator:IsShown() then
             ns.UpdateSummonIcon(frame.SummonIndicator, math.floor(t / 1.5) % 3 + 1)

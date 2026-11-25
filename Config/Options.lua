@@ -268,6 +268,25 @@ local PAGES = {
             page:AddDropdown(L["Size of player and target"], FrameStageItems, Getter("frameSize"), Setter("frameSize"),
                 Help(L["Pet, target of target and focus grow with them."], true))
             page:AddDropdown(L["Size of boss frames"], StageItems, Getter("bossSize"), Setter("bossSize"), RELOAD)
+            page:AddDropdown(L["Health text"], function()
+                return {
+                    { value = "value", label = L["Value (941)"] },
+                    { value = "percent", label = L["Percent (85 %)"] },
+                    { value = "both", label = L["Value and percent"] },
+                    { value = "max", label = L["Value / max"] },
+                    { value = "off", label = L["Off"] },
+                }
+            end, Getter("healthText"), Setter("healthText", ns.ApplyUnitTexts), Help(L["Player and target."]))
+            page:AddDropdown(L["Power text"], function()
+                return {
+                    { value = "off", label = L["Off"] },
+                    { value = "value", label = L["Value"] },
+                    { value = "percent", label = L["Percent"] },
+                }
+            end, Getter("powerText"), Setter("powerText", ns.ApplyUnitTexts), Help(L["Mana, rage or energy, small in the corner of the health bar. Player and target."]))
+            page:AddDropdown(L["Power text colour"], function()
+                return { { value = "white", label = L["White"] }, { value = "power", label = L["Colour of the resource"] } }
+            end, Getter("powerTextColor"), Setter("powerTextColor", ns.ApplyUnitTexts))
             page:AddDropdown(L["Cast bar"], function()
                 return { { value = "simple", label = L["Simple"] }, { value = "full", label = L["Full"] } }
             end, Getter("castbar"), Setter("castbar"),

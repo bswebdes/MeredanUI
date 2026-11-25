@@ -409,11 +409,11 @@ local function Style(self, unit)
     TagText(self, healthText, "[mui:health]")
     self.HealthText = healthText
 
-    -- power value: kept for test mode, not shown in this look
+    -- power value small in the bottom corner; off by default (setting powerText)
     local powerText = ns.CreateText(texts, S.valueSize, near, "OUTLINE")
     powerText:SetPoint("BOTTOM" .. near, self, "BOTTOM" .. near, 5 * dir, 4)
     TagText(self, powerText, "[mui:power]")
-    powerText:Hide()
+    powerText:SetShown((ns.db.powerText or "off") ~= "off")
     self.PowerText = powerText
 
     -- Status icons: one row centered in the health bar (visible ones close ranks); resting icon
@@ -481,6 +481,11 @@ local function Style(self, unit)
     power.colorPower = true
     power.PostUpdateColor = ns.ColorPowerBar
     ns.ShadeBar(power, mirrored) -- wraps PostUpdateColor, so after it is set
+    local shaded = power.PostUpdateColor
+    power.PostUpdateColor = function(element, ...)
+        shaded(element, ...)
+        ns.ColorPowerText(element.__owner)
+    end
     power.PostUpdate = ns.HideEmptyPowerText
     if unit == "player" then
         -- If the main resource is shown in the center (Balance, Shadow, Elemental), the bar shows mana
@@ -817,9 +822,31 @@ oUF.Tags.Methods["mui:tlevel"] = [[function(u)
 end]]
 oUF.Tags.Events["mui:tlevel"] = "UNIT_LEVEL PLAYER_LEVEL_UP PLAYER_TARGET_CHANGED"
 
--- Current health or power, abbreviated (107.9K). AbbreviateNumbers accepts secret values.
+-- Health and power text of player and target (settings healthText, powerText, powerTextColor).
+-- Values may be secret: only AbbreviateNumbers and string.format touch them (both accept secrets).
+-- Shared with the preview (Core/Test.lua), which passes plain numbers.
+function ns.FormatHealthText(cur, max, percent)
+    local mode = ns.db and ns.db.healthText or "value"
+    if mode == "off" then return nil end
+    if mode == "percent" then return string.format("%d %%", percent) end
+    if mode == "both" then return string.format("%s · %d %%", cur, percent) end
+    if mode == "max" then return string.format("%s / %s", cur, max) end
+    return cur
+end
+
+function ns.FormatPowerText(cur, percent)
+    if ns.db and ns.db.powerText == "percent" then return string.format("%d %%", percent) end
+    return cur
+end
+
+oUF.Tags.Vars.muiHealth = function(u)
+    return ns.FormatHealthText(AbbreviateNumbers(UnitHealth(u)), AbbreviateNumbers(UnitHealthMax(u)),
+        UnitHealthPercent(u, true, CurveConstants.ScaleTo100))
+end
+
+-- Current health in the chosen format (abbreviated value by default: 107.9K)
 oUF.Tags.Methods["mui:health"] = [[function(u)
-    return _TAGS.dead(u) or _TAGS.offline(u) or AbbreviateNumbers(UnitHealth(u))
+    return _TAGS.dead(u) or _TAGS.offline(u) or _VARS.muiHealth(u)
 end]]
 oUF.Tags.Events["mui:health"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION"
 
@@ -831,7 +858,33 @@ oUF.Tags.Methods["mui:power"] = function(u)
     local power = UnitPower(u, powerType)
     -- Hide empty power on others (e.g. beasts without energy); on yourself the 0 stays
     if not issecretvalue(power) and power == 0 and not UnitIsUnit(u, "player") then return end
-    return AbbreviateNumbers(power)
+    return ns.FormatPowerText(AbbreviateNumbers(power), UnitPowerPercent(u, powerType, true, CurveConstants.ScaleTo100))
+end
+
+-- Power text white or in the colour of its bar (setting powerTextColor)
+function ns.ColorPowerText(frame)
+    local text, bar = frame and frame.PowerText, frame and frame.Power
+    if not (text and bar) then return end
+    if ns.db.powerTextColor == "power" then
+        local r, g, b = bar:GetStatusBarColor()
+        if ns.Readable(r) and ns.Readable(g) and ns.Readable(b) then return text:SetTextColor(r, g, b) end
+    end
+    text:SetTextColor(1, 1, 1)
+end
+
+-- Settings changed: retag and show/hide the power text on player and target
+function ns.ApplyUnitTexts()
+    for _, key in ipairs({ "player", "target" }) do
+        local frame = ns.frames and ns.frames[key]
+        if frame then
+            if frame.HealthText and frame.HealthText.UpdateTag then frame.HealthText:UpdateTag() end
+            if frame.PowerText then
+                frame.PowerText:SetShown((ns.db.powerText or "off") ~= "off")
+                if frame.PowerText.UpdateTag then frame.PowerText:UpdateTag() end
+                ns.ColorPowerText(frame)
+            end
+        end
+    end
 end
 oUF.Tags.Events["mui:power"] = "UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER"
 
