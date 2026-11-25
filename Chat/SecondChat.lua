@@ -154,6 +154,12 @@ ns:On("PLAYER_LOGIN", function()
     C_Timer.After(0, function()
         if Enabled() or FindWindow() then ns.ApplySecondChat() end
     end)
+    -- Blizzard restores the saved window names after login (UPDATE_CHAT_WINDOWS): rename again
+    ns:On("UPDATE_CHAT_WINDOWS", function()
+        if frame and Enabled() and frame.name ~= WindowName() and not InCombatLockdown() then
+            FCF_SetWindowName(frame, WindowName())
+        end
+    end)
     -- Trade is only joined in cities: move it once it shows up
     local pending
     ns:On("CHANNEL_UI_UPDATE", function()
