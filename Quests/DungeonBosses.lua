@@ -49,5 +49,5 @@ ns.DUNGEON_BOSSES = {
     [3001] = { { 3498, "Titanosaur", "Titanosaurus" }, { 3499, "Ravasaur Hunters", "Ravasaurusjäger" }, { 3500, "Thunderhoof", "Thunderhoof" }, { 3501, "Venomridge", "Giftkamm" }, { 3507, "Direhorn Matriarch", "Terrorhornmatriarchin" }, { 3503, "Cinder", "Zunder" }, { 3504, "King Op", "König Op" }, { 3597, "Snowtalon", "Schneekralle" }, { 3505, "Bolt", "Bolt" }, { 3600, "Vitrix", "Vitrix" }, { 3502, "Nanaya", "Nanaya" } },
     [3002] = { { 3369, "Deathulus", "Deathulus" }, { 3371, "Crushfist Bloodbreaker", "Crushfist Bloodbreaker" } },
     [3039] = { { 3450, "Slavecrusher Grox", "Sklavenbrecher Grox" }, { 3452, "Twilight Commander Zarmok", "Twilight-Kommandant Zarmok" }, { 3453, "Handler Ashka", "Tierführerin Ashka" }, { 3449, "Nar'gurk", "Nar'gurk" }, { 3451, "Overseer Mugg", "Aufseher Mugg" } },
-    [3065] = { { 3493, "Faldrim Anvilmar", "Faldrim Anvilmar" }, { 3495, "Infurnus", "Infurnus" }, { 3494, "Plunder", "Plünderung" }, { 3496, "Durgen Dirgehammer", "Durgen Dirgehammer" } },
+    [3065] = { { 3493, "Faldrim Anvilmar", "Faldrim Anvilmar" }, { 3495, "Magmatus", "Magmatus" }, { 3494, "Plunder", "Schleppweg" }, { 3496, "Durgen Dirgehammer", "Durgen Dirgehammer" } },
 }

@@ -13,6 +13,16 @@ def load(loc):
         return {int(r["ID"]): r for r in csv.DictReader(f)}
 
 en, de = load("enUS"), load("deDE")
+
+# Blizzard renamed some new Forever bosses without updating DungeonEncounter. The NPC names in the
+# game win; source: Wowhead Forever NPC pages (en + de), never our own translation.
+RENAMED = {
+    3495: ("Magmatus", "Magmatus"),     # Hall of Thanes, npc=261316 (table: Infurnus)
+    3494: ("Plunder", "Schleppweg"),    # Hall of Thanes, npc=261311 (table de: Plünderung)
+}
+for eid, (n_en, n_de) in RENAMED.items():
+    en[eid] = dict(en[eid], Name_lang=n_en)
+    de[eid] = dict(de.get(eid, en[eid]), Name_lang=n_de)
 maps = {}
 for eid, r in en.items():
     if r["DifficultyID"] not in ("0", "1"):
