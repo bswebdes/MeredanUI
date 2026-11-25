@@ -63,6 +63,8 @@ local function IsSpecialBag(bag)
 end
 
 local NEW, JUNK, OTHER, FREE = "New", "Junk", "Other", "Free"
+-- favorites live in the custom-category table under this key, so dropping onto the header works too
+local FAV = "Favorites"
 -- free slots in special bags (quiver, ammo pouch, soul/herb bags ...) are counted separately:
 -- they only accept matching items, so they don't belong to "Free"
 local QUIVER, SPECIAL = "Quiver", "Special bags"
@@ -163,8 +165,9 @@ local function ExpireNewItems()
 end
 
 -- Category of an item - priority like BetterBags with "Bears Ultimate":
--- New > equipment set > custom > tools > Bears > junk > equip slot > item type
+-- favorite > New > equipment set > custom > tools > Bears > junk > equip slot > item type
 local function CategoryFor(bag, slot, info)
+    if CustomCategories()[info.itemID] == FAV then return FAV end
     local guid = slotGUID[bag * 1000 + slot]
     if guid and recent[guid] then return NEW end
     local inSet, setList = C_Container.GetContainerItemEquipmentSetInfo(bag, slot)
@@ -199,10 +202,10 @@ local function CategoryFor(bag, slot, info)
     return itemType or (classID and C_Item.GetItemClassInfo(classID)) or OTHER
 end
 
--- section order: New, gear, then alphabetical, junk and free at the end
+-- section order: favorites, New, gear, then alphabetical, junk and free at the end
 local function SectionOrder(a, b)
     local function Rank(key)
-        if key == NEW then return 1 elseif isEquipKey[key] then return 2
+        if key == FAV then return 0 elseif key == NEW then return 1 elseif isEquipKey[key] then return 2
         elseif key == JUNK then return 4 elseif key == FREE then return 5
         elseif key == QUIVER or key == SPECIAL then return 6 end
         return 3
@@ -384,6 +387,34 @@ local function GetButton(bag, slot)
     return button
 end
 
+-- Favorites: small gold angles on all four corners, just outside the quality border (it stays)
+local FAV_COLOR = { 0.95, 0.81, 0.42 }
+local function SetFavoriteCorners(button, show)
+    if not show then
+        if button.muiFavCorners then button.muiFavCorners:Hide() end
+        return
+    end
+    if not button.muiFavCorners then
+        local frame = CreateFrame("Frame", nil, button)
+        frame:SetAllPoints()
+        frame:SetFrameLevel(button:GetFrameLevel() + 6)
+        local len, thick, out = ns.Snap(10), ns.Snap(2), ns.Snap(2)
+        for _, corner in ipairs({ { "TOPLEFT", -1, 1 }, { "TOPRIGHT", 1, 1 }, { "BOTTOMLEFT", -1, -1 }, { "BOTTOMRIGHT", 1, -1 } }) do
+            local point, sx, sy = corner[1], corner[2], corner[3]
+            local horizontal = frame:CreateTexture(nil, "OVERLAY", nil, 3)
+            horizontal:SetColorTexture(unpack(FAV_COLOR))
+            horizontal:SetSize(len, thick)
+            horizontal:SetPoint(point, frame, point, sx * out, sy * out)
+            local vertical = frame:CreateTexture(nil, "OVERLAY", nil, 3)
+            vertical:SetColorTexture(unpack(FAV_COLOR))
+            vertical:SetSize(thick, len)
+            vertical:SetPoint(point, frame, point, sx * out, sy * out)
+        end
+        button.muiFavCorners = frame
+    end
+    button.muiFavCorners:Show()
+end
+
 -- showLevel: show item level (default: only in gear sections)
 local function UpdateButton(button, info, showLevel)
     local bag, slot = button:GetBagID(), button:GetID()
@@ -415,6 +446,7 @@ local function UpdateButton(button, info, showLevel)
     if showLevel == nil then showLevel = isEquipKey[button.muiCategory] end
     ns.DecorateItemButton(button, info, showLevel, bag, slot)
     button.muiItemID = info and info.itemID
+    SetFavoriteCorners(button, info and CustomCategories()[info.itemID] == FAV)
     button.muiName = info and info.hyperlink and (C_Item.GetItemNameByID(info.itemID) or ""):lower() or ""
 end
 
@@ -608,9 +640,10 @@ local function LayoutCategories(items, empties, special)
             placedHeight = math.max(placedHeight, y + h)
             if fullRow then NewRow() end
         end
+        if sections[FAV] then Place(FAV, true) end
         if sections[NEW] then Place(NEW, true) end
         for _, key in ipairs(keys) do
-            if key ~= NEW and key ~= FREE then Place(key) end
+            if key ~= FAV and key ~= NEW and key ~= FREE then Place(key) end
         end
         if sections[FREE] then Place(FREE, true) end
         if placedHeight <= maxHeight then break end
@@ -724,11 +757,16 @@ function CategoryMenu(button)
     local custom = CustomCategories()
     local names, seen = {}, {}
     for _, name in pairs(custom) do
-        if not seen[name] then seen[name] = true; names[#names + 1] = name end
+        if name ~= FAV and not seen[name] then seen[name] = true; names[#names + 1] = name end
     end
     table.sort(names)
     MenuUtil.CreateContextMenu(button, function(_, root)
         root:CreateTitle(C_Item.GetItemNameByID(itemID) or L["Category"])
+        root:CreateCheckbox(L["Favorite"], function() return custom[itemID] == FAV end, function()
+            custom[itemID] = custom[itemID] ~= FAV and FAV or nil
+            Layout()
+        end)
+        root:CreateDivider()
         for _, name in ipairs(names) do
             root:CreateRadio(name, function() return custom[itemID] == name end,
                 function() custom[itemID] = name; Layout() end)
@@ -736,7 +774,7 @@ function CategoryMenu(button)
         root:CreateButton(L["New category…"], function()
             StaticPopup_Show("MEREDANUI_BAG_CATEGORY", nil, nil, itemID)
         end)
-        if custom[itemID] then
+        if custom[itemID] and custom[itemID] ~= FAV then
             root:CreateButton(L["Remove from category"], function() custom[itemID] = nil; Layout() end)
         end
     end)
