@@ -409,9 +409,9 @@ local function Style(self, unit)
     TagText(self, healthText, "[mui:health]")
     self.HealthText = healthText
 
-    -- power value small in the bottom corner; off by default (setting powerText)
+    -- power value on the other side, same height as the health value; off by default (setting powerText)
     local powerText = ns.CreateText(texts, S.valueSize, near, "OUTLINE")
-    powerText:SetPoint("BOTTOM" .. near, self, "BOTTOM" .. near, 5 * dir, 4)
+    powerText:SetPoint(near, self, near, 6 * dir, 0)
     TagText(self, powerText, "[mui:power]")
     powerText:SetShown((ns.db.powerText or "off") ~= "off")
     self.PowerText = powerText
