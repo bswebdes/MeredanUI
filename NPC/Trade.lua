@@ -76,7 +76,7 @@ local function Card(side, id, x, y)
     end)
     card:SetScript("OnClick", function()
         if IsModifiedClick() and HandleModifiedItemClick(Link()) then return end
-        if side == "player" then ClickTradeButton(id) end -- ClickTargetTradeButton is protected
+        if side == "player" then ClickTradeButton(id) end -- target enchant slot: Blizzard's button on top (KeepTargetEnchantSlot)
     end)
     if side == "player" then
         card:SetScript("OnDragStart", function() ClickTradeButton(id) end)
@@ -326,16 +326,35 @@ local function HideBlizzard()
     hidden:Hide()
     for _, region in ipairs({ TradeFrame:GetRegions() }) do region:SetAlpha(0) end
     for _, child in ipairs({ TradeFrame:GetChildren() }) do
-        if child ~= TradePlayerInputMoneyFrame and child ~= window then
+        if child ~= TradePlayerInputMoneyFrame and child ~= window and child ~= TradeRecipientItem7 then
             pcall(child.SetParent, child, hidden)
         end
     end
+end
+
+-- Enchanting through trade = clicking the other player's "will not be traded" slot while the enchant
+-- waits for a target. That needs ClickTargetTradeButton, which is protected, so Blizzard's own slot
+-- button stays alive: invisible (alpha 0 still takes clicks) and laid over our card. Its parent keeps
+-- id 7, which its OnClick reads.
+local function KeepTargetEnchantSlot()
+    local slot = _G["TradeRecipientItem" .. ENCHANT]
+    local button = slot and _G["TradeRecipientItem" .. ENCHANT .. "ItemButton"]
+    local card = cards.target[ENCHANT]
+    if not (button and card) then return end
+    slot:ClearAllPoints()
+    slot:SetAllPoints(card)
+    slot:SetAlpha(0)
+    slot:SetFrameLevel(card:GetFrameLevel() + 2)
+    button:ClearAllPoints()
+    button:SetAllPoints(slot)
+    button:SetFrameLevel(slot:GetFrameLevel() + 1)
 end
 
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
     HideBlizzard()
+    KeepTargetEnchantSlot()
     PinTradeFrame()
     hooksecurefunc(TradeFrame, "SetPoint", function() if not pinning then PinTradeFrame() end end)
     for _, event in ipairs({ "TRADE_SHOW", "TRADE_UPDATE", "TRADE_PLAYER_ITEM_CHANGED", "TRADE_TARGET_ITEM_CHANGED",
