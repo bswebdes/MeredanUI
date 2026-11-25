@@ -595,8 +595,6 @@ local PAGES = {
             page:AddTextField(L["Nickname in guild chat"], function() return ns.root.nickname end,
                 function(text) ns.root.nickname = text ~= "" and text or nil end, 24)
             page:AddDropdown(L["Size"], StageItems, Getter("chatSize"), Setter("chatSize", ns.PlaceMainChat))
-            page:AddCheckbox(L["Second chat window"], Getter("chatSecond"), Setter("chatSecond", ns.ApplySecondChat),
-                Help(L["Trade and Looking for Group in their own window bottom right."]))
             page:AddDropdown(L["Font size"], StageItems, Getter("chatFontSize"), Setter("chatFontSize", ns.ApplyChatFont))
             page:AddCheckbox(L["Short channel names ([G], [P], [1] …)"], Getter("chatShortChannels"), Setter("chatShortChannels"))
             page:AddCheckbox(L["Class icons before names"], On("chatClassIcons"), Setter("chatClassIcons"),
@@ -682,6 +680,18 @@ local PAGES = {
             page:AddButton(L["Set up chat the mUI way"], function() ns.SetupChat() end)
             page:AddNote(L["One chat window plus Combat Log, channels in mUI colours. You leave Trade and General chat; join again anytime."])
             page:AddButton(L["Reset chat"], function() ns.ResetChat() end)
+            -- second chat window: one button that sets it up or removes it again
+            local second
+            local function SecondLabel()
+                return ns.db.chatSecond and L["Remove second chat window"] or L["Set up second chat window"]
+            end
+            second = page:AddButton(SecondLabel(), function()
+                if InCombatLockdown() then return ns.Print(L["Not possible in combat."]) end
+                ns.db.chatSecond = not ns.db.chatSecond
+                ns.ApplySecondChat()
+                second.button.Text:SetText(SecondLabel())
+            end)
+            page:AddNote(L["Trade and Looking for Group in their own window bottom right."])
         end,
     },
     {

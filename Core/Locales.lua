@@ -304,7 +304,11 @@ if GetLocale() == "deDE" then
     L["Remove from category"] = "Aus Kategorie entfernen"
     -- Second chat window
     L["Trade & LFG"] = "Handel & Gruppe"
-    L["Second chat window"] = "Zweites Chatfenster"
+    L["Set up second chat window"] = "Zweites Chatfenster einrichten"
+    L["Remove second chat window"] = "Zweites Chatfenster entfernen"
+    L["No free chat window left. Close one and try again."] = "Kein freies Chatfenster mehr. Schließe eins und versuche es noch mal."
+    L["Second chat window set up: Trade and Looking for Group are now bottom right."] = "Zweites Chatfenster eingerichtet: Handel und Suche nach Gruppe sind jetzt unten rechts."
+    L["Second chat window removed, Trade and Looking for Group are back in the main chat."] = "Zweites Chatfenster entfernt, Handel und Suche nach Gruppe sind wieder im Hauptchat."
     L["Trade and Looking for Group in their own window bottom right."] = "Handel und Suche nach Gruppe in einem eigenen Fenster unten rechts."
     L["One or two chat windows?"] = "Ein oder zwei Chatfenster?"
     L["With two, Trade and Looking for Group get their own window bottom right."] = "Mit zwei bekommen Handel und Suche nach Gruppe ein eigenes Fenster unten rechts."

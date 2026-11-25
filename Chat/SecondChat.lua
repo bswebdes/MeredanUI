@@ -114,8 +114,13 @@ function ns.ApplySecondChat()
     if InCombatLockdown() then return ns.AfterCombat(ns.ApplySecondChat) end
     local existing = FindWindow()
     if Enabled() then
+        local created = not existing
         frame = existing or Create()
-        if not frame then return end
+        if not frame then
+            ns.db.chatSecond = false
+            return ns.Print(L["No free chat window left. Close one and try again."])
+        end
+        if created then ns.Print(L["Second chat window set up: Trade and Looking for Group are now bottom right."]) end
         if frame.isDocked then FCF_UnDockFrame(frame) end
         if FCF_SetLocked then FCF_SetLocked(frame, true) end -- fixed layout, no dragging
         MoveChannels(true)
@@ -126,6 +131,7 @@ function ns.ApplySecondChat()
         FCF_Close(existing)
         frame = nil
         ns.char.chatSecondID = nil
+        ns.Print(L["Second chat window removed, Trade and Looking for Group are back in the main chat."])
     else
         frame = nil
     end
