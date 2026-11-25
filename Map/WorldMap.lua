@@ -1284,6 +1284,14 @@ end
 ns:On("PLAYER_LOGIN", function()
     if not Enabled() then return end
     CreateWindow()
+    -- Quest pins on our canvas fire MapCanvas.QuestPin.OnEnter/OnLeave (also when the map closes under
+    -- the cursor). Blizzard's hidden quest log reacts with QuestLogQuests_Update, which sets secure
+    -- gamepad attributes - from our tainted call that is blocked in combat ("Interface action failed").
+    -- Only our map shows quest pins (Blizzard's world map stays closed), so the log doesn't need them.
+    if QuestScrollFrame and EventRegistry then
+        EventRegistry:UnregisterCallback("MapCanvas.QuestPin.OnEnter", QuestScrollFrame)
+        EventRegistry:UnregisterCallback("MapCanvas.QuestPin.OnLeave", QuestScrollFrame)
+    end
     -- M and L open our window directly (override bindings; Blizzard's bindings stay untouched)
     local toggle = CreateFrame("Button", "MeredanUIWorldMapToggle", UIParent)
     toggle:SetScript("OnClick", Toggle)
