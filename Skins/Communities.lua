@@ -938,7 +938,11 @@ LayoutDetails = function(details)
         if motd.MOTD and math.abs((motd.MOTD:GetWidth() or 0) - (half - 24)) > 0.5 then
             -- SimpleHTML only rewraps on the next text
             motd.MOTD:SetWidth(half - 24)
-            if C_GuildInfo and C_GuildInfo.GetMOTD then motd.MOTD:SetText(C_GuildInfo.GetMOTD() or "", true) end
+            -- GetMOTD is protected in combat for addons: refresh the text afterwards
+            local function Rewrap()
+                if C_GuildInfo and C_GuildInfo.GetMOTD then motd.MOTD:SetText(C_GuildInfo.GetMOTD() or "", true) end
+            end
+            if InCombatLockdown() then ns.AfterCombat(Rewrap) else Rewrap() end
         end
     end
     -- Guild Information
