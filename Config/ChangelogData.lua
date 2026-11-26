@@ -2,6 +2,10 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.6.1", items = {
+        "Fixed: right-clicking a sharpening stone or weapon oil in the mUI bags was blocked",
+        "Fixed: \"Interface action blocked\" when the guild window was open in combat",
+    } },
     { version = "v0.6.0", items = {
         "New: favorites in the bags. Alt + right-click an item and tick Favorite: it stays at the top of your bags with gold corners. You can also drag items onto the Favorites heading",
         "New: optional second chat window bottom right for Trade chat, with its own copy button. Settings > Chat > \"Set up second chat window\", the setup wizard asks for it too",
@@ -30,10 +34,5 @@ ns.CHANGELOG = {
     } },
     { version = "v0.5.13", items = {
         "New frame material: Class metal (Appearance page, Frame material). Every character gets its own muted metal in its class colour, from brass for warriors and verdigris for hunters to copper for druids. Window frames, action buttons, item borders, dividers and the action bar end caps all take it on",
-    } },
-    { version = "v0.5.12", items = {
-        "New Templates tab in the macro window: ready-made macros for your class, each with a short how-to, in English and German. Only macros for spells you already know can be created, and they are saved as macros for this character",
-        "Players who are away or busy show <AFK> or <DND> after their name in the tooltip and on the target frame",
-        "Distant NPCs (hostile and neutral) show their name again before their nameplate appears",
     } },
 }
