@@ -1,5 +1,8 @@
 # MeredanUI Changelog
 
+## v0.6.2
+- New: choose how many buttons the Shift and Alt bars and the extra bars 7 and 8 have (Settings > Action bars > Buttons): 2, 4, 6, 8, 10 or 12. The bars stay centered, bars 7 and 8 stay two rows high
+
 ## v0.6.1
 - Fixed: right-clicking a sharpening stone or weapon oil in the mUI bags was blocked
 - Fixed: "Interface action blocked" when the guild window was open in combat
