@@ -524,7 +524,7 @@ local PAGES = {
                         if macro then return L["Macro"] end
                         return L["No texts"]
                     end)
-                if key == "bar2" or key == "bar3" then
+                if key == "bar2" or key == "bar3" or key == "bar7" or key == "bar8" then
                     page:AddSlider(L["Buttons"], 2, 12, 2, Getter(key .. "Buttons"),
                         Setter(key .. "Buttons", function() if ns.ApplyBarButtons then ns.ApplyBarButtons() end end), nil, 12)
                 end

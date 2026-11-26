@@ -459,10 +459,11 @@ local function ButtonConfig(def, index)
     }
 end
 
--- Shift and Alt bars: the player picks how many of the 12 buttons are shown (even counts only, so
--- the two centered rows always line up). Unused buttons are parked on a hidden frame: no clicks,
+-- Shift/Alt bars and the 6 x 2 blocks (7, 8): the player picks how many of the 12 buttons are shown
+-- (even counts only: the centered rows always line up, the blocks stay two rows high). Unused buttons are parked on a hidden frame: no clicks,
 -- no key bindings. Only out of combat (the bars are secure).
-local BUTTON_COUNT_BARS = { bar2 = true, bar3 = true }
+local BUTTON_COUNT_BARS = { bar2 = true, bar3 = true, bar7 = true, bar8 = true }
+local TWO_ROW_BARS = { bar7 = true, bar8 = true }
 local parked = CreateFrame("Frame")
 parked:Hide()
 
@@ -485,7 +486,8 @@ local function ApplyButtonCount(bar)
             button:SetParent(parked)
         end
     end
-    Arrange(bar, active, math.min(def.cols, n), def.size or SIZE)
+    local cols = TWO_ROW_BARS[def.key] and n / 2 or math.min(def.cols, n)
+    Arrange(bar, active, cols, def.size or SIZE)
 end
 
 local function CreateBar(def)
@@ -547,12 +549,13 @@ function ns.WidestBottomBar()
     return (alt:GetWidth() > shift:GetWidth() + 0.5) and alt or shift
 end
 
--- Settings: new button count for the Shift/Alt bars
+-- Settings: new button count for the Shift/Alt bars and the 6 x 2 blocks
 function ns.ApplyBarButtons()
     if not bars[2] then return end
     if InCombatLockdown() then return ns.AfterCombat(ns.ApplyBarButtons) end
-    ApplyButtonCount(bars[2])
-    ApplyButtonCount(bars[3])
+    for _, index in ipairs({ 2, 3, 7, 8 }) do
+        if bars[index] then ApplyButtonCount(bars[index]) end
+    end
     UpdateBindings()
     ns.Relayout()
     if ns.UpdateGryphons then ns.UpdateGryphons() end
@@ -621,7 +624,8 @@ end
 -- never slides underneath (0 when the bar is off)
 function ns.LeftBlockReserve()
     if not ns.db or BarMode("bar7") == "hidden" then return 0 end
-    return 6 * ns.Snap(SIZE) + 5 * GAP_PIXELS * ns.PixelSize() + ns.Snap(12)
+    local cols = ButtonCount("bar7") / 2
+    return cols * ns.Snap(SIZE) + (cols - 1) * GAP_PIXELS * ns.PixelSize() + ns.Snap(12)
 end
 
 local function VisibilityRule(key, mode)
