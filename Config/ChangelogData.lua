@@ -2,6 +2,9 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.6.2", items = {
+        "New: choose how many buttons the Shift and Alt bars and the extra bars 7 and 8 have (Settings > Action bars > Buttons): 2, 4, 6, 8, 10 or 12. The bars stay centered, bars 7 and 8 stay two rows high",
+    } },
     { version = "v0.6.1", items = {
         "Fixed: right-clicking a sharpening stone or weapon oil in the mUI bags was blocked",
         "Fixed: \"Interface action blocked\" when the guild window was open in combat",
@@ -31,8 +34,5 @@ ns.CHANGELOG = {
     { version = "v0.5.14", items = {
         "Fixed: the setup could show up again on characters that had already finished it",
         "The mail icon on the minimap goes away once only read letters are left",
-    } },
-    { version = "v0.5.13", items = {
-        "New frame material: Class metal (Appearance page, Frame material). Every character gets its own muted metal in its class colour, from brass for warriors and verdigris for hunters to copper for druids. Window frames, action buttons, item borders, dividers and the action bar end caps all take it on",
     } },
 }
