@@ -663,27 +663,35 @@ ns:On("PLAYER_LOGIN", function()
     BindKeys()
     ns:On("UPDATE_BINDINGS", BindKeys)
 
-    -- Replace Blizzard's global opener (micro menu, achievements, gamepad ...). Only this global -
-    -- never overwrite methods on Blizzard frames (CharacterFrame.ToggleTokenFrame stays untouched)
-    ToggleCharacter = function(tab, onlyShow)
-        local key = BLIZZARD_TABS[tab] or "character"
-        if onlyShow then Char.Open(key) else Toggle(key) end
-    end
     if CharacterMicroButton then CharacterMicroButton:SetScript("OnClick", function() Toggle("character") end) end
-    -- Items that target gear (armor kits, oils, enchants) open the character window via this global;
-    -- Blizzard's version checks its own (never shown) CharacterFrame and would toggle ours closed
-    if ShowCharacterFrameIfMatchesContext then
-        local original = ShowCharacterFrameIfMatchesContext
-        ShowCharacterFrameIfMatchesContext = function(...)
-            if window:IsShown() then return end
-            return original(...)
-        end
-    end
-    -- If Blizzard's frame still opens (e.g. currency button on the backpack), close it and open ours
+    -- Never replace ToggleCharacter / ShowCharacterFrameIfMatchesContext: Blizzard reads them from secure
+    -- code (ENCHANT_SPELL_SELECTED after right-clicking a sharpening stone or oil in the bag), and a global
+    -- written by us taints that execution, so UseContainerItem gets blocked. Hook instead: Blizzard's
+    -- ToggleCharacter shows CharacterFrame, the OnShow hook swaps it for our window, the post-hook picks the tab.
+    local shownBefore, justShown
     if CharacterFrame then
         CharacterFrame:HookScript("OnShow", function(frame)
+            shownBefore, justShown = window:IsShown(), true
+            C_Timer.After(0, function() justShown = false end)
             frame:Hide()
             Char.Open(TokenFrame and TokenFrame:IsShown() and "currency" or nil)
+        end)
+    end
+    if ToggleCharacter then
+        hooksecurefunc("ToggleCharacter", function(tab, onlyShow)
+            if C_GameRules and C_GameRules.IsGameRuleActive and Enum.GameRule and Enum.GameRule.CharacterPanelDisabled
+                and C_GameRules.IsGameRuleActive(Enum.GameRule.CharacterPanelDisabled) then
+                return
+            end
+            local key = BLIZZARD_TABS[tab] or "character"
+            local wasShown = window:IsShown()
+            if justShown then wasShown, justShown = shownBefore, false end
+            -- a pending item-targeting spell (stone, oil, enchant) only ever opens, never closes
+            if wasShown and key == current and not onlyShow and not SpellCanTargetItem() then
+                window:Hide()
+            else
+                Char.Open(key)
+            end
         end)
     end
 
