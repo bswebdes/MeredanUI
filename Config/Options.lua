@@ -524,6 +524,10 @@ local PAGES = {
                         if macro then return L["Macro"] end
                         return L["No texts"]
                     end)
+                if key == "bar2" or key == "bar3" then
+                    page:AddSlider(L["Buttons"], 2, 12, 2, Getter(key .. "Buttons"),
+                        Setter(key .. "Buttons", function() if ns.ApplyBarButtons then ns.ApplyBarButtons() end end), nil, 12)
+                end
             end
             page:AddHeader(L["Settings"]) -- applies to all bars, not just the extra bars
             page:AddDropdown(L["Key binding text size"], function()

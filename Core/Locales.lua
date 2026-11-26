@@ -39,6 +39,7 @@ if GetLocale() == "deDE" then
     L["Number"] = "Zahl"
     L["Bar"] = "Leiste"
     L["Key binding text size"] = "Schriftgröße der Tasten"
+    L["Buttons"] = "Tasten"
     L["%s active"] = "%s aktiv"
     L["Bar below the icon"] = "Leiste unter dem Icon"
     L["Key binding"] = "Tastenbelegung"

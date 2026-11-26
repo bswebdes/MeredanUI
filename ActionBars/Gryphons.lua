@@ -74,8 +74,10 @@ function ns.UpdateGryphons()
     -- outside the 6 x 2 extra blocks when they are shown
     -- (from the settings, not IsShown: after a reload in combat the bars aren't set up yet)
     local function On(key) return ns.ActionBarMode and ns.ActionBarMode(key) ~= "hidden" end
-    local leftEdge = (bars[7] and On("bar7")) and bars[7] or bottom
-    local rightEdge = (bars[8] and On("bar8")) and bars[8] or bottom
+    -- Shift and Alt can have different button counts: the caps follow the wider row
+    local widest = ns.WidestBottomBar and ns.WidestBottomBar() or bottom
+    local leftEdge = (bars[7] and On("bar7")) and bars[7] or widest
+    local rightEdge = (bars[8] and On("bar8")) and bars[8] or widest
     local size = ns.Snap(36) -- one button row of the bottom bars (ActionBars.lua SIZE)
     -- per-art defaults; developer tuning (/mui endcap) overrides them while new art is fitted
     local tune = Tune()
@@ -87,10 +89,15 @@ function ns.UpdateGryphons()
     local overlap = ns.Snap(art and size * 0.15 or w * 0.2) -- the cap sits over the bar end
     left:SetSize(w, h)
     right:SetSize(w, h)
+    -- caps always stand on the lowest row (Shift), even when the wider Alt row gives the side edge
+    local function Drop(edge)
+        local a, b = bottom:GetBottom(), edge:GetBottom()
+        return (a and b) and (a - b) or 0
+    end
     left:ClearAllPoints()
-    left:SetPoint("BOTTOMRIGHT", leftEdge, "BOTTOMLEFT", overlap + dx, -ns.Snap(size * 0.15) + dy)
+    left:SetPoint("BOTTOMRIGHT", leftEdge, "BOTTOMLEFT", overlap + dx, -ns.Snap(size * 0.15) + dy + Drop(leftEdge))
     right:ClearAllPoints()
-    right:SetPoint("BOTTOMLEFT", rightEdge, "BOTTOMRIGHT", -overlap - dx, -ns.Snap(size * 0.15) + dy)
+    right:SetPoint("BOTTOMLEFT", rightEdge, "BOTTOMRIGHT", -overlap - dx, -ns.Snap(size * 0.15) + dy + Drop(rightEdge))
     left:Show()
     right:Show()
 end

@@ -459,6 +459,35 @@ local function ButtonConfig(def, index)
     }
 end
 
+-- Shift and Alt bars: the player picks how many of the 12 buttons are shown (even counts only, so
+-- the two centered rows always line up). Unused buttons are parked on a hidden frame: no clicks,
+-- no key bindings. Only out of combat (the bars are secure).
+local BUTTON_COUNT_BARS = { bar2 = true, bar3 = true }
+local parked = CreateFrame("Frame")
+parked:Hide()
+
+local function ButtonCount(key)
+    if not BUTTON_COUNT_BARS[key] then return 12 end
+    local n = tonumber(ns.db and ns.db[key .. "Buttons"]) or 12
+    n = math.floor(n / 2) * 2
+    return math.max(2, math.min(12, n))
+end
+
+local function ApplyButtonCount(bar)
+    local def = bar.def
+    local n = ButtonCount(def.key)
+    local active = {}
+    for i, button in ipairs(bar.buttons) do
+        if i <= n then
+            button:SetParent(bar)
+            active[#active + 1] = button
+        else
+            button:SetParent(parked)
+        end
+    end
+    Arrange(bar, active, math.min(def.cols, n), def.size or SIZE)
+end
+
 local function CreateBar(def)
     local name = "MeredanUI" .. def.key:gsub("^%l", string.upper)
     local header = CreateFrame("Frame", name, UIParent, "SecureHandlerStateTemplate")
@@ -486,8 +515,8 @@ local function CreateBar(def)
         header:SetAttribute("state", 0)
     end
     for _, button in ipairs(header.buttons) do button:UpdateAction(true) end
-    Arrange(header, header.buttons, def.cols, def.size or SIZE)
     header.def = def
+    ApplyButtonCount(header)
     -- placement ends up in SetPoint (header dragging in StopMovingOrSizing)
     local function Update() UpdateFlyoutDirection(header) end
     hooksecurefunc(header, "SetPoint", Update)
@@ -502,11 +531,31 @@ local function UpdateBindings()
     ClearOverrideBindings(bindOwner)
     for _, bar in ipairs(bars) do
         for i, button in ipairs(bar.buttons) do
-            for _, key in ipairs({ GetBindingKey(bar.def.binding .. i) }) do
-                SetOverrideBindingClick(bindOwner, false, key, button:GetName(), "LeftButton")
+            if button:GetParent() == bar then -- parked buttons (fewer buttons chosen) get no key
+                for _, key in ipairs({ GetBindingKey(bar.def.binding .. i) }) do
+                    SetOverrideBindingClick(bindOwner, false, key, button:GetName(), "LeftButton")
+                end
             end
         end
     end
+end
+
+-- The wider of the two bottom rows (Shift/Alt): the 6 x 2 blocks and the end caps sit beside it
+function ns.WidestBottomBar()
+    local shift, alt = bars[2], bars[3]
+    if not (shift and alt) then return shift or alt end
+    return (alt:GetWidth() > shift:GetWidth() + 0.5) and alt or shift
+end
+
+-- Settings: new button count for the Shift/Alt bars
+function ns.ApplyBarButtons()
+    if not bars[2] then return end
+    if InCombatLockdown() then return ns.AfterCombat(ns.ApplyBarButtons) end
+    ApplyButtonCount(bars[2])
+    ApplyButtonCount(bars[3])
+    UpdateBindings()
+    ns.Relayout()
+    if ns.UpdateGryphons then ns.UpdateGryphons() end
 end
 
 -- Pet and stance bars: Blizzard's buttons in our holder ---------------------------------
@@ -830,7 +879,7 @@ local function Setup()
         -- the 12-button rows, bottom-aligned
         Place(third, "bar6", "RIGHT", halfW - margin - 2 * (size + barGap), 0)
         local sideGap = ns.Snap(12)
-        local half = ns.ExtraBarWidth() / 2
+        local half = ns.WidestBottomBar():GetWidth() / 2
         Place(leftBlock, "bar7", "BOTTOMRIGHT", -half - sideGap, -halfH + margin)
         Place(rightBlock, "bar8", "BOTTOMLEFT", half + sideGap, -halfH + margin)
     end)

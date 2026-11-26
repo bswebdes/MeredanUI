@@ -323,6 +323,7 @@ local DEFAULTS = {
     },
     actionBarTexts = {}, -- [bar] = { hotkey = false, macro = false } hides texts; missing = shown
     actionBarFont = "medium", -- keybinding font size: "small", "medium", "large"
+    bar2Buttons = 12, bar3Buttons = 12, -- buttons on the Shift and Alt bars (even, 2-12)
 }
 
 ns.DEFAULTS = DEFAULTS -- e.g. for "Reset" in settings
