@@ -1,5 +1,9 @@
 # MeredanUI Changelog
 
+## v0.6.1
+- Fixed: right-clicking a sharpening stone or weapon oil in the mUI bags was blocked
+- Fixed: "Interface action blocked" when the guild window was open in combat
+
 ## v0.6.0
 - New: favorites in the bags. Alt + right-click an item and tick Favorite: it stays at the top of your bags with gold corners. You can also drag items onto the Favorites heading
 - New: optional second chat window bottom right for Trade chat, with its own copy button. Settings > Chat > "Set up second chat window", the setup wizard asks for it too
