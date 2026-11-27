@@ -323,6 +323,9 @@ local function SkinElements(talkbox)
         local lit = ns.Material().lit
         Lines(highlight, "OVERLAY", 3, 0, lit[1], lit[2], lit[3], 1)
     end
+    -- experience value: Blizzard's large number font stands out next to the mUI text
+    local xp = rewards and rewards.XPFrame
+    if xp and xp.ValueText then ns.SetFont(xp.ValueText, 14, nil, "bold") end
     local function Headers()
         SkinHeader(content and content.ObjectivesHeader)
         SkinHeader(rewards and rewards.Header)
