@@ -155,18 +155,37 @@ function ns.ItemUsable(link)
     return usable
 end
 
+-- Points per talent tree (1-3). Forever has no GetTalentTabInfo: the three trees are the trait groups
+-- of the active config, read like the talent window (Talents/Talents.lua)
+local function TreePoints()
+    if not (C_ClassTalents and C_ClassTalents.GetActiveConfigID and C_Traits and C_Traits.GetGroupCurrencyInfo) then return end
+    local configID = C_ClassTalents.GetActiveConfigID()
+    local config = configID and C_Traits.GetConfigInfo(configID)
+    local treeID = config and config.treeIDs and config.treeIDs[1]
+    if not treeID then return end
+    local groups = C_Traits.GetGroupDisplayInfoByTreeID(treeID) or {}
+    table.sort(groups, function(a, b) return (a.orderIndex or 0) < (b.orderIndex or 0) end)
+    local ids, index = {}, {}
+    for i = 1, math.min(3, #groups) do
+        ids[i] = groups[i].groupID
+        index[groups[i].groupID] = i
+    end
+    local points = {}
+    for _, info in ipairs(C_Traits.GetGroupCurrencyInfo(configID, ids) or {}) do
+        local currency = info.currencyInfos and info.currencyInfos[1]
+        local i = index[info.traitNodeGroupID]
+        if i then points[i] = currency and currency.spent or 0 end
+    end
+    return points
+end
+
 -- Talent tree with the most points (else the class default)
 local function ActiveTree(class)
+    local ok, points = pcall(TreePoints)
     local best, bestPoints = nil, 0
-    if GetNumTalentTabs and GetTalentTabInfo then
-        for tab = 1, GetNumTalentTabs() do
-            local r = { pcall(GetTalentTabInfo, tab) }
-            if r[1] then
-                -- Classic: name, icon, points ...; newer clients: id, name, description, icon, points ...
-                local points = type(r[2]) == "string" and r[4] or r[6]
-                if type(points) == "number" and points > bestPoints then best, bestPoints = tab, points end
-            end
-        end
+    for tab = 1, 3 do
+        local n = ok and points and points[tab]
+        if type(n) == "number" and n > bestPoints then best, bestPoints = tab, n end
     end
     return best or DEFAULT_TREE[class] or 1
 end
