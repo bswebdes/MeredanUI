@@ -499,8 +499,12 @@ ns.PlaceMainChat = PlaceMainChat
 -- Tabs (+ copy button, combat log filters) only when needed: mouse over chat, typing or
 -- a pulsing tab.
 
-local tabsAlpha, tabsTarget = 0, 0
-local lastActive = 0
+-- Each chat fades its own tabs: main = docked tabs (+ copy button, combat log filters),
+-- second = the second chat window's tab and copy button (Chat/SecondChat.lua)
+local glass = {
+    main = { alpha = 0, target = 0, last = 0, showingAll = false },
+    second = { alpha = 0, target = 0, last = 0, showingAll = false },
+}
 
 -- Blizzard draws each message as its own font string (frame.visibleLines), each fading on
 -- its own - protected ones too. We only re-anchor them (spacing, channel gap), no measuring;
@@ -562,7 +566,7 @@ local function SecondTab()
         hooksecurefunc(tab, "SetAlpha", function(self)
             if settingTab or ns.SecondChatFrame() ~= second then return end
             settingTab = true
-            self:SetAlpha(tabsAlpha)
+            self:SetAlpha(glass.second.alpha)
             settingTab = false
         end)
     end
@@ -570,14 +574,16 @@ local function SecondTab()
 end
 
 local function SetGlassAlpha()
-    GeneralDockManager:SetAlpha(tabsAlpha)
+    local main, second = glass.main.alpha, glass.second.alpha
+    GeneralDockManager:SetAlpha(main)
     local secondTab = SecondTab()
-    if secondTab then secondTab:SetAlpha(tabsAlpha) end
+    if secondTab then secondTab:SetAlpha(second) end
     for _, button in ipairs(copyButtons) do
-        button:SetAlpha(tabsAlpha)
-        button:EnableMouse(tabsAlpha > 0.5)
+        local alpha = glass[button.muiGlass].alpha
+        button:SetAlpha(alpha)
+        button:EnableMouse(alpha > 0.5)
     end
-    if CombatLogQuickButtonFrame_Custom then CombatLogQuickButtonFrame_Custom:SetAlpha(tabsAlpha) end
+    if CombatLogQuickButtonFrame_Custom then CombatLogQuickButtonFrame_Custom:SetAlpha(main) end
 end
 ns.ApplyChatGlass = SetGlassAlpha -- second chat window created: take over its tab right away
 
@@ -587,9 +593,14 @@ local function Toward(value, target, step)
 end
 
 local function GlassOnUpdate(_, elapsed)
-    if tabsAlpha == tabsTarget then return end
-    tabsAlpha = Toward(tabsAlpha, tabsTarget, elapsed / GLASS_FADE)
-    SetGlassAlpha()
+    local changed = false
+    for _, state in pairs(glass) do
+        if state.alpha ~= state.target then
+            state.alpha = Toward(state.alpha, state.target, elapsed / GLASS_FADE)
+            changed = true
+        end
+    end
+    if changed then SetGlassAlpha() end
 end
 
 -- Polled every 0.2 s: walk CHAT_FRAMES directly and cache the tab/edit box lookups (no garbage per tick)
@@ -603,42 +614,43 @@ local function ChatPart(cache, name, suffix)
     return part
 end
 
-local function AnyTabFlashing()
-    for _, name in ipairs(CHAT_FRAMES or {}) do
-        local tab = ChatPart(tabOf, name, "Tab")
-        if tab and tab.muiFlash and tab.muiFlash:IsPlaying() then return true end
-    end
-    return false
+local function TabFlashing(name)
+    local tab = ChatPart(tabOf, name, "Tab")
+    return tab and tab.muiFlash and tab.muiFlash:IsPlaying()
 end
 
 -- Mouse over chat or typing: keep all messages visible, show tabs and copy button.
 -- Toggle fading ONCE on enter/leave - calling ResetAllFadeTimes continuously re-sets every
 -- line's text and swallows clicks on links.
-local showingAll = false
-
-local function HoverTicker()
-    local over = anchor:IsMouseOver()
-    local second = ns.SecondChatFrame and ns.SecondChatFrame()
-    if not over and second and second:IsVisible() and second:IsMouseOver(ns.Snap(TAB_HEIGHT + TAB_GAP), 0, 0, 0) then
-        over = true
-    end
-    -- typing = an edit box really has focus (the "active window" stays set without focus)
-    local typing = false
-    for _, name in ipairs(CHAT_FRAMES or {}) do
-        local editBox = ChatPart(editBoxOf, name, "EditBox")
-        if editBox and editBox:HasFocus() then typing = true break end
-    end
-    local active = over or typing
-    if active ~= showingAll then
-        showingAll = active
+local function UpdateGlass(state, active, flashing, now, isSecond, second)
+    if active ~= state.showingAll then
+        state.showingAll = active
         for _, frame in ipairs(ChatFrames()) do
-            frame:SetFading(not active)
-            if not active then frame:ResetAllFadeTimes() end -- normal visible time from now on
+            if (frame == second) == isSecond then
+                frame:SetFading(not active)
+                if not active then frame:ResetAllFadeTimes() end -- normal visible time from now on
+            end
         end
     end
+    if active or flashing then state.last = now end
+    state.target = now - state.last < TABS_LINGER and 1 or 0
+end
+
+local function HoverTicker()
+    local second = ns.SecondChatFrame and ns.SecondChatFrame()
+    local secondName = second and second:GetName()
+    local overSecond = second and second:IsVisible() and second:IsMouseOver(ns.Snap(TAB_HEIGHT + TAB_GAP), 0, 0, 0)
+    -- typing = an edit box really has focus (the "active window" stays set without focus);
+    -- all edit boxes sit above the main chat
+    local typing, mainFlashing = false, false
+    for _, name in ipairs(CHAT_FRAMES or {}) do
+        local editBox = ChatPart(editBoxOf, name, "EditBox")
+        if editBox and editBox:HasFocus() then typing = true end
+        if name ~= secondName and TabFlashing(name) then mainFlashing = true end
+    end
     local now = GetTime()
-    if over or typing or AnyTabFlashing() then lastActive = now end
-    tabsTarget = now - lastActive < TABS_LINGER and 1 or 0
+    UpdateGlass(glass.main, anchor:IsMouseOver() or typing, mainFlashing, now, false, second)
+    UpdateGlass(glass.second, overSecond and true or false, secondName and TabFlashing(secondName), now, true, second)
 end
 
 -- Tab dock with some gap above the chat (Blizzard attaches it 3px directly above)
@@ -677,7 +689,8 @@ function ns.CreateChatCopyButton(parent, getFrame, yOffset)
         GameTooltip:Hide()
     end)
     button:SetScript("OnClick", function() CopyChat(getFrame()) end)
-    button:SetAlpha(tabsAlpha or 0)
+    button.muiGlass = (anchor and parent == anchor) and "main" or "second"
+    button:SetAlpha(glass[button.muiGlass].alpha)
     copyButtons[#copyButtons + 1] = button
     return button
 end
