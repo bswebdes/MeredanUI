@@ -184,6 +184,7 @@ local DEFAULTS = {
     bossSize = "medium",  -- boss frames: "small", "medium", "large"
     chatShortChannels = true, -- shorten channel names in chat ([G], [P], [1] ...)
     bagnonStyle = true,
+    immersionStyle = true,    -- Immersion's talk box in the mUI look (Skins/Immersion.lua)
     detailsStyle = true,
     platerStyle = true,
     dbmStyle = true,

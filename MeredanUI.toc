@@ -87,6 +87,7 @@ Skins/Calendar.lua
 Skins/Stable.lua
 Skins/Scoreboard.lua
 Skins/Misc.lua
+Skins/Immersion.lua
 NPC/NpcWindow.lua
 Config/AddonList.lua
 NPC/Merchant.lua

@@ -1346,6 +1346,8 @@ if GetLocale() == "deDE" then
     L["Details! in the mUI look"] = "Details! im mUI-Look"
     L["Flat mUI window, font and bars. Details' own settings stay usable."] = "Flaches mUI-Fenster, mUI-Schrift und -Balken. Details' eigene Einstellungen bleiben nutzbar."
     L["Bagnon in the mUI look"] = "Bagnon im mUI-Look"
+    L["Immersion in the mUI look"] = "Immersion im mUI-Look"
+    L["Talk box, answers and rewards in the mUI look."] = "Sprechbox, Antworten und Belohnungen im mUI-Look."
     L["Flat mUI frame and font, fixed spot bottom right, tooltips above it."] = "Flacher mUI-Rahmen und mUI-Schrift, fester Platz unten rechts, Tooltips darüber."
     L["Class icons before names"] = "Klassensymbole vor Namen"
     L["Guild, group, raid and whispers. Not in Trade or General."] = "Gilde, Gruppe, Schlachtzug und Flüstern. Nicht in Handel oder Allgemein."

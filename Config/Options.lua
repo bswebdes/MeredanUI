@@ -984,6 +984,11 @@ local PAGES = {
                 end
                 page:AddCheckboxGrid(entries, 3)
             end
+            if ns.OtherAddon(ns.NPC_ADDONS) == "Immersion" then
+                page:AddHeader(L["Other addons"])
+                page:AddCheckbox(L["Immersion in the mUI look"], On("immersionStyle"), Setter("immersionStyle"),
+                    Help(L["Talk box, answers and rewards in the mUI look."], true))
+            end
         end,
     },
     {
