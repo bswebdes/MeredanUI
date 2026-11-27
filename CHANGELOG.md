@@ -1,5 +1,12 @@
 # MeredanUI Changelog
 
+## v0.6.3
+- Both chat windows now match the width of the bar below them: the main chat lines up with the emote bar, the second chat window with the micro menu
+- Each chat window only shows its own tabs on mouseover
+- The second chat window's tab now fades like the main chat tabs
+- Chat tab names line up with the left edge of the chat
+- With the second chat window on, the tooltip sits above it instead of covering it
+
 ## v0.6.2
 - New: choose how many buttons the Shift and Alt bars and the extra bars 7 and 8 have (Settings > Action bars > Buttons): 2, 4, 6, 8, 10 or 12. The bars stay centered, bars 7 and 8 stay two rows high
 
