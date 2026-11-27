@@ -11,6 +11,9 @@ local _, ns = ...
 local Readable = ns.Readable
 
 local RATING_PER_PERCENT = { crit = 14, hit = 10, haste = 10, exp = 10 }
+-- Stamina/armor are worth 0 damage for DPS specs, yet more is never worse: a tiny weight so a pure
+-- stamina upgrade still shows as "slightly better" without moving real damage comparisons
+local TIEBREAK = { sta = 0.001, armor = 0.0001 }
 -- Default talent tree while no points are spent (typical leveling spec)
 local DEFAULT_TREE = { WARRIOR = 1, ROGUE = 2, PRIEST = 3, DRUID = 2, SHAMAN = 2, PALADIN = 3 }
 
@@ -186,7 +189,8 @@ local function Score(link, slotKind)
     if not w then return 0 end
     local score = 0
     for key, value in pairs(stats) do
-        if key ~= "dps" and w[key] then score = score + value * w[key] end
+        local weight = w[key] or TIEBREAK[key]
+        if key ~= "dps" and weight then score = score + value * weight end
     end
     if stats.dps then
         -- Weapon DPS: own weight, else Classic rule of thumb 1 DPS ~ 14 attack power
