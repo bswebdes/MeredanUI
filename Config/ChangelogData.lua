@@ -2,6 +2,16 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.6.4", items = {
+        "New: the talent advisor has level 60 PvE builds for every spec, one for dungeons and one for raids. Druids get separate bear (tank) and cat (damage) builds, for leveling too",
+        "The Balance druid leveling build is updated for the reworked talent tree",
+        "Fixed: upgrade arrows ignored your talents and scored every character as if it were specced into its first talent tree",
+        "Upgrade arrows: bear druids are scored as tanks (based on the form you used last)",
+        "Upgrade arrows: more stamina or armor now always counts as better, and the arrow shows for every improvement",
+        "Upgrade arrows: dodge, parry, expertise, weapon skill and Feral Combat on items now count",
+        "Upgrade arrows: updated stat weights for all classes (Retribution paladins valued haste far too high)",
+        "Fixed: the class trainer tab listed spell ranks you had already replaced with a higher rank",
+    } },
     { version = "v0.6.3", items = {
         "Both chat windows now match the width of the bar below them: the main chat lines up with the emote bar, the second chat window with the micro menu",
         "Each chat window only shows its own tabs on mouseover",
@@ -33,9 +43,5 @@ ns.CHANGELOG = {
     } },
     { version = "v0.5.16", items = {
         "Fixed: items in the mUI bags could be blocked when used in combat",
-    } },
-    { version = "v0.5.15", items = {
-        "Fixed: with Attack with abilities on, openers from stealth (Garrote, Cheap Shot, Ambush, Pounce, Ravage) failed with \"You must be stealthed\". Auto attack no longer starts while you are stealthed",
-        "Player tooltips are tidied up again when the game rebuilds them (level line, race and class)",
     } },
 }
