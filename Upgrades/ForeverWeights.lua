@@ -22,8 +22,8 @@ ns.FOREVER_WEIGHTS = {
     },
     DRUID = {
         [1] = { arcane = 0.62, crit = 0.72, haste = 1.0, hit = 1.15, int = 0.23, mp5 = 0.08, nature = 0.38, sp = 1.0, spi = 0.02 },
-        [2] = { agi = 0.6547, ap = 0.2438, arp = 0.0742, crit = 0.5057, exp = 0.4904, haste = 0.3931, hit = 0.5212, mhdps = 2.142, str = 0.5942 },
-        bear = { agi = 0.4335, ap = 0.2209, armor = 0.1744, arp = 0.0826, crit = 0.3633, def = 0.8758, dodge = 0.1074, exp = 1.776, haste = 0.3581, hit = 0.6879, mhdps = 3.0931, sta = 1.0029, str = 0.4861 },
+        [2] = { agi = 0.6547, ap = 0.2438, arp = 0.0742, crit = 0.5057, exp = 0.4904, feral = 5.3262, haste = 0.3931, hit = 0.5212, mhdps = 2.142, str = 0.5942 },
+        bear = { agi = 0.4335, ap = 0.2209, armor = 0.1744, arp = 0.0826, crit = 0.3633, def = 0.8758, dodge = 0.1074, exp = 1.776, feral = 2.5478, haste = 0.3581, hit = 0.6879, mhdps = 3.0931, sta = 1.0029, str = 0.4861 },
         [3] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 }, -- ERSATZ (keine eigene Simulation)
     },
     SHAMAN = {

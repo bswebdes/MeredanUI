@@ -10,7 +10,11 @@
 local _, ns = ...
 local Readable = ns.Readable
 
-local RATING_PER_PERCENT = { crit = 14, hit = 10, haste = 10, exp = 10 }
+-- WoWSims Forever (sim/core/base_stats_auto_gen.go): rating per 1 %
+local RATING_PER_PERCENT = { crit = 14, hit = 10, haste = 10, exp = 10, dodge = 12, parry = 15, block = 5 }
+-- Weapon skill has no published weight. WoWSims' Feral Combat skill (same mechanic) is worth about
+-- 10 hit rating per point, so 1 weapon skill counts like 1 % hit
+local SKILL_AS_HIT = 10
 -- Stamina/armor are worth 0 damage for DPS specs, yet more is never worse: a tiny weight so a pure
 -- stamina upgrade still shows as "slightly better" without moving real damage comparisons
 local TIEBREAK = { sta = 0.001, armor = 0.0001 }
@@ -52,8 +56,12 @@ local function Has(text, ...)
     return false
 end
 
--- Parse one "Equip:" line (already lowercased) into stats
-local function ParseEquipLine(text, stats)
+-- string.lower leaves umlauts alone ("Äxte" vs "Einhandäxte")
+local function Lower(text) return (text:lower():gsub("Ä", "ä"):gsub("Ö", "ö"):gsub("Ü", "ü")) end
+
+-- Parse one "Equip:" line (already lowercased) into stats; weapons = lowercased weapon types the
+-- skill bonus can apply to ("Axes +1." only counts while wielding an axe)
+local function ParseEquipLine(text, stats, weapons)
     -- Ignore bonuses against one creature type ("+4 attack power against humanoids") - otherwise the
     -- item would be scored as if it had full attack power
     if Has(text, " gegen ", " against ", "when fighting", "im kampf gegen") then return end
@@ -65,6 +73,11 @@ local function ParseEquipLine(text, stats)
         stats[key] = math.max(stats[key] or 0, value)
     end
     if percent then
+        -- expertise first: its text also says dodge/parry
+        if Has(text, "dodged or parried", "ausweichen oder sie parieren") then return Put("exp", number) end
+        if Has(text, "dodge", "auszuweichen") then return Put("dodge", number) end
+        if Has(text, "parry", "parieren") then return Put("parry", number) end
+        if Has(text, "block") then return Put("block", number) end
         if Has(text, "kritisch", "critical") then return Put("crit", number) end
         if Has(text, "tempo", "haste", "attack speed", "angriffsgeschwindigkeit") then return Put("haste", number) end
         if Has(text, "treffer", "hit") then return Put("hit", number) end
@@ -85,6 +98,34 @@ local function ParseEquipLine(text, stats)
         return Put("sp", number)
     end
     if Has(text, "verteidigung", "defense") then return Put("def", number) end
+    if Has(text, "wilder kampf", "feral combat") then return Put("feral", number) end
+    -- weapon skill: "Axes +1." / "Increased Axes +1." / "Äxte +1."
+    local name = text:gsub("^%s*increased%s+", ""):gsub("^%s*erhöhte%s+", ""):match("^%s*(.-)%s*%+%d+%.?%s*$")
+    if name and name ~= "" then
+        local twoHand = Has(name, "two-hand", "zweihand")
+        for _, weapon in ipairs(weapons or {}) do
+            if weapon:find(name, 1, true) and twoHand == Has(weapon, "two-hand", "zweihand") then
+                stats.wskill = math.max(stats.wskill or 0, number)
+                return
+            end
+        end
+    end
+end
+
+-- Weapon types a skill bonus on this item could apply to: the item itself if it's a weapon, else
+-- what's equipped in main hand, off hand and ranged slot
+local function WeaponTypes(link)
+    local out = {}
+    local function Add(l)
+        if not l then return end
+        local _, _, subType, _, _, classID = C_Item.GetItemInfoInstant(l)
+        if subType and classID == Enum.ItemClass.Weapon then out[#out + 1] = Lower(subType) end
+    end
+    Add(link)
+    if #out == 0 then
+        for _, slot in ipairs({ 16, 17, 18 }) do Add(GetInventoryItemLink("player", slot)) end
+    end
+    return out
 end
 
 -- Tooltip lines: read equip effects, detect red text (not wearable). Second result: the only red is the
@@ -97,6 +138,7 @@ local function ReadTooltip(link, stats)
     local equipLoc = select(4, C_Item.GetItemInfoInstant(link))
     local slotText = equipLoc and _G[equipLoc]
     local skillRed, otherRed = false, false
+    local weapons
     for _, line in ipairs(data.lines) do
         local text = line.leftText
         if Readable(text) and text and text ~= "" then
@@ -107,8 +149,11 @@ local function ReadTooltip(link, stats)
             elseif IsRed(line.leftColor) or (right and IsRed(line.rightColor)) then
                 otherRed = true
             end
-            local lower = text:lower()
-            if lower:sub(1, #equip) == equip then ParseEquipLine(lower:sub(#equip + 1), stats) end
+            local lower = Lower(text)
+            if lower:sub(1, #equip) == equip then
+                weapons = weapons or WeaponTypes(link)
+                ParseEquipLine(lower:sub(#equip + 1), stats, weapons)
+            end
         end
     end
     return not (skillRed or otherRed), skillRed and not otherRed
@@ -212,6 +257,7 @@ local function Score(link, slotKind)
     local score = 0
     for key, value in pairs(stats) do
         local weight = w[key] or TIEBREAK[key]
+        if key == "wskill" then weight = w.wskill or (w.hit or 0) * SKILL_AS_HIT end
         if key ~= "dps" and weight then score = score + value * weight end
     end
     if stats.dps then

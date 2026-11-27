@@ -32,7 +32,8 @@ WOWSIMS_KEYS = {
     "PseudoStatMeleeHitPercent": "hit_pct", "PseudoStatMeleeCritPercent": "crit_pct",
     "PseudoStatSpellHitPercent": "spellhit_pct", "PseudoStatSpellCritPercent": "spellcrit_pct",
     "PseudoStatMeleeHastePercent": "haste_pct", "PseudoStatSpellHastePercent": "spellhaste_pct",
-    "PseudoStatExpertisePercent": "exp_pct",
+    "PseudoStatExpertisePercent": "exp_pct", "StatBlockRating": "block",
+    "PseudoStatFeralCombatSkill": "feral",
 }
 CODEX_KEYS = {
     "Strength": "str", "Agility": "agi", "Stamina": "sta", "Intellect": "int", "Spirit": "spi",
