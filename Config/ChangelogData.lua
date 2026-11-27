@@ -2,6 +2,11 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.6.5", items = {
+        "New: choose how long chat messages stay visible before they fade (20, 40 or 60 seconds) under Settings > Chat",
+        "Quest tracker: the quest sign and level now use the quest's difficulty color, and objective text is easier to read",
+        "Fixed: the mail icon on the minimap could come back after you had emptied your mailbox",
+    } },
     { version = "v0.6.4", items = {
         "New: the talent advisor has level 60 PvE builds for every spec, one for dungeons and one for raids. Druids get separate bear (tank) and cat (damage) builds, for leveling too",
         "The Balance druid leveling build is updated for the reworked talent tree",
@@ -40,8 +45,5 @@ ns.CHANGELOG = {
         "Fixed: \"Interface action failed\" when the map was open in combat with the mouse over a quest pin",
         "Fixed: inspecting a player showed most equipment slots as empty",
         "Fixed: boss names in the Hall of Thanes, the Drowned City and Krol'dok now match the game",
-    } },
-    { version = "v0.5.16", items = {
-        "Fixed: items in the mUI bags could be blocked when used in combat",
     } },
 }
