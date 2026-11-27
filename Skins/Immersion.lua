@@ -140,13 +140,22 @@ end
 
 -- Talk box ------------------------------------------------------------------------------------------
 
+local talkboxBG -- the talk box surface; the elements panel below takes its width
+
 local function SkinTalkBox(talkbox)
     local bg = Panel(talkbox, INSET, INSET, INSET, INSET)
+    talkboxBG = bg
     local backgroundFrame = talkbox.BackgroundFrame
     if backgroundFrame then
         Hide(backgroundFrame.TextBackground)
         Hide(backgroundFrame.SolidBackground)
-        Hide(backgroundFrame.OverlayKit) -- quest theme art (SetTexture + Show per quest)
+        -- quest theme art: Immersion shows it per quest and re-colours it with a gradient, which
+        -- overrides any vertex alpha - so keep it hidden instead
+        local kit = backgroundFrame.OverlayKit
+        if kit then
+            kit:Hide()
+            hooksecurefunc(kit, "Show", function(self) self:Hide() end)
+        end
     end
     if talkbox.PortraitFrame then Hide(talkbox.PortraitFrame.Portrait) end
     local main = talkbox.MainFrame
@@ -289,8 +298,21 @@ local function SkinElements(talkbox)
         end)
     end
     elements:ClearAllPoints()
-    elements:SetPoint("TOP", talkbox, "BOTTOM", 0, 8 - ELEMENTS_GAP)
-    Panel(elements, INSET, 6, INSET, 0)
+    -- left-aligned with the talk box (Immersion centres it), so the content lines up with the text
+    elements:SetPoint("TOPLEFT", talkbox, "BOTTOMLEFT", 0, 8 - ELEMENTS_GAP)
+    -- Immersion shrinks the frame to its content; the panel keeps the talk box's full width
+    local bg = elements:CreateTexture(nil, "BACKGROUND", nil, -7)
+    bg:SetPoint("TOP", elements, "TOP", 0, -ns.Snap(6))
+    bg:SetPoint("BOTTOM", elements, "BOTTOM")
+    if talkboxBG then
+        bg:SetPoint("LEFT", talkboxBG, "LEFT")
+        bg:SetPoint("RIGHT", talkboxBG, "RIGHT")
+    else
+        bg:SetPoint("LEFT", elements, "LEFT", ns.Snap(INSET), 0)
+        bg:SetPoint("RIGHT", elements, "RIGHT", -ns.Snap(INSET), 0)
+    end
+    bg:SetColorTexture(unpack(ns.STYLE.panelColor))
+    ns.RuneFrame(elements, { target = bg })
     local content, progress = elements.Content, elements.Progress
     local rewards = content and content.RewardsFrame
     local highlight = rewards and rewards.ItemHighlight
