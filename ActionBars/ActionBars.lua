@@ -931,6 +931,41 @@ local function Setup()
         end
         hooksecurefunc(leave, "SetPoint", function() if not leave.muiPlacing and not InCombatLockdown() then PlaceLeave() end end)
         PlaceLeave()
+        -- mUI look: slot + item frame like the bar buttons beside it, flat landing icon. The icon
+        -- turns accent while the landing request is pending (Blizzard disables the button then).
+        local size = ns.Snap(ns.MAIN_BAR.size or SIZE)
+        leave:SetSize(size, size)
+        Hide(leave:GetNormalTexture())
+        local pushed = leave:GetPushedTexture()
+        if pushed then
+            pushed:SetTexture(WHITE)
+            pushed:SetVertexColor(1, 1, 1, 0.25)
+            pushed:ClearAllPoints()
+            pushed:SetAllPoints()
+        end
+        ns.AddSlotBackground(leave)
+        ns.AddItemFrame(leave)
+        local icon = ns.UI.Icon(leave, "Landing", math.floor(size * 0.6))
+        icon:SetPoint("CENTER")
+        local highlighting = false
+        local function FlatHighlight()
+            local highlight = leave:GetHighlightTexture()
+            if not highlight or highlighting then return end
+            highlighting = true
+            highlight:SetTexture(WHITE)
+            highlight:SetVertexColor(1, 1, 1, 0.15)
+            highlight:SetBlendMode("BLEND")
+            highlight:ClearAllPoints()
+            highlight:SetAllPoints()
+            highlighting = false
+        end
+        -- Blizzard swaps the highlight texture on every update and on click
+        hooksecurefunc(leave, "SetHighlightTexture", FlatHighlight)
+        FlatHighlight()
+        local function Tint() icon:SetVertexColor(unpack(leave:IsEnabled() and ns.UI.TEXT or ns.UI.ACCENT)) end
+        leave:HookScript("OnDisable", Tint)
+        leave:HookScript("OnEnable", Tint)
+        Tint()
     end
 
     UpdateBindings()
