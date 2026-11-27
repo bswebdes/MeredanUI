@@ -642,10 +642,20 @@ local function HoverTicker()
 end
 
 -- Tab dock with some gap above the chat (Blizzard attaches it 3px directly above)
+-- Blizzard pads the tab text on both sides: how far our label sits inside its tab
+function ns.ChatTabInset(tab)
+    local label = tab and tab.muiLabel
+    local left, labelLeft = tab and tab:GetLeft(), label and label:GetLeft()
+    if not (left and labelLeft) then return 0 end
+    return math.max(labelLeft - left, 0)
+end
+
+-- shifted left by that padding: the first tab's name lines up with the chat's (and the bar's) edge
 local function PlaceTabs(dock, chatFrame)
+    local x = -ns.ChatTabInset(_G[chatFrame:GetName() .. "Tab"])
     dock:ClearAllPoints()
-    dock:SetPoint("BOTTOMLEFT", chatFrame, "TOPLEFT", 0, ns.Snap(TAB_GAP))
-    dock:SetPoint("BOTTOMRIGHT", chatFrame, "TOPRIGHT", 0, ns.Snap(TAB_GAP))
+    dock:SetPoint("BOTTOMLEFT", chatFrame, "TOPLEFT", x, ns.Snap(TAB_GAP))
+    dock:SetPoint("BOTTOMRIGHT", chatFrame, "TOPRIGHT", x, ns.Snap(TAB_GAP))
 end
 
 -- Copy icon in a chat's top right corner; fades with the tabs. getFrame returns the chat to copy.
@@ -678,7 +688,11 @@ local function Setup()
     anchor:SetPoint("BOTTOMRIGHT", ChatFrame1, "BOTTOMRIGHT", 0, 0)
 
     for _, frame in ipairs(ChatFrames()) do StyleChatFrame(frame) end
-    if GeneralDockManager and GeneralDockManager.primary then PlaceTabs(GeneralDockManager, GeneralDockManager.primary) end
+    if GeneralDockManager and GeneralDockManager.primary then
+        PlaceTabs(GeneralDockManager, GeneralDockManager.primary)
+        -- the tab's padding is only measurable once Blizzard has laid out the dock
+        C_Timer.After(1, function() PlaceTabs(GeneralDockManager, GeneralDockManager.primary) end)
+    end
     if FCFDock_SetPrimary then hooksecurefunc("FCFDock_SetPrimary", PlaceTabs) end
     if FCF_OpenTemporaryWindow then
         hooksecurefunc("FCF_OpenTemporaryWindow", function()

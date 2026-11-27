@@ -96,11 +96,19 @@ local function Place()
         or math.min(ChatFrame1:GetWidth(), ns.Snap(limit[1]))
     frame:SetSize(width, math.min(ChatFrame1:GetHeight(), ns.Snap(limit[2])))
     -- Undocking leaves the tab where the dock had put it (left, among the main chat's tabs):
-    -- hang it over this window, same gap as the main chat's tabs
+    -- hang it over this window, same gap as the main chat's tabs, name flush with the left edge
     local tab = _G[frame:GetName() .. "Tab"]
     if tab then
         tab:ClearAllPoints()
         tab:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, ns.Snap(10))
+        local inset = ns.ChatTabInset and ns.ChatTabInset(tab) or 0
+        if inset > 0 then
+            tab:ClearAllPoints()
+            tab:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", -inset, ns.Snap(10))
+        elseif not frame.muiTabRetried then
+            frame.muiTabRetried = true -- not laid out yet: once more shortly
+            C_Timer.After(1, Place)
+        end
     end
     -- copy button on the tab line, top right (like the main chat)
     if not frame.muiCopy and ns.CreateChatCopyButton then
