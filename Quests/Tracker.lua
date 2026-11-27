@@ -29,6 +29,7 @@ local SECTION_GAP = 12
 local STICKY_H = HEADER_H + 6   -- sticky header while scrolling
 local DONE = { 0.56, 0.8, 0.71 }
 local RED = { 1, 0.31, 0.31 }
+local GOALS = { 0.85, 0.84, 0.81 }  -- objectives: lighter than UI.MUTED, gray read as "no XP" next to difficulty colors
 
 -- Shared with the map's quest log ----------------------------------------------------------------
 
@@ -270,7 +271,7 @@ local function Row(i)
     row.title = UI.Text(row, 13, "LEFT")
     row.title:SetPoint("TOPLEFT", 26, -6)
     row.title:SetWordWrap(true)
-    row.goals = UI.Text(row, 12, "LEFT", UI.MUTED)
+    row.goals = UI.Text(row, 12, "LEFT", GOALS)
     row.goals:SetPoint("TOPLEFT", row.title, "BOTTOMLEFT", 0, -3)
     row.goals:SetWordWrap(true)
     row.goals:SetSpacing(3)
@@ -877,9 +878,10 @@ local function Layout()
         end
         row.tint:SetShown(failed or complete or questID == superTracked)
         row.sign:SetText(complete and "?" or "!")
-        row.sign:SetTextColor(unpack(failed and RED or (complete and { 1, 0.82, 0 } or { 0.55, 0.55, 0.55 })))
+        row.sign:SetTextColor(unpack(failed and RED or (complete and { 1, 0.82, 0 } or stripColor)))
         local tag = QuestTag(info)
-        local level = Opt("trackerShowLevel") and ("|cff99978f[" .. (info.difficultyLevel or info.level or 0) .. "]|r ") or ""
+        local level = Opt("trackerShowLevel") and (("|cff%02x%02x%02x["):format(math.floor(color.r * 255), math.floor(color.g * 255), math.floor(color.b * 255))
+            .. (info.difficultyLevel or info.level or 0) .. "]|r ") or ""
         row.title:SetText(level .. (info.title or "")
             .. (tag and ("|cff99978f  · " .. tag .. "|r") or ""))
         if failed then
