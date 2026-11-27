@@ -6,9 +6,9 @@ local _, ns = ...
 
 ns.FOREVER_WEIGHTS = {
     WARRIOR = {
-        [1] = { agi = 1.82, ap = 1.0, arp = 0.45, crit = 2.36, exp = 2.23, haste = 2.0, hit = 4.59, mhdps = 17.69, str = 2.2 },
-        [2] = { agi = 2.25, ap = 1.0, arp = 0.41, crit = 2.92, exp = 1.9, haste = 2.29, hit = 2.29, mhdps = 9.89, ohdps = 3.15, str = 2.2 },
-        [3] = { agi = 0.66, ap = 0.27, armor = 0.1, arp = 0.12, blockvalue = 0.6, crit = 0.58, def = 0.22, dodge = 0.17, exp = 2.32, haste = 0.36, hit = 1.13, mhdps = 2.16, parry = 0.18, sta = 1.15, str = 0.62 },
+        [1] = { agi = 1.76, ap = 1.0, arp = 0.46, crit = 2.32, exp = 1.57, haste = 1.29, hit = 5.03, mhdps = 16.71, str = 2.2 },
+        [2] = { agi = 1.7, ap = 1.0, arp = 0.39, crit = 2.26, exp = 2.35, haste = 1.76, hit = 1.69, mhdps = 12.59, ohdps = 2.66, str = 2.2 },
+        [3] = { agi = 0.66, ap = 0.27, armor = 0.06, arp = 0.11, blockvalue = 0.76, crit = 0.43, def = 0.53, dodge = 0.29, exp = 2.35, haste = 0.17, hit = 0.04, mhdps = 1.42, parry = 0.26, sta = 1.15, str = 0.62 },
     },
     ROGUE = {
         [1] = { agi = 2.06, ap = 1.0, arp = 0.4, crit = 2.02, exp = 2.77, haste = 1.93, hit = 2.8, mhdps = 8.44, ohdps = 4.16, spellpen = 0.65, sta = 0.01, str = 1.1 },
@@ -18,11 +18,12 @@ ns.FOREVER_WEIGHTS = {
     PRIEST = {
         [1] = { crit = 0.48, haste = 0.1, heal = 1.0, int = 0.2, mp5 = 0.19, spi = 0.1 },
         [2] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 },
-        [3] = { crit = 0.84, haste = 0.73, hit = 1.14, int = 0.24, shadow = 1.0, sp = 1.0, spi = 0.01 },
+        [3] = { crit = 0.99, hit = 1.2, int = 0.26, mp5 = 0.01, shadow = 1.0, sp = 1.0, spellpen = 2.49 },
     },
     DRUID = {
-        [1] = { arcane = 0.68, crit = 0.76, haste = 0.99, hit = 1.48, int = 0.28, mp5 = 0.15, nature = 0.32, sp = 1.0 },
-        [2] = { agi = 0.5159, ap = 0.2047, arp = 0.0666, crit = 0.3802, exp = 0.3856, haste = 0.2946, hit = 0.4079, mhdps = 2.0463, str = 0.4963 },
+        [1] = { arcane = 0.62, crit = 0.72, haste = 1.0, hit = 1.15, int = 0.23, mp5 = 0.08, nature = 0.38, sp = 1.0, spi = 0.02 },
+        [2] = { agi = 0.6547, ap = 0.2438, arp = 0.0742, crit = 0.5057, exp = 0.4904, haste = 0.3931, hit = 0.5212, mhdps = 2.142, str = 0.5942 },
+        bear = { agi = 0.4335, ap = 0.2209, armor = 0.1744, arp = 0.0826, crit = 0.3633, def = 0.8758, dodge = 0.1074, exp = 1.776, haste = 0.3581, hit = 0.6879, mhdps = 3.0931, sta = 1.0029, str = 0.4861 },
         [3] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 }, -- ERSATZ (keine eigene Simulation)
     },
     SHAMAN = {
@@ -32,8 +33,8 @@ ns.FOREVER_WEIGHTS = {
     },
     PALADIN = {
         [1] = { crit = 0.23, haste = 0.48, heal = 1.0, int = 0.3, mp5 = 0.6, spi = 0.25 }, -- ERSATZ (keine eigene Simulation)
-        [2] = { agi = 0.66, ap = 0.27, armor = 0.1, arp = 0.12, blockvalue = 0.6, crit = 0.58, def = 0.22, dodge = 0.17, exp = 2.32, haste = 0.36, hit = 1.13, mhdps = 2.16, parry = 0.18, sta = 1.15, str = 0.62 }, -- ERSATZ (keine eigene Simulation)
-        [3] = { agi = 2.23, ap = 1.0, arp = 0.24, crit = 3.08, exp = 5.1, haste = 22.87, hit = 6.83, int = 2.06, mhdps = 13.85, mp5 = 0.23, sp = 2.36, spellpen = 0.01, str = 2.4 },
+        [2] = { agi = 0.66, ap = 0.27, armor = 0.06, arp = 0.11, blockvalue = 0.76, crit = 0.43, def = 0.53, dodge = 0.29, exp = 2.35, haste = 0.17, hit = 0.04, mhdps = 1.42, parry = 0.26, sta = 1.15, str = 0.62 }, -- ERSATZ (keine eigene Simulation)
+        [3] = { agi = 1.91, ap = 1.0, arp = 0.23, crit = 2.74, exp = 5.45, haste = 3.53, hit = 7.76, holy = 1.59, int = 1.48, mhdps = 14.14, mp5 = 0.01, sp = 1.95, spellpen = 0.66, str = 2.4 },
     },
     HUNTER = {
         [1] = { agi = 0.5905, ap = 0.097, arp = 0.07, crit = 0.555, exp = 0.4845, haste = 0.2615, hit = 0.154, int = 0.264, mp5 = 0.003, rap = 0.164, spi = 0.0015, str = 0.107 }, -- Codex, Median aus 12 Builds

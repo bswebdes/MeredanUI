@@ -49,21 +49,22 @@ CODEX_KEYS = {
 SPECS = {
     "WARRIOR": {1: ("warrior/dps/presets.ts", "PreBiSArmsEpWeights"),
                 2: ("warrior/dps/presets.ts", "PreBiSFuryEpWeights"),
-                3: ("warrior/protection/presets.ts", "PreBiSEpWeights")},
+                3: ("warrior/protection/presets.ts", "PreBiSBalancedEpWeights")},
     "ROGUE": {1: ("rogue/dps/presets.ts", "EP_PRESET_ASSASSINATION"),
               2: ("rogue/dps/presets.ts", "EP_PRESET_COMBAT_SINISTER"),
               3: ("rogue/dps/presets.ts", "EP_PRESET_SUBTLETY")},
     "PRIEST": {1: ("priest/healer/presets.ts", "DiscRaidHealingEpWeights"),
                2: ("priest/healer/presets.ts", "HolyRaidHealingEpWeights"),
                3: ("priest/dps/presets.ts", "ShadowEpWeights")},
-    "DRUID": {1: ("druid/balance/presets.ts", "P1EpWeights"),
+    "DRUID": {1: ("druid/balance/presets.ts", "DefaultEpWeights"),
               2: ("druid/feral_ep.ts", "CatEp"),
+              "bear": ("druid/feral_ep.ts", "BearEp"),  # Wilder Kampf in Bärform (zuletzt genutzte Form)
               3: ("priest/healer/presets.ts", "HolyRaidHealingEpWeights")},   # FALLBACK: Heiler wie Holy-Priester
     "SHAMAN": {1: ("shaman/elemental/presets.ts", "DefaultEpWeights"),
                2: ("shaman/enhancement/presets.ts", "PreBiSEpWeights"),
                3: ("priest/healer/presets.ts", "HolyRaidHealingEpWeights")},  # FALLBACK: Heiler wie Holy-Priester
     "PALADIN": {1: ("priest/healer/presets.ts", "HolyRaidHealingEpWeights"),  # FALLBACK: Heiler wie Holy-Priester
-                2: ("warrior/protection/presets.ts", "PreBiSEpWeights"),     # FALLBACK: Tank wie Schutz-Krieger
+                2: ("warrior/protection/presets.ts", "PreBiSBalancedEpWeights"),     # FALLBACK: Tank wie Schutz-Krieger
                 3: ("paladin/retribution/presets.ts", "UnsealedWrathEpWeights")},
     "HUNTER": "codex:hunter", "MAGE": "codex:mage", "WARLOCK": "codex:warlock",
 }
@@ -103,7 +104,8 @@ def wowsims_weights(path, const):
     for name, value in re.findall(r"\[(?:Pseudo)?Stat\.(\w+)\]\s*:\s*(-?[\d.]+)", body):
         key = WOWSIMS_KEYS.get(name)
         if key:
-            weights[key] = weights.get(key, 0) + float(value)
+            # StatArmor + StatBonusArmor both map to "armor": same weight listed twice, not additive
+            weights[key] = max(weights.get(key, 0), float(value))
     if not weights:
         raise SystemExit(f"{const} in {path}: keine Gewichte gelesen")
     return weights
@@ -146,7 +148,8 @@ def main():
         else:
             for tree, (path, const) in spec.items():
                 note = " -- ERSATZ (keine eigene Simulation)" if (cls, tree) in FALLBACK_NOTES else ""
-                lines.append(f"        [{tree}] = {lua_table(wowsims_weights(path, const))},{note}")
+                label = f"[{tree}]" if isinstance(tree, int) else tree
+                lines.append(f"        {label} = {lua_table(wowsims_weights(path, const))},{note}")
         lines.append("    },")
     lines.append("}")
     out = "\n".join(lines) + "\n"

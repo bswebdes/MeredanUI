@@ -196,7 +196,10 @@ local function Weights()
     local _, class = UnitClass("player")
     local byTree = ns.FOREVER_WEIGHTS and ns.FOREVER_WEIGHTS[class]
     if not byTree then return end
-    weights = byTree[ActiveTree(class)] or byTree[1]
+    local tree = ActiveTree(class)
+    -- Feral: bear and cat share the tree; the last form used decides (see CheckDruidForm)
+    local bear = class == "DRUID" and tree == 2 and ns.char and ns.char.druidBear and byTree.bear
+    weights = bear or byTree[tree] or byTree[1]
     return weights
 end
 
@@ -341,8 +344,28 @@ local function Reset()
     weights = nil
     if ns.RefreshBags then ns.RefreshBags() end
 end
+-- Druid: remember whether the last shapeshift was bear or cat (power type rage / energy); caster and
+-- travel forms keep the last choice, so a bear tank stays scored as a tank between pulls
+local function CheckDruidForm()
+    if not ns.char then return end
+    local power = UnitPowerType("player")
+    if not Readable(power) then return end
+    local rage = Enum.PowerType and Enum.PowerType.Rage or 1
+    local energy = Enum.PowerType and Enum.PowerType.Energy or 3
+    if power ~= rage and power ~= energy then return end
+    local bear = power == rage
+    if (ns.char.druidBear or false) ~= bear then
+        ns.char.druidBear = bear
+        Reset()
+    end
+end
+
 ns:On("PLAYER_LOGIN", function()
     if not ns.IS_FOREVER then return end
+    if select(2, UnitClass("player")) == "DRUID" then
+        ns:On("UPDATE_SHAPESHIFT_FORM", CheckDruidForm)
+        CheckDruidForm()
+    end
     for _, event in ipairs({ "PLAYER_EQUIPMENT_CHANGED", "PLAYER_LEVEL_UP", "CHARACTER_POINTS_CHANGED",
         "PLAYER_TALENT_UPDATE", "TRAIT_CONFIG_UPDATED" }) do
         pcall(ns.On, ns, event, function() C_Timer.After(0.3, Reset) end)
