@@ -358,3 +358,58 @@ end
 
 -- Development tool (to show where bosses are): developer mode only, removed again once all pins are in
 ns.AddCommand("pins", L["Dungeon map: place boss/rare pins"], function() P.ToggleEdit() end, true)
+
+-- Developer mode: learn the creature display ID (round portrait) of every NPC targeted or moused over
+-- in an instance. Forever's new bosses are in no public spawn data and the client has no NPC->display
+-- table, so the model has to tell us. Saved in MeredanUIDB.npcDisplays, later copied into
+-- Map/DungeonPinData.lua by hand.
+local probe, queue = nil, {}
+local function Readable(v) return v ~= nil and not (issecretvalue and issecretvalue(v)) end
+
+local function ProbeNext()
+    local job = table.remove(queue, 1)
+    if not job then return end
+    probe:SetUnit(job.unit)
+    C_Timer.After(0.2, function()
+        local display = probe:GetDisplayInfo()
+        local guid = UnitGUID(job.unit)
+        -- unit changed meanwhile (mouseover moved on): drop it, it comes again
+        if Readable(guid) and guid == job.guid and Readable(display) and display > 0 then
+            MeredanUIDB.npcDisplays = MeredanUIDB.npcDisplays or {}
+            local known = MeredanUIDB.npcDisplays[job.npc]
+            MeredanUIDB.npcDisplays[job.npc] = { d = display, n = job.name, i = job.instance }
+            if not known and job.boss then ns.Print(L["Portrait learned:"] .. " " .. job.name) end
+        end
+        probe:ClearModel()
+        ProbeNext()
+    end)
+end
+
+local function Learn(unit)
+    if not (ns.db.debug and IsInInstance()) then return end
+    if not UnitExists(unit) or UnitIsPlayer(unit) then return end
+    local guid, name = UnitGUID(unit), UnitName(unit)
+    if not (Readable(guid) and Readable(name)) then return end
+    local kind, _, _, _, _, npc = strsplit("-", guid)
+    npc = tonumber(npc)
+    if not (npc and (kind == "Creature" or kind == "Vehicle")) then return end
+    if MeredanUIDB.npcDisplays and MeredanUIDB.npcDisplays[npc] then return end
+    for _, job in ipairs(queue) do if job.npc == npc then return end end
+    local instance = select(8, GetInstanceInfo())
+    local boss = false
+    for _, b in ipairs(ns.DUNGEON_BOSSES and ns.DUNGEON_BOSSES[instance] or {}) do
+        if b[2] == name or b[3] == name then boss = true end
+    end
+    if not probe then
+        -- a model only loads while shown: tiny, invisible, off to the side
+        probe = CreateFrame("PlayerModel", nil, UIParent)
+        probe:SetSize(1, 1)
+        probe:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -10, -10)
+        probe:SetAlpha(0)
+    end
+    queue[#queue + 1] = { unit = unit, guid = guid, npc = npc, name = name, instance = instance, boss = boss }
+    if #queue == 1 then ProbeNext() end
+end
+
+ns:On("PLAYER_TARGET_CHANGED", function() Learn("target") end)
+ns:On("UPDATE_MOUSEOVER_UNIT", function() Learn("mouseover") end)

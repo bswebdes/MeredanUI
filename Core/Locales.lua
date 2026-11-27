@@ -1536,6 +1536,7 @@ if GetLocale() == "deDE" then
     L["Open a dungeon map first (click a dungeon swirl on the map)."] = "Erst eine Dungeon-Karte öffnen (auf der Karte einen Dungeon-Wirbel anklicken)."
     L["Pin editor on."] = "Pin-Editor an."
     L["All bosses placed."] = "Alle Bosse gesetzt."
+    L["Portrait learned:"] = "Porträt gelernt:"
     L["Fishing bag"] = "Angeltasche"
     L["Developer mode on/off"] = "Entwickler-Modus an/aus"
     L["Developer mode: %s"] = "Entwickler-Modus: %s"
