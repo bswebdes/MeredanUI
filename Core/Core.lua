@@ -688,7 +688,7 @@ SlashCmdList["XMEREDANUI"] = function(msg)
     local name, rest = msg:match("^%s*(%S*)%s*(.-)%s*$")
     if name == "" and ns.OpenSettings then return ns.OpenSettings() end
     local cmd = commands[name:lower()]
-    if cmd and cmd.dev and name:lower() ~= "debug" and not ns.db.debug then cmd = nil end
+    if cmd and cmd.dev and name:lower() ~= "debug" and not (ns.db.debug or DevLog) then cmd = nil end
     if cmd then cmd.fn(rest) else ShowHelp() end
 end
 

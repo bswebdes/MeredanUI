@@ -359,7 +359,7 @@ end
 -- Development tool (to show where bosses are): developer mode only, removed again once all pins are in
 ns.AddCommand("pins", L["Dungeon map: place boss/rare pins"], function() P.ToggleEdit() end, true)
 
--- Developer mode: learn the creature display ID (round portrait) of every NPC targeted or moused over
+-- Dev only (DevLog loaded, never in releases): learn the creature display ID (round portrait) of every NPC targeted or moused over
 -- in an instance. Forever's new bosses are in no public spawn data and the client has no NPC->display
 -- table, so the model has to tell us. Saved in MeredanUIDB.npcDisplays, later copied into
 -- Map/DungeonPinData.lua by hand.
@@ -386,7 +386,7 @@ local function ProbeNext()
 end
 
 local function Learn(unit)
-    if not (ns.db.debug and IsInInstance()) then return end
+    if not (DevLog and IsInInstance()) then return end
     if not UnitExists(unit) or UnitIsPlayer(unit) then return end
     local guid, name = UnitGUID(unit), UnitName(unit)
     if not (Readable(guid) and Readable(name)) then return end
