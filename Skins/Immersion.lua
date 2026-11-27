@@ -326,6 +326,11 @@ local function SkinElements(talkbox)
     -- experience value: Blizzard's large number font stands out next to the mUI text
     local xp = rewards and rewards.XPFrame
     if xp and xp.ValueText then ns.SetFont(xp.ValueText, 14, nil, "bold") end
+    -- money: Blizzard's large money frame (19 px coins, large numbers) scaled to the text size;
+    -- scaling keeps Blizzard's own layout of coins and numbers intact
+    for _, money in ipairs({ rewards and rewards.MoneyFrame, progress and progress.MoneyFrame }) do
+        if money then money:SetScale(0.78) end
+    end
     local function Headers()
         SkinHeader(content and content.ObjectivesHeader)
         SkinHeader(rewards and rewards.Header)
