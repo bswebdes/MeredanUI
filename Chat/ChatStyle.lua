@@ -355,10 +355,12 @@ local function StyleTab(tab)
     tab.muiFlash = flash
 end
 
--- Chat font size as a step; fade time, line spacing and channel gap are fixed
+-- Chat font size as a step, fade time from settings; line spacing and channel gap are fixed
 local CHAT_FONT_SIZES = { small = 12, medium = 14, large = 17 }
-local CHAT_FADE_SECONDS, CHAT_LINE_SPACING = 20, 3
+local CHAT_FADE_TIMES = { [20] = true, [40] = true, [60] = true }
+local CHAT_LINE_SPACING = 3
 function ns.ChatFontSize() return CHAT_FONT_SIZES[ns.db.chatFontSize] or CHAT_FONT_SIZES.medium end
+local function ChatFadeSeconds() return CHAT_FADE_TIMES[ns.db.chatFadeTime] and ns.db.chatFadeTime or 20 end
 
 -- Edit box and channel header ("Guild:") use the same font and size as the chat
 ApplyEditBoxFont = function(editBox)
@@ -423,7 +425,7 @@ local function StyleChatFrame(frame)
     frame:SetShadowColor(0, 0, 0, 1)
     -- Glass: messages fade, mouseover brings them back (see HoverTicker)
     frame:SetFading(true)
-    frame:SetTimeVisible(CHAT_FADE_SECONDS) -- how long a new message stays fully visible
+    frame:SetTimeVisible(ChatFadeSeconds()) -- how long a new message stays fully visible
     frame:SetFadeDuration(FADE_SECONDS)
     -- Restack lines after every redraw (spacing, channel gap)
     hooksecurefunc(frame, "RefreshDisplay", function(self) LayoutLines(self) end)
@@ -442,6 +444,11 @@ local function StyleChatFrame(frame)
         RestoreHistory(frame)
     end
     ColorTab(frame)
+end
+
+-- Fade time changed (Settings > Chat)
+function ns.ApplyChatFadeTime()
+    for _, frame in ipairs(ChatFrames()) do frame:SetTimeVisible(ChatFadeSeconds()) end
 end
 
 -- Font size changed (Settings > Chat)

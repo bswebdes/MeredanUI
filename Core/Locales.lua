@@ -69,6 +69,8 @@ if GetLocale() == "deDE" then
     L["Nameplates"] = "Nameplates"
     L["Timestamps (12:04)"] = "Zeitstempel (12:04)"
     L["Font size"] = "Schriftgröße"
+    L["Fade out after"] = "Ausblenden nach"
+    L["%d sec."] = "%d Sek."
     L["Tip"] = "Hinweis"
     L["Guild window in mUI look"] = "Gildenfenster im mUI-Look"
     L["Blizzard's guild & communities window in the mUI look: chat, members, info, settings and all sub-windows; functions stay Blizzard's."] = "Blizzards Gilden- und Communityfenster im mUI-Look: Chat, Mitglieder, Info, Einstellungen und alle Unterfenster; die Funktionen bleiben Blizzards."

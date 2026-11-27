@@ -190,6 +190,7 @@ local DEFAULTS = {
     chatClassIcons = true,    -- class icon before names in guild, group, raid and whispers
     chatTimestamps = true,    -- plain timestamps (12:04) before chat lines
     chatFontSize = "medium",  -- chat font size: "small", "medium", "large" (Chat/ChatStyle.lua)
+    chatFadeTime = 20,        -- seconds a new chat line stays fully visible: 20, 40, 60 (Chat/ChatStyle.lua)
     chatSecond = false,
     healthText = "value",      -- player/target health text: value, percent, both, max, off (UnitFrames.lua)
     powerText = "off",         -- player/target power text: off, value, percent

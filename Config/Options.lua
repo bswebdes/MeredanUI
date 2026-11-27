@@ -618,6 +618,13 @@ local PAGES = {
             page:AddHeader(L["Chat window"])
             page:AddDropdown(L["Size"], StageItems, Getter("chatSize"), Setter("chatSize", ns.PlaceMainChat))
             page:AddDropdown(L["Font size"], StageItems, Getter("chatFontSize"), Setter("chatFontSize", ns.ApplyChatFont))
+            page:AddDropdown(L["Fade out after"], function()
+                local items = {}
+                for _, seconds in ipairs({ 20, 40, 60 }) do
+                    items[#items + 1] = { value = seconds, label = L["%d sec."]:format(seconds) }
+                end
+                return items
+            end, Getter("chatFadeTime"), Setter("chatFadeTime", ns.ApplyChatFadeTime))
             -- second chat window: one button that sets it up or removes it again
             local second
             local function SecondLabel()
