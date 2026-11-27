@@ -413,16 +413,42 @@ local function HasUnreadInbox()
     return false
 end
 
+-- The server often sends a late UPDATE_PENDING_MAIL (after closing, or on the next zone change)
+-- with HasNewMail() still true, and Blizzard shows the icon again. So we remember that the inbox
+-- was left without unread letters and keep the icon hidden until real new mail arrives:
+-- GetLatestThreeSenders() only lists senders of unread new mail.
+local inboxCleared = false
+
+local function HideStaleMailIcon()
+    if not inboxCleared or demoActive then return end
+    if not GetLatestThreeSenders or GetLatestThreeSenders() then
+        inboxCleared = false
+        return
+    end
+    local indicators = MinimapCluster and MinimapCluster.IndicatorFrame
+    local mail = indicators and indicators.MailFrame
+    if not mail or not mail:IsShown() then return end
+    mail:Hide()
+    if indicators.Layout then indicators:Layout() end
+end
+
+local mailboxOpen = false
+ns:On("MAIL_SHOW", function() mailboxOpen = true end)
+
 ns:On("MAIL_CLOSED", function()
-    C_Timer.After(0.5, function()
-        local indicators = MinimapCluster and MinimapCluster.IndicatorFrame
-        local mail = indicators and indicators.MailFrame
-        if not mail or not mail:IsShown() or demoActive then return end
-        if HasUnreadInbox() then return end
-        mail:Hide()
-        if indicators.Layout then indicators:Layout() end
-    end)
+    -- MAIL_CLOSED can fire twice; only the first one still sees the inbox
+    if not mailboxOpen then return end
+    mailboxOpen = false
+    inboxCleared = not HasUnreadInbox()
+    HideStaleMailIcon()
+    C_Timer.After(0.5, HideStaleMailIcon)
+    C_Timer.After(3, HideStaleMailIcon)
 end)
+
+-- Run after Blizzard's own handler has shown the icon.
+for _, event in ipairs({ "UPDATE_PENDING_MAIL", "PLAYER_ENTERING_WORLD" }) do
+    ns:On(event, function() C_Timer.After(0.2, HideStaleMailIcon) end)
+end
 
 -- Load-on-demand Blizzard parts: our clock replaces Blizzard's; HybridMinimap (e.g. in some
 -- instances) gets the same mask.
