@@ -184,6 +184,12 @@ local function PlaceDefault()
     ns.PlaceFromCenter(bar, "BOTTOMLEFT", margin - cx, margin - cy)
 end
 
+-- Width of the visible bar (the main chat matches it), nil while hidden
+function ns.EmoteBarWidth()
+    if not bar or Mode() == "hidden" then return nil end
+    return bar:GetWidth()
+end
+
 -- Space the chat must leave free at the bottom (when the bar is visible)
 function ns.EmoteBarReserve()
     if not bar then return 0 end

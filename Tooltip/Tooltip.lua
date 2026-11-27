@@ -72,11 +72,15 @@ local function PlaceCorner(tooltip)
     if bags then
         tooltip:SetPoint("BOTTOMRIGHT", bags, "TOPRIGHT", -side + ns.WindowFrameReach(), ns.Snap(GAP) + below + ns.WindowFrameReach())
     else
-        -- second chat window bottom right: the addon bar moved above it, so the tooltip sits right
-        -- above the micro menu (over the chat while it is shown)
+        -- second chat window bottom right: above it (and above the addon bar, which sits on top of it)
         local secondChat = ns.SecondChatTop and ns.SecondChatTop()
-        local y = secondChat and (margin + ns.Snap(28 + GAP)) or (margin + ns.Snap(MICRO_STACK + GAP))
-        tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, y + below)
+        local addonBar = _G["MeredanUIAddonBar"]
+        if secondChat and addonBar and addonBar:IsVisible() and addonBar:GetHeight() > 1 then
+            tooltip:SetPoint("BOTTOMRIGHT", addonBar, "TOPRIGHT", -side, ns.Snap(GAP) + below)
+        else
+            local y = secondChat and (secondChat + ns.Snap(GAP)) or (margin + ns.Snap(MICRO_STACK + GAP))
+            tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin - side, y + below)
+        end
     end
 end
 

@@ -196,8 +196,18 @@ local function LayoutMicroButtons()
         button:SetPoint("BOTTOMLEFT", MicroMenu, "BOTTOMLEFT", (i - 1) * (size + gap), 0)
     end
     local width = #buttons * size + math.max(#buttons - 1, 0) * gap
+    local changed = math.abs(MicroMenu:GetWidth() - math.max(width, 1)) > 0.01
     MicroMenu:SetSize(math.max(width, 1), size)
     if MicroMenuContainer then MicroMenuContainer:SetSize(math.max(width, 1), size) end
+    if changed and ns.PlaceSecondChat then ns.PlaceSecondChat() end -- the second chat matches the width
+end
+
+-- Width of the visible micro menu (the second chat window matches it), nil while hidden or off
+function ns.MicroMenuWidth()
+    local container = MicroMenuContainer
+    if not (container and MicroMenu and container:GetParent() == UIParent) then return nil end
+    if ns.ModuleOn and not ns.ModuleOn("actionBarModule") then return nil end
+    return MicroMenu:GetWidth()
 end
 
 -- Visibility: "always", "mouseover", "hidden"
@@ -215,6 +225,7 @@ function ns.UpdateMicroMenu()
     if InCombatLockdown() then return ns.AfterCombat(ns.UpdateMicroMenu) end
     if MicroMenuContainer then ApplyVisibility(MicroMenuContainer, ns.db.microMenu) end
     if bagBar then ApplyVisibility(bagBar, "hidden") end -- bag buttons always off (bags open with B)
+    if ns.PlaceSecondChat then ns.PlaceSecondChat() end -- shown/hidden: second chat width follows
 end
 
 local function Setup()

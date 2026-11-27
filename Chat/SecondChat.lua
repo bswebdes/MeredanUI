@@ -90,8 +90,11 @@ local function Place()
     frame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -margin, margin + ns.ChatBottomReserve())
     -- follows the main chat, but never beyond "medium": the right side also holds the quest tracker
     -- and the right action bars
+    -- (flush with the micro menu below while it is shown)
     local limit = ns.CHAT_SIZE_MEDIUM or { 440, 160 }
-    frame:SetSize(math.min(ChatFrame1:GetWidth(), ns.Snap(limit[1])), math.min(ChatFrame1:GetHeight(), ns.Snap(limit[2])))
+    local width = ns.ChatWidthFromBar(ns.MicroMenuWidth and ns.MicroMenuWidth())
+        or math.min(ChatFrame1:GetWidth(), ns.Snap(limit[1]))
+    frame:SetSize(width, math.min(ChatFrame1:GetHeight(), ns.Snap(limit[2])))
     -- Undocking leaves the tab where the dock had put it (left, among the main chat's tabs):
     -- hang it over this window, same gap as the main chat's tabs
     local tab = _G[frame:GetName() .. "Tab"]
@@ -103,6 +106,7 @@ local function Place()
     if not frame.muiCopy and ns.CreateChatCopyButton then
         frame.muiCopy = ns.CreateChatCopyButton(frame, function() return frame end, ns.Snap(TAB_SPACE) - 2)
     end
+    if ns.ApplyChatGlass then ns.ApplyChatGlass() end -- tab fades with the main chat's tabs
     placing = false
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(frame) end
     Relayout() -- chat size changed: addon bar and bag window follow the new top edge

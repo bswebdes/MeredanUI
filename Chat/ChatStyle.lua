@@ -457,6 +457,13 @@ end
 -- while the emote bar is off (Chat/SecondChat.lua sits on the same line)
 function ns.ChatBottomReserve() return ns.Snap(28) + ns.Snap(28) end -- bar height (EmoteBar SIZE) + gap
 
+-- Chats take the width of the bar below them (emote bar left, micro menu right). A bar with only a
+-- few buttons would make the chat too narrow: then the chat keeps its own width (nil).
+local MIN_BAR_WIDTH = 280
+function ns.ChatWidthFromBar(width)
+    if width and width >= MIN_BAR_WIDTH then return width end
+end
+
 local chatWaitsForFrames = false
 local placingChat -- true while we set the point ourselves (ignored by the guard below)
 local function PlaceMainChat()
@@ -479,7 +486,9 @@ local function PlaceMainChat()
         C_Timer.After(1, PlaceMainChat)
     end
     local size = CHAT_SIZES[ns.db.chatSize] or CHAT_SIZES.medium
-    ChatFrame1:SetSize(ns.Snap(math.min(size[1], space)), ns.Snap(size[2]))
+    -- flush with the emote bar below (the size setting then only sets the height)
+    local width = ns.ChatWidthFromBar(ns.EmoteBarWidth and ns.EmoteBarWidth()) or size[1]
+    ChatFrame1:SetSize(ns.Snap(math.min(width, space)), ns.Snap(size[2]))
     if FCF_SavePositionAndDimensions then FCF_SavePositionAndDimensions(ChatFrame1) end
     if ns.PlaceSecondChat then ns.PlaceSecondChat() end -- same size
 end
@@ -542,14 +551,35 @@ OnNewMessage = function(frame)
     slide:Play()
 end
 
+-- The second chat window's tab is undocked: Blizzard fades it on its own (FCF_FadeIn/OutChatFrame,
+-- FCFTab_UpdateAlpha) to a half-visible resting alpha. Override every such call with the glass alpha.
+local settingTab
+local function SecondTab()
+    local second = ns.SecondChatFrame and ns.SecondChatFrame()
+    local tab = second and _G[second:GetName() .. "Tab"]
+    if tab and not tab.muiGlassHook then
+        tab.muiGlassHook = true
+        hooksecurefunc(tab, "SetAlpha", function(self)
+            if settingTab or ns.SecondChatFrame() ~= second then return end
+            settingTab = true
+            self:SetAlpha(tabsAlpha)
+            settingTab = false
+        end)
+    end
+    return tab
+end
+
 local function SetGlassAlpha()
     GeneralDockManager:SetAlpha(tabsAlpha)
+    local secondTab = SecondTab()
+    if secondTab then secondTab:SetAlpha(tabsAlpha) end
     for _, button in ipairs(copyButtons) do
         button:SetAlpha(tabsAlpha)
         button:EnableMouse(tabsAlpha > 0.5)
     end
     if CombatLogQuickButtonFrame_Custom then CombatLogQuickButtonFrame_Custom:SetAlpha(tabsAlpha) end
 end
+ns.ApplyChatGlass = SetGlassAlpha -- second chat window created: take over its tab right away
 
 local function Toward(value, target, step)
     if value < target then return math.min(value + step, target) end
