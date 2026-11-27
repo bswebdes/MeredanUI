@@ -76,7 +76,28 @@ function T.Has() return Data() ~= nil end
 
 function T.AdviceOn() return ns.db and ns.db.trainerAdvice ~= false end
 
-local function Known(id) return C_SpellBook.IsSpellKnown(id) end
+-- Learned, or replaced by a higher rank: Forever reports a lower rank as not known once a higher one
+-- is learned, so walk each known rank's chain (req = previous rank) down. Rebuilt per Waiting() call.
+local superseded = {}
+local function Known(id) return superseded[id] or C_SpellBook.IsSpellKnown(id) end
+
+local function MarkSuperseded()
+    wipe(superseded)
+    for _, spell in ipairs(data.spells) do
+        if C_SpellBook.IsSpellKnown(spell.id) then
+            local todo = { spell }
+            while #todo > 0 do
+                local current = table.remove(todo)
+                for _, id in ipairs(current.req or {}) do
+                    if not superseded[id] then
+                        superseded[id] = true
+                        if byID[id] then todo[#todo + 1] = byID[id] end
+                    end
+                end
+            end
+        end
+    end
+end
 
 local function AnyKnown(list)
     for _, id in ipairs(list) do
@@ -111,6 +132,7 @@ function T.Waiting(level, ahead)
     local d = Data()
     if not d then return {} end
     local list, waiting = {}, {}
+    MarkSuperseded()
     for _, spell in ipairs(d.spells) do
         if spell.f ~= "pettrainer" and spell.lv <= level + (ahead or 0) and not Known(spell.id) then
             local ok = true
