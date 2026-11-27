@@ -1,5 +1,10 @@
 # MeredanUI Changelog
 
+## v0.6.5
+- New: choose how long chat messages stay visible before they fade (20, 40 or 60 seconds) under Settings > Chat
+- Quest tracker: the quest sign and level now use the quest's difficulty color, and objective text is easier to read
+- Fixed: the mail icon on the minimap could come back after you had emptied your mailbox
+
 ## v0.6.4
 - New: the talent advisor has level 60 PvE builds for every spec, one for dungeons and one for raids. Druids get separate bear (tank) and cat (damage) builds, for leveling too
 - The Balance druid leveling build is updated for the reworked talent tree
