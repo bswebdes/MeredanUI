@@ -1,0 +1,13069 @@
+{
+ "_meta": {
+  "content": "Stufe-60-PvE-Builds (Dungeon/Raid), Konsens aus mehreren Guides; Lernreihenfolge abgeleitet.",
+  "by": "tools/talent_builds_pve.py"
+ },
+ "WARRIOR": [
+  {
+   "name": "Waffen (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://mobalytics.gg/wow-forever/classes/arms-warrior-guide",
+   "sources": [
+    "https://mobalytics.gg/wow-forever/classes/arms-warrior-guide"
+   ],
+   "date": "2026-11-12",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arms": 32,
+    "Fury": 18,
+    "Protection": 1
+   },
+   "note": "All three sources take the identical 32-point Arms tree and Cruelty 5 / Enrage 5 / Improved Execute 2. Majority for the rest: Unbridled Wrath 5 (Method, Mobalytics; Wowhead uses Lingering Rage 5), Reckless Swings 1 (Method, Mobalytics), Improved Bloodrage 1 (Mobalytics; Wowhead 2, Method uses Lingering Rage 1 instead). Result equals the Mobalytics build. No source separates dungeon and raid.",
+   "order": [
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12296,
+     "Anger Management"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     1310222,
+     "Spearing Strike"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     1289682,
+     "Bloodthrill"
+    ],
+    [
+     1289682,
+     "Bloodthrill"
+    ],
+    [
+     12292,
+     "Sweeping Strikes"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     12862,
+     "Improved Slam"
+    ],
+    [
+     12862,
+     "Improved Slam"
+    ],
+    [
+     12294,
+     "Mortal Strike"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     1329555,
+     "Reckless Swings"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     12301,
+     "Improved Bloodrage"
+    ]
+   ]
+  },
+  {
+   "name": "Waffen (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://mobalytics.gg/wow-forever/classes/arms-warrior-guide",
+   "sources": [
+    "https://mobalytics.gg/wow-forever/classes/arms-warrior-guide"
+   ],
+   "date": "2026-11-12",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arms": 32,
+    "Fury": 18,
+    "Protection": 1
+   },
+   "note": "All three sources take the identical 32-point Arms tree and Cruelty 5 / Enrage 5 / Improved Execute 2. Majority for the rest: Unbridled Wrath 5 (Method, Mobalytics; Wowhead uses Lingering Rage 5), Reckless Swings 1 (Method, Mobalytics), Improved Bloodrage 1 (Mobalytics; Wowhead 2, Method uses Lingering Rage 1 instead). Result equals the Mobalytics build. No source separates dungeon and raid.",
+   "order": [
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12296,
+     "Anger Management"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     1310222,
+     "Spearing Strike"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     12163,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     1289682,
+     "Bloodthrill"
+    ],
+    [
+     1289682,
+     "Bloodthrill"
+    ],
+    [
+     12292,
+     "Sweeping Strikes"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     1290261,
+     "Weaponmaster"
+    ],
+    [
+     12862,
+     "Improved Slam"
+    ],
+    [
+     12862,
+     "Improved Slam"
+    ],
+    [
+     12294,
+     "Mortal Strike"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     1329555,
+     "Reckless Swings"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     12301,
+     "Improved Bloodrage"
+    ]
+   ]
+  },
+  {
+   "name": "Furor (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/warrior/fury/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/warrior/fury/talent-builds-pve-dps",
+    "https://www.method.gg/wow-forever/class-guides/fury-warrior/talents",
+    "https://mobalytics.gg/wow-forever/classes/fury-warrior-guide"
+   ],
+   "date": "2026-11-22",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arms": 17,
+    "Fury": 34,
+    "Protection": 0
+   },
+   "note": "Unanimous: Wowhead, Method and Mobalytics give the identical 17/34/0 build.",
+   "order": [
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     1323963,
+     "Furious Precision"
+    ],
+    [
+     1323963,
+     "Furious Precision"
+    ],
+    [
+     1323963,
+     "Furious Precision"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     1329555,
+     "Reckless Swings"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20500,
+     "Improved Berserker Rage"
+    ],
+    [
+     20500,
+     "Improved Berserker Rage"
+    ],
+    [
+     12328,
+     "Death Wish"
+    ],
+    [
+     1310315,
+     "Improved Whirlwind"
+    ],
+    [
+     1310315,
+     "Improved Whirlwind"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     23881,
+     "Bloodthirst"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12296,
+     "Anger Management"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16493,
+     "Impale"
+    ]
+   ]
+  },
+  {
+   "name": "Furor (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/fury-warrior/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/fury-warrior/talents",
+    "https://mobalytics.gg/wow-forever/classes/fury-warrior-guide"
+   ],
+   "date": "2026-11-22",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arms": 17,
+    "Fury": 34,
+    "Protection": 0
+   },
+   "note": "Method and Mobalytics have one build for all content (= raid build). Wowhead has a separate dungeon build that differs by 3 points (Enrage 5, Lingering Rage 1, no Improved Berserker Rage).",
+   "order": [
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     1323963,
+     "Furious Precision"
+    ],
+    [
+     1323963,
+     "Furious Precision"
+    ],
+    [
+     1323963,
+     "Furious Precision"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     23584,
+     "Dual Wield Specialization"
+    ],
+    [
+     1329555,
+     "Reckless Swings"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20502,
+     "Improved Execute"
+    ],
+    [
+     20500,
+     "Improved Berserker Rage"
+    ],
+    [
+     20500,
+     "Improved Berserker Rage"
+    ],
+    [
+     12328,
+     "Death Wish"
+    ],
+    [
+     1310315,
+     "Improved Whirlwind"
+    ],
+    [
+     1310315,
+     "Improved Whirlwind"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     12319,
+     "Flurry"
+    ],
+    [
+     23881,
+     "Bloodthirst"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12282,
+     "Improved Heroic Strike"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12286,
+     "Improved Rend"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12295,
+     "Improved Tactical Mastery"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12290,
+     "Improved Overpower"
+    ],
+    [
+     12296,
+     "Anger Management"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     12834,
+     "Deep Wounds"
+    ],
+    [
+     16493,
+     "Impale"
+    ],
+    [
+     16493,
+     "Impale"
+    ]
+   ]
+  },
+  {
+   "name": "Schutz (Schlachtzug)",
+   "kind": "raid",
+   "role": "tank",
+   "source": "https://www.wowhead.com/forever/guide/classes/warrior/protection/talent-builds-pve-tank",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/warrior/protection/talent-builds-pve-tank"
+   ],
+   "date": "2026-11-04",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arms": 4,
+    "Fury": 15,
+    "Protection": 32
+   },
+   "note": "Per-talent majority: 27-point Protection core shared by all; Anticipation 5 for raid (Wowhead + Method); Fury Cruelty 5 / Unbridled Wrath 5 / Enrage 5 (Wowhead + both Mobalytics guides). Equals the Wowhead standard build. Main disagreement: Method puts the off-tree points into Arms (Deep Wounds/Impale), Mobalytics prefers Improved Thunder Clap over Anticipation.",
+   "order": [
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12297,
+     "Anticipation"
+    ],
+    [
+     12297,
+     "Anticipation"
+    ],
+    [
+     12297,
+     "Anticipation"
+    ],
+    [
+     12297,
+     "Anticipation"
+    ],
+    [
+     12297,
+     "Anticipation"
+    ],
+    [
+     12797,
+     "Improved Revenge"
+    ],
+    [
+     12797,
+     "Improved Revenge"
+    ],
+    [
+     12797,
+     "Improved Revenge"
+    ],
+    [
+     12975,
+     "Last Stand"
+    ],
+    [
+     1310316,
+     "Master of Defense"
+    ],
+    [
+     1310316,
+     "Master of Defense"
+    ],
+    [
+     12792,
+     "Defiance"
+    ],
+    [
+     12792,
+     "Defiance"
+    ],
+    [
+     12792,
+     "Defiance"
+    ],
+    [
+     1310317,
+     "Vanguard"
+    ],
+    [
+     12312,
+     "Improved Shield Wall"
+    ],
+    [
+     12312,
+     "Improved Shield Wall"
+    ],
+    [
+     12809,
+     "Concussion Blow"
+    ],
+    [
+     29787,
+     "Focused Rage"
+    ],
+    [
+     29787,
+     "Focused Rage"
+    ],
+    [
+     29787,
+     "Focused Rage"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     23922,
+     "Shield Slam"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ]
+   ]
+  },
+  {
+   "name": "Schutz (Dungeon)",
+   "kind": "dungeon",
+   "role": "tank",
+   "source": "https://mobalytics.gg/wow-forever/classes/protection-warrior-guide-progress",
+   "sources": [
+    "https://mobalytics.gg/wow-forever/classes/protection-warrior-guide-progress"
+   ],
+   "date": "2026-11-04",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arms": 3,
+    "Fury": 16,
+    "Protection": 32
+   },
+   "note": "All dungeon builds take Improved Thunder Clap 3 + the 27-point core and Cruelty/Unbridled Wrath/Enrage. Reckless Swings 1 in 2 of 3 (Method, Mobalytics). The last 2 Protection points differ in every source (Improved Bloodrage / Anticipation / Improved Shield Bash); took the Mobalytics build, which also matches Warcraft Tavern's 3/16/32 split.",
+   "order": [
+    [
+     12301,
+     "Improved Bloodrage"
+    ],
+    [
+     12301,
+     "Improved Bloodrage"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12298,
+     "Shield Specialization"
+    ],
+    [
+     12797,
+     "Improved Revenge"
+    ],
+    [
+     12797,
+     "Improved Revenge"
+    ],
+    [
+     12797,
+     "Improved Revenge"
+    ],
+    [
+     12287,
+     "Improved Thunder Clap"
+    ],
+    [
+     12287,
+     "Improved Thunder Clap"
+    ],
+    [
+     12287,
+     "Improved Thunder Clap"
+    ],
+    [
+     12975,
+     "Last Stand"
+    ],
+    [
+     1310316,
+     "Master of Defense"
+    ],
+    [
+     1310316,
+     "Master of Defense"
+    ],
+    [
+     12792,
+     "Defiance"
+    ],
+    [
+     12792,
+     "Defiance"
+    ],
+    [
+     12792,
+     "Defiance"
+    ],
+    [
+     1310317,
+     "Vanguard"
+    ],
+    [
+     12312,
+     "Improved Shield Wall"
+    ],
+    [
+     12312,
+     "Improved Shield Wall"
+    ],
+    [
+     12809,
+     "Concussion Blow"
+    ],
+    [
+     29787,
+     "Focused Rage"
+    ],
+    [
+     29787,
+     "Focused Rage"
+    ],
+    [
+     29787,
+     "Focused Rage"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     16538,
+     "Bastion"
+    ],
+    [
+     23922,
+     "Shield Slam"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12320,
+     "Cruelty"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12322,
+     "Unbridled Wrath"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     12317,
+     "Enrage"
+    ],
+    [
+     1329555,
+     "Reckless Swings"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ],
+    [
+     16462,
+     "Deflection"
+    ]
+   ]
+  }
+ ],
+ "PALADIN": [
+  {
+   "name": "Heilig (Schlachtzug)",
+   "kind": "raid",
+   "role": "healer",
+   "source": "https://mobalytics.gg/wow-forever/classes/holy-paladin-guide",
+   "sources": [
+    "https://mobalytics.gg/wow-forever/classes/holy-paladin-guide"
+   ],
+   "date": "2026-11-22",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Holy": 33,
+    "Protection": 5,
+    "Retribution": 13
+   },
+   "note": "Shared core of 29 Holy points plus Divine Intellect 5 and Benediction/Conviction/Sanctified Judgement/Pursuit of Justice in all three. Per-talent majority adds Holy Conduit 2 (Method, Mobalytics) and Divine Precision 2 (Wowhead, Mobalytics) = the Mobalytics build (most recent).",
+   "order": [
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20237,
+     "Healing Light"
+    ],
+    [
+     20237,
+     "Healing Light"
+    ],
+    [
+     20237,
+     "Healing Light"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     429144,
+     "Purifying Power"
+    ],
+    [
+     20216,
+     "Divine Favor"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     1310904,
+     "Divine Precision"
+    ],
+    [
+     1310904,
+     "Divine Precision"
+    ],
+    [
+     426065,
+     "Infusion of Light"
+    ],
+    [
+     426065,
+     "Infusion of Light"
+    ],
+    [
+     1328548,
+     "Oath of Light"
+    ],
+    [
+     1311606,
+     "Holy Shock"
+    ],
+    [
+     1328550,
+     "Boundless Light"
+    ],
+    [
+     1328550,
+     "Boundless Light"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     1310911,
+     "Light's Vigil"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ]
+   ]
+  },
+  {
+   "name": "Heilig (Dungeon)",
+   "kind": "dungeon",
+   "role": "healer",
+   "source": "https://mobalytics.gg/wow-forever/classes/holy-paladin-guide",
+   "sources": [
+    "https://mobalytics.gg/wow-forever/classes/holy-paladin-guide"
+   ],
+   "date": "2026-11-22",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Holy": 33,
+    "Protection": 5,
+    "Retribution": 13
+   },
+   "note": "Only Wowhead has a separate dungeon build. Same allocation as raid (majority of Mobalytics/Method); Wowhead dungeon variant noted.",
+   "order": [
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20205,
+     "Spiritual Focus"
+    ],
+    [
+     20237,
+     "Healing Light"
+    ],
+    [
+     20237,
+     "Healing Light"
+    ],
+    [
+     20237,
+     "Healing Light"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     1310899,
+     "Reverence"
+    ],
+    [
+     429144,
+     "Purifying Power"
+    ],
+    [
+     20216,
+     "Divine Favor"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     20210,
+     "Illumination"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     1310904,
+     "Divine Precision"
+    ],
+    [
+     1310904,
+     "Divine Precision"
+    ],
+    [
+     426065,
+     "Infusion of Light"
+    ],
+    [
+     426065,
+     "Infusion of Light"
+    ],
+    [
+     1328548,
+     "Oath of Light"
+    ],
+    [
+     1311606,
+     "Holy Shock"
+    ],
+    [
+     1328550,
+     "Boundless Light"
+    ],
+    [
+     1328550,
+     "Boundless Light"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     5923,
+     "Holy Power"
+    ],
+    [
+     1310911,
+     "Light's Vigil"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ]
+   ]
+  },
+  {
+   "name": "Schutz (Schlachtzug)",
+   "kind": "raid",
+   "role": "tank",
+   "source": "https://www.wowhead.com/forever/guide/classes/paladin/protection/talent-builds-pve-tank",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/paladin/protection/talent-builds-pve-tank",
+    "https://www.method.gg/wow-forever/class-guides/protection-paladin/talents"
+   ],
+   "date": "2026-11-20",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Holy": 0,
+    "Protection": 35,
+    "Retribution": 16
+   },
+   "note": "Wowhead and Method give the identical 0/35/16 build. Mobalytics goes 4 points deeper in Protection.",
+   "order": [
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     1224697,
+     "Sacred Duty"
+    ],
+    [
+     1224697,
+     "Sacred Duty"
+    ],
+    [
+     1311015,
+     "Templar's Bulwark"
+    ],
+    [
+     20150,
+     "Shield Specialization"
+    ],
+    [
+     20150,
+     "Shield Specialization"
+    ],
+    [
+     20143,
+     "Toughness"
+    ],
+    [
+     20143,
+     "Toughness"
+    ],
+    [
+     20143,
+     "Toughness"
+    ],
+    [
+     1310994,
+     "Swift Judgement"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20925,
+     "Holy Shield"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1328544,
+     "Shieldsworn"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     1311087,
+     "Sacred Arbiter"
+    ]
+   ]
+  },
+  {
+   "name": "Schutz (Dungeon)",
+   "kind": "dungeon",
+   "role": "tank",
+   "source": "https://www.method.gg/wow-forever/class-guides/protection-paladin/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/protection-paladin/talents"
+   ],
+   "date": "2026-11-20",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Holy": 0,
+    "Protection": 35,
+    "Retribution": 16
+   },
+   "note": "No two sources agree on a dungeon-specific build; used the standard build that Wowhead (raid) and Method agree on. Wowhead's dungeon variant swaps Anticipation for Guardian's Favor + Vindication.",
+   "order": [
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20127,
+     "Redoubt"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     1224697,
+     "Sacred Duty"
+    ],
+    [
+     1224697,
+     "Sacred Duty"
+    ],
+    [
+     1311015,
+     "Templar's Bulwark"
+    ],
+    [
+     20150,
+     "Shield Specialization"
+    ],
+    [
+     20150,
+     "Shield Specialization"
+    ],
+    [
+     20143,
+     "Toughness"
+    ],
+    [
+     20143,
+     "Toughness"
+    ],
+    [
+     20143,
+     "Toughness"
+    ],
+    [
+     1310994,
+     "Swift Judgement"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20468,
+     "Improved Righteous Fury"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20096,
+     "Anticipation"
+    ],
+    [
+     20925,
+     "Holy Shield"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     20177,
+     "Reckoning"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1311034,
+     "Iron Creed"
+    ],
+    [
+     1328544,
+     "Shieldsworn"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     20060,
+     "Deflection"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     1311087,
+     "Sacred Arbiter"
+    ]
+   ]
+  },
+  {
+   "name": "Vergeltung (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/paladin/retribution/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/paladin/retribution/talent-builds-pve-dps",
+    "https://www.method.gg/wow-forever/class-guides/retribution-paladin/talents",
+    "https://mobalytics.gg/wow-forever/classes/retribution-paladin-guide"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Holy": 12,
+    "Protection": 8,
+    "Retribution": 31
+   },
+   "note": "Unanimous 12/8/31 (Unsealed Wrath / seal-twisting). All three also list a 23/0/28 Holy Shock \"Shockadin\" alternative.",
+   "order": [
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     9453,
+     "Unyielding Faith"
+    ],
+    [
+     20375,
+     "Seal of Command"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     1311087,
+     "Sacred Arbiter"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20066,
+     "Repentance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1310735,
+     "Unsealed Wrath"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ]
+   ]
+  },
+  {
+   "name": "Vergeltung (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/paladin/retribution/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/paladin/retribution/talent-builds-pve-dps",
+    "https://www.method.gg/wow-forever/class-guides/retribution-paladin/talents",
+    "https://mobalytics.gg/wow-forever/classes/retribution-paladin-guide"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Holy": 12,
+    "Protection": 8,
+    "Retribution": 31
+   },
+   "note": "Unanimous 12/8/31 (Unsealed Wrath / seal-twisting). All three also list a 23/0/28 Holy Shock \"Shockadin\" alternative.",
+   "order": [
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     20101,
+     "Benediction"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     25956,
+     "Improved Judgement"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     20117,
+     "Conviction"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     1311074,
+     "Sanctified Judgement"
+    ],
+    [
+     9453,
+     "Unyielding Faith"
+    ],
+    [
+     20375,
+     "Seal of Command"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     26022,
+     "Pursuit of Justice"
+    ],
+    [
+     1311087,
+     "Sacred Arbiter"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20111,
+     "Two-Handed Weapon Specialization"
+    ],
+    [
+     20066,
+     "Repentance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     20049,
+     "Vengeance"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1311084,
+     "Champion of the Light"
+    ],
+    [
+     1310735,
+     "Unsealed Wrath"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20262,
+     "Divine Strength"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     20224,
+     "Improved Seals"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     1237268,
+     "Holy Conduit"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20257,
+     "Divine Intellect"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ],
+    [
+     20189,
+     "Precision"
+    ]
+   ]
+  }
+ ],
+ "DRUID": [
+  {
+   "name": "Gleichgewicht (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/balance/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/balance/talent-builds-pve-dps"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 35,
+    "Feral Combat": 0,
+    "Restoration": 16
+   },
+   "note": "Post-hotfix (Nov 25) sources only. Wowhead and Method agree exactly on the 44-point core; the 7 flex points follow Wowhead's raid variant. Mobalytics Balance guide still uses the pre-hotfix tree (Improved Wrath, Moonfury, Improved Starfire 5) and was discarded.",
+   "order": [
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16821,
+     "Moon and Stars"
+    ],
+    [
+     16821,
+     "Moon and Stars"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     1223083,
+     "Nature's Splendor"
+    ],
+    [
+     5570,
+     "Insect Swarm"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16880,
+     "Nature's Grace"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408258,
+     "Dreamstate"
+    ],
+    [
+     408258,
+     "Dreamstate"
+    ],
+    [
+     408258,
+     "Dreamstate"
+    ],
+    [
+     408258,
+     "Dreamstate"
+    ],
+    [
+     24858,
+     "Moonkin Form"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17118,
+     "Subtlety"
+    ],
+    [
+     17118,
+     "Subtlety"
+    ],
+    [
+     17118,
+     "Subtlety"
+    ]
+   ]
+  },
+  {
+   "name": "Gleichgewicht (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/balance/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/balance/talent-builds-pve-dps",
+    "https://www.method.gg/wow-forever/wow-forever-druid-leveling-guide-and-talents"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 38,
+    "Feral Combat": 0,
+    "Restoration": 13
+   },
+   "note": "Same 44-point core as raid; flex points into crowd control (useful on trash). Allocation identical in Wowhead and Method (leveling guide).",
+   "order": [
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16821,
+     "Moon and Stars"
+    ],
+    [
+     16821,
+     "Moon and Stars"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16918,
+     "Improved Entangling Roots"
+    ],
+    [
+     16918,
+     "Improved Entangling Roots"
+    ],
+    [
+     16918,
+     "Improved Entangling Roots"
+    ],
+    [
+     1223083,
+     "Nature's Splendor"
+    ],
+    [
+     5570,
+     "Insect Swarm"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16850,
+     "Improved Starfire"
+    ],
+    [
+     16850,
+     "Improved Starfire"
+    ],
+    [
+     17245,
+     "Overgrowth"
+    ],
+    [
+     17245,
+     "Overgrowth"
+    ],
+    [
+     16880,
+     "Nature's Grace"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     24858,
+     "Moonkin Form"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ]
+   ]
+  },
+  {
+   "name": "Gleichgewicht (Leveln)",
+   "kind": "leveling",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/wow-forever-druid-leveling-guide-and-talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/wow-forever-druid-leveling-guide-and-talents",
+    "https://www.wowhead.com/forever/guide/classes/druid/balance/talent-builds-pve-dps"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 38,
+    "Feral Combat": 0,
+    "Restoration": 13
+   },
+   "note": "Only post-hotfix sources (Nov 26). All talents exist in the reworked tree. Maxroll (Nov 3/4) and Mobalytics Balance leveling are pre-hotfix (Moonfury, Improved Starfire 5) and were discarded.",
+   "order": [
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     16814,
+     "Starlight Wrath"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16821,
+     "Moon and Stars"
+    ],
+    [
+     16821,
+     "Moon and Stars"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16918,
+     "Improved Entangling Roots"
+    ],
+    [
+     16918,
+     "Improved Entangling Roots"
+    ],
+    [
+     16918,
+     "Improved Entangling Roots"
+    ],
+    [
+     1223083,
+     "Nature's Splendor"
+    ],
+    [
+     5570,
+     "Insect Swarm"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16909,
+     "Vengeance"
+    ],
+    [
+     16850,
+     "Improved Starfire"
+    ],
+    [
+     16850,
+     "Improved Starfire"
+    ],
+    [
+     17245,
+     "Overgrowth"
+    ],
+    [
+     17245,
+     "Overgrowth"
+    ],
+    [
+     16880,
+     "Nature's Grace"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     408248,
+     "Eclipse"
+    ],
+    [
+     24858,
+     "Moonkin Form"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ]
+   ]
+  },
+  {
+   "name": "Wilder Kampf – Katze (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-dps",
+    "https://www.method.gg/wow-forever/class-guides/feral-dps-druid/talents",
+    "https://mobalytics.gg/wow-forever/classes/feral-druid-guide"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 9,
+    "Feral Combat": 32,
+    "Restoration": 10
+   },
+   "note": "Unanimous: identical cat build 9/32/10 in Wowhead, Method and Mobalytics.",
+   "order": [
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     1238122,
+     "Feral Charge"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     1328613,
+     "Predatory Discipline"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     17007,
+     "Leader of the Pack"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1322605,
+     "Shifting Power"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ]
+   ]
+  },
+  {
+   "name": "Wilder Kampf – Katze (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-dps",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-dps",
+    "https://www.method.gg/wow-forever/class-guides/feral-dps-druid/talents",
+    "https://mobalytics.gg/wow-forever/classes/feral-druid-guide"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 9,
+    "Feral Combat": 32,
+    "Restoration": 10
+   },
+   "note": "Unanimous: identical cat build 9/32/10 in Wowhead, Method and Mobalytics.",
+   "order": [
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16966,
+     "Shredding Attacks"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     1238122,
+     "Feral Charge"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     1328613,
+     "Predatory Discipline"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     17007,
+     "Leader of the Pack"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1322605,
+     "Shifting Power"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ]
+   ]
+  },
+  {
+   "name": "Wilder Kampf – Bär (Schlachtzug)",
+   "kind": "raid",
+   "role": "tank",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-tank",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-tank",
+    "https://www.method.gg/wow-forever/class-guides/feral-tank-druid/talents"
+   ],
+   "date": "2026-11-25",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 9,
+    "Feral Combat": 32,
+    "Restoration": 10
+   },
+   "note": "Wowhead and Method agree exactly on the pure bear raid build (no Shifting Power / Predatory Discipline; Rend and Tear 5, Blood Frenzy 1). Mobalytics bear guide was not reachable (bot protection).",
+   "order": [
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16929,
+     "Thick Hide"
+    ],
+    [
+     16929,
+     "Thick Hide"
+    ],
+    [
+     16929,
+     "Thick Hide"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     1238122,
+     "Feral Charge"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     1328617,
+     "Lacerate"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     17007,
+     "Leader of the Pack"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     407995,
+     "Primal Bite"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ]
+   ]
+  },
+  {
+   "name": "Wilder Kampf – Bär (Dungeon)",
+   "kind": "dungeon",
+   "role": "tank",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-tank",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-tank",
+    "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-dps"
+   ],
+   "date": "2026-11-04",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 9,
+    "Feral Combat": 32,
+    "Restoration": 10
+   },
+   "note": "Hybrid bear/cat for dungeons (can swap to cat). Wowhead tank and DPS guides give the identical build; Method differs by 1 point.",
+   "order": [
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16947,
+     "Feral Instinct"
+    ],
+    [
+     16929,
+     "Thick Hide"
+    ],
+    [
+     16929,
+     "Thick Hide"
+    ],
+    [
+     16929,
+     "Thick Hide"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     1238122,
+     "Feral Charge"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     1328617,
+     "Lacerate"
+    ],
+    [
+     1328613,
+     "Predatory Discipline"
+    ],
+    [
+     17007,
+     "Leader of the Pack"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     407995,
+     "Primal Bite"
+    ],
+    [
+     1322605,
+     "Shifting Power"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ],
+    [
+     16819,
+     "Nature's Reach"
+    ]
+   ]
+  },
+  {
+   "name": "Wiederherstellung (Schlachtzug)",
+   "kind": "raid",
+   "role": "healer",
+   "source": "https://www.method.gg/wow-forever/class-guides/restoration-druid/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/restoration-druid/talents"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 11,
+    "Feral Combat": 0,
+    "Restoration": 40
+   },
+   "note": "Method and Mobalytics agree on 49 of 51 points (11/0/40); last 2 points from the most recent source (Method). Wowhead uses a different 18/0/33 split but the same 33-point Restoration core. Wowhead explicitly uses the raid build for dungeons too.",
+   "order": [
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     1328621,
+     "Bloom"
+    ],
+    [
+     17111,
+     "Improved Rejuvenation"
+    ],
+    [
+     17111,
+     "Improved Rejuvenation"
+    ],
+    [
+     17111,
+     "Improved Rejuvenation"
+    ],
+    [
+     18562,
+     "Swiftmend"
+    ],
+    [
+     17116,
+     "Nature's Swiftness"
+    ],
+    [
+     1309631,
+     "Living Spirit"
+    ],
+    [
+     1309631,
+     "Living Spirit"
+    ],
+    [
+     1309631,
+     "Living Spirit"
+    ],
+    [
+     17123,
+     "Improved Tranquility"
+    ],
+    [
+     17123,
+     "Improved Tranquility"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     408120,
+     "Wild Growth"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223083,
+     "Nature's Splendor"
+    ]
+   ]
+  },
+  {
+   "name": "Wiederherstellung (Dungeon)",
+   "kind": "dungeon",
+   "role": "healer",
+   "source": "https://www.method.gg/wow-forever/class-guides/restoration-druid/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/restoration-druid/talents"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 11,
+    "Feral Combat": 0,
+    "Restoration": 40
+   },
+   "note": "Method and Mobalytics agree on 49 of 51 points (11/0/40); last 2 points from the most recent source (Method). Wowhead uses a different 18/0/33 split but the same 33-point Restoration core. Wowhead explicitly uses the raid build for dungeons too.",
+   "order": [
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17063,
+     "Nature's Focus"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     17104,
+     "Gift of Nature"
+    ],
+    [
+     1328621,
+     "Bloom"
+    ],
+    [
+     17111,
+     "Improved Rejuvenation"
+    ],
+    [
+     17111,
+     "Improved Rejuvenation"
+    ],
+    [
+     17111,
+     "Improved Rejuvenation"
+    ],
+    [
+     18562,
+     "Swiftmend"
+    ],
+    [
+     17116,
+     "Nature's Swiftness"
+    ],
+    [
+     1309631,
+     "Living Spirit"
+    ],
+    [
+     1309631,
+     "Living Spirit"
+    ],
+    [
+     1309631,
+     "Living Spirit"
+    ],
+    [
+     17123,
+     "Improved Tranquility"
+    ],
+    [
+     17123,
+     "Improved Tranquility"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     17074,
+     "Improved Regrowth"
+    ],
+    [
+     408120,
+     "Wild Growth"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     1223081,
+     "Genesis"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     16845,
+     "Moonglow"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223082,
+     "Nature's Majesty"
+    ],
+    [
+     1223083,
+     "Nature's Splendor"
+    ]
+   ]
+  },
+  {
+   "name": "Wilder Kampf – Bär (Leveln)",
+   "kind": "leveling",
+   "role": "tank",
+   "source": "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-tank",
+   "sources": [
+    "https://www.wowhead.com/forever/guide/classes/druid/feral/talent-builds-pve-tank"
+   ],
+   "date": "2026-11-04",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Balance": 0,
+    "Feral Combat": 34,
+    "Restoration": 17
+   },
+   "note": "Low confidence: only two sources distinguish bear leveling, and they disagree a lot. Used the Wowhead tank guide's recommended build. Mobalytics bear guide unreachable.",
+   "order": [
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     16934,
+     "Ferocity"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17056,
+     "Furor"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     17002,
+     "Feral Swiftness"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     16998,
+     "Savage Fury"
+    ],
+    [
+     1238122,
+     "Feral Charge"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16942,
+     "Sharpened Claws"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     16972,
+     "Predatory Strikes"
+    ],
+    [
+     1328617,
+     "Lacerate"
+    ],
+    [
+     1328613,
+     "Predatory Discipline"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     16958,
+     "Blood Frenzy"
+    ],
+    [
+     17007,
+     "Leader of the Pack"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223242,
+     "Natural Instinct"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     1223246,
+     "Rend and Tear"
+    ],
+    [
+     407995,
+     "Primal Bite"
+    ],
+    [
+     1322605,
+     "Shifting Power"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17003,
+     "Heart of the Wild"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17069,
+     "Naturalist"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     17106,
+     "Reflection"
+    ],
+    [
+     16833,
+     "Natural Shapeshifter"
+    ],
+    [
+     16833,
+     "Natural Shapeshifter"
+    ],
+    [
+     16833,
+     "Natural Shapeshifter"
+    ],
+    [
+     1328621,
+     "Bloom"
+    ]
+   ]
+  }
+ ],
+ "PRIEST": [
+  {
+   "name": "Disziplin (Dungeon)",
+   "kind": "dungeon",
+   "role": "healer",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-discipline-priest-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-discipline-priest-talents/"
+   ],
+   "date": "2026-11-17",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Discipline": 33,
+    "Holy": 18,
+    "Shadow": 0
+   },
+   "note": "Split 33/18/0 shared by CC and wowforeverbuilds; filler points differ. CC (post-launch) chosen. Method has no Discipline guide.",
+   "order": [
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1309957,
+     "Holy Precision"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14751,
+     "Inner Focus"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     402000,
+     "Soul Warding"
+    ],
+    [
+     402174,
+     "Penance"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     431622,
+     "Divine Aegis"
+    ],
+    [
+     431622,
+     "Divine Aegis"
+    ],
+    [
+     431622,
+     "Divine Aegis"
+    ],
+    [
+     10060,
+     "Power Infusion"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     15237,
+     "Holy Nova"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ]
+   ]
+  },
+  {
+   "name": "Disziplin (Schlachtzug)",
+   "kind": "raid",
+   "role": "healer",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-discipline-priest-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-discipline-priest-talents/",
+    "https://www.warcrafttavern.com/forever/guides/discipline-priest/"
+   ],
+   "date": "2026-11-17",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Discipline": 31,
+    "Holy": 20,
+    "Shadow": 0
+   },
+   "note": "CC and WT agree (31/20/0 to Power Infusion), 1 filler point differs. Method has no Discipline guide.",
+   "order": [
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14520,
+     "Mental Agility"
+    ],
+    [
+     14751,
+     "Inner Focus"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     402000,
+     "Soul Warding"
+    ],
+    [
+     402174,
+     "Penance"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     425280,
+     "Renewed Hope"
+    ],
+    [
+     431622,
+     "Divine Aegis"
+    ],
+    [
+     431622,
+     "Divine Aegis"
+    ],
+    [
+     431622,
+     "Divine Aegis"
+    ],
+    [
+     10060,
+     "Power Infusion"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     27811,
+     "Blessed Recovery"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ]
+   ]
+  },
+  {
+   "name": "Heilig (Dungeon)",
+   "kind": "dungeon",
+   "role": "healer",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-holy-priest-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-holy-priest-talents/"
+   ],
+   "date": "2026-11-17",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Discipline": 21,
+    "Holy": 30,
+    "Shadow": 0
+   },
+   "note": "Both sources use a 21/30/0 Penance + Soul Warding hybrid for dungeons; ~5 points differ. CC (newer, 11-17) chosen.",
+   "order": [
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     15237,
+     "Holy Nova"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     1317006,
+     "Litany of Light"
+    ],
+    [
+     1317006,
+     "Litany of Light"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14898,
+     "Spiritual Healing"
+    ],
+    [
+     14898,
+     "Spiritual Healing"
+    ],
+    [
+     14898,
+     "Spiritual Healing"
+    ],
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     14524,
+     "Wand Specialization"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14751,
+     "Inner Focus"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14748,
+     "Improved Power Word: Shield"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     402000,
+     "Soul Warding"
+    ],
+    [
+     402174,
+     "Penance"
+    ]
+   ]
+  },
+  {
+   "name": "Heilig (Schlachtzug)",
+   "kind": "raid",
+   "role": "healer",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-holy-priest-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-holy-priest-talents/",
+    "https://www.method.gg/wow-forever/class-guides/holy-priest/talents"
+   ],
+   "date": "2026-11-17",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Discipline": 16,
+    "Holy": 35,
+    "Shadow": 0
+   },
+   "note": "Method and CC agree point for point (16/35/0 to Prayer of Mending). Older pre-launch builds used 18/33 with Soul Warding instead of Holy Reach.",
+   "order": [
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14908,
+     "Improved Renew"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     14889,
+     "Holy Specialization"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     18530,
+     "Divine Fury"
+    ],
+    [
+     15237,
+     "Holy Nova"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     14892,
+     "Inspiration"
+    ],
+    [
+     27789,
+     "Holy Reach"
+    ],
+    [
+     27789,
+     "Holy Reach"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     14912,
+     "Improved Healing"
+    ],
+    [
+     1328569,
+     "Holy Binding"
+    ],
+    [
+     1317006,
+     "Litany of Light"
+    ],
+    [
+     1317006,
+     "Litany of Light"
+    ],
+    [
+     20711,
+     "Spirit of Redemption"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14901,
+     "Spiritual Guidance"
+    ],
+    [
+     14898,
+     "Spiritual Healing"
+    ],
+    [
+     14898,
+     "Spiritual Healing"
+    ],
+    [
+     14898,
+     "Spiritual Healing"
+    ],
+    [
+     401859,
+     "Prayer of Mending"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14751,
+     "Inner Focus"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ]
+   ]
+  },
+  {
+   "name": "Schatten (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-shadow-priest-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-shadow-priest-talents/",
+    "https://www.warcrafttavern.com/forever/guides/shadow-priest/"
+   ],
+   "date": "2026-11-17",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Discipline": 13,
+    "Holy": 0,
+    "Shadow": 38
+   },
+   "note": "Raid build with the 3 Holy points and 2 Mental Strength moved into Spirit Tap 5/5. Only CC gives an explicit dungeon build; WT text recommends Spirit Tap for dungeons; Method has a single general build.",
+   "order": [
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15270,
+     "Spirit Tap"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     17322,
+     "Shadow Reach"
+    ],
+    [
+     17322,
+     "Shadow Reach"
+    ],
+    [
+     15407,
+     "Mind Flay"
+    ],
+    [
+     1225139,
+     "Improved Mind Flay"
+    ],
+    [
+     1225139,
+     "Improved Mind Flay"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     15286,
+     "Vampiric Embrace"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     1309950,
+     "Devouring Contagion"
+    ],
+    [
+     1309950,
+     "Devouring Contagion"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15473,
+     "Shadowform"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ]
+   ]
+  },
+  {
+   "name": "Schatten (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-shadow-priest-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-shadow-priest-talents/",
+    "https://www.warcrafttavern.com/forever/guides/shadow-priest/"
+   ],
+   "date": "2026-11-17",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Discipline": 15,
+    "Holy": 3,
+    "Shadow": 33
+   },
+   "note": "Shadow core (Shadow Focus 5, Imp. Mind Blast 4/5, Imp. Mind Flay, Dark Inspiration, Shadow Weaving, Devouring Contagion, Darkness, Shadowform; Twin Disciplines, Silent Resolve, Meditation) is identical in all post-launch sources. Twilight Focus 3/3 (works in Shadowform since 11-11 hotfix) taken by CC + WT; Method spends those points on Mental Strength/Inner Focus/Early Demise and lists Twilight Focus as an option.",
+   "order": [
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15260,
+     "Shadow Focus"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15273,
+     "Improved Mind Blast"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     15275,
+     "Improved Shadow Word: Pain"
+    ],
+    [
+     17322,
+     "Shadow Reach"
+    ],
+    [
+     17322,
+     "Shadow Reach"
+    ],
+    [
+     15407,
+     "Mind Flay"
+    ],
+    [
+     1225139,
+     "Improved Mind Flay"
+    ],
+    [
+     1225139,
+     "Improved Mind Flay"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     1326159,
+     "Dark Inspiration"
+    ],
+    [
+     15286,
+     "Vampiric Embrace"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     15257,
+     "Shadow Weaving"
+    ],
+    [
+     1309950,
+     "Devouring Contagion"
+    ],
+    [
+     1309950,
+     "Devouring Contagion"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15259,
+     "Darkness"
+    ],
+    [
+     15473,
+     "Shadowform"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     1225132,
+     "Twin Disciplines"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     14523,
+     "Silent Resolve"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     18551,
+     "Mental Strength"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14521,
+     "Meditation"
+    ],
+    [
+     14913,
+     "Twilight Focus"
+    ],
+    [
+     14913,
+     "Twilight Focus"
+    ],
+    [
+     14913,
+     "Twilight Focus"
+    ]
+   ]
+  }
+ ],
+ "SHAMAN": [
+  {
+   "name": "Elementar (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-elemental-shaman-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-elemental-shaman-talents/"
+   ],
+   "date": "2026-11-19",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Elemental": 32,
+    "Enhancement": 11,
+    "Restoration": 8
+   },
+   "note": "No two-source consensus for a dungeon-specific build. Both multi-target variants add Trial by Fire 2/2 to the shared Elemental core; CC is the only explicit dungeon build. Fallback: use the raid build.",
+   "order": [
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16164,
+     "Elemental Focus"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     16120,
+     "Call of Thunder"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16166,
+     "Lightning Mastery"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     1223030,
+     "Shamanistic Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ]
+   ]
+  },
+  {
+   "name": "Elementar (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/elemental-shaman/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/elemental-shaman/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-elemental-shaman-talents/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Elemental": 31,
+    "Enhancement": 9,
+    "Restoration": 11
+   },
+   "note": "Method and CC agree on 31/9/11 (Water Shield, Ancestral Knowledge 4/5); only the row-4 filler point differs (Earthbound vs Trial by Fire). Method (newest) used.",
+   "order": [
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16039,
+     "Convection"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16578,
+     "Elemental Alacrity"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16164,
+     "Elemental Focus"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     29062,
+     "Eye of the Storm"
+    ],
+    [
+     1222988,
+     "Earthbound"
+    ],
+    [
+     16120,
+     "Call of Thunder"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     408438,
+     "Lightning Overload"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16089,
+     "Elemental Fury"
+    ],
+    [
+     16166,
+     "Lightning Mastery"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     408510,
+     "Water Shield"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ]
+   ]
+  },
+  {
+   "name": "Verstärkung (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/enhancement-shaman/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/enhancement-shaman/talents",
+    "https://www.warcrafttavern.com/forever/guides/enhancement-shaman/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Elemental": 17,
+    "Enhancement": 34,
+    "Restoration": 0
+   },
+   "note": "Same as raid. Method alt \"Extra Hit & Mana Regen\" 11/32/8 and CC dungeon 17/26/8 both dip Tidal Focus/Mindfulness when hit or mana is short.",
+   "order": [
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     1223030,
+     "Shamanistic Focus"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     17364,
+     "Stormstrike"
+    ],
+    [
+     16268,
+     "Spirit Weapons"
+    ],
+    [
+     30812,
+     "Mental Quickness"
+    ],
+    [
+     30812,
+     "Mental Quickness"
+    ],
+    [
+     1223031,
+     "Improved Stormstrike"
+    ],
+    [
+     1223031,
+     "Improved Stormstrike"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     425336,
+     "Rage of the Farseer"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     16040,
+     "Reverberation"
+    ],
+    [
+     16040,
+     "Reverberation"
+    ],
+    [
+     16040,
+     "Reverberation"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16164,
+     "Elemental Focus"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ]
+   ]
+  },
+  {
+   "name": "Verstärkung (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/enhancement-shaman/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/enhancement-shaman/talents",
+    "https://www.warcrafttavern.com/forever/guides/enhancement-shaman/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Elemental": 17,
+    "Enhancement": 34,
+    "Restoration": 0
+   },
+   "note": "Elemental 17 points identical in all sources. Main disagreement: Maelstrom Weapon 5/5 (Method, WT) vs 1/5 (CC argues extra points add little) with points into Tidal Focus for hit.",
+   "order": [
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     16255,
+     "Thundering Strikes"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     415140,
+     "Mental Dexterity"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     16266,
+     "Elemental Weapons"
+    ],
+    [
+     1223030,
+     "Shamanistic Focus"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     16256,
+     "Flurry"
+    ],
+    [
+     17364,
+     "Stormstrike"
+    ],
+    [
+     16268,
+     "Spirit Weapons"
+    ],
+    [
+     30812,
+     "Mental Quickness"
+    ],
+    [
+     30812,
+     "Mental Quickness"
+    ],
+    [
+     1223031,
+     "Improved Stormstrike"
+    ],
+    [
+     1223031,
+     "Improved Stormstrike"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     408498,
+     "Maelstrom Weapon"
+    ],
+    [
+     425336,
+     "Rage of the Farseer"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     16035,
+     "Concussion"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     30160,
+     "Elemental Devastation"
+    ],
+    [
+     16040,
+     "Reverberation"
+    ],
+    [
+     16040,
+     "Reverberation"
+    ],
+    [
+     16040,
+     "Reverberation"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16038,
+     "Call of Flame"
+    ],
+    [
+     16164,
+     "Elemental Focus"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ],
+    [
+     16086,
+     "Trial by Fire"
+    ]
+   ]
+  },
+  {
+   "name": "Wiederherstellung (Dungeon)",
+   "kind": "dungeon",
+   "role": "healer",
+   "source": "https://www.method.gg/wow-forever/class-guides/restoration-shaman/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/restoration-shaman/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-restoration-shaman-talents/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Elemental": 0,
+    "Enhancement": 5,
+    "Restoration": 46
+   },
+   "note": "Method and CC deep-resto builds identical. CC says Totemic Focus is worth 2-3x more in dungeons; CC also lists a mobility dungeon build 0/17/34 (Improved Ghost Wolf, Guardian Totems).",
+   "order": [
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16176,
+     "Ancestral Healing"
+    ],
+    [
+     16176,
+     "Ancestral Healing"
+    ],
+    [
+     16176,
+     "Ancestral Healing"
+    ],
+    [
+     16181,
+     "Healing Focus"
+    ],
+    [
+     16181,
+     "Healing Focus"
+    ],
+    [
+     16181,
+     "Healing Focus"
+    ],
+    [
+     408510,
+     "Water Shield"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16190,
+     "Mana Tide Totem"
+    ],
+    [
+     29206,
+     "Healing Way"
+    ],
+    [
+     29206,
+     "Healing Way"
+    ],
+    [
+     29206,
+     "Healing Way"
+    ],
+    [
+     16188,
+     "Nature's Swiftness"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     408521,
+     "Riptide"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ]
+   ]
+  },
+  {
+   "name": "Wiederherstellung (Schlachtzug)",
+   "kind": "raid",
+   "role": "healer",
+   "source": "https://www.method.gg/wow-forever/class-guides/restoration-shaman/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/restoration-shaman/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-restoration-shaman-talents/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Elemental": 0,
+    "Enhancement": 5,
+    "Restoration": 46
+   },
+   "note": "Method and CC deep-resto builds identical. CC primary raid build is 0/10/41 (Thundering Strikes 5 instead of Totemic Focus 5).",
+   "order": [
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16182,
+     "Improved Healing Wave"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     16179,
+     "Tidal Focus"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     1223033,
+     "Mindfulness"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16173,
+     "Totemic Focus"
+    ],
+    [
+     16176,
+     "Ancestral Healing"
+    ],
+    [
+     16176,
+     "Ancestral Healing"
+    ],
+    [
+     16176,
+     "Ancestral Healing"
+    ],
+    [
+     16181,
+     "Healing Focus"
+    ],
+    [
+     16181,
+     "Healing Focus"
+    ],
+    [
+     16181,
+     "Healing Focus"
+    ],
+    [
+     408510,
+     "Water Shield"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16194,
+     "Tidal Mastery"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16187,
+     "Restorative Totems"
+    ],
+    [
+     16190,
+     "Mana Tide Totem"
+    ],
+    [
+     29206,
+     "Healing Way"
+    ],
+    [
+     29206,
+     "Healing Way"
+    ],
+    [
+     29206,
+     "Healing Way"
+    ],
+    [
+     16188,
+     "Nature's Swiftness"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     16178,
+     "Purification"
+    ],
+    [
+     408521,
+     "Riptide"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ],
+    [
+     17485,
+     "Ancestral Knowledge"
+    ]
+   ]
+  }
+ ],
+ "MAGE": [
+  {
+   "name": "Arkan (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/arcane-mage/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/arcane-mage/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-arcane-mage-talents/"
+   ],
+   "date": "2026-11-23",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arcane": 32,
+    "Fire": 16,
+    "Frost": 3
+   },
+   "note": "Arcane Fire is the single standard build for raids and dungeons (Method = CC). Alternative: Pure Arcane (Method 38/10/3, CC 35/13/3) for Fire-immune bosses.",
+   "order": [
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     11242,
+     "Arcane Impact"
+    ],
+    [
+     11242,
+     "Arcane Impact"
+    ],
+    [
+     11242,
+     "Arcane Impact"
+    ],
+    [
+     400574,
+     "Arcane Blast"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     1326079,
+     "Arcane Wrath"
+    ],
+    [
+     12043,
+     "Presence of Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     15058,
+     "Arcane Instability"
+    ],
+    [
+     15058,
+     "Arcane Instability"
+    ],
+    [
+     15058,
+     "Arcane Instability"
+    ],
+    [
+     12042,
+     "Arcane Power"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11366,
+     "Pyroblast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     400624,
+     "Heating Up"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ]
+   ]
+  },
+  {
+   "name": "Arkan (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/arcane-mage/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/arcane-mage/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-arcane-mage-talents/"
+   ],
+   "date": "2026-11-23",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arcane": 32,
+    "Fire": 16,
+    "Frost": 3
+   },
+   "note": "Arcane Fire is the single standard build for raids and dungeons (Method = CC). Alternative: Pure Arcane (Method 38/10/3, CC 35/13/3) for Fire-immune bosses.",
+   "order": [
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     11242,
+     "Arcane Impact"
+    ],
+    [
+     11242,
+     "Arcane Impact"
+    ],
+    [
+     11242,
+     "Arcane Impact"
+    ],
+    [
+     400574,
+     "Arcane Blast"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     1326079,
+     "Arcane Wrath"
+    ],
+    [
+     12043,
+     "Presence of Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     11232,
+     "Arcane Mind"
+    ],
+    [
+     15058,
+     "Arcane Instability"
+    ],
+    [
+     15058,
+     "Arcane Instability"
+    ],
+    [
+     15058,
+     "Arcane Instability"
+    ],
+    [
+     12042,
+     "Arcane Power"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11366,
+     "Pyroblast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     400624,
+     "Heating Up"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ]
+   ]
+  },
+  {
+   "name": "Feuer (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/fire-mage/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/fire-mage/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-fire-mage-talents/",
+    "https://www.warcrafttavern.com/forever/guides/fire-mage/"
+   ],
+   "date": "2026-11-23",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arcane": 0,
+    "Fire": 29,
+    "Frost": 22
+   },
+   "note": "All three sources give the identical Frostfire build; CC recommends it for packs. Alternative for dungeons per CC: raid build with Blast Wave instead of 3rd Master of Elements point.",
+   "order": [
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11366,
+     "Pyroblast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     11095,
+     "Improved Scorch"
+    ],
+    [
+     11095,
+     "Improved Scorch"
+    ],
+    [
+     11095,
+     "Improved Scorch"
+    ],
+    [
+     400624,
+     "Heating Up"
+    ],
+    [
+     29074,
+     "Master of Elements"
+    ],
+    [
+     11115,
+     "Critical Mass"
+    ],
+    [
+     11115,
+     "Critical Mass"
+    ],
+    [
+     11115,
+     "Critical Mass"
+    ],
+    [
+     11124,
+     "Fire Power"
+    ],
+    [
+     11124,
+     "Fire Power"
+    ],
+    [
+     11124,
+     "Fire Power"
+    ],
+    [
+     11189,
+     "Frost Warding"
+    ],
+    [
+     11189,
+     "Frost Warding"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11071,
+     "Frostbite"
+    ],
+    [
+     11071,
+     "Frostbite"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     1312002,
+     "Ice Lance"
+    ],
+    [
+     11958,
+     "Ice Block"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ]
+   ]
+  },
+  {
+   "name": "Feuer (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/fire-mage/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/fire-mage/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-fire-mage-talents/"
+   ],
+   "date": "2026-11-23",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arcane": 16,
+    "Fire": 32,
+    "Frost": 3
+   },
+   "note": "Method and CC identical. CC dungeon variant only moves 1 Master of Elements point into Blast Wave.",
+   "order": [
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11069,
+     "Accelerant"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11119,
+     "Ignite"
+    ],
+    [
+     11366,
+     "Pyroblast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     11078,
+     "Improved Fire Blast"
+    ],
+    [
+     11095,
+     "Improved Scorch"
+    ],
+    [
+     11095,
+     "Improved Scorch"
+    ],
+    [
+     11095,
+     "Improved Scorch"
+    ],
+    [
+     400624,
+     "Heating Up"
+    ],
+    [
+     29074,
+     "Master of Elements"
+    ],
+    [
+     29074,
+     "Master of Elements"
+    ],
+    [
+     29074,
+     "Master of Elements"
+    ],
+    [
+     11115,
+     "Critical Mass"
+    ],
+    [
+     11115,
+     "Critical Mass"
+    ],
+    [
+     11115,
+     "Critical Mass"
+    ],
+    [
+     11124,
+     "Fire Power"
+    ],
+    [
+     11124,
+     "Fire Power"
+    ],
+    [
+     11124,
+     "Fire Power"
+    ],
+    [
+     11129,
+     "Combustion"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     400574,
+     "Arcane Blast"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ]
+   ]
+  },
+  {
+   "name": "Frost (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/frost-mage/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/frost-mage/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-frost-mage-talents/"
+   ],
+   "date": "2026-11-23",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arcane": 9,
+    "Fire": 5,
+    "Frost": 37
+   },
+   "note": "Method and CC identical (Improved Blizzard 3/3, Missile Barrage, Incineration).",
+   "order": [
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11165,
+     "Improved Frost Nova"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11160,
+     "Frost Channeling"
+    ],
+    [
+     11185,
+     "Improved Blizzard"
+    ],
+    [
+     11185,
+     "Improved Blizzard"
+    ],
+    [
+     11185,
+     "Improved Blizzard"
+    ],
+    [
+     1312002,
+     "Ice Lance"
+    ],
+    [
+     11958,
+     "Ice Block"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11190,
+     "Improved Cone of Cold"
+    ],
+    [
+     11190,
+     "Improved Cone of Cold"
+    ],
+    [
+     11190,
+     "Improved Cone of Cold"
+    ],
+    [
+     12472,
+     "Cold Snap"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11426,
+     "Ice Barrier"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11237,
+     "Improved Channeling"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     400588,
+     "Missile Barrage"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ],
+    [
+     18459,
+     "Incineration"
+    ]
+   ]
+  },
+  {
+   "name": "Frost (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.method.gg/wow-forever/class-guides/frost-mage/talents",
+   "sources": [
+    "https://www.method.gg/wow-forever/class-guides/frost-mage/talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-frost-mage-talents/"
+   ],
+   "date": "2026-11-23",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Arcane": 18,
+    "Fire": 0,
+    "Frost": 33
+   },
+   "note": "Method and CC identical. Both list a low-threat ST alternative (Method 14/5/32, CC 10/5/36) once mana is no issue.",
+   "order": [
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     11070,
+     "Improved Frostbolt"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     29438,
+     "Precision"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11207,
+     "Ice Shards"
+    ],
+    [
+     11185,
+     "Improved Blizzard"
+    ],
+    [
+     1312002,
+     "Ice Lance"
+    ],
+    [
+     16757,
+     "Arctic Reach"
+    ],
+    [
+     16757,
+     "Arctic Reach"
+    ],
+    [
+     11958,
+     "Ice Block"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11170,
+     "Shatter"
+    ],
+    [
+     11190,
+     "Improved Cone of Cold"
+    ],
+    [
+     11190,
+     "Improved Cone of Cold"
+    ],
+    [
+     11190,
+     "Improved Cone of Cold"
+    ],
+    [
+     12472,
+     "Cold Snap"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     400647,
+     "Fingers of Frost"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11180,
+     "Winter's Chill"
+    ],
+    [
+     11426,
+     "Ice Barrier"
+    ],
+    [
+     6057,
+     "Wand Specialization"
+    ],
+    [
+     6057,
+     "Wand Specialization"
+    ],
+    [
+     28574,
+     "Arcane Resilience"
+    ],
+    [
+     28574,
+     "Arcane Resilience"
+    ],
+    [
+     28574,
+     "Arcane Resilience"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     11210,
+     "Arcane Subtlety"
+    ],
+    [
+     29441,
+     "Magic Absorption"
+    ],
+    [
+     29441,
+     "Magic Absorption"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11213,
+     "Arcane Concentration"
+    ],
+    [
+     11247,
+     "Arcane Geometry"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ],
+    [
+     18462,
+     "Arcane Meditation"
+    ]
+   ]
+  }
+ ],
+ "ROGUE": [
+  {
+   "name": "Meucheln (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/assassination-rogue-melee-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/assassination-rogue-melee-dps-pve-spec-builds-talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-assassination-rogue-talents/"
+   ],
+   "date": "2026-11-16",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Assassination": 33,
+    "Combat": 18,
+    "Subtlety": 0
+   },
+   "note": "Icy Veins and ConquestCapped (Expose Armor build) are identical. Method goes 35/11/5 (more Improved Poisons, Vigor, 5 Opportunity; no Weapon Expertise/Composure/Endurance). Warcraft Tavern's level-60 Assassination build is pre-rework (mentions removed talent Murder, ranks exceed current maxima) and was ignored.",
+   "order": [
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14168,
+     "Improved Expose Armor"
+    ],
+    [
+     14168,
+     "Improved Expose Armor"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     1329256,
+     "Blood Splatter"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     14177,
+     "Cold Blood"
+    ],
+    [
+     14113,
+     "Improved Poisons"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     1329328,
+     "Venom"
+    ],
+    [
+     14186,
+     "Seal Fate"
+    ],
+    [
+     14186,
+     "Seal Fate"
+    ],
+    [
+     14186,
+     "Seal Fate"
+    ],
+    [
+     399956,
+     "Mutilate"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13712,
+     "Lightning Reflexes"
+    ],
+    [
+     13712,
+     "Lightning Reflexes"
+    ],
+    [
+     1224716,
+     "Puncturing Wounds"
+    ],
+    [
+     1224716,
+     "Puncturing Wounds"
+    ],
+    [
+     1224716,
+     "Puncturing Wounds"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1310711,
+     "Flawless Execution"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ]
+   ]
+  },
+  {
+   "name": "Meucheln (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/assassination-rogue-melee-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/assassination-rogue-melee-dps-pve-spec-builds-talents"
+   ],
+   "date": "2026-11-04",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Assassination": 33,
+    "Combat": 18,
+    "Subtlety": 0
+   },
+   "note": "WEAK CONSENSUS: no two sources agree on a dedicated raid build. Recorded the only allocation two sources share (Icy Veins general PvE = ConquestCapped dungeon). ConquestCapped's raid build 31/19/1 drops Improved Expose Armor (Warrior Sunder covers it), Weapon Expertise, Lightning Reflexes for Aggression 3, Efficient Strikes 2, Vigor 1, Improved Poisons 2, Opportunity 1. Method: 35/11/5. All share the 31-point Mutilate core (Malice, Ruthlessness, Imp. SnD, Lethality, Cold Blood, Relentless Strikes, Venom, Seal Fate, Mutilate) plus Coup de Grace/Precision/Puncturing Wounds.",
+   "order": [
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14168,
+     "Improved Expose Armor"
+    ],
+    [
+     14168,
+     "Improved Expose Armor"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     1329256,
+     "Blood Splatter"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     16513,
+     "Vile Poisons"
+    ],
+    [
+     14177,
+     "Cold Blood"
+    ],
+    [
+     14113,
+     "Improved Poisons"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     14179,
+     "Relentless Strikes"
+    ],
+    [
+     1329328,
+     "Venom"
+    ],
+    [
+     14186,
+     "Seal Fate"
+    ],
+    [
+     14186,
+     "Seal Fate"
+    ],
+    [
+     14186,
+     "Seal Fate"
+    ],
+    [
+     399956,
+     "Mutilate"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13712,
+     "Lightning Reflexes"
+    ],
+    [
+     13712,
+     "Lightning Reflexes"
+    ],
+    [
+     1224716,
+     "Puncturing Wounds"
+    ],
+    [
+     1224716,
+     "Puncturing Wounds"
+    ],
+    [
+     1224716,
+     "Puncturing Wounds"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1310711,
+     "Flawless Execution"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ]
+   ]
+  },
+  {
+   "name": "Kampf (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-combat-rogue-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-combat-rogue-talents/",
+    "https://www.method.gg/wow-forever/class-guides/combat-rogue/talents"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Assassination": 15,
+    "Combat": 36,
+    "Subtlety": 0
+   },
+   "note": "ConquestCapped dungeon build and Method's Sinister Strike build are identical: Deflection 3/3 + Riposte instead of Improved Sprint, Blood Splatter instead of Cold Blood/1 Ruthlessness. WT/Icy Veins only give one PvE build (the raid one, 6-7 points off: Improved Sprint + Cold Blood instead of Deflection 3/Riposte).",
+   "order": [
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     14251,
+     "Riposte"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1310711,
+     "Flawless Execution"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     13715,
+     "Dual Wield Specialization"
+    ],
+    [
+     13715,
+     "Dual Wield Specialization"
+    ],
+    [
+     13877,
+     "Blade Flurry"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     13750,
+     "Adrenaline Rush"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14983,
+     "Vigor"
+    ],
+    [
+     14983,
+     "Vigor"
+    ],
+    [
+     1329256,
+     "Blood Splatter"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14128,
+     "Lethality"
+    ]
+   ]
+  },
+  {
+   "name": "Kampf (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.warcrafttavern.com/forever/guides/combat-rogue/",
+   "sources": [
+    "https://www.warcrafttavern.com/forever/guides/combat-rogue/",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-combat-rogue-talents/",
+    "https://www.icy-veins.com/wow-forever/combat-rogue-melee-dps-pve-spec-builds-talents"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Assassination": 16,
+    "Combat": 35,
+    "Subtlety": 0
+   },
+   "note": "Sword/axe/mace Sinister Strike build. Combat tree identical in Warcraft Tavern and ConquestCapped (Deflection 1 + Improved Sprint 2 as row filler; Icy Veins uses Lightning Reflexes 1 instead of Deflection 1). Assassination 16: Improved Expose Armor 2 taken by WT + Icy Veins; ConquestCapped puts those 2 points into Vigor instead (Expose Armor does not stack with a Warrior's Sunder Armor). Dagger variant (13/33/5 Backstab + Puncturing Wounds + Opportunity) exists in all sources but not recorded here.",
+   "order": [
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13713,
+     "Deflection"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13743,
+     "Improved Sprint"
+    ],
+    [
+     13743,
+     "Improved Sprint"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     13742,
+     "Endurance"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1329265,
+     "Composure"
+    ],
+    [
+     1310711,
+     "Flawless Execution"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     30919,
+     "Weapon Expertise"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     18427,
+     "Aggression"
+    ],
+    [
+     13715,
+     "Dual Wield Specialization"
+    ],
+    [
+     13715,
+     "Dual Wield Specialization"
+    ],
+    [
+     13877,
+     "Blade Flurry"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     13960,
+     "Hack and Slash"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     1329284,
+     "Flash of Steel"
+    ],
+    [
+     13750,
+     "Adrenaline Rush"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14168,
+     "Improved Expose Armor"
+    ],
+    [
+     14168,
+     "Improved Expose Armor"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14128,
+     "Lethality"
+    ],
+    [
+     14177,
+     "Cold Blood"
+    ]
+   ]
+  },
+  {
+   "name": "Täuschung (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-subtlety-rogue-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-subtlety-rogue-talents/"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Assassination": 12,
+    "Combat": 8,
+    "Subtlety": 31
+   },
+   "note": "ConquestCapped dungeon build = raid build with Setup 3 instead of Heightened Senses 2 + Camouflage 1; Icy Veins also takes Setup 3 + Improved Ambush 3 (but Camouflage 2 instead of Elusiveness 2, and Lethality instead of Precision). Partial agreement only.",
+   "order": [
+    [
+     13983,
+     "Setup"
+    ],
+    [
+     13983,
+     "Setup"
+    ],
+    [
+     13983,
+     "Setup"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14082,
+     "Dirty Deeds"
+    ],
+    [
+     14082,
+     "Dirty Deeds"
+    ],
+    [
+     14079,
+     "Improved Ambush"
+    ],
+    [
+     14079,
+     "Improved Ambush"
+    ],
+    [
+     14079,
+     "Improved Ambush"
+    ],
+    [
+     13976,
+     "Initiative"
+    ],
+    [
+     13976,
+     "Initiative"
+    ],
+    [
+     13976,
+     "Initiative"
+    ],
+    [
+     14183,
+     "Premeditation"
+    ],
+    [
+     14171,
+     "Serrated Blades"
+    ],
+    [
+     14171,
+     "Serrated Blades"
+    ],
+    [
+     14171,
+     "Serrated Blades"
+    ],
+    [
+     13981,
+     "Elusiveness"
+    ],
+    [
+     13981,
+     "Elusiveness"
+    ],
+    [
+     14278,
+     "Ghostly Strike"
+    ],
+    [
+     14185,
+     "Preparation"
+    ],
+    [
+     16511,
+     "Hemorrhage"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1316709,
+     "Death Mark"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     1329256,
+     "Blood Splatter"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ]
+   ]
+  },
+  {
+   "name": "Täuschung (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-subtlety-rogue-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-subtlety-rogue-talents/"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Assassination": 12,
+    "Combat": 8,
+    "Subtlety": 31
+   },
+   "note": "All three share the same 23-point Subtlety core (Opportunity, Dirty Deeds, Initiative, Premeditation, Serrated Blades, Ghostly Strike, Preparation, Hemorrhage, Boot Knife, Death Mark) plus Malice/Ruthlessness/Blood Splatter/Coup de Grace/Efficient Strikes. They disagree on the last ~8 points: CC (most recent) Improved Ambush 3 + Elusiveness 2 + Heightened Senses 2 + Camouflage 1 and Precision 3 for hit; Icy Veins Setup 3 + Camouflage 2, WT Master of Deception 3 + Camouflage 3, both take Lethality 2 instead of Precision (CC suggests that swap once hit-capped). Took CC as most recent; only partial agreement. Method's Subtlety builds decode to 21 Subtlety points without Death Mark (broken/outdated) and were ignored.",
+   "order": [
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14057,
+     "Opportunity"
+    ],
+    [
+     14082,
+     "Dirty Deeds"
+    ],
+    [
+     14082,
+     "Dirty Deeds"
+    ],
+    [
+     13975,
+     "Camouflage"
+    ],
+    [
+     14079,
+     "Improved Ambush"
+    ],
+    [
+     14079,
+     "Improved Ambush"
+    ],
+    [
+     14079,
+     "Improved Ambush"
+    ],
+    [
+     13976,
+     "Initiative"
+    ],
+    [
+     13976,
+     "Initiative"
+    ],
+    [
+     13976,
+     "Initiative"
+    ],
+    [
+     14183,
+     "Premeditation"
+    ],
+    [
+     14171,
+     "Serrated Blades"
+    ],
+    [
+     14171,
+     "Serrated Blades"
+    ],
+    [
+     14171,
+     "Serrated Blades"
+    ],
+    [
+     13981,
+     "Elusiveness"
+    ],
+    [
+     13981,
+     "Elusiveness"
+    ],
+    [
+     14278,
+     "Ghostly Strike"
+    ],
+    [
+     30894,
+     "Heightened Senses"
+    ],
+    [
+     30894,
+     "Heightened Senses"
+    ],
+    [
+     14185,
+     "Preparation"
+    ],
+    [
+     16511,
+     "Hemorrhage"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1329286,
+     "Boot Knife"
+    ],
+    [
+     1316709,
+     "Death Mark"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14138,
+     "Malice"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14156,
+     "Ruthlessness"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     14165,
+     "Improved Slice and Dice"
+    ],
+    [
+     1329256,
+     "Blood Splatter"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     14162,
+     "Coup de Grace"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13732,
+     "Efficient Strikes"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ],
+    [
+     13705,
+     "Precision"
+    ]
+   ]
+  }
+ ],
+ "HUNTER": [
+  {
+   "name": "Tierherrschaft (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/beast-mastery-hunter-ranged-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/beast-mastery-hunter-ranged-dps-pve-spec-builds-talents",
+    "https://www.method.gg/wow-forever/class-guides/beast-mastery-hunter/talents"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Beast Mastery": 31,
+    "Marksmanship": 20,
+    "Survival": 0
+   },
+   "note": "Icy Veins, Method and WT give one PvE build for all content, recorded here as dungeon too. Only ConquestCapped has a separate dungeon build (35/16/0: Efficiency 5, Improved Mend Pet 2, Frenzy 5, no Rapid Killing/Mortal Shots).",
+   "order": [
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19583,
+     "Endurance Training"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     19596,
+     "Bestial Swiftness"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     1293241,
+     "Summon Hawk"
+    ],
+    [
+     19577,
+     "Intimidation"
+    ],
+    [
+     19590,
+     "Bestial Discipline"
+    ],
+    [
+     19590,
+     "Bestial Discipline"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19574,
+     "Bestial Wrath"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     1299346,
+     "Trueshot Aura"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ]
+   ]
+  },
+  {
+   "name": "Tierherrschaft (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/beast-mastery-hunter-ranged-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/beast-mastery-hunter-ranged-dps-pve-spec-builds-talents",
+    "https://www.method.gg/wow-forever/class-guides/beast-mastery-hunter/talents"
+   ],
+   "date": "2026-11-27",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Beast Mastery": 31,
+    "Marksmanship": 20,
+    "Survival": 0
+   },
+   "note": "BM tree (31) identical in Icy Veins and Method (Improved Revive Pet 2, Endurance Training 1, Frenzy 5); WT/CC put those points into Endurance Training instead. Marksmanship 20 is a per-talent majority: Lethal Attacks 5, Careful Aim 5 (all), Rapid Killing 2 (IV/CC/Method), Trueshot Aura 1 + Mortal Shots 4 (WT/CC/Method), last 3 in Improved Stings (IV/WT; Method Hawk Eye, CC Efficiency). Every source is within 3 points.",
+   "order": [
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19583,
+     "Endurance Training"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     19596,
+     "Bestial Swiftness"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     19598,
+     "Ferocity"
+    ],
+    [
+     1293241,
+     "Summon Hawk"
+    ],
+    [
+     19577,
+     "Intimidation"
+    ],
+    [
+     19590,
+     "Bestial Discipline"
+    ],
+    [
+     19590,
+     "Bestial Discipline"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19621,
+     "Frenzy"
+    ],
+    [
+     19574,
+     "Bestial Wrath"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     1299346,
+     "Trueshot Aura"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ]
+   ]
+  },
+  {
+   "name": "Treffsicherheit (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/marksmanship-hunter-ranged-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/marksmanship-hunter-ranged-dps-pve-spec-builds-talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-marksmanship-hunter-talents/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Beast Mastery": 5,
+    "Marksmanship": 41,
+    "Survival": 5
+   },
+   "note": "Lone Wolf (no pet) build. Icy Veins and ConquestCapped identical (CC labels it raid AND dungeon). WT swaps Hawk Eye 3 + 1 Efficiency + 1 Barrage for Improved Arcane Shot 5. Method puts 13 points into Survival (Entrapment/Surefooted) instead of Efficiency/Improved Stings. Pet variant (16/31/4) also exists in IV/CC/Method.",
+   "order": [
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415370,
+     "Lone Wolf"
+    ],
+    [
+     1299346,
+     "Trueshot Aura"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     1223987,
+     "Rapid Recuperation"
+    ],
+    [
+     1223987,
+     "Rapid Recuperation"
+    ],
+    [
+     19461,
+     "Barrage"
+    ],
+    [
+     19461,
+     "Barrage"
+    ],
+    [
+     19461,
+     "Barrage"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     1310687,
+     "Sniper Shot"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ]
+   ]
+  },
+  {
+   "name": "Treffsicherheit (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/marksmanship-hunter-ranged-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/marksmanship-hunter-ranged-dps-pve-spec-builds-talents",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-marksmanship-hunter-talents/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Beast Mastery": 5,
+    "Marksmanship": 41,
+    "Survival": 5
+   },
+   "note": "Lone Wolf (no pet) build. Icy Veins and ConquestCapped identical (CC labels it raid AND dungeon). WT swaps Hawk Eye 3 + 1 Efficiency + 1 Barrage for Improved Arcane Shot 5. Method puts 13 points into Survival (Entrapment/Surefooted) instead of Efficiency/Improved Stings. Pet variant (16/31/4) also exists in IV/CC/Method.",
+   "order": [
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19498,
+     "Hawk Eye"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     19416,
+     "Efficiency"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415405,
+     "Rapid Killing"
+    ],
+    [
+     415370,
+     "Lone Wolf"
+    ],
+    [
+     1299346,
+     "Trueshot Aura"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     1223987,
+     "Rapid Recuperation"
+    ],
+    [
+     1223987,
+     "Rapid Recuperation"
+    ],
+    [
+     19461,
+     "Barrage"
+    ],
+    [
+     19461,
+     "Barrage"
+    ],
+    [
+     19461,
+     "Barrage"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     19507,
+     "Ranged Weapon Specialization"
+    ],
+    [
+     1310687,
+     "Sniper Shot"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ]
+   ]
+  },
+  {
+   "name": "Überleben (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-survival-hunter-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-survival-hunter-talents/"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Beast Mastery": 16,
+    "Marksmanship": 4,
+    "Survival": 31
+   },
+   "note": "WEAK CONSENSUS: all three agree on a melee build with pet (16-18 BM points incl. Deadly Aspects 5, Focused Fire 2, Unleashed Fury 5, Summon Hawk) and the Survival core (Improved Tracking, Savage Strikes, Surefooted, Predator's Edge, Strider Kick, Expose Prey), but no two allocations match: BM part of CC = Method exactly; CC goes 31 deep (Lacerating Strikes, Survivalist's Discipline, Resourcefulness), Icy Veins/Method stop at 25 Survival and put the rest in Marksmanship (Lethal Attacks/Careful Aim). Took CC (most recent, explicitly dungeon).",
+   "order": [
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     19159,
+     "Savage Strikes"
+    ],
+    [
+     19159,
+     "Savage Strikes"
+    ],
+    [
+     19255,
+     "Survivalist"
+    ],
+    [
+     19255,
+     "Survivalist"
+    ],
+    [
+     19255,
+     "Survivalist"
+    ],
+    [
+     19239,
+     "Clever Traps"
+    ],
+    [
+     19239,
+     "Clever Traps"
+    ],
+    [
+     19290,
+     "Surefooted"
+    ],
+    [
+     19290,
+     "Surefooted"
+    ],
+    [
+     19290,
+     "Surefooted"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     440529,
+     "Resourcefulness"
+    ],
+    [
+     440529,
+     "Resourcefulness"
+    ],
+    [
+     1310532,
+     "Expose Prey"
+    ],
+    [
+     1310532,
+     "Expose Prey"
+    ],
+    [
+     1310496,
+     "Survivalist's Discipline"
+    ],
+    [
+     1310496,
+     "Survivalist's Discipline"
+    ],
+    [
+     1317257,
+     "Strider Kick"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     1310533,
+     "Lacerating Strikes"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19552,
+     "Deadly Aspects"
+    ],
+    [
+     19583,
+     "Endurance Training"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     1223755,
+     "Focused Fire"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     24443,
+     "Improved Revive Pet"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     19616,
+     "Unleashed Fury"
+    ],
+    [
+     1293241,
+     "Summon Hawk"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ]
+   ]
+  },
+  {
+   "name": "Überleben (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-survival-hunter-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-survival-hunter-talents/",
+    "https://www.warcrafttavern.com/forever/guides/survival-hunter/",
+    "https://www.icy-veins.com/wow-forever/survival-hunter-melee-dps-pve-spec-builds-talents"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Beast Mastery": 0,
+    "Marksmanship": 20,
+    "Survival": 31
+   },
+   "note": "Ranged/melee weaving with Lone Wolf, no pet. ConquestCapped and WT identical except Survivalist 3 (CC, also Icy Veins) vs Deflection 3 (WT). Icy Veins weaving build stops at 30 Survival (no Lacerating Strikes, Mortal Shots 5). Method's weaving build keeps a pet (15/10/26) and differs a lot.",
+   "order": [
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     24293,
+     "Improved Tracking"
+    ],
+    [
+     19159,
+     "Savage Strikes"
+    ],
+    [
+     19159,
+     "Savage Strikes"
+    ],
+    [
+     19255,
+     "Survivalist"
+    ],
+    [
+     19255,
+     "Survivalist"
+    ],
+    [
+     19255,
+     "Survivalist"
+    ],
+    [
+     19239,
+     "Clever Traps"
+    ],
+    [
+     19239,
+     "Clever Traps"
+    ],
+    [
+     19290,
+     "Surefooted"
+    ],
+    [
+     19290,
+     "Surefooted"
+    ],
+    [
+     19290,
+     "Surefooted"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     1310627,
+     "Predator's Edge"
+    ],
+    [
+     440529,
+     "Resourcefulness"
+    ],
+    [
+     440529,
+     "Resourcefulness"
+    ],
+    [
+     1310532,
+     "Expose Prey"
+    ],
+    [
+     1310532,
+     "Expose Prey"
+    ],
+    [
+     1317257,
+     "Strider Kick"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     19168,
+     "Lightning Reflexes"
+    ],
+    [
+     1310533,
+     "Lacerating Strikes"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     19426,
+     "Lethal Attacks"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1310661,
+     "Improved Stings"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     1223984,
+     "Careful Aim"
+    ],
+    [
+     19454,
+     "Improved Arcane Shot"
+    ],
+    [
+     415370,
+     "Lone Wolf"
+    ],
+    [
+     1299346,
+     "Trueshot Aura"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ],
+    [
+     19485,
+     "Mortal Shots"
+    ]
+   ]
+  }
+ ],
+ "WARLOCK": [
+  {
+   "name": "Gebrechen (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-affliction-warlock-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-affliction-warlock-talents/",
+    "https://www.warcrafttavern.com/forever/guides/affliction-warlock/",
+    "https://www.method.gg/wow-forever/class-guides/affliction-warlock/talents"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Affliction": 30,
+    "Demonology": 0,
+    "Destruction": 21
+   },
+   "note": "Shadow Mastery + Ruin (Shadow Bolt filler, no channel on the move). ConquestCapped dungeon = WT SM Ruin with the Cataclysm->Shadowburn swap WT itself suggests for dungeons; Method is 2 points off (Improved Bane of Agony 2, Cataclysm 2). Icy Veins only lists the Wrack build.",
+   "order": [
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     18827,
+     "Improved Bane of Agony"
+    ],
+    [
+     18288,
+     "Amplify Curse"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     18094,
+     "Nightfall"
+    ],
+    [
+     18094,
+     "Nightfall"
+    ],
+    [
+     18265,
+     "Siphon Life"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17877,
+     "Shadowburn"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ]
+   ]
+  },
+  {
+   "name": "Gebrechen (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://www.icy-veins.com/wow-forever/affliction-warlock-ranged-dps-pve-spec-builds-talents",
+   "sources": [
+    "https://www.icy-veins.com/wow-forever/affliction-warlock-ranged-dps-pve-spec-builds-talents",
+    "https://www.warcrafttavern.com/forever/guides/affliction-warlock/",
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-affliction-warlock-talents/",
+    "https://www.method.gg/wow-forever/class-guides/affliction-warlock/talents"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Affliction": 35,
+    "Demonology": 11,
+    "Destruction": 5
+   },
+   "note": "Full consensus: all four sources give the identical Wrack build (Demonic Sacrifice, Improved Shadow Bolt).",
+   "order": [
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     18827,
+     "Improved Bane of Agony"
+    ],
+    [
+     18827,
+     "Improved Bane of Agony"
+    ],
+    [
+     18288,
+     "Amplify Curse"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     1310949,
+     "Malevolence"
+    ],
+    [
+     18094,
+     "Nightfall"
+    ],
+    [
+     18094,
+     "Nightfall"
+    ],
+    [
+     18265,
+     "Siphon Life"
+    ],
+    [
+     17804,
+     "Soul Siphon"
+    ],
+    [
+     17804,
+     "Soul Siphon"
+    ],
+    [
+     17804,
+     "Soul Siphon"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     18271,
+     "Shadow Mastery"
+    ],
+    [
+     1316697,
+     "Wrack"
+    ],
+    [
+     18697,
+     "Demonic Embrace"
+    ],
+    [
+     18697,
+     "Demonic Embrace"
+    ],
+    [
+     18697,
+     "Demonic Embrace"
+    ],
+    [
+     18697,
+     "Demonic Embrace"
+    ],
+    [
+     18697,
+     "Demonic Embrace"
+    ],
+    [
+     1235316,
+     "Demonic Aegis"
+    ],
+    [
+     1235316,
+     "Demonic Aegis"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18788,
+     "Demonic Sacrifice"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ]
+   ]
+  },
+  {
+   "name": "Dämonologie (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-demonology-warlock-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-demonology-warlock-talents/",
+    "https://www.warcrafttavern.com/forever/guides/demonology-warlock/",
+    "https://www.method.gg/wow-forever/class-guides/demonology-warlock/talents"
+   ],
+   "date": "2026-11-26",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Affliction": 2,
+    "Demonology": 31,
+    "Destruction": 18
+   },
+   "note": "Fire/Imp build (sacrifice Succubus, Hellfire/Rain of Fire get the Fire bonus). CC and WT identical and both name it the dungeon pick; Method's Fire Brand is 2 points off (Fel Domination instead of 2nd Demonic Energies, Suppression 2). Icy Veins only lists the Succubus build.",
+   "order": [
+    [
+     18694,
+     "Improved Imp"
+    ],
+    [
+     18694,
+     "Improved Imp"
+    ],
+    [
+     18694,
+     "Improved Imp"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     18788,
+     "Demonic Sacrifice"
+    ],
+    [
+     18709,
+     "Master Summoner"
+    ],
+    [
+     18709,
+     "Master Summoner"
+    ],
+    [
+     440870,
+     "Decimation"
+    ],
+    [
+     440870,
+     "Decimation"
+    ],
+    [
+     1293695,
+     "Demonic Brand"
+    ],
+    [
+     1293695,
+     "Demonic Brand"
+    ],
+    [
+     1293695,
+     "Demonic Brand"
+    ],
+    [
+     19028,
+     "Soul Link"
+    ],
+    [
+     412732,
+     "Demonic Knowledge"
+    ],
+    [
+     412732,
+     "Demonic Knowledge"
+    ],
+    [
+     412732,
+     "Demonic Knowledge"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     425464,
+     "Demonic Pact"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ]
+   ]
+  },
+  {
+   "name": "Dämonologie (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-demonology-warlock-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-demonology-warlock-talents/",
+    "https://www.warcrafttavern.com/forever/guides/demonology-warlock/",
+    "https://www.icy-veins.com/wow-forever/demonology-warlock-ranged-dps-pve-spec-builds-talents"
+   ],
+   "date": "2026-11-24",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Affliction": 2,
+    "Demonology": 31,
+    "Destruction": 18
+   },
+   "note": "Shadow/Succubus Demonic Pact build: CC and WT identical, Icy Veins 1 point off (Improved Corruption 2 instead of Suppression 1 + Imp. Corruption 1). Method's Shadow Brand takes Fel Domination and Aftermath instead of Demonic Energies 2/Improved Shadow Bolt.",
+   "order": [
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     18731,
+     "Fel Vitality"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     1225214,
+     "Demonic Energies"
+    ],
+    [
+     18754,
+     "Improved Sayaad"
+    ],
+    [
+     18754,
+     "Improved Sayaad"
+    ],
+    [
+     18754,
+     "Improved Sayaad"
+    ],
+    [
+     18788,
+     "Demonic Sacrifice"
+    ],
+    [
+     18709,
+     "Master Summoner"
+    ],
+    [
+     18709,
+     "Master Summoner"
+    ],
+    [
+     440870,
+     "Decimation"
+    ],
+    [
+     440870,
+     "Decimation"
+    ],
+    [
+     1293695,
+     "Demonic Brand"
+    ],
+    [
+     1293695,
+     "Demonic Brand"
+    ],
+    [
+     1293695,
+     "Demonic Brand"
+    ],
+    [
+     19028,
+     "Soul Link"
+    ],
+    [
+     412732,
+     "Demonic Knowledge"
+    ],
+    [
+     412732,
+     "Demonic Knowledge"
+    ],
+    [
+     412732,
+     "Demonic Knowledge"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     23785,
+     "Master Demonologist"
+    ],
+    [
+     425464,
+     "Demonic Pact"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17793,
+     "Improved Shadow Bolt"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ]
+   ]
+  },
+  {
+   "name": "Zerstörung (Dungeon)",
+   "kind": "dungeon",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-destruction-warlock-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-destruction-warlock-talents/",
+    "https://www.warcrafttavern.com/forever/guides/destruction-warlock/"
+   ],
+   "date": "2026-11-24",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Affliction": 14,
+    "Demonology": 4,
+    "Destruction": 33
+   },
+   "note": "Raid Sayaad build with 2 points moved from Suppression into Improved Corruption 5/5 (instant Corruption; dungeon bosses need less hit). CC shows it as its own build, WT describes the same swap in text. Icy Veins uses Demonic Sacrifice for both.",
+   "order": [
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17877,
+     "Shadowburn"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     1293817,
+     "Conflagrate"
+    ],
+    [
+     1225228,
+     "Bane of Havoc"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     412758,
+     "Incinerate"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     18288,
+     "Amplify Curse"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ]
+   ]
+  },
+  {
+   "name": "Zerstörung (Schlachtzug)",
+   "kind": "raid",
+   "role": "dps",
+   "source": "https://conquestcapped.com/guides/wow-forever/wow-forever-destruction-warlock-talents/",
+   "sources": [
+    "https://conquestcapped.com/guides/wow-forever/wow-forever-destruction-warlock-talents/",
+    "https://www.warcrafttavern.com/forever/guides/destruction-warlock/"
+   ],
+   "date": "2026-11-24",
+   "derivedOrder": true,
+   "firstLevel": 10,
+   "points": {
+    "Affliction": 14,
+    "Demonology": 4,
+    "Destruction": 33
+   },
+   "note": "Destruction 33 points identical in all four sources. Disagreement is the rest: CC + WT (identical) keep the Sayaad out with Unholy Power 4 and 14 Affliction points; Icy Veins recommends Demonic Sacrifice 7/11/33 (CC lists that exact build as the pet-less alternative, slightly lower damage); Method (Nov 4) puts 18 into Affliction without Demonology.",
+   "order": [
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17788,
+     "Bane"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     17778,
+     "Cataclysm"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     18119,
+     "Aftermath"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17959,
+     "Ruin"
+    ],
+    [
+     17877,
+     "Shadowburn"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     17927,
+     "Agonizing Flames"
+    ],
+    [
+     1293817,
+     "Conflagrate"
+    ],
+    [
+     1225228,
+     "Bane of Havoc"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     412751,
+     "Fire and Brimstone"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     426316,
+     "Shadow and Flame"
+    ],
+    [
+     412758,
+     "Incinerate"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18182,
+     "Improved Life Tap"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     18174,
+     "Suppression"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     17810,
+     "Improved Corruption"
+    ],
+    [
+     18288,
+     "Amplify Curse"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     427712,
+     "Pandemic"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ],
+    [
+     18769,
+     "Unholy Power"
+    ]
+   ]
+  }
+ ]
+}

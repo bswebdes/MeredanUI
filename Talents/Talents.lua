@@ -282,6 +282,13 @@ local function BuildTree(build)
     return label:match("^(.-)%s*%(") or label
 end
 
+-- Builds.lua kind: leveling (default), dungeon, raid (level 60 PvE)
+local function KindLabel(build)
+    if build.kind == "dungeon" then return L["Dungeon"] end
+    if build.kind == "raid" then return L["Raid"] end
+    return L["Leveling"]
+end
+
 local function BuildKey(build)
     return (build.own and "own:" or "") .. build.name
 end
@@ -599,7 +606,7 @@ local function Layout()
             step.node.adviceNext = true
         end
     end
-    adviceButton.Text:SetText(build and (build.own and (L["Own"] .. " · " .. build.name) or (L["Leveling"] .. " · " .. BuildTree(build)
+    adviceButton.Text:SetText(build and (build.own and (L["Own"] .. " · " .. build.name) or (KindLabel(build) .. " · " .. BuildTree(build)
         .. (build.recommended and ("  " .. ns.UI.IconMarkup("Star", 11, ns.UI.ACCENT, 2)) or ""))) or L["Off"])
     adviceButton.Text:SetTextColor(unpack((build and not steps) and { 1, 0.4, 0.4 } or UI.TEXT))
     adviceButton.invalid = build ~= nil and steps == nil
@@ -835,18 +842,24 @@ local function CreateWindow()
         local items = { { value = "__off", label = L["Off"] } }
         local trees = {}
         items[#items + 1] = { value = "__h1", inert = true, label = ACCENT_HEX .. L["Leveling"]:upper() .. "|r" }
+        local pve = {}
         for _, build in ipairs(ClassBuilds()) do
             local tree = BuildTree(build)
-            if not tContains(trees, tree) then trees[#trees + 1] = tree end
-            -- accent star = recommended starting build (Builds.lua: recommended)
-            local star = build.recommended and ("  " .. UI.IconMarkup("Star", 11, UI.ACCENT, 2)) or ""
-            items[#items + 1] = { value = build.name, label = "   " .. tree .. star }
-        end
-        for _, kind in ipairs({ "PvE", "PvP" }) do
-            items[#items + 1] = { value = "__h" .. kind, inert = true, label = ACCENT_HEX .. kind:upper() .. "|r  " .. GREY .. L["coming later"] .. "|r" }
-            for _, tree in ipairs(trees) do
-                items[#items + 1] = { value = "__h" .. kind .. tree, inert = true, label = GREY .. "   " .. tree .. "|r" }
+            if build.kind == "dungeon" or build.kind == "raid" then
+                pve[#pve + 1] = { value = build.name, label = "   " .. tree .. GREY .. "  · " .. KindLabel(build) .. "|r" }
+            else
+                if not tContains(trees, tree) then trees[#trees + 1] = tree end
+                -- accent star = recommended starting build (Builds.lua: recommended)
+                local star = build.recommended and ("  " .. UI.IconMarkup("Star", 11, UI.ACCENT, 2)) or ""
+                items[#items + 1] = { value = build.name, label = "   " .. tree .. star }
             end
+        end
+        -- PvE: level 60 dungeon/raid builds
+        items[#items + 1] = { value = "__hPvE", inert = true, label = ACCENT_HEX .. "PVE|r" }
+        for _, item in ipairs(pve) do items[#items + 1] = item end
+        items[#items + 1] = { value = "__hPvP", inert = true, label = ACCENT_HEX .. "PVP|r  " .. GREY .. L["coming later"] .. "|r" }
+        for _, tree in ipairs(trees) do
+            items[#items + 1] = { value = "__hPvP" .. tree, inert = true, label = GREY .. "   " .. tree .. "|r" }
         end
         items[#items + 1] = { value = "__hown", inert = true, label = ACCENT_HEX .. L["Own"]:upper() .. "|r" }
         for _, build in ipairs(OwnBuilds()) do
