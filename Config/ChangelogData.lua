@@ -2,6 +2,13 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.6.3", items = {
+        "Both chat windows now match the width of the bar below them: the main chat lines up with the emote bar, the second chat window with the micro menu",
+        "Each chat window only shows its own tabs on mouseover",
+        "The second chat window's tab now fades like the main chat tabs",
+        "Chat tab names line up with the left edge of the chat",
+        "With the second chat window on, the tooltip sits above it instead of covering it",
+    } },
     { version = "v0.6.2", items = {
         "New: choose how many buttons the Shift and Alt bars and the extra bars 7 and 8 have (Settings > Action bars > Buttons): 2, 4, 6, 8, 10 or 12. The bars stay centered, bars 7 and 8 stay two rows high",
     } },
@@ -30,9 +37,5 @@ ns.CHANGELOG = {
     { version = "v0.5.15", items = {
         "Fixed: with Attack with abilities on, openers from stealth (Garrote, Cheap Shot, Ambush, Pounce, Ravage) failed with \"You must be stealthed\". Auto attack no longer starts while you are stealthed",
         "Player tooltips are tidied up again when the game rebuilds them (level line, race and class)",
-    } },
-    { version = "v0.5.14", items = {
-        "Fixed: the setup could show up again on characters that had already finished it",
-        "The mail icon on the minimap goes away once only read letters are left",
     } },
 }
