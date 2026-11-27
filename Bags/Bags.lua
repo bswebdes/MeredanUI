@@ -346,7 +346,8 @@ function ns.DecorateItemButton(button, info, showLevel, bag, slot)
     if button.muiFill then button.muiFill:SetShown(fills and true or false) end
     -- empty slot: marker instead of arrow (no meaningful percentage against nothing)
     local upgrade = not fills and info and info.hyperlink and ns.UpgradePercent(info.hyperlink) -- also in "New"
-    button.muiUpgrade:SetShown(upgrade and upgrade >= 0.05 or false)
+    -- any gain counts, also "slightly better" (more stamina/armor while leveling)
+    button.muiUpgrade:SetShown(upgrade and upgrade > 0 or false)
 end
 
 ns.StyleBagButton = StyleButton -- also used by the bank window (Bank.lua)

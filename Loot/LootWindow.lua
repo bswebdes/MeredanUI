@@ -123,7 +123,7 @@ local function FillRow(row, slot)
     if locked then row.icon:SetVertexColor(0.9, 0.2, 0.2) else row.icon:SetVertexColor(1, 1, 1) end
     local link = not isMoney and GetLootSlotLink(slot)
     local upgrade = link and ns.UpgradePercent and ns.UpgradePercent(link)
-    row.upgrade:SetShown(upgrade and upgrade >= 0.05 or false)
+    row.upgrade:SetShown(upgrade and upgrade > 0 or false)
     row:Show()
 end
 

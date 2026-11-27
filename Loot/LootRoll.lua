@@ -200,7 +200,7 @@ local function Fill(frame, data)
     LayoutButtons(frame)
 
     local upgrade = data.link and ns.UpgradePercent and ns.UpgradePercent(data.link)
-    frame.upgrade:SetShown(upgrade and upgrade >= 0.05 or false)
+    frame.upgrade:SetShown(upgrade and upgrade > 0 or false)
 end
 
 -- any roll frame shown (the level-up display keeps its list out of their way)

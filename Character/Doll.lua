@@ -286,7 +286,7 @@ Flyout = function(owner)
             local link = data.isBags and C_Container.GetContainerItemLink(data.bag, data.slot) or GetInventoryItemLink("player", data.slot)
             local upgrade = link and ns.UpgradePercent and ns.UpgradePercent(link)
             entries[#entries + 1] = { location = location, texture = texture, setTooltip = setTooltip, quality = quality, name = name,
-                upgrade = (upgrade and upgrade >= 0.05) and upgrade or nil }
+                upgrade = (upgrade and upgrade > 0) and upgrade or nil }
         end
     end
     -- Upgrades first (largest first), then by quality
