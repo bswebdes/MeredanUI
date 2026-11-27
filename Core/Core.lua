@@ -131,6 +131,8 @@ end
 ns.AUCTION_ADDONS = { "Auctionator", "TradeSkillMaster", "Auc-Advanced", "AuctionFaster", "aux-addon" }
 -- Mail addons hook Blizzard's mail frame - ours would cover them
 ns.MAIL_ADDONS = { "Postal", "TradeSkillMaster", "MailLogger" }
+-- Gossip/quest addons replace Blizzard's NPC dialog - ours would open on top of theirs
+ns.NPC_ADDONS = { "Immersion" }
 
 -- Run outside combat (immediately or on PLAYER_REGEN_ENABLED).
 local afterCombat = {}

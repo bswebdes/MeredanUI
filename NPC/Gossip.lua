@@ -18,6 +18,7 @@ local serverClosed = false -- GOSSIP_CLOSED hid the window: the game ended the g
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.gossipWindow ~= false
+        and not ns.OtherAddon(ns.NPC_ADDONS) -- e.g. Immersion: ours stays off
 end
 
 -- Content -----------------------------------------------------------------------------------------

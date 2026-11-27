@@ -20,6 +20,7 @@ local bestChoice -- choice with the highest vendor value (Comfort)
 
 local function Enabled()
     return ns.IS_FOREVER and ns.db and ns.db.questWindow ~= false
+        and not ns.OtherAddon(ns.NPC_ADDONS) -- e.g. Immersion: ours stays off
 end
 
 local function QualityColor(quality)

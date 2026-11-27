@@ -976,6 +976,7 @@ local PAGES = {
                         -- another auction house addon is active: show a notice, ours stays off
                         local other = (key == "auctionWindow" and ns.OtherAddon(ns.AUCTION_ADDONS))
                             or (key == "mailWindow" and ns.OtherAddon(ns.MAIL_ADDONS))
+                            or ((key == "gossipWindow" or key == "questWindow") and ns.OtherAddon(ns.NPC_ADDONS))
                         if other then label = label .. "  |cffd9b25b" .. L["%s active"]:format(other) .. "|r" end
                         entries[#entries + 1] = { label = label, get = function() return ns.db[key] ~= false end,
                             set = Setter(key), opts = Help(L[entry[3]], true) }
