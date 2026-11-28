@@ -1003,6 +1003,8 @@ if GetLocale() == "deDE" then
     L["Requires:"] = "Benötigt:"
     L["Cooldown: %s"] = "Abklingzeit: %s"
     L["Create all (%d)"] = "Alle erstellen (%d)"
+    L["Day"] = "Tag"
+    L["Night"] = "Nacht"
     L["Create"] = "Erstellen"
     L["Search recipes"] = "Rezepte durchsuchen"
     L["No recipes."] = "Keine Rezepte."

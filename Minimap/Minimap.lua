@@ -278,6 +278,36 @@ local function CreateClock()
     return clock
 end
 
+-- Day/night (Forever's diel cycle) as a large flat sun/moon next to the clock; replaces Blizzard's
+-- indicator on the hidden minimap container (it peeked out behind our map and stayed in RP mode).
+local MOON_COLOR = { 0.72, 0.8, 0.96 }
+local function CreateDayNight(clock)
+    if not (C_DateAndTime and C_DateAndTime.IsDayTime) then return end
+    local UI = ns.UI
+    local frame = CreateFrame("Frame", nil, holder)
+    frame:SetFrameLevel(clock:GetFrameLevel())
+    frame:SetSize(ns.Snap(22), ns.Snap(22))
+    -- right of the clock: the left side holds the coordinates; raised 2 px so the bottom clears the frame
+    frame:SetPoint("LEFT", clock, "RIGHT", 0, ns.Snap(2))
+    local icon = frame:CreateTexture(nil, "OVERLAY")
+    icon:SetAllPoints()
+    local function Update(isDay)
+        if isDay == nil then isDay = C_DateAndTime.IsDayTime() end
+        ns.SetIcon(icon, isDay and "Day" or "Night")
+        icon:SetVertexColor(unpack(isDay and UI.TAG or MOON_COLOR))
+        frame.isDay = isDay
+    end
+    Update()
+    ns:On("DIEL_CYCLE_CHANGED", function(_, isDay) Update(isDay) end)
+    frame:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:SetText(self.isDay and L["Day"] or L["Night"])
+        GameTooltip:Show()
+    end)
+    frame:SetScript("OnLeave", GameTooltip_Hide)
+    return frame
+end
+
 -- "Texts"/"Icons" settings: in "mouseover" mode only visible while the mouse is over the
 -- minimap. Mail, crafting orders and difficulty always stay visible (notifications).
 local mouseoverTexts, mouseoverIcons = {}, {}
@@ -337,6 +367,7 @@ local function Setup()
     ---@diagnostic disable-next-line: undefined-field
     Hide(Minimap.ZoomOut)
     Hide(GameTimeFrame)
+    Hide(MinimapCluster.DielFrame) -- Forever's day/night; ours sits next to the clock (CreateDayNight)
     Hide(TimeManagerClockButton) -- if already loaded; otherwise see ADDON_LOADED below
     -- Blizzard's coordinates below the map (since 12.1.5): replaced by ours inside the map
     Hide(MinimapCluster.MinimapContainer and MinimapCluster.MinimapContainer.PlayerCoords)
@@ -384,7 +415,8 @@ local function Setup()
     -- No "who pinged": MINIMAP_PING is restricted for addons in Midnight (HasRestrictions,
     -- protected data) - registering it throws an error.
     local clock = CreateClock()
-    SetupMouseover({ zoneText, clock, coordsText() }, {
+    local dayNight = CreateDayNight(clock)
+    SetupMouseover({ zoneText, clock, coordsText(), dayNight }, {
         tracking and tracking.muiOverlay, AddonCompartmentFrame and AddonCompartmentFrame.muiOverlay,
         landing and landing.muiOverlay,
     })

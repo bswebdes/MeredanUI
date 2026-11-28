@@ -132,6 +132,8 @@ License text: https://www.apache.org/licenses/LICENSE-2.0
   Save.tga        mdi:content-save
   Star.tga        mdi:star
   Map.tga         mdi:map
+  Day.tga         mdi:white-balance-sunny
+  Night.tga       mdi:weather-night
 
 Own shapes (MeredanUI)
   Upgrade.tga     flat triangle up
