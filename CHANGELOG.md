@@ -1,5 +1,13 @@
 # MeredanUI Changelog
 
+## v0.6.6
+- New: Immersion support. With Immersion loaded, mUI's own conversation and quest windows step aside and Immersion gets the mUI look (talk box, answer buttons, objectives and rewards with upgrade arrows)
+- New: a sun or moon next to the minimap clock shows whether it is day or night. In RP mode a larger one sits in the top right corner
+- New: type the amount directly in the profession window. When you craft several, the create button fills up and the amount counts down
+- The exit button for flights and vehicles now matches the mUI look
+- Fixed: Blizzard's day/night icon peeked out behind the minimap and stayed visible in RP mode
+- Fixed: the tabs at the top of the guild bank could overlap
+
 ## v0.6.5
 - New: choose how long chat messages stay visible before they fade (20, 40 or 60 seconds) under Settings > Chat
 - Quest tracker: the quest sign and level now use the quest's difficulty color, and objective text is easier to read
