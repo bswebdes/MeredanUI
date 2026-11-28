@@ -459,6 +459,8 @@ end
 -- Casts are matched by their cast GUID, not the spell ID (recipe and spell IDs may differ).
 local crafting, castGUID -- recipe ID being crafted / GUID of its running cast
 local craftQueued        -- amount requested, shown until the first cast starts
+local craftTotal         -- amount of the whole run (progress fill on the create button)
+local castStart, castEnd -- running cast in ms (UnitCastingInfo); nil = no smooth fill
 
 local function CraftLeft()
     if craftQueued then return craftQueued end
@@ -466,7 +468,7 @@ local function CraftLeft()
 end
 
 local function StopCountdown()
-    crafting, castGUID, craftQueued = nil, nil, nil
+    crafting, castGUID, craftQueued, craftTotal, castStart, castEnd = nil, nil, nil, nil, nil, nil
     if recipe.ShowAmount then recipe.ShowAmount() end
 end
 
@@ -475,7 +477,7 @@ local function Craft(count)
     if not (entry and recipe.canCraft) then return end
     C_TradeSkillUI.CraftRecipe(entry.id, count)
     if count > 1 and Has("GetRemainingRecasts") then
-        crafting, castGUID, craftQueued = entry.id, nil, count
+        crafting, castGUID, craftQueued, craftTotal = entry.id, nil, count, count
         recipe.ShowAmount()
     end
 end
@@ -485,12 +487,15 @@ local function OnCraftCast(event, unit, guid)
     if issecretvalue and issecretvalue(guid) then return end
     if event == "UNIT_SPELLCAST_START" then
         castGUID, craftQueued = guid, nil
+        local _, _, _, startMS, endMS = UnitCastingInfo("player")
+        if issecretvalue and (issecretvalue(startMS) or issecretvalue(endMS)) then startMS, endMS = nil, nil end
+        castStart, castEnd = startMS, endMS
     elseif guid ~= castGUID then
         return
     elseif event == "UNIT_SPELLCAST_INTERRUPTED" then
         return StopCountdown()
     else -- SUCCEEDED or STOP of our cast
-        castGUID = nil
+        castGUID, castStart, castEnd = nil, nil, nil
         if CraftLeft() <= 0 then return StopCountdown() end
     end
     recipe.ShowAmount()
@@ -1172,6 +1177,32 @@ local function CreateWindow()
     end, 110)
     d.create:SetHeight(30)
     d.create:SetPoint("BOTTOMRIGHT", -14, 14)
+    -- Progress of a multi-craft run: the button fills from the left, smoothly across all items
+    -- (the cast bar is often hidden behind the window). Above the bevel, below the label.
+    local fill = d.create:CreateTexture(nil, "ARTWORK")
+    fill:SetTexture("Interface\\Buttons\\WHITE8x8")
+    fill:SetVertexColor(UI.ACCENT[1], UI.ACCENT[2], UI.ACCENT[3], 0.35)
+    fill:SetPoint("TOPLEFT", 2, -2)
+    fill:SetPoint("BOTTOMLEFT", 2, 2)
+    fill:Hide()
+    local driver = CreateFrame("Frame", nil, d.create)
+    driver:Hide()
+    driver:SetScript("OnUpdate", function()
+        local total = craftTotal or 1
+        local finished = total - CraftLeft() -- CraftLeft counts the running cast as not finished
+        local part = 0
+        if castGUID and castStart and castEnd and castEnd > castStart then
+            part = math.min(1, math.max(0, (GetTime() * 1000 - castStart) / (castEnd - castStart)))
+        end
+        local pct = math.min(1, math.max(0, (finished + part) / total))
+        local width = (d.create:GetWidth() - 4) * pct
+        fill:SetWidth(math.max(width, 0.01))
+        fill:SetShown(width > 0)
+    end)
+    d.createFill = function(on)
+        driver:SetShown(on)
+        if not on then fill:Hide() end
+    end
     local plus = UI.Button(d.detail, "+", function()
         d.amountBox:ClearFocus()
         amount = amount + 1
@@ -1192,7 +1223,9 @@ local function CreateWindow()
     UI.Groove(box)
     d.amountBox = box
     function d.ShowAmount()
-        if crafting and d.entry and d.entry.id == crafting then
+        local running = crafting and d.entry and d.entry.id == crafting
+        d.createFill(running and craftTotal and true or false)
+        if running then
             box:ClearFocus()
             box:EnableMouse(false)
             box:SetText(math.max(CraftLeft(), 0))
