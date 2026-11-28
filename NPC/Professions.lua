@@ -454,21 +454,25 @@ local function UpdateDetail(entry)
     d.entry = entry
 end
 
--- Countdown while crafting several: the amount box shows how many are still to come.
--- GetRemainingRecasts counts the casts after the current one (Blizzard adds 1 while casting).
--- Casts are matched by their cast GUID, not the spell ID (recipe and spell IDs may differ).
-local crafting, castGUID -- recipe ID being crafted / GUID of its running cast
-local craftQueued        -- amount requested, shown until the first cast starts
-local craftTotal         -- amount of the whole run (progress fill on the create button)
+-- Countdown while crafting several: the amount box shows how many are still to come, the create
+-- button fills up. Finished items are counted here (successful casts): GetRemainingRecasts briefly
+-- reads 0 between two casts. Casts are matched by their cast GUID, not the spell ID (recipe and
+-- spell IDs may differ).
+local crafting           -- recipe ID being crafted
+local craftTotal, craftDone = 0, 0
+local craftGUID, casting -- GUID of the current cast / its cast bar is running
+local countedGUID        -- SUCCEEDED of this cast already counted
 local castStart, castEnd -- running cast in ms (UnitCastingInfo); nil = no smooth fill
+local idleSince          -- no cast running since (GetTime); safety net if the run ends silently
+local IDLE_LIMIT = 3
 
 local function CraftLeft()
-    if craftQueued then return craftQueued end
-    return C_TradeSkillUI.GetRemainingRecasts() + (castGUID and 1 or 0)
+    return craftTotal - craftDone
 end
 
 local function StopCountdown()
-    crafting, castGUID, craftQueued, craftTotal, castStart, castEnd = nil, nil, nil, nil, nil, nil
+    crafting, craftGUID, casting, countedGUID, castStart, castEnd, idleSince = nil, nil, false, nil, nil, nil, nil
+    craftTotal, craftDone = 0, 0
     if recipe.ShowAmount then recipe.ShowAmount() end
 end
 
@@ -476,8 +480,9 @@ local function Craft(count)
     local entry = recipe.entry
     if not (entry and recipe.canCraft) then return end
     C_TradeSkillUI.CraftRecipe(entry.id, count)
-    if count > 1 and Has("GetRemainingRecasts") then
-        crafting, castGUID, craftQueued, craftTotal = entry.id, nil, count, count
+    if count > 1 then
+        StopCountdown()
+        crafting, craftTotal, idleSince = entry.id, count, GetTime()
         recipe.ShowAmount()
     end
 end
@@ -486,17 +491,23 @@ local function OnCraftCast(event, unit, guid)
     if unit ~= "player" or not crafting then return end
     if issecretvalue and issecretvalue(guid) then return end
     if event == "UNIT_SPELLCAST_START" then
-        castGUID, craftQueued = guid, nil
+        craftGUID, casting, idleSince = guid, true, nil
         local _, _, _, startMS, endMS = UnitCastingInfo("player")
         if issecretvalue and (issecretvalue(startMS) or issecretvalue(endMS)) then startMS, endMS = nil, nil end
         castStart, castEnd = startMS, endMS
-    elseif guid ~= castGUID then
+    elseif guid ~= craftGUID then
         return
     elseif event == "UNIT_SPELLCAST_INTERRUPTED" then
         return StopCountdown()
-    else -- SUCCEEDED or STOP of our cast
-        castGUID, castStart, castEnd = nil, nil, nil
-        if CraftLeft() <= 0 then return StopCountdown() end
+    elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
+        if countedGUID == guid then return end
+        countedGUID = guid
+        craftDone = craftDone + 1
+        casting, idleSince = false, GetTime()
+        if craftDone >= craftTotal then return StopCountdown() end
+    else -- STOP (comes with SUCCEEDED or INTERRUPTED, order not fixed)
+        casting = false
+        idleSince = idleSince or GetTime()
     end
     recipe.ShowAmount()
 end
@@ -1188,10 +1199,11 @@ local function CreateWindow()
     local driver = CreateFrame("Frame", nil, d.create)
     driver:Hide()
     driver:SetScript("OnUpdate", function()
-        local total = craftTotal or 1
-        local finished = total - CraftLeft() -- CraftLeft counts the running cast as not finished
+        if idleSince and GetTime() - idleSince > IDLE_LIMIT then return StopCountdown() end
+        local total = math.max(craftTotal, 1)
+        local finished = craftDone
         local part = 0
-        if castGUID and castStart and castEnd and castEnd > castStart then
+        if casting and castStart and castEnd and castEnd > castStart then
             part = math.min(1, math.max(0, (GetTime() * 1000 - castStart) / (castEnd - castStart)))
         end
         local pct = math.min(1, math.max(0, (finished + part) / total))
@@ -1224,7 +1236,7 @@ local function CreateWindow()
     d.amountBox = box
     function d.ShowAmount()
         local running = crafting and d.entry and d.entry.id == crafting
-        d.createFill(running and craftTotal and true or false)
+        d.createFill(running and true or false)
         if running then
             box:ClearFocus()
             box:EnableMouse(false)
@@ -1408,8 +1420,8 @@ ns:On("PLAYER_LOGIN", function()
         "UNIT_SPELLCAST_INTERRUPTED" }) do
         ns:On(event, OnCraftCast)
     end
-    ns:On("UPDATE_TRADESKILL_CAST_STOPPED", function()
-        if crafting and not castGUID and C_TradeSkillUI.GetRemainingRecasts() <= 0 then StopCountdown() end
+    ns:On("UPDATE_TRADESKILL_CAST_STOPPED", function() -- the run ended (out of reagents, cancelled)
+        C_Timer.After(1, function() if crafting and not casting then StopCountdown() end end)
     end)
     ns:On("TRADE_SKILL_LIST_UPDATE", function()
         if C_TradeSkillUI.IsDataSourceChanging and C_TradeSkillUI.IsDataSourceChanging() then return end
