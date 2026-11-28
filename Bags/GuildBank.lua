@@ -204,6 +204,9 @@ local function Update()
 
     for key, tab in pairs(modeTabs) do
         local active = key == mode
+        -- measured again on every update: at build time the font may not be ready yet (width 0,
+        -- so all mode tabs were drawn on top of each other)
+        tab:SetWidth(tab.text:GetUnboundedStringWidth() + 16)
         tab.text:SetTextColor(unpack(active and ns.UI.TITLE or ns.UI.MUTED))
         tab.line:SetShown(active)
     end
