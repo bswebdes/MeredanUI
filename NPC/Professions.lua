@@ -444,7 +444,7 @@ local function UpdateDetail(entry)
     local canCraft = info.craftable ~= false and not info.disabled and craftable > 0 and not missing
         and not (cooldown and cooldown > 0) and not info.isGatheringRecipe
     amount = math.max(1, math.min(amount, math.max(craftable, 1)))
-    d.amount:SetText(amount)
+    d.ShowAmount()
     d.createAll.Text:SetText(L["Create all (%d)"]:format(craftable))
     d.createAll:SetShown(info.canCreateMultiple ~= false and not info.isGatheringRecipe)
     d.createAll.Text:SetTextColor(unpack(canCraft and UI.TEXT or UI.MUTED))
@@ -454,10 +454,46 @@ local function UpdateDetail(entry)
     d.entry = entry
 end
 
+-- Countdown while crafting several: the amount box shows how many are still to come.
+-- GetRemainingRecasts counts the casts after the current one (Blizzard adds 1 while casting).
+-- Casts are matched by their cast GUID, not the spell ID (recipe and spell IDs may differ).
+local crafting, castGUID -- recipe ID being crafted / GUID of its running cast
+local craftQueued        -- amount requested, shown until the first cast starts
+
+local function CraftLeft()
+    if craftQueued then return craftQueued end
+    return C_TradeSkillUI.GetRemainingRecasts() + (castGUID and 1 or 0)
+end
+
+local function StopCountdown()
+    crafting, castGUID, craftQueued = nil, nil, nil
+    if recipe.ShowAmount then recipe.ShowAmount() end
+end
+
 local function Craft(count)
     local entry = recipe.entry
     if not (entry and recipe.canCraft) then return end
     C_TradeSkillUI.CraftRecipe(entry.id, count)
+    if count > 1 and Has("GetRemainingRecasts") then
+        crafting, castGUID, craftQueued = entry.id, nil, count
+        recipe.ShowAmount()
+    end
+end
+
+local function OnCraftCast(event, unit, guid)
+    if unit ~= "player" or not crafting then return end
+    if issecretvalue and issecretvalue(guid) then return end
+    if event == "UNIT_SPELLCAST_START" then
+        castGUID, craftQueued = guid, nil
+    elseif guid ~= castGUID then
+        return
+    elseif event == "UNIT_SPELLCAST_INTERRUPTED" then
+        return StopCountdown()
+    else -- SUCCEEDED or STOP of our cast
+        castGUID = nil
+        if CraftLeft() <= 0 then return StopCountdown() end
+    end
+    recipe.ShowAmount()
 end
 
 -- Overview --------------------------------------------------------------------------------------
@@ -1130,22 +1166,69 @@ local function CreateWindow()
     d.matsLabel:SetText(L["Reagents"])
     d.mats = {}
     -- Bottom: track, create all, amount, create
-    d.create = UI.Button(d.detail, "", function() Craft(amount) end, 110)
+    d.create = UI.Button(d.detail, "", function()
+        d.amountBox:ClearFocus() -- applies a typed number
+        Craft(amount)
+    end, 110)
     d.create:SetHeight(30)
     d.create:SetPoint("BOTTOMRIGHT", -14, 14)
     local plus = UI.Button(d.detail, "+", function()
+        d.amountBox:ClearFocus()
         amount = amount + 1
         UpdateDetail(d.entry)
     end, 26)
     plus:SetHeight(30)
     plus:SetPoint("RIGHT", d.create, "LEFT", -8, 0)
-    local box = CreateFrame("Frame", nil, d.detail)
+    -- Amount: type a number (Enter or click elsewhere applies it); counts down while crafting
+    local box = CreateFrame("EditBox", nil, d.detail)
     box:SetSize(44, 30)
     box:SetPoint("RIGHT", plus, "LEFT", -4, 0)
+    box:SetAutoFocus(false)
+    box:SetNumeric(true)
+    box:SetMaxLetters(4)
+    box:SetJustifyH("CENTER")
+    box:SetFont(ns.STYLE.font, ns.FontPx(13), "")
+    box:SetTextColor(unpack(UI.TEXT))
     UI.Groove(box)
-    d.amount = UI.Text(box, 13, "CENTER")
-    d.amount:SetPoint("CENTER")
+    d.amountBox = box
+    function d.ShowAmount()
+        if crafting and d.entry and d.entry.id == crafting then
+            box:ClearFocus()
+            box:EnableMouse(false)
+            box:SetText(math.max(CraftLeft(), 0))
+            box:SetTextColor(unpack(UI.ACCENT))
+        else
+            box:EnableMouse(true)
+            box:SetTextColor(unpack(UI.TEXT))
+            if box:HasFocus() then return end
+            box:SetText(amount)
+        end
+        box:SetCursorPosition(0)
+    end
+    local function ApplyTyped()
+        local typed = tonumber(box:GetText())
+        if typed and typed > 0 then amount = typed end
+        if d.entry then UpdateDetail(d.entry) else d.ShowAmount() end
+    end
+    box:SetScript("OnEnterPressed", box.ClearFocus)
+    box:SetScript("OnEscapePressed", function(self)
+        self:SetText(amount) -- discard the typed number
+        self:ClearFocus()
+    end)
+    box:SetScript("OnEditFocusGained", function(self)
+        self:HighlightText()
+        self:RegisterEvent("GLOBAL_MOUSE_DOWN")
+    end)
+    box:SetScript("OnEditFocusLost", function(self)
+        self:UnregisterEvent("GLOBAL_MOUSE_DOWN")
+        self:HighlightText(0, 0)
+        ApplyTyped()
+    end)
+    box:SetScript("OnEvent", function(self) -- click outside the box applies the number
+        if not self:IsMouseOver() then self:ClearFocus() end
+    end)
     local minus = UI.Button(d.detail, "−", function()
+        d.amountBox:ClearFocus()
         amount = math.max(1, amount - 1)
         UpdateDetail(d.entry)
     end, 26)
@@ -1288,6 +1371,13 @@ ns:On("PLAYER_LOGIN", function()
         end)
     end)
     ns:On("TRADE_SKILL_DATA_SOURCE_CHANGED", function() selectedID = nil; Refresh() end)
+    for _, event in ipairs({ "UNIT_SPELLCAST_START", "UNIT_SPELLCAST_SUCCEEDED", "UNIT_SPELLCAST_STOP",
+        "UNIT_SPELLCAST_INTERRUPTED" }) do
+        ns:On(event, OnCraftCast)
+    end
+    ns:On("UPDATE_TRADESKILL_CAST_STOPPED", function()
+        if crafting and not castGUID and C_TradeSkillUI.GetRemainingRecasts() <= 0 then StopCountdown() end
+    end)
     ns:On("TRADE_SKILL_LIST_UPDATE", function()
         if C_TradeSkillUI.IsDataSourceChanging and C_TradeSkillUI.IsDataSourceChanging() then return end
         if window:IsShown() then Refresh() end
