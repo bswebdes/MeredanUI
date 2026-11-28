@@ -2,6 +2,14 @@
 local _, ns = ...
 
 ns.CHANGELOG = {
+    { version = "v0.6.6", items = {
+        "New: Immersion support. With Immersion loaded, mUI's own conversation and quest windows step aside and Immersion gets the mUI look (talk box, answer buttons, objectives and rewards with upgrade arrows)",
+        "New: a sun or moon next to the minimap clock shows whether it is day or night. In RP mode a larger one sits in the top right corner",
+        "New: type the amount directly in the profession window. When you craft several, the create button fills up and the amount counts down",
+        "The exit button for flights and vehicles now matches the mUI look",
+        "Fixed: Blizzard's day/night icon peeked out behind the minimap and stayed visible in RP mode",
+        "Fixed: the tabs at the top of the guild bank could overlap",
+    } },
     { version = "v0.6.5", items = {
         "New: choose how long chat messages stay visible before they fade (20, 40 or 60 seconds) under Settings > Chat",
         "Quest tracker: the quest sign and level now use the quest's difficulty color, and objective text is easier to read",
@@ -30,20 +38,5 @@ ns.CHANGELOG = {
     { version = "v0.6.1", items = {
         "Fixed: right-clicking a sharpening stone or weapon oil in the mUI bags was blocked",
         "Fixed: \"Interface action blocked\" when the guild window was open in combat",
-    } },
-    { version = "v0.6.0", items = {
-        "New: favorites in the bags. Alt + right-click an item and tick Favorite: it stays at the top of your bags with gold corners. You can also drag items onto the Favorites heading",
-        "New: optional second chat window bottom right for Trade chat, with its own copy button. Settings > Chat > \"Set up second chat window\", the setup wizard asks for it too",
-        "New: small map above the chat (square button at the top right of the map). It fades while you move, mouse over shows it fully",
-        "New: health and power text for player and target (Settings > Unit frames): value, percent, value and percent, value / max or off. The power text can be white or in the colour of the resource",
-        "New: every settings page is sorted into clear sections, checkboxes sit in two columns",
-        "New: OpenMap, Mapster and Leatrix Maps are detected. While one of them is enabled, the mUI map stays off",
-        "Group frames show a mana bar for everyone who uses mana when the group has no roles assigned",
-        "The \"New in mUI\" window only shows the five newest pages",
-        "Fixed: enchanting through the trade window (the other player's \"Will not be traded\" slot) did nothing",
-        "Fixed: using items from the mUI bags could be blocked now and then",
-        "Fixed: \"Interface action failed\" when the map was open in combat with the mouse over a quest pin",
-        "Fixed: inspecting a player showed most equipment slots as empty",
-        "Fixed: boss names in the Hall of Thanes, the Drowned City and Krol'dok now match the game",
     } },
 }
