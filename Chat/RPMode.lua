@@ -98,9 +98,10 @@ local function ShowMinimap()
     minimapWasShown = nil
 end
 
--- Large sun/moon where the minimap was: fades in while the UI fades out (atmosphere for RP).
+-- Large sun/moon in the top right corner: fades in while the UI fades out (atmosphere for RP).
 -- Ignores UIParent's alpha like the kept frames; its own alpha mirrors the fade.
-local BIG_SIZE = 64
+local BIG_SIZE = 48
+local BIG_MARGIN = 24
 local bigDayNight
 local function UpdateBigDayNight(isDay)
     if not bigDayNight then return end
@@ -127,17 +128,8 @@ local function PlaceBigDayNight()
         bigDayNight = frame
         ns:On("DIEL_CYCLE_CHANGED", function(_, isDay) UpdateBigDayNight(isDay) end)
     end
-    -- centre of the minimap, taken while it is still shown
-    local map = MeredanUIMinimap or MinimapCluster
-    local x, y
-    if map then x, y = map:GetCenter() end
     bigDayNight:ClearAllPoints()
-    if x then
-        local scale = map:GetEffectiveScale() / UIParent:GetEffectiveScale()
-        bigDayNight:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x * scale, y * scale)
-    else
-        bigDayNight:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -80, -80)
-    end
+    bigDayNight:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -BIG_MARGIN, -BIG_MARGIN)
     UpdateBigDayNight()
 end
 
