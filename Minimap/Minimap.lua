@@ -281,9 +281,13 @@ end
 -- Day/night (Forever's diel cycle) as a large flat sun/moon next to the clock; replaces Blizzard's
 -- indicator on the hidden minimap container (it peeked out behind our map and stayed in RP mode).
 local MOON_COLOR = { 0.72, 0.8, 0.96 }
+-- icon name and tint for day or night (also used by the large RP-mode icon, Chat/RPMode.lua)
+function ns.DayNightLook(isDay)
+    if isDay then return "Day", ns.UI.TAG end
+    return "Night", MOON_COLOR
+end
 local function CreateDayNight(clock)
     if not (C_DateAndTime and C_DateAndTime.IsDayTime) then return end
-    local UI = ns.UI
     local frame = CreateFrame("Frame", nil, holder)
     frame:SetFrameLevel(clock:GetFrameLevel())
     frame:SetSize(ns.Snap(22), ns.Snap(22))
@@ -293,8 +297,9 @@ local function CreateDayNight(clock)
     icon:SetAllPoints()
     local function Update(isDay)
         if isDay == nil then isDay = C_DateAndTime.IsDayTime() end
-        ns.SetIcon(icon, isDay and "Day" or "Night")
-        icon:SetVertexColor(unpack(isDay and UI.TAG or MOON_COLOR))
+        local name, color = ns.DayNightLook(isDay)
+        ns.SetIcon(icon, name)
+        icon:SetVertexColor(unpack(color))
         frame.isDay = isDay
     end
     Update()

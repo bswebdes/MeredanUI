@@ -98,8 +98,55 @@ local function ShowMinimap()
     minimapWasShown = nil
 end
 
+-- Large sun/moon where the minimap was: fades in while the UI fades out (atmosphere for RP).
+-- Ignores UIParent's alpha like the kept frames; its own alpha mirrors the fade.
+local BIG_SIZE = 64
+local bigDayNight
+local function UpdateBigDayNight(isDay)
+    if not bigDayNight then return end
+    if isDay == nil then isDay = C_DateAndTime.IsDayTime() end
+    local name, color = ns.DayNightLook(isDay)
+    ns.SetIcon(bigDayNight.icon, name)
+    ns.SetIcon(bigDayNight.shadow, name)
+    bigDayNight.icon:SetVertexColor(unpack(color))
+end
+local function PlaceBigDayNight()
+    if not (C_DateAndTime and C_DateAndTime.IsDayTime and ns.DayNightLook) then return end
+    if not bigDayNight then
+        local frame = CreateFrame("Frame", nil, UIParent)
+        frame:SetIgnoreParentAlpha(true)
+        frame:SetFrameStrata("LOW")
+        frame:SetSize(BIG_SIZE, BIG_SIZE)
+        frame.shadow = frame:CreateTexture(nil, "ARTWORK")
+        frame.shadow:SetPoint("TOPLEFT", 2, -2)
+        frame.shadow:SetPoint("BOTTOMRIGHT", 2, -2)
+        frame.shadow:SetVertexColor(0, 0, 0, 0.6)
+        frame.icon = frame:CreateTexture(nil, "OVERLAY")
+        frame.icon:SetAllPoints()
+        frame:Hide()
+        bigDayNight = frame
+        ns:On("DIEL_CYCLE_CHANGED", function(_, isDay) UpdateBigDayNight(isDay) end)
+    end
+    -- centre of the minimap, taken while it is still shown
+    local map = MeredanUIMinimap or MinimapCluster
+    local x, y
+    if map then x, y = map:GetCenter() end
+    bigDayNight:ClearAllPoints()
+    if x then
+        local scale = map:GetEffectiveScale() / UIParent:GetEffectiveScale()
+        bigDayNight:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x * scale, y * scale)
+    else
+        bigDayNight:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -80, -80)
+    end
+    UpdateBigDayNight()
+end
+
 local function Apply()
     UIParent:SetAlpha(alpha)
+    if bigDayNight then
+        bigDayNight:SetAlpha(1 - alpha)
+        bigDayNight:SetShown(alpha < 1)
+    end
     if active and alpha <= 0 then HideMinimap() end
     if not active and alpha >= 1 then Release() end
 end
@@ -125,7 +172,7 @@ function ns.SetRPMode(on)
         return
     end
     active = on
-    if active then Keep(); HideNames() else RestoreNames(); ShowMinimap() end
+    if active then PlaceBigDayNight(); Keep(); HideNames() else RestoreNames(); ShowMinimap() end
     fader:SetScript("OnUpdate", OnUpdate)
     UpdateButton()
     if ns.UpdateEmoteBar then ns.UpdateEmoteBar() end -- emote bar is always shown in RP mode
